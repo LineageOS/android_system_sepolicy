@@ -1,0 +1,107 @@
+#
+# Domains for apps that do not run with one of the predefined
+# platform UIDs (system, radio, nfc, ...).
+#
+
+#
+# Trusted apps.
+#
+type trusted_app, domain;
+app_domain(trusted_app)
+# Access the network.
+net_domain(trusted_app)
+# Access bluetooth.
+bluetooth_domain(trusted_app)
+# Read logs.
+allow trusted_app log_device:chr_file read;
+# Write to /cache.
+allow trusted_app cache_file:dir rw_dir_perms;
+allow trusted_app cache_file:file create_file_perms;
+# Read from /data/local.
+allow trusted_app shell_data_file:dir search;
+allow trusted_app shell_data_file:file { open getattr read };
+allow trusted_app shell_data_file:lnk_file read;
+# Access the sdcard.
+allow trusted_app sdcard:dir create_dir_perms;
+allow trusted_app sdcard:file create_file_perms;
+# Populate /data/app/vmdl*.tmp file created by system server.
+# It would be better if this was labeled differently.
+allow trusted_app apk_data_file:file write;
+# Perform binder IPC to any app domain.
+binder_call(trusted_app, appdomain)
+binder_transfer(trusted_app, appdomain)
+
+#
+# An example of a specific domain for a specific app
+# A domain for com.android.browser.
+type browser_app, domain;
+app_domain(browser_app)
+# Access the network.
+net_domain(browser_app)
+
+#
+# Untrusted apps.
+#
+type untrusted_app, domain;
+app_domain(untrusted_app)
+# Boolean-controlled options for untrusted apps.
+# Network access.
+bool app_network true;
+if (app_network) {
+# Cannot use net_domain within a conditional - type attribute.
+allow untrusted_app self:{ tcp_socket udp_socket } *;
+allow untrusted_app port_type:tcp_socket name_connect;
+allow untrusted_app node_type:{ tcp_socket udp_socket } node_bind;
+allow untrusted_app port_type:udp_socket name_bind;
+allow untrusted_app port_type:tcp_socket name_bind;
+unix_socket_connect(untrusted_app, dnsproxyd, netd)
+}
+# Bluetooth access.
+bool app_bluetooth false;
+if (app_bluetooth) {
+# No specific SELinux class for bluetooth sockets presently.
+allow untrusted_app self:socket *;
+}
+# SDCard rw access.
+bool app_sdcard_rw true;
+if (app_sdcard_rw) {
+allow untrusted_app sdcard:dir create_dir_perms;
+allow untrusted_app sdcard:file create_file_perms;
+}
+# Native app support.
+bool app_ndk false;
+if (app_ndk) {
+allow untrusted_app app_data_file:file execute;
+}
+
+#
+# Rules for all app domains.
+#
+
+# Receive and use open file descriptors inherited from zygote.
+allow appdomain zygote:fd use;
+
+# Read system properties managed by zygote.
+allow appdomain zygote_tmpfs:file read;
+
+# Notify zygote of death;
+allow appdomain zygote:process sigchld;
+
+# Communicate over a FIFO to system processes.
+allow appdomain system:fifo_file rw_file_perms;
+
+# App sandbox file accesses.
+allow appdomain app_data_file:dir create_dir_perms;
+allow appdomain app_data_file:notdevfile_class_set create_file_perms;
+
+# lib subdirectory of /data/data dir is system-owned.
+allow appdomain system_data_file:dir r_dir_perms;
+
+# Use the Binder.
+binder_use(appdomain)
+# Perform binder IPC to binder services.
+binder_call(appdomain, binderservicedomain)
+binder_transfer(appdomain, binderservicedomain)
+# Perform binder IPC to apps in the trusted_app domain.
+binder_call(appdomain, trusted_app)
+binder_transfer(appdomain, trusted_app)

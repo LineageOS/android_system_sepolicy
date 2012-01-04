@@ -1,0 +1,26 @@
+# mediaserver - multimedia daemon
+type mediaserver, domain;
+type mediaserver_exec, exec_type, file_type;
+
+init_daemon_domain(mediaserver)
+net_domain(mediaserver)
+typeattribute mediaserver mlstrustedsubject;
+allow mediaserver kernel:system module_request;
+binder_use(mediaserver)
+binder_call(mediaserver, binderservicedomain)
+binder_call(mediaserver, appdomain)
+binder_service(mediaserver)
+allow mediaserver app_data_file:dir search;
+allow mediaserver app_data_file:file { read getattr };
+r_dir_file(mediaserver, sdcard)
+allow mediaserver sdcard:file write;
+allow mediaserver camera_device:chr_file rw_file_perms;
+allow mediaserver graphics_device:chr_file rw_file_perms;
+allow mediaserver video_device:chr_file rw_file_perms;
+allow mediaserver audio_device:dir r_dir_perms;
+allow mediaserver audio_device:chr_file rw_file_perms;
+allow mediaserver qemu_device:chr_file rw_file_perms;
+# XXX Label with a specific type?
+allow mediaserver sysfs:file rw_file_perms;
+# XXX Why?
+allow mediaserver apk_data_file:file { read getattr };

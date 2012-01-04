@@ -1,0 +1,10 @@
+# drmserver - DRM service
+type drmserver, domain;
+type drmserver_exec, exec_type, file_type;
+
+init_daemon_domain(drmserver)
+typeattribute drmserver mlstrustedsubject;
+
+# Perform Binder IPC to system server.
+binder_use(drmserver)
+binder_call(drmserver, system)

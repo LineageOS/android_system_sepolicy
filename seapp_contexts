@@ -1,0 +1,37 @@
+# Input selectors: 
+#	isSystemServer (boolean)
+#	user (string)
+#	seinfo (string)
+#	name (string)
+# isSystemServer=true can only be used once.
+# An unspecified boolean defaults to false.
+# An unspecified string selector will match any value.
+# A user string selector that ends in * will perform a prefix match.
+# seinfo= is only used when looking up app process security contexts.
+# All specified input selectors in an entry must match (i.e. logical AND).
+# Matching is case-insensitive.
+# Precedence rules:
+# 	  (1) isSystemServer=true before isSystemServer=false.
+#	  (2) Specified user= string before unspecified user= string.
+#	  (3) Fixed user= string before user= prefix (i.e. ending in *).
+#	  (4) Longer user= prefix before shorter user= prefix. 
+#	  (5) Specified seinfo= string before unspecified seinfo= string.
+#	  (6) Specified name= string before unspecified name= string.
+#
+# Outputs:
+#	domain (string)
+#	type (string)
+#	levelFromUid (boolean)
+#	level (string)
+# Only entries that specify domain= will be used for app process labeling.
+# Only entries that specify type= will be used for app directory labeling.
+# levelfromUid is only supported for app UIDs presently.
+# level may be used to specify a fixed level for any UID. 
+#
+isSystemServer=true domain=system
+user=system domain=system_app type=system_data_file
+user=nfc domain=nfc type=nfc_data_file
+user=radio domain=radio type=radio_data_file
+user=app_* domain=untrusted_app type=app_data_file levelFromUid=true
+user=app_* seinfo=systemApp domain=trusted_app levelFromUid=true
+user=app_* seinfo=systemApp name=com.android.browser domain=browser_app levelFromUid=true
