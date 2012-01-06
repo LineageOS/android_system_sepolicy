@@ -21,10 +21,10 @@ allow netd devpts:chr_file rw_file_perms;
 # XXX Split /proc/sys/net into its own type.
 allow netd proc:file write;
 
-# For firmware_path
+# For /sys/modules/bcmdhd/parameters/firmware_path
 # XXX Split into its own type.
 allow netd sysfs:file write;
 
-# Load network drivers.
+# Network driver loading.
 allow netd kernel:system module_request;
 

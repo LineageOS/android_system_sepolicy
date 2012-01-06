@@ -100,6 +100,7 @@ selinux_check_access(system)
 allow system sysfs:file rw_file_perms;
 
 # Access devices.
+allow system device:dir r_dir_perms;
 allow system device:chr_file rw_file_perms;
 allow system akm_device:chr_file rw_file_perms;
 allow system accelerometer_device:chr_file rw_file_perms;

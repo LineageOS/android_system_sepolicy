@@ -33,6 +33,7 @@
 /dev/mtd(/.*)?		u:object_r:mtd_device:s0
 /dev/mtd/mtd5		u:object_r:radio_device:s0
 /dev/mtd/mtd5ro		u:object_r:radio_device:s0
+/dev/mtp_usb		u:object_r:mtp_device:s0
 /dev/pn544		u:object_r:nfc_device:s0
 /dev/ptmx		u:object_r:ptmx_device:s0
 /dev/pvrsrvkm		u:object_r:powervr_device:s0

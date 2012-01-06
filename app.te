@@ -14,6 +14,9 @@ net_domain(trusted_app)
 bluetooth_domain(trusted_app)
 # Read logs.
 allow trusted_app log_device:chr_file read;
+# Access /dev/mtp_usb.
+# XXX Split android.process.media into a separate domain?
+allow trusted_app mtp_device:chr_file rw_file_perms;
 # Write to /cache.
 allow trusted_app cache_file:dir rw_dir_perms;
 allow trusted_app cache_file:file create_file_perms;
