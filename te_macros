@@ -97,6 +97,9 @@ allow $1 $1_tmpfs:file { read execute execmod };
 define(`init_daemon_domain', `
 domain_auto_trans(init, $1_exec, $1)
 tmpfs_domain($1)
+# Read properties.
+allow $1 kernel:fd use;
+allow $1 tmpfs:file read;
 ')
 
 #####################################

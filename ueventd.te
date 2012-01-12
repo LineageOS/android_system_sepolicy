@@ -6,7 +6,6 @@ allow ueventd rootfs:file r_file_perms;
 allow ueventd rootfs:file entrypoint;
 allow ueventd init:process sigchld;
 allow ueventd self:capability { chown mknod net_admin setgid fsetid };
-allow ueventd kernel:fd use;
 allow ueventd device:file create_file_perms;
 allow ueventd device:chr_file rw_file_perms;
 allow ueventd sysfs:file rw_file_perms;
@@ -17,3 +16,6 @@ allow ueventd dev_type:lnk_file { create unlink };
 allow ueventd dev_type:chr_file { create setattr unlink };
 allow ueventd dev_type:blk_file { create setattr unlink };
 allow ueventd self:netlink_kobject_uevent_socket *;
+# Read properties.
+allow ueventd kernel:fd use;
+allow ueventd tmpfs:file read;
