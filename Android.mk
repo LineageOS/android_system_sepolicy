@@ -9,26 +9,49 @@ POLICYVERS := 24
 MLS_SENS=1
 MLS_CATS=1024
 
-file := $(TARGET_ROOT_OUT)/policy.$(POLICYVERS)
-$(file) : $(LOCAL_PATH)/policy.$(POLICYVERS) | $(ACP)
-	$(transform-prebuilt-to-target)
-ALL_PREBUILT += $(file)
-$(INSTALLED_RAMDISK_TARGET): $(file)
+##################################
+include $(CLEAR_VARS)
 
-$(LOCAL_PATH)/policy.$(POLICYVERS): $(LOCAL_PATH)/policy.conf
-	checkpolicy -M -c $(POLICYVERS) -o $@ $<
+LOCAL_MODULE := sepolicy
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_SUFFIX := .$(POLICYVERS)
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
-$(LOCAL_PATH)/policy.conf: $(wildcard $(addprefix $(LOCAL_PATH)/,security_classes initial_sids access_vectors global_macros mls_macros mls policy_capabilities te_macros attributes *.te roles users ocontexts))
-	m4 -D mls_num_sens=$(MLS_SENS) -D mls_num_cats=$(MLS_CATS) -s $^ > $@
+include $(BUILD_SYSTEM)/base_rules.mk
 
-file := $(TARGET_ROOT_OUT)/file_contexts
-$(file) : $(LOCAL_PATH)/file_contexts | $(ACP)
-	$(transform-prebuilt-to-target)
-ALL_PREBUILT += $(file)
-$(INSTALLED_RAMDISK_TARGET): $(file)
+sepolicy_policy.conf := $(intermediates)/policy.conf
+$(sepolicy_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(sepolicy_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(sepolicy_policy.conf) : $(wildcard $(addprefix $(LOCAL_PATH)/,security_classes initial_sids access_vectors global_macros mls_macros mls policy_capabilities te_macros attributes *.te roles users ocontexts))
+	@mkdir -p $(dir $@)
+	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) -s $^ > $@
 
-file := $(TARGET_ROOT_OUT)/seapp_contexts
-$(file) : $(LOCAL_PATH)/seapp_contexts | $(ACP)
-	$(transform-prebuilt-to-target)
-ALL_PREBUILT += $(file)
-$(INSTALLED_RAMDISK_TARGET): $(file)
+$(LOCAL_BUILT_MODULE) : $(sepolicy_policy.conf)
+	@mkdir -p $(dir $@)
+	$(hide) checkpolicy -M -c $(POLICYVERS) -o $@ $<
+
+sepolicy_policy.conf :=
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := file_contexts
+LOCAL_SRC_FILES := $(LOCAL_MODULE)
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+
+include $(BUILD_PREBUILT)
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := seapp_contexts
+LOCAL_SRC_FILES := $(LOCAL_MODULE)
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+
+include $(BUILD_PREBUILT)
+
+##################################
