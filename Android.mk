@@ -27,7 +27,7 @@ $(sepolicy_policy.conf) : $(wildcard $(addprefix $(LOCAL_PATH)/,security_classes
 	@mkdir -p $(dir $@)
 	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) -s $^ > $@
 
-$(LOCAL_BUILT_MODULE) : $(sepolicy_policy.conf)
+$(LOCAL_BUILT_MODULE) : $(sepolicy_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	@mkdir -p $(dir $@)
 	$(hide) checkpolicy -M -c $(POLICYVERS) -o $@ $<
 
