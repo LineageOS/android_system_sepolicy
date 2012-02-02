@@ -208,3 +208,21 @@ define(`selinux_getenforce', `
 allow $1 selinuxfs:dir r_dir_perms;
 allow $1 selinuxfs:file r_file_perms;
 ')
+
+#####################################
+# selinux_setenforce(domain)
+# Allow domain to set SELinux to enforcing.
+define(`selinux_setenforce', `
+allow $1 selinuxfs:dir r_dir_perms;
+allow $1 selinuxfs:file rw_file_perms;
+allow $1 kernel:security setenforce;
+')
+
+#####################################
+# selinux_setbool(domain)
+# Allow domain to set SELinux booleans.
+define(`selinux_setbool', `
+allow $1 selinuxfs:dir r_dir_perms;
+allow $1 selinuxfs:file rw_file_perms;
+allow $1 kernel:security setbool;
+')

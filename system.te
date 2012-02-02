@@ -24,6 +24,15 @@ unix_socket_connect(system_app, keystore, keystore)
 # Read SELinux enforcing status.
 selinux_getenforce(system_app)
 
+bool settings_manage_selinux true;
+if (settings_manage_selinux) {
+# Allow settings app to set SELinux to enforcing
+selinux_setenforce(system_app)
+
+# Allow settings app to set SELinux booleans
+selinux_setbool(system_app)
+}
+
 #
 # System Server aka system_server spawned by zygote.
 # Most of the framework services run in this process.
