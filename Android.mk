@@ -13,8 +13,8 @@ MLS_CATS=1024
 
 LOCAL_POLICY_DIRS := $(SRC_TARGET_DIR)/board/$(TARGET_DEVICE)/ device/*/$(TARGET_DEVICE)/ vendor/*/$(TARGET_DEVICE)/
 
-LOCAL_POLICY_FC := $(wildcard $(addsuffix *.fc, $(LOCAL_POLICY_DIRS)))
-LOCAL_POLICY_TE := $(wildcard $(addsuffix *.te, $(LOCAL_POLICY_DIRS)))
+LOCAL_POLICY_FC := $(wildcard $(addsuffix sepolicy.fc, $(LOCAL_POLICY_DIRS)))
+LOCAL_POLICY_TE := $(wildcard $(addsuffix sepolicy.te, $(LOCAL_POLICY_DIRS)))
 
 ##################################
 include $(CLEAR_VARS)
