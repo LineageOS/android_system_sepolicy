@@ -23,9 +23,10 @@ unix_socket_connect(adbd, vold, vold)
 # Talk to init via the property socket.
 unix_socket_connect(adbd, property, init)
 
-# Read properties.
-allow adbd kernel:fd use;
-allow adbd tmpfs:file read;
+# Run sh in its own domain.
+domain_auto_trans(adbd, shell_exec, shell)
+# Do not sanitize the environment of the shell.
+allow adbd shell:process noatsecure;
 
 # Perform binder IPC to surfaceflinger (screencap)
 # XXX Run screencap in a separate domain?

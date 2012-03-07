@@ -30,9 +30,6 @@ allow trusted_app sdcard:file create_file_perms;
 # Populate /data/app/vmdl*.tmp file created by system server.
 # It would be better if this was labeled differently.
 allow trusted_app apk_data_file:file write;
-# Perform binder IPC to any app domain.
-binder_call(trusted_app, appdomain)
-binder_transfer(trusted_app, appdomain)
 
 #
 # An example of a specific domain for a specific app
@@ -105,6 +102,6 @@ binder_use(appdomain)
 # Perform binder IPC to binder services.
 binder_call(appdomain, binderservicedomain)
 binder_transfer(appdomain, binderservicedomain)
-# Perform binder IPC to apps in the trusted_app domain.
-binder_call(appdomain, trusted_app)
-binder_transfer(appdomain, trusted_app)
+# Perform binder IPC to other apps.
+binder_call(appdomain, appdomain)
+binder_transfer(appdomain, appdomain)
