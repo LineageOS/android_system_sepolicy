@@ -1,7 +1,5 @@
 type shell, domain;
 type shell_exec, file_type;
-domain_auto_trans(adbd, shell_exec, shell)
-allow adbd shell:process noatsecure;
 domain_auto_trans(init, shell_exec, shell)
 allow shell rootfs:dir r_dir_perms;
 allow shell devpts:chr_file rw_file_perms;
