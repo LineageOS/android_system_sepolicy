@@ -130,6 +130,13 @@ allow system qemu_device:chr_file rw_file_perms;
 allow system data_file_type:dir create_dir_perms;
 allow system data_file_type:notdevfile_class_set create_file_perms;
 
+# Read /file_contexts.
+allow system rootfs:file r_file_perms;
+
+# Relabel apk files.
+allow system apk_tmp_file:file { relabelfrom relabelto };
+allow system apk_data_file:file { relabelfrom relabelto };
+
 # Create a socket for receiving info from wpa.
 type_transition system wifi_data_file:sock_file system_wpa_socket;
 allow system system_wpa_socket:sock_file create_file_perms;

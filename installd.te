@@ -12,6 +12,7 @@ allow installd data_file_type:dir create_dir_perms;
 allow installd data_file_type:dir { relabelfrom relabelto };
 allow installd data_file_type:file { getattr unlink };
 allow installd apk_data_file:file r_file_perms;
+allow installd apk_tmp_file:file r_file_perms;
 allow installd system_file:file x_file_perms;
 allow installd cgroup:dir create_dir_perms;
 dontaudit installd self:capability sys_admin;

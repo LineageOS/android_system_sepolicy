@@ -29,7 +29,8 @@ type anr_data_file, file_type, data_file_type;
 # /data/tombstones - core dumps
 type tombstone_data_file, file_type, data_file_type;
 # /data/app - user-installed apps
-type apk_data_file, file_type, data_file_type, mlstrustedobject;
+type apk_data_file, file_type, data_file_type;
+type apk_tmp_file, file_type, data_file_type, mlstrustedobject;
 # /data/dalvik-cache
 type dalvikcache_data_file, file_type, data_file_type;
 # /data/local - writable by shell

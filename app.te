@@ -28,8 +28,7 @@ allow trusted_app shell_data_file:lnk_file read;
 allow trusted_app sdcard:dir create_dir_perms;
 allow trusted_app sdcard:file create_file_perms;
 # Populate /data/app/vmdl*.tmp file created by system server.
-# It would be better if this was labeled differently.
-allow trusted_app apk_data_file:file write;
+allow trusted_app apk_tmp_file:file rw_file_perms;
 
 #
 # An example of a specific domain for a specific app
