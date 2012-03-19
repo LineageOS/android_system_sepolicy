@@ -118,6 +118,8 @@
 /data/misc/wifi(/.*)?		u:object_r:wifi_data_file:s0
 # App sandboxes
 /data/data/.*		u:object_r:app_data_file:s0
+# Wallpaper file.
+/data/data/com.android.settings/files/wallpaper	u:object_r:wallpaper_file:s0
 #############################
 # efs files
 #

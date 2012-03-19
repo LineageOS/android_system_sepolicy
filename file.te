@@ -52,6 +52,8 @@ type app_data_file, file_type, data_file_type;
 type cache_file, file_type, mlstrustedobject;
 # Default type for anything under /efs
 type efs_file, file_type;
+# Type for wallpaper file.
+type wallpaper_file, file_type;
 
 # Socket types
 type bluetooth_socket, file_type;

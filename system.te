@@ -15,6 +15,9 @@ binder_transfer(system_app, appdomain)
 allow system_app system_data_file:dir create_dir_perms;
 allow system_app system_data_file:file create_file_perms;
 
+# Read wallpaper file.
+allow system_app wallpaper_file:file r_file_perms;
+
 # Write to dalvikcache.
 allow system_app dalvikcache_data_file:file { write setattr };
 
@@ -136,6 +139,11 @@ allow system rootfs:file r_file_perms;
 # Relabel apk files.
 allow system apk_tmp_file:file { relabelfrom relabelto };
 allow system apk_data_file:file { relabelfrom relabelto };
+
+# Relabel wallpaper.
+allow system system_data_file:file relabelfrom;
+allow system wallpaper_file:file relabelto;
+allow system wallpaper_file:file r_file_perms;
 
 # Create a socket for receiving info from wpa.
 type_transition system wifi_data_file:sock_file system_wpa_socket;
