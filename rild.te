@@ -4,6 +4,7 @@ type rild_exec, exec_type, file_type;
 
 init_daemon_domain(rild)
 net_domain(rild)
+allow rild self:netlink_route_socket setopt;
 allow rild kernel:system module_request;
 unix_socket_connect(rild, property, init)
 unix_socket_connect(rild, qemud, qemud)

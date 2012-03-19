@@ -8,6 +8,7 @@ type selinuxfs, fs_type;
 type cgroup, fs_type, mlstrustedobject;
 type sysfs, fs_type, mlstrustedobject;
 type sysfs_writable, fs_type, sysfs_type, mlstrustedobject;
+type sysfs_nfc_power_writable, fs_type, sysfs_type, mlstrustedobject;
 type inotify, fs_type, mlstrustedobject;
 type devpts, fs_type;
 type tmpfs, fs_type;

@@ -113,6 +113,7 @@ selinux_check_access(system)
 
 # XXX Label sysfs files with a specific type?
 allow system sysfs:file rw_file_perms;
+allow system sysfs_nfc_power_writable:file rw_file_perms;
 
 # Access devices.
 allow system device:dir r_dir_perms;
