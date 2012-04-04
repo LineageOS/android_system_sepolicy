@@ -7,17 +7,13 @@ net.gprs                u:object_r:radio_prop:s0
 net.ppp                 u:object_r:radio_prop:s0
 net.qmi                 u:object_r:radio_prop:s0
 net.lte                 u:object_r:radio_prop:s0
+net.cdma                u:object_r:radio_prop:s0
+gsm.                    u:object_r:radio_prop:s0
 persist.radio           u:object_r:radio_prop:s0
 net.dns                 u:object_r:radio_prop:s0
 sys.usb.config          u:object_r:radio_prop:s0
-gsm.current.phone-type  u:object_r:radio_prop:s0
-gsm.sim.                u:object_r:radio_prop:s0
-gsm.operator.           u:object_r:radio_prop:s0
-gsm.version.baseband    u:object_r:radio_prop:s0
 
 ril.                    u:object_r:rild_prop:s0
-gsm.                    u:object_r:rild_prop:s0
-net.cdma                u:object_r:rild_prop:s0
 
 net.                    u:object_r:system_prop:s0
 dev.                    u:object_r:system_prop:s0

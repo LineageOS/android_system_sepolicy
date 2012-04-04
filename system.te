@@ -148,6 +148,7 @@ allow system wallpaper_file:file r_file_perms;
 
 # Property Service write
 allow system system_prop:property_service set;
+allow system radio_prop:property_service set;
 
 # ctl interface
 allow system ctl_default_prop:property_service set;
