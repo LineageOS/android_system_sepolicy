@@ -15,6 +15,7 @@ LOCAL_POLICY_DIRS := $(SRC_TARGET_DIR)/board/$(TARGET_DEVICE)/ device/*/$(TARGET
 
 LOCAL_POLICY_FC := $(wildcard $(addsuffix sepolicy.fc, $(LOCAL_POLICY_DIRS)))
 LOCAL_POLICY_TE := $(wildcard $(addsuffix sepolicy.te, $(LOCAL_POLICY_DIRS)))
+LOCAL_POLICY_PC := $(wildcard $(addsuffix sepolicy.pc, $(LOCAL_POLICY_DIRS)))
 
 ##################################
 include $(CLEAR_VARS)
@@ -66,6 +67,22 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_PREBUILT)
 
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := property_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+property_contexts := $(intermediates)/property_contexts
+$(property_contexts): $(LOCAL_PATH)/property_contexts $(LOCAL_POLICY_PC)
+	@mkdir -p $(dir $@)
+	$(hide) cat $^ > $@
+
+property_contexts :=
 ##################################
 
 endif #ifeq ($(HAVE_SELINUX),true)

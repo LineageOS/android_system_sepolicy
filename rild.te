@@ -20,3 +20,6 @@ allow rild shell_exec:file rx_file_perms;
 dontaudit rild self:capability sys_admin;
 # XXX Label sysfs files with a specific type?
 allow rild sysfs:file rw_file_perms;
+
+# property service
+allow rild rild_prop:property_service set;

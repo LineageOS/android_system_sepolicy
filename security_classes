@@ -134,4 +134,7 @@ class db_language		# userspace
 class binder
 class zygote
 
+# Property service
+class property_service          # userspace
+
 # FLASK

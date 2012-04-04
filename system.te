@@ -146,6 +146,12 @@ allow system system_data_file:file relabelfrom;
 allow system wallpaper_file:file relabelto;
 allow system wallpaper_file:file r_file_perms;
 
+# Property Service write
+allow system system_prop:property_service set;
+
+# ctl interface
+allow system ctl_default_prop:property_service set;
+
 # Create a socket for receiving info from wpa.
 type_transition system wifi_data_file:sock_file system_wpa_socket;
 allow system system_wpa_socket:sock_file create_file_perms;
