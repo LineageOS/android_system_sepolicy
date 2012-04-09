@@ -31,7 +31,7 @@ $(sepolicy_policy.conf) : $(wildcard $(addprefix $(LOCAL_PATH)/,security_classes
 
 $(LOCAL_BUILT_MODULE) : $(sepolicy_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	@mkdir -p $(dir $@)
-	$(hide) checkpolicy -M -c $(POLICYVERS) -o $@ $<
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@ $<
 
 sepolicy_policy.conf :=
 ##################################
