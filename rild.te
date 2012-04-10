@@ -4,6 +4,7 @@ type rild_exec, exec_type, file_type;
 
 init_daemon_domain(rild)
 net_domain(rild)
+allow rild self:netlink_route_socket setopt;
 allow rild kernel:system module_request;
 unix_socket_connect(rild, property, init)
 unix_socket_connect(rild, qemud, qemud)
@@ -19,3 +20,7 @@ allow rild shell_exec:file rx_file_perms;
 dontaudit rild self:capability sys_admin;
 # XXX Label sysfs files with a specific type?
 allow rild sysfs:file rw_file_perms;
+
+# property service
+allow rild rild_prop:property_service set;
+allow rild radio_prop:property_service set;

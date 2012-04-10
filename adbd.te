@@ -2,6 +2,7 @@
 # it lives in the rootfs and has no unique file type.
 type adbd, domain, mlstrustedsubject;
 allow adbd adb_device:chr_file rw_file_perms;
+allow adbd qemu_device:chr_file rw_file_perms;
 allow adbd self:capability { net_raw setgid setuid dac_override sys_boot sys_admin };
 allow adbd rootfs:file entrypoint;
 allow adbd init:process sigchld;
@@ -23,9 +24,10 @@ unix_socket_connect(adbd, vold, vold)
 # Talk to init via the property socket.
 unix_socket_connect(adbd, property, init)
 
-# Read properties.
-allow adbd kernel:fd use;
-allow adbd tmpfs:file read;
+# Run sh in its own domain.
+domain_auto_trans(adbd, shell_exec, shell)
+# Do not sanitize the environment of the shell.
+allow adbd shell:process noatsecure;
 
 # Perform binder IPC to surfaceflinger (screencap)
 # XXX Run screencap in a separate domain?

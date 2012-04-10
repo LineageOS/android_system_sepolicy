@@ -54,3 +54,6 @@ allow vold proc:file write;
 
 # Create and mount on /data/tmp_mnt.
 allow vold system_data_file:dir { write create add_name mounton };
+
+# Property Service
+allow vold vold_prop:property_service set;

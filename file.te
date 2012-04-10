@@ -8,6 +8,7 @@ type selinuxfs, fs_type;
 type cgroup, fs_type, mlstrustedobject;
 type sysfs, fs_type, mlstrustedobject;
 type sysfs_writable, fs_type, sysfs_type, mlstrustedobject;
+type sysfs_nfc_power_writable, fs_type, sysfs_type, mlstrustedobject;
 type inotify, fs_type, mlstrustedobject;
 type devpts, fs_type;
 type tmpfs, fs_type;
@@ -22,12 +23,15 @@ type unlabeled, file_type;
 type system_file, file_type;
 # Default type for anything under /data.
 type system_data_file, file_type, data_file_type;
+# /data/drm - DRM plugin data
+type drm_data_file, file_type, data_file_type;
 # /data/anr - ANR traces
-type anr_data_file, file_type, data_file_type;
+type anr_data_file, file_type, data_file_type, mlstrustedobject;
 # /data/tombstones - core dumps
 type tombstone_data_file, file_type, data_file_type;
 # /data/app - user-installed apps
-type apk_data_file, file_type, data_file_type, mlstrustedobject;
+type apk_data_file, file_type, data_file_type;
+type apk_tmp_file, file_type, data_file_type, mlstrustedobject;
 # /data/dalvik-cache
 type dalvikcache_data_file, file_type, data_file_type;
 # /data/local - writable by shell
@@ -49,6 +53,8 @@ type app_data_file, file_type, data_file_type;
 type cache_file, file_type, mlstrustedobject;
 # Default type for anything under /efs
 type efs_file, file_type;
+# Type for wallpaper file.
+type wallpaper_file, file_type;
 
 # Socket types
 type bluetooth_socket, file_type;

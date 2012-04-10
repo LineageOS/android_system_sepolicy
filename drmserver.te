@@ -8,3 +8,9 @@ typeattribute drmserver mlstrustedsubject;
 # Perform Binder IPC to system server.
 binder_use(drmserver)
 binder_call(drmserver, system)
+binder_call(drmserver, appdomain)
+binder_service(drmserver)
+
+allow drmserver sdcard:dir search;
+allow drmserver drm_data_file:dir create_dir_perms;
+allow drmserver drm_data_file:file create_file_perms;

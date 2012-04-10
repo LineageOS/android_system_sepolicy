@@ -3,6 +3,10 @@
 # Allow reaping by init.
 allow domain init:process sigchld;
 
+# Read access to properties mapping.
+allow domain kernel:fd use;
+allow domain tmpfs:file read;
+
 # binder adjusts the nice value during IPC.
 allow domain self:capability sys_nice;
 
@@ -29,7 +33,7 @@ allow domain debuggerd:unix_stream_socket connectto;
 
 # Root fs.
 allow domain rootfs:dir r_dir_perms;
-allow domain rootfs:lnk_file read;
+allow domain rootfs:lnk_file { read getattr };
 
 # Device accesses.
 allow domain device:dir search;
