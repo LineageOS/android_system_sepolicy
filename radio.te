@@ -15,3 +15,9 @@ allow radio radio_data_file:dir create_dir_perms;
 allow radio radio_data_file:notdevfile_class_set create_file_perms;
 
 allow radio alarm_device:chr_file rw_file_perms;
+
+# Property service
+allow radio radio_prop:property_service set;
+
+# ctl interface
+allow radio ctl_rildaemon_prop:property_service set;

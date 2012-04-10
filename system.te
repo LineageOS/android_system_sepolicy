@@ -15,6 +15,9 @@ binder_transfer(system_app, appdomain)
 allow system_app system_data_file:dir create_dir_perms;
 allow system_app system_data_file:file create_file_perms;
 
+# Read wallpaper file.
+allow system_app wallpaper_file:file r_file_perms;
+
 # Write to dalvikcache.
 allow system_app dalvikcache_data_file:file { write setattr };
 
@@ -110,6 +113,7 @@ selinux_check_access(system)
 
 # XXX Label sysfs files with a specific type?
 allow system sysfs:file rw_file_perms;
+allow system sysfs_nfc_power_writable:file rw_file_perms;
 
 # Access devices.
 allow system device:dir r_dir_perms;
@@ -130,6 +134,25 @@ allow system qemu_device:chr_file rw_file_perms;
 allow system data_file_type:dir create_dir_perms;
 allow system data_file_type:notdevfile_class_set create_file_perms;
 
+# Read /file_contexts.
+allow system rootfs:file r_file_perms;
+
+# Relabel apk files.
+allow system apk_tmp_file:file { relabelfrom relabelto };
+allow system apk_data_file:file { relabelfrom relabelto };
+
+# Relabel wallpaper.
+allow system system_data_file:file relabelfrom;
+allow system wallpaper_file:file relabelto;
+allow system wallpaper_file:file r_file_perms;
+
+# Property Service write
+allow system system_prop:property_service set;
+allow system radio_prop:property_service set;
+
+# ctl interface
+allow system ctl_default_prop:property_service set;
+
 # Create a socket for receiving info from wpa.
 type_transition system wifi_data_file:sock_file system_wpa_socket;
 allow system system_wpa_socket:sock_file create_file_perms;
@@ -141,7 +164,7 @@ allow system cache_file:file create_file_perms;
 # Run system programs, e.g. dexopt.
 allow system system_file:file x_file_perms;
 
-# Silently deny any /proc accesses that are not allowed.
-# This suppresses noise from walking the process list.
-dontaudit system domain:dir r_dir_perms;
-dontaudit system domain:file r_file_perms;
+# Allow reading of /proc/pid data for other domains.
+# XXX dontaudit candidate
+allow system domain:dir r_dir_perms;
+allow system domain:file r_file_perms;

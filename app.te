@@ -28,11 +28,7 @@ allow trusted_app shell_data_file:lnk_file read;
 allow trusted_app sdcard:dir create_dir_perms;
 allow trusted_app sdcard:file create_file_perms;
 # Populate /data/app/vmdl*.tmp file created by system server.
-# It would be better if this was labeled differently.
-allow trusted_app apk_data_file:file write;
-# Perform binder IPC to any app domain.
-binder_call(trusted_app, appdomain)
-binder_transfer(trusted_app, appdomain)
+allow trusted_app apk_tmp_file:file rw_file_perms;
 
 #
 # An example of a specific domain for a specific app
@@ -100,11 +96,18 @@ allow appdomain app_data_file:notdevfile_class_set create_file_perms;
 # lib subdirectory of /data/data dir is system-owned.
 allow appdomain system_data_file:dir r_dir_perms;
 
+# Read/write wallpaper file (opened by system).
+allow appdomain wallpaper_file:file { read write };
+
+# Write to /data/anr/traces.txt.
+allow appdomain anr_data_file:dir search;
+allow appdomain anr_data_file:file { open append };
+
 # Use the Binder.
 binder_use(appdomain)
 # Perform binder IPC to binder services.
 binder_call(appdomain, binderservicedomain)
 binder_transfer(appdomain, binderservicedomain)
-# Perform binder IPC to apps in the trusted_app domain.
-binder_call(appdomain, trusted_app)
-binder_transfer(appdomain, trusted_app)
+# Perform binder IPC to other apps.
+binder_call(appdomain, appdomain)
+binder_transfer(appdomain, appdomain)
