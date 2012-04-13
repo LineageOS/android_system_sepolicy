@@ -34,6 +34,10 @@ selinux_setenforce(system_app)
 
 # Allow settings app to set SELinux booleans
 selinux_setbool(system_app)
+
+# Allow settings app to read syslog to display AVC messages
+allow system_app kernel:system syslog_read;
+
 }
 
 #
