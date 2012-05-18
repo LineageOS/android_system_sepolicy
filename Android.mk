@@ -53,7 +53,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 file_contexts := $(intermediates)/file_contexts
 $(file_contexts): $(LOCAL_PATH)/file_contexts $(LOCAL_POLICY_FC)
 	@mkdir -p $(dir $@)
-	$(hide) cat $^ > $@
+	$(hide) m4 -s $^ > $@
 
 file_contexts :=
 ##################################
@@ -80,7 +80,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 property_contexts := $(intermediates)/property_contexts
 $(property_contexts): $(LOCAL_PATH)/property_contexts $(LOCAL_POLICY_PC)
 	@mkdir -p $(dir $@)
-	$(hide) cat $^ > $@
+	$(hide) m4 -s $^ > $@
 
 property_contexts :=
 ##################################
