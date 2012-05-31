@@ -17,6 +17,7 @@ allow rild mtd_device:dir search;
 allow rild efs_file:dir create_dir_perms;
 allow rild efs_file:file create_file_perms;
 allow rild shell_exec:file rx_file_perms;
+allow rild bluetooth_efs_file:file r_file_perms;
 dontaudit rild self:capability sys_admin;
 # XXX Label sysfs files with a specific type?
 allow rild sysfs:file rw_file_perms;
