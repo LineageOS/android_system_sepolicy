@@ -37,6 +37,7 @@ type urandom_device, dev_type;
 type video_device, dev_type;
 type vcs_device, dev_type;
 type zero_device, dev_type;
+type fuse_device, dev_type;
 
 # All devices have a uart for the hci
 # attach service. The uart dev node

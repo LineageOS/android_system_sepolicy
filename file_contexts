@@ -25,6 +25,7 @@
 /dev/device-mapper	u:object_r:dm_device:s0
 /dev/eac		u:object_r:audio_device:s0
 /dev/full		u:object_r:full_device:s0
+/dev/fuse		u:object_r:fuse_device:s0
 /dev/graphics(/.*)?	u:object_r:graphics_device:s0
 /dev/input(/.*)		u:object_r:input_device:s0
 /dev/kmem		u:object_r:kmem_device:s0
@@ -96,6 +97,7 @@
 /system/bin/bluetoothd	u:object_r:bluetoothd_exec:s0
 /system/bin/wpa_supplicant	u:object_r:wpa_exec:s0
 /system/bin/qemud	u:object_r:qemud_exec:s0
+/system/bin/sdcard      u:object_r:sdcardd_exec:s0
 /system/xbin/su		u:object_r:su_exec:s0
 /system/vendor/bin/gpsd u:object_r:gpsd_exec:s0
 #############################
