@@ -27,17 +27,29 @@ unix_socket_connect(system_app, keystore, keystore)
 # Read SELinux enforcing status.
 selinux_getenforce(system_app)
 
-bool settings_manage_selinux true;
-if (settings_manage_selinux) {
-# Allow settings app to set SELinux to enforcing
+bool manage_selinux true;
+if (manage_selinux) {
+# Set SELinux enforcing status.
 selinux_setenforce(system_app)
 
-# Allow settings app to set SELinux booleans
+# Set SELinux booleans.
 selinux_setbool(system_app)
 
-# Allow settings app to read syslog to display AVC messages
+# Read syslog to display AVC messages.
 allow system_app kernel:system syslog_read;
+}
 
+bool manage_mac true;
+if (manage_mac) {
+# Set properties via the init property service.
+unix_socket_connect(system_app, property, init)
+
+# Set the persist.mac_enforcing_mode property.
+allow system_app system_prop:property_service set;
+
+# Run logcat and read the logs for MAC denials.
+allow system_app system_file:file x_file_perms;
+allow system_app log_device:chr_file read;
 }
 
 #
