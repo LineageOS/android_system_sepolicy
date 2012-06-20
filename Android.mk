@@ -85,4 +85,17 @@ $(property_contexts): $(LOCAL_PATH)/property_contexts $(LOCAL_POLICY_PC)
 property_contexts :=
 ##################################
 
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := selinux-network.sh
+LOCAL_SRC_FILES := $(LOCAL_MODULE)
+LOCAL_MODULE_CLASS := EXECUTABLES
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_EXECUTABLES)
+
+include $(BUILD_PREBUILT)
+
+##################################
+
 endif #ifeq ($(HAVE_SELINUX),true)
