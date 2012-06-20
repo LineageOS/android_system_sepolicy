@@ -28,6 +28,7 @@
 /dev/fuse		u:object_r:fuse_device:s0
 /dev/graphics(/.*)?	u:object_r:graphics_device:s0
 /dev/input(/.*)		u:object_r:input_device:s0
+/dev/ion		u:object_r:ion_device:s0
 /dev/kmem		u:object_r:kmem_device:s0
 /dev/log(/.*)?		u:object_r:log_device:s0
 /dev/mem		u:object_r:kmem_device:s0
