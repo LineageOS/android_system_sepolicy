@@ -33,5 +33,8 @@ user=system domain=system_app type=system_data_file
 user=nfc domain=nfc type=nfc_data_file
 user=radio domain=radio type=radio_data_file
 user=app_* domain=untrusted_app type=app_data_file levelFromUid=true
-user=app_* seinfo=systemApp domain=trusted_app levelFromUid=true
-user=app_* seinfo=systemApp name=com.android.browser domain=browser_app levelFromUid=true
+user=app_* seinfo=platform domain=platform_app levelFromUid=true
+user=app_* seinfo=shared domain=shared_app levelFromUid=true
+user=app_* seinfo=media domain=media_app levelFromUid=true
+user=app_* seinfo=release domain=release_app levelFromUid=true
+user=app_* seinfo=release name=com.android.browser domain=browser_app levelFromUid=true

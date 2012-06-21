@@ -4,31 +4,64 @@
 #
 
 #
-# Trusted apps.
+# Apps signed with the platform key.
 #
-type trusted_app, domain;
-app_domain(trusted_app)
+type platform_app, domain;
+app_domain(platform_app)
 # Access the network.
-net_domain(trusted_app)
+net_domain(platform_app)
 # Access bluetooth.
-bluetooth_domain(trusted_app)
+bluetooth_domain(platform_app)
 # Read logs.
-allow trusted_app log_device:chr_file read;
-# Access /dev/mtp_usb.
-# XXX Split android.process.media into a separate domain?
-allow trusted_app mtp_device:chr_file rw_file_perms;
+allow platform_app log_device:chr_file read;
 # Write to /cache.
-allow trusted_app cache_file:dir rw_dir_perms;
-allow trusted_app cache_file:file create_file_perms;
+allow platform_app cache_file:dir rw_dir_perms;
+allow platform_app cache_file:file create_file_perms;
 # Read from /data/local.
-allow trusted_app shell_data_file:dir search;
-allow trusted_app shell_data_file:file { open getattr read };
-allow trusted_app shell_data_file:lnk_file read;
+allow platform_app shell_data_file:dir search;
+allow platform_app shell_data_file:file { open getattr read };
+allow platform_app shell_data_file:lnk_file read;
 # Access the sdcard.
-allow trusted_app sdcard:dir create_dir_perms;
-allow trusted_app sdcard:file create_file_perms;
+allow platform_app sdcard:dir create_dir_perms;
+allow platform_app sdcard:file create_file_perms;
 # Populate /data/app/vmdl*.tmp file created by system server.
-allow trusted_app apk_tmp_file:file rw_file_perms;
+allow platform_app apk_tmp_file:file rw_file_perms;
+
+# Apps signed with the media key.
+type media_app, domain;
+app_domain(media_app)
+# Access the network.
+net_domain(media_app)
+# Read logs.
+allow media_app log_device:chr_file read;
+# Access /dev/mtp_usb.
+allow media_app mtp_device:chr_file rw_file_perms;
+# Write to /cache.
+allow media_app cache_file:dir rw_dir_perms;
+allow media_app cache_file:file create_file_perms;
+# Access sdcard.
+allow media_app sdcard:dir r_dir_perms;
+allow media_app sdcard:file r_file_perms;
+
+# Apps signed with the shared key.
+type shared_app, domain;
+app_domain(shared_app)
+# Access the network.
+net_domain(shared_app)
+# Access bluetooth.
+bluetooth_domain(shared_app)
+# Read logs.
+allow shared_app log_device:chr_file read;
+
+# Apps signed with the release key (testkey in AOSP).
+type release_app, domain;
+app_domain(release_app)
+# Access the network.
+net_domain(release_app)
+# Access bluetooth.
+bluetooth_domain(release_app)
+# Read logs.
+allow release_app log_device:chr_file read;
 
 #
 # An example of a specific domain for a specific app
