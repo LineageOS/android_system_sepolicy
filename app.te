@@ -40,8 +40,8 @@ allow media_app mtp_device:chr_file rw_file_perms;
 allow media_app cache_file:dir rw_dir_perms;
 allow media_app cache_file:file create_file_perms;
 # Access sdcard.
-allow media_app sdcard:dir r_dir_perms;
-allow media_app sdcard:file r_file_perms;
+allow media_app sdcard:dir rw_dir_perms;
+allow media_app sdcard:file rw_file_perms;
 
 # Apps signed with the shared key.
 type shared_app, domain;
