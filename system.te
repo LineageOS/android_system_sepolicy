@@ -148,7 +148,7 @@ allow system apk_data_file:file { relabelfrom relabelto };
 # Relabel wallpaper.
 allow system system_data_file:file relabelfrom;
 allow system wallpaper_file:file relabelto;
-allow system wallpaper_file:file r_file_perms;
+allow system wallpaper_file:file rw_file_perms;
 
 # Property Service write
 allow system system_prop:property_service set;
