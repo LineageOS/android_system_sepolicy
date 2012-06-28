@@ -72,6 +72,9 @@ bluetooth_domain(system)
 # XXX See if we can remove some of these.
 allow system self:capability { kill net_bind_service net_broadcast net_admin net_raw sys_module sys_boot sys_nice sys_resource sys_time sys_tty_config };
 
+# Trigger module auto-load.
+allow system kernel:system module_request;
+
 # Use netlink uevent sockets.
 allow system self:netlink_kobject_uevent_socket *;
 
@@ -133,6 +136,7 @@ allow system sysfs_nfc_power_writable:file rw_file_perms;
 # Access devices.
 allow system device:dir r_dir_perms;
 allow system device:chr_file rw_file_perms;
+allow system device:sock_file rw_file_perms;
 allow system akm_device:chr_file rw_file_perms;
 allow system accelerometer_device:chr_file rw_file_perms;
 allow system alarm_device:chr_file rw_file_perms;
