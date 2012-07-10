@@ -187,3 +187,8 @@ allow system system_file:file x_file_perms;
 # XXX dontaudit candidate
 allow system domain:dir r_dir_perms;
 allow system domain:file r_file_perms;
+
+# LocationManager(e.g, GPS) needs to read and write
+# to uart driver and ctrl proc entry
+allow system gps_device:chr_file rw_file_perms;
+allow system gps_control:file rw_file_perms;

@@ -39,6 +39,7 @@ type vcs_device, dev_type;
 type zero_device, dev_type;
 type fuse_device, dev_type;
 type ion_device, dev_type;
+type gps_device, dev_type;
 
 # All devices have a uart for the hci
 # attach service. The uart dev node

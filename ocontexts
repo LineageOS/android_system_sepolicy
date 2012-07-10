@@ -52,6 +52,9 @@ genfscon rootfs / u:object_r:rootfs:s0
 # proc labeling can be further refined (longest matching prefix).
 genfscon proc / u:object_r:proc:s0
 genfscon proc /net/xt_qtaguid/ctrl u:object_r:qtaguid:s0
+# These proc entries are for the CSR GPS chip
+# XXX Can we label these as device specific?
+genfscon proc /mcspi1_cs3_ctrl u:object_r:gps_control:s0
 # selinuxfs booleans can be individually labeled.
 genfscon selinuxfs / u:object_r:selinuxfs:s0
 genfscon cgroup / u:object_r:cgroup:s0

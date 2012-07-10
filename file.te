@@ -79,6 +79,9 @@ type vold_socket, file_type;
 type wpa_socket, file_type;
 type zygote_socket, file_type;
 
+# UART (for GPS) control proc file
+type gps_control, file_type;
+
 # Allow files to be created in their appropriate filesystems.
 allow fs_type self:filesystem associate;
 allow sysfs_type sysfs:filesystem associate;
