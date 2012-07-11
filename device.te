@@ -46,3 +46,7 @@ type gps_device, dev_type;
 # varies per device. This type
 # is used in per device policy
 type hci_attach_dev, dev_type;
+
+# All devices have a rpmsg device for 
+# achieving remoteproc and rpmsg modules
+type rpmsg_device, dev_type;

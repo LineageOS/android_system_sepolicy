@@ -47,6 +47,8 @@
 /dev/nvmap		u:object_r:nv_device:s0
 /dev/nvhost-.*		u:object_r:nv_device:s0
 /dev/random		u:object_r:random_device:s0
+/dev/rpmsg-omx[0-9]	u:object_r:rpmsg_device:s0
+/dev/rproc_user	u:object_r:rpmsg_device:s0
 /dev/s3c-jpg		u:object_r:camera_device:s0
 /dev/s3c-mem		u:object_r:camera_device:s0
 /dev/s3c-mfc		u:object_r:graphics_device:s0
