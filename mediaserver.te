@@ -28,3 +28,6 @@ allow mediaserver ion_device:chr_file rw_file_perms;
 
 # To use remote processor
 allow mediaserver rpmsg_device:chr_file rw_file_perms;
+
+# Inter System processes communicate over named pipe (FIFO)
+allow mediaserver system:fifo_file r_file_perms;
