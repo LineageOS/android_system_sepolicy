@@ -103,7 +103,7 @@ allow untrusted_app sdcard:file create_file_perms;
 # Native app support.
 bool app_ndk false;
 if (app_ndk) {
-allow untrusted_app app_data_file:file execute;
+allow untrusted_app system_data_file:file { execute open };
 }
 
 #
