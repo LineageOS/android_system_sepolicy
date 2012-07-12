@@ -40,8 +40,8 @@ allow media_app mtp_device:chr_file rw_file_perms;
 allow media_app cache_file:dir rw_dir_perms;
 allow media_app cache_file:file create_file_perms;
 # Access sdcard.
-allow media_app sdcard:dir rw_dir_perms;
-allow media_app sdcard:file rw_file_perms;
+allow media_app sdcard:dir create_dir_perms;
+allow media_app sdcard:file create_file_perms;
 
 # Apps signed with the shared key.
 type shared_app, domain;
@@ -119,8 +119,12 @@ allow appdomain zygote_tmpfs:file read;
 # Notify zygote of death;
 allow appdomain zygote:process sigchld;
 
-# Communicate over a FIFO to system processes.
+# Communicate over a FIFO or socket created by the system_server.
 allow appdomain system:fifo_file rw_file_perms;
+allow appdomain system:unix_stream_socket { read write };
+
+# Communicate over a socket created by surfaceflinger.
+allow appdomain surfaceflinger:unix_stream_socket { read write setopt };
 
 # App sandbox file accesses.
 allow appdomain app_data_file:dir create_dir_perms;

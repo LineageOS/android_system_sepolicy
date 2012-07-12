@@ -23,5 +23,7 @@ allow surfaceflinger video_device:chr_file rw_file_perms;
 # Create and use netlink kobject uevent sockets.
 allow surfaceflinger self:netlink_kobject_uevent_socket *;
 
-# ctl interface
+# Set properties.
+allow surfaceflinger system_prop:property_service set;
 allow surfaceflinger ctl_default_prop:property_service set;
+

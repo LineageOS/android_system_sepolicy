@@ -107,6 +107,9 @@ unix_socket_connect(system, gps, gpsd)
 unix_socket_connect(system, bluetooth, bluetoothd)
 unix_socket_send(system, wpa, wpa)
 
+# Communicate over a socket created by surfaceflinger.
+allow system surfaceflinger:unix_stream_socket { read write setopt };
+
 # Perform Binder IPC.
 tmpfs_domain(system)
 binder_use(system)
