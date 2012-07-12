@@ -24,4 +24,4 @@ sid sysctl_dev u:object_r:unlabeled:s0
 sid kmod u:object_r:unlabeled:s0
 sid policy u:object_r:unlabeled:s0
 sid scmp_packet u:object_r:unlabeled:s0
-
+sid devnull u:object_r:null_device:s0
