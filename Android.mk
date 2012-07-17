@@ -29,11 +29,24 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 include $(BUILD_SYSTEM)/base_rules.mk
 
 sepolicy_policy.conf := $(intermediates)/policy.conf
+
+# Build up the list of policy files (the order matters, since they will all be
+# cat'd together)
+POLICY_DEPENDS := $(wildcard $(addprefix $(LOCAL_PATH)/,security_classes initial_sids access_vectors global_macros mls_macros mls policy_capabilities te_macros attributes *.te))
+
+# Add extra policy for "su", but only for eng and userdebug builds
+ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
+POLICY_DEPENDS += $(wildcard $(addprefix $(LOCAL_PATH)/conditional/, su.te))
+endif
+
+# Add in the rest of the policy
+POLICY_DEPENDS += $(wildcard $(LOCAL_POLICY_TE) $(addprefix $(LOCAL_PATH)/, roles users ocontexts))
+
 $(sepolicy_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(sepolicy_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
-$(sepolicy_policy.conf) : $(wildcard $(addprefix $(LOCAL_PATH)/,security_classes initial_sids access_vectors global_macros mls_macros mls policy_capabilities te_macros attributes *.te) $(LOCAL_POLICY_TE) $(addprefix $(LOCAL_PATH)/, roles users ocontexts))
+$(sepolicy_policy.conf) : $(POLICY_DEPENDS)
 	@mkdir -p $(dir $@)
-	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) -s $^ > $@
+	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) -s $(POLICY_DEPENDS) > $@
 
 $(LOCAL_BUILT_MODULE) : $(sepolicy_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	@mkdir -p $(dir $@)
