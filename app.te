@@ -42,7 +42,9 @@ allow media_app cache_file:file create_file_perms;
 # Access sdcard.
 allow media_app sdcard:dir create_dir_perms;
 allow media_app sdcard:file create_file_perms;
-
+# Read/[write] to /proc/net/xt_qtaguid/ctrl and /dev/xt_qtaguid
+allow media_app qtaguid_proc:file rw_file_perms;
+allow media_app qtaguid_device:chr_file r_file_perms;
 # Apps signed with the shared key.
 type shared_app, domain;
 app_domain(shared_app)
@@ -141,7 +143,7 @@ allow appdomain anr_data_file:dir search;
 allow appdomain anr_data_file:file { open append };
 
 # Write to /proc/net/xt_qtaguid/ctrl file.
-allow appdomain qtaguid:file write;
+allow appdomain qtaguid_proc:file write;
 
 # Use the Binder.
 binder_use(appdomain)

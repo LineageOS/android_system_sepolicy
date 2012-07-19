@@ -89,7 +89,8 @@ allow system appdomain:dir r_dir_perms;
 allow system appdomain:{ file lnk_file } rw_file_perms;
 
 # Write to /proc/net/xt_qtaguid/ctrl.
-allow system qtaguid:file rw_file_perms;
+allow system qtaguid_proc:file rw_file_perms;
+allow system qtaguid_device:chr_file rw_file_perms;
 
 # Notify init of death.
 allow system init:process sigchld;
