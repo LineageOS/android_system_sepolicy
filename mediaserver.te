@@ -11,7 +11,7 @@ binder_call(mediaserver, binderservicedomain)
 binder_call(mediaserver, appdomain)
 binder_service(mediaserver)
 allow mediaserver app_data_file:dir search;
-allow mediaserver app_data_file:file { read getattr };
+allow mediaserver app_data_file:file r_file_perms;
 r_dir_file(mediaserver, sdcard)
 allow mediaserver sdcard:file write;
 allow mediaserver camera_device:chr_file rw_file_perms;
