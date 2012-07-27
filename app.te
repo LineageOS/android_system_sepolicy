@@ -117,7 +117,7 @@ allow untrusted_app sdcard:file create_file_perms;
 }
 # Native app support.
 bool app_ndk false;
-if (app_ndk) {
+if (app_ndk or android_cts) {
 allow untrusted_app system_data_file:file { execute open };
 }
 
