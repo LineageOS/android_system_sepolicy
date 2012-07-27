@@ -39,3 +39,5 @@ allow mediaserver camera_calibration_file:file r_file_perms;
 # Read/[write] to /proc/net/xt_qtaguid/ctrl and /dev/xt_qtaguid
 allow mediaserver qtaguid_proc:file rw_file_perms;
 allow mediaserver qtaguid_device:chr_file r_file_perms;
+# Allow abstract socket connection
+allow mediaserver rild:unix_stream_socket connectto;
