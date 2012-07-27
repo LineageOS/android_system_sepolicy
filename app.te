@@ -8,6 +8,7 @@
 #
 type platform_app, domain;
 app_domain(platform_app)
+platform_app_domain(platform_app)
 # Access the network.
 net_domain(platform_app)
 # Access bluetooth.
@@ -30,6 +31,7 @@ allow platform_app apk_tmp_file:file rw_file_perms;
 # Apps signed with the media key.
 type media_app, domain;
 app_domain(media_app)
+platform_app_domain(media_app)
 # Access the network.
 net_domain(media_app)
 # Read logs.
@@ -45,9 +47,11 @@ allow media_app sdcard:file create_file_perms;
 # Read/[write] to /proc/net/xt_qtaguid/ctrl and /dev/xt_qtaguid
 allow media_app qtaguid_proc:file rw_file_perms;
 allow media_app qtaguid_device:chr_file r_file_perms;
+
 # Apps signed with the shared key.
 type shared_app, domain;
 app_domain(shared_app)
+platform_app_domain(shared_app)
 # Access the network.
 net_domain(shared_app)
 # Access bluetooth.
@@ -58,6 +62,7 @@ allow shared_app log_device:chr_file read;
 # Apps signed with the release key (testkey in AOSP).
 type release_app, domain;
 app_domain(release_app)
+platform_app_domain(release_app)
 # Access the network.
 net_domain(release_app)
 # Access bluetooth.
@@ -70,8 +75,17 @@ allow release_app log_device:chr_file read;
 # A domain for com.android.browser.
 type browser_app, domain;
 app_domain(browser_app)
+platform_app_domain(browser_app)
 # Access the network.
 net_domain(browser_app)
+
+#
+# Rules for platform app domains.
+#
+
+# App sandbox file accesses.
+allow platformappdomain platform_app_data_file:dir create_dir_perms;
+allow platformappdomain platform_app_data_file:notdevfile_class_set create_file_perms;
 
 #
 # Untrusted apps.
@@ -131,6 +145,9 @@ allow appdomain surfaceflinger:unix_stream_socket { read write setopt };
 # App sandbox file accesses.
 allow appdomain app_data_file:dir create_dir_perms;
 allow appdomain app_data_file:notdevfile_class_set create_file_perms;
+
+# Read/write data files created by the platform apps.
+allow appdomain platform_app_data_file:file rw_file_perms;
 
 # lib subdirectory of /data/data dir is system-owned.
 allow appdomain system_data_file:dir r_dir_perms;
