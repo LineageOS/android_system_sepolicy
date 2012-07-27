@@ -83,6 +83,8 @@ allow platformappdomain platform_app_data_file:notdevfile_class_set create_file_
 # App sdcard file accesses
 allow platformappdomain sdcard:dir create_dir_perms;
 allow platformappdomain sdcard:file create_file_perms;
+# System data file accesses (e.g, shared objects from the lib directory)
+allow platformappdomain system_data_file:file { execute open };
 
 #
 # Untrusted apps.
