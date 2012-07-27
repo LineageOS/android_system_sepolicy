@@ -105,7 +105,7 @@ unix_socket_connect(untrusted_app, dnsproxyd, netd)
 }
 # Bluetooth access.
 bool app_bluetooth false;
-if (app_bluetooth) {
+if (app_bluetooth or android_cts) {
 # No specific SELinux class for bluetooth sockets presently.
 allow untrusted_app self:socket *;
 }
