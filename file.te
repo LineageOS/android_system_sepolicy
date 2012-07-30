@@ -32,6 +32,7 @@ type anr_data_file, file_type, data_file_type, mlstrustedobject;
 type tombstone_data_file, file_type, data_file_type;
 # /data/app - user-installed apps
 type apk_data_file, file_type, data_file_type;
+type asec_data_file, file_type, data_file_type;
 type apk_tmp_file, file_type, data_file_type, mlstrustedobject;
 # /data/dalvik-cache
 type dalvikcache_data_file, file_type, data_file_type;
