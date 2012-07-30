@@ -31,6 +31,9 @@ allow appdomain system_file:file rx_file_perms;
 allow appdomain apk_tmp_file:file rw_file_perms;
 allow appdomain shell_data_file:file r_file_perms;
 
+# Read permission over link file to devices.
+allow appdomain dev_type:lnk_file read;
+
 # Read routing information.
 allow netdomain self:netlink_route_socket { create read write nlmsg_read };
 
