@@ -121,7 +121,8 @@ if (app_ndk or android_cts) {
 allow untrusted_app system_data_file:file { execute open };
 }
 # Read Logs
-if (android_cts) {
+bool app_read_logs false;
+if (app_read_logs or android_cts) {
 allow untrusted_app log_device:chr_file read;
 }
 
