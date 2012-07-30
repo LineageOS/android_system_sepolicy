@@ -80,7 +80,7 @@ allow domain cache_file:file { getattr read };
 allow domain cache_file:lnk_file read;
 
 # For /acct/uid/*/tasks.
-allow domain cgroup:dir search;
+allow domain cgroup:dir { search write };
 allow domain cgroup:file w_file_perms;
 
 # For /sys/qemu_trace files in the emulator.
