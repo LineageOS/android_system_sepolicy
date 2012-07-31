@@ -169,6 +169,10 @@ allow system system_data_file:file relabelfrom;
 allow system wallpaper_file:file relabelto;
 allow system wallpaper_file:file rw_file_perms;
 
+# Relabel /data/anr.
+allow system system_data_file:dir relabelfrom;
+allow system anr_data_file:dir relabelto;
+
 # Property Service write
 allow system system_prop:property_service set;
 allow system radio_prop:property_service set;
