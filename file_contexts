@@ -141,3 +141,6 @@
 #
 /sys/qemu_trace/process_name	--	u:object_r:sysfs_writable:s0
 /sys/devices/platform/nfc-power/nfc_power -- u:object_r:sysfs_nfc_power_writable:s0
+#############################
+# asec containers
+/mnt/asec(/.*)?         u:object_r:asec_data_file:s0
