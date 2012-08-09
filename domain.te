@@ -96,5 +96,12 @@ r_dir_file(domain, sysfs)
 r_dir_file(domain, inotify)
 r_dir_file(domain, cgroup)
 
-# Ignore /sys/kernel/debug
-dontaudit domain debugfs:dir search;
+# debugfs access
+bool debugfs true;
+if (debugfs) {
+allow domain debugfs:dir r_dir_perms;
+allow domain debugfs:file rw_file_perms;
+} else {
+dontaudit domain debugfs:dir r_dir_perms;
+dontaudit domain debugfs:file  rw_file_perms;
+}
