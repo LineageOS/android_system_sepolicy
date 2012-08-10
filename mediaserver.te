@@ -9,6 +9,7 @@ allow mediaserver kernel:system module_request;
 binder_use(mediaserver)
 binder_call(mediaserver, binderservicedomain)
 binder_call(mediaserver, appdomain)
+binder_transfer(mediaserver, surfaceflinger)
 binder_service(mediaserver)
 allow mediaserver app_data_file:dir search;
 allow mediaserver app_data_file:file r_file_perms;

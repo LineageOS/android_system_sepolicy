@@ -24,6 +24,9 @@ allow platform_app shell_data_file:file { open getattr read };
 allow platform_app shell_data_file:lnk_file read;
 # Populate /data/app/vmdl*.tmp file created by system server.
 allow platform_app apk_tmp_file:file rw_file_perms;
+# Read/[open] to /proc/net/xt_qtaguid/ctrl and /dev/xt_qtaguid
+allow platform_app qtaguid_proc:file { open };
+allow platform_app qtaguid_device:chr_file r_file_perms;
 
 # Apps signed with the media key.
 type media_app, domain;

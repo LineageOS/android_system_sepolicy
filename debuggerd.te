@@ -5,6 +5,7 @@ type debuggerd_exec, exec_type, file_type;
 init_daemon_domain(debuggerd)
 typeattribute debuggerd mlstrustedsubject;
 allow debuggerd self:capability { dac_override sys_ptrace chown kill fowner };
+allow debuggerd self:capability2 { syslog };
 allow debuggerd domain:dir r_dir_perms;
 allow debuggerd domain:file r_file_perms;
 allow debuggerd domain:process ptrace;
