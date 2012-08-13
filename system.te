@@ -27,13 +27,29 @@ unix_socket_connect(system_app, keystore, keystore)
 # Read SELinux enforcing status.
 selinux_getenforce(system_app)
 
-bool settings_manage_selinux true;
-if (settings_manage_selinux) {
-# Allow settings app to set SELinux to enforcing
+bool manage_selinux true;
+if (manage_selinux) {
+# Set SELinux enforcing status.
 selinux_setenforce(system_app)
 
-# Allow settings app to set SELinux booleans
+# Set SELinux booleans.
 selinux_setbool(system_app)
+
+# Read syslog to display AVC messages.
+allow system_app kernel:system syslog_read;
+}
+
+bool manage_mac true;
+if (manage_mac) {
+# Set properties via the init property service.
+unix_socket_connect(system_app, property, init)
+
+# Set the persist.mac_enforcing_mode property.
+allow system_app system_prop:property_service set;
+
+# Run logcat and read the logs for MAC denials.
+allow system_app system_file:file x_file_perms;
+allow system_app log_device:chr_file read;
 }
 
 #
@@ -56,6 +72,9 @@ bluetooth_domain(system)
 # XXX See if we can remove some of these.
 allow system self:capability { kill net_bind_service net_broadcast net_admin net_raw sys_module sys_boot sys_nice sys_resource sys_time sys_tty_config };
 
+# Trigger module auto-load.
+allow system kernel:system module_request;
+
 # Use netlink uevent sockets.
 allow system self:netlink_kobject_uevent_socket *;
 
@@ -64,14 +83,15 @@ allow system appdomain:process { sigkill signal };
 
 # Set scheduling info for apps.
 allow system appdomain:process setsched;
+allow system mediaserver:process setsched;
 
 # Read /proc data for apps.
 allow system appdomain:dir r_dir_perms;
 allow system appdomain:{ file lnk_file } rw_file_perms;
 
 # Write to /proc/net/xt_qtaguid/ctrl.
-# XXX Split /proc/net into its own type.
-allow system proc:file write;
+allow system qtaguid_proc:file rw_file_perms;
+allow system qtaguid_device:chr_file rw_file_perms;
 
 # Notify init of death.
 allow system init:process sigchld;
@@ -88,6 +108,9 @@ unix_socket_connect(system, dbus, dbusd)
 unix_socket_connect(system, gps, gpsd)
 unix_socket_connect(system, bluetooth, bluetoothd)
 unix_socket_send(system, wpa, wpa)
+
+# Communicate over a socket created by surfaceflinger.
+allow system surfaceflinger:unix_stream_socket { read write setopt };
 
 # Perform Binder IPC.
 tmpfs_domain(system)
@@ -118,6 +141,7 @@ allow system sysfs_nfc_power_writable:file rw_file_perms;
 # Access devices.
 allow system device:dir r_dir_perms;
 allow system device:chr_file rw_file_perms;
+allow system device:sock_file rw_file_perms;
 allow system akm_device:chr_file rw_file_perms;
 allow system accelerometer_device:chr_file rw_file_perms;
 allow system alarm_device:chr_file rw_file_perms;
@@ -144,7 +168,11 @@ allow system apk_data_file:file { relabelfrom relabelto };
 # Relabel wallpaper.
 allow system system_data_file:file relabelfrom;
 allow system wallpaper_file:file relabelto;
-allow system wallpaper_file:file r_file_perms;
+allow system wallpaper_file:file rw_file_perms;
+
+# Relabel /data/anr.
+allow system system_data_file:dir relabelfrom;
+allow system anr_data_file:dir relabelto;
 
 # Property Service write
 allow system system_prop:property_service set;
@@ -168,3 +196,13 @@ allow system system_file:file x_file_perms;
 # XXX dontaudit candidate
 allow system domain:dir r_dir_perms;
 allow system domain:file r_file_perms;
+
+# LocationManager(e.g, GPS) needs to read and write
+# to uart driver and ctrl proc entry
+allow system gps_device:chr_file rw_file_perms;
+allow system gps_control:file rw_file_perms;
+
+# system Read/Write udp_socket of untrusted_app
+allow system appdomain:udp_socket { read write };
+# Allow abstract socket connection
+allow system rild:unix_stream_socket connectto;

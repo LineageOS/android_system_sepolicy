@@ -109,6 +109,14 @@ tmpfs_domain($1)
 ')
 
 #####################################
+# platform_app_domain(domain)
+# Allow permissions specific to platform apps.
+define(`platform_app_domain', `
+typeattribute $1 platformappdomain;
+typeattribute $1 mlstrustedsubject;
+')
+
+#####################################
 # net_domain(domain)
 # Allow a base set of permissions required for network access.
 define(`net_domain', `
