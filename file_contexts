@@ -25,8 +25,10 @@
 /dev/device-mapper	u:object_r:dm_device:s0
 /dev/eac		u:object_r:audio_device:s0
 /dev/full		u:object_r:full_device:s0
+/dev/fuse		u:object_r:fuse_device:s0
 /dev/graphics(/.*)?	u:object_r:graphics_device:s0
 /dev/input(/.*)		u:object_r:input_device:s0
+/dev/ion		u:object_r:ion_device:s0
 /dev/kmem		u:object_r:kmem_device:s0
 /dev/log(/.*)?		u:object_r:log_device:s0
 /dev/mem		u:object_r:kmem_device:s0
@@ -45,6 +47,8 @@
 /dev/nvmap		u:object_r:nv_device:s0
 /dev/nvhost-.*		u:object_r:nv_device:s0
 /dev/random		u:object_r:random_device:s0
+/dev/rpmsg-omx[0-9]	u:object_r:rpmsg_device:s0
+/dev/rproc_user	u:object_r:rpmsg_device:s0
 /dev/s3c-jpg		u:object_r:camera_device:s0
 /dev/s3c-mem		u:object_r:camera_device:s0
 /dev/s3c-mfc		u:object_r:graphics_device:s0
@@ -73,6 +77,7 @@
 /dev/urandom		u:object_r:urandom_device:s0
 /dev/vcs[0-9a-z]*	u:object_r:vcs_device:s0
 /dev/video[0-9]*	u:object_r:video_device:s0
+/dev/xt_qtaguid	u:object_r:qtaguid_device:s0
 /dev/zero		u:object_r:zero_device:s0
 #############################
 # System files
@@ -96,6 +101,7 @@
 /system/bin/bluetoothd	u:object_r:bluetoothd_exec:s0
 /system/bin/wpa_supplicant	u:object_r:wpa_exec:s0
 /system/bin/qemud	u:object_r:qemud_exec:s0
+/system/bin/sdcard      u:object_r:sdcardd_exec:s0
 /system/xbin/su		u:object_r:su_exec:s0
 /system/vendor/bin/gpsd u:object_r:gpsd_exec:s0
 #############################
@@ -117,6 +123,7 @@
 /data/misc/vpn(/.*)?		u:object_r:vpn_data_file:s0
 /data/misc/systemkeys(/.*)?	u:object_r:systemkeys_data_file:s0
 /data/misc/wifi(/.*)?		u:object_r:wifi_data_file:s0
+/data/misc/camera(/.*)?	u:object_r:camera_calibration_file:s0
 # App sandboxes
 /data/data/.*		u:object_r:app_data_file:s0
 # Wallpaper file.
@@ -134,3 +141,6 @@
 #
 /sys/qemu_trace/process_name	--	u:object_r:sysfs_writable:s0
 /sys/devices/platform/nfc-power/nfc_power -- u:object_r:sysfs_nfc_power_writable:s0
+#############################
+# asec containers
+/mnt/asec(/.*)?         u:object_r:asec_data_file:s0

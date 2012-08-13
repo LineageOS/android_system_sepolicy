@@ -80,7 +80,7 @@ allow domain cache_file:file { getattr read };
 allow domain cache_file:lnk_file read;
 
 # For /acct/uid/*/tasks.
-allow domain cgroup:dir search;
+allow domain cgroup:dir { search write };
 allow domain cgroup:file w_file_perms;
 
 # For /sys/qemu_trace files in the emulator.
@@ -96,5 +96,12 @@ r_dir_file(domain, sysfs)
 r_dir_file(domain, inotify)
 r_dir_file(domain, cgroup)
 
-# Ignore /sys/kernel/debug
-dontaudit domain debugfs:dir search;
+# debugfs access
+bool debugfs true;
+if (debugfs) {
+allow domain debugfs:dir r_dir_perms;
+allow domain debugfs:file rw_file_perms;
+} else {
+dontaudit domain debugfs:dir r_dir_perms;
+dontaudit domain debugfs:file  rw_file_perms;
+}

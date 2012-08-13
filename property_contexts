@@ -45,3 +45,6 @@ crypto.                 u:object_r:vold_prop:s0
 ctl.dumpstate           u:object_r:ctl_dumpstate_prop:s0
 ctl.ril-daemon          u:object_r:ctl_rildaemon_prop:s0
 ctl.                    u:object_r:ctl_default_prop:s0
+
+# mac middleware property
+persist.mac_enforcing_mode    u:object_r:system_prop:s0

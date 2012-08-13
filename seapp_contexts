@@ -3,11 +3,11 @@
 #	user (string)
 #	seinfo (string)
 #	name (string)
+#	sebool (string)
 # isSystemServer=true can only be used once.
-# An unspecified boolean defaults to false.
+# An unspecified isSystemServer defaults to false.
 # An unspecified string selector will match any value.
 # A user string selector that ends in * will perform a prefix match.
-# seinfo= is only used when looking up app process security contexts.
 # All specified input selectors in an entry must match (i.e. logical AND).
 # Matching is case-insensitive.
 # Precedence rules:
@@ -17,6 +17,7 @@
 #	  (4) Longer user= prefix before shorter user= prefix. 
 #	  (5) Specified seinfo= string before unspecified seinfo= string.
 #	  (6) Specified name= string before unspecified name= string.
+#	  (7) Specified sebool= string before unspecified sebool= string.
 #
 # Outputs:
 #	domain (string)
@@ -33,5 +34,8 @@ user=system domain=system_app type=system_data_file
 user=nfc domain=nfc type=nfc_data_file
 user=radio domain=radio type=radio_data_file
 user=app_* domain=untrusted_app type=app_data_file levelFromUid=true
-user=app_* seinfo=systemApp domain=trusted_app levelFromUid=true
-user=app_* seinfo=systemApp name=com.android.browser domain=browser_app levelFromUid=true
+user=app_* seinfo=platform domain=platform_app type=platform_app_data_file
+user=app_* seinfo=shared domain=shared_app type=platform_app_data_file
+user=app_* seinfo=media domain=media_app type=platform_app_data_file
+user=app_* seinfo=release domain=release_app type=platform_app_data_file
+user=app_* seinfo=release name=com.android.browser domain=browser_app type=platform_app_data_file

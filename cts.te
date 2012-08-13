@@ -27,6 +27,13 @@ allow appdomain fs_type:dir_file_class_set getattr;
 allow appdomain shell_exec:file rx_file_perms;
 allow appdomain system_file:file rx_file_perms;
 
+# Accesses to apk_tmp_file and shell_data_file
+allow appdomain apk_tmp_file:file rw_file_perms;
+allow appdomain shell_data_file:file r_file_perms;
+
+# Read permission over link file to devices.
+allow appdomain dev_type:lnk_file read;
+
 # Read routing information.
 allow netdomain self:netlink_route_socket { create read write nlmsg_read };
 
