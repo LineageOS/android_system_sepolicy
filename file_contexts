@@ -102,6 +102,8 @@
 /system/bin/wpa_supplicant	u:object_r:wpa_exec:s0
 /system/bin/qemud	u:object_r:qemud_exec:s0
 /system/bin/sdcard      u:object_r:sdcardd_exec:s0
+/system/bin/dhcpcd      u:object_r:dhcp_exec:s0
+/system/etc/dhcpcd(/.*)? u:object_r:dhcp_system_file:s0
 /system/xbin/su		u:object_r:su_exec:s0
 /system/vendor/bin/gpsd u:object_r:gpsd_exec:s0
 #############################
@@ -124,6 +126,7 @@
 /data/misc/systemkeys(/.*)?	u:object_r:systemkeys_data_file:s0
 /data/misc/wifi(/.*)?		u:object_r:wifi_data_file:s0
 /data/misc/camera(/.*)?	u:object_r:camera_calibration_file:s0
+/data/misc/dhcp(/.*)?           u:object_r:dhcp_data_file:s0
 # App sandboxes
 /data/data/.*		u:object_r:app_data_file:s0
 # Wallpaper file.
