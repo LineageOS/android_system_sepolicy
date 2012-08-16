@@ -20,6 +20,7 @@ LOCAL_POLICY_FS_USE := $(wildcard $(addsuffix sepolicy.fs_use, $(LOCAL_POLICY_DI
 LOCAL_POLICY_PORT_CONTEXTS := $(wildcard $(addsuffix sepolicy.port_contexts, $(LOCAL_POLICY_DIRS)))
 LOCAL_POLICY_GENFS_CONTEXTS := $(wildcard $(addsuffix sepolicy.genfs_contexts, $(LOCAL_POLICY_DIRS)))
 LOCAL_POLICY_INITIAL_SID_CONTEXTS := $(wildcard $(addsuffix sepolicy.initial_sid_contexts, $(LOCAL_POLICY_DIRS)))
+LOCAL_POLICY_SC := $(wildcard $(addsuffix seapp_contexts, $(LOCAL_POLICY_DIRS)))
 
 ##################################
 include $(CLEAR_VARS)
@@ -60,16 +61,22 @@ $(file_contexts): $(LOCAL_PATH)/file_contexts $(LOCAL_POLICY_FC)
 	$(hide) m4 -s $^ > $@
 
 file_contexts :=
+
 ##################################
 include $(CLEAR_VARS)
-
 LOCAL_MODULE := seapp_contexts
-LOCAL_SRC_FILES := $(LOCAL_MODULE)
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
-include $(BUILD_PREBUILT)
+include $(BUILD_SYSTEM)/base_rules.mk
+
+seapp_contexts := $(intermediates)/seapp_contexts
+$(seapp_contexts): $(LOCAL_PATH)/seapp_contexts $(LOCAL_POLICY_SC)
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $^ > $@
+
+seapp_contexts :=
 
 ##################################
 include $(CLEAR_VARS)
