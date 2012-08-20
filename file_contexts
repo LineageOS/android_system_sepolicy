@@ -38,6 +38,7 @@
 /dev/mtd/mtd5ro		u:object_r:radio_device:s0
 /dev/mtp_usb		u:object_r:mtp_device:s0
 /dev/pn544		u:object_r:nfc_device:s0
+/dev/ppp		u:object_r:ppp_device:s0
 /dev/ptmx		u:object_r:ptmx_device:s0
 /dev/pvrsrvkm		u:object_r:powervr_device:s0
 /dev/qemu_.*		u:object_r:qemu_device:s0
@@ -103,6 +104,9 @@
 /system/bin/qemud	u:object_r:qemud_exec:s0
 /system/bin/sdcard      u:object_r:sdcardd_exec:s0
 /system/bin/dhcpcd      u:object_r:dhcp_exec:s0
+/system/bin/mtpd	u:object_r:mtp_exec:s0
+/system/bin/pppd	u:object_r:ppp_exec:s0
+/system/etc/ppp(/.*)?	u:object_r:ppp_system_file:s0
 /system/etc/dhcpcd(/.*)? u:object_r:dhcp_system_file:s0
 /system/xbin/su		u:object_r:su_exec:s0
 /system/vendor/bin/gpsd u:object_r:gpsd_exec:s0
