@@ -23,10 +23,17 @@ typedef struct hash_entry hash_entry;
 typedef enum key_dir key_dir;
 typedef enum data_type data_type;
 typedef enum rule_map_switch rule_map_switch;
+typedef enum map_match map_match;
 typedef struct key_map key_map;
 typedef struct kvp kvp;
 typedef struct rule_map rule_map;
 typedef struct policy_info policy_info;
+
+enum map_match {
+	map_no_matches,
+	map_input_matched,
+	map_matched
+};
 
 /**
  * Whether or not the "key" from a key vaue pair is considered an
@@ -228,12 +235,13 @@ static int key_map_validate(key_map *m, int lineno) {
 
 	int rc = 1;
 	int ret = 1;
-	int i;
 	int resp;
 	char *key = m->name;
 	char *value = m->data;
 	data_type type = m->type;
 	sepol_bool_key_t *se_key;
+
+	log_info("Validating %s=%s\n", key, value);
 
 	 /* Booleans can always be checked for sanity */
 	if (type == dt_bool && (!strcmp("true", value) || !strcmp("false", value))) {
@@ -289,32 +297,23 @@ static int key_map_validate(key_map *m, int lineno) {
 		goto out;
 	}
 
-	/*
-	 * Ideally this should check if the category level
-	 * is defined in the policy. Since their doesn't appear
-	 * to be a shared object option to extract this information
-	 * for now, well just ensure it is a integer value.
-	 */
 	else if (!strcasecmp(key, "level")) {
 
-		i=0;
-		while(value[i] != '\0') {
-			if(!isdigit(value[i])) {
-				log_error("level: %s on line: %d is not a valid integer\n", value, lineno);
-				rc = 0;
-				goto out;
-			}
-			i++;
+		ret = sepol_mls_check(pol.handle, pol.db, value);
+		if (ret < 0) {
+			log_error("Could not check selinux mls \"%s\", error: %s\n",
+					value, strerror(errno));
+			rc = 0;
+			goto out;
 		}
 	}
 
-out:
-	return rc;
-
 bool_err:
 	sepol_bool_key_free(se_key);
-	goto out;
 
+out:
+	log_info("Key map validate returning: %d\n", rc);
+	return rc;
 }
 
 /**
@@ -349,7 +348,7 @@ static void rule_map_print(FILE *fp, rule_map *r) {
  *  1 - If the input selectors match, ie needs an override
  * -1 - If the input and output selectors match, ie duplicate line
  */
-static int rule_map_cmp(rule_map *rmA, rule_map *rmB) {
+static map_match rule_map_cmp(rule_map *rmA, rule_map *rmB) {
 
 	int i;
 	int j;
@@ -361,7 +360,7 @@ static int rule_map_cmp(rule_map *rmA, rule_map *rmB) {
 	key_map *mB;
 
 	if (rmA->length != rmB->length)
-		return 0;
+		return map_no_matches;
 
 	for (i = 0; i < rmA->length; i++) {
 		mA = &(rmA->m[i]);
@@ -386,27 +385,36 @@ static int rule_map_cmp(rule_map *rmA, rule_map *rmB) {
 				inputs_found++;
 			}
 
-			if (input_mode)
+			if (input_mode) {
+				log_info("Matched input lines: type=%s name=%s data=%s dir=%d\n", mA->type, mA->name, mA->data, mA->dir);
 				num_of_matched_inputs++;
+			}
 
 			/* Match found, move on */
+			log_info("Matched lines: type=%s name=%s data=%s dir=%d\n", mA->type, mA->name, mA->data, mA->dir);
 			matches++;
 			break;
 		}
 	}
 
 	/* If they all matched*/
-	if (matches == rmA->length)
-		return -1;
+	if (matches == rmA->length) {
+		log_info("Rule map cmp MATCH\n");
+		return map_matched;
+	}
 
 	/* They didn't all match but the input's did */
-	else if (num_of_matched_inputs == inputs_found)
-		return 1;
+	else if (num_of_matched_inputs == inputs_found) {
+		log_info("Rule map cmp INPUT MATCH\n");
+		return map_input_matched;
+	}
 
 	/* They didn't all match, and the inputs didn't match, ie it didn't
 	 * match */
-	else
-		return 0;
+	else {
+		log_info("Rule map cmp NO MATCH\n");
+		return map_no_matches;
+	}
 }
 
 /**
@@ -485,6 +493,7 @@ static rule_map *rule_map_new(kvp keys[], unsigned int num_of_keys, int lineno) 
 				goto oom;
 
 			/* Enforce type check*/
+			log_info("Validating keys!\n");
 			if (!key_map_validate(r, lineno)) {
 				log_error("Could not validate\n");
 				goto err;
@@ -611,6 +620,10 @@ static void init() {
 	log_info("Input file set to: %s\n", (in_file_name == NULL) ? "stdin" : in_file_name);
 	log_info("Output file set to: %s\n", (out_file_name == NULL) ? "stdout" : out_file_name);
 
+#if !defined(LINK_SEPOL_STATIC)
+	log_warning("LINK_SEPOL_STATIC is not defined\n""Not checking types!");
+#endif
+
 }
 
 /**
@@ -731,7 +744,7 @@ static void list_free() {
  */
 static void rule_add(rule_map *rm) {
 
-	int cmp;
+	map_match cmp;
 	ENTRY e;
 	ENTRY *f;
 	hash_entry *entry;
@@ -740,6 +753,7 @@ static void rule_add(rule_map *rm) {
 
 	e.key = rm->key;
 
+	log_info("Searching for key: %s\n", e.key);
 	/* Check to see if it has already been added*/
 	f = hsearch(e, FIND);
 
@@ -749,12 +763,13 @@ static void rule_add(rule_map *rm) {
 	 * checking for duplicate entries.
 	 */
 	if(f) {
+		log_info("Existing entry found!\n");
 		tmp = (hash_entry *)f->data;
 		cmp = rule_map_cmp(rm, tmp->r);
-
+		log_info("Comparing on rule map ret: %d\n", cmp);
 		/* Override be freeing the old rule map and updating
 		   the pointer */
-		if(cmp == 1) {
+		if(cmp != map_matched) {
 
 			/*
 			 * DO NOT free key pointers given to the hash map, instead
@@ -843,6 +858,7 @@ static void parse() {
 		token_cnt = 0;
 		memset(keys, 0, sizeof(kvp) * KVP_NUM_OF_RULES);
 		while (1) {
+
 			name = token;
 			value = strchr(name, '=');
 			if (!value)

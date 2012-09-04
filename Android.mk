@@ -81,7 +81,7 @@ $(seapp_contexts.conf): $(LOCAL_PATH)/seapp_contexts $(LOCAL_POLICY_SC)
 
 $(LOCAL_BUILT_MODULE) : $(seapp_contexts.conf) $(TARGET_ROOT_OUT)/sepolicy.$(POLICYVERS) $(HOST_OUT_EXECUTABLES)/checkseapp
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkseapp -p $(TARGET_ROOT_OUT)/sepolicy.24 -o $@ $<
+	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(TARGET_ROOT_OUT)/sepolicy.24 -o $@ $<
 
 seapp_contexts.conf :=
 ##################################
