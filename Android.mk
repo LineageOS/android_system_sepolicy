@@ -74,16 +74,16 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-seapp_contexts.conf := $(intermediates)/seapp_contexts.conf
-$(seapp_contexts.conf): $(LOCAL_PATH)/seapp_contexts $(LOCAL_POLICY_SC)
+seapp_contexts.tmp := $(intermediates)/seapp_contexts.tmp
+$(seapp_contexts.tmp): $(LOCAL_PATH)/seapp_contexts $(LOCAL_POLICY_SC)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $^ > $@
 
-$(LOCAL_BUILT_MODULE) : $(seapp_contexts.conf) $(TARGET_ROOT_OUT)/sepolicy.$(POLICYVERS) $(HOST_OUT_EXECUTABLES)/checkseapp
+$(LOCAL_BUILT_MODULE) : $(seapp_contexts.tmp) $(TARGET_ROOT_OUT)/sepolicy.$(POLICYVERS) $(HOST_OUT_EXECUTABLES)/checkseapp
 	@mkdir -p $(dir $@)
 	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(TARGET_ROOT_OUT)/sepolicy.24 -o $@ $<
 
-seapp_contexts.conf :=
+seapp_contexts.tmp :=
 ##################################
 include $(CLEAR_VARS)
 
