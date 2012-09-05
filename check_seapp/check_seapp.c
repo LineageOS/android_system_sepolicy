@@ -911,8 +911,7 @@ static void output() {
 		r = cursor->e->r;
 		rule_map_print(output_file, r);
 		cursor = cursor->next;
-		if (cursor)
-			fprintf(output_file, "\n");
+		fprintf(output_file, "\n");
 	}
 }
 
