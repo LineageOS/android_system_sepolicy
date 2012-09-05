@@ -248,8 +248,8 @@ static int key_map_validate(key_map *m, int lineno) {
 		goto out;
 	}
 	else if (type == dt_bool) {
-		log_error("Line number: %d, Expected boolean value got: %s=%s\n",
-				lineno, key, value);
+		log_error("Expected boolean value got: %s=%s on line: %d in file: %s\n",
+				key, value, lineno, out_file_name);
 		rc = 0;
 		goto out;
 	}
@@ -301,8 +301,8 @@ static int key_map_validate(key_map *m, int lineno) {
 
 		ret = sepol_mls_check(pol.handle, pol.db, value);
 		if (ret < 0) {
-			log_error("Could not check selinux mls \"%s\", error: %s\n",
-					value, strerror(errno));
+			log_error("Could not find selinux level \"%s\", on line: %d in file: %s\n", value,
+					lineno, out_file_name);
 			rc = 0;
 			goto out;
 		}
@@ -344,9 +344,7 @@ static void rule_map_print(FILE *fp, rule_map *r) {
  * @param rmB
  * 	a rule map to check
  * @return
- *  0 - If the rules input selectors are different, ie not a match
- *  1 - If the input selectors match, ie needs an override
- * -1 - If the input and output selectors match, ie duplicate line
+ *  a map_match enum indicating the result
  */
 static map_match rule_map_cmp(rule_map *rmA, rule_map *rmB) {
 
@@ -548,7 +546,7 @@ static void usage() {
 	printf(
 	        "checkseapp [options] <input file>\n"
 		        "Processes an seapp_contexts file specified by argument <input file> (default stdin) "
-		        "and allows later decelerations to override previous ones on a match.\n"
+		        "and allows later declarations to override previous ones on a match.\n"
 		        "Options:\n"
 		        "-h - print this help message\n"
 		        "-v - enable verbose debugging informations\n"
