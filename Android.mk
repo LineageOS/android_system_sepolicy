@@ -1,6 +1,9 @@
 ifeq ($(HAVE_SELINUX),true)
 
 LOCAL_PATH:= $(call my-dir)
+
+include $(call all-makefiles-under,$(LOCAL_PATH))
+
 include $(CLEAR_VARS)
 
 # SELinux policy version.
@@ -20,6 +23,7 @@ LOCAL_POLICY_FS_USE := $(wildcard $(addsuffix sepolicy.fs_use, $(LOCAL_POLICY_DI
 LOCAL_POLICY_PORT_CONTEXTS := $(wildcard $(addsuffix sepolicy.port_contexts, $(LOCAL_POLICY_DIRS)))
 LOCAL_POLICY_GENFS_CONTEXTS := $(wildcard $(addsuffix sepolicy.genfs_contexts, $(LOCAL_POLICY_DIRS)))
 LOCAL_POLICY_INITIAL_SID_CONTEXTS := $(wildcard $(addsuffix sepolicy.initial_sid_contexts, $(LOCAL_POLICY_DIRS)))
+LOCAL_POLICY_SC := $(wildcard $(addsuffix seapp_contexts, $(LOCAL_POLICY_DIRS)))
 
 ##################################
 include $(CLEAR_VARS)
@@ -60,17 +64,26 @@ $(file_contexts): $(LOCAL_PATH)/file_contexts $(LOCAL_POLICY_FC)
 	$(hide) m4 -s $^ > $@
 
 file_contexts :=
+
 ##################################
 include $(CLEAR_VARS)
-
 LOCAL_MODULE := seapp_contexts
-LOCAL_SRC_FILES := $(LOCAL_MODULE)
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
-include $(BUILD_PREBUILT)
+include $(BUILD_SYSTEM)/base_rules.mk
 
+seapp_contexts.tmp := $(intermediates)/seapp_contexts.tmp
+$(seapp_contexts.tmp): $(LOCAL_PATH)/seapp_contexts $(LOCAL_POLICY_SC)
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $^ > $@
+
+$(LOCAL_BUILT_MODULE) : $(seapp_contexts.tmp) $(TARGET_ROOT_OUT)/sepolicy.$(POLICYVERS) $(HOST_OUT_EXECUTABLES)/checkseapp
+	@mkdir -p $(dir $@)
+	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(TARGET_ROOT_OUT)/sepolicy.24 -o $@ $<
+
+seapp_contexts.tmp :=
 ##################################
 include $(CLEAR_VARS)
 
