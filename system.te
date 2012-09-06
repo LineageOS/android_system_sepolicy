@@ -206,3 +206,6 @@ allow system gps_control:file rw_file_perms;
 allow system appdomain:udp_socket { read write };
 # Allow abstract socket connection
 allow system rild:unix_stream_socket connectto;
+
+# connect to vpn tunnel
+allow system mtp:unix_stream_socket { connectto };
