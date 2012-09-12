@@ -83,6 +83,9 @@ allow domain cache_file:lnk_file read;
 allow domain cgroup:dir { search write };
 allow domain cgroup:file w_file_perms;
 
+#Allow access to ion memory allocation device
+allow domain ion_device:chr_file rw_file_perms;
+
 # For /sys/qemu_trace files in the emulator.
 bool in_qemu false;
 if (in_qemu) {
