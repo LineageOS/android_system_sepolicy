@@ -277,15 +277,18 @@ static int key_map_validate(key_map *m, int lineno) {
 			log_error("Could not check selinux boolean, error: %s\n",
 					strerror(errno));
 			rc = 0;
-			goto bool_err;
+			sepol_bool_key_free(se_key);
+			goto out;
 		}
 
 		if(!resp) {
 			log_error("Could not find selinux boolean \"%s\" on line: %d in file: %s\n",
 					value, lineno, out_file_name);
 			rc = 0;
-			goto bool_err;
+			sepol_bool_key_free(se_key);
+			goto out;
 		}
+		sepol_bool_key_free(se_key);
 	}
 	else if (!strcasecmp(key, "type") || !strcasecmp(key, "domain")) {
 
@@ -296,7 +299,6 @@ static int key_map_validate(key_map *m, int lineno) {
 		}
 		goto out;
 	}
-
 	else if (!strcasecmp(key, "level")) {
 
 		ret = sepol_mls_check(pol.handle, pol.db, value);
@@ -307,9 +309,6 @@ static int key_map_validate(key_map *m, int lineno) {
 			goto out;
 		}
 	}
-
-bool_err:
-	sepol_bool_key_free(se_key);
 
 out:
 	log_info("Key map validate returning: %d\n", rc);
@@ -619,7 +618,7 @@ static void init() {
 	log_info("Output file set to: %s\n", (out_file_name == NULL) ? "stdout" : out_file_name);
 
 #if !defined(LINK_SEPOL_STATIC)
-	log_warning("LINK_SEPOL_STATIC is not defined\n""Not checking types!");
+	log_warn("LINK_SEPOL_STATIC is not defined\n""Not checking types!");
 #endif
 
 }
