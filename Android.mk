@@ -9,7 +9,7 @@ include $(CLEAR_VARS)
 # SELinux policy version.
 # Must be <= /selinux/policyvers reported by the Android kernel.
 # Must be within the compatibility range reported by checkpolicy -V.
-POLICYVERS := 24
+POLICYVERS ?= 24
 
 MLS_SENS=1
 MLS_CATS=1024
@@ -31,7 +31,6 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := sepolicy
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_SUFFIX := .$(POLICYVERS)
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
@@ -92,9 +91,9 @@ $(seapp_contexts.tmp): $(LOCAL_PATH)/seapp_contexts $(LOCAL_POLICY_SC)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $^ > $@
 
-$(LOCAL_BUILT_MODULE) : $(seapp_contexts.tmp) $(TARGET_ROOT_OUT)/sepolicy.$(POLICYVERS) $(HOST_OUT_EXECUTABLES)/checkseapp
+$(LOCAL_BUILT_MODULE) : $(seapp_contexts.tmp) $(TARGET_ROOT_OUT)/sepolicy $(HOST_OUT_EXECUTABLES)/checkseapp
 	@mkdir -p $(dir $@)
-	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(TARGET_ROOT_OUT)/sepolicy.24 -o $@ $<
+	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(TARGET_ROOT_OUT)/sepolicy -o $@ $<
 
 seapp_contexts.tmp :=
 ##################################
