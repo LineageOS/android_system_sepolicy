@@ -277,15 +277,18 @@ static int key_map_validate(key_map *m, int lineno) {
 			log_error("Could not check selinux boolean, error: %s\n",
 					strerror(errno));
 			rc = 0;
-			goto bool_err;
+			sepol_bool_key_free(se_key);
+			goto out;
 		}
 
 		if(!resp) {
 			log_error("Could not find selinux boolean \"%s\" on line: %d in file: %s\n",
 					value, lineno, out_file_name);
 			rc = 0;
-			goto bool_err;
+			sepol_bool_key_free(se_key);
+			goto out;
 		}
+		sepol_bool_key_free(se_key);
 	}
 	else if (!strcasecmp(key, "type") || !strcasecmp(key, "domain")) {
 
@@ -296,7 +299,6 @@ static int key_map_validate(key_map *m, int lineno) {
 		}
 		goto out;
 	}
-
 	else if (!strcasecmp(key, "level")) {
 
 		ret = sepol_mls_check(pol.handle, pol.db, value);
@@ -307,9 +309,6 @@ static int key_map_validate(key_map *m, int lineno) {
 			goto out;
 		}
 	}
-
-bool_err:
-	sepol_bool_key_free(se_key);
 
 out:
 	log_info("Key map validate returning: %d\n", rc);
@@ -500,19 +499,23 @@ static rule_map *rule_map_new(kvp keys[], unsigned int num_of_keys, int lineno) 
 			/* Only build key off of inputs*/
 			if (r->dir == dir_in) {
 				char *tmp;
-				int l = strlen(k->key);
-				l += strlen(k->value);
-				l += (new_map->key) ? strlen(new_map->key) : 0;
+				int key_len = strlen(k->key);
+				int val_len = strlen(k->value);
+				int l = (new_map->key) ? strlen(new_map->key) : 0;
+				l = l + key_len + val_len;
 				l += 1;
 
 				tmp = realloc(new_map->key, l);
 				if (!tmp)
 					goto oom;
 
+				if (!new_map->key)
+					memset(tmp, 0, l);
+
 				new_map->key = tmp;
 
-				strcat(new_map->key, k->key);
-				strcat(new_map->key, k->value);
+				strncat(new_map->key, k->key, key_len);
+				strncat(new_map->key, k->value, val_len);
 			}
 			break;
 		}
@@ -619,7 +622,7 @@ static void init() {
 	log_info("Output file set to: %s\n", (out_file_name == NULL) ? "stdout" : out_file_name);
 
 #if !defined(LINK_SEPOL_STATIC)
-	log_warning("LINK_SEPOL_STATIC is not defined\n""Not checking types!");
+	log_warn("LINK_SEPOL_STATIC is not defined\n""Not checking types!");
 #endif
 
 }
