@@ -67,6 +67,10 @@ bluetooth_domain(release_app)
 # Read logs.
 allow release_app log_device:chr_file read;
 
+# Services with isolatedProcess=true in their manifest.
+type isolated_app, domain;
+app_domain(isolated_app)
+
 #
 # An example of a specific domain for a specific app
 # A domain for com.android.browser.

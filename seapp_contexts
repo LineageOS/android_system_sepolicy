@@ -39,3 +39,4 @@ user=app_* seinfo=shared domain=shared_app type=platform_app_data_file
 user=app_* seinfo=media domain=media_app type=platform_app_data_file
 user=app_* seinfo=release domain=release_app type=platform_app_data_file
 user=app_* seinfo=release name=com.android.browser domain=browser_app type=platform_app_data_file
+user=isolated domain=isolated_app levelFromUid=true
