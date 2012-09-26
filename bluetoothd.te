@@ -1,0 +1,10 @@
+# bluetoothd - bluetooth daemon
+type bluetoothd, domain;
+type bluetoothd_exec, exec_type, file_type;
+
+init_daemon_domain(bluetoothd)
+allow bluetoothd self:capability { setuid net_raw net_bind_service net_admin };
+allow bluetoothd self:socket *;
+allow bluetoothd bluetoothd_data_file:dir create_dir_perms;
+allow bluetoothd bluetoothd_data_file:file create_file_perms;
+unix_socket_connect(bluetoothd, dbus, dbusd)
