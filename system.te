@@ -106,6 +106,7 @@ unix_socket_connect(system, zygote, zygote)
 unix_socket_connect(system, keystore, keystore)
 unix_socket_connect(system, dbus, dbusd)
 unix_socket_connect(system, gps, gpsd)
+unix_socket_connect(system, bluetooth, bluetoothd)
 unix_socket_send(system, wpa, wpa)
 
 # Communicate over a socket created by surfaceflinger.
