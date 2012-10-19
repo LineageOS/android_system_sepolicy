@@ -89,9 +89,12 @@ allow system mediaserver:process setsched;
 allow system appdomain:dir r_dir_perms;
 allow system appdomain:{ file lnk_file } rw_file_perms;
 
-# Write to /proc/net/xt_qtaguid/ctrl.
+# Read/Write to /proc/net/xt_qtaguid/ctrl and and /dev/xt_qtaguid.
 allow system qtaguid_proc:file rw_file_perms;
 allow system qtaguid_device:chr_file rw_file_perms;
+
+# WifiWatchdog uses a packet_socket
+allow system self:packet_socket *;
 
 # Notify init of death.
 allow system init:process sigchld;
