@@ -57,6 +57,7 @@ $(LOCAL_BUILT_MODULE) : $(sepolicy_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpol
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@ $<
 
+built_sepolicy := $(LOCAL_BUILT_MODULE)
 sepolicy_policy.conf :=
 
 ###################################
@@ -83,11 +84,11 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 ALL_FC_FILES := $(LOCAL_PATH)/file_contexts $(LOCAL_POLICY_FC)
 
-file_contexts := $(intermediates)/file_contexts
-$(file_contexts):  $(ALL_FC_FILES) sepolicy $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE):  $(ALL_FC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(ALL_FC_FILES) > $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(TARGET_ROOT_OUT)/sepolicy $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $@
 
 file_contexts :=
 
@@ -105,11 +106,13 @@ $(seapp_contexts.tmp): $(LOCAL_PATH)/seapp_contexts $(LOCAL_POLICY_SC)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $^ > $@
 
-$(LOCAL_BUILT_MODULE) : $(seapp_contexts.tmp) $(TARGET_ROOT_OUT)/sepolicy $(HOST_OUT_EXECUTABLES)/checkseapp
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE) : $(seapp_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkseapp
 	@mkdir -p $(dir $@)
-	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(TARGET_ROOT_OUT)/sepolicy -o $@ $<
+	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $<
 
 seapp_contexts.tmp :=
+built_sepolicy :=
 ##################################
 include $(CLEAR_VARS)
 
