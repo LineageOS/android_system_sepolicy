@@ -12,16 +12,46 @@ POLICYVERS ?= 24
 MLS_SENS=1
 MLS_CATS=1024
 
-LOCAL_POLICY_DIRS := $(SRC_TARGET_DIR)/board/$(TARGET_DEVICE)/ device/*/$(TARGET_DEVICE)/ vendor/*/$(TARGET_DEVICE)/
+# Quick edge case error detection for BOARD_SEPOLICY_REPLACE.
+# Builds the singular path for each replace file.
+sepolicy_replace_paths :=
+$(foreach pf, $(BOARD_SEPOLICY_REPLACE), \
+  $(if $(filter $(pf), $(BOARD_SEPOLICY_UNION)), \
+    $(error Ambiguous request for sepolicy $(pf). Appears in both \
+      BOARD_SEPOLICY_REPLACE and BOARD_SEPOLICY_UNION), \
+  ) \
+  $(eval _paths := $(wildcard $(addsuffix /$(pf), $(BOARD_SEPOLICY_DIRS)))) \
+  $(eval _occurrences := $(words $(_paths))) \
+  $(if $(filter 0,$(_occurrences)), \
+    $(error No sepolicy file found for $(pf) in $(BOARD_SEPOLICY_DIRS)), \
+  ) \
+  $(if $(filter 1, $(_occurrences)), \
+    $(eval sepolicy_replace_paths += $(_paths)), \
+    $(error Multiple occurrences of replace file $(pf) in $(_paths)) \
+  ) \
+  $(if $(filter 0, $(words $(wildcard $(addsuffix /$(pf), $(LOCAL_PATH))))), \
+    $(error Specified the sepolicy file $(pf) in BOARD_SEPOLICY_REPLACE, \
+      but none found in $(LOCAL_PATH)), \
+  ) \
+)
 
-LOCAL_POLICY_FC := $(wildcard $(addsuffix sepolicy.fc, $(LOCAL_POLICY_DIRS)))
-LOCAL_POLICY_TE := $(wildcard $(addsuffix sepolicy.te, $(LOCAL_POLICY_DIRS)))
-LOCAL_POLICY_PC := $(wildcard $(addsuffix sepolicy.pc, $(LOCAL_POLICY_DIRS)))
-LOCAL_POLICY_FS_USE := $(wildcard $(addsuffix sepolicy.fs_use, $(LOCAL_POLICY_DIRS)))
-LOCAL_POLICY_PORT_CONTEXTS := $(wildcard $(addsuffix sepolicy.port_contexts, $(LOCAL_POLICY_DIRS)))
-LOCAL_POLICY_GENFS_CONTEXTS := $(wildcard $(addsuffix sepolicy.genfs_contexts, $(LOCAL_POLICY_DIRS)))
-LOCAL_POLICY_INITIAL_SID_CONTEXTS := $(wildcard $(addsuffix sepolicy.initial_sid_contexts, $(LOCAL_POLICY_DIRS)))
-LOCAL_POLICY_SC := $(wildcard $(addsuffix seapp_contexts, $(LOCAL_POLICY_DIRS)))
+# Builds paths for all requested policy files w.r.t
+# both BOARD_SEPOLICY_REPLACE and BOARD_SEPOLICY_UNION
+# product variables.
+# $(1): the set of policy name paths to build
+build_policy = $(foreach type, $(1), \
+  $(foreach expanded_type, $(notdir $(wildcard $(addsuffix /$(type), $(LOCAL_PATH)))), \
+    $(if $(filter $(expanded_type), $(BOARD_SEPOLICY_REPLACE)), \
+      $(wildcard $(addsuffix $(expanded_type), $(dir $(sepolicy_replace_paths)))), \
+      $(LOCAL_PATH)/$(expanded_type) \
+    ) \
+  ) \
+  $(foreach union_policy, $(wildcard $(addsuffix /$(type), $(BOARD_SEPOLICY_DIRS))), \
+    $(if $(filter $(notdir $(union_policy)), $(BOARD_SEPOLICY_UNION)), \
+      $(union_policy), \
+    ) \
+  ) \
+)
 
 ##################################
 include $(CLEAR_VARS)
@@ -37,7 +67,7 @@ sepolicy_policy.conf := $(intermediates)/policy.conf
 
 # Build up the list of policy files (the order matters, since they will all be
 # cat'd together)
-POLICY_DEPENDS := $(wildcard $(addprefix $(LOCAL_PATH)/,security_classes initial_sids access_vectors global_macros mls_macros mls policy_capabilities te_macros attributes *.te))
+POLICY_DEPENDS := $(call build_policy, security_classes initial_sids access_vectors global_macros mls_macros mls policy_capabilities te_macros attributes *.te)
 
 # Add extra policy for "su", but only for eng and userdebug builds
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
@@ -45,7 +75,7 @@ POLICY_DEPENDS += $(wildcard $(addprefix $(LOCAL_PATH)/conditional/, su.te))
 endif
 
 # Add in the rest of the policy
-POLICY_DEPENDS += $(wildcard $(LOCAL_POLICY_TE) $(addprefix $(LOCAL_PATH)/, roles users initial_sid_contexts) $(LOCAL_POLICY_INITIAL_SID_CONTEXTS) $(addprefix $(LOCAL_PATH)/,fs_use) $(LOCAL_POLICY_FS_USE) $(addprefix $(LOCAL_PATH)/,genfs_contexts) $(LOCAL_POLICY_GENFS_CONTEXTS) $(addprefix $(LOCAL_PATH)/,port_contexts) $(LOCAL_POLICY_PORT_CONTEXTS))
+POLICY_DEPENDS += $(call build_policy, roles users initial_sid_contexts fs_use genfs_contexts port_contexts)
 
 $(sepolicy_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(sepolicy_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
@@ -82,7 +112,7 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-ALL_FC_FILES := $(LOCAL_PATH)/file_contexts $(LOCAL_POLICY_FC)
+ALL_FC_FILES := $(call build_policy, file_contexts)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE):  $(ALL_FC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
@@ -102,7 +132,7 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 include $(BUILD_SYSTEM)/base_rules.mk
 
 seapp_contexts.tmp := $(intermediates)/seapp_contexts.tmp
-$(seapp_contexts.tmp): $(LOCAL_PATH)/seapp_contexts $(LOCAL_POLICY_SC)
+$(seapp_contexts.tmp): $(call build_policy, seapp_contexts)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $^ > $@
 
@@ -124,7 +154,7 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 include $(BUILD_SYSTEM)/base_rules.mk
 
 property_contexts := $(intermediates)/property_contexts
-$(property_contexts): $(LOCAL_PATH)/property_contexts $(LOCAL_POLICY_PC)
+$(property_contexts): $(call build_policy, property_contexts)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $^ > $@
 
@@ -155,3 +185,6 @@ LOCAL_SRC_FILES := $(LOCAL_MODULE)
 include $(BUILD_PREBUILT)
 
 ##################################
+
+build_policy :=
+sepolicy_replace_paths :=
