@@ -851,11 +851,11 @@ static void parse() {
 		log_info("Got line %d\n", lineno);
 		len = strlen(line_buf);
 		if (line_buf[len - 1] == '\n')
-			line_buf[len - 1] = 0;
+			line_buf[len - 1] = '\0';
 		p = line_buf;
 		while (isspace(*p))
 			p++;
-		if (*p == '#' || *p == 0)
+		if (*p == '#' || *p == '\0')
 			continue;
 
 		token = strtok_r(p, " \t", &saveptr);
