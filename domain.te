@@ -54,6 +54,7 @@ allow domain urandom_device:chr_file r_file_perms;
 
 # Filesystem accesses.
 allow domain fs_type:filesystem getattr;
+allow domain fs_type:dir getattr;
 
 # System file accesses.
 allow domain system_file:dir r_dir_perms;

@@ -26,6 +26,9 @@ allow platform_app shell_data_file:lnk_file read;
 allow platform_app apk_tmp_file:file rw_file_perms;
 # Read /dev/xt_qtaguid
 allow platform_app qtaguid_device:chr_file r_file_perms;
+# ASEC
+allow platform_app asec_apk_file:dir create_dir_perms;
+allow platform_app asec_apk_file:file create_file_perms;
 
 # Apps signed with the media key.
 type media_app, domain;
@@ -53,6 +56,8 @@ net_domain(shared_app)
 bluetooth_domain(shared_app)
 # Read logs.
 allow shared_app log_device:chr_file read;
+# ASEC
+r_dir_file(shared_app, asec_apk_file);
 
 # Apps signed with the release key (testkey in AOSP).
 type release_app, domain;
