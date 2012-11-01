@@ -1,7 +1,5 @@
 LOCAL_PATH:= $(call my-dir)
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
-
 include $(CLEAR_VARS)
 
 # SELinux policy version.
@@ -78,18 +76,6 @@ built_sepolicy := $(LOCAL_BUILT_MODULE)
 sepolicy_policy.conf :=
 
 ###################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := checkfc
-LOCAL_MODULE_TAGS := optional
-LOCAL_C_INCLUDES += external/libsepol/include external/libselinux/include
-LOCAL_SRC_FILES := checkfc.c
-LOCAL_STATIC_LIBRARIES := libsepol libselinux
-LOCAL_MODULE_CLASS := EXECUTABLES
-
-include $(BUILD_HOST_EXECUTABLE)
-
-##################################
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := file_contexts
@@ -175,3 +161,5 @@ include $(BUILD_PREBUILT)
 
 build_policy :=
 sepolicy_replace_paths :=
+
+include $(call all-makefiles-under,$(LOCAL_PATH))
