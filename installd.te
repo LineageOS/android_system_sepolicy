@@ -20,3 +20,7 @@ dontaudit installd self:capability sys_admin;
 selinux_check_context(installd)
 # Read /seapp_contexts, presently on the rootfs.
 allow installd rootfs:file r_file_perms;
+# ASEC
+allow installd platform_app_data_file:lnk_file { create setattr };
+allow installd app_data_file:lnk_file { create setattr };
+allow installd asec_apk_file:file r_file_perms;
