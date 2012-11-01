@@ -16,7 +16,7 @@ allow vold sdcard:dir create_dir_perms;
 allow vold tmpfs:filesystem { mount unmount };
 allow vold tmpfs:dir create_dir_perms;
 allow vold tmpfs:dir mounton;
-allow vold self:capability { net_admin dac_override mknod sys_admin };
+allow vold self:capability { net_admin dac_override mknod sys_admin chown fowner fsetid };
 allow vold self:netlink_kobject_uevent_socket *;
 allow vold app_data_file:dir search;
 allow vold app_data_file:file rw_file_perms;
@@ -39,7 +39,7 @@ allow vold sysfs:file rw_file_perms;
 unix_socket_connect(vold, property, init)
 
 # Unmount and mount the fs.
-allow vold labeledfs:filesystem { mount unmount };
+allow vold labeledfs:filesystem { mount unmount remount };
 
 # Access /efs/userdata_footer.
 # XXX Split into a separate type?
@@ -53,7 +53,14 @@ allow vold kernel:system module_request;
 allow vold proc:file write;
 
 # Create and mount on /data/tmp_mnt.
-allow vold system_data_file:dir { open read write create add_name mounton };
+allow vold system_data_file:dir { rw_dir_perms mounton };
 
 # Property Service
 allow vold vold_prop:property_service set;
+
+# ASEC
+allow vold asec_image_file:file create_file_perms;
+allow vold asec_image_file:dir rw_dir_perms;
+allow vold rootfs:file r_file_perms;
+allow vold asec_apk_file:dir { rw_dir_perms setattr };
+allow vold asec_apk_file:file { r_file_perms setattr };

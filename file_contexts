@@ -152,4 +152,5 @@
 /sys/devices/platform/nfc-power/nfc_power -- u:object_r:sysfs_nfc_power_writable:s0
 #############################
 # asec containers
-/mnt/asec(/.*)?         u:object_r:asec_data_file:s0
+/mnt/asec(/.*)?         u:object_r:asec_apk_file:s0
+/data/app-asec(/.*)?    u:object_r:asec_image_file:s0
