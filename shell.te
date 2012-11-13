@@ -1,4 +1,4 @@
-type shell, domain;
+type shell, domain, mlstrustedsubject;
 type shell_exec, file_type;
 domain_auto_trans(init, shell_exec, shell)
 allow shell rootfs:dir r_dir_perms;
