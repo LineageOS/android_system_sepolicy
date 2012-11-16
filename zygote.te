@@ -29,3 +29,9 @@ selinux_check_access(zygote)
 # Read /seapp_contexts, presently on the rootfs.
 allow zygote rootfs:file r_file_perms;
 
+# Setting up /storage/emulated.
+allow zygote rootfs:dir mounton;
+allow zygote sdcard:dir { write search setattr create add_name mounton };
+dontaudit zygote self:capability fsetid;
+allow zygote tmpfs:dir { write create add_name setattr mounton };
+allow zygote tmpfs:filesystem mount;

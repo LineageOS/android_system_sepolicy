@@ -33,6 +33,7 @@
 #
 isSystemServer=true domain=system
 user=system domain=system_app type=system_data_file
+user=bluetooth domain=bluetooth type=bluetooth_data_file
 user=nfc domain=nfc type=nfc_data_file
 user=radio domain=radio type=radio_data_file
 user=_app domain=untrusted_app type=app_data_file levelFromUid=true

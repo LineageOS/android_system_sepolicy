@@ -82,8 +82,8 @@ allow system self:netlink_kobject_uevent_socket *;
 allow system appdomain:process { sigkill signal };
 
 # Set scheduling info for apps.
-allow system appdomain:process setsched;
-allow system mediaserver:process setsched;
+allow system appdomain:process { getsched setsched };
+allow system mediaserver:process { getsched setsched };
 
 # Read /proc data for apps.
 allow system appdomain:dir r_dir_perms;
