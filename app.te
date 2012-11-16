@@ -188,10 +188,8 @@ allow appdomain qtaguid_device:chr_file r_file_perms;
 binder_use(appdomain)
 # Perform binder IPC to binder services.
 binder_call(appdomain, binderservicedomain)
-binder_transfer(appdomain, binderservicedomain)
 # Perform binder IPC to other apps.
 binder_call(appdomain, appdomain)
-binder_transfer(appdomain, appdomain)
 
 # Appdomain interaction with isolated apps
 r_dir_file(appdomain, isolated_app)
