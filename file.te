@@ -9,6 +9,7 @@ type selinuxfs, fs_type;
 type cgroup, fs_type, mlstrustedobject;
 type sysfs, fs_type, mlstrustedobject;
 type sysfs_writable, fs_type, sysfs_type, mlstrustedobject;
+type sysfs_bluetooth_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_nfc_power_writable, fs_type, sysfs_type, mlstrustedobject;
 type inotify, fs_type, mlstrustedobject;
 type devpts, fs_type;
@@ -69,6 +70,7 @@ type asec_image_file, file_type, data_file_type;
 type bluetooth_efs_file, file_type;
 
 # Socket types
+type adbd_socket, file_type;
 type bluetooth_socket, file_type;
 type dbus_socket, file_type;
 type dnsproxyd_socket, file_type, mlstrustedobject;

@@ -55,6 +55,7 @@
 /dev/s3c-mfc		u:object_r:graphics_device:s0
 /dev/snd(/.*)?		u:object_r:audio_device:s0
 /dev/socket		u:object_r:socket_device:s0
+/dev/socket/adbd	u:object_r:adbd_socket:s0
 /dev/socket/bluetooth	u:object_r:bluetooth_socket:s0
 /dev/socket/dbus_bluetooth	u:object_r:bluetooth_socket:s0
 /dev/socket/dbus	u:object_r:dbus_socket:s0
@@ -127,6 +128,7 @@
 # Misc data
 /data/misc/bluetoothd(/.*)?	u:object_r:bluetoothd_data_file:s0
 /data/misc/bluetooth(/.*)?	u:object_r:bluetooth_data_file:s0
+/data/misc/bluedroid(/.*)?	u:object_r:bluetooth_data_file:s0
 /data/misc/keystore(/.*)?	u:object_r:keystore_data_file:s0
 /data/misc/vpn(/.*)?		u:object_r:vpn_data_file:s0
 /data/misc/systemkeys(/.*)?	u:object_r:systemkeys_data_file:s0
@@ -150,6 +152,8 @@
 #
 /sys/qemu_trace/process_name	--	u:object_r:sysfs_writable:s0
 /sys/devices/platform/nfc-power/nfc_power -- u:object_r:sysfs_nfc_power_writable:s0
+/sys/class/rfkill/rfkill[0-9]*/state -- u:object_r:sysfs_bluetooth_writable:s0
+/sys/class/rfkill/rfkill[0-9]*/type -- u:object_r:sysfs_bluetooth_writable:s0
 #############################
 # asec containers
 /mnt/asec(/.*)?         u:object_r:asec_apk_file:s0
