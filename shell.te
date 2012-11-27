@@ -36,7 +36,7 @@ app_domain(shell)
 allow shell shell_prop:property_service set;
 
 # setprop toolbox command
-allow shell property_socket:sock_file write;
+unix_socket_connect(shell, property, init)
 
 # ctl interface
 allow shell ctl_dumpstate_prop:property_service set;
