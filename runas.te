@@ -1,0 +1,69 @@
+type runas, domain, mlstrustedsubject;
+type runas_exec, file_type;
+
+bool support_runas true;
+
+if (support_runas) {
+
+# ndk-gdb invokes adb shell ps to find the app PID.
+r_dir_file(shell, untrusted_app)
+dontaudit shell domain:dir r_dir_perms;
+dontaudit shell domain:file r_file_perms;
+
+# ndk-gdb invokes adb shell ls to check the app data dir.
+allow shell app_data_file:dir search;
+
+# ndk-gdb invokes adb shell kill -9 to kill the gdbserver.
+allow shell untrusted_app:process sigkill;
+dontaudit shell self:capability { sys_ptrace kill };
+
+# ndk-gdb invokes adb shell run-as.
+domain_auto_trans(shell, runas_exec, runas)
+allow runas shell:fd  use;
+allow runas devpts:chr_file { read write };
+
+# run-as reads package information.
+allow runas system_data_file:file r_file_perms;
+
+# run-as checks and changes to the app data dir.
+dontaudit runas self:capability dac_override;
+allow runas self:capability dac_read_search;
+allow runas app_data_file:dir { getattr search };
+
+# run-as switches to the app UID/GID.
+allow runas self:capability { setuid setgid };
+
+# run-as switches to the app security context.
+allow runas rootfs:file r_file_perms; # read /seapp_contexts
+selinux_check_context(runas) # validate context
+allow runas untrusted_app:process dyntransition; # setcon
+
+# run-as runs lib/gdbserver from the app data dir.
+allow untrusted_app system_data_file:file rx_file_perms;
+
+# run-as may also run sh or system commands.
+allow untrusted_app shell_exec:file rx_file_perms;
+allow untrusted_app system_file:file rx_file_perms;
+
+# gdbserver reads the zygote.
+allow untrusted_app zygote_exec:file r_file_perms;
+
+# (grand)child death notification.
+allow untrusted_app shell:process sigchld;
+
+# child shell or gdbserver pty access.
+allow untrusted_app devpts:chr_file { getattr read write };
+
+# gdbserver creates a socket in the app data dir.
+allow untrusted_app app_data_file:sock_file { create unlink };
+
+# ndk-gdb invokes adb forward to forward the gdbserver socket.
+allow adbd app_data_file:dir search;
+allow adbd app_data_file:sock_file write;
+allow adbd untrusted_app:unix_stream_socket connectto;
+
+# ndk-gdb invokes adb pull of app_process, linker, and libc.so.
+allow adbd zygote_exec:file r_file_perms;
+allow adbd system_file:file r_file_perms;
+
+}
