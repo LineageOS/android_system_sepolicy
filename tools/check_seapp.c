@@ -163,7 +163,7 @@ key_map rules[] = {
                 { .name = "type",           .type = dt_string, .dir = dir_out, .data = NULL },
                 { .name = "levelFromUid",   .type = dt_bool,   .dir = dir_out, .data = NULL },
                 { .name = "level",          .type = dt_string, .dir = dir_out, .data = NULL },
-			};
+};
 
 /**
  * Head pointer to a linked list of
@@ -230,6 +230,8 @@ int check_type(sepol_policydb_t *db, char *type) {
  * 	The key map to check
  * @param lineno
  * 	The line number in the source file for the corresponding key map
+ * @return
+ * 	1 if valid, 0 if invalid
  */
 static int key_map_validate(key_map *m, int lineno) {
 
