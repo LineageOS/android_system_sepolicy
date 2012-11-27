@@ -1,0 +1,58 @@
+Policy Generation:
+
+Additional, per device, policy files can be added into the
+policy build.
+
+They can be configured through the use of three variables,
+they are:
+1. BOARD_SEPOLICY_REPLACE
+2. BOARD_SEPOLICY_UNION
+3. BOARD_SEPOLICY_DIRS
+
+The variables should be set in the BoardConfig.mk file in
+the device or vendor directories.
+
+BOARD_SEPOLICY_UNION is a list of files that will be
+"unioned", IE concatenated, at the END of their respective
+file in external/sepolicy. Note, to add a unique file you
+would use this variable.
+
+BOARD_SEPOLICY_REPLACE is a list of files that will be
+used instead of the corresponding file in external/sepolicy.
+
+BOARD_SEPOLICY_DIRS contains a list of directories to search
+for BOARD_SEPOLICY_UNION and BOARD_SEPOLICY_REPLACE files. Order
+matters in this list.
+eg.) If you have BOARD_SEPOLICY_UNION := widget.te and have 2
+instances of widget.te files on BOARD_SEPOLICY_DIRS search path.
+The first one found (at the first search dir containing the file)
+gets processed first.
+Reviewing out/target/product/<device>/etc/sepolicy_intermediates/policy.conf
+will help sort out ordering issues.
+
+It is an error to specify a BOARD_POLICY_REPLACE file that does
+not exist in external/sepolicy.
+
+It is an error to specify a BOARD_POLICY_REPLACE file that appears
+multiple times on the policy search path defined by BOARD_SEPOLICY_DIRS.
+eg.) if you specify shell.te in BOARD_SEPOLICY_REPLACE and
+BOARD_SEPOLICY_DIRS is set to
+"vendor/widget/common/sepolicy device/widget/x/sepolicy" and shell.te
+appears in both locations, it is an error.
+
+It is an error to specify the same file name in both
+BOARD_POLICY_REPLACE and BOARD_POLICY_UNION.
+
+It is an error to specify a BOARD_SEPOLICY_DIRS that has no entries when
+specifying BOARD_SEPOLICY_REPLACE.
+
+Example Usage:
+From the Tuna device BoardConfig.mk, device/samsung/tuna/BoardConfig.mk
+
+BOARD_SEPOLICY_DIRS := \
+        device/samsung/tuna/sepolicy
+
+BOARD_SEPOLICY_UNION := \
+        genfs_contexts \
+        file_contexts \
+        sepolicy.te
