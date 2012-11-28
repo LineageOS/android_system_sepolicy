@@ -162,6 +162,7 @@ key_map rules[] = {
                 { .name = "domain",         .type = dt_string, .dir = dir_out, .data = NULL },
                 { .name = "type",           .type = dt_string, .dir = dir_out, .data = NULL },
                 { .name = "levelFromUid",   .type = dt_bool,   .dir = dir_out, .data = NULL },
+                { .name = "levelFrom",      .type = dt_string,   .dir = dir_out, .data = NULL },
                 { .name = "level",          .type = dt_string, .dir = dir_out, .data = NULL },
 };
 
@@ -252,6 +253,15 @@ static int key_map_validate(key_map *m, int lineno) {
 	else if (type == dt_bool) {
 		log_error("Expected boolean value got: %s=%s on line: %d in file: %s\n",
 				key, value, lineno, out_file_name);
+		rc = 0;
+		goto out;
+	}
+
+	if (!strcasecmp(key, "levelFrom") &&
+	    (strcasecmp(value, "none") && strcasecmp(value, "all") &&
+	     strcasecmp(value, "app") && strcasecmp(value, "user"))) {
+		log_error("Unknown levelFrom=%s on line: %d in file: %s\n",
+			  value, lineno, out_file_name);
 		rc = 0;
 		goto out;
 	}

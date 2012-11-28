@@ -24,11 +24,12 @@
 # Outputs:
 #	domain (string)
 #	type (string)
-#	levelFromUid (boolean)
+#	levelFrom (string; one of none, all, app, or user)
 #	level (string)
 # Only entries that specify domain= will be used for app process labeling.
 # Only entries that specify type= will be used for app directory labeling.
-# levelfromUid is only supported for app UIDs presently.
+# levelFrom=user is only supported for _app or _isolated UIDs.
+# levelFrom=app or levelFrom=all is only supported for _app UIDs.
 # level may be used to specify a fixed level for any UID. 
 #
 isSystemServer=true domain=system
@@ -36,7 +37,7 @@ user=system domain=system_app type=system_data_file
 user=bluetooth domain=bluetooth type=bluetooth_data_file
 user=nfc domain=nfc type=nfc_data_file
 user=radio domain=radio type=radio_data_file
-user=_app domain=untrusted_app type=app_data_file levelFromUid=true
+user=_app domain=untrusted_app type=app_data_file levelFrom=app
 user=_app seinfo=platform domain=platform_app type=platform_app_data_file
 user=_app seinfo=shared domain=shared_app type=platform_app_data_file
 user=_app seinfo=media domain=media_app type=platform_app_data_file
