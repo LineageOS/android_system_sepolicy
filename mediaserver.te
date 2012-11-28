@@ -3,6 +3,7 @@ type mediaserver, domain;
 type mediaserver_exec, exec_type, file_type;
 
 init_daemon_domain(mediaserver)
+unix_socket_connect(mediaserver, property, init)
 net_domain(mediaserver)
 typeattribute mediaserver mlstrustedsubject;
 allow mediaserver kernel:system module_request;
@@ -43,3 +44,4 @@ allow mediaserver qtaguid_device:chr_file r_file_perms;
 allow mediaserver rild:unix_stream_socket connectto;
 
 allow mediaserver tee_device:chr_file rw_file_perms;
+allow mediaserver audio_prop:property_service set;
