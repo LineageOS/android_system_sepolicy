@@ -10,6 +10,13 @@ POLICYVERS ?= 24
 MLS_SENS=1
 MLS_CATS=1024
 
+MAC_PERMISSION_FILE=mac_permissions.xml
+
+# Detect if someone tries to union the mac permissions policy file
+$(if $(filter $(MAC_PERMISSION_FILE), $(BOARD_SEPOLICY_UNION)), \
+    $(error Cannot specify $(MAC_PERMISSION_FILE) in BOARD_SEPOLICY_UNION) \
+)
+
 # Quick edge case error detection for BOARD_SEPOLICY_REPLACE.
 # Builds the singular path for each replace file.
 sepolicy_replace_paths :=
@@ -148,15 +155,19 @@ include $(BUILD_PREBUILT)
 ##################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := mac_permissions.xml
+LOCAL_MODULE := $(MAC_PERMISSION_FILE)
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/security
 
-LOCAL_SRC_FILES := $(LOCAL_MODULE)
+include $(BUILD_SYSTEM)/base_rules.mk
 
-include $(BUILD_PREBUILT)
+mmac := $(intermediates)/$(MAC_PERMISSION_FILE)
+$(mmac) : $(call build_policy, $(MAC_PERMISSION_FILE))
+	@mkdir -p $(dir $@)
+	$(hide) cp $^ $@
 
+mmac :=
 ##################################
 
 build_policy :=
