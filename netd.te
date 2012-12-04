@@ -4,7 +4,7 @@ type netd_exec, exec_type, file_type;
 
 init_daemon_domain(netd)
 typeattribute netd mlstrustedsubject;
-allow netd self:capability { net_admin net_raw sys_module };
+allow netd self:capability { net_admin net_raw sys_module kill };
 allow netd self:netlink_kobject_uevent_socket *;
 allow netd self:netlink_route_socket *;
 allow netd self:netlink_nflog_socket *;
@@ -28,3 +28,10 @@ allow netd sysfs:file write;
 # Network driver loading.
 allow netd kernel:system module_request;
 
+# Set dhcp lease for PAN connection
+unix_socket_connect(netd, property, init)
+allow netd system_prop:property_service set;
+
+# Connect to PAN
+domain_auto_trans(netd, dhcp_exec, dhcp);
+allow netd dhcp:process signal;

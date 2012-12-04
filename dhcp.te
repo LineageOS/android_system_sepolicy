@@ -22,3 +22,11 @@ unix_socket_connect(dhcp, property, init)
 type_transition dhcp system_data_file:{ dir file } dhcp_data_file;
 allow dhcp dhcp_data_file:dir create_dir_perms;
 allow dhcp dhcp_data_file:file create_file_perms;
+
+# PAN connections
+allow dhcp netd:fd use;
+allow dhcp netd:fifo_file rw_file_perms;
+allow dhcp netd:{ dgram_socket_class_set unix_stream_socket } { read write };
+allow dhcp netd:{ netlink_kobject_uevent_socket netlink_route_socket netlink_nflog_socket } { read write };
+# netdev-bt-pan driver loading
+allow dhcp kernel:system module_request;
