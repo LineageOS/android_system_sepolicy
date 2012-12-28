@@ -1,9 +1,31 @@
 ###########################################
 # Root
-#
-# Nothing required since it is initramfs and implicitly labeled
-# by genfscon rootfs in ocontexts.
-#
+/			u:object_r:rootfs:s0
+
+# Data files
+/adb_keys
+/default.prop		u:object_r:rootfs:s0
+/fstab\..*		u:object_r:rootfs:s0
+/init\..*		u:object_r:rootfs:s0
+/res(/.*)?		u:object_r:rootfs:s0
+/ueventd\..*		u:object_r:rootfs:s0
+
+# Executables
+/charger		u:object_r:rootfs:s0
+/init			u:object_r:rootfs:s0
+/sbin(/.*)?		u:object_r:rootfs:s0
+
+# Empty directories
+/lost\+found		u:object_r:rootfs:s0
+/proc			u:object_r:rootfs:s0
+/sys			u:object_r:rootfs:s0
+
+# SELinux policy files
+/file_contexts		u:object_r:rootfs:s0
+/property_contexts	u:object_r:rootfs:s0
+/seapp_contexts		u:object_r:rootfs:s0
+/sepolicy		u:object_r:rootfs:s0
+
 ##########################
 # Devices
 #
