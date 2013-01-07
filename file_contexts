@@ -89,6 +89,7 @@
 /dev/socket/netd	u:object_r:netd_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
 /dev/socket/qemud	u:object_r:qemud_socket:s0
+/dev/socket/racoon	u:object_r:racoon_socket:s0
 /dev/socket/rild	u:object_r:rild_socket:s0
 /dev/socket/rild-debug	u:object_r:rild_debug_socket:s0
 /dev/socket/vold	u:object_r:vold_socket:s0
@@ -100,6 +101,8 @@
 /dev/tf_driver		u:object_r:tee_device:s0
 /dev/tty[0-9]*		u:object_r:tty_device:s0
 /dev/ttyS[0-9]*		u:object_r:serial_device:s0
+/dev/tun		u:object_r:tun_device:s0
+/dev/uhid		u:object_r:uhid_device:s0
 /dev/uinput		u:object_r:input_device:s0
 /dev/urandom		u:object_r:urandom_device:s0
 /dev/vcs[0-9a-z]*	u:object_r:vcs_device:s0
@@ -135,6 +138,7 @@
 /system/bin/mtpd	u:object_r:mtp_exec:s0
 /system/bin/pppd	u:object_r:ppp_exec:s0
 /system/bin/tf_daemon	u:object_r:tee_exec:s0
+/system/bin/racoon	u:object_r:racoon_exec:s0
 /system/etc/ppp(/.*)?	u:object_r:ppp_system_file:s0
 /system/etc/dhcpcd(/.*)? u:object_r:dhcp_system_file:s0
 /system/xbin/su		u:object_r:su_exec:s0

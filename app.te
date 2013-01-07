@@ -110,6 +110,8 @@ allow untrusted_app node_type:{ tcp_socket udp_socket } node_bind;
 allow untrusted_app port_type:udp_socket name_bind;
 allow untrusted_app port_type:tcp_socket name_bind;
 unix_socket_connect(untrusted_app, dnsproxyd, netd)
+allow untrusted_app tun_device:chr_file rw_file_perms;
+allow untrusted_app untrusted_app:netlink_route_socket write;
 # Get route information.
 allow untrusted_app self:netlink_route_socket { create bind read nlmsg_read };
 }
