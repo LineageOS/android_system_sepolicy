@@ -3,7 +3,7 @@
 /			u:object_r:rootfs:s0
 
 # Data files
-/adb_keys
+/adb_keys		u:object_r:rootfs:s0
 /default.prop		u:object_r:rootfs:s0
 /fstab\..*		u:object_r:rootfs:s0
 /init\..*		u:object_r:rootfs:s0
