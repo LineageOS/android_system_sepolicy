@@ -24,31 +24,26 @@ allow system_app dalvikcache_data_file:file { write setattr };
 unix_socket_connect(system_app, keystore, keystore)
 
 # Read SELinux enforcing status.
+selinux_getenforce(system)
 selinux_getenforce(system_app)
+
+# Settings app reads sdcard for storage stats
+allow system_app sdcard:dir r_dir_perms;
 
 bool manage_selinux true;
 if (manage_selinux) {
-# Set SELinux enforcing status.
-selinux_setenforce(system_app)
-
-# Set SELinux booleans.
-selinux_setbool(system_app)
-
-# Read syslog to display AVC messages.
-allow system_app kernel:system syslog_read;
+selinux_manage_policy(system)
+selinux_manage_policy(system_app)
+access_kmsg(system)
+access_kmsg(system_app)
 }
 
 bool manage_mac true;
 if (manage_mac) {
-# Set properties via the init property service.
-unix_socket_connect(system_app, property, init)
-
-# Set the persist.mac_enforcing_mode property.
-allow system_app system_prop:property_service set;
-
-# Run logcat and read the logs for MAC denials.
-allow system_app system_file:file x_file_perms;
-allow system_app log_device:chr_file read;
+mmac_manage_policy(system)
+mmac_manage_policy(system_app)
+access_logcat(system)
+access_logcat(system_app)
 }
 
 #

@@ -145,6 +145,7 @@
 /data(/.*)?		u:object_r:system_data_file:s0
 /data/backup(/.*)?		u:object_r:backup_data_file:s0
 /data/secure/backup(/.*)?	u:object_r:backup_data_file:s0
+/data/security(/.*)?	u:object_r:security_file:s0
 /data/drm(/.*)?		u:object_r:drm_data_file:s0
 /data/gps(/.*)?		u:object_r:gps_data_file:s0
 /data/dalvik-cache(/.*)? u:object_r:dalvikcache_data_file:s0
