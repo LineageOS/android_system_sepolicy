@@ -5,7 +5,7 @@ allow domain init:process sigchld;
 
 # Read access to properties mapping.
 allow domain kernel:fd use;
-allow domain tmpfs:file read;
+allow domain tmpfs:file { read getattr };
 
 # binder adjusts the nice value during IPC.
 allow domain self:capability sys_nice;
