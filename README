@@ -8,6 +8,7 @@ they are:
 1. BOARD_SEPOLICY_REPLACE
 2. BOARD_SEPOLICY_UNION
 3. BOARD_SEPOLICY_DIRS
+4. BOARD_SEPOLICY_IGNORE
 
 The variables should be set in the BoardConfig.mk file in
 the device or vendor directories.
@@ -38,7 +39,9 @@ multiple times on the policy search path defined by BOARD_SEPOLICY_DIRS.
 eg.) if you specify shell.te in BOARD_SEPOLICY_REPLACE and
 BOARD_SEPOLICY_DIRS is set to
 "vendor/widget/common/sepolicy device/widget/x/sepolicy" and shell.te
-appears in both locations, it is an error.
+appears in both locations, it is an error. Unless it is in
+BOARD_SEPOLICY_IGNORE to be filtered out. See BOARD_SEPOLICY_IGNORE
+for more details.
 
 It is an error to specify the same file name in both
 BOARD_POLICY_REPLACE and BOARD_POLICY_UNION.
@@ -46,7 +49,23 @@ BOARD_POLICY_REPLACE and BOARD_POLICY_UNION.
 It is an error to specify a BOARD_SEPOLICY_DIRS that has no entries when
 specifying BOARD_SEPOLICY_REPLACE.
 
-Example Usage:
+BOARD_SEPOLICY_IGNORE is a list of paths (directory + filename) of
+files that are not to be included in the resulting policy. This list
+is passed to filter-out to remove any paths you may want to ignore. This
+is useful if you have numerous config directories that contain a file
+and you want to NOT include a particular file in your resulting
+policy file, either by UNION or REPLACE.
+Eg.) Suppose the follwoing:
+     BOARD_SEPOLICY_DIRS := X Y
+     BOARD_SEPOLICY_REPLACE := A
+     BOARD_SEPOLICY_IGNORE := X/A
+
+     Directories X and Y contain A.
+
+     The resulting policy is created by using Y/A only, thus X/A was
+     ignored.
+
+Example BoardConfig.mk Usage:
 From the Tuna device BoardConfig.mk, device/samsung/tuna/BoardConfig.mk
 
 BOARD_SEPOLICY_DIRS := \
