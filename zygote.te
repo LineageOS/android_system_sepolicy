@@ -6,6 +6,8 @@ init_daemon_domain(zygote)
 typeattribute zygote mlstrustedsubject;
 # Override DAC on files and switch uid/gid.
 allow zygote self:capability { dac_override setgid setuid };
+# Drop capabilities from bounding set.
+allow zygote self:capability setpcap;
 # Switch SELinux context to app domains.
 allow zygote system:process dyntransition;
 allow zygote appdomain:process dyntransition;
