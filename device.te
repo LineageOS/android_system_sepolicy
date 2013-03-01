@@ -49,6 +49,7 @@ type uhid_device, dev_type;
 type tun_device, dev_type, mlstrustedobject;
 type usbaccessory_device, dev_type;
 type usb_device, dev_type;
+type properties_device, dev_type;
 
 # All devices have a uart for the hci
 # attach service. The uart dev node
