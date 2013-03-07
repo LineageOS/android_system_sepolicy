@@ -8,7 +8,7 @@ net_domain(mediaserver)
 init_daemon_domain(mediaserver)
 unix_socket_connect(mediaserver, property, init)
 
-r_dir_file(mediaserver, sdcard)
+r_dir_file(mediaserver, sdcard_type)
 
 binder_use(mediaserver)
 binder_call(mediaserver, binderservicedomain)
@@ -18,7 +18,7 @@ binder_service(mediaserver)
 allow mediaserver kernel:system module_request;
 allow mediaserver app_data_file:dir search;
 allow mediaserver app_data_file:file r_file_perms;
-allow mediaserver sdcard:file write;
+allow mediaserver sdcard_type:file write;
 allow mediaserver camera_device:chr_file rw_file_perms;
 allow mediaserver graphics_device:chr_file rw_file_perms;
 allow mediaserver video_device:chr_file rw_file_perms;

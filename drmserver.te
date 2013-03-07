@@ -14,7 +14,7 @@ binder_service(drmserver)
 # Perform Binder IPC to mediaserver
 binder_call(drmserver, mediaserver)
 
-allow drmserver sdcard:dir search;
+allow drmserver sdcard_type:dir search;
 allow drmserver drm_data_file:dir create_dir_perms;
 allow drmserver drm_data_file:file create_file_perms;
 allow drmserver self:{ tcp_socket udp_socket } *;

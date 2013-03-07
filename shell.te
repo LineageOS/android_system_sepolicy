@@ -13,8 +13,8 @@ allow shell shell_data_file:file create_file_perms;
 allow shell shell_data_file:file rx_file_perms;
 
 # Access sdcard.
-allow shell sdcard:dir rw_dir_perms;
-allow shell sdcard:file create_file_perms;
+allow shell sdcard_type:dir rw_dir_perms;
+allow shell sdcard_type:file create_file_perms;
 
 r_dir_file(shell, apk_data_file)
 allow shell dalvikcache_data_file:file write;

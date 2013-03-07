@@ -16,7 +16,8 @@ type devpts, fs_type, mlstrustedobject;
 type tmpfs, fs_type;
 type shm, fs_type;
 type mqueue, fs_type;
-type sdcard, fs_type, mlstrustedobject;
+type sdcard_internal, sdcard_type, fs_type, mlstrustedobject;
+type sdcard_external, sdcard_type, fs_type, mlstrustedobject;
 type debugfs, fs_type, mlstrustedobject;
 
 # File types

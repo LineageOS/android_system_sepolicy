@@ -89,8 +89,8 @@ net_domain(browser_app)
 allow platformappdomain platform_app_data_file:dir create_dir_perms;
 allow platformappdomain platform_app_data_file:notdevfile_class_set create_file_perms;
 # App sdcard file accesses
-allow platformappdomain sdcard:dir create_dir_perms;
-allow platformappdomain sdcard:file create_file_perms;
+allow platformappdomain sdcard_type:dir create_dir_perms;
+allow platformappdomain sdcard_type:file create_file_perms;
 # System data file accesses (e.g, shared objects from the lib directory)
 allow platformappdomain system_data_file:file { execute open };
 
@@ -119,11 +119,17 @@ if (app_bluetooth or android_cts) {
 # No specific SELinux class for bluetooth sockets presently.
 allow untrusted_app self:socket *;
 }
-# SDCard rw access.
-bool app_sdcard_rw true;
-if (app_sdcard_rw) {
-allow untrusted_app sdcard:dir create_dir_perms;
-allow untrusted_app sdcard:file create_file_perms;
+# Internal SDCard rw access.
+bool app_internal_sdcard_rw true;
+if (app_internal_sdcard_rw) {
+allow untrusted_app sdcard_internal:dir create_dir_perms;
+allow untrusted_app sdcard_internal:file create_file_perms;
+}
+# External SDCard rw access.
+bool app_external_sdcard_rw true;
+if (app_external_sdcard_rw) {
+allow untrusted_app sdcard_external:dir create_dir_perms;
+allow untrusted_app sdcard_external:file create_file_perms;
 }
 # Native app support.
 bool app_ndk false;
