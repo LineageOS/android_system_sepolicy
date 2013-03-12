@@ -17,7 +17,8 @@ binder_service(mediaserver)
 
 allow mediaserver kernel:system module_request;
 allow mediaserver app_data_file:dir search;
-allow mediaserver app_data_file:file r_file_perms;
+allow mediaserver app_data_file:file rw_file_perms;
+allow mediaserver platform_app_data_file:file { getattr read };
 allow mediaserver sdcard_type:file write;
 allow mediaserver camera_device:chr_file rw_file_perms;
 allow mediaserver graphics_device:chr_file rw_file_perms;

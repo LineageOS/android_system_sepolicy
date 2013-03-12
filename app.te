@@ -118,6 +118,7 @@ bool app_bluetooth false;
 if (app_bluetooth or android_cts) {
 # No specific SELinux class for bluetooth sockets presently.
 allow untrusted_app self:socket *;
+allow untrusted_app bluetooth:unix_stream_socket { read write shutdown };
 }
 # Internal SDCard rw access.
 bool app_internal_sdcard_rw true;
@@ -161,7 +162,7 @@ allow appdomain zygote:process sigchld;
 
 # Communicate over a FIFO or socket created by the system_server.
 allow appdomain system:fifo_file rw_file_perms;
-allow appdomain system:unix_stream_socket { read write };
+allow appdomain system:unix_stream_socket { read write setopt };
 
 # Communicate over a socket created by surfaceflinger.
 allow appdomain surfaceflinger:unix_stream_socket { read write setopt };

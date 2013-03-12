@@ -5,6 +5,7 @@ allow shell rootfs:dir r_dir_perms;
 allow shell devpts:chr_file rw_file_perms;
 allow shell tty_device:chr_file rw_file_perms;
 allow shell console_device:chr_file rw_file_perms;
+allow shell input_device:chr_file rw_file_perms;
 allow shell system_file:file x_file_perms;
 allow shell shell_exec:file rx_file_perms;
 allow shell zygote_exec:file rx_file_perms;
@@ -17,7 +18,7 @@ allow shell sdcard_type:dir rw_dir_perms;
 allow shell sdcard_type:file create_file_perms;
 
 r_dir_file(shell, apk_data_file)
-allow shell dalvikcache_data_file:file write;
+allow shell dalvikcache_data_file:file { write setattr };
 
 # Run logcat.
 allow shell log_device:chr_file r_file_perms;
