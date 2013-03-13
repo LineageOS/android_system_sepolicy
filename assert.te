@@ -5,7 +5,8 @@
 
 # Superuser capabilities.
 # Only exception is sys_nice for binder, might not be necessary.
-neverallow appdomain self:capability ~sys_nice;
+neverallow { appdomain -bluetooth } self:capability ~sys_nice;
+neverallow bluetooth self:capability ~{ sys_nice net_admin };
 neverallow appdomain self:capability2 *;
 
 # Block device access.
