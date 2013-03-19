@@ -47,7 +47,7 @@ $(foreach pf, $(BOARD_SEPOLICY_REPLACE), \
 build_policy = $(foreach type, $(1), \
   $(foreach expanded_type, $(notdir $(wildcard $(addsuffix /$(type), $(LOCAL_PATH)))), \
     $(if $(filter $(expanded_type), $(BOARD_SEPOLICY_REPLACE)), \
-      $(wildcard $(addsuffix $(expanded_type), $(dir $(sepolicy_replace_paths)))), \
+      $(wildcard $(addsuffix $(expanded_type), $(sort $(dir $(sepolicy_replace_paths))))), \
       $(LOCAL_PATH)/$(expanded_type) \
     ) \
   ) \
