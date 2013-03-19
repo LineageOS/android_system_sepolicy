@@ -102,7 +102,7 @@ r_dir_file(domain, inotify)
 r_dir_file(domain, cgroup)
 
 # debugfs access
-bool debugfs true;
+bool debugfs false;
 if (debugfs) {
 allow domain debugfs:dir r_dir_perms;
 allow domain debugfs:file rw_file_perms;
