@@ -29,6 +29,7 @@ log.                    u:object_r:shell_prop:s0
 service.adb.root        u:object_r:shell_prop:s0
 service.adb.tcp.port    u:object_r:shell_prop:s0
 
+persist.audio.          u:object_r:audio_prop:s0
 persist.sys.            u:object_r:system_prop:s0
 persist.service.        u:object_r:system_prop:s0
 persist.security.       u:object_r:system_prop:s0
