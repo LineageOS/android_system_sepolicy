@@ -7,6 +7,9 @@ allow domain init:process sigchld;
 allow domain kernel:fd use;
 allow domain tmpfs:file { read getattr };
 
+# Search /storage/emulated tmpfs mount.
+allow domain tmpfs:dir r_dir_perms;
+
 # binder adjusts the nice value during IPC.
 allow domain self:capability sys_nice;
 
