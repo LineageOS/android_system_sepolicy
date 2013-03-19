@@ -1,0 +1,51 @@
+# Policy assertions.
+# These neverallow rules are checked by checkpolicy at policy build time.
+# checkpolicy will refuse to generate the kernel policy if any of these
+# assertions fail.
+
+# Superuser capabilities.
+# Only exception is sys_nice for binder, might not be necessary.
+neverallow appdomain self:capability ~sys_nice;
+neverallow appdomain self:capability2 *;
+
+# Block device access.
+neverallow appdomain dev_type:blk_file { read write };
+
+# Kernel memory access.
+neverallow appdomain kmem_device:chr_file { read write };
+
+# Setting SELinux enforcing status or booleans.
+# Conditionally allowed to system_app for SEAndroidManager.
+neverallow { appdomain -system_app } kernel:security { setenforce setbool };
+
+# Load security policy.
+neverallow appdomain kernel:security load_policy;
+
+# Privileged netlink socket interfaces.
+neverallow appdomain self:{ netlink_socket netlink_firewall_socket netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket netlink_selinux_socket netlink_audit_socket netlink_ip6fw_socket netlink_dnrt_socket netlink_kobject_uevent_socket } *;
+
+# Access to /proc/pid entries for any non-app domain.
+# Violated by cts.te rules so commented out for now.
+#neverallow appdomain { domain - appdomain }:dir search;
+#neverallow appdomain { domain - appdomain }:lnk_file read;
+#neverallow appdomain { domain - appdomain }:file { read write };
+
+# ptrace access to non-app domains.
+neverallow appdomain { domain -appdomain }:process ptrace;
+
+# Transition to a non-app domain.
+# Shell excluded since it has a transition to runas.
+neverallow { appdomain -shell } ~appdomain:process { transition dyntransition };
+
+# Map low memory.
+neverallow appdomain self:memprotect mmap_zero;
+
+# Write to /system.
+neverallow appdomain system_file:dir_file_class_set write;
+
+# Write to system-owned parts of /data.
+# This is the default type for anything under /data not otherwise
+# specified in file_contexts.  Define a different type for portions
+# that should be writable by apps.
+# Exception for system_app for Settings.
+neverallow { appdomain -system_app } system_data_file:dir_file_class_set write;
