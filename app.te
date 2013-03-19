@@ -201,3 +201,10 @@ r_dir_file(appdomain, isolated_app)
 # are examined.
 allow appdomain isolated_app:unix_stream_socket { read write };
 allow isolated_app appdomain:unix_stream_socket { read write };
+
+# Backup ability for every app. BMS opens and passes the fd
+# to any app that has backup ability. Hence, no open permissions here.
+allow { appdomain isolated_app } backup_data_file:file { read write };
+allow { appdomain isolated_app } cache_backup_file:file { read write };
+# Backup ability using 'adb backup'
+allow { appdomain isolated_app } system_data_file:lnk_file getattr;
