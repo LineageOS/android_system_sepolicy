@@ -19,12 +19,6 @@ allow shell sdcard:file create_file_perms;
 r_dir_file(shell, apk_data_file)
 allow shell dalvikcache_data_file:file write;
 
-# Run dmesg.
-allow shell kernel:system syslog_read;
-
-# Run cat /proc/kmsg.
-allow shell kernel:system syslog_mod;
-
 # Run logcat.
 allow shell log_device:chr_file r_file_perms;
 
