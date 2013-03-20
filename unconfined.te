@@ -20,5 +20,5 @@ allow unconfineddomain netif_type:netif *;
 allow unconfineddomain port_type:socket_class_set name_bind;
 allow unconfineddomain port_type:{ tcp_socket dccp_socket } name_connect;
 allow unconfineddomain domain:peer recv;
-allow unconfineddomain domain:binder { call transfer receive };
+allow unconfineddomain domain:binder { call transfer };
 allow unconfineddomain property_type:property_service set;

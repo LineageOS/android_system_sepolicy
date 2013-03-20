@@ -13,7 +13,6 @@ r_dir_file(mediaserver, sdcard)
 binder_use(mediaserver)
 binder_call(mediaserver, binderservicedomain)
 binder_call(mediaserver, appdomain)
-binder_transfer(mediaserver, surfaceflinger)
 binder_service(mediaserver)
 
 allow mediaserver kernel:system module_request;

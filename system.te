@@ -8,7 +8,6 @@ app_domain(system_app)
 
 # Perform binder IPC to any app domain.
 binder_call(system_app, appdomain)
-binder_transfer(system_app, appdomain)
 
 # Read and write system data files.
 # May want to split into separate types.
@@ -121,9 +120,6 @@ binder_use(system)
 binder_call(system, binderservicedomain)
 binder_call(system, appdomain)
 binder_service(system)
-# Transfer other Binder references.
-binder_transfer(system, binderservicedomain)
-binder_transfer(system, appdomain)
 
 # Read /proc/pid files for Binder clients.
 r_dir_file(system, appdomain)
