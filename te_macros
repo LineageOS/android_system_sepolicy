@@ -152,10 +152,8 @@ allow $1 $3:unix_dgram_socket sendto;
 # binder_use(domain)
 # Allow domain to use Binder IPC.
 define(`binder_use', `
-# Get Binder references from the servicemanager.
-allow $1 servicemanager:binder call;
-# Transfer and receive own Binder references.
-allow $1 self:binder { transfer receive };
+# Call the servicemanager and transfer references to it.
+allow $1 servicemanager:binder { call transfer };
 # Map /dev/ashmem with PROT_EXEC.
 allow $1 ashmem_device:chr_file execute;
 # rw access to /dev/binder and /dev/ashmem is presently granted to
@@ -166,17 +164,12 @@ allow $1 ashmem_device:chr_file execute;
 # binder_call(clientdomain, serverdomain)
 # Allow clientdomain to perform binder IPC to serverdomain.
 define(`binder_call', `
-# First we receive a Binder ref to the server, then we call it.
-allow $1 $2:binder { receive call };
+# Call the server domain and optionally transfer references to it.
+allow $1 $2:binder { call transfer };
+# Allow the serverdomain to transfer references to the client on the reply.
+allow $2 $1:binder transfer;
 # Receive and use open files from the server.
 allow $1 $2:fd use;
-')
-
-#####################################
-# binder_transfer(clientdomain, serverdomain)
-# Allow clientdomain to transfer Binder references created by serverdomain.
-define(`binder_transfer', `
-allow $1 $2:binder transfer;
 ')
 
 #####################################

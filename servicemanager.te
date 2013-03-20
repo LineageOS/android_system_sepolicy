@@ -11,4 +11,4 @@ init_daemon_domain(servicemanager)
 # created by other domains.  It never passes its own references
 # or initiates a Binder IPC.
 allow servicemanager self:binder set_context_mgr;
-allow servicemanager domain:binder { receive transfer };
+allow servicemanager domain:binder transfer;
