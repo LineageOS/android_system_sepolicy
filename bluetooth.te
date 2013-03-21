@@ -15,7 +15,7 @@ allow bluetooth input_device:chr_file write;
 
 # sysfs access.
 allow bluetooth sysfs_bluetooth_writable:file rw_file_perms;
-dontaudit bluetooth self:capability net_admin;
+allow bluetooth self:capability net_admin;
 
 # Other domains that can create and use bluetooth sockets.
 # SELinux does not presently define a specific socket class for
