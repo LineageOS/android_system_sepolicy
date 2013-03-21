@@ -25,7 +25,8 @@ $(foreach pf, $(BOARD_SEPOLICY_REPLACE), \
     $(error Ambiguous request for sepolicy $(pf). Appears in both \
       BOARD_SEPOLICY_REPLACE and BOARD_SEPOLICY_UNION), \
   ) \
-  $(eval _paths := $(wildcard $(addsuffix /$(pf), $(BOARD_SEPOLICY_DIRS)))) \
+  $(eval _paths := $(filter-out $(BOARD_SEPOLICY_IGNORE), \
+  $(wildcard $(addsuffix /$(pf), $(BOARD_SEPOLICY_DIRS))))) \
   $(eval _occurrences := $(words $(_paths))) \
   $(if $(filter 0,$(_occurrences)), \
     $(error No sepolicy file found for $(pf) in $(BOARD_SEPOLICY_DIRS)), \
@@ -45,15 +46,17 @@ $(foreach pf, $(BOARD_SEPOLICY_REPLACE), \
 # product variables.
 # $(1): the set of policy name paths to build
 build_policy = $(foreach type, $(1), \
-  $(foreach expanded_type, $(notdir $(wildcard $(addsuffix /$(type), $(LOCAL_PATH)))), \
-    $(if $(filter $(expanded_type), $(BOARD_SEPOLICY_REPLACE)), \
-      $(wildcard $(addsuffix $(expanded_type), $(sort $(dir $(sepolicy_replace_paths))))), \
-      $(LOCAL_PATH)/$(expanded_type) \
+  $(filter-out $(BOARD_SEPOLICY_IGNORE), \
+    $(foreach expanded_type, $(notdir $(wildcard $(addsuffix /$(type), $(LOCAL_PATH)))), \
+      $(if $(filter $(expanded_type), $(BOARD_SEPOLICY_REPLACE)), \
+        $(wildcard $(addsuffix $(expanded_type), $(sort $(dir $(sepolicy_replace_paths))))), \
+        $(LOCAL_PATH)/$(expanded_type) \
+      ) \
     ) \
-  ) \
-  $(foreach union_policy, $(wildcard $(addsuffix /$(type), $(BOARD_SEPOLICY_DIRS))), \
-    $(if $(filter $(notdir $(union_policy)), $(BOARD_SEPOLICY_UNION)), \
-      $(union_policy), \
+    $(foreach union_policy, $(wildcard $(addsuffix /$(type), $(BOARD_SEPOLICY_DIRS))), \
+      $(if $(filter $(notdir $(union_policy)), $(BOARD_SEPOLICY_UNION)), \
+        $(union_policy), \
+      ) \
     ) \
   ) \
 )
