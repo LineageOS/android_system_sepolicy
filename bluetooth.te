@@ -10,7 +10,7 @@ allow bluetooth bluetooth_data_file:notdevfile_class_set create_file_perms;
 r_dir_file(bluetooth, bluetooth_efs_file)
 
 # Device accesses.
-allow bluetooth hci_attach_dev:chr_file rw_file_perms;
+allow bluetooth { tun_device uhid_device hci_attach_dev }:chr_file rw_file_perms;
 allow bluetooth input_device:chr_file write;
 
 # sysfs access.
@@ -21,3 +21,7 @@ allow bluetooth self:capability net_admin;
 # SELinux does not presently define a specific socket class for
 # bluetooth sockets, nor does it distinguish among the bluetooth protocols.
 allow bluetoothdomain self:socket *;
+
+# tethering
+allow bluetooth self:{ tun_socket udp_socket } { ioctl create };
+allow bluetooth efs_file:dir search;
