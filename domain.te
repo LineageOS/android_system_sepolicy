@@ -113,3 +113,7 @@ allow domain debugfs:file rw_file_perms;
 dontaudit domain debugfs:dir r_dir_perms;
 dontaudit domain debugfs:file  rw_file_perms;
 }
+
+# security files
+allow domain security_file:dir { search getattr };
+allow domain security_file:file getattr;
