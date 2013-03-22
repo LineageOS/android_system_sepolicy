@@ -224,3 +224,65 @@ allow $1 selinuxfs:dir r_dir_perms;
 allow $1 selinuxfs:file rw_file_perms;
 allow $1 kernel:security setbool;
 ')
+
+#####################################
+# security_access_policy(domain)
+# Read only access to all policy files and
+# selinuxfs
+define(`security_access_policy', `
+allow $1 security_file:dir r_dir_perms;
+allow $1 security_file:file r_file_perms;
+allow $1 selinuxfs:dir r_dir_perms;
+allow $1 selinuxfs:file r_file_perms;
+allow $1 rootfs:dir r_dir_perms;
+allow $1 rootfs:file r_file_perms;
+allow $1 system_file:dir r_dir_perms;
+allow $1 system_file:file r_file_perms;
+')
+
+#####################################
+# selinux_manage_policy(domain)
+# Ability to manage policy files,
+# trigger runtime reload, change
+# enforcing mode, manipulate booleans
+# and access kernel logs.
+define(`selinux_manage_policy', `
+selinux_setenforce($1)
+selinux_setbool($1)
+security_access_policy($1)
+unix_socket_connect($1, property, init)
+allow $1 security_file:dir create_dir_perms;
+allow $1 security_file:file create_file_perms;
+allow $1 security_prop:property_service set;
+')
+
+#####################################
+# mmac_manage_policy(domain)
+# Ability to manage mmac policy files,
+# trigger runtime reload, change
+# mmac enforcing mode and access logcat.
+define(`mmac_manage_policy', `
+unix_socket_connect($1, property, init)
+allow $1 security_file:dir create_dir_perms;
+allow $1 security_file:file create_file_perms;
+allow $1 security_prop:property_service set;
+')
+
+#####################################
+# access_logcat(domain)
+# Ability to read from logcat logs
+# and execute the logcat command
+define(`access_logcat', `
+allow $1 log_device:chr_file read;
+allow $1 system_file:file x_file_perms;
+')
+
+#####################################
+# access_kmsg(domain)
+# Ability to read from kernel logs
+# and execute the klogctl syscall
+# in a non destructive manner. See
+# man 2 klogctl
+define(`access_kmsg', `
+allow $1 kernel:system syslog_read;
+')
