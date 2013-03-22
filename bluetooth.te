@@ -21,6 +21,7 @@ allow bluetooth self:capability net_admin;
 # SELinux does not presently define a specific socket class for
 # bluetooth sockets, nor does it distinguish among the bluetooth protocols.
 allow bluetoothdomain self:socket *;
+allow bluetoothdomain bluetooth:unix_stream_socket { read write shutdown };
 
 # tethering
 allow bluetooth self:{ tun_socket udp_socket } { ioctl create };
