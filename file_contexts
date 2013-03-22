@@ -153,7 +153,7 @@
 /data/app(/.*)?		u:object_r:apk_data_file:s0
 /data/app/vmdl.*\.tmp	u:object_r:apk_tmp_file:s0
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
-/data/local(/.*)?	u:object_r:shell_data_file:s0
+/data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
 # Misc data
 /data/misc/bluetoothd(/.*)?	u:object_r:bluetoothd_data_file:s0
 /data/misc/bluetooth(/.*)?	u:object_r:bluetooth_data_file:s0

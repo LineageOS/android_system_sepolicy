@@ -6,8 +6,7 @@ init_daemon_domain(sdcardd)
 allow sdcardd cgroup:dir create_dir_perms;
 allow sdcardd fuse_device:chr_file rw_file_perms;
 allow sdcardd rootfs:dir mounton;
-allow sdcardd sdcard:filesystem mount;
-allow sdcardd self:capability { setuid setgid dac_override };
+allow sdcardd sdcard_type:filesystem mount;
+allow sdcardd self:capability { setuid setgid dac_override sys_admin };
 allow sdcardd system_data_file:dir  create_dir_perms;
 allow sdcardd system_data_file:file create_file_perms;
-

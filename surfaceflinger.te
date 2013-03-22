@@ -28,3 +28,7 @@ allow surfaceflinger self:netlink_kobject_uevent_socket *;
 allow surfaceflinger system_prop:property_service set;
 allow surfaceflinger ctl_default_prop:property_service set;
 
+# Use open files supplied by an app.
+allow surfaceflinger appdomain:fd use;
+allow surfaceflinger platform_app_data_file:file { read write };
+allow surfaceflinger app_data_file:file { read write };

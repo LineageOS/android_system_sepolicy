@@ -28,7 +28,7 @@ selinux_getenforce(system)
 selinux_getenforce(system_app)
 
 # Settings app reads sdcard for storage stats
-allow system_app sdcard:dir r_dir_perms;
+allow system_app sdcard_type:dir r_dir_perms;
 
 bool manage_selinux true;
 if (manage_selinux) {
@@ -65,6 +65,9 @@ bluetooth_domain(system)
 # system server.
 # XXX See if we can remove some of these.
 allow system self:capability { kill net_bind_service net_broadcast net_admin net_raw sys_module sys_boot sys_nice sys_resource sys_time sys_tty_config };
+
+# Triggered by /proc/pid accesses, not allowed.
+dontaudit system self:capability sys_ptrace;
 
 # Trigger module auto-load.
 allow system kernel:system module_request;
