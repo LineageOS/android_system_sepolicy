@@ -182,7 +182,7 @@ $($(MAC_PERMISSION_FILE).tmp) : $(call build_policy, $(MAC_PERMISSION_FILE))
 
 $(LOCAL_BUILT_MODULE) : $($(MAC_PERMISSION_FILE).tmp) $(mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py
 	@mkdir -p $(dir $@)
-	$(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(ANDROID_BUILD_TOP) $(mac_perms_keys.tmp) -o $@ $<
+	$(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $(mac_perms_keys.tmp) -o $@ $<
 
 $(MAC_PERMISSION_FILE).tmp :=
 ##################################
