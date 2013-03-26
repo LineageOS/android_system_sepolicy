@@ -50,6 +50,7 @@
 /dev/fuse		u:object_r:fuse_device:s0
 /dev/graphics(/.*)?	u:object_r:graphics_device:s0
 /dev/input(/.*)		u:object_r:input_device:s0
+/dev/iio:device[0-9]+   u:object_r:iio_device:s0
 /dev/ion		u:object_r:ion_device:s0
 /dev/kmem		u:object_r:kmem_device:s0
 /dev/log(/.*)?		u:object_r:log_device:s0
@@ -105,6 +106,7 @@
 /dev/uhid		u:object_r:uhid_device:s0
 /dev/uinput		u:object_r:input_device:s0
 /dev/urandom		u:object_r:urandom_device:s0
+/dev/usb_accessory	u:object_r:usbaccessory_device:s0
 /dev/vcs[0-9a-z]*	u:object_r:vcs_device:s0
 /dev/video[0-9]*	u:object_r:video_device:s0
 /dev/watchdog		u:object_r:watchdog_device:s0
