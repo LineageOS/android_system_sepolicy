@@ -168,23 +168,12 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/security
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-# Build keys.conf
-mac_perms_keys.tmp := $(intermediates)/keys.tmp
-$(mac_perms_keys.tmp) : $(call build_policy, keys.conf)
-	@mkdir -p $(dir $@)
-	$(hide) m4 -s $^ > $@
-
-# Build mac_permissions.xml
-$(MAC_PERMISSION_FILE).tmp := $(intermediates)/$(MAC_PERMISSION_FILE).tmp
-$($(MAC_PERMISSION_FILE).tmp) : $(call build_policy, $(MAC_PERMISSION_FILE))
+mmac := $(intermediates)/$(MAC_PERMISSION_FILE)
+$(mmac) : $(call build_policy, $(MAC_PERMISSION_FILE))
 	@mkdir -p $(dir $@)
 	$(hide) cp $^ $@
 
-$(LOCAL_BUILT_MODULE) : $($(MAC_PERMISSION_FILE).tmp) $(mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py
-	@mkdir -p $(dir $@)
-	$(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(ANDROID_BUILD_TOP) $(mac_perms_keys.tmp) -o $@ $<
-
-$(MAC_PERMISSION_FILE).tmp :=
+mmac :=
 ##################################
 
 build_policy :=
