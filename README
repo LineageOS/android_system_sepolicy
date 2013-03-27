@@ -55,7 +55,7 @@ is passed to filter-out to remove any paths you may want to ignore. This
 is useful if you have numerous config directories that contain a file
 and you want to NOT include a particular file in your resulting
 policy file, either by UNION or REPLACE.
-Eg.) Suppose the follwoing:
+Eg.) Suppose the following:
      BOARD_SEPOLICY_DIRS := X Y
      BOARD_SEPOLICY_REPLACE := A
      BOARD_SEPOLICY_IGNORE := X/A
@@ -87,21 +87,20 @@ mac_permissions.xml:
     that is referenced in seapp_contexts.
 
     This file can be replaced through BOARD_SEPOLICY_REPLACE containing the
-    value "mac_permissions.xml", however, appending (UNION) does NOT exist
-    and will cause a build time failure. It is important to note the final
-    processed version of this file is stripped of comments and whitespace.
-    This is to preserve space on the system.img. If one wishes to view it in
-    a more human friendly format, the "tidy" or "xmllint" command will assist
-    you.
+    value "mac_permissions.xml", or appended to by using the BOARD_SEPOLICY_UNION
+    variable. It is important to note the final processed version of this file
+    is stripped of comments and whitespace. This is to preserve space on the
+    system.img. If one wishes to view it in a more human friendly format,
+    the "tidy" or "xmllint" command will assist you.
 
   TOOLING:
     insertkeys.py
       Is a helper script for mapping arbitrary tags in the signature stanzas of
       mac_permissions.xml to public keys found in pem files. This script takes
-      a mac_permissions.xml file and configuration file in order to operate.
+      a mac_permissions.xml file(s) and configuration file in order to operate.
       Details of the configuration file (keys.conf) can be found in the subsection
-      keys.conf. This script is also responsible for stipping the comments and
-      whitespace from the xml file.
+      keys.conf. This tool is also responsible for stripping the comments and
+      whitespace during processing.
 
       keys.conf
         The keys.conf file is used for controlling the mapping of "tags" found in
