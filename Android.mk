@@ -10,13 +10,6 @@ POLICYVERS ?= 24
 MLS_SENS=1
 MLS_CATS=1024
 
-MAC_PERMISSION_FILE=mac_permissions.xml
-
-# Detect if someone tries to union the mac permissions policy file
-$(if $(filter $(MAC_PERMISSION_FILE), $(BOARD_SEPOLICY_UNION)), \
-    $(error Cannot specify $(MAC_PERMISSION_FILE) in BOARD_SEPOLICY_UNION) \
-)
-
 # Quick edge case error detection for BOARD_SEPOLICY_REPLACE.
 # Builds the singular path for each replace file.
 sepolicy_replace_paths :=
@@ -163,7 +156,7 @@ include $(BUILD_PREBUILT)
 ##################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := $(MAC_PERMISSION_FILE)
+LOCAL_MODULE := mac_permissions.xml
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/security
@@ -176,17 +169,13 @@ $(mac_perms_keys.tmp) : $(call build_policy, keys.conf)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $^ > $@
 
-# Build mac_permissions.xml
-$(MAC_PERMISSION_FILE).tmp := $(intermediates)/$(MAC_PERMISSION_FILE).tmp
-$($(MAC_PERMISSION_FILE).tmp) : $(call build_policy, $(MAC_PERMISSION_FILE))
-	@mkdir -p $(dir $@)
-	$(hide) cp $^ $@
+ALL_MAC_PERMS_FILES := $(call build_policy, $(LOCAL_MODULE))
 
-$(LOCAL_BUILT_MODULE) : $($(MAC_PERMISSION_FILE).tmp) $(mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py
+$(LOCAL_BUILT_MODULE) : $(mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py $(ALL_MAC_PERMS_FILES)
 	@mkdir -p $(dir $@)
-	$(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $(mac_perms_keys.tmp) -o $@ $<
+	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(ALL_MAC_PERMS_FILES)
 
-$(MAC_PERMISSION_FILE).tmp :=
+mac_perms_keys.tmp :=
 ##################################
 
 build_policy :=
