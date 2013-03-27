@@ -30,8 +30,10 @@ type qemu_device, dev_type;
 type kmsg_device, dev_type;
 type null_device, dev_type, mlstrustedobject;
 type random_device, dev_type;
+type sensors_device, dev_type;
 type serial_device, dev_type;
 type socket_device, dev_type;
+type timerirq_device, dev_type;
 type tty_device, dev_type;
 type urandom_device, dev_type;
 type video_device, dev_type;
@@ -46,6 +48,7 @@ type watchdog_device, dev_type;
 type uhid_device, dev_type;
 type tun_device, dev_type, mlstrustedobject;
 type usbaccessory_device, dev_type;
+type usb_device, dev_type;
 
 # All devices have a uart for the hci
 # attach service. The uart dev node
@@ -53,6 +56,6 @@ type usbaccessory_device, dev_type;
 # is used in per device policy
 type hci_attach_dev, dev_type;
 
-# All devices have a rpmsg device for 
+# All devices have a rpmsg device for
 # achieving remoteproc and rpmsg modules
 type rpmsg_device, dev_type;

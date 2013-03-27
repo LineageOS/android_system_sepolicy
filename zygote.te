@@ -37,3 +37,6 @@ allow zygote sdcard_type:dir { write search setattr create add_name mounton };
 dontaudit zygote self:capability fsetid;
 allow zygote tmpfs:dir { write create add_name setattr mounton search };
 allow zygote tmpfs:filesystem mount;
+
+# Handle --invoke-with command when launching Zygote with a wrapper command.
+allow zygote zygote_exec:file { execute_no_trans open };

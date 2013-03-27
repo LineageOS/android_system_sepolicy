@@ -5,6 +5,7 @@ type sockfs, fs_type;
 type rootfs, fs_type;
 type proc, fs_type;
 type qtaguid_proc, fs_type, mlstrustedobject;
+type proc_bluetooth_writable, fs_type;
 type selinuxfs, fs_type;
 type cgroup, fs_type, mlstrustedobject;
 type sysfs, fs_type, mlstrustedobject;
