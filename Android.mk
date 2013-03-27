@@ -10,6 +10,12 @@ POLICYVERS ?= 24
 MLS_SENS=1
 MLS_CATS=1024
 
+ifeq ($(TARGET_BUILD_VARIANT),user)
+	BOARD_SEPOLICY_IGNORE+=external/sepolicy/su.te
+else
+	BOARD_SEPOLICY_IGNORE+=external/sepolicy/su_user.te
+endif
+
 # Quick edge case error detection for BOARD_SEPOLICY_REPLACE.
 # Builds the singular path for each replace file.
 sepolicy_replace_paths :=
