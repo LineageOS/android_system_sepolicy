@@ -15,6 +15,9 @@ allow adbd cgroup:dir { write add_name create };
 allow adbd labeledfs:filesystem remount;
 allow adbd shell_data_file:dir rw_dir_perms;
 allow adbd shell_data_file:file create_file_perms;
+allow adbd sdcard_type:dir create_dir_perms;
+allow adbd sdcard_type:file create_file_perms;
+
 allow adbd graphics_device:dir search;
 allow adbd graphics_device:chr_file r_file_perms;
 allow adbd log_device:chr_file r_file_perms;
