@@ -26,3 +26,9 @@ allow bluetoothdomain bluetooth:unix_stream_socket { read write shutdown };
 # tethering
 allow bluetooth self:{ tun_socket udp_socket } { ioctl create };
 allow bluetooth efs_file:dir search;
+
+# Talk to init over the property socket.
+unix_socket_connect(bluetooth, property, init)
+
+# proc access.
+allow bluetooth proc_bluetooth_writable:file rw_file_perms;
