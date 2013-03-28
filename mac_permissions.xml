@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <policy>
 
+    <!-- Platform dev key in AOSP -->
     <signer signature="@PLATFORM" >
       <seinfo value="platform" />
     </signer>
@@ -17,6 +18,7 @@
 
     <!-- release dev key in AOSP -->
     <signer signature="@RELEASE" >
+      <seinfo value="release" />
     </signer>
 
     <!-- All other keys -->
