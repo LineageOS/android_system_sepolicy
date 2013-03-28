@@ -77,6 +77,7 @@ allow release_app log_device:chr_file read;
 # set it must be an mlstrustedsubject.
 type isolated_app, domain, mlstrustedsubject;
 app_domain(isolated_app)
+allow isolated_app system_data_file:file { open execute };
 
 #
 # An example of a specific domain for a specific app
@@ -105,29 +106,12 @@ allow platformappdomain system_data_file:file { execute open };
 #
 type untrusted_app, domain;
 app_domain(untrusted_app)
-# Boolean-controlled options for untrusted apps.
-# Network access.
-bool app_network true;
-if (app_network) {
-# Cannot use net_domain within a conditional - type attribute.
-allow untrusted_app self:{ tcp_socket udp_socket } *;
-allow untrusted_app port_type:tcp_socket name_connect;
-allow untrusted_app node_type:{ tcp_socket udp_socket } node_bind;
-allow untrusted_app port_type:udp_socket name_bind;
-allow untrusted_app port_type:tcp_socket name_bind;
-unix_socket_connect(untrusted_app, dnsproxyd, netd)
+net_domain(untrusted_app)
+bluetooth_domain(untrusted_app)
 allow untrusted_app tun_device:chr_file rw_file_perms;
-allow untrusted_app untrusted_app:netlink_route_socket write;
-# Get route information.
-allow untrusted_app self:netlink_route_socket { create bind read nlmsg_read };
-}
-# Bluetooth access.
-bool app_bluetooth false;
-if (app_bluetooth or android_cts) {
-# No specific SELinux class for bluetooth sockets presently.
-allow untrusted_app self:socket *;
-allow untrusted_app bluetooth:unix_stream_socket { read write shutdown };
-}
+allow untrusted_app system_data_file:file { execute open };
+allow untrusted_app log_device:chr_file read;
+
 # Internal SDCard rw access.
 bool app_internal_sdcard_rw true;
 if (app_internal_sdcard_rw) {
@@ -139,17 +123,6 @@ bool app_external_sdcard_rw true;
 if (app_external_sdcard_rw) {
 allow untrusted_app sdcard_external:dir create_dir_perms;
 allow untrusted_app sdcard_external:file create_file_perms;
-}
-# Native app support.
-bool app_ndk false;
-if (app_ndk or android_cts) {
-allow untrusted_app system_data_file:file { execute open };
-allow isolated_app system_data_file:file { open execute };
-}
-# Read Logs
-bool app_read_logs false;
-if (app_read_logs or android_cts) {
-allow untrusted_app log_device:chr_file read;
 }
 
 #
