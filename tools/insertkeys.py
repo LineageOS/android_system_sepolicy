@@ -65,7 +65,7 @@ class ParseConfig(ConfigParser.ConfigParser):
     # This must be lowercase
     OPTION_WILDCARD_TAG = "all"
 
-    def generateKeyMap(self, target_build_variant):
+    def generateKeyMap(self, target_build_variant, key_directory):
 
         keyMap = dict()
 
@@ -87,7 +87,7 @@ class ParseConfig(ConfigParser.ConfigParser):
                 if tag in keyMap:
                     sys.exit("Duplicate tag detected " + tag)
 
-                path = self.get(tag, option)
+                path = os.path.join(key_directory, self.get(tag, option))
 
                 keyMap[tag] = GenerateKeys(path)
 
@@ -188,6 +188,9 @@ if __name__ == "__main__":
     parser.add_option("-t", "--target-build-variant", default="eng", dest="target_build_variant",
                       help="Specify the TARGET_BUILD_VARIANT, defaults to eng")
 
+    parser.add_option("-d", "--key-directory", default="", dest="key_directory",
+                      help="Specify a parent directory for keys")
+
     (options, args) = parser.parse_args()
 
     if len(args) < 2:
@@ -205,7 +208,7 @@ if __name__ == "__main__":
     logging.info("Setting output file to: " + options.output_file)
 
     # Generate the key list
-    key_map = config.generateKeyMap(options.target_build_variant.lower())
+    key_map = config.generateKeyMap(options.target_build_variant.lower(), options.key_directory)
     logging.info("Generate key map:")
     for k in key_map:
         logging.info(k + " : " + str(key_map[k]))

@@ -179,7 +179,7 @@ ALL_MAC_PERMS_FILES := $(call build_policy, $(LOCAL_MODULE))
 
 $(LOCAL_BUILT_MODULE) : $(mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py $(ALL_MAC_PERMS_FILES)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(ALL_MAC_PERMS_FILES)
+	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -d $(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE)) -c $(TOP) $< -o $@ $(ALL_MAC_PERMS_FILES)
 
 mac_perms_keys.tmp :=
 ##################################
