@@ -41,6 +41,12 @@ allow media_app mtp_device:chr_file rw_file_perms;
 # Write to /cache.
 allow media_app cache_file:dir rw_dir_perms;
 allow media_app cache_file:file create_file_perms;
+# Stat /cache/lost+found
+allow media_app unlabeled:file getattr;
+allow media_app unlabeled:dir getattr;
+# Stat /cache/backup
+allow media_app cache_backup_file:file getattr;
+allow media_app cache_backup_file:dir getattr;
 
 # Apps signed with the shared key.
 type shared_app, domain;
