@@ -74,15 +74,6 @@ app_domain(isolated_app)
 allow isolated_app system_data_file:file { open execute };
 
 #
-# An example of a specific domain for a specific app
-# A domain for com.android.browser.
-type browser_app, domain;
-app_domain(browser_app)
-platform_app_domain(browser_app)
-# Access the network.
-net_domain(browser_app)
-
-#
 # Rules for platform app domains.
 #
 
