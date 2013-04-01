@@ -5,7 +5,7 @@ include $(CLEAR_VARS)
 # SELinux policy version.
 # Must be <= /selinux/policyvers reported by the Android kernel.
 # Must be within the compatibility range reported by checkpolicy -V.
-POLICYVERS ?= 24
+POLICYVERS ?= 26
 
 MLS_SENS=1
 MLS_CATS=1024
