@@ -230,5 +230,5 @@ allow system cache_backup_file:dir { relabelto relabelfrom create_dir_perms };
 allow system usb_device:chr_file rw_file_perms;
 allow system usb_device:dir r_dir_perms;
 
-# Allow system to talk to sensors and timer irq
-allow system { sensors_device timerirq_device }:chr_file rw_file_perms;
+# Allow system to talk to sensors
+allow system sensors_device:chr_file rw_file_perms;
