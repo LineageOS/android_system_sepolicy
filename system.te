@@ -112,6 +112,7 @@ unix_socket_connect(system, gps, gpsd)
 unix_socket_connect(system, bluetooth, bluetoothd)
 unix_socket_connect(system, racoon, racoon)
 unix_socket_send(system, wpa, wpa)
+unix_socket_send(system, wpa, init)
 
 # Communicate over a socket created by surfaceflinger.
 allow system surfaceflinger:unix_stream_socket { read write setopt };
