@@ -159,6 +159,8 @@
 /data/anr(/.*)?		u:object_r:anr_data_file:s0
 /data/app(/.*)?		u:object_r:apk_data_file:s0
 /data/app/vmdl.*\.tmp	u:object_r:apk_tmp_file:s0
+/data/app-private(/.*)?		u:object_r:apk_private_data_file:s0
+/data/app-private/vmdl.*\.tmp	u:object_r:apk_private_tmp_file:s0
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
 /data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
 # Misc data
