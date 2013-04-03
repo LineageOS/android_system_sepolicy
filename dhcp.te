@@ -29,3 +29,5 @@ allow dhcp netd:{ dgram_socket_class_set unix_stream_socket } { read write };
 allow dhcp netd:{ netlink_kobject_uevent_socket netlink_route_socket netlink_nflog_socket } { read write };
 # netdev-bt-pan driver loading
 allow dhcp kernel:system module_request;
+
+allow dhcp tty_device:chr_file { rw_file_perms };
