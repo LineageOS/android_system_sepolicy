@@ -4,7 +4,7 @@ type adbd, domain, mlstrustedsubject;
 allow adbd adb_device:chr_file rw_file_perms;
 allow adbd qemu_device:chr_file rw_file_perms;
 allow adbd self:capability { net_raw setgid setuid dac_override sys_boot sys_admin };
-allow adbd rootfs:file { read entrypoint };
+allow adbd rootfs:file { r_file_perms entrypoint };
 allow adbd init:process sigchld;
 allow adbd self:tcp_socket *;
 allow adbd self:unix_stream_socket *;
