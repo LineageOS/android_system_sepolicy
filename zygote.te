@@ -28,8 +28,8 @@ allow zygote self:capability sys_admin;
 selinux_check_context(zygote)
 # Check SELinux permissions.
 selinux_check_access(zygote)
-# Read /seapp_contexts, presently on the rootfs.
-allow zygote rootfs:file r_file_perms;
+# Read /seapp_contexts and /data/security/seapp_contexts
+security_access_policy(zygote)
 
 # Setting up /storage/emulated.
 allow zygote rootfs:dir mounton;

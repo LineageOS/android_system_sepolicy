@@ -147,8 +147,8 @@ allow system tun_device:chr_file rw_file_perms;
 allow system data_file_type:dir create_dir_perms;
 allow system data_file_type:notdevfile_class_set create_file_perms;
 
-# Read /file_contexts.
-allow system rootfs:file r_file_perms;
+# Read /file_contexts and /data/security/file_contexts
+security_access_policy(system)
 
 # Relabel apk files.
 allow system { apk_tmp_file apk_private_tmp_file }:file { relabelfrom relabelto };

@@ -236,8 +236,6 @@ allow $1 selinuxfs:dir r_dir_perms;
 allow $1 selinuxfs:file r_file_perms;
 allow $1 rootfs:dir r_dir_perms;
 allow $1 rootfs:file r_file_perms;
-allow $1 system_file:dir r_dir_perms;
-allow $1 system_file:file r_file_perms;
 ')
 
 #####################################
