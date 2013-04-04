@@ -33,5 +33,5 @@ unix_socket_connect(netd, property, init)
 allow netd system_prop:property_service set;
 
 # Connect to PAN
-domain_auto_trans(netd, dhcp_exec, dhcp);
+domain_auto_trans(netd, dhcp_exec, dhcp)
 allow netd dhcp:process signal;
