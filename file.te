@@ -76,6 +76,8 @@ type security_file, file_type;
 # vary per device, so this type is used in per
 # device policy
 type bluetooth_efs_file, file_type;
+# Downloaded files
+type download_file, file_type;
 
 # Socket types
 type adbd_socket, file_type;
