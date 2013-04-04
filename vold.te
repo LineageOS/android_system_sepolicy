@@ -7,7 +7,6 @@ typeattribute vold mlstrustedsubject;
 allow vold system_file:file x_file_perms;
 allow vold block_device:dir create_dir_perms;
 allow vold block_device:blk_file create_file_perms;
-allow vold block_device:lnk_file read;
 allow vold devpts:chr_file rw_file_perms;
 allow vold rootfs:dir mounton;
 allow vold sdcard_type:dir mounton;
