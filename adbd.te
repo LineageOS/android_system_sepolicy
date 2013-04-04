@@ -20,7 +20,6 @@ allow adbd sdcard_type:file create_file_perms;
 
 allow adbd graphics_device:dir search;
 allow adbd graphics_device:chr_file r_file_perms;
-allow adbd log_device:chr_file r_file_perms;
 # XXX Run /system/bin/vdc to connect to vold.  Run in a separate domain?
 allow adbd system_file:file rx_file_perms;
 unix_socket_connect(adbd, vold, vold)

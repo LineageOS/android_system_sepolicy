@@ -13,8 +13,6 @@ platform_app_domain(platform_app)
 net_domain(platform_app)
 # Access bluetooth.
 bluetooth_domain(platform_app)
-# Read logs.
-allow platform_app log_device:chr_file read;
 # Write to /cache.
 allow platform_app cache_file:dir rw_dir_perms;
 allow platform_app cache_file:file create_file_perms;
@@ -34,8 +32,6 @@ app_domain(media_app)
 platform_app_domain(media_app)
 # Access the network.
 net_domain(media_app)
-# Read logs.
-allow media_app log_device:chr_file read;
 # Access /dev/mtp_usb.
 allow media_app mtp_device:chr_file rw_file_perms;
 # Write to /cache.
@@ -50,8 +46,6 @@ platform_app_domain(shared_app)
 net_domain(shared_app)
 # Access bluetooth.
 bluetooth_domain(shared_app)
-# Read logs.
-allow shared_app log_device:chr_file read;
 # ASEC
 r_dir_file(shared_app, asec_apk_file);
 
@@ -63,8 +57,6 @@ platform_app_domain(release_app)
 net_domain(release_app)
 # Access bluetooth.
 bluetooth_domain(release_app)
-# Read logs.
-allow release_app log_device:chr_file read;
 
 # Services with isolatedProcess=true in their manifest.
 # In order for isolated_apps to interact with apps that have levelFromUid=true
@@ -95,7 +87,6 @@ net_domain(untrusted_app)
 bluetooth_domain(untrusted_app)
 allow untrusted_app tun_device:chr_file rw_file_perms;
 allow untrusted_app system_data_file:file { execute open };
-allow untrusted_app log_device:chr_file read;
 
 # Internal SDCard rw access.
 bool app_internal_sdcard_rw true;
