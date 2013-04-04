@@ -27,6 +27,7 @@ allow platform_app apk_private_data_file:dir search;
 # ASEC
 allow platform_app asec_apk_file:dir create_dir_perms;
 allow platform_app asec_apk_file:file create_file_perms;
+allow platform_app download_file:file rw_file_perms;
 
 # Apps signed with the media key.
 type media_app, domain;
@@ -45,6 +46,11 @@ allow media_app unlabeled:dir getattr;
 # Stat /cache/backup
 allow media_app cache_backup_file:file getattr;
 allow media_app cache_backup_file:dir getattr;
+# Read files in the rootdir
+allow media_app rootfs:file r_file_perms;
+# Allow platform apps to mark platform app data files as download files
+allow media_app platform_app_data_file:dir relabelfrom;
+allow media_app download_file:dir relabelto;
 
 # Apps signed with the shared key.
 type shared_app, domain;
@@ -82,6 +88,7 @@ allow platformappdomain platform_app_data_file:notdevfile_class_set create_file_
 # App sdcard file accesses
 allow platformappdomain sdcard_type:dir create_dir_perms;
 allow platformappdomain sdcard_type:file create_file_perms;
+
 
 #
 # Untrusted apps.
@@ -180,3 +187,7 @@ allow { appdomain isolated_app } backup_data_file:file { read write };
 allow { appdomain isolated_app } cache_backup_file:file { read write };
 # Backup ability using 'adb backup'
 allow { appdomain isolated_app } system_data_file:lnk_file getattr;
+
+# Allow all applications to read downloaded files
+allow appdomain download_file:file r_file_perms;
+file_type_auto_trans(appdomain, download_file, download_file)
