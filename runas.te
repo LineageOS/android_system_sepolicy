@@ -34,7 +34,8 @@ allow runas app_data_file:dir { getattr search };
 allow runas self:capability { setuid setgid };
 
 # run-as switches to the app security context.
-allow runas rootfs:file r_file_perms; # read /seapp_contexts
+# read /seapp_contexts and /data/security/seapp_contexts
+security_access_policy(runas)
 selinux_check_context(runas) # validate context
 allow runas untrusted_app:process dyntransition; # setcon
 
