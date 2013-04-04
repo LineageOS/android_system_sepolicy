@@ -40,6 +40,7 @@ allow domain rootfs:lnk_file { read getattr };
 
 # Device accesses.
 allow domain device:dir search;
+allow domain dev_type:lnk_file read;
 allow domain devpts:dir search;
 allow domain device:file read;
 allow domain socket_device:dir search;
