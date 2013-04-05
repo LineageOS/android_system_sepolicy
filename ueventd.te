@@ -2,7 +2,7 @@
 # it lives in the rootfs and has no unique file type.
 type ueventd, domain;
 tmpfs_domain(ueventd)
-allow ueventd rootfs:file r_file_perms;
+security_access_policy(ueventd)
 allow ueventd rootfs:file entrypoint;
 allow ueventd init:process sigchld;
 allow ueventd self:capability { chown mknod net_admin setgid fsetid sys_rawio dac_override fowner };
