@@ -91,6 +91,7 @@ app_domain(untrusted_app)
 net_domain(untrusted_app)
 bluetooth_domain(untrusted_app)
 allow untrusted_app tun_device:chr_file rw_file_perms;
+allow untrusted_app system_data_file:file { execute open };
 
 # Internal SDCard rw access.
 bool app_internal_sdcard_rw true;
