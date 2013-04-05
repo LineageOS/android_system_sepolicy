@@ -14,6 +14,9 @@ binder_service(drmserver)
 # Perform Binder IPC to mediaserver
 binder_call(drmserver, mediaserver)
 
+# Talk to the tee
+allow drmserver tee:unix_stream_socket { connectto };
+
 allow drmserver sdcard_type:dir search;
 allow drmserver drm_data_file:dir create_dir_perms;
 allow drmserver drm_data_file:file create_file_perms;
