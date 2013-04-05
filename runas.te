@@ -19,15 +19,15 @@ dontaudit shell self:capability { sys_ptrace kill };
 
 # ndk-gdb invokes adb shell run-as.
 domain_auto_trans(shell, runas_exec, runas)
+allow runas adbd:process sigchld;
 allow runas shell:fd  use;
-allow runas devpts:chr_file { read write };
+allow runas devpts:chr_file { read write ioctl };
 
 # run-as reads package information.
 allow runas system_data_file:file r_file_perms;
 
 # run-as checks and changes to the app data dir.
 dontaudit runas self:capability dac_override;
-allow runas self:capability dac_read_search;
 allow runas app_data_file:dir { getattr search };
 
 # run-as switches to the app UID/GID.
@@ -41,18 +41,15 @@ allow runas untrusted_app:process dyntransition; # setcon
 # run-as runs lib/gdbserver from the app data dir.
 allow untrusted_app system_data_file:file rx_file_perms;
 
-# run-as may also run sh or system commands.
-allow untrusted_app shell_exec:file rx_file_perms;
-allow untrusted_app system_file:file rx_file_perms;
-
 # gdbserver reads the zygote.
 allow untrusted_app zygote_exec:file r_file_perms;
 
 # (grand)child death notification.
 allow untrusted_app shell:process sigchld;
+allow untrusted_app adbd:process sigchld;
 
 # child shell or gdbserver pty access.
-allow untrusted_app devpts:chr_file { getattr read write };
+allow untrusted_app devpts:chr_file { getattr read write ioctl };
 
 # gdbserver creates a socket in the app data dir.
 allow untrusted_app app_data_file:sock_file { create unlink };
