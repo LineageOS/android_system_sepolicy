@@ -5,8 +5,11 @@
 
 bool android_cts false;
 if (android_cts) {
-# Reads /proc/pid entries to check that no unexpected root
-# processes are running.
+# For TestDeviceSetup (RootProcessScanner).
+# Reads /proc/pid/status and statm entries to check that
+# no unexpected root processes are running.
+# Also for android.security.cts.VoldExploitTest.
+# Requires ability to read /proc/pid/cmdline of vold.
 allow appdomain domain:dir r_dir_perms;
 allow appdomain domain:{ file lnk_file } r_file_perms;
 
@@ -15,7 +18,8 @@ allow appdomain domain:{ file lnk_file } r_file_perms;
 dontaudit appdomain appdomain:dir r_dir_perms;
 dontaudit appdomain appdomain:file r_file_perms;
 
-# Walk the file tree, stat any file.
+# For android.permission.cts.FileSystemPermissionTest.
+# Walk the file tree, stat any file in order to check file permissions.
 allow appdomain fs_type:dir r_dir_perms;
 allow appdomain dev_type:dir r_dir_perms;
 allow appdomain file_type:dir_file_class_set getattr;
@@ -25,6 +29,7 @@ allow appdomain fs_type:dir_file_class_set getattr;
 # Tries to open /dev/alarm for writing but expects failure.
 dontaudit appdomain alarm_device:chr_file write;
 
+# For android.security.cts.VoldExploitTest.
 # Tries to create and use a netlink kobject uevent socket
 # to test for a vulnerable vold.
 dontaudit appdomain self:netlink_kobject_uevent_socket create;
