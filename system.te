@@ -30,22 +30,6 @@ selinux_getenforce(system_app)
 # Settings app reads sdcard for storage stats
 allow system_app sdcard_type:dir r_dir_perms;
 
-bool manage_selinux true;
-if (manage_selinux) {
-selinux_manage_policy(system)
-selinux_manage_policy(system_app)
-access_kmsg(system)
-access_kmsg(system_app)
-}
-
-bool manage_mac true;
-if (manage_mac) {
-mmac_manage_policy(system)
-mmac_manage_policy(system_app)
-access_logcat(system)
-access_logcat(system_app)
-}
-
 #
 # System Server aka system_server spawned by zygote.
 # Most of the framework services run in this process.
