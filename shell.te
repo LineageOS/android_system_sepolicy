@@ -20,9 +20,6 @@ allow shell sdcard_type:file create_file_perms;
 r_dir_file(shell, apk_data_file)
 allow shell dalvikcache_data_file:file { write setattr };
 
-# Run logcat.
-allow shell log_device:chr_file r_file_perms;
-
 # Run app_process.
 # XXX Split into its own domain?
 app_domain(shell)
