@@ -75,7 +75,6 @@ bluetooth_domain(release_app)
 # set it must be an mlstrustedsubject.
 type isolated_app, domain, mlstrustedsubject;
 app_domain(isolated_app)
-allow isolated_app system_data_file:file { open execute };
 
 #
 # Rules for platform app domains.
@@ -87,8 +86,6 @@ allow platformappdomain platform_app_data_file:notdevfile_class_set create_file_
 # App sdcard file accesses
 allow platformappdomain sdcard_type:dir create_dir_perms;
 allow platformappdomain sdcard_type:file create_file_perms;
-# System data file accesses (e.g, shared objects from the lib directory)
-allow platformappdomain system_data_file:file { execute open };
 
 
 #
@@ -99,7 +96,6 @@ app_domain(untrusted_app)
 net_domain(untrusted_app)
 bluetooth_domain(untrusted_app)
 allow untrusted_app tun_device:chr_file rw_file_perms;
-allow untrusted_app system_data_file:file { execute open };
 
 # Internal SDCard rw access.
 bool app_internal_sdcard_rw true;
@@ -147,6 +143,7 @@ allow appdomain platform_app_data_file:file { read write };
 
 # lib subdirectory of /data/data dir is system-owned.
 allow appdomain system_data_file:dir r_dir_perms;
+allow appdomain system_data_file:file { execute open };
 
 # Read/write wallpaper file (opened by system).
 allow appdomain wallpaper_file:file { read write };
