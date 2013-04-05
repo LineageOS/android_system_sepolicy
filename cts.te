@@ -23,10 +23,6 @@ allow appdomain file_type:dir_file_class_set getattr;
 allow appdomain dev_type:dir_file_class_set getattr;
 allow appdomain fs_type:dir_file_class_set getattr;
 
-# Execute the shell or other system executables.
-allow appdomain shell_exec:file rx_file_perms;
-allow appdomain system_file:file rx_file_perms;
-
 # Accesses to apk_tmp_file and shell_data_file
 allow appdomain apk_tmp_file:file rw_file_perms;
 allow appdomain shell_data_file:file r_file_perms;

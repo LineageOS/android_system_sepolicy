@@ -145,6 +145,10 @@ allow appdomain platform_app_data_file:file { getattr read write };
 allow appdomain system_data_file:dir r_dir_perms;
 allow appdomain system_data_file:file { execute open };
 
+# Execute the shell or other system executables.
+allow appdomain shell_exec:file rx_file_perms;
+allow appdomain system_file:file rx_file_perms;
+
 # Read/write wallpaper file (opened by system).
 allow appdomain wallpaper_file:file { read write };
 
