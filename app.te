@@ -132,7 +132,7 @@ allow appdomain app_data_file:notdevfile_class_set create_file_perms;
 
 # Read/write data files created by the platform apps if they
 # were passed to the app via binder or local IPC.  Do not allow open.
-allow appdomain platform_app_data_file:file { read write };
+allow appdomain platform_app_data_file:file { getattr read write };
 
 # lib subdirectory of /data/data dir is system-owned.
 allow appdomain system_data_file:dir r_dir_perms;
