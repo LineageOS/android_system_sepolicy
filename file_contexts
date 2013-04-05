@@ -101,6 +101,7 @@
 /dev/spdif_out.*	u:object_r:audio_device:s0
 /dev/tegra.*		u:object_r:video_device:s0
 /dev/tf_driver		u:object_r:tee_device:s0
+/dev/tty		u:object_r:owntty_device:s0
 /dev/tty[0-9]*		u:object_r:tty_device:s0
 /dev/ttyS[0-9]*		u:object_r:serial_device:s0
 /dev/tun		u:object_r:tun_device:s0
