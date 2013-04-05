@@ -35,3 +35,6 @@ allow adbd shell:process noatsecure;
 # XXX Run screencap in a separate domain?
 binder_use(adbd)
 binder_call(adbd, surfaceflinger)
+
+# Write to the sysrq file
+allow adbd sysrq_file:file w_file_perms;
