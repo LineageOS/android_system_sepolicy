@@ -152,8 +152,8 @@ allow system data_file_type:notdevfile_class_set create_file_perms;
 allow system rootfs:file r_file_perms;
 
 # Relabel apk files.
-allow system apk_tmp_file:file { relabelfrom relabelto };
-allow system apk_data_file:file { relabelfrom relabelto };
+allow system { apk_tmp_file apk_private_tmp_file }:file { relabelfrom relabelto };
+allow system { apk_data_file apk_private_data_file }:file { relabelfrom relabelto };
 
 # Relabel wallpaper.
 allow system system_data_file:file relabelfrom;
