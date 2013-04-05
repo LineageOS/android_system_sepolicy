@@ -26,6 +26,9 @@ allow appdomain file_type:dir_file_class_set getattr;
 allow appdomain dev_type:dir_file_class_set getattr;
 allow appdomain fs_type:dir_file_class_set getattr;
 
+# Read permission over link file to devices.
+allow appdomain dev_type:lnk_file read;
+
 # Tries to open /dev/alarm for writing but expects failure.
 dontaudit appdomain alarm_device:chr_file write;
 
