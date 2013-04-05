@@ -16,7 +16,6 @@ dontaudit appdomain appdomain:dir r_dir_perms;
 dontaudit appdomain appdomain:file r_file_perms;
 
 # Walk the file tree, stat any file.
-allow appdomain file_type:dir r_dir_perms;
 allow appdomain fs_type:dir r_dir_perms;
 allow appdomain dev_type:dir r_dir_perms;
 allow appdomain file_type:dir_file_class_set getattr;
