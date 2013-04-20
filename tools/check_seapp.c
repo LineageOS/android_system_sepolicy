@@ -189,7 +189,9 @@ static line_order_list *list_tail = NULL;
  * @param fmt
  * 	The printf style formatter to use, such as "%d"
  */
-static void log_msg(FILE *out, const char *prefix, const char *fmt, ...) {
+static void __attribute__ ((format(printf, 3, 4)))
+log_msg(FILE *out, const char *prefix, const char *fmt, ...) {
+
 	fprintf(out, "%s", prefix);
 	va_list args;
 	va_start(args, fmt);
@@ -395,12 +397,12 @@ static map_match rule_map_cmp(rule_map *rmA, rule_map *rmB) {
 			}
 
 			if (input_mode) {
-				log_info("Matched input lines: type=%s name=%s data=%s dir=%d\n", mA->type, mA->name, mA->data, mA->dir);
+				log_info("Matched input lines: name=%s data=%s\n", mA->name, mA->data);
 				num_of_matched_inputs++;
 			}
 
 			/* Match found, move on */
-			log_info("Matched lines: type=%s name=%s data=%s dir=%d\n", mA->type, mA->name, mA->data, mA->dir);
+			log_info("Matched lines: name=%s data=%s", mA->name, mA->data);
 			matches++;
 			break;
 		}
