@@ -122,6 +122,7 @@ selinux_check_access(system)
 
 # XXX Label sysfs files with a specific type?
 allow system sysfs:file rw_file_perms;
+allow system sysfs_devices_system_cpu:dir search;
 allow system sysfs_nfc_power_writable:file rw_file_perms;
 
 # Access devices.
