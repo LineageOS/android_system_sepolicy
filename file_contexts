@@ -46,7 +46,6 @@
 /dev/console		u:object_r:console_device:s0
 /dev/cpuctl(/.*)?	u:object_r:cpuctl_device:s0
 /dev/device-mapper	u:object_r:dm_device:s0
-/dev/dsscomp        u:object_r:dss_device:s0
 /dev/eac		u:object_r:audio_device:s0
 /dev/full		u:object_r:full_device:s0
 /dev/fuse		u:object_r:fuse_device:s0
@@ -54,16 +53,12 @@
 /dev/input(/.*)		u:object_r:input_device:s0
 /dev/iio:device[0-9]+   u:object_r:iio_device:s0
 /dev/ion		u:object_r:ion_device:s0
-/dev/kgsl-3d0       u:object_r:graphics_device:s0
 /dev/kmem		u:object_r:kmem_device:s0
-/dev/knvmap     u:object_r:knvmap_device:s0
 /dev/log(/.*)?		u:object_r:log_device:s0
 /dev/mem		u:object_r:kmem_device:s0
 /dev/modem.*		u:object_r:radio_device:s0
 /dev/mpu		u:object_r:gps_device:s0
 /dev/mpuirq		u:object_r:gps_device:s0
-# XXX move to device-specific
-/dev/msm_rotator    u:object_r:msm_rotator_device:s0
 /dev/mtd(/.*)?		u:object_r:mtd_device:s0
 /dev/mtd/mtd5		u:object_r:radio_device:s0
 /dev/mtd/mtd5ro		u:object_r:radio_device:s0
