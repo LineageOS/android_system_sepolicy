@@ -216,3 +216,6 @@ allow system usb_device:dir r_dir_perms;
 
 # Allow system to talk to sensors
 allow system sensors_device:chr_file rw_file_perms;
+
+# Allow system to search the /sys/devices/system/cpu directory
+allow system sysfs_devices_system_cpu:dir search;
