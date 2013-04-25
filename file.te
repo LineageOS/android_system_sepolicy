@@ -81,8 +81,6 @@ type security_file, file_type;
 type bluetooth_efs_file, file_type;
 # Downloaded files
 type download_file, file_type;
-# The sysrq special file
-type sysrq_file, file_type;
 
 # Socket types
 type adbd_socket, file_type;
