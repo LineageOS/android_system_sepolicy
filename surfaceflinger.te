@@ -32,9 +32,3 @@ allow surfaceflinger ctl_default_prop:property_service set;
 allow surfaceflinger appdomain:fd use;
 allow surfaceflinger platform_app_data_file:file { read write };
 allow surfaceflinger app_data_file:file { read write };
-
-# Allow access to special-purpose devices
-# XXX may be device-specific
-allow surfaceflinger dss_device:chr_file { read write };
-allow surfaceflinger knvmap_device:chr_file { ioctl };
-allow surfaceflinger msm_rotator_device:chr_file { open };
