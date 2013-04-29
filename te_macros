@@ -284,3 +284,8 @@ allow $1 system_file:file x_file_perms;
 define(`access_kmsg', `
 allow $1 kernel:system syslog_read;
 ')
+
+#####################################
+# Non system_app application set
+#
+define(`non_system_app_set', `{ appdomain -system_app }')
