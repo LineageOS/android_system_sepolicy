@@ -31,6 +31,10 @@ domain_auto_trans(adbd, shell_exec, shell)
 # Do not sanitize the environment of the shell.
 allow adbd shell:process noatsecure;
 
+# XXX Mostly to access system properties and keys- maybe those should be their own type?
+allow adbd system_data_file:file create_file_perms;
+allow adbd system_data_file:dir create_dir_perms;
+
 # Perform binder IPC to surfaceflinger (screencap)
 # XXX Run screencap in a separate domain?
 binder_use(adbd)
