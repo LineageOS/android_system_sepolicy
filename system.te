@@ -140,6 +140,7 @@ allow system urandom_device:chr_file rw_file_perms;
 allow system usbaccessory_device:chr_file rw_file_perms;
 allow system video_device:chr_file rw_file_perms;
 allow system qemu_device:chr_file rw_file_perms;
+allow system devpts:chr_file rw_file_perms;
 
 # tun device used for 3rd party vpn apps
 allow system tun_device:chr_file rw_file_perms;
