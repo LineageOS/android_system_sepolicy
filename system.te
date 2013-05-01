@@ -220,3 +220,6 @@ allow system sensors_device:chr_file rw_file_perms;
 
 # Allow system to search the /sys/devices/system/cpu directory
 allow system sysfs_devices_system_cpu:dir search;
+
+# Allow system to write to the adbd_socket
+allow system adbd_socket:sock_file write;
