@@ -126,6 +126,9 @@ struct policy_info {
 /** Set to !0 to enable verbose logging */
 static int logging_verbose = 0;
 
+/** set to !0 to enable strict checking of duplicate entries */
+static int is_strict = 0;
+
 /** file handle to the output file */
 static FILE *output_file = NULL;
 
@@ -269,8 +272,8 @@ static int key_map_validate(key_map *m, int lineno) {
 	}
 
 	/*
-	 * If their is no policy file present,
-	 * then it is not in strict mode so just return.
+	 * If there is no policy file present,
+	 * then it is not going to enforce the types against the policy so just return.
 	 * User and name cannot really be checked.
 	 */
 	if (!pol.policy_file) {
@@ -569,8 +572,9 @@ static void usage() {
 		        "and allows later declarations to override previous ones on a match.\n"
 		        "Options:\n"
 		        "-h - print this help message\n"
+			"-s - enable strict checking of duplicates. This causes the program to exit on a duplicate entry with a non-zero exit status\n"
 		        "-v - enable verbose debugging informations\n"
-		        "-p policy file - specify policy file for strict checking of output selectors\n"
+		        "-p policy file - specify policy file for strict checking of output selectors against the policy\n"
 		        "-o output file - specify output file, default is stdout\n");
 }
 
@@ -657,7 +661,7 @@ static void handle_options(int argc, char *argv[]) {
 	int c;
 	int num_of_args;
 
-	while ((c = getopt(argc, argv, "ho:p:v")) != -1) {
+	while ((c = getopt(argc, argv, "ho:p:sv")) != -1) {
 		switch (c) {
 		case 'h':
 			usage();
@@ -667,6 +671,9 @@ static void handle_options(int argc, char *argv[]) {
 			break;
 		case 'p':
 			pol.policy_file_name = optarg;
+			break;
+		case 's':
+			is_strict = 1;
 			break;
 		case 'v':
 			log_set_verbose();
@@ -680,9 +687,7 @@ static void handle_options(int argc, char *argv[]) {
 				log_error(
 						"Unknown option character `\\x%x'.\n",
 						optopt);
-				exit(EXIT_FAILURE);
 			}
-			break;
 		default:
 			exit(EXIT_FAILURE);
 		}
@@ -804,11 +809,20 @@ static void rule_add(rule_map *rm) {
 		}
 		/* Duplicate */
 		else {
-			log_error("Duplicate line detected in file: %s\n"
+			/* if is_strict is set, then don't allow duplicates */
+			if(is_strict) {
+				log_error("Duplicate line detected in file: %s\n"
+					"Lines %d and %d match!\n",
+					out_file_name, tmp->r->lineno, rm->lineno);
+				rule_map_free(rm, rule_map_destroy_key);
+				goto err;
+			}
+
+			/* Allow duplicates, just drop the entry*/
+			log_info("Duplicate line detected in file: %s\n"
 					"Lines %d and %d match!\n",
 					out_file_name, tmp->r->lineno, rm->lineno);
 			rule_map_free(rm, rule_map_destroy_key);
-			goto err;
 		}
 	}
 	/* It wasn't found, just add the rule map to the table */
