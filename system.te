@@ -8,6 +8,22 @@ permissive system;
 unconfined_domain(system);
 relabelto_domain(system);
 
+# These are the capabilities assigned by the zygote to the
+# system server.
+allow system self:capability {
+    kill
+    net_admin
+    net_bind_service
+    net_broadcast
+    net_raw
+    sys_boot
+    sys_module
+    sys_nice
+    sys_resource
+    sys_time
+    sys_tty_config
+};
+
 # Create a socket for receiving info from wpa.
 type_transition system wifi_data_file:sock_file system_wpa_socket;
 allow system self:zygote { specifyids specifyrlimits specifyseinfo };
