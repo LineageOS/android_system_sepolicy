@@ -4,7 +4,7 @@ type rild_exec, exec_type, file_type;
 
 init_daemon_domain(rild)
 net_domain(rild)
-allow rild self:netlink_route_socket setopt;
+allow rild self:netlink_route_socket { setopt write };
 allow rild kernel:system module_request;
 unix_socket_connect(rild, property, init)
 unix_socket_connect(rild, qemud, qemud)
@@ -20,8 +20,8 @@ allow rild efs_file:file create_file_perms;
 allow rild shell_exec:file rx_file_perms;
 allow rild bluetooth_efs_file:file r_file_perms;
 allow rild bluetooth_efs_file:dir r_dir_perms;
-allow rild radio_data_file:dir r_dir_perms;
-allow rild radio_data_file:file rw_file_perms;
+allow rild radio_data_file:dir rw_dir_perms;
+allow rild radio_data_file:file create_file_perms;
 allow rild sdcard_type:dir r_dir_perms;
 allow rild system_data_file:dir create_dir_perms;
 allow rild system_data_file:file create_file_perms;
@@ -41,3 +41,5 @@ allow rild tty_device:chr_file rw_file_perms;
 
 # Allow rild to create, bind, read, write to itself through a netlink socket
 allow rild self:netlink_socket { create bind read write };
+
+allow rild self:netlink_kobject_uevent_socket { bind create getopt read setopt };
