@@ -208,7 +208,7 @@
 #############################
 # sysfs files
 #
-/sys/qemu_trace/process_name	--	u:object_r:sysfs_writable:s0
+/sys/qemu_trace(/.*)?	--	u:object_r:sysfs_writable:s0
 /sys/devices/platform/nfc-power/nfc_power -- u:object_r:sysfs_nfc_power_writable:s0
 /sys/class/rfkill/rfkill[0-9]*/state -- u:object_r:sysfs_bluetooth_writable:s0
 /sys/class/rfkill/rfkill[0-9]*/type -- u:object_r:sysfs_bluetooth_writable:s0
