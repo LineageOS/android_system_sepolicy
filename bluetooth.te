@@ -30,5 +30,8 @@ allow bluetooth efs_file:dir search;
 # Talk to init over the property socket.
 unix_socket_connect(bluetooth, property, init)
 
+# Property Service
+allow bluetooth bluetooth_prop:property_service set;
+
 # proc access.
 allow bluetooth proc_bluetooth_writable:file rw_file_perms;
