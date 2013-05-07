@@ -1,6 +1,6 @@
+# Domain for shell processes spawned by ADB
 type shell, domain, mlstrustedsubject;
 type shell_exec, file_type;
-domain_auto_trans(init, shell_exec, shell)
 allow shell rootfs:dir r_dir_perms;
 allow shell devpts:chr_file rw_file_perms;
 allow shell tty_device:chr_file rw_file_perms;
