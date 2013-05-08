@@ -191,3 +191,7 @@ allow { appdomain isolated_app } system_data_file:lnk_file getattr;
 # Allow all applications to read downloaded files
 allow appdomain download_file:file r_file_perms;
 file_type_auto_trans(appdomain, download_file, download_file)
+
+# ASEC
+allow untrusted_app asec_apk_file:dir { getattr };
+allow untrusted_app asec_apk_file:file r_file_perms;
