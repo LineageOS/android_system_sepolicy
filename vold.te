@@ -26,6 +26,8 @@ allow vold domain:dir r_dir_perms;
 allow vold domain:{ file lnk_file } r_file_perms;
 allow vold domain:process { signal sigkill };
 allow vold self:capability { sys_ptrace };
+# Grant vold the capability to reboot the system
+allow vold self:capability { sys_boot };
 
 # XXX Label sysfs files with a specific type?
 allow vold sysfs:file rw_file_perms;
