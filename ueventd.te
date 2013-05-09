@@ -2,6 +2,7 @@
 # it lives in the rootfs and has no unique file type.
 type ueventd, domain;
 tmpfs_domain(ueventd)
+write_klog(ueventd)
 security_access_policy(ueventd)
 allow ueventd rootfs:file entrypoint;
 allow ueventd init:process sigchld;
