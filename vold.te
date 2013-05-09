@@ -32,6 +32,8 @@ allow vold self:capability { sys_boot };
 # XXX Label sysfs files with a specific type?
 allow vold sysfs:file rw_file_perms;
 
+write_klog(vold)
+
 #
 # Rules to support encrypted fs support.
 #
