@@ -48,7 +48,7 @@ bluetooth_domain(system)
 # These are the capabilities assigned by the zygote to the
 # system server.
 # XXX See if we can remove some of these.
-allow system self:capability { kill net_bind_service net_broadcast net_admin net_raw sys_module sys_boot sys_nice sys_resource sys_time sys_tty_config };
+allow system self:capability { kill net_bind_service net_broadcast net_admin net_raw sys_module sys_nice sys_resource sys_time sys_tty_config };
 
 # Triggered by /proc/pid accesses, not allowed.
 dontaudit system self:capability sys_ptrace;
