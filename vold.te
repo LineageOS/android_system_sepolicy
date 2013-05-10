@@ -56,7 +56,7 @@ allow vold kernel:system module_request;
 allow vold proc:file write;
 
 # Create and mount on /data/tmp_mnt.
-allow vold system_data_file:dir { rw_dir_perms mounton };
+allow vold system_data_file:dir { create rw_dir_perms mounton };
 
 # Set scheduling policy of kernel processes
 allow vold kernel:process setsched;
