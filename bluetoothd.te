@@ -1,5 +1,6 @@
 # bluetoothd - bluetooth daemon
 type bluetoothd, domain;
+permissive bluetoothd;
 type bluetoothd_exec, exec_type, file_type;
 
 init_daemon_domain(bluetoothd)

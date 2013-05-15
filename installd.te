@@ -1,5 +1,6 @@
 # installer daemon
 type installd, domain;
+permissive installd;
 type installd_exec, exec_type, file_type;
 
 init_daemon_domain(installd)

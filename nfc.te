@@ -1,5 +1,6 @@
 # nfc subsystem
 type nfc, domain;
+permissive nfc;
 app_domain(nfc)
 
 # NFC device access.
