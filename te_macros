@@ -232,6 +232,7 @@ allow $1 kernel:security setbool;
 define(`security_access_policy', `
 allow $1 security_file:dir r_dir_perms;
 allow $1 security_file:file r_file_perms;
+allow $1 security_file:lnk_file read;
 allow $1 selinuxfs:dir r_dir_perms;
 allow $1 selinuxfs:file r_file_perms;
 allow $1 rootfs:dir r_dir_perms;
