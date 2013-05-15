@@ -1,5 +1,6 @@
 # volume manager
 type vold, domain;
+permissive vold;
 type vold_exec, exec_type, file_type;
 
 init_daemon_domain(vold)

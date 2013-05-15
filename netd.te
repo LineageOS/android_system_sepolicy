@@ -1,5 +1,6 @@
 # network manager
 type netd, domain;
+permissive netd;
 type netd_exec, exec_type, file_type;
 
 init_daemon_domain(netd)
