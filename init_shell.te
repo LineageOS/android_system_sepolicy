@@ -1,14 +1,5 @@
 # Restricted domain for shell processes spawned by init
-type init_shell, domain, mlstrustedsubject;
+type init_shell, domain;
+permissive init_shell;
 domain_auto_trans(init, shell_exec, init_shell)
-allow init_shell rootfs:dir r_dir_perms;
-allow init_shell devpts:chr_file rw_file_perms;
-allow init_shell tty_device:chr_file rw_file_perms;
-allow init_shell console_device:chr_file rw_file_perms;
-allow init_shell input_device:chr_file rw_file_perms;
-allow init_shell system_file:file x_file_perms;
-allow init_shell shell_exec:file rx_file_perms;
-allow init_shell zygote_exec:file rx_file_perms;
-
-# setprop toolbox command
-unix_socket_connect(init_shell, property, init)
+unconfined_domain(init_shell)
