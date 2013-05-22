@@ -7,5 +7,5 @@ type tee_device, dev_type;
 type tee_data_file, file_type, data_file_type;
 
 permissive tee;
-unconfined_domain(netd)
+unconfined_domain(tee)
 init_daemon_domain(tee)
