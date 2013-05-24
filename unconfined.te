@@ -14,7 +14,7 @@ allow unconfineddomain fs_type:filesystem *;
 allow unconfineddomain {fs_type dev_type file_type}:{ dir blk_file lnk_file sock_file fifo_file } *;
 allow unconfineddomain {fs_type dev_type file_type}:{ chr_file file } ~entrypoint;
 allow unconfineddomain node_type:node *;
-allow unconfineddomain node_type:{ tcp_socket udp_socket } node_bind;
+allow unconfineddomain node_type:{ tcp_socket udp_socket rawip_socket } node_bind;
 allow unconfineddomain netif_type:netif *;
 allow unconfineddomain port_type:socket_class_set name_bind;
 allow unconfineddomain port_type:{ tcp_socket dccp_socket } name_connect;
