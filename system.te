@@ -9,3 +9,4 @@ unconfined_domain(system);
 
 # Create a socket for receiving info from wpa.
 type_transition system wifi_data_file:sock_file system_wpa_socket;
+allow system self:zygote { specifyids specifyrlimits specifyseinfo };
