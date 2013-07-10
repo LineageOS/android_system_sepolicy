@@ -48,3 +48,7 @@ allow netd hostapd:process signal;
 domain_auto_trans(netd, dnsmasq_exec, dnsmasq)
 allow netd dnsmasq:process signal;
 
+# Support netd running mdnsd
+# TODO: prune this back further
+allow netd ctl_default_prop:property_service set;
+allow netd device:sock_file write;
