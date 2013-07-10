@@ -64,3 +64,6 @@ attribute binderservicedomain;
 
 # Allow domains used for platform (signed by build key) apps.
 attribute platformappdomain;
+
+# All domains which are allowed the "relabelto" permission
+attribute relabeltodomain;

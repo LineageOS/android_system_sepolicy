@@ -24,6 +24,8 @@ platform_app_domain(media_app)
 # Access the network.
 net_domain(media_app)
 unconfined_domain(media_app)
+relabelto_domain(media_app)
+allow media_app download_file:dir relabelto;
 
 # Apps signed with the shared key.
 type shared_app, domain;
