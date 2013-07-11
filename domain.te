@@ -108,14 +108,8 @@ r_dir_file(domain, inotify)
 r_dir_file(domain, cgroup)
 
 # debugfs access
-bool debugfs false;
-if (debugfs) {
 allow domain debugfs:dir r_dir_perms;
-allow domain debugfs:file rw_file_perms;
-} else {
-dontaudit domain debugfs:dir r_dir_perms;
-dontaudit domain debugfs:file  rw_file_perms;
-}
+allow domain debugfs:file w_file_perms;
 
 # security files
 allow domain security_file:dir { search getattr };
