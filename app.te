@@ -1,68 +1,10 @@
-#
-# Domains for apps that do not run with one of the predefined
-# platform UIDs (system, radio, nfc, ...).
-#
+###
+### Domain for all zygote spawned apps
+###
+### This file is the base policy for all zygote spawned apps.
+### Other policy files, such as isolated_app.te, untrusted_app.te, etc
+### extend from this policy. Only policies which should apply to ALL
+### zygote spawned apps should be added here.
+###
 
-#
-# Apps signed with the platform key.
-#
-type platform_app, domain;
-permissive platform_app;
-app_domain(platform_app)
-platform_app_domain(platform_app)
-# Access the network.
-net_domain(platform_app)
-# Access bluetooth.
-bluetooth_domain(platform_app)
-unconfined_domain(platform_app)
-
-# Apps signed with the media key.
-type media_app, domain;
-permissive media_app;
-app_domain(media_app)
-platform_app_domain(media_app)
-# Access the network.
-net_domain(media_app)
-unconfined_domain(media_app)
-relabelto_domain(media_app)
-allow media_app download_file:dir relabelto;
-
-# Apps signed with the shared key.
-type shared_app, domain;
-permissive shared_app;
-app_domain(shared_app)
-platform_app_domain(shared_app)
-# Access the network.
-net_domain(shared_app)
-# Access bluetooth.
-bluetooth_domain(shared_app)
-unconfined_domain(shared_app)
-
-# Apps signed with the release key (testkey in AOSP).
-type release_app, domain;
-permissive release_app;
-app_domain(release_app)
-platform_app_domain(release_app)
-# Access the network.
-net_domain(release_app)
-# Access bluetooth.
-bluetooth_domain(release_app)
-unconfined_domain(release_app)
-
-# Services with isolatedProcess=true in their manifest.
-# In order for isolated_apps to interact with apps that have levelFromUid=true
-# set it must be an mlstrustedsubject.
-type isolated_app, domain, mlstrustedsubject;
-permissive isolated_app;
-app_domain(isolated_app)
-unconfined_domain(isolated_app)
-
-#
-# Untrusted apps.
-#
-type untrusted_app, domain;
-permissive untrusted_app;
-app_domain(untrusted_app)
-net_domain(untrusted_app)
-bluetooth_domain(untrusted_app)
-unconfined_domain(untrusted_app)
+# currently empty
