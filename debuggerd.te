@@ -5,3 +5,5 @@ type debuggerd_exec, exec_type, file_type;
 
 init_daemon_domain(debuggerd)
 unconfined_domain(debuggerd)
+relabelto_domain(debuggerd)
+allow debuggerd tombstone_data_file:dir relabelto;
