@@ -3,7 +3,6 @@ type netd, domain;
 type netd_exec, exec_type, file_type;
 
 init_daemon_domain(netd)
-typeattribute netd mlstrustedsubject;
 allow netd self:capability { net_admin net_raw kill };
 allow netd self:netlink_kobject_uevent_socket *;
 allow netd self:netlink_route_socket *;
@@ -52,3 +51,30 @@ allow netd dnsmasq:process signal;
 # TODO: prune this back further
 allow netd ctl_default_prop:property_service set;
 allow netd device:sock_file write;
+
+###
+### Neverallow rules
+###
+### netd should NEVER do any of this
+
+# Block device access.
+neverallow netd dev_type:blk_file { read write };
+
+# Kernel memory access.
+neverallow netd kmem_device:chr_file { read write };
+
+# Setting SELinux enforcing status or booleans.
+# Conditionally allowed to system_app for SEAndroidManager.
+neverallow netd kernel:security { setenforce setbool };
+
+# Load security policy.
+neverallow netd kernel:security load_policy;
+
+# ptrace any other app
+neverallow netd { domain }:process ptrace;
+
+# Write to /system.
+neverallow netd system_file:dir_file_class_set write;
+
+# Write to files in /data/data or system files on /data
+neverallow netd { app_data_file system_data_file }:dir_file_class_set write;

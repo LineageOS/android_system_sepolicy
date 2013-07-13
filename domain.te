@@ -14,7 +14,7 @@ allow domain tmpfs:dir r_dir_perms;
 allow domain self:capability sys_nice;
 
 # Intra-domain accesses.
-allow domain self:process ~{ execstack execheap };
+allow domain self:process ~{ execstack execheap ptrace };
 allow domain self:fd use;
 allow domain self:dir r_dir_perms;
 allow domain self:lnk_file r_file_perms;
