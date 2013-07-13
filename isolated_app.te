@@ -10,6 +10,13 @@
 ###
 
 type isolated_app, domain;
-permissive isolated_app;
 app_domain(isolated_app)
-unconfined_domain(isolated_app)
+
+# Appdomain interaction with isolated apps
+r_dir_file(appdomain, isolated_app)
+
+# Already connected, unnamed sockets being passed over some other IPC
+# hence no sock_file or connectto permission. This appears to be how
+# Chrome works, may need to be updated as more apps using isolated services
+# are examined.
+allow isolated_app appdomain:unix_stream_socket { read write };
