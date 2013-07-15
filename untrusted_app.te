@@ -10,8 +10,28 @@
 ###
 
 type untrusted_app, domain;
-permissive untrusted_app;
 app_domain(untrusted_app)
 net_domain(untrusted_app)
 bluetooth_domain(untrusted_app)
-unconfined_domain(untrusted_app)
+
+allow untrusted_app tun_device:chr_file rw_file_perms;
+
+# Internal SDCard rw access.
+allow untrusted_app sdcard_internal:dir create_dir_perms;
+allow untrusted_app sdcard_internal:file create_file_perms;
+
+# External SDCard rw access.
+allow untrusted_app sdcard_external:dir create_dir_perms;
+allow untrusted_app sdcard_external:file create_file_perms;
+
+# ASEC
+allow untrusted_app asec_apk_file:dir { getattr };
+allow untrusted_app asec_apk_file:file r_file_perms;
+
+# Create listening tcp/udp sockets
+allow untrusted_app node_type:{ tcp_socket udp_socket } node_bind;
+allow untrusted_app self:{ tcp_socket udp_socket } create_socket_perms;
+
+# Allow the allocation and use of ptys
+# Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
+allow untrusted_app devpts:chr_file rw_file_perms;

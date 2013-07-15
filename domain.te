@@ -41,6 +41,7 @@ allow domain init:unix_stream_socket connectto;
 
 # Root fs.
 allow domain rootfs:dir r_dir_perms;
+allow domain rootfs:file r_file_perms;
 allow domain rootfs:lnk_file { read getattr };
 
 # Device accesses.
