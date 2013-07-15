@@ -18,7 +18,6 @@
 # Empty directories
 /lost\+found		u:object_r:rootfs:s0
 /proc			u:object_r:rootfs:s0
-/sys			u:object_r:rootfs:s0
 
 # SELinux policy files
 /file_contexts		u:object_r:rootfs:s0
