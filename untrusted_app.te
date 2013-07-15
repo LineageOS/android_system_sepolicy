@@ -35,3 +35,10 @@ allow untrusted_app self:{ tcp_socket udp_socket } create_socket_perms;
 # Allow the allocation and use of ptys
 # Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
 allow untrusted_app devpts:chr_file rw_file_perms;
+
+# Used by Finsky / Android "Verify Apps" functionality when
+# running "adb install foo.apk".
+# TODO: Long term, we don't want apps probing into shell data files.
+# Figure out a way to remove these rules.
+allow untrusted_app shell_data_file:file r_file_perms;
+allow untrusted_app shell_data_file:dir r_dir_perms;
