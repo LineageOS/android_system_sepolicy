@@ -28,9 +28,9 @@ allow untrusted_app sdcard_external:file create_file_perms;
 allow untrusted_app asec_apk_file:dir { getattr };
 allow untrusted_app asec_apk_file:file r_file_perms;
 
-# Create listening tcp/udp sockets
+# Create tcp/udp sockets
 allow untrusted_app node_type:{ tcp_socket udp_socket } node_bind;
-allow untrusted_app self:{ tcp_socket udp_socket } create_socket_perms;
+allow untrusted_app self:{ tcp_socket udp_socket } { create_socket_perms accept listen };
 
 # Allow the allocation and use of ptys
 # Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
