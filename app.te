@@ -138,7 +138,7 @@ neverallow { appdomain -unconfineddomain } kmem_device:chr_file { read write };
 neverallow { appdomain -unconfineddomain } kernel:security { setenforce setbool };
 
 # Load security policy.
-neverallow { appdomain -unconfineddomain } kernel:security load_policy;
+neverallow appdomain kernel:security load_policy;
 
 # Privileged netlink socket interfaces.
 neverallow { appdomain -unconfineddomain }

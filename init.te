@@ -9,3 +9,4 @@ relabelto_domain(init)
 allow init unlabeled:filesystem mount;
 
 allow init {fs_type dev_type file_type}:dir_file_class_set relabelto;
+allow init kernel:security load_policy;
