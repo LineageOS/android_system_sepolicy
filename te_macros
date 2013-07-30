@@ -303,7 +303,7 @@ allow $1 kernel:system syslog_read;
 define(`write_klog', `
 type_transition $1 device:chr_file klog_device "__kmsg__";
 allow $1 klog_device:chr_file { create open write unlink };
-allow $1 device:dir { add_name remove_name };
+allow $1 device:dir { write add_name remove_name };
 ')
 
 #####################################
