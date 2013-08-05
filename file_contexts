@@ -151,6 +151,7 @@
 /system/bin/ping    u:object_r:ping_exec:s0
 /system/bin/dnsmasq     u:object_r:dnsmasq_exec:s0
 /system/bin/hostapd     u:object_r:hostapd_exec:s0
+/system/bin/clatd	u:object_r:clatd_exec:s0
 #############################
 # Vendor files
 #
