@@ -6,6 +6,7 @@ type healthd_exec, exec_type, file_type;
 
 init_daemon_domain(healthd)
 unconfined_domain(healthd)
+allow healthd rootfs:file entrypoint;
 write_klog(healthd)
 
 
