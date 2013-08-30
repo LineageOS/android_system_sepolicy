@@ -76,8 +76,8 @@ allow appdomain isolated_app:unix_stream_socket { read write };
 
 # Backup ability for every app. BMS opens and passes the fd
 # to any app that has backup ability. Hence, no open permissions here.
-allow appdomain backup_data_file:file { read write };
-allow appdomain  cache_backup_file:file { read write };
+allow appdomain backup_data_file:file { read write getattr };
+allow appdomain cache_backup_file:file { read write getattr };
 # Backup ability using 'adb backup'
 allow appdomain system_data_file:lnk_file getattr;
 
