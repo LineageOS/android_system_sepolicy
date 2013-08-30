@@ -81,7 +81,7 @@ allow domain system_data_file:file { getattr read };
 allow domain system_data_file:lnk_file read;
 
 # Read apk files under /data/app.
-allow domain apk_data_file:dir search;
+allow domain apk_data_file:dir { getattr search };
 allow domain apk_data_file:file r_file_perms;
 
 # Read /data/dalvik-cache.
