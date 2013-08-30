@@ -1,5 +1,5 @@
 allow unconfineddomain self:capability_class_set *;
-allow unconfineddomain kernel:security *;
+allow unconfineddomain kernel:security ~load_policy;
 allow unconfineddomain kernel:system *;
 allow unconfineddomain self:memprotect *;
 allow unconfineddomain domain:process *;
@@ -11,8 +11,8 @@ allow unconfineddomain domain:socket_class_set *;
 allow unconfineddomain domain:ipc_class_set *;
 allow unconfineddomain domain:key *;
 allow unconfineddomain fs_type:filesystem *;
-allow unconfineddomain {fs_type dev_type file_type}:{ dir blk_file lnk_file sock_file fifo_file } *;
-allow unconfineddomain {fs_type dev_type file_type}:{ chr_file file } ~entrypoint;
+allow unconfineddomain {fs_type dev_type file_type}:{ dir blk_file lnk_file sock_file fifo_file } ~relabelto;
+allow unconfineddomain {fs_type dev_type file_type}:{ chr_file file } ~{entrypoint relabelto};
 allow unconfineddomain node_type:node *;
 allow unconfineddomain node_type:{ tcp_socket udp_socket rawip_socket } node_bind;
 allow unconfineddomain netif_type:netif *;
