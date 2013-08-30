@@ -12,7 +12,7 @@ allow zygote self:capability setpcap;
 allow zygote system:process dyntransition;
 allow zygote appdomain:process dyntransition;
 # Allow zygote to read app data dirs (b/10455872)
-allow zygote appdomain:dir search;
+allow zygote appdomain:dir { getattr search };
 allow zygote appdomain:file { r_file_perms };
 # Move children into the peer process group.
 allow zygote system:process { getpgid setpgid };
