@@ -5,7 +5,7 @@ type zygote_exec, exec_type, file_type;
 init_daemon_domain(zygote)
 typeattribute zygote mlstrustedsubject;
 # Override DAC on files and switch uid/gid.
-allow zygote self:capability { dac_override setgid setuid };
+allow zygote self:capability { dac_override setgid setuid fowner };
 # Drop capabilities from bounding set.
 allow zygote self:capability setpcap;
 # Switch SELinux context to app domains.
