@@ -44,8 +44,5 @@ allow untrusted_app devpts:chr_file rw_file_perms;
 # running "adb install foo.apk".
 # TODO: Long term, we don't want apps probing into shell data files.
 # Figure out a way to remove these rules.
-# XXX Adding writing to shell_data_file to fix 10290009; this needs a real fix,
-# as allowing apps to write shell data files is a significant possible security
-# vuln
-allow untrusted_app shell_data_file:file rw_file_perms;
+allow untrusted_app shell_data_file:file r_file_perms;
 allow untrusted_app shell_data_file:dir r_dir_perms;
