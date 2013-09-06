@@ -21,3 +21,9 @@ r_dir_file(appdomain, isolated_app)
 # Chrome works, may need to be updated as more apps using isolated services
 # are examined.
 allow isolated_app appdomain:unix_stream_socket { read write };
+
+allow isolated_app dalvikcache_data_file:file execute;
+allow isolated_app apk_data_file:dir getattr;
+
+allow isolated_app init:unix_stream_socket { read write getattr getopt };
+allow isolated_app init_tmpfs:file read;
