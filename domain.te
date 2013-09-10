@@ -61,8 +61,8 @@ allow domain log_device:dir search;
 allow domain log_device:chr_file rw_file_perms;
 allow domain nv_device:chr_file rw_file_perms;
 allow domain alarm_device:chr_file r_file_perms;
-allow domain urandom_device:chr_file r_file_perms;
-allow domain random_device:chr_file r_file_perms;
+allow domain urandom_device:chr_file rw_file_perms;
+allow domain random_device:chr_file rw_file_perms;
 allow domain properties_device:file r_file_perms;
 
 # Filesystem accesses.
