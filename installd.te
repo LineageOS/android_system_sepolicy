@@ -11,7 +11,7 @@ allow installd system_data_file:lnk_file create;
 allow installd dalvikcache_data_file:file create_file_perms;
 allow installd data_file_type:dir create_dir_perms;
 allow installd data_file_type:dir { relabelfrom relabelto };
-allow installd data_file_type:{ file lnk_file } { getattr unlink };
+allow installd data_file_type:{ file_class_set } { getattr unlink };
 allow installd apk_data_file:file r_file_perms;
 allow installd apk_tmp_file:file r_file_perms;
 allow installd system_file:file x_file_perms;
