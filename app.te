@@ -133,7 +133,6 @@ neverallow { appdomain -unconfineddomain } dev_type:blk_file { read write };
 neverallow { appdomain -unconfineddomain } kmem_device:chr_file { read write };
 
 # Setting SELinux enforcing status or booleans.
-# Conditionally allowed to system_app for SEAndroidManager.
 neverallow { appdomain -unconfineddomain } kernel:security { setenforce setbool };
 
 # Load security policy.
