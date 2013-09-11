@@ -81,8 +81,8 @@ allow appdomain cache_backup_file:file { read write getattr };
 allow appdomain system_data_file:lnk_file getattr;
 
 # Allow all applications to read downloaded files
+allow appdomain download_file:dir search;
 allow appdomain download_file:file r_file_perms;
-file_type_auto_trans(appdomain, download_file, download_file)
 
 # Allow applications to communicate with netd via /dev/socket/dnsproxyd
 # to do DNS resolution
