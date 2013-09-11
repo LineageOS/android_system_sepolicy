@@ -27,7 +27,7 @@ allow vold dm_device:chr_file rw_file_perms;
 allow vold domain:dir r_dir_perms;
 allow vold domain:{ file lnk_file } r_file_perms;
 allow vold domain:process { signal sigkill };
-allow vold self:capability { sys_ptrace };
+allow vold self:capability { sys_ptrace kill };
 
 # XXX Label sysfs files with a specific type?
 allow vold sysfs:file rw_file_perms;
