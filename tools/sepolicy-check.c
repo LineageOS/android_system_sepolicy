@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <sepol/policydb/policydb.h>
 #include <sepol/policydb/services.h>
+#include <sepol/policydb/expand.h>
 
 #define EQUALS 0
 #define NOT 1
@@ -66,6 +67,45 @@ int check_perm(avtab_ptr_t current, perm_datum_t *perm) {
 	return (current->datum.data & perm_bitmask) != 0;
 }
 
+
+int expand_and_check(int s_op, uint32_t source_type,
+		     int t_op, uint32_t target_type,
+		     int c_op, uint32_t target_class,
+		     perm_datum_t *perm, policydb_t *policy, avtab_t *avtab) {
+	avtab_t exp_avtab;
+	avtab_ptr_t cur;
+	unsigned int i;
+	int match;
+
+	if (avtab_init(&exp_avtab)) {
+		fputs("out of memory\n", stderr);
+		return -1;
+	}
+
+	if (expand_avtab(policy, avtab, &exp_avtab)) {
+		fputs("out of memory\n", stderr);
+		avtab_destroy(&exp_avtab);
+		return -1;
+	}
+
+	for (i = 0; i < exp_avtab.nslot; i++) {
+		for (cur = exp_avtab.htable[i]; cur; cur = cur->next) {
+			match = 1;
+			match &= check(s_op, source_type, cur->key.source_type);
+			match &= check(t_op, target_type, cur->key.target_type);
+			match &= check(c_op, target_class, cur->key.target_class);
+			match &= check_perm(cur, perm);
+			if (match) {
+				avtab_destroy(&exp_avtab);
+				return 1;
+			}
+		}
+	}
+
+	avtab_destroy(&exp_avtab);
+	return 0;
+}
+
 /*
  * Checks to see if a rule matching the given arguments already exists.
  *
@@ -91,8 +131,6 @@ int check_rule(char *s, char *t, char *c, char *p, policydb_t *policy) {
 	int c_op = parse_ops(&c);
 	int p_op = parse_ops(&p);
 	avtab_key_t key;
-	avtab_ptr_t cur;
-	unsigned int i;
 	int match;
 
 	if (s_op != ANY) {
@@ -138,19 +176,19 @@ int check_rule(char *s, char *t, char *c, char *p, policydb_t *policy) {
 	if (c_op != ANY)
 		key.target_class = cls->s.value;
 
-	for (i = 0; i < policy->te_avtab.nslot; i++) {
-		for (cur = policy->te_avtab.htable[i]; cur; cur = cur->next) {
-			match = 1;
-			match &= check(s_op, key.source_type, cur->key.source_type);
-			match &= check(t_op, key.target_type, cur->key.target_type);
-			match &= check(c_op, key.target_class, cur->key.target_class);
-			match &= check_perm(cur, perm);
-			if (match)
-				return 1;
-		}
-	}
+	/* Check unconditional rules after attribute expansion. */
+	match = expand_and_check(s_op, key.source_type,
+				 t_op, key.target_type,
+				 c_op, key.target_class,
+				 perm, policy, &policy->te_avtab);
+	if (match)
+		return match;
 
-	return 0;
+	/* Check conditional rules after attribute expansion. */
+	return expand_and_check(s_op, key.source_type,
+				t_op, key.target_type,
+				c_op, key.target_class,
+				perm, policy, &policy->te_cond_avtab);
 }
 
 int load_policy(char *filename, policydb_t *policydb, struct policy_file *pf) {
@@ -245,9 +283,6 @@ int main(int argc, char **argv)
 	sepol_set_sidtab(&sidtab);
 
 	if (load_policy(policy, &policydb, &pf))
-		goto out;
-
-	if (policydb_load_isids(&policydb, &sidtab))
 		goto out;
 
 	match = check_rule(source, target, class, perm, &policydb);
