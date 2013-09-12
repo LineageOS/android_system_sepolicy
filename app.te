@@ -30,7 +30,7 @@ binder_call(appdomain, surfaceflinger)
 
 # App sandbox file accesses.
 allow appdomain app_data_file:dir create_dir_perms;
-allow appdomain app_data_file:notdevfile_class_set create_file_perms;
+allow appdomain app_data_file:notdevfile_class_set { create_file_perms execute };
 
 # Read/write data files created by the platform apps if they
 # were passed to the app via binder or local IPC.  Do not allow open.
