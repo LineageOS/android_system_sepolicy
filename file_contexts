@@ -135,7 +135,6 @@
 /system/bin/installd	u:object_r:installd_exec:s0
 /system/bin/keystore	u:object_r:keystore_exec:s0
 /system/bin/debuggerd	u:object_r:debuggerd_exec:s0
-/system/bin/bluetoothd	u:object_r:bluetoothd_exec:s0
 /system/bin/wpa_supplicant	u:object_r:wpa_exec:s0
 /system/bin/qemud	u:object_r:qemud_exec:s0
 /system/bin/sdcard      u:object_r:sdcardd_exec:s0
@@ -176,7 +175,6 @@
 /data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
 /data/local/tmp/selinux(/.*)?   u:object_r:tombstone_data_file:s0
 # Misc data
-/data/misc/bluetoothd(/.*)?	u:object_r:bluetoothd_data_file:s0
 /data/misc/bluetooth(/.*)?	u:object_r:bluetooth_data_file:s0
 /data/misc/bluedroid(/.*)?	u:object_r:bluetooth_data_file:s0
 /data/misc/keystore(/.*)?	u:object_r:keystore_data_file:s0
