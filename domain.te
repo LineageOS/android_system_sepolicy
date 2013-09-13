@@ -103,9 +103,8 @@ allow domain ion_device:chr_file rw_file_perms;
 # For /sys/qemu_trace files in the emulator.
 bool in_qemu false;
 if (in_qemu) {
-allow domain sysfs:file rw_file_perms;
-}
 allow domain sysfs_writable:file rw_file_perms;
+}
 
 # Read access to pseudo filesystems.
 r_dir_file(domain, proc)
