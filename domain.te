@@ -10,9 +10,6 @@ allow domain tmpfs:file { read getattr };
 # Search /storage/emulated tmpfs mount.
 allow domain tmpfs:dir r_dir_perms;
 
-# binder adjusts the nice value during IPC.
-allow domain self:capability sys_nice;
-
 # Intra-domain accesses.
 allow domain self:process ~{ execstack execheap ptrace };
 allow domain self:fd use;
