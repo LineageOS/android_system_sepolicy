@@ -1,8 +1,7 @@
-type system_app, domain;
-permissive system_app;
-app_domain(system_app)
-unconfined_domain(system_app)
-
+#
+# System Server aka system_server spawned by zygote.
+# Most of the framework services run in this process.
+#
 type system, domain;
 permissive system;
 unconfined_domain(system);

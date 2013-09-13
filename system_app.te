@@ -1,0 +1,9 @@
+#
+# Apps that run with the system UID, e.g. com.android.system.ui,
+# com.android.settings.  These are not as privileged as the system
+# server.
+#
+type system_app, domain;
+permissive system_app;
+app_domain(system_app)
+unconfined_domain(system_app)
