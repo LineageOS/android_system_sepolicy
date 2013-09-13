@@ -1,0 +1,41 @@
+#
+# System Server aka system_server spawned by zygote.
+# Most of the framework services run in this process.
+#
+type system_server, domain;
+permissive system_server;
+unconfined_domain(system_server);
+relabelto_domain(system_server);
+
+# TODO: Remove the temporary alias below once the renaming of system to system_server is complete in all repositories.
+typealias system_server alias system;
+
+# These are the capabilities assigned by the zygote to the
+# system server.
+allow system_server self:capability {
+    kill
+    net_admin
+    net_bind_service
+    net_broadcast
+    net_raw
+    sys_boot
+    sys_module
+    sys_nice
+    sys_resource
+    sys_time
+    sys_tty_config
+};
+
+# Create a socket for receiving info from wpa.
+type_transition system_server wifi_data_file:sock_file system_wpa_socket;
+allow system_server self:zygote { specifyids specifyrlimits specifyseinfo };
+
+allow system_server backup_data_file:dir relabelto;
+allow system_server cache_backup_file:dir relabelto;
+allow system_server anr_data_file:dir relabelto;
+allow system_server system_data_file:dir relabelto;
+allow system_server apk_data_file:file relabelto;
+allow system_server apk_tmp_file:file relabelto;
+allow system_server cache_backup_file:file relabelto;
+allow system_server apk_private_tmp_file:file relabelto;
+allow system_server wallpaper_file:file relabelto;
