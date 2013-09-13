@@ -1,7 +1,0 @@
-# dbus daemon
-type dbusd, domain;
-permissive dbusd;
-type dbusd_exec, exec_type, file_type;
-
-init_daemon_domain(dbusd)
-unconfined_domain(dbusd)
