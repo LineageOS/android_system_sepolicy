@@ -32,7 +32,7 @@
 # levelFrom=app or levelFrom=all is only supported for _app UIDs.
 # level may be used to specify a fixed level for any UID. 
 #
-isSystemServer=true domain=system
+isSystemServer=true domain=system_server
 user=system domain=system_app type=system_data_file
 user=bluetooth domain=bluetooth type=bluetooth_data_file
 user=nfc domain=nfc type=nfc_data_file

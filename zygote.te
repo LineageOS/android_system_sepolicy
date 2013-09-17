@@ -9,13 +9,13 @@ allow zygote self:capability { dac_override setgid setuid fowner };
 # Drop capabilities from bounding set.
 allow zygote self:capability setpcap;
 # Switch SELinux context to app domains.
-allow zygote system:process dyntransition;
+allow zygote system_server:process dyntransition;
 allow zygote appdomain:process dyntransition;
 # Allow zygote to read + write app data dirs (b/10455872 and b/10498304)
 allow zygote appdomain:dir { getattr search };
 allow zygote appdomain:file { r_file_perms write };
 # Move children into the peer process group.
-allow zygote system:process { getpgid setpgid };
+allow zygote system_server:process { getpgid setpgid };
 allow zygote appdomain:process { getpgid setpgid };
 # Write to system data.
 allow zygote system_data_file:dir rw_dir_perms;

@@ -20,9 +20,9 @@ allow appdomain zygote_tmpfs:file read;
 allow appdomain zygote:process sigchld;
 
 # Communicate with system_server.
-allow appdomain system:fifo_file rw_file_perms;
-allow appdomain system:unix_stream_socket { read write setopt };
-binder_call(appdomain, system)
+allow appdomain system_server:fifo_file rw_file_perms;
+allow appdomain system_server:unix_stream_socket { read write setopt };
+binder_call(appdomain, system_server)
 
 # Communicate with surfaceflinger.
 allow appdomain surfaceflinger:unix_stream_socket { read write setopt };
