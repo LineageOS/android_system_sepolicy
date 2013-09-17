@@ -20,7 +20,7 @@ allow domain self:{ unix_dgram_socket unix_stream_socket } *;
 
 # Inherit or receive open files from others.
 allow domain init:fd use;
-allow domain system:fd use;
+allow domain system_server:fd use;
 
 # Connect to adbd and use a socket transferred from it.
 allow domain adbd:unix_stream_socket connectto;
