@@ -239,7 +239,7 @@ allow $1 kernel:security setbool;
 define(`security_access_policy', `
 allow $1 security_file:dir r_dir_perms;
 allow $1 security_file:file r_file_perms;
-allow $1 security_file:lnk_file read;
+allow $1 security_file:lnk_file r_file_perms;
 allow $1 selinuxfs:dir r_dir_perms;
 allow $1 selinuxfs:file r_file_perms;
 allow $1 rootfs:dir r_dir_perms;
@@ -259,6 +259,7 @@ security_access_policy($1)
 unix_socket_connect($1, property, init)
 allow $1 security_file:dir create_dir_perms;
 allow $1 security_file:file create_file_perms;
+allow $1 security_file:lnk_file { create rename unlink };
 allow $1 security_prop:property_service set;
 ')
 
@@ -271,6 +272,7 @@ define(`mmac_manage_policy', `
 unix_socket_connect($1, property, init)
 allow $1 security_file:dir create_dir_perms;
 allow $1 security_file:file create_file_perms;
+allow $1 security_file:lnk_file { create rename unlink };
 allow $1 security_prop:property_service set;
 ')
 
@@ -301,7 +303,7 @@ allow $1 kernel:system syslog_read;
 define(`write_klog', `
 type_transition $1 device:chr_file klog_device "__kmsg__";
 allow $1 klog_device:chr_file { create open write unlink };
-allow $1 device:dir { add_name remove_name };
+allow $1 device:dir { write add_name remove_name };
 ')
 
 #####################################
