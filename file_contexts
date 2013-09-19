@@ -85,6 +85,7 @@
 /dev/socket/dnsproxyd	u:object_r:dnsproxyd_socket:s0
 /dev/socket/installd	u:object_r:installd_socket:s0
 /dev/socket/keystore	u:object_r:keystore_socket:s0
+/dev/socket/mdns	u:object_r:mdns_socket:s0
 /dev/socket/netd	u:object_r:netd_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
 /dev/socket/qemud	u:object_r:qemud_socket:s0
