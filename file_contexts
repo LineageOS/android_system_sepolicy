@@ -83,6 +83,7 @@
 /dev/socket/adbd	u:object_r:adbd_socket:s0
 /dev/socket/bluetooth	u:object_r:bluetooth_socket:s0
 /dev/socket/dnsproxyd	u:object_r:dnsproxyd_socket:s0
+/dev/socket/gps		u:object_r:gps_socket:s0
 /dev/socket/installd	u:object_r:installd_socket:s0
 /dev/socket/keystore	u:object_r:keystore_socket:s0
 /dev/socket/mdns	u:object_r:mdns_socket:s0
