@@ -11,7 +11,7 @@ allow zygote self:capability setpcap;
 # Switch SELinux context to app domains.
 allow zygote system_server:process dyntransition;
 allow zygote appdomain:process dyntransition;
-# Allow zygote to read app data dirs (b/10455872)
+# Allow zygote to read app /proc/pid dirs (b/10455872)
 allow zygote appdomain:dir { getattr search };
 allow zygote appdomain:file { r_file_perms };
 # Move children into the peer process group.
