@@ -39,7 +39,6 @@
 /dev/block(/.*)?	u:object_r:block_device:s0
 /dev/block/loop[0-9]*	u:object_r:loop_device:s0
 /dev/block/ram[0-9]*	u:object_r:ram_device:s0
-/dev/block/mtdblock5	u:object_r:radio_device:s0
 /dev/bus/usb(.*)?       u:object_r:usb_device:s0
 /dev/cam		u:object_r:camera_device:s0
 /dev/console		u:object_r:console_device:s0
@@ -59,8 +58,6 @@
 /dev/mpu		u:object_r:gps_device:s0
 /dev/mpuirq		u:object_r:gps_device:s0
 /dev/mtd(/.*)?		u:object_r:mtd_device:s0
-/dev/mtd/mtd5		u:object_r:radio_device:s0
-/dev/mtd/mtd5ro		u:object_r:radio_device:s0
 /dev/mtp_usb		u:object_r:mtp_device:s0
 /dev/pn544		u:object_r:nfc_device:s0
 /dev/ppp		u:object_r:ppp_device:s0
@@ -75,9 +72,6 @@
 /dev/random		u:object_r:random_device:s0
 /dev/rpmsg-omx[0-9]	u:object_r:rpmsg_device:s0
 /dev/rproc_user	u:object_r:rpmsg_device:s0
-/dev/s3c-jpg		u:object_r:camera_device:s0
-/dev/s3c-mem		u:object_r:camera_device:s0
-/dev/s3c-mfc		u:object_r:graphics_device:s0
 /dev/snd(/.*)?		u:object_r:audio_device:s0
 /dev/socket		u:object_r:socket_device:s0
 /dev/socket/adbd	u:object_r:adbd_socket:s0
