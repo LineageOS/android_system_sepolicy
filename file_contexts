@@ -166,7 +166,6 @@
 /data/app-private/vmdl.*\.tmp	u:object_r:apk_private_tmp_file:s0
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
 /data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
-/data/local/tmp/selinux(/.*)?   u:object_r:tombstone_data_file:s0
 # Misc data
 /data/misc/bluetooth(/.*)?	u:object_r:bluetooth_data_file:s0
 /data/misc/bluedroid(/.*)?	u:object_r:bluetooth_data_file:s0
