@@ -38,7 +38,7 @@ allow untrusted_app port:{ tcp_socket udp_socket } name_bind;
 
 # Allow the allocation and use of ptys
 # Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
-allow untrusted_app devpts:chr_file rw_file_perms;
+create_pty(untrusted_app)
 
 # Used by Finsky / Android "Verify Apps" functionality when
 # running "adb install foo.apk".
