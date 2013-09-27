@@ -1,5 +1,5 @@
 type runas, domain;
-type runas_exec, file_type;
+type runas_exec, exec_type, file_type;
 permissive runas;
 unconfined_domain(runas)
 
