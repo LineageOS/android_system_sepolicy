@@ -7,3 +7,6 @@ init_daemon_domain(debuggerd)
 unconfined_domain(debuggerd)
 relabelto_domain(debuggerd)
 allow debuggerd tombstone_data_file:dir relabelto;
+
+# Connect to system_server via /data/system/ndebugsocket.
+unix_socket_connect(debuggerd, system_ndebug, system_server)
