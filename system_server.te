@@ -25,6 +25,12 @@ allow system_server self:capability {
 
 # Create a socket for receiving info from wpa.
 type_transition system_server wifi_data_file:sock_file system_wpa_socket;
+allow system_server system_wpa_socket:sock_file create_file_perms;
+
+# Create a socket for connections from debuggerd.
+type_transition system_server system_data_file:sock_file system_ndebug_socket "ndebugsocket";
+allow system_server system_ndebug_socket:sock_file create_file_perms;
+
 allow system_server self:zygote { specifyids specifyrlimits specifyseinfo };
 
 allow system_server backup_data_file:dir relabelto;
