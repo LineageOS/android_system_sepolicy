@@ -54,6 +54,7 @@ type wifi_data_file, file_type, data_file_type;
 type radio_data_file, file_type, data_file_type;
 type nfc_data_file, file_type, data_file_type;
 type camera_calibration_file, file_type, data_file_type;
+type adb_keys_file, file_type, data_file_type;
 # /data/data subdirectories - app sandboxes
 type app_data_file, file_type, data_file_type;
 type platform_app_data_file, file_type, data_file_type, mlstrustedobject;
