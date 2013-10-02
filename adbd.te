@@ -6,3 +6,11 @@ unconfined_domain(adbd)
 domain_auto_trans(adbd, shell_exec, shell)
 # this is an entrypoint
 allow adbd rootfs:file entrypoint;
+
+# Read /data/misc/adb/adb_keys.
+allow adbd adb_keys_file:dir search;
+allow adbd adb_keys_file:file r_file_perms;
+
+# Allow access in case /data/misc/adb still has the old type.
+allow adbd system_data_file:dir search;
+allow adbd system_data_file:file r_file_perms;
