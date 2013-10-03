@@ -139,5 +139,8 @@ neverallow { domain -relabeltodomain } *:dir_file_class_set relabelto;
 # Only init should be able to load SELinux policies
 neverallow { domain -init } kernel:security load_policy;
 
+# Only init and system_server should be able to access HW RNG
+neverallow { domain -init -system_server -unconfineddomain } hw_random_device:chr_file *;
+
 # Ensure that all entrypoint executables are in exec_type.
 neverallow domain { file_type -exec_type }:file entrypoint;
