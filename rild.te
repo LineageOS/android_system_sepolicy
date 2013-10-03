@@ -6,3 +6,6 @@ type rild_exec, exec_type, file_type;
 init_daemon_domain(rild)
 net_domain(rild)
 unconfined_domain(rild)
+
+# Access to wake locks
+allow rild sysfs_wake_lock:file rw_file_perms;
