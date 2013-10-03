@@ -33,6 +33,9 @@ allow system_server system_ndebug_socket:sock_file create_file_perms;
 
 allow system_server self:zygote { specifyids specifyrlimits specifyseinfo };
 
+# Read from HW RNG (needed by EntropyMixer).
+allow system_server hw_random_device:chr_file r_file_perms;
+
 allow system_server backup_data_file:dir relabelto;
 allow system_server cache_backup_file:dir relabelto;
 allow system_server anr_data_file:dir relabelto;

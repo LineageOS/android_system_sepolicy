@@ -17,6 +17,7 @@ type console_device, dev_type;
 type cpuctl_device, dev_type;
 type full_device, dev_type;
 type graphics_device, dev_type;
+type hw_random_device, dev_type;
 type input_device, dev_type;
 type kmem_device, dev_type;
 type log_device, dev_type, mlstrustedobject;
