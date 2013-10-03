@@ -12,6 +12,7 @@ type sysfs, fs_type, mlstrustedobject;
 type sysfs_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_bluetooth_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_nfc_power_writable, fs_type, sysfs_type, mlstrustedobject;
+type sysfs_wake_lock, fs_type, sysfs_type;
 type inotify, fs_type, mlstrustedobject;
 type devpts, fs_type, mlstrustedobject;
 type tmpfs, fs_type;
