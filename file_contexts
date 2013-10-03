@@ -48,6 +48,7 @@
 /dev/full		u:object_r:full_device:s0
 /dev/fuse		u:object_r:fuse_device:s0
 /dev/graphics(/.*)?	u:object_r:graphics_device:s0
+/dev/hw_random		u:object_r:hw_random_device:s0
 /dev/input(/.*)		u:object_r:input_device:s0
 /dev/iio:device[0-9]+   u:object_r:iio_device:s0
 /dev/ion		u:object_r:ion_device:s0
