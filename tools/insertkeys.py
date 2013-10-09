@@ -34,19 +34,65 @@ class GenerateKeys(object):
 
         pkFile = open(path, 'rb').readlines()
         base64Key = ""
+        lineNo = 1
+        certNo = 1
         inCert = False
         for line in pkFile:
-            if line.startswith("-"):
-                inCert = not inCert
-                continue
+            line = line.strip()
+            # Are we starting the certificate?
+            if line.startswith("-----BEGIN CERTIFICATE-----"):
+                if inCert:
+                    sys.exit("Encountered another BEGIN CERTIFICATE without END CERTIFICATE on " +
+                             "line: " + str(lineNo))
 
-            base64Key += line.strip()
+                inCert = True
 
-        # Base 64 includes uppercase. DO NOT tolower()
-        self._base64Key.append(base64Key)
+            # Are we ending the ceritifcate?
+            elif line.startswith("-----END CERTIFICATE-----"):
+                if not inCert:
+                    sys.exit("Encountered END CERTIFICATE before BEGIN CERTIFICATE on line: "
+                            + str(lineNo))
 
-        # Pkgmanager and setool see hex strings with lowercase, lets be consistent.
-        self._base16Key.append(base64.b16encode(base64.b64decode(base64Key)).lower())
+                # If we ended the certificate trip the flag
+                inCert = False
+
+                # Sanity check the input
+                if len(base64Key) == 0:
+                    sys.exit("Empty certficate , certificate "+ str(certNo) + " found in file: "
+                            + path)
+
+                # ... and append the certificate to the list
+                # Base 64 includes uppercase. DO NOT tolower()
+                self._base64Key.append(base64Key)
+                try:
+                    # Pkgmanager and setool see hex strings with lowercase, lets be consistent
+                    self._base16Key.append(base64.b16encode(base64.b64decode(base64Key)).lower())
+                except TypeError:
+                    sys.exit("Invalid certificate, certificate "+ str(certNo) + " found in file: "
+                            + path)
+
+                # After adding the key, reset the accumulator as pem files may have subsequent keys
+                base64Key=""
+
+                # And increment your cert number
+                certNo = certNo + 1
+
+            # If we haven't started the certificate, then we should not encounter any data
+            elif not inCert:
+                sys.exit("Detected erroneous line \""+ line + "\" on " + str(lineNo)
+                        + " in pem file: " + path)
+
+            # else we have started the certicate and need to append the data
+            elif inCert:
+                base64Key += line
+
+            else:
+                # We should never hit this assert, if we do then an unaccounted for state
+                # was entered that was NOT addressed by the if/elif statements above
+                assert(False == True)
+
+            # The last thing to do before looping up is to increment line number
+            lineNo = lineNo + 1
 
     def __len__(self):
         return len(self._base16Key)
