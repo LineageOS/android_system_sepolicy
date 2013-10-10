@@ -115,6 +115,14 @@ allow appdomain self:netlink_route_socket {
 # /system/bin/ping, for example.
 allow appdomain self:rawip_socket create_socket_perms;
 
+# Allow apps to use the USB Accessory interface.
+# http://developer.android.com/guide/topics/connectivity/usb/accessory.html
+#
+# USB devices are first opened by the system server (USBDeviceManagerService)
+# and the file descriptor is passed to the right Activity via binder.
+allow appdomain usb_device:chr_file { read write getattr ioctl };
+allow appdomain usbaccessory_device:chr_file { read write getattr };
+
 ###
 ### Neverallow rules
 ###
