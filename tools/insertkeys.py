@@ -79,7 +79,8 @@ class GenerateKeys(object):
 
             # If we haven't started the certificate, then we should not encounter any data
             elif not inCert:
-                sys.exit("Detected erroneous line \""+ line + "\" on " + str(lineNo)
+                if line is not "":
+                    sys.exit("Detected erroneous line \""+ line + "\" on " + str(lineNo)
                         + " in pem file: " + path)
 
             # else we have started the certicate and need to append the data
