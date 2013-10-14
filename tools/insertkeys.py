@@ -40,7 +40,7 @@ class GenerateKeys(object):
         for line in pkFile:
             line = line.strip()
             # Are we starting the certificate?
-            if line.startswith("-----BEGIN CERTIFICATE-----"):
+            if line == "-----BEGIN CERTIFICATE-----":
                 if inCert:
                     sys.exit("Encountered another BEGIN CERTIFICATE without END CERTIFICATE on " +
                              "line: " + str(lineNo))
@@ -48,7 +48,7 @@ class GenerateKeys(object):
                 inCert = True
 
             # Are we ending the ceritifcate?
-            elif line.startswith("-----END CERTIFICATE-----"):
+            elif line == "-----END CERTIFICATE-----":
                 if not inCert:
                     sys.exit("Encountered END CERTIFICATE before BEGIN CERTIFICATE on line: "
                             + str(lineNo))
