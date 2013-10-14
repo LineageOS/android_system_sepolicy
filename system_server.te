@@ -42,7 +42,6 @@ allow system_server anr_data_file:dir relabelto;
 allow system_server system_data_file:dir relabelto;
 allow system_server apk_data_file:file relabelto;
 allow system_server apk_tmp_file:file relabelto;
-allow system_server apk_private_tmp_file:file relabelto;
 allow system_server cache_backup_file:file relabelto;
 allow system_server apk_private_tmp_file:file relabelto;
 allow system_server wallpaper_file:file relabelto;
