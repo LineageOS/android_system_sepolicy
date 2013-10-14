@@ -50,7 +50,6 @@ allow vold efs_file:file rw_file_perms;
 
 # Create and mount on /data/tmp_mnt.
 allow vold system_data_file:dir { create rw_dir_perms mounton };
-allow vold system_data_file:file create_file_perms;
 
 # Set scheduling policy of kernel processes
 allow vold kernel:process setsched;
