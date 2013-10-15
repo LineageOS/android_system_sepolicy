@@ -102,7 +102,6 @@ struct rule_map {
 	char *key; /** key value before hashing */
 	int length; /** length of the key map */
 	int lineno; /** Line number rule was encounter on */
-	rule_map *next; /** next pointer used in hash table for chaining on collision */
 	key_map m[]; /** key value mapping */
 };
 
