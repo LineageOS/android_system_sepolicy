@@ -101,7 +101,7 @@ struct kvp {
  */
 struct rule_map {
 	char *key; /** key value before hashing */
-	int length; /** length of the key map */
+	size_t length; /** length of the key map */
 	int lineno; /** Line number rule was encounter on */
 	key_map m[]; /** key value mapping */
 };
@@ -341,7 +341,7 @@ out:
  */
 static void rule_map_print(FILE *fp, rule_map *r) {
 
-	int i;
+	size_t i;
 	key_map *m;
 
 	for (i = 0; i < r->length; i++) {
@@ -364,12 +364,12 @@ static void rule_map_print(FILE *fp, rule_map *r) {
  */
 static map_match rule_map_cmp(rule_map *rmA, rule_map *rmB) {
 
-	int i;
-	int j;
+	size_t i;
+	size_t j;
 	int inputs_found = 0;
 	int num_of_matched_inputs = 0;
 	int input_mode = 0;
-	int matches = 0;
+	size_t matches = 0;
 	key_map *mA;
 	key_map *mB;
 
@@ -438,8 +438,8 @@ static map_match rule_map_cmp(rule_map *rmA, rule_map *rmB) {
  */
 static void rule_map_free(rule_map *rm, rule_map_switch s) {
 
-	int i;
-	int len = rm->length;
+	size_t i;
+	size_t len = rm->length;
 	for (i = 0; i < len; i++) {
 		key_map *m = &(rm->m[i]);
 		free(m->data);
@@ -472,7 +472,7 @@ static void free_kvp(kvp *k) {
  */
 static bool rule_map_validate(const rule_map *rm) {
 
-	int i;
+	size_t i;
 	bool found_name = false;
 	bool found_seinfo = false;
 	char *name = NULL;
@@ -511,9 +511,9 @@ static bool rule_map_validate(const rule_map *rm) {
  * @return
  * 	A rule map pointer.
  */
-static rule_map *rule_map_new(kvp keys[], unsigned int num_of_keys, int lineno) {
+static rule_map *rule_map_new(kvp keys[], size_t num_of_keys, int lineno) {
 
-	unsigned int i = 0, j = 0;
+	size_t i = 0, j = 0;
 	bool valid_rule;
 	rule_map *new_map = NULL;
 	kvp *k = NULL;
@@ -918,7 +918,7 @@ static void parse() {
 	char *p, *name = NULL, *value = NULL, *saveptr;
 	size_t len;
 	kvp keys[KVP_NUM_OF_RULES];
-	int token_cnt = 0;
+	size_t token_cnt = 0;
 
 	while (fgets(line_buf, sizeof line_buf - 1, input_file)) {
 
