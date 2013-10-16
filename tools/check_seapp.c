@@ -8,6 +8,7 @@
 #include <errno.h>
 #include <stdint.h>
 #include <search.h>
+#include <stdbool.h>
 #include <sepol/sepol.h>
 #include <sepol/policydb/policydb.h>
 
@@ -459,6 +460,46 @@ static void free_kvp(kvp *k) {
 }
 
 /**
+ * Checks a rule_map for any variation of KVP's that shouldn't be allowed.
+ * Note that this function logs all errors.
+ *
+ * Current Checks:
+ * 1. That a specified name entry should have a specified seinfo entry as well.
+ * @param rm
+ *  The rule map to check for validity.
+ * @return
+ *  true if the rule is valid, false otherwise.
+ */
+static bool rule_map_validate(const rule_map *rm) {
+
+	int i;
+	bool found_name = false;
+	bool found_seinfo = false;
+	char *name = NULL;
+	key_map *tmp;
+
+	for(i=0; i < rm->length; i++) {
+		tmp = &(rm->m[i]);
+
+		if(!strcmp(tmp->name, "name") && tmp->data) {
+			name = tmp->data;
+			found_name = true;
+		}
+		if(!strcmp(tmp->name, "seinfo") && tmp->data) {
+			found_seinfo = true;
+		}
+	}
+
+	if(found_name && !found_seinfo) {
+		log_error("No seinfo specified with name=\"%s\", on line: %d\n",
+				name, rm->lineno);
+		return false;
+	}
+
+	return true;
+}
+
+/**
  * Given a set of key value pairs, this will construct a new rule map.
  * On error this function calls exit.
  * @param keys
@@ -473,6 +514,7 @@ static void free_kvp(kvp *k) {
 static rule_map *rule_map_new(kvp keys[], unsigned int num_of_keys, int lineno) {
 
 	unsigned int i = 0, j = 0;
+	bool valid_rule;
 	rule_map *new_map = NULL;
 	kvp *k = NULL;
 	key_map *r = NULL, *x = NULL;
@@ -543,6 +585,12 @@ static rule_map *rule_map_new(kvp keys[], unsigned int num_of_keys, int lineno) 
 
 	if (new_map->key == NULL) {
 		log_error("Strange, no keys found, input file corrupt perhaps?\n");
+		goto err;
+	}
+
+	valid_rule = rule_map_validate(new_map);
+	if(!valid_rule) {
+		/* Error message logged from rule_map_validate() */
 		goto err;
 	}
 
