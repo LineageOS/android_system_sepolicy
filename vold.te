@@ -29,6 +29,9 @@ allow vold domain:{ file lnk_file } r_file_perms;
 allow vold domain:process { signal sigkill };
 allow vold self:capability { sys_ptrace kill };
 
+# For blkid
+allow vold shell_exec:file rx_file_perms;
+
 # XXX Label sysfs files with a specific type?
 allow vold sysfs:file rw_file_perms;
 
@@ -66,3 +69,5 @@ allow vold asec_image_file:dir rw_dir_perms;
 security_access_policy(vold)
 allow vold asec_apk_file:dir { rw_dir_perms setattr };
 allow vold asec_apk_file:file { r_file_perms setattr };
+allow vold sdcard_external:dir create_dir_perms;
+allow vold sdcard_external:file create_file_perms;
