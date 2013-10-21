@@ -1,6 +1,5 @@
 # wpa - wpa supplicant or equivalent
 type wpa, domain;
-permissive wpa;
 type wpa_exec, exec_type, file_type;
 
 init_daemon_domain(wpa)

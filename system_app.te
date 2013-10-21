@@ -4,6 +4,5 @@
 # server.
 #
 type system_app, domain;
-permissive system_app;
 app_domain(system_app)
 unconfined_domain(system_app)
