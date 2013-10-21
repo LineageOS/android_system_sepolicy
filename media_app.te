@@ -3,7 +3,6 @@
 ###
 
 type media_app, domain;
-permissive media_app;
 app_domain(media_app)
 platform_app_domain(media_app)
 # Access the network.

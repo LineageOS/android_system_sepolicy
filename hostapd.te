@@ -1,5 +1,4 @@
 type hostapd, domain;
-permissive hostapd;
 type hostapd_exec, exec_type, file_type;
 
 init_daemon_domain(hostapd)
