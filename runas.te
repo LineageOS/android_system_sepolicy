@@ -1,6 +1,5 @@
 type runas, domain;
 type runas_exec, exec_type, file_type;
-permissive runas;
 unconfined_domain(runas)
 
 # ndk-gdb invokes adb shell run-as.
