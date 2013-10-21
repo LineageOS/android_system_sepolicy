@@ -72,7 +72,9 @@ allow $1 $2:{ file lnk_file } r_file_perms;
 
 #####################################
 # unconfined_domain(domain)
-# Allow the specified domain to do anything.
+# Allow the specified domain to perform more privileged operations
+# than would be typically allowed. Please see the comments at the
+# top of unconfined.te.
 #
 define(`unconfined_domain', `
 typeattribute $1 mlstrustedsubject;
