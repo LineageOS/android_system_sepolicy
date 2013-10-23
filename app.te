@@ -132,7 +132,6 @@ allow appdomain usbaccessory_device:chr_file { read write getattr };
 # Superuser capabilities.
 # bluetooth requires net_admin.
 neverallow { appdomain -unconfineddomain -bluetooth } self:capability *;
-neverallow { bluetooth -unconfineddomain } self:capability ~net_admin;
 neverallow { appdomain -unconfineddomain } self:capability2 *;
 
 # Block device access.
