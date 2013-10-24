@@ -3,10 +3,14 @@
 ###
 
 type release_app, domain;
+permissive release_app;
 app_domain(release_app)
 platform_app_domain(release_app)
 # Access the network.
 net_domain(release_app)
 # Access bluetooth.
 bluetooth_domain(release_app)
-unconfined_domain(release_app)
+
+# Write to /cache.
+allow release_app cache_file:dir rw_dir_perms;
+allow release_app cache_file:file create_file_perms;
