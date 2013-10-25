@@ -202,7 +202,7 @@ neverallow { appdomain -unconfineddomain } zygote_socket:sock_file write;
 neverallow { appdomain -unconfineddomain } { domain -appdomain }:process ptrace;
 
 # Write access to /proc/pid entries for any non-app domain.
-neverallow { appdomain -unconfineddomain } { domain - appdomain }:file write;
+neverallow { appdomain -unconfineddomain } { domain -appdomain }:file write;
 
 # signal access to non-app domains.
 # sigchld allowed for parent death notification.
