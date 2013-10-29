@@ -1,9 +1,35 @@
 # surfaceflinger - display compositor service
 type surfaceflinger, domain;
+permissive surfaceflinger;
 type surfaceflinger_exec, exec_type, file_type;
 
 init_daemon_domain(surfaceflinger)
-unconfined_domain(surfaceflinger)
+typeattribute surfaceflinger mlstrustedsubject;
 
 # Talk to init over the property socket.
 unix_socket_connect(surfaceflinger, property, init)
+
+# Perform Binder IPC.
+binder_use(surfaceflinger)
+binder_call(surfaceflinger, system_server)
+binder_service(surfaceflinger)
+allow surfaceflinger init:binder transfer;
+
+# Access /dev/graphics/fb0.
+allow surfaceflinger graphics_device:dir search;
+allow surfaceflinger graphics_device:chr_file rw_file_perms;
+
+# Access /dev/video1.
+allow surfaceflinger video_device:chr_file rw_file_perms;
+
+# Create and use netlink kobject uevent sockets.
+allow surfaceflinger self:netlink_kobject_uevent_socket *;
+
+# Set properties.
+allow surfaceflinger system_prop:property_service set;
+allow surfaceflinger ctl_default_prop:property_service set;
+
+# Use open files supplied by an app.
+allow surfaceflinger appdomain:fd use;
+allow surfaceflinger platform_app_data_file:file { read write };
+allow surfaceflinger app_data_file:file { read write };
