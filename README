@@ -114,7 +114,9 @@ mac_permissions.xml:
         any string specified in TARGET_BUILD_VARIANT. All tags are matched verbatim
         and all options are matched lowercase. The options are "tolowered" automatically
         for the user, it is convention to specify tags and options in all uppercase
-        and tags start with @.
+        and tags start with @. The option arguments can also use environment variables
+        via the familiar $VARIABLE syntax. This is often useful for setting a location
+        to ones release keys.
 
         NOTE: The pem files are base64 encoded and PackageManagerService, mac_permissions.xml
               and setool all use base16 encodings.
