@@ -14,6 +14,7 @@ allow ueventd device:chr_file rw_file_perms;
 allow ueventd sysfs:file rw_file_perms;
 allow ueventd sysfs:file setattr;
 allow ueventd sysfs_type:file { relabelfrom relabelto };
+allow ueventd sysfs_devices_system_cpu:file rw_file_perms;
 allow ueventd tmpfs:chr_file rw_file_perms;
 allow ueventd dev_type:dir create_dir_perms;
 allow ueventd dev_type:lnk_file { create unlink };
