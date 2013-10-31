@@ -1,11 +1,3 @@
-/*
- * This was derived from public domain works with updates to
- * work with more modern SELinux libraries.
- *
- * It is released into the public domain.
- *
- */
-
 #include <getopt.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -132,6 +124,8 @@ int check_rule(char *s, char *t, char *c, char *p, policydb_t *policy) {
 	int p_op = parse_ops(&p);
 	avtab_key_t key;
 	int match;
+
+	key.source_type = key.target_type = key.target_class = 0;
 
 	if (s_op != ANY) {
 		src = hashtab_search(policy->p_types.table, s);
