@@ -137,9 +137,6 @@ neverallow { appdomain -unconfineddomain } self:capability2 *;
 # Block device access.
 neverallow { appdomain -unconfineddomain } dev_type:blk_file { read write };
 
-# Kernel memory access.
-neverallow { appdomain -unconfineddomain } kmem_device:chr_file { read write };
-
 # Access to any character device that is not specifically typed.
 neverallow { appdomain -unconfineddomain } device:chr_file { read write };
 
