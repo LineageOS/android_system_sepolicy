@@ -476,7 +476,7 @@ static bool rule_map_validate(const rule_map *rm) {
 	bool found_name = false;
 	bool found_seinfo = false;
 	char *name = NULL;
-	key_map *tmp;
+	const key_map *tmp;
 
 	for(i=0; i < rm->length; i++) {
 		tmp = &(rm->m[i]);
