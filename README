@@ -118,5 +118,16 @@ mac_permissions.xml:
         via the familiar $VARIABLE syntax. This is often useful for setting a location
         to ones release keys.
 
+        Often times, one will need to integrate an application that was signed by a separate
+        organization and may need to extract the pem file for the insertkeys/keys.conf tools.
+        Extraction of the public key in the pem format is possible via openssl. First you need
+        to unzip the apk, once it is unzipped, cd into the META_INF directory and then execute
+        openssl pkcs7 -inform DER -in CERT.RSA -out CERT.pem -outform PEM  -print_certs
+        On some occasions CERT.RSA has a different name, and you will need to adjust for that.
+        After extracting the pem, you can rename it, and configure keys.conf and
+        mac_permissions.xml to pick up the change. You MUST open the generated pem file in a text
+        editor and strip out anything outside the opening and closing scissor lines. Failure to do
+        so WILL cause a compile time issue thrown by insertkeys.py
+
         NOTE: The pem files are base64 encoded and PackageManagerService, mac_permissions.xml
               and setool all use base16 encodings.
