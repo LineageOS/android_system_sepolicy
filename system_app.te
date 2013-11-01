@@ -33,3 +33,6 @@ allow system_app sdcard_type:dir r_dir_perms;
 # Allow settings app to read from asec
 allow system_app asec_apk_file:dir search;
 allow system_app asec_apk_file:file r_file_perms;
+
+# Write to properties
+allow system_app system_prop:property_service set;
