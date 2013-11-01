@@ -26,7 +26,7 @@ wlan.                   u:object_r:system_prop:s0
 dhcp.                   u:object_r:system_prop:s0
 bluetooth.              u:object_r:bluetooth_prop:s0
 
-debug.                  u:object_r:shell_prop:s0
+debug.                  u:object_r:debug_prop:s0
 log.                    u:object_r:shell_prop:s0
 service.adb.root        u:object_r:shell_prop:s0
 service.adb.tcp.port    u:object_r:shell_prop:s0
