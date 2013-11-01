@@ -436,7 +436,8 @@ static map_match rule_map_cmp(rule_map *rmA, rule_map *rmB) {
  * @param rm
  * 	rule map to be freed.
  */
-static void rule_map_free(rule_map *rm, rule_map_switch s) {
+static void rule_map_free(rule_map *rm,
+		rule_map_switch s __attribute__((unused)) /* only glibc builds, ignored otherwise */) {
 
 	size_t i;
 	size_t len = rm->length;
