@@ -24,7 +24,7 @@ used instead of the corresponding file in external/sepolicy.
 BOARD_SEPOLICY_DIRS contains a list of directories to search
 for BOARD_SEPOLICY_UNION and BOARD_SEPOLICY_REPLACE files. Order
 matters in this list.
-eg.) If you have BOARD_SEPOLICY_UNION := widget.te and have 2
+eg.) If you have BOARD_SEPOLICY_UNION += widget.te and have 2
 instances of widget.te files on BOARD_SEPOLICY_DIRS search path.
 The first one found (at the first search dir containing the file)
 gets processed first.
@@ -56,9 +56,9 @@ is useful if you have numerous config directories that contain a file
 and you want to NOT include a particular file in your resulting
 policy file, either by UNION or REPLACE.
 Eg.) Suppose the following:
-     BOARD_SEPOLICY_DIRS := X Y
-     BOARD_SEPOLICY_REPLACE := A
-     BOARD_SEPOLICY_IGNORE := X/A
+     BOARD_SEPOLICY_DIRS += X Y
+     BOARD_SEPOLICY_REPLACE += A
+     BOARD_SEPOLICY_IGNORE += X/A
 
      Directories X and Y contain A.
 
@@ -68,10 +68,10 @@ Eg.) Suppose the following:
 Example BoardConfig.mk Usage:
 From the Tuna device BoardConfig.mk, device/samsung/tuna/BoardConfig.mk
 
-BOARD_SEPOLICY_DIRS := \
+BOARD_SEPOLICY_DIRS += \
         device/samsung/tuna/sepolicy
 
-BOARD_SEPOLICY_UNION := \
+BOARD_SEPOLICY_UNION += \
         genfs_contexts \
         file_contexts \
         sepolicy.te
