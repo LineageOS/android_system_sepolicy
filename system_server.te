@@ -212,3 +212,8 @@ allow system_server hw_random_device:chr_file r_file_perms;
 
 # Access to wake locks
 allow system_server sysfs_wake_lock:file rw_file_perms;
+
+# Read and delete files under /dev/fscklogs.
+r_dir_file(system_server, fscklogs)
+allow system_server fscklogs:dir { write remove_name };
+allow system_server fscklogs:file unlink;
