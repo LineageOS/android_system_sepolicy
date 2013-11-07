@@ -89,6 +89,7 @@ tmpfs_domain(system_server)
 binder_use(system_server)
 binder_call(system_server, binderservicedomain)
 binder_call(system_server, appdomain)
+binder_call(system_server, healthd)
 binder_service(system_server)
 
 # Read /proc/pid files for Binder clients.
