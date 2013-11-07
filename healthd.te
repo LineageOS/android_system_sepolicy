@@ -4,8 +4,15 @@ type healthd, domain;
 type healthd_exec, exec_type, file_type;
 
 init_daemon_domain(healthd)
-unconfined_domain(healthd)
-allow healthd rootfs:file entrypoint;
+allow healthd rootfs:file { read entrypoint };
 write_klog(healthd)
 
+allow healthd self:capability { net_admin mknod };
+allow healthd self:capability2 block_suspend;
+allow healthd self:netlink_kobject_uevent_socket create_socket_perms;
+binder_use(healthd)
+binder_call(healthd, system_server)
 
+# Workaround for 0x10 / block_suspend capability2 denials.
+# Requires a kernel patch to fix properly.
+permissive healthd;
