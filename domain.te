@@ -139,3 +139,7 @@ neverallow { domain -init -system_server -ueventd -unconfineddomain } hw_random_
 
 # Ensure that all entrypoint executables are in exec_type.
 neverallow domain { file_type -exec_type }:file entrypoint;
+
+# Ensure that nothing in userspace can access /dev/mem or /dev/kmem
+neverallow { domain -kernel -ueventd -init } kmem_device:chr_file *;
+neverallow domain kmem_device:chr_file ~{ create relabelto unlink setattr };
