@@ -51,6 +51,7 @@ type gps_data_file, file_type, data_file_type;
 # /data/misc subdirectories
 type audio_firmware_file, file_type, data_file_type;
 type bluetooth_data_file, file_type, data_file_type;
+type media_data_file, file_type, data_file_type;
 type keystore_data_file, file_type, data_file_type;
 type vpn_data_file, file_type, data_file_type;
 type systemkeys_data_file, file_type, data_file_type;
