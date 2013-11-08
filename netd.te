@@ -64,9 +64,6 @@ allow netd device:sock_file write;
 # Block device access.
 neverallow netd dev_type:blk_file { read write };
 
-# Kernel memory access.
-neverallow netd kmem_device:chr_file { read write };
-
 # Setting SELinux enforcing status or booleans.
 neverallow netd kernel:security { setenforce setbool };
 
