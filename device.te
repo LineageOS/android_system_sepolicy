@@ -15,6 +15,7 @@ type radio_device, dev_type;
 type ram_device, dev_type;
 type console_device, dev_type;
 type cpuctl_device, dev_type;
+type fscklogs, dev_type;
 type full_device, dev_type;
 type graphics_device, dev_type;
 type hw_random_device, dev_type;
