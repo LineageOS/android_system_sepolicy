@@ -1,6 +1,5 @@
 # Life begins with the kernel.
 type kernel, domain;
-permissive kernel;
 # The kernel is unconfined.
 unconfined_domain(kernel)
 relabelto_domain(kernel)
