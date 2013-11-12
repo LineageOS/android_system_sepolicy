@@ -72,6 +72,9 @@ allow domain urandom_device:chr_file rw_file_perms;
 allow domain random_device:chr_file rw_file_perms;
 allow domain properties_device:file r_file_perms;
 
+# logd access
+write_logd(domain)
+
 # Filesystem accesses.
 allow domain fs_type:filesystem getattr;
 allow domain fs_type:dir getattr;
