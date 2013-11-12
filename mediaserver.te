@@ -47,13 +47,13 @@ allow mediaserver rpmsg_device:chr_file rw_file_perms;
 # Inter System processes communicate over named pipe (FIFO)
 allow mediaserver system_server:fifo_file r_file_perms;
 
-# Camera calibration
-allow mediaserver camera_calibration_file:dir r_dir_perms;
-allow mediaserver camera_calibration_file:file r_file_perms;
+# Camera data
+allow mediaserver camera_data_file:dir r_dir_perms;
+allow mediaserver camera_data_file:file r_file_perms;
 
-# Grant access to audio firmware files to mediaserver
-allow mediaserver audio_firmware_file:dir ra_dir_perms;
-allow mediaserver audio_firmware_file:file create_file_perms;
+# Grant access to audio files to mediaserver
+allow mediaserver audio_data_file:dir ra_dir_perms;
+allow mediaserver audio_data_file:file create_file_perms;
 
 # Read/[write] to /proc/net/xt_qtaguid/ctrl and /dev/xt_qtaguid
 allow mediaserver qtaguid_proc:file rw_file_perms;
