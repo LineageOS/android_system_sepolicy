@@ -11,6 +11,7 @@ allow netd self:rawip_socket *;
 allow netd self:{ tcp_socket udp_socket } *;
 allow netd node:{ tcp_socket udp_socket } node_bind;
 allow netd port:{ tcp_socket udp_socket } name_bind;
+allow netd port:tcp_socket name_connect;
 allow netd self:unix_stream_socket *;
 allow netd shell_exec:file rx_file_perms;
 allow netd system_file:file x_file_perms;
