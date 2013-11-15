@@ -14,6 +14,7 @@ allow vold rootfs:dir mounton;
 allow vold sdcard_type:dir mounton;
 allow vold sdcard_type:filesystem { mount remount unmount };
 allow vold sdcard_type:dir create_dir_perms;
+allow vold sdcard_type:file create_file_perms;
 allow vold tmpfs:filesystem { mount unmount };
 allow vold tmpfs:dir create_dir_perms;
 allow vold tmpfs:dir mounton;
@@ -68,5 +69,3 @@ allow vold asec_image_file:dir rw_dir_perms;
 security_access_policy(vold)
 allow vold asec_apk_file:dir { rw_dir_perms setattr };
 allow vold asec_apk_file:file { r_file_perms setattr };
-allow vold sdcard_external:dir create_dir_perms;
-allow vold sdcard_external:file create_file_perms;
