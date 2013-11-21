@@ -14,7 +14,7 @@
 
 void usage(char *arg0)
 {
-    fprintf(stderr, "%s [-e|--equiv] [-d|--diff] -P <policy file>\n", arg0);
+    fprintf(stderr, "%s [-e|--equiv] [-d|--diff] [-D|--dups] -P <policy file>\n", arg0);
     exit(1);
 }
 
@@ -173,18 +173,18 @@ static void free_type_rules(struct avtab_node *l)
     }
 }
 
-static void display_allow(policydb_t *policydb, struct avtab_node *n, int idx,
-                         uint32_t perms)
+static void display_allow(policydb_t *policydb, avtab_key_t *key, int idx,
+                          uint32_t perms)
 {
     printf("    allow %s %s:%s { %s };\n",
-           policydb->p_type_val_to_name[n->key.source_type
-                                        ? n->key.source_type - 1 : idx],
-           n->key.target_type == n->key.source_type ? "self" :
-           policydb->p_type_val_to_name[n->key.target_type
-                                        ? n->key.target_type - 1 : idx],
-           policydb->p_class_val_to_name[n->key.target_class - 1],
+           policydb->p_type_val_to_name[key->source_type
+                                        ? key->source_type - 1 : idx],
+           key->target_type == key->source_type ? "self" :
+           policydb->p_type_val_to_name[key->target_type
+                                        ? key->target_type - 1 : idx],
+           policydb->p_class_val_to_name[key->target_class - 1],
            sepol_av_to_string
-           (policydb, n->key.target_class, perms));
+           (policydb, key->target_class, perms));
 }
 
 static int find_match(policydb_t *policydb, struct avtab_node *l1,
@@ -213,9 +213,9 @@ static int find_match(policydb_t *policydb, struct avtab_node *l1,
         perms2 = c->datum.data & ~l1->datum.data;
         if (perms1 || perms2) {
             if (perms1)
-                display_allow(policydb, l1, idx1, perms1);
+                display_allow(policydb, &l1->key, idx1, perms1);
             if (perms2)
-                display_allow(policydb, c, idx2, perms2);
+                display_allow(policydb, &c->key, idx2, perms2);
             printf("\n");
             return 1;
         }
@@ -311,9 +311,9 @@ static int analyze_types(policydb_t * policydb, char equiv, char diff)
                             continue;
                     }
                     if (l1)
-                        display_allow(policydb, l1, i, l1->datum.data);
+                        display_allow(policydb, &l1->key, i, l1->datum.data);
                     if (l2)
-                        display_allow(policydb, l2, j, l2->datum.data);
+                        display_allow(policydb, &l2->key, j, l2->datum.data);
                     printf("\n");
                 }
                 continue;
@@ -334,28 +334,85 @@ static int analyze_types(policydb_t * policydb, char equiv, char diff)
     return 0;
 }
 
+static int find_dups_helper(avtab_key_t * k, avtab_datum_t * d,
+                            void *args)
+{
+    policydb_t *policydb = args;
+    ebitmap_t *sattr, *tattr;
+    ebitmap_node_t *snode, *tnode;
+    unsigned int i, j;
+    avtab_key_t avkey;
+    avtab_ptr_t node;
+
+    if (!(k->specified & AVTAB_ALLOWED))
+        return 0;
+
+    avkey.target_class = k->target_class;
+    avkey.specified = k->specified;
+
+    sattr = &policydb->type_attr_map[k->source_type - 1];
+    tattr = &policydb->type_attr_map[k->target_type - 1];
+    ebitmap_for_each_bit(sattr, snode, i) {
+        if (!ebitmap_node_get_bit(snode, i))
+            continue;
+        ebitmap_for_each_bit(tattr, tnode, j) {
+            if (!ebitmap_node_get_bit(tnode, j))
+                continue;
+            avkey.source_type = i + 1;
+            avkey.target_type = j + 1;
+            if (avkey.source_type == k->source_type &&
+                avkey.target_type == k->target_type)
+                continue;
+            for (node = avtab_search_node(&policydb->te_avtab, &avkey);
+                 node != NULL;
+                 node = avtab_search_node_next(node, avkey.specified)) {
+                if (node->datum.data & d->data) {
+                    uint32_t perms = node->datum.data & d->data;
+                    printf("Duplicate allow rule found:\n");
+                    display_allow(policydb, k, i, perms);
+                    display_allow(policydb, &node->key, i, perms);
+                    printf("\n");
+                }
+            }
+        }
+    }
+
+    return 0;
+}
+
+static int find_dups(policydb_t * policydb)
+{
+    if (avtab_map(&policydb->te_avtab, find_dups_helper, policydb))
+        return -1;
+    return 0;
+}
+
 int main(int argc, char **argv)
 {
     char *policy = NULL;
     struct policy_file pf;
     policydb_t policydb;
     char ch;
-    char equiv = 0, diff = 0;
+    char equiv = 0, diff = 0, dups = 0;
 
     struct option long_options[] = {
         {"equiv", no_argument, NULL, 'e'},
         {"diff", no_argument, NULL, 'd'},
+        {"dups", no_argument, NULL, 'D'},
         {"policy", required_argument, NULL, 'P'},
         {NULL, 0, NULL, 0}
     };
 
-    while ((ch = getopt_long(argc, argv, "edP:", long_options, NULL)) != -1) {
+    while ((ch = getopt_long(argc, argv, "edDP:", long_options, NULL)) != -1) {
         switch (ch) {
         case 'e':
             equiv = 1;
             break;
         case 'd':
             diff = 1;
+            break;
+        case 'D':
+            dups = 1;
             break;
         case 'P':
             policy = optarg;
@@ -365,13 +422,17 @@ int main(int argc, char **argv)
         }
     }
 
-    if (!policy || (!equiv && !diff))
+    if (!policy || (!equiv && !diff && !dups))
         usage(argv[0]);
 
     if (load_policy(policy, &policydb, &pf))
         exit(1);
 
-    analyze_types(&policydb, equiv, diff);
+    if (equiv || diff)
+        analyze_types(&policydb, equiv, diff);
+
+    if (dups)
+        find_dups(&policydb);
 
     policydb_destroy(&policydb);
 
