@@ -44,3 +44,10 @@ allow zygote labeledfs:filesystem remount;
 
 # Handle --invoke-with command when launching Zygote with a wrapper command.
 allow zygote zygote_exec:file { execute_no_trans open };
+
+# handle bugreports b/10498304
+allow zygote ashmem_device:chr_file execute;
+allow zygote init:binder call;
+allow zygote shell_data_file:file { write getattr };
+allow zygote system_server:binder { transfer call };
+allow zygote servicemanager:binder { call };
