@@ -89,7 +89,7 @@ define(`tmpfs_domain', `
 type $1_tmpfs, file_type;
 type_transition $1 tmpfs:file $1_tmpfs;
 # Map with PROT_EXEC.
-allow $1 $1_tmpfs:file { read execute execmod };
+allow $1 $1_tmpfs:file { read write execute execmod };
 ')
 
 #####################################
