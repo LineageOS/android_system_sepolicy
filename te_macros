@@ -250,13 +250,9 @@ allow $1 rootfs:file r_file_perms;
 
 #####################################
 # selinux_manage_policy(domain)
-# Ability to manage policy files,
-# trigger runtime reload, change
-# enforcing mode, manipulate booleans
-# and access kernel logs.
+# Ability to manage policy files and
+# trigger runtime reload.
 define(`selinux_manage_policy', `
-selinux_setenforce($1)
-selinux_setbool($1)
 security_access_policy($1)
 unix_socket_connect($1, property, init)
 allow $1 security_file:dir create_dir_perms;
