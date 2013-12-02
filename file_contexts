@@ -75,7 +75,7 @@
 /dev/rpmsg-omx[0-9]	u:object_r:rpmsg_device:s0
 /dev/rproc_user	u:object_r:rpmsg_device:s0
 /dev/snd(/.*)?		u:object_r:audio_device:s0
-/dev/socket		u:object_r:socket_device:s0
+/dev/socket(/.*)?	u:object_r:socket_device:s0
 /dev/socket/adbd	u:object_r:adbd_socket:s0
 /dev/socket/bluetooth	u:object_r:bluetooth_socket:s0
 /dev/socket/dnsproxyd	u:object_r:dnsproxyd_socket:s0
