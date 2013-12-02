@@ -10,7 +10,6 @@
 ###
 
 type isolated_app, domain;
-permissive isolated_app;
 app_domain(isolated_app)
 
 # Already connected, unnamed sockets being passed over some other IPC
