@@ -69,8 +69,6 @@
 /dev/kmsg		u:object_r:kmsg_device:s0
 /dev/null		u:object_r:null_device:s0
 /dev/nvhdcp1		u:object_r:video_device:s0
-/dev/nvmap		u:object_r:nv_device:s0
-/dev/nvhost-.*		u:object_r:nv_device:s0
 /dev/random		u:object_r:random_device:s0
 /dev/rpmsg-omx[0-9]	u:object_r:rpmsg_device:s0
 /dev/rproc_user	u:object_r:rpmsg_device:s0
