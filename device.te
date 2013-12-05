@@ -25,7 +25,6 @@ type log_device, dev_type, mlstrustedobject;
 type mtd_device, dev_type;
 type mtp_device, dev_type, mlstrustedobject;
 type nfc_device, dev_type;
-type nv_device, dev_type, mlstrustedobject;
 type powervr_device, dev_type, mlstrustedobject;
 type ptmx_device, dev_type, mlstrustedobject;
 type qemu_device, dev_type;
