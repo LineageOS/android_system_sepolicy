@@ -45,3 +45,5 @@ allow rild self:netlink_kobject_uevent_socket { bind create getopt read setopt }
 
 # Access to wake locks
 allow rild sysfs_wake_lock:file rw_file_perms;
+
+allow rild self:socket create_socket_perms;
