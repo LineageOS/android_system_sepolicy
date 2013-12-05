@@ -6,6 +6,3 @@ unconfined_domain(shell)
 # Run app_process.
 # XXX Split into its own domain?
 app_domain(shell)
-
-# shell is also permissive to permit setenforce.
-permissive shell;
