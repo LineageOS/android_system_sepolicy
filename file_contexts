@@ -80,6 +80,7 @@
 /dev/socket/gps		u:object_r:gps_socket:s0
 /dev/socket/installd	u:object_r:installd_socket:s0
 /dev/socket/keystore	u:object_r:keystore_socket:s0
+/dev/socket/lmkd        u:object_r:lmkd_socket:s0
 /dev/socket/mdns	u:object_r:mdns_socket:s0
 /dev/socket/netd	u:object_r:netd_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
@@ -142,6 +143,7 @@
 /system/bin/dnsmasq     u:object_r:dnsmasq_exec:s0
 /system/bin/hostapd     u:object_r:hostapd_exec:s0
 /system/bin/clatd	u:object_r:clatd_exec:s0
+/system/bin/lmkd        u:object_r:lmkd_exec:s0
 #############################
 # Vendor files
 #
