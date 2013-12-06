@@ -11,3 +11,4 @@ allow init {fs_type dev_type file_type}:dir_file_class_set relabelto;
 allow init kernel:security { load_policy setenforce };
 allow init usermodehelper:file rw_file_perms;
 allow init proc_security:file rw_file_perms;
+allow init kernel:security load_policy;
