@@ -142,3 +142,8 @@ neverallow domain { file_type -exec_type }:file entrypoint;
 # Ensure that nothing in userspace can access /dev/mem or /dev/kmem
 neverallow { domain -kernel -ueventd -init } kmem_device:chr_file *;
 neverallow domain kmem_device:chr_file ~{ create relabelto unlink setattr };
+
+# Only init should be able to configure kernel usermodehelpers or
+# security-sensitive proc settings.
+neverallow { domain -init } usermodehelper:file { append write };
+neverallow { domain -init } proc_security:file { append write };
