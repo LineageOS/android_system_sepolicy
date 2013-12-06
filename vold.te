@@ -14,6 +14,7 @@ allow vold rootfs:dir mounton;
 allow vold sdcard_type:dir mounton;
 allow vold sdcard_type:filesystem { mount remount unmount };
 allow vold sdcard_type:dir create_dir_perms;
+allow vold sdcard_type:file create_file_perms;
 allow vold tmpfs:filesystem { mount unmount };
 allow vold tmpfs:dir create_dir_perms;
 allow vold tmpfs:dir mounton;
@@ -28,6 +29,9 @@ allow vold domain:dir r_dir_perms;
 allow vold domain:{ file lnk_file } r_file_perms;
 allow vold domain:process { signal sigkill };
 allow vold self:capability { sys_ptrace kill };
+
+# For blkid
+allow vold shell_exec:file rx_file_perms;
 
 # XXX Label sysfs files with a specific type?
 allow vold sysfs:file rw_file_perms;
