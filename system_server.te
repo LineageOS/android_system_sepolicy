@@ -73,6 +73,7 @@ allow system_server init:process sigchld;
 unix_socket_connect(system_server, property, init)
 unix_socket_connect(system_server, qemud, qemud)
 unix_socket_connect(system_server, installd, installd)
+unix_socket_connect(system_server, lmkd, lmkd)
 unix_socket_connect(system_server, netd, netd)
 unix_socket_connect(system_server, vold, vold)
 unix_socket_connect(system_server, zygote, zygote)
