@@ -156,3 +156,6 @@ neverallow domain kmem_device:chr_file ~{ create relabelto unlink setattr };
 # security-sensitive proc settings.
 neverallow { domain -init } usermodehelper:file { append write };
 neverallow { domain -init } proc_security:file { append write };
+
+# No domain should be allowed to ptrace init.
+neverallow domain init:process ptrace;
