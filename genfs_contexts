@@ -15,6 +15,7 @@ genfscon proc /sys/kernel/modules_disabled u:object_r:proc_security:s0
 genfscon proc /sys/kernel/poweroff_cmd u:object_r:usermodehelper:s0
 genfscon proc /sys/kernel/randomize_va_space u:object_r:proc_security:s0
 genfscon proc /sys/kernel/usermodehelper u:object_r:usermodehelper:s0
+genfscon proc /sys/vm/mmap_min_addr u:object_r:proc_security:s0
 # selinuxfs booleans can be individually labeled.
 genfscon selinuxfs / u:object_r:selinuxfs:s0
 genfscon cgroup / u:object_r:cgroup:s0
