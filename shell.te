@@ -9,3 +9,12 @@ app_domain(shell)
 
 # shell is also permissive to permit setenforce.
 permissive shell;
+
+# ndk-gdb invokes adb shell ps to find the app PID.
+r_dir_file(shell, non_system_app_set)
+
+# ndk-gdb invokes adb shell ls to check the app data dir.
+allow shell app_data_file:dir search;
+
+# ndk-gdb invokes adb shell kill -9 to kill the gdbserver.
+allow shell non_system_app_set:process sigkill;

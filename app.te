@@ -13,11 +13,24 @@ unix_socket_connect(appdomain, keystore, keystore)
 # Receive and use open file descriptors inherited from zygote.
 allow appdomain zygote:fd use;
 
+# gdbserver for ndk-gdb reads the zygote.
+allow appdomain zygote_exec:file r_file_perms;
+
+# gdbserver for ndk-gdb ptrace attaches to app process.
+allow appdomain self:process ptrace;
+
 # Read system properties managed by zygote.
 allow appdomain zygote_tmpfs:file read;
 
 # Notify zygote of death;
 allow appdomain zygote:process sigchld;
+
+# Notify shell and adbd of death when spawned via runas for ndk-gdb.
+allow appdomain shell:process sigchld;
+allow appdomain adbd:process sigchld;
+
+# child shell or gdbserver pty access for runas.
+allow appdomain devpts:chr_file { getattr read write ioctl };
 
 # Communicate with system_server.
 allow appdomain system_server:fifo_file rw_file_perms;
@@ -41,7 +54,7 @@ allow appdomain platform_app_data_file:file { getattr read write };
 
 # lib subdirectory of /data/data dir is system-owned.
 allow appdomain system_data_file:dir r_dir_perms;
-allow appdomain system_data_file:file { execute open };
+allow appdomain system_data_file:file { execute execute_no_trans open };
 
 # Execute the shell or other system executables.
 allow appdomain shell_exec:file rx_file_perms;

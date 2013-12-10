@@ -13,3 +13,12 @@ allow adbd adb_keys_file:file r_file_perms;
 # Allow access in case /data/misc/adb still has the old type.
 allow adbd system_data_file:dir search;
 allow adbd system_data_file:file r_file_perms;
+
+# ndk-gdb invokes adb forward to forward the gdbserver socket.
+allow adbd app_data_file:dir search;
+allow adbd app_data_file:sock_file write;
+allow adbd appdomain:unix_stream_socket connectto;
+
+# ndk-gdb invokes adb pull of app_process, linker, and libc.so.
+allow adbd zygote_exec:file r_file_perms;
+allow adbd system_file:file r_file_perms;
