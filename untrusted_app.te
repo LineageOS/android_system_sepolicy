@@ -15,6 +15,10 @@ app_domain(untrusted_app)
 net_domain(untrusted_app)
 bluetooth_domain(untrusted_app)
 
+# Some apps ship with shared libraries and binaries that they write out
+# to their sandbox directory and then execute.
+allow untrusted_app app_data_file:file rx_file_perms;
+
 allow untrusted_app tun_device:chr_file rw_file_perms;
 
 # Internal SDCard rw access.
