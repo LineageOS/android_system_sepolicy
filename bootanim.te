@@ -1,0 +1,11 @@
+# bootanimation oneshot service
+type bootanim, domain;
+permissive bootanim;
+type bootanim_exec, exec_type, file_type;
+
+init_daemon_domain(bootanim)
+
+binder_use(bootanim)
+binder_call(bootanim, surfaceflinger)
+
+allow bootanim gpu_device:chr_file rw_file_perms;
