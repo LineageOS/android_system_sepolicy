@@ -17,6 +17,8 @@ type console_device, dev_type;
 type cpuctl_device, dev_type;
 type fscklogs, dev_type;
 type full_device, dev_type;
+# GPU (used by most UI apps)
+type gpu_device, dev_type, mlstrustedobject;
 type graphics_device, dev_type;
 type hw_random_device, dev_type;
 type input_device, dev_type;
