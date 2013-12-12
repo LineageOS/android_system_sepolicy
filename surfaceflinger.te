@@ -15,6 +15,9 @@ binder_call(surfaceflinger, system_server)
 binder_service(surfaceflinger)
 allow surfaceflinger init:binder transfer;
 
+# Access the GPU.
+allow surfaceflinger gpu_device:chr_file rw_file_perms;
+
 # Access /dev/graphics/fb0.
 allow surfaceflinger graphics_device:dir search;
 allow surfaceflinger graphics_device:chr_file rw_file_perms;
