@@ -13,7 +13,6 @@ unix_socket_connect(surfaceflinger, property, init)
 binder_use(surfaceflinger)
 binder_call(surfaceflinger, system_server)
 binder_service(surfaceflinger)
-allow surfaceflinger init:binder transfer;
 
 # Access the GPU.
 allow surfaceflinger gpu_device:chr_file rw_file_perms;
@@ -36,3 +35,6 @@ allow surfaceflinger ctl_default_prop:property_service set;
 allow surfaceflinger appdomain:fd use;
 allow surfaceflinger platform_app_data_file:file { read write };
 allow surfaceflinger app_data_file:file { read write };
+
+# Use open file provided by bootanim.
+allow surfaceflinger bootanim:fd use;
