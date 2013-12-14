@@ -1,0 +1,70 @@
+# dumpstate
+type dumpstate, domain;
+permissive dumpstate;
+type dumpstate_exec, exec_type, file_type;
+
+init_daemon_domain(dumpstate)
+net_domain(dumpstate)
+relabelto_domain(dumpstate)
+binder_use(dumpstate)
+
+# Drop privileges by switching UID / GID
+allow dumpstate self:capability { setuid setgid };
+
+# Allow dumpstate to scan through /proc/pid for all processes
+r_dir_file(dumpstate, domain)
+
+# Send signals to processes
+allow dumpstate self:capability kill;
+
+# Allow executing files on system, such as:
+#   /system/bin/toolbox
+#   /system/bin/logcat
+#   /system/bin/dumpsys
+allow dumpstate system_file:file execute_no_trans;
+
+# Create and write into /data/anr/
+allow dumpstate self:capability { dac_override chown fowner fsetid };
+allow dumpstate anr_data_file:dir { rw_dir_perms relabelto };
+allow dumpstate anr_data_file:file create_file_perms;
+allow dumpstate system_data_file:dir { create_dir_perms relabelfrom };
+
+# Allow reading /data/system/uiderrors.txt
+# TODO: scope this down.
+allow dumpstate system_data_file:file r_file_perms;
+
+# Read dmesg
+allow dumpstate self:capability2 syslog;
+allow dumpstate kernel:system syslog_read;
+
+# Get process attributes
+allow dumpstate domain:process getattr;
+
+# Signal java processes to dump their stack
+allow dumpstate { appdomain system_server }:process signal;
+
+# Signal native processes to dump their stack.
+# This list comes from native_processes_to_dump in dumpstate/utils.c
+allow dumpstate { drmserver mediaserver sdcardd surfaceflinger }:process signal;
+
+# The /system/bin/ip command needs this for routing table information.
+allow dumpstate self:netlink_route_socket { write getattr setopt };
+
+# The vdc command needs to talk to the vold socket.
+unix_socket_connect(dumpstate, vold, vold)
+
+# Vibrate the device after we're done collecting the bugreport
+# /sys/class/timed_output/vibrator/enable
+# TODO: create a new file class, instead of allowing write access to all of /sys
+allow dumpstate sysfs:file w_file_perms;
+
+# Other random bits of data we want to collect
+allow dumpstate qtaguid_proc:file r_file_perms;
+allow dumpstate debugfs:file r_file_perms;
+
+# Allow dumpstate to make binder calls to any binder service
+binder_call(dumpstate, binderservicedomain)
+binder_call(dumpstate, appdomain)
+
+# Reading /proc/PID/maps of other processes
+allow dumpstate self:capability sys_ptrace;

@@ -77,6 +77,7 @@
 /dev/socket/adbd	u:object_r:adbd_socket:s0
 /dev/socket/bluetooth	u:object_r:bluetooth_socket:s0
 /dev/socket/dnsproxyd	u:object_r:dnsproxyd_socket:s0
+/dev/socket/dumpstate	u:object_r:dumpstate_socket:s0
 /dev/socket/gps		u:object_r:gps_socket:s0
 /dev/socket/installd	u:object_r:installd_socket:s0
 /dev/socket/keystore	u:object_r:keystore_socket:s0
@@ -121,6 +122,7 @@
 /system/bin/servicemanager	u:object_r:servicemanager_exec:s0
 /system/bin/surfaceflinger	u:object_r:surfaceflinger_exec:s0
 /system/bin/drmserver	u:object_r:drmserver_exec:s0
+/system/bin/dumpstate   u:object_r:dumpstate_exec:s0
 /system/bin/vold	u:object_r:vold_exec:s0
 /system/bin/netd	u:object_r:netd_exec:s0
 /system/bin/rild	u:object_r:rild_exec:s0
