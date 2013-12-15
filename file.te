@@ -52,18 +52,20 @@ type dalvikcache_data_file, file_type, data_file_type;
 type shell_data_file, file_type, data_file_type;
 # /data/gps
 type gps_data_file, file_type, data_file_type;
+
 # /data/misc subdirectories
+type adb_keys_file, file_type, data_file_type;
 type audio_data_file, file_type, data_file_type;
 type bluetooth_data_file, file_type, data_file_type;
-type media_data_file, file_type, data_file_type;
-type keystore_data_file, file_type, data_file_type;
-type vpn_data_file, file_type, data_file_type;
-type systemkeys_data_file, file_type, data_file_type;
-type wifi_data_file, file_type, data_file_type;
-type radio_data_file, file_type, data_file_type;
-type nfc_data_file, file_type, data_file_type;
 type camera_data_file, file_type, data_file_type;
-type adb_keys_file, file_type, data_file_type;
+type keystore_data_file, file_type, data_file_type;
+type media_data_file, file_type, data_file_type;
+type nfc_data_file, file_type, data_file_type;
+type radio_data_file, file_type, data_file_type;
+type systemkeys_data_file, file_type, data_file_type;
+type vpn_data_file, file_type, data_file_type;
+type wifi_data_file, file_type, data_file_type;
+
 # Compatibility with type names used in vanilla Android 4.3 and 4.4.
 typealias audio_data_file alias audio_firmware_file;
 typealias camera_data_file alias camera_calibration_file;
