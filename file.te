@@ -65,6 +65,7 @@ type radio_data_file, file_type, data_file_type;
 type systemkeys_data_file, file_type, data_file_type;
 type vpn_data_file, file_type, data_file_type;
 type wifi_data_file, file_type, data_file_type;
+type zoneinfo_data_file, file_type, data_file_type;
 
 # Compatibility with type names used in vanilla Android 4.3 and 4.4.
 typealias audio_data_file alias audio_firmware_file;

@@ -89,6 +89,9 @@ allow domain cache_file:dir r_dir_perms;
 allow domain cache_file:file { getattr read };
 allow domain cache_file:lnk_file read;
 
+# Read timezone related information
+r_dir_file(domain, zoneinfo_data_file)
+
 # For /acct/uid/*/tasks.
 allow domain cgroup:dir { search write };
 allow domain cgroup:file w_file_perms;
