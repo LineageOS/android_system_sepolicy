@@ -11,6 +11,7 @@ allow healthd self:capability { net_admin mknod };
 allow healthd self:capability2 block_suspend;
 allow healthd self:netlink_kobject_uevent_socket create_socket_perms;
 binder_use(healthd)
+binder_service(healthd)
 binder_call(healthd, system_server)
 
 # Workaround for 0x10 / block_suspend capability2 denials.

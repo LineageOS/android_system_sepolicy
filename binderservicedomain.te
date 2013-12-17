@@ -1,0 +1,5 @@
+# Rules common to all binder service domains
+
+# Alow dumpstate to collect information from binder services
+allow binderservicedomain dumpstate:fd use;
+allow binderservicedomain dumpstate:unix_stream_socket { read write getopt getattr };

@@ -68,6 +68,10 @@ allow appdomain wallpaper_file:file { read write };
 allow appdomain anr_data_file:dir search;
 allow appdomain anr_data_file:file { open append };
 
+# Allow apps to send dump information to dumpstate
+allow appdomain dumpstate:fd use;
+allow appdomain dumpstate:unix_stream_socket { read write getopt getattr };
+
 # Write to /proc/net/xt_qtaguid/ctrl file.
 allow appdomain qtaguid_proc:file rw_file_perms;
 # Everybody can read the xt_qtaguid resource tracking misc dev.
