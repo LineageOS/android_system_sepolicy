@@ -13,6 +13,10 @@ unix_socket_connect(appdomain, keystore, keystore)
 # Receive and use open file descriptors inherited from zygote.
 allow appdomain zygote:fd use;
 
+# Needed to close the zygote socket, which involves getopt / getattr
+# This should be deleted after b/12061011 is fixed
+allow appdomain zygote:unix_stream_socket { getopt getattr };
+
 # gdbserver for ndk-gdb reads the zygote.
 allow appdomain zygote_exec:file r_file_perms;
 
