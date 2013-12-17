@@ -3,3 +3,7 @@ type sdcardd_exec, exec_type, file_type;
 
 init_daemon_domain(sdcardd)
 unconfined_domain(sdcardd)
+
+type_transition sdcardd system_data_file:{ dir file } media_rw_data_file;
+allow sdcardd media_rw_data_file:dir create_dir_perms;
+allow sdcardd media_rw_data_file:file create_file_perms;
