@@ -1,4 +1,6 @@
 # Restricted domain for shell processes spawned by init
-type init_shell, domain;
+type init_shell, domain, shelldomain;
 domain_auto_trans(init, shell_exec, init_shell)
 unconfined_domain(init_shell)
+
+# inherits from shelldomain.te

@@ -1,0 +1,40 @@
+# Rules for all shell domains (e.g. console service and adb shell).
+
+# Access /data/local/tmp.
+allow shelldomain shell_data_file:dir create_dir_perms;
+allow shelldomain shell_data_file:file create_file_perms;
+allow shelldomain shell_data_file:file rx_file_perms;
+
+# Access sdcard.
+allow shelldomain sdcard_type:dir rw_dir_perms;
+allow shelldomain sdcard_type:file create_file_perms;
+
+# adb bugreport
+unix_socket_connect(shelldomain, dumpstate, dumpstate)
+
+allow shelldomain rootfs:dir r_dir_perms;
+allow shelldomain devpts:chr_file rw_file_perms;
+allow shelldomain tty_device:chr_file rw_file_perms;
+allow shelldomain console_device:chr_file rw_file_perms;
+allow shelldomain input_device:chr_file rw_file_perms;
+allow shelldomain system_file:file x_file_perms;
+allow shelldomain shell_exec:file rx_file_perms;
+allow shelldomain zygote_exec:file rx_file_perms;
+
+r_dir_file(shelldomain, apk_data_file)
+allow shelldomain dalvikcache_data_file:file { write setattr };
+
+# Set properties.
+unix_socket_connect(shelldomain, property, init)
+allow shelldomain shell_prop:property_service set;
+allow shelldomain ctl_dumpstate_prop:property_service set;
+
+# ndk-gdb invokes adb shell ps to find the app PID.
+r_dir_file(shelldomain, non_system_app_set)
+
+# ndk-gdb invokes adb shell ls to check the app data dir.
+allow shelldomain app_data_file:dir search;
+
+# ps and ps -Z output for app processes.
+r_dir_file(shelldomain, appdomain)
+allow shelldomain appdomain:process getattr;

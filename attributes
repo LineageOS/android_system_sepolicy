@@ -50,6 +50,9 @@ attribute mlstrustedobject;
 # Domains that are allowed all permissions ("unconfined").
 attribute unconfineddomain;
 
+# All domains used for shells.
+attribute shelldomain;
+
 # All domains used for apps.
 attribute appdomain;
 
