@@ -39,11 +39,11 @@ allow domain init:unix_stream_socket connectto;
 # Root fs.
 allow domain rootfs:dir r_dir_perms;
 allow domain rootfs:file r_file_perms;
-allow domain rootfs:lnk_file { read getattr };
+allow domain rootfs:lnk_file r_file_perms;
 
 # Device accesses.
 allow domain device:dir search;
-allow domain dev_type:lnk_file read;
+allow domain dev_type:lnk_file r_file_perms;
 allow domain devpts:dir search;
 allow domain device:file read;
 allow domain socket_device:dir search;
@@ -69,12 +69,12 @@ allow domain fs_type:dir getattr;
 allow domain system_file:dir r_dir_perms;
 allow domain system_file:file r_file_perms;
 allow domain system_file:file execute;
-allow domain system_file:lnk_file read;
+allow domain system_file:lnk_file r_file_perms;
 
 # Read files already opened under /data.
 allow domain system_data_file:dir { search getattr };
 allow domain system_data_file:file { getattr read };
-allow domain system_data_file:lnk_file read;
+allow domain system_data_file:lnk_file r_file_perms;
 
 # Read apk files under /data/app.
 allow domain apk_data_file:dir { getattr search };
@@ -87,7 +87,7 @@ allow domain dalvikcache_data_file:file r_file_perms;
 # Read already opened /cache files.
 allow domain cache_file:dir r_dir_perms;
 allow domain cache_file:file { getattr read };
-allow domain cache_file:lnk_file read;
+allow domain cache_file:lnk_file r_file_perms;
 
 # Read timezone related information
 r_dir_file(domain, zoneinfo_data_file)
@@ -109,6 +109,9 @@ r_dir_file(domain, cgroup)
 # debugfs access
 allow domain debugfs:dir r_dir_perms;
 allow domain debugfs:file w_file_perms;
+
+# Get SELinux enforcing status.
+selinux_getenforce(domain)
 
 # security files
 allow domain security_file:dir { search getattr };
