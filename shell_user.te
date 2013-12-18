@@ -1,14 +1,9 @@
 # Domain for shell processes spawned by ADB
-type shell, domain;
+type shell, domain, shelldomain, mlstrustedsubject;
 type shell_exec, exec_type, file_type;
-unconfined_domain(shell)
 
 # Run app_process.
-# XXX Split into its own domain?
+# XXX Transition into its own domain?
 app_domain(shell)
 
-# ndk-gdb invokes adb shell ps to find the app PID.
-r_dir_file(shell, non_system_app_set)
-
-# ndk-gdb invokes adb shell ls to check the app data dir.
-allow shell app_data_file:dir search;
+# inherits from shelldomain.te
