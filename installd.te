@@ -27,3 +27,7 @@ security_access_policy(installd)
 allow installd platform_app_data_file:lnk_file { create setattr };
 allow installd app_data_file:lnk_file { create setattr };
 allow installd asec_apk_file:file r_file_perms;
+allow installd bluetooth_data_file:lnk_file { create setattr };
+allow installd nfc_data_file:lnk_file { create setattr };
+allow installd radio_data_file:lnk_file { create setattr };
+allow installd shell_data_file:lnk_file { create setattr };
