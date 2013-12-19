@@ -37,6 +37,8 @@ allow system_server self:capability {
     sys_tty_config
 };
 
+allow system_server self:capability2 block_suspend;
+
 # Triggered by /proc/pid accesses, not allowed.
 dontaudit system_server self:capability sys_ptrace;
 
