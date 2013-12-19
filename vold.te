@@ -38,6 +38,10 @@ allow vold sysfs:file rw_file_perms;
 
 write_klog(vold)
 
+# Log fsck results
+allow vold fscklogs:dir rw_dir_perms;
+allow vold fscklogs:file create_file_perms;
+
 #
 # Rules to support encrypted fs support.
 #
@@ -69,3 +73,7 @@ allow vold asec_image_file:dir rw_dir_perms;
 security_access_policy(vold)
 allow vold asec_apk_file:dir { rw_dir_perms setattr };
 allow vold asec_apk_file:file { r_file_perms setattr };
+
+# Handle wake locks (used for device encryption)
+allow vold sysfs_wake_lock:file rw_file_perms;
+allow vold self:capability2 block_suspend;
