@@ -22,7 +22,6 @@ allow shelldomain shell_exec:file rx_file_perms;
 allow shelldomain zygote_exec:file rx_file_perms;
 
 r_dir_file(shelldomain, apk_data_file)
-allow shelldomain dalvikcache_data_file:file { write setattr };
 
 # Set properties.
 unix_socket_connect(shelldomain, property, init)
