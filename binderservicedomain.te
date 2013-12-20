@@ -1,5 +1,8 @@
 # Rules common to all binder service domains
 
-# Alow dumpstate to collect information from binder services
+# Allow dumpstate to collect information from binder services
 allow binderservicedomain dumpstate:fd use;
 allow binderservicedomain dumpstate:unix_stream_socket { read write getopt getattr };
+
+# Allow dumpsys to work from adb shell
+allow binderservicedomain devpts:chr_file rw_file_perms;
