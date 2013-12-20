@@ -7,6 +7,9 @@
 ### zygote spawned apps should be added here.
 ###
 
+# Dalvik Compiler JIT Mapping.
+allow appdomain self:process execmem;
+
 # Allow apps to connect to the keystore
 unix_socket_connect(appdomain, keystore, keystore)
 
