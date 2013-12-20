@@ -28,6 +28,8 @@ allow shelldomain dalvikcache_data_file:file { write setattr };
 unix_socket_connect(shelldomain, property, init)
 allow shelldomain shell_prop:property_service set;
 allow shelldomain ctl_dumpstate_prop:property_service set;
+allow shelldomain debug_prop:property_service set;
+allow shelldomain powerctl_prop:property_service set;
 
 # ndk-gdb invokes adb shell ps to find the app PID.
 r_dir_file(shelldomain, non_system_app_set)
