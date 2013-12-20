@@ -1,6 +1,7 @@
 type ping, domain;
 type ping_exec, exec_type, file_type;
 domain_auto_trans(shell, ping_exec, ping)
+domain_auto_trans(dumpstate, ping_exec, ping)
 
 allow ping self:capability net_raw;
 allow ping self:rawip_socket create_socket_perms;
@@ -10,3 +11,6 @@ allow ping dnsproxyd_socket:sock_file write;
 allow ping netd:unix_stream_socket connectto;
 allow ping devpts:chr_file rw_file_perms;
 allow ping shell:fd use;
+
+allow ping dumpstate:fd use;
+allow ping dumpstate:unix_stream_socket { read write };
