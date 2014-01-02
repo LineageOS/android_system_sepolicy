@@ -8,6 +8,9 @@ permissive system_server;
 # Dalvik Compiler JIT Mapping.
 allow system_server self:process execmem;
 
+# For art.
+allow system_server dalvikcache_data_file:file execute;
+
 # Child of the zygote.
 allow system_server zygote:fd use;
 allow system_server zygote:process sigchld;
