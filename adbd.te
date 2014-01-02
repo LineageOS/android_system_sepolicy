@@ -1,10 +1,51 @@
 # adbd seclabel is specified in init.rc since
 # it lives in the rootfs and has no unique file type.
 type adbd, domain;
-unconfined_domain(adbd)
+permissive adbd;
 domain_auto_trans(adbd, shell_exec, shell)
 # this is an entrypoint
 allow adbd rootfs:file entrypoint;
+
+# Do not sanitize the environment or open fds of the shell.
+allow adbd shell:process noatsecure;
+
+# Set UID and GID to shell.  Set supplementary groups.
+allow adbd self:capability { setuid setgid };
+
+# Create and use network sockets.
+net_domain(adbd)
+
+# Access /dev/android_adb.
+allow adbd adb_device:chr_file rw_file_perms;
+
+# On emulator, access /dev/qemu*.
+allow adbd qemu_device:chr_file rw_file_perms;
+
+# Use a pseudo tty.
+allow adbd devpts:chr_file rw_file_perms;
+
+# adb push/pull /data/local/tmp.
+allow adbd shell_data_file:dir rw_dir_perms;
+allow adbd shell_data_file:file create_file_perms;
+
+# adb push/pull sdcard.
+allow adbd sdcard_type:dir create_dir_perms;
+allow adbd sdcard_type:file create_file_perms;
+
+# Set service.adb.*, sys.powerctl properties.
+unix_socket_connect(adbd, property, init)
+allow adbd shell_prop:property_service set;
+allow adbd powerctl_prop:property_service set;
+
+# XXX Run /system/bin/vdc to connect to vold.  Run in a separate domain?
+# Also covers running /system/bin/bu.
+allow adbd system_file:file rx_file_perms;
+unix_socket_connect(adbd, vold, vold)
+
+# Perform binder IPC to surfaceflinger (screencap)
+# XXX Run screencap in a separate domain?
+binder_use(adbd)
+binder_call(adbd, surfaceflinger)
 
 # Read /data/misc/adb/adb_keys.
 allow adbd adb_keys_file:dir search;
