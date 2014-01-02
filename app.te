@@ -152,6 +152,9 @@ allow appdomain self:rawip_socket create_socket_perms;
 allow appdomain usb_device:chr_file { read write getattr ioctl };
 allow appdomain usbaccessory_device:chr_file { read write getattr };
 
+# For art.
+allow appdomain dalvikcache_data_file:file execute;
+
 ###
 ### CTS-specific rules
 ###
