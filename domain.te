@@ -23,9 +23,10 @@ allow domain init:fd use;
 allow domain system_server:fd use;
 
 # Connect to adbd and use a socket transferred from it.
+# This is used for e.g. adb backup/restore.
 allow domain adbd:unix_stream_socket connectto;
 allow domain adbd:fd use;
-allow domain adbd:unix_stream_socket { getattr read write shutdown };
+allow domain adbd:unix_stream_socket { getattr getopt read write shutdown };
 
 ###
 ### Talk to debuggerd.
