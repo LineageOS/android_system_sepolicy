@@ -38,3 +38,7 @@ allow surfaceflinger app_data_file:file { read write };
 
 # Use open file provided by bootanim.
 allow surfaceflinger bootanim:fd use;
+
+# Allow a dumpstate triggered screenshot
+binder_call(surfaceflinger, dumpstate)
+allow surfaceflinger shell_data_file:file write;
