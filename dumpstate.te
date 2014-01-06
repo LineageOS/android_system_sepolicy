@@ -68,3 +68,8 @@ binder_call(dumpstate, appdomain)
 
 # Reading /proc/PID/maps of other processes
 allow dumpstate self:capability sys_ptrace;
+
+# Allow the bugreport service to create a file in
+# /data/data/com.android.shell/files/bugreports/bugreport
+allow dumpstate shell_data_file:dir rw_dir_perms;
+allow dumpstate shell_data_file:file create_file_perms;
