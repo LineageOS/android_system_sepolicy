@@ -34,3 +34,6 @@ allow drmserver apk_data_file:dir rw_dir_perms;
 type_transition drmserver apk_data_file:sock_file drmserver_socket;
 allow drmserver drmserver_socket:sock_file create_file_perms;
 allow drmserver tee:unix_stream_socket connectto;
+
+# After taking a video, drmserver looks at the video file.
+r_dir_file(drmserver, media_rw_data_file)

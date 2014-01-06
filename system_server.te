@@ -132,6 +132,7 @@ allow system_server input_device:chr_file rw_file_perms;
 allow system_server tty_device:chr_file rw_file_perms;
 allow system_server urandom_device:chr_file rw_file_perms;
 allow system_server usbaccessory_device:chr_file rw_file_perms;
+allow system_server video_device:dir r_dir_perms;
 allow system_server video_device:chr_file rw_file_perms;
 allow system_server qemu_device:chr_file rw_file_perms;
 allow system_server adbd_socket:sock_file rw_file_perms;
