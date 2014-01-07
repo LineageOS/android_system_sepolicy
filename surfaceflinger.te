@@ -42,4 +42,5 @@ allow surfaceflinger bootanim:fd use;
 
 # Allow a dumpstate triggered screenshot
 binder_call(surfaceflinger, dumpstate)
+binder_call(surfaceflinger, shell)
 allow surfaceflinger shell_data_file:file write;
