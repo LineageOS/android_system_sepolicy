@@ -44,3 +44,8 @@ allow surfaceflinger bootanim:fd use;
 binder_call(surfaceflinger, dumpstate)
 binder_call(surfaceflinger, shell)
 allow surfaceflinger shell_data_file:file write;
+
+# Needed on some devices for playing DRM protected content,
+# but seems expected and appropriate for all devices.
+allow surfaceflinger tee:unix_stream_socket connectto;
+allow surfaceflinger tee_device:chr_file rw_file_perms;
