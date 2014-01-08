@@ -2,7 +2,6 @@ type dhcp, domain;
 permissive dhcp;
 type dhcp_exec, exec_type, file_type;
 type dhcp_data_file, file_type, data_file_type;
-type dhcp_system_file, file_type, data_file_type;
 
 init_daemon_domain(dhcp)
 net_domain(dhcp)
@@ -16,8 +15,6 @@ allow dhcp system_file:file rx_file_perms;
 # For /proc/sys/net/ipv4/conf/*/promote_secondaries
 allow dhcp proc_net:file write;
 allow dhcp system_prop:property_service set ;
-allow dhcp dhcp_system_file:file rx_file_perms;
-allow dhcp dhcp_system_file:dir r_dir_perms;
 unix_socket_connect(dhcp, property, init)
 allow dhcp owntty_device:chr_file rw_file_perms;
 
