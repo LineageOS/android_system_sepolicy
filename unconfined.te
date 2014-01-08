@@ -17,7 +17,7 @@
 ######################################################
 
 allow unconfineddomain self:capability_class_set *;
-allow unconfineddomain kernel:security ~{ load_policy setenforce };
+allow unconfineddomain kernel:security ~{ load_policy setenforce setcheckreqprot };
 allow unconfineddomain kernel:system *;
 allow unconfineddomain domain:process ~ptrace;
 allow unconfineddomain domain:fd *;

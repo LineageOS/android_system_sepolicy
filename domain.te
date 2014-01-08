@@ -148,7 +148,7 @@ neverallow { domain -init } kernel:security load_policy;
 # init starts in kernel domain and switches to init domain via setcon in
 # the init.rc, so the setenforce occurs while still in kernel. After
 # switching domains, there is never any need to setenforce again by init.
-neverallow { domain -kernel } kernel:security setenforce;
+neverallow { domain -kernel } kernel:security { setenforce setcheckreqprot };
 
 # Only init, ueventd and system_server should be able to access HW RNG
 neverallow { domain -init -system_server -ueventd -unconfineddomain } hw_random_device:chr_file *;
