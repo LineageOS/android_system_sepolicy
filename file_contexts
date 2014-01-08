@@ -168,6 +168,7 @@
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
 /data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
 /data/media(/.*)?	u:object_r:media_rw_data_file:s0
+/data/mediadrm(/.*)?	u:object_r:media_data_file:s0
 
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
