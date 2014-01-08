@@ -9,3 +9,6 @@ allow kernel unlabeled:filesystem mount;
 
 # Initial setenforce by init prior to switching to init domain.
 allow kernel self:security setenforce;
+
+# Set checkreqprot by init.rc prior to switching to init domain.
+allow kernel self:security setcheckreqprot;
