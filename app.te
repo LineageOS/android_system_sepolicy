@@ -158,6 +158,10 @@ allow appdomain usbaccessory_device:chr_file { read write getattr };
 # For art.
 allow appdomain dalvikcache_data_file:file execute;
 
+# For legacy unlabeled userdata on existing devices.
+# See discussion of Unlabeled files in domain.te for more information.
+allow appdomain unlabeled:file x_file_perms;
+
 ###
 ### CTS-specific rules
 ###

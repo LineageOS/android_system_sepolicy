@@ -50,3 +50,8 @@ allow zygote ashmem_device:chr_file execute;
 allow zygote shell_data_file:file { write getattr };
 allow zygote system_server:binder { transfer call };
 allow zygote servicemanager:binder { call };
+
+# For legacy unlabeled userdata on existing devices.
+# See discussion of Unlabeled files in domain.te for more information.
+# This rule is for dalvikcache mmap/mprotect PROT_EXEC.
+allow zygote unlabeled:file execute;
