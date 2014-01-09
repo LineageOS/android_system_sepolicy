@@ -33,9 +33,6 @@ allow domain adbd:unix_stream_socket { getattr getopt read write shutdown };
 ###
 allow domain debuggerd:process sigchld;
 allow domain debuggerd:unix_stream_socket connectto;
-# b/9858255 - debuggerd sockets are not getting properly labeled.
-# TODO: Remove this temporary workaround.
-allow domain init:unix_stream_socket connectto;
 
 # Root fs.
 allow domain rootfs:dir r_dir_perms;
