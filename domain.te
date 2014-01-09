@@ -129,7 +129,7 @@ allow domain security_file:file getattr;
 # capability, it's essentially useless. This is needed to allow an app with
 # relabelto to relabel unlabeled files.
 #
-allow domain unlabeled:file { create_file_perms rwx_file_perms relabelfrom };
+allow domain unlabeled:file { create_file_perms relabelfrom };
 allow domain unlabeled:dir { create_dir_perms relabelfrom };
 allow domain unlabeled:lnk_file { create_file_perms };
 neverallow { domain -relabeltodomain } *:dir_file_class_set relabelto;
