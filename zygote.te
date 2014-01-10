@@ -21,7 +21,9 @@ allow zygote appdomain:process { getpgid setpgid };
 allow zygote system_data_file:dir rw_dir_perms;
 allow zygote system_data_file:file create_file_perms;
 allow zygote dalvikcache_data_file:dir rw_dir_perms;
-allow zygote dalvikcache_data_file:file { create_file_perms x_file_perms };
+allow zygote dalvikcache_data_file:file create_file_perms;
+# For art.
+allow zygote dalvikcache_data_file:file execute;
 # Execute dexopt.
 allow zygote system_file:file x_file_perms;
 # Control cgroups.
