@@ -1,4 +1,0 @@
-# File types must be defined for file_contexts.
-type su_exec, exec_type, file_type;
-
-# No allow rules
