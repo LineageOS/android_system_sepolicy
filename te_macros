@@ -321,3 +321,9 @@ allow $1 $1_devpts:chr_file { open getattr read write ioctl };
 # Non system_app application set
 #
 define(`non_system_app_set', `{ appdomain -system_app }')
+
+#####################################
+# Userdebug or eng builds
+# SELinux rules which apply only to userdebug or eng builds
+#
+define(`userdebug_or_eng', ifelse(target_build_variant, `eng', $1, ifelse(target_build_variant, `userdebug', $1)))
