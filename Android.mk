@@ -10,14 +10,6 @@ POLICYVERS ?= 26
 MLS_SENS=1
 MLS_CATS=1024
 
-ifeq ($(TARGET_BUILD_VARIANT),user)
-	BOARD_SEPOLICY_IGNORE+=external/sepolicy/shell.te
-	BOARD_SEPOLICY_IGNORE+=external/sepolicy/su.te
-else
-	BOARD_SEPOLICY_IGNORE+=external/sepolicy/shell_user.te
-	BOARD_SEPOLICY_IGNORE+=external/sepolicy/su_user.te
-endif
-
 # Quick edge case error detection for BOARD_SEPOLICY_REPLACE.
 # Builds the singular path for each replace file.
 sepolicy_replace_paths :=
@@ -77,7 +69,7 @@ $(sepolicy_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(sepolicy_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(sepolicy_policy.conf) : $(call build_policy, security_classes initial_sids access_vectors global_macros mls_macros mls policy_capabilities te_macros attributes *.te roles users initial_sid_contexts fs_use genfs_contexts port_contexts)
 	@mkdir -p $(dir $@)
-	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) -s $^ > $@
+	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) -D target_build_variant=$(TARGET_BUILD_VARIANT) -s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
 $(LOCAL_BUILT_MODULE) : $(sepolicy_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy

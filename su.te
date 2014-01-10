@@ -1,13 +1,17 @@
-type su, domain;
+# File types must be defined for file_contexts.
 type su_exec, exec_type, file_type;
-domain_auto_trans(shell, su_exec, su)
 
-# Allow dumpstate to call su on userdebug / eng builds to collect
-# additional information.
-domain_auto_trans(dumpstate, su_exec, su)
+userdebug_or_eng(`
+  type su, domain;
+  domain_auto_trans(shell, su_exec, su)
 
-# su is unconfined.
-unconfined_domain(su)
+  # Allow dumpstate to call su on userdebug / eng builds to collect
+  # additional information.
+  domain_auto_trans(dumpstate, su_exec, su)
 
-# su is also permissive to permit setenforce.
-permissive su;
+  # su is unconfined.
+  unconfined_domain(su)
+
+  # su is also permissive to permit setenforce.
+  permissive su;
+')
