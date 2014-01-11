@@ -3,7 +3,7 @@
 ###
 
 type release_app, domain;
-permissive release_app;
+permissive_or_unconfined(release_app)
 app_domain(release_app)
 platform_app_domain(release_app)
 # Access the network.

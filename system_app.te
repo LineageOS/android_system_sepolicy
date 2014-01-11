@@ -4,7 +4,7 @@
 # server.
 #
 type system_app, domain;
-permissive system_app;
+permissive_or_unconfined(system_app)
 app_domain(system_app)
 
 # Perform binder IPC to any app domain.
