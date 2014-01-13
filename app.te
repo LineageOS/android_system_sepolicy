@@ -344,7 +344,7 @@ neverallow { appdomain -unconfineddomain }
     efs_file:dir_file_class_set { read write };
 
 # Write to various pseudo file systems.
-neverallow { appdomain -nfc -unconfineddomain }
+neverallow { appdomain -bluetooth -nfc -unconfineddomain }
     sysfs:dir_file_class_set write;
 neverallow { appdomain -unconfineddomain }
     proc:dir_file_class_set write;
