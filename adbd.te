@@ -12,6 +12,9 @@ allow adbd shell:process noatsecure;
 # Set UID and GID to shell.  Set supplementary groups.
 allow adbd self:capability { setuid setgid };
 
+# Drop capabilities from bounding set on user builds.
+allow adbd self:capability setpcap;
+
 # Create and use network sockets.
 net_domain(adbd)
 
