@@ -327,3 +327,14 @@ define(`non_system_app_set', `{ appdomain -system_app }')
 # SELinux rules which apply only to userdebug or eng builds
 #
 define(`userdebug_or_eng', ifelse(target_build_variant, `eng', $1, ifelse(target_build_variant, `userdebug', $1)))
+
+#####################################
+# permissive_or_unconfined
+# Returns "permissive $1" if FORCE_PERMISSIVE_TO_UNCONFINED is false,
+# and "unconfined($1)" otherwise.
+#
+# This is used for experimental domains, where we want to ensure
+# the domain is unconfined+enforcing once new SELinux policy development
+# has ceased.
+#
+define(`permissive_or_unconfined', ifelse(force_permissive_to_unconfined, `false', permissive $1;, unconfined_domain($1)))
