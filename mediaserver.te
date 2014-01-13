@@ -66,3 +66,7 @@ allow mediaserver rild:unix_stream_socket { connectto read write setopt };
 # Needed on some devices for playing DRM protected content,
 # but seems expected and appropriate for all devices.
 unix_socket_connect(mediaserver, drmserver, drmserver)
+
+# Needed on some devices for playing audio on paired BT device,
+# but seems appropriate for all devices.
+unix_socket_connect(mediaserver, bluetooth, bluetooth)
