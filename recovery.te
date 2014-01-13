@@ -8,5 +8,5 @@ allow recovery {fs_type dev_type -kmem_device file_type}:dir_file_class_set rela
 allow recovery unlabeled:filesystem mount;
 
 allow recovery self:process execmem;
-allow recovery ashmem_device:file execute;
+allow recovery ashmem_device:chr_file execute;
 allow recovery tmpfs:file rx_file_perms;
