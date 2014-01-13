@@ -1,0 +1,11 @@
+# recovery console (used in recovery init.rc for /sbin/recovery)
+type recovery, domain;
+allow recovery rootfs:file entrypoint;
+unconfined_domain(recovery)
+relabelto_domain(recovery)
+
+allow recovery {fs_type dev_type -kmem_device file_type}:dir_file_class_set relabelto;
+allow recovery unlabeled:filesystem mount;
+
+allow recovery self:process execmem;
+allow recovery cache_file:file rx_file_perms;
