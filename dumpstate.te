@@ -1,6 +1,6 @@
 # dumpstate
 type dumpstate, domain;
-permissive dumpstate;
+permissive_or_unconfined(dumpstate)
 type dumpstate_exec, exec_type, file_type;
 
 init_daemon_domain(dumpstate)
