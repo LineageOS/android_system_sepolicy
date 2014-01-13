@@ -3,7 +3,7 @@
 ###
 
 type shared_app, domain;
-permissive shared_app;
+permissive_or_unconfined(shared_app)
 app_domain(shared_app)
 platform_app_domain(shared_app)
 # Access the network.

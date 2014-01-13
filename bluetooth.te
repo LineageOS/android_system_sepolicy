@@ -1,6 +1,6 @@
 # bluetooth subsystem
 type bluetooth, domain;
-permissive bluetooth;
+permissive_or_unconfined(bluetooth)
 app_domain(bluetooth)
 
 # Data file accesses.
@@ -50,4 +50,4 @@ allow bluetooth bluetooth_prop:property_service set;
 
 # Superuser capabilities.
 # bluetooth requires net_admin.
-neverallow bluetooth self:capability ~net_admin;
+neverallow { bluetooth -unconfineddomain } self:capability ~net_admin;
