@@ -1,7 +1,5 @@
 # Device types
 type device, dev_type, fs_type;
-type akm_device, dev_type;
-type accelerometer_device, dev_type;
 type alarm_device, dev_type, mlstrustedobject;
 type adb_device, dev_type;
 type ashmem_device, dev_type, mlstrustedobject;
@@ -27,7 +25,6 @@ type log_device, dev_type, mlstrustedobject;
 type mtd_device, dev_type;
 type mtp_device, dev_type, mlstrustedobject;
 type nfc_device, dev_type;
-type powervr_device, dev_type, mlstrustedobject;
 type ptmx_device, dev_type, mlstrustedobject;
 type qemu_device, dev_type;
 type kmsg_device, dev_type;
