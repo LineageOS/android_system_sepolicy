@@ -29,8 +29,8 @@
 # Devices
 #
 /dev(/.*)?		u:object_r:device:s0
-/dev/akm8973.*		u:object_r:akm_device:s0
-/dev/accelerometer	u:object_r:accelerometer_device:s0
+/dev/akm8973.*		u:object_r:sensors_device:s0
+/dev/accelerometer	u:object_r:sensors_device:s0
 /dev/alarm		u:object_r:alarm_device:s0
 /dev/android_adb.*	u:object_r:adb_device:s0
 /dev/ashmem		u:object_r:ashmem_device:s0
@@ -64,7 +64,7 @@
 /dev/pn544		u:object_r:nfc_device:s0
 /dev/ppp		u:object_r:ppp_device:s0
 /dev/ptmx		u:object_r:ptmx_device:s0
-/dev/pvrsrvkm		u:object_r:powervr_device:s0
+/dev/pvrsrvkm		u:object_r:gpu_device:s0
 /dev/qemu_.*		u:object_r:qemu_device:s0
 /dev/kmsg		u:object_r:kmsg_device:s0
 /dev/null		u:object_r:null_device:s0
