@@ -249,7 +249,6 @@ neverallow { appdomain -unconfineddomain } socket_device:sock_file write;
 
 # Unix domain sockets.
 neverallow { appdomain -unconfineddomain } adbd_socket:sock_file write;
-neverallow { appdomain -unconfineddomain } bluetooth_socket:sock_file write;
 neverallow { appdomain -unconfineddomain } installd_socket:sock_file write;
 neverallow { appdomain -bluetooth -radio -shell -system_app -unconfineddomain }
     property_socket:sock_file write;

@@ -7,6 +7,10 @@ app_domain(bluetooth)
 allow bluetooth bluetooth_data_file:dir create_dir_perms;
 allow bluetooth bluetooth_data_file:notdevfile_class_set create_file_perms;
 
+# Socket creation under /data/misc/bluedroid.
+type_transition bluetooth bluetooth_data_file:sock_file bluetooth_socket;
+allow bluetooth bluetooth_socket:sock_file create_file_perms;
+
 # bluetooth factory file accesses.
 r_dir_file(bluetooth, bluetooth_efs_file)
 
