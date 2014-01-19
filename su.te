@@ -12,6 +12,11 @@ userdebug_or_eng(`
   # su is unconfined.
   unconfined_domain(su)
 
+  allow su ashmem_device:chr_file execute;
+  allow su self:process execmem;
+  tmpfs_domain(su)
+  allow su su_tmpfs:file execute;
+
   # su is also permissive to permit setenforce.
   permissive su;
 ')

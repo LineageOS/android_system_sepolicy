@@ -4,6 +4,7 @@ type adbd, domain;
 
 userdebug_or_eng(`
   permissive adbd;
+  allow adbd su:process dyntransition;
 ')
 
 domain_auto_trans(adbd, shell_exec, shell)
