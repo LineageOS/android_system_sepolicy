@@ -18,7 +18,7 @@ binder_service(mediaserver)
 
 allow mediaserver self:process execmem;
 allow mediaserver kernel:system module_request;
-allow mediaserver media_data_file:dir rw_dir_perms;
+allow mediaserver media_data_file:dir create_dir_perms;
 allow mediaserver media_data_file:file create_file_perms;
 allow mediaserver app_data_file:dir search;
 allow mediaserver app_data_file:file rw_file_perms;
