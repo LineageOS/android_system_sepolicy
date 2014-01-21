@@ -78,6 +78,7 @@ allow appdomain anr_data_file:file { open append };
 # Allow apps to send dump information to dumpstate
 allow appdomain dumpstate:fd use;
 allow appdomain dumpstate:unix_stream_socket { read write getopt getattr };
+allow appdomain shell_data_file:file { write getattr };
 
 # Write to /proc/net/xt_qtaguid/ctrl file.
 allow appdomain qtaguid_proc:file rw_file_perms;
@@ -321,7 +322,7 @@ neverallow { appdomain -platform_app -unconfineddomain }
     { create write setattr relabelfrom relabelto append unlink link rename };
 neverallow { appdomain -shell -unconfineddomain }
     shell_data_file:dir_file_class_set
-    { create write setattr relabelfrom relabelto append unlink link rename };
+    { create setattr relabelfrom relabelto append unlink link rename };
 neverallow { appdomain -bluetooth -unconfineddomain }
     bluetooth_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };

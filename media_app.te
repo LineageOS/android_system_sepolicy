@@ -5,6 +5,7 @@
 type media_app, domain;
 app_domain(media_app)
 platform_app_domain(media_app)
+binder_service(media_app)
 # Access the network.
 net_domain(media_app)
 # Access /dev/mtp_usb.
