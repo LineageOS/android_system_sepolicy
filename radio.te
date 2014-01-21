@@ -3,6 +3,7 @@ type radio, domain;
 app_domain(radio)
 net_domain(radio)
 bluetooth_domain(radio)
+binder_service(radio)
 
 # Talks to init via the property socket.
 unix_socket_connect(radio, property, init)

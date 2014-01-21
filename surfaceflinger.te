@@ -43,7 +43,6 @@ allow surfaceflinger bootanim:fd use;
 # Allow a dumpstate triggered screenshot
 binder_call(surfaceflinger, dumpstate)
 binder_call(surfaceflinger, shell)
-allow surfaceflinger shell_data_file:file write;
 
 # Needed on some devices for playing DRM protected content,
 # but seems expected and appropriate for all devices.
