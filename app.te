@@ -69,7 +69,7 @@ allow appdomain shell_exec:file rx_file_perms;
 allow appdomain system_file:file rx_file_perms;
 
 # Read/write wallpaper file (opened by system).
-allow appdomain wallpaper_file:file { read write };
+allow appdomain wallpaper_file:file { getattr read write };
 
 # Write to /data/anr/traces.txt.
 allow appdomain anr_data_file:dir search;
