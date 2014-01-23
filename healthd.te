@@ -16,7 +16,3 @@ allow healthd self:netlink_kobject_uevent_socket create_socket_perms;
 binder_use(healthd)
 binder_service(healthd)
 binder_call(healthd, system_server)
-
-# Workaround for 0x10 / block_suspend capability2 denials.
-# Requires a kernel patch to fix properly.
-permissive healthd;
