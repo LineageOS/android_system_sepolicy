@@ -9,9 +9,4 @@ net_domain(shell)
 # XXX Transition into its own domain?
 app_domain(shell)
 
-userdebug_or_eng(`
-  # userdebug/eng shell is also permissive to permit setenforce.
-  permissive shell;
-')
-
 # inherits from shelldomain.te
