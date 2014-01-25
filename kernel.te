@@ -1,5 +1,8 @@
 # Life begins with the kernel.
 type kernel, domain;
+
+allow kernel init:process dyntransition;
+
 # The kernel is unconfined.
 unconfined_domain(kernel)
 relabelto_domain(kernel)
