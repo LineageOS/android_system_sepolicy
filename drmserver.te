@@ -1,6 +1,5 @@
 # drmserver - DRM service
 type drmserver, domain;
-permissive_or_unconfined(drmserver)
 type drmserver_exec, exec_type, file_type;
 
 init_daemon_domain(drmserver)
