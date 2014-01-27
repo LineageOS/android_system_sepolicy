@@ -11,3 +11,11 @@ allow init {fs_type dev_type file_type}:dir_file_class_set relabelto;
 allow init kernel:security load_policy;
 allow init usermodehelper:file rw_file_perms;
 allow init proc_security:file rw_file_perms;
+
+# Transitions to seclabel processes in init.rc
+allow init adbd:process transition;
+allow init healthd:process transition;
+allow init recovery:process transition;
+allow init shell:process transition;
+allow init ueventd:process transition;
+allow init watchdogd:process transition;

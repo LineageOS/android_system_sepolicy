@@ -19,7 +19,7 @@
 allow unconfineddomain self:capability_class_set *;
 allow unconfineddomain kernel:security ~{ load_policy setenforce setcheckreqprot };
 allow unconfineddomain kernel:system *;
-allow unconfineddomain domain:process ~{ execmem execstack execheap ptrace };
+allow unconfineddomain domain:process ~{ execmem execstack execheap ptrace transition dyntransition };
 allow unconfineddomain domain:fd *;
 allow unconfineddomain domain:dir r_dir_perms;
 allow unconfineddomain domain:lnk_file r_file_perms;
