@@ -3,7 +3,6 @@
 type adbd, domain;
 
 userdebug_or_eng(`
-  permissive adbd;
   allow adbd su:process dyntransition;
 ')
 
