@@ -6,7 +6,7 @@ allow shelldomain shell_data_file:file create_file_perms;
 allow shelldomain shell_data_file:file rx_file_perms;
 
 # Access sdcard.
-allow shelldomain sdcard_type:dir rw_dir_perms;
+allow shelldomain sdcard_type:dir create_dir_perms;
 allow shelldomain sdcard_type:file create_file_perms;
 
 # adb bugreport
