@@ -14,3 +14,14 @@ allow healthd self:netlink_kobject_uevent_socket create_socket_perms;
 binder_use(healthd)
 binder_service(healthd)
 binder_call(healthd, system_server)
+
+###
+### healthd: charger mode
+###
+
+allow healthd graphics_device:dir r_dir_perms;
+allow healthd graphics_device:chr_file rw_file_perms;
+allow healthd input_device:dir r_dir_perms;
+allow healthd input_device:chr_file r_file_perms;
+allow healthd ashmem_device:chr_file execute;
+allow healthd self:process execmem;
