@@ -187,3 +187,8 @@ neverallow domain init:binder call;
 # Don't allow raw read/write/open access to block_device
 # Rather force a relabel to a more specific type
 neverallow { domain -unconfineddomain -vold } block_device:blk_file { open read write };
+
+# Don't allow raw read/write/open access to generic devices.
+# Rather force a relabel to a more specific type.
+# ueventd is exempt from this, as its managing these devices.
+neverallow { domain -unconfineddomain -ueventd } device:chr_file { open read write };

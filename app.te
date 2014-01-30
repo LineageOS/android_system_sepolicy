@@ -201,9 +201,6 @@ neverallow { appdomain -unconfineddomain } self:capability2 *;
 # Block device access.
 neverallow { appdomain -unconfineddomain } dev_type:blk_file { read write };
 
-# Access to any character device that is not specifically typed.
-neverallow { appdomain -unconfineddomain } device:chr_file { read write };
-
 # Access to any of the following character devices.
 neverallow { appdomain -unconfineddomain } {
     audio_device
