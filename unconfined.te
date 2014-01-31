@@ -16,7 +16,8 @@
 # The use of this template is discouraged.
 ######################################################
 
-allow unconfineddomain self:capability_class_set *;
+allow unconfineddomain self:capability *;
+allow unconfineddomain self:capability2 ~{ mac_override mac_admin };
 allow unconfineddomain kernel:security ~{ load_policy setenforce setcheckreqprot };
 allow unconfineddomain kernel:system *;
 allow unconfineddomain domain:process ~{ execmem execstack execheap ptrace transition dyntransition };
