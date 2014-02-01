@@ -50,6 +50,15 @@ $(foreach pf, $(BOARD_SEPOLICY_REPLACE), \
   ) \
 )
 
+# Quick edge case error detection for BOARD_SEPOLICY_UNION.
+# This ensures that a requested union file exists somewhere
+# in one of the listed BOARD_SEPOLICY_DIRS.
+$(foreach pf, $(BOARD_SEPOLICY_UNION), \
+  $(if $(filter 0, $(words $(wildcard $(addsuffix /$(pf), $(BOARD_SEPOLICY_DIRS))))), \
+    $(error No sepolicy file found for $(pf) in $(BOARD_SEPOLICY_DIRS)), \
+  ) \
+)
+
 # Builds paths for all requested policy files w.r.t
 # both BOARD_SEPOLICY_REPLACE and BOARD_SEPOLICY_UNION
 # product variables.
