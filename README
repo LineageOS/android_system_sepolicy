@@ -49,6 +49,9 @@ BOARD_POLICY_REPLACE and BOARD_POLICY_UNION.
 It is an error to specify a BOARD_SEPOLICY_DIRS that has no entries when
 specifying BOARD_SEPOLICY_REPLACE.
 
+It is an error to specify a BOARD_POLICY_UNION file that
+doesn't appear in any of the BOARD_SEPOLICY_DIRS locations.
+
 BOARD_SEPOLICY_IGNORE is a list of paths (directory + filename) of
 files that are not to be included in the resulting policy. This list
 is passed to filter-out to remove any paths you may want to ignore. This
