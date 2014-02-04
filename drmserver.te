@@ -21,7 +21,7 @@ allow drmserver self:{ tcp_socket udp_socket } *;
 allow drmserver port:tcp_socket name_connect;
 allow drmserver tee_device:chr_file rw_file_perms;
 allow drmserver platform_app_data_file:file { read write getattr };
-allow drmserver { app_data_file asec_apk_file }:file { read write getattr };
+allow drmserver app_data_file:file { read write getattr };
 allow drmserver sdcard_type:file { read write getattr };
 r_dir_file(drmserver, efs_file)
 

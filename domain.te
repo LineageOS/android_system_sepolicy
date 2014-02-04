@@ -132,6 +132,10 @@ selinux_getenforce(domain)
 allow domain security_file:dir { search getattr };
 allow domain security_file:file getattr;
 
+# World readable asec image contents
+allow domain asec_public_file:file r_file_perms;
+allow domain { asec_public_file asec_apk_file }:dir r_dir_perms;
+
 ######## Backwards compatibility - Unlabeled files ############
 
 # Revert to DAC rules when looking at unlabeled files. Over time, the number
