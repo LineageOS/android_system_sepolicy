@@ -17,4 +17,5 @@ allow wpa random_device:chr_file r_file_perms;
 
 # Create a socket for receiving info from wpa
 type_transition wpa wifi_data_file:sock_file wpa_socket;
+allow wpa wpa_socket:dir { rw_dir_perms setattr };
 allow wpa wpa_socket:sock_file create_file_perms;
