@@ -25,8 +25,16 @@ allow drmserver { app_data_file asec_apk_file }:file { read write getattr };
 allow drmserver sdcard_type:file { read write getattr };
 r_dir_file(drmserver, efs_file)
 
-# Connect to tee service.
+type drmserver_socket, file_type;
+
+# /data/app/tlcd_sock socket file.
+# Clearly, /data/app is the most logical place to create a socket.  Not.
+allow drmserver apk_data_file:dir rw_dir_perms;
+type_transition drmserver apk_data_file:sock_file drmserver_socket;
+allow drmserver drmserver_socket:sock_file create_file_perms;
 allow drmserver tee:unix_stream_socket connectto;
+# Delete old socket file if present.
+allow drmserver apk_data_file:sock_file unlink;
 
 # After taking a video, drmserver looks at the video file.
 r_dir_file(drmserver, media_rw_data_file)
