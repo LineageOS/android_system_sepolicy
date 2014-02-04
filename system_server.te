@@ -245,3 +245,7 @@ selinux_manage_policy(system_server)
 # See discussion of Unlabeled files in domain.te for more information.
 # This rule is for dalvikcache mmap/mprotect PROT_EXEC.
 allow system_server unlabeled:file execute;
+
+# logd access, system_server inherit logd write socket
+# (urge is to deprecate this long term)
+allow system_server zygote:unix_dgram_socket write;

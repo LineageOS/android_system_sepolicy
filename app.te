@@ -187,6 +187,11 @@ selinux_check_context(appdomain)
 # Validate that each process is running in the correct security context.
 allow appdomain domain:process getattr;
 
+# logd access
+read_logd(appdomain)
+# application inherit logd write socket (urge is to deprecate this long term)
+allow appdomain zygote:unix_dgram_socket write;
+
 ###
 ### Neverallow rules
 ###

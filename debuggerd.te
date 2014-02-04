@@ -23,3 +23,6 @@ allow debuggerd system_data_file:file open;
 
 # Connect to system_server via /data/system/ndebugsocket.
 unix_socket_connect(debuggerd, system_ndebug, system_server)
+
+# logd access
+read_logd(debuggerd)
