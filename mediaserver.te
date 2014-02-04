@@ -39,7 +39,7 @@ allow mediaserver audio_device:chr_file rw_file_perms;
 allow mediaserver sysfs:file rw_file_perms;
 
 # XXX Why?
-allow mediaserver { apk_data_file asec_apk_file }:file { read getattr };
+allow mediaserver apk_data_file:file { read getattr };
 
 # Access camera device.
 allow mediaserver camera_device:chr_file rw_file_perms;

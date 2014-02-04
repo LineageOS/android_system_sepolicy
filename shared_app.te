@@ -10,5 +10,3 @@ platform_app_domain(shared_app)
 net_domain(shared_app)
 # Access bluetooth.
 bluetooth_domain(shared_app)
-# ASEC
-r_dir_file(shared_app, asec_apk_file)

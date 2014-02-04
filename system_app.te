@@ -31,10 +31,6 @@ selinux_getenforce(system_app)
 # Settings app reads sdcard for storage stats
 allow system_app sdcard_type:dir r_dir_perms;
 
-# Allow settings app to read from asec
-allow system_app asec_apk_file:dir search;
-allow system_app asec_apk_file:file r_file_perms;
-
 # Write to properties
 unix_socket_connect(system_app, property, init)
 allow system_app debug_prop:property_service set;
