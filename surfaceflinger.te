@@ -12,6 +12,7 @@ unix_socket_connect(surfaceflinger, property, init)
 # Perform Binder IPC.
 binder_use(surfaceflinger)
 binder_call(surfaceflinger, system_server)
+binder_call(surfaceflinger, nfc)
 binder_service(surfaceflinger)
 
 # Access the GPU.
