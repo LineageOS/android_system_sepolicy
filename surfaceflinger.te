@@ -13,6 +13,7 @@ unix_socket_connect(surfaceflinger, property, init)
 binder_use(surfaceflinger)
 binder_call(surfaceflinger, system_server)
 binder_call(surfaceflinger, nfc)
+binder_call(surfaceflinger, mediaserver)
 binder_service(surfaceflinger)
 
 # Access the GPU.
