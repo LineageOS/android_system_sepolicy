@@ -16,7 +16,7 @@
 # The use of this template is discouraged.
 ######################################################
 
-allow unconfineddomain self:capability *;
+allow unconfineddomain self:capability ~{ sys_ptrace sys_rawio mknod sys_module };
 allow unconfineddomain self:capability2 ~{ mac_override mac_admin };
 allow unconfineddomain kernel:security ~{ load_policy setenforce setcheckreqprot };
 allow unconfineddomain kernel:system *;
