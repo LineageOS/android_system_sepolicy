@@ -28,7 +28,6 @@ allow unconfineddomain domain:{ fifo_file file } rw_file_perms;
 allow unconfineddomain domain:socket_class_set *;
 allow unconfineddomain domain:ipc_class_set *;
 allow unconfineddomain domain:key *;
-allow unconfineddomain fs_type:filesystem *;
 allow unconfineddomain {fs_type dev_type file_type}:{ dir blk_file lnk_file sock_file fifo_file } ~relabelto;
 allow unconfineddomain {fs_type -usermodehelper -proc_security}:{ chr_file file } ~{entrypoint execmod execute relabelto};
 allow unconfineddomain {dev_type -kmem_device}:{ chr_file file } ~{entrypoint execmod execute relabelto};
