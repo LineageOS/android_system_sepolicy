@@ -13,3 +13,7 @@ allow recovery fs_type:filesystem *;
 allow recovery self:process execmem;
 allow recovery ashmem_device:chr_file execute;
 allow recovery tmpfs:file rx_file_perms;
+
+## TODO: Investigate whether it is safe to remove these
+allow recovery self:capability { sys_rawio mknod };
+auditallow recovery self:capability { sys_rawio mknod };
