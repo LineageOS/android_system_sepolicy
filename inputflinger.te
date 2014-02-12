@@ -1,9 +1,8 @@
 # inputflinger
 type inputflinger, domain;
+permissive_or_unconfined(inputflinger)
 type inputflinger_exec, exec_type, file_type;
 
 init_daemon_domain(inputflinger)
 binder_use(inputflinger)
 binder_service(inputflinger)
-
-unconfined_domain(inputflinger)
