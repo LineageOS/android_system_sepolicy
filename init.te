@@ -7,6 +7,7 @@ relabelto_domain(init)
 # add a rule to handle unlabelled mounts
 allow init unlabeled:filesystem mount;
 
+allow init fs_type:filesystem *;
 allow init {fs_type dev_type file_type}:dir_file_class_set relabelto;
 allow init kernel:security load_policy;
 allow init usermodehelper:file rw_file_perms;
