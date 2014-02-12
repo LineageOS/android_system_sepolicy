@@ -154,7 +154,17 @@ neverallow { domain -relabeltodomain } *:dir_file_class_set relabelto;
 ### neverallow rules
 ###
 
+# Limit ability to ptrace or read sensitive /proc/pid files of processes
+# with other UIDs to these whitelisted domains.
+neverallow { domain -debuggerd -vold -dumpstate -system_server } self:capability sys_ptrace;
+
+# Limit device node creation and raw I/O to these whitelisted domains.
+neverallow { domain -kernel -init -recovery -ueventd -watchdogd -healthd -vold } self:capability { sys_rawio mknod };
+
+# No domain needs mac_override as it is unused by SELinux.
 neverallow domain self:capability2 mac_override;
+
+# Only recovery needs mac_admin to set contexts not defined in current policy.
 neverallow { domain -recovery } self:capability2 mac_admin;
 
 # Only init should be able to load SELinux policies.
