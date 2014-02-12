@@ -1,7 +1,6 @@
 # lmkd low memory killer daemon
 type lmkd, domain;
+permissive_or_unconfined(lmkd)
 type lmkd_exec, exec_type, file_type;
 
 init_daemon_domain(lmkd)
-
-unconfined_domain(lmkd);
