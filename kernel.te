@@ -21,3 +21,5 @@ allow kernel self:security setcheckreqprot;
 ## TODO: Investigate whether it is safe to remove these
 allow kernel self:capability { sys_rawio mknod };
 auditallow kernel self:capability { sys_rawio mknod };
+allow kernel dev_type:blk_file rw_file_perms;
+auditallow kernel dev_type:blk_file rw_file_perms;
