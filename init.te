@@ -9,6 +9,7 @@ allow init unlabeled:filesystem mount;
 
 allow init self:capability { sys_rawio mknod };
 
+allow init dev_type:blk_file rw_file_perms;
 allow init fs_type:filesystem *;
 allow init {fs_type dev_type file_type}:dir_file_class_set relabelto;
 allow init kernel:security load_policy;
