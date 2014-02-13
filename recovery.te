@@ -10,6 +10,9 @@ allow recovery {fs_type dev_type -kmem_device file_type}:dir_file_class_set rela
 allow recovery unlabeled:filesystem mount;
 allow recovery fs_type:filesystem *;
 
+# Required to e.g. wipe userdata/cache.
+allow recovery dev_type:blk_file rw_file_perms;
+
 allow recovery self:process execmem;
 allow recovery ashmem_device:chr_file execute;
 allow recovery tmpfs:file rx_file_perms;
