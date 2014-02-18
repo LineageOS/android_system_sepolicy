@@ -9,6 +9,9 @@ allow sdcardd rootfs:dir mounton;
 allow sdcardd sdcard_type:filesystem mount;
 allow sdcardd self:capability { setuid setgid dac_override sys_admin sys_resource };
 
+allow sdcardd sdcard_type:dir create_dir_perms;
+allow sdcardd sdcard_type:file create_file_perms;
+
 type_transition sdcardd system_data_file:{ dir file } media_rw_data_file;
 allow sdcardd media_rw_data_file:dir create_dir_perms;
 allow sdcardd media_rw_data_file:file create_file_perms;
