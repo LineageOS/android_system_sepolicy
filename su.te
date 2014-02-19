@@ -16,6 +16,7 @@ userdebug_or_eng(`
   allow su self:process execmem;
   tmpfs_domain(su)
   allow su su_tmpfs:file execute;
+  allow su debuggerd_prop:property_service set;
 
   # su is also permissive to permit setenforce.
   permissive su;
