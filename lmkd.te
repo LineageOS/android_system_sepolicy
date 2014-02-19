@@ -4,7 +4,7 @@ type lmkd_exec, exec_type, file_type;
 
 init_daemon_domain(lmkd)
 
-allow lmkd self:capability dac_override;
+allow lmkd self:capability { dac_override sys_resource };
 
 ## Open and write to /proc/PID/oom_score_adj
 ## TODO: maybe scope this down?
