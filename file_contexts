@@ -150,6 +150,7 @@
 /system/bin/lmkd        u:object_r:lmkd_exec:s0
 /system/bin/inputflinger u:object_r:inputflinger_exec:s0
 /system/bin/logd        u:object_r:logd_exec:s0
+/system/bin/uncrypt     u:object_r:uncrypt_exec:s0
 #############################
 # Vendor files
 #
