@@ -194,10 +194,6 @@
 /data/misc/wifi/sockets/wpa_ctrl.*   u:object_r:system_wpa_socket:s0
 /data/misc/zoneinfo(/.*)?       u:object_r:zoneinfo_data_file:s0
 
-# App sandboxes
-/data/data/.*		u:object_r:app_data_file:s0
-# Wallpaper file.
-/data/data/com.android.settings/files/wallpaper	u:object_r:wallpaper_file:s0
 # Wallpaper file for other users
 /data/system/users/[0-9]+/wallpaper		u:object_r:wallpaper_file:s0
 # Downloaded files
