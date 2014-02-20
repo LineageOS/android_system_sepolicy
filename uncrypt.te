@@ -10,6 +10,11 @@ allow uncrypt self:capability dac_override;
 # Read OTA zip file from /data/data/com.google.android.gsf/app_download
 r_dir_file(uncrypt, app_data_file)
 
+userdebug_or_eng(`
+  # For debugging, allow /data/local/tmp access
+  r_dir_file(uncrypt, shell_data_file)
+')
+
 # Create tmp file /cache/recovery/command.tmp
 # Read /cache/recovery/command
 # Rename /cache/recovery/command.tmp to /cache/recovery/command
