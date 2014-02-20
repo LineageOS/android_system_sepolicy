@@ -3,6 +3,7 @@
 #	user (string)
 #	seinfo (string)
 #	name (string)
+#	path (string)
 #	sebool (string)
 # isSystemServer=true can only be used once.
 # An unspecified isSystemServer defaults to false.
@@ -19,7 +20,8 @@
 #	  (4) Longer user= prefix before shorter user= prefix. 
 #	  (5) Specified seinfo= string before unspecified seinfo= string.
 #	  (6) Specified name= string before unspecified name= string.
-#	  (7) Specified sebool= string before unspecified sebool= string.
+#	  (7) Specified path= string before unspecified path= string.
+#	  (8) Specified sebool= string before unspecified sebool= string.
 #
 # Outputs:
 #	domain (string)
@@ -41,6 +43,7 @@ user=_app domain=untrusted_app type=app_data_file levelFrom=none
 user=_app seinfo=platform domain=platform_app type=platform_app_data_file
 user=_app seinfo=shared domain=shared_app type=platform_app_data_file
 user=_app seinfo=media domain=media_app type=platform_app_data_file
+user=_app seinfo=media name=com.android.providers.downloads path=cache* type=download_file
 user=_app seinfo=release domain=release_app type=platform_app_data_file
 user=_isolated domain=isolated_app
 user=shell domain=shell type=shell_data_file
