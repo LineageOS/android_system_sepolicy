@@ -1,4 +1,4 @@
-# Domain for shell processes spawned by ADB
+# Domain for shell processes spawned by ADB or console service.
 type shell, domain, shelldomain, mlstrustedsubject;
 type shell_exec, exec_type, file_type;
 
