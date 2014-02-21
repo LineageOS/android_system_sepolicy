@@ -11,6 +11,7 @@ allow hostapd self:udp_socket { create ioctl };
 
 allow hostapd wifi_data_file:file rw_file_perms;
 allow hostapd wifi_data_file:dir create_dir_perms;
+type_transition hostapd wifi_data_file:dir wpa_socket "sockets";
 allow hostapd wpa_socket:dir create_dir_perms;
 allow hostapd wpa_socket:sock_file create_file_perms;
 allow hostapd netd:fd use;
