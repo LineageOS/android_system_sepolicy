@@ -18,8 +18,3 @@ allow sdcardd media_rw_data_file:file create_file_perms;
 
 # Read /data/system/packages.list.
 allow sdcardd system_data_file:file r_file_perms;
-
-# Compatibility for existing devices with /data/media in system_data_file.
-# TODO: Remove these lines after we have guaranteed that /data/media has been relabeled to media_rw_data_file.
-allow sdcardd system_data_file:dir  create_dir_perms;
-allow sdcardd system_data_file:file create_file_perms;
