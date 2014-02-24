@@ -46,13 +46,6 @@ allow untrusted_app asec_apk_file:file r_file_perms;
 # Execute libs in asec containers.
 allow untrusted_app asec_public_file:file execute;
 
-# Create tcp/udp sockets
-allow untrusted_app node_type:{ tcp_socket udp_socket } node_bind;
-allow untrusted_app self:{ tcp_socket udp_socket } { create_socket_perms accept listen };
-# Bind to a particular hostname/address/interface (e.g., localhost) instead of
-# ANY. Normally, apps should not be listening on all interfaces.
-allow untrusted_app port:{ tcp_socket udp_socket } name_bind;
-
 # Allow the allocation and use of ptys
 # Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
 create_pty(untrusted_app)
