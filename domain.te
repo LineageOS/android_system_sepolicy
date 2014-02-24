@@ -128,9 +128,10 @@ allow domain debugfs:file w_file_perms;
 # Get SELinux enforcing status.
 selinux_getenforce(domain)
 
-# security files
+# /data/security files
 allow domain security_file:dir { search getattr };
 allow domain security_file:file getattr;
+allow domain security_file:lnk_file r_file_perms;
 
 # World readable asec image contents
 allow domain asec_public_file:file r_file_perms;
