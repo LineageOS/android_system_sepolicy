@@ -113,36 +113,11 @@ allow appdomain system_data_file:lnk_file getattr;
 allow appdomain download_file:dir search;
 allow appdomain download_file:file r_file_perms;
 
-# Allow applications to communicate with netd via /dev/socket/dnsproxyd
-# to do DNS resolution
-unix_socket_connect(appdomain, dnsproxyd, netd)
-
 # Allow applications to communicate with drmserver over binder
 binder_call(appdomain, drmserver)
 
 # Allow applications to communicate with mediaserver over binder
 binder_call(appdomain, mediaserver)
-
-# Allow applications to make outbound tcp connections to any port
-allow appdomain port_type:tcp_socket name_connect;
-
-# Allow apps to see changes to the routing table.
-allow appdomain self:netlink_route_socket {
-    read
-    bind
-    create
-    nlmsg_read
-    ioctl
-    getattr
-    setattr
-    getopt
-    setopt
-    shutdown
-};
-
-# Allow apps to use rawip sockets. This is needed for apps which execute
-# /system/bin/ping, for example.
-allow appdomain self:rawip_socket create_socket_perms;
 
 # Allow apps to use the USB Accessory interface.
 # http://developer.android.com/guide/topics/connectivity/usb/accessory.html
