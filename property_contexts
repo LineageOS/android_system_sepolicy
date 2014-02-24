@@ -2,7 +2,7 @@
 # property service keys
 #
 #
-net.rmnet0              u:object_r:radio_prop:s0
+net.rmnet               u:object_r:radio_prop:s0
 net.gprs                u:object_r:radio_prop:s0
 net.ppp                 u:object_r:radio_prop:s0
 net.qmi                 u:object_r:radio_prop:s0
