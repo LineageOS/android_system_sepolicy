@@ -47,9 +47,6 @@ allow dumpstate { appdomain system_server }:process signal;
 # This list comes from native_processes_to_dump in dumpstate/utils.c
 allow dumpstate { drmserver mediaserver sdcardd surfaceflinger }:process signal;
 
-# The /system/bin/ip command needs this for routing table information.
-allow dumpstate self:netlink_route_socket { write getattr setopt };
-
 # The vdc command needs to talk to the vold socket.
 unix_socket_connect(dumpstate, vold, vold)
 

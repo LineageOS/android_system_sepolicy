@@ -5,6 +5,8 @@ type drmserver_exec, exec_type, file_type;
 init_daemon_domain(drmserver)
 typeattribute drmserver mlstrustedsubject;
 
+net_domain(drmserver)
+
 # Perform Binder IPC to system server.
 binder_use(drmserver)
 binder_call(drmserver, system_server)
@@ -17,8 +19,6 @@ binder_call(drmserver, mediaserver)
 allow drmserver sdcard_type:dir search;
 allow drmserver drm_data_file:dir create_dir_perms;
 allow drmserver drm_data_file:file create_file_perms;
-allow drmserver self:{ tcp_socket udp_socket } *;
-allow drmserver port:tcp_socket name_connect;
 allow drmserver tee_device:chr_file rw_file_perms;
 allow drmserver platform_app_data_file:file { read write getattr };
 allow drmserver app_data_file:file { read write getattr };
