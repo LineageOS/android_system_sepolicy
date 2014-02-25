@@ -5,7 +5,16 @@ type netd_exec, exec_type, file_type;
 init_daemon_domain(netd)
 net_domain(netd)
 
-allow netd self:capability { net_admin net_raw kill fsetid };
+allow netd self:capability { net_admin net_raw kill };
+# Note: fsetid is deliberately not included above. fsetid checks are
+# triggered by chmod on a directory or file owned by a group other
+# than one of the groups assigned to the current process to see if
+# the setgid bit should be cleared, regardless of whether the setgid
+# bit was even set.  We do not appear to truly need this capability
+# for netd to operate.  Uncomment the dontaudit rule below after
+# sufficient testing of the fsetid removal.
+# dontaudit netd self:capability fsetid;
+
 allow netd self:netlink_kobject_uevent_socket *;
 allow netd self:netlink_route_socket *;
 allow netd self:netlink_nflog_socket *;
