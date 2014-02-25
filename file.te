@@ -116,6 +116,7 @@ type logd_socket, file_type;
 type logdr_socket, file_type;
 type logdw_socket, file_type;
 type mdns_socket, file_type;
+type mdnsd_socket, file_type;
 type netd_socket, file_type;
 type property_socket, file_type;
 type qemud_socket, file_type;

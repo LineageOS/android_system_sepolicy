@@ -86,6 +86,7 @@
 /dev/socket/logdr	u:object_r:logdr_socket:s0
 /dev/socket/logdw	u:object_r:logdw_socket:s0
 /dev/socket/mdns	u:object_r:mdns_socket:s0
+/dev/socket/mdnsd	u:object_r:mdnsd_socket:s0
 /dev/socket/netd	u:object_r:netd_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
 /dev/socket/qemud	u:object_r:qemud_socket:s0
@@ -130,6 +131,7 @@
 /system/bin/netd	u:object_r:netd_exec:s0
 /system/bin/rild	u:object_r:rild_exec:s0
 /system/bin/mediaserver	u:object_r:mediaserver_exec:s0
+/system/bin/mdnsd	u:object_r:mdnsd_exec:s0
 /system/bin/installd	u:object_r:installd_exec:s0
 /system/bin/keystore	u:object_r:keystore_exec:s0
 /system/bin/debuggerd	u:object_r:debuggerd_exec:s0
