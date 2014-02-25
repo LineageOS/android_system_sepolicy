@@ -11,9 +11,6 @@
 allow appdomain self:process execmem;
 allow appdomain ashmem_device:chr_file execute;
 
-# Allow apps to connect to the keystore
-unix_socket_connect(appdomain, keystore, keystore)
-
 # Receive and use open file descriptors inherited from zygote.
 allow appdomain zygote:fd use;
 
