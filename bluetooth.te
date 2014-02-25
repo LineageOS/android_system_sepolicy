@@ -1,6 +1,7 @@
 # bluetooth subsystem
 type bluetooth, domain;
 app_domain(bluetooth)
+net_domain(bluetooth)
 
 # Data file accesses.
 allow bluetooth bluetooth_data_file:dir create_dir_perms;
