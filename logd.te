@@ -3,7 +3,6 @@ type logd, domain;
 type logd_exec, exec_type, file_type;
 
 init_daemon_domain(logd)
-allow logd self:unix_stream_socket *;
 
 allow logd self:capability { setuid setgid sys_nice };
 

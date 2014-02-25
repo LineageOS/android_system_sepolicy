@@ -3,11 +3,12 @@ type hostapd, domain;
 permissive_or_unconfined(hostapd)
 type hostapd_exec, exec_type, file_type;
 
+net_domain(hostapd)
+
 allow hostapd self:capability { net_admin net_raw setuid setgid };
 allow hostapd self:netlink_socket create_socket_perms;
-allow hostapd self:packet_socket { create write read };
-allow hostapd self:netlink_route_socket { bind create write nlmsg_write read };
-allow hostapd self:udp_socket { create ioctl };
+allow hostapd self:packet_socket create_socket_perms;
+allow hostapd self:netlink_route_socket nlmsg_write;
 
 allow hostapd wifi_data_file:file rw_file_perms;
 allow hostapd wifi_data_file:dir create_dir_perms;
