@@ -20,17 +20,21 @@ allow bluetooth { tun_device uhid_device hci_attach_dev }:chr_file rw_file_perms
 # Other domains that can create and use bluetooth sockets.
 # SELinux does not presently define a specific socket class for
 # bluetooth sockets, nor does it distinguish among the bluetooth protocols.
-allow bluetoothdomain self:socket *;
+# TODO: This should no longer be needed with bluedroid for bluetooth
+# but may be getting used for other non-bluetooth sockets that has no
+# specific class defined.  Consider taking to specific domains.
+allow bluetoothdomain self:socket create_socket_perms;
 
 # sysfs access.
 allow bluetooth sysfs_bluetooth_writable:file rw_file_perms;
 allow bluetooth self:capability net_admin;
 
 # Allow clients to use a socket provided by the bluetooth app.
+# TODO:  See if this is still required under bluedroid.
 allow bluetoothdomain bluetooth:unix_stream_socket { read write shutdown };
 
 # tethering
-allow bluetooth self:{ tun_socket udp_socket } { ioctl create };
+allow bluetooth self:tun_socket create_socket_perms;
 allow bluetooth efs_file:dir search;
 
 # Talk to init over the property socket.

@@ -28,7 +28,7 @@ allow surfaceflinger video_device:dir r_dir_perms;
 allow surfaceflinger video_device:chr_file rw_file_perms;
 
 # Create and use netlink kobject uevent sockets.
-allow surfaceflinger self:netlink_kobject_uevent_socket *;
+allow surfaceflinger self:netlink_kobject_uevent_socket create_socket_perms;
 
 # Set properties.
 allow surfaceflinger system_prop:property_service set;
