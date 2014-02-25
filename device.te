@@ -26,7 +26,6 @@ type mtd_device, dev_type;
 type mtp_device, dev_type, mlstrustedobject;
 type nfc_device, dev_type;
 type ptmx_device, dev_type, mlstrustedobject;
-type qemu_device, dev_type;
 type kmsg_device, dev_type;
 type null_device, dev_type, mlstrustedobject;
 type random_device, dev_type;
