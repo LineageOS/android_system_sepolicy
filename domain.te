@@ -16,7 +16,8 @@ allow domain self:fd use;
 allow domain self:dir r_dir_perms;
 allow domain self:lnk_file r_file_perms;
 allow domain self:{ fifo_file file } rw_file_perms;
-allow domain self:{ unix_dgram_socket unix_stream_socket } *;
+allow domain self:unix_dgram_socket { create_socket_perms sendto };
+allow domain self:unix_stream_socket { create_stream_socket_perms connectto };
 
 # Inherit or receive open files from others.
 allow domain init:fd use;

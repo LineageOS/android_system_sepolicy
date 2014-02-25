@@ -15,11 +15,9 @@ allow netd self:capability { net_admin net_raw kill };
 # sufficient testing of the fsetid removal.
 # dontaudit netd self:capability fsetid;
 
-allow netd self:netlink_kobject_uevent_socket *;
-allow netd self:netlink_route_socket *;
-allow netd self:netlink_nflog_socket *;
-allow netd self:rawip_socket *;
-allow netd self:unix_stream_socket *;
+allow netd self:netlink_kobject_uevent_socket create_socket_perms;
+allow netd self:netlink_route_socket nlmsg_write;
+allow netd self:netlink_nflog_socket create_socket_perms;
 allow netd shell_exec:file rx_file_perms;
 allow netd system_file:file x_file_perms;
 allow netd devpts:chr_file rw_file_perms;
