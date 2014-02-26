@@ -36,14 +36,12 @@ allow appdomain devpts:chr_file { getattr read write ioctl };
 # Communicate with system_server.
 allow appdomain system_server:fifo_file rw_file_perms;
 allow appdomain system_server:unix_stream_socket { read write setopt };
-binder_call(appdomain, system_server)
 
 # Communication with other apps via fifos
 allow appdomain appdomain:fifo_file rw_file_perms;
 
 # Communicate with surfaceflinger.
 allow appdomain surfaceflinger:unix_stream_socket { read write setopt };
-binder_call(appdomain, surfaceflinger)
 
 # App sandbox file accesses.
 allow appdomain app_data_file:dir create_dir_perms;
@@ -109,12 +107,6 @@ allow appdomain system_data_file:lnk_file getattr;
 # Allow all applications to read downloaded files
 allow appdomain download_file:dir search;
 allow appdomain download_file:file r_file_perms;
-
-# Allow applications to communicate with drmserver over binder
-binder_call(appdomain, drmserver)
-
-# Allow applications to communicate with mediaserver over binder
-binder_call(appdomain, mediaserver)
 
 # Allow apps to use the USB Accessory interface.
 # http://developer.android.com/guide/topics/connectivity/usb/accessory.html
