@@ -21,6 +21,9 @@ allow system_server zygote:fd use;
 allow system_server zygote:process sigchld;
 allow system_server zygote_tmpfs:file read;
 
+# Needed to close the zygote socket, which involves getopt / getattr
+allow system_server zygote:unix_stream_socket { getopt getattr };
+
 # system server gets network and bluetooth permissions.
 net_domain(system_server)
 bluetooth_domain(system_server)
