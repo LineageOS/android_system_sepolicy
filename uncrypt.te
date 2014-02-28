@@ -27,3 +27,4 @@ allow uncrypt powerctl_prop:property_service set;
 # Raw writes to block device
 allow uncrypt self:capability sys_rawio;
 allow uncrypt block_device:blk_file w_file_perms;
+allow uncrypt block_device:dir r_dir_perms;
