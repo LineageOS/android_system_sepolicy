@@ -9,9 +9,6 @@ app_domain(system_app)
 net_domain(system_app)
 binder_service(system_app)
 
-# Perform binder IPC to any app domain.
-binder_call(system_app, appdomain)
-
 # Read and write system data files.
 # May want to split into separate types.
 allow system_app system_data_file:dir create_dir_perms;
