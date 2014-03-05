@@ -236,9 +236,6 @@ allow system_server cache_backup_file:file { relabelto relabelfrom };
 # LocalTransport creates and relabels /cache/backup
 allow system_server cache_backup_file:dir { relabelto relabelfrom create_dir_perms };
 
-# Access SDcard files passed via binder or sockets.
-allow system_server sdcard_type:file { read write getattr };
-
 # Allow system to talk to usb device
 allow system_server usb_device:chr_file rw_file_perms;
 allow system_server usb_device:dir r_dir_perms;
@@ -268,3 +265,12 @@ allow system_server zygote:unix_dgram_socket write;
 # /sys/module/lowmemorykiller/parameters/adj
 # /sys/module/lowmemorykiller/parameters/minfree
 allow system_server sysfs_lowmemorykiller:file { getattr w_file_perms };
+
+###
+### Neverallow rules
+###
+### system_server should NEVER do any of this
+
+# Do not allow accessing SDcard files as unsafe ejection could
+# cause the kernel to kill the system_server.
+neverallow system_server sdcard_type:file rw_file_perms;
