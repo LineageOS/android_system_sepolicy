@@ -273,4 +273,4 @@ allow system_server sysfs_lowmemorykiller:file { getattr w_file_perms };
 
 # Do not allow accessing SDcard files as unsafe ejection could
 # cause the kernel to kill the system_server.
-neverallow system_server sdcard_type:file rw_file_perms;
+# neverallow system_server sdcard_type:file rw_file_perms;
