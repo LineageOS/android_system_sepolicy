@@ -85,6 +85,7 @@
 /dev/socket/logdw	u:object_r:logdw_socket:s0
 /dev/socket/mdns	u:object_r:mdns_socket:s0
 /dev/socket/mdnsd	u:object_r:mdnsd_socket:s0
+/dev/socket/mtpd	u:object_r:mtpd_socket:s0
 /dev/socket/netd	u:object_r:netd_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
 /dev/socket/racoon	u:object_r:racoon_socket:s0

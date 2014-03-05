@@ -35,6 +35,8 @@ userdebug_or_eng(`
   allow domain su:fd use;
   allow domain su:unix_stream_socket { getattr getopt read write shutdown };
 
+  binder_call(domain, su)
+
   # Running something like "pm dump com.android.bluetooth" requires
   # fifo writes
   allow domain su:fifo_file { write getattr };
