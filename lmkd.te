@@ -15,3 +15,6 @@ allow lmkd system_server:file write;
 
 ## Writes to /sys/module/lowmemorykiller/parameters/minfree
 allow lmkd sysfs_lowmemorykiller:file w_file_perms;
+
+# Send kill signals
+allow lmkd appdomain:process sigkill;
