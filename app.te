@@ -33,9 +33,10 @@ allow appdomain adbd:process sigchld;
 # child shell or gdbserver pty access for runas.
 allow appdomain devpts:chr_file { getattr read write ioctl };
 
-# Communicate with system_server.
+# Use pipes and sockets provided by system_server via binder or local socket.
 allow appdomain system_server:fifo_file rw_file_perms;
-allow appdomain system_server:unix_stream_socket { read write setopt };
+allow appdomain system_server:unix_stream_socket { read write setopt getattr getopt shutdown };
+allow appdomain system_server:tcp_socket { read write getattr getopt shutdown };
 
 # Communication with other apps via fifos
 allow appdomain appdomain:fifo_file rw_file_perms;

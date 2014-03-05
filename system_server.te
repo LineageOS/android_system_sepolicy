@@ -16,10 +16,19 @@ allow system_server system_server_tmpfs:file execute;
 # For art.
 allow system_server dalvikcache_data_file:file execute;
 
+# ptrace to processes in the same domain for debugging crashes.
+allow system_server self:process ptrace;
+
 # Child of the zygote.
 allow system_server zygote:fd use;
 allow system_server zygote:process sigchld;
 allow system_server zygote_tmpfs:file read;
+
+# May kill zygote on crashes.
+allow system_server zygote:process sigkill;
+
+# Read /system/bin/app_process.
+allow system_server zygote_exec:file r_file_perms;
 
 # Needed to close the zygote socket, which involves getopt / getattr
 allow system_server zygote:unix_stream_socket { getopt getattr };
@@ -55,6 +64,9 @@ allow system_server kernel:system module_request;
 # Use netlink uevent sockets.
 allow system_server self:netlink_kobject_uevent_socket create_socket_perms;
 
+# Use generic netlink sockets.
+allow system_server self:netlink_socket create_socket_perms;
+
 # Kill apps.
 allow system_server appdomain:process { sigkill signal };
 
@@ -69,6 +81,9 @@ allow system_server appdomain:{ file lnk_file } rw_file_perms;
 # Read/Write to /proc/net/xt_qtaguid/ctrl and and /dev/xt_qtaguid.
 allow system_server qtaguid_proc:file rw_file_perms;
 allow system_server qtaguid_device:chr_file rw_file_perms;
+
+# Write to /proc/sysrq-trigger.
+allow system_server proc_sysrq:file rw_file_perms;
 
 # Read /sys/kernel/debug/wakeup_sources.
 allow system_server debugfs:file r_file_perms;
@@ -86,6 +101,7 @@ allow system_server init:process sigchld;
 unix_socket_connect(system_server, property, init)
 unix_socket_connect(system_server, installd, installd)
 unix_socket_connect(system_server, lmkd, lmkd)
+unix_socket_connect(system_server, mtpd, mtp)
 unix_socket_connect(system_server, netd, netd)
 unix_socket_connect(system_server, vold, vold)
 unix_socket_connect(system_server, zygote, zygote)
@@ -109,6 +125,10 @@ r_dir_file(system_server, mediaserver)
 allow system_server appdomain:process getattr;
 allow system_server mediaserver:process getattr;
 
+# Use sockets received over binder from various services.
+allow system_server mediaserver:tcp_socket rw_socket_perms;
+allow system_server mediaserver:udp_socket rw_socket_perms;
+
 # Check SELinux permissions.
 selinux_check_access(system_server)
 
@@ -126,6 +146,7 @@ allow system_server graphics_device:chr_file rw_file_perms;
 allow system_server iio_device:chr_file rw_file_perms;
 allow system_server input_device:dir r_dir_perms;
 allow system_server input_device:chr_file rw_file_perms;
+allow system_server radio_device:chr_file r_file_perms;
 allow system_server tty_device:chr_file rw_file_perms;
 allow system_server urandom_device:chr_file rw_file_perms;
 allow system_server usbaccessory_device:chr_file rw_file_perms;
@@ -151,7 +172,7 @@ allow system_server { apk_data_file apk_private_data_file }:file { relabelfrom r
 # Relabel wallpaper.
 allow system_server system_data_file:file relabelfrom;
 allow system_server wallpaper_file:file relabelto;
-allow system_server wallpaper_file:file rw_file_perms;
+allow system_server wallpaper_file:file { rw_file_perms unlink };
 
 # Relabel /data/anr.
 allow system_server system_data_file:dir relabelfrom;
@@ -199,14 +220,12 @@ allow system_server domain:file r_file_perms;
 allow system_server gps_device:chr_file rw_file_perms;
 allow system_server gps_control:file rw_file_perms;
 
-# Allow system_server to use app-created sockets.
-allow system_server appdomain:{ tcp_socket udp_socket } { setopt read write };
+# Allow system_server to use app-created sockets and pipes.
+allow system_server appdomain:{ tcp_socket udp_socket } { getattr getopt setopt read write shutdown };
+allow system_server appdomain:fifo_file { getattr read write };
 
 # Allow abstract socket connection
 allow system_server rild:unix_stream_socket connectto;
-
-# connect to vpn tunnel
-allow system_server mtp:unix_stream_socket { connectto };
 
 # BackupManagerService lets PMS create a data backup file
 allow system_server cache_backup_file:file create_file_perms;
@@ -216,6 +235,9 @@ allow system_server backup_data_file:dir { relabelto relabelfrom };
 allow system_server cache_backup_file:file { relabelto relabelfrom };
 # LocalTransport creates and relabels /cache/backup
 allow system_server cache_backup_file:dir { relabelto relabelfrom create_dir_perms };
+
+# Access SDcard files passed via binder or sockets.
+allow system_server sdcard_type:file { read write getattr };
 
 # Allow system to talk to usb device
 allow system_server usb_device:chr_file rw_file_perms;
