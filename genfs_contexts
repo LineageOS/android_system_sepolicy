@@ -4,6 +4,7 @@ genfscon rootfs / u:object_r:rootfs:s0
 genfscon proc / u:object_r:proc:s0
 genfscon proc /net u:object_r:proc_net:s0
 genfscon proc /net/xt_qtaguid/ctrl u:object_r:qtaguid_proc:s0
+genfscon proc /sysrq-trigger u:object_r:proc_sysrq:s0
 genfscon proc /sys/fs/protected_hardlinks u:object_r:proc_security:s0
 genfscon proc /sys/fs/protected_symlinks u:object_r:proc_security:s0
 genfscon proc /sys/fs/suid_dumpable u:object_r:proc_security:s0
