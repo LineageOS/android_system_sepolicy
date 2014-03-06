@@ -183,6 +183,14 @@ neverallow { domain -init } kernel:security load_policy;
 # switching domains, there is never any need to setenforce again by init.
 neverallow { domain -kernel } kernel:security { setenforce setcheckreqprot };
 
+# No booleans in AOSP policy, so no need to ever set them.
+neverallow domain kernel:security setbool;
+
+# Adjusting the AVC cache threshold.
+# Not presently allowed to anything in policy, but possibly something
+# that could be set from init.rc.
+neverallow { domain -init } kernel:security setsecparam;
+
 # Only init, ueventd and system_server should be able to access HW RNG
 neverallow { domain -init -system_server -ueventd -unconfineddomain } hw_random_device:chr_file *;
 
