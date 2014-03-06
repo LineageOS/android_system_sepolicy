@@ -32,14 +32,6 @@ allow untrusted_app app_data_file:file rx_file_perms;
 
 allow untrusted_app tun_device:chr_file rw_file_perms;
 
-# Internal SDCard rw access.
-allow untrusted_app sdcard_internal:dir create_dir_perms;
-allow untrusted_app sdcard_internal:file create_file_perms;
-
-# External SDCard rw access.
-allow untrusted_app sdcard_external:dir create_dir_perms;
-allow untrusted_app sdcard_external:file create_file_perms;
-
 # ASEC
 allow untrusted_app asec_apk_file:dir { getattr };
 allow untrusted_app asec_apk_file:file r_file_perms;
