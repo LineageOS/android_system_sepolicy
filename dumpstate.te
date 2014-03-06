@@ -73,3 +73,16 @@ allow dumpstate self:capability sys_ptrace;
 # /data/data/com.android.shell/files/bugreports/bugreport
 allow dumpstate shell_data_file:dir create_dir_perms;
 allow dumpstate shell_data_file:file create_file_perms;
+
+# Run a shell.
+allow dumpstate shell_exec:file rx_file_perms;
+
+# For running am and similar framework commands.
+# Run /system/bin/app_process.
+allow dumpstate zygote_exec:file rx_file_perms;
+# Dalvik Compiler JIT.
+allow dumpstate ashmem_device:chr_file execute;
+allow dumpstate dumpstate_tmpfs:file execute;
+allow dumpstate self:process execmem;
+# For art.
+allow dumpstate dalvikcache_data_file:file execute;
