@@ -86,3 +86,7 @@ allow dumpstate dumpstate_tmpfs:file execute;
 allow dumpstate self:process execmem;
 # For art.
 allow dumpstate dalvikcache_data_file:file execute;
+
+# logd access
+read_logd(dumpstate)
+control_logd(dumpstate)
