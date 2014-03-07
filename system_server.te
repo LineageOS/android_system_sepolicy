@@ -251,3 +251,8 @@ allow system_server unlabeled:file execute;
 # logd access, system_server inherit logd write socket
 # (urge is to deprecate this long term)
 allow system_server zygote:unix_dgram_socket write;
+
+# Be consistent with DAC permissions. Allow system_server to write to
+# /sys/module/lowmemorykiller/parameters/adj
+# /sys/module/lowmemorykiller/parameters/minfree
+allow system_server sysfs_lowmemorykiller:file w_file_perms;
