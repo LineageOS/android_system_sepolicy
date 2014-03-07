@@ -133,6 +133,7 @@
 /system/bin/installd	u:object_r:installd_exec:s0
 /system/bin/keystore	u:object_r:keystore_exec:s0
 /system/bin/debuggerd	u:object_r:debuggerd_exec:s0
+/system/bin/debuggerd64	u:object_r:debuggerd_exec:s0
 /system/bin/wpa_supplicant	u:object_r:wpa_exec:s0
 /system/bin/qemud	u:object_r:qemud_exec:s0
 /system/bin/sdcard      u:object_r:sdcardd_exec:s0
