@@ -85,6 +85,8 @@ type efs_file, file_type;
 type wallpaper_file, file_type, mlstrustedobject;
 # /mnt/asec
 type asec_apk_file, file_type, data_file_type;
+# Elements of asec files (/mnt/asec) that are world readable
+type asec_public_file, file_type, data_file_type;
 # /data/app-asec
 type asec_image_file, file_type, data_file_type;
 # /data/backup and /data/secure/backup
