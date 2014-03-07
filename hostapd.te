@@ -11,8 +11,8 @@ allow hostapd self:udp_socket { create ioctl };
 
 allow hostapd wifi_data_file:file rw_file_perms;
 allow hostapd wifi_data_file:dir create_dir_perms;
-allow hostapd wifi_data_file:sock_file { create setattr write unlink };
-
+allow hostapd wpa_socket:dir create_dir_perms;
+allow hostapd wpa_socket:sock_file create_file_perms;
 allow hostapd netd:fd use;
 allow hostapd netd:udp_socket { read write };
 allow hostapd netd:netlink_kobject_uevent_socket { read write };
