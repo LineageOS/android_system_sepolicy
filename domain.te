@@ -159,7 +159,7 @@ neverallow { domain -relabeltodomain } *:dir_file_class_set relabelto;
 neverallow { domain -debuggerd -vold -dumpstate -system_server } self:capability sys_ptrace;
 
 # Limit device node creation and raw I/O to these whitelisted domains.
-neverallow { domain -kernel -init -recovery -ueventd -watchdogd -healthd -vold } self:capability { sys_rawio mknod };
+neverallow { domain -kernel -init -recovery -ueventd -watchdogd -healthd -vold -uncrypt } self:capability { sys_rawio mknod };
 
 # No domain needs mac_override as it is unused by SELinux.
 neverallow domain self:capability2 mac_override;
@@ -203,7 +203,7 @@ neverallow domain init:binder call;
 
 # Don't allow raw read/write/open access to block_device
 # Rather force a relabel to a more specific type
-neverallow { domain -kernel -init -recovery -vold } block_device:blk_file { open read write };
+neverallow { domain -kernel -init -recovery -vold -uncrypt } block_device:blk_file { open read write };
 
 # Don't allow raw read/write/open access to generic devices.
 # Rather force a relabel to a more specific type.
