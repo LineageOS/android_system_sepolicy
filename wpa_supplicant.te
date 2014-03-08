@@ -16,8 +16,8 @@ unix_socket_send(wpa, system_wpa, system_server)
 allow wpa random_device:chr_file r_file_perms;
 
 # Create a socket for receiving info from wpa
-type_transition wpa wifi_data_file:sock_file wpa_socket;
-allow wpa wpa_socket:dir { rw_dir_perms setattr };
+type_transition wpa wifi_data_file:dir wpa_socket "sockets";
+allow wpa wpa_socket:dir create_dir_perms;
 allow wpa wpa_socket:sock_file create_file_perms;
 
 # Allow wpa_cli to work. wpa_cli creates a socket in
