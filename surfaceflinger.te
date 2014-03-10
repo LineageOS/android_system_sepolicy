@@ -11,10 +11,16 @@ unix_socket_connect(surfaceflinger, property, init)
 
 # Perform Binder IPC.
 binder_use(surfaceflinger)
-binder_call(surfaceflinger, system_server)
-binder_call(surfaceflinger, nfc)
-binder_call(surfaceflinger, mediaserver)
+binder_call(surfaceflinger, binderservicedomain)
+binder_call(surfaceflinger, appdomain)
 binder_service(surfaceflinger)
+
+# Binder IPC to bu, presently runs in adbd domain.
+binder_call(surfaceflinger, adbd)
+
+# Read /proc/pid files for Binder clients.
+r_dir_file(surfaceflinger, binderservicedomain)
+r_dir_file(surfaceflinger, appdomain)
 
 # Access the GPU.
 allow surfaceflinger gpu_device:chr_file rw_file_perms;
@@ -50,3 +56,13 @@ binder_call(surfaceflinger, shell)
 # but seems expected and appropriate for all devices.
 allow surfaceflinger tee:unix_stream_socket connectto;
 allow surfaceflinger tee_device:chr_file rw_file_perms;
+
+###
+### Neverallow rules
+###
+### surfaceflinger should NEVER do any of this
+
+# Do not allow accessing SDcard files as unsafe ejection could
+# cause the kernel to kill the process.
+# TODO: Remove -unconfineddomain when we remove permissive_or_unconfined above.
+neverallow { surfaceflinger -unconfineddomain } sdcard_type:file rw_file_perms;
