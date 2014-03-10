@@ -52,3 +52,8 @@ allow zygote ashmem_device:chr_file execute;
 allow zygote shell_data_file:file { write getattr };
 allow zygote system_server:binder { transfer call };
 allow zygote servicemanager:binder { call };
+
+auditallow zygote ashmem_device:chr_file execute;
+auditallow zygote shell_data_file:file { write getattr };
+auditallow zygote system_server:binder { transfer call };
+auditallow zygote servicemanager:binder { call };
