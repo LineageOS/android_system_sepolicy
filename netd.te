@@ -68,12 +68,6 @@ allow netd ctl_default_prop:property_service set;
 # Block device access.
 neverallow netd dev_type:blk_file { read write };
 
-# Setting SELinux enforcing status or booleans.
-neverallow netd kernel:security { setenforce setbool };
-
-# Load security policy.
-neverallow netd kernel:security load_policy;
-
 # ptrace any other app
 neverallow netd { domain }:process ptrace;
 

@@ -191,13 +191,6 @@ neverallow { appdomain -bluetooth -unconfineddomain } hci_attach_dev:chr_file
     { read write };
 neverallow { appdomain -unconfineddomain } tee_device:chr_file { read write };
 
-# Set SELinux enforcing mode, booleans or any other SELinux settings.
-neverallow { appdomain -unconfineddomain } kernel:security
-    { setenforce setbool setsecparam setcheckreqprot };
-
-# Load security policy.
-neverallow appdomain kernel:security load_policy;
-
 # Privileged netlink socket interfaces.
 neverallow { appdomain -unconfineddomain }
     self:{
