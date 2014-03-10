@@ -10,3 +10,5 @@ platform_app_domain(shared_app)
 net_domain(shared_app)
 # Access bluetooth.
 bluetooth_domain(shared_app)
+
+# inherits from platformappdomain.te
