@@ -45,7 +45,7 @@ allow zygote tmpfs:filesystem mount;
 allow zygote labeledfs:filesystem remount;
 
 # Handle --invoke-with command when launching Zygote with a wrapper command.
-allow zygote zygote_exec:file { execute_no_trans open };
+allow zygote zygote_exec:file rx_file_perms;
 
 # handle bugreports b/10498304
 allow zygote ashmem_device:chr_file execute;
