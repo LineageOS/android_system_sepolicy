@@ -16,3 +16,6 @@ allow netdomain self:netlink_route_socket { create bind read nlmsg_read };
 
 # Talks to netd via dnsproxyd socket.
 unix_socket_connect(netdomain, dnsproxyd, netd)
+
+# Connect to mdnsd via mdnsd socket.
+unix_socket_connect(netdomain, mdnsd, mdnsd)

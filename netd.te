@@ -61,7 +61,6 @@ allow netd clatd:process signal;
 # Support netd running mdnsd
 # TODO: prune this back further
 allow netd ctl_default_prop:property_service set;
-allow netd device:sock_file write;
 
 ###
 ### Neverallow rules
