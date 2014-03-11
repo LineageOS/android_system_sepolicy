@@ -23,9 +23,6 @@ allow system_app wallpaper_file:file r_file_perms;
 # Write to dalvikcache.
 allow system_app dalvikcache_data_file:file { write setattr };
 
-# Talk to keystore.
-unix_socket_connect(system_app, keystore, keystore)
-
 # Read SELinux enforcing status.
 selinux_getenforce(system_app)
 
