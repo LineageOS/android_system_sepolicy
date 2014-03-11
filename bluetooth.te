@@ -47,10 +47,6 @@ allow bluetooth proc_bluetooth_writable:file rw_file_perms;
 allow bluetooth sdcard_internal:dir create_dir_perms;
 allow bluetooth sdcard_internal:file create_file_perms;
 
-# Allow reading of media_rw_data_file file descriptors
-# passed to bluetooth
-allow bluetooth media_rw_data_file:file { read getattr };
-
 # Allow write access to bluetooth specific properties
 allow bluetooth bluetooth_prop:property_service set;
 
