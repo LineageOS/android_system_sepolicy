@@ -42,7 +42,7 @@ allow appdomain system_server:tcp_socket { read write getattr getopt shutdown };
 allow appdomain appdomain:fifo_file rw_file_perms;
 
 # Communicate with surfaceflinger.
-allow appdomain surfaceflinger:unix_stream_socket { read write setopt };
+allow appdomain surfaceflinger:unix_stream_socket { read write setopt getattr getopt shutdown };
 
 # App sandbox file accesses.
 allow appdomain app_data_file:dir create_dir_perms;
@@ -69,7 +69,7 @@ allow appdomain anr_data_file:file { open append };
 
 # Allow apps to send dump information to dumpstate
 allow appdomain dumpstate:fd use;
-allow appdomain dumpstate:unix_stream_socket { read write getopt getattr };
+allow appdomain dumpstate:unix_stream_socket { read write getopt getattr shutdown };
 allow appdomain shell_data_file:file { write getattr };
 
 # Write to /proc/net/xt_qtaguid/ctrl file.
@@ -89,14 +89,11 @@ binder_call(appdomain, binderservicedomain)
 # Perform binder IPC to other apps.
 binder_call(appdomain, appdomain)
 
-# Appdomain interaction with isolated apps
-r_dir_file(appdomain, isolated_app)
-
 # Already connected, unnamed sockets being passed over some other IPC
 # hence no sock_file or connectto permission. This appears to be how
 # Chrome works, may need to be updated as more apps using isolated services
 # are examined.
-allow appdomain isolated_app:unix_stream_socket { read write };
+allow appdomain appdomain:unix_stream_socket { getopt getattr read write shutdown };
 
 # Backup ability for every app. BMS opens and passes the fd
 # to any app that has backup ability. Hence, no open permissions here.
@@ -111,6 +108,10 @@ allow appdomain download_file:file r_file_perms;
 
 # Allow read/stat of /data/media files passed by Binder or local socket IPC.
 allow appdomain media_rw_data_file:file { read getattr };
+
+# Access SDcard.
+allow appdomain sdcard_type:dir create_dir_perms;
+allow appdomain sdcard_type:file create_file_perms;
 
 # Allow apps to use the USB Accessory interface.
 # http://developer.android.com/guide/topics/connectivity/usb/accessory.html

@@ -12,12 +12,3 @@
 type isolated_app, domain;
 app_domain(isolated_app)
 net_domain(isolated_app)
-
-# Already connected, unnamed sockets being passed over some other IPC
-# hence no sock_file or connectto permission. This appears to be how
-# Chrome works, may need to be updated as more apps using isolated services
-# are examined.
-allow isolated_app appdomain:unix_stream_socket { read write };
-
-allow isolated_app dalvikcache_data_file:file execute;
-allow isolated_app apk_data_file:dir getattr;
