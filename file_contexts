@@ -65,7 +65,6 @@
 /dev/ppp		u:object_r:ppp_device:s0
 /dev/ptmx		u:object_r:ptmx_device:s0
 /dev/pvrsrvkm		u:object_r:gpu_device:s0
-/dev/qemu_.*		u:object_r:qemu_device:s0
 /dev/kmsg		u:object_r:kmsg_device:s0
 /dev/null		u:object_r:null_device:s0
 /dev/nvhdcp1		u:object_r:video_device:s0
@@ -88,7 +87,6 @@
 /dev/socket/mdnsd	u:object_r:mdnsd_socket:s0
 /dev/socket/netd	u:object_r:netd_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
-/dev/socket/qemud	u:object_r:qemud_socket:s0
 /dev/socket/racoon	u:object_r:racoon_socket:s0
 /dev/socket/rild	u:object_r:rild_socket:s0
 /dev/socket/rild-debug	u:object_r:rild_debug_socket:s0
@@ -136,7 +134,6 @@
 /system/bin/debuggerd	u:object_r:debuggerd_exec:s0
 /system/bin/debuggerd64	u:object_r:debuggerd_exec:s0
 /system/bin/wpa_supplicant	u:object_r:wpa_exec:s0
-/system/bin/qemud	u:object_r:qemud_exec:s0
 /system/bin/sdcard      u:object_r:sdcardd_exec:s0
 /system/bin/dhcpcd      u:object_r:dhcp_exec:s0
 /system/bin/mtpd	u:object_r:mtp_exec:s0
@@ -215,7 +212,6 @@
 #############################
 # sysfs files
 #
-/sys/qemu_trace(/.*)?	--	u:object_r:sysfs_writable:s0
 /sys/devices/platform/nfc-power/nfc_power -- u:object_r:sysfs_nfc_power_writable:s0
 /sys/devices/system/cpu(/.*)?    u:object_r:sysfs_devices_system_cpu:s0
 /sys/power/wake_lock -- u:object_r:sysfs_wake_lock:s0

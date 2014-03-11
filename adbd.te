@@ -25,9 +25,6 @@ net_domain(adbd)
 # Access /dev/android_adb.
 allow adbd adb_device:chr_file rw_file_perms;
 
-# On emulator, access /dev/qemu*.
-allow adbd qemu_device:chr_file rw_file_perms;
-
 # Use a pseudo tty.
 allow adbd devpts:chr_file rw_file_perms;
 

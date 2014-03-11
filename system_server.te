@@ -81,7 +81,6 @@ allow system_server init:process sigchld;
 
 # Talk to init and various daemons via sockets.
 unix_socket_connect(system_server, property, init)
-unix_socket_connect(system_server, qemud, qemud)
 unix_socket_connect(system_server, installd, installd)
 unix_socket_connect(system_server, lmkd, lmkd)
 unix_socket_connect(system_server, netd, netd)
@@ -130,7 +129,6 @@ allow system_server urandom_device:chr_file rw_file_perms;
 allow system_server usbaccessory_device:chr_file rw_file_perms;
 allow system_server video_device:dir r_dir_perms;
 allow system_server video_device:chr_file rw_file_perms;
-allow system_server qemu_device:chr_file rw_file_perms;
 allow system_server adbd_socket:sock_file rw_file_perms;
 
 # tun device used for 3rd party vpn apps
