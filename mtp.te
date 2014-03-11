@@ -7,10 +7,7 @@ init_daemon_domain(mtp)
 net_domain(mtp)
 
 # pptp policy
-allow mtp self:tcp_socket create_socket_perms;
 allow mtp self:socket create_socket_perms;
-allow mtp self:rawip_socket create_socket_perms;
 allow mtp self:capability net_raw;
 allow mtp ppp:process signal;
-allow mtp port:tcp_socket name_connect;
 allow mtp vpn_data_file:dir search;

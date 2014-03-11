@@ -3,10 +3,9 @@ type dnsmasq, domain;
 permissive_or_unconfined(dnsmasq)
 type dnsmasq_exec, exec_type, file_type;
 
+net_domain(dnsmasq)
+
 allow dnsmasq self:capability { net_bind_service setgid setuid };
-allow dnsmasq self:tcp_socket create_socket_perms;
 
 allow dnsmasq dhcp_data_file:dir w_dir_perms;
 allow dnsmasq dhcp_data_file:file create_file_perms;
-allow dnsmasq port:tcp_socket name_bind;
-allow dnsmasq node:tcp_socket node_bind;
