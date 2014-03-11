@@ -8,7 +8,7 @@ typeattribute racoon mlstrustedsubject;
 
 net_domain(racoon)
 
-binder_call(racoon, servicemanager)
+binder_use(racoon)
 binder_call(racoon, keystore)
 
 allow racoon tun_device:chr_file r_file_perms;
