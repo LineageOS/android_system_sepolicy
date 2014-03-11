@@ -31,7 +31,7 @@ allow bluetooth self:capability net_admin;
 
 # Allow clients to use a socket provided by the bluetooth app.
 # TODO:  See if this is still required under bluedroid.
-allow bluetoothdomain bluetooth:unix_stream_socket { read write shutdown };
+allow bluetoothdomain bluetooth:unix_stream_socket { getopt getattr read write shutdown };
 
 # tethering
 allow bluetooth self:tun_socket create_socket_perms;
