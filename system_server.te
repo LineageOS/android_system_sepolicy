@@ -74,9 +74,11 @@ allow system_server appdomain:process { sigkill signal };
 allow system_server appdomain:process { getsched setsched };
 allow system_server mediaserver:process { getsched setsched };
 
-# Read /proc data for apps.
-allow system_server appdomain:dir r_dir_perms;
-allow system_server appdomain:{ file lnk_file } rw_file_perms;
+# Read /proc/pid data for apps.
+r_dir_file(system_server, appdomain)
+
+# Write to /proc/pid/oom_adj_score for apps.
+allow system_server appdomain:file write;
 
 # Read/Write to /proc/net/xt_qtaguid/ctrl and and /dev/xt_qtaguid.
 allow system_server qtaguid_proc:file rw_file_perms;
@@ -119,11 +121,10 @@ binder_call(system_server, appdomain)
 binder_call(system_server, dumpstate)
 binder_service(system_server)
 
-# Read /proc/pid files for Binder clients.
-r_dir_file(system_server, appdomain)
+# Read /proc/pid files for dumping stack traces of native processes.
 r_dir_file(system_server, mediaserver)
-allow system_server appdomain:process getattr;
-allow system_server mediaserver:process getattr;
+r_dir_file(system_server, sdcardd)
+r_dir_file(system_server, surfaceflinger)
 
 # Use sockets received over binder from various services.
 allow system_server mediaserver:tcp_socket rw_socket_perms;
@@ -209,11 +210,6 @@ allow system_server cache_file:file { relabelfrom create_file_perms };
 
 # Run system programs, e.g. dexopt.
 allow system_server system_file:file x_file_perms;
-
-# Allow reading of /proc/pid data for other domains.
-# XXX dontaudit candidate
-allow system_server domain:dir r_dir_perms;
-allow system_server domain:file r_file_perms;
 
 # LocationManager(e.g, GPS) needs to read and write
 # to uart driver and ctrl proc entry
