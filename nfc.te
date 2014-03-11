@@ -1,6 +1,7 @@
 # nfc subsystem
 type nfc, domain;
 app_domain(nfc)
+net_domain(nfc)
 binder_service(nfc)
 
 # NFC device access.
