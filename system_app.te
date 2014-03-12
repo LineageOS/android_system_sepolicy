@@ -25,3 +25,8 @@ unix_socket_connect(system_app, property, init)
 allow system_app debug_prop:property_service set;
 allow system_app radio_prop:property_service set;
 allow system_app system_prop:property_service set;
+allow system_app ctl_bugreport_prop:property_service set;
+
+# Create /data/anr/traces.txt.
+allow system_app anr_data_file:dir ra_dir_perms;
+allow system_app anr_data_file:file create_file_perms;
