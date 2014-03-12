@@ -1,6 +1,5 @@
 # 464xlat daemon
 type clatd, domain;
-permissive_or_unconfined(clatd)
 type clatd_exec, exec_type, file_type;
 
 net_domain(clatd)
