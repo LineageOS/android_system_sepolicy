@@ -53,6 +53,8 @@ unix_socket_connect(adbd, vold, vold)
 # XXX Run screencap in a separate domain?
 binder_use(adbd)
 binder_call(adbd, surfaceflinger)
+# b/13188914
+allow adbd gpu_device:chr_file rw_file_perms;
 
 # Read /data/misc/adb/adb_keys.
 allow adbd adb_keys_file:dir search;
