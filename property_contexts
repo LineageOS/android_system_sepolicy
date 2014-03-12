@@ -54,4 +54,5 @@ crypto.                 u:object_r:vold_prop:s0
 # ctl properties
 ctl.dumpstate           u:object_r:ctl_dumpstate_prop:s0
 ctl.ril-daemon          u:object_r:ctl_rildaemon_prop:s0
+ctl.bugreport           u:object_r:ctl_bugreport_prop:s0
 ctl.                    u:object_r:ctl_default_prop:s0
