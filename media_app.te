@@ -18,7 +18,7 @@ allow media_app download_file:dir rw_dir_perms;
 allow media_app download_file:file create_file_perms;
 # Allow platform apps to mark platform app data files as download files
 relabelto_domain(media_app)
-allow media_app platform_app_data_file:dir relabelfrom;
+allow media_app app_data_file:dir relabelfrom;
 allow media_app download_file:dir relabelto;
 
 # inherits from platformappdomain.te
