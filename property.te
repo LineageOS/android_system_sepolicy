@@ -9,6 +9,7 @@ type rild_prop, property_type;
 type ctl_default_prop, property_type;
 type ctl_dumpstate_prop, property_type;
 type ctl_rildaemon_prop, property_type;
+type ctl_bugreport_prop, property_type;
 type audio_prop, property_type;
 type security_prop, property_type;
 type bluetooth_prop, property_type;
