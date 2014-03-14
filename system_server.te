@@ -264,6 +264,9 @@ selinux_manage_policy(system_server)
 # (urge is to deprecate this long term)
 allow system_server zygote:unix_dgram_socket write;
 
+# Read from log daemon.
+read_logd(system_server)
+
 # Be consistent with DAC permissions. Allow system_server to write to
 # /sys/module/lowmemorykiller/parameters/adj
 # /sys/module/lowmemorykiller/parameters/minfree
