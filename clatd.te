@@ -7,11 +7,13 @@ net_domain(clatd)
 # Access objects inherited from netd.
 allow clatd netd:fd use;
 allow clatd netd:fifo_file { read write };
+# TODO: Check whether some or all of these sockets should be close-on-exec.
 allow clatd netd:netlink_kobject_uevent_socket { read write };
 allow clatd netd:netlink_nflog_socket { read write };
 allow clatd netd:netlink_route_socket { read write };
 allow clatd netd:udp_socket { read write };
 allow clatd netd:unix_stream_socket { read write };
+allow clatd netd:unix_dgram_socket { read write };
 
 allow clatd self:capability { net_admin setuid setgid };
 
