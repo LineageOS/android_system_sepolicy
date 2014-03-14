@@ -80,6 +80,13 @@ r_dir_file(system_server, appdomain)
 # Write to /proc/pid/oom_adj_score for apps.
 allow system_server appdomain:file write;
 
+# Silently deny access to any /proc/pid files other than
+# the ones allowed via allow rule.  Avoids filling the logs
+# with noise from /proc/pid traversals by ActivityManager,
+# CpuTracker, and possibly other system_server components.
+dontaudit system_server domain:dir r_dir_perms;
+dontaudit system_server domain:{ file lnk_file } r_file_perms;
+
 # Read/Write to /proc/net/xt_qtaguid/ctrl and and /dev/xt_qtaguid.
 allow system_server qtaguid_proc:file rw_file_perms;
 allow system_server qtaguid_device:chr_file rw_file_perms;
