@@ -1,6 +1,5 @@
 # DNS, DHCP services
 type dnsmasq, domain;
-permissive_or_unconfined(dnsmasq)
 type dnsmasq_exec, exec_type, file_type;
 
 net_domain(dnsmasq)
