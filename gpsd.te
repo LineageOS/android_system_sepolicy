@@ -1,6 +1,5 @@
 # gpsd - GPS daemon
 type gpsd, domain;
-permissive_or_unconfined(gpsd)
 type gpsd_exec, exec_type, file_type;
 
 init_daemon_domain(gpsd)
