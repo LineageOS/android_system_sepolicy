@@ -78,6 +78,7 @@ typealias audio_data_file alias audio_firmware_file;
 type app_data_file, file_type, data_file_type;
 # Compatibility with type name used in Android 4.3 and 4.4.
 typealias app_data_file alias platform_app_data_file;
+typealias app_data_file alias download_file;
 # Default type for anything under /cache
 type cache_file, file_type, mlstrustedobject;
 # Type for /cache/.*\.{data|restore} and default
@@ -101,8 +102,6 @@ type security_file, file_type;
 # vary per device, so this type is used in per
 # device policy
 type bluetooth_efs_file, file_type;
-# Downloaded files
-type download_file, file_type;
 
 # Socket types
 type adbd_socket, file_type;
