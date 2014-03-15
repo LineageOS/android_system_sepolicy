@@ -76,7 +76,8 @@ type zoneinfo_data_file, file_type, data_file_type;
 typealias audio_data_file alias audio_firmware_file;
 # /data/data subdirectories - app sandboxes
 type app_data_file, file_type, data_file_type;
-type platform_app_data_file, file_type, data_file_type, mlstrustedobject;
+# Compatibility with type name used in Android 4.3 and 4.4.
+typealias app_data_file alias platform_app_data_file;
 # Default type for anything under /cache
 type cache_file, file_type, mlstrustedobject;
 # Type for /cache/.*\.{data|restore} and default

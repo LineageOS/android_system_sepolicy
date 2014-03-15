@@ -3,19 +3,14 @@
 # These rules are inherited by any domain that includes platform_app_domain().
 # Presently this consists of the four app domains corresponding to apps
 # signed by one of the four build keys: platform_app, shared_app, media_app,
-# release_app.  These app domains use platform_app_data_file rather
-# than app_data_file for their /data/data directories (as specified via
-# type= in seapp_contexts) and have greater permissions to specific
+# release_app.  These app domains have greater permissions to specific
 # directories owned by groups that are restricted to apps with
 # Android permissions that are signature|system.
 
-# App sandbox file accesses.
-allow platformappdomain platform_app_data_file:dir create_dir_perms;
-allow platformappdomain platform_app_data_file:notdevfile_class_set create_file_perms;
-allow platformappdomain platform_app_data_file:file execute;
 # Access to /data/media.
 allow platformappdomain media_rw_data_file:dir create_dir_perms;
 allow platformappdomain media_rw_data_file:file create_file_perms;
+
 # Write to /cache.
 allow platformappdomain cache_file:dir create_dir_perms;
 allow platformappdomain cache_file:file create_file_perms;
