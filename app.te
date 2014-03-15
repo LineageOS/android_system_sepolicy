@@ -98,10 +98,6 @@ allow appdomain cache_backup_file:file { read write getattr };
 # Backup ability using 'adb backup'
 allow appdomain system_data_file:lnk_file getattr;
 
-# Allow all applications to read downloaded files
-allow appdomain download_file:dir search;
-allow appdomain download_file:file r_file_perms;
-
 # Allow read/stat of /data/media files passed by Binder or local socket IPC.
 allow appdomain media_rw_data_file:file { read getattr };
 
