@@ -21,7 +21,5 @@ allow platform_app apk_private_data_file:dir search;
 # ASEC
 allow platform_app asec_apk_file:dir create_dir_perms;
 allow platform_app asec_apk_file:file create_file_perms;
-# Access download files.
-allow platform_app download_file:file rw_file_perms;
 
 # inherits from platformappdomain.te
