@@ -37,3 +37,7 @@ allow drmserver apk_data_file:sock_file unlink;
 
 # After taking a video, drmserver looks at the video file.
 r_dir_file(drmserver, media_rw_data_file)
+
+# Read resources from open apk files passed over Binder.
+allow drmserver apk_data_file:file { read getattr };
+allow drmserver asec_apk_file:file { read getattr };
