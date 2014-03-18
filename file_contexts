@@ -187,6 +187,7 @@
 /data/misc/dhcp(/.*)?           u:object_r:dhcp_data_file:s0
 /data/misc/keystore(/.*)?       u:object_r:keystore_data_file:s0
 /data/misc/media(/.*)?          u:object_r:media_data_file:s0
+/data/misc/sms(/.*)?            u:object_r:radio_data_file:s0
 /data/misc/systemkeys(/.*)?     u:object_r:systemkeys_data_file:s0
 /data/misc/vpn(/.*)?            u:object_r:vpn_data_file:s0
 /data/misc/wifi(/.*)?           u:object_r:wifi_data_file:s0
