@@ -15,8 +15,10 @@ allow hostapd wifi_data_file:sock_file { create setattr write unlink };
 
 allow hostapd netd:fd use;
 allow hostapd netd:udp_socket { read write };
+allow hostapd netd:fifo_file { read write };
+# TODO: Investigate whether these inherited sockets should be closed on exec.
 allow hostapd netd:netlink_kobject_uevent_socket { read write };
 allow hostapd netd:netlink_nflog_socket { read write };
 allow hostapd netd:netlink_route_socket { read write };
 allow hostapd netd:unix_stream_socket { read write };
-allow hostapd netd:fifo_file { read write };
+allow hostapd netd:unix_dgram_socket { read write };
