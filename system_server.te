@@ -194,6 +194,7 @@ allow system_server powerctl_prop:property_service set;
 
 # ctl interface
 allow system_server ctl_default_prop:property_service set;
+allow system_server ctl_bugreport_prop:property_service set;
 
 # Create a socket for receiving info from wpa.
 type_transition system_server wifi_data_file:sock_file system_wpa_socket;
