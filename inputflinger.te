@@ -6,3 +6,5 @@ type inputflinger_exec, exec_type, file_type;
 init_daemon_domain(inputflinger)
 binder_use(inputflinger)
 binder_service(inputflinger)
+
+binder_call(inputflinger, system_server)
