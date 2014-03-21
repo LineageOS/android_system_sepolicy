@@ -132,6 +132,7 @@ binder_service(system_server)
 r_dir_file(system_server, mediaserver)
 r_dir_file(system_server, sdcardd)
 r_dir_file(system_server, surfaceflinger)
+r_dir_file(system_server, inputflinger)
 
 # Use sockets received over binder from various services.
 allow system_server mediaserver:tcp_socket rw_socket_perms;
