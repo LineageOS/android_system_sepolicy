@@ -15,7 +15,7 @@
 
 void usage(char *arg0)
 {
-    fprintf(stderr, "%s [-e|--equiv] [-d|--diff] [-D|--dups] -P <policy file>\n", arg0);
+    fprintf(stderr, "%s [-e|--equiv] [-d|--diff] [-D|--dups] [-p|--permissive] -P <policy file>\n", arg0);
     exit(1);
 }
 
@@ -408,23 +408,41 @@ static int find_dups(policydb_t * policydb)
     return 0;
 }
 
+static int list_permissive(policydb_t * policydb)
+{
+    struct ebitmap_node *n;
+    unsigned int bit;
+
+    /*
+     * iterate over all domains and check if domain is in permissive
+     */
+    ebitmap_for_each_bit(&policydb->permissive_map, n, bit)
+    {
+        if (ebitmap_node_get_bit(n, bit)) {
+            printf("%s\n", policydb->p_type_val_to_name[bit -1]);
+        }
+    }
+    return 0;
+}
+
 int main(int argc, char **argv)
 {
     char *policy = NULL;
     struct policy_file pf;
     policydb_t policydb;
     char ch;
-    char equiv = 0, diff = 0, dups = 0;
+    char equiv = 0, diff = 0, dups = 0, permissive = 0;
 
     struct option long_options[] = {
         {"equiv", no_argument, NULL, 'e'},
         {"diff", no_argument, NULL, 'd'},
         {"dups", no_argument, NULL, 'D'},
+        {"permissive", no_argument, NULL, 'p'},
         {"policy", required_argument, NULL, 'P'},
         {NULL, 0, NULL, 0}
     };
 
-    while ((ch = getopt_long(argc, argv, "edDP:", long_options, NULL)) != -1) {
+    while ((ch = getopt_long(argc, argv, "edDpP:", long_options, NULL)) != -1) {
         switch (ch) {
         case 'e':
             equiv = 1;
@@ -435,6 +453,9 @@ int main(int argc, char **argv)
         case 'D':
             dups = 1;
             break;
+        case 'p':
+            permissive = 1;
+            break;
         case 'P':
             policy = optarg;
             break;
@@ -443,7 +464,7 @@ int main(int argc, char **argv)
         }
     }
 
-    if (!policy || (!equiv && !diff && !dups))
+    if (!policy || (!equiv && !diff && !dups && !permissive))
         usage(argv[0]);
 
     if (load_policy(policy, &policydb, &pf))
@@ -454,6 +475,9 @@ int main(int argc, char **argv)
 
     if (dups)
         find_dups(&policydb);
+
+    if (permissive)
+        list_permissive(&policydb);
 
     policydb_destroy(&policydb);
 
