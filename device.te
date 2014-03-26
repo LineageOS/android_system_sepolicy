@@ -45,6 +45,7 @@ type gps_device, dev_type;
 type qtaguid_device, dev_type;
 type watchdog_device, dev_type;
 type uhid_device, dev_type;
+type uio_device, dev_type;
 type tun_device, dev_type, mlstrustedobject;
 type usbaccessory_device, dev_type;
 type usb_device, dev_type;
