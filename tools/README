@@ -28,6 +28,19 @@ insertkeys.py
     mac_permissions.xml to public keys found in pem files.  This
     script is described further in the top-level sepolicy/README.
 
+post_process_mac_perms
+    A tool to help modify an existing mac_permissions.xml with additional app
+    certs not already found in that policy. This becomes useful when a directory
+    containing apps is searched and the certs from those apps are added to the
+    policy not already explicitly listed.
+
+    Usage:
+    post_process_mac_perms [-h] -s SEINFO -d DIR -f POLICY
+
+      -s SEINFO, --seinfo SEINFO  seinfo tag for each generated stanza
+      -d DIR, --dir DIR           Directory to search for apks
+      -f POLICY, --file POLICY    mac_permissions.xml policy file
+
 sepolicy-check
     A tool for auditing a sepolicy file for any allow rule that grants
     a given permission.
