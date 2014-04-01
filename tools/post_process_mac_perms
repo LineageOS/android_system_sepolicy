@@ -86,7 +86,7 @@ def add_leftover_certs(args):
 
     # Inline replace with new policy stanzas
     for line in fileinput.input(args.policy, inplace=True):
-      print line.replace('</policy>', mac_perms_string)
+      sys.stdout.write(line.replace('</policy>', mac_perms_string))
 
 def main(argv):
   parser = argparse.ArgumentParser(description=__doc__)
