@@ -4,7 +4,10 @@ type logd_exec, exec_type, file_type;
 
 init_daemon_domain(logd)
 
-allow logd self:capability { setuid setgid sys_nice };
+allow logd self:capability { setuid setgid sys_nice audit_control };
+allow logd self:capability2 syslog;
+allow logd self:netlink_audit_socket { create_socket_perms nlmsg_write };
+allow logd kernel:system syslog_read;
 
 r_dir_file(logd, domain)
 
