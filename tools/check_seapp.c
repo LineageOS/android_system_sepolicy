@@ -487,13 +487,13 @@ static bool rule_map_validate(const rule_map *rm) {
 			name = tmp->data;
 			found_name = true;
 		}
-		if(!strcmp(tmp->name, "seinfo") && tmp->data) {
+		if(!strcmp(tmp->name, "seinfo") && tmp->data && strcmp(tmp->data, "default")) {
 			found_seinfo = true;
 		}
 	}
 
 	if(found_name && !found_seinfo) {
-		log_error("No seinfo specified with name=\"%s\", on line: %d\n",
+		log_error("No specific seinfo value specified with name=\"%s\", on line: %d:  insecure configuration!\n",
 				name, rm->lineno);
 		return false;
 	}
