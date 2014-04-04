@@ -101,6 +101,9 @@ allow appdomain system_data_file:lnk_file getattr;
 # Allow read/stat of /data/media files passed by Binder or local socket IPC.
 allow appdomain media_rw_data_file:file { read getattr };
 
+# Read /data/data/com.android.providers.telephony files passed over Binder.
+allow appdomain radio_data_file:file { read getattr };
+
 # Access SDcard.
 allow appdomain sdcard_type:dir create_dir_perms;
 allow appdomain sdcard_type:file create_file_perms;
