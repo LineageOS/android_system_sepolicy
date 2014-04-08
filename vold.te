@@ -65,7 +65,7 @@ allow vold kernel:process setsched;
 # Property Service
 allow vold vold_prop:property_service set;
 allow vold powerctl_prop:property_service set;
-allow vold ctl_default_prop:property_service set;
+allow vold ctl_fuse_prop:property_service set;
 
 # ASEC
 allow vold asec_image_file:file create_file_perms;

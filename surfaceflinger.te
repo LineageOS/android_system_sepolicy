@@ -38,7 +38,7 @@ allow surfaceflinger self:netlink_kobject_uevent_socket create_socket_perms;
 
 # Set properties.
 allow surfaceflinger system_prop:property_service set;
-allow surfaceflinger ctl_default_prop:property_service set;
+allow surfaceflinger ctl_bootanim_prop:property_service set;
 
 # Use open files supplied by an app.
 allow surfaceflinger appdomain:fd use;
