@@ -100,6 +100,8 @@ allow domain apk_data_file:file r_file_perms;
 # Read /data/dalvik-cache.
 allow domain dalvikcache_data_file:dir { search getattr };
 allow domain dalvikcache_data_file:file r_file_perms;
+allow domain dalvikcache_profiles_data_file:dir { search getattr };
+allow domain dalvikcache_profiles_data_file:file r_file_perms;
 
 # Read already opened /cache files.
 allow domain cache_file:dir r_dir_perms;
