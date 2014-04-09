@@ -56,9 +56,7 @@ allow netd dnsmasq:process signal;
 domain_auto_trans(netd, clatd_exec, clatd)
 allow netd clatd:process signal;
 
-# Support netd running mdnsd
-# TODO: prune this back further
-allow netd ctl_default_prop:property_service set;
+allow netd ctl_mdnsd_prop:property_service set;
 
 ###
 ### Neverallow rules
