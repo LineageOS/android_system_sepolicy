@@ -10,7 +10,7 @@
 ### and AID_ISOLATED_START (99000) if the app has no specific seinfo
 ### value as determined from mac_permissions.xml.  In current AOSP, this
 ### domain is assigned to all non-system apps as well as to any system apps
-### that are not signed by one of the four platform keys.  To move
+### that are not signed by the platform key.  To move
 ### a system app into a specific domain, add a signer entry for it to
 ### mac_permissions.xml and assign it one of the pre-existing seinfo values
 ### or define and use a new seinfo value in both mac_permissions.xml and
@@ -48,3 +48,19 @@ create_pty(untrusted_app)
 # Figure out a way to remove these rules.
 allow untrusted_app shell_data_file:file r_file_perms;
 allow untrusted_app shell_data_file:dir r_dir_perms;
+
+#
+# Rules migrated from old app domains coalesced into untrusted_app.
+# This includes what used to be media_app, shared_app, and release_app.
+#
+
+# Access /dev/mtp_usb.
+allow untrusted_app mtp_device:chr_file rw_file_perms;
+
+# Access to /data/media.
+allow untrusted_app media_rw_data_file:dir create_dir_perms;
+allow untrusted_app media_rw_data_file:file create_file_perms;
+
+# Write to /cache.
+allow untrusted_app cache_file:dir create_dir_perms;
+allow untrusted_app cache_file:file create_file_perms;
