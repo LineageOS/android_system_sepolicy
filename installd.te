@@ -9,6 +9,8 @@ allow installd self:capability { chown dac_override fowner fsetid setgid setuid 
 allow installd system_data_file:file create_file_perms;
 allow installd system_data_file:lnk_file create;
 allow installd dalvikcache_data_file:file create_file_perms;
+allow installd dalvikcache_profiles_data_file:dir create_dir_perms;
+allow installd dalvikcache_profiles_data_file:file create_file_perms;
 allow installd data_file_type:dir create_dir_perms;
 allow installd data_file_type:dir { relabelfrom relabelto };
 allow installd data_file_type:{ file_class_set } { getattr unlink };
