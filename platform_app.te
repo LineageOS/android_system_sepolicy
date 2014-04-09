@@ -5,7 +5,6 @@
 type platform_app, domain;
 permissive_or_unconfined(platform_app)
 app_domain(platform_app)
-platform_app_domain(platform_app)
 # Access the network.
 net_domain(platform_app)
 # Access bluetooth.
@@ -22,4 +21,10 @@ allow platform_app apk_private_data_file:dir search;
 allow platform_app asec_apk_file:dir create_dir_perms;
 allow platform_app asec_apk_file:file create_file_perms;
 
-# inherits from platformappdomain.te
+# Access to /data/media.
+allow platform_app media_rw_data_file:dir create_dir_perms;
+allow platform_app media_rw_data_file:file create_file_perms;
+
+# Write to /cache.
+allow platform_app cache_file:dir create_dir_perms;
+allow platform_app cache_file:file create_file_perms;
