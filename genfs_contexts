@@ -28,3 +28,4 @@ genfscon inotifyfs / u:object_r:inotify:s0
 genfscon vfat / u:object_r:sdcard_external:s0
 genfscon debugfs / u:object_r:debugfs:s0
 genfscon fuse / u:object_r:sdcard_internal:s0
+genfscon pstore / u:object_r:pstorefs:s0

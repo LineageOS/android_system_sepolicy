@@ -31,6 +31,7 @@ type mqueue, fs_type;
 type sdcard_internal, sdcard_type, fs_type, mlstrustedobject;
 type sdcard_external, sdcard_type, fs_type, mlstrustedobject;
 type debugfs, fs_type, mlstrustedobject;
+type pstorefs, fs_type;
 
 # File types
 type unlabeled, file_type;
