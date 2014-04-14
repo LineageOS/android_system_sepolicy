@@ -84,3 +84,7 @@ allow vold self:capability2 block_suspend;
 # talk to batteryservice
 binder_use(vold)
 binder_call(vold, healthd)
+
+# talk to keymaster
+allow vold tee_device:chr_file rw_file_perms;
+
