@@ -158,6 +158,9 @@ allow domain { asec_public_file asec_apk_file }:dir r_dir_perms;
 #
 allow domain unlabeled:notdevfile_class_set { create_file_perms relabelfrom };
 allow domain unlabeled:dir { create_dir_perms relabelfrom };
+auditallow { domain -init } unlabeled:notdevfile_class_set { create_file_perms relabelfrom };
+auditallow { domain -init -kernel } unlabeled:dir { create_dir_perms relabelfrom };
+auditallow kernel unlabeled:dir ~search;
 neverallow { domain -relabeltodomain } *:dir_file_class_set relabelto;
 
 ###
