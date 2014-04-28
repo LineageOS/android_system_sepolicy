@@ -52,6 +52,10 @@ allow appdomain app_data_file:notdevfile_class_set create_file_perms;
 allow appdomain system_data_file:dir r_dir_perms;
 allow appdomain system_data_file:file { execute execute_no_trans open };
 
+# Access to OEM provided data and apps
+allow appdomain oemfs:dir r_dir_perms;
+allow appdomain oemfs:file rx_file_perms;
+
 # Execute the shell or other system executables.
 allow appdomain shell_exec:file rx_file_perms;
 allow appdomain system_file:file rx_file_perms;
