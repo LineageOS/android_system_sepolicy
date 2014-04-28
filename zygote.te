@@ -5,7 +5,7 @@ type zygote_exec, exec_type, file_type;
 init_daemon_domain(zygote)
 typeattribute zygote mlstrustedsubject;
 # Override DAC on files and switch uid/gid.
-allow zygote self:capability { dac_override setgid setuid fowner };
+allow zygote self:capability { dac_override setgid setuid fowner chown };
 # Drop capabilities from bounding set.
 allow zygote self:capability setpcap;
 # Switch SELinux context to app domains.
@@ -20,7 +20,7 @@ allow zygote appdomain:process { getpgid setpgid };
 # Write to system data.
 allow zygote system_data_file:dir rw_dir_perms;
 allow zygote system_data_file:file create_file_perms;
-allow zygote dalvikcache_data_file:dir rw_dir_perms;
+allow zygote dalvikcache_data_file:dir create_dir_perms;
 allow zygote dalvikcache_data_file:file create_file_perms;
 # For art.
 allow zygote dalvikcache_data_file:file execute;
