@@ -39,3 +39,10 @@ allow shelldomain app_data_file:dir search;
 # ps and ps -Z output for app processes.
 r_dir_file(shelldomain, appdomain)
 allow shelldomain appdomain:process getattr;
+
+# systrace support - allow atrace to run
+# debugfs doesn't support labeling individual files, so we have
+# to grant read access to all of /sys/kernel/debug.
+# Directory read access and file write access is already granted
+# in domain.te.
+allow shelldomain debugfs:file r_file_perms;
