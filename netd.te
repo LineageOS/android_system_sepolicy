@@ -58,6 +58,10 @@ allow netd clatd:process signal;
 
 allow netd ctl_mdnsd_prop:property_service set;
 
+# Allow netd to operate on sockets that are passed to it.
+allow netd netdomain:{tcp_socket udp_socket rawip_socket dccp_socket tun_socket} {read write getattr setattr getopt setopt};
+allow netd netdomain:fd use;
+
 ###
 ### Neverallow rules
 ###
