@@ -21,7 +21,6 @@
 ###
 
 type untrusted_app, domain;
-permissive_or_unconfined(untrusted_app)
 app_domain(untrusted_app)
 net_domain(untrusted_app)
 bluetooth_domain(untrusted_app)
