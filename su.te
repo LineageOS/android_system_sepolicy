@@ -21,6 +21,9 @@ userdebug_or_eng(`
   allow su su_tmpfs:file execute;
   allow su debuggerd_prop:property_service set;
 
+  # Make su a net domain.
+  net_domain(su)
+
   # su is also permissive to permit setenforce.
   permissive su;
 
