@@ -877,7 +877,6 @@ class zygote
 {
 	specifyids
 	specifyrlimits
-	specifycapabilities
 	specifyinvokewith
 	specifyseinfo
 }
