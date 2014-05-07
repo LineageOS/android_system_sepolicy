@@ -34,8 +34,10 @@ allow installd shell_data_file:lnk_file { create setattr };
 # restorecon /data/data
 allow installd unlabeled:dir relabelfrom;
 allow installd unlabeled:notdevfile_class_set relabelfrom;
-allow installd system_data_file:dir { relabelfrom relabelto };
-allow installd system_data_file:notdevfile_class_set { relabelfrom relabelto };
+allow installd system_data_file:dir relabelfrom;
+allow installd system_data_file:notdevfile_class_set relabelfrom;
+allow installd system_app_data_file:dir { relabelfrom relabelto };
+allow installd system_app_data_file:notdevfile_class_set { relabelfrom relabelto };
 allow installd bluetooth_data_file:dir { relabelfrom relabelto };
 allow installd bluetooth_data_file:notdevfile_class_set { relabelfrom relabelto };
 allow installd nfc_data_file:dir { relabelfrom relabelto };
