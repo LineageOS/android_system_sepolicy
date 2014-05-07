@@ -109,6 +109,11 @@ allow appdomain media_rw_data_file:file { read getattr };
 # Read and write /data/data/com.android.providers.telephony files passed over Binder.
 allow appdomain radio_data_file:file { read write getattr };
 
+# Read and write system app data files passed over Binder.
+# Motivating case was /data/data/com.android.settings/cache/*.jpg for
+# cropping or taking user photos.
+allow untrusted_app system_app_data_file:file { read write getattr };
+
 # Access SDcard.
 allow appdomain sdcard_type:dir create_dir_perms;
 allow appdomain sdcard_type:file create_file_perms;
