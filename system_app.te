@@ -9,10 +9,9 @@ app_domain(system_app)
 net_domain(system_app)
 binder_service(system_app)
 
-# Read and write system data files.
-# May want to split into separate types.
-allow system_app system_data_file:dir create_dir_perms;
-allow system_app system_data_file:file create_file_perms;
+# Read and write /data/data subdirectory.
+allow system_app system_app_data_file:dir create_dir_perms;
+allow system_app system_app_data_file:file create_file_perms;
 
 # Read wallpaper file.
 allow system_app wallpaper_file:file r_file_perms;
