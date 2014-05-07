@@ -30,6 +30,9 @@ allow surfaceflinger gpu_device:chr_file rw_file_perms;
 allow surfaceflinger graphics_device:dir search;
 allow surfaceflinger graphics_device:chr_file rw_file_perms;
 
+# Access ADF device nodes.
+allow surfaceflinger adf_device:chr_file rw_file_perms;
+
 # Access /dev/video1.
 allow surfaceflinger video_device:dir r_dir_perms;
 allow surfaceflinger video_device:chr_file rw_file_perms;
