@@ -23,6 +23,7 @@ allow healthd sysfs:file write;
 ### healthd: charger mode
 ###
 
+allow healthd adf_device:chr_file rw_file_perms;
 allow healthd graphics_device:dir r_dir_perms;
 allow healthd graphics_device:chr_file rw_file_perms;
 allow healthd input_device:dir r_dir_perms;
