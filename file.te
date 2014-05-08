@@ -14,7 +14,7 @@ type proc_net, fs_type;
 type proc_sysrq, fs_type;
 type selinuxfs, fs_type;
 type cgroup, fs_type, mlstrustedobject;
-type sysfs, fs_type, mlstrustedobject;
+type sysfs, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_bluetooth_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_nfc_power_writable, fs_type, sysfs_type, mlstrustedobject;
