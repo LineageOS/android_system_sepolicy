@@ -132,11 +132,6 @@ allow appdomain dalvikcache_data_file:file execute;
 # /data/dalvik-cache/profiles
 allow appdomain dalvikcache_profiles_data_file:file write;
 
-# For legacy unlabeled userdata on existing devices.
-# See discussion of Unlabeled files in domain.te for more information.
-allow appdomain unlabeled:file x_file_perms;
-auditallow appdomain unlabeled:file x_file_perms;
-
 ###
 ### CTS-specific rules
 ###
