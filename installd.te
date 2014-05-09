@@ -5,15 +5,8 @@ type installd_exec, exec_type, file_type;
 init_daemon_domain(installd)
 typeattribute installd mlstrustedsubject;
 allow installd self:capability { chown dac_override fowner fsetid setgid setuid };
-allow installd system_data_file:file create_file_perms;
-allow installd system_data_file:lnk_file create;
-allow installd dalvikcache_data_file:file create_file_perms;
-allow installd dalvikcache_profiles_data_file:dir create_dir_perms;
-allow installd dalvikcache_profiles_data_file:file create_file_perms;
-allow installd { data_file_type -keystore_data_file }:dir create_dir_perms;
-allow installd { data_file_type -keystore_data_file }:dir { relabelfrom relabelto };
-allow installd { data_file_type -keystore_data_file }:{ file_class_set } { getattr unlink };
 allow installd apk_data_file:file r_file_perms;
+allow installd asec_apk_file:file r_file_perms;
 allow installd apk_tmp_file:file r_file_perms;
 allow installd oemfs:dir r_dir_perms;
 allow installd oemfs:file r_file_perms;
@@ -23,28 +16,48 @@ allow installd cgroup:dir create_dir_perms;
 selinux_check_context(installd)
 # Read /seapp_contexts and /data/security/seapp_contexts
 security_access_policy(installd)
-# ASEC
-allow installd app_data_file:lnk_file { create setattr };
-allow installd asec_apk_file:file r_file_perms;
-allow installd bluetooth_data_file:lnk_file { create setattr };
-allow installd nfc_data_file:lnk_file { create setattr };
-allow installd radio_data_file:lnk_file { create setattr };
-allow installd shell_data_file:lnk_file { create setattr };
-allow installd system_app_data_file:lnk_file { create setattr };
-# restorecon /data/data
-allow installd unlabeled:dir relabelfrom;
-allow installd unlabeled:notdevfile_class_set relabelfrom;
+
+# Create /data/user and /data/user/0 if necessary.
+# Also required to initially create /data/data subdirectories
+# and lib symlinks before the setfilecon call.  May want to
+# move symlink creation after setfilecon in installd.
+allow installd system_data_file:dir create_dir_perms;
+allow installd system_data_file:lnk_file { create setattr unlink };
+
+# Upgrade /data/media for multi-user if necessary.
+allow installd media_rw_data_file:dir create_dir_perms;
+# restorecon new /data/media directory.
 allow installd system_data_file:dir relabelfrom;
-allow installd system_data_file:notdevfile_class_set relabelfrom;
-allow installd system_app_data_file:dir { relabelfrom relabelto };
-allow installd system_app_data_file:notdevfile_class_set { relabelfrom relabelto };
-allow installd bluetooth_data_file:dir { relabelfrom relabelto };
-allow installd bluetooth_data_file:notdevfile_class_set { relabelfrom relabelto };
-allow installd nfc_data_file:dir { relabelfrom relabelto };
-allow installd nfc_data_file:notdevfile_class_set { relabelfrom relabelto };
-allow installd radio_data_file:dir { relabelfrom relabelto };
-allow installd radio_data_file:notdevfile_class_set { relabelfrom relabelto };
-allow installd app_data_file:dir { relabelfrom relabelto };
-allow installd app_data_file:notdevfile_class_set { relabelfrom relabelto };
-allow installd shell_data_file:dir { relabelfrom relabelto };
-allow installd shell_data_file:notdevfile_class_set { relabelfrom relabelto };
+allow installd media_rw_data_file:dir relabelto;
+
+# Create /data/.layout_version.* file
+allow installd system_data_file:file create_file_perms;
+
+# Create files under /data/dalvik-cache.
+allow installd dalvikcache_data_file:dir create_dir_perms;
+allow installd dalvikcache_data_file:file create_file_perms;
+
+# Create /data/dalvik-cache/profiles.
+allow installd dalvikcache_data_file:dir relabelfrom;
+allow installd dalvikcache_profiles_data_file:dir relabelto;
+allow installd dalvikcache_profiles_data_file:dir rw_dir_perms;
+allow installd dalvikcache_profiles_data_file:file create_file_perms;
+
+# Upgrade from unlabeled userdata.
+# Just need enough to relabel it.
+allow installd unlabeled:dir { getattr search relabelfrom };
+allow installd unlabeled:notdevfile_class_set { getattr relabelfrom };
+
+# Upgrade from before system_app_data_file was used for system UID apps.
+# Just need enough to relabel it.
+# Directory access covered by earlier rule above.
+allow installd system_data_file:notdevfile_class_set { getattr relabelfrom };
+
+# Manage /data/data subdirectories, including initially labeling them
+# upon creation via setfilecon or running restorecon_recursive,
+# setting owner/mode, creating symlinks within them, and deleting them
+# upon package uninstall.
+# Types extracted from seapp_contexts type= fields.
+allow installd { system_app_data_file bluetooth_data_file nfc_data_file radio_data_file shell_data_file app_data_file }:dir { create_dir_perms relabelfrom relabelto };
+allow installd { system_app_data_file bluetooth_data_file nfc_data_file radio_data_file shell_data_file app_data_file }:lnk_file { create setattr getattr unlink relabelfrom relabelto };
+allow installd { system_app_data_file bluetooth_data_file nfc_data_file radio_data_file shell_data_file app_data_file }:{ file sock_file fifo_file } { getattr unlink relabelfrom relabelto };
