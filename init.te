@@ -23,3 +23,8 @@ allow init recovery:process transition;
 allow init shell:process transition;
 allow init ueventd:process transition;
 allow init watchdogd:process transition;
+
+# Init creates keystore's directory on boot, and walks through
+# the directory as part of a recursive restorecon.
+allow init keystore_data_file:dir { open create read getattr setattr search };
+allow init keystore_data_file:file { getattr };
