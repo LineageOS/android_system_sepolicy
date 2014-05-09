@@ -5,7 +5,6 @@ allow kernel init:process dyntransition;
 
 # The kernel is unconfined.
 unconfined_domain(kernel)
-relabelto_domain(kernel)
 
 allow kernel {fs_type dev_type file_type}:dir_file_class_set relabelto;
 allow kernel unlabeled:filesystem mount;

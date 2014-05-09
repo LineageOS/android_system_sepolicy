@@ -3,7 +3,6 @@ type init, domain;
 # init is unconfined.
 unconfined_domain(init)
 tmpfs_domain(init)
-relabelto_domain(init)
 # add a rule to handle unlabelled mounts
 allow init unlabeled:filesystem mount;
 

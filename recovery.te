@@ -2,7 +2,6 @@
 type recovery, domain;
 allow recovery rootfs:file entrypoint;
 unconfined_domain(recovery)
-relabelto_domain(recovery)
 
 allow recovery self:capability2 mac_admin;
 

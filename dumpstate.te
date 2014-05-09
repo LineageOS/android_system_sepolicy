@@ -5,7 +5,6 @@ type dumpstate_exec, exec_type, file_type;
 
 init_daemon_domain(dumpstate)
 net_domain(dumpstate)
-relabelto_domain(dumpstate)
 binder_use(dumpstate)
 
 # Drop privileges by switching UID / GID

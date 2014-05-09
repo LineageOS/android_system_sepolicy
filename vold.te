@@ -71,7 +71,6 @@ allow vold ctl_fuse_prop:property_service set;
 allow vold asec_image_file:file create_file_perms;
 allow vold asec_image_file:dir rw_dir_perms;
 security_access_policy(vold)
-relabelto_domain(vold)
 allow vold asec_apk_file:dir { rw_dir_perms setattr relabelfrom };
 allow vold asec_public_file:dir { relabelto setattr };
 allow vold asec_apk_file:file { r_file_perms setattr relabelfrom };
