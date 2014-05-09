@@ -168,8 +168,8 @@ allow system_server adbd_socket:sock_file rw_file_perms;
 allow system_server tun_device:chr_file rw_file_perms;
 
 # Manage data files.
-allow system_server data_file_type:dir create_dir_perms;
-allow system_server data_file_type:notdevfile_class_set create_file_perms;
+allow system_server { data_file_type -keystore_data_file }:dir create_dir_perms;
+allow system_server { data_file_type -keystore_data_file }:notdevfile_class_set create_file_perms;
 
 # Read /file_contexts and /data/security/file_contexts
 security_access_policy(system_server)
