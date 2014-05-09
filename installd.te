@@ -3,7 +3,6 @@ type installd, domain;
 type installd_exec, exec_type, file_type;
 
 init_daemon_domain(installd)
-relabelto_domain(installd)
 typeattribute installd mlstrustedsubject;
 allow installd self:capability { chown dac_override fowner fsetid setgid setuid };
 allow installd system_data_file:file create_file_perms;
