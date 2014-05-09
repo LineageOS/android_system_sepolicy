@@ -64,6 +64,3 @@ attribute bluetoothdomain;
 
 # All domains used for binder service domains.
 attribute binderservicedomain;
-
-# All domains which are allowed the "relabelto" permission
-attribute relabeltodomain;

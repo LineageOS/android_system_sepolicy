@@ -146,9 +146,6 @@ allow domain { asec_public_file asec_apk_file }:dir r_dir_perms;
 ### neverallow rules
 ###
 
-# Limit ability to relabel files to domains marked with relabelto_domain().
-neverallow { domain -relabeltodomain } *:dir_file_class_set relabelto;
-
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
 # with other UIDs to these whitelisted domains.
 neverallow { domain -debuggerd -vold -dumpstate -system_server } self:capability sys_ptrace;

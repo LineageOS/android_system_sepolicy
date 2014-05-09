@@ -112,13 +112,6 @@ allow $1 $1_tmpfs:file execute;
 ')
 
 #####################################
-# relabelto_domain(domain)
-# Allows this domain to use the relabelto permission
-define(`relabelto_domain', `
-typeattribute $1 relabeltodomain;
-')
-
-#####################################
 # net_domain(domain)
 # Allow a base set of permissions required for network access.
 define(`net_domain', `

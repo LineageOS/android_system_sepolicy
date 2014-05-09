@@ -175,7 +175,6 @@ allow system_server { data_file_type -keystore_data_file }:notdevfile_class_set 
 security_access_policy(system_server)
 
 # Relabel apk files.
-relabelto_domain(system_server)
 allow system_server { apk_tmp_file apk_private_tmp_file }:file { relabelfrom relabelto };
 allow system_server { apk_data_file apk_private_data_file }:file { relabelfrom relabelto };
 
