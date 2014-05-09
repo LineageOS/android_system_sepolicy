@@ -31,6 +31,7 @@ allow installd bluetooth_data_file:lnk_file { create setattr };
 allow installd nfc_data_file:lnk_file { create setattr };
 allow installd radio_data_file:lnk_file { create setattr };
 allow installd shell_data_file:lnk_file { create setattr };
+allow installd system_app_data_file:lnk_file { create setattr };
 # restorecon /data/data
 allow installd unlabeled:dir relabelfrom;
 allow installd unlabeled:notdevfile_class_set relabelfrom;
