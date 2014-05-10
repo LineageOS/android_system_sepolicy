@@ -3,7 +3,6 @@
 ###
 
 type platform_app, domain;
-permissive_or_unconfined(platform_app)
 app_domain(platform_app)
 # Access the network.
 net_domain(platform_app)
