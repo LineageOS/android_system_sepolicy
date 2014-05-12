@@ -11,7 +11,9 @@ allow kernel unlabeled:filesystem mount;
 allow kernel fs_type:filesystem *;
 
 # Initial setenforce by init prior to switching to init domain.
-allow kernel self:security setenforce;
+# We use dontaudit instead of allow to prevent a kernel spawned userspace
+# process from turning off SELinux once enabled.
+dontaudit kernel self:security setenforce;
 
 # Set checkreqprot by init.rc prior to switching to init domain.
 allow kernel self:security setcheckreqprot;
