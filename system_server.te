@@ -67,9 +67,6 @@ allow system_server self:netlink_kobject_uevent_socket create_socket_perms;
 # Use generic netlink sockets.
 allow system_server self:netlink_socket create_socket_perms;
 
-# Use generic netlink sockets.
-allow system_server self:netlink_socket create_socket_perms;
-
 # Kill apps.
 allow system_server appdomain:process { sigkill signal };
 
@@ -136,10 +133,6 @@ r_dir_file(system_server, mediaserver)
 r_dir_file(system_server, sdcardd)
 r_dir_file(system_server, surfaceflinger)
 r_dir_file(system_server, inputflinger)
-
-# Use sockets received over binder from various services.
-allow system_server mediaserver:tcp_socket rw_socket_perms;
-allow system_server mediaserver:udp_socket rw_socket_perms;
 
 # Use sockets received over binder from various services.
 allow system_server mediaserver:tcp_socket rw_socket_perms;
@@ -311,9 +304,6 @@ allow system_server backup_data_file:dir { relabelto relabelfrom };
 allow system_server cache_backup_file:file { relabelto relabelfrom };
 # LocalTransport creates and relabels /cache/backup
 allow system_server cache_backup_file:dir { relabelto relabelfrom create_dir_perms };
-
-# Access SDcard files passed via binder or sockets.
-allow system_server sdcard_type:file { read write getattr };
 
 # Allow system to talk to usb device
 allow system_server usb_device:chr_file rw_file_perms;
