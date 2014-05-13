@@ -44,6 +44,9 @@ allow mediaserver asec_apk_file:file { read getattr };
 # Read /data/data/com.android.providers.telephony files passed over Binder.
 allow mediaserver radio_data_file:file { read getattr };
 
+# Use pipes passed over Binder from app domains.
+allow mediaserver appdomain:fifo_file { getattr read write };
+
 # Access camera device.
 allow mediaserver camera_device:chr_file rw_file_perms;
 allow mediaserver rpmsg_device:chr_file rw_file_perms;
