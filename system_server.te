@@ -138,10 +138,6 @@ r_dir_file(system_server, inputflinger)
 allow system_server mediaserver:tcp_socket rw_socket_perms;
 allow system_server mediaserver:udp_socket rw_socket_perms;
 
-# Use sockets received over binder from various services.
-allow system_server mediaserver:tcp_socket rw_socket_perms;
-allow system_server mediaserver:udp_socket rw_socket_perms;
-
 # Check SELinux permissions.
 selinux_check_access(system_server)
 
