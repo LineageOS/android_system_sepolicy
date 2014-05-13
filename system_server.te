@@ -67,9 +67,6 @@ allow system_server self:netlink_kobject_uevent_socket create_socket_perms;
 # Use generic netlink sockets.
 allow system_server self:netlink_socket create_socket_perms;
 
-# Use generic netlink sockets.
-allow system_server self:netlink_socket create_socket_perms;
-
 # Kill apps.
 allow system_server appdomain:process { sigkill signal };
 
