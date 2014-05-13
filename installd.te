@@ -31,7 +31,8 @@ allow installd system_data_file:dir relabelfrom;
 allow installd media_rw_data_file:dir relabelto;
 
 # Create /data/.layout_version.* file
-allow installd system_data_file:file create_file_perms;
+type_transition installd system_data_file:file install_data_file;
+allow installd install_data_file:file create_file_perms;
 
 # Create files under /data/dalvik-cache.
 allow installd dalvikcache_data_file:dir create_dir_perms;
@@ -49,9 +50,9 @@ allow installd unlabeled:dir { getattr search relabelfrom };
 allow installd unlabeled:notdevfile_class_set { getattr relabelfrom };
 
 # Upgrade from before system_app_data_file was used for system UID apps.
-# Just need enough to relabel it.
+# Just need enough to relabel it and to unlink removed package files.
 # Directory access covered by earlier rule above.
-allow installd system_data_file:notdevfile_class_set { getattr relabelfrom };
+allow installd system_data_file:notdevfile_class_set { getattr relabelfrom unlink };
 
 # Manage /data/data subdirectories, including initially labeling them
 # upon creation via setfilecon or running restorecon_recursive,
