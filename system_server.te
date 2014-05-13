@@ -245,9 +245,6 @@ allow system_server cache_backup_file:file { relabelto relabelfrom };
 # LocalTransport creates and relabels /cache/backup
 allow system_server cache_backup_file:dir { relabelto relabelfrom create_dir_perms };
 
-# Access SDcard files passed via binder or sockets.
-allow system_server sdcard_type:file { read write getattr };
-
 # Allow system to talk to usb device
 allow system_server usb_device:chr_file rw_file_perms;
 allow system_server usb_device:dir r_dir_perms;
