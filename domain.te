@@ -153,6 +153,9 @@ neverallow { domain -debuggerd -vold -dumpstate -system_server } self:capability
 # Limit device node creation and raw I/O to these whitelisted domains.
 neverallow { domain -kernel -init -recovery -ueventd -watchdogd -healthd -vold -uncrypt } self:capability { sys_rawio mknod };
 
+# No process can map low memory (< CONFIG_LSM_MMAP_MIN_ADDR).
+neverallow domain self:memprotect mmap_zero;
+
 # No domain needs mac_override as it is unused by SELinux.
 neverallow domain self:capability2 mac_override;
 
