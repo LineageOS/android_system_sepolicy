@@ -18,5 +18,8 @@ allow netdomain self:netlink_route_socket { create_socket_perms nlmsg_read };
 # Talks to netd via dnsproxyd socket.
 unix_socket_connect(netdomain, dnsproxyd, netd)
 
+# Talks to netd via fwmarkd socket.
+unix_socket_connect(netdomain, fwmarkd, netd)
+
 # Connect to mdnsd via mdnsd socket.
 unix_socket_connect(netdomain, mdnsd, mdnsd)
