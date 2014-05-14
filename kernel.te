@@ -17,10 +17,3 @@ dontaudit kernel self:security setenforce;
 
 # Set checkreqprot by init.rc prior to switching to init domain.
 allow kernel self:security setcheckreqprot;
-
-# For operations performed by kernel or init prior to switching to init domain.
-## TODO: Investigate whether it is safe to remove these
-allow kernel self:capability { sys_rawio mknod };
-auditallow kernel self:capability { sys_rawio mknod };
-allow kernel dev_type:blk_file rw_file_perms;
-auditallow kernel dev_type:blk_file rw_file_perms;
