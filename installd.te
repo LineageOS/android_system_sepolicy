@@ -17,6 +17,9 @@ selinux_check_context(installd)
 # Read /seapp_contexts and /data/security/seapp_contexts
 security_access_policy(installd)
 
+# Search /data/app-asec.
+allow installd asec_image_file:dir search;
+
 # Create /data/user and /data/user/0 if necessary.
 # Also required to initially create /data/data subdirectories
 # and lib symlinks before the setfilecon call.  May want to
@@ -26,6 +29,7 @@ allow installd system_data_file:lnk_file { create setattr unlink };
 
 # Upgrade /data/media for multi-user if necessary.
 allow installd media_rw_data_file:dir create_dir_perms;
+allow installd media_rw_data_file:file unlink;
 # restorecon new /data/media directory.
 allow installd system_data_file:dir relabelfrom;
 allow installd media_rw_data_file:dir relabelto;
