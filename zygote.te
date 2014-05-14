@@ -17,11 +17,10 @@ allow zygote appdomain:file { r_file_perms };
 # Move children into the peer process group.
 allow zygote system_server:process { getpgid setpgid };
 allow zygote appdomain:process { getpgid setpgid };
-# Write to system data.
-allow zygote system_data_file:dir rw_dir_perms;
-allow zygote system_data_file:file create_file_perms;
-auditallow zygote system_data_file:dir { write add_name remove_name };
-auditallow zygote system_data_file:file { create setattr write append link unlink rename };
+# Read system data.
+allow zygote system_data_file:dir r_dir_perms;
+allow zygote system_data_file:file r_file_perms;
+# Write to /data/dalvik-cache.
 allow zygote dalvikcache_data_file:dir create_dir_perms;
 allow zygote dalvikcache_data_file:file create_file_perms;
 # For art.
