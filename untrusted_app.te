@@ -63,3 +63,11 @@ allow untrusted_app media_rw_data_file:file create_file_perms;
 # Write to /cache.
 allow untrusted_app cache_file:dir create_dir_perms;
 allow untrusted_app cache_file:file create_file_perms;
+
+###
+### neverallow rules
+###
+
+# Too much leaky information in debugfs. It's a security
+# best practice to ensure these files aren't readable.
+neverallow untrusted_app debugfs:file read;
