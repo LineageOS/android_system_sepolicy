@@ -241,10 +241,6 @@ neverallow { appdomain -unconfineddomain } { domain -appdomain }:process
 neverallow { appdomain -shell -unconfineddomain } ~appdomain:process
     { transition dyntransition };
 
-# Map low memory.
-# Note: Take to domain.te and apply to all domains in the future.
-neverallow { appdomain -unconfineddomain } self:memprotect mmap_zero;
-
 # Write to rootfs.
 neverallow { appdomain -unconfineddomain } rootfs:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
