@@ -142,6 +142,18 @@ allow domain security_file:lnk_file r_file_perms;
 allow domain asec_public_file:file r_file_perms;
 allow domain { asec_public_file asec_apk_file }:dir r_dir_perms;
 
+######## Backwards compatibility - Unlabeled files ############
+
+# Revert to DAC rules when looking at unlabeled files. Over time, the number
+# of unlabeled files should decrease.
+# TODO: delete these rules in the future.
+#
+allow domain unlabeled:notdevfile_class_set { create_file_perms relabelfrom };
+allow domain unlabeled:dir { create_dir_perms relabelfrom };
+auditallow { domain -init } unlabeled:notdevfile_class_set { create_file_perms relabelfrom };
+auditallow { domain -init -kernel } unlabeled:dir { create_dir_perms relabelfrom };
+auditallow kernel unlabeled:dir ~search;
+
 ###
 ### neverallow rules
 ###
