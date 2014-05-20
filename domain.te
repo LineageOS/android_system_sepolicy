@@ -64,7 +64,7 @@ allow domain device:file read;
 allow domain socket_device:dir r_dir_perms;
 allow domain owntty_device:chr_file rw_file_perms;
 allow domain null_device:chr_file rw_file_perms;
-allow domain zero_device:chr_file r_file_perms;
+allow domain zero_device:chr_file rw_file_perms;
 allow domain ashmem_device:chr_file rw_file_perms;
 allow domain binder_device:chr_file rw_file_perms;
 allow domain ptmx_device:chr_file rw_file_perms;
