@@ -232,3 +232,17 @@ neverallow { domain -unconfineddomain -ueventd } device:chr_file { open read wri
 # sdcard_type / vfat is exempt as a larger set of domains need
 # this capability, including device-specific domains.
 neverallow { domain -kernel -init -recovery -vold -zygote } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
+
+#
+# Assert that, to the extent possible, we're not loading executable content from
+# outside the /system partition except for a few whitelisted domains.
+#
+neverallow {
+    domain
+    -appdomain
+    -dumpstate
+    -shelldomain
+    userdebug_or_eng(`-su')
+    -system_server
+    -zygote
+} { file_type -system_file -exec_type }:file execute;
