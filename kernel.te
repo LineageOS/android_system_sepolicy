@@ -1,6 +1,8 @@
 # Life begins with the kernel.
 type kernel, domain;
 
+# setcon to init domain.
+allow kernel self:process setcurrent;
 allow kernel init:process dyntransition;
 
 # The kernel is unconfined.

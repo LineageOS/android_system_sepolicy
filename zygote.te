@@ -9,6 +9,7 @@ allow zygote self:capability { dac_override setgid setuid fowner chown };
 # Drop capabilities from bounding set.
 allow zygote self:capability setpcap;
 # Switch SELinux context to app domains.
+allow zygote self:process setcurrent;
 allow zygote system_server:process dyntransition;
 allow zygote appdomain:process dyntransition;
 # Allow zygote to read app /proc/pid dirs (b/10455872)
