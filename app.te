@@ -15,7 +15,8 @@ allow appdomain ashmem_device:chr_file execute;
 allow appdomain zygote:fd use;
 
 # gdbserver for ndk-gdb reads the zygote.
-allow appdomain zygote_exec:file r_file_perms;
+# valgrind needs mmap exec for zygote
+allow appdomain zygote_exec:file rx_file_perms;
 
 # gdbserver for ndk-gdb ptrace attaches to app process.
 allow appdomain self:process ptrace;
