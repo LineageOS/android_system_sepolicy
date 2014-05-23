@@ -21,4 +21,5 @@ allow runas self:capability { setuid setgid };
 # read /seapp_contexts and /data/security/seapp_contexts
 security_access_policy(runas)
 selinux_check_context(runas) # validate context
+allow runas self:process setcurrent;
 allow runas non_system_app_set:process dyntransition; # setcon

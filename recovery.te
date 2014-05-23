@@ -15,3 +15,6 @@ allow recovery dev_type:blk_file rw_file_perms;
 allow recovery self:process execmem;
 allow recovery ashmem_device:chr_file execute;
 allow recovery tmpfs:file rx_file_perms;
+
+# Use setfscreatecon() to label files for OTA updates.
+allow recovery self:process setfscreate;

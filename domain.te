@@ -11,7 +11,7 @@ allow domain tmpfs:file { read getattr };
 allow domain tmpfs:dir r_dir_perms;
 
 # Intra-domain accesses.
-allow domain self:process ~{ execmem execstack execheap ptrace };
+allow domain self:process ~{ execmem execstack execheap ptrace setexec setfscreate setcurrent setkeycreate setsockcreate };
 allow domain self:fd use;
 allow domain self:dir r_dir_perms;
 allow domain self:lnk_file r_file_perms;
