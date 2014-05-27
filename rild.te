@@ -39,6 +39,6 @@ allow rild self:netlink_socket create_socket_perms;
 allow rild self:netlink_kobject_uevent_socket create_socket_perms;
 
 # Access to wake locks
-allow rild sysfs_wake_lock:file rw_file_perms;
+wakelock_use(rild)
 
 allow rild self:socket create_socket_perms;
