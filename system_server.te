@@ -53,7 +53,7 @@ allow system_server self:capability {
     sys_tty_config
 };
 
-allow system_server self:capability2 block_suspend;
+wakelock_use(system_server)
 
 # Triggered by /proc/pid accesses, not allowed.
 dontaudit system_server self:capability sys_ptrace;
@@ -315,9 +315,6 @@ allow system_server sensors_device:chr_file rw_file_perms;
 
 # Read from HW RNG (needed by EntropyMixer).
 allow system_server hw_random_device:chr_file r_file_perms;
-
-# Access to wake locks
-allow system_server sysfs_wake_lock:file rw_file_perms;
 
 # Read and delete files under /dev/fscklogs.
 r_dir_file(system_server, fscklogs)

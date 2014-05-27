@@ -174,6 +174,16 @@ typeattribute $1 binderservicedomain;
 ')
 
 #####################################
+# wakelock_use(domain)
+# Allow domain to manage wake locks
+define(`wakelock_use', `
+# Access /sys/power/wake_lock and /sys/power/wake_unlock
+allow $1 sysfs_wake_lock:file rw_file_perms;
+# Accessing these files requires CAP_BLOCK_SUSPEND
+allow $1 self:capability2 block_suspend;
+')
+
+#####################################
 # selinux_check_access(domain)
 # Allow domain to check SELinux permissions via selinuxfs.
 define(`selinux_check_access', `
