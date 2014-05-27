@@ -20,7 +20,7 @@ allow unconfineddomain self:capability ~{ sys_ptrace sys_rawio mknod sys_module 
 allow unconfineddomain self:capability2 ~{ mac_override mac_admin };
 allow unconfineddomain kernel:security ~{ load_policy setenforce setcheckreqprot setbool setsecparam };
 allow unconfineddomain kernel:system *;
-allow unconfineddomain domain:process ~{ execmem execstack execheap ptrace transition dyntransition };
+allow unconfineddomain domain:process ~{ execmem execstack execheap ptrace transition dyntransition setexec setfscreate setcurrent setkeycreate setsockcreate };
 allow unconfineddomain domain:fd *;
 allow unconfineddomain domain:dir r_dir_perms;
 allow unconfineddomain domain:lnk_file r_file_perms;
