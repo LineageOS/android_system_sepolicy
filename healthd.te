@@ -9,7 +9,7 @@ write_klog(healthd)
 allow healthd tmpfs:chr_file { read write };
 
 allow healthd self:capability { net_admin mknod sys_tty_config };
-allow healthd self:capability2 block_suspend;
+wakelock_use(healthd)
 allow healthd self:netlink_kobject_uevent_socket create_socket_perms;
 binder_use(healthd)
 binder_service(healthd)

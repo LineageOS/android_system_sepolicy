@@ -77,8 +77,7 @@ allow vold asec_apk_file:file { r_file_perms setattr relabelfrom };
 allow vold asec_public_file:file { relabelto setattr };
 
 # Handle wake locks (used for device encryption)
-allow vold sysfs_wake_lock:file rw_file_perms;
-allow vold self:capability2 block_suspend;
+wakelock_use(vold)
 
 # talk to batteryservice
 binder_use(vold)
