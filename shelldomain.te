@@ -32,3 +32,6 @@ allow shelldomain powerctl_prop:property_service set;
 # Directory read access and file write access is already granted
 # in domain.te.
 allow shelldomain debugfs:file r_file_perms;
+
+# allow shell to run dmesg
+allow shelldomain kernel:system syslog_read;
