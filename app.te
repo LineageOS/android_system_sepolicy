@@ -318,7 +318,9 @@ neverallow { appdomain -unconfineddomain }
 
 # Access to syslog(2) or /proc/kmsg.
 neverallow { appdomain -system_app -unconfineddomain }
-    kernel:system { syslog_read syslog_mod syslog_console };
+    kernel:system { syslog_mod syslog_console };
+neverallow { appdomain -system_app -unconfineddomain -shelldomain }
+    kernel:system syslog_read;
 
 # Ability to perform any filesystem operation other than statfs(2).
 # i.e. no mount(2), unmount(2), etc.
