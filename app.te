@@ -133,6 +133,10 @@ allow appdomain dalvikcache_data_file:file execute;
 # /data/dalvik-cache/profiles
 allow appdomain dalvikcache_profiles_data_file:file write;
 
+# Allow any app to read shared RELRO files.
+allow appdomain shared_relro_file:dir search;
+allow appdomain shared_relro_file:file r_file_perms;
+
 ###
 ### CTS-specific rules
 ###
