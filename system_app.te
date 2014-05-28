@@ -13,6 +13,15 @@ binder_service(system_app)
 allow system_app system_app_data_file:dir create_dir_perms;
 allow system_app system_app_data_file:file create_file_perms;
 
+# Read and write to other system-owned /data directories, such as
+# /data/system/cache and /data/misc/keychain.
+allow system_app system_data_file:dir create_dir_perms;
+allow system_app system_data_file:file create_file_perms;
+# Audit writes to these directories and files so we can identify
+# and possibly move these directories into their own type in the future.
+auditallow system_app system_data_file:dir { create setattr add_name remove_name rmdir rename };
+auditallow system_app system_data_file:file { create setattr append write link unlink rename };
+
 # Read wallpaper file.
 allow system_app wallpaper_file:file r_file_perms;
 
