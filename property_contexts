@@ -14,6 +14,7 @@ net.dns                 u:object_r:radio_prop:s0
 sys.usb.config          u:object_r:radio_prop:s0
 
 ril.                    u:object_r:rild_prop:s0
+ril.cdma                u:object_r:radio_prop:s0
 
 net.                    u:object_r:system_prop:s0
 dev.                    u:object_r:system_prop:s0
