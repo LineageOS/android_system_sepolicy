@@ -250,3 +250,7 @@ neverallow {
 # Only the init property service should write to /data/property.
 neverallow { domain -init } property_data_file:dir { create setattr relabelfrom rename write add_name remove_name rmdir };
 neverallow { domain -init } property_data_file:file { create setattr relabelfrom write append unlink link rename };
+
+# Only recovery should be doing writes to /system
+neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
