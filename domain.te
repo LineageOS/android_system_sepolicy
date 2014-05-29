@@ -246,3 +246,7 @@ neverallow {
     -system_server
     -zygote
 } { file_type -system_file -exec_type }:file execute;
+
+# Only the init property service should write to /data/property.
+neverallow { domain -init } property_data_file:dir { create setattr relabelfrom rename write add_name remove_name rmdir };
+neverallow { domain -init } property_data_file:file { create setattr relabelfrom write append unlink link rename };
