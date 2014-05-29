@@ -143,30 +143,12 @@ allow domain security_file:lnk_file r_file_perms;
 allow domain asec_public_file:file r_file_perms;
 allow domain { asec_public_file asec_apk_file }:dir r_dir_perms;
 
-######## Backwards compatibility - Unlabeled files ############
-
-# Revert to DAC rules when looking at unlabeled files. Over time, the number
-# of unlabeled files should decrease.
-# TODO: delete these rules in the future.
-#
-allow domain unlabeled:notdevfile_class_set { create_file_perms relabelfrom };
-allow domain unlabeled:dir { create_dir_perms relabelfrom };
-auditallow { domain -init -installd -vold -system_server } unlabeled:notdevfile_class_set { create_file_perms relabelfrom };
-auditallow { domain -init -kernel -installd -vold -system_server } unlabeled:dir { create_dir_perms relabelfrom };
-auditallow kernel unlabeled:dir ~search;
-auditallow installd unlabeled:dir ~{ getattr search relabelfrom rw_dir_perms rmdir };
-auditallow installd unlabeled:file ~{ r_file_perms getattr relabelfrom rename unlink setattr };
-auditallow installd unlabeled:{ lnk_file sock_file fifo_file } ~{ getattr relabelfrom rename unlink setattr };
-auditallow vold unlabeled:dir ~{ r_dir_perms setattr relabelfrom };
-auditallow vold unlabeled:file ~{ r_file_perms setattr relabelfrom };
-auditallow vold unlabeled:{ lnk_file sock_file fifo_file } { create_file_perms relabelfrom };
-auditallow system_server unlabeled:dir ~r_dir_perms;
-auditallow system_server unlabeled:file ~r_file_perms;
-auditallow system_server unlabeled:{ lnk_file sock_file fifo_file } { create_file_perms relabelfrom };
-
 ###
 ### neverallow rules
 ###
+
+# Do not allow any confined domain to create new unlabeled files.
+neverallow { domain -unconfineddomain } unlabeled:dir_file_class_set create;
 
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
 # with other UIDs to these whitelisted domains.
