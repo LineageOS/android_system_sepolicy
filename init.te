@@ -3,17 +3,30 @@ type init, domain;
 # init is unconfined.
 unconfined_domain(init)
 tmpfs_domain(init)
-# add a rule to handle unlabelled mounts
-allow init unlabeled:filesystem mount;
 
 allow init self:capability { sys_rawio mknod };
 
+# Running e2fsck or mkswap via fs_mgr.
 allow init dev_type:blk_file rw_file_perms;
+
+# Mounting filesystems.
 allow init fs_type:filesystem *;
-allow init {fs_type dev_type}:dir_file_class_set relabelto;
+allow init unlabeled:filesystem *;
+
+# restorecon and restorecon_recursive calls from init.rc files.
+# system/core/init.rc requires at least cache_file and data_file_type.
+# init.<board>.rc files often include device-specific types, so
+# we just allow all file types except /system files here.
 allow init {file_type -system_file -exec_type}:dir_file_class_set relabelto;
+
+# Reload policy upon setprop selinux.reload_policy 1.
 allow init kernel:security load_policy;
+
+# Any operation that can modify the kernel ring buffer, e.g. clear
+# or a read that consumes the messages that were read.
 allow init kernel:system syslog_mod;
+
+# Set usermodehelpers and /proc security settings.
 allow init usermodehelper:file rw_file_perms;
 allow init proc_security:file rw_file_perms;
 
