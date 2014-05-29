@@ -64,6 +64,8 @@ type dalvikcache_profiles_data_file, file_type, data_file_type;
 type shell_data_file, file_type, data_file_type;
 # /data/gps
 type gps_data_file, file_type, data_file_type;
+# /data/property
+type property_data_file, file_type, data_file_type;
 
 # /data/misc subdirectories
 type adb_keys_file, file_type, data_file_type;

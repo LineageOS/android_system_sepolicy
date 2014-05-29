@@ -34,3 +34,7 @@ allow init keystore_data_file:file { getattr };
 # setfscreate is for labeling directories and socket files.
 # setsockcreate is for labeling local/unix domain sockets.
 allow init self:process { setexec setfscreate setsockcreate };
+
+# Create /data/property and files within it.
+allow init property_data_file:dir create_dir_perms;
+allow init property_data_file:file create_file_perms;
