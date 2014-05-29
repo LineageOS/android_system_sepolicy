@@ -5,11 +5,12 @@ unconfined_domain(recovery)
 
 allow recovery self:capability2 mac_admin;
 
-allow recovery {dev_type -kmem_device}:dir_file_class_set relabelto;
-allow recovery {fs_type file_type}:dir_file_class_set relabelto;
-allow recovery unlabeled:filesystem mount;
+# Mount filesystems.
 allow recovery fs_type:filesystem *;
+allow recovery unlabeled:filesystem *;
 
+
+# Create and relabel files under /system.
 allow recovery exec_type:{ file dir lnk_file } { create write setattr relabelfrom relabelto append unlink link rename };
 allow recovery system_file:{ file dir lnk_file } { create write setattr relabelfrom relabelto append unlink link rename };
 

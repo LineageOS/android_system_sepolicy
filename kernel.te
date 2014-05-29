@@ -8,10 +8,14 @@ allow kernel init:process dyntransition;
 # The kernel is unconfined.
 unconfined_domain(kernel)
 
-allow kernel {fs_type dev_type}:dir_file_class_set relabelto;
-allow kernel {file_type -system_file -exec_type}:dir_file_class_set relabelto;
-allow kernel unlabeled:filesystem mount;
-allow kernel fs_type:filesystem *;
+# init direct restorecon calls prior to switching to init domain
+# /dev and /dev/socket
+allow kernel { device socket_device }:dir relabelto;
+# /dev/__properties__
+allow kernel properties_device:file relabelto;
+# /sys
+allow kernel sysfs:{ dir file lnk_file } relabelfrom;
+allow kernel sysfs_type:{ dir file lnk_file } relabelto;
 
 # Initial setenforce by init prior to switching to init domain.
 # We use dontaudit instead of allow to prevent a kernel spawned userspace
