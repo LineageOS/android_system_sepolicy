@@ -317,9 +317,9 @@ neverallow { appdomain -unconfineddomain }
     proc:dir_file_class_set write;
 
 # Access to syslog(2) or /proc/kmsg.
-neverallow { appdomain -system_app -unconfineddomain }
+neverallow { appdomain -system_app }
     kernel:system { syslog_mod syslog_console };
-neverallow { appdomain -system_app -unconfineddomain -shelldomain }
+neverallow { appdomain -system_app -shelldomain }
     kernel:system syslog_read;
 
 # Ability to perform any filesystem operation other than statfs(2).
