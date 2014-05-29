@@ -227,6 +227,11 @@ allow system_server zoneinfo_data_file:file create_file_perms;
 # Walk /data/data subdirectories.
 # Types extracted from seapp_contexts type= fields.
 allow system_server { system_app_data_file bluetooth_data_file nfc_data_file radio_data_file shell_data_file app_data_file }:dir { getattr read search };
+# Also permit for unlabeled /data/data subdirectories and
+# for unlabeled asec containers on upgrades from 4.2.
+allow system_server unlabeled:dir r_dir_perms;
+# Read pkg.apk file before it has been relabeled by vold.
+allow system_server unlabeled:file r_file_perms;
 
 # Populate com.android.providers.settings/databases/settings.db.
 allow system_server system_app_data_file:dir create_dir_perms;

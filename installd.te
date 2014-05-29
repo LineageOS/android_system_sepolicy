@@ -49,9 +49,11 @@ allow installd dalvikcache_profiles_data_file:dir rw_dir_perms;
 allow installd dalvikcache_profiles_data_file:file create_file_perms;
 
 # Upgrade from unlabeled userdata.
-# Just need enough to relabel it.
-allow installd unlabeled:dir { getattr search relabelfrom };
-allow installd unlabeled:notdevfile_class_set { getattr relabelfrom };
+# Just need enough to remove and/or relabel it.
+allow installd unlabeled:dir { getattr search relabelfrom rw_dir_perms rmdir };
+allow installd unlabeled:notdevfile_class_set { getattr relabelfrom rename unlink setattr };
+# Read pkg.apk file for input during dexopt.
+allow installd unlabeled:file r_file_perms;
 
 # Upgrade from before system_app_data_file was used for system UID apps.
 # Just need enough to relabel it and to unlink removed package files.
