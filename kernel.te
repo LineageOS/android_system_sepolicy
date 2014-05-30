@@ -8,6 +8,9 @@ allow kernel init:process dyntransition;
 # The kernel is unconfined.
 unconfined_domain(kernel)
 
+# cgroup filesystem initialization prior to setting the cgroup root directory label.
+allow kernel unlabeled:dir search;
+
 # init direct restorecon calls prior to switching to init domain
 # /dev and /dev/socket
 allow kernel { device socket_device }:dir relabelto;
