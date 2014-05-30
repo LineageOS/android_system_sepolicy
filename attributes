@@ -11,6 +11,9 @@ attribute domain;
 # All types used for filesystems.
 attribute fs_type;
 
+# All types used for context= mounts.
+attribute contextmount_type;
+
 # All types used for files that can exist on a labeled fs.
 # Do not use for pseudo file types.
 attribute file_type;

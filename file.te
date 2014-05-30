@@ -33,7 +33,7 @@ type sdcard_external, sdcard_type, fs_type, mlstrustedobject;
 type debugfs, fs_type, mlstrustedobject;
 type pstorefs, fs_type;
 type functionfs, fs_type;
-type oemfs, fs_type;
+type oemfs, fs_type, contextmount_type;
 type usbfs, fs_type;
 
 # File types
