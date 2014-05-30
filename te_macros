@@ -309,6 +309,12 @@ allow $1 $1_devpts:chr_file { open getattr read write ioctl };
 define(`non_system_app_set', `{ appdomain -system_app }')
 
 #####################################
+# Recovery only
+# SELinux rules which apply only to recovery mode
+#
+define(`recovery_only', ifelse(target_recovery, `true', $1, ))
+
+#####################################
 # Userdebug or eng builds
 # SELinux rules which apply only to userdebug or eng builds
 #

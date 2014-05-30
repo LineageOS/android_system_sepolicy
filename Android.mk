@@ -108,6 +108,33 @@ $(LOCAL_BUILT_MODULE) : $(sepolicy_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpol
 built_sepolicy := $(LOCAL_BUILT_MODULE)
 sepolicy_policy.conf :=
 
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := sepolicy.recovery
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := eng
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+sepolicy_policy_recovery.conf := $(intermediates)/policy_recovery.conf
+$(sepolicy_policy_recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(sepolicy_policy_recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(sepolicy_policy_recovery.conf) : $(call build_policy, security_classes initial_sids access_vectors global_macros mls_macros mls policy_capabilities te_macros attributes *.te roles users initial_sid_contexts fs_use genfs_contexts port_contexts)
+	@mkdir -p $(dir $@)
+	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
+		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
+		-D force_permissive_to_unconfined=$(FORCE_PERMISSIVE_TO_UNCONFINED) \
+		-D target_recovery=true \
+		-s $^ > $@
+
+$(LOCAL_BUILT_MODULE) : $(sepolicy_policy_recovery.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@ $<
+
+built_sepolicy_recovery := $(LOCAL_BUILT_MODULE)
+sepolicy_policy_recovery.conf :=
+
 ###################################
 include $(CLEAR_VARS)
 
