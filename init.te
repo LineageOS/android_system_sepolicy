@@ -23,7 +23,14 @@ allow init {file_type -system_file -exec_type}:dir_file_class_set relabelto;
 allow init unlabeled:dir { create_dir_perms relabelfrom };
 allow init unlabeled:notdevfile_class_set { create_file_perms relabelfrom };
 
+# Create /data/security from init.rc post-fs-data.
+allow init security_file:dir { create setattr };
+
+# setprop selinux.reload_policy 1 from init.rc post-fs-data.
+allow init security_prop:property_service set;
+
 # Reload policy upon setprop selinux.reload_policy 1.
+r_dir_file(init, security_file)
 allow init kernel:security load_policy;
 
 # Any operation that can modify the kernel ring buffer, e.g. clear
