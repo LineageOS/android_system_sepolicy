@@ -1,25 +1,36 @@
 # recovery console (used in recovery init.rc for /sbin/recovery)
+
+# Declare the domain unconditionally so we can always reference it
+# in neverallow rules.
 type recovery, domain;
-allow recovery rootfs:file entrypoint;
-unconfined_domain(recovery)
 
-allow recovery self:capability2 mac_admin;
+# But the allow rules are only included in the recovery policy.
+# Otherwise recovery is only allowed the domain rules.
+recovery_only(`
+  allow recovery rootfs:file entrypoint;
+  unconfined_domain(recovery)
 
-# Mount filesystems.
-allow recovery fs_type:filesystem *;
-allow recovery unlabeled:filesystem *;
+  # Set security contexts on files that are not known to the loaded policy.
+  allow recovery self:capability2 mac_admin;
 
+  # Mount filesystems.
+  allow recovery fs_type:filesystem *;
+  allow recovery unlabeled:filesystem *;
 
-# Create and relabel files under /system.
-allow recovery exec_type:{ file dir lnk_file } { create write setattr relabelfrom relabelto append unlink link rename };
-allow recovery system_file:{ file dir lnk_file } { create write setattr relabelfrom relabelto append unlink link rename };
+  # Create and relabel files under /system.
+  allow recovery exec_type:{ file dir lnk_file } { create write setattr relabelfrom relabelto append unlink link rename };
+  allow recovery system_file:{ file dir lnk_file } { create write setattr relabelfrom relabelto append unlink link rename };
 
-# Required to e.g. wipe userdata/cache.
-allow recovery dev_type:blk_file rw_file_perms;
+  # Required to e.g. wipe userdata/cache.
+  allow recovery dev_type:blk_file rw_file_perms;
 
-allow recovery self:process execmem;
-allow recovery ashmem_device:chr_file execute;
-allow recovery tmpfs:file rx_file_perms;
+  # GUI
+  allow recovery self:process execmem;
+  allow recovery ashmem_device:chr_file execute;
 
-# Use setfscreatecon() to label files for OTA updates.
-allow recovery self:process setfscreate;
+  # Execute /tmp/update_binary.
+  allow recovery tmpfs:file rx_file_perms;
+
+  # Use setfscreatecon() to label files for OTA updates.
+  allow recovery self:process setfscreate;
+')
