@@ -268,9 +268,6 @@ neverallow { appdomain -unconfineddomain -system_app }
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # Write to various other parts of /data.
-neverallow { appdomain -system_app -unconfineddomain }
-    security_file:dir_file_class_set
-    { create write setattr relabelfrom relabelto append unlink link rename };
 neverallow { appdomain -unconfineddomain } drm_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 neverallow { appdomain -unconfineddomain } gps_data_file:dir_file_class_set
