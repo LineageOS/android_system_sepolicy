@@ -19,6 +19,10 @@ allow init unlabeled:filesystem *;
 # we just allow all file types except /system files here.
 allow init {file_type -system_file -exec_type}:dir_file_class_set relabelto;
 
+# Unlabeled file access for upgrades from 4.2.
+allow init unlabeled:dir { create_dir_perms relabelfrom };
+allow init unlabeled:notdevfile_class_set { create_file_perms relabelfrom };
+
 # Reload policy upon setprop selinux.reload_policy 1.
 allow init kernel:security load_policy;
 
