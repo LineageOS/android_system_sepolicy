@@ -8,7 +8,7 @@ type recovery, domain;
 # Otherwise recovery is only allowed the domain rules.
 recovery_only(`
   allow recovery rootfs:file entrypoint;
-  unconfined_domain(recovery)
+  permissive_or_unconfined(recovery)
 
   # Set security contexts on files that are not known to the loaded policy.
   allow recovery self:capability2 mac_admin;
