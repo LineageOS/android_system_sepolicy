@@ -51,7 +51,7 @@ allow appdomain app_data_file:notdevfile_class_set create_file_perms;
 
 # lib subdirectory of /data/data dir is system-owned.
 allow appdomain system_data_file:dir r_dir_perms;
-allow appdomain system_data_file:file { execute execute_no_trans open };
+allow appdomain system_data_file:file { execute execute_no_trans open execmod };
 
 # Access to OEM provided data and apps
 allow appdomain oemfs:dir r_dir_perms;
