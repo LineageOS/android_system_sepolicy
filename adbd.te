@@ -44,10 +44,8 @@ unix_socket_connect(adbd, property, init)
 allow adbd shell_prop:property_service set;
 allow adbd powerctl_prop:property_service set;
 
-# XXX Run /system/bin/vdc to connect to vold.  Run in a separate domain?
-# Also covers running /system/bin/bu.
+# Run /system/bin/bu
 allow adbd system_file:file rx_file_perms;
-unix_socket_connect(adbd, vold, vold)
 
 # Perform binder IPC to surfaceflinger (screencap)
 # XXX Run screencap in a separate domain?
