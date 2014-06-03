@@ -27,7 +27,7 @@ bluetooth_domain(untrusted_app)
 
 # Some apps ship with shared libraries and binaries that they write out
 # to their sandbox directory and then execute.
-allow untrusted_app app_data_file:file rx_file_perms;
+allow untrusted_app app_data_file:file { rx_file_perms execmod };
 
 allow untrusted_app tun_device:chr_file rw_file_perms;
 
@@ -35,7 +35,7 @@ allow untrusted_app tun_device:chr_file rw_file_perms;
 allow untrusted_app asec_apk_file:dir { getattr };
 allow untrusted_app asec_apk_file:file r_file_perms;
 # Execute libs in asec containers.
-allow untrusted_app asec_public_file:file execute;
+allow untrusted_app asec_public_file:file { execute execmod };
 
 # Allow the allocation and use of ptys
 # Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
