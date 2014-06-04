@@ -10,10 +10,13 @@ recovery_only(`
   allow recovery rootfs:file entrypoint;
   permissive_or_unconfined(recovery)
 
+  allow recovery self:capability { chown dac_override fowner fsetid sys_admin };
+
   # Set security contexts on files that are not known to the loaded policy.
   allow recovery self:capability2 mac_admin;
 
   # Mount filesystems.
+  allow recovery rootfs:dir mounton;
   allow recovery fs_type:filesystem *;
   allow recovery unlabeled:filesystem *;
 
@@ -22,15 +25,32 @@ recovery_only(`
   allow recovery system_file:{ file dir lnk_file } { create write setattr relabelfrom relabelto append unlink link rename };
 
   # Required to e.g. wipe userdata/cache.
+  allow recovery block_device:dir r_dir_perms;
   allow recovery dev_type:blk_file rw_file_perms;
 
   # GUI
   allow recovery self:process execmem;
   allow recovery ashmem_device:chr_file execute;
+  allow recovery graphics_device:chr_file rw_file_perms;
+  allow recovery graphics_device:dir r_dir_perms;
+  allow recovery input_device:dir r_dir_perms;
+  allow recovery input_device:chr_file r_file_perms;
 
-  # Execute /tmp/update_binary.
-  allow recovery tmpfs:file rx_file_perms;
+  # Create /tmp/recovery.log and execute /tmp/update_binary.
+  allow recovery tmpfs:file { create_file_perms x_file_perms };
+  allow recovery tmpfs:dir create_dir_perms;
+
+  # Manage files on /cache
+  allow recovery cache_file:dir create_dir_perms;
+  allow recovery cache_file:file create_file_perms;
+
+  # Reboot the device
+  allow recovery powerctl_prop:property_service set;
+  unix_socket_connect(recovery, property, init)
 
   # Use setfscreatecon() to label files for OTA updates.
   allow recovery self:process setfscreate;
+
+  wakelock_use(recovery)
+  allow recovery kernel:process setsched;
 ')
