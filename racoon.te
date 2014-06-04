@@ -1,6 +1,5 @@
 # IKE key management daemon
 type racoon, domain;
-permissive_or_unconfined(racoon)
 type racoon_exec, exec_type, file_type;
 
 init_daemon_domain(racoon)
