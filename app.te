@@ -194,10 +194,7 @@ neverallow { appdomain -unconfineddomain } {
 }:chr_file { read write };
 
 # Note: Try expanding list of app domains in the future.
-neverallow { untrusted_app isolated_app shell -unconfineddomain } {
-    adf_device
-    graphics_device
-}:chr_file { read write };
+neverallow { untrusted_app isolated_app shell -unconfineddomain } graphics_device:chr_file { read write };
 
 neverallow { appdomain -nfc -unconfineddomain } nfc_device:chr_file
     { read write };
