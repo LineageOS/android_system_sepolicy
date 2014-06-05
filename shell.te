@@ -13,4 +13,8 @@ app_domain(shell)
 read_logd(shell)
 control_logd(shell)
 
+# read files in /data/anr
+allow shell anr_data_file:dir r_dir_perms;
+allow shell anr_data_file:file r_file_perms;
+
 # inherits from shelldomain.te
