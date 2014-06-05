@@ -350,6 +350,8 @@ allow system_server sysfs_lowmemorykiller:file { getattr w_file_perms };
 allow system_server pstorefs:dir r_dir_perms;
 allow system_server pstorefs:file r_file_perms;
 
+allow system_server system_server_service:service_manager add;
+
 ###
 ### Neverallow rules
 ###

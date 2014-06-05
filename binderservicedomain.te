@@ -11,3 +11,7 @@ allow binderservicedomain devpts:chr_file rw_file_perms;
 # Receive and write to a pipe received over Binder from an app.
 allow binderservicedomain appdomain:fd use;
 allow binderservicedomain appdomain:fifo_file write;
+
+# Allow binderservicedomain to add services by default.
+allow binderservicedomain service_manager_type:service_manager add;
+auditallow binderservicedomain default_android_service:service_manager add;

@@ -39,6 +39,9 @@ attribute port_type;
 # All types used for property service
 attribute property_type;
 
+# All types used for services managed by service_manager.
+attribute service_manager_type;
+
 # All domains that can override MLS restrictions.
 # i.e. processes that can read up and write down.
 attribute mlstrustedsubject;
