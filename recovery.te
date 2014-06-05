@@ -20,9 +20,14 @@ recovery_only(`
   allow recovery fs_type:filesystem *;
   allow recovery unlabeled:filesystem *;
 
-  # Create and relabel files under /system.
-  allow recovery exec_type:{ file dir lnk_file } { create write setattr relabelfrom relabelto append unlink link rename };
-  allow recovery system_file:{ file dir lnk_file } { create write setattr relabelfrom relabelto append unlink link rename };
+  # Create and relabel files and directories under /system.
+  allow recovery exec_type:{ file lnk_file } { create_file_perms relabelfrom relabelto };
+  allow recovery system_file:{ file lnk_file } { create_file_perms relabelfrom relabelto };
+  allow recovery system_file:dir { create_dir_perms relabelfrom relabelto };
+
+  # Write to /proc/sys/vm/drop_caches
+  # TODO: create more specific label?
+  allow recovery proc:file w_file_perms;
 
   # Required to e.g. wipe userdata/cache.
   allow recovery block_device:dir r_dir_perms;
