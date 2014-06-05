@@ -38,6 +38,10 @@ allow adbd shell_data_file:file create_file_perms;
 allow adbd sdcard_type:dir create_dir_perms;
 allow adbd sdcard_type:file create_file_perms;
 
+# adb pull /data/anr/traces.txt
+allow adbd anr_data_file:dir r_dir_perms;
+allow adbd anr_data_file:file r_file_perms;
+
 # Set service.adb.*, sys.powerctl properties.
 unix_socket_connect(adbd, property, init)
 allow adbd shell_prop:property_service set;
