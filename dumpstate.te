@@ -35,6 +35,10 @@ allow dumpstate system_data_file:file r_file_perms;
 allow dumpstate self:capability2 syslog;
 allow dumpstate kernel:system syslog_read;
 
+# Read /sys/fs/pstore/console-ramoops
+allow dumpstate pstorefs:dir r_dir_perms;
+allow dumpstate pstorefs:file r_file_perms;
+
 # Get process attributes
 allow dumpstate domain:process getattr;
 
