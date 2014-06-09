@@ -4,7 +4,6 @@
 # server.
 #
 type system_app, domain;
-permissive_or_unconfined(system_app)
 app_domain(system_app)
 net_domain(system_app)
 binder_service(system_app)
