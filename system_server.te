@@ -3,7 +3,6 @@
 # Most of the framework services run in this process.
 #
 type system_server, domain, mlstrustedsubject;
-permissive_or_unconfined(system_server)
 
 # Define a type for tmpfs-backed ashmem regions.
 tmpfs_domain(system_server)
