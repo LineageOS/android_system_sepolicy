@@ -10,7 +10,7 @@ recovery_only(`
   allow recovery rootfs:file entrypoint;
   permissive_or_unconfined(recovery)
 
-  allow recovery self:capability { chown dac_override fowner fsetid sys_admin };
+  allow recovery self:capability { chown dac_override fowner fsetid setfcap sys_admin sys_tty_config };
 
   # Set security contexts on files that are not known to the loaded policy.
   allow recovery self:capability2 mac_admin;
@@ -40,6 +40,7 @@ recovery_only(`
   allow recovery graphics_device:dir r_dir_perms;
   allow recovery input_device:dir r_dir_perms;
   allow recovery input_device:chr_file r_file_perms;
+  allow recovery tty_device:chr_file rw_file_perms;
 
   # Create /tmp/recovery.log and execute /tmp/update_binary.
   allow recovery tmpfs:file { create_file_perms x_file_perms };
@@ -57,5 +58,8 @@ recovery_only(`
   allow recovery self:process setfscreate;
 
   wakelock_use(recovery)
+
+  # This line seems suspect, as it shouldn't really need to
+  # set scheduling parameters for a kernel domain task.
   allow recovery kernel:process setsched;
 ')
