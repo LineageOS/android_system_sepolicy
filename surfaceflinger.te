@@ -64,5 +64,4 @@ allow surfaceflinger tee_device:chr_file rw_file_perms;
 
 # Do not allow accessing SDcard files as unsafe ejection could
 # cause the kernel to kill the process.
-# TODO: Remove -unconfineddomain when we remove permissive_or_unconfined above.
-neverallow { surfaceflinger -unconfineddomain } sdcard_type:file rw_file_perms;
+neverallow surfaceflinger sdcard_type:file rw_file_perms;
