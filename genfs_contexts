@@ -30,3 +30,4 @@ genfscon debugfs / u:object_r:debugfs:s0
 genfscon fuse / u:object_r:sdcard_internal:s0
 genfscon pstore / u:object_r:pstorefs:s0
 genfscon functionfs / u:object_r:functionfs:s0
+genfscon usbfs / u:object_r:usbfs:s0
