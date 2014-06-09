@@ -82,6 +82,9 @@ allow dumpstate self:process execmem;
 # For art.
 allow dumpstate dalvikcache_data_file:file execute;
 
+# Dumpstate calls screencap, which grabs a screenshot. Needs gpu access
+allow dumpstate gpu_device:chr_file rw_file_perms;
+
 # logd access
 read_logd(dumpstate)
 control_logd(dumpstate)
