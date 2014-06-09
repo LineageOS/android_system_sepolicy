@@ -54,6 +54,10 @@ allow init watchdogd:process transition;
 allow init keystore_data_file:dir { open create read getattr setattr search };
 allow init keystore_data_file:file { getattr };
 
+# Init creates /data/local/tmp at boot
+allow init shell_data_file:dir { open create read getattr setattr search };
+allow init shell_data_file:file { getattr };
+
 # Use setexeccon(), setfscreatecon(), and setsockcreatecon().
 # setexec is for services with seclabel options.
 # setfscreate is for labeling directories and socket files.
