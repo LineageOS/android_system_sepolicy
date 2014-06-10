@@ -59,7 +59,7 @@ recovery_only(`
 
   wakelock_use(recovery)
 
-  # This line seems suspect, as it shouldn't really need to
+  # This line seems suspect, as it should not really need to
   # set scheduling parameters for a kernel domain task.
   allow recovery kernel:process setsched;
 ')
