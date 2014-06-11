@@ -70,4 +70,4 @@ allow installd system_data_file:notdevfile_class_set { getattr relabelfrom unlin
 # Types extracted from seapp_contexts type= fields.
 allow installd { system_app_data_file bluetooth_data_file nfc_data_file radio_data_file shell_data_file app_data_file }:dir { create_dir_perms relabelfrom relabelto };
 allow installd { system_app_data_file bluetooth_data_file nfc_data_file radio_data_file shell_data_file app_data_file }:lnk_file { create setattr getattr unlink rename relabelfrom relabelto };
-allow installd { system_app_data_file bluetooth_data_file nfc_data_file radio_data_file shell_data_file app_data_file }:{ file sock_file fifo_file } { getattr unlink rename relabelfrom relabelto };
+allow installd { system_app_data_file bluetooth_data_file nfc_data_file radio_data_file shell_data_file app_data_file }:{ file sock_file fifo_file } { getattr unlink rename relabelfrom relabelto setattr };
