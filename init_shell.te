@@ -1,8 +1,6 @@
 # Restricted domain for shell processes spawned by init.
 # Normally these are shell commands or scripts invoked via sh
 # from an init*.rc file.  No service should ever run in this domain.
-type init_shell, domain, shelldomain;
+type init_shell, domain;
 domain_auto_trans(init, shell_exec, init_shell)
-unconfined_domain(init_shell)
-
-# inherits from shelldomain.te
+permissive_or_unconfined(init_shell)
