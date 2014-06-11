@@ -248,7 +248,7 @@ neverallow {
     domain
     -appdomain
     -dumpstate
-    -shelldomain
+    -shell
     userdebug_or_eng(`-su')
     -system_server
     -zygote
