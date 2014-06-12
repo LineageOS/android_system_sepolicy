@@ -137,4 +137,7 @@ class zygote
 # Property service
 class property_service          # userspace
 
+# Service manager
+class service_manager           # userspace
+
 # FLASK

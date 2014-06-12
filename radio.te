@@ -22,3 +22,5 @@ allow radio radio_prop:property_service set;
 
 # ctl interface
 allow radio ctl_rildaemon_prop:property_service set;
+
+allow radio radio_service:service_manager add;

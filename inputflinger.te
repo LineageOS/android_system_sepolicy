@@ -8,3 +8,5 @@ binder_use(inputflinger)
 binder_service(inputflinger)
 
 binder_call(inputflinger, system_server)
+
+allow inputflinger inputflinger_service:service_manager add;
