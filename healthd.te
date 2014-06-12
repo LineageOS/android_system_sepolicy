@@ -32,3 +32,5 @@ allow healthd ashmem_device:chr_file execute;
 allow healthd self:process execmem;
 allow healthd proc_sysrq:file rw_file_perms;
 allow healthd self:capability sys_boot;
+
+allow healthd healthd_service:service_manager add;

@@ -198,6 +198,26 @@ $(LOCAL_BUILT_MODULE):  $(ALL_PC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES
 built_pc := $(LOCAL_BUILT_MODULE)
 
 ##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := service_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+ALL_SVC_FILES := $(call build_policy, service_contexts)
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE):  $(ALL_SVC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $(ALL_SVC_FILES) > $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
+
+built_svc := $(LOCAL_BUILT_MODULE)
+
+##################################
 
 ##################################
 include $(CLEAR_VARS)
@@ -243,7 +263,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
-$(LOCAL_BUILT_MODULE) : $(built_sepolicy) $(built_pc) $(built_fc) $(built_sc)
+$(LOCAL_BUILT_MODULE) : $(built_sepolicy) $(built_pc) $(built_fc) $(built_sc) $(built_svc)
 	@mkdir -p $(dir $@)
 	$(hide) echo -n $(BUILD_FINGERPRINT) > $@
 
@@ -255,5 +275,6 @@ built_sepolicy :=
 built_sc :=
 built_fc :=
 built_pc :=
+built_svc :=
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
