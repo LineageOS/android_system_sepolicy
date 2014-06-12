@@ -33,6 +33,7 @@ allow system_app debug_prop:property_service set;
 allow system_app radio_prop:property_service set;
 allow system_app system_prop:property_service set;
 allow system_app ctl_bugreport_prop:property_service set;
+allow system_app logd_prop:property_service set;
 
 # Create /data/anr/traces.txt.
 allow system_app anr_data_file:dir ra_dir_perms;
