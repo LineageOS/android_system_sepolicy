@@ -154,3 +154,12 @@ allow file_type labeledfs:filesystem associate;
 allow file_type tmpfs:filesystem associate;
 allow file_type rootfs:filesystem associate;
 allow dev_type tmpfs:filesystem associate;
+
+# It's a bug to assign the file_type attribute and fs_type attribute
+# to any type. Do not allow it.
+#
+# For example, the following is a bug:
+#   type apk_data_file, file_type, data_file_type, fs_type;
+# Should be:
+#   type apk_data_file, file_type, data_file_type;
+neverallow fs_type file_type:filesystem *;
