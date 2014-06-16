@@ -25,11 +25,22 @@ recovery_only(`
   allow recovery system_file:{ file lnk_file } { create_file_perms relabelfrom relabelto };
   allow recovery system_file:dir { create_dir_perms relabelfrom relabelto };
 
+  # 0eb17d944704b3eb140bb9dded299d3be3aed77e in build/ added SELinux
+  # support to OTAs. However, that code has a bug. When an update occurs,
+  # some directories are inappropriately labeled as exec_type. This is
+  # only transient, and subsequent steps in the OTA script correct this
+  # mistake.
+  # Allow this behavior for now until we can fix the underlying bug.
+  # b/15575013
+  allow recovery exec_type:dir { create_dir_perms relabelfrom relabelto };
+  auditallow recovery exec_type:dir { create_dir_perms relabelfrom relabelto };
+
   # Write to /proc/sys/vm/drop_caches
   # TODO: create more specific label?
   allow recovery proc:file w_file_perms;
 
   # Required to e.g. wipe userdata/cache.
+  allow recovery device:dir r_dir_perms;
   allow recovery block_device:dir r_dir_perms;
   allow recovery dev_type:blk_file rw_file_perms;
 
