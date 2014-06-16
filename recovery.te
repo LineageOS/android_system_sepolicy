@@ -17,8 +17,9 @@ recovery_only(`
 
   # Mount filesystems.
   allow recovery rootfs:dir mounton;
-  allow recovery fs_type:filesystem *;
-  allow recovery unlabeled:filesystem *;
+  allow recovery fs_type:filesystem ~relabelto;
+  allow recovery unlabeled:filesystem ~relabelto;
+  allow recovery contextmount_type:filesystem relabelto;
 
   # Create and relabel files and directories under /system.
   allow recovery exec_type:{ file lnk_file } { create_file_perms relabelfrom relabelto };

@@ -259,3 +259,13 @@ neverallow { domain -init } property_data_file:file { create setattr relabelfrom
 # Only recovery should be doing writes to /system
 neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
+
+# Restrict context mounts to specific types marked with
+# the contextmount_type attribute.
+neverallow domain {fs_type -contextmount_type}:filesystem relabelto;
+
+# Ensure that context mount types are not writable, to ensure that
+# the write to /system restriction above is not bypassed via context=
+# mount to another type.
+neverallow { domain -recovery } contextmount_type:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
