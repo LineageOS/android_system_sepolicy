@@ -15,7 +15,6 @@ allow wpa self:packet_socket create_socket_perms;
 allow wpa wifi_data_file:dir create_dir_perms;
 allow wpa wifi_data_file:file create_file_perms;
 unix_socket_send(wpa, system_wpa, system_server)
-allow wpa random_device:chr_file r_file_perms;
 
 binder_use(wpa)
 binder_call(wpa, keystore)
