@@ -61,6 +61,8 @@ type apk_private_tmp_file, file_type, data_file_type, mlstrustedobject;
 type dalvikcache_data_file, file_type, data_file_type;
 # /data/dalvik-cache/profiles
 type dalvikcache_profiles_data_file, file_type, data_file_type;
+# /data/resource-cache
+type resourcecache_data_file, file_type, data_file_type;
 # /data/local - writable by shell
 type shell_data_file, file_type, data_file_type;
 # /data/gps

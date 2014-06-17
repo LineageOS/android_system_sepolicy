@@ -24,6 +24,9 @@ allow zygote system_data_file:file r_file_perms;
 # Write to /data/dalvik-cache.
 allow zygote dalvikcache_data_file:dir create_dir_perms;
 allow zygote dalvikcache_data_file:file create_file_perms;
+# Write to /data/resource-cache
+allow zygote resourcecache_data_file:dir rw_dir_perms;
+allow zygote resourcecache_data_file:file create_file_perms;
 # For art.
 allow zygote dalvikcache_data_file:file execute;
 # Execute dexopt.
