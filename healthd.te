@@ -32,5 +32,9 @@ allow healthd ashmem_device:chr_file execute;
 allow healthd self:process execmem;
 allow healthd proc_sysrq:file rw_file_perms;
 allow healthd self:capability sys_boot;
-
 allow healthd healthd_service:service_manager add;
+
+# Healthd needs to tell init to continue the boot
+# process when running in charger mode.
+unix_socket_connect(healthd, property, init)
+allow healthd system_prop:property_service set;
