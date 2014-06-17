@@ -359,6 +359,40 @@ allow system_server pstorefs:file r_file_perms;
 
 allow system_server system_server_service:service_manager add;
 
+allow system_server keystore:keystore_key {
+	test
+	get
+	insert
+	delete
+	exist
+	saw
+	reset
+	password
+	lock
+	unlock
+	zero
+	sign
+	verify
+	grant
+	duplicate
+	clear_uid
+};
+
+auditallow system_server keystore:keystore_key {
+	test
+	get
+	insert
+	delete
+	saw
+	lock
+	unlock
+	sign
+	verify
+	grant
+	duplicate
+	clear_uid
+};
+
 ###
 ### Neverallow rules
 ###

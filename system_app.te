@@ -42,4 +42,40 @@ allow system_app logd_prop:property_service set;
 allow system_app anr_data_file:dir ra_dir_perms;
 allow system_app anr_data_file:file create_file_perms;
 
+allow system_app keystore:keystore_key {
+	test
+	get
+	insert
+	delete
+	exist
+	saw
+	reset
+	password
+	lock
+	unlock
+	zero
+	sign
+	verify
+	grant
+	duplicate
+	clear_uid
+};
+
+auditallow system_app keystore:keystore_key {
+	test
+	get
+	insert
+	delete
+	exist
+	reset
+	password
+	lock
+	unlock
+	sign
+	verify
+	grant
+	duplicate
+	clear_uid
+};
+
 control_logd(system_app)
