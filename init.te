@@ -10,8 +10,17 @@ allow init self:capability { sys_rawio mknod };
 allow init dev_type:blk_file rw_file_perms;
 
 # Mounting filesystems.
-allow init fs_type:filesystem *;
-allow init unlabeled:filesystem *;
+# Only allow relabelto for types used in context= mount options,
+# which should all be assigned the contextmount_type attribute.
+# This can be done in device-specific policy via type or typeattribute
+# declarations.
+allow init fs_type:filesystem ~relabelto;
+allow init unlabeled:filesystem ~relabelto;
+allow init contextmount_type:filesystem relabelto;
+
+# Allow read-only access to context= mounted filesystems.
+allow init contextmount_type:dir r_dir_perms;
+allow init contextmount_type:notdevfile_class_set r_file_perms;
 
 # restorecon and restorecon_recursive calls from init.rc files.
 # system/core/init.rc requires at least cache_file and data_file_type.
