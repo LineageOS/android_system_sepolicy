@@ -15,7 +15,6 @@ allow dhcp system_file:file rx_file_perms;
 allow dhcp proc_net:file write;
 allow dhcp system_prop:property_service set ;
 unix_socket_connect(dhcp, property, init)
-allow dhcp owntty_device:chr_file rw_file_perms;
 
 type_transition dhcp system_data_file:{ dir file } dhcp_data_file;
 allow dhcp dhcp_data_file:dir create_dir_perms;
