@@ -25,7 +25,6 @@ allow shell shell_data_file:file rx_file_perms;
 # adb bugreport
 unix_socket_connect(shell, dumpstate, dumpstate)
 
-allow shell rootfs:dir r_dir_perms;
 allow shell devpts:chr_file rw_file_perms;
 allow shell tty_device:chr_file rw_file_perms;
 allow shell console_device:chr_file rw_file_perms;
