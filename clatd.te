@@ -17,9 +17,6 @@ allow clatd netd:unix_dgram_socket { read write };
 
 allow clatd self:capability { net_admin net_raw setuid setgid };
 
-# TODO: Run clatd in vpn group to avoid need for this on /dev/tun.
-allow clatd self:capability dac_override;
-
 allow clatd self:netlink_route_socket nlmsg_write;
 allow clatd self:{ packet_socket rawip_socket tun_socket } create_socket_perms;
 allow clatd tun_device:chr_file rw_file_perms;
