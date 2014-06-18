@@ -30,3 +30,11 @@ dontaudit kernel self:security setenforce;
 
 # Set checkreqprot by init.rc prior to switching to init domain.
 allow kernel self:security setcheckreqprot;
+
+###
+### neverallow rules
+###
+
+# The initial task starts in the kernel domain (assigned via
+# initial_sid_contexts), but nothing ever transitions to it.
+neverallow domain kernel:process { transition dyntransition };

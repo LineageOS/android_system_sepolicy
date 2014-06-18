@@ -76,3 +76,13 @@ allow init self:process { setexec setfscreate setsockcreate };
 # Create /data/property and files within it.
 allow init property_data_file:dir create_dir_perms;
 allow init property_data_file:file create_file_perms;
+
+###
+### neverallow rules
+###
+
+# The init domain is only entered via setcon from the kernel domain,
+# never via an exec-based transition.
+neverallow { domain -kernel} init:process dyntransition;
+neverallow domain init:process transition;
+neverallow init { file_type fs_type }:file entrypoint;
