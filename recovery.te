@@ -77,6 +77,9 @@ recovery_only(`
   allow recovery powerctl_prop:property_service set;
   unix_socket_connect(recovery, property, init)
 
+  # Start/stop adbd via ctl.start adbd
+  allow recovery ctl_default_prop:property_service set;
+
   # Use setfscreatecon() to label files for OTA updates.
   allow recovery self:process setfscreate;
 
