@@ -7,10 +7,10 @@ type recovery, domain;
 # But the allow rules are only included in the recovery policy.
 # Otherwise recovery is only allowed the domain rules.
 recovery_only(`
-  allow recovery rootfs:file entrypoint;
+  allow recovery rootfs:file { entrypoint execute };
   permissive_or_unconfined(recovery)
 
-  allow recovery self:capability { chown dac_override fowner fsetid setfcap sys_admin sys_tty_config };
+  allow recovery self:capability { chown dac_override fowner fsetid setfcap setuid setgid sys_admin sys_tty_config };
 
   # Set security contexts on files that are not known to the loaded policy.
   allow recovery self:capability2 mac_admin;
@@ -39,6 +39,13 @@ recovery_only(`
   # Write to /proc/sys/vm/drop_caches
   # TODO: create more specific label?
   allow recovery proc:file w_file_perms;
+
+  # Write to /sys/class/android_usb/android0/enable.
+  # TODO: create more specific label?
+  allow recovery sysfs:file w_file_perms;
+
+  # Access /dev/android_adb.
+  allow recovery adb_device:chr_file rw_file_perms;
 
   # Required to e.g. wipe userdata/cache.
   allow recovery device:dir r_dir_perms;
