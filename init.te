@@ -6,6 +6,12 @@ tmpfs_domain(init)
 
 allow init self:capability { sys_rawio mknod };
 
+# Run helpers from / or /system without changing domain.
+# We do not include exec_type here since generally those
+# should always involve a domain transition.
+allow init rootfs:file execute_no_trans;
+allow init system_file:file execute_no_trans;
+
 # Running e2fsck or mkswap via fs_mgr.
 allow init dev_type:blk_file rw_file_perms;
 
