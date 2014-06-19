@@ -70,6 +70,7 @@ allow unconfineddomain {
     -usermodehelper
     -proc_security
     -contextmount_type
+    -rootfs
 }:{ chr_file file } ~{entrypoint execute_no_trans execmod execute relabelto};
 allow unconfineddomain {dev_type -kmem_device}:{ chr_file file } ~{entrypoint execute_no_trans execmod execute relabelto};
 allow unconfineddomain {
