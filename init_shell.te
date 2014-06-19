@@ -4,3 +4,7 @@
 type init_shell, domain;
 domain_auto_trans(init, shell_exec, init_shell)
 permissive_or_unconfined(init_shell)
+
+# Run helpers from / or /system without changing domain.
+allow init_shell rootfs:file execute_no_trans;
+allow init_shell system_file:file execute_no_trans;
