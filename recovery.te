@@ -15,6 +15,10 @@ recovery_only(`
   # Set security contexts on files that are not known to the loaded policy.
   allow recovery self:capability2 mac_admin;
 
+  # Run helpers from / or /system without changing domain.
+  allow recovery rootfs:file execute_no_trans;
+  allow recovery system_file:file execute_no_trans;
+
   # Mount filesystems.
   allow recovery rootfs:dir mounton;
   allow recovery fs_type:filesystem ~relabelto;
