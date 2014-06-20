@@ -48,7 +48,7 @@ allow unconfineddomain domain:{ fifo_file file } rw_file_perms;
 allow unconfineddomain domain:socket_class_set *;
 allow unconfineddomain domain:ipc_class_set *;
 allow unconfineddomain domain:key *;
-allow unconfineddomain {fs_type -contextmount_type}:{ dir lnk_file sock_file fifo_file } ~relabelto;
+allow unconfineddomain {fs_type -contextmount_type -sdcard_type}:{ dir lnk_file sock_file fifo_file } ~relabelto;
 allow unconfineddomain dev_type:{ dir lnk_file sock_file fifo_file } ~relabelto;
 allow unconfineddomain {
     file_type
@@ -72,6 +72,7 @@ allow unconfineddomain {
     -proc_security
     -contextmount_type
     -rootfs
+    -sdcard_type
 }:{ chr_file file } ~{entrypoint execute_no_trans execmod execute relabelto};
 allow unconfineddomain {dev_type -kmem_device}:{ chr_file file } ~{entrypoint execute_no_trans execmod execute relabelto};
 allow unconfineddomain {
