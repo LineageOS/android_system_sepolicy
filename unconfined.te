@@ -58,6 +58,7 @@ allow unconfineddomain {
     -exec_type
     -security_file
     -shell_data_file
+    -app_data_file
 }:{ dir lnk_file sock_file fifo_file } ~relabelto;
 allow unconfineddomain exec_type:dir r_dir_perms;
 allow unconfineddomain exec_type:file { r_file_perms execute execmod };
@@ -81,6 +82,7 @@ allow unconfineddomain {
     -exec_type
     -security_file
     -shell_data_file
+    -app_data_file
 }:{ chr_file file } ~{entrypoint execute_no_trans execmod execute relabelto};
 allow unconfineddomain rootfs:file execute;
 allow unconfineddomain contextmount_type:dir r_dir_perms;
