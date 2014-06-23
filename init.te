@@ -86,6 +86,9 @@ allow init self:process { setexec setfscreate setsockcreate };
 allow init property_data_file:dir create_dir_perms;
 allow init property_data_file:file create_file_perms;
 
+# Set any property.
+allow init property_type:property_service set;
+
 # Run "ifup lo" to bring up the localhost interface
 allow init self:udp_socket { create ioctl };
 

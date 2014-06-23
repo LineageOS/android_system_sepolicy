@@ -31,7 +31,9 @@ allow netd sysfs:file write;
 
 # Set dhcp lease for PAN connection
 unix_socket_connect(netd, property, init)
+allow netd dhcp_prop:property_service set;
 allow netd system_prop:property_service set;
+auditallow netd system_prop:property_service set;
 
 # Connect to PAN
 domain_auto_trans(netd, dhcp_exec, dhcp)
