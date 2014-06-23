@@ -61,10 +61,10 @@ allow unconfineddomain {
     -app_data_file
 }:{ dir lnk_file sock_file fifo_file } ~relabelto;
 allow unconfineddomain exec_type:dir r_dir_perms;
-allow unconfineddomain exec_type:file { r_file_perms execute execmod };
+allow unconfineddomain exec_type:file { r_file_perms execute };
 allow unconfineddomain exec_type:lnk_file r_file_perms;
 allow unconfineddomain system_file:dir r_dir_perms;
-allow unconfineddomain system_file:file { r_file_perms execute execmod };
+allow unconfineddomain system_file:file { r_file_perms execute };
 allow unconfineddomain system_file:lnk_file r_file_perms;
 allow unconfineddomain {
     fs_type
