@@ -109,4 +109,3 @@ allow unconfineddomain node_type:node *;
 allow unconfineddomain netif_type:netif *;
 allow unconfineddomain domain:peer recv;
 allow unconfineddomain { domain -init }:binder { call transfer set_context_mgr };
-allow unconfineddomain { property_type -security_prop }:property_service set;

@@ -271,7 +271,9 @@ allow system_server anr_data_file:dir relabelto;
 
 # Property Service write
 allow system_server system_prop:property_service set;
-allow system_server radio_prop:property_service set;
+allow system_server dhcp_prop:property_service set;
+allow system_server net_radio_prop:property_service set;
+allow system_server system_radio_prop:property_service set;
 allow system_server debug_prop:property_service set;
 allow system_server powerctl_prop:property_service set;
 

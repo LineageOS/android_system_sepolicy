@@ -19,6 +19,10 @@ allow radio alarm_device:chr_file rw_file_perms;
 
 # Property service
 allow radio radio_prop:property_service set;
+allow radio net_radio_prop:property_service set;
+allow radio system_radio_prop:property_service set;
+auditallow radio net_radio_prop:property_service set;
+auditallow radio system_radio_prop:property_service set;
 
 # ctl interface
 allow radio ctl_rildaemon_prop:property_service set;
