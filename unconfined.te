@@ -45,7 +45,24 @@ allow unconfineddomain domain:fd *;
 allow unconfineddomain domain:dir r_dir_perms;
 allow unconfineddomain domain:lnk_file r_file_perms;
 allow unconfineddomain domain:{ fifo_file file } rw_file_perms;
-allow unconfineddomain domain:socket_class_set *;
+allow unconfineddomain domain:{
+    socket
+    netlink_socket
+    key_socket
+    unix_stream_socket
+    unix_dgram_socket
+    netlink_route_socket
+    netlink_firewall_socket
+    netlink_tcpdiag_socket
+    netlink_nflog_socket
+    netlink_xfrm_socket
+    netlink_selinux_socket
+    netlink_audit_socket
+    netlink_ip6fw_socket
+    netlink_dnrt_socket
+    netlink_kobject_uevent_socket
+    tun_socket
+} *;
 allow unconfineddomain domain:ipc_class_set *;
 allow unconfineddomain domain:key *;
 allow unconfineddomain {fs_type -contextmount_type -sdcard_type}:{ dir lnk_file sock_file fifo_file } ~relabelto;
@@ -89,10 +106,7 @@ allow unconfineddomain rootfs:file execute;
 allow unconfineddomain contextmount_type:dir r_dir_perms;
 allow unconfineddomain contextmount_type:notdevfile_class_set r_file_perms;
 allow unconfineddomain node_type:node *;
-allow unconfineddomain node_type:{ tcp_socket udp_socket rawip_socket } node_bind;
 allow unconfineddomain netif_type:netif *;
-allow unconfineddomain port_type:socket_class_set name_bind;
-allow unconfineddomain port_type:{ tcp_socket dccp_socket } name_connect;
 allow unconfineddomain domain:peer recv;
 allow unconfineddomain { domain -init }:binder { call transfer set_context_mgr };
 allow unconfineddomain { property_type -security_prop }:property_service set;
