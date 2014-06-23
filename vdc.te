@@ -1,0 +1,10 @@
+# vdc spawned from init for the following services:
+#  defaultcrypto
+#  encrypt
+
+type vdc, domain;
+type vdc_exec, exec_type, file_type;
+
+init_daemon_domain(vdc)
+
+unix_socket_connect(vdc, vold, vold)
