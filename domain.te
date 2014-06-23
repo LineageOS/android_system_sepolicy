@@ -278,7 +278,7 @@ neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # Nothing should be writing to files in the rootfs.
-neverallow domain rootfs:file { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow domain rootfs:file { create write setattr relabelto append unlink link rename };
 
 # Restrict context mounts to specific types marked with
 # the contextmount_type attribute.
