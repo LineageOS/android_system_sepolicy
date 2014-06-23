@@ -28,6 +28,9 @@ allow init contextmount_type:filesystem relabelto;
 allow init contextmount_type:dir r_dir_perms;
 allow init contextmount_type:notdevfile_class_set r_file_perms;
 
+# restorecon /adb_keys or any other rootfs files to a more specific type.
+allow init rootfs:file relabelfrom;
+
 # restorecon and restorecon_recursive calls from init.rc files.
 # system/core/init.rc requires at least cache_file and data_file_type.
 # init.<board>.rc files often include device-specific types, so
