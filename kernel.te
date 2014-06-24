@@ -34,6 +34,9 @@ dontaudit kernel self:security setenforce;
 # Set checkreqprot by init.rc prior to switching to init domain.
 allow kernel self:security setcheckreqprot;
 
+# MTP sync
+allow kernel sdcard_internal:file write;
+
 ###
 ### neverallow rules
 ###
