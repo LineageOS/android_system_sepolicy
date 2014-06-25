@@ -77,18 +77,13 @@ allow system_server appdomain:process { sigkill signal };
 allow system_server appdomain:process { getsched setsched };
 allow system_server mediaserver:process { getsched setsched };
 
-# Read /proc/pid data for apps.
-r_dir_file(system_server, appdomain)
+# Read /proc/pid data for all domains. This is used by ProcessCpuTracker
+# within system_server to keep track of memory and CPU usage for
+# all processes on the device.
+r_dir_file(system_server, domain)
 
 # Write to /proc/pid/oom_adj_score for apps.
 allow system_server appdomain:file write;
-
-# Silently deny access to any /proc/pid files other than
-# the ones allowed via allow rule.  Avoids filling the logs
-# with noise from /proc/pid traversals by ActivityManager,
-# CpuTracker, and possibly other system_server components.
-dontaudit system_server domain:dir r_dir_perms;
-dontaudit system_server domain:{ file lnk_file } r_file_perms;
 
 # Read/Write to /proc/net/xt_qtaguid/ctrl and and /dev/xt_qtaguid.
 allow system_server qtaguid_proc:file rw_file_perms;
