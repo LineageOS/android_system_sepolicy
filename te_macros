@@ -342,3 +342,15 @@ define(`control_logd', `
 # to permit control commands
 unix_socket_connect($1, logd, logd)
 ')
+
+#####################################
+# use_keystore(domain)
+# Ability to use keystore.
+# Keystore is requires the following permissions
+# to call getpidcon.
+define(`use_keystore', `
+  allow keystore $1:dir search;
+  allow keystore $1:file { read open };
+  allow keystore $1:process getattr;
+  binder_call($1, keystore)
+')
