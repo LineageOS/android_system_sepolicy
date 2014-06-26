@@ -9,12 +9,16 @@ assetatlas                                u:object_r:system_server_service:s0
 audio                                     u:object_r:system_server_service:s0
 backup                                    u:object_r:system_server_service:s0
 batteryproperties                         u:object_r:healthd_service:s0
+batterypropreg                            u:object_r:healthd_service:s0
 batterystats                              u:object_r:system_server_service:s0
 battery                                   u:object_r:system_server_service:s0
 bluetooth_manager                         u:object_r:system_server_service:s0
+bluetooth                                 u:object_r:bluetooth_service:s0
 clipboard                                 u:object_r:system_server_service:s0
 com.android.internal.telephony.mms.IMms   u:object_r:system_server_service:s0
 commontime_management                     u:object_r:system_server_service:s0
+common_time.clock                        u:object_r:mediaserver_service:s0
+common_time.config                       u:object_r:mediaserver_service:s0
 connectivity                              u:object_r:system_server_service:s0
 consumer_ir                               u:object_r:system_server_service:s0
 content                                   u:object_r:system_server_service:s0
@@ -68,6 +72,9 @@ phone                                     u:object_r:radio_service:s0
 power                                     u:object_r:system_server_service:s0
 print                                     u:object_r:system_server_service:s0
 procstats                                 u:object_r:system_server_service:s0
+radio.phonesubinfo                        u:object_r:radio_service:s0
+radio.phone                               u:object_r:radio_service:s0
+radio.sms                                 u:object_r:radio_service:s0
 restrictions                              u:object_r:system_server_service:s0
 samplingprofiler                          u:object_r:system_server_service:s0
 scheduling_policy                         u:object_r:system_server_service:s0
