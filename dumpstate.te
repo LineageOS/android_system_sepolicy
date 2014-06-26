@@ -49,8 +49,8 @@ allow dumpstate { appdomain system_server }:process signal;
 # This list comes from native_processes_to_dump in dumpstate/utils.c
 allow dumpstate { drmserver mediaserver sdcardd surfaceflinger }:process signal;
 
-# The vdc command needs to talk to the vold socket.
-unix_socket_connect(dumpstate, vold, vold)
+# Execute and transition to the vdc domain
+domain_auto_trans(dumpstate, vdc_exec, vdc)
 
 # Vibrate the device after we're done collecting the bugreport
 # /sys/class/timed_output/vibrator/enable
