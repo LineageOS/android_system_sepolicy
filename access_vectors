@@ -893,3 +893,23 @@ class service_manager
 {
 	add
 }
+
+class keystore_key
+{
+	test
+	get
+	insert
+	delete
+	exist
+	saw
+	reset
+	password
+	lock
+	unlock
+	zero
+	sign
+	verify
+	grant
+	duplicate
+	clear_uid
+}

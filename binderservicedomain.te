@@ -16,3 +16,8 @@ allow binderservicedomain appdomain:fifo_file write;
 # Allow binderservicedomain to add services by default.
 allow binderservicedomain service_manager_type:service_manager add;
 auditallow binderservicedomain default_android_service:service_manager add;
+
+allow binderservicedomain keystore:keystore_key { test get insert delete exist saw sign verify };
+auditallow binderservicedomain keystore:keystore_key { test get insert delete exist saw sign verify };
+
+use_keystore(binderservicedomain)
