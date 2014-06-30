@@ -42,8 +42,12 @@ hdmi_control                              u:object_r:system_server_service:s0
 inputflinger                              u:object_r:inputflinger_service:s0
 input_method                              u:object_r:system_server_service:s0
 input                                     u:object_r:system_server_service:s0
+iphonesubinfo_msim                        u:object_r:radio_service:s0
+iphonesubinfo2                            u:object_r:radio_service:s0
 iphonesubinfo                             u:object_r:radio_service:s0
 ims                                       u:object_r:radio_service:s0
+isms_msim                                 u:object_r:radio_service:s0
+isms2                                     u:object_r:radio_service:s0
 isms                                      u:object_r:radio_service:s0
 isub                                      u:object_r:radio_service:s0
 jobscheduler                              u:object_r:system_server_service:s0
@@ -68,6 +72,9 @@ nfc                                       u:object_r:nfc_service:s0
 notification                              u:object_r:system_server_service:s0
 package                                   u:object_r:system_server_service:s0
 permission                                u:object_r:system_server_service:s0
+phone_msim                                u:object_r:radio_service:s0
+phone1                                    u:object_r:radio_service:s0
+phone2                                    u:object_r:radio_service:s0
 phone                                     u:object_r:radio_service:s0
 power                                     u:object_r:system_server_service:s0
 print                                     u:object_r:system_server_service:s0
@@ -82,6 +89,8 @@ search                                    u:object_r:system_server_service:s0
 sensorservice                             u:object_r:system_server_service:s0
 serial                                    u:object_r:system_server_service:s0
 servicediscovery                          u:object_r:system_server_service:s0
+simphonebook_msim                         u:object_r:radio_service:s0
+simphonebook2                             u:object_r:radio_service:s0
 simphonebook                              u:object_r:radio_service:s0
 sip                                       u:object_r:radio_service:s0
 statusbar                                 u:object_r:system_server_service:s0
