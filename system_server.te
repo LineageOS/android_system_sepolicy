@@ -378,21 +378,6 @@ allow system_server keystore:keystore_key {
 	clear_uid
 };
 
-auditallow system_server keystore:keystore_key {
-	test
-	get
-	insert
-	delete
-	saw
-	lock
-	unlock
-	sign
-	verify
-	grant
-	duplicate
-	clear_uid
-};
-
 ###
 ### Neverallow rules
 ###

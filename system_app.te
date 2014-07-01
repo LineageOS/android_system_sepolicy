@@ -63,21 +63,4 @@ allow system_app keystore:keystore_key {
 	clear_uid
 };
 
-auditallow system_app keystore:keystore_key {
-	test
-	get
-	insert
-	delete
-	exist
-	reset
-	password
-	lock
-	unlock
-	sign
-	verify
-	grant
-	duplicate
-	clear_uid
-};
-
 control_logd(system_app)
