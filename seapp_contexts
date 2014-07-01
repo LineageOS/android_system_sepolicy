@@ -1,4 +1,4 @@
-# Input selectors: 
+# Input selectors:
 #	isSystemServer (boolean)
 #	user (string)
 #	seinfo (string)
@@ -13,11 +13,12 @@
 # user=_isolated will match any isolated service UID.
 # All specified input selectors in an entry must match (i.e. logical AND).
 # Matching is case-insensitive.
+#
 # Precedence rules:
 # 	  (1) isSystemServer=true before isSystemServer=false.
 #	  (2) Specified user= string before unspecified user= string.
 #	  (3) Fixed user= string before user= prefix (i.e. ending in *).
-#	  (4) Longer user= prefix before shorter user= prefix. 
+#	  (4) Longer user= prefix before shorter user= prefix.
 #	  (5) Specified seinfo= string before unspecified seinfo= string.
 #	  (6) Specified name= string before unspecified name= string.
 #	  (7) Specified path= string before unspecified path= string.
@@ -32,7 +33,7 @@
 # Only entries that specify type= will be used for app directory labeling.
 # levelFrom=user is only supported for _app or _isolated UIDs.
 # levelFrom=app or levelFrom=all is only supported for _app UIDs.
-# level may be used to specify a fixed level for any UID. 
+# level may be used to specify a fixed level for any UID.
 #
 isSystemServer=true domain=system_server
 user=system domain=system_app type=system_app_data_file
