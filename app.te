@@ -185,9 +185,9 @@ use_keystore(appdomain)
 ###
 
 # Superuser capabilities.
-# bluetooth requires net_admin.
+# bluetooth requires net_admin and wake_alarm.
 neverallow { appdomain -unconfineddomain -bluetooth } self:capability *;
-neverallow { appdomain -unconfineddomain } self:capability2 *;
+neverallow { appdomain -unconfineddomain -bluetooth } self:capability2 *;
 
 # Block device access.
 neverallow { appdomain -unconfineddomain } dev_type:blk_file { read write };

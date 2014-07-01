@@ -28,6 +28,7 @@ allow bluetoothdomain self:socket create_socket_perms;
 # sysfs access.
 allow bluetooth sysfs_bluetooth_writable:file rw_file_perms;
 allow bluetooth self:capability net_admin;
+allow bluetooth self:capability2 wake_alarm;
 
 # Allow clients to use a socket provided by the bluetooth app.
 # TODO:  See if this is still required under bluedroid.
@@ -55,5 +56,6 @@ allow bluetooth ctl_dhcp_pan_prop:property_service set;
 ###
 
 # Superuser capabilities.
-# bluetooth requires net_admin.
+# bluetooth requires net_admin and wake_alarm.
 neverallow { bluetooth -unconfineddomain } self:capability ~net_admin;
+neverallow { bluetooth -unconfineddomain } self:capability2 ~wake_alarm;
