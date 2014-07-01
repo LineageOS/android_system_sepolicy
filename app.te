@@ -175,7 +175,6 @@ read_logd(appdomain)
 allow appdomain zygote:unix_dgram_socket write;
 
 allow appdomain keystore:keystore_key { test get insert delete exist saw sign verify };
-auditallow appdomain keystore:keystore_key { test get insert delete exist saw sign verify };
 
 use_keystore(appdomain)
 
