@@ -83,6 +83,13 @@ recovery_only(`
   # Use setfscreatecon() to label files for OTA updates.
   allow recovery self:process setfscreate;
 
+  # Allow recovery to create a fuse filesystem, and read files from
+  # it.  (Note that all files on fuse filesystems are labeled
+  # "sdcard_internal"; the simulated SD card is the only other user of
+  # fuse.)
+  allow recovery fuse_device:chr_file rw_file_perms;
+  allow recovery sdcard_internal:file r_file_perms;
+
   wakelock_use(recovery)
 
   # This line seems suspect, as it should not really need to
