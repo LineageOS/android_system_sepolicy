@@ -921,3 +921,14 @@ class debuggerd
 	dump_tombstone
 	dump_backtrace
 }
+
+class drmservice {
+	consumeRights
+	setPlaybackStatus
+	openDecryptSession
+	closeDecryptSession
+	initializeDecryptUnit
+	decrypt
+	finalizeDecryptUnit
+	pread
+}
