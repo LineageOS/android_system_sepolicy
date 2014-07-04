@@ -8,8 +8,6 @@ userdebug_or_eng(`
 ')
 
 domain_auto_trans(adbd, shell_exec, shell)
-# this is an entrypoint
-allow adbd rootfs:file entrypoint;
 
 # Do not sanitize the environment or open fds of the shell.
 allow adbd shell:process noatsecure;
