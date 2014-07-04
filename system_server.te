@@ -385,4 +385,4 @@ allow system_server keystore:keystore_key {
 
 # Do not allow accessing SDcard files as unsafe ejection could
 # cause the kernel to kill the system_server.
-# neverallow system_server sdcard_type:file rw_file_perms;
+neverallow system_server sdcard_type:file rw_file_perms;
