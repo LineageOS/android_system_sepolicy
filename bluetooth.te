@@ -57,5 +57,5 @@ allow bluetooth ctl_dhcp_pan_prop:property_service set;
 
 # Superuser capabilities.
 # bluetooth requires net_admin and wake_alarm.
-neverallow { bluetooth -unconfineddomain } self:capability ~net_admin;
-neverallow { bluetooth -unconfineddomain } self:capability2 ~wake_alarm;
+neverallow bluetooth self:capability ~net_admin;
+neverallow bluetooth self:capability2 ~wake_alarm;
