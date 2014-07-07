@@ -13,9 +13,5 @@ init_daemon_domain(servicemanager)
 allow servicemanager self:binder set_context_mgr;
 allow servicemanager domain:binder transfer;
 
-# Get contexts of binder services that call servicemanager.
-allow servicemanager binderservicedomain:dir search;
-allow servicemanager binderservicedomain:file { read open };
-allow servicemanager binderservicedomain:process getattr;
 # Check SELinux permissions.
 selinux_check_access(servicemanager)
