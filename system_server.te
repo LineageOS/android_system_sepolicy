@@ -171,11 +171,13 @@ allow system_server system_data_file:notdevfile_class_set create_file_perms;
 # Manage /data/app.
 allow system_server apk_data_file:dir create_dir_perms;
 allow system_server apk_data_file:file create_file_perms;
+allow system_server apk_tmp_file:dir create_dir_perms;
 allow system_server apk_tmp_file:file create_file_perms;
 
 # Manage /data/app-private.
 allow system_server apk_private_data_file:dir create_dir_perms;
 allow system_server apk_private_data_file:file create_file_perms;
+allow system_server apk_private_tmp_file:dir create_dir_perms;
 allow system_server apk_private_tmp_file:file create_file_perms;
 
 # Manage files within asec containers.
@@ -252,8 +254,8 @@ allow system_server media_rw_data_file:file { getattr read write };
 security_access_policy(system_server)
 
 # Relabel apk files.
-allow system_server { apk_tmp_file apk_private_tmp_file }:file { relabelfrom relabelto };
-allow system_server { apk_data_file apk_private_data_file }:file { relabelfrom relabelto };
+allow system_server { apk_tmp_file apk_private_tmp_file }:{ dir file } { relabelfrom relabelto };
+allow system_server { apk_data_file apk_private_data_file }:{ dir file } { relabelfrom relabelto };
 
 # Relabel wallpaper.
 allow system_server system_data_file:file relabelfrom;
