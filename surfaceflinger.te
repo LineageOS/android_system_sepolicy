@@ -59,6 +59,14 @@ allow surfaceflinger tee_device:chr_file rw_file_perms;
 
 allow surfaceflinger surfaceflinger_service:service_manager add;
 
+# Audited locally.
+service_manager_local_audit_domain(surfaceflinger)
+auditallow surfaceflinger {
+    service_manager_type
+    -surfaceflinger_service
+    -system_server_service
+}:service_manager find;
+
 ###
 ### Neverallow rules
 ###

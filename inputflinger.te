@@ -9,3 +9,7 @@ binder_service(inputflinger)
 binder_call(inputflinger, system_server)
 
 allow inputflinger inputflinger_service:service_manager add;
+
+# Audited locally.
+service_manager_local_audit_domain(inputflinger)
+auditallow inputflinger { service_manager_type -inputflinger_service }:service_manager find;
