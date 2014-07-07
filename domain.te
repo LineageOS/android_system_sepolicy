@@ -163,7 +163,7 @@ allow domain { asec_public_file asec_apk_file }:dir r_dir_perms;
 ###
 
 # Do not allow any confined domain to create new unlabeled files.
-neverallow { domain -unconfineddomain } unlabeled:dir_file_class_set create;
+neverallow { domain -unconfineddomain -recovery } unlabeled:dir_file_class_set create;
 
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
 # with other UIDs to these whitelisted domains.
