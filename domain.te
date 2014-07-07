@@ -289,3 +289,10 @@ neverallow domain {fs_type -contextmount_type}:filesystem relabelto;
 # mount to another type.
 neverallow { domain -recovery } contextmount_type:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
+
+# Do not allow service_manager add for default_android_service.
+# Instead domains should use a more specific type such as
+# system_app_service rather than the generic type.
+# New service_types are defined in service.te and new mappings
+# from service name to service_type are defined in service_contexts.
+neverallow domain default_android_service:service_manager add;
