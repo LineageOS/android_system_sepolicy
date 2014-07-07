@@ -186,14 +186,14 @@ use_keystore(appdomain)
 
 # Superuser capabilities.
 # bluetooth requires net_admin and wake_alarm.
-neverallow { appdomain -unconfineddomain -bluetooth } self:capability *;
-neverallow { appdomain -unconfineddomain -bluetooth } self:capability2 *;
+neverallow { appdomain -bluetooth } self:capability *;
+neverallow { appdomain -bluetooth } self:capability2 *;
 
 # Block device access.
-neverallow { appdomain -unconfineddomain } dev_type:blk_file { read write };
+neverallow appdomain dev_type:blk_file { read write };
 
 # Access to any of the following character devices.
-neverallow { appdomain -unconfineddomain } {
+neverallow appdomain {
     audio_device
     camera_device
     dm_device
@@ -203,16 +203,16 @@ neverallow { appdomain -unconfineddomain } {
 }:chr_file { read write };
 
 # Note: Try expanding list of app domains in the future.
-neverallow { untrusted_app isolated_app shell -unconfineddomain } graphics_device:chr_file { read write };
+neverallow { untrusted_app isolated_app shell } graphics_device:chr_file { read write };
 
-neverallow { appdomain -nfc -unconfineddomain } nfc_device:chr_file
+neverallow { appdomain -nfc } nfc_device:chr_file
     { read write };
-neverallow { appdomain -bluetooth -unconfineddomain } hci_attach_dev:chr_file
+neverallow { appdomain -bluetooth } hci_attach_dev:chr_file
     { read write };
-neverallow { appdomain -unconfineddomain } tee_device:chr_file { read write };
+neverallow appdomain tee_device:chr_file { read write };
 
 # Privileged netlink socket interfaces.
-neverallow { appdomain -unconfineddomain }
+neverallow appdomain
     self:{
         netlink_socket
         netlink_firewall_socket
@@ -226,45 +226,45 @@ neverallow { appdomain -unconfineddomain }
     } *;
 
 # Sockets under /dev/socket that are not specifically typed.
-neverallow { appdomain -unconfineddomain } socket_device:sock_file write;
+neverallow appdomain socket_device:sock_file write;
 
 # Unix domain sockets.
-neverallow { appdomain -unconfineddomain } adbd_socket:sock_file write;
-neverallow { appdomain -unconfineddomain } installd_socket:sock_file write;
-neverallow { appdomain -bluetooth -radio -shell -system_app -unconfineddomain }
+neverallow appdomain adbd_socket:sock_file write;
+neverallow appdomain installd_socket:sock_file write;
+neverallow { appdomain -bluetooth -radio -shell -system_app }
     property_socket:sock_file write;
-neverallow { appdomain -radio -unconfineddomain } rild_socket:sock_file write;
-neverallow { appdomain -unconfineddomain } vold_socket:sock_file write;
-neverallow { appdomain -unconfineddomain } zygote_socket:sock_file write;
+neverallow { appdomain -radio } rild_socket:sock_file write;
+neverallow appdomain vold_socket:sock_file write;
+neverallow appdomain zygote_socket:sock_file write;
 
 # ptrace access to non-app domains.
-neverallow { appdomain -unconfineddomain } { domain -appdomain }:process ptrace;
+neverallow appdomain { domain -appdomain }:process ptrace;
 
 # Write access to /proc/pid entries for any non-app domain.
-neverallow { appdomain -unconfineddomain } { domain -appdomain }:file write;
+neverallow appdomain { domain -appdomain }:file write;
 
 # signal access to non-app domains.
 # sigchld allowed for parent death notification.
 # signull allowed for kill(pid, 0) existence test.
 # All others prohibited.
-neverallow { appdomain -unconfineddomain } { domain -appdomain }:process
+neverallow appdomain { domain -appdomain }:process
     { sigkill sigstop signal };
 
 # Transition to a non-app domain.
 # Exception for the shell domain, can transition to runas, etc.
-neverallow { appdomain -shell -unconfineddomain } ~appdomain:process
+neverallow { appdomain -shell } ~appdomain:process
     { transition dyntransition };
 
 # Write to rootfs.
-neverallow { appdomain -unconfineddomain } rootfs:dir_file_class_set
+neverallow appdomain rootfs:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # Write to /system.
-neverallow { appdomain -unconfineddomain } system_file:dir_file_class_set
+neverallow appdomain system_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # Write to entrypoint executables.
-neverallow { appdomain -unconfineddomain } exec_type:file
+neverallow appdomain exec_type:file
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # Write to system-owned parts of /data.
@@ -272,54 +272,54 @@ neverallow { appdomain -unconfineddomain } exec_type:file
 # specified in file_contexts.  Define a different type for portions
 # that should be writable by apps.
 # Exception for system_app for Settings.
-neverallow { appdomain -unconfineddomain -system_app }
+neverallow { appdomain -system_app }
     system_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # Write to various other parts of /data.
-neverallow { appdomain -unconfineddomain } drm_data_file:dir_file_class_set
+neverallow appdomain drm_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -unconfineddomain } gps_data_file:dir_file_class_set
+neverallow appdomain gps_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -platform_app -unconfineddomain }
+neverallow { appdomain -platform_app }
     apk_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -platform_app -unconfineddomain }
+neverallow { appdomain -platform_app }
     apk_tmp_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -platform_app -unconfineddomain }
+neverallow { appdomain -platform_app }
     apk_private_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -platform_app -unconfineddomain }
+neverallow { appdomain -platform_app }
     apk_private_tmp_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -shell -unconfineddomain }
+neverallow { appdomain -shell }
     shell_data_file:dir_file_class_set
     { create setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -bluetooth -unconfineddomain }
+neverallow { appdomain -bluetooth }
     bluetooth_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -unconfineddomain }
+neverallow appdomain
     keystore_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -unconfineddomain }
+neverallow appdomain
     systemkeys_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -unconfineddomain }
+neverallow appdomain
     wifi_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -unconfineddomain }
+neverallow appdomain
     dhcp_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # Access to factory files.
-neverallow { appdomain -unconfineddomain }
+neverallow appdomain
     efs_file:dir_file_class_set { read write };
 
 # Write to various pseudo file systems.
-neverallow { appdomain -bluetooth -nfc -unconfineddomain }
+neverallow { appdomain -bluetooth -nfc }
     sysfs:dir_file_class_set write;
-neverallow { appdomain -unconfineddomain }
+neverallow appdomain
     proc:dir_file_class_set write;
 
 # Access to syslog(2) or /proc/kmsg.
@@ -330,8 +330,8 @@ neverallow { appdomain -system_app -shell }
 
 # Ability to perform any filesystem operation other than statfs(2).
 # i.e. no mount(2), unmount(2), etc.
-neverallow { appdomain -unconfineddomain } fs_type:filesystem ~getattr;
+neverallow appdomain fs_type:filesystem ~getattr;
 
 # Ability to set system properties.
-neverallow { appdomain -system_app -radio -shell -bluetooth -unconfineddomain }
+neverallow { appdomain -system_app -radio -shell -bluetooth }
     property_type:property_service set;
