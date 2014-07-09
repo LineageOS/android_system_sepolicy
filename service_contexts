@@ -74,6 +74,7 @@ nfc                                       u:object_r:nfc_service:s0
 notification                              u:object_r:system_server_service:s0
 package                                   u:object_r:system_server_service:s0
 permission                                u:object_r:system_server_service:s0
+persistent_data_block                     u:object_r:system_server_service:s0
 phone_msim                                u:object_r:radio_service:s0
 phone1                                    u:object_r:radio_service:s0
 phone2                                    u:object_r:radio_service:s0
