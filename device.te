@@ -64,3 +64,6 @@ type rpmsg_device, dev_type;
 
 # Partition layout block device
 type root_block_device, dev_type;
+
+# Persistent data block device
+type persistent_data_block_device, dev_type;
