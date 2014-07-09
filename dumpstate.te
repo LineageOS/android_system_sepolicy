@@ -92,3 +92,7 @@ allow dumpstate gpu_device:chr_file rw_file_perms;
 # logd access
 read_logd(dumpstate)
 control_logd(dumpstate)
+
+# Read network state info files.
+allow dumpstate net_data_file:dir search;
+allow dumpstate net_data_file:file r_file_perms;
