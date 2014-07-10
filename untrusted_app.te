@@ -76,3 +76,9 @@ neverallow untrusted_app debugfs:file read;
 # Only trusted components of Android should be registering
 # services.
 neverallow untrusted_app service_manager_type:service_manager add;
+
+# Don't allow untrusted_apps to connect to the property service
+# or set properties. b/10243159
+neverallow untrusted_app property_socket:sock_file write;
+neverallow untrusted_app init:unix_stream_socket connectto;
+neverallow untrusted_app property_type:property_service set;
