@@ -169,8 +169,11 @@ neverallow { domain -unconfineddomain -recovery } unlabeled:dir_file_class_set c
 # with other UIDs to these whitelisted domains.
 neverallow { domain -debuggerd -vold -dumpstate -system_server } self:capability sys_ptrace;
 
-# Limit device node creation and raw I/O to these whitelisted domains.
-neverallow { domain -kernel -init -recovery -ueventd -watchdogd -healthd -vold -uncrypt } self:capability { sys_rawio mknod };
+# Limit device node creation to these whitelisted domains.
+neverallow { domain -kernel -init -recovery -ueventd -watchdogd -healthd -vold -uncrypt } self:capability mknod;
+
+# Limit raw I/O to these whitelisted domains.
+neverallow { domain -kernel -init -recovery -ueventd -watchdogd -healthd -vold -uncrypt -tee } self:capability sys_rawio;
 
 # No process can map low memory (< CONFIG_LSM_MMAP_MIN_ADDR).
 neverallow domain self:memprotect mmap_zero;
