@@ -52,8 +52,10 @@ recovery_only(`
   # TODO: create more specific label?
   allow recovery sysfs:file w_file_perms;
 
-  # Access /dev/android_adb.
+  # Access /dev/android_adb or /dev/usb-ffs/adb/ep0
   allow recovery adb_device:chr_file rw_file_perms;
+  allow recovery functionfs:dir search;
+  allow recovery functionfs:file rw_file_perms;
 
   # Required to e.g. wipe userdata/cache.
   allow recovery device:dir r_dir_perms;
