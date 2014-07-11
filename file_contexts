@@ -179,10 +179,10 @@
 /data/dalvik-cache(/.*)? u:object_r:dalvikcache_data_file:s0
 /data/dalvik-cache/profiles(/.*)? u:object_r:dalvikcache_profiles_data_file:s0
 /data/anr(/.*)?		u:object_r:anr_data_file:s0
-/data/app(/.*)?		u:object_r:apk_data_file:s0
-/data/app/vmdl.*\.tmp	u:object_r:apk_tmp_file:s0
-/data/app-private(/.*)?		u:object_r:apk_private_data_file:s0
-/data/app-private/vmdl.*\.tmp	u:object_r:apk_private_tmp_file:s0
+/data/app(/.*)?                       u:object_r:apk_data_file:s0
+/data/app/vmdl.*\.tmp(/.*)?           u:object_r:apk_tmp_file:s0
+/data/app-private(/.*)?               u:object_r:apk_private_data_file:s0
+/data/app-private/vmdl.*\.tmp(/.*)?   u:object_r:apk_private_tmp_file:s0
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
 /data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
 /data/media(/.*)?	u:object_r:media_rw_data_file:s0
@@ -236,7 +236,7 @@
 
 #############################
 # asec containers
-/mnt/asec(/.*)?           u:object_r:asec_apk_file:s0
-/mnt/asec/[^/]+/res\.zip   u:object_r:asec_public_file:s0
-/mnt/asec/[^/]+/lib(/.*)? u:object_r:asec_public_file:s0
-/data/app-asec(/.*)?      u:object_r:asec_image_file:s0
+/mnt/asec(/.*)?             u:object_r:asec_apk_file:s0
+/mnt/asec/[^/]+/[^/]+\.zip  u:object_r:asec_public_file:s0
+/mnt/asec/[^/]+/lib(/.*)?   u:object_r:asec_public_file:s0
+/data/app-asec(/.*)?        u:object_r:asec_image_file:s0
