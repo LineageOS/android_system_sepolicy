@@ -61,6 +61,7 @@ media.camera                              u:object_r:mediaserver_service:s0
 media.log                                 u:object_r:mediaserver_service:s0
 media.player                              u:object_r:mediaserver_service:s0
 media.sound_trigger_hw                    u:object_r:mediaserver_service:s0
+media_projection                          u:object_r:system_server_service:s0
 media_router                              u:object_r:system_server_service:s0
 media_session                             u:object_r:system_server_service:s0
 meminfo                                   u:object_r:system_server_service:s0
