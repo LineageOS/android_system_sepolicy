@@ -12,20 +12,12 @@ userdebug_or_eng(`
   # additional information.
   domain_auto_trans(dumpstate, su_exec, su)
 
-  # su is unconfined.
-  unconfined_domain(su)
-
-  allow su ashmem_device:chr_file execute;
-  allow su self:process execmem;
-  tmpfs_domain(su)
-  allow su su_tmpfs:file execute;
-  allow su debuggerd_prop:property_service set;
-
   # su is also permissive to permit setenforce.
   permissive su;
 
-  # Make su a net domain.
+  # Add su to various domains
   net_domain(su)
+  app_domain(su)
 
   dontaudit su self:capability_class_set *;
   dontaudit su kernel:security *;
