@@ -892,6 +892,8 @@ class property_service
 class service_manager
 {
 	add
+	find
+	list
 }
 
 class keystore_key
