@@ -61,6 +61,9 @@ allow appdomain oemfs:file rx_file_perms;
 allow appdomain shell_exec:file rx_file_perms;
 allow appdomain system_file:file rx_file_perms;
 
+# Execute dex2oat when apps call dexclassloader
+allow appdomain dex2oat_exec:file rx_file_perms;
+
 # Read/write wallpaper file (opened by system).
 allow appdomain wallpaper_file:file { getattr read write };
 
