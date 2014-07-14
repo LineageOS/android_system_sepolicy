@@ -67,3 +67,6 @@ attribute bluetoothdomain;
 
 # All domains used for binder service domains.
 attribute binderservicedomain;
+
+# All domains that are excluded from the domain.te auditallow.
+attribute service_manager_local_audit;
