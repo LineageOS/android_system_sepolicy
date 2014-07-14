@@ -20,27 +20,6 @@ allow unconfineddomain self:capability ~{ sys_ptrace sys_rawio mknod sys_module 
 allow unconfineddomain self:capability2 ~{ mac_override mac_admin };
 allow unconfineddomain kernel:security ~{ load_policy setenforce setcheckreqprot setbool setsecparam };
 allow unconfineddomain kernel:system ~{ syslog_read syslog_mod syslog_console };
-allow unconfineddomain domain:process {
-    fork
-    sigchld
-    sigkill
-    sigstop
-    signull
-    signal
-    getsched
-    setsched
-    getsession
-    getpgid
-    setpgid
-    getcap
-    setcap
-    share
-    getattr
-    noatsecure
-    siginh
-    setrlimit
-    rlimitinh
-};
 allow unconfineddomain domain:fd *;
 allow unconfineddomain domain:dir r_dir_perms;
 allow unconfineddomain domain:lnk_file r_file_perms;
