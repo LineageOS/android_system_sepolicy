@@ -35,7 +35,7 @@ dontaudit kernel self:security setenforce;
 allow kernel self:security setcheckreqprot;
 
 # MTP sync
-allow kernel sdcard_internal:file { read write };
+allow kernel fuse:file { read write };
 
 ###
 ### neverallow rules

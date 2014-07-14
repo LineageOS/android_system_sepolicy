@@ -116,8 +116,8 @@ allow appdomain radio_data_file:file { read write getattr };
 allow untrusted_app system_app_data_file:file { read write getattr };
 
 # Access SDcard via the fuse mount.
-allow appdomain sdcard_internal:dir create_dir_perms;
-allow appdomain sdcard_internal:file create_file_perms;
+allow appdomain fuse:dir create_dir_perms;
+allow appdomain fuse:file create_file_perms;
 
 # Allow apps to use the USB Accessory interface.
 # http://developer.android.com/guide/topics/connectivity/usb/accessory.html
