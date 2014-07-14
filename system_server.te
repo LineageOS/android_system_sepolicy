@@ -385,6 +385,9 @@ allow system_server keystore:keystore_key {
 allow system_server persistent_data_block_device:blk_file rw_file_perms;
 allow system_server block_device:dir search;
 
+# Clean up old cgroups
+allow system_server cgroup:dir { remove_name rmdir };
+
 ###
 ### Neverallow rules
 ###
