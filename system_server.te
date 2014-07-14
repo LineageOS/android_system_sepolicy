@@ -388,6 +388,9 @@ allow system_server block_device:dir search;
 # Clean up old cgroups
 allow system_server cgroup:dir { remove_name rmdir };
 
+# /oem access
+allow system_server oemfs:dir search;
+
 ###
 ### Neverallow rules
 ###
