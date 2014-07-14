@@ -2,8 +2,6 @@
 type install_recovery, domain;
 type install_recovery_exec, exec_type, file_type;
 
-permissive_or_unconfined(install_recovery)
-
 init_daemon_domain(install_recovery)
 
 allow install_recovery self:capability dac_override;
