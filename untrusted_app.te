@@ -77,7 +77,7 @@ neverallow untrusted_app debugfs:file read;
 # services.
 neverallow untrusted_app service_manager_type:service_manager add;
 
-# Don't allow untrusted_apps to connect to the property service
+# Do not allow untrusted_apps to connect to the property service
 # or set properties. b/10243159
 neverallow untrusted_app property_socket:sock_file write;
 neverallow untrusted_app init:unix_stream_socket connectto;
