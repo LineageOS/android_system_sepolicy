@@ -380,6 +380,11 @@ allow system_server keystore:keystore_key {
 	clear_uid
 };
 
+# Allow system server to search and write to the persistent data block device
+# This block device does not get wiped in a factory reset.
+allow system_server persistent_data_block_device:blk_file rw_file_perms;
+allow system_server block_device:dir search;
+
 ###
 ### Neverallow rules
 ###
