@@ -71,6 +71,7 @@ auditallow untrusted_app {
     -drmserver_service
     -mediaserver_service
     -nfc_service
+    -radio_service
     -surfaceflinger_service
     -system_server_service
 }:service_manager find;
