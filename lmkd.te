@@ -18,3 +18,9 @@ allow lmkd sysfs_lowmemorykiller:file w_file_perms;
 
 # Send kill signals
 allow lmkd appdomain:process sigkill;
+
+# Clean up old cgroups
+allow lmkd cgroup:dir { remove_name rmdir };
+
+# Set self to SCHED_FIFO
+allow lmkd self:capability sys_nice;
