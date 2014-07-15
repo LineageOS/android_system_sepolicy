@@ -2,7 +2,6 @@
 # it lives in the rootfs and has no unique file type.
 type healthd, domain;
 
-allow healthd rootfs:file { read entrypoint };
 write_klog(healthd)
 # /dev/__null__ created by init prior to policy load,
 # open fd inherited by healthd.

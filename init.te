@@ -60,12 +60,23 @@ allow init usermodehelper:file rw_file_perms;
 allow init proc_security:file rw_file_perms;
 
 # Transitions to seclabel processes in init.rc
-allow init adbd:process transition;
-allow init healthd:process transition;
-allow init recovery:process transition;
-allow init shell:process transition;
-allow init ueventd:process transition;
-allow init watchdogd:process transition;
+domain_trans(init, rootfs, adbd)
+domain_trans(init, rootfs, healthd)
+recovery_only(`
+  domain_trans(init, rootfs, recovery)
+')
+domain_trans(init, shell_exec, shell)
+domain_trans(init, rootfs, ueventd)
+domain_trans(init, rootfs, watchdogd)
+
+# Certain domains need LD_PRELOAD passed from init.
+# https://android-review.googlesource.com/94851
+# For now, allow it to all domains.
+# TODO: scope this down.
+allow init domain:process noatsecure;
+
+# Support "adb shell stop"
+allow init domain:process sigkill;
 
 # Init creates keystore's directory on boot, and walks through
 # the directory as part of a recursive restorecon.
@@ -91,6 +102,10 @@ allow init property_type:property_service set;
 
 # Run "ifup lo" to bring up the localhost interface
 allow init self:udp_socket { create ioctl };
+
+# This line seems suspect, as it should not really need to
+# set scheduling parameters for a kernel domain task.
+allow init kernel:process setsched;
 
 ###
 ### neverallow rules
