@@ -6,6 +6,12 @@ init_daemon_domain(lmkd)
 
 allow lmkd self:capability { dac_override sys_resource kill };
 
+# lmkd locks itself in memory, to prevent it from being
+# swapped out and unable to kill other memory hogs.
+# system/core commit b28ff9131363f7b4a698990da5748b2a88c3ed35
+# b/16236289
+allow lmkd self:capability ipc_lock;
+
 ## Open and write to /proc/PID/oom_score_adj
 ## TODO: maybe scope this down?
 r_dir_file(lmkd, appdomain)
