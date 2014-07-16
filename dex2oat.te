@@ -4,3 +4,6 @@ type dex2oat_exec, exec_type, file_type;
 
 allow dex2oat dalvikcache_data_file:file write;
 allow dex2oat installd:fd use;
+
+# Read already open asec_apk_file file descriptors passed by installd.
+allow dex2oat asec_apk_file:file read;
