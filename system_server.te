@@ -364,15 +364,6 @@ allow system_server system_server_service:service_manager add;
 
 # Audited locally.
 service_manager_local_audit_domain(system_server)
-auditallow system_server {
-    service_manager_type
-    -healthd_service
-    -keystore_service
-    -mediaserver_service
-    -radio_service
-    -surfaceflinger_service
-    -system_server_service
-}:service_manager find;
 
 allow system_server keystore:keystore_key {
 	test
