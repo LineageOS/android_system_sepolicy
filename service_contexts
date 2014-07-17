@@ -16,6 +16,7 @@ bluetooth_manager                         u:object_r:system_server_service:s0
 bluetooth                                 u:object_r:bluetooth_service:s0
 clipboard                                 u:object_r:system_server_service:s0
 com.android.internal.telephony.mms.IMms   u:object_r:system_server_service:s0
+com.android.net.IProxyService             u:object_r:system_server_service:s0
 commontime_management                     u:object_r:system_server_service:s0
 common_time.clock                        u:object_r:mediaserver_service:s0
 common_time.config                       u:object_r:mediaserver_service:s0
