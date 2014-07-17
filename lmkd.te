@@ -30,3 +30,8 @@ allow lmkd cgroup:dir { remove_name rmdir };
 
 # Set self to SCHED_FIFO
 allow lmkd self:capability sys_nice;
+
+### neverallow rules
+
+# never honor LD_PRELOAD
+neverallow domain lmkd:process noatsecure;
