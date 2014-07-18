@@ -54,6 +54,7 @@ service_manager_local_audit_domain(bluetooth)
 auditallow bluetooth {
     service_manager_type
     -bluetooth_service
+    -radio_service
     -system_server_service
 }:service_manager find;
 

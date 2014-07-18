@@ -49,4 +49,8 @@ allow drmserver drmserver_service:service_manager add;
 
 # Audited locally.
 service_manager_local_audit_domain(drmserver)
-auditallow drmserver { service_manager_type -drmserver_service }:service_manager find;
+auditallow drmserver {
+    service_manager_type
+    -drmserver_service
+    -system_server_service
+}:service_manager find;
