@@ -21,4 +21,9 @@ allow isolated_app app_data_file:file execute;
 
 # Audited locally.
 service_manager_local_audit_domain(isolated_app)
-auditallow isolated_app service_manager_type:service_manager find;
+auditallow isolated_app {
+    service_manager_type
+    -radio_service
+    -surfaceflinger_service
+    -system_server_service
+}:service_manager find;
