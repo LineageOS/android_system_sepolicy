@@ -69,7 +69,9 @@ control_logd(system_app)
 service_manager_local_audit_domain(system_app)
 auditallow system_app {
     service_manager_type
+    -keystore_service
     -nfc_service
+    -radio_service
     -surfaceflinger_service
     -system_server_service
 }:service_manager find;
