@@ -69,6 +69,7 @@ service_manager_local_audit_domain(untrusted_app)
 auditallow untrusted_app {
     service_manager_type
     -drmserver_service
+    -keystore_service
     -mediaserver_service
     -nfc_service
     -radio_service

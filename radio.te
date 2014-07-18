@@ -35,5 +35,6 @@ auditallow radio {
     service_manager_type
     -mediaserver_service
     -radio_service
+    -surfaceflinger_service
     -system_server_service
 }:service_manager find;
