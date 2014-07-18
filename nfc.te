@@ -15,12 +15,3 @@ allow nfc sysfs_nfc_power_writable:file rw_file_perms;
 allow nfc sysfs:file write;
 
 allow nfc nfc_service:service_manager add;
-
-# Audited locally.
-service_manager_local_audit_domain(nfc)
-auditallow nfc {
-    service_manager_type
-    -mediaserver_service
-    -surfaceflinger_service
-    -system_server_service
-}:service_manager find;

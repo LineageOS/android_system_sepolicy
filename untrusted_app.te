@@ -64,19 +64,6 @@ allow untrusted_app media_rw_data_file:file create_file_perms;
 allow untrusted_app cache_file:dir create_dir_perms;
 allow untrusted_app cache_file:file create_file_perms;
 
-# Audited locally.
-service_manager_local_audit_domain(untrusted_app)
-auditallow untrusted_app {
-    service_manager_type
-    -drmserver_service
-    -keystore_service
-    -mediaserver_service
-    -nfc_service
-    -radio_service
-    -surfaceflinger_service
-    -system_server_service
-}:service_manager find;
-
 ###
 ### neverallow rules
 ###

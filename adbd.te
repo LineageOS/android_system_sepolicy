@@ -68,9 +68,3 @@ allow adbd appdomain:unix_stream_socket connectto;
 # ndk-gdb invokes adb pull of app_process, linker, and libc.so.
 allow adbd zygote_exec:file r_file_perms;
 allow adbd system_file:file r_file_perms;
-
-service_manager_local_audit_domain(adbd)
-auditallow adbd {
-    service_manager_type
-    -surfaceflinger_service
-}:service_manager find;

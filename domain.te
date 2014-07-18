@@ -159,9 +159,7 @@ allow domain asec_public_file:file r_file_perms;
 allow domain { asec_public_file asec_apk_file }:dir r_dir_perms;
 
 allow domain servicemanager:service_manager list;
-auditallow domain servicemanager:service_manager list;
 allow domain service_manager_type:service_manager find;
-auditallow { domain -service_manager_local_audit } service_manager_type:service_manager find;
 
 ###
 ### neverallow rules
