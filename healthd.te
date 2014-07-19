@@ -22,6 +22,12 @@ allow healthd sysfs:file write;
 ### healthd: charger mode
 ###
 
+# Read /sys/fs/pstore/console-ramoops
+# Don't worry about overly broad permissions for now, as there's
+# only one file in /sys/fs/pstore
+allow healthd pstorefs:dir r_dir_perms;
+allow healthd pstorefs:file r_file_perms;
+
 allow healthd graphics_device:dir r_dir_perms;
 allow healthd graphics_device:chr_file rw_file_perms;
 allow healthd input_device:dir r_dir_perms;
