@@ -3,7 +3,7 @@ Policy Generation:
 Additional, per device, policy files can be added into the
 policy build.
 
-They can be configured through the use of three variables,
+They can be configured through the use of four variables,
 they are:
 1. BOARD_SEPOLICY_REPLACE
 2. BOARD_SEPOLICY_UNION
