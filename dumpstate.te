@@ -96,3 +96,7 @@ control_logd(dumpstate)
 # Read network state info files.
 allow dumpstate net_data_file:dir search;
 allow dumpstate net_data_file:file r_file_perms;
+
+# Access /data/tombstones.
+allow dumpstate tombstone_data_file:dir r_dir_perms;
+allow dumpstate tombstone_data_file:file r_file_perms;
