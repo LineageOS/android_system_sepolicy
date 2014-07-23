@@ -97,6 +97,10 @@ control_logd(dumpstate)
 allow dumpstate net_data_file:dir search;
 allow dumpstate net_data_file:file r_file_perms;
 
+# Access /data/tombstones.
+allow dumpstate tombstone_data_file:dir r_dir_perms;
+allow dumpstate tombstone_data_file:file r_file_perms;
+
 service_manager_local_audit_domain(dumpstate)
 auditallow dumpstate {
     service_manager_type
