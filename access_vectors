@@ -915,3 +915,9 @@ class keystore_key
 	duplicate
 	clear_uid
 }
+
+class debuggerd
+{
+	dump_tombstone
+	dump_backtrace
+}
