@@ -127,6 +127,9 @@ binder_call(system_server, appdomain)
 binder_call(system_server, dumpstate)
 binder_service(system_server)
 
+# Ask debuggerd to dump backtraces for native stacks of interest.
+allow system_server { mediaserver sdcardd surfaceflinger inputflinger }:debuggerd dump_backtrace;
+
 # Read /proc/pid files for dumping stack traces of native processes.
 r_dir_file(system_server, mediaserver)
 r_dir_file(system_server, sdcardd)
