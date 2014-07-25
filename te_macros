@@ -358,3 +358,13 @@ define(`use_keystore', `
   allow keystore $1:process getattr;
   binder_call($1, keystore)
 ')
+
+###########################################
+# use_drmservice(domain)
+# Ability to use DrmService which requires
+# DrmService to call getpidcon.
+define(`use_drmservice', `
+  allow drmserver $1:dir search;
+  allow drmserver $1:file { read open };
+  allow drmserver $1:process getattr;
+')

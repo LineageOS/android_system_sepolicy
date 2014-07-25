@@ -46,3 +46,5 @@ allow drmserver asec_apk_file:file { read getattr };
 allow drmserver radio_data_file:file { read getattr };
 
 allow drmserver drmserver_service:service_manager add;
+
+selinux_check_access(drmserver)

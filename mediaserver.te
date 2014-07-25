@@ -79,3 +79,15 @@ unix_socket_connect(mediaserver, bluetooth, bluetooth)
 allow mediaserver tee:unix_stream_socket connectto;
 
 allow mediaserver mediaserver_service:service_manager add;
+
+use_drmservice(mediaserver)
+allow mediaserver drmserver:drmservice {
+    consumeRights
+    setPlaybackStatus
+    openDecryptSession
+    closeDecryptSession
+    initializeDecryptUnit
+    decrypt
+    finalizeDecryptUnit
+    pread
+};
