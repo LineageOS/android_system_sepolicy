@@ -368,6 +368,7 @@ define(`service_manager_local_audit_domain', `
   typeattribute $1 service_manager_local_audit;
 ')
 
+###########################################
 # use_drmservice(domain)
 # Ability to use DrmService which requires
 # DrmService to call getpidcon.
