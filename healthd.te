@@ -40,6 +40,10 @@ allow healthd self:capability sys_boot;
 
 allow healthd healthd_service:service_manager add;
 
+# Audited locally.
+service_manager_local_audit_domain(healthd)
+auditallow healthd { service_manager_type -healthd_service }:service_manager find;
+
 # Healthd needs to tell init to continue the boot
 # process when running in charger mode.
 unix_socket_connect(healthd, property, init)

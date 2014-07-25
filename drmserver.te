@@ -47,4 +47,12 @@ allow drmserver radio_data_file:file { read getattr };
 
 allow drmserver drmserver_service:service_manager add;
 
+# Audited locally.
+service_manager_local_audit_domain(drmserver)
+auditallow drmserver {
+    service_manager_type
+    -drmserver_service
+    -system_server_service
+}:service_manager find;
+
 selinux_check_access(drmserver)

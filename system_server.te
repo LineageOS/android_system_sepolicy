@@ -364,6 +364,9 @@ allow system_server pstorefs:file r_file_perms;
 
 allow system_server system_server_service:service_manager add;
 
+# Audited locally.
+service_manager_local_audit_domain(system_server)
+
 allow system_server keystore:keystore_key {
 	test
 	get

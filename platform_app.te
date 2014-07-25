@@ -27,3 +27,13 @@ allow platform_app media_rw_data_file:file create_file_perms;
 # Write to /cache.
 allow platform_app cache_file:dir create_dir_perms;
 allow platform_app cache_file:file create_file_perms;
+
+# Audited locally.
+service_manager_local_audit_domain(platform_app)
+auditallow platform_app {
+    service_manager_type
+    -mediaserver_service
+    -radio_service
+    -surfaceflinger_service
+    -system_server_service
+}:service_manager find;

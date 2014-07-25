@@ -100,3 +100,18 @@ allow dumpstate net_data_file:file r_file_perms;
 # Access /data/tombstones.
 allow dumpstate tombstone_data_file:dir r_dir_perms;
 allow dumpstate tombstone_data_file:file r_file_perms;
+
+service_manager_local_audit_domain(dumpstate)
+auditallow dumpstate {
+    service_manager_type
+    -drmserver_service
+    -healthd_service
+    -inputflinger_service
+    -keystore_service
+    -mediaserver_service
+    -nfc_service
+    -radio_service
+    -surfaceflinger_service
+    -system_app_service
+    -system_server_service
+}:service_manager find;
