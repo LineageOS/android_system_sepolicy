@@ -14,7 +14,6 @@ allow system_server system_server_tmpfs:file execute;
 
 # For art.
 allow system_server dalvikcache_data_file:file execute;
-allow system_server dex2oat_exec:file rx_file_perms;
 
 # /data/resource-cache
 allow system_server resourcecache_data_file:file r_file_perms;
