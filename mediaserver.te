@@ -89,3 +89,15 @@ auditallow mediaserver {
     -system_server_service
     -surfaceflinger_service
 }:service_manager find;
+
+use_drmservice(mediaserver)
+allow mediaserver drmserver:drmservice {
+    consumeRights
+    setPlaybackStatus
+    openDecryptSession
+    closeDecryptSession
+    initializeDecryptUnit
+    decrypt
+    finalizeDecryptUnit
+    pread
+};

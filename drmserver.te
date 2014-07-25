@@ -54,3 +54,5 @@ auditallow drmserver {
     -drmserver_service
     -system_server_service
 }:service_manager find;
+
+selinux_check_access(drmserver)
