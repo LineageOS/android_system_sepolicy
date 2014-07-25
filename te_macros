@@ -367,3 +367,13 @@ define(`use_keystore', `
 define(`service_manager_local_audit_domain', `
   typeattribute $1 service_manager_local_audit;
 ')
+
+###########################################
+# use_drmservice(domain)
+# Ability to use DrmService which requires
+# DrmService to call getpidcon.
+define(`use_drmservice', `
+  allow drmserver $1:dir search;
+  allow drmserver $1:file { read open };
+  allow drmserver $1:process getattr;
+')
