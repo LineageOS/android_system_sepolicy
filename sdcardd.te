@@ -18,3 +18,6 @@ allow sdcardd media_rw_data_file:file create_file_perms;
 
 # Read /data/system/packages.list.
 allow sdcardd system_data_file:file r_file_perms;
+
+# Read /data/.layout_version
+allow sdcardd install_data_file:file r_file_perms;
