@@ -79,6 +79,23 @@ build_policy = $(foreach type, $(1), \
   ) \
 )
 
+sepolicy_build_files := security_classes \
+                        initial_sids \
+                        access_vectors \
+                        global_macros \
+                        mls_macros \
+                        mls \
+                        policy_capabilities \
+                        te_macros \
+                        attributes \
+                        *.te \
+                        roles \
+                        users \
+                        initial_sid_contexts \
+                        fs_use \
+                        genfs_contexts \
+                        port_contexts
+
 ##################################
 include $(CLEAR_VARS)
 
@@ -92,7 +109,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 sepolicy_policy.conf := $(intermediates)/policy.conf
 $(sepolicy_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(sepolicy_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
-$(sepolicy_policy.conf) : $(call build_policy, security_classes initial_sids access_vectors global_macros mls_macros mls policy_capabilities te_macros attributes *.te roles users initial_sid_contexts fs_use genfs_contexts port_contexts)
+$(sepolicy_policy.conf) : $(call build_policy, $(sepolicy_build_files))
 	@mkdir -p $(dir $@)
 	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
@@ -120,7 +137,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 sepolicy_policy_recovery.conf := $(intermediates)/policy_recovery.conf
 $(sepolicy_policy_recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(sepolicy_policy_recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
-$(sepolicy_policy_recovery.conf) : $(call build_policy, security_classes initial_sids access_vectors global_macros mls_macros mls policy_capabilities te_macros attributes *.te roles users initial_sid_contexts fs_use genfs_contexts port_contexts)
+$(sepolicy_policy_recovery.conf) : $(call build_policy, $(sepolicy_build_files))
 	@mkdir -p $(dir $@)
 	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
@@ -135,7 +152,33 @@ $(LOCAL_BUILT_MODULE) : $(sepolicy_policy_recovery.conf) $(HOST_OUT_EXECUTABLES)
 built_sepolicy_recovery := $(LOCAL_BUILT_MODULE)
 sepolicy_policy_recovery.conf :=
 
-###################################
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := general_sepolicy.conf
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := tests
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+exp_sepolicy_build_files :=\
+  $(wildcard $(addprefix $(LOCAL_PATH)/, $(sepolicy_build_files)))
+
+$(LOCAL_BUILT_MODULE): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(LOCAL_BUILT_MODULE): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(LOCAL_BUILT_MODULE): $(exp_sepolicy_build_files)
+	mkdir -p $(dir $@)
+	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
+		-D target_build_variant=user \
+		-D force_permissive_to_unconfined=true \
+		-s $^ > $@
+	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+
+GENERAL_SEPOLICY_POLICY.CONF = $(LOCAL_BUILT_MODULE)
+
+exp_sepolicy_build_files :=
+
+##################################
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := file_contexts
@@ -270,6 +313,7 @@ $(LOCAL_BUILT_MODULE) : $(built_sepolicy) $(built_pc) $(built_fc) $(built_sc) $(
 ##################################
 
 build_policy :=
+sepolicy_build_files :=
 sepolicy_replace_paths :=
 built_sepolicy :=
 built_sc :=
