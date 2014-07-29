@@ -167,4 +167,4 @@ allow dev_type tmpfs:filesystem associate;
 #   type apk_data_file, file_type, data_file_type, fs_type;
 # Should be:
 #   type apk_data_file, file_type, data_file_type;
-neverallow fs_type file_type:filesystem *;
+neverallow fs_type file_type:filesystem associate;
