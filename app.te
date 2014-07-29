@@ -255,7 +255,7 @@ neverallow appdomain { domain -appdomain }:process
 
 # Transition to a non-app domain.
 # Exception for the shell domain, can transition to runas, etc.
-neverallow { appdomain -shell } ~appdomain:process
+neverallow { appdomain -shell } { domain -appdomain }:process
     { transition dyntransition };
 
 # Write to rootfs.
