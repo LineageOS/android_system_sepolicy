@@ -161,6 +161,8 @@
 /system/bin/vdc         u:object_r:vdc_exec:s0
 /system/bin/install-recovery.sh u:object_r:install_recovery_exec:s0
 /system/bin/dex2oat     u:object_r:dex2oat_exec:s0
+# patchoat executable has (essentially) the same requirements as dex2oat.
+/system/bin/patchoat    u:object_r:dex2oat_exec:s0
 
 #############################
 # Vendor files
