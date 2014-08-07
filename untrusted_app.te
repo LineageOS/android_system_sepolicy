@@ -82,3 +82,7 @@ neverallow untrusted_app service_manager_type:service_manager add;
 neverallow untrusted_app property_socket:sock_file write;
 neverallow untrusted_app init:unix_stream_socket connectto;
 neverallow untrusted_app property_type:property_service set;
+
+# Allow verifier to access staged apks.
+allow untrusted_app { apk_tmp_file apk_private_tmp_file }:dir r_dir_perms;
+allow untrusted_app { apk_tmp_file apk_private_tmp_file }:file r_file_perms;
