@@ -36,6 +36,7 @@ allow init rootfs:file relabelfrom;
 # init.<board>.rc files often include device-specific types, so
 # we just allow all file types except /system files here.
 allow init {file_type -system_file -exec_type}:dir_file_class_set relabelto;
+allow init sysfs_type:{ dir file lnk_file } relabelto;
 
 # Unlabeled file access for upgrades from 4.2.
 allow init unlabeled:dir { create_dir_perms relabelfrom };
