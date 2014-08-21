@@ -51,7 +51,7 @@ userdebug_or_eng(`
   allow domain su:fd use;
   allow domain su:unix_stream_socket { getattr getopt read write shutdown };
 
-  binder_call(domain, su)
+  binder_call({ domain -init }, su)
 
   # Running something like "pm dump com.android.bluetooth" requires
   # fifo writes
@@ -245,9 +245,9 @@ neverallow { domain -init } proc_security:file { append write };
 # No domain should be allowed to ptrace init.
 neverallow domain init:process ptrace;
 
-# Init can't receive binder calls. If this neverallow rule is being
+# Init can't do anything with binder calls. If this neverallow rule is being
 # triggered, it's probably due to a service with no SELinux domain.
-neverallow domain init:binder call;
+neverallow domain init:binder *;
 
 # Don't allow raw read/write/open access to block_device
 # Rather force a relabel to a more specific type
