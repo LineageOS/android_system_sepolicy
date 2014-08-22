@@ -11,7 +11,7 @@ init_daemon_domain(servicemanager)
 # created by other domains.  It never passes its own references
 # or initiates a Binder IPC.
 allow servicemanager self:binder set_context_mgr;
-allow servicemanager domain:binder transfer;
+allow servicemanager { domain -init }:binder transfer;
 
 # Check SELinux permissions.
 selinux_check_access(servicemanager)
