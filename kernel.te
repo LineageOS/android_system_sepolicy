@@ -34,8 +34,9 @@ dontaudit kernel self:security setenforce;
 # Set checkreqprot by init.rc prior to switching to init domain.
 allow kernel self:security setcheckreqprot;
 
-# MTP sync
-allow kernel fuse:file { read write };
+# MTP sync (b/15835289)
+# kernel thread "loop0", used by the loop block device, for ASECs (b/17158723)
+allow kernel sdcard_type:file { read write };
 
 ###
 ### neverallow rules
