@@ -24,9 +24,6 @@ auditallow system_app system_data_file:file { create setattr append write link u
 # Read wallpaper file.
 allow system_app wallpaper_file:file r_file_perms;
 
-# Write to dalvikcache.
-allow system_app dalvikcache_data_file:file { write setattr };
-
 # Write to properties
 unix_socket_connect(system_app, property, init)
 allow system_app debug_prop:property_service set;
