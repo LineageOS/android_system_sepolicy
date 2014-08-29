@@ -914,6 +914,9 @@ class keystore_key
 	grant
 	duplicate
 	clear_uid
+	reset_uid
+	sync_uid
+	password_uid
 }
 
 class debuggerd
