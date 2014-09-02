@@ -117,3 +117,7 @@ allow init kernel:process setsched;
 neverallow { domain -kernel} init:process dyntransition;
 neverallow domain init:process transition;
 neverallow init { file_type fs_type }:file entrypoint;
+
+# Never read/follow symlinks created by shell or untrusted apps.
+neverallow init shell_data_file:lnk_file read;
+neverallow init app_data_file:lnk_file read;
