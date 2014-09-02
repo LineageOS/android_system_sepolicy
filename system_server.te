@@ -383,6 +383,9 @@ allow system_server keystore:keystore_key {
 	grant
 	duplicate
 	clear_uid
+	reset_uid
+	sync_uid
+	password_uid
 };
 
 # Allow system server to search and write to the persistent data block device
