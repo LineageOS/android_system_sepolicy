@@ -307,3 +307,5 @@ neverallow { domain -recovery } contextmount_type:dir_file_class_set
 # New service_types are defined in service.te and new mappings
 # from service name to service_type are defined in service_contexts.
 neverallow domain default_android_service:service_manager add;
+
+neverallow { domain -init -recovery -system_server } frp_block_device:blk_file rw_file_perms;
