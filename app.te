@@ -170,8 +170,6 @@ allow appdomain runas_exec:file getattr;
 # Check SELinux policy and contexts.
 selinux_check_access(appdomain)
 selinux_check_context(appdomain)
-# Enable reading of current selinux policy file
-allow appdomain kernel:security read_policy;
 # Validate that each process is running in the correct security context.
 allow appdomain domain:process getattr;
 
