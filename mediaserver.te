@@ -79,3 +79,6 @@ unix_socket_connect(mediaserver, bluetooth, bluetooth)
 allow mediaserver tee:unix_stream_socket connectto;
 
 allow mediaserver mediaserver_service:service_manager add;
+
+# /oem access
+allow mediaserver oemfs:file r_file_perms;
