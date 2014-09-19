@@ -84,8 +84,6 @@ allow domain zero_device:chr_file rw_file_perms;
 allow domain ashmem_device:chr_file rw_file_perms;
 allow domain binder_device:chr_file rw_file_perms;
 allow domain ptmx_device:chr_file rw_file_perms;
-allow domain log_device:dir search;
-allow domain log_device:chr_file rw_file_perms;
 allow domain alarm_device:chr_file r_file_perms;
 allow domain urandom_device:chr_file rw_file_perms;
 allow domain random_device:chr_file rw_file_perms;
