@@ -1,5 +1,5 @@
 # lmkd low memory killer daemon
-type lmkd, domain;
+type lmkd, domain, mlstrustedsubject;
 type lmkd_exec, exec_type, file_type;
 
 init_daemon_domain(lmkd)
