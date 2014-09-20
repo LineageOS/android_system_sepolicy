@@ -157,6 +157,7 @@ static policy_info pol = {
 key_map rules[] = {
                 /*Inputs*/
                 { .name = "isSystemServer", .type = dt_bool,   .dir = dir_in,  .data = NULL },
+                { .name = "isOwner",        .type = dt_bool,   .dir = dir_in,  .data = NULL },
                 { .name = "user",           .type = dt_string, .dir = dir_in,  .data = NULL },
                 { .name = "seinfo",         .type = dt_string, .dir = dir_in,  .data = NULL },
                 { .name = "name",           .type = dt_string, .dir = dir_in,  .data = NULL },
