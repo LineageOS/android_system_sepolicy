@@ -67,3 +67,9 @@ type root_block_device, dev_type;
 
 # factory reset protection block device
 type frp_block_device, dev_type;
+
+# Userdata block device mounted on /data.
+type userdata_block_device, dev_type;
+
+# Cache block device mounted on /cache.
+type cache_block_device, dev_type;

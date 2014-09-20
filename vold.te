@@ -89,3 +89,6 @@ binder_call(vold, healthd)
 # talk to keymaster
 allow vold tee_device:chr_file rw_file_perms;
 
+# Access userdata block device.
+allow vold userdata_block_device:blk_file rw_file_perms;
+auditallow vold userdata_block_device:blk_file rw_file_perms;
