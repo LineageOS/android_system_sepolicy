@@ -12,7 +12,7 @@ type qtaguid_proc, fs_type, mlstrustedobject;
 type proc_bluetooth_writable, fs_type;
 type proc_net, fs_type;
 type proc_sysrq, fs_type;
-type selinuxfs, fs_type;
+type selinuxfs, fs_type, mlstrustedobject;
 type cgroup, fs_type, mlstrustedobject;
 type sysfs, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_writable, fs_type, sysfs_type, mlstrustedobject;
@@ -62,11 +62,11 @@ type apk_private_tmp_file, file_type, data_file_type, mlstrustedobject;
 # /data/dalvik-cache
 type dalvikcache_data_file, file_type, data_file_type;
 # /data/dalvik-cache/profiles
-type dalvikcache_profiles_data_file, file_type, data_file_type;
+type dalvikcache_profiles_data_file, file_type, data_file_type, mlstrustedobject;
 # /data/resource-cache
 type resourcecache_data_file, file_type, data_file_type;
 # /data/local - writable by shell
-type shell_data_file, file_type, data_file_type;
+type shell_data_file, file_type, data_file_type, mlstrustedobject;
 # /data/gps
 type gps_data_file, file_type, data_file_type;
 # /data/property
@@ -79,10 +79,10 @@ type bluetooth_data_file, file_type, data_file_type;
 type camera_data_file, file_type, data_file_type;
 type keystore_data_file, file_type, data_file_type;
 type media_data_file, file_type, data_file_type;
-type media_rw_data_file, file_type, data_file_type;
+type media_rw_data_file, file_type, data_file_type, mlstrustedobject;
 type net_data_file, file_type, data_file_type;
 type nfc_data_file, file_type, data_file_type;
-type radio_data_file, file_type, data_file_type;
+type radio_data_file, file_type, data_file_type, mlstrustedobject;
 type shared_relro_file, file_type, data_file_type;
 type systemkeys_data_file, file_type, data_file_type;
 type vpn_data_file, file_type, data_file_type;
@@ -131,12 +131,12 @@ type fwmarkd_socket, file_type, mlstrustedobject;
 type gps_socket, file_type;
 type installd_socket, file_type;
 type lmkd_socket, file_type;
-type logd_debug, file_type;
-type logd_socket, file_type;
+type logd_debug, file_type, mlstrustedobject;
+type logd_socket, file_type, mlstrustedobject;
 type logdr_socket, file_type, mlstrustedobject;
 type logdw_socket, file_type, mlstrustedobject;
 type mdns_socket, file_type;
-type mdnsd_socket, file_type;
+type mdnsd_socket, file_type, mlstrustedobject;
 type mtpd_socket, file_type;
 type netd_socket, file_type;
 type property_socket, file_type;
