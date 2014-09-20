@@ -28,3 +28,7 @@ allow uncrypt powerctl_prop:property_service set;
 allow uncrypt self:capability sys_rawio;
 allow uncrypt block_device:blk_file w_file_perms;
 allow uncrypt block_device:dir r_dir_perms;
+
+# Access userdata block device.
+allow uncrypt userdata_block_device:blk_file rw_file_perms;
+auditallow uncrypt userdata_block_device:blk_file rw_file_perms;
