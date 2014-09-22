@@ -316,8 +316,8 @@ neverallow appdomain
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # Access to factory files.
-neverallow appdomain
-    efs_file:dir_file_class_set { read write };
+neverallow appdomain efs_file:dir_file_class_set write;
+neverallow { appdomain -shell } efs_file:dir_file_class_set read;
 
 # Write to various pseudo file systems.
 neverallow { appdomain -bluetooth -nfc }
