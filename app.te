@@ -227,8 +227,12 @@ neverallow appdomain
         netlink_audit_socket
         netlink_ip6fw_socket
         netlink_dnrt_socket
-        netlink_kobject_uevent_socket
     } *;
+
+# These messages are broadcast messages from the kernel to userspace.
+# Do not allow the writing of netlink messages, which has been a source
+# of rooting vulns in the past.
+neverallow appdomain self:netlink_kobject_uevent_socket { write append };
 
 # Sockets under /dev/socket that are not specifically typed.
 neverallow appdomain socket_device:sock_file write;
