@@ -11,6 +11,7 @@ allow bootanim gpu_device:chr_file rw_file_perms;
 
 # /oem access
 allow bootanim oemfs:dir search;
+allow bootanim oemfs:file r_file_perms;
 
 # Audited locally.
 service_manager_local_audit_domain(bootanim)
