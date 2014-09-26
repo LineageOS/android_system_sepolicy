@@ -42,6 +42,10 @@ selinux_check_access(zygote)
 # Read /seapp_contexts and /data/security/seapp_contexts
 security_access_policy(zygote)
 
+# Native bridge functionality requires that zygote replaces
+# /proc/cpuinfo with /system/lib/<ISA>/cpuinfo using a bind mount
+allow zygote proc_cpuinfo:file mounton;
+
 # Setting up /storage/emulated.
 allow zygote rootfs:dir mounton;
 allow zygote sdcard_type:dir { write search setattr create add_name mounton };
