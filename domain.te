@@ -140,6 +140,7 @@ r_dir_file(domain, sysfs_devices_system_cpu)
 r_dir_file(domain, inotify)
 r_dir_file(domain, cgroup)
 r_dir_file(domain, proc_net)
+allow domain proc_cpuinfo:file r_file_perms;
 
 # debugfs access
 allow domain debugfs:dir r_dir_perms;

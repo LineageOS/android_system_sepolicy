@@ -10,6 +10,7 @@ type proc_security, fs_type;
 type usermodehelper, fs_type, sysfs_type;
 type qtaguid_proc, fs_type, mlstrustedobject;
 type proc_bluetooth_writable, fs_type;
+type proc_cpuinfo, fs_type;
 type proc_net, fs_type;
 type proc_sysrq, fs_type;
 type selinuxfs, fs_type;
