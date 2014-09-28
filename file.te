@@ -43,6 +43,8 @@ type usbfs, fs_type;
 type unlabeled, file_type;
 # Default type for anything under /system.
 type system_file, file_type;
+# Type for /system/bin/logcat.
+type logcat_exec, exec_type, file_type;
 # Default type for anything under /data.
 type system_data_file, file_type, data_file_type;
 # /data/.layout_version or other installd-created files that
