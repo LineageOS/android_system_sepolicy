@@ -332,9 +332,10 @@ unix_socket_send($1, logdw, logd)
 
 #####################################
 # read_logd(domain)
-# Ability to read from android
+# Ability to run logcat and read from android
 # log daemon via sockets
 define(`read_logd', `
+allow $1 logcat_exec:file rx_file_perms;
 unix_socket_connect($1, logdr, logd)
 ')
 
