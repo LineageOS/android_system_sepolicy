@@ -38,6 +38,9 @@ allow vold sysfs:file rw_file_perms;
 
 write_klog(vold)
 
+# Run fsck.
+allow vold fsck_exec:file rx_file_perms;
+
 # Log fsck results
 allow vold fscklogs:dir rw_dir_perms;
 allow vold fscklogs:file create_file_perms;
