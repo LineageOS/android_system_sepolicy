@@ -1,0 +1,26 @@
+# e2fsck or any other fsck program run by init.
+type fsck, domain;
+type fsck_exec, exec_type, file_type;
+permissive_or_unconfined(fsck)
+
+init_daemon_domain(fsck)
+
+# /dev/__null__ created by init prior to policy load,
+# open fd inherited by fsck.
+allow fsck tmpfs:chr_file { read write ioctl };
+
+# Inherit and use pty created by android_fork_execvp_ext().
+allow fsck devpts:chr_file { read write };
+
+# Run e2fsck on block devices.
+# TODO:  Assign userdata and cache block device types to the corresponding
+# block devices in all device policies, and then remove access to
+# block_device:blk_file from here.
+allow fsck block_device:blk_file rw_file_perms;
+allow fsck userdata_block_device:blk_file rw_file_perms;
+allow fsck cache_block_device:blk_file rw_file_perms;
+
+# Only allow entry from init via the e2fsck binary.
+neverallow { domain -init } fsck:process transition;
+neverallow domain fsck:process dyntransition;
+neverallow fsck { file_type fs_type -fsck_exec}:file entrypoint;

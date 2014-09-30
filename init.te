@@ -6,14 +6,8 @@ tmpfs_domain(init)
 
 allow init self:capability { sys_rawio mknod };
 
-# Run helpers from / or /system without changing domain.
-# We do not include exec_type here since generally those
-# should always involve a domain transition.
-allow init rootfs:file execute_no_trans;
-allow init system_file:file execute_no_trans;
-
-# Running e2fsck or mkswap via fs_mgr.
-allow init dev_type:blk_file rw_file_perms;
+# Mounting filesystems from block devices.
+allow init dev_type:blk_file r_file_perms;
 
 # Mounting filesystems.
 # Only allow relabelto for types used in context= mount options,
@@ -121,3 +115,6 @@ neverallow init { file_type fs_type }:file entrypoint;
 # Never read/follow symlinks created by shell or untrusted apps.
 neverallow init shell_data_file:lnk_file read;
 neverallow init app_data_file:lnk_file read;
+
+# init should never execute a program without changing to another domain.
+neverallow init { file_type fs_type }:file execute_no_trans;
