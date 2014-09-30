@@ -10,7 +10,7 @@ init_daemon_domain(fsck)
 allow fsck tmpfs:chr_file { read write ioctl };
 
 # Inherit and use pty created by android_fork_execvp_ext().
-allow fsck devpts:chr_file { read write };
+allow fsck devpts:chr_file { read write ioctl };
 
 # Run e2fsck on block devices.
 # TODO:  Assign userdata and cache block device types to the corresponding
