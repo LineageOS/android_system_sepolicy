@@ -111,7 +111,7 @@ type efs_file, file_type;
 # Type for wallpaper file.
 type wallpaper_file, file_type, mlstrustedobject;
 # /mnt/asec
-type asec_apk_file, file_type, data_file_type;
+type asec_apk_file, file_type, data_file_type, mlstrustedobject;
 # Elements of asec files (/mnt/asec) that are world readable
 type asec_public_file, file_type, data_file_type;
 # /data/app-asec
