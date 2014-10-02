@@ -68,6 +68,12 @@ type root_block_device, dev_type;
 # factory reset protection block device
 type frp_block_device, dev_type;
 
+# System block device mounted on /system.
+type system_block_device, dev_type;
+
+# Recovery block device.
+type recovery_block_device, dev_type;
+
 # Userdata block device mounted on /data.
 type userdata_block_device, dev_type;
 
