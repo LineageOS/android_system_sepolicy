@@ -16,12 +16,6 @@ net_domain(isolated_app)
 # Isolated apps shouldn't be able to access the driver directly.
 neverallow isolated_app gpu_device:file { rw_file_perms execute };
 
-# read and write access to app_data_file is already
-# granted via app.te. Allow execute.
-# Needed to allow dlopen() from Chrome renderer processes.
-# See b/15902433 for details.
-allow isolated_app app_data_file:file execute;
-
 # Audited locally.
 service_manager_local_audit_domain(isolated_app)
 auditallow isolated_app {
