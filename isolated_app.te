@@ -11,7 +11,6 @@
 
 type isolated_app, domain;
 app_domain(isolated_app)
-net_domain(isolated_app)
 
 # Isolated apps shouldn't be able to access the driver directly.
 neverallow isolated_app gpu_device:file { rw_file_perms execute };
