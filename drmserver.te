@@ -48,6 +48,7 @@ allow drmserver radio_data_file:file { read getattr };
 allow drmserver drmserver_service:service_manager add;
 
 # /oem access
+allow drmserver oemfs:dir search;
 allow drmserver oemfs:file r_file_perms;
 
 # Audited locally.
