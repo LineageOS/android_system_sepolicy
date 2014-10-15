@@ -12,6 +12,7 @@
 #include <sepol/policydb/expand.h>
 #include <sepol/policydb/util.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 static int debug;
 static int warn;
