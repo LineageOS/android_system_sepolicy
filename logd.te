@@ -19,6 +19,8 @@ userdebug_or_eng(`
   allow logd logd_debug:file create_file_perms;
 ')
 
+allow logd kernel:system syslog_mod;
+
 ###
 ### Neverallow rules
 ###
