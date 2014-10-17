@@ -19,7 +19,7 @@ allow appdomain zygote:fd use;
 allow appdomain zygote_exec:file rx_file_perms;
 
 # gdbserver for ndk-gdb ptrace attaches to app process.
-allow appdomain self:process ptrace;
+allow { appdomain -isolated_app } self:process ptrace;
 
 # Read system properties managed by zygote.
 allow appdomain zygote_tmpfs:file read;
