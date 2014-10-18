@@ -40,7 +40,9 @@
 /dev/audio.*		u:object_r:audio_device:s0
 /dev/binder		u:object_r:binder_device:s0
 /dev/block(/.*)?	u:object_r:block_device:s0
+/dev/block/dm-[0-9]+	u:object_r:dm_device:s0
 /dev/block/loop[0-9]*	u:object_r:loop_device:s0
+/dev/block/vold/[0-9]+:[0-9]+	u:object_r:vold_device:s0
 /dev/block/ram[0-9]*	u:object_r:ram_device:s0
 /dev/bus/usb(.*)?       u:object_r:usb_device:s0
 /dev/cam		u:object_r:camera_device:s0
