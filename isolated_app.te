@@ -12,12 +12,6 @@
 type isolated_app, domain;
 app_domain(isolated_app)
 
-# Access already open app data files received over Binder or local socket IPC.
-allow isolated_app app_data_file:file { read write getattr };
-
-# Isolated apps should not directly open app data files themselves.
-neverallow isolated_app app_data_file:file open;
-
 # Isolated apps shouldn't be able to access the driver directly.
 neverallow isolated_app gpu_device:file { rw_file_perms execute };
 
