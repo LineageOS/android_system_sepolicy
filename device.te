@@ -11,6 +11,7 @@ type dm_device, dev_type;
 type loop_device, dev_type;
 type radio_device, dev_type;
 type ram_device, dev_type;
+type vold_device, dev_type;
 type console_device, dev_type;
 type cpuctl_device, dev_type;
 type fscklogs, dev_type;
@@ -82,3 +83,8 @@ type cache_block_device, dev_type;
 
 # Block device for any swap partition.
 type swap_block_device, dev_type;
+
+# Metadata block device used for encryption metadata.
+# Assign this type to the partition specified by the encryptable=
+# mount option in your fstab file in the entry for userdata.
+type metadata_block_device, dev_type;
