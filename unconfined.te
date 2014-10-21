@@ -55,6 +55,7 @@ allow unconfineddomain {
     -security_file
     -shell_data_file
     -app_data_file
+    -unlabeled
 }:{ dir lnk_file sock_file fifo_file } ~relabelto;
 allow unconfineddomain exec_type:dir r_dir_perms;
 allow unconfineddomain exec_type:file { r_file_perms execute };
@@ -69,8 +70,9 @@ allow unconfineddomain {
     -contextmount_type
     -rootfs
     -sdcard_type
+    -device
 }:{ chr_file file } ~{entrypoint execute_no_trans execmod execute relabelto};
-allow unconfineddomain {dev_type -kmem_device}:{ chr_file file } ~{entrypoint execute_no_trans execmod execute relabelto};
+allow unconfineddomain {dev_type -device -kmem_device -hw_random_device}:{ chr_file file } ~{entrypoint execute_no_trans execmod execute relabelto};
 allow unconfineddomain {
     file_type
     -keystore_data_file
@@ -80,6 +82,7 @@ allow unconfineddomain {
     -security_file
     -shell_data_file
     -app_data_file
+    -unlabeled
 }:{ chr_file file } ~{entrypoint execute_no_trans execmod execute relabelto};
 allow unconfineddomain rootfs:file execute;
 allow unconfineddomain contextmount_type:dir r_dir_perms;
