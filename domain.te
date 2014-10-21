@@ -170,8 +170,8 @@ auditallow { domain -service_manager_local_audit } service_manager_type:service_
 ### neverallow rules
 ###
 
-# Do not allow any confined domain to create new unlabeled files.
-neverallow { domain -unconfineddomain -recovery } unlabeled:dir_file_class_set create;
+# Do not allow any domain other than init or recovery to create unlabeled files.
+neverallow { domain -init -recovery } unlabeled:dir_file_class_set create;
 
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
 # with other UIDs to these whitelisted domains.
@@ -231,7 +231,7 @@ neverallow domain kernel:security setbool;
 neverallow { domain -init } kernel:security setsecparam;
 
 # Only init, ueventd and system_server should be able to access HW RNG
-neverallow { domain -init -system_server -ueventd -unconfineddomain } hw_random_device:chr_file *;
+neverallow { domain -init -system_server -ueventd } hw_random_device:chr_file *;
 
 # Ensure that all entrypoint executables are in exec_type.
 neverallow domain { file_type -exec_type }:file entrypoint;
@@ -258,8 +258,9 @@ neverallow { domain -kernel -init -recovery -vold -uncrypt -install_recovery } b
 
 # Don't allow raw read/write/open access to generic devices.
 # Rather force a relabel to a more specific type.
-# ueventd is exempt from this, as its managing these devices.
-neverallow { domain -unconfineddomain -ueventd } device:chr_file { open read write };
+# init is exempt from this as there are character devices that only it uses.
+# ueventd is exempt from this, as it is managing these devices.
+neverallow { domain -init -ueventd } device:chr_file { open read write };
 
 # Limit what domains can mount filesystems or change their mount flags.
 # sdcard_type / vfat is exempt as a larger set of domains need
