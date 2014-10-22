@@ -14,7 +14,6 @@ allow system_server system_server_tmpfs:file execute;
 
 # For art.
 allow system_server dalvikcache_data_file:file execute;
-allow system_server dex2oat_exec:file rx_file_perms;
 
 # /data/resource-cache
 allow system_server resourcecache_data_file:file r_file_perms;
@@ -70,6 +69,9 @@ allow system_server self:netlink_kobject_uevent_socket create_socket_perms;
 
 # Use generic netlink sockets.
 allow system_server self:netlink_socket create_socket_perms;
+
+# Set and get routes directly via netlink.
+allow system_server self:netlink_route_socket nlmsg_write;
 
 # Kill apps.
 allow system_server appdomain:process { sigkill signal };
@@ -171,6 +173,8 @@ allow system_server tun_device:chr_file rw_file_perms;
 # Manage system data files.
 allow system_server system_data_file:dir create_dir_perms;
 allow system_server system_data_file:notdevfile_class_set create_file_perms;
+allow system_server keychain_data_file:dir create_dir_perms;
+allow system_server keychain_data_file:file create_file_perms;
 
 # Manage /data/app.
 allow system_server apk_data_file:dir create_dir_perms;
@@ -395,7 +399,7 @@ allow system_server frp_block_device:blk_file rw_file_perms;
 allow system_server cgroup:dir { remove_name rmdir };
 
 # /oem access
-allow system_server oemfs:dir search;
+r_dir_file(system_server, oemfs)
 
 ###
 ### Neverallow rules
