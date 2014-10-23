@@ -73,6 +73,10 @@ allow adbd app_data_file:dir search;
 allow adbd app_data_file:sock_file write;
 allow adbd appdomain:unix_stream_socket connectto;
 
+# b/18078338 - allow read access to executable types on /system
+# to assist with debugging OTA issues.
+allow adbd exec_type:file r_file_perms;
+
 # ndk-gdb invokes adb pull of app_process, linker, and libc.so.
 allow adbd zygote_exec:file r_file_perms;
 allow adbd system_file:file r_file_perms;
