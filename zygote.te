@@ -21,9 +21,6 @@ allow zygote appdomain:process { getpgid setpgid };
 # Read system data.
 allow zygote system_data_file:dir r_dir_perms;
 allow zygote system_data_file:file r_file_perms;
-# Read system security data.
-allow zygote keychain_data_file:dir r_dir_perms;
-allow zygote keychain_data_file:file r_file_perms;
 # Write to /data/dalvik-cache.
 allow zygote dalvikcache_data_file:dir create_dir_perms;
 allow zygote dalvikcache_data_file:file create_file_perms;
