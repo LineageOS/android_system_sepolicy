@@ -76,6 +76,10 @@ allow system_server self:netlink_route_socket nlmsg_write;
 # Kill apps.
 allow system_server appdomain:process { sigkill signal };
 
+# This line seems suspect, as it should not really need to
+# set scheduling parameters for a kernel domain task.
+allow system_server kernel:process setsched;
+
 # Set scheduling info for apps.
 allow system_server appdomain:process { getsched setsched };
 allow system_server mediaserver:process { getsched setsched };
