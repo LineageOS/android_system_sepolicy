@@ -1,15 +1,18 @@
 # Life begins with the kernel.
 type kernel, domain;
+permissive_or_unconfined(kernel)
+
+allow kernel self:capability sys_nice;
 
 # Run /init before we have switched domains.
 allow kernel rootfs:file execute_no_trans;
 
+# /dev/__null__ node created by init prior to policy load.
+allow kernel tmpfs:chr_file rw_file_perms;
+
 # setcon to init domain.
 allow kernel self:process setcurrent;
 allow kernel init:process dyntransition;
-
-# The kernel is unconfined.
-unconfined_domain(kernel)
 
 # cgroup filesystem initialization prior to setting the cgroup root directory label.
 allow kernel unlabeled:dir search;
@@ -19,19 +22,26 @@ allow kernel usbfs:filesystem mount;
 
 # init direct restorecon calls prior to switching to init domain
 # /dev and /dev/socket
+allow kernel tmpfs:dir relabelfrom;
 allow kernel { device socket_device }:dir relabelto;
 # /dev/__properties__
+allow kernel tmpfs:file relabelfrom;
 allow kernel properties_device:file relabelto;
 # /sys
 allow kernel sysfs:{ dir file lnk_file } relabelfrom;
 allow kernel sysfs_type:{ dir file lnk_file } relabelto;
+allow kernel sysfs_type:dir r_dir_perms;
 
 # Initial setenforce by init prior to switching to init domain.
 # We use dontaudit instead of allow to prevent a kernel spawned userspace
 # process from turning off SELinux once enabled.
 dontaudit kernel self:security setenforce;
 
+# Write to /proc/1/oom_adj prior to switching to init domain.
+allow kernel self:capability sys_resource;
+
 # Set checkreqprot by init.rc prior to switching to init domain.
+allow kernel selinuxfs:file write;
 allow kernel self:security setcheckreqprot;
 
 # MTP sync (b/15835289)
