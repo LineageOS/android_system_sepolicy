@@ -409,3 +409,10 @@ r_dir_file(system_server, oemfs)
 # Do not allow accessing SDcard files as unsafe ejection could
 # cause the kernel to kill the system_server.
 neverallow system_server sdcard_type:file rw_file_perms;
+
+# system server should never be opening zygote spawned app data
+# files directly. Rather, they should always be passed via a
+# file descriptor.
+# Types extracted from seapp_contexts type= fields, excluding
+# those types that system_server needs to open directly.
+neverallow system_server { bluetooth_data_file nfc_data_file shell_data_file app_data_file }:file open;
