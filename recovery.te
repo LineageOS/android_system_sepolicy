@@ -29,7 +29,7 @@ recovery_only(`
 
   # We may be asked to set an SELinux label for a type not known to the
   # currently loaded policy. Allow it.
-  allow recovery unlabeled:file { create_file_perms relabelfrom relabelto };
+  allow recovery unlabeled:{ file lnk_file } { create_file_perms relabelfrom relabelto };
   allow recovery unlabeled:dir { create_dir_perms relabelfrom relabelto };
 
   # 0eb17d944704b3eb140bb9dded299d3be3aed77e in build/ added SELinux
