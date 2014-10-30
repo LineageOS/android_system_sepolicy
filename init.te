@@ -80,7 +80,7 @@ allow init rootfs:file relabelfrom;
 # we just allow all file types except /system files here.
 allow init self:capability { chown fowner fsetid };
 allow init {file_type -system_file -exec_type -app_data_file}:dir { create search getattr open read setattr };
-allow init {file_type -system_file -exec_type -keystore_data_file -security_file -app_data_file -shell_data_file}:dir { write add_name remove_name rmdir };
+allow init {file_type -system_file -exec_type -keystore_data_file -security_file -app_data_file -shell_data_file}:dir { write add_name remove_name rmdir relabelfrom };
 allow init {file_type -system_file -exec_type -keystore_data_file -security_file -app_data_file -shell_data_file}:file { create getattr open read write setattr relabelfrom unlink };
 allow init {file_type -system_file -exec_type -keystore_data_file -security_file -app_data_file -shell_data_file}:{ sock_file fifo_file } { create getattr open read setattr relabelfrom unlink };
 allow init {file_type -system_file -exec_type -keystore_data_file -security_file -app_data_file -shell_data_file}:lnk_file { create getattr setattr relabelfrom unlink };
