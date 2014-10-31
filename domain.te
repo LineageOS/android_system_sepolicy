@@ -59,6 +59,10 @@ userdebug_or_eng(`
 
   # allow "gdbserver --attach" to work for su.
   allow domain su:process sigchld;
+
+  # Allow writing coredumps to /cores/*
+  allow domain coredump_file:file create_file_perms;
+  allow domain coredump_file:dir ra_dir_perms;
 ')
 
 ###
