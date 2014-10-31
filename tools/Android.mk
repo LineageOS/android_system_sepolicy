@@ -46,14 +46,4 @@ LOCAL_STATIC_LIBRARIES := libsepol
 
 include $(BUILD_HOST_EXECUTABLE)
 
-###################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := sepolicy-analyze
-LOCAL_MODULE_TAGS := optional
-LOCAL_C_INCLUDES := external/libsepol/include
-LOCAL_CFLAGS := -Wall -Werror
-LOCAL_SRC_FILES := sepolicy-analyze.c
-LOCAL_STATIC_LIBRARIES := libsepol
-
-include $(BUILD_HOST_EXECUTABLE)
+include $(call all-makefiles-under,$(LOCAL_PATH))
