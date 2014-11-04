@@ -17,6 +17,9 @@ allow radio radio_data_file:notdevfile_class_set create_file_perms;
 
 allow radio alarm_device:chr_file rw_file_perms;
 
+allow radio net_data_file:dir search;
+allow radio net_data_file:file r_file_perms;
+
 # Property service
 allow radio radio_prop:property_service set;
 allow radio net_radio_prop:property_service set;
