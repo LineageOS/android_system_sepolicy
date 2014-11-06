@@ -37,3 +37,11 @@ allow wpa keystore:keystore_key {
 userdebug_or_eng(`
   unix_socket_send(wpa, wpa, su)
 ')
+
+###
+### neverallow rules
+###
+
+# wpa_supplicant should not trust any data from sdcards
+neverallow wpa sdcard_type:dir ~getattr;
+neverallow wpa sdcard_type:file *;
