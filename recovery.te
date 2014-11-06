@@ -98,3 +98,20 @@ recovery_only(`
   # set scheduling parameters for a kernel domain task.
   allow recovery kernel:process setsched;
 ')
+
+###
+### neverallow rules
+###
+
+# Recovery should never touch /data.
+#
+# In particular, if /data is encrypted, it is not accessible
+# to recovery anyway.
+#
+# For now, we only enforce write/execute restrictions, as domain.te
+# contains a number of read-only rules that apply to all
+# domains, including recovery.
+#
+# TODO: tighten this up further.
+neverallow recovery data_file_type:file { no_w_file_perms no_x_file_perms };
+neverallow recovery data_file_type:dir no_w_dir_perms;
