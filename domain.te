@@ -291,8 +291,8 @@ neverallow {
 } { fs_type -rootfs }:file execute;
 
 # Only the init property service should write to /data/property.
-neverallow { domain -init } property_data_file:dir { create setattr relabelfrom rename write add_name remove_name rmdir };
-neverallow { domain -init } property_data_file:file { create setattr relabelfrom write append unlink link rename };
+neverallow { domain -init } property_data_file:dir no_w_dir_perms;
+neverallow { domain -init } property_data_file:file no_w_file_perms;
 
 # Only recovery should be doing writes to /system
 neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set

@@ -83,6 +83,7 @@ sepolicy_build_files := security_classes \
                         initial_sids \
                         access_vectors \
                         global_macros \
+                        neverallow_macros \
                         mls_macros \
                         mls \
                         policy_capabilities \
