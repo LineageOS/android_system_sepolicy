@@ -170,6 +170,7 @@ neverallow {
   -vold
 } self:capability mknod;
 
+userdebug_or_eng(`attribute rmt_placeholder;')
 # Limit raw I/O to these whitelisted domains. Do not apply to debug builds.
 neverallow {
   domain
@@ -181,6 +182,7 @@ neverallow {
   -healthd
   -uncrypt
   -tee
+  userdebug_or_eng(`-rmt_placeholder')
 } self:capability sys_rawio;
 
 # No process can map low memory (< CONFIG_LSM_MMAP_MIN_ADDR).
@@ -237,8 +239,8 @@ neverallow { domain -init -system_server -ueventd } hw_random_device:chr_file *;
 neverallow * { file_type -exec_type -postinstall_file }:file entrypoint;
 
 # Ensure that nothing in userspace can access /dev/mem or /dev/kmem
-neverallow { domain -kernel -ueventd -init } kmem_device:chr_file *;
-neverallow * kmem_device:chr_file ~{ create relabelto unlink setattr };
+neverallow { domain userdebug_or_eng(`-rmt_placeholder') -kernel -ueventd -init } kmem_device:chr_file *;
+neverallow { domain userdebug_or_eng(`-rmt_placeholder') } kmem_device:chr_file ~{ create relabelto unlink setattr };
 
 # Only init should be able to configure kernel usermodehelpers or
 # security-sensitive proc settings.
