@@ -11,7 +11,7 @@ include $(CLEAR_VARS)
 # is frozen, we should flip this to true. This forces any currently
 # permissive domains into unconfined+enforcing.
 #
-FORCE_PERMISSIVE_TO_UNCONFINED:=true
+FORCE_PERMISSIVE_TO_UNCONFINED:=false
 
 ifeq ($(TARGET_BUILD_VARIANT),user)
   # User builds are always forced unconfined+enforcing
