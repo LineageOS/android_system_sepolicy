@@ -255,7 +255,7 @@ neverallow { domain -kernel -init -recovery -vold -uncrypt -install_recovery } b
 # Don't allow raw read/write/open access to generic devices.
 # Rather force a relabel to a more specific type.
 # ueventd is exempt from this, as its managing these devices.
-neverallow { domain -unconfineddomain -ueventd } device:chr_file { open read write };
+neverallow { domain -unconfineddomain -ueventd -recovery } device:chr_file { open read write };
 
 # Limit what domains can mount filesystems or change their mount flags.
 # sdcard_type / vfat is exempt as a larger set of domains need
@@ -290,7 +290,7 @@ neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # Nothing should be writing to files in the rootfs.
-neverallow domain rootfs:file { create write setattr relabelto append unlink link rename };
+neverallow { domain -recovery } rootfs:file { create write setattr relabelto append unlink link rename };
 
 # Restrict context mounts to specific types marked with
 # the contextmount_type attribute.
