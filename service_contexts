@@ -66,6 +66,7 @@ media_projection                          u:object_r:system_server_service:s0
 media_router                              u:object_r:system_server_service:s0
 media_session                             u:object_r:system_server_service:s0
 meminfo                                   u:object_r:system_server_service:s0
+midi                                      u:object_r:system_server_service:s0
 mount                                     u:object_r:system_server_service:s0
 netpolicy                                 u:object_r:system_server_service:s0
 netstats                                  u:object_r:system_server_service:s0
