@@ -262,19 +262,6 @@ $(LOCAL_BUILT_MODULE):  $(ALL_SVC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLE
 built_svc := $(LOCAL_BUILT_MODULE)
 
 ##################################
-
-##################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := selinux-network.sh
-LOCAL_SRC_FILES := $(LOCAL_MODULE)
-LOCAL_MODULE_CLASS := EXECUTABLES
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT_EXECUTABLES)
-
-include $(BUILD_PREBUILT)
-
-##################################
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := mac_permissions.xml
