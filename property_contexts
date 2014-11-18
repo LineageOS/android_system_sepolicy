@@ -49,6 +49,10 @@ selinux.                u:object_r:security_prop:s0
 vold.                   u:object_r:vold_prop:s0
 crypto.                 u:object_r:vold_prop:s0
 
+# ro.build.fingerprint is either set in /system/build.prop, or is
+# set at runtime by system_server.
+build.fingerprint       u:object_r:fingerprint_prop:s0
+
 # ctl properties
 ctl.bootanim            u:object_r:ctl_bootanim_prop:s0
 ctl.dumpstate           u:object_r:ctl_dumpstate_prop:s0
