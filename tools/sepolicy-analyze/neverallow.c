@@ -10,8 +10,8 @@
 
 #include "neverallow.h"
 
-static int debug;
-static int warn;
+int debug;
+int warn;
 
 void neverallow_usage() {
     fprintf(stderr, "\tneverallow [-w|--warn] [-d|--debug] [-n|--neverallows <neverallow-rules>] | [-f|--file <neverallow-file>]\n");
