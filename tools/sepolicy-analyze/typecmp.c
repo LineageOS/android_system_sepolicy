@@ -264,10 +264,6 @@ static int analyze_types(policydb_t * policydb, char diff, char equiv)
     return 0;
 }
 
-// defined in neverallow.c
-extern int warn;
-extern int debug;
-
 int typecmp_func (int argc, char **argv, policydb_t *policydb) {
     char ch, diff = 0, equiv = 0;
 
@@ -286,10 +282,7 @@ int typecmp_func (int argc, char **argv, policydb_t *policydb) {
             equiv = 1;
             break;
         case 'w':
-            warn = 1;
-            break;
         case 'z':
-            debug = 1;
             break;
         default:
             USAGE_ERROR = true;
