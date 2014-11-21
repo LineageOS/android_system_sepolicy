@@ -281,9 +281,6 @@ int typecmp_func (int argc, char **argv, policydb_t *policydb) {
         case 'e':
             equiv = 1;
             break;
-        case 'w':
-        case 'z':
-            break;
         default:
             USAGE_ERROR = true;
             return -1;
