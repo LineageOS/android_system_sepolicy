@@ -25,9 +25,11 @@ static struct {
 
 void usage(char *arg0)
 {
+    int i;
+
     fprintf(stderr, "%s must be called on a policy file with a component and the appropriate arguments specified\n", arg0);
     fprintf(stderr, "%s <policy-file>:\n", arg0);
-    for(int i = 0; i < NUM_COMPONENTS; i++) {
+    for(i = 0; i < NUM_COMPONENTS; i++) {
         analyze_components[i].usage();
     }
     exit(1);
@@ -38,13 +40,13 @@ int main(int argc, char **argv)
     char *policy;
     struct policy_file pf;
     policydb_t policydb;
-    int rc;
+    int rc, i;
     if (argc < 3)
         usage(argv[0]);
     policy = argv[1];
     if(load_policy(policy, &policydb, &pf))
         exit(1);
-    for(int i = 0; i < NUM_COMPONENTS; i++) {
+    for(i = 0; i < NUM_COMPONENTS; i++) {
         if (!strcmp(analyze_components[i].key, argv[2])) {
             rc = analyze_components[i].func(argc - 2, argv + 2, &policydb);
             if (rc && USAGE_ERROR) {
@@ -53,4 +55,7 @@ int main(int argc, char **argv)
         }
     }
     usage(argv[0]);
+
+    // will never be called due to exit() call in usage
+    exit(1);
 }
