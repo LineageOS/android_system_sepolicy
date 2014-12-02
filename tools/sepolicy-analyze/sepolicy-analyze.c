@@ -40,7 +40,9 @@ int main(int argc, char **argv)
     char *policy;
     struct policy_file pf;
     policydb_t policydb;
-    int rc, i;
+    int rc;
+    int i;
+
     if (argc < 3)
         usage(argv[0]);
     policy = argv[1];
@@ -55,7 +57,5 @@ int main(int argc, char **argv)
         }
     }
     usage(argv[0]);
-
-    // will never be called due to exit() call in usage
-    exit(1);
+    exit(0);
 }
