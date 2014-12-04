@@ -48,6 +48,14 @@ create_pty(untrusted_app)
 allow untrusted_app shell_data_file:file r_file_perms;
 allow untrusted_app shell_data_file:dir r_dir_perms;
 
+# b/18504118: Allow reads from /data/anr/traces.txt
+# TODO: We shouldn't be allowing all untrusted_apps to read
+# this file. This is only needed for the GMS feedback agent.
+# See also b/18340553. GMS runs as untrusted_app, and
+# it's too late to change the domain it runs in.
+# This line needs to be deleted.
+allow untrusted_app anr_data_file:file r_file_perms;
+
 #
 # Rules migrated from old app domains coalesced into untrusted_app.
 # This includes what used to be media_app, shared_app, and release_app.
