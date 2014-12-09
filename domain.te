@@ -329,6 +329,3 @@ neverallow { domain -recovery } system_block_device:blk_file write;
 
 # No domains other than install_recovery or recovery can write to recovery.
 neverallow { domain -install_recovery -recovery } recovery_block_device:blk_file write;
-
-# Only servicemanager should be able to register with binder as the context manager
-neverallow { domain -servicemanager } *:binder set_context_mgr;
