@@ -90,4 +90,4 @@ allow unconfineddomain contextmount_type:notdevfile_class_set r_file_perms;
 allow unconfineddomain node_type:node *;
 allow unconfineddomain netif_type:netif *;
 allow unconfineddomain domain:peer recv;
-allow unconfineddomain { domain -init }:binder { call transfer set_context_mgr };
+allow unconfineddomain { domain -init }:binder { call transfer };
