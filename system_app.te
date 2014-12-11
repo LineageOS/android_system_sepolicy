@@ -45,6 +45,9 @@ allow system_app logd_prop:property_service set;
 allow system_app anr_data_file:dir ra_dir_perms;
 allow system_app anr_data_file:file create_file_perms;
 
+# Settings need to access app name and icon from asec
+allow system_app asec_apk_file:file r_file_perms;
+
 allow system_app system_app_service:service_manager add;
 
 allow system_app keystore:keystore_key {
