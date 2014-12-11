@@ -21,6 +21,7 @@ allow shell anr_data_file:file r_file_perms;
 allow shell shell_data_file:dir create_dir_perms;
 allow shell shell_data_file:file create_file_perms;
 allow shell shell_data_file:file rx_file_perms;
+allow shell shell_data_file:lnk_file create_file_perms;
 
 # adb bugreport
 unix_socket_connect(shell, dumpstate, dumpstate)
