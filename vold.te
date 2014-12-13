@@ -44,6 +44,7 @@ allow vold sdcard_type:filesystem { mount remount unmount }; # TODO: deprecated 
 ifelse(shipping_build, `true', ,
   allow vold sdcard_posix:filesystem { relabelto relabelfrom };
 )
+allow vold labeledfs:filesystem { relabelfrom };
 allow vold sdcard_type:dir create_dir_perms; # TODO: deprecated in M
 allow vold sdcard_type:file create_file_perms; # TODO: deprecated in M
 
