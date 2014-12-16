@@ -78,21 +78,14 @@ unix_socket_connect(mediaserver, bluetooth, bluetooth)
 # Connect to tee service.
 allow mediaserver tee:unix_stream_socket connectto;
 
-allow mediaserver mediaserver_service:service_manager add;
+allow mediaserver drmserver_service:service_manager find;
+allow mediaserver mediaserver_service:service_manager { add find };
+allow mediaserver system_server_service:service_manager find;
+allow mediaserver surfaceflinger_service:service_manager find;
 
 # /oem access
 allow mediaserver oemfs:dir search;
 allow mediaserver oemfs:file r_file_perms;
-
-# Audited locally.
-service_manager_local_audit_domain(mediaserver)
-auditallow mediaserver {
-    service_manager_type
-    -drmserver_service
-    -mediaserver_service
-    -system_server_service
-    -surfaceflinger_service
-}:service_manager find;
 
 use_drmservice(mediaserver)
 allow mediaserver drmserver:drmservice {

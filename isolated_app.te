@@ -21,11 +21,6 @@ neverallow isolated_app app_data_file:file open;
 # Isolated apps shouldn't be able to access the driver directly.
 neverallow isolated_app gpu_device:file { rw_file_perms execute };
 
-# Audited locally.
-service_manager_local_audit_domain(isolated_app)
-auditallow isolated_app {
-    service_manager_type
-    -radio_service
-    -surfaceflinger_service
-    -system_server_service
-}:service_manager find;
+allow isolated_app radio_service:service_manager find;
+allow isolated_app surfaceflinger_service:service_manager find;
+allow isolated_app system_server_service:service_manager find;
