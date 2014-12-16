@@ -52,6 +52,7 @@ allow bluetooth ctl_dhcp_pan_prop:property_service set;
 allow bluetooth bluetooth_service:service_manager find;
 allow bluetooth radio_service:service_manager find;
 allow bluetooth system_server_service:service_manager find;
+allow bluetooth tmp_system_server_service:service_manager find;
 
 # already open bugreport file descriptors may be shared with
 # the bluetooth process, from a file in

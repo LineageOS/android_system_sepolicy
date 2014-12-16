@@ -70,6 +70,65 @@ allow untrusted_app nfc_service:service_manager find;
 allow untrusted_app radio_service:service_manager find;
 allow untrusted_app surfaceflinger_service:service_manager find;
 allow untrusted_app system_server_service:service_manager find;
+allow untrusted_app tmp_system_server_service:service_manager find;
+
+# address tmp_system_server_service accesses
+service_manager_local_audit_domain(untrusted_app)
+allow untrusted_app accessibility_service:service_manager find;
+allow untrusted_app account_service:service_manager find;
+allow untrusted_app activity_service:service_manager find;
+allow untrusted_app appops_service:service_manager find;
+allow untrusted_app appwidget_service:service_manager find;
+allow untrusted_app assetatlas_service:service_manager find;
+allow untrusted_app audio_service:service_manager find;
+allow untrusted_app bluetooth_manager_service:service_manager find;
+allow untrusted_app connectivity_service:service_manager find;
+allow untrusted_app content_service:service_manager find;
+allow untrusted_app device_policy_service:service_manager find;
+allow untrusted_app display_service:service_manager find;
+allow untrusted_app dropbox_service:service_manager find;
+allow untrusted_app input_method_service:service_manager find;
+allow untrusted_app input_service:service_manager find;
+allow untrusted_app jobscheduler_service:service_manager find;
+allow untrusted_app notification_service:service_manager find;
+allow untrusted_app persistent_data_block_service:service_manager find;
+allow untrusted_app power_service:service_manager find;
+allow untrusted_app registry_service:service_manager find;
+allow untrusted_app textservices_service:service_manager find;
+allow untrusted_app trust_service:service_manager find;
+allow untrusted_app user_service:service_manager find;
+allow untrusted_app webviewupdate_service:service_manager find;
+allow untrusted_app wifi_service:service_manager find;
+
+service_manager_local_audit_domain(untrusted_app)
+auditallow untrusted_app {
+    tmp_system_server_service
+    -accessibility_service
+    -account_service
+    -activity_service
+    -appops_service
+    -appwidget_service
+    -assetatlas_service
+    -audio_service
+    -bluetooth_manager_service
+    -connectivity_service
+    -content_service
+    -device_policy_service
+    -display_service
+    -dropbox_service
+    -input_method_service
+    -input_service
+    -jobscheduler_service
+    -notification_service
+    -persistent_data_block_service
+    -power_service
+    -registry_service
+    -textservices_service
+    -trust_service
+    -user_service
+    -webviewupdate_service
+    -wifi_service
+}:service_manager find;
 
 ###
 ### neverallow rules

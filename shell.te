@@ -48,6 +48,7 @@ allow shell debug_prop:property_service set;
 allow shell powerctl_prop:property_service set;
 
 allow shell system_server_service:service_manager find;
+allow shell tmp_system_server_service:service_manager find;
 
 # systrace support - allow atrace to run
 # debugfs doesn't support labeling individual files, so we have
