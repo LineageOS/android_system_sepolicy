@@ -16,6 +16,4 @@ allow bootanim oemfs:file r_file_perms;
 allow bootanim audio_device:dir r_dir_perms;
 allow bootanim audio_device:chr_file rw_file_perms;
 
-# Audited locally.
-service_manager_local_audit_domain(bootanim)
-auditallow bootanim { service_manager_type -surfaceflinger_service }:service_manager find;
+allow bootanim surfaceflinger_service:service_manager find;
