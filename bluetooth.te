@@ -49,14 +49,9 @@ allow bluetooth bluetooth_prop:property_service set;
 allow bluetooth pan_result_prop:property_service set;
 allow bluetooth ctl_dhcp_pan_prop:property_service set;
 
-# Audited locally.
-service_manager_local_audit_domain(bluetooth)
-auditallow bluetooth {
-    service_manager_type
-    -bluetooth_service
-    -radio_service
-    -system_server_service
-}:service_manager find;
+allow bluetooth bluetooth_service:service_manager find;
+allow bluetooth radio_service:service_manager find;
+allow bluetooth system_server_service:service_manager find;
 
 ###
 ### Neverallow rules

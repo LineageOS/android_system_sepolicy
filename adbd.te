@@ -83,8 +83,4 @@ allow adbd system_file:file r_file_perms;
 
 allow adbd kernel:security read_policy;
 
-service_manager_local_audit_domain(adbd)
-auditallow adbd {
-    service_manager_type
-    -surfaceflinger_service
-}:service_manager find;
+allow adbd surfaceflinger_service:service_manager find;
