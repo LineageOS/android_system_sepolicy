@@ -12,7 +12,7 @@ init_daemon_domain(toolbox)
 allow toolbox tmpfs:chr_file { read write ioctl };
 
 # Inherit and use pty created by android_fork_execvp_ext().
-allow toolbox devpts:chr_file { read write };
+allow toolbox devpts:chr_file { read write getattr ioctl };
 
 # mkswap-specific.
 # Read/write block devices used for swap partitions.
