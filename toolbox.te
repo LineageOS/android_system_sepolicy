@@ -18,6 +18,7 @@ allow toolbox devpts:chr_file { read write getattr ioctl };
 # Read/write block devices used for swap partitions.
 # Assign swap_block_device type any such partition in your
 # device/<vendor>/<product>/sepolicy/file_contexts file.
+allow toolbox block_device:dir search;
 allow toolbox swap_block_device:blk_file rw_file_perms;
 
 # Only allow entry from init via the toolbox binary.
