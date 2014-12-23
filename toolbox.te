@@ -3,7 +3,6 @@
 # Do NOT use this domain for toolbox when run by any other domain.
 type toolbox, domain;
 type toolbox_exec, exec_type, file_type;
-permissive_or_unconfined(toolbox)
 
 init_daemon_domain(toolbox)
 
