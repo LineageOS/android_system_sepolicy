@@ -18,6 +18,7 @@ allow nfc nfc_data_file:notdevfile_class_set create_file_perms;
 allow nfc sysfs_nfc_power_writable:file rw_file_perms;
 allow nfc sysfs:file write;
 
+allow nfc drmserver_service:service_manager find;
 allow nfc mediaserver_service:service_manager find;
 allow nfc nfc_service:service_manager add;
 allow nfc surfaceflinger_service:service_manager find;
