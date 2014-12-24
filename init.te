@@ -34,8 +34,8 @@ allow init rootfs:dir mounton;
 # Mount on /dev/usb-ffs/adb.
 allow init device:dir mounton;
 
-# Create symlinks in /.
-allow init rootfs:lnk_file create;
+# Create and remove symlinks in /.
+allow init rootfs:lnk_file { create unlink };
 
 # Mount debugfs on /sys/kernel/debug.
 allow init sysfs:dir mounton;
