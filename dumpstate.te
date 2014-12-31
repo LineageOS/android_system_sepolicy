@@ -118,3 +118,5 @@ allow dumpstate {
     system_app_service
     system_server_service
 }:service_manager find;
+
+allow dumpstate servicemanager:service_manager list;
