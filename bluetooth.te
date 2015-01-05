@@ -53,6 +53,11 @@ allow bluetooth bluetooth_service:service_manager find;
 allow bluetooth radio_service:service_manager find;
 allow bluetooth system_server_service:service_manager find;
 
+# already open bugreport file descriptors may be shared with
+# the bluetooth process, from a file in
+# /data/data/com.android.shell/files/bugreports/bugreport-*.
+allow bluetooth shell_data_file:file read;
+
 ###
 ### Neverallow rules
 ###
