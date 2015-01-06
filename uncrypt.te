@@ -1,5 +1,5 @@
 # uncrypt
-type uncrypt, domain;
+type uncrypt, domain, mlstrustedsubject;
 type uncrypt_exec, exec_type, file_type;
 
 init_daemon_domain(uncrypt)
@@ -30,5 +30,4 @@ allow uncrypt block_device:blk_file w_file_perms;
 allow uncrypt block_device:dir r_dir_perms;
 
 # Access userdata block device.
-allow uncrypt userdata_block_device:blk_file rw_file_perms;
-auditallow uncrypt userdata_block_device:blk_file rw_file_perms;
+allow uncrypt userdata_block_device:blk_file w_file_perms;
