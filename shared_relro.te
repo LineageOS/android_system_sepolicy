@@ -8,3 +8,6 @@ app_domain(shared_relro)
 # Grant write access to the shared relro files/directory.
 allow shared_relro shared_relro_file:dir rw_dir_perms;
 allow shared_relro shared_relro_file:file create_file_perms;
+
+# Needs to contact the "webviewupdate" and "activity" services
+allow shared_relro system_server_service:service_manager find;
