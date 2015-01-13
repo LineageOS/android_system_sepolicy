@@ -257,7 +257,7 @@ static int read_classperms(policydb_t *policydb, char **ptr, char *end,
         node = calloc(1, sizeof *node);
         if (!node)
             goto err;
-        node->class = cls->s.value;
+        node->tclass = cls->s.value;
         node->next = classperms;
         classperms = node;
         free(id);
@@ -332,13 +332,13 @@ static int read_classperms(policydb_t *policydb, char **ptr, char *end,
         }
 
         for (node = classperms; node; node = node->next) {
-            cls = policydb->class_val_to_struct[node->class-1];
+            cls = policydb->class_val_to_struct[node->tclass-1];
             perm = hashtab_search(cls->permissions.table, id);
             if (cls->comdatum && !perm)
                 perm = hashtab_search(cls->comdatum->permissions.table, id);
             if (!perm) {
                 if (warn)
-                    fprintf(stderr, "Warning!  Permission %s used in neverallow undefined in class %s in policy being checked.\n", id, policydb->p_class_val_to_name[node->class-1]);
+                    fprintf(stderr, "Warning!  Permission %s used in neverallow undefined in class %s in policy being checked.\n", id, policydb->p_class_val_to_name[node->tclass-1]);
                 continue;
             }
             node->data |= 1U << (perm->s.value - 1);
