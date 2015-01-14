@@ -42,6 +42,9 @@ attribute port_type;
 # All types used for property service
 attribute property_type;
 
+# All service_manager types formerly given system_server_service type
+attribute tmp_system_server_service;
+
 # All types used for services managed by service_manager.
 attribute service_manager_type;
 

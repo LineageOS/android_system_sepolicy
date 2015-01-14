@@ -109,7 +109,6 @@ typeattribute $1 appdomain;
 tmpfs_domain($1)
 # Map with PROT_EXEC.
 allow $1 $1_tmpfs:file execute;
-service_manager_local_audit_domain($1)
 ')
 
 #####################################
