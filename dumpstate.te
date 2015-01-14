@@ -117,6 +117,7 @@ allow dumpstate {
     surfaceflinger_service
     system_app_service
     system_server_service
+    tmp_system_server_service
 }:service_manager find;
 
 allow dumpstate servicemanager:service_manager list;

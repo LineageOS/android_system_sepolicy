@@ -82,6 +82,22 @@ allow mediaserver drmserver_service:service_manager find;
 allow mediaserver mediaserver_service:service_manager { add find };
 allow mediaserver system_server_service:service_manager find;
 allow mediaserver surfaceflinger_service:service_manager find;
+allow mediaserver tmp_system_server_service:service_manager find;
+
+# address tmp_system_server_service accesses
+allow mediaserver batterystats_service:service_manager find;
+allow mediaserver permission_service:service_manager find;
+allow mediaserver power_service:service_manager find;
+allow mediaserver scheduling_policy_service:service_manager find;
+
+service_manager_local_audit_domain(mediaserver)
+auditallow mediaserver {
+    tmp_system_server_service
+    -batterystats_service
+    -permission_service
+    -power_service
+    -scheduling_policy_service
+}:service_manager find;
 
 # /oem access
 allow mediaserver oemfs:dir search;
