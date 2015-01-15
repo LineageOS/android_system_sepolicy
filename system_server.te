@@ -91,6 +91,7 @@ allow system_server appdomain:file write;
 # Read/Write to /proc/net/xt_qtaguid/ctrl and and /dev/xt_qtaguid.
 allow system_server qtaguid_proc:file rw_file_perms;
 allow system_server qtaguid_device:chr_file rw_file_perms;
+r_dir_file(system_server, proc_net)
 
 # Write to /proc/sysrq-trigger.
 allow system_server proc_sysrq:file rw_file_perms;
