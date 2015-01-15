@@ -57,6 +57,23 @@ allow system_app system_app_service:service_manager add;
 allow system_app system_server_service:service_manager find;
 allow system_app tmp_system_server_service:service_manager find;
 
+# address tmp_system_server_service accesses
+allow system_app {
+    activity_service
+    connectivity_service
+    display_service
+    dropbox_service
+}:service_manager find;
+
+service_manager_local_audit_domain(system_app)
+auditallow system_app {
+    tmp_system_server_service
+    -activity_service
+    -connectivity_service
+    -display_service
+    -dropbox_service
+}:service_manager find;
+
 allow system_app keystore:keystore_key {
 	test
 	get
