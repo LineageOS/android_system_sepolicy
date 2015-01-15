@@ -9,9 +9,12 @@ net_domain(shell)
 # XXX Transition into its own domain?
 app_domain(shell)
 
-# logd access
+# logcat
 read_logd(shell)
 control_logd(shell)
+# logcat -L (directly, or via dumpstate)
+allow shell pstorefs:dir search;
+allow shell pstorefs:file r_file_perms;
 
 # read files in /data/anr
 allow shell anr_data_file:dir r_dir_perms;

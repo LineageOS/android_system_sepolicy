@@ -328,6 +328,7 @@ userdebug_or_eng(`
   allow $1 logd_debug:file w_file_perms;
 ')
 unix_socket_send($1, logdw, logd)
+allow $1 pmsg_device:chr_file w_file_perms;
 ')
 
 #####################################

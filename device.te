@@ -9,6 +9,7 @@ type block_device, dev_type;
 type camera_device, dev_type;
 type dm_device, dev_type;
 type loop_device, dev_type;
+type pmsg_device, dev_type, mlstrustedobject;
 type radio_device, dev_type;
 type ram_device, dev_type;
 type vold_device, dev_type;
