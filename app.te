@@ -83,6 +83,7 @@ allow appdomain dumpstate:unix_stream_socket { read write getopt getattr shutdow
 allow appdomain shell_data_file:file { write getattr };
 
 # Write to /proc/net/xt_qtaguid/ctrl file.
+allow appdomain proc_net:dir search;
 allow appdomain qtaguid_proc:file rw_file_perms;
 # Everybody can read the xt_qtaguid resource tracking misc dev.
 # So allow all apps to read from /dev/xt_qtaguid.
