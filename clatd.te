@@ -15,6 +15,7 @@ allow clatd netd:udp_socket { read write };
 allow clatd netd:unix_stream_socket { read write };
 allow clatd netd:unix_dgram_socket { read write };
 
+r_dir_file(clatd, proc_net)
 allow clatd self:capability { net_admin net_raw setuid setgid };
 
 allow clatd self:netlink_route_socket nlmsg_write;
