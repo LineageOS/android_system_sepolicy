@@ -36,12 +36,24 @@ allow platform_app system_server_service:service_manager find;
 allow platform_app tmp_system_server_service:service_manager find;
 
 # address tmp_system_server_service accesses
-allow platform_app input_service:service_manager find;
-allow platform_app lock_settings_service:service_manager find;
+allow platform_app {
+    activity_service
+    connectivity_service
+    display_service
+    dropbox_service
+    input_service
+    lock_settings_service
+    mount_service
+}:service_manager find;
 
 service_manager_local_audit_domain(platform_app)
 auditallow platform_app {
     tmp_system_server_service
+    -activity_service
+    -connectivity_service
+    -display_service
+    -dropbox_service
     -input_service
     -lock_settings_service
+    -mount_service
 }:service_manager find;
