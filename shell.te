@@ -62,3 +62,7 @@ allow shell kernel:system syslog_read;
 
 # allow shell to list services
 allow shell servicemanager:service_manager list;
+
+# allow shell to look through /proc/ for ps, top
+allow shell domain:dir { search open read getattr };
+allow shell domain:{ file lnk_file } { open read getattr };
