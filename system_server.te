@@ -389,17 +389,30 @@ auditallow system_server {
     -radio_service
     -system_server_service
     -surfaceflinger_service
+    -tmp_system_server_service
 }:service_manager find;
 
 # address tmp_system_server_service accesses
-allow system_server dreams_service:service_manager find;
-allow system_server mount_service:service_manager find;
+allow system_server {
+    account_service
+    backup_service
+    dreams_service
+    mount_service
+    package_service
+    wallpaper_service
+    wifi_service
+}:service_manager find;
 
 service_manager_local_audit_domain(system_server)
 auditallow system_server {
     tmp_system_server_service
+    -account_service
+    -backup_service
     -dreams_service
     -mount_service
+    -package_service
+    -wallpaper_service
+    -wifi_service
 }:service_manager find;
 
 allow system_server keystore:keystore_key {
