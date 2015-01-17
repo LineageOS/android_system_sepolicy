@@ -64,15 +64,12 @@ allow surfaceflinger surfaceflinger_service:service_manager { add find };
 allow surfaceflinger system_server_service:service_manager find;
 allow surfaceflinger tmp_system_server_service:service_manager find;
 
-# address tmp_system_server_service accesses
-allow surfaceflinger {
-    power_service
-}:service_manager find;
-
 service_manager_local_audit_domain(surfaceflinger)
 auditallow surfaceflinger {
     tmp_system_server_service
+    -permission_service
     -power_service
+    -window_service
 }:service_manager find;
 
 ###
