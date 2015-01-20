@@ -18,9 +18,6 @@ allow isolated_app app_data_file:file { read write getattr };
 # Isolated apps should not directly open app data files themselves.
 neverallow isolated_app app_data_file:file open;
 
-# Isolated apps shouldn't be able to access the driver directly.
-neverallow isolated_app gpu_device:file { rw_file_perms execute };
-
 allow isolated_app radio_service:service_manager find;
 allow isolated_app surfaceflinger_service:service_manager find;
 allow isolated_app system_server_service:service_manager find;
