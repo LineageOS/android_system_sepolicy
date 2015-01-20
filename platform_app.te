@@ -35,25 +35,42 @@ allow platform_app surfaceflinger_service:service_manager find;
 allow platform_app system_server_service:service_manager find;
 allow platform_app tmp_system_server_service:service_manager find;
 
-# address tmp_system_server_service accesses
-allow platform_app {
-    activity_service
-    connectivity_service
-    display_service
-    dropbox_service
-    input_service
-    lock_settings_service
-    mount_service
-}:service_manager find;
-
 service_manager_local_audit_domain(platform_app)
 auditallow platform_app {
     tmp_system_server_service
+    -accessibility_service
     -activity_service
+    -appops_service
+    -appwidget_service
+    -assetatlas_service
+    -audio_service
+    -batterystats_service
+    -bluetooth_manager_service
     -connectivity_service
+    -content_service
+    -device_policy_service
     -display_service
+    -dreams_service
     -dropbox_service
+    -fingerprint_service
+    -input_method_service
     -input_service
     -lock_settings_service
+    -media_projection_service
+    -media_router_service
+    -media_session_service
     -mount_service
+    -netpolicy_service
+    -netstats_service
+    -network_management_service
+    -notification_service
+    -power_service
+    -registry_service
+    -search_service
+    -statusbar_service
+    -trust_service
+    -user_service
+    -vibrator_service
+    -wallpaper_service
+    -wifi_service
 }:service_manager find;

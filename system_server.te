@@ -390,27 +390,55 @@ auditallow system_server {
     -tmp_system_server_service
 }:service_manager find;
 
-# address tmp_system_server_service accesses
-allow system_server {
-    account_service
-    backup_service
-    dreams_service
-    mount_service
-    package_service
-    wallpaper_service
-    wifi_service
-}:service_manager find;
-
 service_manager_local_audit_domain(system_server)
 auditallow system_server {
     tmp_system_server_service
+    -accessibility_service
     -account_service
+    -activity_service
+    -alarm_service
+    -appops_service
+    -assetatlas_service
+    -audio_service
     -backup_service
+    -batterystats_service
+    -bluetooth_manager_service
+    -connectivity_service
+    -content_service
+    -device_policy_service
+    -display_service
     -dreams_service
+    -dropbox_service
+    -ethernet_service
+    -hdmi_control_service
+    -input_method_service
+    -input_service
+    -jobscheduler_service
+    -location_service
+    -lock_settings_service
+    -media_router_service
+    -media_session_service
     -mount_service
+    -network_management_service
+    -network_score_service
+    -notification_service
     -package_service
+    -power_service
+    -registry_service
+    -sensorservice_service
+    -statusbar_service
+    -textservices_service
+    -trust_service
+    -uimode_service
+    -updatelock_service
+    -usagestats_service
+    -user_service
+    -vibrator_service
     -wallpaper_service
+    -webviewupdate_service
     -wifi_service
+    -wifip2p_service
+    -window_service
 }:service_manager find;
 
 allow system_server keystore:keystore_key {
