@@ -36,3 +36,17 @@ allow radio radio_service:service_manager { add find };
 allow radio surfaceflinger_service:service_manager find;
 allow radio system_server_service:service_manager find;
 allow radio tmp_system_server_service:service_manager find;
+
+service_manager_local_audit_domain(radio)
+auditallow radio {
+    tmp_system_server_service
+    -activity_service
+    -appops_service
+    -connectivity_service
+    -content_service
+    -display_service
+    -dropbox_service
+    -network_management_service
+    -power_service
+    -registry_service
+}:service_manager find;
