@@ -104,9 +104,6 @@ allow dumpstate net_data_file:file r_file_perms;
 allow dumpstate tombstone_data_file:dir r_dir_perms;
 allow dumpstate tombstone_data_file:file r_file_perms;
 
-# Access /system/bin executables to determine type of executable.
-allow dumpstate {drmserver_exec mediaserver_exec sdcardd_exec surfaceflinger_exec}:file r_file_perms;
-
 allow dumpstate {
     drmserver_service
     healthd_service
