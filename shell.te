@@ -47,9 +47,6 @@ allow shell ctl_dumpstate_prop:property_service set;
 allow shell debug_prop:property_service set;
 allow shell powerctl_prop:property_service set;
 
-allow shell system_server_service:service_manager find;
-allow shell tmp_system_server_service:service_manager find;
-
 # systrace support - allow atrace to run
 # debugfs doesn't support labeling individual files, so we have
 # to grant read access to all of /sys/kernel/debug.
@@ -60,8 +57,9 @@ allow shell debugfs:file r_file_perms;
 # allow shell to run dmesg
 allow shell kernel:system syslog_read;
 
-# allow shell to list services
+# allow shell access to services
 allow shell servicemanager:service_manager list;
+allow shell service_manager_type:service_manager find;
 
 # allow shell to look through /proc/ for ps, top
 allow shell domain:dir { search open read getattr };
