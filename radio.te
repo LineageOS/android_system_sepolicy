@@ -1,5 +1,5 @@
 # phone subsystem
-type radio, domain;
+type radio, domain, mlstrustedsubject;
 app_domain(radio)
 net_domain(radio)
 bluetooth_domain(radio)
