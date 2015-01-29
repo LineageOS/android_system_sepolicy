@@ -70,6 +70,7 @@ type permission_service, tmp_system_server_service, service_manager_type;
 type persistent_data_block_service, tmp_system_server_service, service_manager_type;
 type power_service, tmp_system_server_service, service_manager_type;
 type print_service, tmp_system_server_service, service_manager_type;
+type processinfo_service, tmp_system_server_service, service_manager_type;
 type procstats_service, tmp_system_server_service, service_manager_type;
 type restrictions_service, tmp_system_server_service, service_manager_type;
 type rttmanager_service, tmp_system_server_service, service_manager_type;
