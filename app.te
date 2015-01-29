@@ -229,8 +229,7 @@ neverallow appdomain tee_device:chr_file { read write };
 
 # Privileged netlink socket interfaces.
 neverallow appdomain
-    self:{
-        netlink_socket
+    domain:{
         netlink_firewall_socket
         netlink_tcpdiag_socket
         netlink_nflog_socket
@@ -243,7 +242,7 @@ neverallow appdomain
 # These messages are broadcast messages from the kernel to userspace.
 # Do not allow the writing of netlink messages, which has been a source
 # of rooting vulns in the past.
-neverallow appdomain self:netlink_kobject_uevent_socket { write append };
+neverallow appdomain domain:netlink_kobject_uevent_socket { write append };
 
 # Sockets under /dev/socket that are not specifically typed.
 neverallow appdomain socket_device:sock_file write;
