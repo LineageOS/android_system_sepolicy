@@ -83,6 +83,7 @@ allow unconfineddomain {
     -shell_data_file
     -app_data_file
     -unlabeled
+    -dalvikcache_data_file
 }:{ chr_file file } ~{entrypoint execute_no_trans execmod execute relabelto};
 allow unconfineddomain rootfs:file execute;
 allow unconfineddomain contextmount_type:dir r_dir_perms;
