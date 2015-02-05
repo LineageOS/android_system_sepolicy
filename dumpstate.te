@@ -6,8 +6,9 @@ init_daemon_domain(dumpstate)
 net_domain(dumpstate)
 binder_use(dumpstate)
 
-# Drop privileges by switching UID / GID
-allow dumpstate self:capability { setuid setgid };
+# Allow setting process priority, protect from OOM killer, and dropping
+# privileges by switching UID / GID
+allow dumpstate self:capability { setuid setgid sys_resource };
 
 # Allow dumpstate to scan through /proc/pid for all processes
 r_dir_file(dumpstate, domain)
@@ -119,3 +120,5 @@ allow dumpstate {
 }:service_manager find;
 
 allow dumpstate servicemanager:service_manager list;
+
+allow dumpstate devpts:chr_file rw_file_perms;
