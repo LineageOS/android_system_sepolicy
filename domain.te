@@ -297,6 +297,9 @@ neverallow { domain -init } property_data_file:file no_w_file_perms;
 neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 
+# Don't allow mounting on top of /system files or directories
+neverallow domain { system_file exec_type }:dir_file_class_set mounton;
+
 # Nothing should be writing to files in the rootfs.
 neverallow { domain -recovery } rootfs:file { create write setattr relabelto append unlink link rename };
 
