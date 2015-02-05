@@ -12,6 +12,10 @@ userdebug_or_eng(`
   # additional information.
   domain_auto_trans(dumpstate, su_exec, su)
 
+  # Make sure that dumpstate runs the same from the "su" domain as
+  # from the "init" domain.
+  domain_auto_trans(su, dumpstate_exec, dumpstate)
+
   # su is also permissive to permit setenforce.
   permissive su;
 
