@@ -147,12 +147,6 @@ domain_trans(init, shell_exec, shell)
 domain_trans(init, rootfs, ueventd)
 domain_trans(init, rootfs, watchdogd)
 
-# Certain domains need LD_PRELOAD passed from init.
-# https://android-review.googlesource.com/94851
-# For now, allow it to most domains.
-# TODO: scope this down.
-allow init { domain -lmkd }:process noatsecure;
-
 # Support "adb shell stop"
 allow init self:capability kill;
 allow init domain:process sigkill;
