@@ -1,7 +1,6 @@
 # e2fsck or any other fsck program run by init.
 type fsck, domain;
 type fsck_exec, exec_type, file_type;
-permissive_or_unconfined(fsck)
 
 init_daemon_domain(fsck)
 
