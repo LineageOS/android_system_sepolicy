@@ -344,3 +344,21 @@ neverallow {
   -installd
   -dex2oat
 } dalvikcache_data_file:file no_w_file_perms;
+
+# Android does not support System V IPCs.
+#
+# The reason for this is due to the fact that, by design, they lead to global
+# kernel resource leakage.
+#
+# For example, there is no way to automatically release a SysV semaphore
+# allocated in the kernel when:
+#
+# - a buggy or malicious process exits
+# - a non-buggy and non-malicious process crashes or is explicitly killed.
+#
+# Killing processes automatically to make room for new ones is an
+# important part of Android's application lifecycle implementation. This means
+# that, even assuming only non-buggy and non-malicious code, it is very likely
+# that over time, the kernel global tables used to implement SysV IPCs will fill
+# up.
+neverallow domain domain:{ shm sem msg msgq } *;
