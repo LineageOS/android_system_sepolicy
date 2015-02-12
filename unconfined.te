@@ -42,7 +42,6 @@ allow unconfineddomain domain:{
     netlink_kobject_uevent_socket
     tun_socket
 } *;
-allow unconfineddomain domain:ipc_class_set *;
 allow unconfineddomain domain:key *;
 allow unconfineddomain {fs_type -contextmount_type -sdcard_type}:{ dir lnk_file sock_file fifo_file } ~relabelto;
 allow unconfineddomain dev_type:{ dir lnk_file sock_file fifo_file } ~relabelto;
