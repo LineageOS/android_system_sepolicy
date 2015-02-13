@@ -36,6 +36,12 @@ enum map_match {
 	map_matched
 };
 
+const char *map_match_str[] = {
+	"do not match",
+	"match on all inputs",
+	"match on everything"
+};
+
 /**
  * Whether or not the "key" from a key vaue pair is considered an
  * input or an output.
@@ -125,9 +131,6 @@ struct policy_info {
 
 /** Set to !0 to enable verbose logging */
 static int logging_verbose = 0;
-
-/** set to !0 to enable strict checking of duplicate entries */
-static int is_strict = 0;
 
 /** file handle to the output file */
 static FILE *output_file = NULL;
@@ -622,7 +625,6 @@ static void usage() {
 		        "and allows later declarations to override previous ones on a match.\n"
 		        "Options:\n"
 		        "-h - print this help message\n"
-			"-s - enable strict checking of duplicates. This causes the program to exit on a duplicate entry with a non-zero exit status\n"
 		        "-v - enable verbose debugging informations\n"
 		        "-p policy file - specify policy file for strict checking of output selectors against the policy\n"
 		        "-o output file - specify output file, default is stdout\n");
@@ -722,9 +724,6 @@ static void handle_options(int argc, char *argv[]) {
 		case 'p':
 			pol.policy_file_name = optarg;
 			break;
-		case 's':
-			is_strict = 1;
-			break;
 		case 'v':
 			log_set_verbose();
 			break;
@@ -822,7 +821,6 @@ static void rule_add(rule_map *rm) {
 	ENTRY *f;
 	hash_entry *entry;
 	hash_entry *tmp;
-	char *preserved_key;
 
 	e.key = rm->key;
 
@@ -839,41 +837,12 @@ static void rule_add(rule_map *rm) {
 		log_info("Existing entry found!\n");
 		tmp = (hash_entry *)f->data;
 		cmp = rule_map_cmp(rm, tmp->r);
-		log_info("Comparing on rule map ret: %d\n", cmp);
-		/* Override be freeing the old rule map and updating
-		   the pointer */
-		if(cmp != map_matched) {
-
-			/*
-			 * DO NOT free key pointers given to the hash map, instead
-			 * free the new key. The ordering here is critical!
-			 */
-			preserved_key = tmp->r->key;
-			rule_map_free(tmp->r, rule_map_preserve_key);
-/*  hdestroy() frees comparsion keys for non glibc */
-#ifdef __GLIBC__
-			free(rm->key);
-#endif
-			rm->key = preserved_key;
-			tmp->r = rm;
-		}
-		/* Duplicate */
-		else {
-			/* if is_strict is set, then don't allow duplicates */
-			if(is_strict) {
-				log_error("Duplicate line detected in file: %s\n"
-					"Lines %d and %d match!\n",
-					out_file_name, tmp->r->lineno, rm->lineno);
-				rule_map_free(rm, rule_map_destroy_key);
-				goto err;
-			}
-
-			/* Allow duplicates, just drop the entry*/
-			log_info("Duplicate line detected in file: %s\n"
-					"Lines %d and %d match!\n",
-					out_file_name, tmp->r->lineno, rm->lineno);
-			rule_map_free(rm, rule_map_destroy_key);
-		}
+		log_error("Duplicate line detected in file: %s\n"
+			  "Lines %d and %d %s!\n",
+			  out_file_name, tmp->r->lineno, rm->lineno,
+			  map_match_str[cmp]);
+		rule_map_free(rm, rule_map_destroy_key);
+		goto err;
 	}
 	/* It wasn't found, just add the rule map to the table */
 	else {
