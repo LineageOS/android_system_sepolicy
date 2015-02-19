@@ -8,6 +8,7 @@ type radio_prop, property_type;
 type net_radio_prop, property_type;
 type system_radio_prop, property_type;
 type system_prop, property_type;
+type verity_prop, property_type;
 type vold_prop, property_type;
 type ctl_bootanim_prop, property_type;
 type ctl_default_prop, property_type;
