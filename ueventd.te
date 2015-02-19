@@ -23,3 +23,9 @@ allow ueventd efs_file:file r_file_perms;
 
 # Use setfscreatecon() to label /dev directories and files.
 allow ueventd self:process setfscreate;
+
+# Set property.
+unix_socket_connect(ueventd, property, init)
+
+# Property service
+allow ueventd verity_prop:property_service set;
