@@ -78,12 +78,13 @@ mlsconstrain { file lnk_file sock_file chr_file blk_file } { write setattr appen
 # Special case for FIFOs.
 # These can be unnamed pipes, in which case they will be labeled with the
 # creating process' label. Thus we also have an exemption when the "object"
-# is a MLS trusted subject and can receive data at any level.
+# is a domain type, so that processes can communicate via unnamed pipes
+# passed by binder or local socket IPC.
 mlsconstrain fifo_file { read getattr }
-	     (l1 dom l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject or t2 == mlstrustedsubject);
+	     (l1 dom l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject or t2 == domain);
 
 mlsconstrain fifo_file { write setattr append unlink link rename }
-	     (l1 domby l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject or t2 == mlstrustedsubject);
+	     (l1 domby l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject or t2 == domain);
 
 #
 # IPC constraints
