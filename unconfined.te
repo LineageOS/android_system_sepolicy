@@ -43,8 +43,8 @@ allow unconfineddomain domain:{
     tun_socket
 } *;
 allow unconfineddomain domain:key *;
-allow unconfineddomain {fs_type -contextmount_type -sdcard_type}:{ dir lnk_file sock_file fifo_file } ~relabelto;
-allow unconfineddomain dev_type:{ dir lnk_file sock_file fifo_file } ~relabelto;
+allow unconfineddomain {fs_type -contextmount_type -sdcard_type}:{ dir lnk_file sock_file fifo_file } ~{ relabelto mounton };
+allow unconfineddomain dev_type:{ dir lnk_file sock_file fifo_file } ~{ relabelto mounton };
 allow unconfineddomain {
     file_type
     -keystore_data_file
@@ -55,7 +55,7 @@ allow unconfineddomain {
     -shell_data_file
     -app_data_file
     -unlabeled
-}:{ dir lnk_file sock_file fifo_file } ~relabelto;
+}:{ dir lnk_file sock_file fifo_file } ~{ relabelto mounton };
 allow unconfineddomain exec_type:dir r_dir_perms;
 allow unconfineddomain exec_type:file { r_file_perms execute };
 allow unconfineddomain exec_type:lnk_file r_file_perms;
