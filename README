@@ -1,3 +1,9 @@
+This directory contains the core Android SELinux policy configuration.
+It defines the domains and types for the AOSP services and apps common to
+all devices.  Device-specific policy should be placed under a
+separate device/<vendor>/<board>/sepolicy subdirectory and linked
+into the policy build as described below.
+
 Policy Generation:
 
 Additional, per device, policy files can be added into the
