@@ -64,3 +64,9 @@ allow shell service_manager_type:service_manager find;
 # allow shell to look through /proc/ for ps, top
 allow shell domain:dir { search open read getattr };
 allow shell domain:{ file lnk_file } { open read getattr };
+
+# enable shell domain to read/write files/dirs for bootchart data
+# User will creates the start and stop file via adb shell
+# and read other files created by init process under /data/bootchart
+allow shell bootchart_data_file:dir rw_dir_perms;
+allow shell bootchart_data_file:file create_file_perms;
