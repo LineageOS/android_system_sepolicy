@@ -5,7 +5,6 @@
 #	seinfo (string)
 #	name (string)
 #	path (string)
-#	sebool (string)
 # isSystemServer=true can only be used once.
 # An unspecified isSystemServer defaults to false.
 # isOwner=true will only match for the owner/primary user.
@@ -27,7 +26,6 @@
 #	  (6) Specified seinfo= string before unspecified seinfo= string.
 #	  (7) Specified name= string before unspecified name= string.
 #	  (8) Specified path= string before unspecified path= string.
-#	  (9) Specified sebool= string before unspecified sebool= string.
 #
 # Outputs:
 #	domain (string)
