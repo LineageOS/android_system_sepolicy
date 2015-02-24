@@ -1,5 +1,5 @@
 # init switches to init domain (via init.rc).
-type init, domain;
+type init, domain, mlstrustedsubject;
 permissive_or_unconfined(init)
 tmpfs_domain(init)
 
@@ -163,6 +163,11 @@ allow init shell_data_file:file { getattr };
 
 # Set UID and GID for services.
 allow init self:capability { setuid setgid };
+
+# For bootchart to read the /proc/$pid/cmdline file of each process,
+# we need to have following line to allow init to have access
+# to different domains.
+r_dir_file(init, domain)
 
 # Use setexeccon(), setfscreatecon(), and setsockcreatecon().
 # setexec is for services with seclabel options.

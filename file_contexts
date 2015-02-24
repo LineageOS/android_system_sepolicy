@@ -227,6 +227,9 @@
 /data/misc/wifi/hostapd(/.*)?   u:object_r:wpa_socket:s0
 /data/misc/zoneinfo(/.*)?       u:object_r:zoneinfo_data_file:s0
 
+# Bootchart data
+/data/bootchart(/.*)?		u:object_r:bootchart_data_file:s0
+
 # coredump directory for userdebug/eng devices
 /cores(/.*)?                    u:object_r:coredump_file:s0
 
