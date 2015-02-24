@@ -362,3 +362,7 @@ neverallow {
 # that over time, the kernel global tables used to implement SysV IPCs will fill
 # up.
 neverallow domain domain:{ shm sem msg msgq } *;
+
+# Do not mount on top of symlinks, fifos, or sockets.
+# Feature parity with Chromium LSM.
+neverallow domain { file_type fs_type dev_type }:{ lnk_file fifo_file sock_file } mounton;
