@@ -80,3 +80,5 @@ allow adbd system_file:file r_file_perms;
 allow adbd kernel:security read_policy;
 
 allow adbd surfaceflinger_service:service_manager find;
+allow adbd bootchart_data_file:dir search;
+allow adbd bootchart_data_file:file r_file_perms;
