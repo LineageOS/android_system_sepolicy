@@ -165,7 +165,6 @@ key_map rules[] = {
                 { .name = "seinfo",         .type = dt_string, .dir = dir_in,  .data = NULL },
                 { .name = "name",           .type = dt_string, .dir = dir_in,  .data = NULL },
                 { .name = "path",           .type = dt_string, .dir = dir_in,  .data = NULL },
-                { .name = "sebool",         .type = dt_string, .dir = dir_in,  .data = NULL },
                 /*Outputs*/
                 { .name = "domain",         .type = dt_string, .dir = dir_out, .data = NULL },
                 { .name = "type",           .type = dt_string, .dir = dir_out, .data = NULL },
@@ -248,11 +247,9 @@ static int key_map_validate(key_map *m, int lineno) {
 
 	int rc = 1;
 	int ret = 1;
-	int resp;
 	char *key = m->name;
 	char *value = m->data;
 	data_type type = m->type;
-	sepol_bool_key_t *se_key;
 
 	log_info("Validating %s=%s\n", key, value);
 
@@ -283,34 +280,6 @@ static int key_map_validate(key_map *m, int lineno) {
 	 */
 	if (!pol.policy_file) {
 		goto out;
-	}
-	else if (!strcasecmp(key, "sebool")) {
-
-		ret = sepol_bool_key_create(pol.handle, value, &se_key);
-		if (ret < 0) {
-			log_error("Could not create selinux boolean key, error: %s\n",
-					strerror(errno));
-			rc = 0;
-			goto out;
-		}
-
-		ret = sepol_bool_exists(pol.handle, pol.db, se_key, &resp);
-		if (ret < 0) {
-			log_error("Could not check selinux boolean, error: %s\n",
-					strerror(errno));
-			rc = 0;
-			sepol_bool_key_free(se_key);
-			goto out;
-		}
-
-		if(!resp) {
-			log_error("Could not find selinux boolean \"%s\" on line: %d in file: %s\n",
-					value, lineno, out_file_name);
-			rc = 0;
-			sepol_bool_key_free(se_key);
-			goto out;
-		}
-		sepol_bool_key_free(se_key);
 	}
 	else if (!strcasecmp(key, "type") || !strcasecmp(key, "domain")) {
 
