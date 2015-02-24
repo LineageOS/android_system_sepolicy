@@ -524,6 +524,10 @@ static rule_map *rule_map_new(kvp keys[], size_t num_of_keys, int lineno) {
 	rule_map *new_map = NULL;
 	kvp *k = NULL;
 	key_map *r = NULL, *x = NULL;
+	bool seen[KVP_NUM_OF_RULES];
+
+	for (i = 0; i < KVP_NUM_OF_RULES; i++)
+		seen[i] = false;
 
 	new_map = calloc(1, (num_of_keys * sizeof(key_map)) + sizeof(rule_map));
 	if (!new_map)
@@ -548,6 +552,12 @@ static rule_map *rule_map_new(kvp keys[], size_t num_of_keys, int lineno) {
 				}
 				continue;
 			}
+
+			if (seen[j]) {
+					log_error("Duplicated key: %s\n", k->key);
+					goto err;
+			}
+			seen[j] = true;
 
 			memcpy(r, x, sizeof(key_map));
 
@@ -612,7 +622,7 @@ err:
 			free_kvp(k);
 		}
 	}
-	exit(EXIT_FAILURE);
+	return NULL;
 }
 
 /**
@@ -936,6 +946,8 @@ static void parse() {
 		} /*End token parsing */
 
 		rule_map *r = rule_map_new(keys, token_cnt, lineno);
+		if (!r)
+			goto err;
 		rule_add(r);
 
 	} /* End file parsing */
