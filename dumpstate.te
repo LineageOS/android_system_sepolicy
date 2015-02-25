@@ -61,7 +61,6 @@ domain_auto_trans(dumpstate, vdc_exec, vdc)
 allow dumpstate sysfs:file w_file_perms;
 
 # Other random bits of data we want to collect
-allow dumpstate proc_net:dir search;
 allow dumpstate qtaguid_proc:file r_file_perms;
 allow dumpstate debugfs:file r_file_perms;
 

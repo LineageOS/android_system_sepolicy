@@ -24,8 +24,7 @@ allow netd system_file:file x_file_perms;
 allow netd devpts:chr_file rw_file_perms;
 
 # For /proc/sys/net/ipv[46]/route/flush.
-allow netd proc_net:file rw_file_perms;
-allow netd proc_net:dir r_dir_perms;
+allow netd proc_net:file write;
 
 # For /sys/modules/bcmdhd/parameters/firmware_path
 # XXX Split into its own type.
