@@ -14,11 +14,7 @@ allow install_recovery shell_exec:file rx_file_perms;
 allow install_recovery system_file:file rx_file_perms;
 
 # Update the recovery block device
-# TODO: Limit this to only recovery block device when we
-# create an appropriate label for it.
 allow install_recovery block_device:dir search;
-allow install_recovery block_device:blk_file rw_file_perms;
-auditallow install_recovery block_device:blk_file rw_file_perms;
 allow install_recovery recovery_block_device:blk_file rw_file_perms;
 
 # Create and delete /cache/saved.file
