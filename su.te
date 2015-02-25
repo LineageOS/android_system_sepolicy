@@ -49,4 +49,5 @@ userdebug_or_eng(`
   dontaudit su keystore:keystore_key *;
   dontaudit su domain:debuggerd *;
   dontaudit su domain:drmservice *;
+  service_manager_local_audit_domain(su)
 ')
