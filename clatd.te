@@ -17,6 +17,14 @@ allow clatd netd:unix_dgram_socket { read write };
 
 allow clatd self:capability { net_admin net_raw setuid setgid };
 
+# clatd calls mmap(MAP_LOCKED) with a 1M buffer. MAP_LOCKED first checks
+# capable(CAP_IPC_LOCK), and then checks to see the requested amount is
+# under RLIMIT_MEMLOCK. The latter check succeeds. As a result, clatd
+# does not need CAP_IPC_LOCK, so we suppress any denials we see
+# from clatd asking for this capability.
+# See https://android-review.googlesource.com/127940
+dontaudit clatd self:capability ipc_lock;
+
 allow clatd self:netlink_route_socket nlmsg_write;
 allow clatd self:{ packet_socket rawip_socket tun_socket } create_socket_perms;
 allow clatd tun_device:chr_file rw_file_perms;
