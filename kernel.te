@@ -45,7 +45,7 @@ allow kernel self:security setcheckreqprot;
 
 # MTP sync (b/15835289)
 # kernel thread "loop0", used by the loop block device, for ASECs (b/17158723)
-allow kernel vold:fd use;
+allow kernel untrusted_app:fd use;
 allow kernel sdcard_type:file { read write };
 
 # Allow the kernel to read OBB files from app directories. (b/17428116)
@@ -53,6 +53,7 @@ allow kernel sdcard_type:file { read write };
 # Fixes CTS tests:
 #  * android.os.storage.cts.StorageManagerTest#testMountAndUnmountObbNormal
 #  * android.os.storage.cts.StorageManagerTest#testMountAndUnmountTwoObbs
+allow kernel vold:fd use;
 allow kernel app_data_file:file read;
 
 ###
