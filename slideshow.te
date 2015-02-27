@@ -1,0 +1,13 @@
+# slideshow seclabel is specified in init.rc since
+# it lives in the rootfs and has no unique file type.
+type slideshow, domain;
+
+write_klog(slideshow)
+allow slideshow device:dir r_dir_perms;
+allow slideshow self:capability { mknod sys_tty_config };
+allow slideshow graphics_device:dir r_dir_perms;
+allow slideshow graphics_device:chr_file rw_file_perms;
+allow slideshow input_device:dir r_dir_perms;
+allow slideshow input_device:chr_file r_file_perms;
+allow slideshow tty_device:chr_file rw_file_perms;
+
