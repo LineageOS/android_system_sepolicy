@@ -1,6 +1,5 @@
 # init switches to init domain (via init.rc).
 type init, domain, mlstrustedsubject;
-permissive_or_unconfined(init)
 tmpfs_domain(init)
 
 # setrlimit
