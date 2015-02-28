@@ -46,6 +46,9 @@ allow init tmpfs:dir mounton;
 allow init cgroup:dir create_dir_perms;
 allow init cpuctl_device:dir { create mounton };
 
+# Use tmpfs as /data, used for booting when /data is encrypted
+allow init tmpfs:dir relabelfrom;
+
 # Create directories under /dev/cpuctl after chowning it to system.
 allow init self:capability dac_override;
 
