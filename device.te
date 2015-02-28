@@ -76,6 +76,9 @@ type system_block_device, dev_type;
 # Recovery block device.
 type recovery_block_device, dev_type;
 
+# boot block device.
+type boot_block_device, dev_type;
+
 # Userdata block device mounted on /data.
 type userdata_block_device, dev_type;
 
