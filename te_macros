@@ -71,17 +71,6 @@ allow $1 $2:{ file lnk_file } r_file_perms;
 ')
 
 #####################################
-# unconfined_domain(domain)
-# Allow the specified domain to perform more privileged operations
-# than would be typically allowed. Please see the comments at the
-# top of unconfined.te.
-#
-define(`unconfined_domain', `
-typeattribute $1 mlstrustedsubject;
-typeattribute $1 unconfineddomain;
-')
-
-#####################################
 # tmpfs_domain(domain)
 # Define and allow access to a unique type for
 # this domain when creating tmpfs / shmem / ashmem files.
@@ -306,17 +295,6 @@ define(`recovery_only', ifelse(target_recovery, `true', $1, ))
 # SELinux rules which apply only to userdebug or eng builds
 #
 define(`userdebug_or_eng', ifelse(target_build_variant, `eng', $1, ifelse(target_build_variant, `userdebug', $1)))
-
-#####################################
-# permissive_or_unconfined
-# Returns "permissive $1" if FORCE_PERMISSIVE_TO_UNCONFINED is false,
-# and "unconfined($1)" otherwise.
-#
-# This is used for experimental domains, where we want to ensure
-# the domain is unconfined+enforcing once new SELinux policy development
-# has ceased.
-#
-define(`permissive_or_unconfined', ifelse(force_permissive_to_unconfined, `false', permissive $1;, unconfined_domain($1)))
 
 #####################################
 # write_logd(domain)
