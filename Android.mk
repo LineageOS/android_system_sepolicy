@@ -2,22 +2,6 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
-# Force permissive domains to be unconfined+enforcing?
-#
-# During development, this should be set to false.
-# Permissive means permissive.
-#
-# When we're close to a release and SELinux new policy development
-# is frozen, we should flip this to true. This forces any currently
-# permissive domains into unconfined+enforcing.
-#
-FORCE_PERMISSIVE_TO_UNCONFINED ?= false
-
-ifeq ($(TARGET_BUILD_VARIANT),user)
-  # User builds are always forced unconfined+enforcing
-  FORCE_PERMISSIVE_TO_UNCONFINED := true
-endif
-
 # SELinux policy version.
 # Must be <= /selinux/policyvers reported by the Android kernel.
 # Must be within the compatibility range reported by checkpolicy -V.
@@ -114,7 +98,6 @@ $(sepolicy_policy.conf) : $(call build_policy, $(sepolicy_build_files))
 	@mkdir -p $(dir $@)
 	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
-		-D force_permissive_to_unconfined=$(FORCE_PERMISSIVE_TO_UNCONFINED) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
@@ -142,7 +125,6 @@ $(sepolicy_policy_recovery.conf) : $(call build_policy, $(sepolicy_build_files))
 	@mkdir -p $(dir $@)
 	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
-		-D force_permissive_to_unconfined=$(FORCE_PERMISSIVE_TO_UNCONFINED) \
 		-D target_recovery=true \
 		-s $^ > $@
 
@@ -171,7 +153,6 @@ $(LOCAL_BUILT_MODULE): $(exp_sepolicy_build_files)
 	mkdir -p $(dir $@)
 	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=user \
-		-D force_permissive_to_unconfined=true \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
