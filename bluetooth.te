@@ -50,7 +50,6 @@ allow bluetooth pan_result_prop:property_service set;
 allow bluetooth ctl_dhcp_pan_prop:property_service set;
 
 allow bluetooth bluetooth_service:service_manager find;
-allow bluetooth keystore_service:service_manager find;
 allow bluetooth mediaserver_service:service_manager find;
 allow bluetooth radio_service:service_manager find;
 allow bluetooth surfaceflinger_service:service_manager find;
