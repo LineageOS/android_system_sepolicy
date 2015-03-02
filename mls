@@ -64,7 +64,7 @@ mlsconstrain dir_file_class_set { create relabelfrom relabelto }
 mlsconstrain dir { read getattr search }
 	     (l1 dom l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject);
 
-mlsconstrain { file lnk_file sock_file chr_file blk_file } { read getattr execute }
+mlsconstrain { file lnk_file sock_file chr_file blk_file } { open execute }
 	     (l1 dom l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject);
 
 # Write operations: Subject must be dominated by the object unless the
