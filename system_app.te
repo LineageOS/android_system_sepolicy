@@ -62,11 +62,32 @@ auditallow system_app {
     -accessibility_service
     -activity_service
     -appops_service
+    -appwidget_service
+    -assetatlas_service
+    -audio_service
+    -backup_service
+    -bluetooth_manager_service
     -connectivity_service
+    -content_service
+    -device_policy_service
     -display_service
+    -dreams_service
     -dropbox_service
+    -input_method_service
+    -input_service
+    -lock_settings_service
+    -mount_service
     -network_management_service
+    -notification_service
+    -power_service
+    -print_service
+    -registry_service
+    -sensorservice_service
+    -usagestats_service
+    -usb_service
     -user_service
+    -vibrator_service
+    -wifi_service
 }:service_manager find;
 
 allow system_app keystore:keystore_key {

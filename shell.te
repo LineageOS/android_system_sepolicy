@@ -60,6 +60,7 @@ allow shell kernel:system syslog_read;
 # allow shell access to services
 allow shell servicemanager:service_manager list;
 allow shell service_manager_type:service_manager find;
+service_manager_local_audit_domain(shell)
 
 # allow shell to look through /proc/ for ps, top
 allow shell domain:dir { search open read getattr };
