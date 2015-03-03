@@ -53,4 +53,10 @@ allow drmserver drmserver_service:service_manager { add find };
 allow drmserver system_server_service:service_manager find;
 allow drmserver tmp_system_server_service:service_manager find;
 
+service_manager_local_audit_domain(drmserver)
+auditallow drmserver {
+    tmp_system_server_service
+    -permission_service
+}:service_manager find;
+
 selinux_check_access(drmserver)

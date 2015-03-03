@@ -82,18 +82,27 @@ auditallow untrusted_app {
     -assetatlas_service
     -audio_service
     -backup_service
+    -battery_service
     -batterystats_service
     -bluetooth_manager_service
     -connectivity_service
     -content_service
+    -country_detector_service
+    -default_android_service
     -device_policy_service
     -display_service
     -dropbox_service
     -input_method_service
     -input_service
     -jobscheduler_service
+    -launcherapps_service
     -location_service
+    -lock_settings_service
+    -media_router_service
+    -media_session_service
+    -meminfo_service
     -mount_service
+    -netpolicy_service
     -netstats_service
     -network_management_service
     -network_score_service
@@ -101,13 +110,18 @@ auditallow untrusted_app {
     -persistent_data_block_service
     -power_service
     -registry_service
+    -search_service
+    -sensorservice_service
     -textservices_service
     -trust_service
     -uimode_service
     -user_service
     -vibrator_service
+    -voiceinteraction_service
+    -wallpaper_service
     -webviewupdate_service
     -wifi_service
+    -wifip2p_service
 }:service_manager find;
 
 ###

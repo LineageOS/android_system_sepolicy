@@ -104,20 +104,8 @@ allow dumpstate net_data_file:file r_file_perms;
 allow dumpstate tombstone_data_file:dir r_dir_perms;
 allow dumpstate tombstone_data_file:file r_file_perms;
 
-allow dumpstate {
-    drmserver_service
-    healthd_service
-    inputflinger_service
-    keystore_service
-    mediaserver_service
-    nfc_service
-    radio_service
-    surfaceflinger_service
-    system_app_service
-    system_server_service
-    tmp_system_server_service
-}:service_manager find;
-
+allow dumpstate service_manager_type:service_manager find;
 allow dumpstate servicemanager:service_manager list;
+service_manager_local_audit_domain(dumpstate)
 
 allow dumpstate devpts:chr_file rw_file_perms;
