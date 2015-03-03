@@ -42,11 +42,17 @@ auditallow radio {
     tmp_system_server_service
     -activity_service
     -appops_service
+    -bluetooth_manager_service
     -connectivity_service
     -content_service
     -display_service
     -dropbox_service
+    -netstats_service
     -network_management_service
+    -notification_service
     -power_service
     -registry_service
+    -trust_service
+    -user_service
+    -wifi_service
 }:service_manager find;
