@@ -25,3 +25,22 @@ allow nfc radio_service:service_manager find;
 allow nfc surfaceflinger_service:service_manager find;
 allow nfc system_server_service:service_manager find;
 allow nfc tmp_system_server_service:service_manager find;
+
+service_manager_local_audit_domain(nfc)
+auditallow nfc {
+    tmp_system_server_service
+    -accessibility_service
+    -activity_service
+    -appops_service
+    -batterystats_service
+    -bluetooth_manager_service
+    -connectivity_service
+    -content_service
+    -display_service
+    -dropbox_service
+    -network_management_service
+    -power_service
+    -trust_service
+    -user_service
+    -vibrator_service
+}:service_manager find;
