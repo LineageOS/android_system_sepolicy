@@ -23,3 +23,14 @@ allow ueventd efs_file:file r_file_perms;
 
 # Use setfscreatecon() to label /dev directories and files.
 allow ueventd self:process setfscreate;
+
+#####
+##### neverallow rules
+#####
+
+# ueventd must never set properties, otherwise deadlocks may occur.
+# https://android-review.googlesource.com/#/c/133120/6/init/devices.cpp@941
+# No writing to the property socket, connecting to init, or setting properties.
+neverallow ueventd property_socket:sock_file write;
+neverallow ueventd init:unix_stream_socket connectto;
+neverallow ueventd property_type:property_service set;
