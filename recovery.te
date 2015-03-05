@@ -36,11 +36,9 @@ recovery_only(`
   # support to OTAs. However, that code has a bug. When an update occurs,
   # some directories are inappropriately labeled as exec_type. This is
   # only transient, and subsequent steps in the OTA script correct this
-  # mistake.
-  # Allow this behavior for now until we can fix the underlying bug.
-  # b/15575013
+  # mistake. New devices are moving to block based OTAs, so this is not
+  # worth fixing. b/15575013
   allow recovery exec_type:dir { create_dir_perms relabelfrom relabelto };
-  auditallow recovery exec_type:dir { create_dir_perms relabelfrom relabelto };
 
   # Write to /proc/sys/vm/drop_caches
   # TODO: create more specific label?
