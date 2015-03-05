@@ -222,6 +222,18 @@ allow init device:chr_file { rw_file_perms setattr };
 # keychord configuration
 allow init self:capability sys_tty_config;
 
+# Access device mapper for setting up dm-verity
+allow init dm_device:chr_file rw_file_perms;
+allow init dm_device:blk_file rw_file_perms;
+
+# Access metadata block device for storing dm-verity state
+allow init metadata_block_device:blk_file rw_file_perms;
+
+# Read /sys/fs/pstore/console-ramoops to detect restarts caused
+# by dm-verity detecting corrupted blocks
+allow init pstorefs:dir search;
+allow init pstorefs:file r_file_perms;
+
 ###
 ### neverallow rules
 ###
