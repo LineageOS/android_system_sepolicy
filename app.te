@@ -182,9 +182,9 @@ control_logd(appdomain)
 # application inherit logd write socket (urge is to deprecate this long term)
 allow appdomain zygote:unix_dgram_socket write;
 
-allow appdomain keystore:keystore_key { test get insert delete exist saw sign verify };
+allow { appdomain -isolated_app } keystore:keystore_key { test get insert delete exist saw sign verify };
 
-use_keystore(appdomain)
+use_keystore({ appdomain -isolated_app })
 
 ###
 ### Neverallow rules
