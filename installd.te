@@ -61,9 +61,6 @@ allow installd resourcecache_data_file:file create_file_perms;
 
 # Run dex2oat in its own sandbox.
 domain_auto_trans(installd, dex2oat_exec, dex2oat)
-# dex2oat needs LD_PRELOAD, passed down from init
-# https://android-review.googlesource.com/94851
-allow installd dex2oat:process noatsecure;
 
 # Upgrade from unlabeled userdata.
 # Just need enough to remove and/or relabel it.
