@@ -125,6 +125,7 @@ auditallow untrusted_app {
     -registry_service
     -search_service
     -sensorservice_service
+    -statusbar_service
     -textservices_service
     -trust_service
     -uimode_service
