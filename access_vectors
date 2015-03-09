@@ -876,14 +876,6 @@ class binder
 	transfer
 }
 
-class zygote
-{
-	specifyids
-	specifyrlimits
-	specifyinvokewith
-	specifyseinfo
-}
-
 class property_service
 {
 	set
