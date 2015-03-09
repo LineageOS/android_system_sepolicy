@@ -317,7 +317,7 @@ allow system_server gps_control:file rw_file_perms;
 
 # Allow system_server to use app-created sockets and pipes.
 allow system_server appdomain:{ tcp_socket udp_socket } { getattr getopt setopt read write shutdown };
-allow system_server appdomain:fifo_file { getattr read write };
+allow system_server appdomain:{ fifo_file unix_stream_socket } { getattr read write };
 
 # Allow abstract socket connection
 allow system_server rild:unix_stream_socket connectto;
