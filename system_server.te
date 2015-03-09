@@ -296,9 +296,6 @@ allow system_server wpa_socket:sock_file unlink;
 type_transition system_server system_data_file:sock_file system_ndebug_socket "ndebugsocket";
 allow system_server system_ndebug_socket:sock_file create_file_perms;
 
-# Specify any arguments to zygote.
-allow system_server self:zygote { specifyids specifyrlimits specifyseinfo };
-
 # Manage cache files.
 allow system_server cache_file:dir { relabelfrom create_dir_perms };
 allow system_server cache_file:file { relabelfrom create_file_perms };
