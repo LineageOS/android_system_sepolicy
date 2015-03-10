@@ -344,6 +344,10 @@ neverallow {
   -dex2oat
 } dalvikcache_data_file:file no_w_file_perms;
 
+# Only system_server should be able to send commands via the zygote socket
+neverallow { domain -zygote -system_server } zygote:unix_stream_socket connectto;
+neverallow { domain -system_server } zygote_socket:sock_file write;
+
 # Android does not support System V IPCs.
 #
 # The reason for this is due to the fact that, by design, they lead to global
