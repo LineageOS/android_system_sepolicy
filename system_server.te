@@ -88,9 +88,6 @@ allow system_server mediaserver:process { getsched setsched };
 # all processes on the device.
 r_dir_file(system_server, domain)
 
-# Write to /proc/pid/oom_adj_score for apps.
-allow system_server appdomain:file write;
-
 # Read/Write to /proc/net/xt_qtaguid/ctrl and and /dev/xt_qtaguid.
 allow system_server qtaguid_proc:file rw_file_perms;
 allow system_server qtaguid_device:chr_file rw_file_perms;
