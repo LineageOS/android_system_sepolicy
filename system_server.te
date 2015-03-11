@@ -492,3 +492,8 @@ neverallow system_server { bluetooth_data_file nfc_data_file shell_data_file app
 # system server to dynamically load a dex file, something we do not
 # want to allow.
 neverallow system_server dex2oat_exec:file no_x_file_perms;
+
+# The only block device system_server should be accessing is
+# the frp_block_device. This helps avoid a system_server to root
+# escalation by writing to raw block devices.
+neverallow system_server { dev_type -frp_block_device }:blk_file no_rw_file_perms;
