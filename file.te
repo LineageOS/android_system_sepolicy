@@ -142,7 +142,6 @@ type fwmarkd_socket, file_type, mlstrustedobject;
 type gps_socket, file_type;
 type installd_socket, file_type;
 type lmkd_socket, file_type;
-type logd_debug, file_type, mlstrustedobject;
 type logd_socket, file_type, mlstrustedobject;
 type logdr_socket, file_type, mlstrustedobject;
 type logdw_socket, file_type, mlstrustedobject;

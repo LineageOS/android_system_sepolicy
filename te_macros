@@ -301,9 +301,6 @@ define(`userdebug_or_eng', ifelse(target_build_variant, `eng', $1, ifelse(target
 # Ability to write to android log
 # daemon via sockets
 define(`write_logd', `
-userdebug_or_eng(`
-  allow $1 logd_debug:file w_file_perms;
-')
 unix_socket_send($1, logdw, logd)
 allow $1 pmsg_device:chr_file w_file_perms;
 ')
