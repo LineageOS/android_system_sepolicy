@@ -182,6 +182,23 @@ built_fc := $(LOCAL_BUILT_MODULE)
 
 ##################################
 include $(CLEAR_VARS)
+
+LOCAL_MODULE := general_file_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := tests
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE) : $(addprefix $(LOCAL_PATH)/, file_contexts) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $< > $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $@
+
+GENERAL_FILE_CONTEXTS := $(LOCAL_BUILT_MODULE)
+
+##################################
+include $(CLEAR_VARS)
 LOCAL_MODULE := seapp_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
@@ -246,6 +263,21 @@ built_pc := $(LOCAL_BUILT_MODULE)
 ##################################
 include $(CLEAR_VARS)
 
+LOCAL_MODULE := general_property_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := tests
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE) : $(addprefix $(LOCAL_PATH)/, property_contexts) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $< > $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
+
+GENERAL_PROPERTY_CONTEXTS := $(LOCAL_BUILT_MODULE)
+
+##################################
+include $(CLEAR_VARS)
+
 LOCAL_MODULE := service_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
@@ -262,6 +294,23 @@ $(LOCAL_BUILT_MODULE):  $(ALL_SVC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLE
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
 built_svc := $(LOCAL_BUILT_MODULE)
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := general_service_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := tests
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE) : $(addprefix $(LOCAL_PATH)/, service_contexts) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $< > $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
+
+GENERAL_SERVICE_CONTEXTS := $(LOCAL_BUILT_MODULE)
 
 ##################################
 include $(CLEAR_VARS)
