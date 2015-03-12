@@ -204,6 +204,27 @@ seapp_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
+LOCAL_MODULE := general_seapp_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := tests
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+general_seapp_contexts.tmp := $(intermediates)/general_seapp_contexts.tmp
+$(general_seapp_contexts.tmp): $(addprefix $(LOCAL_PATH)/, seapp_contexts)
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $^ > $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE) : $(general_seapp_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkseapp
+	@mkdir -p $(dir $@)
+	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $<
+
+GENERAL_SEAPP_CONTEXTS := $(LOCAL_BUILT_MODULE)
+general_seapp_contexts.tmp :=
+
+##################################
+include $(CLEAR_VARS)
 
 LOCAL_MODULE := property_contexts
 LOCAL_MODULE_CLASS := ETC
