@@ -166,3 +166,13 @@ neverallow untrusted_app service_manager_type:service_manager add;
 neverallow untrusted_app property_socket:sock_file write;
 neverallow untrusted_app init:unix_stream_socket connectto;
 neverallow untrusted_app property_type:property_service set;
+
+# Do not allow untrusted_app to be assigned mlstrustedsubject.
+# This would undermine the per-user isolation model being
+# enforced via levelFrom=user in seapp_contexts and the mls
+# constraints.  As there is no direct way to specify a neverallow
+# on attribute assignment, this relies on the fact that fork
+# permission only makes sense within a domain (hence should
+# never be granted to any other domain within mlstrustedsubject)
+# and untrusted_app is allowed fork permission to itself.
+neverallow untrusted_app mlstrustedsubject:process fork;
