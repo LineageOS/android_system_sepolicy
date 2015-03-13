@@ -56,9 +56,9 @@ sepolicy-analyze
     BOOLEANS (booleans)
     sepolicy-analyze out/target/product/<board>/root/sepolicy booleans
 
-    Displays the number of booleans defined in the policy.  Policy
-    booleans are forbidden in Android policy, so if the output is
-    non-zero, the policy will fail CTS.
+    Displays the boolean names in the policy (if any).
+    Policy booleans are forbidden in Android policy, so if there is any
+    output, the policy will fail CTS.
 
     NEVERALLOW CHECKING (neverallow)
     sepolicy-analyze out/target/product/<board>/root/sepolicy neverallow \
