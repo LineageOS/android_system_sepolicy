@@ -155,6 +155,16 @@ allow appdomain apk_data_file:file { rx_file_perms execmod };
 allow appdomain resourcecache_data_file:file r_file_perms;
 allow appdomain resourcecache_data_file:dir r_dir_perms;
 
+# logd access
+read_logd(appdomain)
+control_logd(appdomain)
+# application inherit logd write socket (urge is to deprecate this long term)
+allow appdomain zygote:unix_dgram_socket write;
+
+allow { appdomain -isolated_app } keystore:keystore_key { test get insert delete exist saw sign verify };
+
+use_keystore({ appdomain -isolated_app })
+
 ###
 ### CTS-specific rules
 ###
@@ -170,16 +180,6 @@ selinux_check_access(appdomain)
 selinux_check_context(appdomain)
 # Validate that each process is running in the correct security context.
 allow appdomain domain:process getattr;
-
-# logd access
-read_logd(appdomain)
-control_logd(appdomain)
-# application inherit logd write socket (urge is to deprecate this long term)
-allow appdomain zygote:unix_dgram_socket write;
-
-allow { appdomain -isolated_app } keystore:keystore_key { test get insert delete exist saw sign verify };
-
-use_keystore({ appdomain -isolated_app })
 
 ###
 ### Neverallow rules
