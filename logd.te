@@ -9,17 +9,13 @@ allow logd self:capability2 syslog;
 allow logd self:netlink_audit_socket { create_socket_perms nlmsg_write };
 allow logd kernel:system syslog_read;
 allow logd kmsg_device:chr_file w_file_perms;
+allow logd system_data_file:file r_file_perms;
 
 r_dir_file(logd, domain)
 
-userdebug_or_eng(`
-  # Debug output
-  type_transition logd device:file logd_debug;
-  allow logd device:dir rw_dir_perms;
-  allow logd logd_debug:file create_file_perms;
-')
-
 allow logd kernel:system syslog_mod;
+
+control_logd(logd)
 
 ###
 ### Neverallow rules
