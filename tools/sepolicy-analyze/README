@@ -60,6 +60,11 @@ sepolicy-analyze
     Policy booleans are forbidden in Android policy, so if there is any
     output, the policy will fail CTS.
 
+    ATTRIBUTE (attribute)
+    sepolicy-analyze out/target/product/<board>/root/sepolicy attribute <name>
+
+    Displays the types associated with the specified attribute name.
+
     NEVERALLOW CHECKING (neverallow)
     sepolicy-analyze out/target/product/<board>/root/sepolicy neverallow \
     [-w] [-d] [-f neverallows.conf] | [-n "neverallow string"]
