@@ -267,6 +267,8 @@ LOCAL_MODULE := general_property_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := tests
 
+include $(BUILD_SYSTEM)/base_rules.mk
+
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE) : $(addprefix $(LOCAL_PATH)/, property_contexts) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
