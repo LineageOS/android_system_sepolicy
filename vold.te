@@ -101,3 +101,7 @@ allow vold userdata_block_device:blk_file rw_file_perms;
 
 # Access metadata block device used for encryption meta-data.
 allow vold metadata_block_device:blk_file rw_file_perms;
+
+# Allow init to manipulate /data/unencrypted
+allow vold unencrypted_data_file:{ file lnk_file } create_file_perms;
+allow vold unencrypted_data_file:dir create_dir_perms;
