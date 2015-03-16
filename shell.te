@@ -66,6 +66,9 @@ service_manager_local_audit_domain(shell)
 allow shell domain:dir { search open read getattr };
 allow shell domain:{ file lnk_file } { open read getattr };
 
+# allow shell to read /proc/pid/attr/current for ps -Z
+allow shell domain:process getattr;
+
 # enable shell domain to read/write files/dirs for bootchart data
 # User will creates the start and stop file via adb shell
 # and read other files created by init process under /data/bootchart
