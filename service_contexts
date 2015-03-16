@@ -61,6 +61,7 @@ media.audio_policy                        u:object_r:mediaserver_service:s0
 media.camera                              u:object_r:mediaserver_service:s0
 media.log                                 u:object_r:mediaserver_service:s0
 media.player                              u:object_r:mediaserver_service:s0
+media.resource_manager                    u:object_r:mediaserver_service:s0
 media.sound_trigger_hw                    u:object_r:mediaserver_service:s0
 media_projection                          u:object_r:media_projection_service:s0
 media_router                              u:object_r:media_router_service:s0
