@@ -9,7 +9,6 @@ LOCAL_CFLAGS := -DLINK_SEPOL_STATIC -Wall -Werror
 LOCAL_SRC_FILES := check_seapp.c
 LOCAL_STATIC_LIBRARIES := libsepol
 LOCAL_CXX_STL := none
-LOCAL_ADDRESS_SANITIZER := false
 
 include $(BUILD_HOST_EXECUTABLE)
 
@@ -24,7 +23,6 @@ LOCAL_CFLAGS := -Wall -Werror
 LOCAL_SRC_FILES := checkfc.c
 LOCAL_STATIC_LIBRARIES := libsepol libselinux
 LOCAL_CXX_STL := none
-LOCAL_ADDRESS_SANITIZER := false
 
 include $(BUILD_HOST_EXECUTABLE)
 
@@ -48,7 +46,6 @@ LOCAL_CFLAGS := -Wall -Werror
 LOCAL_SRC_FILES := sepolicy-check.c
 LOCAL_STATIC_LIBRARIES := libsepol
 LOCAL_CXX_STL := none
-LOCAL_ADDRESS_SANITIZER := false
 
 include $(BUILD_HOST_EXECUTABLE)
 
