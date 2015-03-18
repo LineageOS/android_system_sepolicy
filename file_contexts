@@ -177,6 +177,12 @@
 #
 /vendor(/.*)?		u:object_r:system_file:s0
 /vendor/bin/gpsd	u:object_r:gpsd_exec:s0
+
+#############################
+# ODM files
+#
+/odm(/.*)?		u:object_r:system_file:s0
+
 #############################
 # Data files
 #
