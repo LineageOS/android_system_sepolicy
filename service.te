@@ -36,6 +36,7 @@ type country_detector_service, tmp_system_server_service, service_manager_type;
 type cpuinfo_service, tmp_system_server_service, service_manager_type;
 type dbinfo_service, tmp_system_server_service, service_manager_type;
 type device_policy_service, tmp_system_server_service, service_manager_type;
+type deviceidle_service, tmp_system_server_service, service_manager_type;
 type devicestoragemonitor_service, tmp_system_server_service, service_manager_type;
 type diskstats_service, tmp_system_server_service, service_manager_type;
 type display_service, tmp_system_server_service, service_manager_type;
