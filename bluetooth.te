@@ -49,6 +49,10 @@ allow bluetooth bluetooth_prop:property_service set;
 allow bluetooth pan_result_prop:property_service set;
 allow bluetooth ctl_dhcp_pan_prop:property_service set;
 
+# Bluetooth Sim Access Profile Socket to the RIL
+unix_socket_connect(bluetooth, sap_uim, rild)
+
+
 ###
 ### Neverallow rules
 ###
