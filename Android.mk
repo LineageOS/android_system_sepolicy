@@ -3,36 +3,20 @@ LOCAL_PATH:= $(call my-dir)
 include $(CLEAR_VARS)
 
 # SELinux policy version.
-# Must be <= /selinux/policyvers reported by the Android kernel.
+# Must be <= /sys/fs/selinux/policyvers reported by the Android kernel.
 # Must be within the compatibility range reported by checkpolicy -V.
 POLICYVERS ?= 26
 
 MLS_SENS=1
 MLS_CATS=1024
 
-# Quick edge case error detection for BOARD_SEPOLICY_REPLACE.
-# Builds the singular path for each replace file.
-sepolicy_replace_paths :=
-$(foreach pf, $(BOARD_SEPOLICY_REPLACE), \
-  $(if $(filter $(pf), $(BOARD_SEPOLICY_UNION)), \
-    $(error Ambiguous request for sepolicy $(pf). Appears in both \
-      BOARD_SEPOLICY_REPLACE and BOARD_SEPOLICY_UNION), \
-  ) \
-  $(eval _paths := $(filter-out $(BOARD_SEPOLICY_IGNORE), \
-  $(wildcard $(addsuffix /$(pf), $(BOARD_SEPOLICY_DIRS))))) \
-  $(eval _occurrences := $(words $(_paths))) \
-  $(if $(filter 0,$(_occurrences)), \
-    $(error No sepolicy file found for $(pf) in $(BOARD_SEPOLICY_DIRS)), \
-  ) \
-  $(if $(filter 1, $(_occurrences)), \
-    $(eval sepolicy_replace_paths += $(_paths)), \
-    $(error Multiple occurrences of replace file $(pf) in $(_paths)) \
-  ) \
-  $(if $(filter 0, $(words $(wildcard $(addsuffix /$(pf), $(LOCAL_PATH))))), \
-    $(error Specified the sepolicy file $(pf) in BOARD_SEPOLICY_REPLACE, \
-      but none found in $(LOCAL_PATH)), \
-  ) \
-)
+ifdef BOARD_SEPOLICY_REPLACE
+$(error BOARD_SEPOLICY_REPLACE is no longer supported; please remove from your BoardConfig.mk or other .mk file.)
+endif
+
+ifdef BOARD_SEPOLICY_IGNORE
+$(error BOARD_SEPOLICY_IGNORE is no longer supported; please remove from your BoardConfig.mk or other .mk file.)
+endif
 
 # Quick edge case error detection for BOARD_SEPOLICY_UNION.
 # This ensures that a requested union file exists somewhere
@@ -44,24 +28,18 @@ $(foreach pf, $(BOARD_SEPOLICY_UNION), \
 )
 
 # Builds paths for all requested policy files w.r.t
-# both BOARD_SEPOLICY_REPLACE and BOARD_SEPOLICY_UNION
-# product variables.
+# BOARD_SEPOLICY_UNION variables.
 # $(1): the set of policy name paths to build
 build_policy = $(foreach type, $(1), \
-  $(filter-out $(BOARD_SEPOLICY_IGNORE), \
     $(foreach expanded_type, $(notdir $(wildcard $(addsuffix /$(type), $(LOCAL_PATH)))), \
-      $(if $(filter $(expanded_type), $(BOARD_SEPOLICY_REPLACE)), \
-        $(wildcard $(addsuffix $(expanded_type), $(sort $(dir $(sepolicy_replace_paths))))), \
         $(LOCAL_PATH)/$(expanded_type) \
       ) \
-    ) \
     $(foreach union_policy, $(wildcard $(addsuffix /$(type), $(BOARD_SEPOLICY_DIRS))), \
       $(if $(filter $(notdir $(union_policy)), $(BOARD_SEPOLICY_UNION)), \
         $(union_policy), \
       ) \
     ) \
-  ) \
-)
+  )
 
 sepolicy_build_files := security_classes \
                         initial_sids \
@@ -355,7 +333,6 @@ $(LOCAL_BUILT_MODULE) : $(built_sepolicy) $(built_pc) $(built_fc) $(built_sc) $(
 
 build_policy :=
 sepolicy_build_files :=
-sepolicy_replace_paths :=
 built_sepolicy :=
 built_sc :=
 built_fc :=
