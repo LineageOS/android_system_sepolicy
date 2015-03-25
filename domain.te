@@ -381,3 +381,18 @@ neverallow domain { file_type fs_type dev_type }:{ lnk_file fifo_file sock_file 
 # On userdebug/eng builds, only dumpstate, shell, and
 # su itself execute su.
 neverallow { domain userdebug_or_eng(`-dumpstate -shell -su') } su_exec:file no_x_file_perms;
+
+# Do not allow the introduction of new execmod rules. Text relocations
+# and modification of executable pages are unsafe.
+# The only exceptions are for NDK text relocations associated with
+# https://code.google.com/p/android/issues/detail?id=23203
+# which, long term, need to go away.
+neverallow domain {
+  file_type
+  -system_data_file
+  -apk_data_file
+  -app_data_file
+  -asec_public_file
+}:file execmod;
+
+neverallow { domain -appdomain } file_type:file execmod;
