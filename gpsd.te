@@ -18,3 +18,11 @@ allow gpsd gps_device:chr_file rw_file_perms;
 # Execute the shell or system commands.
 allow gpsd shell_exec:file rx_file_perms;
 allow gpsd system_file:file rx_file_perms;
+
+###
+### neverallow
+###
+
+# gpsd can never have capabilities other than block_suspend
+neverallow gpsd self:capability *;
+neverallow gpsd self:capability2 ~block_suspend;
