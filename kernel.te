@@ -55,6 +55,7 @@ allow kernel sdcard_type:file { read write };
 #  * android.os.storage.cts.StorageManagerTest#testMountAndUnmountTwoObbs
 allow kernel vold:fd use;
 allow kernel app_data_file:file read;
+allow kernel asec_image_file:file read;
 
 ###
 ### neverallow rules
