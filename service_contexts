@@ -14,6 +14,7 @@ batterystats                              u:object_r:batterystats_service:s0
 battery                                   u:object_r:battery_service:s0
 bluetooth_manager                         u:object_r:bluetooth_manager_service:s0
 bluetooth                                 u:object_r:bluetooth_service:s0
+carrier_config                            u:object_r:radio_service:s0
 clipboard                                 u:object_r:clipboard_service:s0
 com.android.internal.telephony.mms.IMms   u:object_r:IMms_service:s0
 com.android.net.IProxyService             u:object_r:IProxyService_service:s0
