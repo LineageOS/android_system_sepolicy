@@ -25,3 +25,11 @@ security_access_policy(runas)
 selinux_check_context(runas) # validate context
 allow runas self:process setcurrent;
 allow runas non_system_app_set:process dyntransition; # setcon
+
+###
+### neverallow rules
+###
+
+# run-as cannot have capabilities other than CAP_SETUID and CAP_SETGID
+neverallow runas self:capability ~{ setuid setgid };
+neverallow runas self:capability2 *;
