@@ -1,4 +1,4 @@
-# e2fsck or any other fsck program run by init.
+# Any fsck program run by init or vold
 type fsck, domain;
 type fsck_exec, exec_type, file_type;
 
@@ -11,10 +11,15 @@ allow fsck tmpfs:chr_file { read write ioctl };
 # Inherit and use pty created by android_fork_execvp_ext().
 allow fsck devpts:chr_file { read write ioctl getattr };
 
-# Run e2fsck on block devices.
+# Run fsck on certain block devices
 allow fsck block_device:dir search;
 allow fsck userdata_block_device:blk_file rw_file_perms;
 allow fsck cache_block_device:blk_file rw_file_perms;
+allow fsck vold_device:blk_file rw_file_perms;
+
+# Allow stdin/out back to vold
+allow fsck vold:fd use;
+allow fsck vold:fifo_file { read write getattr };
 
 ###
 ### neverallow rules
@@ -31,7 +36,7 @@ neverallow fsck {
   system_block_device
 }:blk_file no_rw_file_perms;
 
-# Only allow entry from init via the e2fsck binary.
-neverallow { domain -init } fsck:process transition;
+# Only allow entry from init or vold via fsck binaries
+neverallow { domain -init -vold } fsck:process transition;
 neverallow domain fsck:process dyntransition;
-neverallow fsck { file_type fs_type -fsck_exec}:file entrypoint;
+neverallow fsck { file_type fs_type -fsck_exec }:file entrypoint;

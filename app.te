@@ -124,7 +124,14 @@ allow appdomain media_rw_data_file:file { read getattr };
 # Read and write /data/data/com.android.providers.telephony files passed over Binder.
 allow appdomain radio_data_file:file { read write getattr };
 
-# Access SDcard via the fuse mount.
+# See visible storage
+allow appdomain storage_file:dir r_dir_perms;
+allow appdomain storage_file:file r_file_perms;
+allow appdomain mnt_user_file:dir r_dir_perms;
+# Follow the /storage/self/primary symlink
+allow appdomain mnt_user_file:lnk_file r_file_perms;
+
+# Read/write visible storage
 allow appdomain fuse:dir create_dir_perms;
 allow appdomain fuse:file create_file_perms;
 
