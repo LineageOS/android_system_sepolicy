@@ -176,3 +176,11 @@ neverallow untrusted_app property_type:property_service set;
 # never be granted to any other domain within mlstrustedsubject)
 # and untrusted_app is allowed fork permission to itself.
 neverallow untrusted_app mlstrustedsubject:process fork;
+
+# Do not allow untrusted_app to hard link to any files.
+# In particular, if untrusted_app links to other app data
+# files, installd will not be able to guarantee the deletion
+# of the linked to file. Hard links also contribute to security
+# bugs, so we want to ensure untrusted_app never has this
+# capability.
+neverallow untrusted_app file_type:file link;
