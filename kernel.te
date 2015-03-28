@@ -18,6 +18,7 @@ allow kernel unlabeled:dir search;
 
 # Mount usbfs.
 allow kernel usbfs:filesystem mount;
+allow kernel usbfs:dir search;
 
 # init direct restorecon calls prior to switching to init domain
 # /dev and /dev/socket
