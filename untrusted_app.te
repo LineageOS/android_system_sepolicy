@@ -105,6 +105,7 @@ auditallow untrusted_app {
     -device_policy_service
     -display_service
     -dropbox_service
+    -graphicsstats_service
     -input_method_service
     -input_service
     -jobscheduler_service
