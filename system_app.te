@@ -73,6 +73,7 @@ auditallow system_app {
     -display_service
     -dreams_service
     -dropbox_service
+    -graphicsstats_service
     -input_method_service
     -input_service
     -lock_settings_service

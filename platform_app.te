@@ -54,6 +54,7 @@ auditallow platform_app {
     -dreams_service
     -dropbox_service
     -fingerprint_service
+    -graphicsstats_service
     -input_method_service
     -input_service
     -lock_settings_service
