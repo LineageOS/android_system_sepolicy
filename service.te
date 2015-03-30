@@ -46,6 +46,7 @@ type dropbox_service, tmp_system_server_service, service_manager_type;
 type ethernet_service, tmp_system_server_service, service_manager_type;
 type fingerprint_service, tmp_system_server_service, service_manager_type;
 type gfxinfo_service, tmp_system_server_service, service_manager_type;
+type graphicsstats_service, tmp_system_server_service, service_manager_type;
 type hardware_service, tmp_system_server_service, service_manager_type;
 type hdmi_control_service, tmp_system_server_service, service_manager_type;
 type input_method_service, tmp_system_server_service, service_manager_type;

@@ -40,6 +40,7 @@ dropbox                                   u:object_r:dropbox_service:s0
 ethernet                                  u:object_r:ethernet_service:s0
 fingerprint                               u:object_r:fingerprint_service:s0
 gfxinfo                                   u:object_r:gfxinfo_service:s0
+graphicsstats                             u:object_r:graphicsstats_service:s0
 hardware                                  u:object_r:hardware_service:s0
 hdmi_control                              u:object_r:hdmi_control_service:s0
 inputflinger                              u:object_r:inputflinger_service:s0

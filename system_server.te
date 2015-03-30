@@ -404,6 +404,7 @@ auditallow system_server {
     -dreams_service
     -dropbox_service
     -ethernet_service
+    -graphicsstats_service
     -hdmi_control_service
     -input_method_service
     -input_service
