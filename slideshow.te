@@ -3,6 +3,7 @@
 type slideshow, domain;
 
 write_klog(slideshow)
+wakelock_use(slideshow)
 allow slideshow device:dir r_dir_perms;
 allow slideshow self:capability { mknod sys_tty_config };
 allow slideshow graphics_device:dir r_dir_perms;
