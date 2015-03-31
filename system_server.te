@@ -470,13 +470,22 @@ allow system_server cgroup:dir { remove_name rmdir };
 # /oem access
 r_dir_file(system_server, oemfs)
 
+# Allow resolving per-user storage symlinks
+allow system_server { mnt_user_file storage_file }:dir { getattr search };
+allow system_server { mnt_user_file storage_file }:lnk_file { getattr read };
+
+# Allow statfs() on storage devices, which happens fast enough that
+# we shouldn't be killed during unsafe removal
+allow system_server sdcard_type:dir { getattr search };
+
 ###
 ### Neverallow rules
 ###
 ### system_server should NEVER do any of this
 
-# Do not allow accessing SDcard files as unsafe ejection could
-# cause the kernel to kill the system_server.
+# Do not allow opening files from external storage as unsafe ejection
+# could cause the kernel to kill the system_server.
+neverallow system_server sdcard_type:dir { open read write };
 neverallow system_server sdcard_type:file rw_file_perms;
 
 # system server should never be opening zygote spawned app data
