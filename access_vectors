@@ -909,6 +909,7 @@ class keystore_key
 	reset_uid
 	sync_uid
 	password_uid
+	add_auth
 }
 
 class debuggerd
