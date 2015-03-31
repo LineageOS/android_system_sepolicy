@@ -1,4 +1,4 @@
-# Any fsck program run by init or vold
+# Any fsck program run by init
 type fsck, domain;
 type fsck_exec, exec_type, file_type;
 
@@ -15,11 +15,6 @@ allow fsck devpts:chr_file { read write ioctl getattr };
 allow fsck block_device:dir search;
 allow fsck userdata_block_device:blk_file rw_file_perms;
 allow fsck cache_block_device:blk_file rw_file_perms;
-allow fsck vold_device:blk_file rw_file_perms;
-
-# Allow stdin/out back to vold
-allow fsck vold:fd use;
-allow fsck vold:fifo_file { read write getattr };
 
 ###
 ### neverallow rules
@@ -34,9 +29,10 @@ neverallow fsck {
   root_block_device
   swap_block_device
   system_block_device
+  vold_device
 }:blk_file no_rw_file_perms;
 
-# Only allow entry from init or vold via fsck binaries
-neverallow { domain -init -vold } fsck:process transition;
+# Only allow entry from init via fsck binaries
+neverallow { domain -init } fsck:process transition;
 neverallow domain fsck:process dyntransition;
 neverallow fsck { file_type fs_type -fsck_exec }:file entrypoint;
