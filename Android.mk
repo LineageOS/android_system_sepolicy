@@ -18,28 +18,13 @@ ifdef BOARD_SEPOLICY_IGNORE
 $(error BOARD_SEPOLICY_IGNORE is no longer supported; please remove from your BoardConfig.mk or other .mk file.)
 endif
 
-# Quick edge case error detection for BOARD_SEPOLICY_UNION.
-# This ensures that a requested union file exists somewhere
-# in one of the listed BOARD_SEPOLICY_DIRS.
-$(foreach pf, $(BOARD_SEPOLICY_UNION), \
-  $(if $(filter 0, $(words $(wildcard $(addsuffix /$(pf), $(BOARD_SEPOLICY_DIRS))))), \
-    $(error No sepolicy file found for $(pf) in $(BOARD_SEPOLICY_DIRS)), \
-  ) \
-)
+ifdef BOARD_SEPOLICY_UNION
+$(warning BOARD_SEPOLICY_UNION is no longer required - all files found in BOARD_SEPOLICY_DIRS are implicitly unioned; please remove from your BoardConfig.mk or other .mk file.)
+endif
 
-# Builds paths for all requested policy files w.r.t
-# BOARD_SEPOLICY_UNION variables.
+# Builds paths for all policy files found in BOARD_SEPOLICY_DIRS.
 # $(1): the set of policy name paths to build
-build_policy = $(foreach type, $(1), \
-    $(foreach expanded_type, $(notdir $(wildcard $(addsuffix /$(type), $(LOCAL_PATH)))), \
-        $(LOCAL_PATH)/$(expanded_type) \
-      ) \
-    $(foreach union_policy, $(wildcard $(addsuffix /$(type), $(BOARD_SEPOLICY_DIRS))), \
-      $(if $(filter $(notdir $(union_policy)), $(BOARD_SEPOLICY_UNION)), \
-        $(union_policy), \
-      ) \
-    ) \
-  )
+build_policy = $(foreach type, $(1), $(wildcard $(addsuffix /$(type), $(LOCAL_PATH) $(BOARD_SEPOLICY_DIRS))))
 
 sepolicy_build_files := security_classes \
                         initial_sids \
