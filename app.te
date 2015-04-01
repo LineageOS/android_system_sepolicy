@@ -177,6 +177,8 @@ allow { appdomain -isolated_app } keystore:keystore_key { test get insert delete
 
 use_keystore({ appdomain -isolated_app })
 
+allow appdomain console_device:chr_file { read write };
+
 ###
 ### CTS-specific rules
 ###
