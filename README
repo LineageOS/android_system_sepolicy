@@ -9,41 +9,22 @@ Policy Generation:
 Additional, per device, policy files can be added into the
 policy build.
 
-They can be configured through the use of two variables,
-they are:
-1. BOARD_SEPOLICY_UNION
-2. BOARD_SEPOLICY_DIRS
-
-The variables should be set in the BoardConfig.mk file in
+They can be configured through the use of the BOARD_SEPOLICY_DIRS
+variable. This variable should be set in the BoardConfig.mk file in
 the device or vendor directories.
 
-BOARD_SEPOLICY_UNION is a list of files that will be
-"unioned", IE concatenated, at the END of their respective
-file in external/sepolicy. Note, to add a unique file you
-would use this variable.
-
 BOARD_SEPOLICY_DIRS contains a list of directories to search
-for BOARD_SEPOLICY_UNION files. Order matters in this list.
-eg.) If you have BOARD_SEPOLICY_UNION += widget.te and have 2
-instances of widget.te files on BOARD_SEPOLICY_DIRS search path.
-The first one found (at the first search dir containing the file)
-gets processed first.
+for additional policy files. Order matters in this list.
+For example, if you have 2 instances of widget.te files in the
+BOARD_SEPOLICY_DIRS search path, then the first one found (at the
+first search dir containing the file) will be concatenated first.
 Reviewing out/target/product/<device>/etc/sepolicy_intermediates/policy.conf
 will help sort out ordering issues.
-
-It is an error to specify a BOARD_POLICY_UNION file that
-doesn't appear in any of the BOARD_SEPOLICY_DIRS locations.
 
 Example BoardConfig.mk Usage:
 From the Tuna device BoardConfig.mk, device/samsung/tuna/BoardConfig.mk
 
-BOARD_SEPOLICY_DIRS += \
-        device/samsung/tuna/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-        genfs_contexts \
-        file_contexts \
-        sepolicy.te
+BOARD_SEPOLICY_DIRS += device/samsung/tuna/sepolicy
 
 SPECIFIC POLICY FILE INFORMATION
 
@@ -55,8 +36,7 @@ mac_permissions.xml:
     top of that file. The seinfo string, previously mentioned, is the same string
     that is referenced in seapp_contexts.
 
-    This file can be appended to by using the BOARD_SEPOLICY_UNION
-    variable. It is important to note the final processed version of this file
+    It is important to note the final processed version of this file
     is stripped of comments and whitespace. This is to preserve space on the
     system.img. If one wishes to view it in a more human friendly format,
     the "tidy" or "xmllint" command will assist you.
@@ -73,8 +53,7 @@ mac_permissions.xml:
       keys.conf
         The keys.conf file is used for controlling the mapping of "tags" found in
         the mac_permissions.xml signature stanzas with actual public keys found in
-        pem files. The configuration file can be used in BOARD_SEPOLICY_UNION
-        variables and is processed via m4.
+        pem files. The configuration file is processed via m4.
 
         The script allows for mapping any string contained in TARGET_BUILD_VARIANT
         with specific path to a pem file. Typically TARGET_BUILD_VARIANT is either
