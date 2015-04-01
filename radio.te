@@ -40,13 +40,19 @@ allow radio tmp_system_server_service:service_manager find;
 service_manager_local_audit_domain(radio)
 auditallow radio {
     tmp_system_server_service
+    -accessibility_service
+    -account_service
     -activity_service
     -appops_service
+    -assetatlas_service
     -bluetooth_manager_service
     -connectivity_service
     -content_service
+    -country_detector_service
     -display_service
     -dropbox_service
+    -imms_service
+    -input_method_service
     -netstats_service
     -network_management_service
     -notification_service
@@ -54,5 +60,6 @@ auditallow radio {
     -registry_service
     -trust_service
     -user_service
+    -vibrator_service
     -wifi_service
 }:service_manager find;
