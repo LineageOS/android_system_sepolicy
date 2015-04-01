@@ -70,6 +70,7 @@ auditallow bluetooth {
     -network_management_service
     -power_service
     -registry_service
+    -user_service
 }:service_manager find;
 
 # already open bugreport file descriptors may be shared with

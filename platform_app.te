@@ -69,10 +69,14 @@ auditallow platform_app {
     -power_service
     -registry_service
     -search_service
+    -sensorservice_service
     -statusbar_service
     -trust_service
+    -uimode_service
+    -usb_service
     -user_service
     -vibrator_service
     -wallpaper_service
+    -webviewupdate_service
     -wifi_service
 }:service_manager find;

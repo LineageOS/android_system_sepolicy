@@ -40,6 +40,7 @@ auditallow nfc {
     -dropbox_service
     -network_management_service
     -power_service
+    -registry_service
     -trust_service
     -user_service
     -vibrator_service

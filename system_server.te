@@ -397,6 +397,7 @@ auditallow system_server {
     -bluetooth_manager_service
     -connectivity_service
     -content_service
+    -country_detector_service
     -device_policy_service
     -display_service
     -dreams_service
@@ -412,6 +413,7 @@ auditallow system_server {
     -media_router_service
     -media_session_service
     -mount_service
+    -netpolicy_service
     -network_management_service
     -network_score_service
     -notification_service
