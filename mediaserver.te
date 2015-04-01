@@ -87,10 +87,12 @@ allow mediaserver tmp_system_server_service:service_manager find;
 service_manager_local_audit_domain(mediaserver)
 auditallow mediaserver {
     tmp_system_server_service
+    -activity_service
     -appops_service
     -batterystats_service
     -permission_service
     -power_service
+    -processinfo_service
     -scheduling_policy_service
 }:service_manager find;
 

@@ -98,14 +98,18 @@ auditallow untrusted_app {
     -battery_service
     -batterystats_service
     -bluetooth_manager_service
+    -clipboard_service
     -connectivity_service
     -content_service
     -country_detector_service
     -default_android_service
     -device_policy_service
+    -diskstats_service
     -display_service
     -dropbox_service
     -graphicsstats_service
+    -healthd_service
+    -imms_service
     -input_method_service
     -input_service
     -jobscheduler_service
@@ -123,13 +127,16 @@ auditallow untrusted_app {
     -notification_service
     -persistent_data_block_service
     -power_service
+    -procstats_service
     -registry_service
+    -rttmanager_service
     -search_service
     -sensorservice_service
     -statusbar_service
     -textservices_service
     -trust_service
     -uimode_service
+    -usagestats_service
     -user_service
     -vibrator_service
     -voiceinteraction_service
