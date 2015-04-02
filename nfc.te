@@ -45,3 +45,8 @@ auditallow nfc {
     -user_service
     -vibrator_service
 }:service_manager find;
+
+# already open bugreport file descriptors may be shared with
+# the nfc process, from a file in
+# /data/data/com.android.shell/files/bugreports/bugreport-*.
+allow nfc shell_data_file:file read;
