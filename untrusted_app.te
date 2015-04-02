@@ -81,8 +81,11 @@ allow untrusted_app mediaserver_service:service_manager find;
 allow untrusted_app nfc_service:service_manager find;
 allow untrusted_app radio_service:service_manager find;
 allow untrusted_app surfaceflinger_service:service_manager find;
-allow untrusted_app system_server_service:service_manager find;
 allow untrusted_app tmp_system_server_service:service_manager find;
+allow untrusted_app app_api_service:service_manager find;
+
+# TODO: remove this once priv-apps are no longer running in untrusted_app
+allow untrusted_app system_api_service:service_manager find;
 
 service_manager_local_audit_domain(untrusted_app)
 auditallow untrusted_app {

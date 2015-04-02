@@ -23,8 +23,9 @@ allow nfc mediaserver_service:service_manager find;
 allow nfc nfc_service:service_manager { add find };
 allow nfc radio_service:service_manager find;
 allow nfc surfaceflinger_service:service_manager find;
-allow nfc system_server_service:service_manager find;
 allow nfc tmp_system_server_service:service_manager find;
+allow nfc app_api_service:service_manager find;
+allow nfc system_api_service:service_manager find;
 
 service_manager_local_audit_domain(nfc)
 auditallow nfc {
