@@ -6,9 +6,20 @@ init_daemon_domain(vold)
 
 # Switch to more restrictive domains when executing common tools
 domain_auto_trans(vold, sgdisk_exec, sgdisk);
-domain_auto_trans(vold, blkid_exec, blkid);
 domain_auto_trans(vold, sdcardd_exec, sdcardd);
-domain_auto_trans(vold, fsck_exec, vold_fsck);
+
+# For a handful of probing tools, we choose an even more restrictive
+# domain when working with untrusted block devices
+domain_trans(vold, shell_exec, blkid);
+domain_trans(vold, shell_exec, blkid_untrusted);
+domain_trans(vold, fsck_exec, fsck);
+domain_trans(vold, fsck_exec, fsck_untrusted);
+
+# Allow us to jump into execution domains of above tools
+allow vold self:process setexec;
+
+# For sgdisk launched through popen()
+allow vold shell_exec:file rx_file_perms;
 
 typeattribute vold mlstrustedsubject;
 allow vold self:process setfscreate;
@@ -57,9 +68,6 @@ allow vold domain:dir r_dir_perms;
 allow vold domain:{ file lnk_file } r_file_perms;
 allow vold domain:process { signal sigkill };
 allow vold self:capability { sys_ptrace kill };
-
-# For blkid and sgdisk
-allow vold shell_exec:file rx_file_perms;
 
 # XXX Label sysfs files with a specific type?
 allow vold sysfs:file rw_file_perms;
