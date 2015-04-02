@@ -124,11 +124,11 @@ allow appdomain media_rw_data_file:file { read getattr };
 # Read and write /data/data/com.android.providers.telephony files passed over Binder.
 allow appdomain radio_data_file:file { read write getattr };
 
-# See visible storage
+# Allow access to external storage; we have several visible mount points under /storage
+# and symlinks to primary storage at places like /storage/sdcard0 and /mnt/user/0/primary
 allow appdomain storage_file:dir r_dir_perms;
-allow appdomain storage_file:file r_file_perms;
-allow appdomain mnt_user_file:dir r_dir_perms;
-# Follow the /storage/self/primary symlink
+allow appdomain storage_file:lnk_file r_file_perms;
+allow appdomain mnt_user_file:dir search;
 allow appdomain mnt_user_file:lnk_file r_file_perms;
 
 # Read/write visible storage
