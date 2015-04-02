@@ -60,6 +60,7 @@ service_manager_local_audit_domain(system_app)
 auditallow system_app {
     tmp_system_server_service
     -accessibility_service
+    -account_service
     -activity_service
     -appops_service
     -appwidget_service
@@ -73,17 +74,24 @@ auditallow system_app {
     -display_service
     -dreams_service
     -dropbox_service
+    -fingerprint_service
     -graphicsstats_service
     -input_method_service
     -input_service
     -lock_settings_service
+    -media_session_service
     -mount_service
+    -netstats_service
     -network_management_service
+    -network_score_service
     -notification_service
     -power_service
     -print_service
     -registry_service
+    -restrictions_service
     -sensorservice_service
+    -textservices_service
+    -uimode_service
     -usagestats_service
     -usb_service
     -user_service

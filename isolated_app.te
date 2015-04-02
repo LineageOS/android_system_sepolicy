@@ -18,6 +18,8 @@ allow isolated_app app_data_file:file { read write getattr };
 allow isolated_app activity_service:service_manager find;
 allow isolated_app display_service:service_manager find;
 
+service_manager_local_audit_domain(isolated_app)
+
 #####
 ##### Neverallow
 #####
