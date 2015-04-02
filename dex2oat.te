@@ -13,3 +13,4 @@ allow dex2oat installd:fd use;
 allow dex2oat asec_apk_file:file read;
 allow dex2oat unlabeled:file read;
 allow dex2oat oemfs:file read;
+allow dex2oat apk_tmp_file:file read;

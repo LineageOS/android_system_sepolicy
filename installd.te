@@ -5,11 +5,13 @@ type installd_exec, exec_type, file_type;
 init_daemon_domain(installd)
 typeattribute installd mlstrustedsubject;
 allow installd self:capability { chown dac_override fowner fsetid setgid setuid };
-allow installd apk_data_file:file rename;
-allow installd apk_data_file:dir create_dir_perms;
+allow installd apk_data_file:file { rename unlink };
+allow installd dalvikcache_data_file:dir relabelto;
+allow installd apk_data_file:dir { create_dir_perms relabelfrom };
 allow installd apk_data_file:lnk_file { create read unlink };
 allow installd asec_apk_file:file r_file_perms;
-allow installd apk_tmp_file:file r_file_perms;
+allow installd apk_tmp_file:file { r_file_perms unlink };
+allow installd apk_tmp_file:dir { relabelfrom create_dir_perms };
 allow installd oemfs:dir r_dir_perms;
 allow installd oemfs:file r_file_perms;
 allow installd system_file:file x_file_perms;
