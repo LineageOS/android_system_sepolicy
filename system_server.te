@@ -369,21 +369,6 @@ allow system_server system_server_service:service_manager { add find };
 allow system_server surfaceflinger_service:service_manager find;
 allow system_server tmp_system_server_service:service_manager { add find };
 
-# TODO: Remove. Make up for previously lacking auditing.
-allow system_server service_manager_type:service_manager find;
-auditallow system_server {
-    service_manager_type
-    -drmserver_service
-    -healthd_service
-    -keystore_service
-    -mediaserver_service
-    -nfc_service
-    -radio_service
-    -system_server_service
-    -surfaceflinger_service
-    -tmp_system_server_service
-}:service_manager find;
-
 service_manager_local_audit_domain(system_server)
 auditallow system_server {
     tmp_system_server_service
