@@ -74,6 +74,3 @@ allow shell domain:process getattr;
 # and read other files created by init process under /data/bootchart
 allow shell bootchart_data_file:dir rw_dir_perms;
 allow shell bootchart_data_file:file create_file_perms;
-
-# Follow the /storage/self/primary symlink
-allow shell storage_file:lnk_file r_file_perms;

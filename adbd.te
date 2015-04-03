@@ -82,3 +82,10 @@ allow adbd kernel:security read_policy;
 allow adbd surfaceflinger_service:service_manager find;
 allow adbd bootchart_data_file:dir search;
 allow adbd bootchart_data_file:file r_file_perms;
+
+# Allow access to external storage; we have several visible mount points under /storage
+# and symlinks to primary storage at places like /storage/sdcard0 and /mnt/user/0/primary
+allow adbd storage_file:dir r_dir_perms;
+allow adbd storage_file:lnk_file r_file_perms;
+allow adbd mnt_user_file:dir search;
+allow adbd mnt_user_file:lnk_file r_file_perms;
