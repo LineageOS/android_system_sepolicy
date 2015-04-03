@@ -11,9 +11,8 @@ allow netd self:capability { net_admin net_raw kill };
 # than one of the groups assigned to the current process to see if
 # the setgid bit should be cleared, regardless of whether the setgid
 # bit was even set.  We do not appear to truly need this capability
-# for netd to operate.  Uncomment the dontaudit rule below after
-# sufficient testing of the fsetid removal.
-# dontaudit netd self:capability fsetid;
+# for netd to operate.
+dontaudit netd self:capability fsetid;
 
 allow netd self:netlink_kobject_uevent_socket create_socket_perms;
 allow netd self:netlink_route_socket nlmsg_write;
