@@ -39,10 +39,6 @@ allow platform_app system_api_service:service_manager find;
 service_manager_local_audit_domain(platform_app)
 auditallow platform_app {
     tmp_system_server_service
-    -accessibility_service
-    -account_service
-    -activity_service
-    -appops_service
     -appwidget_service
     -assetatlas_service
     -audio_service
