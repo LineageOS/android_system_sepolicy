@@ -1,0 +1,15 @@
+type gatekeeperd, domain;
+type gatekeeperd_exec, exec_type, file_type;
+
+# gatekeeperd
+init_daemon_domain(gatekeeperd)
+binder_use(gatekeeperd)
+binder_service(gatekeeperd)
+allow gatekeeperd tee_device:chr_file rw_file_perms;
+
+allow gatekeeperd gatekeeper_service:service_manager { add find };
+
+allow gatekeeperd keystore:keystore_key { add_auth };
+
+neverallow { domain -gatekeeperd -system_server } gatekeeper_service:service_manager find;
+neverallow { domain -gatekeeperd } gatekeeper_service:service_manager add;
