@@ -11,11 +11,11 @@ type surfaceflinger_service,    service_manager_type;
 type system_app_service,        service_manager_type;
 
 # system_server_services broken down
-type accessibility_service, tmp_system_server_service, service_manager_type;
-type account_service, tmp_system_server_service, service_manager_type;
-type activity_service, tmp_system_server_service, service_manager_type;
+type accessibility_service, app_api_service, system_server_service, service_manager_type;
+type account_service, app_api_service, system_server_service, service_manager_type;
+type activity_service, app_api_service, system_server_service, service_manager_type;
 type alarm_service, tmp_system_server_service, service_manager_type;
-type appops_service, tmp_system_server_service, service_manager_type;
+type appops_service, app_api_service, system_server_service, service_manager_type;
 type appwidget_service, tmp_system_server_service, service_manager_type;
 type assetatlas_service, tmp_system_server_service, service_manager_type;
 type audio_service, tmp_system_server_service, service_manager_type;
