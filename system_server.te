@@ -370,11 +370,7 @@ allow system_server tmp_system_server_service:service_manager { add find };
 service_manager_local_audit_domain(system_server)
 auditallow system_server {
     tmp_system_server_service
-    -accessibility_service
-    -account_service
-    -activity_service
     -alarm_service
-    -appops_service
     -assetatlas_service
     -audio_service
     -backup_service
