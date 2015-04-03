@@ -80,7 +80,6 @@ allow mediaserver tee:unix_stream_socket connectto;
 
 allow mediaserver drmserver_service:service_manager find;
 allow mediaserver mediaserver_service:service_manager { add find };
-allow mediaserver system_server_service:service_manager find;
 allow mediaserver surfaceflinger_service:service_manager find;
 allow mediaserver tmp_system_server_service:service_manager find;
 
