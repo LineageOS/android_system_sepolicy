@@ -52,6 +52,12 @@ allow vold sdcard_type:filesystem { mount unmount remount };
 allow vold mnt_user_file:dir create_dir_perms;
 allow vold mnt_user_file:lnk_file create_file_perms;
 
+# Allow to create and mount expanded storage
+allow vold mnt_expand_file:dir { create_dir_perms mounton };
+allow vold apk_data_file:dir { create getattr setattr };
+allow vold media_rw_data_file:dir { create getattr setattr };
+allow vold shell_data_file:dir { create getattr setattr };
+
 allow vold tmpfs:filesystem { mount unmount };
 allow vold tmpfs:dir create_dir_perms;
 allow vold tmpfs:dir mounton;
@@ -95,8 +101,8 @@ allow vold labeledfs:filesystem { mount unmount remount };
 # XXX Split into a separate type?
 allow vold efs_file:file rw_file_perms;
 
-# Create and mount on /data/tmp_mnt.
-allow vold system_data_file:dir { create rw_dir_perms mounton };
+# Create and mount on /data/tmp_mnt and management of expansion mounts
+allow vold system_data_file:dir { create rw_dir_perms mounton setattr rmdir };
 
 # Set scheduling policy of kernel processes
 allow vold kernel:process setsched;
