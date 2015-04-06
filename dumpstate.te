@@ -63,6 +63,8 @@ allow dumpstate sysfs:file w_file_perms;
 # Other random bits of data we want to collect
 allow dumpstate qtaguid_proc:file r_file_perms;
 allow dumpstate debugfs:file r_file_perms;
+# df for /storage/emulated needs search
+allow dumpstate storage_file:dir search;
 
 # Allow dumpstate to make binder calls to any binder service
 binder_call(dumpstate, binderservicedomain)
