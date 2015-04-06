@@ -80,6 +80,7 @@ allow mediaserver tee:unix_stream_socket connectto;
 
 allow mediaserver activity_service:service_manager find;
 allow mediaserver appops_service:service_manager find;
+allow mediaserver batterystats_service:service_manager find;
 allow mediaserver drmserver_service:service_manager find;
 allow mediaserver mediaserver_service:service_manager { add find };
 allow mediaserver surfaceflinger_service:service_manager find;
@@ -88,7 +89,6 @@ allow mediaserver tmp_system_server_service:service_manager find;
 service_manager_local_audit_domain(mediaserver)
 auditallow mediaserver {
     tmp_system_server_service
-    -batterystats_service
     -permission_service
     -power_service
     -processinfo_service
