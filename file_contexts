@@ -190,6 +190,9 @@
 #############################
 # Data files
 #
+# NOTE: When modifying existing label rules, changes may also need to
+# propagate to the "Expanded data files" section.
+#
 /data(/.*)?		u:object_r:system_data_file:s0
 /data/.layout_version		u:object_r:install_data_file:s0
 /data/unencrypted(/.*)?         u:object_r:unencrypted_data_file:s0
@@ -243,6 +246,18 @@
 
 # Bootchart data
 /data/bootchart(/.*)?		u:object_r:bootchart_data_file:s0
+
+#############################
+# Expanded data files
+#
+/mnt/expand(/.*)?                                   u:object_r:mnt_expand_file:s0
+/mnt/expand/[^/]+(/.*)?                             u:object_r:system_data_file:s0
+/mnt/expand/[^/]+/app(/.*)?                         u:object_r:apk_data_file:s0
+/mnt/expand/[^/]+/app/[^/]+/oat(/.*)?               u:object_r:dalvikcache_data_file:s0
+/mnt/expand/[^/]+/app/vmdl[^/]+\.tmp(/.*)?          u:object_r:apk_tmp_file:s0
+/mnt/expand/[^/]+/app/vmdl[^/]+\.tmp/oat(/.*)?      u:object_r:dalvikcache_data_file:s0
+/mnt/expand/[^/]+/local/tmp(/.*)?                   u:object_r:shell_data_file:s0
+/mnt/expand/[^/]+/media(/.*)?                       u:object_r:media_rw_data_file:s0
 
 # coredump directory for userdebug/eng devices
 /cores(/.*)?                    u:object_r:coredump_file:s0

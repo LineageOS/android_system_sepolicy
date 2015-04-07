@@ -456,6 +456,9 @@ allow system_server { mnt_user_file storage_file }:lnk_file { getattr read };
 # we shouldn't be killed during unsafe removal
 allow system_server sdcard_type:dir { getattr search };
 
+# Traverse into expanded storage
+allow system_server mnt_expand_file:dir r_dir_perms;
+
 ###
 ### Neverallow rules
 ###
