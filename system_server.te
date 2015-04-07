@@ -373,11 +373,6 @@ allow system_server tmp_system_server_service:service_manager { add find };
 service_manager_local_audit_domain(system_server)
 auditallow system_server {
     tmp_system_server_service
-    -bluetooth_manager_service
-    -connectivity_service
-    -content_service
-    -country_detector_service
-    -device_policy_service
     -display_service
     -dreams_service
     -dropbox_service
