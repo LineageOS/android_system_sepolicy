@@ -41,7 +41,6 @@ allow radio system_api_service:service_manager find;
 service_manager_local_audit_domain(radio)
 auditallow radio {
     tmp_system_server_service
-    -netstats_service
     -network_management_service
     -notification_service
     -power_service
