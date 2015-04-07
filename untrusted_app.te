@@ -90,13 +90,6 @@ allow untrusted_app system_api_service:service_manager find;
 service_manager_local_audit_domain(untrusted_app)
 auditallow untrusted_app {
     tmp_system_server_service
-    -bluetooth_manager_service
-    -clipboard_service
-    -connectivity_service
-    -content_service
-    -country_detector_service
-    -default_android_service
-    -device_policy_service
     -diskstats_service
     -display_service
     -dropbox_service

@@ -60,8 +60,6 @@ allow bluetooth system_api_service:service_manager find;
 service_manager_local_audit_domain(bluetooth)
 auditallow bluetooth {
     tmp_system_server_service
-    -bluetooth_manager_service
-    -connectivity_service
     -display_service
     -dropbox_service
     -media_session_service

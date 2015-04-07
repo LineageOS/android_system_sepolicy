@@ -41,10 +41,6 @@ allow radio system_api_service:service_manager find;
 service_manager_local_audit_domain(radio)
 auditallow radio {
     tmp_system_server_service
-    -bluetooth_manager_service
-    -connectivity_service
-    -content_service
-    -country_detector_service
     -display_service
     -dropbox_service
     -imms_service

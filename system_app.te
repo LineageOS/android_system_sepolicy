@@ -60,10 +60,6 @@ allow system_app system_api_service:service_manager find;
 service_manager_local_audit_domain(system_app)
 auditallow system_app {
     tmp_system_server_service
-    -bluetooth_manager_service
-    -connectivity_service
-    -content_service
-    -device_policy_service
     -display_service
     -dreams_service
     -dropbox_service
