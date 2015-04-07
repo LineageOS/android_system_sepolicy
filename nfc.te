@@ -30,9 +30,6 @@ allow nfc system_api_service:service_manager find;
 service_manager_local_audit_domain(nfc)
 auditallow nfc {
     tmp_system_server_service
-    -bluetooth_manager_service
-    -connectivity_service
-    -content_service
     -display_service
     -dropbox_service
     -network_management_service
