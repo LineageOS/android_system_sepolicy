@@ -107,7 +107,7 @@ allow dumpstate net_data_file:file r_file_perms;
 allow dumpstate tombstone_data_file:dir r_dir_perms;
 allow dumpstate tombstone_data_file:file r_file_perms;
 
-allow dumpstate service_manager_type:service_manager find;
+allow dumpstate { service_manager_type -gatekeeper_service }:service_manager find;
 allow dumpstate servicemanager:service_manager list;
 service_manager_local_audit_domain(dumpstate)
 
