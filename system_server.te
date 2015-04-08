@@ -374,14 +374,6 @@ allow system_server tmp_system_server_service:service_manager { add find };
 service_manager_local_audit_domain(system_server)
 auditallow system_server {
     tmp_system_server_service
-    -display_service
-    -dreams_service
-    -dropbox_service
-    -ethernet_service
-    -graphicsstats_service
-    -hdmi_control_service
-    -input_method_service
-    -input_service
     -jobscheduler_service
     -location_service
     -lock_settings_service
