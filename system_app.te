@@ -60,11 +60,6 @@ allow system_app system_api_service:service_manager find;
 service_manager_local_audit_domain(system_app)
 auditallow system_app {
     tmp_system_server_service
-    -network_management_service
-    -network_score_service
-    -notification_service
-    -power_service
-    -print_service
     -registry_service
     -restrictions_service
     -sensorservice_service
