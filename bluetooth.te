@@ -53,16 +53,8 @@ allow bluetooth bluetooth_service:service_manager find;
 allow bluetooth mediaserver_service:service_manager find;
 allow bluetooth radio_service:service_manager find;
 allow bluetooth surfaceflinger_service:service_manager find;
-allow bluetooth tmp_system_server_service:service_manager find;
 allow bluetooth app_api_service:service_manager find;
 allow bluetooth system_api_service:service_manager find;
-
-service_manager_local_audit_domain(bluetooth)
-auditallow bluetooth {
-    tmp_system_server_service
-    -registry_service
-    -user_service
-}:service_manager find;
 
 # already open bugreport file descriptors may be shared with
 # the bluetooth process, from a file in
