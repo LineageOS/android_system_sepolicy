@@ -87,15 +87,12 @@ allow untrusted_app app_api_service:service_manager find;
 # TODO: remove this once priv-apps are no longer running in untrusted_app
 allow untrusted_app system_api_service:service_manager find;
 
+# TODO: remove and replace with specific package that accesses this
+allow untrusted_app persistent_data_block_service:service_manager find;
+
 service_manager_local_audit_domain(untrusted_app)
 auditallow untrusted_app {
     tmp_system_server_service
-    -network_management_service
-    -network_score_service
-    -notification_service
-    -persistent_data_block_service
-    -power_service
-    -procstats_service
     -registry_service
     -rttmanager_service
     -search_service
