@@ -60,14 +60,14 @@ allow surfaceflinger tee_device:chr_file rw_file_perms;
 
 # media.player service
 allow surfaceflinger mediaserver_service:service_manager find;
+allow surfaceflinger permission_service:service_manager find;
+allow surfaceflinger power_service:service_manager find;
 allow surfaceflinger surfaceflinger_service:service_manager { add find };
 allow surfaceflinger tmp_system_server_service:service_manager find;
 
 service_manager_local_audit_domain(surfaceflinger)
 auditallow surfaceflinger {
     tmp_system_server_service
-    -permission_service
-    -power_service
     -window_service
 }:service_manager find;
 
