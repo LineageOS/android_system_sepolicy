@@ -82,6 +82,8 @@ type gps_data_file, file_type, data_file_type;
 type property_data_file, file_type, data_file_type;
 # /data/bootchart
 type bootchart_data_file, file_type, data_file_type;
+# /data/system/heapdump
+type heapdump_data_file, file_type, data_file_type, mlstrustedobject;
 
 # Mount locations managed by vold
 type mnt_media_rw_file, file_type;
