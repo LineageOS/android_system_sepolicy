@@ -90,6 +90,14 @@ allow appdomain dumpstate:fd use;
 allow appdomain dumpstate:unix_stream_socket { read write getopt getattr shutdown };
 allow appdomain shell_data_file:file { write getattr };
 
+# Send heap dumps to system_server via an already open file descriptor
+# % adb shell am set-watch-heap com.android.systemui 1048576
+# % adb shell dumpsys procstats --start-testing
+# debuggable builds only.
+userdebug_or_eng(`
+  allow appdomain heapdump_data_file:file append;
+')
+
 # Write to /proc/net/xt_qtaguid/ctrl file.
 allow appdomain qtaguid_proc:file rw_file_perms;
 # Everybody can read the xt_qtaguid resource tracking misc dev.

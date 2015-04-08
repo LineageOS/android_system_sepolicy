@@ -202,6 +202,10 @@ allow system_server backup_data_file:file create_file_perms;
 allow system_server dalvikcache_profiles_data_file:dir rw_dir_perms;
 allow system_server dalvikcache_profiles_data_file:file create_file_perms;
 
+# Write to /data/system/heapdump
+allow system_server heapdump_data_file:dir rw_dir_perms;
+allow system_server heapdump_data_file:file create_file_perms;
+
 # Manage /data/misc/adb.
 allow system_server adb_keys_file:dir create_dir_perms;
 allow system_server adb_keys_file:file create_file_perms;
