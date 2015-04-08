@@ -39,13 +39,6 @@ allow platform_app system_api_service:service_manager find;
 service_manager_local_audit_domain(platform_app)
 auditallow platform_app {
     tmp_system_server_service
-    -lock_settings_service
-    -media_projection_service
-    -media_router_service
-    -media_session_service
-    -mount_service
-    -netpolicy_service
-    -netstats_service
     -network_management_service
     -notification_service
     -power_service

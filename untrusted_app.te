@@ -90,17 +90,6 @@ allow untrusted_app system_api_service:service_manager find;
 service_manager_local_audit_domain(untrusted_app)
 auditallow untrusted_app {
     tmp_system_server_service
-    -healthd_service
-    -jobscheduler_service
-    -launcherapps_service
-    -location_service
-    -lock_settings_service
-    -media_router_service
-    -media_session_service
-    -meminfo_service
-    -mount_service
-    -netpolicy_service
-    -netstats_service
     -network_management_service
     -network_score_service
     -notification_service
