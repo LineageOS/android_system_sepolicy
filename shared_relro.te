@@ -10,10 +10,4 @@ allow shared_relro shared_relro_file:dir rw_dir_perms;
 allow shared_relro shared_relro_file:file create_file_perms;
 
 # Needs to contact the "webviewupdate" and "activity" services
-allow shared_relro tmp_system_server_service:service_manager find;
-
-service_manager_local_audit_domain(shared_relro)
-auditallow shared_relro {
-    tmp_system_server_service
-    -webviewupdate_service
-}:service_manager find;
+allow shared_relro webviewupdate_service:service_manager find;
