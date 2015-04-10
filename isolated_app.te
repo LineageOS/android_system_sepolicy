@@ -35,3 +35,6 @@ neverallow isolated_app {
     -activity_service
     -display_service
 }:service_manager find;
+
+# Isolated apps shouldn't be able to access the driver directly.
+neverallow isolated_app gpu_device:chr_file { rw_file_perms execute };
