@@ -155,7 +155,7 @@ allow vold vold_data_file:file create_file_perms;
 allow vold init:key { write search setattr };
 allow vold vold:key { write search setattr };
 
-neverallow { domain -vold } vold_data_file:dir ~{ open create read getattr setattr search relabelto };
+neverallow { domain -vold } vold_data_file:dir ~{ open create read getattr setattr search relabelto ioctl };
 neverallow { domain -vold } vold_data_file:notdevfile_class_set ~{ relabelto getattr };
 neverallow { domain -vold -init } vold_data_file:dir *;
 neverallow { domain -vold -init } vold_data_file:notdevfile_class_set *;
