@@ -122,6 +122,7 @@ allow system_server surfaceflinger:unix_stream_socket { read write setopt };
 # Perform Binder IPC.
 binder_use(system_server)
 binder_call(system_server, binderservicedomain)
+binder_call(system_server, gatekeeperd)
 binder_call(system_server, appdomain)
 binder_call(system_server, dumpstate)
 binder_service(system_server)
