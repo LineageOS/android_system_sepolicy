@@ -32,3 +32,4 @@ genfscon fuse / u:object_r:fuse:s0
 genfscon pstore / u:object_r:pstorefs:s0
 genfscon functionfs / u:object_r:functionfs:s0
 genfscon usbfs / u:object_r:usbfs:s0
+genfscon binfmt_misc / u:object_r:binfmt_miscfs:s0
