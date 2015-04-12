@@ -28,3 +28,6 @@ allow sdcardd install_data_file:file r_file_perms;
 # Allow stdin/out back to vold
 allow sdcardd vold:fd use;
 allow sdcardd vold:fifo_file { read write getattr };
+
+# Allow running on top of expanded storage
+allow sdcardd mnt_expand_file:dir search;
