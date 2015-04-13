@@ -10,8 +10,7 @@ allow gatekeeperd tee_device:chr_file rw_file_perms;
 allow gatekeeperd gatekeeper_service:service_manager { add find };
 
 # Need to add auth tokens to KeyStore
-allow gatekeeperd keystore_service:service_manager find;
-binder_call(gatekeeperd, keystore)
+use_keystore(gatekeeperd)
 allow gatekeeperd keystore:keystore_key { add_auth };
 
 # For permissions checking
