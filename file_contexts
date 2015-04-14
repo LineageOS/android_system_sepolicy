@@ -80,6 +80,7 @@
 /dev/snd(/.*)?		u:object_r:audio_device:s0
 /dev/socket(/.*)?	u:object_r:socket_device:s0
 /dev/socket/adbd	u:object_r:adbd_socket:s0
+/dev/socket/sap_uim_socket[0-9]        u:object_r:sap_uim_socket:s0
 /dev/socket/dnsproxyd	u:object_r:dnsproxyd_socket:s0
 /dev/socket/dumpstate	u:object_r:dumpstate_socket:s0
 /dev/socket/fwmarkd	u:object_r:fwmarkd_socket:s0

@@ -174,7 +174,7 @@ type system_ndebug_socket, file_type;
 type vold_socket, file_type;
 type wpa_socket, file_type;
 type zygote_socket, file_type;
-
+type sap_uim_socket, file_type;
 # UART (for GPS) control proc file
 type gps_control, file_type;
 

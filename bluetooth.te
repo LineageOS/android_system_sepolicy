@@ -56,6 +56,9 @@ allow bluetooth surfaceflinger_service:service_manager find;
 allow bluetooth app_api_service:service_manager find;
 allow bluetooth system_api_service:service_manager find;
 
+# Bluetooth Sim Access Profile Socket to the RIL
+unix_socket_connect(bluetooth, sap_uim, rild)
+
 # already open bugreport file descriptors may be shared with
 # the bluetooth process, from a file in
 # /data/data/com.android.shell/files/bugreports/bugreport-*.
