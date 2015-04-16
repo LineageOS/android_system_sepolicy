@@ -75,3 +75,11 @@ allow shell domain:process getattr;
 # and read other files created by init process under /data/bootchart
 allow shell bootchart_data_file:dir rw_dir_perms;
 allow shell bootchart_data_file:file create_file_perms;
+
+# Do not allow shell to hard link to any files.
+# In particular, if shell hard links to app data
+# files, installd will not be able to guarantee the deletion
+# of the linked to file. Hard links also contribute to security
+# bugs, so we want to ensure the shell user never has this
+# capability.
+neverallow shell file_type:file link;
