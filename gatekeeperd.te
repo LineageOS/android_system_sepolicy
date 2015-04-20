@@ -18,11 +18,7 @@ allow gatekeeperd system_server:binder call;
 allow gatekeeperd permission_service:service_manager find;
 
 # for SID file access
-allow gatekeeperd system_data_file:dir { add_name write};
-allow gatekeeperd system_data_file:file { write create open };
-
-# Apps using KeyStore API will request the SID from GateKeeper
-allow untrusted_app gatekeeper_service:service_manager find;
-binder_call(untrusted_app, gatekeeperd)
+allow gatekeeperd gatekeeper_data_file:dir rw_dir_perms;
+allow gatekeeperd gatekeeper_data_file:file create_file_perms;
 
 neverallow { domain -gatekeeperd } gatekeeper_service:service_manager add;
