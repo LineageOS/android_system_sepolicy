@@ -101,6 +101,7 @@ type adb_keys_file, file_type, data_file_type;
 type audio_data_file, file_type, data_file_type;
 type bluetooth_data_file, file_type, data_file_type;
 type camera_data_file, file_type, data_file_type;
+type gatekeeper_data_file, file_type, data_file_type;
 type keychain_data_file, file_type, data_file_type;
 type keystore_data_file, file_type, data_file_type;
 type media_data_file, file_type, data_file_type;
