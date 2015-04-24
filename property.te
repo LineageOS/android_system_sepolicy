@@ -4,6 +4,7 @@ type debug_prop, property_type;
 type debuggerd_prop, property_type;
 type dhcp_prop, property_type;
 type fingerprint_prop, property_type;
+type ffs_prop, property_type;
 type radio_prop, property_type;
 type net_radio_prop, property_type;
 type system_radio_prop, property_type;
