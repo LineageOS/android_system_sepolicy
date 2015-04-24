@@ -18,6 +18,7 @@ type ctl_fuse_prop, property_type;
 type ctl_mdnsd_prop, property_type;
 type ctl_rildaemon_prop, property_type;
 type ctl_bugreport_prop, property_type;
+type ctl_console_prop, property_type
 type audio_prop, property_type;
 type logd_prop, property_type;
 type security_prop, property_type;
