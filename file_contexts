@@ -12,7 +12,7 @@
 
 # Executables
 /charger		u:object_r:rootfs:s0
-/init			u:object_r:rootfs:s0
+/init			u:object_r:init_exec:s0
 /sbin(/.*)?		u:object_r:rootfs:s0
 
 # Empty directories
