@@ -41,10 +41,11 @@ allow adbd sdcard_type:file create_file_perms;
 allow adbd anr_data_file:dir r_dir_perms;
 allow adbd anr_data_file:file r_file_perms;
 
-# Set service.adb.*, sys.powerctl properties.
+# Set service.adb.*, sys.powerctl, and sys.usb.ffs.ready properties.
 unix_socket_connect(adbd, property, init)
 allow adbd shell_prop:property_service set;
 allow adbd powerctl_prop:property_service set;
+allow adbd ffs_prop:property_service set;
 
 # Run /system/bin/bu
 allow adbd system_file:file rx_file_perms;
