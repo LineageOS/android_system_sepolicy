@@ -1,21 +1,6 @@
-# init is its own domain.
+# init switches to init domain (via init.rc).
 type init, domain, mlstrustedsubject;
 tmpfs_domain(init)
-
-# The init domain is entered by execing init.
-type init_exec, exec_type, file_type;
-
-# /dev/__null__ node created by init.
-allow init tmpfs:chr_file create_file_perms;
-
-#
-# init direct restorecon calls.
-#
-# /dev/socket
-allow init { device socket_device }:dir relabelto;
-# /dev/__properties__
-allow init tmpfs:file relabelfrom;
-allow init properties_device:file relabelto;
 
 # setrlimit
 allow init self:capability sys_resource;
@@ -44,8 +29,6 @@ allow init self:capability sys_admin;
 # Create and mount on directories in /.
 allow init rootfs:dir create_dir_perms;
 allow init rootfs:dir mounton;
-
-allow init proc:dir mounton;
 
 # Mount on /dev/usb-ffs/adb.
 allow init device:dir mounton;
@@ -161,8 +144,8 @@ recovery_only(`
   domain_trans(init, rootfs, recovery)
 ')
 domain_trans(init, shell_exec, shell)
-domain_trans(init, init_exec, ueventd)
-domain_trans(init, init_exec, watchdogd)
+domain_trans(init, rootfs, ueventd)
+domain_trans(init, rootfs, watchdogd)
 
 # Support "adb shell stop"
 allow init self:capability kill;
@@ -274,9 +257,9 @@ unix_socket_connect(init, vold, vold)
 
 # The init domain is only entered via setcon from the kernel domain,
 # never via an exec-based transition.
-neverallow domain init:process dyntransition;
-neverallow { domain -kernel} init:process transition;
-neverallow init { file_type fs_type -init_exec }:file entrypoint;
+neverallow { domain -kernel} init:process dyntransition;
+neverallow domain init:process transition;
+neverallow init { file_type fs_type }:file entrypoint;
 
 # Never read/follow symlinks created by shell or untrusted apps.
 neverallow init shell_data_file:lnk_file read;

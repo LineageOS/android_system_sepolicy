@@ -3,11 +3,15 @@ type kernel, domain, mlstrustedsubject;
 
 allow kernel self:capability sys_nice;
 
-# Allow init relabel itself.
-allow kernel rootfs:file relabelfrom;
-allow kernel init_exec:file relabelto;
-# TODO: investigate why we need this.
-allow kernel init:process share;
+# Run /init before we have switched domains.
+allow kernel rootfs:file execute_no_trans;
+
+# /dev/__null__ node created by init prior to policy load.
+allow kernel tmpfs:chr_file rw_file_perms;
+
+# setcon to init domain.
+allow kernel self:process setcurrent;
+allow kernel init:process dyntransition;
 
 # cgroup filesystem initialization prior to setting the cgroup root directory label.
 allow kernel unlabeled:dir search;
@@ -15,6 +19,18 @@ allow kernel unlabeled:dir search;
 # Mount usbfs.
 allow kernel usbfs:filesystem mount;
 allow kernel usbfs:dir search;
+
+# init direct restorecon calls prior to switching to init domain
+# /dev and /dev/socket
+allow kernel tmpfs:dir relabelfrom;
+allow kernel { device socket_device }:dir relabelto;
+# /dev/__properties__
+allow kernel tmpfs:file relabelfrom;
+allow kernel properties_device:file relabelto;
+# /sys
+allow kernel sysfs:{ dir file lnk_file } relabelfrom;
+allow kernel sysfs_type:{ dir file lnk_file } relabelto;
+allow kernel sysfs_type:dir r_dir_perms;
 
 # Initial setenforce by init prior to switching to init domain.
 # We use dontaudit instead of allow to prevent a kernel spawned userspace
@@ -41,8 +57,6 @@ allow kernel sdcard_type:file { read write };
 allow kernel vold:fd use;
 allow kernel app_data_file:file read;
 allow kernel asec_image_file:file read;
-
-domain_auto_trans(kernel, init_exec, init)
 
 ###
 ### neverallow rules
