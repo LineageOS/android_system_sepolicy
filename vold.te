@@ -39,6 +39,10 @@ allow vold sdcard_type:file create_file_perms; # TODO: deprecated in M
 allow vold { mnt_media_rw_file storage_file sdcard_type }:dir create_dir_perms;
 allow vold { mnt_media_rw_file storage_file sdcard_type }:file create_file_perms;
 
+# Access to storage that backs emulated FUSE daemons for migration optimization
+allow vold media_rw_data_file:dir create_dir_perms;
+allow vold media_rw_data_file:file create_file_perms;
+
 # Newly created storage dirs are always treated as mount stubs to prevent us
 # from accidentally writing when the mount point isn't present.
 type_transition vold storage_file:dir storage_stub_file;
@@ -55,7 +59,6 @@ allow vold mnt_user_file:lnk_file create_file_perms;
 # Allow to create and mount expanded storage
 allow vold mnt_expand_file:dir { create_dir_perms mounton };
 allow vold apk_data_file:dir { create getattr setattr };
-allow vold media_rw_data_file:dir { create getattr setattr };
 allow vold shell_data_file:dir { create getattr setattr };
 
 allow vold tmpfs:filesystem { mount unmount };
