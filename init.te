@@ -45,8 +45,6 @@ allow init self:capability sys_admin;
 allow init rootfs:dir create_dir_perms;
 allow init rootfs:dir mounton;
 
-allow init proc:dir mounton;
-
 # Mount on /dev/usb-ffs/adb.
 allow init device:dir mounton;
 
