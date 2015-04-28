@@ -140,8 +140,8 @@ allow vold userdata_block_device:blk_file rw_file_perms;
 # Access metadata block device used for encryption meta-data.
 allow vold metadata_block_device:blk_file rw_file_perms;
 
-# Allow init to manipulate /data/unencrypted
-allow vold unencrypted_data_file:{ file lnk_file } create_file_perms;
+# Allow vold to manipulate /data/unencrypted
+allow vold unencrypted_data_file:{ file } create_file_perms;
 allow vold unencrypted_data_file:dir create_dir_perms;
 
 # Write to /proc/sys/vm/drop_caches
@@ -150,6 +150,10 @@ allow vold proc_drop_caches:file w_file_perms;
 # Give vold a place where only vold can store files; everyone else is off limits
 allow vold vold_data_file:dir create_dir_perms;
 allow vold vold_data_file:file create_file_perms;
+
+# linux keyring configuration
+allow vold init:key { write search setattr };
+allow vold vold:key { write search setattr };
 
 neverallow { domain -vold } vold_data_file:dir ~{ open create read getattr setattr search relabelto };
 neverallow { domain -vold } vold_data_file:notdevfile_class_set ~{ relabelto getattr };
