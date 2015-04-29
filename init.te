@@ -257,11 +257,7 @@ allow init pstorefs:file r_file_perms;
 # linux keyring configuration
 allow init init:key { write search setattr };
 
-# Allow init to link temp fs to unencrypted data on userdata
-allow init tmpfs:lnk_file { create read getattr relabelfrom };
-
-# Allow init to manipulate /data/unencrypted
-allow init unencrypted_data_file:{ file lnk_file } create_file_perms;
+# Allow init to create /data/unencrypted
 allow init unencrypted_data_file:dir create_dir_perms;
 
 unix_socket_connect(init, vold, vold)
