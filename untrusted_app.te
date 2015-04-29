@@ -93,10 +93,6 @@ allow untrusted_app persistent_data_block_service:service_manager find;
 allow untrusted_app { apk_tmp_file apk_private_tmp_file }:dir r_dir_perms;
 allow untrusted_app { apk_tmp_file apk_private_tmp_file }:file r_file_perms;
 
-# Apps using KeyStore API will request the SID from GateKeeper
-allow untrusted_app gatekeeper_service:service_manager find;
-binder_call(untrusted_app, gatekeeperd)
-
 ###
 ### neverallow rules
 ###
