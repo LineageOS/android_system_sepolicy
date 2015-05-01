@@ -64,3 +64,15 @@ allow zygote storage_file:dir { search mounton };
 
 # Handle --invoke-with command when launching Zygote with a wrapper command.
 allow zygote zygote_exec:file rx_file_perms;
+
+###
+### neverallow rules
+###
+
+# Ensure that all types assigned to app processes are included
+# in the appdomain attribute, so that all allow and neverallow rules
+# written on appdomain are applied to all app processes.
+# This is achieved by ensuring that it is impossible for zygote to
+# setcon (dyntransition) to any types other than those associated
+# with appdomain plus system_server.
+neverallow zygote ~{ appdomain system_server }:process dyntransition;

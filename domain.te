@@ -401,3 +401,11 @@ neverallow domain {
 # neverallow { domain -appdomain } file_type:file execmod;
 
 neverallow { domain -init } proc:{ file dir } mounton;
+
+# Ensure that all types assigned to processes are included
+# in the domain attribute, so that all allow and neverallow rules
+# written on domain are applied to all processes.
+# This is achieved by ensuring that it is impossible to transition
+# from a domain to a non-domain type and vice versa.
+neverallow domain ~domain:process { transition dyntransition };
+neverallow ~domain domain:process { transition dyntransition };
