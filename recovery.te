@@ -78,11 +78,10 @@ recovery_only(`
   allow recovery cache_file:file create_file_perms;
 
   # Reboot the device
-  allow recovery powerctl_prop:property_service set;
-  unix_socket_connect(recovery, property, init)
+  set_prop(recovery, powerctl_prop)
 
   # Start/stop adbd via ctl.start adbd
-  allow recovery ctl_default_prop:property_service set;
+  set_prop(recovery, ctl_default_prop)
 
   # Use setfscreatecon() to label files for OTA updates.
   allow recovery self:process setfscreate;
