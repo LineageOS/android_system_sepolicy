@@ -94,9 +94,6 @@ allow vold fscklogs:file create_file_perms;
 # Rules to support encrypted fs support.
 #
 
-# Set property.
-unix_socket_connect(vold, property, init)
-
 # Unmount and mount the fs.
 allow vold labeledfs:filesystem { mount unmount remount };
 
@@ -111,9 +108,9 @@ allow vold system_data_file:dir { create rw_dir_perms mounton setattr rmdir };
 allow vold kernel:process setsched;
 
 # Property Service
-allow vold vold_prop:property_service set;
-allow vold powerctl_prop:property_service set;
-allow vold ctl_fuse_prop:property_service set;
+set_prop(vold, vold_prop)
+set_prop(vold, powerctl_prop)
+set_prop(vold, ctl_fuse_prop)
 
 # ASEC
 allow vold asec_image_file:file create_file_perms;

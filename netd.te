@@ -30,9 +30,8 @@ allow netd proc_net:file write;
 allow netd sysfs:file write;
 
 # Set dhcp lease for PAN connection
-unix_socket_connect(netd, property, init)
-allow netd dhcp_prop:property_service set;
-allow netd system_prop:property_service set;
+set_prop(netd, dhcp_prop)
+set_prop(netd, system_prop)
 auditallow netd system_prop:property_service set;
 
 # Connect to PAN
@@ -62,7 +61,7 @@ allow netd dnsmasq:process signal;
 domain_auto_trans(netd, clatd_exec, clatd)
 allow netd clatd:process signal;
 
-allow netd ctl_mdnsd_prop:property_service set;
+set_prop(netd, ctl_mdnsd_prop)
 
 # Allow netd to operate on sockets that are passed to it.
 allow netd netdomain:{tcp_socket udp_socket rawip_socket dccp_socket tun_socket} {read write getattr setattr getopt setopt};

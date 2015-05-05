@@ -5,9 +5,6 @@ type surfaceflinger_exec, exec_type, file_type;
 init_daemon_domain(surfaceflinger)
 typeattribute surfaceflinger mlstrustedsubject;
 
-# Talk to init over the property socket.
-unix_socket_connect(surfaceflinger, property, init)
-
 # Perform Binder IPC.
 binder_use(surfaceflinger)
 binder_call(surfaceflinger, binderservicedomain)
@@ -37,8 +34,8 @@ allow surfaceflinger video_device:chr_file rw_file_perms;
 allow surfaceflinger self:netlink_kobject_uevent_socket create_socket_perms;
 
 # Set properties.
-allow surfaceflinger system_prop:property_service set;
-allow surfaceflinger ctl_bootanim_prop:property_service set;
+set_prop(surfaceflinger, system_prop)
+set_prop(surfaceflinger, ctl_bootanim_prop)
 
 # Use open files supplied by an app.
 allow surfaceflinger appdomain:fd use;

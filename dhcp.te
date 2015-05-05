@@ -13,9 +13,9 @@ allow dhcp shell_exec:file rx_file_perms;
 allow dhcp system_file:file rx_file_perms;
 # For /proc/sys/net/ipv4/conf/*/promote_secondaries
 allow dhcp proc_net:file write;
-allow dhcp dhcp_prop:property_service set;
-allow dhcp pan_result_prop:property_service set;
-unix_socket_connect(dhcp, property, init)
+
+set_prop(dhcp, dhcp_prop)
+set_prop(dhcp, pan_result_prop)
 
 type_transition dhcp system_data_file:{ dir file } dhcp_data_file;
 allow dhcp dhcp_data_file:dir create_dir_perms;
