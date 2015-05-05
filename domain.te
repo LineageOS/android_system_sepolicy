@@ -182,6 +182,7 @@ neverallow {
   -dumpstate
   -system_server
   userdebug_or_eng(`-procrank')
+  userdebug_or_eng(`-perfprofd')
 } self:capability sys_ptrace;
 
 # Limit device node creation to these whitelisted domains.
