@@ -24,6 +24,18 @@ dontaudit kernel self:security setenforce;
 # Write to /proc/1/oom_adj prior to switching to init domain.
 allow kernel self:capability sys_resource;
 
+# Init reboot before switching selinux domains under certain error
+# conditions. Allow it.
+# As part of rebooting, init writes "u" to /proc/sysrq-trigger to
+# remount filesystems read-only. /data is not mounted at this point,
+# so we could ignore this. For now, we allow it.
+allow kernel self:capability sys_boot;
+allow kernel proc_sysrq:file w_file_perms;
+
+# Allow writing to /dev/__kmsg__ which was created prior to
+# loading policy
+allow kernel tmpfs:chr_file write;
+
 # Set checkreqprot by init.rc prior to switching to init domain.
 allow kernel selinuxfs:file write;
 allow kernel self:security setcheckreqprot;
