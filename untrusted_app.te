@@ -104,6 +104,13 @@ allow untrusted_app { apk_tmp_file apk_private_tmp_file }:file r_file_perms;
 # #define SIOCSIWCOMMIT 0x8B00 /* Commit pending changes to driver */
 allow untrusted_app self:{ rawip_socket tcp_socket udp_socket } { 0x8900-0x8926 0x8928-0x89ff 0x8b00 };
 
+# Allow GMS core to access perfprofd output, which is stored
+# in /data/misc/perfprofd/. GMS core will need to list all
+# data stored in that directory to process them one by one.
+userdebug_or_eng(`
+  allow untrusted_app perfprofd_data_file:file r_file_perms;
+  allow untrusted_app perfprofd_data_file:dir r_dir_perms;
+')
 ###
 ### neverallow rules
 ###

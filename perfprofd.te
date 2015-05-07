@@ -18,19 +18,13 @@ userdebug_or_eng(`
   allow perfprofd system_file:file rx_file_perms;
 
   # perfprofd reads a config file from /data/data/com.google.android.gms/files
-  # opens a file for writing in the same directory
-  allow perfprofd app_data_file:file rw_file_perms;
-  allow perfprofd app_data_file:dir rw_dir_perms;
-
-  # perfprofd looks for the existence of a semaphore file to determine
-  # whether collection is enabled/disabled (where the semphore file is
-  # created by some other entity, e.g. gms)
+  allow perfprofd app_data_file:file r_file_perms;
   allow perfprofd app_data_file:dir search;
   allow perfprofd self:capability { dac_override };
 
-  # perfprofd reads profiles from /data/data/..., encodes them,
-  # and then dumps the encoded profiles back to /data/data/....
-  allow perfprofd app_data_file:dir_file_class_set create_file_perms;
+  # perfprofd opens a file for writing in /data/misc/perfprofd
+  allow perfprofd perfprofd_data_file:file create_file_perms;
+  allow perfprofd perfprofd_data_file:dir rw_dir_perms;
 
   # perfprofd uses the system log
   read_logd(perfprofd);
@@ -38,6 +32,17 @@ userdebug_or_eng(`
 
   # simpleperf uses ioctl() to turn on kernel perf events measurements
   allow perfprofd self:capability sys_admin;
+
+  # simpleperf needs to examine /proc to collect task/thread info
+  r_dir_file(perfprofd, domain)
+
+  # simpleperf needs to access /proc/<pid>/exec
+  allow perfprofd self:capability { sys_resource sys_ptrace };
+  neverallow perfprofd domain:process ptrace;
+
+  # simpleperf needs open/read any file that turns up in a profile
+  # to see whether it has a build ID
+  allow perfprofd exec_type:file r_file_perms;
 
   # simpleperf is going to execute "sleep"
   allow perfprofd toolbox_exec:file x_file_perms;
