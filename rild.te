@@ -6,7 +6,6 @@ init_daemon_domain(rild)
 net_domain(rild)
 allow rild self:netlink_route_socket nlmsg_write;
 allow rild kernel:system module_request;
-unix_socket_connect(rild, property, init)
 allow rild self:capability { setuid net_admin net_raw };
 allow rild alarm_device:chr_file rw_file_perms;
 allow rild cgroup:dir create_dir_perms;
@@ -26,9 +25,9 @@ allow rild system_data_file:file r_file_perms;
 allow rild system_file:file x_file_perms;
 
 # property service
-allow rild radio_prop:property_service set;
-allow rild net_radio_prop:property_service set;
-allow rild system_radio_prop:property_service set;
+set_prop(rild, radio_prop)
+set_prop(rild, net_radio_prop)
+set_prop(rild, system_radio_prop)
 auditallow rild net_radio_prop:property_service set;
 auditallow rild system_radio_prop:property_service set;
 

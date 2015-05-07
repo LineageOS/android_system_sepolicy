@@ -5,8 +5,7 @@ net_domain(nfc)
 binder_service(nfc)
 
 # Set NFC properties
-unix_socket_connect(nfc, property, init)
-allow nfc nfc_prop:property_service set;
+set_prop(nfc, nfc_prop)
 
 # NFC device access.
 allow nfc nfc_device:chr_file rw_file_perms;

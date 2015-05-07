@@ -21,8 +21,7 @@ allow uncrypt cache_file:dir rw_dir_perms;
 allow uncrypt cache_file:file create_file_perms;
 
 # Set a property to reboot the device.
-unix_socket_connect(uncrypt, property, init)
-allow uncrypt powerctl_prop:property_service set;
+set_prop(uncrypt, powerctl_prop)
 
 # Raw writes to block device
 allow uncrypt self:capability sys_rawio;

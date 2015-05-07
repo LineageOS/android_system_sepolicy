@@ -31,15 +31,14 @@ auditallow system_app system_data_file:file { create setattr append write link u
 allow system_app wallpaper_file:file r_file_perms;
 
 # Write to properties
-unix_socket_connect(system_app, property, init)
-allow system_app debug_prop:property_service set;
-allow system_app net_radio_prop:property_service set;
-allow system_app system_radio_prop:property_service set;
+set_prop(system_app, debug_prop)
+set_prop(system_app, system_prop)
+set_prop(system_app, ctl_bugreport_prop)
+set_prop(system_app, logd_prop)
+set_prop(system_app, net_radio_prop)
+set_prop(system_app, system_radio_prop)
 auditallow system_app net_radio_prop:property_service set;
 auditallow system_app system_radio_prop:property_service set;
-allow system_app system_prop:property_service set;
-allow system_app ctl_bugreport_prop:property_service set;
-allow system_app logd_prop:property_service set;
 
 # Create /data/anr/traces.txt.
 allow system_app anr_data_file:dir ra_dir_perms;

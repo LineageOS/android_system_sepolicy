@@ -105,7 +105,6 @@ allow system_server self:tun_socket create_socket_perms;
 allow system_server init:process sigchld;
 
 # Talk to init and various daemons via sockets.
-unix_socket_connect(system_server, property, init)
 unix_socket_connect(system_server, installd, installd)
 unix_socket_connect(system_server, lmkd, lmkd)
 unix_socket_connect(system_server, mtpd, mtp)
@@ -273,18 +272,18 @@ allow system_server system_data_file:dir relabelfrom;
 allow system_server anr_data_file:dir relabelto;
 
 # Property Service write
-allow system_server system_prop:property_service set;
-allow system_server dhcp_prop:property_service set;
-allow system_server net_radio_prop:property_service set;
-allow system_server system_radio_prop:property_service set;
-allow system_server debug_prop:property_service set;
-allow system_server powerctl_prop:property_service set;
-allow system_server fingerprint_prop:property_service set;
+set_prop(system_server, system_prop)
+set_prop(system_server, dhcp_prop)
+set_prop(system_server, net_radio_prop)
+set_prop(system_server, system_radio_prop)
+set_prop(system_server, debug_prop)
+set_prop(system_server, powerctl_prop)
+set_prop(system_server, fingerprint_prop)
 
 # ctl interface
-allow system_server ctl_default_prop:property_service set;
-allow system_server ctl_dhcp_pan_prop:property_service set;
-allow system_server ctl_bugreport_prop:property_service set;
+set_prop(system_server, ctl_default_prop)
+set_prop(system_server, ctl_dhcp_pan_prop)
+set_prop(system_server, ctl_bugreport_prop)
 
 # Create a socket for receiving info from wpa.
 type_transition system_server wifi_data_file:sock_file system_wpa_socket;
