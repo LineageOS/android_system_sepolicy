@@ -186,9 +186,11 @@
 /vendor/bin/gpsd	u:object_r:gpsd_exec:s0
 
 #############################
-# ODM files
+# OEM and ODM files
 #
-/odm(/.*)?		u:object_r:system_file:s0
+/odm(/.*)?              u:object_r:system_file:s0
+/oem(/.*)?              u:object_r:oemfs:s0
+
 
 #############################
 # Data files
