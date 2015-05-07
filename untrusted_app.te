@@ -111,6 +111,7 @@ userdebug_or_eng(`
   allow untrusted_app perfprofd_data_file:file r_file_perms;
   allow untrusted_app perfprofd_data_file:dir r_dir_perms;
 ')
+
 ###
 ### neverallow rules
 ###
