@@ -42,5 +42,4 @@ allow healthd healthd_service:service_manager { add find };
 
 # Healthd needs to tell init to continue the boot
 # process when running in charger mode.
-unix_socket_connect(healthd, property, init)
-allow healthd system_prop:property_service set;
+set_prop(healthd, system_prop)

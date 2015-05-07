@@ -118,9 +118,29 @@ typeattribute $1 bluetoothdomain;
 # unix_socket_connect(clientdomain, socket, serverdomain)
 # Allow a local socket connection from clientdomain via
 # socket to serverdomain.
+#
+# Note: If you see denial records that distill to the
+# following allow rules:
+# allow clientdomain property_socket:sock_file write;
+# allow clientdomain init:unix_stream_socket connectto;
+# allow clientdomain something_prop:property_service set;
+#
+# This sequence is indicative of attempting to set a property.
+# use set_prop(sourcedomain, targetproperty)
+#
 define(`unix_socket_connect', `
 allow $1 $2_socket:sock_file write;
 allow $1 $3:unix_stream_socket connectto;
+')
+
+#####################################
+# set_prop(sourcedomain, targetproperty)
+# Allows source domain to set the
+# targetproperty.
+#
+define(`set_prop', `
+unix_socket_connect($1, property, init)
+allow $1 $2:property_service set;
 ')
 
 #####################################
