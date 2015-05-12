@@ -149,6 +149,7 @@
 /system/bin/mdnsd	u:object_r:mdnsd_exec:s0
 /system/bin/installd	u:object_r:installd_exec:s0
 /system/bin/keystore	u:object_r:keystore_exec:s0
+/system/bin/fingerprintd u:object_r:fingerprintd_exec:s0
 /system/bin/gatekeeperd u:object_r:gatekeeperd_exec:s0
 /system/bin/debuggerd	u:object_r:debuggerd_exec:s0
 /system/bin/debuggerd64	u:object_r:debuggerd_exec:s0
@@ -253,6 +254,9 @@
 /data/misc/vold(/.*)?           u:object_r:vold_data_file:s0
 /data/misc/perfprofd(/.*)?      u:object_r:perfprofd_data_file:s0
 /data/system/heapdump(/.*)?     u:object_r:heapdump_data_file:s0
+
+# Fingerprint data
+/data/system/users/[0-9]+/fpdata(/.*)? u:object_r:fingerprintd_data_file:s0
 
 # Bootchart data
 /data/bootchart(/.*)?		u:object_r:bootchart_data_file:s0
