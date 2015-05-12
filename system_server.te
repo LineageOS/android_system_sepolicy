@@ -401,6 +401,7 @@ allow system_server keystore:keystore_key {
 	sync_uid
 	password_uid
 	add_auth
+	user_changed
 };
 
 # Allow system server to search and write to the persistent factory reset
