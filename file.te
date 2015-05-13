@@ -13,6 +13,8 @@ type proc_bluetooth_writable, fs_type;
 type proc_cpuinfo, fs_type;
 type proc_net, fs_type;
 type proc_sysrq, fs_type;
+type proc_uid_cputime_showstat, fs_type;
+type proc_uid_cputime_removeuid, fs_type;
 type selinuxfs, fs_type, mlstrustedobject;
 type cgroup, fs_type, mlstrustedobject;
 type sysfs, fs_type, sysfs_type, mlstrustedobject;

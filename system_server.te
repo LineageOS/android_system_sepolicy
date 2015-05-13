@@ -89,6 +89,12 @@ r_dir_file(system_server, domain)
 allow system_server qtaguid_proc:file rw_file_perms;
 allow system_server qtaguid_device:chr_file rw_file_perms;
 
+# Read /proc/uid_cputime/show_uid_stat.
+allow system_server proc_uid_cputime_showstat:file r_file_perms;
+
+# Write /proc/uid_cputime/remove_uid_range.
+allow system_server proc_uid_cputime_removeuid:file { w_file_perms getattr };
+
 # Write to /proc/sysrq-trigger.
 allow system_server proc_sysrq:file rw_file_perms;
 
