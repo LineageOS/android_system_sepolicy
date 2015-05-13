@@ -381,25 +381,22 @@ allow system_server system_server_service:service_manager { add find };
 allow system_server surfaceflinger_service:service_manager find;
 
 allow system_server keystore:keystore_key {
-	test
+	get_state
 	get
 	insert
 	delete
 	exist
-	saw
+	list
 	reset
 	password
 	lock
 	unlock
-	zero
+	is_empty
 	sign
 	verify
 	grant
 	duplicate
 	clear_uid
-	reset_uid
-	sync_uid
-	password_uid
 	add_auth
 	user_changed
 };

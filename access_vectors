@@ -890,25 +890,22 @@ class service_manager
 
 class keystore_key
 {
-	test
+	get_state
 	get
 	insert
 	delete
 	exist
-	saw
+	list
 	reset
 	password
 	lock
 	unlock
-	zero
+	is_empty
 	sign
 	verify
 	grant
 	duplicate
 	clear_uid
-	reset_uid
-	sync_uid
-	password_uid
 	add_auth
 	user_changed
 }
