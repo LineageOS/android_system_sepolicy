@@ -73,6 +73,7 @@ allow system_app keystore:keystore_key {
 	grant
 	duplicate
 	clear_uid
+	user_changed
 };
 
 control_logd(system_app)
