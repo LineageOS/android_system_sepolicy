@@ -410,3 +410,22 @@ neverallow { domain -init } proc:{ file dir } mounton;
 # from a domain to a non-domain type and vice versa.
 neverallow domain ~domain:process { transition dyntransition };
 neverallow ~domain domain:process { transition dyntransition };
+
+#
+# Only system_app and system_server should be creating or writing
+# their files. The proper way to share files is to setup
+# type transitions to a more specific type or assigning a type
+# to its parent directory via a file_contexts entry.
+# Example type transition:
+#  mydomain.te:file_type_auto_trans(mydomain, system_data_file, new_file_type)
+#
+neverallow {
+  domain
+  -system_server
+  -system_app
+  -init
+  -installd # for relabelfrom and unlink, check for this in explicit neverallow
+} system_data_file:file no_w_file_perms;
+# do not grant anything greater than r_file_perms and relabelfrom unlink
+# to installd
+neverallow installd system_data_file:file ~{ r_file_perms relabelfrom unlink };
