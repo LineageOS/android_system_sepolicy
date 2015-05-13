@@ -145,7 +145,7 @@ allow vold unencrypted_data_file:{ file } create_file_perms;
 allow vold unencrypted_data_file:dir create_dir_perms;
 
 # Give vold a place where only vold can store files; everyone else is off limits
-allow vold vold_data_file:dir rw_dir_perms;
+allow vold vold_data_file:dir create_dir_perms;
 allow vold vold_data_file:file create_file_perms;
 
 # linux keyring configuration
