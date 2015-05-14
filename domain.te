@@ -429,3 +429,16 @@ neverallow {
 # do not grant anything greater than r_file_perms and relabelfrom unlink
 # to installd
 neverallow installd system_data_file:file ~{ r_file_perms relabelfrom unlink };
+
+#
+# Only these domains should transition to shell domain. This domain is
+# permissible for the "shell user". If you need a process to exec a shell
+# script with differing privilege, define a domain and set up a transition.
+#
+neverallow {
+  domain
+  -adbd
+  -init
+  -runas
+  -zygote
+} shell:process { transition dyntransition };
