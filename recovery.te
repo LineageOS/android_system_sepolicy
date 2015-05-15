@@ -41,8 +41,7 @@ recovery_only(`
   allow recovery exec_type:dir { create_dir_perms relabelfrom relabelto };
 
   # Write to /proc/sys/vm/drop_caches
-  # TODO: create more specific label?
-  allow recovery proc:file w_file_perms;
+  allow recovery proc_drop_caches:file w_file_perms;
 
   # Write to /sys/class/android_usb/android0/enable.
   # TODO: create more specific label?
