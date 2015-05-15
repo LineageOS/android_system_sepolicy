@@ -267,6 +267,7 @@
 /mnt/expand/[^/]+/app/vmdl[^/]+\.tmp/oat(/.*)?      u:object_r:dalvikcache_data_file:s0
 /mnt/expand/[^/]+/local/tmp(/.*)?                   u:object_r:shell_data_file:s0
 /mnt/expand/[^/]+/media(/.*)?                       u:object_r:media_rw_data_file:s0
+/mnt/expand/[^/]+/misc/vold(/.*)?                   u:object_r:vold_data_file:s0
 
 # coredump directory for userdebug/eng devices
 /cores(/.*)?                    u:object_r:coredump_file:s0

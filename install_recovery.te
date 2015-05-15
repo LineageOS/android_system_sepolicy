@@ -23,6 +23,4 @@ allow install_recovery cache_file:dir rw_dir_perms;
 allow install_recovery cache_file:file create_file_perms;
 
 # Write to /proc/sys/vm/drop_caches
-# TODO: create a specific label for this file instead of allowing
-# write for all /proc files.
-allow install_recovery proc:file w_file_perms;
+allow install_recovery proc_drop_caches:file w_file_perms;
