@@ -102,7 +102,8 @@ allow untrusted_app { apk_tmp_file apk_private_tmp_file }:file r_file_perms;
 # determine if wifi is present
 # from include/uapi/linux/wireless.h:
 # #define SIOCSIWCOMMIT 0x8B00 /* Commit pending changes to driver */
-allow untrusted_app self:{ rawip_socket tcp_socket udp_socket } { 0x8900-0x8926 0x8928-0x89ff 0x8b00 };
+allow untrusted_app self:{ rawip_socket tcp_socket udp_socket } { 0x5411 0x5451 0x8900-0x8926 0x8928-0x89ff 0x8b00-0x8bff };
+auditallow untrusted_app self:{ rawip_socket tcp_socket udp_socket } { 0x8b00-0x8bff };
 
 # Allow GMS core to access perfprofd output, which is stored
 # in /data/misc/perfprofd/. GMS core will need to list all
