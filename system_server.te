@@ -167,6 +167,7 @@ allow system_server usbaccessory_device:chr_file rw_file_perms;
 allow system_server video_device:dir r_dir_perms;
 allow system_server video_device:chr_file rw_file_perms;
 allow system_server adbd_socket:sock_file rw_file_perms;
+allow system_server rtc_device:chr_file rw_file_perms;
 allow system_server audio_device:dir r_dir_perms;
 
 # write access needed for MIDI
