@@ -72,6 +72,10 @@ allow untrusted_app mtp_device:chr_file rw_file_perms;
 allow untrusted_app media_rw_data_file:dir create_dir_perms;
 allow untrusted_app media_rw_data_file:file create_file_perms;
 
+# Traverse into /mnt/media_rw for bypassing FUSE daemon
+# TODO: narrow this to just MediaProvider
+allow untrusted_app mnt_media_rw_file:dir search;
+
 # Write to /cache.
 allow untrusted_app cache_file:dir create_dir_perms;
 allow untrusted_app cache_file:file create_file_perms;
