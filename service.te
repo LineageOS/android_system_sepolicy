@@ -24,6 +24,7 @@ type backup_service, app_api_service, system_server_service, service_manager_typ
 type batterystats_service, app_api_service, system_server_service, service_manager_type;
 type battery_service, system_server_service, service_manager_type;
 type bluetooth_manager_service, system_api_service, system_server_service, service_manager_type;
+type cameraproxy_service, system_server_service, service_manager_type;
 type clipboard_service, app_api_service, system_server_service, service_manager_type;
 type IProxyService_service, system_api_service, system_server_service, service_manager_type;
 type commontime_management_service, system_server_service, service_manager_type;

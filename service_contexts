@@ -62,6 +62,7 @@ lock_settings                             u:object_r:lock_settings_service:s0
 media.audio_flinger                       u:object_r:mediaserver_service:s0
 media.audio_policy                        u:object_r:mediaserver_service:s0
 media.camera                              u:object_r:mediaserver_service:s0
+media.camera.proxy                        u:object_r:cameraproxy_service:s0
 media.log                                 u:object_r:mediaserver_service:s0
 media.player                              u:object_r:mediaserver_service:s0
 media.resource_manager                    u:object_r:mediaserver_service:s0
