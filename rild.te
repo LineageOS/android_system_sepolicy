@@ -38,6 +38,7 @@ allow rild tty_device:chr_file rw_file_perms;
 
 # Allow rild to create and use netlink sockets.
 allow rild self:netlink_socket create_socket_perms;
+allow rild self:netlink_generic_socket create_socket_perms;
 allow rild self:netlink_kobject_uevent_socket create_socket_perms;
 
 # Access to wake locks
