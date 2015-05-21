@@ -57,17 +57,17 @@ allow system_app app_api_service:service_manager find;
 allow system_app system_api_service:service_manager find;
 
 allow system_app keystore:keystore_key {
-	test
+	get_state
 	get
 	insert
 	delete
 	exist
-	saw
+	list
 	reset
 	password
 	lock
 	unlock
-	zero
+	is_empty
 	sign
 	verify
 	grant
