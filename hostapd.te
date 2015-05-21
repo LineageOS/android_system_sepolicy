@@ -6,6 +6,7 @@ net_domain(hostapd)
 
 allow hostapd self:capability { net_admin net_raw setuid setgid };
 allow hostapd self:netlink_socket create_socket_perms;
+allow hostapd self:netlink_generic_socket create_socket_perms;
 allow hostapd self:packet_socket create_socket_perms;
 allow hostapd self:netlink_route_socket nlmsg_write;
 
