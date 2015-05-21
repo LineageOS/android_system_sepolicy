@@ -128,6 +128,7 @@ allow system_server surfaceflinger:unix_stream_socket { read write setopt };
 binder_use(system_server)
 binder_call(system_server, binderservicedomain)
 binder_call(system_server, gatekeeperd)
+binder_call(system_server, fingerprintd)
 binder_call(system_server, appdomain)
 binder_call(system_server, dumpstate)
 binder_service(system_server)
@@ -375,6 +376,7 @@ allow system_server drmserver_service:service_manager find;
 allow system_server healthd_service:service_manager find;
 allow system_server keystore_service:service_manager find;
 allow system_server gatekeeper_service:service_manager find;
+allow system_server fingerprintd_service:service_manager find;
 allow system_server mediaserver_service:service_manager find;
 allow system_server nfc_service:service_manager find;
 allow system_server radio_service:service_manager find;
