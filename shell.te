@@ -15,6 +15,9 @@ control_logd(shell)
 # logcat -L (directly, or via dumpstate)
 allow shell pstorefs:dir search;
 allow shell pstorefs:file r_file_perms;
+# logpersistd (nee logcatd) files
+allow shell misc_logd_file:dir r_dir_perms;
+allow shell misc_logd_file:file r_file_perms;
 
 # read files in /data/anr
 allow shell anr_data_file:dir r_dir_perms;
