@@ -80,47 +80,6 @@ common ipc
 }
 
 #
-#  Define a common prefix for userspace database object access vectors.
-#
-
-common database
-{
-	create
-	drop
-	getattr
-	setattr
-	relabelfrom
-	relabelto
-}
-
-#
-# Define a common prefix for pointer and keyboard access vectors.
-#
-
-common x_device
-{
-	getattr
-	setattr
-	use
-	read
-	write
-	getfocus
-	setfocus
-	bell
-	force_cursor
-	freeze
-	grab
-	manage
-	list_property
-	get_property
-	set_property
-	add
-	remove
-	create
-	destroy
-}
-
-#
 # Define the access vectors.
 #
 # class class_name [ inherits common_name ] { permission_name ... }
@@ -450,165 +409,6 @@ class capability2
 }
 
 #
-# Define the access vector interpretation for controlling
-# changes to passwd information.
-#
-class passwd
-{
-	passwd	# change another user passwd
-	chfn	# change another user finger info
-	chsh	# change another user shell
-	rootok  # pam_rootok check (skip auth)
-	crontab # crontab on another user
-}
-
-#
-# SE-X Windows stuff
-#
-class x_drawable
-{
-	create
-	destroy
-	read
-	write
-	blend
-	getattr
-	setattr
-	list_child
-	add_child
-	remove_child
-	list_property
-	get_property
-	set_property
-	manage
-	override
-	show
-	hide
-	send
-	receive
-}
-
-class x_screen
-{
-	getattr
-	setattr
-	hide_cursor
-	show_cursor
-	saver_getattr
-	saver_setattr
-	saver_hide
-	saver_show
-}
-
-class x_gc
-{
-	create
-	destroy
-	getattr
-	setattr
-	use
-}
-
-class x_font
-{
-	create
-	destroy
-	getattr
-	add_glyph
-	remove_glyph
-	use
-}
-
-class x_colormap
-{
-	create
-	destroy
-	read
-	write
-	getattr
-	add_color
-	remove_color
-	install
-	uninstall
-	use
-}
-
-class x_property
-{
-	create
-	destroy
-	read
-	write
-	append
-	getattr
-	setattr
-}
-
-class x_selection
-{
-	read
-	write
-	getattr
-	setattr
-}
-
-class x_cursor
-{
-	create
-	destroy
-	read
-	write
-	getattr
-	setattr
-	use
-}
-
-class x_client
-{
-	destroy
-	getattr
-	setattr
-	manage
-}
-
-class x_device
-inherits x_device
-
-class x_server
-{
-	getattr
-	setattr
-	record
-	debug
-	grab
-	manage
-}
-
-class x_extension
-{
-	query
-	use
-}
-
-class x_resource
-{
-	read
-	write
-}
-
-class x_event
-{
-	send
-	receive
-}
-
-class x_synthetic_event
-{
-	send
-	receive
-}
-
-#
 # Extended Netlink classes
 #
 class netlink_route_socket
@@ -666,33 +466,6 @@ class netlink_dnrt_socket
 inherits socket
 
 # Define the access vector interpretation for controlling
-# access and communication through the D-BUS messaging
-# system.
-#
-class dbus
-{
-	acquire_svc
-	send_msg
-}
-
-# Define the access vector interpretation for controlling
-# access through the name service cache daemon (nscd).
-#
-class nscd
-{
-	getpwd
-	getgrp
-	gethost
-	getstat
-	admin
-	shmempwd
-	shmemgrp
-	shmemhost
-	getserv
-	shmemserv
-}
-
-# Define the access vector interpretation for controlling
 # access to IPSec network data by association
 #
 class association
@@ -732,12 +505,6 @@ class key
 	create
 }
 
-class context
-{
-	translate
-	contains
-}
-
 class dccp_socket
 inherits socket
 {
@@ -750,75 +517,10 @@ class memprotect
 	mmap_zero
 }
 
-class db_database
-inherits database
-{
-	access
-	install_module
-	load_module
-	get_param	# deprecated
-	set_param	# deprecated
-}
-
-class db_table
-inherits database
-{
-	use		# deprecated
-	select
-	update
-	insert
-	delete
-	lock
-}
-
-class db_procedure
-inherits database
-{
-	execute
-	entrypoint
-	install
-}
-
-class db_column
-inherits database
-{
-	use		# deprecated
-	select
-	update
-	insert
-}
-
-class db_tuple
-{
-	relabelfrom
-	relabelto
-	use		# deprecated
-	select
-	update
-	insert
-	delete
-}
-
-class db_blob
-inherits database
-{
-	read
-	write
-	import
-	export
-}
-
 # network peer labels
 class peer
 {
 	recv
-}
-
-class x_application_data
-{
-	paste
-	paste_after_confirm
-	copy
 }
 
 class kernel_service
@@ -831,41 +533,6 @@ class tun_socket
 inherits socket
 {
 	attach_queue
-}
-
-class x_pointer
-inherits x_device
-
-class x_keyboard
-inherits x_device
-
-class db_schema
-inherits database
-{
-	search
-	add_name
-	remove_name
-}
-
-class db_view
-inherits database
-{
-	expand
-}
-
-class db_sequence
-inherits database
-{
-	get_value
-	next_value
-	set_value
-}
-
-class db_language
-inherits database
-{
-	implement
-	execute
 }
 
 class binder
