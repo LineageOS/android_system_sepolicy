@@ -14,11 +14,12 @@ userdebug_or_eng(`
   r_dir_file(uncrypt, shell_data_file)
 ')
 
-# Create tmp file /cache/recovery/command.tmp
 # Read /cache/recovery/command
-# Rename /cache/recovery/command.tmp to /cache/recovery/command
+# Read /cache/recovery/uncrypt_file
+# Write to pipe file /cache/recovery/uncrypt_status
 allow uncrypt cache_file:dir rw_dir_perms;
 allow uncrypt cache_file:file create_file_perms;
+allow uncrypt cache_file:fifo_file w_file_perms;
 
 # Set a property to reboot the device.
 set_prop(uncrypt, powerctl_prop)
