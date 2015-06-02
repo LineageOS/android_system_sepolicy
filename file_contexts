@@ -238,6 +238,7 @@
 /data/misc/gatekeeper(/.*)?     u:object_r:gatekeeper_data_file:s0
 /data/misc/keychain(/.*)?       u:object_r:keychain_data_file:s0
 /data/misc/keystore(/.*)?       u:object_r:keystore_data_file:s0
+/data/misc/logd(/.*)?           u:object_r:misc_logd_file:s0
 /data/misc/media(/.*)?          u:object_r:media_data_file:s0
 /data/misc/net(/.*)?            u:object_r:net_data_file:s0
 /data/misc/shared_relro(/.*)?   u:object_r:shared_relro_file:s0
