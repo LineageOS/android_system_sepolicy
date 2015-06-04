@@ -16,6 +16,25 @@ allow system_server system_server_tmpfs:file execute;
 allow system_server dalvikcache_data_file:file execute;
 allow system_server dalvikcache_data_file:dir r_dir_perms;
 
+# For PackageInstallerSession.
+#
+# All of these rules relate to the installation and compilation of split
+# APKs. Roughly, the process is as follows. The rules below only pertain
+# to step (3) of the process
+#
+# (1) Create a staging directory.
+# (2) Link existing APKs from the split
+#
+# (3) Link existing compiled oat files : This requires "create_dir_perms"
+# to create oat directories (foo/oat and foo/oat/x86), "relabelto" to
+# make sure they have the right label, and "link" to link files.
+#
+# (3) Invoke dex2oat to compile the updated / new split
+# (4) Rename the staging directory back to the final path.
+allow system_server dalvikcache_data_file:file link;
+allow system_server dalvikcache_data_file:dir relabelto;
+allow system_server dalvikcache_data_file:dir create_dir_perms;
+
 # /data/resource-cache
 allow system_server resourcecache_data_file:file r_file_perms;
 allow system_server resourcecache_data_file:dir r_dir_perms;

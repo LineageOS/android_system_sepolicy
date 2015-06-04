@@ -352,6 +352,10 @@ neverallow {
   -zygote
   -installd
   -dex2oat
+  -system_server # TODO: The system server needs to create directories
+                 # and link files for split APK installs. This could perhaps be
+                 # removed if we made installd responsible for manipulating the
+                 # staging directory.
 } dalvikcache_data_file:file no_w_file_perms;
 
 # Only system_server should be able to send commands via the zygote socket
