@@ -38,6 +38,42 @@
 # levelFrom=app or levelFrom=all is only supported for _app UIDs.
 # level may be used to specify a fixed level for any UID.
 #
+#
+# Neverallow Assertions
+# Additional compile time assertion checks can be added as well. The assertion
+# rules are lines beginning with the keyword neverallow. Full support for PCRE
+# regular expressions exists on all input and output selectors. Neverallow
+# rules are never output to the built seapp_contexts file. Like all keywords,
+# neverallows are case-insensitive. A neverallow is asserted when all key value
+# inputs are matched on a key value rule line.
+#
+
+# only the system server can be in system_server domain
+neverallow isSystemServer=false domain=system_server
+neverallow isSystemServer="" domain=system_server
+
+# system domains should never be assigned outside of system uid
+neverallow user=((?!system).)* domain=system_app
+neverallow user=((?!system).)* type=system_app_data_file
+
+# anything with a non-known uid with a specified name should have a specified seinfo
+neverallow user=_app name=.* seinfo=""
+neverallow user=_app name=.* seinfo=default
+
+# neverallow shared relro to any other domain
+# and neverallow any other uid into shared_relro
+neverallow user=shared_relro domain=((?!shared_relro).)*
+neverallow user=((?!shared_relro).)* domain=shared_relro
+
+# neverallow non-isolated uids into isolated_app domain
+# and vice versa
+neverallow user=_isolated domain=((?!isolated_app).)*
+neverallow user=((?!_isolated).)* domain=isolated_app
+
+# uid shell should always be in shell domain, however non-shell
+# uid's can be in shell domain
+neverallow user=shell domain=((?!shell).)*
+
 isSystemServer=true domain=system_server
 user=system seinfo=platform domain=system_app type=system_app_data_file
 user=bluetooth seinfo=platform domain=bluetooth type=bluetooth_data_file
