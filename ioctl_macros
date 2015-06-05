@@ -1,0 +1,11 @@
+# socket ioctls allowed to unprivileged apps
+define(`unpriv_sock_ioctls', `
+{
+# all socket ioctls except the Mac address SIOCGIFHWADDR 0x8927
+0x8900-0x8926 0x8928-0x89ff
+# all wireless extensions ioctls except get/set essid
+# IOCSIWESSID 0x8B1A SIOCGIWESSID 0x8B1B
+0x8B00-0x8B09 0x8B1C-0x8BFF
+# commonly used TTY ioctls
+0x5411 0x5451
+}')

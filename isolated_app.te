@@ -20,6 +20,9 @@ allow isolated_app display_service:service_manager find;
 
 service_manager_local_audit_domain(isolated_app)
 
+# only allow unprivileged socket ioctl commands
+allow isolated_app self:{ rawip_socket tcp_socket udp_socket } unpriv_sock_ioctls;
+
 #####
 ##### Neverallow
 #####
