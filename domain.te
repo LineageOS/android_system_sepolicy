@@ -187,7 +187,13 @@ neverallow {
 } self:capability sys_ptrace;
 
 # Limit device node creation to these whitelisted domains.
-neverallow { domain -kernel -init -ueventd -watchdogd -healthd -vold -uncrypt -slideshow } self:capability mknod;
+neverallow {
+  domain
+  -kernel
+  -init
+  -ueventd
+  -vold
+} self:capability mknod;
 
 # Limit raw I/O to these whitelisted domains.
 neverallow { domain -kernel -init -recovery -ueventd -watchdogd -healthd -vold -uncrypt -tee } self:capability sys_rawio;
