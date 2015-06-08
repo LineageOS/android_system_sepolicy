@@ -81,7 +81,7 @@ allow vold self:capability { sys_ptrace kill };
 # XXX Label sysfs files with a specific type?
 allow vold sysfs:file rw_file_perms;
 
-write_klog(vold)
+allow vold kmsg_device:chr_file rw_file_perms;
 
 # Run fsck.
 allow vold fsck_exec:file rx_file_perms;

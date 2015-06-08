@@ -275,17 +275,6 @@ allow $1 kernel:system syslog_read;
 ')
 
 #####################################
-# write_klog(domain)
-# Ability to write to kernel log via
-# klog_write()
-# See system/core/libcutil/klog.c
-define(`write_klog', `
-type_transition $1 device:chr_file klog_device "__kmsg__";
-allow $1 klog_device:chr_file { create open write unlink };
-allow $1 device:dir { write add_name remove_name };
-')
-
-#####################################
 # create_pty(domain)
 # Allow domain to create and use a pty, isolated from any other domain ptys.
 define(`create_pty', `
