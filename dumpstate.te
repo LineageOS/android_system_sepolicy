@@ -109,6 +109,5 @@ allow dumpstate tombstone_data_file:file r_file_perms;
 
 allow dumpstate { service_manager_type -gatekeeper_service }:service_manager find;
 allow dumpstate servicemanager:service_manager list;
-service_manager_local_audit_domain(dumpstate)
 
 allow dumpstate devpts:chr_file rw_file_perms;

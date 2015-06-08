@@ -347,14 +347,6 @@ define(`use_keystore', `
 ')
 
 ###########################################
-# service_manager_local_audit_domain(domain)
-# Has its own auditallow rule on service_manager
-# and should be excluded from the domain.te auditallow.
-define(`service_manager_local_audit_domain', `
-  typeattribute $1 service_manager_local_audit;
-')
-
-###########################################
 # use_drmservice(domain)
 # Ability to use DrmService which requires
 # DrmService to call getpidcon.
