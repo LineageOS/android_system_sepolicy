@@ -21,6 +21,7 @@ type ctl_bugreport_prop, property_type;
 type ctl_console_prop, property_type;
 type audio_prop, property_type;
 type logd_prop, property_type;
+type restorecon_prop, property_type;
 type security_prop, property_type;
 type bluetooth_prop, property_type;
 type pan_result_prop, property_type;
