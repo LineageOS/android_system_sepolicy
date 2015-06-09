@@ -111,6 +111,7 @@ allow vold kernel:process setsched;
 set_prop(vold, vold_prop)
 set_prop(vold, powerctl_prop)
 set_prop(vold, ctl_fuse_prop)
+set_prop(vold, restorecon_prop)
 
 # ASEC
 allow vold asec_image_file:file create_file_perms;
@@ -159,3 +160,4 @@ neverallow { domain -vold } vold_data_file:dir ~{ open create read getattr setat
 neverallow { domain -vold } vold_data_file:notdevfile_class_set ~{ relabelto getattr };
 neverallow { domain -vold -init } vold_data_file:dir *;
 neverallow { domain -vold -init } vold_data_file:notdevfile_class_set *;
+neverallow { domain -vold -init } restorecon_prop:property_service set;
