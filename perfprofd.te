@@ -30,6 +30,9 @@ userdebug_or_eng(`
   read_logd(perfprofd);
   write_logd(perfprofd);
 
+  # perfprofd inspects /sys/power/wake_unlock
+  wakelock_use(perfprofd);
+
   # simpleperf uses ioctl() to turn on kernel perf events measurements
   allow perfprofd self:capability sys_admin;
 
