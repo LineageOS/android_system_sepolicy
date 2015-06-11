@@ -156,6 +156,9 @@ allow vold vold_data_file:file create_file_perms;
 allow vold init:key { write search setattr };
 allow vold vold:key { write search setattr };
 
+# vold temporarily changes its priority when running benchmarks
+allow vold self:capability sys_nice;
+
 neverallow { domain -vold } vold_data_file:dir ~{ open create read getattr setattr search relabelto ioctl };
 neverallow { domain -vold } vold_data_file:notdevfile_class_set ~{ relabelto getattr };
 neverallow { domain -vold -init } vold_data_file:dir *;
