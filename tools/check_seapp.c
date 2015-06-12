@@ -347,9 +347,6 @@ static map_match rule_map_cmp(rule_map *rmA, rule_map *rmB) {
 	key_map *mA;
 	key_map *mB;
 
-	if (rmA->length != rmB->length)
-		return map_no_matches;
-
 	for (i = 0; i < rmA->length; i++) {
 		mA = &(rmA->m[i]);
 
@@ -818,7 +815,7 @@ static void rule_add(rule_map *rm) {
 		cmp = rule_map_cmp(rm, tmp->r);
 		log_error("Duplicate line detected in file: %s\n"
 			  "Lines %d and %d %s!\n",
-			  out_file_name, tmp->r->lineno, rm->lineno,
+			  in_file_name, tmp->r->lineno, rm->lineno,
 			  map_match_str[cmp]);
 		rule_map_free(rm, rule_map_destroy_key);
 		goto err;
