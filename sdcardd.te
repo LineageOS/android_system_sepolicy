@@ -1,8 +1,6 @@
 type sdcardd, domain;
 type sdcardd_exec, exec_type, file_type;
 
-init_daemon_domain(sdcardd) # TODO: deprecated in M
-
 allow sdcardd cgroup:dir create_dir_perms;
 allow sdcardd fuse_device:chr_file rw_file_perms;
 allow sdcardd rootfs:dir mounton;  # TODO: deprecated in M
@@ -31,3 +29,11 @@ allow sdcardd vold:fifo_file { read write getattr };
 
 # Allow running on top of expanded storage
 allow sdcardd mnt_expand_file:dir search;
+
+###
+### neverallow rules
+###
+
+# The sdcard daemon should no longer be started from init
+neverallow init sdcardd_exec:file execute;
+neverallow init sdcardd:process { transition dyntransition };
