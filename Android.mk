@@ -134,7 +134,11 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-ALL_FC_FILES := $(call build_policy, file_contexts)
+FILE_CONTEXTS := file_contexts
+ifeq (address,$(strip $(SANITIZE_TARGET)))
+  FILE_CONTEXTS := $(FILE_CONTEXTS) file_contexts_asan
+endif
+ALL_FC_FILES := $(call build_policy, $(FILE_CONTEXTS))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE):  $(ALL_FC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
