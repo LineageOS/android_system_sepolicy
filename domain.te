@@ -360,6 +360,14 @@ neverallow {
   -dex2oat
 } dalvikcache_data_file:file no_w_file_perms;
 
+neverallow {
+  domain
+  -init
+  -installd
+  -dex2oat
+  -zygote
+} dalvikcache_data_file:dir no_w_dir_perms;
+
 # Only system_server should be able to send commands via the zygote socket
 neverallow { domain -zygote -system_server } zygote:unix_stream_socket connectto;
 neverallow { domain -system_server } zygote_socket:sock_file write;
