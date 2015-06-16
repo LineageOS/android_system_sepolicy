@@ -41,7 +41,9 @@ allow vold devpts:chr_file rw_file_perms;
 allow vold rootfs:dir mounton;
 allow vold sdcard_type:dir mounton; # TODO: deprecated in M
 allow vold sdcard_type:filesystem { mount remount unmount }; # TODO: deprecated in M
-allow vold sdcard_posix:filesystem { relabelto relabelfrom };
+ifelse(shipping_build, `true', ,
+  allow vold sdcard_posix:filesystem { relabelto relabelfrom };
+)
 allow vold sdcard_type:dir create_dir_perms; # TODO: deprecated in M
 allow vold sdcard_type:file create_file_perms; # TODO: deprecated in M
 
