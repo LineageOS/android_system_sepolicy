@@ -458,3 +458,20 @@ neverallow {
   -runas
   -zygote
 } shell:process { transition dyntransition };
+
+# Minimize read access to shell- or app-writable symlinks.
+# This is to prevent malicious symlink attacks.
+neverallow {
+  domain
+  -appdomain
+  -installd
+  -uncrypt  # TODO: see if we can remove
+} app_data_file:lnk_file read;
+
+neverallow {
+  domain
+  -shell
+  userdebug_or_eng(`-uncrypt')
+  -installd
+  -surfaceflinger # TODO: see if we can remove from mako sepolicy
+} shell_data_file:lnk_file read;
