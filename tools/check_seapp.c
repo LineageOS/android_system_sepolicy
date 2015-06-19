@@ -259,7 +259,7 @@ static int key_map_validate(key_map *m, int lineno) {
 	}
 	else if (type == dt_bool) {
 		log_error("Expected boolean value got: %s=%s on line: %d in file: %s\n",
-				key, value, lineno, out_file_name);
+				key, value, lineno, in_file_name);
 		rc = 0;
 		goto out;
 	}
@@ -268,7 +268,7 @@ static int key_map_validate(key_map *m, int lineno) {
 	    (strcasecmp(value, "none") && strcasecmp(value, "all") &&
 	     strcasecmp(value, "app") && strcasecmp(value, "user"))) {
 		log_error("Unknown levelFrom=%s on line: %d in file: %s\n",
-			  value, lineno, out_file_name);
+			  value, lineno, in_file_name);
 		rc = 0;
 		goto out;
 	}
@@ -285,7 +285,7 @@ static int key_map_validate(key_map *m, int lineno) {
 
 		if(!check_type(pol.db, value)) {
 			log_error("Could not find selinux type \"%s\" on line: %d in file: %s\n", value,
-					lineno, out_file_name);
+					lineno, in_file_name);
 			rc = 0;
 		}
 		goto out;
@@ -295,7 +295,7 @@ static int key_map_validate(key_map *m, int lineno) {
 		ret = sepol_mls_check(pol.handle, pol.db, value);
 		if (ret < 0) {
 			log_error("Could not find selinux level \"%s\", on line: %d in file: %s\n", value,
-					lineno, out_file_name);
+					lineno, in_file_name);
 			rc = 0;
 			goto out;
 		}
