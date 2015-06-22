@@ -441,6 +441,7 @@ allow system_server mediacodec_service:service_manager find;
 allow system_server mediadrmserver_service:service_manager find;
 allow system_server netd_service:service_manager find;
 allow system_server nfc_service:service_manager find;
+allow system_server overlay_service:service_manager find;
 allow system_server radio_service:service_manager find;
 allow system_server system_server_service:service_manager { add find };
 allow system_server surfaceflinger_service:service_manager find;
