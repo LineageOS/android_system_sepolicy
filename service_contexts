@@ -93,6 +93,7 @@ network_time_update_service               u:object_r:network_time_update_service
 nfc                                       u:object_r:nfc_service:s0
 notification                              u:object_r:notification_service:s0
 otadexopt                                 u:object_r:otadexopt_service:s0
+overlay                                   u:object_r:overlay_service:s0
 package                                   u:object_r:package_service:s0
 permission                                u:object_r:permission_service:s0
 persistent_data_block                     u:object_r:persistent_data_block_service:s0
