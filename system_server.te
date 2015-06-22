@@ -440,6 +440,12 @@ neverallow system_server { bluetooth_data_file nfc_data_file shell_data_file app
 # want to allow.
 neverallow system_server dex2oat_exec:file no_x_file_perms;
 
+# system_server should never execute anything from /data except for /data/dalvik-cache files.
+neverallow system_server {
+  data_file_type
+  -dalvikcache_data_file #mapping with PROT_EXEC
+}:file no_x_file_perms;
+
 # The only block device system_server should be accessing is
 # the frp_block_device. This helps avoid a system_server to root
 # escalation by writing to raw block devices.

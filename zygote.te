@@ -78,3 +78,9 @@ allow zygote zygote_exec:file rx_file_perms;
 # setcon (dyntransition) to any types other than those associated
 # with appdomain plus system_server.
 neverallow zygote ~{ appdomain system_server }:process dyntransition;
+
+# Zygote should never execute anything from /data except for /data/dalvik-cache files.
+neverallow zygote {
+  data_file_type
+  -dalvikcache_data_file # map PROT_EXEC
+}:file no_x_file_perms;
