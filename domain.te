@@ -414,6 +414,11 @@ neverallow domain {
   -asec_public_file
 }:file execmod;
 
+# Do not allow making the stack or heap executable.
+# We would also like to minimize execmem but it seems to be
+# required by some device-specific service domains.
+neverallow domain self:process { execstack execheap };
+
 # TODO: prohibit non-zygote spawned processes from using shared libraries
 # with text relocations. b/20013628 .
 # neverallow { domain -appdomain } file_type:file execmod;
