@@ -51,17 +51,6 @@ enum key_dir {
 };
 
 /**
- * Used as options to rule_map_free()
- *
- * This is needed to get around the fact that GNU C's hash_map doesn't copy the key, so
- * we cannot free a key when overrding rule_map's in the table.
- */
-enum rule_map_switch {
-	rule_map_preserve_key, /** Used to preserve the key in the rule_map, ie don't free it*/
-	rule_map_destroy_key   /** Used when you need a full free of the rule_map structure*/
-};
-
-/**
  * The expected "type" of data the value in the key
  * value pair should be.
  */
@@ -407,8 +396,15 @@ static map_match rule_map_cmp(rule_map *rmA, rule_map *rmB) {
  * @param rm
  * 	rule map to be freed.
  */
-static void rule_map_free(rule_map *rm,
-		rule_map_switch s __attribute__((unused)) /* only glibc builds, ignored otherwise */) {
+/**
+ * Frees a rule map
+ * @param rm
+ * 	rule map to be freed.
+ * @is_in_htable
+ * 	True if the rule map has been added to the hash table, false
+ * 	otherwise.
+ */
+static void rule_map_free(rule_map *rm, bool is_in_htable) {
 
 	size_t i;
 	size_t len = rm->length;
@@ -417,11 +413,22 @@ static void rule_map_free(rule_map *rm,
 		free(m->data);
 	}
 
-/* hdestroy() frees comparsion keys for non glibc */
+	/*
+	 * hdestroy() frees comparsion keys for non glibc
+	 * on GLIBC we always free on NON-GLIBC we free if
+	 * it is not in the htable.
+	 */
+	if (rm->key) {
 #ifdef __GLIBC__
-	if(s == rule_map_destroy_key && rm->key)
+		/* silence unused warning */
+		(void)is_in_htable;
 		free(rm->key);
+#else
+		if (!is_in_htable) {
+			free(rm->key);
+		}
 #endif
+	}
 
 	free(rm);
 }
@@ -582,7 +589,7 @@ oom:
 	log_error("Out of memory!\n");
 err:
 	if(new_map) {
-		rule_map_free(new_map, rule_map_destroy_key);
+		rule_map_free(new_map, false);
 		for (; i < num_of_keys; i++) {
 			k = &(keys[i]);
 			free_kvp(k);
@@ -777,7 +784,7 @@ static void list_free() {
 	cursor = list_head;
 	while (cursor) {
 		e = cursor->e;
-		rule_map_free(e->r, rule_map_destroy_key);
+		rule_map_free(e->r, true);
 		tmp = cursor;
 		cursor = cursor->next;
 		free(e);
@@ -817,7 +824,7 @@ static void rule_add(rule_map *rm) {
 			  "Lines %d and %d %s!\n",
 			  in_file_name, tmp->r->lineno, rm->lineno,
 			  map_match_str[cmp]);
-		rule_map_free(rm, rule_map_destroy_key);
+		rule_map_free(rm, false);
 		goto err;
 	}
 	/* It wasn't found, just add the rule map to the table */
