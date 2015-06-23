@@ -193,6 +193,7 @@ neverallow {
   -init
   -ueventd
   -vold
+  -recovery
 } self:capability mknod;
 
 # Limit raw I/O to these whitelisted domains.
