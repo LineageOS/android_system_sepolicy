@@ -20,7 +20,6 @@ allow installd apk_tmp_file:file { r_file_perms unlink };
 allow installd apk_tmp_file:dir { relabelfrom create_dir_perms };
 allow installd oemfs:dir r_dir_perms;
 allow installd oemfs:file r_file_perms;
-allow installd system_file:file x_file_perms;
 allow installd cgroup:dir create_dir_perms;
 allow installd mnt_expand_file:dir search;
 # Check validity of SELinux context before use.
@@ -70,6 +69,9 @@ allow installd resourcecache_data_file:file create_file_perms;
 
 # Run dex2oat in its own sandbox.
 domain_auto_trans(installd, dex2oat_exec, dex2oat)
+
+# Run idmap in its own sandbox.
+domain_auto_trans(installd, idmap_exec, idmap)
 
 # Upgrade from unlabeled userdata.
 # Just need enough to remove and/or relabel it.
