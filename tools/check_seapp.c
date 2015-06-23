@@ -689,7 +689,7 @@ static void handle_options(int argc, char *argv[]) {
 	int c;
 	int num_of_args;
 
-	while ((c = getopt(argc, argv, "ho:p:sv")) != -1) {
+	while ((c = getopt(argc, argv, "ho:p:v")) != -1) {
 		switch (c) {
 		case 'h':
 			usage();
