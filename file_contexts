@@ -140,6 +140,7 @@
 # System files
 #
 /system(/.*)?		u:object_r:system_file:s0
+/system/bin/atrace	u:object_r:atrace_exec:s0
 /system/bin/e2fsck	--	u:object_r:fsck_exec:s0
 /system/bin/fsck\.f2fs	--	u:object_r:fsck_exec:s0
 /system/bin/fsck_msdos	--	u:object_r:fsck_exec:s0
@@ -242,6 +243,7 @@
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
 /data/misc/audio(/.*)?          u:object_r:audio_data_file:s0
+/data/misc/boottrace(/.*)?      u:object_r:boottrace_data_file:s0
 /data/misc/bluetooth(/.*)?      u:object_r:bluetooth_data_file:s0
 /data/misc/bluedroid(/.*)?      u:object_r:bluetooth_data_file:s0
 /data/misc/bluedroid/\.a2dp_ctrl u:object_r:bluetooth_socket:s0
