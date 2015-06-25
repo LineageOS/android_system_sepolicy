@@ -205,6 +205,20 @@ all_sc_files :=
 
 ##################################
 include $(CLEAR_VARS)
+LOCAL_MODULE := general_seapp_neverallows
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := tests
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, seapp_contexts)
+	@mkdir -p $(dir $@)
+	- $(hide) grep -ie '^neverallow' $< > $@
+
+GENERAL_SEAPP_NEVERALLOWS := $(LOCAL_BUILT_MODULE)
+
+##################################
+include $(CLEAR_VARS)
 
 LOCAL_MODULE := property_contexts
 LOCAL_MODULE_CLASS := ETC
