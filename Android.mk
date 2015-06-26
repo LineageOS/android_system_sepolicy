@@ -174,18 +174,16 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-seapp_contexts.tmp := $(intermediates)/seapp_contexts.tmp
-$(seapp_contexts.tmp): $(call build_policy, seapp_contexts)
-	@mkdir -p $(dir $@)
-	$(hide) m4 -s $^ > $@
+all_sc_files := $(call build_policy, seapp_contexts)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE) : $(seapp_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkseapp
+$(LOCAL_BUILT_MODULE): PRIVATE_SC_FILES := $(all_sc_files)
+$(LOCAL_BUILT_MODULE): $(built_sepolicy) $(all_sc_files) $(HOST_OUT_EXECUTABLES)/checkseapp
 	@mkdir -p $(dir $@)
-	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $<
+	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $(PRIVATE_SC_FILES)
 
 built_sc := $(LOCAL_BUILT_MODULE)
-seapp_contexts.tmp :=
+all_sc_files :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -195,18 +193,16 @@ LOCAL_MODULE_TAGS := tests
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-general_seapp_contexts.tmp := $(intermediates)/general_seapp_contexts.tmp
-$(general_seapp_contexts.tmp): $(addprefix $(LOCAL_PATH)/, seapp_contexts)
-	@mkdir -p $(dir $@)
-	$(hide) m4 -s $^ > $@
+all_sc_files := $(addprefix $(LOCAL_PATH)/, seapp_contexts)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE) : $(general_seapp_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkseapp
+$(LOCAL_BUILT_MODULE): PRIVATE_SC_FILE := $(all_sc_files)
+$(LOCAL_BUILT_MODULE): $(built_sepolicy) $(all_sc_files) $(HOST_OUT_EXECUTABLES)/checkseapp
 	@mkdir -p $(dir $@)
-	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $<
+	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $(PRIVATE_SC_FILE)
 
 GENERAL_SEAPP_CONTEXTS := $(LOCAL_BUILT_MODULE)
-general_seapp_contexts.tmp :=
+all_sc_files :=
 
 ##################################
 include $(CLEAR_VARS)

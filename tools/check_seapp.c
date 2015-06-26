@@ -11,6 +11,7 @@
 #include <stdbool.h>
 #include <sepol/sepol.h>
 #include <sepol/policydb/policydb.h>
+#include <pcre.h>
 
 #define TABLE_SIZE 1024
 #define KVP_NUM_OF_RULES (sizeof(rules) / sizeof(key_map))
@@ -19,7 +20,32 @@
 #define log_warn(fmt, ...) log_msg(stderr, "Warning: ", fmt, ##__VA_ARGS__)
 #define log_info(fmt, ...) if (logging_verbose ) { log_msg(stdout, "Info: ", fmt, ##__VA_ARGS__); }
 
-typedef struct line_order_list line_order_list;
+/**
+ * Initializes an empty, static list.
+ */
+#define list_init(free_fn) { .head = NULL, .tail = NULL, .freefn = free_fn }
+
+/**
+ * given an item in the list, finds the offset for the container
+ * it was stored in.
+ *
+ * @element The element from the list
+ * @type The container type ie what you allocated that has the list_element structure in it.
+ * @name The name of the field that is the list_element
+ *
+ */
+#define list_entry(element, type, name) \
+		(type *)(((uint8_t *)element) - (uint8_t *)&(((type *)NULL)->name))
+
+/**
+ * Iterates over the list, do not free elements from the list when using this.
+ * @list The list head to walk
+ * @var The variable name for the cursor
+ */
+#define list_for_each(list, var) \
+	for(var = (list)->head; var != NULL; var = var->next)
+
+
 typedef struct hash_entry hash_entry;
 typedef enum key_dir key_dir;
 typedef enum data_type data_type;
@@ -29,6 +55,10 @@ typedef struct key_map key_map;
 typedef struct kvp kvp;
 typedef struct rule_map rule_map;
 typedef struct policy_info policy_info;
+typedef struct list_element list_element;
+typedef struct list list;
+typedef struct key_map_regex key_map_regex;
+typedef struct file_info file_info;
 
 enum map_match {
 	map_no_matches,
@@ -58,16 +88,19 @@ enum data_type {
 	dt_bool, dt_string
 };
 
-/**
- * This list is used to store a double pointer to each
- * hash table / line rule combination. This way a replacement
- * in the hash table automatically updates the list. The list
- * is also used to keep "first encountered" ordering amongst
- * the encountered key value pairs in the rules file.
- */
-struct line_order_list {
-	hash_entry *e;
-	line_order_list *next;
+struct list_element {
+	list_element *next;
+};
+
+struct list {
+	list_element *head;
+	list_element *tail;
+	void (*freefn)(list_element *e);
+};
+
+struct key_map_regex {
+	pcre *compiled;
+	pcre_extra *extra;
 };
 
 /**
@@ -79,6 +112,7 @@ struct key_map {
 	key_dir dir;
 	data_type type;
 	char *data;
+	key_map_regex regex;
 };
 
 /**
@@ -95,13 +129,18 @@ struct kvp {
  * key_map array.
  */
 struct rule_map {
+	bool is_never_allow;
+	list violations;
+	list_element listify;
 	char *key; /** key value before hashing */
 	size_t length; /** length of the key map */
 	int lineno; /** Line number rule was encounter on */
+	char *filename; /** File it was found in */
 	key_map m[]; /** key value mapping */
 };
 
 struct hash_entry {
+	list_element listify;
 	rule_map *r; /** The rule map to store at that location */
 };
 
@@ -118,20 +157,23 @@ struct policy_info {
 	sepol_context_t *con;
 };
 
+struct file_info {
+	FILE *file; /** file itself */
+	const char *name; /** name of file. do not free, these are not alloc'd */
+	list_element listify;
+};
+
+static void input_file_list_freefn(list_element *e);
+static void line_order_list_freefn(list_element *e);
+static void rule_map_free(rule_map *rm, bool is_in_htable);
+
 /** Set to !0 to enable verbose logging */
 static int logging_verbose = 0;
 
 /** file handle to the output file */
-static FILE *output_file = NULL;
+static file_info out_file;
 
-/** file handle to the input file */
-static FILE *input_file = NULL;
-
-/** output file path name */
-static char *out_file_name = NULL;
-
-/** input file path name */
-static char *in_file_name = NULL;
+static list input_file_list = list_init(input_file_list_freefn);
 
 static policy_info pol = {
 	.policy_file_name = NULL,
@@ -141,6 +183,19 @@ static policy_info pol = {
 	.handle = NULL,
 	.con = NULL
 };
+
+/**
+ * Head pointer to a linked list of
+ * rule map table entries (hash_entry), used for
+ * preserving the order of entries
+ * based on "first encounter"
+ */
+static list line_order_list = list_init(line_order_list_freefn);
+
+/*
+ * List of hash_entrys for never allow rules.
+ */
+static list nallow_list = list_init(line_order_list_freefn);
 
 /**
  * The heart of the mapping process, this must be updated if a new key value pair is added
@@ -163,18 +218,59 @@ key_map rules[] = {
 };
 
 /**
- * Head pointer to a linked list of
- * rule map table entries, used for
- * preserving the order of entries
- * based on "first encounter"
+ * Appends to the end of the list.
+ * @list The list to append to
+ * @e the element to append
  */
-static line_order_list *list_head = NULL;
+void list_append(list *list, list_element *e) {
+
+	memset(e, 0, sizeof(*e));
+
+	if (list->head == NULL ) {
+		list->head = list->tail = e;
+		return;
+	}
+
+	list->tail->next = e;
+	list->tail = e;
+	return;
+}
 
 /**
- * Pointer to the tail of the list for
- * quick appends to the end of the list
+ * Free's all the elements in the specified list.
+ * @list The list to free
  */
-static line_order_list *list_tail = NULL;
+static void list_free(list *list) {
+
+	list_element *tmp;
+	list_element *cursor = list->head;
+
+	while (cursor) {
+		tmp = cursor;
+		cursor = cursor->next;
+		if (list->freefn) {
+			list->freefn(tmp);
+		}
+	}
+}
+
+/*
+ * called when the lists are freed
+ */
+static void line_order_list_freefn(list_element *e) {
+	hash_entry *h = list_entry(e, typeof(*h), listify);
+	rule_map_free(h->r, true);
+	free(h);
+}
+
+static void input_file_list_freefn(list_element *e) {
+	file_info *f = list_entry(e, typeof(*f), listify);
+
+	if (f->file) {
+		fclose(f->file);
+	}
+	free(f);
+}
 
 /**
  * Send a logging message to a file
@@ -220,6 +316,41 @@ int check_type(sepol_policydb_t *db, char *type) {
 	return rc;
 }
 
+static bool match_regex(key_map *assert, const key_map *check) {
+
+	char *tomatch = check->data;
+
+	int ret = pcre_exec(assert->regex.compiled, assert->regex.extra, tomatch,
+			strlen(tomatch), 0, 0, NULL, 0);
+
+	/* 0 from pcre_exec means matched */
+	return !ret;
+}
+
+static bool compile_regex(key_map *km, const char **errbuf, int *erroff) {
+
+	size_t size;
+	char *anchored;
+
+	/*
+	 * Explicitly anchor all regex's
+	 * The size is the length of the string to anchor (km->data), the anchor
+	 * characters ^ and $ and the null byte. Hence strlen(km->data) + 3
+	 */
+	size = strlen(km->data) + 3;
+	anchored = alloca(size);
+	sprintf(anchored, "^%s$", km->data);
+
+	km->regex.compiled = pcre_compile(anchored, PCRE_DOTALL, errbuf, erroff,
+			NULL );
+	if (!km->regex.compiled) {
+		return false;
+	}
+
+	km->regex.extra = pcre_study(km->regex.compiled, 0, errbuf);
+	return true;
+}
+
 /**
  * Validates a key_map against a set of enforcement rules, this
  * function exits the application on a type that cannot be properly
@@ -230,11 +361,14 @@ int check_type(sepol_policydb_t *db, char *type) {
  * @param lineno
  * 	The line number in the source file for the corresponding key map
  * @return
- * 	1 if valid, 0 if invalid
+ * 	true if valid, false if invalid
  */
-static int key_map_validate(key_map *m, int lineno) {
+static bool key_map_validate(key_map *m, const char *filename, int lineno,
+		bool is_neverallow) {
 
-	int rc = 1;
+	int erroff;
+	const char *errbuf;
+	bool rc = true;
 	int ret = 1;
 	char *key = m->name;
 	char *value = m->data;
@@ -242,14 +376,29 @@ static int key_map_validate(key_map *m, int lineno) {
 
 	log_info("Validating %s=%s\n", key, value);
 
-	 /* Booleans can always be checked for sanity */
+	/*
+	 * Neverallows are completely skipped from sanity checking so you can match
+	 * un-unspecified inputs.
+	 */
+	if (is_neverallow) {
+		if (!m->regex.compiled) {
+			rc = compile_regex(m, &errbuf, &erroff);
+			if (!rc) {
+				log_error("Invalid regex on line %d : %s PCRE error: %s at offset %d",
+					lineno, value, errbuf, erroff);
+			}
+		}
+		goto out;
+	}
+
+	/* Booleans can always be checked for sanity */
 	if (type == dt_bool && (!strcmp("true", value) || !strcmp("false", value))) {
 		goto out;
 	}
 	else if (type == dt_bool) {
 		log_error("Expected boolean value got: %s=%s on line: %d in file: %s\n",
-				key, value, lineno, in_file_name);
-		rc = 0;
+				key, value, lineno, filename);
+		rc = false;
 		goto out;
 	}
 
@@ -257,8 +406,8 @@ static int key_map_validate(key_map *m, int lineno) {
 	    (strcasecmp(value, "none") && strcasecmp(value, "all") &&
 	     strcasecmp(value, "app") && strcasecmp(value, "user"))) {
 		log_error("Unknown levelFrom=%s on line: %d in file: %s\n",
-			  value, lineno, in_file_name);
-		rc = 0;
+			  value, lineno, filename);
+		rc = false;
 		goto out;
 	}
 
@@ -274,8 +423,8 @@ static int key_map_validate(key_map *m, int lineno) {
 
 		if(!check_type(pol.db, value)) {
 			log_error("Could not find selinux type \"%s\" on line: %d in file: %s\n", value,
-					lineno, in_file_name);
-			rc = 0;
+			lineno, filename);
+			rc = false;
 		}
 		goto out;
 	}
@@ -284,8 +433,8 @@ static int key_map_validate(key_map *m, int lineno) {
 		ret = sepol_mls_check(pol.handle, pol.db, value);
 		if (ret < 0) {
 			log_error("Could not find selinux level \"%s\", on line: %d in file: %s\n", value,
-					lineno, in_file_name);
-			rc = 0;
+			lineno, filename);
+			rc = false;
 			goto out;
 		}
 	}
@@ -395,11 +544,6 @@ static map_match rule_map_cmp(rule_map *rmA, rule_map *rmB) {
  * Frees a rule map
  * @param rm
  * 	rule map to be freed.
- */
-/**
- * Frees a rule map
- * @param rm
- * 	rule map to be freed.
  * @is_in_htable
  * 	True if the rule map has been added to the hash table, false
  * 	otherwise.
@@ -411,6 +555,14 @@ static void rule_map_free(rule_map *rm, bool is_in_htable) {
 	for (i = 0; i < len; i++) {
 		key_map *m = &(rm->m[i]);
 		free(m->data);
+
+		if (m->regex.compiled) {
+			pcre_free(m->regex.compiled);
+		}
+
+		if (m->regex.extra) {
+			pcre_free_study(m->regex.extra);
+		}
 	}
 
 	/*
@@ -430,6 +582,7 @@ static void rule_map_free(rule_map *rm, bool is_in_htable) {
 #endif
 	}
 
+	free(rm->filename);
 	free(rm);
 }
 
@@ -440,42 +593,62 @@ static void free_kvp(kvp *k) {
 
 /**
  * Checks a rule_map for any variation of KVP's that shouldn't be allowed.
+ * It builds an assertion failure list for each rule map.
  * Note that this function logs all errors.
  *
  * Current Checks:
  * 1. That a specified name entry should have a specified seinfo entry as well.
+ * 2. That no rule violates a neverallow
  * @param rm
  *  The rule map to check for validity.
- * @return
- *  true if the rule is valid, false otherwise.
  */
-static bool rule_map_validate(const rule_map *rm) {
+static void rule_map_validate(rule_map *rm) {
 
-	size_t i;
-	bool found_name = false;
-	bool found_seinfo = false;
-	char *name = NULL;
-	const key_map *tmp;
+	size_t i, j;
+	const key_map *rule;
+	key_map *nrule;
+	hash_entry *e;
+	rule_map *assert;
+	list_element *cursor;
 
-	for(i=0; i < rm->length; i++) {
-		tmp = &(rm->m[i]);
+	list_for_each(&nallow_list, cursor) {
+		e = list_entry(cursor, typeof(*e), listify);
+		assert = e->r;
 
-		if(!strcmp(tmp->name, "name") && tmp->data) {
-			name = tmp->data;
-			found_name = true;
+		size_t cnt = 0;
+
+		for (j = 0; j < assert->length; j++) {
+			nrule = &(assert->m[j]);
+
+			// mark that nrule->name is for a null check
+			bool is_null_check = !strcmp(nrule->data, "\"\"");
+
+			for (i = 0; i < rm->length; i++) {
+				rule = &(rm->m[i]);
+
+				if (!strcmp(rule->name, nrule->name)) {
+
+					/* the name was found, (data cannot be false) then it was specified */
+					is_null_check = false;
+
+					if (match_regex(nrule, rule)) {
+						cnt++;
+					}
+				}
+			}
+
+			/*
+			 * the nrule was marked in a null check and we never found a match on nrule, thus
+			 * it matched and we update the cnt
+			 */
+			if (is_null_check) {
+				cnt++;
+			}
 		}
-		if(!strcmp(tmp->name, "seinfo") && tmp->data && strcmp(tmp->data, "default")) {
-			found_seinfo = true;
+		if (cnt == assert->length) {
+			list_append(&rm->violations, &assert->listify);
 		}
 	}
-
-	if(found_name && !found_seinfo) {
-		log_error("No specific seinfo value specified with name=\"%s\", on line: %d:  insecure configuration!\n",
-				name, rm->lineno);
-		return false;
-	}
-
-	return true;
 }
 
 /**
@@ -490,10 +663,10 @@ static bool rule_map_validate(const rule_map *rm) {
  * @return
  * 	A rule map pointer.
  */
-static rule_map *rule_map_new(kvp keys[], size_t num_of_keys, int lineno) {
+static rule_map *rule_map_new(kvp keys[], size_t num_of_keys, int lineno,
+		const char *filename, bool is_never_allow) {
 
 	size_t i = 0, j = 0;
-	bool valid_rule;
 	rule_map *new_map = NULL;
 	kvp *k = NULL;
 	key_map *r = NULL, *x = NULL;
@@ -506,8 +679,13 @@ static rule_map *rule_map_new(kvp keys[], size_t num_of_keys, int lineno) {
 	if (!new_map)
 		goto oom;
 
+	new_map->is_never_allow = is_never_allow;
 	new_map->length = num_of_keys;
 	new_map->lineno = lineno;
+	new_map->filename = strdup(filename);
+	if (!new_map->filename) {
+		goto oom;
+	}
 
 	/* For all the keys in a rule line*/
 	for (i = 0; i < num_of_keys; i++) {
@@ -541,13 +719,16 @@ static rule_map *rule_map_new(kvp keys[], size_t num_of_keys, int lineno) {
 
 			/* Enforce type check*/
 			log_info("Validating keys!\n");
-			if (!key_map_validate(r, lineno)) {
+			if (!key_map_validate(r, filename, lineno, new_map->is_never_allow)) {
 				log_error("Could not validate\n");
 				goto err;
 			}
 
-			/* Only build key off of inputs*/
-			if (r->dir == dir_in) {
+			/*
+			 * Only build key off of inputs with the exception of neverallows.
+			 * Neverallows are keyed off of all key value pairs,
+			 */
+			if (r->dir == dir_in || new_map->is_never_allow) {
 				char *tmp;
 				int key_len = strlen(k->key);
 				int val_len = strlen(k->value);
@@ -574,12 +755,6 @@ static rule_map *rule_map_new(kvp keys[], size_t num_of_keys, int lineno) {
 
 	if (new_map->key == NULL) {
 		log_error("Strange, no keys found, input file corrupt perhaps?\n");
-		goto err;
-	}
-
-	valid_rule = rule_map_validate(new_map);
-	if(!valid_rule) {
-		/* Error message logged from rule_map_validate() */
 		goto err;
 	}
 
@@ -610,32 +785,59 @@ static void usage() {
 		        "-h - print this help message\n"
 		        "-v - enable verbose debugging informations\n"
 		        "-p policy file - specify policy file for strict checking of output selectors against the policy\n"
-		        "-o output file - specify output file, default is stdout\n");
+		        "-o output file - specify output file or - for stdout. No argument runs in silent mode and outputs nothing\n");
 }
 
 static void init() {
 
-	/* If not set on stdin already */
-	if(!input_file) {
-		log_info("Opening input file: %s\n", in_file_name);
-		input_file = fopen(in_file_name, "r");
-		if (!input_file) {
-			log_error("Could not open file: %s error: %s\n", in_file_name, strerror(errno));
+	bool has_out_file;
+	list_element *cursor;
+	file_info *tmp;
+
+	/* input files if the list is empty, use stdin */
+	if (!input_file_list.head) {
+		log_info("Using stdin for input\n");
+		tmp = malloc(sizeof(*tmp));
+		if (!tmp) {
+			log_error("oom");
 			exit(EXIT_FAILURE);
+		}
+		tmp->name = "stdin";
+		tmp->file = stdin;
+		list_append(&input_file_list, &(tmp->listify));
+	}
+	else {
+		list_for_each(&input_file_list, cursor) {
+			tmp = list_entry(cursor, typeof(*tmp), listify);
+
+			log_info("Opening input file: \"%s\"\n", tmp->name);
+			tmp->file = fopen(tmp->name, "r");
+			if (!tmp->file) {
+				log_error("Could not open file: %s error: %s\n", tmp->name,
+						strerror(errno));
+				exit(EXIT_FAILURE);
+			}
 		}
 	}
 
-	/* If not set on std out already */
-	if(!output_file) {
-		output_file = fopen(out_file_name, "w+");
-		if (!output_file) {
-			log_error("Could not open file: %s error: %s\n", out_file_name, strerror(errno));
-			exit(EXIT_FAILURE);
-		}
+	has_out_file = out_file.name != NULL;
+
+	/* If output file is -, then use stdout, else open the path */
+	if (has_out_file && !strcmp(out_file.name, "-")) {
+		out_file.file = stdout;
+		out_file.name = "stdout";
+	}
+	else if (has_out_file) {
+		out_file.file = fopen(out_file.name, "w+");
+	}
+
+	if (has_out_file && !out_file.file) {
+		log_error("Could not open file: \"%s\" error: \"%s\"\n", out_file.name,
+				strerror(errno));
+		exit(EXIT_FAILURE);
 	}
 
 	if (pol.policy_file_name) {
-
 		log_info("Opening policy file: %s\n", pol.policy_file_name);
 		pol.policy_file = fopen(pol.policy_file_name, "rb");
 		if (!pol.policy_file) {
@@ -673,9 +875,14 @@ static void init() {
 		}
 	}
 
-	log_info("Policy file set to: %s\n", (pol.policy_file_name == NULL) ? "None" : pol.policy_file_name);
-	log_info("Input file set to: %s\n", (in_file_name == NULL) ? "stdin" : in_file_name);
-	log_info("Output file set to: %s\n", (out_file_name == NULL) ? "stdout" : out_file_name);
+	list_for_each(&input_file_list, cursor) {
+		tmp = list_entry(cursor, typeof(*tmp), listify);
+		log_info("Input file set to: \"%s\"\n", tmp->name);
+	}
+
+	log_info("Policy file set to: \"%s\"\n",
+			(pol.policy_file_name == NULL) ? "None" : pol.policy_file_name);
+	log_info("Output file set to: \"%s\"\n", out_file.name);
 
 #if !defined(LINK_SEPOL_STATIC)
 	log_warn("LINK_SEPOL_STATIC is not defined\n""Not checking types!");
@@ -694,7 +901,7 @@ static void init() {
 static void handle_options(int argc, char *argv[]) {
 
 	int c;
-	int num_of_args;
+	file_info *input_file;
 
 	while ((c = getopt(argc, argv, "ho:p:v")) != -1) {
 		switch (c) {
@@ -702,7 +909,7 @@ static void handle_options(int argc, char *argv[]) {
 			usage();
 			exit(EXIT_SUCCESS);
 		case 'o':
-			out_file_name = optarg;
+			out_file.name = optarg;
 			break;
 		case 'p':
 			pol.policy_file_name = optarg;
@@ -725,70 +932,15 @@ static void handle_options(int argc, char *argv[]) {
 		}
 	}
 
-	num_of_args = argc - optind;
+	for (c = optind; c < argc; c++) {
 
-	if (num_of_args > 1) {
-		log_error("Too many arguments, expected 0 or 1, argument, got %d\n", num_of_args);
-		usage();
-		exit(EXIT_FAILURE);
-	} else if (num_of_args == 1) {
-		in_file_name = argv[argc - 1];
-	} else {
-		input_file = stdin;
-		in_file_name = "stdin";
-	}
-
-	if (!out_file_name) {
-		output_file = stdout;
-		out_file_name = "stdout";
-	}
-}
-
-/**
- * Adds a rule_map double pointer, ie the hash table pointer to the list.
- * By using a double pointer, the hash table can have a line be overridden
- * and the value is updated in the list. This function calls exit on failure.
- * @param rm
- * 	the rule_map to add.
- */
-static void list_add(hash_entry *e) {
-
-	line_order_list *node = malloc(sizeof(line_order_list));
-	if (node == NULL)
-		goto oom;
-
-	node->next = NULL;
-	node->e = e;
-
-	if (list_head == NULL)
-		list_head = list_tail = node;
-	else {
-		list_tail->next = node;
-		list_tail = list_tail->next;
-	}
-	return;
-
-oom:
-	log_error("Out of memory!\n");
-	exit(EXIT_FAILURE);
-}
-
-/**
- * Free's the rule map list, which ultimatley contains
- * all the malloc'd rule_maps.
- */
-static void list_free() {
-	line_order_list *cursor, *tmp;
-	hash_entry *e;
-
-	cursor = list_head;
-	while (cursor) {
-		e = cursor->e;
-		rule_map_free(e->r, true);
-		tmp = cursor;
-		cursor = cursor->next;
-		free(e);
-		free(tmp);
+		input_file = calloc(1, sizeof(*input_file));
+		if (!input_file) {
+			log_error("oom");
+			exit(EXIT_FAILURE);
+		}
+		input_file->name = argv[c];
+		list_append(&input_file_list, &input_file->listify);
 	}
 }
 
@@ -804,6 +956,7 @@ static void rule_add(rule_map *rm) {
 	ENTRY *f;
 	hash_entry *entry;
 	hash_entry *tmp;
+	list *list_to_addto;
 
 	e.key = rm->key;
 
@@ -822,7 +975,7 @@ static void rule_add(rule_map *rm) {
 		cmp = rule_map_cmp(rm, tmp->r);
 		log_error("Duplicate line detected in file: %s\n"
 			  "Lines %d and %d %s!\n",
-			  in_file_name, tmp->r->lineno, rm->lineno,
+			  rm->filename, tmp->r->lineno, rm->lineno,
 			  map_match_str[cmp]);
 		rule_map_free(rm, false);
 		goto err;
@@ -844,7 +997,8 @@ static void rule_add(rule_map *rm) {
 
 		/* new entries must be added to the ordered list */
 		entry->r = rm;
-		list_add(entry);
+		list_to_addto = rm->is_never_allow ? &nallow_list : &line_order_list;
+		list_append(list_to_addto, &entry->listify);
 	}
 
 	return;
@@ -860,31 +1014,44 @@ err:
 	exit(EXIT_FAILURE);
 }
 
-/**
- * Parses the seapp_contexts file and adds them to the
- * hash table and ordered list entries when it encounters them.
- * Calls exit on failure.
- */
-static void parse() {
+static void parse_file(file_info *in_file) {
 
-	char line_buf[BUFSIZ];
-	char *token;
-	unsigned lineno = 0;
-	char *p, *name = NULL, *value = NULL, *saveptr;
+	char *p;
 	size_t len;
-	kvp keys[KVP_NUM_OF_RULES];
+	char *token;
+	char *saveptr;
+	bool is_never_allow;
+	bool found_whitespace;
+
+	size_t lineno = 0;
+	char *name = NULL;
+	char *value = NULL;
 	size_t token_cnt = 0;
 
-	while (fgets(line_buf, sizeof line_buf - 1, input_file)) {
+	char line_buf[BUFSIZ];
+	kvp keys[KVP_NUM_OF_RULES];
 
+	while (fgets(line_buf, sizeof(line_buf) - 1, in_file->file)) {
 		lineno++;
-		log_info("Got line %d\n", lineno);
+		is_never_allow = false;
+		found_whitespace = false;
+		log_info("Got line %zu\n", lineno);
 		len = strlen(line_buf);
 		if (line_buf[len - 1] == '\n')
 			line_buf[len - 1] = '\0';
 		p = line_buf;
-		while (isspace(*p))
+
+		/* neverallow lines must start with neverallow (ie ^neverallow) */
+		if (!strncasecmp(p, "neverallow", strlen("neverallow"))) {
+			p += strlen("neverallow");
+			is_never_allow = true;
+		}
+
+		/* strip trailing whitespace skip comments */
+		while (isspace(*p)) {
 			p++;
+			found_whitespace = true;
+		}
 		if (*p == '#' || *p == '\0')
 			continue;
 
@@ -918,7 +1085,7 @@ static void parse() {
 
 		} /*End token parsing */
 
-		rule_map *r = rule_map_new(keys, token_cnt, lineno);
+		rule_map *r = rule_map_new(keys, token_cnt, lineno, in_file->name, is_never_allow);
 		if (!r)
 			goto err;
 		rule_add(r);
@@ -927,12 +1094,61 @@ static void parse() {
 	return;
 
 err:
-	log_error("reading %s, line %u, name %s, value %s\n",
-			in_file_name, lineno, name, value);
+	log_error("reading %s, line %zu, name %s, value %s\n",
+		in_file->name, lineno, name, value);
+	if(found_whitespace && name && !strcasecmp(name, "neverallow")) {
+		log_error("perhaps whitespace before neverallow\n");
+	}
 	exit(EXIT_FAILURE);
 oom:
 	log_error("In function %s:  Out of memory\n", __FUNCTION__);
 	exit(EXIT_FAILURE);
+}
+
+/**
+ * Parses the seapp_contexts file and neverallow file
+ * and adds them to the hash table and ordered list entries
+ * when it encounters them.
+ * Calls exit on failure.
+ */
+static void parse() {
+
+	file_info *current;
+	list_element *cursor;
+	list_for_each(&input_file_list, cursor) {
+		current = list_entry(cursor, typeof(*current), listify);
+		parse_file(current);
+	}
+}
+
+static void validate() {
+
+	list_element *cursor, *v;
+	bool found_issues = false;
+	hash_entry *e;
+	rule_map *r;
+	list_for_each(&line_order_list, cursor) {
+		e = list_entry(cursor, typeof(*e), listify);
+		rule_map_validate(e->r);
+	}
+
+	list_for_each(&line_order_list, cursor) {
+		e = list_entry(cursor, typeof(*e), listify);
+		r = e->r;
+		list_for_each(&r->violations, v) {
+			found_issues = true;
+			log_error("Rule in File \"%s\" on line %d: \"", e->r->filename, e->r->lineno);
+			rule_map_print(stderr, e->r);
+			r = list_entry(v, rule_map, listify);
+			fprintf(stderr, "\" violates neverallow in File \"%s\" on line %d: \"", r->filename, r->lineno);
+			rule_map_print(stderr, r);
+			fprintf(stderr, "\"\n");
+		}
+	}
+
+	if (found_issues) {
+		exit(EXIT_FAILURE);
+	}
 }
 
 /**
@@ -942,15 +1158,18 @@ oom:
  */
 static void output() {
 
-	rule_map *r;
-	line_order_list *cursor;
-	cursor = list_head;
+	hash_entry *e;
+	list_element *cursor;
 
-	while (cursor) {
-		r = cursor->e->r;
-		rule_map_print(output_file, r);
-		cursor = cursor->next;
-		fprintf(output_file, "\n");
+	if (!out_file.file) {
+		log_info("No output file, not outputting.\n");
+		return;
+	}
+
+	list_for_each(&line_order_list, cursor) {
+		e = list_entry(cursor, hash_entry, listify);
+		rule_map_print(out_file.file, e->r);
+		fprintf(out_file.file, "\n");
 	}
 }
 
@@ -961,15 +1180,9 @@ static void output() {
 static void cleanup() {
 
 	/* Only close this when it was opened by me and not the crt */
-	if (out_file_name && output_file) {
-		log_info("Closing file: %s\n", out_file_name);
-		fclose(output_file);
-	}
-
-	/* Only close this when it was opened by me  and not the crt */
-	if (in_file_name && input_file) {
-		log_info("Closing file: %s\n", in_file_name);
-		fclose(input_file);
+	if (out_file.name && strcmp(out_file.name, "stdout") && out_file.file) {
+		log_info("Closing file: %s\n", out_file.name);
+		fclose(out_file.file);
 	}
 
 	if (pol.policy_file) {
@@ -987,8 +1200,10 @@ static void cleanup() {
 			sepol_handle_destroy(pol.handle);
 	}
 
-	log_info("Freeing list\n");
-	list_free();
+	log_info("Freeing lists\n");
+	list_free(&input_file_list);
+	list_free(&line_order_list);
+	list_free(&nallow_list);
 	hdestroy();
 }
 
@@ -1003,6 +1218,7 @@ int main(int argc, char *argv[]) {
 	log_info("Starting to parse\n");
 	parse();
 	log_info("Parsing completed, generating output\n");
+	validate();
 	output();
 	log_info("Success, generated output\n");
 	exit(EXIT_SUCCESS);
