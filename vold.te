@@ -159,6 +159,10 @@ allow vold vold:key { write search setattr };
 # vold temporarily changes its priority when running benchmarks
 allow vold self:capability sys_nice;
 
+# vold needs to chroot into app namespaces to remount when runtime permissions change
+allow vold self:capability sys_chroot;
+allow vold storage_file:dir mounton;
+
 neverallow { domain -vold } vold_data_file:dir ~{ open create read getattr setattr search relabelto ioctl };
 neverallow { domain -vold } vold_data_file:notdevfile_class_set ~{ relabelto getattr };
 neverallow { domain -vold -init } vold_data_file:dir *;
