@@ -58,14 +58,14 @@ include $(BUILD_SYSTEM)/base_rules.mk
 sepolicy_policy.conf := $(intermediates)/policy.conf
 $(sepolicy_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(sepolicy_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
-$(sepolicy_policy.conf) : $(call build_policy, $(sepolicy_build_files))
+$(sepolicy_policy.conf): $(call build_policy, $(sepolicy_build_files))
 	@mkdir -p $(dir $@)
 	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
-$(LOCAL_BUILT_MODULE) : $(sepolicy_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
+$(LOCAL_BUILT_MODULE): $(sepolicy_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@ $<
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $(dir $<)/$(notdir $@).dontaudit $<.dontaudit
@@ -85,14 +85,14 @@ include $(BUILD_SYSTEM)/base_rules.mk
 sepolicy_policy_recovery.conf := $(intermediates)/policy_recovery.conf
 $(sepolicy_policy_recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(sepolicy_policy_recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
-$(sepolicy_policy_recovery.conf) : $(call build_policy, $(sepolicy_build_files))
+$(sepolicy_policy_recovery.conf): $(call build_policy, $(sepolicy_build_files))
 	@mkdir -p $(dir $@)
 	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-D target_recovery=true \
 		-s $^ > $@
 
-$(LOCAL_BUILT_MODULE) : $(sepolicy_policy_recovery.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
+$(LOCAL_BUILT_MODULE): $(sepolicy_policy_recovery.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@ $<
 
@@ -158,7 +158,7 @@ LOCAL_MODULE_TAGS := tests
 include $(BUILD_SYSTEM)/base_rules.mk
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE) : $(addprefix $(LOCAL_PATH)/, file_contexts) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, file_contexts) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $< > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $@
@@ -234,7 +234,7 @@ LOCAL_MODULE_TAGS := tests
 include $(BUILD_SYSTEM)/base_rules.mk
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE) : $(addprefix $(LOCAL_PATH)/, property_contexts) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, property_contexts) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $< > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
@@ -271,7 +271,7 @@ LOCAL_MODULE_TAGS := tests
 include $(BUILD_SYSTEM)/base_rules.mk
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE) : $(addprefix $(LOCAL_PATH)/, service_contexts) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, service_contexts) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $< > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
@@ -290,13 +290,13 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 # Build keys.conf
 mac_perms_keys.tmp := $(intermediates)/keys.tmp
-$(mac_perms_keys.tmp) : $(call build_policy, keys.conf)
+$(mac_perms_keys.tmp): $(call build_policy, keys.conf)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $^ > $@
 
 ALL_MAC_PERMS_FILES := $(call build_policy, $(LOCAL_MODULE))
 
-$(LOCAL_BUILT_MODULE) : $(mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py $(ALL_MAC_PERMS_FILES)
+$(LOCAL_BUILT_MODULE): $(mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py $(ALL_MAC_PERMS_FILES)
 	@mkdir -p $(dir $@)
 	$(hide) DEFAULT_SYSTEM_DEV_CERTIFICATE="$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))" \
 		$(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(ALL_MAC_PERMS_FILES)
@@ -311,7 +311,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
-$(LOCAL_BUILT_MODULE) : $(built_sepolicy) $(built_pc) $(built_fc) $(built_sc) $(built_svc)
+$(LOCAL_BUILT_MODULE): $(built_sepolicy) $(built_pc) $(built_fc) $(built_sc) $(built_svc)
 	@mkdir -p $(dir $@)
 	$(hide) echo -n $(BUILD_FINGERPRINT) > $@
 
