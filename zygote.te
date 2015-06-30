@@ -54,6 +54,7 @@ allow zygote sdcard_type:dir { write search setattr create add_name mounton }; #
 dontaudit zygote self:capability fsetid; # TODO: deprecated in M
 allow zygote tmpfs:dir { write create add_name setattr mounton search }; # TODO: deprecated in M
 allow zygote tmpfs:filesystem { mount unmount };
+allow zygote fuse:filesystem { unmount };
 allow zygote labeledfs:filesystem remount; # TODO: deprecated in M
 
 # Allowed to create user-specific storage source if started before vold
