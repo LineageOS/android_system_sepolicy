@@ -193,7 +193,7 @@ $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): PRIVATE_SC_FILES := $(all_sc_files)
 $(LOCAL_BUILT_MODULE): $(built_sepolicy) $(all_sc_files) $(HOST_OUT_EXECUTABLES)/checkseapp
 	@mkdir -p $(dir $@)
-	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $(PRIVATE_SC_FILES)
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $(PRIVATE_SC_FILES)
 
 built_sc := $(LOCAL_BUILT_MODULE)
 all_sc_files :=
@@ -212,7 +212,7 @@ $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
 $(LOCAL_BUILT_MODULE): PRIVATE_SC_FILE := $(all_sc_files)
 $(LOCAL_BUILT_MODULE): $(built_general_sepolicy) $(all_sc_files) $(HOST_OUT_EXECUTABLES)/checkseapp
 	@mkdir -p $(dir $@)
-	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $(PRIVATE_SC_FILE)
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $(PRIVATE_SC_FILE)
 
 GENERAL_SEAPP_CONTEXTS := $(LOCAL_BUILT_MODULE)
 all_sc_files :=
