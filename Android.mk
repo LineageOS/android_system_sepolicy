@@ -120,8 +120,24 @@ $(LOCAL_BUILT_MODULE): $(exp_sepolicy_build_files)
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
+built_general_sepolicy.conf := $(LOCAL_BUILT_MODULE)
 exp_sepolicy_build_files :=
 
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := sepolicy.general
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := tests
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): PRIVATE_BUILT_SEPOLICY.CONF := $(built_general_sepolicy.conf)
+$(LOCAL_BUILT_MODULE): $(built_general_sepolicy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@ $(PRIVATE_BUILT_SEPOLICY.CONF)
+
+built_general_sepolicy := $(LOCAL_BUILT_MODULE)
 ##################################
 include $(CLEAR_VARS)
 
@@ -155,8 +171,8 @@ LOCAL_MODULE_TAGS := tests
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, file_contexts) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
+$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, file_contexts) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $< > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $@
@@ -193,9 +209,9 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 all_sc_files := $(addprefix $(LOCAL_PATH)/, seapp_contexts)
 
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
 $(LOCAL_BUILT_MODULE): PRIVATE_SC_FILE := $(all_sc_files)
-$(LOCAL_BUILT_MODULE): $(built_sepolicy) $(all_sc_files) $(HOST_OUT_EXECUTABLES)/checkseapp
+$(LOCAL_BUILT_MODULE): $(built_general_sepolicy) $(all_sc_files) $(HOST_OUT_EXECUTABLES)/checkseapp
 	@mkdir -p $(dir $@)
 	$(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $(PRIVATE_SC_FILE)
 
@@ -245,8 +261,8 @@ LOCAL_MODULE_TAGS := tests
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, property_contexts) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
+$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, property_contexts) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $< > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
@@ -282,8 +298,8 @@ LOCAL_MODULE_TAGS := tests
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, service_contexts) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
+$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, service_contexts) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $< > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
@@ -336,5 +352,7 @@ built_sc :=
 built_fc :=
 built_pc :=
 built_svc :=
+built_general_sepolicy :=
+built_general_sepolicy.conf :=
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
