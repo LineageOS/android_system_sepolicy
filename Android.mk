@@ -120,8 +120,6 @@ $(LOCAL_BUILT_MODULE): $(exp_sepolicy_build_files)
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
-GENERAL_SEPOLICY_POLICY.CONF = $(LOCAL_BUILT_MODULE)
-
 exp_sepolicy_build_files :=
 
 ##################################
