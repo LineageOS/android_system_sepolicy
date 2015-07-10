@@ -148,19 +148,21 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-FILE_CONTEXTS := file_contexts
+all_fc_files := file_contexts
 ifeq (address,$(strip $(SANITIZE_TARGET)))
-  FILE_CONTEXTS := $(FILE_CONTEXTS) file_contexts_asan
+  all_fc_files := $(all_fc_files) file_contexts_asan
 endif
-ALL_FC_FILES := $(call build_policy, $(FILE_CONTEXTS))
+all_fc_files := $(call build_policy, $(all_fc_files))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE):  $(ALL_FC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): PRIVATE_FC_FILES := $(all_fc_files)
+$(LOCAL_BUILT_MODULE): $(all_fc_files) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
-	$(hide) m4 -s $(ALL_FC_FILES) > $@
+	$(hide) m4 -s $(PRIVATE_FC_FILES) > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $@
 
 built_fc := $(LOCAL_BUILT_MODULE)
+all_fc_files :=
 
 ##################################
 include $(CLEAR_VARS)
