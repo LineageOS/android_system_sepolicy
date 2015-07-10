@@ -12,4 +12,6 @@ userdebug_or_eng(`
   r_dir_file(procrank, domain)
   allow procrank { shell dumpstate }:fd use;
   allow procrank adbd:process sigchld;
+  # allow procrank write to bugreport.
+  allow procrank shell_data_file:file w_file_perms;
 ')
