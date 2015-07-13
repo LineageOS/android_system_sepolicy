@@ -6,6 +6,7 @@ allow domain init:process sigchld;
 # Read access to properties mapping.
 allow domain kernel:fd use;
 allow domain tmpfs:file { read getattr };
+allow domain tmpfs:lnk_file { read getattr };
 
 # Search /storage/emulated tmpfs mount.
 allow domain tmpfs:dir r_dir_perms;
