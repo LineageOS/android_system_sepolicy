@@ -1,1 +1,2 @@
-/data/lib(/.*)?		u:object_r:system_file:s0
+/data/lib(/.*)?                u:object_r:system_file:s0
+/data/vendor/lib(/.*)?         u:object_r:system_file:s0
