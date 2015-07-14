@@ -367,3 +367,14 @@ neverallow appdomain fs_type:filesystem ~getattr;
 # Ability to set system properties.
 neverallow { appdomain -system_app -radio -shell -bluetooth -nfc }
     property_type:property_service set;
+
+# prevent creation/manipulation of globally readable symlinks
+neverallow appdomain {
+  apk_data_file
+  cache_file
+  dev_type
+  rootfs
+  system_file
+  security_file
+  tmpfs
+}:lnk_file no_w_file_perms;
