@@ -493,3 +493,9 @@ neverallow {
   userdebug_or_eng(`-uncrypt')
   -installd
 } shell_data_file:lnk_file read;
+
+# servicemanager is the only process which handles list request
+neverallow domain ~servicemanager:service_manager list;
+
+# only service_manager_types can be added to service_manager
+neverallow domain ~service_manager_type:service_manager { add find };
