@@ -282,3 +282,7 @@ neverallow init app_data_file:lnk_file read;
 
 # init should never execute a program without changing to another domain.
 neverallow init { file_type fs_type }:file execute_no_trans;
+
+# Init never adds or uses services via service_manager.
+neverallow init service_manager_type:service_manager { add find };
+neverallow init servicemanager:service_manager list;
