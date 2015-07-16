@@ -247,7 +247,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 ALL_PC_FILES := $(call build_policy, property_contexts)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE):  $(ALL_PC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): $(ALL_PC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(ALL_PC_FILES) > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
@@ -284,7 +284,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 ALL_SVC_FILES := $(call build_policy, service_contexts)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE):  $(ALL_SVC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): $(ALL_SVC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(ALL_SVC_FILES) > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
