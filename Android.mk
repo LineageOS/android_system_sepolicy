@@ -22,6 +22,10 @@ ifdef BOARD_SEPOLICY_UNION
 $(warning BOARD_SEPOLICY_UNION is no longer required - all files found in BOARD_SEPOLICY_DIRS are implicitly unioned; please remove from your BoardConfig.mk or other .mk file.)
 endif
 
+ifdef BOARD_SEPOLICY_M4DEFS
+LOCAL_ADDITIONAL_M4DEFS := $(addprefix -D, $(BOARD_SEPOLICY_M4DEFS))
+endif
+
 # Builds paths for all policy files found in BOARD_SEPOLICY_DIRS.
 # $(1): the set of policy name paths to build
 build_policy = $(foreach type, $(1), $(wildcard $(addsuffix /$(type), $(LOCAL_PATH) $(BOARD_SEPOLICY_DIRS))))
@@ -57,9 +61,11 @@ include $(BUILD_SYSTEM)/base_rules.mk
 sepolicy_policy.conf := $(intermediates)/policy.conf
 $(sepolicy_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(sepolicy_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(sepolicy_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(sepolicy_policy.conf): $(call build_policy, $(sepolicy_build_files))
 	@mkdir -p $(dir $@)
-	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
+	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
+		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
@@ -84,9 +90,11 @@ include $(BUILD_SYSTEM)/base_rules.mk
 sepolicy_policy_recovery.conf := $(intermediates)/policy_recovery.conf
 $(sepolicy_policy_recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(sepolicy_policy_recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(sepolicy_policy_recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(sepolicy_policy_recovery.conf): $(call build_policy, $(sepolicy_build_files))
 	@mkdir -p $(dir $@)
-	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
+	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
+		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-D target_recovery=true \
 		-s $^ > $@
@@ -155,9 +163,10 @@ all_fc_files := $(call build_policy, $(all_fc_files))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): PRIVATE_FC_FILES := $(all_fc_files)
+$(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(LOCAL_BUILT_MODULE): $(all_fc_files) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
-	$(hide) m4 -s $(PRIVATE_FC_FILES) > $@
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_FC_FILES) > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $@
 
 built_fc := $(LOCAL_BUILT_MODULE)
@@ -246,9 +255,10 @@ include $(BUILD_SYSTEM)/base_rules.mk
 ALL_PC_FILES := $(call build_policy, property_contexts)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(LOCAL_BUILT_MODULE): $(ALL_PC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
-	$(hide) m4 -s $(ALL_PC_FILES) > $@
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(ALL_PC_FILES) > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
 built_pc := $(LOCAL_BUILT_MODULE)
@@ -283,9 +293,10 @@ include $(BUILD_SYSTEM)/base_rules.mk
 ALL_SVC_FILES := $(call build_policy, service_contexts)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(LOCAL_BUILT_MODULE): $(ALL_SVC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
-	$(hide) m4 -s $(ALL_SVC_FILES) > $@
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(ALL_SVC_FILES) > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
 built_svc := $(LOCAL_BUILT_MODULE)
@@ -319,9 +330,10 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 # Build keys.conf
 mac_perms_keys.tmp := $(intermediates)/keys.tmp
+$(mac_perms_keys.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(mac_perms_keys.tmp): $(call build_policy, keys.conf)
 	@mkdir -p $(dir $@)
-	$(hide) m4 -s $^ > $@
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
 
 ALL_MAC_PERMS_FILES := $(call build_policy, $(LOCAL_MODULE))
 
