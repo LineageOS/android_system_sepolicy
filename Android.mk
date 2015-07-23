@@ -343,7 +343,7 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 include $(BUILD_SYSTEM)/base_rules.mk
 $(LOCAL_BUILT_MODULE): $(built_sepolicy) $(built_pc) $(built_fc) $(built_sc) $(built_svc)
 	@mkdir -p $(dir $@)
-	$(hide) echo -n $(BUILD_FINGERPRINT) > $@
+	$(hide) echo -n $(BUILD_FINGERPRINT_FROM_FILE) > $@
 
 ##################################
 
