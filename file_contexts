@@ -1,29 +1,43 @@
 ###########################################
 # Root
-/			u:object_r:rootfs:s0
+/                   u:object_r:rootfs:s0
 
 # Data files
-/adb_keys		u:object_r:adb_keys_file:s0
-/default\.prop		u:object_r:rootfs:s0
-/fstab\..*		u:object_r:rootfs:s0
-/init\..*		u:object_r:rootfs:s0
-/res(/.*)?		u:object_r:rootfs:s0
-/ueventd\..*		u:object_r:rootfs:s0
+/adb_keys           u:object_r:adb_keys_file:s0
+/build\.prop        u:object_r:rootfs:s0
+/default\.prop      u:object_r:rootfs:s0
+/fstab\..*          u:object_r:rootfs:s0
+/init\..*           u:object_r:rootfs:s0
+/res(/.*)?          u:object_r:rootfs:s0
+/selinux_version    u:object_r:rootfs:s0
+/ueventd\..*        u:object_r:rootfs:s0
+/verity_key         u:object_r:rootfs:s0
 
 # Executables
-/charger		u:object_r:rootfs:s0
-/init			u:object_r:init_exec:s0
-/sbin(/.*)?		u:object_r:rootfs:s0
+/charger            u:object_r:rootfs:s0
+/init               u:object_r:init_exec:s0
+/sbin(/.*)?         u:object_r:rootfs:s0
 
 # Empty directories
-/lost\+found		u:object_r:rootfs:s0
-/proc			u:object_r:rootfs:s0
+/lost\+found        u:object_r:rootfs:s0
+/acct               u:object_r:cgroup:s0
+/config             u:object_r:rootfs:s0
+/mnt                u:object_r:tmpfs:s0
+/proc               u:object_r:rootfs:s0
+/root               u:object_r:rootfs:s0
+/sys                u:object_r:sysfs:s0
+
+# Symlinks
+/d                  u:object_r:rootfs:s0
+/etc                u:object_r:rootfs:s0
+/sdcard             u:object_r:rootfs:s0
 
 # SELinux policy files
-/file_contexts		u:object_r:rootfs:s0
-/property_contexts	u:object_r:rootfs:s0
-/seapp_contexts		u:object_r:rootfs:s0
-/sepolicy		u:object_r:rootfs:s0
+/file_contexts      u:object_r:rootfs:s0
+/property_contexts  u:object_r:rootfs:s0
+/seapp_contexts     u:object_r:rootfs:s0
+/sepolicy           u:object_r:rootfs:s0
+/service_contexts   u:object_r:rootfs:s0
 
 ##########################
 # Devices
