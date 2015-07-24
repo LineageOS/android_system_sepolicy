@@ -417,6 +417,9 @@ allow system_server sdcard_type:dir { getattr search };
 # Traverse into expanded storage
 allow system_server mnt_expand_file:dir r_dir_perms;
 
+# Allow system process to read network MAC address
+allow system_server sysfs_mac_address:file r_file_perms;
+
 ###
 ### Neverallow rules
 ###
