@@ -26,6 +26,21 @@ From the Tuna device BoardConfig.mk, device/samsung/tuna/BoardConfig.mk
 
 BOARD_SEPOLICY_DIRS += device/samsung/tuna/sepolicy
 
+Additionally, OEMs can specify BOARD_SEPOLICY_M4DEFS to pass arbitrary m4
+definitions during the build. A definition consists of a string in the form
+of macro-name=value. Spaces must NOT be present. This is useful for building modular
+policies, policy generation, conditional file paths, etc. It is supported in
+the following file types:
+ * All *.te and SE Linux policy files as passed to checkpolicy
+ * file_contexts
+ * service_contexts
+ * property_contexts
+ * keys.conf
+
+Example BoardConfig.mk Usage:
+BOARD_SEPOLICY_M4DEFS += btmodule=foomatic \
+                         btdevice=/dev/gps
+
 SPECIFIC POLICY FILE INFORMATION
 
 mac_permissions.xml:
