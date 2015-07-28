@@ -327,7 +327,8 @@ neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
 neverallow { domain -recovery -kernel } { system_file exec_type }:dir_file_class_set relabelto;
 
 # Don't allow mounting on top of /system files or directories
-neverallow domain { system_file exec_type }:dir_file_class_set mounton;
+neverallow domain exec_type:dir_file_class_set mounton;
+neverallow { domain -init } system_file:dir_file_class_set mounton;
 
 # Nothing should be writing to files in the rootfs.
 neverallow domain rootfs:file { create write setattr relabelto append unlink link rename };
