@@ -77,9 +77,6 @@ allow untrusted_app radio_service:service_manager find;
 allow untrusted_app surfaceflinger_service:service_manager find;
 allow untrusted_app app_api_service:service_manager find;
 
-# only allow unprivileged socket ioctl commands
-allow untrusted_app self:{ rawip_socket tcp_socket udp_socket } unpriv_sock_ioctls;
-
 # Allow GMS core to access perfprofd output, which is stored
 # in /data/misc/perfprofd/. GMS core will need to list all
 # data stored in that directory to process them one by one.
