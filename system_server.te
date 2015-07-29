@@ -146,6 +146,7 @@ selinux_check_access(system_server)
 allow system_server sysfs:file rw_file_perms;
 allow system_server sysfs_nfc_power_writable:file rw_file_perms;
 allow system_server sysfs_devices_system_cpu:file w_file_perms;
+allow system_server sysfs_mac_address:file r_file_perms;
 
 # Access devices.
 allow system_server device:dir r_dir_perms;
