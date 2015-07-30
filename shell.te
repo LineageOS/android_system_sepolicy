@@ -55,6 +55,14 @@ set_prop(shell, powerctl_prop)
 # Directory read access and file write access is already granted
 # in domain.te.
 allow shell debugfs:file r_file_perms;
+allow shell atrace_exec:file rx_file_perms;
+
+userdebug_or_eng(`
+  # "systrace --boot" support - allow boottrace service to run
+  allow shell boottrace_data_file:dir rw_dir_perms;
+  allow shell boottrace_data_file:file create_file_perms;
+  set_prop(shell, persist_debug_prop)
+')
 
 # allow shell to run dmesg
 allow shell kernel:system syslog_read;

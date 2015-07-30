@@ -1,6 +1,7 @@
 type default_prop, property_type;
 type shell_prop, property_type;
 type debug_prop, property_type;
+type persist_debug_prop, property_type;
 type debuggerd_prop, property_type;
 type dhcp_prop, property_type;
 type fingerprint_prop, property_type;
