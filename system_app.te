@@ -27,6 +27,9 @@ allow system_app misc_user_data_file:file create_file_perms;
 auditallow system_app system_data_file:dir { create setattr add_name remove_name rmdir rename };
 auditallow system_app system_data_file:file { create setattr append write link unlink rename };
 
+# Access to vold-mounted storage for measuring free space
+allow system_app mnt_media_rw_file:dir search;
+
 # Read wallpaper file.
 allow system_app wallpaper_file:file r_file_perms;
 
