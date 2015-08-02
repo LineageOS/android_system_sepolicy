@@ -208,11 +208,10 @@ neverallow domain self:capability2 mac_override;
 # Only recovery needs mac_admin to set contexts not defined in current policy.
 neverallow { domain -recovery } self:capability2 mac_admin;
 
-# Only init should be able to load SELinux policies.
+# Nobody should be able to load a new SELinux policy.
 # The first load technically occurs while still in the kernel domain,
 # but this does not trigger a denial since there is no policy yet.
-# Policy reload requires allowing this to the init domain.
-neverallow { domain -init } kernel:security load_policy;
+neverallow domain kernel:security load_policy;
 
 # Only init and the system_server can set selinux.reload_policy 1
 # to trigger a policy reload.
