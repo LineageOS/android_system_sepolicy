@@ -122,6 +122,9 @@ allow init unlabeled:notdevfile_class_set { create_file_perms relabelfrom };
 allow init security_file:dir { create setattr };
 
 # Reload policy upon setprop selinux.reload_policy 1.
+# Note: this requires the following allow rule
+#   allow init kernel:security load_policy;
+# which can be configured on a device-by-device basis if needed.
 r_dir_file(init, security_file)
 
 # Any operation that can modify the kernel ring buffer, e.g. clear
