@@ -148,7 +148,7 @@ built_general_sepolicy := $(LOCAL_BUILT_MODULE)
 ##################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := file_contexts
+LOCAL_MODULE := file_contexts.bin
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -161,32 +161,44 @@ ifeq (address,$(strip $(SANITIZE_TARGET)))
 endif
 all_fc_files := $(call build_policy, $(all_fc_files))
 
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): PRIVATE_FC_FILES := $(all_fc_files)
-$(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(LOCAL_BUILT_MODULE): $(all_fc_files) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+file_contexts.tmp := $(intermediates)/file_contexts.tmp
+$(file_contexts.tmp): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(file_contexts.tmp): PRIVATE_FC_FILES := $(all_fc_files)
+$(file_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(file_contexts.tmp): $(all_fc_files) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_FC_FILES) > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $@
 
+$(LOCAL_BUILT_MODULE): $(file_contexts.tmp) $(HOST_OUT_EXECUTABLES)/sefcontext_compile
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/sefcontext_compile -o $@ $<
+
 built_fc := $(LOCAL_BUILT_MODULE)
 all_fc_files :=
+file_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := general_file_contexts
+LOCAL_MODULE := general_file_contexts.bin
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := tests
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
-$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, file_contexts) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+general_file_contexts.tmp := $(intermediates)/general_file_contexts.tmp
+$(general_file_contexts.tmp): PRIVATE_SEPOLICY := $(built_general_sepolicy)
+$(general_file_contexts.tmp): $(addprefix $(LOCAL_PATH)/, file_contexts) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $< > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $@
 
+$(LOCAL_BUILT_MODULE): $(general_file_contexts.tmp) $(HOST_OUT_EXECUTABLES)/sefcontext_compile
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/sefcontext_compile -o $@ $<
+
+general_file_contexts.tmp :=
 GENERAL_FILE_CONTEXTS := $(LOCAL_BUILT_MODULE)
 
 ##################################
