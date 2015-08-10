@@ -28,7 +28,7 @@ endif
 
 # Builds paths for all policy files found in BOARD_SEPOLICY_DIRS.
 # $(1): the set of policy name paths to build
-build_policy = $(foreach type, $(1), $(wildcard $(addsuffix /$(type), $(LOCAL_PATH) $(BOARD_SEPOLICY_DIRS))))
+build_policy = $(foreach type, $(1), $(foreach file, $(addsuffix /$(type), $(LOCAL_PATH) $(BOARD_SEPOLICY_DIRS)), $(sort $(wildcard $(file)))))
 
 sepolicy_build_files := security_classes \
                         initial_sids \
@@ -116,7 +116,7 @@ LOCAL_MODULE_TAGS := tests
 include $(BUILD_SYSTEM)/base_rules.mk
 
 exp_sepolicy_build_files :=\
-  $(wildcard $(addprefix $(LOCAL_PATH)/, $(sepolicy_build_files)))
+  $(foreach file, $(addprefix $(LOCAL_PATH)/, $(sepolicy_build_files)), $(sort $(wildcard $(file))))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(LOCAL_BUILT_MODULE): PRIVATE_MLS_CATS := $(MLS_CATS)
