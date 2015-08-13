@@ -200,7 +200,6 @@ $(LOCAL_BUILT_MODULE): $(general_file_contexts.tmp) $(HOST_OUT_EXECUTABLES)/sefc
 	$(hide) $(HOST_OUT_EXECUTABLES)/sefcontext_compile -o $@ $<
 
 general_file_contexts.tmp :=
-GENERAL_FILE_CONTEXTS := $(LOCAL_BUILT_MODULE)
 
 ##################################
 include $(CLEAR_VARS)
@@ -238,7 +237,6 @@ $(LOCAL_BUILT_MODULE): $(built_general_sepolicy) $(all_sc_files) $(HOST_OUT_EXEC
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $(PRIVATE_SC_FILE)
 
-GENERAL_SEAPP_CONTEXTS := $(LOCAL_BUILT_MODULE)
 all_sc_files :=
 
 ##################################
@@ -253,7 +251,6 @@ $(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, seapp_contexts)
 	@mkdir -p $(dir $@)
 	- $(hide) grep -ie '^neverallow' $< > $@
 
-GENERAL_SEAPP_NEVERALLOWS := $(LOCAL_BUILT_MODULE)
 
 ##################################
 include $(CLEAR_VARS)
@@ -294,7 +291,6 @@ $(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, property_contexts) $(built_ge
 	$(hide) m4 -s $< > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
-GENERAL_PROPERTY_CONTEXTS := $(LOCAL_BUILT_MODULE)
 
 ##################################
 include $(CLEAR_VARS)
@@ -334,7 +330,6 @@ $(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, service_contexts) $(built_gen
 	$(hide) m4 -s $< > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
-GENERAL_SERVICE_CONTEXTS := $(LOCAL_BUILT_MODULE)
 
 ##################################
 include $(CLEAR_VARS)
