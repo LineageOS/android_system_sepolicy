@@ -269,9 +269,10 @@ allow system_server system_data_file:file relabelfrom;
 allow system_server wallpaper_file:file relabelto;
 allow system_server wallpaper_file:file { rw_file_perms unlink };
 
-# Relabel /data/anr.
+# This was originally required for relabeling /data/anr,
+# but should not be used anymore. TODO: remove it.
 allow system_server system_data_file:dir relabelfrom;
-allow system_server anr_data_file:dir relabelto;
+auditallow system_server system_data_file:dir relabelfrom;
 
 # Property Service write
 set_prop(system_server, system_prop)
