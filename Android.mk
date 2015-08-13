@@ -265,16 +265,19 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-ALL_PC_FILES := $(call build_policy, property_contexts)
+all_pc_files := $(call build_policy, property_contexts)
+
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_PC_FILES := $(all_pc_files)
 $(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(LOCAL_BUILT_MODULE): $(ALL_PC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): $(all_pc_files) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
-	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(ALL_PC_FILES) > $@
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
 built_pc := $(LOCAL_BUILT_MODULE)
+all_pc_files :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -303,16 +306,18 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-ALL_SVC_FILES := $(call build_policy, service_contexts)
+all_svc_files := $(call build_policy, service_contexts)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_SVC_FILES := $(all_svc_files)
 $(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(LOCAL_BUILT_MODULE): $(ALL_SVC_FILES) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): $(all_svc_files) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
-	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(ALL_SVC_FILES) > $@
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
 built_svc := $(LOCAL_BUILT_MODULE)
+all_svc_files :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -348,14 +353,17 @@ $(mac_perms_keys.tmp): $(call build_policy, keys.conf)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
 
-ALL_MAC_PERMS_FILES := $(call build_policy, $(LOCAL_MODULE))
+all_mac_perms_files := $(call build_policy, $(LOCAL_MODULE))
 
-$(LOCAL_BUILT_MODULE): $(mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py $(ALL_MAC_PERMS_FILES)
+$(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_mac_perms_files)
+$(LOCAL_BUILT_MODULE): $(mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py $(all_mac_perms_files)
 	@mkdir -p $(dir $@)
 	$(hide) DEFAULT_SYSTEM_DEV_CERTIFICATE="$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))" \
-		$(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(ALL_MAC_PERMS_FILES)
+		$(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
 
 mac_perms_keys.tmp :=
+all_mac_perms_files :=
+
 ##################################
 include $(CLEAR_VARS)
 
