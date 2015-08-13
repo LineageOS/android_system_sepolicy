@@ -10,9 +10,19 @@ checkfc
    argument in order to check the validity of the security contexts
    in the file_contexts or property_contexts file.
 
-   Usage:
+   Usage1:
    checkfc sepolicy file_contexts
    checkfc -p sepolicy property_contexts
+
+   Also used to compare two file_contexts or file_contexts.bin files.
+   Displays one of subset, equal, superset, or incomparable.
+
+   Usage2:
+   checkfc -c file_contexts1 file_contexts2
+
+   Example:
+   $ checkfc -c out/target/product/shamu/system/etc/general_file_contexts out/target/product/shamu/root/file_contexts.bin
+   subset
 
 checkseapp
     A utility for merging together the main seapp_contexts
