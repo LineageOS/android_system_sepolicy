@@ -105,3 +105,11 @@ allow mediaserver drmserver:drmservice {
     finalizeDecryptUnit
     pread
 };
+
+###
+### neverallow rules
+###
+
+# mediaserver should never execute any executable without a
+# domain transition
+neverallow mediaserver { file_type fs_type }:file execute_no_trans;
