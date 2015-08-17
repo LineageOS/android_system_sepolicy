@@ -44,7 +44,7 @@ allow domain system_server:fd use;
 # This is used for e.g. adb backup/restore.
 allow domain adbd:unix_stream_socket connectto;
 allow domain adbd:fd use;
-allow domain adbd:unix_stream_socket { getattr getopt read write shutdown };
+allow domain adbd:unix_stream_socket { getattr getopt ioctl read write shutdown };
 
 userdebug_or_eng(`
   # Same as adbd rules above, except allow su to do the same thing
