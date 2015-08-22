@@ -24,9 +24,8 @@ allow dumpstate system_file:file execute_no_trans;
 
 # Create and write into /data/anr/
 allow dumpstate self:capability { dac_override chown fowner fsetid };
-allow dumpstate anr_data_file:dir { rw_dir_perms relabelto };
+allow dumpstate anr_data_file:dir rw_dir_perms;
 allow dumpstate anr_data_file:file create_file_perms;
-allow dumpstate system_data_file:dir { create_dir_perms relabelfrom };
 
 # Allow reading /data/system/uiderrors.txt
 # TODO: scope this down.
