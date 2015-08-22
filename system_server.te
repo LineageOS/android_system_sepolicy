@@ -7,10 +7,12 @@ type system_server, domain, mlstrustedsubject;
 # Define a type for tmpfs-backed ashmem regions.
 tmpfs_domain(system_server)
 
-# Dalvik Compiler JIT Mapping.
-allow system_server self:process execmem;
-allow system_server ashmem_device:chr_file execute;
-allow system_server system_server_tmpfs:file execute;
+eng(`
+  # JIT mappings
+  allow system_server self:process execmem;
+  allow system_server ashmem_device:chr_file execute;
+  allow system_server system_server_tmpfs:file execute;
+')
 
 # For art.
 allow system_server dalvikcache_data_file:file execute;
