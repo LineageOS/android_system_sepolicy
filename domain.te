@@ -494,6 +494,42 @@ neverallow {
   -installd
 } shell_data_file:lnk_file read;
 
+# In addition to the symlink reading restrictions above, restrict
+# write access to shell owned directories. The /data/local/tmp
+# directory is untrustworthy, and non-whitelisted domains should
+# not be trusting any content in those directories.
+neverallow {
+  domain
+  -adbd
+  -dumpstate
+  -installd
+  -init
+  -shell
+  -vold
+} shell_data_file:dir no_w_dir_perms;
+
+neverallow {
+  domain
+  -adbd
+  -appdomain
+  -dumpstate
+  -init
+  -installd
+  -system_server # why?
+  userdebug_or_eng(`-uncrypt')
+} shell_data_file:dir { open search };
+
+# Same as above for /data/local/tmp files. We allow shell files
+# to be passed around by file descriptor, but not directly opened.
+neverallow {
+  domain
+  -adbd
+  -appdomain
+  -dumpstate
+  -installd
+  userdebug_or_eng(`-uncrypt -procrank')
+} shell_data_file:file open;
+
 # servicemanager is the only process which handles list request
 neverallow domain ~servicemanager:service_manager list;
 
