@@ -21,6 +21,7 @@ allow dumpstate self:capability kill;
 #   /system/bin/logcat
 #   /system/bin/dumpsys
 allow dumpstate system_file:file execute_no_trans;
+allow dumpstate toolbox_exec:file rx_file_perms;
 
 # Create and write into /data/anr/
 allow dumpstate self:capability { dac_override chown fowner fsetid };

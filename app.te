@@ -74,6 +74,7 @@ allow appdomain oemfs:file rx_file_perms;
 # Execute the shell or other system executables.
 allow appdomain shell_exec:file rx_file_perms;
 allow appdomain system_file:file rx_file_perms;
+allow appdomain toolbox_exec:file rx_file_perms;
 
 # Execute dex2oat when apps call dexclassloader
 allow appdomain dex2oat_exec:file rx_file_perms;
