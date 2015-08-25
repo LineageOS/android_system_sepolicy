@@ -58,6 +58,7 @@
 /dev/block/loop[0-9]*	u:object_r:loop_device:s0
 /dev/block/vold/.+	u:object_r:vold_device:s0
 /dev/block/ram[0-9]*	u:object_r:ram_device:s0
+/dev/block/zram[0-9]*	u:object_r:ram_device:s0
 /dev/bus/usb(.*)?       u:object_r:usb_device:s0
 /dev/cam		u:object_r:camera_device:s0
 /dev/console		u:object_r:console_device:s0
