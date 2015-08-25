@@ -23,6 +23,9 @@ allow rild sdcard_type:dir r_dir_perms;
 allow rild system_data_file:dir r_dir_perms;
 allow rild system_data_file:file r_file_perms;
 allow rild system_file:file x_file_perms;
+# XXX Run toolbox.  Might not be needed.
+allow rild toolbox_exec:file rx_file_perms;
+auditallow rild toolbox_exec:file rx_file_perms;
 
 # property service
 set_prop(rild, radio_prop)
