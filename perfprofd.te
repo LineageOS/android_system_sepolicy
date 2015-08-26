@@ -48,7 +48,7 @@ userdebug_or_eng(`
   allow perfprofd exec_type:file r_file_perms;
 
   # simpleperf is going to execute "sleep"
-  allow perfprofd toolbox_exec:file x_file_perms;
+  allow perfprofd toolbox_exec:file rx_file_perms;
 
   # needed for simpleperf on some kernels
   allow perfprofd self:capability ipc_lock;

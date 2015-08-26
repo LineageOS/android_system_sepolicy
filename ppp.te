@@ -11,6 +11,9 @@ allow ppp mtp:unix_dgram_socket rw_socket_perms;
 allow ppp ppp_device:chr_file rw_file_perms;
 allow ppp self:capability net_admin;
 allow ppp system_file:file rx_file_perms;
+# XXX Run toolbox.  Might not be needed.
+allow ppp toolbox_exec:file rx_file_perms;
+auditallow ppp toolbox_exec:file rx_file_perms;
 allow ppp vpn_data_file:dir w_dir_perms;
 allow ppp vpn_data_file:file create_file_perms;
 allow ppp mtp:fd use;
