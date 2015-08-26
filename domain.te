@@ -109,10 +109,6 @@ allow domain system_file:file r_file_perms;
 allow domain system_file:file execute;
 allow domain system_file:lnk_file r_file_perms;
 
-# Run toolbox.
-# Kernel, init, and mediaserver never run anything without changing domains.
-allow { domain -kernel -init -mediaserver } toolbox_exec:file rx_file_perms;
-
 # Read files already opened under /data.
 allow domain system_data_file:dir { search getattr };
 allow domain system_data_file:file { getattr read };

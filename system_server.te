@@ -320,6 +320,10 @@ allow system_server cache_file:fifo_file create_file_perms;
 # Run system programs, e.g. dexopt.
 allow system_server system_file:file x_file_perms;
 
+# XXX Run toolbox.  Might not be needed.
+allow system_server toolbox_exec:file rx_file_perms;
+auditallow system_server toolbox_exec:file rx_file_perms;
+
 # LocationManager(e.g, GPS) needs to read and write
 # to uart driver and ctrl proc entry
 allow system_server gps_device:chr_file rw_file_perms;
