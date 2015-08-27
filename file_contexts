@@ -173,6 +173,7 @@
 /system/bin/wpa_supplicant	u:object_r:wpa_exec:s0
 /system/bin/sdcard      u:object_r:sdcardd_exec:s0
 /system/bin/dhcpcd      u:object_r:dhcp_exec:s0
+/system/bin/dhcpcd-6.8.2	u:object_r:dhcp_exec:s0
 /system/bin/mtpd	u:object_r:mtp_exec:s0
 /system/bin/pppd	u:object_r:ppp_exec:s0
 /system/bin/tf_daemon	u:object_r:tee_exec:s0
@@ -254,6 +255,7 @@
 /data/misc/bluedroid/\.a2dp_data u:object_r:bluetooth_socket:s0
 /data/misc/camera(/.*)?         u:object_r:camera_data_file:s0
 /data/misc/dhcp(/.*)?           u:object_r:dhcp_data_file:s0
+/data/misc/dhcp-6.8.2(/.*)?     u:object_r:dhcp_data_file:s0
 /data/misc/gatekeeper(/.*)?     u:object_r:gatekeeper_data_file:s0
 /data/misc/keychain(/.*)?       u:object_r:keychain_data_file:s0
 /data/misc/keystore(/.*)?       u:object_r:keystore_data_file:s0
