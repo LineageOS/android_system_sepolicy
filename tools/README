@@ -94,3 +94,37 @@ sepolicy-analyze
     -foo -bar is expanded to individual allow rules by the policy
     compiler).  Domains with unconfineddomain will typically have such
     duplicate rules as a natural side effect and can be ignored.
+
+    PERMISSIVE DOMAINS
+    sepolicy-analyze -p -P out/target/product/<board>/root/sepolicy
+
+    Displays domains in the policy that are permissive, i.e. avc
+    denials are logged but not enforced for these domains.  While
+    permissive domains can be helpful during development, they
+    should not be present in a final -user build.
+
+    NEVERALLOW CHECKING
+    sepolicy-analyze [-w] [-z] -n neverallows.conf -P out/target/product/<board>/root/sepolicy
+
+    Check whether the sepolicy file violates any of the neverallow rules
+    from neverallows.conf.  neverallows.conf is a file containing neverallow
+    statements in the same format as the SELinux policy.conf file, i.e. after
+    m4 macro expansion of the rules from a .te file.  You can use an entire
+    policy.conf file as the neverallows.conf file and sepolicy-analyze will
+    ignore everything except for the neverallows within it.  If there are
+    no violations, sepolicy-analyze will exit successfully with no output.
+    Otherwise, sepolicy-analyze will report all violations and exit
+    with a non-zero exit status.
+
+    The -w or --warn option may be used to warn on any types, attributes,
+    classes, or permissions from a neverallow rule that could not be resolved
+    within the sepolicy file.  This can be normal due to differences between
+    the policy from which the neverallow rules were taken and the policy
+    being checked.  Such values are ignored for the purposes of neverallow
+    checking.
+
+    The -z (-d was already taken!) or --debug option may be used to cause
+    sepolicy-analyze to emit the neverallow rules as it parses them from
+    the neverallows.conf file.  This is principally a debugging facility
+    for the parser but could also be used to extract neverallow rules from
+    a full policy.conf file and output them in a more easily parsed format.
