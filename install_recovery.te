@@ -13,9 +13,7 @@ allow install_recovery shell_exec:file rx_file_perms;
 # Execute /system/bin/applypatch
 allow install_recovery system_file:file rx_file_perms;
 
-# XXX Execute toolbox.  Might not be needed.
 allow install_recovery toolbox_exec:file rx_file_perms;
-auditallow install_recovery toolbox_exec:file rx_file_perms;
 
 # Update the recovery block device based off a diff of the boot block device
 allow install_recovery block_device:dir search;
