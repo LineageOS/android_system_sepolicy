@@ -69,7 +69,10 @@ allow untrusted_app cache_file:file create_file_perms;
 ###
 
 # Receive or send uevent messages.
-neverallow untrusted_app self:netlink_kobject_uevent_socket *;
+neverallow untrusted_app domain:netlink_kobject_uevent_socket *;
+
+# Receive or send generic netlink messages
+neverallow untrusted_app domain:netlink_socket *;
 
 # Too much leaky information in debugfs. It's a security
 # best practice to ensure these files aren't readable.
