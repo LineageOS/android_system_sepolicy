@@ -50,6 +50,8 @@ type system_data_file, file_type, data_file_type;
 type install_data_file, file_type, data_file_type;
 # /data/drm - DRM plugin data
 type drm_data_file, file_type, data_file_type;
+# /data/adb - adb debugging files
+type adb_data_file, file_type, data_file_type;
 # /data/anr - ANR traces
 type anr_data_file, file_type, data_file_type, mlstrustedobject;
 # /data/tombstones - core dumps

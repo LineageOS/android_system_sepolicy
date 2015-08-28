@@ -60,6 +60,14 @@ allow adbd gpu_device:chr_file rw_file_perms;
 allow adbd adb_keys_file:dir search;
 allow adbd adb_keys_file:file r_file_perms;
 
+userdebug_or_eng(`
+  # Write debugging information to /data/adb
+  # when persist.adb.trace_mask is set
+  # https://code.google.com/p/android/issues/detail?id=72895
+  allow adbd adb_data_file:dir rw_dir_perms;
+  allow adbd adb_data_file:file create_file_perms;
+')
+
 # ndk-gdb invokes adb forward to forward the gdbserver socket.
 allow adbd app_data_file:dir search;
 allow adbd app_data_file:sock_file write;
