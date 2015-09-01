@@ -360,9 +360,6 @@ r_dir_file(system_server, fscklogs)
 allow system_server fscklogs:dir { write remove_name };
 allow system_server fscklogs:file unlink;
 
-# For SELinuxPolicyInstallReceiver
-selinux_manage_policy(system_server)
-
 # logd access, system_server inherit logd write socket
 # (urge is to deprecate this long term)
 allow system_server zygote:unix_dgram_socket write;
