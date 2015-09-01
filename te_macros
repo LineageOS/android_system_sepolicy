@@ -248,18 +248,6 @@ allow $1 security_file:file r_file_perms;
 ')
 
 #####################################
-# selinux_manage_policy(domain)
-# Ability to manage policy files and
-# trigger runtime reload.
-define(`selinux_manage_policy', `
-security_access_policy($1)
-allow $1 security_file:dir create_dir_perms;
-allow $1 security_file:file create_file_perms;
-allow $1 security_file:lnk_file { create rename unlink };
-set_prop($1, security_prop)
-')
-
-#####################################
 # mmac_manage_policy(domain)
 # Ability to manage mmac policy files,
 # trigger runtime reload, change
