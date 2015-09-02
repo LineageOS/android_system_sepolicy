@@ -108,6 +108,7 @@ allow appdomain qtaguid_device:chr_file r_file_perms;
 # Grant GPU access to all processes started by Zygote.
 # They need that to render the standard UI.
 allow { appdomain -isolated_app } gpu_device:chr_file { rw_file_perms execute };
+auditallow { appdomain -isolated_app } gpu_device:chr_file execute;
 
 # Use the Binder.
 binder_use(appdomain)
