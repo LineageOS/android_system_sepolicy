@@ -3,6 +3,8 @@ type bluetooth, domain;
 app_domain(bluetooth)
 net_domain(bluetooth)
 
+wakelock_use(bluetooth);
+
 # Data file accesses.
 allow bluetooth bluetooth_data_file:dir create_dir_perms;
 allow bluetooth bluetooth_data_file:notdevfile_class_set create_file_perms;
@@ -70,4 +72,4 @@ allow bluetooth shell_data_file:file read;
 # Superuser capabilities.
 # bluetooth requires net_admin and wake_alarm.
 neverallow bluetooth self:capability ~net_admin;
-neverallow bluetooth self:capability2 ~wake_alarm;
+neverallow bluetooth self:capability2 ~{ wake_alarm block_suspend };
