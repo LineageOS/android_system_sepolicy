@@ -27,6 +27,7 @@ auditallow radio system_radio_prop:property_service set;
 # ctl interface
 set_prop(radio, ctl_rildaemon_prop)
 
+allow radio audioserver_service:service_manager find;
 allow radio drmserver_service:service_manager find;
 allow radio mediaserver_service:service_manager find;
 allow radio radio_service:service_manager { add find };

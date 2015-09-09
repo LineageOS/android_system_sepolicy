@@ -1,3 +1,4 @@
+type audioserver_service,       service_manager_type;
 type bluetooth_service,         service_manager_type;
 type default_android_service,   service_manager_type;
 type drmserver_service,         service_manager_type;
