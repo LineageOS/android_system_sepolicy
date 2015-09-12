@@ -7,8 +7,9 @@
 ### zygote spawned apps should be added here.
 ###
 
-# Dalvik Compiler JIT Mapping.
+# WebView and other application-specific JIT compilers
 allow appdomain self:process execmem;
+
 allow appdomain ashmem_device:chr_file execute;
 
 # Receive and use open file descriptors inherited from zygote.
