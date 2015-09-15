@@ -33,7 +33,7 @@
 /sdcard             u:object_r:rootfs:s0
 
 # SELinux policy files
-/file_contexts      u:object_r:rootfs:s0
+/file_contexts\.bin u:object_r:rootfs:s0
 /property_contexts  u:object_r:rootfs:s0
 /seapp_contexts     u:object_r:rootfs:s0
 /sepolicy           u:object_r:rootfs:s0
