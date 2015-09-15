@@ -101,8 +101,12 @@ allow system_server proc_sysrq:file rw_file_perms;
 # Read /sys/kernel/debug/wakeup_sources.
 allow system_server debugfs:file r_file_perms;
 
-# WifiWatchdog uses a packet_socket
+# The DhcpClient and WifiWatchdog use packet_sockets
 allow system_server self:packet_socket create_socket_perms;
+
+# NetworkDiagnostics requires explicit bind() calls to ping sockets. These aren't actually the same
+# as raw sockets, but the kernel doesn't yet distinguish between the two.
+allow system_server node:rawip_socket node_bind;
 
 # 3rd party VPN clients require a tun_socket to be created
 allow system_server self:tun_socket create_socket_perms;
