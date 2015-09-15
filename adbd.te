@@ -9,8 +9,9 @@ userdebug_or_eng(`
 
 domain_auto_trans(adbd, shell_exec, shell)
 
-# Do not sanitize the environment or open fds of the shell.
-allow adbd shell:process noatsecure;
+# Do not sanitize the environment or open fds of the shell. Allow signaling
+# created processes.
+allow adbd shell:process { noatsecure signal };
 
 # Set UID and GID to shell.  Set supplementary groups.
 allow adbd self:capability { setuid setgid };
