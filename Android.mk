@@ -157,7 +157,7 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 include $(BUILD_SYSTEM)/base_rules.mk
 
 all_fc_files := file_contexts
-ifeq (address,$(strip $(SANITIZE_TARGET)))
+ifneq ($(filter address,$(SANITIZE_TARGET)),)
   all_fc_files := $(all_fc_files) file_contexts_asan
 endif
 all_fc_files := $(call build_policy, $(all_fc_files))
