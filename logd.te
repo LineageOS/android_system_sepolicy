@@ -10,8 +10,11 @@ allow logd self:netlink_audit_socket { create_socket_perms nlmsg_write };
 allow logd kernel:system syslog_read;
 allow logd kmsg_device:chr_file w_file_perms;
 allow logd system_data_file:file r_file_perms;
-allow logd misc_logd_file:file create_file_perms;
-allow logd misc_logd_file:dir rw_dir_perms;
+# logpersist is only allowed on userdebug and eng builds
+userdebug_or_eng(`
+  allow logd misc_logd_file:file create_file_perms;
+  allow logd misc_logd_file:dir rw_dir_perms;
+')
 allow logd pstorefs:dir search;
 allow logd pstorefs:file r_file_perms;
 
@@ -42,3 +45,7 @@ neverallow logd system_file:dir_file_class_set write;
 
 # Write to files in /data/data or system files on /data
 neverallow logd { app_data_file system_data_file }:dir_file_class_set write;
+
+# logd is not allowed to write anywhere other than /misc/data/logd, and then
+# only on userdebug or eng builds
+neverallow logd { file_type -logd_tmpfs userdebug_or_eng(` -misc_logd_file -coredump_file ') }:file write;

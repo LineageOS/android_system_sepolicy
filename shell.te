@@ -16,8 +16,10 @@ control_logd(shell)
 allow shell pstorefs:dir search;
 allow shell pstorefs:file r_file_perms;
 # logpersistd (nee logcatd) files
-allow shell misc_logd_file:dir r_dir_perms;
-allow shell misc_logd_file:file r_file_perms;
+userdebug_or_eng(`
+  allow shell misc_logd_file:dir r_dir_perms;
+  allow shell misc_logd_file:file r_file_perms;
+')
 
 # read files in /data/anr
 allow shell anr_data_file:dir r_dir_perms;
