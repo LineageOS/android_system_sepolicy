@@ -163,6 +163,7 @@
 /system/bin/netd	u:object_r:netd_exec:s0
 /system/bin/rild	u:object_r:rild_exec:s0
 /system/bin/mediaserver	u:object_r:mediaserver_exec:s0
+/system/bin/mediaextractor	u:object_r:mediaextractor_exec:s0
 /system/bin/mdnsd	u:object_r:mdnsd_exec:s0
 /system/bin/installd	u:object_r:installd_exec:s0
 /system/bin/keystore	u:object_r:keystore_exec:s0

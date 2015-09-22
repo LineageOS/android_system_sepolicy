@@ -1,0 +1,45 @@
+# mediaextractor - multimedia daemon
+type mediaextractor, domain;
+type mediaextractor_exec, exec_type, file_type;
+
+typeattribute mediaextractor mlstrustedsubject;
+
+init_daemon_domain(mediaextractor)
+
+binder_use(mediaextractor)
+binder_call(mediaextractor, binderservicedomain)
+binder_call(mediaextractor, appdomain)
+binder_service(mediaextractor)
+
+# Required by Widevine DRM (b/22990512)
+allow mediaextractor self:process execmem;
+
+allow mediaextractor kernel:system module_request;
+
+# Needed on some devices for playing DRM protected content,
+# but seems expected and appropriate for all devices.
+unix_socket_connect(mediaextractor, drmserver, drmserver)
+
+allow mediaextractor drmserver_service:service_manager find;
+allow mediaextractor mediaextractor_service:service_manager { add find };
+allow mediaextractor processinfo_service:service_manager find;
+
+use_drmservice(mediaextractor)
+allow mediaextractor drmserver:drmservice {
+    consumeRights
+    setPlaybackStatus
+    openDecryptSession
+    closeDecryptSession
+    initializeDecryptUnit
+    decrypt
+    finalizeDecryptUnit
+    pread
+};
+
+###
+### neverallow rules
+###
+
+# mediaextractor should never execute any executable without a
+# domain transition
+neverallow mediaextractor { file_type fs_type }:file execute_no_trans;
