@@ -162,16 +162,16 @@ endif
 all_fc_files := $(call build_policy, $(all_fc_files))
 
 file_contexts.tmp := $(intermediates)/file_contexts.tmp
-$(file_contexts.tmp): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(file_contexts.tmp): PRIVATE_FC_FILES := $(all_fc_files)
 $(file_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(file_contexts.tmp): $(all_fc_files) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(file_contexts.tmp): $(all_fc_files)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_FC_FILES) > $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $@
 
-$(LOCAL_BUILT_MODULE): $(file_contexts.tmp) $(HOST_OUT_EXECUTABLES)/sefcontext_compile
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(file_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/sefcontext_compile $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $<
 	$(hide) $(HOST_OUT_EXECUTABLES)/sefcontext_compile -o $@ $<
 
 built_fc := $(LOCAL_BUILT_MODULE)
@@ -188,14 +188,14 @@ LOCAL_MODULE_TAGS := tests
 include $(BUILD_SYSTEM)/base_rules.mk
 
 general_file_contexts.tmp := $(intermediates)/general_file_contexts.tmp
-$(general_file_contexts.tmp): PRIVATE_SEPOLICY := $(built_general_sepolicy)
-$(general_file_contexts.tmp): $(addprefix $(LOCAL_PATH)/, file_contexts) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(general_file_contexts.tmp): $(addprefix $(LOCAL_PATH)/, file_contexts)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $< > $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $@
 
-$(LOCAL_BUILT_MODULE): $(general_file_contexts.tmp) $(HOST_OUT_EXECUTABLES)/sefcontext_compile
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
+$(LOCAL_BUILT_MODULE): $(general_file_contexts.tmp) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/sefcontext_compile $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $<
 	$(hide) $(HOST_OUT_EXECUTABLES)/sefcontext_compile -o $@ $<
 
 general_file_contexts.tmp :=
