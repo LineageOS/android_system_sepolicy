@@ -35,8 +35,7 @@ set_prop(mediaserver, audio_prop)
 allow mediaserver audio_device:chr_file rw_file_perms;
 
 # XXX Label with a specific type?
-allow mediaserver sysfs:file rw_file_perms;
-auditallow mediaserver sysfs:file { write append };
+allow mediaserver sysfs:file r_file_perms;
 
 # Read resources from open apk files passed over Binder.
 allow mediaserver apk_data_file:file { read getattr };
