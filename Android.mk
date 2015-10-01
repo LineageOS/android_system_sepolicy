@@ -315,16 +315,22 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 all_svc_files := $(call build_policy, service_contexts)
 
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): PRIVATE_SVC_FILES := $(all_svc_files)
-$(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(LOCAL_BUILT_MODULE): $(all_svc_files) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+service_contexts.tmp := $(intermediates)/service_contexts.tmp
+$(service_contexts.tmp): PRIVATE_SVC_FILES := $(all_svc_files)
+$(service_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(service_contexts.tmp): $(all_svc_files)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(service_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $<
+	$(hide) acp $< $@
 
 built_svc := $(LOCAL_BUILT_MODULE)
 all_svc_files :=
+service_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -335,12 +341,18 @@ LOCAL_MODULE_TAGS := tests
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
-$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, service_contexts) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+general_service_contexts.tmp := $(intermediates)/general_service_contexts.tmp
+$(general_service_contexts.tmp): $(addprefix $(LOCAL_PATH)/, service_contexts)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $< > $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
+$(LOCAL_BUILT_MODULE): $(general_service_contexts.tmp) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $<
+	$(hide) acp $< $@
+
+general_service_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
