@@ -264,23 +264,17 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 all_pc_files := $(call build_policy, property_contexts)
 
-property_contexts.tmp := $(intermediates)/property_contexts.tmp
-$(property_contexts.tmp): PRIVATE_PC_FILES := $(all_pc_files)
-$(property_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(property_contexts.tmp): $(all_pc_files)
-	@mkdir -p $(dir $@)
-	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
-
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): $(property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): PRIVATE_PC_FILES := $(all_pc_files)
+$(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(LOCAL_BUILT_MODULE): $(all_pc_files) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
-	$(hide) acp $< $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $<
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
 built_pc := $(LOCAL_BUILT_MODULE)
 all_pc_files :=
-property_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -291,18 +285,12 @@ LOCAL_MODULE_TAGS := tests
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-general_property_contexts.tmp := $(intermediates)/general_property_contexts.tmp
-$(general_property_contexts.tmp): $(addprefix $(LOCAL_PATH)/, property_contexts)
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
+$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, property_contexts) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $< > $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
-$(LOCAL_BUILT_MODULE): $(general_property_contexts.tmp) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
-	@mkdir -p $(dir $@)
-	$(hide) acp $< $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $<
-
-general_property_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
