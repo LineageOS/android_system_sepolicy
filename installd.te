@@ -95,3 +95,6 @@ allow installd { system_app_data_file bluetooth_data_file nfc_data_file radio_da
 
 # Create and use pty created by android_fork_execvp().
 allow installd devpts:chr_file rw_file_perms;
+
+# execute toybox for app relocation
+allow installd toolbox_exec:file rx_file_perms;
