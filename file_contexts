@@ -199,6 +199,7 @@
 /system/bin/blkid       u:object_r:blkid_exec:s0
 /system/bin/tzdatacheck u:object_r:tzdatacheck_exec:s0
 /system/bin/idmap u:object_r:idmap_exec:s0
+/system/bin/update_engine        u:object_r:update_engine_exec:s0
 
 #############################
 # Vendor files
@@ -274,6 +275,7 @@
 /data/misc/zoneinfo(/.*)?       u:object_r:zoneinfo_data_file:s0
 /data/misc/vold(/.*)?           u:object_r:vold_data_file:s0
 /data/misc/perfprofd(/.*)?      u:object_r:perfprofd_data_file:s0
+/data/misc/update_engine(/.*)?  u:object_r:update_engine_data_file:s0
 /data/system/heapdump(/.*)?     u:object_r:heapdump_data_file:s0
 
 # Fingerprint data

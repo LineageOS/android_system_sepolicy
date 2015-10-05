@@ -93,3 +93,6 @@ type swap_block_device, dev_type;
 # Assign this type to the partition specified by the encryptable=
 # mount option in your fstab file in the entry for userdata.
 type metadata_block_device, dev_type;
+
+# The 'misc' partition used by recovery and A/B.
+type misc_block_device, dev_type;

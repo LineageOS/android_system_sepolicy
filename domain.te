@@ -352,8 +352,8 @@ neverallow { domain -init } default_prop:property_service set;
 
 neverallow { domain -init -recovery -system_server } frp_block_device:blk_file rw_file_perms;
 
-# No domain other than recovery can write to system.
-neverallow { domain -recovery } system_block_device:blk_file write;
+# No domain other than recovery and update_engine can write to system partition(s).
+neverallow { domain -recovery -update_engine } system_block_device:blk_file write;
 
 # No domains other than install_recovery or recovery can write to recovery.
 neverallow { domain -install_recovery -recovery } recovery_block_device:blk_file write;
