@@ -28,8 +28,6 @@ allow vold system_file:file x_file_perms;
 allow vold toolbox_exec:file rx_file_perms;
 auditallow vold toolbox_exec:file rx_file_perms;
 allow vold block_device:dir create_dir_perms;
-allow vold block_device:blk_file create_file_perms;
-auditallow vold block_device:blk_file create_file_perms;
 allow vold device:dir write;
 allow vold devpts:chr_file rw_file_perms;
 allow vold rootfs:dir mounton;
