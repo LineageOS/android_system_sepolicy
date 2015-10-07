@@ -16,8 +16,12 @@ allow bluetooth bluetooth_socket:sock_file create_file_perms;
 # bluetooth factory file accesses.
 r_dir_file(bluetooth, bluetooth_efs_file)
 
-# Device accesses.
+# TODO why does bluetooth require access to tun_device? If not,
+# remove access and tighten down neverallow rule so that appdomain is
+# not allowed to open (as opposed to just untrusted_app)
+# Device accesses. b/24744295
 allow bluetooth { tun_device uhid_device hci_attach_dev }:chr_file rw_file_perms;
+auditallow bluetooth tun_device:chr_file rw_file_perms;
 
 # Other domains that can create and use bluetooth sockets.
 # SELinux does not presently define a specific socket class for
