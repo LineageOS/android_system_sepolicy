@@ -179,7 +179,6 @@
 /system/bin/tf_daemon	u:object_r:tee_exec:s0
 /system/bin/racoon	u:object_r:racoon_exec:s0
 /system/xbin/su		u:object_r:su_exec:s0
-/system/xbin/procrank   u:object_r:procrank_exec:s0
 /system/xbin/perfprofd  u:object_r:perfprofd_exec:s0
 /system/vendor/bin/gpsd u:object_r:gpsd_exec:s0
 /system/bin/dnsmasq     u:object_r:dnsmasq_exec:s0

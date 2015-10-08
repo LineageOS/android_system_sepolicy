@@ -179,7 +179,6 @@ neverallow {
   -vold
   -dumpstate
   -system_server
-  userdebug_or_eng(`-procrank')
   userdebug_or_eng(`-perfprofd')
 } self:capability sys_ptrace;
 
@@ -524,7 +523,7 @@ neverallow {
   -appdomain
   -dumpstate
   -installd
-  userdebug_or_eng(`-uncrypt -procrank')
+  userdebug_or_eng(`-uncrypt')
 } shell_data_file:file open;
 
 # servicemanager is the only process which handles list request
