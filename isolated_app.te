@@ -18,6 +18,13 @@ allow isolated_app app_data_file:file { read write getattr lock };
 allow isolated_app activity_service:service_manager find;
 allow isolated_app display_service:service_manager find;
 
+# Google Breakpad (crash reporter for Chrome) relies on ptrace
+# functionality. Without the ability to ptrace, the crash reporter
+# tool is broken.
+# b/20150694
+# https://code.google.com/p/chromium/issues/detail?id=475270
+allow isolated_app self:process ptrace;
+
 #####
 ##### Neverallow
 #####
