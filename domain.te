@@ -533,3 +533,6 @@ neverallow domain ~service_manager_type:service_manager { add find };
 
 # logpersist is only allowed on userdebug/eng builds
 neverallow { domain userdebug_or_eng(`-logd -shell') } misc_logd_file:file rw_file_perms;
+
+# Prevent assigning non property types to properties
+neverallow domain ~property_type:property_service set;
