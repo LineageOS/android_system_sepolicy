@@ -209,6 +209,7 @@ key_map rules[] = {
                 { .name = "seinfo",         .type = dt_string, .dir = dir_in,  .data = NULL },
                 { .name = "name",           .type = dt_string, .dir = dir_in,  .data = NULL },
                 { .name = "path",           .type = dt_string, .dir = dir_in,  .data = NULL },
+                { .name = "isPrivApp",      .type = dt_bool,   .dir = dir_in,  .data = NULL },
                 /*Outputs*/
                 { .name = "domain",         .type = dt_string, .dir = dir_out, .data = NULL },
                 { .name = "type",           .type = dt_string, .dir = dir_out, .data = NULL },
