@@ -303,6 +303,7 @@ neverallow domain { cache_file cache_backup_file }:file execute;
 neverallow {
   domain
   -untrusted_app
+  -priv_app
   -shell
 } {
   data_file_type

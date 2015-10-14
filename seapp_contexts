@@ -5,6 +5,7 @@
 #	seinfo (string)
 #	name (string)
 #	path (string)
+#	isPrivApp (boolean)
 # isSystemServer=true can only be used once.
 # An unspecified isSystemServer defaults to false.
 # isOwner=true will only match for the owner/primary user.
@@ -14,6 +15,8 @@
 # A user string selector that ends in * will perform a prefix match.
 # user=_app will match any regular app UID.
 # user=_isolated will match any isolated service UID.
+# isPrivApp=true will only match for applications preinstalled in
+#       /system/priv-app.
 # All specified input selectors in an entry must match (i.e. logical AND).
 # Matching is case-insensitive.
 #
@@ -24,8 +27,10 @@
 #	  (4) Fixed user= string before user= prefix (i.e. ending in *).
 #	  (5) Longer user= prefix before shorter user= prefix.
 #	  (6) Specified seinfo= string before unspecified seinfo= string.
+#	      ':' character is reserved and may not be used.
 #	  (7) Specified name= string before unspecified name= string.
 #	  (8) Specified path= string before unspecified path= string.
+# 	  (9) Specified isPrivApp= before unspecified isPrivApp= boolean.
 #
 # Outputs:
 #	domain (string)
@@ -83,4 +88,5 @@ user=shared_relro domain=shared_relro
 user=shell seinfo=platform domain=shell type=shell_data_file
 user=_isolated domain=isolated_app levelFrom=user
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=_app isPrivApp=true domain=priv_app type=app_data_file levelFrom=user
 user=_app domain=untrusted_app type=app_data_file levelFrom=user
