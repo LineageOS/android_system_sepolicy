@@ -7,13 +7,6 @@ type system_server, domain, mlstrustedsubject;
 # Define a type for tmpfs-backed ashmem regions.
 tmpfs_domain(system_server)
 
-eng(`
-  # JIT mappings
-  allow system_server self:process execmem;
-  allow system_server ashmem_device:chr_file execute;
-  allow system_server system_server_tmpfs:file execute;
-')
-
 # For art.
 allow system_server dalvikcache_data_file:file execute;
 allow system_server dalvikcache_data_file:dir r_dir_perms;
@@ -472,3 +465,8 @@ neverallow system_server {
 # the frp_block_device. This helps avoid a system_server to root
 # escalation by writing to raw block devices.
 neverallow system_server { dev_type -frp_block_device }:blk_file no_rw_file_perms;
+
+# system_server should never use JIT functionality
+neverallow system_server self:process execmem;
+neverallow system_server ashmem_device:chr_file execute;
+neverallow system_server system_server_tmpfs:file execute;
