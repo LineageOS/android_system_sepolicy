@@ -537,3 +537,16 @@ neverallow { domain userdebug_or_eng(`-logd -shell') } misc_logd_file:file rw_fi
 
 # Prevent assigning non property types to properties
 neverallow domain ~property_type:property_service set;
+
+# Domain types should never be assigned to any files other
+# than the /proc/pid files associated with a process. The
+# executable file used to enter a domain should be labeled
+# with its own _exec type, not with the domain type.
+# Conventionally, this looks something like:
+# $ cat mydaemon.te
+# type mydaemon, domain;
+# type mydaemon_exec, exec_type, file_type;
+# init_daemon_domain(mydaemon)
+# $ grep mydaemon file_contexts
+# /system/bin/mydaemon -- u:object_r:mydaemon_exec:s0
+neverallow domain domain:file { execute execute_no_trans entrypoint };
