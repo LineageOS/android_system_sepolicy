@@ -49,14 +49,6 @@ create_pty(untrusted_app)
 allow untrusted_app shell_data_file:file r_file_perms;
 allow untrusted_app shell_data_file:dir r_dir_perms;
 
-# b/18504118: Allow reads from /data/anr/traces.txt
-# TODO: We shouldn't be allowing all untrusted_apps to read
-# this file. This is only needed for the GMS feedback agent.
-# See also b/18340553. GMS runs as untrusted_app, and
-# it's too late to change the domain it runs in.
-# This line needs to be deleted.
-allow untrusted_app anr_data_file:file r_file_perms;
-
 # Read and write system app data files passed over Binder.
 # Motivating case was /data/data/com.android.settings/cache/*.jpg for
 # cropping or taking user photos.
@@ -91,12 +83,6 @@ allow untrusted_app nfc_service:service_manager find;
 allow untrusted_app radio_service:service_manager find;
 allow untrusted_app surfaceflinger_service:service_manager find;
 allow untrusted_app app_api_service:service_manager find;
-
-# TODO: remove this once priv-apps are no longer running in untrusted_app
-allow untrusted_app system_api_service:service_manager find;
-
-# TODO: remove and replace with specific package that accesses this
-allow untrusted_app persistent_data_block_service:service_manager find;
 
 # Allow verifier to access staged apks.
 allow untrusted_app { apk_tmp_file apk_private_tmp_file }:dir r_dir_perms;
