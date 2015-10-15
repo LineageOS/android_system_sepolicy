@@ -88,6 +88,9 @@ allow shell domain:process getattr;
 allow shell bootchart_data_file:dir rw_dir_perms;
 allow shell bootchart_data_file:file create_file_perms;
 
+# Make sure strace works for the non-privileged shell user
+allow shell self:process ptrace;
+
 # Do not allow shell to hard link to any files.
 # In particular, if shell hard links to app data
 # files, installd will not be able to guarantee the deletion
