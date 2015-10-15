@@ -51,6 +51,7 @@ set_prop(bluetooth, pan_result_prop)
 set_prop(bluetooth, ctl_dhcp_pan_prop)
 
 allow bluetooth bluetooth_service:service_manager find;
+allow bluetooth drmserver_service:service_manager find;
 allow bluetooth mediaserver_service:service_manager find;
 allow bluetooth radio_service:service_manager find;
 allow bluetooth surfaceflinger_service:service_manager find;
