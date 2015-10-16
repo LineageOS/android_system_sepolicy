@@ -70,10 +70,6 @@ allow untrusted_app media_rw_data_file:file create_file_perms;
 # TODO: narrow this to just MediaProvider
 allow untrusted_app mnt_media_rw_file:dir search;
 
-# Write to /cache.
-allow untrusted_app cache_file:dir create_dir_perms;
-allow untrusted_app cache_file:file create_file_perms;
-
 allow untrusted_app drmserver_service:service_manager find;
 allow untrusted_app mediaserver_service:service_manager find;
 allow untrusted_app nfc_service:service_manager find;
@@ -151,3 +147,7 @@ neverallow untrusted_app sysfs_mac_address:file no_rw_file_perms;
 
 # Do not allow untrusted app to directly open tun_device
 neverallow untrusted_app tun_device:chr_file open;
+
+# Do not allow untrusted_app access to /cache
+neverallow untrusted_app cache_file:dir ~{ r_dir_perms };
+neverallow untrusted_app cache_file:file ~{ read getattr };
