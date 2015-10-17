@@ -4,6 +4,7 @@ type su, domain;
 
 # File types must be defined for file_contexts.
 type su_exec, exec_type, file_type;
+type sudaemon, domain;
 
 userdebug_or_eng(`
   # Domain used for su processes, as well as for adbd and adb shell
