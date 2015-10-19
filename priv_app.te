@@ -42,6 +42,10 @@ allow priv_app media_rw_data_file:file create_file_perms;
 allow priv_app shell_data_file:file r_file_perms;
 allow priv_app shell_data_file:dir r_dir_perms;
 
+# Allow verifier to access staged apks.
+allow priv_app { apk_tmp_file apk_private_tmp_file }:dir r_dir_perms;
+allow priv_app { apk_tmp_file apk_private_tmp_file }:file r_file_perms;
+
 # b/18504118: Allow reads from /data/anr/traces.txt
 allow priv_app anr_data_file:file r_file_perms;
 
