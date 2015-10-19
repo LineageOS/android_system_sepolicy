@@ -24,7 +24,7 @@ type audio_service, app_api_service, system_server_service, service_manager_type
 type backup_service, app_api_service, system_server_service, service_manager_type;
 type batterystats_service, app_api_service, system_server_service, service_manager_type;
 type battery_service, system_server_service, service_manager_type;
-type bluetooth_manager_service, system_api_service, system_server_service, service_manager_type;
+type bluetooth_manager_service, app_api_service, system_server_service, service_manager_type;
 type cameraproxy_service, system_server_service, service_manager_type;
 type clipboard_service, app_api_service, system_server_service, service_manager_type;
 type IProxyService_service, system_api_service, system_server_service, service_manager_type;
@@ -88,7 +88,7 @@ type statusbar_service, app_api_service, system_server_service, service_manager_
 type task_service, system_server_service, service_manager_type;
 type textservices_service, app_api_service, system_server_service, service_manager_type;
 type telecom_service, app_api_service, system_server_service, service_manager_type;
-type trust_service, system_api_service, system_server_service, service_manager_type;
+type trust_service, app_api_service, system_server_service, service_manager_type;
 type tv_input_service, app_api_service, system_server_service, service_manager_type;
 type uimode_service, app_api_service, system_server_service, service_manager_type;
 type updatelock_service, system_api_service, system_server_service, service_manager_type;
