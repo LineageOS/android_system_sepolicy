@@ -84,6 +84,7 @@ allow untrusted_app cache_file:file create_file_perms;
 allow untrusted_app servicemanager:service_manager list;
 
 allow untrusted_app drmserver_service:service_manager find;
+allow untrusted_app healthd_service:service_manager find;
 allow untrusted_app mediaserver_service:service_manager find;
 allow untrusted_app nfc_service:service_manager find;
 allow untrusted_app radio_service:service_manager find;
