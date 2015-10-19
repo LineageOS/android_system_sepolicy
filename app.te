@@ -344,6 +344,10 @@ neverallow appdomain
     dhcp_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 
+# access tmp apk files
+neverallow { appdomain -platform_app -priv_app }
+    { apk_tmp_file apk_private_tmp_file }:dir_file_class_set *;
+
 # Access to factory files.
 neverallow appdomain efs_file:dir_file_class_set write;
 neverallow { appdomain -shell } efs_file:dir_file_class_set read;

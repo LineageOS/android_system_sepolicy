@@ -80,10 +80,6 @@ allow untrusted_app radio_service:service_manager find;
 allow untrusted_app surfaceflinger_service:service_manager find;
 allow untrusted_app app_api_service:service_manager find;
 
-# Allow verifier to access staged apks.
-allow untrusted_app { apk_tmp_file apk_private_tmp_file }:dir r_dir_perms;
-allow untrusted_app { apk_tmp_file apk_private_tmp_file }:file r_file_perms;
-
 # only allow unprivileged socket ioctl commands
 allow untrusted_app self:{ rawip_socket tcp_socket udp_socket } unpriv_sock_ioctls;
 
