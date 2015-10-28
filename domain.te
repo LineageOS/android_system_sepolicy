@@ -416,7 +416,6 @@ neverallow { domain userdebug_or_eng(`-dumpstate -shell -su') } su_exec:file no_
 # which, long term, need to go away.
 neverallow domain {
   file_type
-  -system_file      # needs to die. b/20013628
   -system_data_file
   -apk_data_file
   -app_data_file
@@ -428,9 +427,9 @@ neverallow domain {
 # required by some device-specific service domains.
 neverallow domain self:process { execstack execheap };
 
-# TODO: prohibit non-zygote spawned processes from using shared libraries
+# prohibit non-zygote spawned processes from using shared libraries
 # with text relocations. b/20013628 .
-# neverallow { domain -appdomain } file_type:file execmod;
+neverallow { domain -appdomain } file_type:file execmod;
 
 neverallow { domain -init } proc:{ file dir } mounton;
 
