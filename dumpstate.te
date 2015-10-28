@@ -48,9 +48,9 @@ allow dumpstate { appdomain system_server }:process signal;
 
 # Signal native processes to dump their stack.
 # This list comes from native_processes_to_dump in dumpstate/utils.c
-allow dumpstate { drmserver mediaserver sdcardd surfaceflinger }:process signal;
+allow dumpstate { drmserver mediaserver mediaextractor sdcardd surfaceflinger }:process signal;
 # Ask debuggerd for the backtraces of these processes.
-allow dumpstate { drmserver mediaserver sdcardd surfaceflinger }:debuggerd dump_backtrace;
+allow dumpstate { drmserver mediaserver mediaextractor sdcardd surfaceflinger }:debuggerd dump_backtrace;
 
 # Execute and transition to the vdc domain
 domain_auto_trans(dumpstate, vdc_exec, vdc)
