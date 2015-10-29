@@ -13,6 +13,9 @@ allow binderservicedomain console_device:chr_file rw_file_perms;
 allow binderservicedomain appdomain:fd use;
 allow binderservicedomain appdomain:fifo_file write;
 
+# allow all services to run permission checks
+allow binderservicedomain permission_service:service_manager find;
+
 allow binderservicedomain keystore:keystore_key { get_state get insert delete exist list sign verify };
 
 use_keystore(binderservicedomain)
