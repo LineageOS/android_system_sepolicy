@@ -91,6 +91,8 @@ type property_data_file, file_type, data_file_type;
 type bootchart_data_file, file_type, data_file_type;
 # /data/system/heapdump
 type heapdump_data_file, file_type, data_file_type, mlstrustedobject;
+# /data/nativetest
+type nativetest_data_file, file_type, data_file_type;
 
 # Mount locations managed by vold
 type mnt_media_rw_file, file_type;
