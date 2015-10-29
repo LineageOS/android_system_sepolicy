@@ -245,6 +245,7 @@
 /data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
 /data/media(/.*)?	u:object_r:media_rw_data_file:s0
 /data/mediadrm(/.*)?	u:object_r:media_data_file:s0
+/data/nativetest(/.*)?	u:object_r:nativetest_data_file:s0
 /data/property(/.*)?	u:object_r:property_data_file:s0
 
 # Misc data
