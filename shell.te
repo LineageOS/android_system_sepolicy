@@ -31,6 +31,12 @@ allow shell shell_data_file:file create_file_perms;
 allow shell shell_data_file:file rx_file_perms;
 allow shell shell_data_file:lnk_file create_file_perms;
 
+# Read/execute files in /data/nativetest
+userdebug_or_eng(`
+  allow shell nativetest_data_file:dir r_dir_perms;
+  allow shell nativetest_data_file:file rx_file_perms;
+')
+
 # adb bugreport
 unix_socket_connect(shell, dumpstate, dumpstate)
 
