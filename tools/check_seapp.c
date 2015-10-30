@@ -204,6 +204,7 @@ static list nallow_list = list_init(line_order_list_freefn);
 key_map rules[] = {
                 /*Inputs*/
                 { .name = "isSystemServer", .type = dt_bool,   .dir = dir_in,  .data = NULL },
+                { .name = "isAutoPlayApp",  .type = dt_bool,   .dir = dir_in,  .data = NULL },
                 { .name = "isOwner",        .type = dt_bool,   .dir = dir_in,  .data = NULL },
                 { .name = "user",           .type = dt_string, .dir = dir_in,  .data = NULL },
                 { .name = "seinfo",         .type = dt_string, .dir = dir_in,  .data = NULL },

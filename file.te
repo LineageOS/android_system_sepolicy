@@ -131,6 +131,7 @@ type perfprofd_data_file, file_type, data_file_type, mlstrustedobject;
 typealias audio_data_file alias audio_firmware_file;
 # /data/data subdirectories - app sandboxes
 type app_data_file, file_type, data_file_type;
+type autoplay_data_file, file_type, data_file_type;
 # /data/data subdirectory for system UID apps.
 type system_app_data_file, file_type, data_file_type, mlstrustedobject;
 # Compatibility with type name used in Android 4.3 and 4.4.
