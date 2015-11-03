@@ -1,5 +1,5 @@
 # userspace wifi access points
-type hostapd, domain;
+type hostapd, domain, domain_deprecated;
 type hostapd_exec, exec_type, file_type;
 
 net_domain(hostapd)

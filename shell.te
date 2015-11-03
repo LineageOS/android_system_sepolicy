@@ -1,5 +1,5 @@
 # Domain for shell processes spawned by ADB or console service.
-type shell, domain, mlstrustedsubject;
+type shell, domain, domain_deprecated, mlstrustedsubject;
 type shell_exec, exec_type, file_type;
 
 # Create and use network sockets.

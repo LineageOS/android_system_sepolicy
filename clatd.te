@@ -1,5 +1,5 @@
 # 464xlat daemon
-type clatd, domain;
+type clatd, domain, domain_deprecated;
 type clatd_exec, exec_type, file_type;
 
 net_domain(clatd)

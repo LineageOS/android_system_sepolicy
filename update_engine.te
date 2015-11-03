@@ -1,5 +1,5 @@
 # Domain for update_engine daemon.
-type update_engine, domain;
+type update_engine, domain, domain_deprecated;
 type update_engine_exec, exec_type, file_type;
 type update_engine_data_file, file_type, data_file_type;
 

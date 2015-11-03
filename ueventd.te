@@ -1,6 +1,6 @@
 # ueventd seclabel is specified in init.rc since
 # it lives in the rootfs and has no unique file type.
-type ueventd, domain;
+type ueventd, domain, domain_deprecated;
 tmpfs_domain(ueventd)
 
 # TODO: why is ueventd using __kmsg__ when it should just create

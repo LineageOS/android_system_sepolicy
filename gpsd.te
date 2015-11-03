@@ -1,5 +1,5 @@
 # gpsd - GPS daemon
-type gpsd, domain;
+type gpsd, domain, domain_deprecated;
 type gpsd_exec, exec_type, file_type;
 
 init_daemon_domain(gpsd)

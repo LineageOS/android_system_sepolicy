@@ -1,5 +1,5 @@
 # volume manager
-type vold, domain;
+type vold, domain, domain_deprecated;
 type vold_exec, exec_type, file_type;
 
 init_daemon_domain(vold)

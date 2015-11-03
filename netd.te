@@ -1,5 +1,5 @@
 # network manager
-type netd, domain, mlstrustedsubject;
+type netd, domain, domain_deprecated, mlstrustedsubject;
 type netd_exec, exec_type, file_type;
 
 init_daemon_domain(netd)

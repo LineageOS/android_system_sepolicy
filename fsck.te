@@ -1,5 +1,5 @@
 # Any fsck program run by init
-type fsck, domain;
+type fsck, domain, domain_deprecated;
 type fsck_exec, exec_type, file_type;
 
 init_daemon_domain(fsck)

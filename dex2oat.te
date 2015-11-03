@@ -1,5 +1,5 @@
 # dex2oat
-type dex2oat, domain;
+type dex2oat, domain, domain_deprecated;
 type dex2oat_exec, exec_type, file_type;
 
 allow dex2oat dalvikcache_data_file:file write;

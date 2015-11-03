@@ -1,5 +1,5 @@
 # debugger interface
-type debuggerd, domain;
+type debuggerd, domain, domain_deprecated;
 type debuggerd_exec, exec_type, file_type;
 
 init_daemon_domain(debuggerd)

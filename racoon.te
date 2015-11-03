@@ -1,5 +1,5 @@
 # IKE key management daemon
-type racoon, domain;
+type racoon, domain, domain_deprecated;
 type racoon_exec, exec_type, file_type;
 
 init_daemon_domain(racoon)
