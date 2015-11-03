@@ -1,5 +1,5 @@
 # vpn tunneling protocol manager
-type mtp, domain;
+type mtp, domain, domain_deprecated;
 type mtp_exec, exec_type, file_type;
 
 init_daemon_domain(mtp)

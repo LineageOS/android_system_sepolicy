@@ -9,7 +9,7 @@
 ### additional following rules:
 ###
 
-type isolated_app, domain;
+type isolated_app, domain, domain_deprecated;
 app_domain(isolated_app)
 
 # Access already open app data files received over Binder or local socket IPC.

@@ -1,5 +1,5 @@
 # wpa - wpa supplicant or equivalent
-type wpa, domain;
+type wpa, domain, domain_deprecated;
 type wpa_exec, exec_type, file_type;
 
 init_daemon_domain(wpa)

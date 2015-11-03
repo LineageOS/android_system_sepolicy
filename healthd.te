@@ -1,6 +1,6 @@
 # healthd seclabel is specified in init.rc since
 # it lives in the rootfs and has no unique file type.
-type healthd, domain;
+type healthd, domain, domain_deprecated;
 
 # Write to /dev/kmsg
 allow healthd kmsg_device:chr_file rw_file_perms;

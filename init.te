@@ -1,5 +1,5 @@
 # init is its own domain.
-type init, domain, mlstrustedsubject;
+type init, domain, domain_deprecated, mlstrustedsubject;
 tmpfs_domain(init)
 
 # The init domain is entered by execing init.

@@ -1,5 +1,5 @@
 # android user-space log manager
-type logd, domain, mlstrustedsubject;
+type logd, domain, domain_deprecated, mlstrustedsubject;
 type logd_exec, exec_type, file_type;
 
 init_daemon_domain(logd)
