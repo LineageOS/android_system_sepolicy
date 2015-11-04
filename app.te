@@ -167,10 +167,6 @@ allow appdomain usbaccessory_device:chr_file { read write getattr };
 allow appdomain dalvikcache_data_file:file execute;
 allow appdomain dalvikcache_data_file:lnk_file r_file_perms;
 
-# /data/dalvik-cache/profiles
-allow appdomain dalvikcache_profiles_data_file:dir { search getattr };
-allow appdomain dalvikcache_profiles_data_file:file rw_file_perms;
-
 # Allow any app to read shared RELRO files.
 allow appdomain shared_relro_file:dir search;
 allow appdomain shared_relro_file:file r_file_perms;
