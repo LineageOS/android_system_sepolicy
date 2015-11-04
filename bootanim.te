@@ -1,5 +1,5 @@
 # bootanimation oneshot service
-type bootanim, domain;
+type bootanim, domain, domain_deprecated;
 type bootanim_exec, exec_type, file_type;
 
 init_daemon_domain(bootanim)

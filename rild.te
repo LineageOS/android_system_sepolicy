@@ -1,5 +1,5 @@
 # rild - radio interface layer daemon
-type rild, domain;
+type rild, domain, domain_deprecated;
 type rild_exec, exec_type, file_type;
 
 init_daemon_domain(rild)

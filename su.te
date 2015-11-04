@@ -5,7 +5,7 @@ userdebug_or_eng(`
   # Domain used for su processes, as well as for adbd and adb shell
   # after performing an adb root command.  The domain definition is
   # wrapped to ensure that it does not exist at all on -user builds.
-  type su, domain, mlstrustedsubject;
+  type su, domain, domain_deprecated, mlstrustedsubject;
   domain_auto_trans(shell, su_exec, su)
 
   # Allow dumpstate to call su on userdebug / eng builds to collect

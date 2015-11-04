@@ -1,6 +1,6 @@
 # slideshow seclabel is specified in init.rc since
 # it lives in the rootfs and has no unique file type.
-type slideshow, domain;
+type slideshow, domain, domain_deprecated;
 
 allow slideshow kmsg_device:chr_file rw_file_perms;
 wakelock_use(slideshow)

@@ -1,7 +1,7 @@
 # Any toolbox command run by init.
 # At present, the only known usage is for running mkswap via fs_mgr.
 # Do NOT use this domain for toolbox when run by any other domain.
-type toolbox, domain;
+type toolbox, domain, domain_deprecated;
 type toolbox_exec, exec_type, file_type;
 
 init_daemon_domain(toolbox)

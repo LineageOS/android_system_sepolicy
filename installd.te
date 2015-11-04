@@ -1,5 +1,5 @@
 # installer daemon
-type installd, domain;
+type installd, domain, domain_deprecated;
 type installd_exec, exec_type, file_type;
 
 init_daemon_domain(installd)
