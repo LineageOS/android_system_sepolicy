@@ -1,5 +1,5 @@
 # uncrypt
-type uncrypt, domain, mlstrustedsubject;
+type uncrypt, domain, domain_deprecated, mlstrustedsubject;
 type uncrypt_exec, exec_type, file_type;
 
 init_daemon_domain(uncrypt)

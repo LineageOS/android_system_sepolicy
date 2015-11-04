@@ -1,5 +1,5 @@
 # mediaserver - multimedia daemon
-type mediaserver, domain;
+type mediaserver, domain, domain_deprecated;
 type mediaserver_exec, exec_type, file_type;
 
 typeattribute mediaserver mlstrustedsubject;

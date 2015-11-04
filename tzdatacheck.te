@@ -1,5 +1,5 @@
 # The tzdatacheck command run by init.
-type tzdatacheck, domain;
+type tzdatacheck, domain, domain_deprecated;
 type tzdatacheck_exec, exec_type, file_type;
 
 init_daemon_domain(tzdatacheck)

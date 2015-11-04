@@ -2,7 +2,7 @@
 # System Server aka system_server spawned by zygote.
 # Most of the framework services run in this process.
 #
-type system_server, domain, mlstrustedsubject;
+type system_server, domain, domain_deprecated, mlstrustedsubject;
 
 # Define a type for tmpfs-backed ashmem regions.
 tmpfs_domain(system_server)

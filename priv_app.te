@@ -1,7 +1,7 @@
 ###
 ### A domain for further sandboxing privileged apps.
 ###
-type priv_app, domain;
+type priv_app, domain, domain_deprecated;
 app_domain(priv_app)
 # Access the network.
 net_domain(priv_app)

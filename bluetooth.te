@@ -1,5 +1,5 @@
 # bluetooth subsystem
-type bluetooth, domain;
+type bluetooth, domain, domain_deprecated;
 app_domain(bluetooth)
 net_domain(bluetooth)
 

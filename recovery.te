@@ -2,7 +2,7 @@
 
 # Declare the domain unconditionally so we can always reference it
 # in neverallow rules.
-type recovery, domain;
+type recovery, domain, domain_deprecated;
 
 # But the allow rules are only included in the recovery policy.
 # Otherwise recovery is only allowed the domain rules.

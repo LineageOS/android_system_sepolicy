@@ -1,5 +1,5 @@
 # drmserver - DRM service
-type drmserver, domain;
+type drmserver, domain, domain_deprecated;
 type drmserver_exec, exec_type, file_type;
 
 init_daemon_domain(drmserver)
