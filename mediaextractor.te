@@ -1,5 +1,5 @@
 # mediaextractor - multimedia daemon
-type mediaextractor, domain;
+type mediaextractor, domain, domain_deprecated;
 type mediaextractor_exec, exec_type, file_type;
 
 typeattribute mediaextractor mlstrustedsubject;
