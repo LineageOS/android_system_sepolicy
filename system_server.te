@@ -278,11 +278,6 @@ allow system_server system_data_file:file relabelfrom;
 allow system_server wallpaper_file:file relabelto;
 allow system_server wallpaper_file:file { rw_file_perms unlink };
 
-# This was originally required for relabeling /data/anr,
-# but should not be used anymore. TODO: remove it.
-allow system_server system_data_file:dir relabelfrom;
-auditallow system_server system_data_file:dir relabelfrom;
-
 # Property Service write
 set_prop(system_server, system_prop)
 set_prop(system_server, dhcp_prop)
@@ -317,10 +312,6 @@ allow system_server cache_file:fifo_file create_file_perms;
 
 # Run system programs, e.g. dexopt.
 allow system_server system_file:file x_file_perms;
-
-# XXX Run toolbox.  Might not be needed.
-allow system_server toolbox_exec:file rx_file_perms;
-auditallow system_server toolbox_exec:file rx_file_perms;
 
 # LocationManager(e.g, GPS) needs to read and write
 # to uart driver and ctrl proc entry
