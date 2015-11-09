@@ -3,14 +3,6 @@
 # Allow reaping by init.
 allow domain init:process sigchld;
 
-# Read access to properties mapping.
-allow domain kernel:fd use;
-allow domain tmpfs:file { read getattr };
-allow domain tmpfs:lnk_file { read getattr };
-
-# Search /storage/emulated tmpfs mount.
-allow domain tmpfs:dir r_dir_perms;
-
 # Intra-domain accesses.
 allow domain self:process {
     fork
@@ -38,13 +30,6 @@ allow domain self:unix_stream_socket { create_stream_socket_perms connectto };
 
 # Inherit or receive open files from others.
 allow domain init:fd use;
-allow domain system_server:fd use;
-
-# Connect to adbd and use a socket transferred from it.
-# This is used for e.g. adb backup/restore.
-allow domain adbd:unix_stream_socket connectto;
-allow domain adbd:fd use;
-allow domain adbd:unix_stream_socket { getattr getopt ioctl read write shutdown };
 
 userdebug_or_eng(`
   # Same as adbd rules above, except allow su to do the same thing
@@ -73,15 +58,13 @@ allow domain debuggerd:process sigchld;
 allow domain debuggerd:unix_stream_socket connectto;
 
 # Root fs.
-allow domain rootfs:dir r_dir_perms;
-allow domain rootfs:file r_file_perms;
-allow domain rootfs:lnk_file r_file_perms;
+allow domain rootfs:dir search;
+allow domain rootfs:lnk_file read;
 
 # Device accesses.
 allow domain device:dir search;
 allow domain dev_type:lnk_file r_file_perms;
 allow domain devpts:dir search;
-allow domain device:file read;
 allow domain socket_device:dir r_dir_perms;
 allow domain owntty_device:chr_file rw_file_perms;
 allow domain null_device:chr_file rw_file_perms;
@@ -99,70 +82,20 @@ allow domain vold:key search;
 # logd access
 write_logd(domain)
 
-# Filesystem accesses.
-allow domain fs_type:filesystem getattr;
-allow domain fs_type:dir getattr;
-
 # System file accesses.
-allow domain system_file:dir r_dir_perms;
-allow domain system_file:file r_file_perms;
-allow domain system_file:file execute;
-allow domain system_file:lnk_file r_file_perms;
+allow domain system_file:dir search;
+allow domain system_file:file { execute read open getattr };
+allow domain system_file:lnk_file read;
 
-# Read files already opened under /data.
+# files under /data.
 allow domain system_data_file:dir { search getattr };
-allow domain system_data_file:file { getattr read };
-allow domain system_data_file:lnk_file r_file_perms;
 
-# Read apk files under /data/app.
-allow domain apk_data_file:dir { getattr search };
-allow domain apk_data_file:file r_file_perms;
-allow domain apk_data_file:lnk_file r_file_perms;
+# required by the dynamic linker
+allow domain proc:lnk_file read;
 
-# Read /data/dalvik-cache.
-allow domain dalvikcache_data_file:dir { search getattr };
-allow domain dalvikcache_data_file:file r_file_perms;
-
-# Read already opened /cache files.
-allow domain cache_file:dir r_dir_perms;
-allow domain cache_file:file { getattr read };
-allow domain cache_file:lnk_file r_file_perms;
-
-# Read timezone related information
-r_dir_file(domain, zoneinfo_data_file)
-
-# For /acct/uid/*/tasks.
-allow domain cgroup:dir { search write };
-allow domain cgroup:file w_file_perms;
-
-#Allow access to ion memory allocation device
-allow domain ion_device:chr_file rw_file_perms;
-
-# Read access to pseudo filesystems.
-r_dir_file(domain, proc)
-r_dir_file(domain, sysfs)
-r_dir_file(domain, sysfs_devices_system_cpu)
-r_dir_file(domain, inotify)
-r_dir_file(domain, cgroup)
-r_dir_file(domain, proc_net)
-allow domain proc_cpuinfo:file r_file_perms;
-
-# debugfs access
-allow domain debugfs:dir r_dir_perms;
-allow domain debugfs:file w_file_perms;
-
-# Get SELinux enforcing status.
-allow domain selinuxfs:dir r_dir_perms;
-allow domain selinuxfs:file r_file_perms;
-
-# /data/security files
-allow domain security_file:dir { search getattr };
-allow domain security_file:file getattr;
-allow domain security_file:lnk_file r_file_perms;
-
-# World readable asec image contents
-allow domain asec_public_file:file r_file_perms;
-allow domain { asec_public_file asec_apk_file }:dir r_dir_perms;
+# toybox loads libselinux which stats /sys/fs/selinux/
+allow domain selinuxfs:file getattr;
+allow domain sysfs:dir search;
 
 ###
 ### neverallow rules
