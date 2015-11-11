@@ -25,9 +25,13 @@ allow appdomain zygote_tmpfs:file read;
 # Notify zygote of death;
 allow appdomain zygote:process sigchld;
 
-# Notify zygote of the wrapped process PID when using --invoke-with.
 userdebug_or_eng(`
+  # Notify zygote of the wrapped process PID when using --invoke-with.
   allow appdomain zygote:fifo_file write;
+
+  # Allow apps to create and write method traces in /data/misc/trace.
+  allow appdomain method_trace_data_file:dir w_dir_perms;
+  allow appdomain method_trace_data_file:file { create w_file_perms };
 ')
 
 # Notify shell and adbd of death when spawned via runas for ndk-gdb.
