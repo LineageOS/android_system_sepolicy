@@ -52,12 +52,8 @@ allow zygote proc_cpuinfo:file mounton;
 
 # Allow remounting rootfs as MS_SLAVE
 allow zygote rootfs:dir mounton;
-allow zygote sdcard_type:dir { write search setattr create add_name mounton }; # TODO: deprecated in M
-dontaudit zygote self:capability fsetid; # TODO: deprecated in M
-allow zygote tmpfs:dir { write create add_name setattr mounton search }; # TODO: deprecated in M
 allow zygote tmpfs:filesystem { mount unmount };
 allow zygote fuse:filesystem { unmount };
-allow zygote labeledfs:filesystem remount; # TODO: deprecated in M
 
 # Allowed to create user-specific storage source if started before vold
 allow zygote mnt_user_file:dir create_dir_perms;
