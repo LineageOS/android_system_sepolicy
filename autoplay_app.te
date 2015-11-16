@@ -1,0 +1,13 @@
+###
+### AutoPlay apps.
+###
+### This file defines the security policy for apps with the autoplay
+### feature.
+###
+### The autoplay_app domain is a reduced permissions sandbox allowing
+### ephemeral applications to be safely installed and run. Non ephemeral
+### applications may also opt-in to autoplay to take advantage of the
+### additional security features.
+###
+### PackageManager flags an app as autoplay at install time.
+type autoplay_app, domain;

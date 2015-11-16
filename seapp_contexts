@@ -1,5 +1,6 @@
 # Input selectors:
 #	isSystemServer (boolean)
+#	isAutoPlayApp (boolean)
 #	isOwner (boolean)
 #	user (string)
 #	seinfo (string)
@@ -8,6 +9,7 @@
 #	isPrivApp (boolean)
 # isSystemServer=true can only be used once.
 # An unspecified isSystemServer defaults to false.
+# isAutoPlayApp=true will match apps marked by PackageManager as AutoPlay
 # isOwner=true will only match for the owner/primary user.
 # isOwner=false will only match for secondary users.
 # If unspecified, the entry can match either case.
@@ -22,15 +24,16 @@
 #
 # Precedence rules:
 # 	  (1) isSystemServer=true before isSystemServer=false.
-# 	  (2) Specified isOwner= before unspecified isOwner= boolean.
-#	  (3) Specified user= string before unspecified user= string.
-#	  (4) Fixed user= string before user= prefix (i.e. ending in *).
-#	  (5) Longer user= prefix before shorter user= prefix.
-#	  (6) Specified seinfo= string before unspecified seinfo= string.
+# 	  (2) Specified isAutoPlayApp= before unspecified isAutoPlayApp= boolean.
+# 	  (3) Specified isOwner= before unspecified isOwner= boolean.
+#	  (4) Specified user= string before unspecified user= string.
+#	  (5) Fixed user= string before user= prefix (i.e. ending in *).
+#	  (6) Longer user= prefix before shorter user= prefix.
+#	  (7) Specified seinfo= string before unspecified seinfo= string.
 #	      ':' character is reserved and may not be used.
-#	  (7) Specified name= string before unspecified name= string.
-#	  (8) Specified path= string before unspecified path= string.
-# 	  (9) Specified isPrivApp= before unspecified isPrivApp= boolean.
+#	  (8) Specified name= string before unspecified name= string.
+#	  (9) Specified path= string before unspecified path= string.
+# 	  (10) Specified isPrivApp= before unspecified isPrivApp= boolean.
 #
 # Outputs:
 #	domain (string)
@@ -79,6 +82,9 @@ neverallow user=((?!_isolated).)* domain=isolated_app
 # uid's can be in shell domain
 neverallow user=shell domain=((?!shell).)*
 
+# AutoPlay Apps must run in the autoplay_app domain
+neverallow isAutoPlayApp=true domain=((?!autoplay_app).)*
+
 isSystemServer=true domain=system_server
 user=system seinfo=platform domain=system_app type=system_app_data_file
 user=bluetooth seinfo=platform domain=bluetooth type=bluetooth_data_file
@@ -88,5 +94,6 @@ user=shared_relro domain=shared_relro
 user=shell seinfo=platform domain=shell type=shell_data_file
 user=_isolated domain=isolated_app levelFrom=user
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
+user=_app isAutoPlayApp=true domain=autoplay_app type=autoplay_data_file levelFrom=all
 user=_app isPrivApp=true domain=priv_app type=app_data_file levelFrom=user
 user=_app domain=untrusted_app type=app_data_file levelFrom=user
