@@ -59,10 +59,6 @@ allow installd install_data_file:file create_file_perms;
 allow installd dalvikcache_data_file:dir create_dir_perms;
 allow installd dalvikcache_data_file:file create_file_perms;
 
-# Create /data/dalvik-cache/profiles.
-allow installd dalvikcache_profiles_data_file:dir rw_dir_perms;
-allow installd dalvikcache_profiles_data_file:file create_file_perms;
-
 # Create files under /data/resource-cache.
 allow installd resourcecache_data_file:dir rw_dir_perms;
 allow installd resourcecache_data_file:file create_file_perms;
