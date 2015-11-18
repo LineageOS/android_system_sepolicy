@@ -432,6 +432,9 @@ userdebug_or_eng(`
   # Allow system server to create and write method traces in /data/misc/trace.
   allow system_server method_trace_data_file:dir w_dir_perms;
   allow system_server method_trace_data_file:file { create w_file_perms };
+
+  # Allow system server to read dmesg
+  allow system_server kernel:system syslog_read;
 ')
 
 ###
