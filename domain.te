@@ -22,6 +22,7 @@ allow domain self:process {
     setrlimit
 };
 allow domain self:fd use;
+allow domain proc:dir search;
 allow domain self:dir r_dir_perms;
 allow domain self:lnk_file r_file_perms;
 allow domain self:{ fifo_file file } rw_file_perms;
@@ -96,6 +97,7 @@ allow domain proc:lnk_file read;
 # toybox loads libselinux which stats /sys/fs/selinux/
 allow domain selinuxfs:file getattr;
 allow domain sysfs:dir search;
+allow domain selinuxfs:filesystem getattr;
 
 ###
 ### neverallow rules
