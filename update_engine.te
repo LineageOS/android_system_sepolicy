@@ -10,6 +10,7 @@ net_domain(update_engine);
 allow update_engine self:process { setsched };
 allow update_engine self:capability { fowner sys_admin };
 allow update_engine kmsg_device:chr_file w_file_perms;
+allow update_engine update_engine_exec:file rx_file_perms;
 wakelock_use(update_engine);
 
 # Allow using persistent storage in /data/misc/update_engine.
