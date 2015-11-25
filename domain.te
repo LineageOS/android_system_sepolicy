@@ -220,6 +220,7 @@ neverallow { domain -kernel -init -recovery -vold -zygote } { fs_type -sdcard_ty
 neverallow {
     domain
     -appdomain
+    -autoplay_app
     -dumpstate
     -shell
     userdebug_or_eng(`-su')
