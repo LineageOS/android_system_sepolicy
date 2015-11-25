@@ -11,7 +11,7 @@ r_dir_file(mediaserver, sdcard_type)
 
 binder_use(mediaserver)
 binder_call(mediaserver, binderservicedomain)
-binder_call(mediaserver, appdomain)
+binder_call(mediaserver, { appdomain autoplay_app })
 binder_service(mediaserver)
 
 # Required by Widevine DRM (b/22990512)
@@ -45,7 +45,7 @@ allow mediaserver asec_apk_file:file { read getattr };
 allow mediaserver radio_data_file:file { read getattr };
 
 # Use pipes passed over Binder from app domains.
-allow mediaserver appdomain:fifo_file { getattr read write };
+allow mediaserver { appdomain autoplay_app }:fifo_file { getattr read write };
 
 # Access camera device.
 allow mediaserver camera_device:chr_file rw_file_perms;

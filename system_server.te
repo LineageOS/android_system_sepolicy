@@ -73,10 +73,10 @@ allow system_server self:socket create_socket_perms;
 allow system_server self:netlink_route_socket nlmsg_write;
 
 # Kill apps.
-allow system_server appdomain:process { sigkill signal };
+allow system_server { appdomain autoplay_app }:process { sigkill signal };
 
 # Set scheduling info for apps.
-allow system_server appdomain:process { getsched setsched };
+allow system_server { appdomain autoplay_app }:process { getsched setsched };
 allow system_server mediaserver:process { getsched setsched };
 
 # Read /proc/pid data for all domains. This is used by ProcessCpuTracker
@@ -132,7 +132,7 @@ binder_use(system_server)
 binder_call(system_server, binderservicedomain)
 binder_call(system_server, gatekeeperd)
 binder_call(system_server, fingerprintd)
-binder_call(system_server, appdomain)
+binder_call(system_server, { appdomain autoplay_app })
 binder_call(system_server, dumpstate)
 binder_service(system_server)
 
@@ -248,7 +248,7 @@ allow system_server zoneinfo_data_file:file create_file_perms;
 
 # Walk /data/data subdirectories.
 # Types extracted from seapp_contexts type= fields.
-allow system_server { system_app_data_file bluetooth_data_file nfc_data_file radio_data_file shell_data_file app_data_file }:dir { getattr read search };
+allow system_server { system_app_data_file bluetooth_data_file nfc_data_file radio_data_file shell_data_file app_data_file autoplay_data_file }:dir { getattr read search };
 # Also permit for unlabeled /data/data subdirectories and
 # for unlabeled asec containers on upgrades from 4.2.
 allow system_server unlabeled:dir r_dir_perms;
@@ -322,8 +322,8 @@ allow system_server gps_device:chr_file rw_file_perms;
 allow system_server gps_control:file rw_file_perms;
 
 # Allow system_server to use app-created sockets and pipes.
-allow system_server appdomain:{ tcp_socket udp_socket } { getattr getopt setopt read write shutdown };
-allow system_server appdomain:{ fifo_file unix_stream_socket } { getattr read write };
+allow system_server { appdomain autoplay_app }:{ tcp_socket udp_socket } { getattr getopt setopt read write shutdown };
+allow system_server { appdomain autoplay_app }:{ fifo_file unix_stream_socket } { getattr read write };
 
 # Allow abstract socket connection
 allow system_server rild:unix_stream_socket connectto;

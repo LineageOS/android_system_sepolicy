@@ -16,6 +16,8 @@ allow lmkd self:capability ipc_lock;
 ## TODO: maybe scope this down?
 r_dir_file(lmkd, appdomain)
 allow lmkd appdomain:file write;
+r_dir_file(lmkd, autoplay_app)
+allow lmkd autoplay_app:file write;
 r_dir_file(lmkd, system_server)
 allow lmkd system_server:file write;
 

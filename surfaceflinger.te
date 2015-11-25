@@ -8,7 +8,7 @@ typeattribute surfaceflinger mlstrustedsubject;
 # Perform Binder IPC.
 binder_use(surfaceflinger)
 binder_call(surfaceflinger, binderservicedomain)
-binder_call(surfaceflinger, appdomain)
+binder_call(surfaceflinger, { appdomain autoplay_app })
 binder_call(surfaceflinger, bootanim)
 binder_service(surfaceflinger)
 
@@ -17,7 +17,7 @@ binder_call(surfaceflinger, adbd)
 
 # Read /proc/pid files for Binder clients.
 r_dir_file(surfaceflinger, binderservicedomain)
-r_dir_file(surfaceflinger, appdomain)
+r_dir_file(surfaceflinger, { appdomain autoplay_app })
 
 # Access the GPU.
 allow surfaceflinger gpu_device:chr_file rw_file_perms;
@@ -38,7 +38,7 @@ set_prop(surfaceflinger, system_prop)
 set_prop(surfaceflinger, ctl_bootanim_prop)
 
 # Use open files supplied by an app.
-allow surfaceflinger appdomain:fd use;
+allow surfaceflinger { appdomain autoplay_app }:fd use;
 allow surfaceflinger app_data_file:file { read write };
 
 # Use open file provided by bootanim.
