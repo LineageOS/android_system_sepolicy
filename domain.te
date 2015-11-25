@@ -84,12 +84,13 @@ allow domain vold:key search;
 write_logd(domain)
 
 # System file accesses.
-allow domain system_file:dir search;
+allow domain system_file:dir { search getattr };
 allow domain system_file:file { execute read open getattr };
 allow domain system_file:lnk_file read;
 
 # files under /data.
 allow domain system_data_file:dir { search getattr };
+allow domain system_data_file:lnk_file read;
 
 # required by the dynamic linker
 allow domain proc:lnk_file read;
