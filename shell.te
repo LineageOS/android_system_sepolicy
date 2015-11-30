@@ -1,5 +1,5 @@
 # Domain for shell processes spawned by ADB or console service.
-type shell, domain, domain_deprecated, mlstrustedsubject;
+type shell, domain, mlstrustedsubject;
 type shell_exec, exec_type, file_type;
 
 # Create and use network sockets.
@@ -20,6 +20,10 @@ userdebug_or_eng(`
   allow shell misc_logd_file:dir r_dir_perms;
   allow shell misc_logd_file:file r_file_perms;
 ')
+
+# interact with adb
+allow shell adbd:fd use;
+allow shell adbd:unix_stream_socket { read write ioctl getattr };
 
 # read files in /data/anr
 allow shell anr_data_file:dir r_dir_perms;
@@ -82,6 +86,8 @@ allow shell servicemanager:service_manager list;
 allow shell { service_manager_type -gatekeeper_service }:service_manager find;
 
 # allow shell to look through /proc/ for ps, top
+r_dir_file(shell, proc)
+r_dir_file(shell, cgroup)
 allow shell domain:dir { search open read getattr };
 allow shell domain:{ file lnk_file } { open read getattr };
 

@@ -53,9 +53,6 @@ allow domain_deprecated cache_file:dir r_dir_perms;
 allow domain_deprecated cache_file:file { getattr read };
 allow domain_deprecated cache_file:lnk_file r_file_perms;
 
-# Read timezone related information
-r_dir_file(domain_deprecated, zoneinfo_data_file)
-
 # For /acct/uid/*/tasks.
 allow domain_deprecated cgroup:dir { search write };
 allow domain_deprecated cgroup:file w_file_perms;
