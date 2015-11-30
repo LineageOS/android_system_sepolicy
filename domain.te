@@ -88,6 +88,9 @@ allow domain system_file:dir { search getattr };
 allow domain system_file:file { execute read open getattr };
 allow domain system_file:lnk_file read;
 
+# libc references /data/misc/zoneinfo for timezone related information
+r_dir_file(domain, zoneinfo_data_file)
+
 # files under /data.
 allow domain system_data_file:dir { search getattr };
 allow domain system_data_file:lnk_file read;
