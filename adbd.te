@@ -1,6 +1,6 @@
 # adbd seclabel is specified in init.rc since
 # it lives in the rootfs and has no unique file type.
-type adbd, domain, domain_deprecated, mlstrustedsubject;
+type adbd, domain, mlstrustedsubject;
 
 userdebug_or_eng(`
   allow adbd self:process setcurrent;
