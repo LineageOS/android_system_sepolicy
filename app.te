@@ -25,6 +25,10 @@ allow appdomain zygote_tmpfs:file read;
 # Notify zygote of death;
 allow appdomain zygote:process sigchld;
 
+# Place process into foreground / background
+allow appdomain cgroup:dir { search write };
+allow appdomain cgroup:file w_file_perms;
+
 userdebug_or_eng(`
   # Notify zygote of the wrapped process PID when using --invoke-with.
   allow appdomain zygote:fifo_file write;
