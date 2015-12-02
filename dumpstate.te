@@ -111,3 +111,7 @@ allow dumpstate { service_manager_type -gatekeeper_service }:service_manager fin
 allow dumpstate servicemanager:service_manager list;
 
 allow dumpstate devpts:chr_file rw_file_perms;
+
+# Set properties.
+# dumpstate_prop is used to share state with the Shell app.
+set_prop(dumpstate, dumpstate_prop)
