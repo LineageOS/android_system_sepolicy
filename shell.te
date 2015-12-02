@@ -71,6 +71,7 @@ set_prop(shell, powerctl_prop)
 # Directory read access and file write access is already granted
 # in domain.te.
 allow shell debugfs:file r_file_perms;
+allow shell debugfs:dir search;
 allow shell atrace_exec:file rx_file_perms;
 
 userdebug_or_eng(`
@@ -113,3 +114,6 @@ allow shell self:process ptrace;
 # bugs, so we want to ensure the shell user never has this
 # capability.
 neverallow shell file_type:file link;
+
+# Allow access to ion memory allocation device.
+allow shell ion_device:chr_file { open read };
