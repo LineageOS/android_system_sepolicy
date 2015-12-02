@@ -1,5 +1,5 @@
 # bootanimation oneshot service
-type bootanim, domain, domain_deprecated;
+type bootanim, domain;
 type bootanim_exec, exec_type, file_type;
 
 init_daemon_domain(bootanim)
@@ -17,3 +17,24 @@ allow bootanim audio_device:dir r_dir_perms;
 allow bootanim audio_device:chr_file rw_file_perms;
 
 allow bootanim surfaceflinger_service:service_manager find;
+
+# For /acct/uid/*/tasks.
+allow bootanim cgroup:dir { search write };
+allow bootanim cgroup:file w_file_perms;
+
+# debugfs access
+allow bootanim debugfs:dir r_dir_perms;
+allow bootanim debugfs:file w_file_perms;
+
+# Allow access to ion memory allocation device
+allow bootanim ion_device:chr_file rw_file_perms;
+
+# Read access to pseudo filesystems.
+r_dir_file(bootanim, proc)
+r_dir_file(bootanim, sysfs)
+r_dir_file(bootanim, sysfs_devices_system_cpu)
+r_dir_file(bootanim, cgroup)
+allow bootanim proc_cpuinfo:file r_file_perms;
+
+# System file accesses.
+allow bootanim system_file:dir r_dir_perms;
