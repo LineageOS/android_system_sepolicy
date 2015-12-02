@@ -29,6 +29,16 @@ allow appdomain zygote:process sigchld;
 allow appdomain cgroup:dir { search write };
 allow appdomain cgroup:file w_file_perms;
 
+# Read /data/dalvik-cache.
+allow appdomain dalvikcache_data_file:dir { search getattr };
+allow appdomain dalvikcache_data_file:file r_file_perms;
+
+# Read the /sdcard symlink
+allow appdomain rootfs:lnk_file r_file_perms;
+
+# Search /storage/emulated tmpfs mount.
+allow appdomain tmpfs:dir r_dir_perms;
+
 userdebug_or_eng(`
   # Notify zygote of the wrapped process PID when using --invoke-with.
   allow appdomain zygote:fifo_file write;
