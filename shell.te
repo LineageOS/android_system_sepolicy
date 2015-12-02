@@ -25,6 +25,9 @@ userdebug_or_eng(`
 allow shell adbd:fd use;
 allow shell adbd:unix_stream_socket { read write ioctl getattr };
 
+# Root fs.
+allow shell rootfs:dir r_dir_perms;
+
 # read files in /data/anr
 allow shell anr_data_file:dir r_dir_perms;
 allow shell anr_data_file:file r_file_perms;
