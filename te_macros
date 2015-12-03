@@ -153,6 +153,15 @@ allow $1 $2:property_service set;
 ')
 
 #####################################
+# get_prop(sourcedomain, targetproperty)
+# Allows source domain to read the
+# targetproperty.
+#
+define(`get_prop', `
+allow $1 $2:file r_file_perms;
+')
+
+#####################################
 # unix_socket_send(clientdomain, socket, serverdomain)
 # Allow a local socket send from clientdomain via
 # socket to serverdomain.

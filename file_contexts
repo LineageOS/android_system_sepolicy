@@ -34,7 +34,7 @@
 
 # SELinux policy files
 /file_contexts\.bin u:object_r:rootfs:s0
-/property_contexts  u:object_r:rootfs:s0
+/property_contexts  u:object_r:property_contexts:s0
 /seapp_contexts     u:object_r:rootfs:s0
 /sepolicy           u:object_r:rootfs:s0
 /service_contexts   u:object_r:rootfs:s0
