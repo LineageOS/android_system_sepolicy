@@ -69,6 +69,9 @@ domain_auto_trans(installd, dex2oat_exec, dex2oat)
 # Run idmap in its own sandbox.
 domain_auto_trans(installd, idmap_exec, idmap)
 
+# Run otapreopt in its own sandbox.
+domain_auto_trans(installd, otapreopt_exec, otapreopt)
+
 # Upgrade from unlabeled userdata.
 # Just need enough to remove and/or relabel it.
 allow installd unlabeled:dir { getattr search relabelfrom rw_dir_perms rmdir };
