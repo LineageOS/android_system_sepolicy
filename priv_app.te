@@ -60,6 +60,10 @@ userdebug_or_eng(`
   allow priv_app perfprofd_data_file:dir r_dir_perms;
 ')
 
+# Allow GMS core to stat files and executables on
+# the system partition
+allow priv_app exec_type:file getattr;
+
 ###
 ### neverallow rules
 ###
