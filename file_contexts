@@ -166,6 +166,7 @@
 /system/bin/rild	u:object_r:rild_exec:s0
 /system/bin/audioserver	u:object_r:audioserver_exec:s0
 /system/bin/mediaserver	u:object_r:mediaserver_exec:s0
+/system/bin/cameraserver	u:object_r:cameraserver_exec:s0
 /system/bin/mediaextractor	u:object_r:mediaextractor_exec:s0
 /system/bin/mediacodec	u:object_r:mediacodec_exec:s0
 /system/bin/mdnsd	u:object_r:mdnsd_exec:s0

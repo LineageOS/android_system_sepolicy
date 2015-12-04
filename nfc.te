@@ -18,6 +18,7 @@ allow nfc sysfs_nfc_power_writable:file rw_file_perms;
 allow nfc sysfs:file write;
 
 allow nfc audioserver_service:service_manager find;
+allow nfc cameraserver_service:service_manager find;
 allow nfc drmserver_service:service_manager find;
 allow nfc mediaserver_service:service_manager find;
 allow nfc mediaextractor_service:service_manager find;
