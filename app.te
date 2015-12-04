@@ -396,3 +396,6 @@ neverallow appdomain {
   security_file
   tmpfs
 }:lnk_file no_w_file_perms;
+
+# Do not allow Apps to directly open tun_device
+neverallow appdomain tun_device:chr_file open;
