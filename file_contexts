@@ -328,6 +328,11 @@
 /sys/module/lowmemorykiller(/.*)? -- u:object_r:sysfs_lowmemorykiller:s0
 
 #############################
+# debugfs files
+#
+/sys/kernel/debug/tracing/trace_marker   u:object_r:debugfs_trace_marker:s0
+
+#############################
 # asec containers
 /mnt/asec(/.*)?             u:object_r:asec_apk_file:s0
 /mnt/asec/[^/]+/[^/]+\.zip  u:object_r:asec_public_file:s0

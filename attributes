@@ -37,6 +37,9 @@ attribute data_file_type;
 # All types use for sysfs files.
 attribute sysfs_type;
 
+# All types use for debugfs files.
+attribute debugfs_type;
+
 # Attribute used for all sdcards
 attribute sdcard_type;
 
