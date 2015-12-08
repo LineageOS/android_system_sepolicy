@@ -125,4 +125,4 @@ allow shell self:process ptrace;
 neverallow shell file_type:file link;
 
 # Allow access to ion memory allocation device.
-allow shell ion_device:chr_file { open read };
+allow shell ion_device:chr_file rw_file_perms;
