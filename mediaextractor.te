@@ -11,9 +11,6 @@ binder_call(mediaextractor, binderservicedomain)
 binder_call(mediaextractor, appdomain)
 binder_service(mediaextractor)
 
-# Required by Widevine DRM (b/22990512)
-allow mediaextractor self:process execmem;
-
 allow mediaextractor kernel:system module_request;
 
 # Needed on some devices for playing DRM protected content,
