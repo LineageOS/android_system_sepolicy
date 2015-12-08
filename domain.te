@@ -110,6 +110,12 @@ allow domain selinuxfs:file getattr;
 allow domain sysfs:dir search;
 allow domain selinuxfs:filesystem getattr;
 
+# Almost all processes log tracing information to
+# /sys/kernel/debug/tracing/trace_marker
+# The reason behind this is documented in b/6513400
+allow domain debugfs:dir search;
+allow domain debugfs_trace_marker:file w_file_perms;
+
 ###
 ### neverallow rules
 ###
