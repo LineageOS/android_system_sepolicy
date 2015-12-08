@@ -85,6 +85,9 @@ allow untrusted_app radio_service:service_manager find;
 allow untrusted_app surfaceflinger_service:service_manager find;
 allow untrusted_app app_api_service:service_manager find;
 
+# only allow unprivileged socket ioctl commands
+allowxperm untrusted_app self:{ rawip_socket tcp_socket udp_socket } ioctl unpriv_sock_ioctls;
+
 # Allow GMS core to access perfprofd output, which is stored
 # in /data/misc/perfprofd/. GMS core will need to list all
 # data stored in that directory to process them one by one.
@@ -145,6 +148,9 @@ neverallow untrusted_app file_type:file link;
 
 # Do not allow untrusted_app to access network MAC address file
 neverallow untrusted_app sysfs_mac_address:file no_rw_file_perms;
+
+# do not allow privileged socket ioctl commands
+neverallowxperm untrusted_app self:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
 
 # Do not allow untrusted_app access to /cache
 neverallow untrusted_app cache_file:dir ~{ r_dir_perms };
