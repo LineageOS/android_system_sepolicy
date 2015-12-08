@@ -40,6 +40,7 @@ type vfat, sdcard_type, fs_type, mlstrustedobject;
 typealias fuse alias sdcard_internal;
 typealias vfat alias sdcard_external;
 type debugfs, fs_type, mlstrustedobject;
+type debugfs_trace_marker, fs_type, debugfs_type, mlstrustedobject;
 type pstorefs, fs_type;
 type functionfs, fs_type;
 type oemfs, fs_type, contextmount_type;
@@ -198,6 +199,7 @@ type property_contexts, file_type;
 # Allow files to be created in their appropriate filesystems.
 allow fs_type self:filesystem associate;
 allow sysfs_type sysfs:filesystem associate;
+allow debugfs_type debugfs:filesystem associate;
 allow file_type labeledfs:filesystem associate;
 allow file_type tmpfs:filesystem associate;
 allow file_type rootfs:filesystem associate;
