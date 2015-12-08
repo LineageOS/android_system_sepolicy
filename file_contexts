@@ -190,6 +190,7 @@
 /system/bin/inputflinger u:object_r:inputflinger_exec:s0
 /system/bin/logd        u:object_r:logd_exec:s0
 /system/bin/uncrypt     u:object_r:uncrypt_exec:s0
+/system/bin/update_verifier u:object_r:update_verifier_exec:s0
 /system/bin/logwrapper  u:object_r:system_file:s0
 /system/bin/vdc         u:object_r:vdc_exec:s0
 /system/bin/install-recovery.sh u:object_r:install_recovery_exec:s0
