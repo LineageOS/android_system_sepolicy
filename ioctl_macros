@@ -5,16 +5,7 @@ define(`unpriv_sock_ioctls', `
 0x8900-0x8926 0x8928-0x89ff
 # all wireless extensions ioctls except get/set essid
 # IOCSIWESSID 0x8B1A SIOCGIWESSID 0x8B1B
-0x8B00-0x8B19 0x8B1C-0x8BFF
+0x8B00-0x8B09 0x8B1C-0x8BFF
 # commonly used TTY ioctls
 0x5411 0x5451
-}')
-
-# socket ioctls never allowed to unprivileged appss
-define(`priv_sock_ioctls', `
-{
-# Mac address SIOCGIFHWADDR
-0x8927
-# get/set essid IOCSIWESSID 0x8B1A SIOCGIWESSID 0x8B1B
-0x8B1A-0x8B1B
 }')
