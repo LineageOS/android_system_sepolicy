@@ -35,6 +35,8 @@ allow adbd shell_data_file:dir create_dir_perms;
 allow adbd shell_data_file:file create_file_perms;
 
 # adb push/pull sdcard.
+allow adbd tmpfs:dir search;
+allow adbd rootfs:lnk_file r_file_perms;
 allow adbd sdcard_type:dir create_dir_perms;
 allow adbd sdcard_type:file create_file_perms;
 
