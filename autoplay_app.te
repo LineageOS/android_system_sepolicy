@@ -22,6 +22,9 @@ tmpfs_domain(autoplay_app)
 # Map with PROT_EXEC.
 allow autoplay_app autoplay_app_tmpfs:file execute;
 
+# Read system properties managed by zygote.
+allow autoplay_app zygote_tmpfs:file read;
+
 # Send logcat messages to logd.
 write_logd(autoplay_app)
 
@@ -81,6 +84,18 @@ allow autoplay_app system_data_file:lnk_file read;
 # System file accesses. Check for libraries
 allow autoplay_app system_file:dir getattr;
 
+# services
+allow autoplay_app accessibility_service:service_manager find;
+allow autoplay_app activity_service:service_manager find;
+allow autoplay_app assetatlas_service:service_manager find;
+allow autoplay_app connectivity_service:service_manager find;
+allow autoplay_app display_service:service_manager find;
+allow autoplay_app graphicsstats_service:service_manager find;
+allow autoplay_app input_method_service:service_manager find;
+allow autoplay_app input_service:service_manager find;
+allow autoplay_app surfaceflinger_service:service_manager find;
+allow autoplay_app textservices_service:service_manager find;
+
 ###
 ### neverallow rules
 ###
@@ -97,3 +112,6 @@ neverallow autoplay_app debugfs:file read;
 
 # execute gpu_device
 neverallow autoplay_app gpu_device:chr_file execute;
+
+# access files in /sys with the default sysfs label
+neverallow autoplay_app sysfs:file *;
