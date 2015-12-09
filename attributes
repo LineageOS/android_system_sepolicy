@@ -55,6 +55,10 @@ attribute port_type;
 # All types used for property service
 attribute property_type;
 
+# All properties defined in core SELinux policy. Should not be
+# used by device specific properties
+attribute core_property_type;
+
 # All service_manager types created by system_server
 attribute system_server_service;
 
