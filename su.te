@@ -45,6 +45,7 @@ userdebug_or_eng(`
   dontaudit su domain:peer *;
   dontaudit su domain:binder *;
   dontaudit su property_type:property_service *;
+  dontaudit su property_type:file *;
   dontaudit su service_manager_type:service_manager *;
   dontaudit su servicemanager:service_manager list;
   dontaudit su keystore:keystore_key *;
