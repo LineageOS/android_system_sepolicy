@@ -77,6 +77,7 @@ allow system_server { appdomain autoplay_app }:process { sigkill signal };
 
 # Set scheduling info for apps.
 allow system_server { appdomain autoplay_app }:process { getsched setsched };
+allow system_server audioserver:process { getsched setsched };
 allow system_server mediaserver:process { getsched setsched };
 
 # Read /proc/pid data for all domains. This is used by ProcessCpuTracker
@@ -137,9 +138,10 @@ binder_call(system_server, dumpstate)
 binder_service(system_server)
 
 # Ask debuggerd to dump backtraces for native stacks of interest.
-allow system_server { mediaserver mediaextractor sdcardd surfaceflinger inputflinger }:debuggerd dump_backtrace;
+allow system_server { audioserver mediaserver mediaextractor sdcardd surfaceflinger inputflinger }:debuggerd dump_backtrace;
 
 # Read /proc/pid files for dumping stack traces of native processes.
+r_dir_file(system_server, audioserver)
 r_dir_file(system_server, mediaserver)
 r_dir_file(system_server, mediaextractor)
 r_dir_file(system_server, sdcardd)
@@ -147,6 +149,8 @@ r_dir_file(system_server, surfaceflinger)
 r_dir_file(system_server, inputflinger)
 
 # Use sockets received over binder from various services.
+allow system_server audioserver:tcp_socket rw_socket_perms;
+allow system_server audioserver:udp_socket rw_socket_perms;
 allow system_server mediaserver:tcp_socket rw_socket_perms;
 allow system_server mediaserver:udp_socket rw_socket_perms;
 
@@ -370,6 +374,7 @@ allow system_server sysfs_lowmemorykiller:file { getattr w_file_perms };
 allow system_server pstorefs:dir r_dir_perms;
 allow system_server pstorefs:file r_file_perms;
 
+allow system_server audioserver_service:service_manager find;
 allow system_server drmserver_service:service_manager find;
 allow system_server healthd_service:service_manager find;
 allow system_server keystore_service:service_manager find;

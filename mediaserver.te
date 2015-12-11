@@ -82,6 +82,7 @@ allow mediaserver tee:unix_stream_socket connectto;
 
 allow mediaserver activity_service:service_manager find;
 allow mediaserver appops_service:service_manager find;
+allow mediaserver audioserver_service:service_manager find;
 allow mediaserver cameraproxy_service:service_manager find;
 allow mediaserver batterystats_service:service_manager find;
 allow mediaserver drmserver_service:service_manager find;
