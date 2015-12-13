@@ -7,11 +7,19 @@ into the policy build as described below.
 Policy Generation:
 
 Additional, per device, policy files can be added into the
-policy build.
+policy build. These files should have each line including the
+final line terminated by a newline character (0x0A).  This
+will allow files to be concatenated and processed whenever
+the m4(1) macro processor is called by the build process.
+Adding the newline will also make the intermediate text files
+easier to read when debugging build failures.  The sets of file,
+service and property contexts files will automatically have a
+newline inserted between each file as these are common failure
+points.
 
-They can be configured through the use of the BOARD_SEPOLICY_DIRS
-variable. This variable should be set in the BoardConfig.mk file in
-the device or vendor directories.
+These device policy files can be configured through the use of
+the BOARD_SEPOLICY_DIRS variable. This variable should be set
+in the BoardConfig.mk file in the device or vendor directories.
 
 BOARD_SEPOLICY_DIRS contains a list of directories to search
 for additional policy files. Order matters in this list.
