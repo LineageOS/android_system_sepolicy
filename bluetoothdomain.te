@@ -8,6 +8,4 @@ allow bluetoothdomain self:socket create_socket_perms;
 auditallow { bluetoothdomain -system_server } self:socket create_socket_perms;
 
 # Allow clients to use a socket provided by the bluetooth app.
-# TODO:  See if this is still required under bluedroid. (b/25767747)
 allow bluetoothdomain bluetooth:unix_stream_socket { getopt setopt getattr read write ioctl shutdown };
-auditallow bluetoothdomain bluetooth:unix_stream_socket { getopt setopt getattr read write ioctl shutdown };
