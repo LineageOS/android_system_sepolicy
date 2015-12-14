@@ -1,11 +1,2 @@
-# Other domains that can create and use bluetooth sockets.
-# SELinux does not presently define a specific socket class for
-# bluetooth sockets, nor does it distinguish among the bluetooth protocols.
-# TODO: This should no longer be needed with bluedroid for bluetooth
-# but may be getting used for other non-bluetooth sockets that has no
-# specific class defined.  Consider taking to specific domains. (b/25768265)
-allow bluetoothdomain self:socket create_socket_perms;
-auditallow { bluetoothdomain -system_server } self:socket create_socket_perms;
-
 # Allow clients to use a socket provided by the bluetooth app.
 allow bluetoothdomain bluetooth:unix_stream_socket { getopt setopt getattr read write ioctl shutdown };
