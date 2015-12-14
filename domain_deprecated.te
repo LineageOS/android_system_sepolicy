@@ -68,15 +68,6 @@ r_dir_file(domain_deprecated, cgroup)
 r_dir_file(domain_deprecated, proc_net)
 allow domain_deprecated proc_cpuinfo:file r_file_perms;
 
-# debugfs access
-allow domain_deprecated debugfs:dir r_dir_perms;
-# TODO: The following line can likely be deleted. The only reason
-# it was exposed was to allow /sys/kernel/debug/tracing/trace_marker
-# write access. This was in the days before labels could be assigned
-# to individual files on debugfs
-# (b/18935184, https://android-review.googlesource.com/122130)
-allow domain_deprecated debugfs:file w_file_perms;
-
 # Get SELinux enforcing status.
 allow domain_deprecated selinuxfs:dir r_dir_perms;
 allow domain_deprecated selinuxfs:file r_file_perms;
