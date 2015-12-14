@@ -50,10 +50,6 @@ allow autoplay_app dalvikcache_data_file:file { execute r_file_perms };
 allow autoplay_app dalvikcache_data_file:lnk_file r_file_perms;
 allow autoplay_app dalvikcache_data_file:dir getattr;
 
-# debugfs access
-allow autoplay_app debugfs:dir r_dir_perms;
-allow autoplay_app debugfs:file w_file_perms;
-
 # Grant GPU access. autoplay_app needs that to render the standard UI.
 allow autoplay_app gpu_device:chr_file rw_file_perms;
 
