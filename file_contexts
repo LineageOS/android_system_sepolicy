@@ -332,6 +332,7 @@
 #############################
 # debugfs files
 #
+/sys/kernel/debug/tracing(/.*)?          u:object_r:debugfs_tracing:s0
 /sys/kernel/debug/tracing/trace_marker   u:object_r:debugfs_trace_marker:s0
 
 #############################
