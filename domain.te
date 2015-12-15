@@ -118,6 +118,7 @@ allow domain selinuxfs:filesystem getattr;
 # /sys/kernel/debug/tracing/trace_marker
 # The reason behind this is documented in b/6513400
 allow domain debugfs:dir search;
+allow domain debugfs_tracing:dir search;
 allow domain debugfs_trace_marker:file w_file_perms;
 
 ###
