@@ -65,7 +65,7 @@ LOCAL_MODULE_TAGS := optional
 
 # Create a file containing newline only to add between context config files
 include $(BUILD_SYSTEM)/base_rules.mk
-$(LOCAL_BUILT_MODULE): $(all_fcfiles_with_nl) $(all_pcfiles_with_nl) $(all_svcfiles_with_nl)
+$(LOCAL_BUILT_MODULE):
 	@mkdir -p $(dir $@)
 	$(hide) echo > $@
 
@@ -188,7 +188,7 @@ all_fcfiles_with_nl := $(call add_nl, $(all_fc_files), $(built_nl))
 file_contexts.tmp := $(intermediates)/file_contexts.tmp
 $(file_contexts.tmp): PRIVATE_FC_FILES := $(all_fcfiles_with_nl)
 $(file_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(file_contexts.tmp): $(all_fc_files) $(all_fcfiles_with_nl) $(built_nl)
+$(file_contexts.tmp): $(all_fc_files) $(all_fcfiles_with_nl)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_FC_FILES) > $@
 
@@ -291,7 +291,7 @@ all_pcfiles_with_nl := $(call add_nl, $(all_pc_files), $(built_nl))
 property_contexts.tmp := $(intermediates)/property_contexts.tmp
 $(property_contexts.tmp): PRIVATE_PC_FILES := $(all_pcfiles_with_nl)
 $(property_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(property_contexts.tmp): $(all_pc_files) $(all_pcfiles_with_nl) $(built_nl)
+$(property_contexts.tmp): $(all_pc_files) $(all_pcfiles_with_nl)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
 
@@ -344,7 +344,7 @@ all_svcfiles_with_nl := $(call add_nl, $(all_svc_files), $(built_nl))
 service_contexts.tmp := $(intermediates)/service_contexts.tmp
 $(service_contexts.tmp): PRIVATE_SVC_FILES := $(all_svcfiles_with_nl)
 $(service_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(service_contexts.tmp): $(all_svc_files) $(all_svcfiles_with_nl) $(built_nl)
+$(service_contexts.tmp): $(all_svc_files) $(all_svcfiles_with_nl)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
 
