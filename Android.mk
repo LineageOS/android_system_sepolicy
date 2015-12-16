@@ -351,7 +351,7 @@ $(service_contexts.tmp): $(all_svc_files) $(all_svcfiles_with_nl) $(built_nl)
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): $(service_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $<
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -s $(PRIVATE_SEPOLICY) $<
 	$(hide) $(ACP) $< $@
 
 built_svc := $(LOCAL_BUILT_MODULE)
@@ -375,7 +375,7 @@ $(general_service_contexts.tmp): $(addprefix $(LOCAL_PATH)/, service_contexts)
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
 $(LOCAL_BUILT_MODULE): $(general_service_contexts.tmp) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $<
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -s $(PRIVATE_SEPOLICY) $<
 	$(hide) $(ACP) $< $@
 
 general_service_contexts.tmp :=
