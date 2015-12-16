@@ -432,7 +432,9 @@ allow system_server sdcard_type:dir { getattr search };
 allow system_server mnt_expand_file:dir r_dir_perms;
 
 # Allow system process to relabel the fingerprint directory after mkdir
-allow system_server fingerprintd_data_file:dir {r_dir_perms relabelto};
+# and delete the directory and files when no longer needed
+allow system_server fingerprintd_data_file:dir { r_dir_perms remove_name rmdir relabelto write };
+allow system_server fingerprintd_data_file:file { getattr unlink };
 
 ###
 ### Neverallow rules
