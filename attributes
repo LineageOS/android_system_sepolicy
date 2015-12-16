@@ -3,6 +3,8 @@
 #
 
 # All types used for devices.
+# On change, update CHECK_FC_ASSERT_ATTRS
+# in tools/checkfc.c
 attribute dev_type;
 
 # All types used for processes.
@@ -19,6 +21,8 @@ attribute domain;
 attribute domain_deprecated;
 
 # All types used for filesystems.
+# On change, update CHECK_FC_ASSERT_ATTRS
+# definition in tools/checkfc.c.
 attribute fs_type;
 
 # All types used for context= mounts.
@@ -26,6 +30,8 @@ attribute contextmount_type;
 
 # All types used for files that can exist on a labeled fs.
 # Do not use for pseudo file types.
+# On change, update CHECK_FC_ASSERT_ATTRS
+# definition in tools/checkfc.c.
 attribute file_type;
 
 # All types used for domain entry points.
@@ -53,6 +59,8 @@ attribute netif_type;
 attribute port_type;
 
 # All types used for property service
+# On change, update CHECK_PC_ASSERT_ATTRS
+# definition in tools/checkfc.c.
 attribute property_type;
 
 # All properties defined in core SELinux policy. Should not be
@@ -69,6 +77,8 @@ attribute app_api_service;
 attribute system_api_service;
 
 # All types used for services managed by service_manager.
+# On change, update CHECK_SC_ASSERT_ATTRS
+# definition in tools/checkfc.c.
 attribute service_manager_type;
 
 # All domains that can override MLS restrictions.
