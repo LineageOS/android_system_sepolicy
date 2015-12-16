@@ -108,6 +108,9 @@ allow init { sysfs_type debugfs_type }:{ dir file lnk_file } relabelto;
 allow init dev_type:dir create_dir_perms;
 allow init dev_type:lnk_file create;
 
+# Disable tracing by writing to /sys/kernel/debug/tracing/tracing_on
+allow init debugfs_tracing:file w_file_perms;
+
 # chown/chmod on pseudo files.
 allow init { fs_type -contextmount_type -sdcard_type -rootfs }:file { open read setattr };
 allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read setattr search };
