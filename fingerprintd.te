@@ -21,12 +21,3 @@ allow fingerprintd keystore:keystore_key { add_auth };
 # For permissions checking
 binder_call(fingerprintd, system_server);
 allow fingerprintd permission_service:service_manager find;
-
-###
-### Neverallow rules
-###
-
-# Protect fingerprint data files from access by anything other
-# than fingerprintd and init
-neverallow { domain -fingerprintd -init } fingerprintd_data_file:file
-  { append create link relabelfrom rename setattr write open read ioctl lock };
