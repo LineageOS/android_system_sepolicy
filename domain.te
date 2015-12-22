@@ -258,7 +258,7 @@ neverallow {
     -recovery # for /tmp/update_binary in tmpfs
 } { fs_type -rootfs }:file execute;
 # Files from cache should never be executed
-neverallow domain { cache_file cache_backup_file }:file execute;
+neverallow domain { cache_file cache_backup_file cache_recovery_file }:file execute;
 
 # Protect most domains from executing arbitrary content from /data.
 neverallow {
