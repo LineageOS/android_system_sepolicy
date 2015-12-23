@@ -109,6 +109,9 @@ allow domain system_data_file:lnk_file read;
 # required by the dynamic linker
 allow domain proc:lnk_file read;
 
+# /proc/cpuinfo
+allow domain proc_cpuinfo:file r_file_perms;
+
 # toybox loads libselinux which stats /sys/fs/selinux/
 allow domain selinuxfs:file getattr;
 allow domain sysfs:dir search;
