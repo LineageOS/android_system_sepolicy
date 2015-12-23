@@ -37,6 +37,7 @@ service.adb.tcp.port    u:object_r:shell_prop:s0
 persist.audio.          u:object_r:audio_prop:s0
 persist.debug.          u:object_r:persist_debug_prop:s0
 persist.logd.           u:object_r:logd_prop:s0
+persist.log.tag         u:object_r:logd_prop:s0
 persist.sys.            u:object_r:system_prop:s0
 persist.service.        u:object_r:system_prop:s0
 persist.service.bdroid. u:object_r:bluetooth_prop:s0
