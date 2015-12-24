@@ -434,6 +434,10 @@ userdebug_or_eng(`
   allow system_server method_trace_data_file:file { create w_file_perms };
 ')
 
+# For AppFuse.
+allow system_server vold:fd use;
+allow system_server fuse_device:chr_file { read write ioctl };
+
 ###
 ### Neverallow rules
 ###
