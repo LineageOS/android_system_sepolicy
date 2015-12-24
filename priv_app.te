@@ -66,6 +66,10 @@ userdebug_or_eng(`
 # the system partition
 allow priv_app exec_type:file getattr;
 
+# For AppFuse.
+allow priv_app vold:fd use;
+allow priv_app fuse_device:chr_file { read write };
+
 ###
 ### neverallow rules
 ###

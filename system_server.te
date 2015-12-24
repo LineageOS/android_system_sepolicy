@@ -447,6 +447,10 @@ userdebug_or_eng(`
   allow system_server kernel:system syslog_read;
 ')
 
+# For AppFuse.
+allow system_server vold:fd use;
+allow system_server fuse_device:chr_file { read write ioctl };
+
 ###
 ### Neverallow rules
 ###

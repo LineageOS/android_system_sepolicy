@@ -164,6 +164,9 @@ allow vold self:capability sys_nice;
 allow vold self:capability sys_chroot;
 allow vold storage_file:dir mounton;
 
+# For AppFuse.
+allow vold fuse_device:chr_file rw_file_perms;
+
 neverallow { domain -vold } vold_data_file:dir ~{ open create read getattr setattr search relabelto ioctl };
 neverallow { domain -vold } vold_data_file:notdevfile_class_set ~{ relabelto getattr };
 neverallow { domain -vold -init } vold_data_file:dir *;

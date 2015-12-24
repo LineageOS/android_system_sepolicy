@@ -41,7 +41,7 @@ type urandom_device, dev_type, mlstrustedobject;
 type video_device, dev_type;
 type vcs_device, dev_type;
 type zero_device, dev_type, mlstrustedobject;
-type fuse_device, dev_type;
+type fuse_device, dev_type, mlstrustedobject;
 type iio_device, dev_type;
 type ion_device, dev_type, mlstrustedobject;
 type gps_device, dev_type;

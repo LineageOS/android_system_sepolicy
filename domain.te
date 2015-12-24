@@ -517,3 +517,22 @@ neverallow domain domain:file { execute execute_no_trans entrypoint };
 # more specific label.
 # TODO: fix system_server and dumpstate
 neverallow { domain -init -system_server -dumpstate } debugfs:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+  -recovery
+  -sdcardd
+  -vold
+} fuse_device:chr_file open;
+neverallow {
+  domain
+  -dumpstate
+  -init
+  -priv_app
+  -recovery
+  -sdcardd
+  -system_server
+  -ueventd
+  -vold
+} fuse_device:chr_file *;
