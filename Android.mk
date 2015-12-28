@@ -188,7 +188,7 @@ all_fcfiles_with_nl := $(call add_nl, $(all_fc_files), $(built_nl))
 file_contexts.tmp := $(intermediates)/file_contexts.tmp
 $(file_contexts.tmp): PRIVATE_FC_FILES := $(all_fcfiles_with_nl)
 $(file_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(file_contexts.tmp): $(all_fc_files) $(all_fcfiles_with_nl)
+$(file_contexts.tmp): $(all_fcfiles_with_nl)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_FC_FILES) > $@
 
@@ -200,6 +200,7 @@ $(LOCAL_BUILT_MODULE): $(file_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTA
 
 built_fc := $(LOCAL_BUILT_MODULE)
 all_fc_files :=
+all_fcfiles_with_nl :=
 file_contexts.tmp :=
 
 ##################################
@@ -291,7 +292,7 @@ all_pcfiles_with_nl := $(call add_nl, $(all_pc_files), $(built_nl))
 property_contexts.tmp := $(intermediates)/property_contexts.tmp
 $(property_contexts.tmp): PRIVATE_PC_FILES := $(all_pcfiles_with_nl)
 $(property_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(property_contexts.tmp): $(all_pc_files) $(all_pcfiles_with_nl)
+$(property_contexts.tmp): $(all_pcfiles_with_nl)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
 
@@ -304,6 +305,7 @@ $(LOCAL_BUILT_MODULE): $(property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXE
 
 built_pc := $(LOCAL_BUILT_MODULE)
 all_pc_files :=
+all_pcfiles_with_nl :=
 property_contexts.tmp :=
 
 ##################################
@@ -344,7 +346,7 @@ all_svcfiles_with_nl := $(call add_nl, $(all_svc_files), $(built_nl))
 service_contexts.tmp := $(intermediates)/service_contexts.tmp
 $(service_contexts.tmp): PRIVATE_SVC_FILES := $(all_svcfiles_with_nl)
 $(service_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(service_contexts.tmp): $(all_svc_files) $(all_svcfiles_with_nl)
+$(service_contexts.tmp): $(all_svcfiles_with_nl)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
 
@@ -356,6 +358,7 @@ $(LOCAL_BUILT_MODULE): $(service_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXEC
 
 built_svc := $(LOCAL_BUILT_MODULE)
 all_svc_files :=
+all_svcfiles_with_nl :=
 service_contexts.tmp :=
 
 ##################################
