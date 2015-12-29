@@ -58,6 +58,6 @@ allow bluetooth shell_data_file:file read;
 ###
 
 # Superuser capabilities.
-# bluetooth requires net_admin and wake_alarm.
+# bluetooth requires net_admin, wake_alarm and block_suspend
 neverallow bluetooth self:capability ~net_admin;
 neverallow bluetooth self:capability2 ~{ wake_alarm block_suspend };
