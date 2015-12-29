@@ -3,6 +3,8 @@ type bluetooth, domain, domain_deprecated;
 app_domain(bluetooth)
 net_domain(bluetooth)
 
+wakelock_use(bluetooth);
+
 # Data file accesses.
 allow bluetooth bluetooth_data_file:dir create_dir_perms;
 allow bluetooth bluetooth_data_file:notdevfile_class_set create_file_perms;
@@ -20,7 +22,6 @@ allow bluetooth { uhid_device hci_attach_dev }:chr_file rw_file_perms;
 allow bluetooth sysfs_bluetooth_writable:file rw_file_perms;
 allow bluetooth self:capability net_admin;
 allow bluetooth self:capability2 wake_alarm;
-wakelock_use(bluetooth);
 
 # tethering
 allow bluetooth self:tun_socket create_socket_perms;
@@ -60,4 +61,4 @@ allow bluetooth shell_data_file:file read;
 # Superuser capabilities.
 # bluetooth requires net_admin, wake_alarm and block_suspend
 neverallow bluetooth self:capability ~net_admin;
-neverallow bluetooth self:capability2 ~{wake_alarm block_suspend};
+neverallow bluetooth self:capability2 ~{ wake_alarm block_suspend };
