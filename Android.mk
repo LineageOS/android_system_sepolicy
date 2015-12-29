@@ -429,6 +429,7 @@ $(LOCAL_BUILT_MODULE): $(built_sepolicy) $(built_pc) $(built_fc) $(built_sc) $(b
 build_policy :=
 sepolicy_build_files :=
 built_sepolicy :=
+built_sepolicy_recovery :=
 built_sc :=
 built_fc :=
 built_pc :=
@@ -436,5 +437,6 @@ built_svc :=
 built_general_sepolicy :=
 built_general_sepolicy.conf :=
 built_nl :=
+add_nl :=
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
