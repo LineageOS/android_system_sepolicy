@@ -47,6 +47,7 @@ sepolicy_build_files := security_classes \
                         policy_capabilities \
                         te_macros \
                         attributes \
+                        ioctl_defines \
                         ioctl_macros \
                         *.te \
                         roles \
