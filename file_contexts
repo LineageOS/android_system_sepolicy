@@ -322,6 +322,8 @@
 #
 /sys/devices/platform/nfc-power/nfc_power -- u:object_r:sysfs_nfc_power_writable:s0
 /sys/devices/system/cpu(/.*)?    u:object_r:sysfs_devices_system_cpu:s0
+/sys/devices/virtual/block/zram\d+(/.*)?     u:object_r:sysfs_zram:s0
+/sys/devices/virtual/block/zram\d+/uevent    u:object_r:sysfs_zram_uevent:s0
 /sys/power/wake_lock -- u:object_r:sysfs_wake_lock:s0
 /sys/power/wake_unlock -- u:object_r:sysfs_wake_lock:s0
 /sys/kernel/uevent_helper --	u:object_r:usermodehelper:s0
