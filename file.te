@@ -145,6 +145,8 @@ type cache_file, file_type, mlstrustedobject;
 # Type for /cache/.*\.{data|restore} and default
 # type for anything under /cache/backup
 type cache_backup_file, file_type, mlstrustedobject;
+# Type for anything under /cache/recovery
+type cache_recovery_file, file_type, mlstrustedobject;
 # Default type for anything under /efs
 type efs_file, file_type;
 # Type for wallpaper file.

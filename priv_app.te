@@ -33,8 +33,11 @@ allow priv_app persistent_data_block_service:service_manager find;
 allow priv_app mnt_media_rw_file:dir search;
 
 # Write to /cache.
-allow priv_app cache_file:dir create_dir_perms;
-allow priv_app cache_file:file create_file_perms;
+allow priv_app { cache_file cache_recovery_file }:dir create_dir_perms;
+allow priv_app { cache_file cache_recovery_file }:file create_file_perms;
+
+auditallow priv_app cache_recovery_file:dir create_dir_perms;
+auditallow priv_app cache_recovery_file:file create_file_perms;
 
 # Access to /data/media.
 allow priv_app media_rw_data_file:dir create_dir_perms;

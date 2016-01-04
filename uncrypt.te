@@ -17,9 +17,9 @@ userdebug_or_eng(`
 # Read /cache/recovery/command
 # Read /cache/recovery/uncrypt_file
 # Write to pipe file /cache/recovery/uncrypt_status
-allow uncrypt cache_file:dir rw_dir_perms;
-allow uncrypt cache_file:file create_file_perms;
-allow uncrypt cache_file:fifo_file w_file_perms;
+allow uncrypt cache_recovery_file:dir rw_dir_perms;
+allow uncrypt cache_recovery_file:file create_file_perms;
+allow uncrypt cache_recovery_file:fifo_file w_file_perms;
 
 # Set a property to reboot the device.
 set_prop(uncrypt, powerctl_prop)
