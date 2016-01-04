@@ -14,6 +14,7 @@ allow ueventd self:capability { chown mknod net_admin setgid fsetid sys_rawio da
 allow ueventd device:file create_file_perms;
 allow ueventd device:chr_file rw_file_perms;
 allow ueventd sysfs:file rw_file_perms;
+allow ueventd sysfs_zram_uevent:file w_file_perms;
 allow ueventd sysfs_type:{ file lnk_file } { relabelfrom relabelto setattr getattr };
 allow ueventd sysfs_type:dir { relabelfrom relabelto setattr r_dir_perms };
 allow ueventd sysfs_devices_system_cpu:file rw_file_perms;

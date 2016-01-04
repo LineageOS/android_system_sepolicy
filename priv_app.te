@@ -70,6 +70,10 @@ allow priv_app exec_type:file getattr;
 allow priv_app vold:fd use;
 allow priv_app fuse_device:chr_file { read write };
 
+# /sys access
+allow priv_app sysfs_zram:dir search;
+allow priv_app sysfs_zram:file r_file_perms;
+
 ###
 ### neverallow rules
 ###
