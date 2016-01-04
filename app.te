@@ -390,6 +390,7 @@ neverallow { appdomain -system_app -radio -shell -bluetooth -nfc }
 neverallow appdomain {
   apk_data_file
   cache_file
+  cache_recovery_file
   dev_type
   rootfs
   system_file

@@ -73,9 +73,9 @@ recovery_only(`
   allow recovery tmpfs:file { create_file_perms x_file_perms };
   allow recovery tmpfs:dir create_dir_perms;
 
-  # Manage files on /cache
-  allow recovery cache_file:dir create_dir_perms;
-  allow recovery cache_file:file create_file_perms;
+  # Manage files on /cache and /cache/recovery
+  allow recovery { cache_file cache_recovery_file }:dir create_dir_perms;
+  allow recovery { cache_file cache_recovery_file }:file create_file_perms;
 
   # Read files on /oem.
   r_dir_file(recovery, oemfs);

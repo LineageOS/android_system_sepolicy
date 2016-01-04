@@ -319,6 +319,7 @@
 /cache/.*\.restore	u:object_r:cache_backup_file:s0
 # LocalTransport (backup) uses this directory
 /cache/backup(/.*)?	u:object_r:cache_backup_file:s0
+/cache/recovery(/.*)?	u:object_r:cache_recovery_file:s0
 #############################
 # sysfs files
 #
