@@ -157,6 +157,9 @@ allow init self:capability sys_boot;
 allow init sysfs_type:dir r_dir_perms;
 allow init sysfs_type:file w_file_perms;
 
+# disksize
+allow init sysfs_zram:file getattr;
+
 # Transitions to seclabel processes in init.rc
 domain_trans(init, rootfs, adbd)
 domain_trans(init, rootfs, healthd)
