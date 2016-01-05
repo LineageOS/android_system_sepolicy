@@ -52,5 +52,5 @@ neverallow isolated_app cache_file:dir ~{ r_dir_perms };
 neverallow isolated_app cache_file:file ~{ read getattr };
 
 # do not allow privileged socket ioctl commands
-neverallowxperm isolated_app self:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
+neverallowxperm isolated_app domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
 

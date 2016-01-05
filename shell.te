@@ -138,4 +138,4 @@ allowxperm shell self:{ rawip_socket tcp_socket udp_socket } ioctl unpriv_sock_i
 neverallow shell file_type:file link;
 
 # Do not allow privileged socket ioctl commands
-neverallowxperm shell self:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
+neverallowxperm shell domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
