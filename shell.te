@@ -119,6 +119,8 @@ allow shell bootchart_data_file:file create_file_perms;
 # Make sure strace works for the non-privileged shell user
 allow shell self:process ptrace;
 
+# allow shell to get battery info
+allow shell sysfs_batteryinfo:file r_file_perms;
 
 # Allow access to ion memory allocation device.
 allow shell ion_device:chr_file rw_file_perms;
