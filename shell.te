@@ -119,9 +119,11 @@ allow shell bootchart_data_file:file create_file_perms;
 # Make sure strace works for the non-privileged shell user
 allow shell self:process ptrace;
 
-
 # Allow access to ion memory allocation device.
 allow shell ion_device:chr_file rw_file_perms;
+
+# Whitelist access to socket ioctls
+allowxperm shell self:{ rawip_socket tcp_socket udp_socket } ioctl unpriv_sock_ioctls;
 
 ###
 ### Neverallow rules
@@ -134,3 +136,6 @@ allow shell ion_device:chr_file rw_file_perms;
 # bugs, so we want to ensure the shell user never has this
 # capability.
 neverallow shell file_type:file link;
+
+# Do not allow privileged socket ioctl commands
+neverallowxperm shell self:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
