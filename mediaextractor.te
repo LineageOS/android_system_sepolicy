@@ -40,3 +40,13 @@ allow mediaextractor drmserver:drmservice {
 # mediaextractor should never execute any executable without a
 # domain transition
 neverallow mediaextractor { file_type fs_type }:file execute_no_trans;
+
+# mediaextractor should never need network access. Disallow all sockets
+# other than unix sockets i.e. unix_stream_socket and unix_dgram_socket
+neverallow mediaextractor domain:{
+  socket tcp_socket udp_socket rawip_socket netlink_socket packet_socket
+  key_socket appletalk_socket netlink_route_socket netlink_firewall_socket
+  netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket
+  netlink_selinux_socket netlink_audit_socket netlink_ip6fw_socket
+  netlink_dnrt_socket netlink_kobject_uevent_socket tun_socket
+  } *;
