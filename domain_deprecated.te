@@ -54,8 +54,8 @@ allow domain_deprecated { cache_file cache_recovery_file }:file { getattr read }
 allow domain_deprecated { cache_file cache_recovery_file }:lnk_file r_file_perms;
 
 # Likely not needed. auditallow to be sure
-auditallow { domain_deprecated -init -system_server -dumpstate -install_recovery -platform_app -priv_app -uncrypt } cache_recovery_file:dir r_dir_perms;
-auditallow { domain_deprecated -init -system_server -dumpstate -install_recovery -platform_app -priv_app -uncrypt } cache_recovery_file:file { getattr read };
+auditallow { domain_deprecated -init -system_server -dumpstate -install_recovery -platform_app -priv_app -uncrypt -recovery } cache_recovery_file:dir r_dir_perms;
+auditallow { domain_deprecated -init -system_server -dumpstate -install_recovery -platform_app -priv_app -uncrypt -recovery } cache_recovery_file:file { getattr read };
 auditallow domain_deprecated cache_recovery_file:lnk_file r_file_perms;
 
 # For /acct/uid/*/tasks.
