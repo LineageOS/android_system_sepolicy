@@ -77,6 +77,9 @@ allow priv_app fuse_device:chr_file { read write };
 allow priv_app sysfs_zram:dir search;
 allow priv_app sysfs_zram:file r_file_perms;
 
+# access the mac address
+allowxperm priv_app self:udp_socket ioctl SIOCGIFHWADDR;
+
 ###
 ### neverallow rules
 ###
