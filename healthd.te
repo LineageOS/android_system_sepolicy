@@ -16,6 +16,8 @@ binder_call(healthd, system_server)
 # TODO:  Split into a separate type?
 allow healthd sysfs:file write;
 
+allow healthd sysfs_batteryinfo:file r_file_perms;
+
 ###
 ### healthd: charger mode
 ###
