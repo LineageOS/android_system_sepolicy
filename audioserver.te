@@ -110,6 +110,9 @@ allow audioserver drmserver:drmservice {
     pread
 };
 
+# only allow unprivileged socket ioctl commands
+allowxperm audioserver self:{ rawip_socket tcp_socket udp_socket } ioctl unpriv_sock_ioctls;
+
 ###
 ### neverallow rules
 ###
@@ -117,3 +120,6 @@ allow audioserver drmserver:drmservice {
 # audioserver should never execute any executable without a
 # domain transition
 neverallow audioserver { file_type fs_type }:file execute_no_trans;
+
+# do not allow privileged socket ioctl commands
+neverallowxperm audioserver domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
