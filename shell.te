@@ -125,9 +125,6 @@ allow shell sysfs_batteryinfo:file r_file_perms;
 # Allow access to ion memory allocation device.
 allow shell ion_device:chr_file rw_file_perms;
 
-# Whitelist access to socket ioctls
-allowxperm shell self:{ rawip_socket tcp_socket udp_socket } ioctl unpriv_sock_ioctls;
-
 ###
 ### Neverallow rules
 ###
