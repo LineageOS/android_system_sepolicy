@@ -177,7 +177,7 @@ userdebug_or_eng(`
 
 # Support "adb shell stop"
 allow init self:capability kill;
-allow init domain:process sigkill;
+allow init domain:process { sigkill signal };
 
 # Init creates keystore's directory on boot, and walks through
 # the directory as part of a recursive restorecon.
