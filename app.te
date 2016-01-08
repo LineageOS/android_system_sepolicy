@@ -222,8 +222,8 @@ selinux_check_access(appdomain)
 selinux_check_context(appdomain)
 
 # appdomain should not be accessing information on /sys
-auditallow appdomain sysfs:dir { open getattr read ioctl };
-auditallow appdomain sysfs:file r_file_perms;
+auditallow { appdomain userdebug_or_eng(`-su') } sysfs:dir { open getattr read ioctl };
+auditallow { appdomain userdebug_or_eng(`-su') } sysfs:file r_file_perms;
 
 ###
 ### Neverallow rules
