@@ -29,10 +29,6 @@ bluetooth_domain(untrusted_app)
 # to their sandbox directory and then execute.
 allow untrusted_app app_data_file:file { rx_file_perms execmod };
 
-# Third party vpn apps receive an open tun fd from the framework for
-# device traffic. Do not allow untrusted app to directly open tun_device
-allow untrusted_app tun_device:chr_file { read write getattr ioctl append };
-
 # ASEC
 allow untrusted_app asec_apk_file:file r_file_perms;
 # Execute libs in asec containers.
