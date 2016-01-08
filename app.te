@@ -281,8 +281,6 @@ neverallow appdomain socket_device:sock_file write;
 # Unix domain sockets.
 neverallow appdomain adbd_socket:sock_file write;
 neverallow appdomain installd_socket:sock_file write;
-neverallow { appdomain -bluetooth -radio -shell -system_app -nfc }
-    property_socket:sock_file write;
 neverallow { appdomain -radio } rild_socket:sock_file write;
 neverallow appdomain vold_socket:sock_file write;
 neverallow appdomain zygote_socket:sock_file write;
@@ -387,10 +385,6 @@ neverallow { appdomain -system_app -shell }
 # Ability to perform any filesystem operation other than statfs(2).
 # i.e. no mount(2), unmount(2), etc.
 neverallow appdomain fs_type:filesystem ~getattr;
-
-# Ability to set system properties.
-neverallow { appdomain -system_app -radio -shell -bluetooth -nfc }
-    property_type:property_service set;
 
 # prevent creation/manipulation of globally readable symlinks
 neverallow appdomain {

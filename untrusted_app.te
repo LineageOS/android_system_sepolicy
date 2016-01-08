@@ -147,3 +147,7 @@ neverallowxperm untrusted_app domain:{ rawip_socket tcp_socket udp_socket } ioct
 # Do not allow untrusted_app access to /cache
 neverallow untrusted_app { cache_file cache_recovery_file }:dir ~{ r_dir_perms };
 neverallow untrusted_app { cache_file cache_recovery_file }:file ~{ read getattr };
+
+# Do not allow untrusted_app to set system properties.
+neverallow untrusted_app property_socket:sock_file write;
+neverallow untrusted_app property_type:property_service set;
