@@ -29,6 +29,10 @@ allow isolated_app self:process ptrace;
 ##### Neverallow
 #####
 
+# Do not allow isolated_app to set system properties.
+neverallow isolated_app property_socket:sock_file write;
+neverallow isolated_app property_type:property_service set;
+
 # Isolated apps should not directly open app data files themselves.
 neverallow isolated_app app_data_file:file open;
 
