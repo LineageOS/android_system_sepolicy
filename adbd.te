@@ -86,6 +86,9 @@ allow adbd appdomain:unix_stream_socket connectto;
 allow adbd zygote_exec:file r_file_perms;
 allow adbd system_file:file r_file_perms;
 
+# Allow pulling the SELinux policy for CTS purposes
+allow adbd selinuxfs:dir r_dir_perms;
+allow adbd selinuxfs:file r_file_perms;
 allow adbd kernel:security read_policy;
 
 allow adbd surfaceflinger_service:service_manager find;
