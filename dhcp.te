@@ -11,9 +11,10 @@ allow dhcp self:packet_socket create_socket_perms;
 allow dhcp self:netlink_route_socket nlmsg_write;
 allow dhcp shell_exec:file rx_file_perms;
 allow dhcp system_file:file rx_file_perms;
-# XXX Run toolbox.  Might not be needed.
+
+# dhcpcd runs dhcpcd-hooks/*, which runs getprop / setprop (toolbox_exec)
 allow dhcp toolbox_exec:file rx_file_perms;
-auditallow dhcp toolbox_exec:file rx_file_perms;
+
 # For /proc/sys/net/ipv4/conf/*/promote_secondaries
 allow dhcp proc_net:file write;
 
