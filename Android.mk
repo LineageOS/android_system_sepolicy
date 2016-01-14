@@ -26,9 +26,13 @@ ifdef BOARD_SEPOLICY_M4DEFS
 LOCAL_ADDITIONAL_M4DEFS := $(addprefix -D, $(BOARD_SEPOLICY_M4DEFS))
 endif
 
-# Builds paths for all policy files found in BOARD_SEPOLICY_DIRS.
+# Builds paths for all policy files found in BOARD_SEPOLICY_DIRS and the LOCAL_PATH.
 # $(1): the set of policy name paths to build
 build_policy = $(foreach type, $(1), $(foreach file, $(addsuffix /$(type), $(LOCAL_PATH) $(BOARD_SEPOLICY_DIRS)), $(sort $(wildcard $(file)))))
+
+# Builds paths for all policy files found in BOARD_SEPOLICY_DIRS.
+# $(1): the set of policy name paths to build
+build_device_policy = $(foreach type, $(1), $(foreach file, $(addsuffix /$(type), $(BOARD_SEPOLICY_DIRS)), $(sort $(wildcard $(file)))))
 
 # Add a file containing only a newline in-between each policy configuration
 # 'contexts' file. This will allow OEM policy configuration files without a
@@ -178,30 +182,68 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-all_fc_files := file_contexts
-ifneq ($(filter address,$(SANITIZE_TARGET)),)
-  all_fc_files := $(all_fc_files) file_contexts_asan
-endif
-all_fc_files := $(call build_policy, $(all_fc_files))
-all_fcfiles_with_nl := $(call add_nl, $(all_fc_files), $(built_nl))
+# The file_contexts.bin is built in the following way:
+# 1. Collect all file_contexts files in THIS repository and process them with
+#    m4 into a tmp file called file_contexts.local.tmp.
+# 2. Collect all device specific file_contexts files and process them with m4
+#    into a tmp file called file_contexts.device.tmp.
+# 3. Run checkfc and fc_sort on file_contexts.device.tmp and output to
+#    file_contexts.device.sorted.tmp.
+# 4. Concatenate file_contexts.local.tmp and file_contexts.device.tmp into
+#    file_contexts.concat.tmp.
+# 5. Run checkfc and sefcontext_compile on file_contexts.concat.tmp to produce
+#    file_contexts.bin.
+#
+#  Note: That a newline file is placed between each file_context file found to
+#        ensure a proper build when an fc file is missing an ending newline.
 
-file_contexts.tmp := $(intermediates)/file_contexts.tmp
-$(file_contexts.tmp): PRIVATE_FC_FILES := $(all_fcfiles_with_nl)
-$(file_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(file_contexts.tmp): $(all_fcfiles_with_nl)
+local_fc_files := $(LOCAL_PATH)/file_contexts
+ifneq ($(filter address,$(SANITIZE_TARGET)),)
+  local_fc_files := $(local_fc_files) $(LOCAL_PATH)/file_contexts_asan
+endif
+local_fcfiles_with_nl := $(call add_nl, $(local_fc_files), $(built_nl))
+
+file_contexts.local.tmp := $(intermediates)/file_contexts.local.tmp
+$(file_contexts.local.tmp): $(local_fcfiles_with_nl)
 	@mkdir -p $(dir $@)
-	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_FC_FILES) > $@
+	$(hide) m4 -s $^ > $@
+
+device_fc_files := $(call build_device_policy, file_contexts)
+device_fcfiles_with_nl := $(call add_nl, $(device_fc_files), $(built_nl))
+
+file_contexts.device.tmp := $(intermediates)/file_contexts.device.tmp
+$(file_contexts.device.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(file_contexts.device.tmp): $(device_fcfiles_with_nl)
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
+
+file_contexts.device.sorted.tmp := $(intermediates)/file_contexts.device.sorted.tmp
+$(file_contexts.device.sorted.tmp): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(file_contexts.device.sorted.tmp): $(file_contexts.device.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/fc_sort $(HOST_OUT_EXECUTABLES)/checkfc
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $<
+	$(hide) $(HOST_OUT_EXECUTABLES)/fc_sort $< $@
+
+file_contexts.concat.tmp := $(intermediates)/file_contexts.concat.tmp
+$(file_contexts.concat.tmp): $(file_contexts.local.tmp) $(file_contexts.device.sorted.tmp)
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $^ > $@
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): $(file_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/sefcontext_compile $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): $(file_contexts.concat.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/sefcontext_compile $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $<
 	$(hide) $(HOST_OUT_EXECUTABLES)/sefcontext_compile -o $@ $<
 
 built_fc := $(LOCAL_BUILT_MODULE)
-all_fc_files :=
-all_fcfiles_with_nl :=
-file_contexts.tmp :=
+local_fc_files :=
+local_fcfiles_with_nl :=
+device_fc_files :=
+device_fcfiles_with_nl :=
+file_contexts.concat.tmp :=
+file_contexts.device.sorted.tmp :=
+file_contexts.device.tmp :=
+file_contexts.local.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -427,6 +469,7 @@ $(LOCAL_BUILT_MODULE): $(built_sepolicy) $(built_pc) $(built_fc) $(built_sc) $(b
 ##################################
 
 build_policy :=
+build_device_policy :=
 sepolicy_build_files :=
 built_sepolicy :=
 built_sepolicy_recovery :=
