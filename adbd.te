@@ -52,10 +52,6 @@ set_prop(adbd, ffs_prop)
 # Run /system/bin/bu
 allow adbd system_file:file rx_file_perms;
 
-# XXX Run toolbox.  Might not be needed.
-allow adbd toolbox_exec:file rx_file_perms;
-auditallow adbd toolbox_exec:file rx_file_perms;
-
 # Perform binder IPC to surfaceflinger (screencap)
 # XXX Run screencap in a separate domain?
 binder_use(adbd)
