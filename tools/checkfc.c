@@ -3,11 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <sepol/module.h>
 #include <sepol/policydb/policydb.h>
 #include <sepol/sepol.h>
 #include <selinux/selinux.h>
 #include <selinux/label.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 static const char * const CHECK_FC_ASSERT_ATTRS[] = { "fs_type", "dev_type", "file_type", NULL };
 static const char * const CHECK_PC_ASSERT_ATTRS[] = { "property_type", NULL };
@@ -182,10 +185,11 @@ static int validate(char **contextp)
 }
 
 static void usage(char *name) {
-    fprintf(stderr, "usage1:  %s [-p|-s] sepolicy context_file\n\n"
+    fprintf(stderr, "usage1:  %s [-p|-s] [-e] sepolicy context_file\n\n"
         "Parses a context file and checks for syntax errors.\n"
         "The context_file is assumed to be a file_contexts file\n"
-        "unless the -p or -s option is used to indicate the property or service backend respectively.\n\n"
+        "unless the -p or -s option is used to indicate the property or service backend respectively.\n"
+        "If -e is specified, then the context_file is allowed to be empty.\n\n"
 
         "usage2:  %s -c file_contexts1 file_contexts2\n\n"
         "Compares two file contexts files and reports one of subset, equal, superset, or incomparable.\n\n",
@@ -244,8 +248,22 @@ static void do_compare_and_die_on_error(struct selinux_opt opts[], unsigned int 
 }
 
 static void do_fc_check_and_die_on_error(struct selinux_opt opts[], unsigned int backend, filemode mode,
-        const char *sepolicy_file, const char *context_file)
+        const char *sepolicy_file, const char *context_file, bool allow_empty)
 {
+    struct stat sb;
+    if (stat(context_file, &sb) < 0) {
+        perror("Error: could not get stat on file contexts file");
+        exit(1);
+    }
+
+    if (sb.st_size == 0) {
+        /* Nothing to check on empty file_contexts file if allowed*/
+        if (allow_empty) {
+            return;
+        }
+        /* else: We could throw the error here, but libselinux backend will catch it */
+    }
+
     global_state.sepolicy.file = fopen(sepolicy_file, "r");
     if (!global_state.sepolicy.file) {
       perror("Error: could not open policy file");
@@ -308,15 +326,19 @@ int main(int argc, char **argv)
   // Default backend unless changed by input argument.
   unsigned int backend = SELABEL_CTX_FILE;
 
+  bool allow_empty = false;
   bool compare = false;
   char c;
 
   filemode mode = filemode_file_contexts;
 
-  while ((c = getopt(argc, argv, "cps")) != -1) {
+  while ((c = getopt(argc, argv, "cpse")) != -1) {
     switch (c) {
       case 'c':
         compare = true;
+        break;
+      case 'e':
+        allow_empty = true;
         break;
       case 'p':
         mode = filemode_property_contexts;
@@ -351,7 +373,7 @@ int main(int argc, char **argv)
       char *sepolicy_file = argv[index];
       char *context_file = argv[index + 1];
 
-      do_fc_check_and_die_on_error(opts, backend, mode, sepolicy_file, context_file);
+      do_fc_check_and_die_on_error(opts, backend, mode, sepolicy_file, context_file, allow_empty);
   }
   exit(0);
 }
