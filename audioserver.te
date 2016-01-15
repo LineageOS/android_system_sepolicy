@@ -48,7 +48,6 @@ allow audioserver radio_data_file:file { read getattr };
 allow audioserver { appdomain autoplay_app }:fifo_file { getattr read write };
 
 # Access camera device.
-allow audioserver camera_device:chr_file rw_file_perms;
 allow audioserver rpmsg_device:chr_file rw_file_perms;
 
 # Inter System processes communicate over named pipe (FIFO)
