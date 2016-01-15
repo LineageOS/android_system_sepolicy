@@ -243,7 +243,7 @@ neverallow appdomain dev_type:blk_file { read write };
 # Access to any of the following character devices.
 neverallow appdomain {
     audio_device
-    camera_device
+    video_device
     dm_device
     radio_device
     gps_device
