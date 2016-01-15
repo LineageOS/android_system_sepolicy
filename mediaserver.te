@@ -47,8 +47,6 @@ allow mediaserver radio_data_file:file { read getattr };
 # Use pipes passed over Binder from app domains.
 allow mediaserver { appdomain autoplay_app }:fifo_file { getattr read write };
 
-# Access camera device.
-allow mediaserver camera_device:chr_file rw_file_perms;
 allow mediaserver rpmsg_device:chr_file rw_file_perms;
 
 # Inter System processes communicate over named pipe (FIFO)
