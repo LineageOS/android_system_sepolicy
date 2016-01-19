@@ -49,6 +49,9 @@ set_prop(adbd, shell_prop)
 set_prop(adbd, powerctl_prop)
 set_prop(adbd, ffs_prop)
 
+# Access device logging gating property
+get_prop(adbd, device_logging_prop)
+
 # Run /system/bin/bu
 allow adbd system_file:file rx_file_perms;
 

@@ -293,6 +293,7 @@ set_prop(system_server, system_radio_prop)
 set_prop(system_server, debug_prop)
 set_prop(system_server, powerctl_prop)
 set_prop(system_server, fingerprint_prop)
+set_prop(system_server, device_logging_prop)
 
 # ctl interface
 set_prop(system_server, ctl_default_prop)
