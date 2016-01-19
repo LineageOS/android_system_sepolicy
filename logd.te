@@ -18,6 +18,9 @@ userdebug_or_eng(`
 allow logd pstorefs:dir search;
 allow logd pstorefs:file r_file_perms;
 
+# Access device logging gating property
+get_prop(logd, device_logging_prop)
+
 r_dir_file(logd, domain)
 
 allow logd kernel:system syslog_mod;
