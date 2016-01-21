@@ -21,6 +21,10 @@ allow fsck userdata_block_device:blk_file rw_file_perms;
 allow fsck cache_block_device:blk_file rw_file_perms;
 allow fsck dm_device:blk_file rw_file_perms;
 
+# fsck performs a stat() on swap to verify that it is a valid
+# swap device before setting the EXT2_MF_SWAP mount flag.
+allow fsck swap_block_device:blk_file getattr;
+
 ###
 ### neverallow rules
 ###
