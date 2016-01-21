@@ -25,10 +25,6 @@ allow domain_deprecated rootfs:lnk_file r_file_perms;
 # Device accesses.
 allow domain_deprecated device:file read;
 
-# Filesystem accesses.
-allow domain_deprecated fs_type:filesystem getattr;
-allow domain_deprecated fs_type:dir getattr;
-
 # System file accesses.
 allow domain_deprecated system_file:dir r_dir_perms;
 allow domain_deprecated system_file:file r_file_perms;
