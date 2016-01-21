@@ -16,16 +16,9 @@ allow system_app system_app_data_file:{ file lnk_file } create_file_perms;
 allow system_app keychain_data_file:dir r_dir_perms;
 allow system_app keychain_data_file:file r_file_perms;
 
-# Read and write to other system-owned /data directories, such as
-# /data/system/cache and /data/misc/user.
-allow system_app system_data_file:dir create_dir_perms;
-allow system_app system_data_file:file create_file_perms;
+# Read and write to /data/misc/user.
 allow system_app misc_user_data_file:dir create_dir_perms;
 allow system_app misc_user_data_file:file create_file_perms;
-# Audit writes to these directories and files so we can identify
-# and possibly move these directories into their own type in the future.
-auditallow system_app system_data_file:dir { create setattr add_name remove_name rmdir rename };
-auditallow system_app system_data_file:file { create setattr append write link unlink rename };
 
 # Access to vold-mounted storage for measuring free space
 allow system_app mnt_media_rw_file:dir search;
