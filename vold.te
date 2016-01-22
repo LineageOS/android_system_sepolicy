@@ -81,8 +81,8 @@ allow vold sysfs:file rw_file_perms;
 
 allow vold kmsg_device:chr_file rw_file_perms;
 
-# Run fsck.
-allow vold fsck_exec:file rx_file_perms;
+# Run fsck in the fsck domain.
+allow vold fsck_exec:file { r_file_perms execute };
 
 # Log fsck results
 allow vold fscklogs:dir rw_dir_perms;
@@ -176,3 +176,5 @@ neverallow { domain -vold } vold_data_file:notdevfile_class_set ~{ relabelto get
 neverallow { domain -vold -init } vold_data_file:dir *;
 neverallow { domain -vold -init } vold_data_file:notdevfile_class_set *;
 neverallow { domain -vold -init } restorecon_prop:property_service set;
+
+neverallow vold fsck_exec:file execute_no_trans;
