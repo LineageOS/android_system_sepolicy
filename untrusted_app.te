@@ -89,6 +89,10 @@ allow untrusted_app self:process ptrace;
 # for files. Suppress the denials when they occur.
 dontaudit untrusted_app exec_type:file getattr;
 
+# TODO: access of /proc/meminfo, give specific label or switch to
+# using meminfo service
+allow untrusted_app proc:file r_file_perms;
+
 ###
 ### neverallow rules
 ###
