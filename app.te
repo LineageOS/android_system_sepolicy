@@ -204,6 +204,8 @@ use_keystore({ appdomain -isolated_app })
 
 allow appdomain console_device:chr_file { read write };
 
+allow { appdomain -isolated_app } ion_device:chr_file rw_file_perms;
+
 ###
 ### CTS-specific rules
 ###
