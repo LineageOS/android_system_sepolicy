@@ -92,6 +92,9 @@ allow appdomain shell_exec:file rx_file_perms;
 allow appdomain system_file:file rx_file_perms;
 allow appdomain toolbox_exec:file rx_file_perms;
 
+# Renderscript needs the ability to read directories on /system
+r_dir_file(appdomain, system_file)
+
 # Execute dex2oat when apps call dexclassloader
 allow appdomain dex2oat_exec:file rx_file_perms;
 
