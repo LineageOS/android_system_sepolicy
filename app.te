@@ -231,6 +231,12 @@ auditallow { appdomain userdebug_or_eng(`-su') } sysfs:file r_file_perms;
 # device traffic. Do not allow untrusted app to directly open tun_device
 allow { appdomain -isolated_app } tun_device:chr_file { read write getattr ioctl append };
 
+# Connect to adbd and use a socket transferred from it.
+# This is used for e.g. adb backup/restore.
+allow appdomain adbd:unix_stream_socket connectto;
+allow appdomain adbd:fd use;
+allow appdomain adbd:unix_stream_socket { getattr getopt ioctl read write shutdown };
+
 ###
 ### Neverallow rules
 ###
