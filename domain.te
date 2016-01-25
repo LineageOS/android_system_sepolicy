@@ -117,6 +117,7 @@ allow domain proc:lnk_file read;
 allow domain proc_cpuinfo:file r_file_perms;
 
 # toybox loads libselinux which stats /sys/fs/selinux/
+allow domain selinuxfs:dir search;
 allow domain selinuxfs:file getattr;
 allow domain sysfs:dir search;
 allow domain selinuxfs:filesystem getattr;
