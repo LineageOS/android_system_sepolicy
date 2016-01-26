@@ -41,9 +41,6 @@ set_prop(surfaceflinger, ctl_bootanim_prop)
 allow surfaceflinger { appdomain autoplay_app }:fd use;
 allow surfaceflinger app_data_file:file { read write };
 
-# Use open file provided by bootanim.
-allow surfaceflinger bootanim:fd use;
-
 # Allow a dumpstate triggered screenshot
 binder_call(surfaceflinger, dumpstate)
 binder_call(surfaceflinger, shell)
