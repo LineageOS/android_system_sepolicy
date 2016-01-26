@@ -456,6 +456,12 @@ userdebug_or_eng(`
 allow system_server vold:fd use;
 allow system_server fuse_device:chr_file { read write ioctl };
 
+# Connect to adbd and use a socket transferred from it.
+# Used for e.g. jdwp.
+allow system_server adbd:unix_stream_socket connectto;
+allow system_server adbd:fd use;
+allow system_server adbd:unix_stream_socket { getattr getopt ioctl read write shutdown };
+
 ###
 ### Neverallow rules
 ###
