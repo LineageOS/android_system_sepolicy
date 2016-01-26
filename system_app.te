@@ -12,10 +12,6 @@ binder_service(system_app)
 allow system_app system_app_data_file:dir create_dir_perms;
 allow system_app system_app_data_file:{ file lnk_file } create_file_perms;
 
-# Read /data/misc/keychain subdirectory.
-allow system_app keychain_data_file:dir r_dir_perms;
-allow system_app keychain_data_file:file r_file_perms;
-
 # Read and write to /data/misc/user.
 allow system_app misc_user_data_file:dir create_dir_perms;
 allow system_app misc_user_data_file:file create_file_perms;
