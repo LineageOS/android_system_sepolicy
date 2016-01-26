@@ -26,3 +26,10 @@ allow update_engine system_block_device:blk_file rw_file_perms;
 
 # Don't allow kernel module loading, just silence the logs.
 dontaudit update_engine kernel:system module_request;
+
+# Register the service to perform Binder IPC.
+binder_use(update_engine)
+allow update_engine update_engine_service:service_manager { add };
+
+# Allow update_engine to call the callback function provided by priv_app.
+binder_call(update_engine, priv_app)
