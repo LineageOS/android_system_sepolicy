@@ -77,6 +77,10 @@ allow priv_app sysfs_zram:file r_file_perms;
 # access the mac address
 allowxperm priv_app self:udp_socket ioctl SIOCGIFHWADDR;
 
+# Allow GMS core to communicate with update_engine for A/B update.
+binder_call(priv_app, update_engine)
+allow priv_app update_engine_service:service_manager find;
+
 ###
 ### neverallow rules
 ###
