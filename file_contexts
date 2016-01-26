@@ -154,6 +154,7 @@
 /system/bin/sh		--	u:object_r:shell_exec:s0
 /system/bin/run-as	--	u:object_r:runas_exec:s0
 /system/bin/bootanimation u:object_r:bootanim_exec:s0
+/system/bin/bootstat		u:object_r:bootstat_exec:s0
 /system/bin/app_process32	u:object_r:zygote_exec:s0
 /system/bin/app_process64	u:object_r:zygote_exec:s0
 /system/bin/servicemanager	u:object_r:servicemanager_exec:s0
