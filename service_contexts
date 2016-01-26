@@ -110,6 +110,7 @@ simphonebook_msim                         u:object_r:radio_service:s0
 simphonebook2                             u:object_r:radio_service:s0
 simphonebook                              u:object_r:radio_service:s0
 sip                                       u:object_r:radio_service:s0
+soundtrigger                              u:object_r:voiceinteraction_service:s0
 statusbar                                 u:object_r:statusbar_service:s0
 SurfaceFlinger                            u:object_r:surfaceflinger_service:s0
 task                                      u:object_r:task_service:s0
