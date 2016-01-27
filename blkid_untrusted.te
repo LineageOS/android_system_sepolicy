@@ -1,5 +1,5 @@
 # blkid for untrusted block devices
-type blkid_untrusted, domain;
+type blkid_untrusted, domain, domain_deprecated;
 
 # Allowed read-only access to vold block devices to extract UUID/label
 allow blkid_untrusted block_device:dir search;
