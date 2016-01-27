@@ -1,5 +1,5 @@
 # Any fsck program run by init
-type fsck, domain;
+type fsck, domain, domain_deprecated;
 type fsck_exec, exec_type, file_type;
 
 init_daemon_domain(fsck)
@@ -24,8 +24,6 @@ allow fsck dm_device:blk_file rw_file_perms;
 # fsck performs a stat() on swap to verify that it is a valid
 # swap device before setting the EXT2_MF_SWAP mount flag.
 allow fsck swap_block_device:blk_file getattr;
-# access to /proc/swaps
-allow fsck proc:file r_file_perms;
 
 ###
 ### neverallow rules
