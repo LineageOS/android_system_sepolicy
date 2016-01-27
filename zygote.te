@@ -64,6 +64,16 @@ allow zygote storage_file:dir { search mounton };
 # Handle --invoke-with command when launching Zygote with a wrapper command.
 allow zygote zygote_exec:file rx_file_perms;
 
+# Read access to pseudo filesystems.
+r_dir_file(zygote, proc_net)
+
+# Root fs.
+allow zygote rootfs:file r_file_perms;
+
+# System file accesses.
+allow zygote system_file:dir r_dir_perms;
+allow zygote system_file:file r_file_perms;
+
 userdebug_or_eng(`
   # Allow zygote to create and write method traces in /data/misc/trace.
   allow zygote method_trace_data_file:dir w_dir_perms;
