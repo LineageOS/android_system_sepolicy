@@ -14,6 +14,9 @@ binder_call(audioserver, binderservicedomain)
 binder_call(audioserver, { appdomain autoplay_app })
 binder_service(audioserver)
 
+# Read access to pseudo filesystems.
+r_dir_file(audioserver, proc)
+
 # Required by Widevine DRM (b/22990512)
 allow audioserver self:process execmem;
 
