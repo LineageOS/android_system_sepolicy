@@ -18,10 +18,6 @@ allow bootanim audio_device:chr_file rw_file_perms;
 
 allow bootanim surfaceflinger_service:service_manager find;
 
-# For /acct/uid/*/tasks.
-allow bootanim cgroup:dir { search write };
-allow bootanim cgroup:file w_file_perms;
-
 # Allow access to ion memory allocation device
 allow bootanim ion_device:chr_file rw_file_perms;
 
