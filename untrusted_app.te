@@ -92,6 +92,8 @@ dontaudit untrusted_app exec_type:file getattr;
 # TODO: access of /proc/meminfo, give specific label or switch to
 # using meminfo service
 allow untrusted_app proc:file r_file_perms;
+# access /proc/net/xt_qtguid/stats
+r_dir_file(untrusted_app, proc_net)
 
 ###
 ### neverallow rules
