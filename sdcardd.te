@@ -1,4 +1,4 @@
-type sdcardd, domain;
+type sdcardd, domain, domain_deprecated;
 type sdcardd_exec, exec_type, file_type;
 
 allow sdcardd cgroup:dir create_dir_perms;
