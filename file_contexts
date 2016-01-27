@@ -309,7 +309,8 @@
 # coredump directory for userdebug/eng devices
 /cores(/.*)?                    u:object_r:coredump_file:s0
 
-# Wallpaper file for other users
+# Wallpaper files
+/data/system/users/[0-9]+/wallpaper_orig	u:object_r:wallpaper_file:s0
 /data/system/users/[0-9]+/wallpaper		u:object_r:wallpaper_file:s0
 #############################
 # efs files
