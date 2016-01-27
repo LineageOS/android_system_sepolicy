@@ -41,10 +41,6 @@ allow autoplay_app zygote:unix_dgram_socket write;
 allow autoplay_app autoplay_data_file:dir create_dir_perms;
 allow autoplay_app autoplay_data_file:{ file sock_file fifo_file } create_file_perms;
 
-# For /acct/uid/*/tasks.
-allow autoplay_app cgroup:dir { search write };
-allow autoplay_app cgroup:file w_file_perms;
-
 # For art.
 allow autoplay_app dalvikcache_data_file:file { execute r_file_perms };
 allow autoplay_app dalvikcache_data_file:lnk_file r_file_perms;
