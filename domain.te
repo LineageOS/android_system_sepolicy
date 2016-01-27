@@ -121,6 +121,10 @@ allow domain selinuxfs:file getattr;
 allow domain sysfs:dir search;
 allow domain selinuxfs:filesystem getattr;
 
+# For /acct/uid/*/tasks.
+allow domain cgroup:dir { search write };
+allow domain cgroup:file w_file_perms;
+
 # Almost all processes log tracing information to
 # /sys/kernel/debug/tracing/trace_marker
 # The reason behind this is documented in b/6513400
