@@ -270,16 +270,6 @@ set_prop($1, security_prop)
 ')
 
 #####################################
-# access_kmsg(domain)
-# Ability to read from kernel logs
-# and execute the klogctl syscall
-# in a non destructive manner. See
-# man 2 klogctl
-define(`access_kmsg', `
-allow $1 kernel:system syslog_read;
-')
-
-#####################################
 # create_pty(domain)
 # Allow domain to create and use a pty, isolated from any other domain ptys.
 define(`create_pty', `
