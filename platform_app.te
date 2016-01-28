@@ -39,6 +39,7 @@ allow platform_app vfat:dir create_dir_perms;
 allow platform_app vfat:file create_file_perms;
 
 allow platform_app audioserver_service:service_manager find;
+allow platform_app cameraserver_service:service_manager find;
 allow platform_app drmserver_service:service_manager find;
 allow platform_app mediaserver_service:service_manager find;
 allow platform_app mediaextractor_service:service_manager find;
