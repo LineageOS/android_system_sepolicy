@@ -145,9 +145,10 @@ typealias app_data_file alias platform_app_data_file;
 typealias app_data_file alias download_file;
 # Default type for anything under /cache
 type cache_file, file_type, mlstrustedobject;
-# Type for /cache/.*\.{data|restore} and default
-# type for anything under /cache/backup
+# Type for /cache/backup_stage/* (fd interchange with apps)
 type cache_backup_file, file_type, mlstrustedobject;
+# type for anything under /cache/backup (local transport storage)
+type cache_private_backup_file, file_type;
 # Type for anything under /cache/recovery
 type cache_recovery_file, file_type, mlstrustedobject;
 # Default type for anything under /efs

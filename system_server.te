@@ -337,14 +337,12 @@ allow system_server { appdomain autoplay_app }:{ fifo_file unix_stream_socket } 
 # Allow abstract socket connection
 allow system_server rild:unix_stream_socket connectto;
 
-# BackupManagerService lets PMS create a data backup file
+# BackupManagerService needs to manipulate backup data files
+allow system_server cache_backup_file:dir rw_dir_perms;
 allow system_server cache_backup_file:file create_file_perms;
-# Relabel /data/backup
-allow system_server backup_data_file:dir { relabelto relabelfrom };
-# Relabel /cache/.*\.{data|restore}
-allow system_server cache_backup_file:file { relabelto relabelfrom };
-# LocalTransport creates and relabels /cache/backup
-allow system_server cache_backup_file:dir { relabelto relabelfrom create_dir_perms };
+# LocalTransport works inside /cache/backup
+allow system_server cache_private_backup_file:dir create_dir_perms;
+allow system_server cache_private_backup_file:file create_file_perms;
 
 # Allow system to talk to usb device
 allow system_server usb_device:chr_file rw_file_perms;
