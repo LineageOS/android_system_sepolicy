@@ -240,6 +240,8 @@ allow appdomain adbd:unix_stream_socket connectto;
 allow appdomain adbd:fd use;
 allow appdomain adbd:unix_stream_socket { getattr getopt ioctl read write shutdown };
 
+allow appdomain cache_file:dir getattr;
+
 ###
 ### Neverallow rules
 ###
