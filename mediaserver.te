@@ -9,6 +9,12 @@ init_daemon_domain(mediaserver)
 
 r_dir_file(mediaserver, sdcard_type)
 
+# stat /proc/self
+allow mediaserver proc:lnk_file getattr;
+
+# open /vendor/lib/mediadrm
+allow mediaserver system_file:dir r_dir_perms;
+
 binder_use(mediaserver)
 binder_call(mediaserver, binderservicedomain)
 binder_call(mediaserver, appdomain)
