@@ -305,7 +305,7 @@ log_msg(FILE *out, const char *prefix, const char *fmt, ...) {
  * 	statically to this executable and LINK_SEPOL_STATIC is not
  * 	defined.
  */
-int check_type(sepol_policydb_t *db, char *type) {
+static int check_type(sepol_policydb_t *db, char *type) {
 
 	int rc = 1;
 #if defined(LINK_SEPOL_STATIC)
