@@ -113,6 +113,7 @@ struct key_map {
 	data_type type;
 	char *data;
 	key_map_regex regex;
+	bool (*fn_validate)(char *value, char **errmsg);
 };
 
 /**
@@ -197,25 +198,31 @@ static list line_order_list = list_init(line_order_list_freefn);
  */
 static list nallow_list = list_init(line_order_list_freefn);
 
+/* validation call backs */
+static bool validate_bool(char *value, char **errmsg);
+static bool validate_levelFrom(char *value, char **errmsg);
+static bool validate_selinux_type(char *value, char **errmsg);
+static bool validate_selinux_level(char *value, char **errmsg);
+
 /**
  * The heart of the mapping process, this must be updated if a new key value pair is added
  * to a rule.
  */
 key_map rules[] = {
                 /*Inputs*/
-                { .name = "isSystemServer", .type = dt_bool,   .dir = dir_in,  .data = NULL },
-                { .name = "isOwner",        .type = dt_bool,   .dir = dir_in,  .data = NULL },
-                { .name = "user",           .type = dt_string, .dir = dir_in,  .data = NULL },
-                { .name = "seinfo",         .type = dt_string, .dir = dir_in,  .data = NULL },
-                { .name = "name",           .type = dt_string, .dir = dir_in,  .data = NULL },
-                { .name = "path",           .type = dt_string, .dir = dir_in,  .data = NULL },
-                { .name = "isPrivApp",      .type = dt_bool,   .dir = dir_in,  .data = NULL },
+                { .name = "isSystemServer", .type = dt_bool,   .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
+                { .name = "isOwner",        .type = dt_bool,   .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
+                { .name = "user",           .type = dt_string, .dir = dir_in,  .data = NULL                              },
+                { .name = "seinfo",         .type = dt_string, .dir = dir_in,  .data = NULL                              },
+                { .name = "name",           .type = dt_string, .dir = dir_in,  .data = NULL                              },
+                { .name = "path",           .type = dt_string, .dir = dir_in,  .data = NULL                              },
+                { .name = "isPrivApp",      .type = dt_bool,   .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
                 /*Outputs*/
-                { .name = "domain",         .type = dt_string, .dir = dir_out, .data = NULL },
-                { .name = "type",           .type = dt_string, .dir = dir_out, .data = NULL },
-                { .name = "levelFromUid",   .type = dt_bool,   .dir = dir_out, .data = NULL },
-                { .name = "levelFrom",      .type = dt_string,   .dir = dir_out, .data = NULL },
-                { .name = "level",          .type = dt_string, .dir = dir_out, .data = NULL },
+                { .name = "domain",         .type = dt_string, .dir = dir_out, .data = NULL, .fn_validate = validate_selinux_type  },
+                { .name = "type",           .type = dt_string, .dir = dir_out, .data = NULL, .fn_validate = validate_selinux_type  },
+                { .name = "levelFromUid",   .type = dt_bool,   .dir = dir_out, .data = NULL, .fn_validate = validate_bool          },
+                { .name = "levelFrom",      .type = dt_string, .dir = dir_out, .data = NULL, .fn_validate = validate_levelFrom     },
+                { .name = "level",          .type = dt_string, .dir = dir_out, .data = NULL, .fn_validate = validate_selinux_level },
 };
 
 /**
@@ -352,6 +359,63 @@ static bool compile_regex(key_map *km, const char **errbuf, int *erroff) {
 	return true;
 }
 
+static bool validate_bool(char *value, char **errmsg) {
+
+	if (!strcmp("true", value) || !strcmp("false", value)) {
+		return true;
+	}
+
+	*errmsg = "Expecting \"true\" or \"false\"";
+	return false;
+}
+
+static bool validate_levelFrom(char *value, char **errmsg) {
+
+	if(strcasecmp(value, "none") && strcasecmp(value, "all") &&
+		strcasecmp(value, "app") && strcasecmp(value, "user")) {
+		*errmsg = "Expecting one of: \"none\", \"all\", \"app\" or \"user\"";
+		return false;
+	}
+	return true;
+}
+
+static bool validate_selinux_type(char *value, char **errmsg) {
+
+	/*
+	 * No policy file present means we cannot check
+	 * SE Linux types
+	 */
+	if (!pol.policy_file) {
+		return true;
+	}
+
+	if(!check_type(pol.db, value)) {
+		*errmsg = "Expecting a valid SELinux type";
+		return false;
+	}
+
+	return true;
+}
+
+static bool validate_selinux_level(char *value, char **errmsg) {
+
+	/*
+	 * No policy file present means we cannot check
+	 * SE Linux MLS
+	 */
+	if (!pol.policy_file) {
+		return true;
+	}
+
+	int ret = sepol_mls_check(pol.handle, pol.db, value);
+	if (ret < 0) {
+		*errmsg = "Expecting a valid SELinux MLS value";
+		return false;
+	}
+
+	return true;
+}
+
 /**
  * Validates a key_map against a set of enforcement rules, this
  * function exits the application on a type that cannot be properly
@@ -370,10 +434,9 @@ static bool key_map_validate(key_map *m, const char *filename, int lineno,
 	int erroff;
 	const char *errbuf;
 	bool rc = true;
-	int ret = 1;
 	char *key = m->name;
 	char *value = m->data;
-	data_type type = m->type;
+	char *errmsg = NULL;
 
 	log_info("Validating %s=%s\n", key, value);
 
@@ -392,51 +455,13 @@ static bool key_map_validate(key_map *m, const char *filename, int lineno,
 		goto out;
 	}
 
-	/* Booleans can always be checked for sanity */
-	if (type == dt_bool && (!strcmp("true", value) || !strcmp("false", value))) {
-		goto out;
-	}
-	else if (type == dt_bool) {
-		log_error("Expected boolean value got: %s=%s on line: %d in file: %s\n",
-				key, value, lineno, filename);
-		rc = false;
-		goto out;
-	}
+	/* If the key has a validation routine, call it */
+	if (m->fn_validate) {
+		rc = m->fn_validate(value, &errmsg);
 
-	if (!strcasecmp(key, "levelFrom") &&
-	    (strcasecmp(value, "none") && strcasecmp(value, "all") &&
-	     strcasecmp(value, "app") && strcasecmp(value, "user"))) {
-		log_error("Unknown levelFrom=%s on line: %d in file: %s\n",
-			  value, lineno, filename);
-		rc = false;
-		goto out;
-	}
-
-	/*
-	 * If there is no policy file present,
-	 * then it is not going to enforce the types against the policy so just return.
-	 * User and name cannot really be checked.
-	 */
-	if (!pol.policy_file) {
-		goto out;
-	}
-	else if (!strcasecmp(key, "type") || !strcasecmp(key, "domain")) {
-
-		if(!check_type(pol.db, value)) {
-			log_error("Could not find selinux type \"%s\" on line: %d in file: %s\n", value,
-			lineno, filename);
-			rc = false;
-		}
-		goto out;
-	}
-	else if (!strcasecmp(key, "level")) {
-
-		ret = sepol_mls_check(pol.handle, pol.db, value);
-		if (ret < 0) {
-			log_error("Could not find selinux level \"%s\", on line: %d in file: %s\n", value,
-			lineno, filename);
-			rc = false;
-			goto out;
+		if (!rc) {
+			log_error("Could not validate key \"%s\" for value \"%s\" on line: %d in file: \"%s\": %s\n", key, value,
+			lineno, filename, errmsg);
 		}
 	}
 
