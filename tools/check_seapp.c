@@ -1095,7 +1095,7 @@ static void parse_file(file_info *in_file) {
 	return;
 
 err:
-	log_error("reading %s, line %zu, name %s, value %s\n",
+	log_error("Reading file: \"%s\" line: %zu name: \"%s\" value: \"%s\"\n",
 		in_file->name, lineno, name, value);
 	if(found_whitespace && name && !strcasecmp(name, "neverallow")) {
 		log_error("perhaps whitespace before neverallow\n");
