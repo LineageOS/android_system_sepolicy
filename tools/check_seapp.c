@@ -201,20 +201,20 @@ static bool validate_selinux_level(char *value, char **errmsg);
  */
 key_map rules[] = {
                 /*Inputs*/
-                { .name = "isSystemServer", .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
-                { .name = "isAutoPlayApp",  .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
-                { .name = "isOwner",        .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
-                { .name = "user",           .dir = dir_in,  .data = NULL                               },
-                { .name = "seinfo",         .dir = dir_in,  .data = NULL                               },
-                { .name = "name",           .dir = dir_in,  .data = NULL                               },
-                { .name = "path",           .dir = dir_in,  .data = NULL                               },
-                { .name = "isPrivApp",      .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
+                { .name = "isSystemServer", .dir = dir_in, .fn_validate = validate_bool },
+                { .name = "isAutoPlayApp",  .dir = dir_in, .fn_validate = validate_bool },
+                { .name = "isOwner",        .dir = dir_in, .fn_validate = validate_bool },
+                { .name = "user",           .dir = dir_in,                              },
+                { .name = "seinfo",         .dir = dir_in,                              },
+                { .name = "name",           .dir = dir_in,                              },
+                { .name = "path",           .dir = dir_in,                              },
+                { .name = "isPrivApp",      .dir = dir_in, .fn_validate = validate_bool },
                 /*Outputs*/
-                { .name = "domain",         .dir = dir_out, .data = NULL, .fn_validate = validate_selinux_type  },
-                { .name = "type",           .dir = dir_out, .data = NULL, .fn_validate = validate_selinux_type  },
-                { .name = "levelFromUid",   .dir = dir_out, .data = NULL, .fn_validate = validate_bool          },
-                { .name = "levelFrom",      .dir = dir_out, .data = NULL, .fn_validate = validate_levelFrom     },
-                { .name = "level",          .dir = dir_out, .data = NULL, .fn_validate = validate_selinux_level },
+                { .name = "domain",         .dir = dir_out, .fn_validate = validate_selinux_type  },
+                { .name = "type",           .dir = dir_out, .fn_validate = validate_selinux_type  },
+                { .name = "levelFromUid",   .dir = dir_out, .fn_validate = validate_bool          },
+                { .name = "levelFrom",      .dir = dir_out, .fn_validate = validate_levelFrom     },
+                { .name = "level",          .dir = dir_out, .fn_validate = validate_selinux_level },
 };
 
 /**
