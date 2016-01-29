@@ -80,14 +80,6 @@ enum key_dir {
 	dir_in, dir_out
 };
 
-/**
- * The expected "type" of data the value in the key
- * value pair should be.
- */
-enum data_type {
-	dt_bool, dt_string
-};
-
 struct list_element {
 	list_element *next;
 };
@@ -110,7 +102,6 @@ struct key_map_regex {
 struct key_map {
 	char *name;
 	key_dir dir;
-	data_type type;
 	char *data;
 	key_map_regex regex;
 	bool (*fn_validate)(char *value, char **errmsg);
@@ -210,20 +201,20 @@ static bool validate_selinux_level(char *value, char **errmsg);
  */
 key_map rules[] = {
                 /*Inputs*/
-                { .name = "isSystemServer", .type = dt_bool,   .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
-                { .name = "isAutoPlayApp",  .type = dt_bool,   .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
-                { .name = "isOwner",        .type = dt_bool,   .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
-                { .name = "user",           .type = dt_string, .dir = dir_in,  .data = NULL                              },
-                { .name = "seinfo",         .type = dt_string, .dir = dir_in,  .data = NULL                              },
-                { .name = "name",           .type = dt_string, .dir = dir_in,  .data = NULL                              },
-                { .name = "path",           .type = dt_string, .dir = dir_in,  .data = NULL                              },
-                { .name = "isPrivApp",      .type = dt_bool,   .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
+                { .name = "isSystemServer", .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
+                { .name = "isAutoPlayApp",  .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
+                { .name = "isOwner",        .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
+                { .name = "user",           .dir = dir_in,  .data = NULL                               },
+                { .name = "seinfo",         .dir = dir_in,  .data = NULL                               },
+                { .name = "name",           .dir = dir_in,  .data = NULL                               },
+                { .name = "path",           .dir = dir_in,  .data = NULL                               },
+                { .name = "isPrivApp",      .dir = dir_in,  .data = NULL, .fn_validate = validate_bool },
                 /*Outputs*/
-                { .name = "domain",         .type = dt_string, .dir = dir_out, .data = NULL, .fn_validate = validate_selinux_type  },
-                { .name = "type",           .type = dt_string, .dir = dir_out, .data = NULL, .fn_validate = validate_selinux_type  },
-                { .name = "levelFromUid",   .type = dt_bool,   .dir = dir_out, .data = NULL, .fn_validate = validate_bool          },
-                { .name = "levelFrom",      .type = dt_string, .dir = dir_out, .data = NULL, .fn_validate = validate_levelFrom     },
-                { .name = "level",          .type = dt_string, .dir = dir_out, .data = NULL, .fn_validate = validate_selinux_level },
+                { .name = "domain",         .dir = dir_out, .data = NULL, .fn_validate = validate_selinux_type  },
+                { .name = "type",           .dir = dir_out, .data = NULL, .fn_validate = validate_selinux_type  },
+                { .name = "levelFromUid",   .dir = dir_out, .data = NULL, .fn_validate = validate_bool          },
+                { .name = "levelFrom",      .dir = dir_out, .data = NULL, .fn_validate = validate_levelFrom     },
+                { .name = "level",          .dir = dir_out, .data = NULL, .fn_validate = validate_selinux_level },
 };
 
 /**
@@ -518,9 +509,6 @@ static map_match rule_map_cmp(rule_map *rmA, rule_map *rmB) {
 		for (j = 0; j < rmB->length; j++) {
 			mB = &(rmB->m[j]);
 			input_mode = 0;
-
-			if (mA->type != mB->type)
-				continue;
 
 			if (strcmp(mA->name, mB->name))
 				continue;
