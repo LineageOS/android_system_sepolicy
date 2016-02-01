@@ -266,6 +266,7 @@ allow init metadata_block_device:blk_file rw_file_perms;
 # by dm-verity detecting corrupted blocks
 allow init pstorefs:dir search;
 allow init pstorefs:file r_file_perms;
+allow init kernel:system syslog_read;
 
 # linux keyring configuration
 allow init init:key { write search setattr };
