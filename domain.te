@@ -551,3 +551,11 @@ neverallow {
   -ueventd
   -vold
 } fuse_device:chr_file *;
+
+# Profiles contain untrusted data and profman parses that. We should only run
+# in from installd forked processes.
+neverallow {
+  domain
+  -installd
+  -profman
+} profman_exec:file no_x_file_perms;
