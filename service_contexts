@@ -96,6 +96,7 @@ procstats                                 u:object_r:procstats_service:s0
 radio.phonesubinfo                        u:object_r:radio_service:s0
 radio.phone                               u:object_r:radio_service:s0
 radio.sms                                 u:object_r:radio_service:s0
+recovery                                  u:object_r:recovery_service:s0
 restrictions                              u:object_r:restrictions_service:s0
 rttmanager                                u:object_r:rttmanager_service:s0
 samplingprofiler                          u:object_r:samplingprofiler_service:s0
