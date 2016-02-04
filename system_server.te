@@ -441,7 +441,7 @@ userdebug_or_eng(`
 
 # For AppFuse.
 allow system_server vold:fd use;
-allow system_server fuse_device:chr_file { read write ioctl };
+allow system_server fuse_device:chr_file { read write ioctl getattr };
 
 # Connect to adbd and use a socket transferred from it.
 # Used for e.g. jdwp.
