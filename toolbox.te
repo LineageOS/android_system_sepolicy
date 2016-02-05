@@ -22,5 +22,5 @@ allow toolbox swap_block_device:blk_file rw_file_perms;
 
 # Only allow entry from init via the toolbox binary.
 neverallow { domain -init } toolbox:process transition;
-neverallow domain toolbox:process dyntransition;
+neverallow * toolbox:process dyntransition;
 neverallow toolbox { file_type fs_type -toolbox_exec}:file entrypoint;

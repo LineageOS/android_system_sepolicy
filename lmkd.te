@@ -34,4 +34,4 @@ allow lmkd self:capability sys_nice;
 ### neverallow rules
 
 # never honor LD_PRELOAD
-neverallow domain lmkd:process noatsecure;
+neverallow * lmkd:process noatsecure;

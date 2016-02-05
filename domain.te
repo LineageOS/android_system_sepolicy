@@ -168,10 +168,10 @@ neverallow {
 neverallow { domain -kernel -init -recovery -ueventd -watchdogd -healthd -vold -uncrypt -tee } self:capability sys_rawio;
 
 # No process can map low memory (< CONFIG_LSM_MMAP_MIN_ADDR).
-neverallow domain self:memprotect mmap_zero;
+neverallow * self:memprotect mmap_zero;
 
 # No domain needs mac_override as it is unused by SELinux.
-neverallow domain self:capability2 mac_override;
+neverallow * self:capability2 mac_override;
 
 # Only recovery needs mac_admin to set contexts not defined in current policy.
 neverallow { domain -recovery } self:capability2 mac_admin;
@@ -203,11 +203,11 @@ neverallow { domain -system_server } security_file:lnk_file { create setattr unl
 # init starts in kernel domain and switches to init domain via setcon in
 # the init.rc, so the setenforce occurs while still in kernel. After
 # switching domains, there is never any need to setenforce again by init.
-neverallow domain kernel:security setenforce;
+neverallow * kernel:security setenforce;
 neverallow { domain -kernel } kernel:security setcheckreqprot;
 
 # No booleans in AOSP policy, so no need to ever set them.
-neverallow domain kernel:security setbool;
+neverallow * kernel:security setbool;
 
 # Adjusting the AVC cache threshold.
 # Not presently allowed to anything in policy, but possibly something
@@ -218,11 +218,11 @@ neverallow { domain -init } kernel:security setsecparam;
 neverallow { domain -init -system_server -ueventd } hw_random_device:chr_file *;
 
 # Ensure that all entrypoint executables are in exec_type.
-neverallow domain { file_type -exec_type }:file entrypoint;
+neverallow * { file_type -exec_type }:file entrypoint;
 
 # Ensure that nothing in userspace can access /dev/mem or /dev/kmem
 neverallow { domain -kernel -ueventd -init } kmem_device:chr_file *;
-neverallow domain kmem_device:chr_file ~{ create relabelto unlink setattr };
+neverallow * kmem_device:chr_file ~{ create relabelto unlink setattr };
 
 # Only init should be able to configure kernel usermodehelpers or
 # security-sensitive proc settings.
@@ -230,11 +230,11 @@ neverallow { domain -init } usermodehelper:file { append write };
 neverallow { domain -init } proc_security:file { append write };
 
 # No domain should be allowed to ptrace init.
-neverallow domain init:process ptrace;
+neverallow * init:process ptrace;
 
 # Init can't do anything with binder calls. If this neverallow rule is being
 # triggered, it's probably due to a service with no SELinux domain.
-neverallow domain init:binder *;
+neverallow * init:binder *;
 
 # Don't allow raw read/write/open access to block_device
 # Rather force a relabel to a more specific type
@@ -297,15 +297,15 @@ neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
 neverallow { domain -recovery -kernel } { system_file exec_type }:dir_file_class_set relabelto;
 
 # Don't allow mounting on top of /system files or directories
-neverallow domain exec_type:dir_file_class_set mounton;
+neverallow * exec_type:dir_file_class_set mounton;
 neverallow { domain -init } system_file:dir_file_class_set mounton;
 
 # Nothing should be writing to files in the rootfs.
-neverallow domain rootfs:file { create write setattr relabelto append unlink link rename };
+neverallow * rootfs:file { create write setattr relabelto append unlink link rename };
 
 # Restrict context mounts to specific types marked with
 # the contextmount_type attribute.
-neverallow domain {fs_type -contextmount_type}:filesystem relabelto;
+neverallow * {fs_type -contextmount_type}:filesystem relabelto;
 
 # Ensure that context mount types are not writable, to ensure that
 # the write to /system restriction above is not bypassed via context=
@@ -318,7 +318,7 @@ neverallow { domain -recovery } contextmount_type:dir_file_class_set
 # system_app_service rather than the generic type.
 # New service_types are defined in service.te and new mappings
 # from service name to service_type are defined in service_contexts.
-neverallow domain default_android_service:service_manager add;
+neverallow * default_android_service:service_manager add;
 
 # Require that domains explicitly label unknown properties, and do not allow
 # anyone but init to modify unknown properties.
@@ -373,11 +373,11 @@ neverallow { domain -system_server } zygote_socket:sock_file write;
 # that, even assuming only non-buggy and non-malicious code, it is very likely
 # that over time, the kernel global tables used to implement SysV IPCs will fill
 # up.
-neverallow domain domain:{ shm sem msg msgq } *;
+neverallow * *:{ shm sem msg msgq } *;
 
 # Do not mount on top of symlinks, fifos, or sockets.
 # Feature parity with Chromium LSM.
-neverallow domain { file_type fs_type dev_type }:{ lnk_file fifo_file sock_file } mounton;
+neverallow * { file_type fs_type dev_type }:{ lnk_file fifo_file sock_file } mounton;
 
 # Nobody should be able to execute su on user builds.
 # On userdebug/eng builds, only dumpstate, shell, and
@@ -389,7 +389,7 @@ neverallow { domain userdebug_or_eng(`-dumpstate -shell -su') } su_exec:file no_
 # The only exceptions are for NDK text relocations associated with
 # https://code.google.com/p/android/issues/detail?id=23203
 # which, long term, need to go away.
-neverallow domain {
+neverallow * {
   file_type
   -system_data_file
   -apk_data_file
@@ -400,7 +400,7 @@ neverallow domain {
 # Do not allow making the stack or heap executable.
 # We would also like to minimize execmem but it seems to be
 # required by some device-specific service domains.
-neverallow domain self:process { execstack execheap };
+neverallow * self:process { execstack execheap };
 
 # prohibit non-zygote spawned processes from using shared libraries
 # with text relocations. b/20013628 .
@@ -501,16 +501,16 @@ neverallow {
 } shell_data_file:file open;
 
 # servicemanager is the only process which handles list request
-neverallow domain ~servicemanager:service_manager list;
+neverallow * ~servicemanager:service_manager list;
 
 # only service_manager_types can be added to service_manager
-neverallow domain ~service_manager_type:service_manager { add find };
+neverallow * ~service_manager_type:service_manager { add find };
 
 # logpersist is only allowed on userdebug/eng builds
 neverallow { domain userdebug_or_eng(`-logd -shell') } misc_logd_file:file rw_file_perms;
 
 # Prevent assigning non property types to properties
-neverallow domain ~property_type:property_service set;
+neverallow * ~property_type:property_service set;
 
 # Domain types should never be assigned to any files other
 # than the /proc/pid files associated with a process. The
@@ -523,7 +523,7 @@ neverallow domain ~property_type:property_service set;
 # init_daemon_domain(mydaemon)
 # $ grep mydaemon file_contexts
 # /system/bin/mydaemon -- u:object_r:mydaemon_exec:s0
-neverallow domain domain:file { execute execute_no_trans entrypoint };
+neverallow * domain:file { execute execute_no_trans entrypoint };
 
 # Do not allow access to the generic debugfs label. This is too broad.
 # Instead, if access to part of debugfs is desired, it should have a

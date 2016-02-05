@@ -43,5 +43,5 @@ neverallow fsck {
 
 # Only allow entry from init or vold via fsck binaries
 neverallow { domain -init -vold } fsck:process transition;
-neverallow domain fsck:process dyntransition;
+neverallow * fsck:process dyntransition;
 neverallow fsck { file_type fs_type -fsck_exec }:file entrypoint;
