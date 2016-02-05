@@ -11,27 +11,7 @@ binder_call(mediaextractor, binderservicedomain)
 binder_call(mediaextractor, appdomain)
 binder_service(mediaextractor)
 
-allow mediaextractor kernel:system module_request;
-
-# Needed on some devices for playing DRM protected content,
-# but seems expected and appropriate for all devices.
-unix_socket_connect(mediaextractor, drmserver, drmserver)
-
-allow mediaextractor drmserver_service:service_manager find;
-allow mediaextractor mediaextractor_service:service_manager { add find };
-allow mediaextractor processinfo_service:service_manager find;
-
-use_drmservice(mediaextractor)
-allow mediaextractor drmserver:drmservice {
-    consumeRights
-    setPlaybackStatus
-    openDecryptSession
-    closeDecryptSession
-    initializeDecryptUnit
-    decrypt
-    finalizeDecryptUnit
-    pread
-};
+allow mediaextractor mediaextractor_service:service_manager add;
 
 ###
 ### neverallow rules
@@ -42,11 +22,5 @@ allow mediaextractor drmserver:drmservice {
 neverallow mediaextractor { file_type fs_type }:file execute_no_trans;
 
 # mediaextractor should never need network access. Disallow all sockets
-# other than unix sockets i.e. unix_stream_socket and unix_dgram_socket
-neverallow mediaextractor domain:{
-  socket tcp_socket udp_socket rawip_socket netlink_socket packet_socket
-  key_socket appletalk_socket netlink_route_socket netlink_firewall_socket
-  netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket
-  netlink_selinux_socket netlink_audit_socket netlink_ip6fw_socket
-  netlink_dnrt_socket netlink_kobject_uevent_socket tun_socket
-  } *;
+# other than those needed for normal system functions
+neverallow mediaextractor { domain -debuggerd -dumpstate -adbd -mediaextractor -logd userdebug_or_eng(`-su')}:socket_class_set *;
