@@ -22,7 +22,7 @@ allow domain self:process {
     setrlimit
 };
 allow domain self:fd use;
-allow domain proc:dir search;
+allow domain proc:dir r_dir_perms;
 allow domain proc_net:dir search;
 r_dir_file(domain, self)
 allow domain self:{ fifo_file file } rw_file_perms;
