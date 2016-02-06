@@ -212,6 +212,9 @@ allowxperm { appdomain -bluetooth } self:{ rawip_socket tcp_socket udp_socket } 
 
 allow { appdomain -isolated_app } ion_device:chr_file rw_file_perms;
 
+# For app fuse.
+allow appdomain app_fuse_file:file { getattr read append write };
+
 ###
 ### CTS-specific rules
 ###

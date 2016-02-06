@@ -66,6 +66,9 @@ r_dir_file(mediaserver, media_rw_data_file)
 allow mediaserver audio_data_file:dir ra_dir_perms;
 allow mediaserver audio_data_file:file create_file_perms;
 
+# Grant access to read files on appfuse.
+allow mediaserver app_fuse_file:file { read getattr };
+
 # Read/[write] to /proc/net/xt_qtaguid/ctrl and /dev/xt_qtaguid
 allow mediaserver qtaguid_proc:file rw_file_perms;
 allow mediaserver qtaguid_device:chr_file r_file_perms;

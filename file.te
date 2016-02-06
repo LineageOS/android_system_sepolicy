@@ -50,6 +50,7 @@ type functionfs, fs_type;
 type oemfs, fs_type, contextmount_type;
 type usbfs, fs_type;
 type binfmt_miscfs, fs_type;
+type app_fusefs, fs_type, contextmount_type;
 
 # File types
 type unlabeled, file_type;
@@ -173,6 +174,8 @@ type security_file, file_type;
 type bluetooth_efs_file, file_type;
 # Type for fingerprint template file.
 type fingerprintd_data_file, file_type, data_file_type;
+# Type for appfuse file.
+type app_fuse_file, file_type, data_file_type;
 
 # Socket types
 type adbd_socket, file_type;
@@ -215,6 +218,7 @@ allow file_type labeledfs:filesystem associate;
 allow file_type tmpfs:filesystem associate;
 allow file_type rootfs:filesystem associate;
 allow dev_type tmpfs:filesystem associate;
+allow app_fuse_file app_fusefs:filesystem associate;
 
 # It's a bug to assign the file_type attribute and fs_type attribute
 # to any type. Do not allow it.
