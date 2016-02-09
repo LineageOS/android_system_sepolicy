@@ -33,3 +33,6 @@ allow update_engine update_engine_service:service_manager { add };
 
 # Allow update_engine to call the callback function provided by priv_app.
 binder_call(update_engine, priv_app)
+
+# Allow read/write bootctrl block device.
+allow update_engine bootctrl_block_device:blk_file rw_file_perms;
