@@ -148,3 +148,21 @@ neverallow untrusted_app { cache_file cache_recovery_file }:file ~{ read getattr
 # Do not allow untrusted_app to set system properties.
 neverallow untrusted_app property_socket:sock_file write;
 neverallow untrusted_app property_type:property_service set;
+
+# Do not allow untrusted_app to create/unlink files outside of its sandbox,
+# internal storage or sdcard.
+# World accessible data locations allow application to fill the device
+# with unaccounted for data. This data will not get removed during
+# application un-installation.
+neverallow untrusted_app {
+  fs_type
+  -fuse                     # sdcard
+  file_type
+  -app_data_file            # The apps sandbox itself
+  -media_rw_data_file       # Internal storage. Known that apps can
+                            # leave artfacts here after uninstall.
+  userdebug_or_eng(`
+    -method_trace_data_file # only on ro.debuggable=1
+    -coredump_file          # userdebug/eng only
+  ')
+}:dir_file_class_set { create unlink };
