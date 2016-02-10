@@ -31,7 +31,6 @@ allow priv_app surfaceflinger_service:service_manager find;
 allow priv_app app_api_service:service_manager find;
 allow priv_app system_api_service:service_manager find;
 allow priv_app persistent_data_block_service:service_manager find;
-allow priv_app voiceinteraction_service:service_manager find;
 
 # Traverse into /mnt/media_rw for bypassing FUSE daemon
 # TODO: narrow this to just MediaProvider
