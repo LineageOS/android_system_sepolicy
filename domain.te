@@ -238,7 +238,7 @@ neverallow * init:binder *;
 
 # Don't allow raw read/write/open access to block_device
 # Rather force a relabel to a more specific type
-neverallow { domain -kernel -init -recovery -uncrypt } block_device:blk_file { open read write };
+neverallow { domain -kernel -init -recovery } block_device:blk_file { open read write };
 
 # Don't allow raw read/write/open access to generic devices.
 # Rather force a relabel to a more specific type.
