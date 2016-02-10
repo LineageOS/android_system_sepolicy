@@ -23,7 +23,6 @@ binder_service(mediaserver)
 # Required by Widevine DRM (b/22990512)
 allow mediaserver self:process execmem;
 
-allow mediaserver kernel:system module_request;
 allow mediaserver media_data_file:dir create_dir_perms;
 allow mediaserver media_data_file:file create_file_perms;
 allow mediaserver app_data_file:dir search;
