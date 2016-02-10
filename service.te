@@ -101,7 +101,7 @@ type usagestats_service, app_api_service, system_server_service, service_manager
 type usb_service, app_api_service, system_server_service, service_manager_type;
 type user_service, app_api_service, system_server_service, service_manager_type;
 type vibrator_service, app_api_service, system_server_service, service_manager_type;
-type voiceinteraction_service, system_server_service, service_manager_type;
+type voiceinteraction_service, app_api_service, system_server_service, service_manager_type;
 type wallpaper_service, app_api_service, system_server_service, service_manager_type;
 type webviewupdate_service, app_api_service, system_server_service, service_manager_type;
 type wifip2p_service, app_api_service, system_server_service, service_manager_type;
