@@ -229,10 +229,6 @@ allow appdomain runas_exec:file getattr;
 selinux_check_access(appdomain)
 selinux_check_context(appdomain)
 
-# appdomain should not be accessing information on /sys
-auditallow { appdomain userdebug_or_eng(`-su') } sysfs:dir { open getattr read ioctl };
-auditallow { appdomain userdebug_or_eng(`-su') } sysfs:file r_file_perms;
-
 # Apps receive an open tun fd from the framework for
 # device traffic. Do not allow untrusted app to directly open tun_device
 allow { appdomain -isolated_app } tun_device:chr_file { read write getattr ioctl append };
