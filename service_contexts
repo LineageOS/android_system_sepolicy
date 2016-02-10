@@ -2,7 +2,7 @@ accessibility                             u:object_r:accessibility_service:s0
 account                                   u:object_r:account_service:s0
 activity                                  u:object_r:activity_service:s0
 alarm                                     u:object_r:alarm_service:s0
-android.os.IUpdateEngine                  u:object_r:update_engine_service:s0
+android.os.UpdateEngineService            u:object_r:update_engine_service:s0
 android.security.keystore                 u:object_r:keystore_service:s0
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
 appops                                    u:object_r:appops_service:s0
