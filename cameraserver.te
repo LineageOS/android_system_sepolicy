@@ -1,115 +1,34 @@
 # cameraserver - camera daemon
-type cameraserver, domain, domain_deprecated;
+type cameraserver, domain;
 type cameraserver_exec, exec_type, file_type;
 
-typeattribute cameraserver mlstrustedsubject;
+# STOPSHIP. cameraserver into permissive mode to collect denials from
+# droidfooders
+permissive cameraserver;
 
-net_domain(cameraserver)
 init_daemon_domain(cameraserver)
-
-r_dir_file(cameraserver, sdcard_type)
 
 binder_use(cameraserver)
 binder_call(cameraserver, binderservicedomain)
 binder_call(cameraserver, appdomain)
 binder_service(cameraserver)
 
-# Required by Widevine DRM (b/22990512)
-allow cameraserver self:process execmem;
-
-allow cameraserver kernel:system module_request;
-allow cameraserver media_data_file:dir create_dir_perms;
-allow cameraserver media_data_file:file create_file_perms;
+# access /data/misc/camera
 allow cameraserver camera_data_file:dir create_dir_perms;
 allow cameraserver camera_data_file:file create_file_perms;
-allow cameraserver app_data_file:dir search;
-allow cameraserver app_data_file:file rw_file_perms;
-allow cameraserver sdcard_type:file write;
-allow cameraserver gpu_device:chr_file rw_file_perms;
+
 allow cameraserver video_device:dir r_dir_perms;
 allow cameraserver video_device:chr_file rw_file_perms;
-allow cameraserver audio_device:dir r_dir_perms;
-allow cameraserver tee_device:chr_file rw_file_perms;
+allow cameraserver ion_device:chr_file rw_file_perms;
 
-set_prop(cameraserver, audio_prop)
-
-# Access audio devices at all.
-allow cameraserver audio_device:chr_file rw_file_perms;
-
-# XXX Label with a specific type?
-allow cameraserver sysfs:file r_file_perms;
-
-# Read resources from open apk files passed over Binder.
-allow cameraserver apk_data_file:file { read getattr };
-allow cameraserver asec_apk_file:file { read getattr };
-
-# Read /data/data/com.android.providers.telephony files passed over Binder.
-allow cameraserver radio_data_file:file { read getattr };
-
-# Use pipes passed over Binder from app domains.
-allow cameraserver appdomain:fifo_file { getattr read write };
-
-allow cameraserver rpmsg_device:chr_file rw_file_perms;
-
-# Inter System processes communicate over named pipe (FIFO)
-allow cameraserver system_server:fifo_file r_file_perms;
-
-# Camera data
-r_dir_file(cameraserver, camera_data_file)
-r_dir_file(cameraserver, media_rw_data_file)
-
-# Grant access to audio files to cameraserver
-allow cameraserver audio_data_file:dir ra_dir_perms;
-allow cameraserver audio_data_file:file create_file_perms;
-
-# Read/[write] to /proc/net/xt_qtaguid/ctrl and /dev/xt_qtaguid
-allow cameraserver qtaguid_proc:file rw_file_perms;
-allow cameraserver qtaguid_device:chr_file r_file_perms;
-
-# Allow abstract socket connection
-allow cameraserver rild:unix_stream_socket { connectto read write setopt };
-
-# Needed on some devices for playing DRM protected content,
-# but seems expected and appropriate for all devices.
-unix_socket_connect(cameraserver, drmserver, drmserver)
-
-# Needed on some devices for playing audio on paired BT device,
-# but seems appropriate for all devices.
-unix_socket_connect(cameraserver, bluetooth, bluetooth)
-
-# Connect to tee service.
-allow cameraserver tee:unix_stream_socket connectto;
-
-allow cameraserver activity_service:service_manager find;
 allow cameraserver appops_service:service_manager find;
 allow cameraserver audioserver_service:service_manager find;
-allow cameraserver cameraproxy_service:service_manager find;
-allow cameraserver cameraserver_service:service_manager { add find };
 allow cameraserver batterystats_service:service_manager find;
-allow cameraserver drmserver_service:service_manager find;
-allow cameraserver mediaextractor_service:service_manager find;
+allow cameraserver cameraproxy_service:service_manager find;
+allow cameraserver cameraserver_service:service_manager add;
 allow cameraserver mediaserver_service:service_manager find;
-allow cameraserver permission_service:service_manager find;
-allow cameraserver power_service:service_manager find;
 allow cameraserver processinfo_service:service_manager find;
-allow cameraserver scheduling_policy_service:service_manager find;
 allow cameraserver surfaceflinger_service:service_manager find;
-
-# /oem access
-allow cameraserver oemfs:dir search;
-allow cameraserver oemfs:file r_file_perms;
-
-use_drmservice(cameraserver)
-allow cameraserver drmserver:drmservice {
-    consumeRights
-    setPlaybackStatus
-    openDecryptSession
-    closeDecryptSession
-    initializeDecryptUnit
-    decrypt
-    finalizeDecryptUnit
-    pread
-};
 
 ###
 ### neverallow rules
