@@ -14,6 +14,7 @@ binder_service(mediacodec)
 allow mediacodec mediacodec_service:service_manager add;
 allow mediacodec gpu_device:chr_file rw_file_perms;
 allow mediacodec video_device:chr_file rw_file_perms;
+allow mediacodec video_device:dir search;
 allow mediacodec ion_device:chr_file r_file_perms;
 
 ###
