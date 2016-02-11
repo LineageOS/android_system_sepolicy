@@ -154,8 +154,6 @@ r_dir_file(system_server, inputflinger)
 # Use sockets received over binder from various services.
 allow system_server audioserver:tcp_socket rw_socket_perms;
 allow system_server audioserver:udp_socket rw_socket_perms;
-allow system_server cameraserver:tcp_socket rw_socket_perms;
-allow system_server cameraserver:udp_socket rw_socket_perms;
 allow system_server mediaserver:tcp_socket rw_socket_perms;
 allow system_server mediaserver:udp_socket rw_socket_perms;
 
