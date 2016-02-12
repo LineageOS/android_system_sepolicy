@@ -28,6 +28,7 @@ allow cameraserver cameraproxy_service:service_manager find;
 allow cameraserver cameraserver_service:service_manager add;
 allow cameraserver mediaserver_service:service_manager find;
 allow cameraserver processinfo_service:service_manager find;
+allow cameraserver scheduling_policy_service:service_manager find;
 allow cameraserver surfaceflinger_service:service_manager find;
 
 ###
