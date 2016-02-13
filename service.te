@@ -11,6 +11,7 @@ type keystore_service,          service_manager_type;
 type mediaserver_service,       service_manager_type;
 type mediaextractor_service,    service_manager_type;
 type mediacodec_service,        service_manager_type;
+type mediadrmserver_service,    service_manager_type;
 type nfc_service,               service_manager_type;
 type radio_service,             service_manager_type;
 type surfaceflinger_service,    service_manager_type;

@@ -139,12 +139,13 @@ binder_call(system_server, dumpstate)
 binder_service(system_server)
 
 # Ask debuggerd to dump backtraces for native stacks of interest.
-allow system_server { audioserver cameraserver mediaserver mediacodec mediaextractor sdcardd surfaceflinger inputflinger }:debuggerd dump_backtrace;
+allow system_server { audioserver cameraserver mediaserver mediacodec mediadrmserver mediaextractor sdcardd surfaceflinger inputflinger }:debuggerd dump_backtrace;
 
 # Read /proc/pid files for dumping stack traces of native processes.
 r_dir_file(system_server, audioserver)
 r_dir_file(system_server, cameraserver)
 r_dir_file(system_server, mediaserver)
+r_dir_file(system_server, mediadrmserver)
 r_dir_file(system_server, mediaextractor)
 r_dir_file(system_server, mediacodec)
 r_dir_file(system_server, sdcardd)
@@ -156,6 +157,10 @@ allow system_server audioserver:tcp_socket rw_socket_perms;
 allow system_server audioserver:udp_socket rw_socket_perms;
 allow system_server mediaserver:tcp_socket rw_socket_perms;
 allow system_server mediaserver:udp_socket rw_socket_perms;
+
+# Use sockets received over binder from various services.
+allow system_server mediadrmserver:tcp_socket rw_socket_perms;
+allow system_server mediadrmserver:udp_socket rw_socket_perms;
 
 # Check SELinux permissions.
 selinux_check_access(system_server)
@@ -390,6 +395,7 @@ allow system_server fingerprintd_service:service_manager find;
 allow system_server mediaserver_service:service_manager find;
 allow system_server mediaextractor_service:service_manager find;
 allow system_server mediacodec_service:service_manager find;
+allow system_server mediadrmserver_service:service_manager find;
 allow system_server nfc_service:service_manager find;
 allow system_server radio_service:service_manager find;
 allow system_server system_server_service:service_manager { add find };
