@@ -18,6 +18,7 @@ allow netd self:netlink_kobject_uevent_socket create_socket_perms;
 allow netd self:netlink_route_socket nlmsg_write;
 allow netd self:netlink_nflog_socket create_socket_perms;
 allow netd self:netlink_socket create_socket_perms;
+allow netd self:netlink_tcpdiag_socket { create_socket_perms nlmsg_read nlmsg_write };
 allow netd shell_exec:file rx_file_perms;
 allow netd system_file:file x_file_perms;
 allow netd devpts:chr_file rw_file_perms;
