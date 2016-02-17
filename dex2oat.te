@@ -27,9 +27,9 @@ allow dex2oat otapreopt:fd use;
 allow dex2oat ota_data_file:dir ra_dir_perms;
 allow dex2oat ota_data_file:file r_file_perms;
 
-# Read symlinks in /data/ota/dalvik-cache. This is required for PIC mode boot images, where
-# the oat file is symlinked to the original file in /system.
-allow dex2oat ota_data_file:lnk_file read;
+# Create and read symlinks in /data/ota/dalvik-cache. This is required for PIC mode boot images,
+# where the oat file is symlinked to the original file in /system.
+allow dex2oat ota_data_file:lnk_file { create read };
 
 # It would be nice to tie this down, but currently, because of how images are written, we can't
 # pass file descriptors for the preopted boot image to dex2oat. So dex2oat needs to be able to
