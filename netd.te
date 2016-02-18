@@ -64,9 +64,18 @@ allow netd clatd:process signal;
 
 set_prop(netd, ctl_mdnsd_prop)
 
+# Allow netd to publish a binder service and make binder calls.
+binder_use(netd)
+binder_service(netd)
+allow netd netd_service:service_manager add;
+
+# Allow netd to call into the system server so it can check permissions.
+allow netd system_server:binder call;
+
 # Allow netd to operate on sockets that are passed to it.
 allow netd netdomain:{tcp_socket udp_socket rawip_socket dccp_socket tun_socket} {read write getattr setattr getopt setopt};
 allow netd netdomain:fd use;
+
 
 ###
 ### Neverallow rules
