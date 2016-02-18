@@ -30,15 +30,6 @@ allow netd proc_net:file write;
 # XXX Split into its own type.
 allow netd sysfs:file write;
 
-# Set dhcp lease for PAN connection
-set_prop(netd, dhcp_prop)
-set_prop(netd, system_prop)
-auditallow netd system_prop:property_service set;
-
-# Connect to PAN
-domain_auto_trans(netd, dhcp_exec, dhcp)
-allow netd dhcp:process signal;
-
 # Needed to update /data/misc/wifi/hostapd.conf
 # TODO: See what we can do to reduce the need for
 # these capabilities
