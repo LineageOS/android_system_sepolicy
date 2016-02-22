@@ -49,7 +49,8 @@ allow mediadrmserver mediadrmserver_service:service_manager { add find };
 allow mediadrmserver mediaserver_service:service_manager { add find };
 
 # only allow unprivileged socket ioctl commands
-allowxperm mediadrmserver self:{ rawip_socket tcp_socket udp_socket } ioctl unpriv_sock_ioctls;
+allowxperm mediadrmserver self:{ rawip_socket tcp_socket udp_socket }
+  ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
 
 ###
 ### neverallow rules
