@@ -110,6 +110,10 @@ allow appdomain dumpstate:fd use;
 allow appdomain dumpstate:unix_stream_socket { read write getopt getattr shutdown };
 allow appdomain shell_data_file:file { write getattr };
 
+# Write profiles /data/misc/profiles
+allow appdomain user_profile_data_file:dir { search write add_name };
+allow appdomain user_profile_data_file:file create_file_perms;
+
 # Send heap dumps to system_server via an already open file descriptor
 # % adb shell am set-watch-heap com.android.systemui 1048576
 # % adb shell dumpsys procstats --start-testing
