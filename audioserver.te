@@ -113,7 +113,8 @@ allow audioserver drmserver:drmservice {
 };
 
 # only allow unprivileged socket ioctl commands
-allowxperm audioserver self:{ rawip_socket tcp_socket udp_socket } ioctl unpriv_sock_ioctls;
+allowxperm audioserver self:{ rawip_socket tcp_socket udp_socket }
+  ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
 
 ###
 ### neverallow rules

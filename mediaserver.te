@@ -120,7 +120,8 @@ allow mediaserver drmserver:drmservice {
 };
 
 # only allow unprivileged socket ioctl commands
-allowxperm mediaserver self:{ rawip_socket tcp_socket udp_socket } ioctl unpriv_sock_ioctls;
+allowxperm mediaserver self:{ rawip_socket tcp_socket udp_socket }
+  ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
 
 ###
 ### neverallow rules
