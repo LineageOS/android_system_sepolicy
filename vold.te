@@ -185,6 +185,9 @@ allow vold sysfs_zram_uevent:file rw_file_perms;
 # MoveTask.cpp executes cp and rm
 allow vold toolbox_exec:file rx_file_perms;
 
+# Prepare profile dir for users.
+allow vold user_profile_data_file:dir create_dir_perms;
+
 neverallow { domain -vold } vold_data_file:dir ~{ open create read getattr setattr search relabelto ioctl };
 neverallow { domain -vold } vold_data_file:notdevfile_class_set ~{ relabelto getattr };
 neverallow { domain -vold -init } vold_data_file:dir *;
