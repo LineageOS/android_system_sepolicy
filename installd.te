@@ -115,6 +115,8 @@ allow installd {
 # Similar for the files under /data/misc/profiles/
 allow installd user_profile_data_file:dir create_dir_perms;
 allow installd user_profile_data_file:file create_file_perms;
+allow installd user_profile_data_file:dir rmdir;
+allow installd user_profile_data_file:file unlink;
 
 # Create and use pty created by android_fork_execvp().
 allow installd devpts:chr_file rw_file_perms;

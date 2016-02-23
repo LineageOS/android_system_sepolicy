@@ -88,6 +88,7 @@ type dalvikcache_data_file, file_type, data_file_type;
 type ota_data_file, file_type, data_file_type;
 # /data/misc/profiles
 type user_profile_data_file, file_type, data_file_type, mlstrustedobject;
+type user_profile_foreign_dex_data_file, file_type, data_file_type, mlstrustedobject;
 # /data/resource-cache
 type resourcecache_data_file, file_type, data_file_type;
 # /data/local - writable by shell
