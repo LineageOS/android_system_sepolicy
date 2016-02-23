@@ -101,6 +101,8 @@ type bootchart_data_file, file_type, data_file_type;
 type heapdump_data_file, file_type, data_file_type, mlstrustedobject;
 # /data/nativetest
 type nativetest_data_file, file_type, data_file_type;
+# /data/system_de/0/ringtones
+type ringtone_file, file_type, data_file_type;
 
 # Mount locations managed by vold
 type mnt_media_rw_file, file_type;
@@ -159,7 +161,7 @@ type cache_recovery_file, file_type, mlstrustedobject;
 # Default type for anything under /efs
 type efs_file, file_type;
 # Type for wallpaper file.
-type wallpaper_file, file_type, mlstrustedobject;
+type wallpaper_file, file_type, data_file_type, mlstrustedobject;
 # /mnt/asec
 type asec_apk_file, file_type, data_file_type, mlstrustedobject;
 # Elements of asec files (/mnt/asec) that are world readable
