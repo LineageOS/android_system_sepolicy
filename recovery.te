@@ -48,6 +48,8 @@ recovery_only(`
   # TODO: create more specific label?
   allow recovery sysfs:file w_file_perms;
 
+  allow recovery sysfs_batteryinfo:file r_file_perms;
+
   allow recovery kernel:system syslog_read;
 
   # Access /dev/android_adb or /dev/usb-ffs/adb/ep0
