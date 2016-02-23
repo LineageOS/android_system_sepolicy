@@ -24,6 +24,8 @@ allow bluetooth self:capability net_admin;
 allow bluetooth self:capability2 wake_alarm;
 
 # tethering
+allow bluetooth self:packet_socket create_socket_perms;
+allow bluetooth self:capability { net_admin net_raw net_bind_service };
 allow bluetooth self:tun_socket create_socket_perms;
 allow bluetooth efs_file:dir search;
 
@@ -59,6 +61,6 @@ allow bluetooth shell_data_file:file read;
 ###
 
 # Superuser capabilities.
-# bluetooth requires net_admin, wake_alarm and block_suspend
-neverallow bluetooth self:capability ~net_admin;
+# bluetooth requires net_{admin,raw,bind_service} and wake_alarm and block_suspend.
+neverallow bluetooth self:capability ~{ net_admin net_raw net_bind_service };
 neverallow bluetooth self:capability2 ~{ wake_alarm block_suspend };
