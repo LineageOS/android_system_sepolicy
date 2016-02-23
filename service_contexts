@@ -2,7 +2,6 @@ accessibility                             u:object_r:accessibility_service:s0
 account                                   u:object_r:account_service:s0
 activity                                  u:object_r:activity_service:s0
 alarm                                     u:object_r:alarm_service:s0
-android.net.INetd                         u:object_r:netd_service:s0
 android.os.UpdateEngineService            u:object_r:update_engine_service:s0
 android.security.keystore                 u:object_r:keystore_service:s0
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
@@ -82,6 +81,7 @@ media_session                             u:object_r:media_session_service:s0
 meminfo                                   u:object_r:meminfo_service:s0
 midi                                      u:object_r:midi_service:s0
 mount                                     u:object_r:mount_service:s0
+netd                                      u:object_r:netd_service:s0
 netpolicy                                 u:object_r:netpolicy_service:s0
 netstats                                  u:object_r:netstats_service:s0
 network_management                        u:object_r:network_management_service:s0
