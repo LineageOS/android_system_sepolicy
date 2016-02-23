@@ -45,6 +45,7 @@ allow mediaserver sysfs:file r_file_perms;
 # Read resources from open apk files passed over Binder.
 allow mediaserver apk_data_file:file { read getattr };
 allow mediaserver asec_apk_file:file { read getattr };
+allow mediaserver ringtone_file:file { read getattr };
 
 # Read /data/data/com.android.providers.telephony files passed over Binder.
 allow mediaserver radio_data_file:file { read getattr };
