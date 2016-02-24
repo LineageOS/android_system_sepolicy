@@ -18,6 +18,8 @@ allow audioserver system_file:dir r_dir_perms;
 # used for TEE sink - pcm capture for debug.
 userdebug_or_eng(`
   allow audioserver media_data_file:dir create_dir_perms;
+  allow audioserver audioserver_data_file:dir create_dir_perms;
+  allow audioserver audioserver_data_file:file create_file_perms;
 ')
 
 allow audioserver audio_device:dir r_dir_perms;
