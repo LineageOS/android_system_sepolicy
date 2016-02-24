@@ -3,6 +3,7 @@ genfscon rootfs / u:object_r:rootfs:s0
 # proc labeling can be further refined (longest matching prefix).
 genfscon proc / u:object_r:proc:s0
 genfscon proc /iomem u:object_r:proc_iomem:s0
+genfscon proc /meminfo u:object_r:proc_meminfo:s0
 genfscon proc /net u:object_r:proc_net:s0
 genfscon proc /net/xt_qtaguid/ctrl u:object_r:qtaguid_proc:s0
 genfscon proc /cpuinfo u:object_r:proc_cpuinfo:s0
