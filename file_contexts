@@ -260,6 +260,7 @@
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
 /data/misc/audio(/.*)?          u:object_r:audio_data_file:s0
+/data/misc/audioserver(/.*)?    u:object_r:audioserver_data_file:s0
 /data/misc/bootstat(/.*)?       u:object_r:bootstat_data_file:s0
 /data/misc/boottrace(/.*)?      u:object_r:boottrace_data_file:s0
 /data/misc/bluetooth(/.*)?      u:object_r:bluetooth_data_file:s0
