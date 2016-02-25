@@ -57,7 +57,6 @@ set_prop(netd, ctl_mdnsd_prop)
 
 # Allow netd to publish a binder service and make binder calls.
 binder_use(netd)
-binder_service(netd)
 allow netd netd_service:service_manager add;
 
 # Allow netd to call into the system server so it can check permissions.
@@ -84,3 +83,8 @@ neverallow netd system_file:dir_file_class_set write;
 
 # Write to files in /data/data or system files on /data
 neverallow netd { app_data_file system_data_file }:dir_file_class_set write;
+
+# only system_server may interact with netd over binder
+neverallow { domain -system_server } netd_service:service_manager find;
+neverallow { domain -system_server } netd:binder call;
+neverallow netd { domain -system_server -servicemanager userdebug_or_eng(`-su') }:binder call;
