@@ -170,6 +170,8 @@ type efs_file, file_type;
 type wallpaper_file, file_type, data_file_type, mlstrustedobject;
 # Type for shortcut manager icon file.
 type shortcut_manager_icons, file_type, data_file_type, mlstrustedobject;
+# Type for user icon file.
+type icon_file, file_type, data_file_type;
 # /mnt/asec
 type asec_apk_file, file_type, data_file_type, mlstrustedobject;
 # Elements of asec files (/mnt/asec) that are world readable
