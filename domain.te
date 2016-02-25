@@ -38,7 +38,8 @@ userdebug_or_eng(`
   allow domain su:fd use;
   allow domain su:unix_stream_socket { getattr getopt read write shutdown };
 
-  binder_call({ domain -init }, su)
+  allow { domain -init } su:binder { call transfer };
+  allow { domain -init } su:fd use;
 
   # Running something like "pm dump com.android.bluetooth" requires
   # fifo writes
