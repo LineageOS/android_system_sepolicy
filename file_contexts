@@ -116,6 +116,7 @@
 /dev/socket/racoon	u:object_r:racoon_socket:s0
 /dev/socket/rild	u:object_r:rild_socket:s0
 /dev/socket/rild-debug	u:object_r:rild_debug_socket:s0
+/dev/socket/uncrypt	u:object_r:uncrypt_socket:s0
 /dev/socket/vold	u:object_r:vold_socket:s0
 /dev/socket/wpa_eth[0-9] u:object_r:wpa_socket:s0
 /dev/socket/wpa_wlan[0-9] u:object_r:wpa_socket:s0
