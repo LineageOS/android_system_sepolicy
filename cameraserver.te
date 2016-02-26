@@ -2,10 +2,6 @@
 type cameraserver, domain;
 type cameraserver_exec, exec_type, file_type;
 
-# STOPSHIP. cameraserver into permissive mode to collect denials from
-# droidfooders
-permissive cameraserver;
-
 init_daemon_domain(cameraserver)
 
 binder_use(cameraserver)
