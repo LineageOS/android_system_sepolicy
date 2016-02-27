@@ -36,6 +36,7 @@ allow mediadrmserver ion_device:chr_file rw_file_perms;
 # Allow access to app_data and media_data_files
 allow mediadrmserver media_data_file:dir create_dir_perms;
 allow mediadrmserver media_data_file:file create_file_perms;
+allow mediadrmserver media_data_file:file { getattr read };
 
 allow mediadrmserver tee_device:chr_file rw_file_perms;
 
