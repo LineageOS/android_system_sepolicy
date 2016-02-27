@@ -97,10 +97,19 @@ $(sepolicy_policy.conf): $(call build_policy, $(sepolicy_build_files))
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
-$(LOCAL_BUILT_MODULE): $(sepolicy_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
+$(LOCAL_BUILT_MODULE): $(sepolicy_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy $(HOST_OUT_EXECUTABLES)/sepolicy-analyze
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@ $<
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@.tmp $<
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $(dir $<)/$(notdir $@).dontaudit $<.dontaudit
+	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $@.tmp permissive > $@.permissivedomains
+	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
+		echo "==========" 1>&2; \
+		echo "ERROR: permissive domains not allowed in user builds" 1>&2; \
+		echo "List of invalid domains:" 1>&2; \
+		cat $@.permissivedomains 1>&2; \
+		exit 1; \
+		fi
+	$(hide) mv $@.tmp $@
 
 built_sepolicy := $(LOCAL_BUILT_MODULE)
 sepolicy_policy.conf :=
@@ -126,9 +135,18 @@ $(sepolicy_policy_recovery.conf): $(call build_policy, $(sepolicy_build_files))
 		-D target_recovery=true \
 		-s $^ > $@
 
-$(LOCAL_BUILT_MODULE): $(sepolicy_policy_recovery.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
+$(LOCAL_BUILT_MODULE): $(sepolicy_policy_recovery.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy $(HOST_OUT_EXECUTABLES)/sepolicy-analyze
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@ $<
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@.tmp $<
+	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $@.tmp permissive > $@.permissivedomains
+	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
+		echo "==========" 1>&2; \
+		echo "ERROR: permissive domains not allowed in user builds" 1>&2; \
+		echo "List of invalid domains:" 1>&2; \
+		cat $@.permissivedomains 1>&2; \
+		exit 1; \
+		fi
+	$(hide) mv $@.tmp $@
 
 built_sepolicy_recovery := $(LOCAL_BUILT_MODULE)
 sepolicy_policy_recovery.conf :=
