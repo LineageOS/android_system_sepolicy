@@ -178,3 +178,6 @@ neverallow untrusted_app {
     -coredump_file          # userdebug/eng only
   ')
 }:dir_file_class_set { create unlink };
+
+# Do not allow untrusted_app to directly open tun_device
+neverallow untrusted_app tun_device:chr_file open;
