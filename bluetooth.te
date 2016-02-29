@@ -25,6 +25,7 @@ allow bluetooth self:capability2 wake_alarm;
 
 # tethering
 allow bluetooth self:tun_socket create_socket_perms;
+allow bluetooth tun_device:chr_file rw_file_perms;
 allow bluetooth efs_file:dir search;
 
 # proc access.

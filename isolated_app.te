@@ -29,6 +29,9 @@ allow isolated_app self:process ptrace;
 ##### Neverallow
 #####
 
+# Do not allow isolated_app to directly open tun_device
+neverallow isolated_app tun_device:chr_file open;
+
 # Do not allow isolated_app to set system properties.
 neverallow isolated_app property_socket:sock_file write;
 neverallow isolated_app property_type:property_service set;
