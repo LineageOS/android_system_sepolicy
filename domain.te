@@ -425,7 +425,7 @@ neverallow {
   -system_app # its own sandbox
   -system_server #populate com.android.providers.settings/databases/settings.db.
   -installd # creation of app sandbox
-} system_app_data_file:dir_file_class_set { create unlink };
+} system_app_data_file:dir_file_class_set { create unlink open };
 
 #
 # Only these domains should transition to shell domain. This domain is
