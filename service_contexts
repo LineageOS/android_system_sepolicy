@@ -112,6 +112,7 @@ search                                    u:object_r:search_service:s0
 sensorservice                             u:object_r:sensorservice_service:s0
 serial                                    u:object_r:serial_service:s0
 servicediscovery                          u:object_r:servicediscovery_service:s0
+shortcut                                  u:object_r:shortcut_service:s0
 simphonebook_msim                         u:object_r:radio_service:s0
 simphonebook2                             u:object_r:radio_service:s0
 simphonebook                              u:object_r:radio_service:s0
