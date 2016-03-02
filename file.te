@@ -41,8 +41,6 @@ type shm, fs_type;
 type mqueue, fs_type;
 type fuse, sdcard_type, fs_type, mlstrustedobject;
 type vfat, sdcard_type, fs_type, mlstrustedobject;
-typealias fuse alias sdcard_internal;
-typealias vfat alias sdcard_external;
 type debugfs, fs_type;
 type debugfs_trace_marker, fs_type, debugfs_type, mlstrustedobject;
 type debugfs_tracing, fs_type, debugfs_type;
