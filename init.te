@@ -88,8 +88,9 @@ allow init contextmount_type:filesystem relabelto;
 allow init contextmount_type:dir r_dir_perms;
 allow init contextmount_type:notdevfile_class_set r_file_perms;
 
-# restorecon /adb_keys or any other rootfs files to a more specific type.
-allow init rootfs:file relabelfrom;
+# restorecon /adb_keys or any other rootfs files and directories to a more
+# specific type.
+allow init rootfs:{ dir file } relabelfrom;
 
 # mkdir, symlink, write, rm/rmdir, chown/chmod, restorecon/restorecon_recursive from init.rc files.
 # chown/chmod require open+read+setattr required for open()+fchown/fchmod().

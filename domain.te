@@ -249,7 +249,7 @@ neverallow { domain -init -ueventd } device:chr_file { open read write };
 # Limit what domains can mount filesystems or change their mount flags.
 # sdcard_type / vfat is exempt as a larger set of domains need
 # this capability, including device-specific domains.
-neverallow { domain -kernel -init -recovery -vold -zygote } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
+neverallow { domain -kernel -init -recovery -vold -zygote -update_engine } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
 
 #
 # Assert that, to the extent possible, we're not loading executable content from
@@ -264,7 +264,7 @@ neverallow {
     userdebug_or_eng(`-su')
     -system_server
     -zygote
-} { file_type -system_file -exec_type }:file execute;
+} { file_type -system_file -exec_type -postinstall_file }:file execute;
 neverallow {
     domain
     -appdomain # for oemfs
