@@ -150,6 +150,7 @@ neverallow untrusted_app { cache_file cache_recovery_file }:file ~{ read getattr
 neverallow untrusted_app {
   fs_type
   -fuse                     # sdcard
+  -sdcardfs                 # sdcard
   file_type
   -app_data_file            # The apps sandbox itself
   -media_rw_data_file       # Internal storage. Known that apps can
