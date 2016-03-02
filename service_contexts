@@ -86,6 +86,7 @@ netpolicy                                 u:object_r:netpolicy_service:s0
 netstats                                  u:object_r:netstats_service:s0
 network_management                        u:object_r:network_management_service:s0
 network_score                             u:object_r:network_score_service:s0
+network_time_update_service               u:object_r:network_time_update_service:s0
 nfc                                       u:object_r:nfc_service:s0
 notification                              u:object_r:notification_service:s0
 otadexopt                                 u:object_r:otadexopt_service:s0
