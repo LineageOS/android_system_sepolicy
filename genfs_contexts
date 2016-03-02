@@ -34,6 +34,8 @@ genfscon inotifyfs / u:object_r:inotify:s0
 genfscon vfat / u:object_r:vfat:s0
 genfscon debugfs / u:object_r:debugfs:s0
 genfscon fuse / u:object_r:fuse:s0
+genfscon configfs / u:object_r:configfs:s0
+genfscon sdcardfs / u:object_r:sdcardfs:s0
 genfscon pstore / u:object_r:pstorefs:s0
 genfscon functionfs / u:object_r:functionfs:s0
 genfscon usbfs / u:object_r:usbfs:s0

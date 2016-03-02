@@ -54,6 +54,7 @@ allow zygote proc_cpuinfo:file mounton;
 allow zygote rootfs:dir mounton;
 allow zygote tmpfs:filesystem { mount unmount };
 allow zygote fuse:filesystem { unmount };
+allow zygote sdcardfs:filesystem { unmount };
 
 # Allowed to create user-specific storage source if started before vold
 allow zygote mnt_user_file:dir create_dir_perms;

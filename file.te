@@ -27,6 +27,7 @@ type sysfs_bluetooth_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_nfc_power_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_wake_lock, fs_type, sysfs_type;
 type sysfs_mac_address, fs_type, sysfs_type;
+type configfs, fs_type;
 # /sys/devices/system/cpu
 type sysfs_devices_system_cpu, fs_type, sysfs_type;
 # /sys/module/lowmemorykiller
@@ -39,6 +40,7 @@ type tmpfs, fs_type;
 type shm, fs_type;
 type mqueue, fs_type;
 type fuse, sdcard_type, fs_type, mlstrustedobject;
+type sdcardfs, sdcard_type, fs_type, mlstrustedobject;
 type vfat, sdcard_type, fs_type, mlstrustedobject;
 typealias fuse alias sdcard_internal;
 typealias vfat alias sdcard_external;
