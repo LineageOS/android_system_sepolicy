@@ -205,6 +205,7 @@ type rild_socket, file_type;
 type rild_debug_socket, file_type;
 type system_wpa_socket, file_type;
 type system_ndebug_socket, file_type;
+type uncrypt_socket, file_type;
 type vold_socket, file_type;
 type wpa_socket, file_type;
 type zygote_socket, file_type;

@@ -133,6 +133,7 @@ unix_socket_connect(system_server, zygote, zygote)
 unix_socket_connect(system_server, gps, gpsd)
 unix_socket_connect(system_server, racoon, racoon)
 unix_socket_send(system_server, wpa, wpa)
+unix_socket_connect(system_server, uncrypt, uncrypt)
 
 # Communicate over a socket created by surfaceflinger.
 allow system_server surfaceflinger:unix_stream_socket { read write setopt };
