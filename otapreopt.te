@@ -8,10 +8,20 @@ allow otapreopt self:capability { chown dac_override fowner fsetid setgid setuid
 # Note: /data/ota is created by init (see system/core/rootdir/init.rc) to avoid giving access
 # here and having to relabel the directory.
 
+# Read app data (APKs) as input to dex2oat.
+r_dir_file(otapreopt, apk_data_file)
+# Access to app oat directory.
+r_dir_file(otapreopt, dalvikcache_data_file)
+
 # Write to /data/ota(/*). Create symlinks in /data/ota(/*)
 allow otapreopt ota_data_file:dir create_dir_perms;
 allow otapreopt ota_data_file:file create_file_perms;
 allow otapreopt ota_data_file:lnk_file create_file_perms;
+
+# Need to write .b files, which are dalvikcache_data_file, not ota_data_file.
+# TODO: See whether we can apply ota_data_file?
+allow otapreopt dalvikcache_data_file:dir { write add_name remove_name };
+allow otapreopt dalvikcache_data_file:file create_file_perms;
 
 # Allow labeling of files under /data/app/com.example/oat/
 # TODO: Restrict to .b suffix?
