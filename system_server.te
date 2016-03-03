@@ -64,6 +64,7 @@ allow system_server self:netlink_kobject_uevent_socket create_socket_perms;
 
 # Use generic netlink sockets.
 allow system_server self:netlink_socket create_socket_perms;
+allow system_server self:netlink_generic_socket create_socket_perms;
 
 # Use generic "sockets" where the address family is not known
 # to the kernel.
