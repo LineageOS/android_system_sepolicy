@@ -114,6 +114,11 @@ type storage_file, file_type;
 type mnt_media_rw_stub_file, file_type;
 type storage_stub_file, file_type;
 
+# /postinstall: Mount point used by update_engine to run postinstall.
+type postinstall_mnt_dir, file_type;
+# Files inside the /postinstall mountpoint are all labeled as postinstall_file.
+type postinstall_file, file_type, exec_type;
+
 # /data/misc subdirectories
 type adb_keys_file, file_type, data_file_type;
 type audio_data_file, file_type, data_file_type;
@@ -225,6 +230,7 @@ allow file_type tmpfs:filesystem associate;
 allow file_type rootfs:filesystem associate;
 allow dev_type tmpfs:filesystem associate;
 allow app_fuse_file app_fusefs:filesystem associate;
+allow postinstall_file self:filesystem associate;
 
 # It's a bug to assign the file_type attribute and fs_type attribute
 # to any type. Do not allow it.

@@ -23,6 +23,7 @@
 /acct               u:object_r:cgroup:s0
 /config             u:object_r:rootfs:s0
 /mnt                u:object_r:tmpfs:s0
+/postinstall        u:object_r:postinstall_mnt_dir:s0
 /proc               u:object_r:rootfs:s0
 /root               u:object_r:rootfs:s0
 /sys                u:object_r:sysfs:s0
