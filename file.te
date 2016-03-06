@@ -102,7 +102,7 @@ type heapdump_data_file, file_type, data_file_type, mlstrustedobject;
 # /data/nativetest
 type nativetest_data_file, file_type, data_file_type;
 # /data/system_de/0/ringtones
-type ringtone_file, file_type, data_file_type;
+type ringtone_file, file_type, data_file_type, mlstrustedobject;
 
 # Mount locations managed by vold
 type mnt_media_rw_file, file_type;
