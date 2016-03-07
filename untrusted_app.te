@@ -99,7 +99,6 @@ allow untrusted_app proc_meminfo:file r_file_perms;
 
 # https://code.google.com/p/chromium/issues/detail?id=586021
 allow untrusted_app proc:file r_file_perms;
-auditallow untrusted_app proc:file r_file_perms;
 # access /proc/net/xt_qtguid/stats
 r_dir_file(untrusted_app, proc_net)
 
