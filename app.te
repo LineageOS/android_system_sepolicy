@@ -27,7 +27,7 @@ allow appdomain zygote:process sigchld;
 
 # Place process into foreground / background
 allow appdomain cgroup:dir { search write };
-allow appdomain cgroup:file w_file_perms;
+allow appdomain cgroup:file rw_file_perms;
 
 # Read /data/dalvik-cache.
 allow appdomain dalvikcache_data_file:dir { search getattr };
