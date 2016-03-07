@@ -94,6 +94,7 @@ type search_service, app_api_service, system_server_service, service_manager_typ
 type sensorservice_service, app_api_service, system_server_service, service_manager_type;
 type serial_service, system_api_service, system_server_service, service_manager_type;
 type servicediscovery_service, app_api_service, system_server_service, service_manager_type;
+type shortcut_service, app_api_service, system_server_service, service_manager_type;
 type statusbar_service, app_api_service, system_server_service, service_manager_type;
 type task_service, system_server_service, service_manager_type;
 type textservices_service, app_api_service, system_server_service, service_manager_type;
