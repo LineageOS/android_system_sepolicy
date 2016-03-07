@@ -111,6 +111,7 @@ allow appdomain anr_data_file:file { open append };
 # Allow apps to send dump information to dumpstate
 allow appdomain dumpstate:fd use;
 allow appdomain dumpstate:unix_stream_socket { read write getopt getattr shutdown };
+allow appdomain dumpstate:fifo_file { write getattr };
 allow appdomain shell_data_file:file { write getattr };
 
 # Write profiles /data/misc/profiles
