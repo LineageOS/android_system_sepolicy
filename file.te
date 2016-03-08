@@ -168,6 +168,8 @@ type cache_recovery_file, file_type, mlstrustedobject;
 type efs_file, file_type;
 # Type for wallpaper file.
 type wallpaper_file, file_type, data_file_type, mlstrustedobject;
+# Type for shortcut manager icon file.
+type shortcut_manager_icons, file_type, data_file_type, mlstrustedobject;
 # /mnt/asec
 type asec_apk_file, file_type, data_file_type, mlstrustedobject;
 # Elements of asec files (/mnt/asec) that are world readable

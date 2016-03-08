@@ -104,6 +104,9 @@ allow appdomain wallpaper_file:file { getattr read write };
 # Read/write cached ringtones (opened by system).
 allow appdomain ringtone_file:file { getattr read write };
 
+# Read ShortcutManager icon files (opened by system).
+allow appdomain shortcut_manager_icons:file { getattr read };
+
 # Write to /data/anr/traces.txt.
 allow appdomain anr_data_file:dir search;
 allow appdomain anr_data_file:file { open append };
