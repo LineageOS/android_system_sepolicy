@@ -17,6 +17,7 @@ allow isolated_app app_data_file:file { read write getattr lock };
 
 allow isolated_app activity_service:service_manager find;
 allow isolated_app display_service:service_manager find;
+allow isolated_app webviewupdate_service:service_manager find;
 
 # Google Breakpad (crash reporter for Chrome) relies on ptrace
 # functionality. Without the ability to ptrace, the crash reporter
@@ -40,12 +41,13 @@ neverallow isolated_app property_type:property_service set;
 neverallow isolated_app app_data_file:file open;
 
 # b/17487348
-# Isolated apps can only access two services,
-# activity_service and display_service
+# Isolated apps can only access three services,
+# activity_service, display_service and webviewupdate_service.
 neverallow isolated_app {
     service_manager_type
     -activity_service
     -display_service
+    -webviewupdate_service
 }:service_manager find;
 
 # Isolated apps shouldn't be able to access the driver directly.
