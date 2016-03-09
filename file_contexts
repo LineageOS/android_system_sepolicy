@@ -330,6 +330,10 @@
 # Ringtone files
 /data/system_de/[0-9]+/ringtones(/.*)?          u:object_r:ringtone_file:s0
 
+# ShortcutManager icons, e.g.
+#   /data/system_ce/0/shortcut_service/bitmaps/com.example.app/1457472879282.png
+/data/system_ce/[0-9]+/shortcut_service/bitmaps(/.*)? u:object_r:shortcut_manager_icons:s0
+
 #############################
 # efs files
 #
