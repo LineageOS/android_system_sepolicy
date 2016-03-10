@@ -107,6 +107,9 @@ allow appdomain ringtone_file:file { getattr read write };
 # Read ShortcutManager icon files (opened by system).
 allow appdomain shortcut_manager_icons:file { getattr read };
 
+# Read icon file (opened by system).
+allow appdomain icon_file:file { getattr read };
+
 # Write to /data/anr/traces.txt.
 allow appdomain anr_data_file:dir search;
 allow appdomain anr_data_file:file { open append };

@@ -310,6 +310,10 @@ allow system_server shortcut_manager_icons:file create_file_perms;
 allow system_server ringtone_file:dir { create_dir_perms relabelto };
 allow system_server ringtone_file:file create_file_perms;
 
+# Relabel icon file.
+allow system_server icon_file:file relabelto;
+allow system_server icon_file:file { rw_file_perms unlink };
+
 # FingerprintService.java does a restorecon of the directory /data/system/users/[0-9]+/fpdata(/.*)?
 allow system_server system_data_file:dir relabelfrom;
 

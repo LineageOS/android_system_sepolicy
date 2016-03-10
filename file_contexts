@@ -334,6 +334,9 @@
 #   /data/system_ce/0/shortcut_service/bitmaps/com.example.app/1457472879282.png
 /data/system_ce/[0-9]+/shortcut_service/bitmaps(/.*)? u:object_r:shortcut_manager_icons:s0
 
+# User icon files
+/data/system/users/[0-9]+/photo.png             u:object_r:icon_file:s0
+
 #############################
 # efs files
 #

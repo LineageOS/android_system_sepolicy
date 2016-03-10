@@ -22,6 +22,9 @@ allow system_app mnt_media_rw_file:dir search;
 # Read wallpaper file.
 allow system_app wallpaper_file:file r_file_perms;
 
+# Read icon file.
+allow system_app icon_file:file r_file_perms;
+
 # Write to properties
 set_prop(system_app, bluetooth_prop)
 set_prop(system_app, debug_prop)
