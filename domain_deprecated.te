@@ -64,11 +64,6 @@ r_dir_file(domain_deprecated, proc_net)
 allow domain_deprecated selinuxfs:dir r_dir_perms;
 allow domain_deprecated selinuxfs:file r_file_perms;
 
-# /data/security files
-allow domain_deprecated security_file:dir { search getattr };
-allow domain_deprecated security_file:file getattr;
-allow domain_deprecated security_file:lnk_file r_file_perms;
-
 # World readable asec image contents
 allow domain_deprecated asec_public_file:file r_file_perms;
 allow domain_deprecated { asec_public_file asec_apk_file }:dir r_dir_perms;

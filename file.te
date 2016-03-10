@@ -168,8 +168,6 @@ type asec_public_file, file_type, data_file_type;
 type asec_image_file, file_type, data_file_type;
 # /data/backup and /data/secure/backup
 type backup_data_file, file_type, data_file_type, mlstrustedobject;
-# For /data/security
-type security_file, file_type;
 # All devices have bluetooth efs files. But they
 # vary per device, so this type is used in per
 # device policy

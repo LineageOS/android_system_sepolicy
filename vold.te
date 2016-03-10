@@ -125,7 +125,6 @@ set_prop(vold, restorecon_prop)
 # ASEC
 allow vold asec_image_file:file create_file_perms;
 allow vold asec_image_file:dir rw_dir_perms;
-security_access_policy(vold)
 allow vold asec_apk_file:dir { create_dir_perms mounton relabelfrom relabelto };
 allow vold asec_public_file:dir { relabelto setattr };
 allow vold asec_apk_file:file { r_file_perms setattr relabelfrom relabelto };

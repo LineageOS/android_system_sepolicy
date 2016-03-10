@@ -405,6 +405,5 @@ neverallow appdomain {
   dev_type
   rootfs
   system_file
-  security_file
   tmpfs
 }:lnk_file no_w_file_perms;

@@ -24,8 +24,6 @@ allow installd cgroup:dir create_dir_perms;
 allow installd mnt_expand_file:dir { search getattr };
 # Check validity of SELinux context before use.
 selinux_check_context(installd)
-# Read /seapp_contexts and /data/security/seapp_contexts
-security_access_policy(installd)
 
 # Search /data/app-asec and stat files in it.
 allow installd asec_image_file:dir search;

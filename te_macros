@@ -249,27 +249,6 @@ allow $1 kernel:security setbool;
 ')
 
 #####################################
-# security_access_policy(domain)
-# Read only access to all policy files and
-# selinuxfs
-define(`security_access_policy', `
-allow $1 security_file:dir r_dir_perms;
-allow $1 security_file:file r_file_perms;
-')
-
-#####################################
-# mmac_manage_policy(domain)
-# Ability to manage mmac policy files,
-# trigger runtime reload, change
-# mmac enforcing mode and access logcat.
-define(`mmac_manage_policy', `
-allow $1 security_file:dir create_dir_perms;
-allow $1 security_file:file create_file_perms;
-allow $1 security_file:lnk_file { create rename unlink };
-set_prop($1, security_prop)
-')
-
-#####################################
 # create_pty(domain)
 # Allow domain to create and use a pty, isolated from any other domain ptys.
 define(`create_pty', `
