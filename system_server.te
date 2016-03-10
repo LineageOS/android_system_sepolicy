@@ -91,7 +91,8 @@ allow system_server mediaserver:process { getsched setsched };
 
 # Read /proc/pid data for all domains. This is used by ProcessCpuTracker
 # within system_server to keep track of memory and CPU usage for
-# all processes on the device.
+# all processes on the device. In addition, /proc/pid files access is needed
+# for dumping stack traces of native processes.
 r_dir_file(system_server, domain)
 
 # Read/Write to /proc/net/xt_qtaguid/ctrl and and /dev/xt_qtaguid.
@@ -150,17 +151,6 @@ binder_service(system_server)
 
 # Ask debuggerd to dump backtraces for native stacks of interest.
 allow system_server { audioserver cameraserver mediaserver mediacodec mediadrmserver mediaextractor sdcardd surfaceflinger inputflinger }:debuggerd dump_backtrace;
-
-# Read /proc/pid files for dumping stack traces of native processes.
-r_dir_file(system_server, audioserver)
-r_dir_file(system_server, cameraserver)
-r_dir_file(system_server, mediaserver)
-r_dir_file(system_server, mediadrmserver)
-r_dir_file(system_server, mediaextractor)
-r_dir_file(system_server, mediacodec)
-r_dir_file(system_server, sdcardd)
-r_dir_file(system_server, surfaceflinger)
-r_dir_file(system_server, inputflinger)
 
 # Use sockets received over binder from various services.
 allow system_server audioserver:tcp_socket rw_socket_perms;
