@@ -111,7 +111,7 @@ allow domain system_data_file:dir { search getattr };
 allow domain system_data_file:lnk_file read;
 
 # required by the dynamic linker
-allow domain proc:lnk_file read;
+allow domain proc:lnk_file { getattr read };
 
 # /proc/cpuinfo
 allow domain proc_cpuinfo:file r_file_perms;
