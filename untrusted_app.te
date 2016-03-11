@@ -95,6 +95,10 @@ allow untrusted_app proc_meminfo:file r_file_perms;
 # access /proc/net/xt_qtguid/stats
 r_dir_file(untrusted_app, proc_net)
 
+# Cts: HwRngTest
+allow untrusted_app sysfs_hwrandom:dir search;
+allow untrusted_app sysfs_hwrandom:file r_file_perms;
+
 ###
 ### neverallow rules
 ###
