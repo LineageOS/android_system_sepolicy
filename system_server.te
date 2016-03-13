@@ -278,9 +278,6 @@ allow system_server { system_app_data_file bluetooth_data_file nfc_data_file rad
 # Receive and use open /data/media files passed over binder IPC.
 allow system_server media_rw_data_file:file { getattr read write };
 
-# Read /file_contexts and /data/security/file_contexts
-security_access_policy(system_server)
-
 # Relabel apk files.
 allow system_server { apk_tmp_file apk_private_tmp_file }:{ dir file } { relabelfrom relabelto };
 allow system_server { apk_data_file apk_private_data_file }:{ dir file } { relabelfrom relabelto };
