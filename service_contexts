@@ -10,8 +10,7 @@ appwidget                                 u:object_r:appwidget_service:s0
 assetatlas                                u:object_r:assetatlas_service:s0
 audio                                     u:object_r:audio_service:s0
 backup                                    u:object_r:backup_service:s0
-batteryproperties                         u:object_r:healthd_service:s0
-batterypropreg                            u:object_r:healthd_service:s0
+batteryproperties                         u:object_r:batteryproperties_service:s0
 batterystats                              u:object_r:batterystats_service:s0
 battery                                   u:object_r:battery_service:s0
 bluetooth_manager                         u:object_r:bluetooth_manager_service:s0
