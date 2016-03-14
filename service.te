@@ -55,7 +55,7 @@ type fingerprint_service, app_api_service, system_server_service, service_manage
 type gfxinfo_service, system_api_service, system_server_service, service_manager_type;
 type graphicsstats_service, app_api_service, system_server_service, service_manager_type;
 type hardware_service, system_server_service, service_manager_type;
-type hardwareproperties_service, app_api_service, system_server_service, service_manager_type;
+type hardware_properties_service, app_api_service, system_server_service, service_manager_type;
 type hdmi_control_service, system_api_service, system_server_service, service_manager_type;
 type input_method_service, app_api_service, system_server_service, service_manager_type;
 type input_service, app_api_service, system_server_service, service_manager_type;
