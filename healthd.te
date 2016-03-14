@@ -41,7 +41,7 @@ allow healthd self:process execmem;
 allow healthd proc_sysrq:file rw_file_perms;
 allow healthd self:capability sys_boot;
 
-allow healthd healthd_service:service_manager { add find };
+allow healthd batteryproperties_service:service_manager { add find };
 
 # Healthd needs to tell init to continue the boot
 # process when running in charger mode.

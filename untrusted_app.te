@@ -69,7 +69,6 @@ allow untrusted_app servicemanager:service_manager list;
 allow untrusted_app audioserver_service:service_manager find;
 allow untrusted_app cameraserver_service:service_manager find;
 allow untrusted_app drmserver_service:service_manager find;
-allow untrusted_app healthd_service:service_manager find;
 allow untrusted_app mediaserver_service:service_manager find;
 allow untrusted_app mediaextractor_service:service_manager find;
 allow untrusted_app mediacodec_service:service_manager find;
