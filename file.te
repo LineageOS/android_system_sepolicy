@@ -25,6 +25,7 @@ type sysfs, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_batteryinfo, fs_type, sysfs_type;
 type sysfs_bluetooth_writable, fs_type, sysfs_type, mlstrustedobject;
+type sysfs_hwrandom, fs_type, sysfs_type;
 type sysfs_nfc_power_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_wake_lock, fs_type, sysfs_type;
 type sysfs_mac_address, fs_type, sysfs_type;
