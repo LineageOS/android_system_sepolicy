@@ -24,6 +24,7 @@ common_time.config                       u:object_r:mediaserver_service:s0
 connectivity                              u:object_r:connectivity_service:s0
 consumer_ir                               u:object_r:consumer_ir_service:s0
 content                                   u:object_r:content_service:s0
+contexthub_service                        u:object_r:contexthub_service:s0
 country_detector                          u:object_r:country_detector_service:s0
 cpuinfo                                   u:object_r:cpuinfo_service:s0
 dbinfo                                    u:object_r:dbinfo_service:s0
