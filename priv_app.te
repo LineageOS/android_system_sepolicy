@@ -8,6 +8,9 @@ net_domain(priv_app)
 # Access bluetooth.
 bluetooth_domain(priv_app)
 
+# webview crash handling depends on self ptrace (b/27697529, b/20150694, b/19277529#comment7)
+allow priv_app self:process ptrace;
+
 # Some apps ship with shared libraries and binaries that they write out
 # to their sandbox directory and then execute.
 allow priv_app app_data_file:file rx_file_perms;
