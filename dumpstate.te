@@ -121,3 +121,9 @@ allow dumpstate devpts:chr_file rw_file_perms;
 # Set properties.
 # dumpstate_prop is used to share state with the Shell app.
 set_prop(dumpstate, dumpstate_prop)
+
+# systrace support - allow atrace to run
+allow dumpstate debugfs_tracing:dir r_dir_perms;
+allow dumpstate debugfs_tracing:file rw_file_perms;
+allow dumpstate debugfs_trace_marker:file getattr;
+allow dumpstate atrace_exec:file rx_file_perms;
