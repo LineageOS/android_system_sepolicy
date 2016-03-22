@@ -498,12 +498,12 @@ allow system_server adbd:unix_stream_socket { getattr getopt ioctl read write sh
 neverallow system_server sdcard_type:dir { open read write };
 neverallow system_server sdcard_type:file rw_file_perms;
 
-# system server should never be opening zygote spawned app data
+# system server should never be operating on zygote spawned app data
 # files directly. Rather, they should always be passed via a
 # file descriptor.
 # Types extracted from seapp_contexts type= fields, excluding
 # those types that system_server needs to open directly.
-neverallow system_server { bluetooth_data_file nfc_data_file shell_data_file app_data_file }:file open;
+neverallow system_server { bluetooth_data_file nfc_data_file shell_data_file app_data_file }:file { open create unlink link };
 
 # system_server should never be executing dex2oat. This is either
 # a bug (for example, bug 16317188), or represents an attempt by
