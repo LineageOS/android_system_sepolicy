@@ -182,6 +182,8 @@ allow appdomain mnt_user_file:lnk_file r_file_perms;
 # Read/write visible storage
 allow appdomain fuse:dir create_dir_perms;
 allow appdomain fuse:file create_file_perms;
+allow appdomain sdcardfs:dir create_dir_perms;
+allow appdomain sdcardfs:file create_file_perms;
 
 # Access OBBs (vfat images) mounted by vold (b/17633509)
 # File write access allowed for FDs returned through Storage Access Framework
