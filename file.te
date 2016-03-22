@@ -181,7 +181,7 @@ type bluetooth_efs_file, file_type;
 # Type for fingerprint template file.
 type fingerprintd_data_file, file_type, data_file_type;
 # Type for appfuse file.
-type app_fuse_file, file_type, data_file_type;
+type app_fuse_file, file_type, data_file_type, mlstrustedobject;
 
 # Socket types
 type adbd_socket, file_type;
