@@ -320,7 +320,6 @@ set_prop(system_server, device_logging_prop)
 
 # ctl interface
 set_prop(system_server, ctl_default_prop)
-set_prop(system_server, ctl_dhcp_pan_prop)
 set_prop(system_server, ctl_bugreport_prop)
 
 # Create a socket for receiving info from wpa.
