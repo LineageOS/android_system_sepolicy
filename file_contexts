@@ -181,6 +181,8 @@
 /system/bin/debuggerd	u:object_r:debuggerd_exec:s0
 /system/bin/debuggerd64	u:object_r:debuggerd_exec:s0
 /system/bin/wpa_supplicant	u:object_r:wpa_exec:s0
+/system/bin/recovery-persist     u:object_r:recovery_persist_exec:s0
+/system/bin/recovery-refresh     u:object_r:recovery_refresh_exec:s0
 /system/bin/sdcard      u:object_r:sdcardd_exec:s0
 /system/bin/dhcpcd      u:object_r:dhcp_exec:s0
 /system/bin/dhcpcd-6.8.2	u:object_r:dhcp_exec:s0
@@ -277,6 +279,7 @@
 /data/misc/logd(/.*)?           u:object_r:misc_logd_file:s0
 /data/misc/media(/.*)?          u:object_r:media_data_file:s0
 /data/misc/net(/.*)?            u:object_r:net_data_file:s0
+/data/misc/recovery(/.*)?       u:object_r:recovery_data_file:s0
 /data/misc/shared_relro(/.*)?   u:object_r:shared_relro_file:s0
 /data/misc/sms(/.*)?            u:object_r:radio_data_file:s0
 /data/misc/systemkeys(/.*)?     u:object_r:systemkeys_data_file:s0

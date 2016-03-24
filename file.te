@@ -142,6 +142,7 @@ type misc_user_data_file, file_type, data_file_type;
 type net_data_file, file_type, data_file_type;
 type nfc_data_file, file_type, data_file_type;
 type radio_data_file, file_type, data_file_type, mlstrustedobject;
+type recovery_data_file, file_type, data_file_type;
 type shared_relro_file, file_type, data_file_type;
 type systemkeys_data_file, file_type, data_file_type;
 type vpn_data_file, file_type, data_file_type;
