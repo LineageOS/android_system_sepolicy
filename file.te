@@ -33,6 +33,9 @@ type sysfs_mac_address, fs_type, sysfs_type;
 type sysfs_devices_system_cpu, fs_type, sysfs_type;
 # /sys/module/lowmemorykiller
 type sysfs_lowmemorykiller, fs_type, sysfs_type;
+
+type sysfs_thermal, sysfs_type, fs_type;
+
 type sysfs_zram, fs_type, sysfs_type;
 type sysfs_zram_uevent, fs_type, sysfs_type;
 type inotify, fs_type, mlstrustedobject;
