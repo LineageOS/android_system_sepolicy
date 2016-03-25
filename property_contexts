@@ -76,7 +76,6 @@ ctl.fuse_               u:object_r:ctl_fuse_prop:s0
 ctl.mdnsd               u:object_r:ctl_mdnsd_prop:s0
 ctl.ril-daemon          u:object_r:ctl_rildaemon_prop:s0
 ctl.bugreport           u:object_r:ctl_bugreport_prop:s0
-ctl.dhcpcd_bt-pan       u:object_r:ctl_dhcp_pan_prop:s0
 ctl.console             u:object_r:ctl_console_prop:s0
 ctl.                    u:object_r:ctl_default_prop:s0
 

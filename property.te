@@ -14,7 +14,6 @@ type system_prop, property_type, core_property_type;
 type vold_prop, property_type, core_property_type;
 type ctl_bootanim_prop, property_type;
 type ctl_default_prop, property_type;
-type ctl_dhcp_pan_prop, property_type;
 type ctl_dumpstate_prop, property_type;
 type ctl_fuse_prop, property_type;
 type ctl_mdnsd_prop, property_type;
