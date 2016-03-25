@@ -40,6 +40,12 @@ neverallow isolated_app property_type:property_service set;
 # Isolated apps should not directly open app data files themselves.
 neverallow isolated_app app_data_file:file open;
 
+# Only allow appending to /data/anr/traces.txt (b/27853304, b/18340553)
+# TODO: are there situations where isolated_apps write to this file?
+# TODO: should we tighten these restrictions further?
+neverallow isolated_app anr_data_file:file ~{ open append };
+neverallow isolated_app anr_data_file:dir ~search;
+
 # b/17487348
 # Isolated apps can only access three services,
 # activity_service, display_service and webviewupdate_service.
