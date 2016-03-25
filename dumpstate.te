@@ -113,6 +113,10 @@ allow dumpstate tombstone_data_file:file r_file_perms;
 allow dumpstate cache_recovery_file:dir r_dir_perms;
 allow dumpstate cache_recovery_file:file r_file_perms;
 
+# Access /data/misc/recovery
+allow dumpstate recovery_data_file:dir r_dir_perms;
+allow dumpstate recovery_data_file:file r_file_perms;
+
 allow dumpstate { service_manager_type -gatekeeper_service }:service_manager find;
 allow dumpstate servicemanager:service_manager list;
 
