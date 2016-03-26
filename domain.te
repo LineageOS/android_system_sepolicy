@@ -490,9 +490,6 @@ neverallow * ~servicemanager:service_manager list;
 # only service_manager_types can be added to service_manager
 neverallow * ~service_manager_type:service_manager { add find };
 
-# logpersist is only allowed on userdebug/eng builds
-neverallow { domain userdebug_or_eng(`-logd -shell -init') } misc_logd_file:file rw_file_perms;
-
 # Prevent assigning non property types to properties
 neverallow * ~property_type:property_service set;
 
