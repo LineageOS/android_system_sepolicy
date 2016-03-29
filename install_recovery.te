@@ -21,11 +21,8 @@ allow install_recovery boot_block_device:blk_file r_file_perms;
 allow install_recovery recovery_block_device:blk_file rw_file_perms;
 
 # Create and delete /cache/saved.file
-allow install_recovery { cache_file cache_recovery_file }:dir rw_dir_perms;
-allow install_recovery { cache_file cache_recovery_file }:file create_file_perms;
-
-auditallow install_recovery cache_recovery_file:dir rw_dir_perms;
-auditallow install_recovery cache_recovery_file:file create_file_perms;
+allow install_recovery cache_file:dir rw_dir_perms;
+allow install_recovery cache_file:file create_file_perms;
 
 # Write to /proc/sys/vm/drop_caches
 allow install_recovery proc_drop_caches:file w_file_perms;
