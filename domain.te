@@ -357,7 +357,7 @@ neverallow {
   -init # TODO: limit init to relabelfrom for files
   -zygote
   -installd
-  -otapreopt
+  -postinstall_dexopt
   -dex2oat
 } dalvikcache_data_file:file no_w_file_perms;
 
@@ -365,7 +365,7 @@ neverallow {
   domain
   -init
   -installd
-  -otapreopt
+  -postinstall_dexopt
   -dex2oat
   -zygote
 } dalvikcache_data_file:dir no_w_dir_perms;

@@ -500,6 +500,15 @@ allow system_server media_rw_data_file:dir search;
 # Allow invoking tools like "timeout"
 allow system_server toolbox_exec:file rx_file_perms;
 
+# Postinstall
+#
+# For OTA dexopt, allow calls coming from postinstall.
+binder_call(system_server, postinstall)
+
+allow system_server postinstall:fifo_file write;
+allow system_server update_engine:fd use;
+allow system_server update_engine:fifo_file write;
+
 ###
 ### Neverallow rules
 ###
