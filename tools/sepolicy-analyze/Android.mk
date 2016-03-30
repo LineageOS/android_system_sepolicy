@@ -11,4 +11,6 @@ LOCAL_SRC_FILES := sepolicy-analyze.c dups.c neverallow.c perm.c typecmp.c boole
 LOCAL_STATIC_LIBRARIES := libsepol
 LOCAL_CXX_STL := none
 
+LOCAL_COMPATIBILITY_SUITE := cts
+
 include $(BUILD_HOST_EXECUTABLE)
