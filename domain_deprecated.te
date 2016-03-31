@@ -57,7 +57,7 @@ r_dir_file(domain_deprecated, proc)
 r_dir_file(domain_deprecated, sysfs)
 r_dir_file(domain_deprecated, inotify)
 r_dir_file(domain_deprecated, cgroup)
-r_dir_file(domain_deprecated, proc_meminfo)
+allow domain_deprecated proc_meminfo:file r_file_perms;
 r_dir_file(domain_deprecated, proc_net)
 
 # Get SELinux enforcing status.
