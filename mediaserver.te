@@ -124,6 +124,12 @@ allow mediaserver drmserver:drmservice {
 allowxperm mediaserver self:{ rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
 
+# Access to /data/media.
+# This should be removed if sdcardfs is modified to alter the secontext for its
+# accesses to the underlying FS.
+allow mediaserver media_rw_data_file:dir create_dir_perms;
+allow mediaserver media_rw_data_file:file create_file_perms;
+
 ###
 ### neverallow rules
 ###
