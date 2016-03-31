@@ -23,6 +23,7 @@ allow bootanim ion_device:chr_file rw_file_perms;
 
 # Read access to pseudo filesystems.
 r_dir_file(bootanim, proc)
+allow bootanim proc_meminfo:file r_file_perms;
 r_dir_file(bootanim, sysfs)
 r_dir_file(bootanim, cgroup)
 
