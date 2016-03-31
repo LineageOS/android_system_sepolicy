@@ -65,6 +65,12 @@ allow kernel asec_image_file:file read;
 
 domain_auto_trans(kernel, init_exec, init)
 
+# Access to /data/media.
+# This should be removed if sdcardfs is modified to alter the secontext for its
+# accesses to the underlying FS.
+allow kernel media_rw_data_file:dir create_dir_perms;
+allow kernel media_rw_data_file:file create_file_perms;
+
 ###
 ### neverallow rules
 ###
