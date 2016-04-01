@@ -117,6 +117,12 @@ allow dumpstate cache_recovery_file:file r_file_perms;
 allow dumpstate recovery_data_file:dir r_dir_perms;
 allow dumpstate recovery_data_file:file r_file_perms;
 
+# Access /data/misc/logd
+userdebug_or_eng(`
+  allow dumpstate misc_logd_file:dir r_dir_perms;
+  allow dumpstate misc_logd_file:file r_file_perms;
+')
+
 allow dumpstate { service_manager_type -gatekeeper_service }:service_manager find;
 allow dumpstate servicemanager:service_manager list;
 
