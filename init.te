@@ -102,11 +102,58 @@ allow init rootfs:{ dir file } relabelfrom;
 # init.<board>.rc files often include device-specific types, so
 # we just allow all file types except /system files here.
 allow init self:capability { chown fowner fsetid };
-allow init {file_type -system_file -exec_type -app_data_file}:dir { create search getattr open read setattr ioctl };
-allow init {file_type -system_file -exec_type -keystore_data_file -app_data_file -shell_data_file -vold_data_file -misc_logd_file }:dir { write add_name remove_name rmdir relabelfrom };
-allow init {file_type -system_file -exec_type -keystore_data_file -app_data_file -shell_data_file -vold_data_file -misc_logd_file }:file { create getattr open read write setattr relabelfrom unlink };
-allow init {file_type -system_file -exec_type -keystore_data_file -app_data_file -shell_data_file -vold_data_file -misc_logd_file }:{ sock_file fifo_file } { create getattr open read setattr relabelfrom unlink };
-allow init {file_type -system_file -exec_type -keystore_data_file -app_data_file -shell_data_file -vold_data_file -misc_logd_file }:lnk_file { create getattr setattr relabelfrom unlink };
+
+allow init {
+  file_type
+  -system_file
+  -exec_type
+  -app_data_file
+}:dir { create search getattr open read setattr ioctl };
+
+allow init {
+  file_type
+  -system_file
+  -exec_type
+  -keystore_data_file
+  -app_data_file
+  -shell_data_file
+  -vold_data_file
+  -misc_logd_file
+}:dir { write add_name remove_name rmdir relabelfrom };
+
+allow init {
+  file_type
+  -system_file
+  -exec_type
+  -keystore_data_file
+  -app_data_file
+  -shell_data_file
+  -vold_data_file
+  -misc_logd_file
+}:file { create getattr open read write setattr relabelfrom unlink };
+
+allow init {
+  file_type
+  -system_file
+  -exec_type
+  -keystore_data_file
+  -app_data_file
+  -shell_data_file
+  -vold_data_file
+  -misc_logd_file
+}:{ sock_file fifo_file } { create getattr open read setattr relabelfrom unlink };
+
+allow init {
+  file_type
+  -system_file
+  -exec_type
+  -keystore_data_file
+  -app_data_file
+  -shell_data_file
+  -vold_data_file
+  -misc_logd_file
+}:lnk_file { create getattr setattr relabelfrom unlink };
+
 allow init {file_type -system_file -exec_type}:dir_file_class_set relabelto;
 allow init { sysfs debugfs }:{ dir file lnk_file } { getattr relabelfrom };
 allow init { sysfs_type debugfs_type }:{ dir file lnk_file } relabelto;
