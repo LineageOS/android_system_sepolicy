@@ -36,18 +36,12 @@ allow update_engine postinstall_mnt_dir:dir mounton;
 allow update_engine postinstall_file:filesystem { mount unmount relabelfrom relabelto };
 allow update_engine labeledfs:filesystem relabelfrom;
 
-# Allow update_engine to read and execute postinstall_file.
+# Allow update_engine to read and execute postinstall_file, which is what the
+# postinstall program is relabeled to regardless of its attributes in the new
+# system. The postinstall program will run in the "postinstall" domain.
 allow update_engine postinstall_file:file rx_file_perms;
 allow update_engine postinstall_file:lnk_file r_file_perms;
 allow update_engine postinstall_file:dir r_dir_perms;
-
-# The postinstall program is run by update_engine and will always be tagged as a
-# postinstall_file regardless of its attributes in the new system.
-domain_auto_trans(update_engine, postinstall_file, postinstall)
-
-# A postinstall program is typically a shell script (with a #!), so we allow
-# to execute those.
-allow update_engine shell_exec:file rx_file_perms;
 
 # Register the service to perform Binder IPC.
 binder_use(update_engine)
