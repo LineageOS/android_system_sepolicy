@@ -217,8 +217,8 @@ neverallow { domain -init } kernel:security setsecparam;
 # Only init, ueventd and system_server should be able to access HW RNG
 neverallow { domain -init -system_server -ueventd } hw_random_device:chr_file *;
 
-# Ensure that all entrypoint executables are in exec_type.
-neverallow * { file_type -exec_type }:file entrypoint;
+# Ensure that all entrypoint executables are in exec_type or postinstall_file.
+neverallow * { file_type -exec_type -postinstall_file }:file entrypoint;
 
 # Ensure that nothing in userspace can access /dev/mem or /dev/kmem
 neverallow { domain -kernel -ueventd -init } kmem_device:chr_file *;
