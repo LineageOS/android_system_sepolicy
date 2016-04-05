@@ -137,3 +137,8 @@ allow dumpstate debugfs_tracing:dir r_dir_perms;
 allow dumpstate debugfs_tracing:file rw_file_perms;
 allow dumpstate debugfs_trace_marker:file getattr;
 allow dumpstate atrace_exec:file rx_file_perms;
+
+# Access to /data/media.
+# This should be removed if sdcardfs is modified to alter the secontext for its
+# accesses to the underlying FS.
+allow dumpstate media_rw_data_file:dir getattr;
