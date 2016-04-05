@@ -492,6 +492,11 @@ allow system_server adbd:unix_stream_socket connectto;
 allow system_server adbd:fd use;
 allow system_server adbd:unix_stream_socket { getattr getopt ioctl read write shutdown };
 
+# Access to /data/media.
+# This should be removed if sdcardfs is modified to alter the secontext for its
+# accesses to the underlying FS.
+allow system_server media_rw_data_file:dir search;
+
 ###
 ### Neverallow rules
 ###
