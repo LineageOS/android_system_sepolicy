@@ -494,6 +494,9 @@ allow system_server adbd:unix_stream_socket { getattr getopt ioctl read write sh
 # accesses to the underlying FS.
 allow system_server media_rw_data_file:dir search;
 
+# Allow invoking tools like "timeout"
+allow system_server toolbox_exec:file rx_file_perms;
+
 ###
 ### Neverallow rules
 ###
