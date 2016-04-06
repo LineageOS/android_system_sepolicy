@@ -57,7 +57,8 @@ allow bluetooth shell_data_file:file read;
 # Access to /data/media.
 # This should be removed if sdcardfs is modified to alter the secontext for its
 # accesses to the underlying FS.
-allow bluetooth media_rw_data_file:dir search;
+allow bluetooth media_rw_data_file:dir create_dir_perms;
+allow bluetooth media_rw_data_file:file create_file_perms;
 
 ###
 ### Neverallow rules
