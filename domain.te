@@ -427,6 +427,13 @@ neverallow {
   -installd # creation of app sandbox
 } system_app_data_file:dir_file_class_set { create unlink open };
 
+# Services should respect app sandboxes
+neverallow {
+  domain
+  -appdomain
+  -installd # creation of sandbox
+} app_data_file:dir_file_class_set { create unlink };
+
 #
 # Only these domains should transition to shell domain. This domain is
 # permissible for the "shell user". If you need a process to exec a shell
