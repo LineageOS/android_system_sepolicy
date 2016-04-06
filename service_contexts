@@ -135,6 +135,7 @@ usb                                       u:object_r:usb_service:s0
 user                                      u:object_r:user_service:s0
 vibrator                                  u:object_r:vibrator_service:s0
 voiceinteraction                          u:object_r:voiceinteraction_service:s0
+vrmanager                                 u:object_r:vr_manager_service:s0
 wallpaper                                 u:object_r:wallpaper_service:s0
 webviewupdate                             u:object_r:webviewupdate_service:s0
 wifip2p                                   u:object_r:wifip2p_service:s0
