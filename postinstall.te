@@ -18,3 +18,7 @@ allow postinstall postinstall_file:dir r_dir_perms;
 allow postinstall shell_exec:file rx_file_perms;
 allow postinstall system_file:file rx_file_perms;
 allow postinstall toolbox_exec:file rx_file_perms;
+
+# No domain other than update_engine should transition to postinstall, as it is
+# only meant to run during the update.
+neverallow { domain -update_engine } postinstall:process { transition dyntransition };
