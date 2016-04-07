@@ -560,3 +560,8 @@ neverallow {
   -installd
   -profman
 } profman_exec:file no_x_file_perms;
+
+# Enforce restrictions on kernel module origin.
+# Do not allow kernel module loading except from system,
+# vendor, and boot partitions.
+neverallow * ~{ system_file rootfs }:system module_load;
