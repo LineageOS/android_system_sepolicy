@@ -35,7 +35,7 @@ type battery_service, system_server_service, service_manager_type;
 type bluetooth_manager_service, app_api_service, system_server_service, service_manager_type;
 type cameraproxy_service, system_server_service, service_manager_type;
 type clipboard_service, app_api_service, system_server_service, service_manager_type;
-type contexthub_service, system_server_service, service_manager_type;
+type contexthub_service, app_api_service, system_server_service, service_manager_type;
 type IProxyService_service, app_api_service, system_server_service, service_manager_type;
 type commontime_management_service, system_server_service, service_manager_type;
 type connectivity_service, app_api_service, system_server_service, service_manager_type;
