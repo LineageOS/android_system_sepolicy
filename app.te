@@ -33,8 +33,9 @@ allow appdomain cgroup:file rw_file_perms;
 allow appdomain dalvikcache_data_file:dir { search getattr };
 allow appdomain dalvikcache_data_file:file r_file_perms;
 
-# Read the /sdcard symlink
+# Read the /sdcard and /mnt/sdcard symlinks
 allow appdomain rootfs:lnk_file r_file_perms;
+allow appdomain tmpfs:lnk_file r_file_perms;
 
 # Search /storage/emulated tmpfs mount.
 allow appdomain tmpfs:dir r_dir_perms;
