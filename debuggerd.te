@@ -23,7 +23,7 @@ allow debuggerd system_data_file:file open;
 # This only happens on 64 bit systems, where all requests go to the 64 bit
 # debuggerd and get redirected to the 32 bit debuggerd if the process is 32 bit.
 
-allow debuggerd { audioserver cameraserver drmserver mediaserver sdcardd surfaceflinger inputflinger }:debuggerd dump_backtrace;
+allow debuggerd { audioserver cameraserver drmserver inputflinger mediacodec mediadrmserver mediaextractor mediaserver sdcardd surfaceflinger }:debuggerd dump_backtrace;
 
 # Connect to system_server via /data/system/ndebugsocket.
 unix_socket_connect(debuggerd, system_ndebug, system_server)

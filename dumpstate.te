@@ -48,9 +48,9 @@ allow dumpstate { appdomain autoplay_app system_server }:process signal;
 
 # Signal native processes to dump their stack.
 # This list comes from native_processes_to_dump in dumpstate/utils.c
-allow dumpstate { audioserver cameraserver drmserver mediaserver mediacodec mediaextractor sdcardd surfaceflinger }:process signal;
+allow dumpstate { audioserver cameraserver drmserver inputflinger mediacodec mediadrmserver mediaextractor mediaserver sdcardd surfaceflinger }:process signal;
 # Ask debuggerd for the backtraces of these processes.
-allow dumpstate { audioserver cameraserver drmserver mediaserver mediacodec mediaextractor sdcardd surfaceflinger }:debuggerd dump_backtrace;
+allow dumpstate { audioserver cameraserver drmserver inputflinger mediacodec mediadrmserver mediaextractor mediaserver sdcardd surfaceflinger }:debuggerd dump_backtrace;
 
 # Execute and transition to the vdc domain
 domain_auto_trans(dumpstate, vdc_exec, vdc)
