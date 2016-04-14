@@ -15,6 +15,11 @@ allow mediaserver proc:lnk_file getattr;
 # open /vendor/lib/mediadrm
 allow mediaserver system_file:dir r_dir_perms;
 
+userdebug_or_eng(`
+  # ptrace to processes in the same domain for memory leak detection
+  allow mediaserver self:process ptrace;
+')
+
 binder_use(mediaserver)
 binder_call(mediaserver, binderservicedomain)
 binder_call(mediaserver, { appdomain autoplay_app })
