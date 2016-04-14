@@ -150,7 +150,7 @@ binder_call(system_server, netd)
 binder_service(system_server)
 
 # Ask debuggerd to dump backtraces for native stacks of interest.
-allow system_server { audioserver cameraserver mediaserver mediacodec mediadrmserver mediaextractor sdcardd surfaceflinger inputflinger }:debuggerd dump_backtrace;
+allow system_server { audioserver cameraserver drmserver inputflinger mediacodec mediadrmserver mediaextractor mediaserver sdcardd surfaceflinger }:debuggerd dump_backtrace;
 
 # Use sockets received over binder from various services.
 allow system_server audioserver:tcp_socket rw_socket_perms;
