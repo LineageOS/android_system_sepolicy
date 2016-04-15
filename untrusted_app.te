@@ -149,8 +149,19 @@ neverallow untrusted_app file_type:file link;
 # Do not allow untrusted_app to access network MAC address file
 neverallow untrusted_app sysfs_mac_address:file no_rw_file_perms;
 
-# do not allow privileged socket ioctl commands
+# Restrict socket ioctls. Either 1. disallow privileged ioctls, 2. disallow the
+# ioctl permission, or 3. disallow the socket class.
 neverallowxperm untrusted_app domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
+neverallow untrusted_app *:{ netlink_route_socket netlink_selinux_socket } ioctl;
+neverallow untrusted_app *:{
+  socket netlink_socket packet_socket key_socket appletalk_socket
+  netlink_firewall_socket netlink_tcpdiag_socket netlink_nflog_socket
+  netlink_xfrm_socket netlink_audit_socket netlink_ip6fw_socket
+  netlink_dnrt_socket netlink_kobject_uevent_socket tun_socket
+  netlink_iscsi_socket netlink_fib_lookup_socket netlink_connector_socket
+  netlink_netfilter_socket netlink_generic_socket netlink_scsitransport_socket
+  netlink_rdma_socket netlink_crypto_socket
+} *;
 
 # Do not allow untrusted_app access to /cache
 neverallow untrusted_app { cache_file cache_recovery_file }:dir ~{ r_dir_perms };
