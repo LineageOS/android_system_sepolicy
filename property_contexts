@@ -33,6 +33,7 @@ debug.                  u:object_r:debug_prop:s0
 debug.db.               u:object_r:debuggerd_prop:s0
 dumpstate.              u:object_r:dumpstate_prop:s0
 log.                    u:object_r:log_prop:s0
+log.tag.WifiHAL         u:object_r:wifi_log_prop:s0
 service.adb.root        u:object_r:shell_prop:s0
 service.adb.tcp.port    u:object_r:shell_prop:s0
 
