@@ -40,5 +40,8 @@ SIOCSIWENCODEEXT SIOCGIWENCODEEXT SIOCSIWPMKSA
 SIOCIWFIRSTPRIV-SIOCIWLASTPRIV
 }')
 
+# commonly used ioctls on unix sockets
+define(`unpriv_unix_sock_ioctls', `{TIOCOUTQ FIOCLEX TCGETS TIOCSWINSZ FIONREAD }')
+
 # commonly used TTY ioctls
 define(`unpriv_tty_ioctls', `{ TIOCOUTQ FIOCLEX }')
