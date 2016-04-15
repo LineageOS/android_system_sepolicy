@@ -321,6 +321,20 @@ neverallow { domain -recovery -update_engine } system_block_device:blk_file writ
 # No domains other than install_recovery or recovery can write to recovery.
 neverallow { domain -install_recovery -recovery } recovery_block_device:blk_file write;
 
+# No domains other than a select few can access the misc_block_device. This
+# block device is reserved for OTA use.
+# Do not assert this rule on userdebug/eng builds, due to some devices using
+# this partition for testing purposes.
+neverallow {
+  domain
+  userdebug_or_eng(`-domain') # exclude debuggable builds
+  -init
+  -uncrypt
+  -update_engine
+  -vold
+  -recovery
+} misc_block_device:blk_file { append link relabelfrom rename write open read ioctl lock };
+
 # Only servicemanager should be able to register with binder as the context manager
 neverallow { domain -servicemanager } *:binder set_context_mgr;
 
