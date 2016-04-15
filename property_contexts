@@ -32,7 +32,7 @@ bluetooth.              u:object_r:bluetooth_prop:s0
 debug.                  u:object_r:debug_prop:s0
 debug.db.               u:object_r:debuggerd_prop:s0
 dumpstate.              u:object_r:dumpstate_prop:s0
-log.                    u:object_r:shell_prop:s0
+log.                    u:object_r:log_prop:s0
 service.adb.root        u:object_r:shell_prop:s0
 service.adb.tcp.port    u:object_r:shell_prop:s0
 
@@ -40,7 +40,7 @@ persist.audio.          u:object_r:audio_prop:s0
 persist.debug.          u:object_r:persist_debug_prop:s0
 persist.logd.           u:object_r:logd_prop:s0
 persist.logd.security   u:object_r:device_logging_prop:s0
-persist.log.tag         u:object_r:logd_prop:s0
+persist.log.tag         u:object_r:log_prop:s0
 persist.mmc.            u:object_r:mmc_prop:s0
 persist.sys.            u:object_r:system_prop:s0
 persist.sys.safemode    u:object_r:safemode_prop:s0

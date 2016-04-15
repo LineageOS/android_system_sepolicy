@@ -63,6 +63,7 @@ set_prop(shell, ctl_dumpstate_prop)
 set_prop(shell, dumpstate_prop)
 set_prop(shell, debug_prop)
 set_prop(shell, powerctl_prop)
+userdebug_or_eng(`set_prop(shell, log_prop)')
 
 # systrace support - allow atrace to run
 allow shell debugfs_tracing:dir r_dir_perms;

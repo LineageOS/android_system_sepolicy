@@ -83,6 +83,9 @@ allow domain properties_serial:file r_file_perms;
 # For now, everyone can access core property files
 # Device specific properties are not granted by default
 get_prop(domain, core_property_type)
+# Let everyone read log properties, so that liblog can avoid sending unloggable
+# messages to logd.
+get_prop(domain, log_property_type)
 dontaudit domain property_type:file audit_access;
 allow domain property_contexts:file r_file_perms;
 
