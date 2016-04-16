@@ -84,10 +84,6 @@ userdebug_or_eng(`
 # gdbserver for ndk-gdb ptrace attaches to app process.
 allow untrusted_app self:process ptrace;
 
-# Programs routinely attempt to scan through /system, looking
-# for files. Suppress the denials when they occur.
-dontaudit untrusted_app exec_type:file getattr;
-
 # TODO: switch to meminfo service
 allow untrusted_app proc_meminfo:file r_file_perms;
 
