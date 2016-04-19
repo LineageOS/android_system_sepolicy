@@ -173,7 +173,6 @@ neverallow {
   -init
   -recovery
   -ueventd
-  -watchdogd
   -healthd
   -uncrypt
   -tee
