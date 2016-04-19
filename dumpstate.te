@@ -70,7 +70,8 @@ allow dumpstate { dm_device cache_block_device }:blk_file getattr;
 
 # Allow dumpstate to make binder calls to any binder service
 binder_call(dumpstate, binderservicedomain)
-binder_call(dumpstate, { appdomain autoplay_app })
+binder_call(dumpstate, { appdomain autoplay_app netd })
+
 
 # Reading /proc/PID/maps of other processes
 allow dumpstate self:capability sys_ptrace;
@@ -123,7 +124,7 @@ userdebug_or_eng(`
   allow dumpstate misc_logd_file:file r_file_perms;
 ')
 
-allow dumpstate { service_manager_type -gatekeeper_service -netd_service }:service_manager find;
+allow dumpstate { service_manager_type -gatekeeper_service }:service_manager find;
 allow dumpstate servicemanager:service_manager list;
 
 allow dumpstate devpts:chr_file rw_file_perms;
