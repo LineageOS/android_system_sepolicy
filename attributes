@@ -67,6 +67,9 @@ attribute property_type;
 # used by device specific properties
 attribute core_property_type;
 
+# All properties used to configure log filtering.
+attribute log_property_type;
+
 # All service_manager types created by system_server
 attribute system_server_service;
 
