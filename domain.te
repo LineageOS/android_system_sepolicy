@@ -271,9 +271,12 @@ neverallow {
 
 neverallow { domain userdebug_or_eng(`-shell') } nativetest_data_file:file no_x_file_perms;
 
-# Only the init property service should write to /data/property.
+# Only the init property service should write to /data/property and /dev/__properties__
 neverallow { domain -init } property_data_file:dir no_w_dir_perms;
 neverallow { domain -init } property_data_file:file no_w_file_perms;
+neverallow { domain -init } property_type:file no_w_file_perms;
+neverallow { domain -init } properties_device:file no_w_file_perms;
+neverallow { domain -init } properties_serial:file no_w_file_perms;
 
 # Only recovery should be doing writes to /system
 neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
