@@ -1,5 +1,6 @@
 # Domain for update_engine daemon.
-type update_engine, domain, domain_deprecated;
+# update_engine uses the boot_control_hal.
+type update_engine, domain, domain_deprecated, boot_control_hal;
 type update_engine_exec, exec_type, file_type;
 type update_engine_data_file, file_type, data_file_type;
 
@@ -55,6 +56,3 @@ allow update_engine update_engine_service:service_manager { add };
 
 # Allow update_engine to call the callback function provided by priv_app.
 binder_call(update_engine, priv_app)
-
-# Allow read/write bootctrl block device.
-allow update_engine bootctrl_block_device:blk_file rw_file_perms;
