@@ -1,10 +1,8 @@
 # update_verifier
-type update_verifier, domain;
+# update_verifier uses the boot_control_hal.
+type update_verifier, domain, boot_control_hal;
 type update_verifier_exec, exec_type, file_type;
 
 init_daemon_domain(update_verifier)
-
-# Raw writes to bootctrl block device
-allow update_verifier bootctrl_block_device:blk_file rw_file_perms;
 
 # TODO: Add rules to allow update_verifier to read system_block_device.
