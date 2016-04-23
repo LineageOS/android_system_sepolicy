@@ -70,10 +70,6 @@ allow appdomain surfaceflinger:unix_stream_socket { read write setopt getattr ge
 allow { appdomain -isolated_app } app_data_file:dir create_dir_perms;
 allow { appdomain -isolated_app } app_data_file:notdevfile_class_set create_file_perms;
 
-# lib subdirectory of /data/data dir is system-owned.
-allow appdomain system_data_file:dir r_dir_perms;
-allow appdomain system_data_file:file { execute execute_no_trans open execmod };
-
 # Traverse into expanded storage
 allow appdomain mnt_expand_file:dir r_dir_perms;
 
