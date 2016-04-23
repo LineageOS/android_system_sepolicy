@@ -13,7 +13,7 @@ allow $1 $3:process transition;
 # New domain is entered by executing the file.
 allow $3 $2:file { entrypoint open read execute getattr };
 # New domain can send SIGCHLD to its caller.
-allow $3 $1:process sigchld;
+ifelse($1, `init', `', `allow $3 $1:process sigchld;')
 # Enable AT_SECURE, i.e. libc secure mode.
 dontaudit $1 $3:process noatsecure;
 # XXX dontaudit candidate but requires further study.
