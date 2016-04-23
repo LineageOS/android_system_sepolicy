@@ -51,3 +51,5 @@ unix_socket_connect(audioserver, bluetooth, bluetooth)
 # domain transition
 neverallow audioserver { file_type fs_type }:file execute_no_trans;
 
+# audioserver should never need network access. Disallow network sockets.
+neverallow audioserver domain:{ tcp_socket udp_socket rawip_socket } *;

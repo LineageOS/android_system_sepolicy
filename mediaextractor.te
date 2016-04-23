@@ -21,6 +21,5 @@ allow mediaextractor mediaextractor_service:service_manager add;
 # domain transition
 neverallow mediaextractor { file_type fs_type }:file execute_no_trans;
 
-# mediaextractor should never need network access. Disallow all sockets
-# other than those needed for normal system functions
-neverallow mediaextractor { domain -debuggerd -dumpstate -adbd -mediaextractor -logd userdebug_or_eng(`-su')}:socket_class_set *;
+# mediaextractor should never need network access. Disallow network sockets.
+neverallow mediaextractor domain:{ tcp_socket udp_socket rawip_socket } *;
