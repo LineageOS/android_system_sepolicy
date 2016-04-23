@@ -31,7 +31,6 @@ allow domain_deprecated system_file:file r_file_perms;
 allow domain_deprecated system_file:lnk_file r_file_perms;
 
 # Read files already opened under /data.
-allow domain_deprecated system_data_file:dir { search getattr };
 allow domain_deprecated system_data_file:file { getattr read };
 allow domain_deprecated system_data_file:lnk_file r_file_perms;
 
