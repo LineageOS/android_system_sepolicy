@@ -392,7 +392,6 @@ neverallow { domain userdebug_or_eng(`-dumpstate -shell -su') } su_exec:file no_
 # which, long term, need to go away.
 neverallow * {
   file_type
-  -system_data_file
   -apk_data_file
   -app_data_file
   -asec_public_file
