@@ -144,10 +144,6 @@ neverallow untrusted_app sysfs_mac_address:file no_rw_file_perms;
 neverallow untrusted_app { cache_file cache_recovery_file }:dir ~{ r_dir_perms };
 neverallow untrusted_app { cache_file cache_recovery_file }:file ~{ read getattr };
 
-# Do not allow untrusted_app to set system properties.
-neverallow untrusted_app property_socket:sock_file write;
-neverallow untrusted_app property_type:property_service set;
-
 # Do not allow untrusted_app to create/unlink files outside of its sandbox,
 # internal storage or sdcard.
 # World accessible data locations allow application to fill the device
