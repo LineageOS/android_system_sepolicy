@@ -279,11 +279,12 @@ neverallow appdomain dev_type:blk_file { read write };
 # Access to any of the following character devices.
 neverallow appdomain {
     audio_device
-    video_device
+    camera_device
     dm_device
-    radio_device
     gps_device
+    radio_device
     rpmsg_device
+    video_device
 }:chr_file { read write };
 
 # Note: Try expanding list of app domains in the future.
