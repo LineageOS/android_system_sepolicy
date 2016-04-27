@@ -25,9 +25,6 @@ binder_call(mediaserver, binderservicedomain)
 binder_call(mediaserver, { appdomain autoplay_app })
 binder_service(mediaserver)
 
-# Required by Widevine DRM (b/22990512)
-allow mediaserver self:process execmem;
-
 allow mediaserver media_data_file:dir create_dir_perms;
 allow mediaserver media_data_file:file create_file_perms;
 allow mediaserver app_data_file:dir search;
