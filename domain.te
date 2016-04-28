@@ -347,6 +347,7 @@ neverallow {
   -update_engine
   -vold
   -recovery
+  -ueventd
 } misc_block_device:blk_file { append link relabelfrom rename write open read ioctl lock };
 
 # Only servicemanager should be able to register with binder as the context manager
