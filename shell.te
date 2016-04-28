@@ -131,6 +131,17 @@ allow shell ion_device:chr_file rw_file_perms;
 allow shell media_rw_data_file:dir create_dir_perms;
 allow shell media_rw_data_file:file create_file_perms;
 
+#
+# filesystem test for insecure chr_file's is done
+# via a host side test
+#
+allow shell dev_type:dir r_dir_perms;
+allow shell dev_type:chr_file getattr;
+
+# /dev/fd is a symlink
+allow shell proc:lnk_file getattr;
+
+
 ###
 ### Neverallow rules
 ###
@@ -145,3 +156,11 @@ neverallow shell file_type:file link;
 
 # Do not allow privileged socket ioctl commands
 neverallowxperm shell domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
+
+# limit shell access to sensitive char drivers to
+# only getattr required for host side test.
+neverallow shell {
+  fuse_device
+  hw_random_device
+  kmem_device
+}:chr_file ~getattr;
