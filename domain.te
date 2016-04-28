@@ -198,15 +198,27 @@ neverallow * kernel:security setbool;
 # that could be set from init.rc.
 neverallow { domain -init } kernel:security setsecparam;
 
-# Only init, ueventd and system_server should be able to access HW RNG
-neverallow { domain -init -system_server -ueventd } hw_random_device:chr_file *;
+# Only init, ueventd, shell and system_server should be able to access HW RNG
+neverallow {
+  domain
+  -init
+  -shell # For CTS and is restricted to getattr in shell.te
+  -system_server
+  -ueventd
+} hw_random_device:chr_file *;
 
 # Ensure that all entrypoint executables are in exec_type or postinstall_file.
 neverallow * { file_type -exec_type -postinstall_file }:file entrypoint;
 
 # Ensure that nothing in userspace can access /dev/mem or /dev/kmem
-neverallow { domain -kernel -ueventd -init } kmem_device:chr_file *;
-neverallow * kmem_device:chr_file ~{ create relabelto unlink setattr };
+neverallow {
+  domain
+  -init
+  -kernel
+  -shell # For CTS and is restricted to getattr in shell.te
+  -ueventd
+} kmem_device:chr_file *;
+neverallow * kmem_device:chr_file ~{ create relabelto unlink setattr getattr };
 
 # Only init should be able to configure kernel usermodehelpers or
 # security-sensitive proc settings.
@@ -558,6 +570,7 @@ neverallow {
   -priv_app
   -recovery
   -sdcardd
+  -shell # Restricted by shell.te to only getattr
   -system_server
   -ueventd
   -vold
