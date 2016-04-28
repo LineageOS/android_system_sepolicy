@@ -9,7 +9,16 @@ allow debuggerd self:capability2 { syslog };
 allow debuggerd domain:dir r_dir_perms;
 allow debuggerd domain:file r_file_perms;
 allow debuggerd domain:lnk_file read;
-allow debuggerd { domain -init -ueventd -watchdogd -healthd -adbd -keystore }:process { ptrace getattr };
+allow debuggerd {
+  domain
+  -adbd
+  -debuggerd
+  -healthd
+  -init
+  -keystore
+  -ueventd
+  -watchdogd
+}:process { ptrace getattr };
 allow debuggerd tombstone_data_file:dir rw_dir_perms;
 allow debuggerd tombstone_data_file:file create_file_perms;
 allow debuggerd shared_relro_file:dir r_dir_perms;
