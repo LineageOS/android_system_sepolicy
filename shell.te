@@ -141,6 +141,11 @@ allow shell dev_type:chr_file getattr;
 # /dev/fd is a symlink
 allow shell proc:lnk_file getattr;
 
+#
+# filesystem test for insucre blk_file's is done
+# via hostside test
+#
+allow shell dev_type:blk_file getattr;
 
 ###
 ### Neverallow rules
@@ -164,3 +169,6 @@ neverallow shell {
   hw_random_device
   kmem_device
 }:chr_file ~getattr;
+
+# Limit shell to only getattr on blk devices for host side tests.
+neverallow shell dev_type:blk_file ~getattr;
