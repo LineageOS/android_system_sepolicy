@@ -562,6 +562,7 @@ neverallow system_server dex2oat_exec:file no_x_file_perms;
 # system_server should never execute anything from /data except for /data/dalvik-cache files.
 neverallow system_server {
   data_file_type
+  -gps_data_file
   -dalvikcache_data_file #mapping with PROT_EXEC
 }:file no_x_file_perms;
 
