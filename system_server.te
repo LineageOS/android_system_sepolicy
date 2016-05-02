@@ -290,7 +290,7 @@ allow system_server { apk_data_file apk_private_data_file }:{ dir file } { relab
 # Relabel wallpaper.
 allow system_server system_data_file:file relabelfrom;
 allow system_server wallpaper_file:file relabelto;
-allow system_server wallpaper_file:file { rw_file_perms unlink };
+allow system_server wallpaper_file:file { rw_file_perms rename unlink };
 
 # Backup of wallpaper imagery uses temporary hard links to avoid data churn
 allow system_server { system_data_file wallpaper_file }:file link;
