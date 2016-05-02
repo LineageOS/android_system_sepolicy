@@ -46,6 +46,7 @@ bluetooth_domain(system_server)
 # These are the capabilities assigned by the zygote to the
 # system server.
 allow system_server self:capability {
+    ipc_lock
     kill
     net_admin
     net_bind_service
