@@ -127,6 +127,10 @@ allow appdomain user_profile_data_file:file create_file_perms;
 # Profiles for foreign dex files are just markers and only need create permissions.
 allow appdomain user_profile_foreign_dex_data_file:dir { search write add_name };
 allow appdomain user_profile_foreign_dex_data_file:file create;
+# There is no way to create user_profile_foreign_dex_data_file without
+# generating open/read denials. These permissions should not be granted and the
+# denial is harmless. dontaudit to suppress the denial.
+dontaudit appdomain user_profile_foreign_dex_data_file:file { open read };
 
 # Send heap dumps to system_server via an already open file descriptor
 # % adb shell am set-watch-heap com.android.systemui 1048576
