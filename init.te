@@ -203,6 +203,7 @@ allow init self:capability sys_boot;
 
 # Write to sysfs nodes.
 allow init sysfs_type:dir r_dir_perms;
+allow init sysfs_type:lnk_file read;
 allow init sysfs_type:file w_file_perms;
 
 # disksize
