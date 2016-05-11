@@ -63,6 +63,12 @@ allow kernel vold:fd use;
 allow kernel app_data_file:file read;
 allow kernel asec_image_file:file read;
 
+# Allow reading loop device in update_engine_unittests. (b/28319454)
+userdebug_or_eng(`
+  allow kernel update_engine_data_file:file read;
+  allow kernel nativetest_data_file:file read;
+')
+
 domain_auto_trans(kernel, init_exec, init)
 
 ###
