@@ -118,7 +118,6 @@ unix_socket_connect(system_server, mtpd, mtp)
 unix_socket_connect(system_server, netd, netd)
 unix_socket_connect(system_server, vold, vold)
 unix_socket_connect(system_server, zygote, zygote)
-unix_socket_connect(system_server, gps, gpsd)
 unix_socket_connect(system_server, racoon, racoon)
 unix_socket_send(system_server, wpa, wpa)
 
@@ -317,7 +316,6 @@ auditallow system_server system_file:file execute_no_trans;
 
 # LocationManager(e.g, GPS) needs to read and write
 # to uart driver and ctrl proc entry
-allow system_server gps_device:chr_file rw_file_perms;
 allow system_server gps_control:file rw_file_perms;
 
 # Allow system_server to use app-created sockets and pipes.

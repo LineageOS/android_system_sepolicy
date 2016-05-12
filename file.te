@@ -92,8 +92,6 @@ type dalvikcache_data_file, file_type, data_file_type;
 type resourcecache_data_file, file_type, data_file_type;
 # /data/local - writable by shell
 type shell_data_file, file_type, data_file_type, mlstrustedobject;
-# /data/gps
-type gps_data_file, file_type, data_file_type;
 # /data/property
 type property_data_file, file_type, data_file_type;
 # /data/bootchart
@@ -188,7 +186,6 @@ type bluetooth_socket, file_type;
 type dnsproxyd_socket, file_type, mlstrustedobject;
 type dumpstate_socket, file_type;
 type fwmarkd_socket, file_type, mlstrustedobject;
-type gps_socket, file_type;
 type installd_socket, file_type;
 type lmkd_socket, file_type;
 type logd_socket, file_type, mlstrustedobject;
