@@ -79,8 +79,6 @@
 /dev/log(/.*)?		u:object_r:log_device:s0
 /dev/mem		u:object_r:kmem_device:s0
 /dev/modem.*		u:object_r:radio_device:s0
-/dev/mpu		u:object_r:gps_device:s0
-/dev/mpuirq		u:object_r:gps_device:s0
 /dev/mtd(/.*)?		u:object_r:mtd_device:s0
 /dev/mtp_usb		u:object_r:mtp_device:s0
 /dev/pmsg0		u:object_r:pmsg_device:s0
@@ -103,7 +101,6 @@
 /dev/socket/dnsproxyd	u:object_r:dnsproxyd_socket:s0
 /dev/socket/dumpstate	u:object_r:dumpstate_socket:s0
 /dev/socket/fwmarkd	u:object_r:fwmarkd_socket:s0
-/dev/socket/gps		u:object_r:gps_socket:s0
 /dev/socket/installd	u:object_r:installd_socket:s0
 /dev/socket/lmkd        u:object_r:lmkd_socket:s0
 /dev/socket/logd	u:object_r:logd_socket:s0
@@ -185,7 +182,6 @@
 /system/bin/racoon	u:object_r:racoon_exec:s0
 /system/xbin/su		u:object_r:su_exec:s0
 /system/xbin/perfprofd  u:object_r:perfprofd_exec:s0
-/system/vendor/bin/gpsd u:object_r:gpsd_exec:s0
 /system/bin/dnsmasq     u:object_r:dnsmasq_exec:s0
 /system/bin/hostapd     u:object_r:hostapd_exec:s0
 /system/bin/clatd	u:object_r:clatd_exec:s0
@@ -211,7 +207,6 @@
 # Vendor files
 #
 /vendor(/.*)?		u:object_r:system_file:s0
-/vendor/bin/gpsd	u:object_r:gpsd_exec:s0
 
 #############################
 # OEM and ODM files
@@ -233,7 +228,6 @@
 /data/secure/backup(/.*)?	u:object_r:backup_data_file:s0
 /data/system/ndebugsocket	u:object_r:system_ndebug_socket:s0
 /data/drm(/.*)?		u:object_r:drm_data_file:s0
-/data/gps(/.*)?		u:object_r:gps_data_file:s0
 /data/resource-cache(/.*)? u:object_r:resourcecache_data_file:s0
 /data/dalvik-cache(/.*)? u:object_r:dalvikcache_data_file:s0
 /data/adb(/.*)?		u:object_r:adb_data_file:s0
