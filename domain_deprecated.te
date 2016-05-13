@@ -53,7 +53,7 @@ allow domain_deprecated ion_device:chr_file rw_file_perms;
 
 # Read access to pseudo filesystems.
 r_dir_file(domain_deprecated, proc)
-r_dir_file(domain_deprecated, sysfs)
+r_dir_file({ domain_deprecated -isolated_app }, sysfs)
 r_dir_file(domain_deprecated, inotify)
 r_dir_file(domain_deprecated, cgroup)
 allow domain_deprecated proc_meminfo:file r_file_perms;
