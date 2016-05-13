@@ -151,7 +151,23 @@ binder_call(system_server, netd)
 binder_service(system_server)
 
 # Ask debuggerd to dump backtraces for native stacks of interest.
-allow system_server { audioserver cameraserver drmserver inputflinger mediacodec mediadrmserver mediaextractor mediaserver sdcardd surfaceflinger }:debuggerd dump_backtrace;
+#
+# This is derived from the list that system server defines as interesting native processes
+# to dump during ANRs or watchdog aborts, defined in NATIVE_STACKS_OF_INTEREST in
+# frameworks/base/services/core/java/com/android/server/Watchdog.java.
+allow system_server {
+  audioserver
+  bluetooth
+  cameraserver
+  drmserver
+  inputflinger
+  mediacodec
+  mediadrmserver
+  mediaextractor
+  mediaserver
+  sdcardd
+  surfaceflinger
+}:debuggerd dump_backtrace;
 
 # Use sockets received over binder from various services.
 allow system_server audioserver:tcp_socket rw_socket_perms;
