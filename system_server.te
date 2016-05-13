@@ -156,6 +156,7 @@ binder_service(system_server)
 # frameworks/base/services/core/java/com/android/server/Watchdog.java.
 allow system_server {
   audioserver
+  bluetooth
   cameraserver
   drmserver
   inputflinger

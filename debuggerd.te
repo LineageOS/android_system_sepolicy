@@ -34,6 +34,7 @@ allow debuggerd system_data_file:file open;
 
 allow debuggerd {
   audioserver
+  bluetooth
   cameraserver
   drmserver
   inputflinger
