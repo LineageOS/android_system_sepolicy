@@ -31,9 +31,6 @@ set_prop(rild, system_radio_prop)
 auditallow rild net_radio_prop:property_service set;
 auditallow rild system_radio_prop:property_service set;
 
-# Read/Write to uart driver (for GPS)
-allow rild gps_device:chr_file rw_file_perms;
-
 allow rild tty_device:chr_file rw_file_perms;
 
 # Allow rild to create and use netlink sockets.
