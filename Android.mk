@@ -462,8 +462,12 @@ $(mac_perms_keys.tmp): $(call build_policy, keys.conf)
 
 all_mac_perms_files := $(call build_policy, $(LOCAL_MODULE))
 
+# Should be synced with keys.conf.
+all_keys := platform media shared testkey
+all_keys := $(all_keys:%=$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))/%.x509.pem)
+
 $(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_mac_perms_files)
-$(LOCAL_BUILT_MODULE): $(mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py $(all_mac_perms_files)
+$(LOCAL_BUILT_MODULE): $(mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py $(all_mac_perms_files) $(all_keys)
 	@mkdir -p $(dir $@)
 	$(hide) DEFAULT_SYSTEM_DEV_CERTIFICATE="$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))" \
 		$(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
