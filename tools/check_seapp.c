@@ -23,7 +23,7 @@
 /**
  * Initializes an empty, static list.
  */
-#define list_init(free_fn) { .head = NULL, .tail = NULL, .freefn = free_fn }
+#define list_init(free_fn) { .head = NULL, .tail = NULL, .freefn = (free_fn) }
 
 /**
  * given an item in the list, finds the offset for the container
@@ -35,7 +35,7 @@
  *
  */
 #define list_entry(element, type, name) \
-		(type *)(((uint8_t *)element) - (uint8_t *)&(((type *)NULL)->name))
+		(type *)(((uint8_t *)(element)) - (uint8_t *)&(((type *)NULL)->name))
 
 /**
  * Iterates over the list, do not free elements from the list when using this.
@@ -43,7 +43,7 @@
  * @var The variable name for the cursor
  */
 #define list_for_each(list, var) \
-	for(var = (list)->head; var != NULL; var = var->next)
+	for(var = (list)->head; var != NULL; var = var->next) /*NOLINT*/
 
 
 typedef struct hash_entry hash_entry;
