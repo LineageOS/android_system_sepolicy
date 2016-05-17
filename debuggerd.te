@@ -58,3 +58,7 @@ read_logd(debuggerd)
 
 # Check SELinux permissions.
 selinux_check_access(debuggerd)
+
+# Read /data/dalvik-cache.
+allow debuggerd dalvikcache_data_file:dir { search getattr };
+allow debuggerd dalvikcache_data_file:file r_file_perms;

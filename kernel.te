@@ -4,9 +4,7 @@ type kernel, domain, domain_deprecated, mlstrustedsubject;
 allow kernel self:capability sys_nice;
 
 # Root fs.
-allow kernel rootfs:dir r_dir_perms;
-allow kernel rootfs:file r_file_perms;
-allow kernel rootfs:lnk_file r_file_perms;
+r_dir_file(kernel, rootfs)
 
 # Get SELinux enforcing status.
 allow kernel selinuxfs:dir r_dir_perms;

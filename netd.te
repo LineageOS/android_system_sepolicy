@@ -5,6 +5,9 @@ type netd_exec, exec_type, file_type;
 init_daemon_domain(netd)
 net_domain(netd)
 
+r_dir_file(netd, cgroup)
+allow netd system_server:fd use;
+
 allow netd self:capability { net_admin net_raw kill };
 # Note: fsetid is deliberately not included above. fsetid checks are
 # triggered by chmod on a directory or file owned by a group other
@@ -26,10 +29,11 @@ allow netd system_file:file x_file_perms;
 allow netd devpts:chr_file rw_file_perms;
 
 # For /proc/sys/net/ipv[46]/route/flush.
-allow netd proc_net:file write;
+allow netd proc_net:file rw_file_perms;
 
 # For /sys/modules/bcmdhd/parameters/firmware_path
 # XXX Split into its own type.
+r_dir_file(netd, sysfs_type)
 allow netd sysfs:file write;
 
 # TODO: added to match above sysfs rule. Remove me?
