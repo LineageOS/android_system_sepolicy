@@ -7,7 +7,7 @@ net_domain(dhcp)
 
 allow dhcp cgroup:dir { create write add_name };
 allow dhcp self:capability { setgid setuid net_admin net_raw net_bind_service };
-allow dhcp self:packet_socket create_socket_perms;
+allow dhcp self:packet_socket create_socket_perms_no_ioctl;
 allow dhcp self:netlink_route_socket nlmsg_write;
 allow dhcp shell_exec:file rx_file_perms;
 allow dhcp system_file:file rx_file_perms;

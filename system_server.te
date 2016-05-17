@@ -41,6 +41,9 @@ allow system_server zygote:unix_stream_socket { getopt getattr };
 
 # system server gets network and bluetooth permissions.
 net_domain(system_server)
+# in addition to ioctls whitelisted for all domains, also allow system_server
+# to use privileged ioctls commands. Needed to set up VPNs.
+allowxperm system_server self:udp_socket ioctl priv_sock_ioctls;
 bluetooth_domain(system_server)
 
 # These are the capabilities assigned by the zygote to the
@@ -71,15 +74,17 @@ allow system_server kernel:system module_request;
 allow system_server self:capability2 wake_alarm;
 
 # Use netlink uevent sockets.
-allow system_server self:netlink_kobject_uevent_socket create_socket_perms;
+allow system_server self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 
 # Use generic netlink sockets.
-allow system_server self:netlink_socket create_socket_perms;
-allow system_server self:netlink_generic_socket create_socket_perms;
+allow system_server self:netlink_socket create_socket_perms_no_ioctl;
+allow system_server self:netlink_generic_socket create_socket_perms_no_ioctl;
 
 # Use generic "sockets" where the address family is not known
-# to the kernel.
-allow system_server self:socket create_socket_perms;
+# to the kernel. The ioctl permission is specifically omitted here, but may
+# be added to device specific policy along with the ioctl commands to be
+# whitelisted.
+allow system_server self:socket create_socket_perms_no_ioctl;
 
 # Set and get routes directly via netlink.
 allow system_server self:netlink_route_socket nlmsg_write;
@@ -119,14 +124,14 @@ allow system_server proc_stat:file r_file_perms;
 allow system_server debugfs:file r_file_perms;
 
 # The DhcpClient and WifiWatchdog use packet_sockets
-allow system_server self:packet_socket create_socket_perms;
+allow system_server self:packet_socket create_socket_perms_no_ioctl;
 
 # NetworkDiagnostics requires explicit bind() calls to ping sockets. These aren't actually the same
 # as raw sockets, but the kernel doesn't yet distinguish between the two.
 allow system_server node:rawip_socket node_bind;
 
 # 3rd party VPN clients require a tun_socket to be created
-allow system_server self:tun_socket create_socket_perms;
+allow system_server self:tun_socket create_socket_perms_no_ioctl;
 
 # Talk to init and various daemons via sockets.
 unix_socket_connect(system_server, installd, installd)
