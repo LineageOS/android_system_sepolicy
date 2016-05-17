@@ -78,6 +78,7 @@ define(`tmpfs_domain', `
 type $1_tmpfs, file_type;
 type_transition $1 tmpfs:file $1_tmpfs;
 allow $1 $1_tmpfs:file { read write };
+allow $1 tmpfs:dir { getattr search };
 ')
 
 #####################################
@@ -219,7 +220,8 @@ allow $1 self:capability2 block_suspend;
 # selinux_check_access(domain)
 # Allow domain to check SELinux permissions via selinuxfs.
 define(`selinux_check_access', `
-allow $1 selinuxfs:file rw_file_perms;
+r_dir_file($1, selinuxfs)
+allow $1 selinuxfs:file w_file_perms;
 allow $1 kernel:security compute_av;
 allow $1 self:netlink_selinux_socket { read write create getattr setattr lock relabelfrom relabelto append bind connect listen accept getopt setopt shutdown recvfrom sendto recv_msg send_msg name_bind };
 ')
@@ -228,7 +230,8 @@ allow $1 self:netlink_selinux_socket { read write create getattr setattr lock re
 # selinux_check_context(domain)
 # Allow domain to check SELinux contexts via selinuxfs.
 define(`selinux_check_context', `
-allow $1 selinuxfs:file rw_file_perms;
+r_dir_file($1, selinuxfs)
+allow $1 selinuxfs:file w_file_perms;
 allow $1 kernel:security check_context;
 ')
 
@@ -236,7 +239,8 @@ allow $1 kernel:security check_context;
 # selinux_setenforce(domain)
 # Allow domain to set SELinux to enforcing.
 define(`selinux_setenforce', `
-allow $1 selinuxfs:file rw_file_perms;
+r_dir_file($1, selinuxfs)
+allow $1 selinuxfs:file w_file_perms;
 allow $1 kernel:security setenforce;
 ')
 
@@ -244,7 +248,8 @@ allow $1 kernel:security setenforce;
 # selinux_setbool(domain)
 # Allow domain to set SELinux booleans.
 define(`selinux_setbool', `
-allow $1 selinuxfs:file rw_file_perms;
+r_dir_file($1, selinuxfs)
+allow $1 selinuxfs:file w_file_perms;
 allow $1 kernel:security setbool;
 ')
 
