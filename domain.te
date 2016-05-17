@@ -28,7 +28,6 @@ r_dir_file(domain, self)
 allow domain self:{ fifo_file file } rw_file_perms;
 allow domain self:unix_dgram_socket { create_socket_perms sendto };
 allow domain self:unix_stream_socket { create_stream_socket_perms connectto };
-allowxperm domain domain:{ unix_dgram_socket unix_stream_socket } ioctl unpriv_unix_sock_ioctls;
 
 # Inherit or receive open files from others.
 allow domain init:fd use;
@@ -141,9 +140,24 @@ allow domain debugfs_trace_marker:file w_file_perms;
 allow domain fs_type:filesystem getattr;
 allow domain fs_type:dir getattr;
 
+# Restrict all domains to a whitelist for common socket types. Additional
+# ioctl commands may be added to individual domains, but this sets safe
+# defaults for all processes. Note that granting this whitelist to domain does
+# not grant the ioctl permission on these socket types. That must be granted
+# separately.
+allowxperm domain domain:{ rawip_socket tcp_socket udp_socket }
+  ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
+# default whitelist for unix sockets.
+allowxperm domain domain:{ unix_dgram_socket unix_stream_socket }
+  ioctl unpriv_unix_sock_ioctls;
+
+
 ###
 ### neverallow rules
 ###
+
+# All socket ioctls must be restricted to a whitelist.
+neverallowxperm domain domain:socket_class_set ioctl { 0 };
 
 # Do not allow any domain other than init or recovery to create unlabeled files.
 neverallow { domain -init -recovery } unlabeled:dir_file_class_set create;

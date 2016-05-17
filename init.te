@@ -281,6 +281,8 @@ allow init property_type:property_service set;
 
 # Run "ifup lo" to bring up the localhost interface
 allow init self:udp_socket { create ioctl };
+# in addition to unpriv ioctls granted to all domains, init also needs:
+allowxperm init self:udp_socket ioctl SIOCSIFFLAGS;
 allow init self:capability net_raw;
 
 # This line seems suspect, as it should not really need to
