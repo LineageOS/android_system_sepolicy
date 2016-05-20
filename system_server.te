@@ -529,6 +529,10 @@ allow system_server postinstall:fifo_file write;
 allow system_server update_engine:fd use;
 allow system_server update_engine:fifo_file write;
 
+# Access to /data/preloads
+allow system_server preloads_data_file:file { r_file_perms unlink };
+allow system_server preloads_data_file:dir { r_dir_perms write remove_name };
+
 ###
 ### Neverallow rules
 ###
