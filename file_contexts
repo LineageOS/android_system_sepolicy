@@ -71,6 +71,7 @@
 /dev/fuse		u:object_r:fuse_device:s0
 /dev/graphics(/.*)?	u:object_r:graphics_device:s0
 /dev/hw_random		u:object_r:hw_random_device:s0
+/dev/hwbinder		u:object_r:hwbinder_device:s0
 /dev/i2c-[0-9]+		u:object_r:i2c_device:s0
 /dev/input(/.*)		u:object_r:input_device:s0
 /dev/iio:device[0-9]+   u:object_r:iio_device:s0
@@ -157,6 +158,7 @@
 /system/bin/app_process32	u:object_r:zygote_exec:s0
 /system/bin/app_process64	u:object_r:zygote_exec:s0
 /system/bin/servicemanager	u:object_r:servicemanager_exec:s0
+/system/bin/hwservicemanager	u:object_r:hwservicemanager_exec:s0
 /system/bin/surfaceflinger	u:object_r:surfaceflinger_exec:s0
 /system/bin/drmserver	u:object_r:drmserver_exec:s0
 /system/bin/dumpstate   u:object_r:dumpstate_exec:s0
