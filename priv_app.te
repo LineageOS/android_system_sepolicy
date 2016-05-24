@@ -92,6 +92,10 @@ allow priv_app update_engine_service:service_manager find;
 # Allow Phone to read/write cached ringtones (opened by system).
 allow priv_app ringtone_file:file { getattr read write };
 
+# Access to /data/preloads
+allow priv_app preloads_data_file:file r_file_perms;
+allow priv_app preloads_data_file:dir r_dir_perms;
+
 ###
 ### neverallow rules
 ###
