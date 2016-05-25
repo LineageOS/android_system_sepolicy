@@ -45,6 +45,10 @@ allow priv_app mnt_media_rw_file:dir search;
 allow priv_app { cache_file cache_recovery_file }:dir create_dir_perms;
 allow priv_app { cache_file cache_recovery_file }:file create_file_perms;
 
+# Write to /data/ota_package for OTA packages.
+allow priv_app ota_package_file:dir rw_dir_perms;
+allow priv_app ota_package_file:file create_file_perms;
+
 # Access to /data/media.
 allow priv_app media_rw_data_file:dir create_dir_perms;
 allow priv_app media_rw_data_file:file create_file_perms;
