@@ -34,6 +34,10 @@ allow shell shell_data_file:file create_file_perms;
 allow shell shell_data_file:file rx_file_perms;
 allow shell shell_data_file:lnk_file create_file_perms;
 
+# Access /data/misc/profman.
+allow shell profman_dump_data_file:dir { search getattr write remove_name };
+allow shell profman_dump_data_file:file { getattr unlink };
+
 # Read/execute files in /data/nativetest
 userdebug_or_eng(`
   allow shell nativetest_data_file:dir r_dir_perms;
