@@ -4,6 +4,8 @@ type profman_exec, exec_type, file_type;
 
 allow profman user_profile_data_file:file { getattr read write lock };
 
+allow profman profman_dump_data_file:file { write };
+
 allow profman installd:fd use;
 
 neverallow profman app_data_file:notdevfile_class_set open;
