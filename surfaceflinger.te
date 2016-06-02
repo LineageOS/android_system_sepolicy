@@ -60,6 +60,9 @@ allow surfaceflinger gpu_service:service_manager { add find };
 allow surfaceflinger surfaceflinger_service:service_manager { add find };
 allow surfaceflinger window_service:service_manager find;
 
+# allow self to set SCHED_FIFO
+allow surfaceflinger self:capability sys_nice;
+
 ###
 ### Neverallow rules
 ###
