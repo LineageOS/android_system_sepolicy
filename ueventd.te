@@ -20,8 +20,8 @@ allow ueventd sysfs_devices_system_cpu:file rw_file_perms;
 allow ueventd tmpfs:chr_file rw_file_perms;
 allow ueventd dev_type:dir create_dir_perms;
 allow ueventd dev_type:lnk_file { create unlink };
-allow ueventd dev_type:chr_file { create setattr unlink };
-allow ueventd dev_type:blk_file { relabelfrom relabelto create setattr unlink };
+allow ueventd dev_type:chr_file { getattr create setattr unlink };
+allow ueventd dev_type:blk_file { getattr relabelfrom relabelto create setattr unlink };
 allow ueventd self:netlink_kobject_uevent_socket create_socket_perms;
 allow ueventd efs_file:dir search;
 allow ueventd efs_file:file r_file_perms;
@@ -39,3 +39,9 @@ allow ueventd self:process setfscreate;
 neverallow ueventd property_socket:sock_file write;
 neverallow ueventd init:unix_stream_socket connectto;
 neverallow ueventd property_type:property_service set;
+
+# Restrict ueventd access on block devices to maintenence operations.
+neverallow ueventd dev_type:blk_file ~{ getattr relabelfrom relabelto create setattr unlink };
+
+# Only relabelto as we would never want to relabelfrom kmem_device
+neverallow ueventd kmem_device:chr_file ~{ getattr create setattr unlink relabelto };
