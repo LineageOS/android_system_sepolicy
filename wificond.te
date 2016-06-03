@@ -3,3 +3,8 @@ type wificond, domain;
 type wificond_exec, exec_type, file_type;
 
 init_daemon_domain(wificond)
+
+binder_use(wificond)
+binder_call(wificond, system_server)
+
+allow wificond wificond_service:service_manager { add find };
