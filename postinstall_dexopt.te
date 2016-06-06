@@ -8,7 +8,7 @@ type postinstall_dexopt, domain;
 # init_daemon_domain(otapreopt)
 allow postinstall_dexopt self:capability { chown dac_override fowner setgid setuid };
 
-allow postinstall_dexopt postinstall_file:dir getattr;
+allow postinstall_dexopt postinstall_file:dir { getattr search };
 allow postinstall_dexopt proc:file { getattr open read };
 allow postinstall_dexopt tmpfs:file read;
 
@@ -55,3 +55,5 @@ allow postinstall_dexopt installd:process sigchld;
 # Allow otapreopt to use file descriptors from otapreopt_chroot.
 # TODO: Probably we can actually close file descriptors...
 allow postinstall_dexopt otapreopt_chroot:fd use;
+
+allow postinstall_dexopt cpuctl_device:dir search;
