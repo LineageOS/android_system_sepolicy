@@ -15,8 +15,8 @@ allow system_server dalvikcache_data_file:dir r_dir_perms;
 # We need search on top level directories so that we can get to the files
 allow system_server user_profile_data_file:dir search;
 allow system_server user_profile_data_file:file getattr;
-allow system_server user_profile_foreign_dex_data_file:dir { open read write search remove_name };
-allow system_server user_profile_foreign_dex_data_file:file { getattr unlink };
+allow system_server user_profile_foreign_dex_data_file:dir { add_name open read write search remove_name };
+allow system_server user_profile_foreign_dex_data_file:file { getattr rename unlink };
 
 # /data/resource-cache
 allow system_server resourcecache_data_file:file r_file_perms;
