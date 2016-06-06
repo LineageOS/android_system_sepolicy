@@ -6,6 +6,7 @@ init_daemon_domain(gatekeeperd)
 binder_service(gatekeeperd)
 binder_use(gatekeeperd)
 allow gatekeeperd tee_device:chr_file rw_file_perms;
+allow gatekeeperd ion_device:chr_file r_file_perms;
 
 # need to find KeyStore and add self
 allow gatekeeperd gatekeeper_service:service_manager { add find };
@@ -26,5 +27,7 @@ allow gatekeeperd gatekeeper_data_file:file create_file_perms;
 
 # For hardware properties retrieval
 allow gatekeeperd hardware_properties_service:service_manager find;
+
+r_dir_file(gatekeeperd, cgroup)
 
 neverallow { domain -gatekeeperd } gatekeeper_service:service_manager add;

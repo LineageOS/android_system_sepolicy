@@ -71,7 +71,6 @@ allow system_app keystore:keystore_key {
 };
 
 # /sys access
-allow system_app sysfs_zram:dir search;
-allow system_app sysfs_zram:file r_file_perms;
+r_dir_file(system_app, sysfs_type)
 
 control_logd(system_app)
