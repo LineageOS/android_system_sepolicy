@@ -28,6 +28,11 @@ allow update_engine block_device:dir search;
 allow update_engine boot_block_device:blk_file rw_file_perms;
 allow update_engine system_block_device:blk_file rw_file_perms;
 
+# Allow to set recovery options in the BCB. Used to trigger factory reset when
+# the update to an older version (channel change) or incompatible version
+# requires it.
+allow update_engine misc_block_device:blk_file rw_file_perms;
+
 # Don't allow kernel module loading, just silence the logs.
 dontaudit update_engine kernel:system module_request;
 
