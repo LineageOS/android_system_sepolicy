@@ -230,7 +230,7 @@ neverallow {
   -init
   -kernel
   -shell # For CTS and is restricted to getattr in shell.te
-  -ueventd
+  -ueventd # Further restricted in ueventd.te
 } kmem_device:chr_file *;
 neverallow * kmem_device:chr_file ~{ create relabelto unlink setattr getattr };
 
@@ -345,6 +345,7 @@ neverallow {
   -recovery
   -system_server
   -shell # Shell is further restricted in shell.te
+  -ueventd # Further restricted in ueventd.te
 } frp_block_device:blk_file rw_file_perms;
 
 # No domain other than recovery and update_engine can write to system partition(s).
