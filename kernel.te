@@ -5,6 +5,7 @@ allow kernel self:capability sys_nice;
 
 # Root fs.
 r_dir_file(kernel, rootfs)
+r_dir_file(kernel, proc)
 
 # Get SELinux enforcing status.
 allow kernel selinuxfs:dir r_dir_perms;
