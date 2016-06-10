@@ -33,12 +33,8 @@ allow mediaserver sdcard_type:file write;
 allow mediaserver gpu_device:chr_file rw_file_perms;
 allow mediaserver video_device:dir r_dir_perms;
 allow mediaserver video_device:chr_file rw_file_perms;
-allow mediaserver audio_device:dir r_dir_perms;
 
 set_prop(mediaserver, audio_prop)
-
-# Access audio devices at all.
-allow mediaserver audio_device:chr_file rw_file_perms;
 
 # XXX Label with a specific type?
 allow mediaserver sysfs:file r_file_perms;
@@ -59,13 +55,7 @@ allow mediaserver rpmsg_device:chr_file rw_file_perms;
 # Inter System processes communicate over named pipe (FIFO)
 allow mediaserver system_server:fifo_file r_file_perms;
 
-# Camera data
-r_dir_file(mediaserver, camera_data_file)
 r_dir_file(mediaserver, media_rw_data_file)
-
-# Grant access to audio files to mediaserver
-allow mediaserver audio_data_file:dir ra_dir_perms;
-allow mediaserver audio_data_file:file create_file_perms;
 
 # Grant access to read files on appfuse.
 allow mediaserver app_fuse_file:file { read getattr };
@@ -91,7 +81,6 @@ allow mediaserver tee:unix_stream_socket connectto;
 allow mediaserver activity_service:service_manager find;
 allow mediaserver appops_service:service_manager find;
 allow mediaserver audioserver_service:service_manager find;
-allow mediaserver cameraproxy_service:service_manager find;
 allow mediaserver cameraserver_service:service_manager find;
 allow mediaserver batterystats_service:service_manager find;
 allow mediaserver drmserver_service:service_manager find;
