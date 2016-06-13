@@ -110,6 +110,8 @@ r_dir_file(domain, zoneinfo_data_file)
 # Lots of processes access current CPU information
 r_dir_file(domain, sysfs_devices_system_cpu)
 
+r_dir_file(domain, sysfs_usb);
+
 # files under /data.
 allow domain system_data_file:dir { search getattr };
 allow domain system_data_file:lnk_file read;
