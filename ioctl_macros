@@ -2,6 +2,7 @@
 define(`unpriv_sock_ioctls', `
 {
 # Socket ioctls for gathering information about the interface
+SIOCGSTAMP SIOCGSTAMPNS
 SIOCGIFNAME SIOCGIFCONF SIOCGIFFLAGS SIOCGIFADDR SIOCGIFDSTADDR SIOCGIFBRDADDR
 SIOCGIFNETMASK SIOCGIFMTU SIOCGIFINDEX SIOCGIFCOUNT SIOCGIFTXQLEN
 # Wireless extension ioctls. Primarily get functions.
