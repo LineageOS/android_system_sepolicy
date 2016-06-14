@@ -82,6 +82,9 @@ domain_auto_trans(dumpstate, vdc_exec, vdc)
 # TODO: create a new file class, instead of allowing write access to all of /sys
 allow dumpstate sysfs:file w_file_perms;
 
+# TODO: added to match above sysfs rule. Remove me?
+allow dumpstate sysfs_usb:file w_file_perms;
+
 # Other random bits of data we want to collect
 allow dumpstate qtaguid_proc:file r_file_perms;
 allow dumpstate debugfs:file r_file_perms;

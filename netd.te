@@ -32,6 +32,9 @@ allow netd proc_net:file write;
 # XXX Split into its own type.
 allow netd sysfs:file write;
 
+# TODO: added to match above sysfs rule. Remove me?
+allow netd sysfs_usb:file write;
+
 # Needed to update /data/misc/wifi/hostapd.conf
 # TODO: See what we can do to reduce the need for
 # these capabilities
