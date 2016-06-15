@@ -3,11 +3,12 @@ type hostapd, domain, domain_deprecated;
 type hostapd_exec, exec_type, file_type;
 
 net_domain(hostapd)
+allowxperm hostapd self:udp_socket ioctl priv_sock_ioctls;
 
 allow hostapd self:capability { net_admin net_raw setuid setgid };
-allow hostapd self:netlink_socket create_socket_perms;
-allow hostapd self:netlink_generic_socket create_socket_perms;
-allow hostapd self:packet_socket create_socket_perms;
+allow hostapd self:netlink_socket create_socket_perms_no_ioctl;
+allow hostapd self:netlink_generic_socket create_socket_perms_no_ioctl;
+allow hostapd self:packet_socket create_socket_perms_no_ioctl;
 allow hostapd self:netlink_route_socket nlmsg_write;
 
 allow hostapd wifi_data_file:file rw_file_perms;

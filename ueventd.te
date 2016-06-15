@@ -24,7 +24,7 @@ allow ueventd dev_type:dir create_dir_perms;
 allow ueventd dev_type:lnk_file { create unlink };
 allow ueventd dev_type:chr_file { getattr create setattr unlink };
 allow ueventd dev_type:blk_file { getattr relabelfrom relabelto create setattr unlink };
-allow ueventd self:netlink_kobject_uevent_socket create_socket_perms;
+allow ueventd self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 allow ueventd efs_file:dir search;
 allow ueventd efs_file:file r_file_perms;
 
