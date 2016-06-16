@@ -19,6 +19,9 @@ binder_call(healthd, system_server)
 # TODO:  Split into a separate type?
 allow healthd sysfs:file write;
 
+# TODO: added to match above sysfs rule. Remove me?
+allow healthd sysfs_usb:file write;
+
 allow healthd sysfs_batteryinfo:file r_file_perms;
 
 ###

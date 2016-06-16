@@ -90,6 +90,9 @@ allow vold self:capability { sys_ptrace kill };
 # XXX Label sysfs files with a specific type?
 allow vold sysfs:file rw_file_perms;
 
+# TODO: added to match above sysfs rule. Remove me?
+allow vold sysfs_usb:file w_file_perms;
+
 allow vold kmsg_device:chr_file rw_file_perms;
 
 # Run fsck in the fsck domain.
