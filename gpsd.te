@@ -13,6 +13,9 @@ allow gpsd gps_socket:sock_file create_file_perms;
 # XXX Label sysfs files with a specific type?
 allow gpsd sysfs:file rw_file_perms;
 
+# TODO: added to match above sysfs rule. Remove me?
+allow gpsd sysfs_usb:file w_file_perms;
+
 allow gpsd gps_device:chr_file rw_file_perms;
 
 # Execute the shell or system commands.
