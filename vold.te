@@ -19,6 +19,10 @@ r_dir_file(vold, proc_net)
 r_dir_file(vold, sysfs_type)
 # XXX Label sysfs files with a specific type?
 allow vold sysfs:file rw_file_perms;
+
+# TODO: added to match above sysfs rule. Remove me?
+allow vold sysfs_usb:file w_file_perms;
+
 # coldboot of /sys/block
 allow vold sysfs_zram_uevent:file rw_file_perms;
 
