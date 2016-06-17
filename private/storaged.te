@@ -1,0 +1,19 @@
+# storaged daemon
+type storaged, domain;
+type storaged_exec, exec_type, file_type;
+
+init_daemon_domain(storaged)
+
+# Write to /dev/kmsg (opened in init)
+allow storaged kmsg_device:chr_file { write append };
+
+# Read access to pseudo filesystems
+allow storaged proc:dir r_dir_perms;
+r_dir_file(storaged, sysfs_type)
+r_dir_file(storaged, proc_net)
+
+# Read access to debugfs
+allow storaged debugfs_mmc:dir search;
+allow storaged debugfs_mmc:file r_file_perms;
+
+
