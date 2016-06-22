@@ -13,8 +13,13 @@ allow dumpstate self:capability { setuid setgid sys_resource };
 # Allow dumpstate to scan through /proc/pid for all processes
 r_dir_file(dumpstate, domain)
 
-# Send signals to processes
-allow dumpstate self:capability kill;
+allow dumpstate self:capability {
+    # Send signals to processes
+    kill
+    # Run iptables
+    net_raw
+    net_admin
+};
 
 # Allow executing files on system, such as:
 #   /system/bin/toolbox
