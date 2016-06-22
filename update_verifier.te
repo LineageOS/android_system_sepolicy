@@ -5,4 +5,7 @@ type update_verifier_exec, exec_type, file_type;
 
 init_daemon_domain(update_verifier)
 
+# Allow update_verifier to reach block devices in /dev/block.
+allow update_verifier block_device:dir search;
+
 # TODO: Add rules to allow update_verifier to read system_block_device.
