@@ -55,6 +55,9 @@ domain_auto_trans(update_engine, postinstall_file, postinstall)
 # to execute those.
 allow update_engine shell_exec:file rx_file_perms;
 
+# Allow update_engine to suspend, resume and kill the postinstall program.
+allow update_engine postinstall:process { signal sigstop };
+
 # Register the service to perform Binder IPC.
 binder_use(update_engine)
 allow update_engine update_engine_service:service_manager { add };
