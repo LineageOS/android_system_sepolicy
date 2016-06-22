@@ -376,6 +376,7 @@ neverallow {
   -zygote
   -installd
   -postinstall_dexopt
+  -cppreopts
   -dex2oat
 } dalvikcache_data_file:file no_w_file_perms;
 
@@ -384,6 +385,7 @@ neverallow {
   -init
   -installd
   -postinstall_dexopt
+  -cppreopts
   -dex2oat
   -zygote
 } dalvikcache_data_file:dir no_w_dir_perms;
