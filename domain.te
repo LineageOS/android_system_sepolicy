@@ -484,7 +484,7 @@ neverallow {
 } shell:process { transition dyntransition };
 
 # Only domains spawned from zygote and runas may have the appdomain attribute.
-neverallow { domain -runas -zygote } {
+neverallow { domain -runas -zygote -init } {
   appdomain -shell userdebug_or_eng(`-su')
 }:process { transition dyntransition };
 
