@@ -23,6 +23,7 @@ genfscon proc /sys/kernel/usermodehelper u:object_r:usermodehelper:s0
 genfscon proc /sys/net u:object_r:proc_net:s0
 genfscon proc /sys/vm/mmap_min_addr u:object_r:proc_security:s0
 genfscon proc /sys/vm/drop_caches u:object_r:proc_drop_caches:s0
+genfscon proc /sys/vm/overcommit_memory u:object_r:proc_overcommit_memory:s0
 genfscon proc /uid_cputime/show_uid_stat u:object_r:proc_uid_cputime_showstat:s0
 genfscon proc /uid_cputime/remove_uid_range u:object_r:proc_uid_cputime_removeuid:s0
 
