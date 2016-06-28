@@ -6,8 +6,8 @@ type rootfs, fs_type;
 type proc, fs_type;
 # Security-sensitive proc nodes that should not be writable to most.
 type proc_security, fs_type;
-# Type for /proc/sys/vm/drop_caches
 type proc_drop_caches, fs_type;
+type proc_overcommit_memory, fs_type;
 # proc, sysfs, or other nodes that permit configuration of kernel usermodehelpers.
 type usermodehelper, fs_type, sysfs_type;
 type qtaguid_proc, fs_type, mlstrustedobject;
