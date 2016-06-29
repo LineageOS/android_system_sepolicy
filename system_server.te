@@ -347,6 +347,9 @@ userdebug_or_eng(`set_prop(system_server, wifi_log_prop)')
 set_prop(system_server, ctl_default_prop)
 set_prop(system_server, ctl_bugreport_prop)
 
+# cppreopt property
+set_prop(system_server, cppreopt_prop)
+
 # Create a socket for receiving info from wpa.
 type_transition system_server wifi_data_file:sock_file system_wpa_socket;
 type_transition system_server wpa_socket:sock_file system_wpa_socket;
