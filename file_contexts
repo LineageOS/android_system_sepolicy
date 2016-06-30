@@ -369,6 +369,7 @@
 /sys/power/wake_unlock -- u:object_r:sysfs_wake_lock:s0
 /sys/kernel/uevent_helper --	u:object_r:usermodehelper:s0
 /sys/module/lowmemorykiller(/.*)? -- u:object_r:sysfs_lowmemorykiller:s0
+/sys/module/wlan/parameters/fwpath u:object_r:sysfs_wlan_fwpath:s0
 
 #############################
 # debugfs files
