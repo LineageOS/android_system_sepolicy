@@ -120,3 +120,4 @@ type wifiscanner_service, system_api_service, system_server_service, service_man
 type wifi_service, app_api_service, system_server_service, service_manager_type;
 type wificond_service, system_server_service, service_manager_type;
 type window_service, system_api_service, system_server_service, service_manager_type;
+type wpa_supplicant_service, system_server_service, service_manager_type;
