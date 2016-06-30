@@ -23,7 +23,10 @@ allow wpa wifi_data_file:dir create_dir_perms;
 allow wpa wifi_data_file:file create_file_perms;
 unix_socket_send(wpa, system_wpa, system_server)
 
+# Binder interface exposed by WPA.
 binder_use(wpa)
+binder_call(wpa, wificond)
+allow wpa wpa_supplicant_service:service_manager { add find };
 
 # Create a socket for receiving info from wpa
 type_transition wpa wifi_data_file:dir wpa_socket "sockets";
