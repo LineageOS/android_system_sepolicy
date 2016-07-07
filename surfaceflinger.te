@@ -68,6 +68,9 @@ allow surfaceflinger tmpfs:dir r_dir_perms;
 allow surfaceflinger system_server:fd use;
 allow surfaceflinger ion_device:chr_file r_file_perms;
 
+# allow self to set SCHED_FIFO
+allow surfaceflinger self:capability sys_nice;
+
 ###
 ### Neverallow rules
 ###
