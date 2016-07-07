@@ -6,6 +6,7 @@ init_daemon_domain(bootanim)
 
 binder_use(bootanim)
 binder_call(bootanim, surfaceflinger)
+binder_call(bootanim, audioserver)
 
 allow bootanim gpu_device:chr_file rw_file_perms;
 
@@ -16,6 +17,7 @@ allow bootanim oemfs:file r_file_perms;
 allow bootanim audio_device:dir r_dir_perms;
 allow bootanim audio_device:chr_file rw_file_perms;
 
+allow bootanim audioserver_service:service_manager find;
 allow bootanim surfaceflinger_service:service_manager find;
 
 # Allow access to ion memory allocation device
