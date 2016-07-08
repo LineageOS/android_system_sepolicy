@@ -187,6 +187,20 @@ allow servicemanager $1:process getattr;
 ')
 
 #####################################
+# hwbinder_use(domain)
+# Allow domain to use HwBinder IPC.
+define(`hwbinder_use', `
+# Call the hwservicemanager and transfer references to it.
+allow $1 hwservicemanager:binder { call transfer };
+# hwservicemanager performs getpidcon on clients.
+allow hwservicemanager $1:dir search;
+allow hwservicemanager $1:file { read open };
+allow hwservicemanager $1:process getattr;
+# rw access to /dev/hwbinder and /dev/ashmem is presently granted to
+# all domains in domain.te.
+')
+
+#####################################
 # binder_call(clientdomain, serverdomain)
 # Allow clientdomain to perform binder IPC to serverdomain.
 define(`binder_call', `
