@@ -378,6 +378,7 @@ neverallow {
   -postinstall_dexopt
   -cppreopts
   -dex2oat
+  -otapreopt_slot
 } dalvikcache_data_file:file no_w_file_perms;
 
 neverallow {
@@ -388,6 +389,7 @@ neverallow {
   -cppreopts
   -dex2oat
   -zygote
+  -otapreopt_slot
 } dalvikcache_data_file:dir no_w_dir_perms;
 
 # Only system_server should be able to send commands via the zygote socket
