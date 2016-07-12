@@ -42,8 +42,8 @@ allow system_server zygote:unix_stream_socket { getopt getattr };
 # system server gets network and bluetooth permissions.
 net_domain(system_server)
 # in addition to ioctls whitelisted for all domains, also allow system_server
-# to use:
-allowxperm system_server self:udp_socket ioctl SIOCSIFFLAGS;
+# to use privileged ioctls commands. Needed to set up VPNs.
+allowxperm system_server self:udp_socket ioctl priv_sock_ioctls;
 bluetooth_domain(system_server)
 
 # These are the capabilities assigned by the zygote to the
