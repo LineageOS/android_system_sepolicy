@@ -10,5 +10,8 @@ allow otapreopt_chroot self:capability { sys_admin sys_chroot };
 # Allow to transition to postinstall_ota, to run otapreopt in its own sandbox.
 domain_auto_trans(otapreopt_chroot, postinstall_file, postinstall_dexopt)
 
-# Allow otapreopt to use file descriptors from installd.
-allow otapreopt_chroot installd:fd use;
+# Allow otapreopt to use file descriptors from update-engine. It will
+# close them immediately.
+allow otapreopt_chroot postinstall:fd use;
+allow otapreopt_chroot update_engine:fd use;
+allow otapreopt_chroot update_engine:fifo_file write;
