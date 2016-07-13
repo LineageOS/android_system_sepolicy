@@ -21,10 +21,11 @@ allow nfc sysfs:file write;
 allow nfc sysfs_usb:file write;
 
 # SoundPool loading and playback
-allow nfc mediaserver_service:service_manager find;
 allow nfc audioserver_service:service_manager find;
-allow nfc mediaextractor_service:service_manager find;
+allow nfc drmserver_service:service_manager find;
 allow nfc mediacodec_service:service_manager find;
+allow nfc mediaextractor_service:service_manager find;
+allow nfc mediaserver_service:service_manager find;
 
 allow nfc nfc_service:service_manager { add find };
 allow nfc radio_service:service_manager find;
