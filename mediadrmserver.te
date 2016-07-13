@@ -49,6 +49,7 @@ allow mediadrmserver tee:unix_stream_socket connectto;
 allow mediadrmserver mediadrmserver_service:service_manager { add find };
 allow mediadrmserver mediaserver_service:service_manager { add find };
 allow mediadrmserver processinfo_service:service_manager find;
+allow mediadrmserver surfaceflinger_service:service_manager find;
 
 # only allow unprivileged socket ioctl commands
 allowxperm mediadrmserver self:{ rawip_socket tcp_socket udp_socket }
