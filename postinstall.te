@@ -33,3 +33,5 @@ binder_call(postinstall, system_server)
 
 # Need to talk to the otadexopt service.
 allow postinstall otadexopt_service:service_manager find;
+
+domain_auto_trans(postinstall, otapreopt_chroot_exec, otapreopt_chroot)
