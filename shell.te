@@ -70,6 +70,7 @@ set_prop(shell, powerctl_prop)
 set_prop(shell, log_tag_prop)
 set_prop(shell, wifi_log_prop)
 userdebug_or_eng(`set_prop(shell, log_prop)')
+userdebug_or_eng(`set_prop(shell, logpersistd_logging_prop)')
 
 # systrace support - allow atrace to run
 allow shell debugfs_tracing:dir r_dir_perms;
