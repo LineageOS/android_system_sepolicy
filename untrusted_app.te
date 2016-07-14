@@ -31,6 +31,7 @@ allow untrusted_app app_data_file:file { rx_file_perms execmod };
 
 # ASEC
 allow untrusted_app asec_apk_file:file r_file_perms;
+allow untrusted_app asec_apk_file:dir r_dir_perms;
 # Execute libs in asec containers.
 allow untrusted_app asec_public_file:file { execute execmod };
 
