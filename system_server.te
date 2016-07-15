@@ -97,6 +97,7 @@ allow system_server { appdomain autoplay_app }:process { getsched setsched };
 allow system_server audioserver:process { getsched setsched };
 allow system_server cameraserver:process { getsched setsched };
 allow system_server mediaserver:process { getsched setsched };
+allow system_server bootanim:process { getsched setsched };
 
 # Read /proc/pid data for all domains. This is used by ProcessCpuTracker
 # within system_server to keep track of memory and CPU usage for
