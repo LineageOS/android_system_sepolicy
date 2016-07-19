@@ -101,6 +101,8 @@ allow adbd storage_file:lnk_file r_file_perms;
 allow adbd mnt_user_file:dir r_dir_perms;
 allow adbd mnt_user_file:lnk_file r_file_perms;
 
+r_dir_file(adbd, apk_data_file)
+
 allow adbd rootfs:dir r_dir_perms;
 
 ###
