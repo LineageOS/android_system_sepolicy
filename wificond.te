@@ -20,3 +20,11 @@ allow wificond self:capability { net_admin net_raw };
 allow wificond self:netlink_socket create_socket_perms;
 
 r_dir_file(wificond, proc_net)
+
+# wificond writes out configuration files for wpa_supplicant/hostapd.
+allow wificond wifi_data_file:dir rw_dir_perms;
+allow wificond wifi_data_file:file create_file_perms;
+# TODO: Remove fowner when wificond runs as the wifi user b/29870863
+#       We need this today, because we need to chmod hostapd/supplicant
+#       files, which are owned by system or wifi (not wificond's root).
+allow wificond self:capability { chown fowner };
