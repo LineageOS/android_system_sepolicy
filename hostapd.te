@@ -25,8 +25,7 @@ allow hostapd self:netlink_route_socket nlmsg_write;
 allow hostapd wifi_data_file:file rw_file_perms;
 r_dir_file(hostapd, wifi_data_file)
 
-# hostapd needs to bind to (and possibly create) its control interface socket.
-allow hostapd hostapd_socket:dir rw_dir_perms;
-# hostapd likes to chmod its socket directory.
-allow hostapd hostapd_socket:dir setattr;
+# hostapd wants to create the directory holding its control socket.
+allow hostapd hostapd_socket:dir create_dir_perms;
+# hostapd needs to create, bind to, read, and write its control socket.
 allow hostapd hostapd_socket:sock_file create_file_perms;
