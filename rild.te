@@ -4,6 +4,8 @@ type rild_exec, exec_type, file_type;
 
 init_daemon_domain(rild)
 net_domain(rild)
+allowxperm rild self:udp_socket ioctl priv_sock_ioctls;
+
 allow rild self:netlink_route_socket nlmsg_write;
 allow rild kernel:system module_request;
 allow rild self:capability { setpcap setgid setuid net_admin net_raw };
