@@ -136,7 +136,6 @@
 /dev/watchdog		u:object_r:watchdog_device:s0
 /dev/xt_qtaguid	u:object_r:qtaguid_device:s0
 /dev/zero		u:object_r:zero_device:s0
-/dev/__kmsg__		u:object_r:klog_device:s0
 /dev/__properties__ u:object_r:properties_device:s0
 #############################
 # System files

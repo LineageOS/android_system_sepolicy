@@ -41,8 +41,7 @@ allow kernel self:capability sys_resource;
 allow kernel self:capability sys_boot;
 allow kernel proc_sysrq:file w_file_perms;
 
-# Allow writing to /dev/__kmsg__ which was created prior to
-# loading policy
+# Allow writing to /dev/kmsg which was created prior to loading policy.
 allow kernel tmpfs:chr_file write;
 
 # Set checkreqprot by init.rc prior to switching to init domain.
