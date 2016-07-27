@@ -51,7 +51,6 @@ type uio_device, dev_type;
 type tun_device, dev_type, mlstrustedobject;
 type usbaccessory_device, dev_type, mlstrustedobject;
 type usb_device, dev_type, mlstrustedobject;
-type klog_device, dev_type;
 type properties_device, dev_type;
 type properties_serial, dev_type;
 type i2c_device, dev_type;
