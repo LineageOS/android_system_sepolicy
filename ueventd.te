@@ -3,10 +3,8 @@
 type ueventd, domain, domain_deprecated;
 tmpfs_domain(ueventd)
 
-# TODO: why is ueventd using __kmsg__ when it should just create
-# and use /dev/kmsg instead?
-type_transition ueventd device:chr_file klog_device "__kmsg__";
-allow ueventd klog_device:chr_file { create open write unlink };
+# Write to /dev/kmsg.
+allow ueventd kmsg_device:chr_file rw_file_perms;
 
 allow ueventd self:capability { chown mknod net_admin setgid fsetid sys_rawio dac_override fowner };
 allow ueventd device:file create_file_perms;
