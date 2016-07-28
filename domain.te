@@ -563,7 +563,7 @@ neverallow * domain:file { execute execute_no_trans entrypoint };
 # Instead, if access to part of debugfs is desired, it should have a
 # more specific label.
 # TODO: fix system_server and dumpstate
-neverallow { domain -init -system_server -dumpstate } debugfs:file no_rw_file_perms;
+neverallow { domain -init -system_server -dumpstate userdebug_or_eng(`-qti_debugfs_domain')} debugfs:file no_rw_file_perms;
 
 neverallow {
   domain
