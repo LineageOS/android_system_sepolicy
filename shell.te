@@ -96,7 +96,10 @@ allow shell { service_manager_type -gatekeeper_service -netd_service }:service_m
 # allow shell to look through /proc/ for ps, top, netstat
 r_dir_file(shell, proc)
 r_dir_file(shell, proc_net)
+allow shell proc_interrupts:file r_file_perms;
 allow shell proc_meminfo:file r_file_perms;
+allow shell proc_stat:file r_file_perms;
+allow shell proc_timer:file r_file_perms;
 r_dir_file(shell, cgroup)
 allow shell domain:dir { search open read getattr };
 allow shell domain:{ file lnk_file } { open read getattr };
