@@ -233,22 +233,6 @@ allow $1 kernel:security check_context;
 ')
 
 #####################################
-# selinux_setenforce(domain)
-# Allow domain to set SELinux to enforcing.
-define(`selinux_setenforce', `
-allow $1 selinuxfs:file rw_file_perms;
-allow $1 kernel:security setenforce;
-')
-
-#####################################
-# selinux_setbool(domain)
-# Allow domain to set SELinux booleans.
-define(`selinux_setbool', `
-allow $1 selinuxfs:file rw_file_perms;
-allow $1 kernel:security setbool;
-')
-
-#####################################
 # create_pty(domain)
 # Allow domain to create and use a pty, isolated from any other domain ptys.
 define(`create_pty', `
