@@ -173,3 +173,4 @@ allow dumpstate atrace_exec:file rx_file_perms;
 # This should be removed if sdcardfs is modified to alter the secontext for its
 # accesses to the underlying FS.
 allow dumpstate media_rw_data_file:dir getattr;
+allow dumpstate proc_interrupts:file r_file_perms;

@@ -112,6 +112,9 @@ allow system_server proc_uid_cputime_removeuid:file { w_file_perms getattr };
 # Write to /proc/sysrq-trigger.
 allow system_server proc_sysrq:file rw_file_perms;
 
+# Read /proc/stat for CPU usage statistics
+allow system_server proc_stat:file r_file_perms;
+
 # Read /sys/kernel/debug/wakeup_sources.
 allow system_server debugfs:file r_file_perms;
 
