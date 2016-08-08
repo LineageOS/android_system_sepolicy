@@ -457,3 +457,9 @@ neverallow {
 # Foreign dex profiles are just markers. Prevent apps to do anything but touch them.
 neverallow appdomain user_profile_foreign_dex_data_file:file rw_file_perms;
 neverallow appdomain user_profile_foreign_dex_data_file:dir { open getattr read ioctl remove_name };
+
+# Applications should use the activity model for receiving events
+neverallow {
+  appdomain
+  -shell # bugreport
+} input_device:chr_file ~getattr;
