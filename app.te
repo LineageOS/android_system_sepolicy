@@ -405,3 +405,9 @@ neverallow appdomain {
   system_file
   tmpfs
 }:lnk_file no_w_file_perms;
+
+# Applications should use the activity model for receiving events
+neverallow {
+  appdomain
+  -shell # bugreport
+} input_device:chr_file ~getattr;
