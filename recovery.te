@@ -7,6 +7,9 @@ type recovery, domain, domain_deprecated;
 # But the allow rules are only included in the recovery policy.
 # Otherwise recovery is only allowed the domain rules.
 recovery_only(`
+  # Allow recovery to perform an update as update_engine would do.
+  typeattribute recovery update_engine_common, boot_control_hal;
+
   allow recovery self:capability { chown dac_override fowner fsetid setfcap setuid setgid sys_admin sys_tty_config };
 
   # Set security contexts on files that are not known to the loaded policy.
