@@ -11,12 +11,15 @@ allow init tmpfs:chr_file create_file_perms;
 #
 # init direct restorecon calls.
 #
-# /dev/socket
-allow init { device socket_device }:dir relabelto;
+# /dev/kmsg
+allow init tmpfs:chr_file relabelfrom;
+allow init kmsg_device:chr_file { write relabelto };
 # /dev/__properties__
 allow init properties_device:dir relabelto;
 allow init properties_serial:file { write relabelto };
 allow init property_type:file { create_file_perms relabelto };
+# /dev/socket
+allow init { device socket_device }:dir relabelto;
 
 # setrlimit
 allow init self:capability sys_resource;
