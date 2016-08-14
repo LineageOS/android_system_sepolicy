@@ -34,6 +34,8 @@ allow lmkd cgroup:dir { remove_name rmdir };
 # Set self to SCHED_FIFO
 allow lmkd self:capability sys_nice;
 
+allow lmkd proc_zoneinfo:file r_file_perms;
+
 ### neverallow rules
 
 # never honor LD_PRELOAD
