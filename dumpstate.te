@@ -144,3 +144,4 @@ allow dumpstate debugfs_trace_marker:file getattr;
 allow dumpstate atrace_exec:file rx_file_perms;
 
 allow dumpstate proc_interrupts:file r_file_perms;
+allow dumpstate proc_zoneinfo:file r_file_perms;
