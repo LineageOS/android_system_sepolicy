@@ -11,8 +11,9 @@ type otapreopt_slot_exec, exec_type, file_type;
 init_daemon_domain(otapreopt_slot)
 
 # The otapreopt_slot renames the OTA dalvik-cache to the regular dalvik-cache, and cleans up
-# the directory afterwards.
+# the directory afterwards. For logging of aggregate size, we need getattr.
 allow otapreopt_slot ota_data_file:dir { rw_dir_perms rename reparent rmdir };
+allow otapreopt_slot ota_data_file:file { getattr };
 
 # Delete old content of the dalvik-cache.
 allow otapreopt_slot dalvikcache_data_file:dir { add_name getattr open read remove_name rmdir search write };
