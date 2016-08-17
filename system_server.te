@@ -538,7 +538,7 @@ allow system_server update_engine:fifo_file write;
 
 # Access to /data/preloads
 allow system_server preloads_data_file:file { r_file_perms unlink };
-allow system_server preloads_data_file:dir { r_dir_perms write remove_name };
+allow system_server preloads_data_file:dir { r_dir_perms write remove_name rmdir };
 
 ###
 ### Neverallow rules
