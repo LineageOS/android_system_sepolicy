@@ -5,6 +5,7 @@ type dumpstate_exec, exec_type, file_type;
 init_daemon_domain(dumpstate)
 net_domain(dumpstate)
 binder_use(dumpstate)
+wakelock_use(dumpstate)
 
 # Allow setting process priority, protect from OOM killer, and dropping
 # privileges by switching UID / GID
