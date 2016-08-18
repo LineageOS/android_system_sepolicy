@@ -36,3 +36,8 @@ allow wificond self:capability { chown fowner };
 allow wificond hostapd:process { signal signull };
 # wificond needs kill to drop mad signals on hostapd.
 allow wificond self:capability kill;
+
+# wificond cleans up sockets created by wpa_supplicant and framework
+allow wificond wpa_socket:dir rw_dir_perms;
+allow wificond system_wpa_socket:sock_file unlink;
+allow wificond wpa_socket:sock_file unlink;
