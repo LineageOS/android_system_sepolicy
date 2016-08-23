@@ -11,7 +11,7 @@
 #include <stdbool.h>
 #include <sepol/sepol.h>
 #include <sepol/policydb/policydb.h>
-#include <pcre.h>
+#include <pcre2.h>
 
 #define TABLE_SIZE 1024
 #define KVP_NUM_OF_RULES (sizeof(rules) / sizeof(key_map))
@@ -91,8 +91,8 @@ struct list {
 };
 
 struct key_map_regex {
-	pcre *compiled;
-	pcre_extra *extra;
+	pcre2_code *compiled;
+	pcre2_match_data *match_data;
 };
 
 /**
@@ -320,14 +320,15 @@ static bool match_regex(key_map *assert, const key_map *check) {
 
 	char *tomatch = check->data;
 
-	int ret = pcre_exec(assert->regex.compiled, assert->regex.extra, tomatch,
-			strlen(tomatch), 0, 0, NULL, 0);
+	int ret = pcre2_match(assert->regex.compiled, (PCRE2_SPTR) tomatch,
+				PCRE2_ZERO_TERMINATED, 0, 0,
+				assert->regex.match_data, NULL);
 
-	/* 0 from pcre_exec means matched */
-	return !ret;
+	/* ret > 0 from pcre2_match means matched */
+	return ret > 0;
 }
 
-static bool compile_regex(key_map *km, const char **errbuf, int *erroff) {
+static bool compile_regex(key_map *km, int *errcode, PCRE2_SIZE *erroff) {
 
 	size_t size;
 	char *anchored;
@@ -341,13 +342,21 @@ static bool compile_regex(key_map *km, const char **errbuf, int *erroff) {
 	anchored = alloca(size);
 	sprintf(anchored, "^%s$", km->data);
 
-	km->regex.compiled = pcre_compile(anchored, PCRE_DOTALL, errbuf, erroff,
-			NULL );
+	km->regex.compiled = pcre2_compile((PCRE2_SPTR) anchored,
+						PCRE2_ZERO_TERMINATED,
+						PCRE2_DOTALL,
+						errcode, erroff,
+						NULL);
 	if (!km->regex.compiled) {
 		return false;
 	}
 
-	km->regex.extra = pcre_study(km->regex.compiled, 0, errbuf);
+	km->regex.match_data = pcre2_match_data_create_from_pattern(
+			km->regex.compiled, NULL);
+	if (!km->regex.match_data) {
+		pcre2_code_free(km->regex.compiled);
+		return false;
+	}
 	return true;
 }
 
@@ -423,12 +432,13 @@ static bool validate_selinux_level(char *value, char **errmsg) {
 static bool key_map_validate(key_map *m, const char *filename, int lineno,
 		bool is_neverallow) {
 
-	int erroff;
-	const char *errbuf;
+	PCRE2_SIZE erroff;
+	int errcode;
 	bool rc = true;
 	char *key = m->name;
 	char *value = m->data;
 	char *errmsg = NULL;
+	char errstr[256];
 
 	log_info("Validating %s=%s\n", key, value);
 
@@ -438,10 +448,13 @@ static bool key_map_validate(key_map *m, const char *filename, int lineno,
 	 */
 	if (is_neverallow) {
 		if (!m->regex.compiled) {
-			rc = compile_regex(m, &errbuf, &erroff);
+			rc = compile_regex(m, &errcode, &erroff);
 			if (!rc) {
-				log_error("Invalid regex on line %d : %s PCRE error: %s at offset %d",
-					lineno, value, errbuf, erroff);
+				pcre2_get_error_message(errcode,
+							(PCRE2_UCHAR*) errstr,
+							sizeof(errstr));
+				log_error("Invalid regex on line %d : %s PCRE error: %s at offset %lu",
+						lineno, value, errstr, erroff);
 			}
 		}
 		goto out;
@@ -572,11 +585,11 @@ static void rule_map_free(rule_map *rm, bool is_in_htable) {
 		free(m->data);
 
 		if (m->regex.compiled) {
-			pcre_free(m->regex.compiled);
+			pcre2_code_free(m->regex.compiled);
 		}
 
-		if (m->regex.extra) {
-			pcre_free_study(m->regex.extra);
+		if (m->regex.match_data) {
+			pcre2_match_data_free(m->regex.match_data);
 		}
 	}
 
