@@ -5,12 +5,11 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := checkseapp
 LOCAL_MODULE_TAGS := optional
 LOCAL_C_INCLUDES := \
-		external/pcre \
 		external/selinux/libsepol/include
 LOCAL_CFLAGS := -DLINK_SEPOL_STATIC -Wall -Werror
 LOCAL_SRC_FILES := check_seapp.c
 LOCAL_STATIC_LIBRARIES := libsepol
-LOCAL_WHOLE_STATIC_LIBRARIES := libpcre
+LOCAL_WHOLE_STATIC_LIBRARIES := libpcre2
 LOCAL_CXX_STL := none
 
 include $(BUILD_HOST_EXECUTABLE)
