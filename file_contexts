@@ -205,9 +205,9 @@
 /system/bin/cppreopts.sh   u:object_r:cppreopts_exec:s0
 /system/bin/preopt2cachename u:object_r:preopt2cachename_exec:s0
 /system/bin/install-recovery.sh u:object_r:install_recovery_exec:s0
-/system/bin/dex2oat     u:object_r:dex2oat_exec:s0
+/system/bin/dex2oat(d)?     u:object_r:dex2oat_exec:s0
 # patchoat executable has (essentially) the same requirements as dex2oat.
-/system/bin/patchoat    u:object_r:dex2oat_exec:s0
+/system/bin/patchoat(d)?    u:object_r:dex2oat_exec:s0
 /system/bin/profman     u:object_r:profman_exec:s0
 /system/bin/sgdisk      u:object_r:sgdisk_exec:s0
 /system/bin/blkid       u:object_r:blkid_exec:s0
