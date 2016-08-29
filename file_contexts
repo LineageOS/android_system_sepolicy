@@ -61,7 +61,7 @@
 /dev/block/ram[0-9]*	u:object_r:ram_device:s0
 /dev/block/zram[0-9]*	u:object_r:ram_device:s0
 /dev/bus/usb(.*)?       u:object_r:usb_device:s0
-/dev/cam		u:object_r:video_device:s0
+/dev/cam		u:object_r:camera_device:s0
 /dev/console		u:object_r:console_device:s0
 /dev/cpuctl(/.*)?	u:object_r:cpuctl_device:s0
 /dev/device-mapper	u:object_r:dm_device:s0
