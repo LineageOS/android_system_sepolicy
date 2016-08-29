@@ -13,6 +13,7 @@ allow wificond wificond_service:service_manager { add find };
 allow wificond sysfs_wlan_fwpath:file w_file_perms;
 
 set_prop(wificond, wifi_prop)
+set_prop(wificond, ctl_default_prop)
 
 # create sockets to set interfaces up and down
 allow wificond self:udp_socket create_socket_perms;
