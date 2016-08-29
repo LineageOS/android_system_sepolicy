@@ -50,10 +50,6 @@ allow netd wifi_data_file:dir rw_dir_perms;
 allow netd net_data_file:file create_file_perms;
 allow netd net_data_file:dir rw_dir_perms;
 
-# Allow netd to spawn hostapd in it's own domain
-domain_auto_trans(netd, hostapd_exec, hostapd)
-allow netd hostapd:process signal;
-
 # Allow netd to spawn dnsmasq in it's own domain
 domain_auto_trans(netd, dnsmasq_exec, dnsmasq)
 allow netd dnsmasq:process signal;
@@ -80,6 +76,8 @@ allow netd dns_listener_service:service_manager find;
 allow netd netdomain:{tcp_socket udp_socket rawip_socket dccp_socket tun_socket} {read write getattr setattr getopt setopt};
 allow netd netdomain:fd use;
 
+# Allow netd to start and stop hostapd via ctl.start/stop
+set_prop(netd, ctl_default_prop)
 
 ###
 ### Neverallow rules
