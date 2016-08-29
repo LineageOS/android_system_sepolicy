@@ -15,6 +15,7 @@ allow cameraserver camera_data_file:file create_file_perms;
 
 allow cameraserver video_device:dir r_dir_perms;
 allow cameraserver video_device:chr_file rw_file_perms;
+allow cameraserver camera_device:chr_file rw_file_perms;
 allow cameraserver ion_device:chr_file rw_file_perms;
 
 allow cameraserver appops_service:service_manager find;
