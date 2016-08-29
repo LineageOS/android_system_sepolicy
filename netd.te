@@ -28,9 +28,13 @@ allow netd devpts:chr_file rw_file_perms;
 # For /proc/sys/net/ipv[46]/route/flush.
 allow netd proc_net:file write;
 
-# For /sys/modules/bcmdhd/parameters/firmware_path
-# XXX Split into its own type.
+# Enables PppController and interface enumeration (among others)
+r_dir_file(netd, sysfs_type)
+# Allows setting interface MTU
 allow netd sysfs:file write;
+
+# For /sys/modules/bcmdhd/parameters/firmware_path
+allow netd sysfs_wlan_fwpath:file w_file_perms;
 
 # TODO: added to match above sysfs rule. Remove me?
 allow netd sysfs_usb:file write;
@@ -45,10 +49,6 @@ allow netd wifi_data_file:dir rw_dir_perms;
 # Needed to update /data/misc/net/rt_tables
 allow netd net_data_file:file create_file_perms;
 allow netd net_data_file:dir rw_dir_perms;
-
-# Allow netd to spawn hostapd in it's own domain
-domain_auto_trans(netd, hostapd_exec, hostapd)
-allow netd hostapd:process signal;
 
 # Allow netd to spawn dnsmasq in it's own domain
 domain_auto_trans(netd, dnsmasq_exec, dnsmasq)
@@ -76,6 +76,8 @@ allow netd dns_listener_service:service_manager find;
 allow netd netdomain:{tcp_socket udp_socket rawip_socket dccp_socket tun_socket} {read write getattr setattr getopt setopt};
 allow netd netdomain:fd use;
 
+# Allow netd to start and stop hostapd via ctl.start/stop
+set_prop(netd, ctl_default_prop)
 
 ###
 ### Neverallow rules

@@ -150,6 +150,7 @@ binder_call(system_server, fingerprintd)
 binder_call(system_server, { appdomain autoplay_app })
 binder_call(system_server, dumpstate)
 binder_call(system_server, netd)
+binder_call(system_server, wificond)
 binder_service(system_server)
 
 # Ask debuggerd to dump backtraces for native stacks of interest.
@@ -341,6 +342,7 @@ set_prop(system_server, debug_prop)
 set_prop(system_server, powerctl_prop)
 set_prop(system_server, fingerprint_prop)
 set_prop(system_server, device_logging_prop)
+set_prop(system_server, wifi_prop)
 userdebug_or_eng(`set_prop(system_server, wifi_log_prop)')
 
 # ctl interface

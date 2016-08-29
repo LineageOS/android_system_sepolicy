@@ -161,6 +161,7 @@
 /system/bin/dumpstate   u:object_r:dumpstate_exec:s0
 /system/bin/vold	u:object_r:vold_exec:s0
 /system/bin/netd	u:object_r:netd_exec:s0
+/system/bin/wificond	u:object_r:wificond_exec:s0
 /system/bin/rild	u:object_r:rild_exec:s0
 /system/bin/audioserver	u:object_r:audioserver_exec:s0
 /system/bin/mediadrmserver	u:object_r:mediadrmserver_exec:s0
@@ -282,7 +283,7 @@
 /data/misc/wifi(/.*)?           u:object_r:wifi_data_file:s0
 /data/misc/wifi/sockets(/.*)?   u:object_r:wpa_socket:s0
 /data/misc/wifi/sockets/wpa_ctrl.*   u:object_r:system_wpa_socket:s0
-/data/misc/wifi/hostapd(/.*)?   u:object_r:wpa_socket:s0
+/data/misc/wifi/hostapd(/.*)?   u:object_r:hostapd_socket:s0
 /data/misc/zoneinfo(/.*)?       u:object_r:zoneinfo_data_file:s0
 /data/misc/vold(/.*)?           u:object_r:vold_data_file:s0
 /data/misc/perfprofd(/.*)?      u:object_r:perfprofd_data_file:s0
@@ -368,6 +369,7 @@
 /sys/power/wake_unlock -- u:object_r:sysfs_wake_lock:s0
 /sys/kernel/uevent_helper --	u:object_r:usermodehelper:s0
 /sys/module/lowmemorykiller(/.*)? -- u:object_r:sysfs_lowmemorykiller:s0
+/sys/module/wlan/parameters/fwpath u:object_r:sysfs_wlan_fwpath:s0
 
 #############################
 # debugfs files

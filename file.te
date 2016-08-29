@@ -39,6 +39,8 @@ type configfs, fs_type;
 type sysfs_devices_system_cpu, fs_type, sysfs_type;
 # /sys/module/lowmemorykiller
 type sysfs_lowmemorykiller, fs_type, sysfs_type;
+# /sys/module/wlan/parameters/fwpath
+type sysfs_wlan_fwpath, fs_type, sysfs_type;
 
 type sysfs_thermal, sysfs_type, fs_type;
 
@@ -228,6 +230,8 @@ type system_ndebug_socket, file_type;
 type uncrypt_socket, file_type;
 type vold_socket, file_type;
 type wpa_socket, file_type;
+# hostapd control interface.
+type hostapd_socket, file_type;
 type zygote_socket, file_type;
 type sap_uim_socket, file_type;
 # UART (for GPS) control proc file

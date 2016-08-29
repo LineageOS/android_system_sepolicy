@@ -1,27 +1,31 @@
 # userspace wifi access points
-type hostapd, domain, domain_deprecated;
+type hostapd, domain;
 type hostapd_exec, exec_type, file_type;
 
+init_daemon_domain(hostapd)
 net_domain(hostapd)
+allow hostapd self:capability { net_admin net_raw };
 
-allow hostapd self:capability { net_admin net_raw setuid setgid };
+# hostapd learns about its network interface via sysfs.
+allow hostapd sysfs:file r_file_perms;
+# hostapd follows the /sys/class/net/wlan0 link to the PCI device.
+allow hostapd sysfs:lnk_file r_file_perms;
+
+# Allow hostapd to access /proc/net/psched
+allow hostapd proc_net:file { getattr open read };
+
+# Various socket permissions.
 allow hostapd self:netlink_socket create_socket_perms;
 allow hostapd self:netlink_generic_socket create_socket_perms;
 allow hostapd self:packet_socket create_socket_perms;
 allow hostapd self:netlink_route_socket nlmsg_write;
 
+# hostapd can read and write WiFi related data and configuration.
+# For example, the entropy file is periodically updated.
 allow hostapd wifi_data_file:file rw_file_perms;
-allow hostapd wifi_data_file:dir create_dir_perms;
-type_transition hostapd wifi_data_file:dir wpa_socket "sockets";
-type_transition hostapd wifi_data_file:dir wpa_socket "hostapd";
-allow hostapd wpa_socket:dir create_dir_perms;
-allow hostapd wpa_socket:sock_file create_file_perms;
-allow hostapd netd:fd use;
-allow hostapd netd:udp_socket { read write };
-allow hostapd netd:fifo_file { read write };
-# TODO: Investigate whether these inherited sockets should be closed on exec.
-allow hostapd netd:netlink_kobject_uevent_socket { read write };
-allow hostapd netd:netlink_nflog_socket { read write };
-allow hostapd netd:netlink_route_socket { read write };
-allow hostapd netd:unix_stream_socket { read write };
-allow hostapd netd:unix_dgram_socket { read write };
+r_dir_file(hostapd, wifi_data_file)
+
+# hostapd wants to create the directory holding its control socket.
+allow hostapd hostapd_socket:dir create_dir_perms;
+# hostapd needs to create, bind to, read, and write its control socket.
+allow hostapd hostapd_socket:sock_file create_file_perms;
