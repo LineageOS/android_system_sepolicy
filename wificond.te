@@ -17,7 +17,10 @@ set_prop(wificond, ctl_default_prop)
 
 # create sockets to set interfaces up and down
 allow wificond self:udp_socket create_socket_perms;
+# setting interface state up/down is a privileged ioctl
+allowxperm wificond self:udp_socket ioctl { SIOCSIFFLAGS };
 allow wificond self:capability { net_admin net_raw };
+# allow wificond to speak to nl80211 in the kernel
 allow wificond self:netlink_socket create_socket_perms;
 
 r_dir_file(wificond, proc_net)
@@ -30,12 +33,6 @@ allow wificond wifi_data_file:file create_file_perms;
 #       We need this today, because we need to chmod hostapd/supplicant
 #       files, which are owned by system or wifi (not wificond's root).
 allow wificond self:capability { chown fowner };
-
-# wificond tries to gracefully kill hostapd by sending it a signal.
-# wificond checks for hostapd liveliness with signull.
-allow wificond hostapd:process { signal signull };
-# wificond needs kill to drop mad signals on hostapd.
-allow wificond self:capability kill;
 
 # wificond cleans up sockets created by wpa_supplicant and framework
 allow wificond wpa_socket:dir rw_dir_perms;
