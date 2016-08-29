@@ -10,7 +10,9 @@ binder_call(wificond, wpa)
 
 allow wificond wificond_service:service_manager { add find };
 
-allow wificond sysfs_wlan_fwpath:file w_file_perms;
+# wificond writes firmware paths to this file.
+# wificond also changes the owership of this file on startup.
+allow wificond sysfs_wlan_fwpath:file { w_file_perms setattr };
 
 set_prop(wificond, wifi_prop)
 set_prop(wificond, ctl_default_prop)
@@ -29,10 +31,10 @@ r_dir_file(wificond, proc_net)
 # wificond also reads pid files out of this directory
 allow wificond wifi_data_file:dir rw_dir_perms;
 allow wificond wifi_data_file:file create_file_perms;
-# TODO: Remove fowner when wificond runs as the wifi user b/29870863
-#       We need this today, because we need to chmod hostapd/supplicant
-#       files, which are owned by system or wifi (not wificond's root).
-allow wificond self:capability { chown fowner };
+
+# wificond drops root shortly after starting
+# wificond changes the ownership of some files before dropping root
+allow wificond self:capability { setuid setgid setpcap chown };
 
 # wificond cleans up sockets created by wpa_supplicant and framework
 allow wificond wpa_socket:dir rw_dir_perms;
