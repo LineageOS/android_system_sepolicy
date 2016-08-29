@@ -9,3 +9,5 @@ binder_call(wificond, system_server)
 binder_call(wificond, wpa)
 
 allow wificond wificond_service:service_manager { add find };
+
+allow wificond sysfs_wlan_fwpath:file w_file_perms;

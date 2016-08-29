@@ -28,9 +28,13 @@ allow netd devpts:chr_file rw_file_perms;
 # For /proc/sys/net/ipv[46]/route/flush.
 allow netd proc_net:file write;
 
-# For /sys/modules/bcmdhd/parameters/firmware_path
-# XXX Split into its own type.
+# Enables PppController and interface enumeration (among others)
+r_dir_file(netd, sysfs_type)
+# Allows setting interface MTU
 allow netd sysfs:file write;
+
+# For /sys/modules/bcmdhd/parameters/firmware_path
+allow netd sysfs_wlan_fwpath:file w_file_perms;
 
 # TODO: added to match above sysfs rule. Remove me?
 allow netd sysfs_usb:file write;
