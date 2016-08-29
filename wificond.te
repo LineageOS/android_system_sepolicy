@@ -16,6 +16,7 @@ set_prop(wificond, wifi_prop)
 
 # create sockets to set interfaces up and down
 allow wificond self:udp_socket create_socket_perms;
-allow wificond self:capability net_raw;
+allow wificond self:capability { net_admin net_raw };
+allow wificond self:netlink_socket create_socket_perms;
 
 r_dir_file(wificond, proc_net)
