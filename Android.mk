@@ -83,6 +83,12 @@ LOCAL_MODULE := sepolicy
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+LOCAL_TARGET_ARCH := $(TARGET_ARCH)
+
+# Set LOCAL_TARGET_ARCH to mips for mips and mips64.
+ifneq (,$(filter mips mips64,$(TARGET_ARCH)))
+  LOCAL_TARGET_ARCH := mips
+endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -95,6 +101,7 @@ $(sepolicy_policy.conf): $(call build_policy, $(sepolicy_build_files))
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
+		-D target_arch=$(LOCAL_TARGET_ARCH) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
