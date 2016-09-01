@@ -35,7 +35,7 @@ devicestoragemonitor                      u:object_r:devicestoragemonitor_servic
 diskstats                                 u:object_r:diskstats_service:s0
 display.qservice                          u:object_r:surfaceflinger_service:s0
 display                                   u:object_r:display_service:s0
-dns_listener                              u:object_r:dns_listener_service:s0
+netd_listener                             u:object_r:netd_listener_service:s0
 DockObserver                              u:object_r:DockObserver_service:s0
 dreams                                    u:object_r:dreams_service:s0
 drm.drmManager                            u:object_r:drmserver_service:s0
