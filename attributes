@@ -113,3 +113,6 @@ attribute boot_control_hal;
 # postinstall. This includes the background daemon and the sideload tool from
 # recovery for A/B devices.
 attribute update_engine_common;
+
+ # Domain type used for debugfs access by QCOM
+ attribute qti_debugfs_domain;
