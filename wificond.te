@@ -44,3 +44,7 @@ allow wificond self:capability { setuid setgid setpcap chown };
 allow wificond wpa_socket:dir rw_dir_perms;
 allow wificond system_wpa_socket:sock_file unlink;
 allow wificond wpa_socket:sock_file unlink;
+
+# dumpstate support
+allow wificond dumpstate:fd use;
+allow wificond dumpstate:fifo_file write;
