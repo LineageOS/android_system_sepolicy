@@ -101,8 +101,7 @@ allow dumpstate { dm_device cache_block_device }:blk_file getattr;
 
 # Allow dumpstate to make binder calls to any binder service
 binder_call(dumpstate, binderservicedomain)
-binder_call(dumpstate, { appdomain autoplay_app netd })
-
+binder_call(dumpstate, { appdomain autoplay_app netd wificond })
 
 # Reading /proc/PID/maps of other processes
 allow dumpstate self:capability sys_ptrace;
