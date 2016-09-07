@@ -33,18 +33,13 @@ r_dir_file(netd, sysfs_type)
 # Allows setting interface MTU
 allow netd sysfs:file write;
 
-# For /sys/modules/bcmdhd/parameters/firmware_path
-allow netd sysfs_wlan_fwpath:file w_file_perms;
-
 # TODO: added to match above sysfs rule. Remove me?
 allow netd sysfs_usb:file write;
 
-# Needed to update /data/misc/wifi/hostapd.conf
-# TODO: See what we can do to reduce the need for
-# these capabilities
-allow netd self:capability { dac_override chown fowner };
-allow netd wifi_data_file:file create_file_perms;
-allow netd wifi_data_file:dir rw_dir_perms;
+# TODO: netd previously thought it needed these permissions to do WiFi related
+#       work.  However, after all the WiFi stuff is gone, we still need them.
+#       Why?
+allow netd self:capability { dac_override chown };
 
 # Needed to update /data/misc/net/rt_tables
 allow netd net_data_file:file create_file_perms;
@@ -75,9 +70,6 @@ allow netd dns_listener_service:service_manager find;
 # Allow netd to operate on sockets that are passed to it.
 allow netd netdomain:{tcp_socket udp_socket rawip_socket dccp_socket tun_socket} {read write getattr setattr getopt setopt};
 allow netd netdomain:fd use;
-
-# Allow netd to start and stop hostapd via ctl.start/stop
-set_prop(netd, ctl_default_prop)
 
 ###
 ### Neverallow rules
