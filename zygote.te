@@ -39,6 +39,12 @@ allow zygote dex2oat_exec:file rx_file_perms;
 # Control cgroups.
 allow zygote cgroup:dir create_dir_perms;
 allow zygote self:capability sys_admin;
+# Allow zygote to stat the files that it opens. The zygote must
+# be able to inspect them so that it can reopen them on fork
+# if necessary: b/30963384
+allow zygote pmsg_device:chr_file { getattr };
+allow zygote debugfs_trace_marker:file { getattr };
+
 # Check validity of SELinux context before use.
 selinux_check_context(zygote)
 # Check SELinux permissions.
