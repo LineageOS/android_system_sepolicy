@@ -2,8 +2,6 @@
 type bluetooth, domain, domain_deprecated;
 app_domain(bluetooth)
 net_domain(bluetooth)
-# Allow access to net_admin ioctls
-allowxperm bluetooth self:udp_socket ioctl priv_sock_ioctls;
 
 wakelock_use(bluetooth);
 
