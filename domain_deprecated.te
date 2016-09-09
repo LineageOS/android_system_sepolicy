@@ -1,10 +1,10 @@
 # rules removed from the domain attribute
 
 # Read access to properties mapping.
-allow domain_deprecated kernel:fd use;
+allow { domain_deprecated -init } kernel:fd use;
 allow domain_deprecated tmpfs:file { read getattr };
 allow domain_deprecated tmpfs:lnk_file { read getattr };
-auditallow { domain_deprecated -init } kernel:fd use;
+auditallow domain_deprecated kernel:fd use;
 auditallow { domain_deprecated -dex2oat } tmpfs:file { read getattr };
 auditallow domain_deprecated tmpfs:lnk_file { read getattr };
 
@@ -29,9 +29,9 @@ auditallow { domain_deprecated -appdomain -system_server } adbd:unix_stream_sock
 allow domain_deprecated rootfs:dir r_dir_perms;
 allow domain_deprecated rootfs:file r_file_perms;
 allow domain_deprecated rootfs:lnk_file r_file_perms;
-auditallow { domain_deprecated -healthd -init -installd -kernel -priv_app -servicemanager -system_server -ueventd -uncrypt -vold -zygote } rootfs:dir { open getattr read ioctl lock }; # search granted in domain
-auditallow { domain_deprecated -healthd -init -installd -kernel -priv_app -servicemanager -system_server -ueventd -uncrypt -vold -zygote } rootfs:file r_file_perms;
-auditallow { domain_deprecated -appdomain -healthd -init -installd -kernel -priv_app -servicemanager -system_server -ueventd -uncrypt -vold -zygote } rootfs:lnk_file { getattr open ioctl lock }; # read granted in domain
+auditallow { domain_deprecated -healthd -init -installd -kernel -priv_app -servicemanager -system_server -ueventd -vold -zygote } rootfs:dir { open getattr read ioctl lock }; # search granted in domain
+auditallow { domain_deprecated -healthd -init -installd -kernel -priv_app -servicemanager -system_server -ueventd -vold -zygote } rootfs:file r_file_perms;
+auditallow { domain_deprecated -appdomain -healthd -init -installd -kernel -priv_app -servicemanager -system_server -ueventd -vold -zygote } rootfs:lnk_file { getattr open ioctl lock }; # read granted in domain
 
 # Device accesses.
 allow domain_deprecated device:file read;
@@ -98,7 +98,7 @@ auditallow domain_deprecated inotify:dir r_dir_perms;
 auditallow domain_deprecated inotify:{ file lnk_file } r_file_perms;
 auditallow { domain_deprecated -appdomain -drmserver -fingerprintd -gatekeeperd -healthd -init -inputflinger -installd -keystore -logd -mediaextractor -mediaserver -netd -rild -surfaceflinger -system_server -zygote } cgroup:dir r_dir_perms;
 auditallow { domain_deprecated -appdomain -drmserver -fingerprintd -gatekeeperd -healthd -init -inputflinger -installd -keystore -logd -mediaextractor -mediaserver -netd -rild -surfaceflinger -system_server -zygote } cgroup:{ file lnk_file } r_file_perms;
-auditallow { domain_deprecated -appdomain -init -logd -mediaextractor -priv_app -surfaceflinger -system_server -vold } proc_meminfo:file r_file_perms;
+auditallow { domain_deprecated -appdomain -init -logd -priv_app -surfaceflinger -system_server -vold } proc_meminfo:file r_file_perms;
 auditallow { domain_deprecated -appdomain -clatd -init -logd -netd -system_server -vold -wpa -zygote } proc_net:dir { open getattr read ioctl lock }; # search granted in domain
 auditallow { domain_deprecated -appdomain -clatd -init -logd -netd -system_server -vold -wpa -zygote } proc_net:{ file lnk_file } r_file_perms;
 
