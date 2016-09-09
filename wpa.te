@@ -6,9 +6,6 @@ init_daemon_domain(wpa)
 
 net_domain(wpa)
 
-r_dir_file(wpa, sysfs_type)
-r_dir_file(wpa, proc_net)
-
 allow wpa kernel:system module_request;
 allow wpa self:capability { setuid net_admin setgid net_raw };
 allow wpa cgroup:dir create_dir_perms;

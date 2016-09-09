@@ -8,8 +8,8 @@ type system_server, domain, domain_deprecated, mlstrustedsubject;
 tmpfs_domain(system_server)
 
 # For art.
+allow system_server dalvikcache_data_file:file execute;
 allow system_server dalvikcache_data_file:dir r_dir_perms;
-allow system_server dalvikcache_data_file:file { r_file_perms execute };
 
 # Enable system server to check the foreign dex usage markers.
 # We need search on top level directories so that we can get to the files
@@ -229,7 +229,7 @@ allow system_server keychain_data_file:lnk_file create_file_perms;
 
 # Manage /data/app.
 allow system_server apk_data_file:dir create_dir_perms;
-allow system_server apk_data_file:{ file lnk_file } { create_file_perms link };
+allow system_server apk_data_file:file { create_file_perms link };
 allow system_server apk_tmp_file:dir create_dir_perms;
 allow system_server apk_tmp_file:file create_file_perms;
 
@@ -372,9 +372,7 @@ allow system_server { cache_file cache_recovery_file }:file { relabelfrom create
 allow system_server { cache_file cache_recovery_file }:fifo_file create_file_perms;
 
 # Run system programs, e.g. dexopt. Needed? (b/28035297)
-allow system_server system_file:file rx_file_perms;
-allow system_server system_file:dir r_dir_perms;
-allow system_server system_file:lnk_file r_file_perms;
+allow system_server system_file:file x_file_perms;
 auditallow system_server system_file:file execute_no_trans;
 
 # LocationManager(e.g, GPS) needs to read and write
@@ -543,16 +541,6 @@ allow system_server update_engine:fifo_file write;
 # Access to /data/preloads
 allow system_server preloads_data_file:file { r_file_perms unlink };
 allow system_server preloads_data_file:dir { r_dir_perms write remove_name rmdir };
-
-r_dir_file(system_server, cgroup)
-allow system_server ion_device:chr_file r_file_perms;
-
-r_dir_file(system_server, proc)
-r_dir_file(system_server, proc_meminfo)
-r_dir_file(system_server, proc_net)
-r_dir_file(system_server, rootfs)
-r_dir_file(system_server, sysfs_type)
-
 
 ###
 ### Neverallow rules

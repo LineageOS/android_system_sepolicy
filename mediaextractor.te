@@ -13,10 +13,6 @@ binder_service(mediaextractor)
 
 allow mediaextractor mediaextractor_service:service_manager add;
 
-allow mediaextractor system_server:fd use;
-
-r_dir_file(mediaextractor, cgroup)
-
 ###
 ### neverallow rules
 ###

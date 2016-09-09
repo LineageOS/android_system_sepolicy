@@ -13,7 +13,5 @@ init_daemon_domain(servicemanager)
 allow servicemanager self:binder set_context_mgr;
 allow servicemanager { domain -init }:binder transfer;
 
-r_dir_file(servicemanager, rootfs)
-
 # Check SELinux permissions.
 selinux_check_access(servicemanager)

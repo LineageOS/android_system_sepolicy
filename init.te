@@ -26,8 +26,6 @@ allow init tmpfs:blk_file getattr;
 allow init block_device:{ dir blk_file } relabelto;
 allow init dm_device:{ chr_file blk_file } relabelto;
 
-allow init kernel:fd use;
-
 # setrlimit
 allow init self:capability sys_resource;
 
@@ -69,7 +67,6 @@ allow init sysfs:dir mounton;
 allow init tmpfs:dir create_dir_perms;
 allow init tmpfs:dir mounton;
 allow init cgroup:dir create_dir_perms;
-r_dir_file(init, cgroup)
 allow init cpuctl_device:dir { create mounton };
 
 # /config
@@ -200,11 +197,9 @@ allow init usermodehelper:file rw_file_perms;
 allow init proc_security:file rw_file_perms;
 
 # Write to /proc/sys/kernel/panic_on_oops.
-r_dir_file(init, proc)
 allow init proc:file w_file_perms;
 
 # Write to /proc/sys/net/ping_group_range and other /proc/sys/net files.
-r_dir_file(init, proc_net)
 allow init proc_net:file w_file_perms;
 allow init self:capability net_admin;
 
@@ -220,7 +215,10 @@ allow init self:capability sys_boot;
 # Write to sysfs nodes.
 allow init sysfs_type:dir r_dir_perms;
 allow init sysfs_type:lnk_file read;
-allow init sysfs_type:file rw_file_perms;
+allow init sysfs_type:file w_file_perms;
+
+# disksize
+allow init sysfs_zram:file getattr;
 
 # Transitions to seclabel processes in init.rc
 domain_trans(init, rootfs, adbd)
@@ -348,15 +346,6 @@ unix_socket_connect(init, vold, vold)
 
 # Raw writes to misc block device
 allow init misc_block_device:blk_file w_file_perms;
-
-allow init apk_data_file:dir { getattr search };
-allow init dalvikcache_data_file:dir { search getattr };
-r_dir_file(init, system_file)
-allow init proc_meminfo:file r_file_perms;
-
-allow init system_data_file:file { getattr read };
-allow init system_data_file:lnk_file r_file_perms;
-
 
 ###
 ### neverallow rules

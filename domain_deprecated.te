@@ -1,85 +1,55 @@
 # rules removed from the domain attribute
 
 # Read access to properties mapping.
-allow { domain_deprecated -init } kernel:fd use;
+allow domain_deprecated kernel:fd use;
 allow domain_deprecated tmpfs:file { read getattr };
 allow domain_deprecated tmpfs:lnk_file { read getattr };
-auditallow domain_deprecated kernel:fd use;
-auditallow { domain_deprecated -dex2oat } tmpfs:file { read getattr };
-auditallow domain_deprecated tmpfs:lnk_file { read getattr };
 
 # Search /storage/emulated tmpfs mount.
 allow domain_deprecated tmpfs:dir r_dir_perms;
-auditallow { domain_deprecated -appdomain -init -sdcardd -surfaceflinger -system_server -vold -zygote } tmpfs:dir r_dir_perms;
 
 # Inherit or receive open files from others.
 allow domain_deprecated system_server:fd use;
-auditallow { domain_deprecated -appdomain -mediaextractor -mediaserver -netd -surfaceflinger } system_server:fd use;
 
 # Connect to adbd and use a socket transferred from it.
 # This is used for e.g. adb backup/restore.
 allow domain_deprecated adbd:unix_stream_socket connectto;
 allow domain_deprecated adbd:fd use;
 allow domain_deprecated adbd:unix_stream_socket { getattr getopt ioctl read write shutdown };
-auditallow { domain_deprecated -appdomain -system_server } adbd:unix_stream_socket connectto;
-auditallow { domain_deprecated -appdomain -system_server } adbd:fd use;
-auditallow { domain_deprecated -appdomain -system_server } adbd:unix_stream_socket { getattr getopt ioctl read write shutdown };
 
 # Root fs.
 allow domain_deprecated rootfs:dir r_dir_perms;
 allow domain_deprecated rootfs:file r_file_perms;
 allow domain_deprecated rootfs:lnk_file r_file_perms;
-auditallow { domain_deprecated -healthd -init -installd -kernel -priv_app -servicemanager -system_server -ueventd -vold -zygote } rootfs:dir { open getattr read ioctl lock }; # search granted in domain
-auditallow { domain_deprecated -healthd -init -installd -kernel -priv_app -servicemanager -system_server -ueventd -vold -zygote } rootfs:file r_file_perms;
-auditallow { domain_deprecated -appdomain -healthd -init -installd -kernel -priv_app -servicemanager -system_server -ueventd -vold -zygote } rootfs:lnk_file { getattr open ioctl lock }; # read granted in domain
 
 # Device accesses.
 allow domain_deprecated device:file read;
-auditallow domain_deprecated device:file read;
 
 # System file accesses.
 allow domain_deprecated system_file:dir r_dir_perms;
 allow domain_deprecated system_file:file r_file_perms;
 allow domain_deprecated system_file:lnk_file r_file_perms;
-auditallow { domain_deprecated -appdomain -drmserver -init -rild -surfaceflinger -system_server -zygote } system_file:dir { open read ioctl lock }; # search getattr in domain
-auditallow { domain_deprecated -appdomain -drmserver -init -rild -surfaceflinger -system_server -zygote } system_file:file { ioctl lock }; # read open getattr in domain
-auditallow { domain_deprecated -appdomain -drmserver -init -rild -surfaceflinger -system_server -zygote } system_file:lnk_file { getattr open ioctl lock }; # read in domain
 
 # Read files already opened under /data.
 allow domain_deprecated system_data_file:file { getattr read };
 allow domain_deprecated system_data_file:lnk_file r_file_perms;
-auditallow { domain_deprecated -appdomain -init -logd -sdcardd -system_server -tee } system_data_file:file { getattr read };
-auditallow { domain_deprecated -appdomain -init -logd -system_server -tee } system_data_file:lnk_file r_file_perms;
 
 # Read apk files under /data/app.
 allow domain_deprecated apk_data_file:dir { getattr search };
 allow domain_deprecated apk_data_file:file r_file_perms;
 allow domain_deprecated apk_data_file:lnk_file r_file_perms;
-auditallow { domain_deprecated -appdomain -dex2oat -init -installd -system_server } apk_data_file:dir { getattr search };
-auditallow { domain_deprecated -appdomain -dex2oat -installd -system_server } apk_data_file:file r_file_perms;
-auditallow { domain_deprecated -appdomain -dex2oat -installd -system_server } apk_data_file:lnk_file r_file_perms;
 
 # Read /data/dalvik-cache.
 allow domain_deprecated dalvikcache_data_file:dir { search getattr };
 allow domain_deprecated dalvikcache_data_file:file r_file_perms;
-auditallow { domain_deprecated -appdomain -debuggerd -dex2oat -init -installd -system_server -zygote } dalvikcache_data_file:dir { search getattr };
-auditallow { domain_deprecated -appdomain -debuggerd -dex2oat -installd -system_server -zygote } dalvikcache_data_file:file r_file_perms;
 
 # Read already opened /cache files.
 allow domain_deprecated cache_file:dir r_dir_perms;
 allow domain_deprecated cache_file:file { getattr read };
 allow domain_deprecated cache_file:lnk_file r_file_perms;
-auditallow { domain_deprecated -init -priv_app -system_server -vold } cache_file:dir { open read search ioctl lock };
-auditallow { domain_deprecated -appdomain -init -priv_app -system_server -vold } cache_file:dir getattr;
-auditallow { domain_deprecated -init -priv_app -system_server -vold } cache_file:file { getattr read };
-auditallow { domain_deprecated -init -system_server -vold } cache_file:lnk_file r_file_perms;
 
 #Allow access to ion memory allocation device
 allow domain_deprecated ion_device:chr_file rw_file_perms;
-# split this auditallow into read and write perms since most domains seem to
-# only require read
-auditallow { domain_deprecated -appdomain -fingerprintd -gatekeeperd -keystore -mediaserver -surfaceflinger -system_server -tee -vold -zygote } ion_device:chr_file r_file_perms;
-auditallow domain_deprecated ion_device:chr_file { write append };
 
 # Read access to pseudo filesystems.
 r_dir_file(domain_deprecated, proc)
@@ -88,28 +58,11 @@ r_dir_file(domain_deprecated, inotify)
 r_dir_file(domain_deprecated, cgroup)
 allow domain_deprecated proc_meminfo:file r_file_perms;
 r_dir_file(domain_deprecated, proc_net)
-#auditallow domain_deprecated proc:dir r_dir_perms; # r_dir_perms granted in domain
-auditallow { domain_deprecated -fsck -fsck_untrusted -init -logd -priv_app -rild -system_server -vold } proc:file r_file_perms;
-auditallow { domain_deprecated -fsck -fsck_untrusted -init -logd -priv_app -rild -system_server -vold } proc:lnk_file { open ioctl lock }; # getattr read granted in domain
-auditallow { domain_deprecated -bluetooth -fingerprintd -healthd -init -netd -priv_app -rild -system_app -surfaceflinger -system_server -tee -ueventd -vold -wpa } sysfs:dir { open getattr read ioctl lock }; # search granted in domain
-auditallow { domain_deprecated -bluetooth -fingerprintd -healthd -init -netd -priv_app -rild -system_app -surfaceflinger -system_server -tee -ueventd -vold -wpa } sysfs:file r_file_perms;
-auditallow { domain_deprecated -bluetooth -fingerprintd -healthd -init -netd -priv_app -rild -system_app -surfaceflinger -system_server -tee -ueventd -vold -wpa } sysfs:lnk_file { getattr open ioctl lock }; # read granted in domain
-auditallow domain_deprecated inotify:dir r_dir_perms;
-auditallow domain_deprecated inotify:{ file lnk_file } r_file_perms;
-auditallow { domain_deprecated -appdomain -drmserver -fingerprintd -gatekeeperd -healthd -init -inputflinger -installd -keystore -logd -mediaextractor -mediaserver -netd -rild -surfaceflinger -system_server -zygote } cgroup:dir r_dir_perms;
-auditallow { domain_deprecated -appdomain -drmserver -fingerprintd -gatekeeperd -healthd -init -inputflinger -installd -keystore -logd -mediaextractor -mediaserver -netd -rild -surfaceflinger -system_server -zygote } cgroup:{ file lnk_file } r_file_perms;
-auditallow { domain_deprecated -appdomain -init -logd -priv_app -surfaceflinger -system_server -vold } proc_meminfo:file r_file_perms;
-auditallow { domain_deprecated -appdomain -clatd -init -logd -netd -system_server -vold -wpa -zygote } proc_net:dir { open getattr read ioctl lock }; # search granted in domain
-auditallow { domain_deprecated -appdomain -clatd -init -logd -netd -system_server -vold -wpa -zygote } proc_net:{ file lnk_file } r_file_perms;
 
 # Get SELinux enforcing status.
 allow domain_deprecated selinuxfs:dir r_dir_perms;
 allow domain_deprecated selinuxfs:file r_file_perms;
-auditallow { domain_deprecated -appdomain -debuggerd -drmserver -init -installd -kernel -keystore -postinstall_dexopt -runas -servicemanager -system_server -ueventd -zygote } selinuxfs:dir { open getattr read ioctl lock }; # search granted in domain
-auditallow { domain_deprecated -appdomain -debuggerd -drmserver -init -installd -kernel -keystore -postinstall_dexopt -runas -servicemanager -system_server -ueventd -zygote } selinuxfs:file { open read ioctl lock }; # getattr granted in domain
 
 # World readable asec image contents
 allow domain_deprecated asec_public_file:file r_file_perms;
 allow domain_deprecated { asec_public_file asec_apk_file }:dir r_dir_perms;
-auditallow domain_deprecated asec_public_file:file r_file_perms;
-auditallow domain_deprecated { asec_public_file asec_apk_file }:dir r_dir_perms;

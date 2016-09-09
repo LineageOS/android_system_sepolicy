@@ -9,7 +9,6 @@ allow rild kernel:system module_request;
 allow rild self:capability { setpcap setgid setuid net_admin net_raw };
 allow rild alarm_device:chr_file rw_file_perms;
 allow rild cgroup:dir create_dir_perms;
-allow rild cgroup:{ file lnk_file } r_file_perms;
 allow rild radio_device:chr_file rw_file_perms;
 allow rild radio_device:blk_file r_file_perms;
 allow rild mtd_device:dir search;
@@ -43,7 +42,3 @@ allow rild self:netlink_kobject_uevent_socket create_socket_perms;
 wakelock_use(rild)
 
 allow rild self:socket create_socket_perms;
-
-r_dir_file(rild, proc)
-r_dir_file(rild, sysfs_type)
-r_dir_file(rild, system_file)

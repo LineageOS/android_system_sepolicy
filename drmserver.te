@@ -54,6 +54,3 @@ allow drmserver drmserver_service:service_manager { add find };
 allow drmserver permission_service:service_manager find;
 
 selinux_check_access(drmserver)
-
-r_dir_file(drmserver, cgroup)
-r_dir_file(drmserver, system_file)
