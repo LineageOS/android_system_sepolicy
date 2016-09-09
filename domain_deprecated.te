@@ -89,8 +89,8 @@ r_dir_file(domain_deprecated, cgroup)
 allow domain_deprecated proc_meminfo:file r_file_perms;
 r_dir_file(domain_deprecated, proc_net)
 #auditallow domain_deprecated proc:dir r_dir_perms; # r_dir_perms granted in domain
-auditallow { domain_deprecated -fsck -fsck_untrusted -init -kernel -logd -priv_app -rild -system_server -vold } proc:file r_file_perms;
-auditallow { domain_deprecated -fsck -fsck_untrusted -init -kernel -logd -priv_app -rild -system_server -vold } proc:lnk_file { open ioctl lock }; # getattr read granted in domain
+auditallow { domain_deprecated -fsck -fsck_untrusted -init -logd -priv_app -rild -system_server -vold } proc:file r_file_perms;
+auditallow { domain_deprecated -fsck -fsck_untrusted -init -logd -priv_app -rild -system_server -vold } proc:lnk_file { open ioctl lock }; # getattr read granted in domain
 auditallow { domain_deprecated -bluetooth -fingerprintd -healthd -init -netd -priv_app -rild -system_app -surfaceflinger -system_server -tee -ueventd -vold -wpa } sysfs:dir { open getattr read ioctl lock }; # search granted in domain
 auditallow { domain_deprecated -bluetooth -fingerprintd -healthd -init -netd -priv_app -rild -system_app -surfaceflinger -system_server -tee -ueventd -vold -wpa } sysfs:file r_file_perms;
 auditallow { domain_deprecated -bluetooth -fingerprintd -healthd -init -netd -priv_app -rild -system_app -surfaceflinger -system_server -tee -ueventd -vold -wpa } sysfs:lnk_file { getattr open ioctl lock }; # read granted in domain
