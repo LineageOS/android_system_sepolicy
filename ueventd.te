@@ -9,8 +9,10 @@ allow ueventd kmsg_device:chr_file rw_file_perms;
 allow ueventd self:capability { chown mknod net_admin setgid fsetid sys_rawio dac_override fowner };
 allow ueventd device:file create_file_perms;
 allow ueventd device:chr_file rw_file_perms;
-allow ueventd sysfs:file rw_file_perms;
-allow ueventd sysfs_usb:file rw_file_perms;
+r_dir_file(ueventd, sysfs_type)
+r_dir_file(ueventd, rootfs)
+allow ueventd sysfs:file w_file_perms;
+allow ueventd sysfs_usb:file w_file_perms;
 allow ueventd sysfs_hwrandom:file w_file_perms;
 allow ueventd sysfs_zram_uevent:file w_file_perms;
 allow ueventd sysfs_type:{ file lnk_file } { relabelfrom relabelto setattr getattr };
@@ -24,6 +26,9 @@ allow ueventd dev_type:blk_file { getattr relabelfrom relabelto create setattr u
 allow ueventd self:netlink_kobject_uevent_socket create_socket_perms;
 allow ueventd efs_file:dir search;
 allow ueventd efs_file:file r_file_perms;
+
+# Get SELinux enforcing status.
+r_dir_file(ueventd, selinuxfs)
 
 # Use setfscreatecon() to label /dev directories and files.
 allow ueventd self:process setfscreate;
