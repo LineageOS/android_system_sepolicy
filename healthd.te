@@ -6,12 +6,11 @@ type healthd, domain, domain_deprecated;
 allow healthd kmsg_device:chr_file rw_file_perms;
 
 # Read access to pseudo filesystems.
-r_dir_file(healthd, sysfs_type)
-r_dir_file(healthd, rootfs)
+r_dir_file(healthd, sysfs)
 
 allow healthd self:capability { net_admin sys_tty_config };
 wakelock_use(healthd)
-allow healthd self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+allow healthd self:netlink_kobject_uevent_socket create_socket_perms;
 binder_use(healthd)
 binder_service(healthd)
 binder_call(healthd, system_server)
@@ -24,9 +23,6 @@ allow healthd sysfs:file write;
 allow healthd sysfs_usb:file write;
 
 allow healthd sysfs_batteryinfo:file r_file_perms;
-
-r_dir_file(healthd, cgroup)
-r_dir_file(healthd, sysfs_type)
 
 ###
 ### healthd: charger mode

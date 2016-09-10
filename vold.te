@@ -16,18 +16,8 @@ allow vold cache_file:lnk_file r_file_perms;
 # Read access to pseudo filesystems.
 r_dir_file(vold, proc)
 r_dir_file(vold, proc_net)
-r_dir_file(vold, sysfs_type)
-# XXX Label sysfs files with a specific type?
-allow vold sysfs:file rw_file_perms;
-
-# TODO: added to match above sysfs rule. Remove me?
-allow vold sysfs_usb:file w_file_perms;
-
-# coldboot of /sys/block
-allow vold sysfs_zram_uevent:file rw_file_perms;
-
+r_dir_file(vold, sysfs)
 r_dir_file(vold, rootfs)
-allow vold proc_meminfo:file r_file_perms;
 
 # For a handful of probing tools, we choose an even more restrictive
 # domain when working with untrusted block devices
@@ -84,7 +74,7 @@ allow vold tmpfs:filesystem { mount unmount };
 allow vold tmpfs:dir create_dir_perms;
 allow vold tmpfs:dir mounton;
 allow vold self:capability { net_admin dac_override mknod sys_admin chown fowner fsetid };
-allow vold self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+allow vold self:netlink_kobject_uevent_socket create_socket_perms;
 allow vold app_data_file:dir search;
 allow vold app_data_file:file rw_file_perms;
 allow vold loop_device:blk_file create_file_perms;
@@ -97,6 +87,9 @@ allow vold domain:{ file lnk_file } r_file_perms;
 allow vold domain:process { signal sigkill };
 allow vold self:capability { sys_ptrace kill };
 
+# XXX Label sysfs files with a specific type?
+allow vold sysfs:file rw_file_perms;
+
 allow vold kmsg_device:chr_file rw_file_perms;
 
 # Run fsck in the fsck domain.
@@ -105,8 +98,6 @@ allow vold fsck_exec:file { r_file_perms execute };
 # Log fsck results
 allow vold fscklogs:dir rw_dir_perms;
 allow vold fscklogs:file create_file_perms;
-
-allow vold ion_device:chr_file r_file_perms;
 
 #
 # Rules to support encrypted fs support.
@@ -185,6 +176,10 @@ allow vold fuse_device:chr_file rw_file_perms;
 allow vold fuse:filesystem { relabelfrom };
 allow vold app_fusefs:filesystem { relabelfrom relabelto };
 allow vold app_fusefs:filesystem { mount unmount };
+
+# coldboot of /sys/block
+allow vold sysfs_zram:dir r_dir_perms;
+allow vold sysfs_zram_uevent:file rw_file_perms;
 
 # MoveTask.cpp executes cp and rm
 allow vold toolbox_exec:file rx_file_perms;

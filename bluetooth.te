@@ -2,8 +2,6 @@
 type bluetooth, domain, domain_deprecated;
 app_domain(bluetooth)
 net_domain(bluetooth)
-# Allow access to net_admin ioctls
-allowxperm bluetooth self:udp_socket ioctl priv_sock_ioctls;
 
 wakelock_use(bluetooth);
 
@@ -21,15 +19,14 @@ r_dir_file(bluetooth, bluetooth_efs_file)
 allow bluetooth { uhid_device hci_attach_dev }:chr_file rw_file_perms;
 
 # sysfs access.
-r_dir_file(bluetooth, sysfs_type)
 allow bluetooth sysfs_bluetooth_writable:file rw_file_perms;
 allow bluetooth self:capability net_admin;
 allow bluetooth self:capability2 wake_alarm;
 
 # tethering
-allow bluetooth self:packet_socket create_socket_perms_no_ioctl;
+allow bluetooth self:packet_socket create_socket_perms;
 allow bluetooth self:capability { net_admin net_raw net_bind_service };
-allow bluetooth self:tun_socket create_socket_perms_no_ioctl;
+allow bluetooth self:tun_socket create_socket_perms;
 allow bluetooth tun_device:chr_file rw_file_perms;
 allow bluetooth efs_file:dir search;
 

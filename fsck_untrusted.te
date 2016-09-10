@@ -12,8 +12,6 @@ allow fsck_untrusted vold:fifo_file { read write getattr };
 allow fsck_untrusted block_device:dir search;
 allow fsck_untrusted vold_device:blk_file rw_file_perms;
 
-r_dir_file(fsck_untrusted, proc)
-
 ###
 ### neverallow rules
 ###

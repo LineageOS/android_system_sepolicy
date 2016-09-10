@@ -4,8 +4,6 @@ type clatd_exec, exec_type, file_type;
 
 net_domain(clatd)
 
-r_dir_file(clatd, proc_net)
-
 # Access objects inherited from netd.
 allow clatd netd:fd use;
 allow clatd netd:fifo_file { read write };
@@ -29,5 +27,5 @@ allow clatd self:capability { net_admin net_raw setuid setgid };
 allow clatd self:capability ipc_lock;
 
 allow clatd self:netlink_route_socket nlmsg_write;
-allow clatd self:{ packet_socket rawip_socket tun_socket } create_socket_perms_no_ioctl;
+allow clatd self:{ packet_socket rawip_socket tun_socket } create_socket_perms;
 allow clatd tun_device:chr_file rw_file_perms;

@@ -8,8 +8,8 @@ type system_server, domain, domain_deprecated, mlstrustedsubject;
 tmpfs_domain(system_server)
 
 # For art.
+allow system_server dalvikcache_data_file:file execute;
 allow system_server dalvikcache_data_file:dir r_dir_perms;
-allow system_server dalvikcache_data_file:file { r_file_perms execute };
 
 # Enable system server to check the foreign dex usage markers.
 # We need search on top level directories so that we can get to the files
@@ -41,9 +41,6 @@ allow system_server zygote:unix_stream_socket { getopt getattr };
 
 # system server gets network and bluetooth permissions.
 net_domain(system_server)
-# in addition to ioctls whitelisted for all domains, also allow system_server
-# to use privileged ioctls commands. Needed to set up VPNs.
-allowxperm system_server self:udp_socket ioctl priv_sock_ioctls;
 bluetooth_domain(system_server)
 
 # These are the capabilities assigned by the zygote to the
@@ -74,17 +71,15 @@ allow system_server kernel:system module_request;
 allow system_server self:capability2 wake_alarm;
 
 # Use netlink uevent sockets.
-allow system_server self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+allow system_server self:netlink_kobject_uevent_socket create_socket_perms;
 
 # Use generic netlink sockets.
-allow system_server self:netlink_socket create_socket_perms_no_ioctl;
-allow system_server self:netlink_generic_socket create_socket_perms_no_ioctl;
+allow system_server self:netlink_socket create_socket_perms;
+allow system_server self:netlink_generic_socket create_socket_perms;
 
 # Use generic "sockets" where the address family is not known
-# to the kernel. The ioctl permission is specifically omitted here, but may
-# be added to device specific policy along with the ioctl commands to be
-# whitelisted.
-allow system_server self:socket create_socket_perms_no_ioctl;
+# to the kernel.
+allow system_server self:socket create_socket_perms;
 
 # Set and get routes directly via netlink.
 allow system_server self:netlink_route_socket nlmsg_write;
@@ -125,14 +120,14 @@ allow system_server proc_stat:file r_file_perms;
 allow system_server debugfs:file r_file_perms;
 
 # The DhcpClient and WifiWatchdog use packet_sockets
-allow system_server self:packet_socket create_socket_perms_no_ioctl;
+allow system_server self:packet_socket create_socket_perms;
 
 # NetworkDiagnostics requires explicit bind() calls to ping sockets. These aren't actually the same
 # as raw sockets, but the kernel doesn't yet distinguish between the two.
 allow system_server node:rawip_socket node_bind;
 
 # 3rd party VPN clients require a tun_socket to be created
-allow system_server self:tun_socket create_socket_perms_no_ioctl;
+allow system_server self:tun_socket create_socket_perms;
 
 # Talk to init and various daemons via sockets.
 unix_socket_connect(system_server, installd, installd)
@@ -234,7 +229,7 @@ allow system_server keychain_data_file:lnk_file create_file_perms;
 
 # Manage /data/app.
 allow system_server apk_data_file:dir create_dir_perms;
-allow system_server apk_data_file:{ file lnk_file } { create_file_perms link };
+allow system_server apk_data_file:file { create_file_perms link };
 allow system_server apk_tmp_file:dir create_dir_perms;
 allow system_server apk_tmp_file:file create_file_perms;
 
@@ -377,9 +372,7 @@ allow system_server { cache_file cache_recovery_file }:file { relabelfrom create
 allow system_server { cache_file cache_recovery_file }:fifo_file create_file_perms;
 
 # Run system programs, e.g. dexopt. Needed? (b/28035297)
-allow system_server system_file:file rx_file_perms;
-allow system_server system_file:dir r_dir_perms;
-allow system_server system_file:lnk_file r_file_perms;
+allow system_server system_file:file x_file_perms;
 auditallow system_server system_file:file execute_no_trans;
 
 # LocationManager(e.g, GPS) needs to read and write
@@ -548,16 +541,6 @@ allow system_server update_engine:fifo_file write;
 # Access to /data/preloads
 allow system_server preloads_data_file:file { r_file_perms unlink };
 allow system_server preloads_data_file:dir { r_dir_perms write remove_name rmdir };
-
-r_dir_file(system_server, cgroup)
-allow system_server ion_device:chr_file r_file_perms;
-
-r_dir_file(system_server, proc)
-r_dir_file(system_server, proc_meminfo)
-r_dir_file(system_server, proc_net)
-r_dir_file(system_server, rootfs)
-r_dir_file(system_server, sysfs_type)
-
 
 ###
 ### Neverallow rules

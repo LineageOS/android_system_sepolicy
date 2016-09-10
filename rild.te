@@ -4,14 +4,11 @@ type rild_exec, exec_type, file_type;
 
 init_daemon_domain(rild)
 net_domain(rild)
-allowxperm rild self:udp_socket ioctl priv_sock_ioctls;
-
 allow rild self:netlink_route_socket nlmsg_write;
 allow rild kernel:system module_request;
 allow rild self:capability { setpcap setgid setuid net_admin net_raw };
 allow rild alarm_device:chr_file rw_file_perms;
 allow rild cgroup:dir create_dir_perms;
-allow rild cgroup:{ file lnk_file } r_file_perms;
 allow rild radio_device:chr_file rw_file_perms;
 allow rild radio_device:blk_file r_file_perms;
 allow rild mtd_device:dir search;
@@ -37,16 +34,11 @@ auditallow rild system_radio_prop:property_service set;
 allow rild tty_device:chr_file rw_file_perms;
 
 # Allow rild to create and use netlink sockets.
-allow rild self:netlink_socket create_socket_perms_no_ioctl;
-allow rild self:netlink_generic_socket create_socket_perms_no_ioctl;
-allow rild self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+allow rild self:netlink_socket create_socket_perms;
+allow rild self:netlink_generic_socket create_socket_perms;
+allow rild self:netlink_kobject_uevent_socket create_socket_perms;
 
 # Access to wake locks
 wakelock_use(rild)
 
-r_dir_file(rild, proc)
-r_dir_file(rild, sysfs_type)
-r_dir_file(rild, system_file)
-
-# granting the ioctl permission for rild should be device specific
-allow rild self:socket create_socket_perms_no_ioctl;
+allow rild self:socket create_socket_perms;

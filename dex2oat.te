@@ -2,11 +2,6 @@
 type dex2oat, domain, domain_deprecated;
 type dex2oat_exec, exec_type, file_type;
 
-r_dir_file(dex2oat, apk_data_file)
-
-allow dex2oat tmpfs:file { read getattr };
-
-r_dir_file(dex2oat, dalvikcache_data_file)
 allow dex2oat dalvikcache_data_file:file write;
 # Read symlinks in /data/dalvik-cache. This is required for PIC mode boot images, where
 # the oat file is symlinked to the original file in /system.

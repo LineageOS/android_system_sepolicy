@@ -8,7 +8,6 @@ net_domain(mediaserver)
 init_daemon_domain(mediaserver)
 
 r_dir_file(mediaserver, sdcard_type)
-r_dir_file(mediaextractor, cgroup)
 
 # stat /proc/self
 allow mediaserver proc:lnk_file getattr;
@@ -123,9 +122,6 @@ allow mediaserver media_rw_data_file:file create_file_perms;
 
 # Access to /data/preloads
 allow mediaserver preloads_data_file:file { getattr read ioctl };
-
-allow mediaserver ion_device:chr_file r_file_perms;
-allow mediaserver system_server:fd use;
 
 ###
 ### neverallow rules
