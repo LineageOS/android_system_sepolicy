@@ -38,6 +38,7 @@ allow zygote idmap_exec:file rx_file_perms;
 allow zygote dex2oat_exec:file rx_file_perms;
 # Control cgroups.
 allow zygote cgroup:dir create_dir_perms;
+allow zygote cgroup:{ file lnk_file } r_file_perms;
 allow zygote self:capability sys_admin;
 # Allow zygote to stat the files that it opens. The zygote must
 # be able to inspect them so that it can reopen them on fork
@@ -73,17 +74,19 @@ allow zygote zygote_exec:file rx_file_perms;
 r_dir_file(zygote, proc_net)
 
 # Root fs.
-allow zygote rootfs:file r_file_perms;
+r_dir_file(zygote, rootfs)
 
 # System file accesses.
-allow zygote system_file:dir r_dir_perms;
-allow zygote system_file:file r_file_perms;
+r_dir_file(zygote, system_file)
 
 userdebug_or_eng(`
   # Allow zygote to create and write method traces in /data/misc/trace.
   allow zygote method_trace_data_file:dir w_dir_perms;
   allow zygote method_trace_data_file:file { create w_file_perms };
 ')
+
+allow zygote ion_device:chr_file r_file_perms;
+allow zygote tmpfs:dir r_dir_perms;
 
 ###
 ### A/B OTA
