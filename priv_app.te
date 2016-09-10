@@ -82,9 +82,10 @@ allow priv_app fuse_device:chr_file { read write };
 allow priv_app app_fuse_file:dir rw_dir_perms;
 allow priv_app app_fuse_file:file rw_file_perms;
 
-# /sys access
-allow priv_app sysfs_zram:dir search;
-allow priv_app sysfs_zram:file r_file_perms;
+# /sys and /proc access
+r_dir_file(priv_app, sysfs_type)
+r_dir_file(priv_app, proc)
+r_dir_file(priv_app, rootfs)
 
 # access the mac address
 allowxperm priv_app self:udp_socket ioctl SIOCGIFHWADDR;
