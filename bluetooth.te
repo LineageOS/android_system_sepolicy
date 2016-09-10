@@ -19,6 +19,7 @@ r_dir_file(bluetooth, bluetooth_efs_file)
 allow bluetooth { uhid_device hci_attach_dev }:chr_file rw_file_perms;
 
 # sysfs access.
+r_dir_file(bluetooth, sysfs_type)
 allow bluetooth sysfs_bluetooth_writable:file rw_file_perms;
 allow bluetooth self:capability net_admin;
 allow bluetooth self:capability2 wake_alarm;
