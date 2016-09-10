@@ -57,6 +57,7 @@ allow appdomain adbd:process sigchld;
 allow appdomain devpts:chr_file { getattr read write ioctl };
 
 # Use pipes and sockets provided by system_server via binder or local socket.
+allow appdomain system_server:fd use;
 allow appdomain system_server:fifo_file rw_file_perms;
 allow appdomain system_server:unix_stream_socket { read write setopt getattr getopt shutdown };
 allow appdomain system_server:tcp_socket { read write getattr getopt shutdown };
@@ -137,6 +138,8 @@ userdebug_or_eng(`
 
 # Write to /proc/net/xt_qtaguid/ctrl file.
 allow appdomain qtaguid_proc:file rw_file_perms;
+# read /proc/net/xt_qtguid/stats
+r_dir_file(appdomain, proc_net)
 # Everybody can read the xt_qtaguid resource tracking misc dev.
 # So allow all apps to read from /dev/xt_qtaguid.
 allow appdomain qtaguid_device:chr_file r_file_perms;
@@ -164,7 +167,8 @@ allow appdomain backup_data_file:file { read write getattr };
 allow appdomain cache_backup_file:file { read write getattr };
 allow appdomain cache_backup_file:dir getattr;
 # Backup ability using 'adb backup'
-allow appdomain system_data_file:lnk_file getattr;
+allow appdomain system_data_file:lnk_file r_file_perms;
+allow appdomain system_data_file:file { getattr read };
 
 # Allow read/stat of /data/media files passed by Binder or local socket IPC.
 allow appdomain media_rw_data_file:file { read getattr };
@@ -231,6 +235,8 @@ allowxperm { appdomain -bluetooth } self:{ rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
 
 allow { appdomain -isolated_app } ion_device:chr_file rw_file_perms;
+# TODO is write really necessary ?
+auditallow { appdomain -isolated_app } ion_device:chr_file { write append };
 
 # TODO: switch to meminfo service
 allow appdomain proc_meminfo:file r_file_perms;

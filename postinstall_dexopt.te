@@ -39,8 +39,6 @@ allow postinstall_dexopt dalvikcache_data_file:file create_file_perms;
 allow postinstall_dexopt dalvikcache_data_file:dir relabelto;
 allow postinstall_dexopt dalvikcache_data_file:file { relabelto link };
 
-allow postinstall_dexopt selinuxfs:dir r_dir_perms;
-
 # Check validity of SELinux context before use.
 selinux_check_context(postinstall_dexopt)
 selinux_check_access(postinstall_dexopt)

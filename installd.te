@@ -13,7 +13,7 @@ allow installd dalvikcache_data_file:file { relabelto link };
 # Allow movement of APK files between volumes
 allow installd apk_data_file:dir { create_dir_perms relabelfrom };
 allow installd apk_data_file:file { create_file_perms relabelfrom link };
-allow installd apk_data_file:lnk_file { create read unlink };
+allow installd apk_data_file:lnk_file { create r_file_perms unlink };
 
 allow installd asec_apk_file:file r_file_perms;
 allow installd apk_tmp_file:file { r_file_perms unlink };
@@ -21,9 +21,12 @@ allow installd apk_tmp_file:dir { relabelfrom create_dir_perms };
 allow installd oemfs:dir r_dir_perms;
 allow installd oemfs:file r_file_perms;
 allow installd cgroup:dir create_dir_perms;
+allow installd cgroup:{ file lnk_file } create_file_perms;
 allow installd mnt_expand_file:dir { search getattr };
 # Check validity of SELinux context before use.
 selinux_check_context(installd)
+
+r_dir_file(installd, rootfs)
 
 # Search /data/app-asec and stat files in it.
 allow installd asec_image_file:dir search;

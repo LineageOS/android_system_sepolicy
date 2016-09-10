@@ -4,6 +4,8 @@ type clatd_exec, exec_type, file_type;
 
 net_domain(clatd)
 
+r_dir_file(clatd, proc_net)
+
 # Access objects inherited from netd.
 allow clatd netd:fd use;
 allow clatd netd:fifo_file { read write };
