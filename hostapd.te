@@ -15,11 +15,9 @@ allow hostapd sysfs:lnk_file r_file_perms;
 allow hostapd proc_net:file { getattr open read };
 
 # Various socket permissions.
-allowxperm hostapd self:udp_socket ioctl priv_sock_ioctls;
 allow hostapd self:netlink_socket create_socket_perms;
 allow hostapd self:netlink_generic_socket create_socket_perms;
 allow hostapd self:packet_socket create_socket_perms;
-
 allow hostapd self:netlink_route_socket nlmsg_write;
 
 # hostapd can read and write WiFi related data and configuration.
