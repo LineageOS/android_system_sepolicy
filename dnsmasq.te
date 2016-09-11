@@ -3,6 +3,7 @@ type dnsmasq, domain, domain_deprecated;
 type dnsmasq_exec, exec_type, file_type;
 
 net_domain(dnsmasq)
+allowxperm dnsmasq self:udp_socket ioctl priv_sock_ioctls;
 
 # TODO:  Run with dhcp group to avoid need for dac_override.
 allow dnsmasq self:capability dac_override;
