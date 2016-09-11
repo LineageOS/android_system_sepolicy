@@ -4,6 +4,8 @@ type netd_exec, exec_type, file_type;
 
 init_daemon_domain(netd)
 net_domain(netd)
+# in addition to ioctls whitelisted for all domains, grant netd priv_sock_ioctls.
+allowxperm netd self:udp_socket ioctl priv_sock_ioctls;
 
 r_dir_file(netd, cgroup)
 allow netd system_server:fd use;
@@ -17,13 +19,13 @@ allow netd self:capability { net_admin net_raw kill };
 # for netd to operate.
 dontaudit netd self:capability fsetid;
 
-allow netd self:netlink_kobject_uevent_socket create_socket_perms;
+allow netd self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 allow netd self:netlink_route_socket nlmsg_write;
-allow netd self:netlink_nflog_socket create_socket_perms;
-allow netd self:netlink_socket create_socket_perms;
-allow netd self:netlink_tcpdiag_socket { create_socket_perms nlmsg_read nlmsg_write };
-allow netd self:netlink_generic_socket create_socket_perms;
-allow netd self:netlink_netfilter_socket create_socket_perms;
+allow netd self:netlink_nflog_socket create_socket_perms_no_ioctl;
+allow netd self:netlink_socket create_socket_perms_no_ioctl;
+allow netd self:netlink_tcpdiag_socket { create_socket_perms_no_ioctl nlmsg_read nlmsg_write };
+allow netd self:netlink_generic_socket create_socket_perms_no_ioctl;
+allow netd self:netlink_netfilter_socket create_socket_perms_no_ioctl;
 allow netd shell_exec:file rx_file_perms;
 allow netd system_file:file x_file_perms;
 allow netd devpts:chr_file rw_file_perms;
