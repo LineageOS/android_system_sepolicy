@@ -19,8 +19,6 @@ set_prop(wificond, ctl_default_prop)
 
 # create sockets to set interfaces up and down
 allow wificond self:udp_socket create_socket_perms;
-# See discussion in b/31226503
-allowxperm wificond self:udp_socket ioctl unpriv_sock_ioctls;
 # setting interface state up/down is a privileged ioctl
 allowxperm wificond self:udp_socket ioctl { SIOCSIFFLAGS };
 allow wificond self:capability { net_admin net_raw };
