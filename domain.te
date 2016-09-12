@@ -305,9 +305,7 @@ neverallow domain { cache_file cache_backup_file cache_private_backup_file cache
 # Protect most domains from executing arbitrary content from /data.
 neverallow {
   domain
-  -untrusted_app
-  -priv_app
-  -shell
+  -appdomain
 } {
   data_file_type
   -dalvikcache_data_file
@@ -518,6 +516,11 @@ neverallow {
   -runas
   -zygote
 } shell:process { transition dyntransition };
+
+# Only domains spawned from zygote and runas may have the appdomain attribute.
+neverallow { domain -runas -zygote } {
+  appdomain -shell userdebug_or_eng(`-su')
+}:process { transition dyntransition };
 
 # Minimize read access to shell- or app-writable symlinks.
 # This is to prevent malicious symlink attacks.
