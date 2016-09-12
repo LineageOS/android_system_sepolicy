@@ -1,5 +1,5 @@
 # Life begins with the kernel.
-type kernel, domain, domain_deprecated, mlstrustedsubject;
+type kernel, domain, mlstrustedsubject;
 
 allow kernel self:capability sys_nice;
 
