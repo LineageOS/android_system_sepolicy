@@ -33,6 +33,7 @@ type security_prop, property_type, core_property_type;
 type bluetooth_prop, property_type, core_property_type;
 type pan_result_prop, property_type, core_property_type;
 type powerctl_prop, property_type, core_property_type;
+type cppreopt_prop, property_type, core_property_type;
 type nfc_prop, property_type, core_property_type;
 type dalvik_prop, property_type, core_property_type;
 type config_prop, property_type, core_property_type;
