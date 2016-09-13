@@ -49,6 +49,7 @@ allow netd self:capability { dac_override chown };
 # Needed to update /data/misc/net/rt_tables
 allow netd net_data_file:file create_file_perms;
 allow netd net_data_file:dir rw_dir_perms;
+allow netd self:capability fowner;
 
 # Allow netd to spawn dnsmasq in it's own domain
 domain_auto_trans(netd, dnsmasq_exec, dnsmasq)
