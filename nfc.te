@@ -4,6 +4,9 @@ app_domain(nfc)
 net_domain(nfc)
 binder_service(nfc)
 
+# hwbinder access
+hwbinder_use(nfc)
+
 # Set NFC properties
 set_prop(nfc, nfc_prop)
 
