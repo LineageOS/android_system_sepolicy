@@ -94,6 +94,7 @@ nfc                                       u:object_r:nfc_service:s0
 notification                              u:object_r:notification_service:s0
 otadexopt                                 u:object_r:otadexopt_service:s0
 package                                   u:object_r:package_service:s0
+sec_key_att_app_id_provider               u:object_r:sec_key_att_app_id_provider_service:s0
 permission                                u:object_r:permission_service:s0
 persistent_data_block                     u:object_r:persistent_data_block_service:s0
 phone_msim                                u:object_r:radio_service:s0
