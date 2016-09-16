@@ -274,6 +274,7 @@
 /data/misc/bootstat(/.*)?       u:object_r:bootstat_data_file:s0
 /data/misc/boottrace(/.*)?      u:object_r:boottrace_data_file:s0
 /data/misc/bluetooth(/.*)?      u:object_r:bluetooth_data_file:s0
+/data/misc/bluetooth/logs(/.*)? u:object_r:bluetooth_logs_data_file:s0
 /data/misc/bluedroid(/.*)?      u:object_r:bluetooth_data_file:s0
 /data/misc/bluedroid/\.a2dp_ctrl u:object_r:bluetooth_socket:s0
 /data/misc/bluedroid/\.a2dp_data u:object_r:bluetooth_socket:s0
