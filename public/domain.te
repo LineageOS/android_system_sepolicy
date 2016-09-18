@@ -812,12 +812,23 @@ neverallow { domain userdebug_or_eng(`-dumpstate -shell -su') } su_exec:file no_
 # The only exceptions are for NDK text relocations associated with
 # https://code.google.com/p/android/issues/detail?id=23203
 # which, long term, need to go away.
-neverallow * {
-  file_type
-  -apk_data_file
-  -app_data_file
-  -asec_public_file
-}:file execmod;
+ifelse(target_needs_platform_text_relocations, `true',
+  `neverallow * {
+    file_type
+    -system_file
+    -system_data_file
+    -apk_data_file
+    -app_data_file
+    -asec_public_file
+  }:file execmod;'
+,
+  `neverallow * {
+    file_type
+    -apk_data_file
+    -app_data_file
+    -asec_public_file
+  }:file execmod;'
+)
 
 # Do not allow making the stack or heap executable.
 # We would also like to minimize execmem but it seems to be
@@ -826,7 +837,9 @@ neverallow * self:process { execstack execheap };
 
 # prohibit non-zygote spawned processes from using shared libraries
 # with text relocations. b/20013628 .
-neverallow { domain -untrusted_app_all } file_type:file execmod;
+ifelse(target_needs_platform_text_relocations, `true', ,
+  `neverallow { domain -untrusted_app_all } file_type:file execmod;'
+)
 
 neverallow { domain -init } proc:{ file dir } mounton;
 
