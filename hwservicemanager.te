@@ -13,6 +13,8 @@ init_daemon_domain(hwservicemanager)
 allow hwservicemanager self:binder set_context_mgr;
 allow hwservicemanager { domain -init }:binder transfer;
 
+set_prop(hwservicemanager, hwservicemanager_prop)
+
 # TODO once hwservicemanager checks whether HALs are
 # allowed to register a certain service, add policy here
 # for allowing to check SELinux permissions.
