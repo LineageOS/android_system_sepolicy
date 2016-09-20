@@ -30,6 +30,7 @@ country_detector                          u:object_r:country_detector_service:s0
 cpuinfo                                   u:object_r:cpuinfo_service:s0
 dbinfo                                    u:object_r:dbinfo_service:s0
 device_policy                             u:object_r:device_policy_service:s0
+device_identifiers                        u:object_r:device_identifiers_service:s0
 deviceidle                                u:object_r:deviceidle_service:s0
 devicestoragemonitor                      u:object_r:devicestoragemonitor_service:s0
 diskstats                                 u:object_r:diskstats_service:s0
