@@ -47,6 +47,7 @@ type cpuinfo_service, system_api_service, system_server_service, service_manager
 type dbinfo_service, system_api_service, system_server_service, service_manager_type;
 type device_policy_service, app_api_service, system_server_service, service_manager_type;
 type deviceidle_service, app_api_service, system_server_service, service_manager_type;
+type device_identifiers_service, app_api_service, system_server_service, service_manager_type;
 type devicestoragemonitor_service, system_server_service, service_manager_type;
 type diskstats_service, system_api_service, system_server_service, service_manager_type;
 type display_service, app_api_service, system_server_service, service_manager_type;
