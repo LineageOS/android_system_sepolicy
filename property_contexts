@@ -32,6 +32,7 @@ bluetooth.              u:object_r:bluetooth_prop:s0
 debug.                  u:object_r:debug_prop:s0
 debug.db.               u:object_r:debuggerd_prop:s0
 dumpstate.              u:object_r:dumpstate_prop:s0
+dumpstate.options       u:object_r:dumpstate_options_prop:s0
 log.                    u:object_r:log_prop:s0
 log.tag                 u:object_r:log_tag_prop:s0
 log.tag.WifiHAL         u:object_r:wifi_log_prop:s0
