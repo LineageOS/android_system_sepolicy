@@ -483,6 +483,7 @@ neverallow {
   -init
   -runas
   -zygote
+  userdebug_or_eng(`-qti-testscripts')
 } shell:process { transition dyntransition };
 
 # Minimize read access to shell- or app-writable symlinks.
