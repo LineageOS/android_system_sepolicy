@@ -17,12 +17,6 @@ allow nfc nfc_device:chr_file rw_file_perms;
 allow nfc nfc_data_file:dir create_dir_perms;
 allow nfc nfc_data_file:notdevfile_class_set create_file_perms;
 
-allow nfc sysfs_nfc_power_writable:file rw_file_perms;
-allow nfc sysfs:file write;
-
-# TODO: added to match above sysfs rule. Remove me?
-allow nfc sysfs_usb:file write;
-
 # SoundPool loading and playback
 allow nfc audioserver_service:service_manager find;
 allow nfc drmserver_service:service_manager find;
@@ -40,3 +34,6 @@ allow nfc system_api_service:service_manager find;
 # the nfc process, from a file in
 # /data/data/com.android.shell/files/bugreports/bugreport-*.
 allow nfc shell_data_file:file read;
+
+# allow NFC process to call into the NFC HAL
+binder_call(nfc, android_hardware_nfc_1_0_service)
