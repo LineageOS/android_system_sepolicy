@@ -216,7 +216,8 @@
 /system/bin/update_engine        u:object_r:update_engine_exec:s0
 /system/bin/bspatch              u:object_r:update_engine_exec:s0
 /system/bin/hw/wifi_hal_legacy   u:object_r:wifi_hal_legacy_exec:s0
-
+/system/fake-lib(64)?/libart.*   u:object_r:libart_file:s0
+/system/lib(64)?/libart.*        u:object_r:libart_file:s0
 
 #############################
 # Vendor files

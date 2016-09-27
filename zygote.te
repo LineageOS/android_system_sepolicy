@@ -31,6 +31,7 @@ allow zygote resourcecache_data_file:dir rw_dir_perms;
 allow zygote resourcecache_data_file:file create_file_perms;
 # For art.
 allow zygote dalvikcache_data_file:file execute;
+allow zygote libart_file:file { execute read open getattr };
 # Execute idmap and dex2oat within zygote's own domain.
 # TODO:  Should either of these be transitioned to the same domain
 # used by installd or stay in-domain for zygote?
