@@ -101,6 +101,17 @@ allow domain system_file:dir { search getattr };
 allow domain system_file:file { execute read open getattr };
 allow domain system_file:lnk_file read;
 
+# Initially grant all domains access to libart.
+# TODO move to a whitelist. b/29795519
+allow domain libart_file:file { execute read open getattr };
+auditallow {
+  domain
+  -appdomain
+  -dex2oat
+  -recovery
+  -zygote
+} libart_file:file { execute read open getattr };
+
 # read any sysfs symlinks
 allow domain sysfs:lnk_file read;
 
@@ -294,7 +305,7 @@ neverallow {
     userdebug_or_eng(`-su')
     -system_server
     -zygote
-} { file_type -system_file -exec_type -postinstall_file }:file execute;
+} { file_type -libart_file -system_file -exec_type -postinstall_file }:file execute;
 neverallow {
     domain
     -appdomain # for oemfs
