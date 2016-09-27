@@ -19,6 +19,7 @@ allow bootanim audio_device:chr_file rw_file_perms;
 
 allow bootanim audioserver_service:service_manager find;
 allow bootanim surfaceflinger_service:service_manager find;
+allow bootanim audioserver_service:service_manager find;
 
 # Allow access to ion memory allocation device
 allow bootanim ion_device:chr_file rw_file_perms;
