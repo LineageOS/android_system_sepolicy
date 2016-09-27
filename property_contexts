@@ -99,3 +99,6 @@ ro.dalvik.              u:object_r:dalvik_prop:s0
 
 # Shared between system server and wificond
 wlan.                   u:object_r:wifi_prop:s0
+
+# hwservicemanager properties
+hwservicemanager.       u:object_r:hwservicemanager_prop:s0
