@@ -140,6 +140,9 @@ allow dumpstate net_data_file:file r_file_perms;
 # List sockets via ss.
 allow dumpstate self:netlink_tcpdiag_socket { create_socket_perms nlmsg_read };
 
+# Permit output of IPSec transform state.
+allow dumpstate self:netlink_xfrm_socket { create_socket_perms nlmsg_read };
+
 # Access /data/tombstones.
 allow dumpstate tombstone_data_file:dir r_dir_perms;
 allow dumpstate tombstone_data_file:file r_file_perms;
