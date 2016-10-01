@@ -1,5 +1,5 @@
 # drmserver - DRM service
-type drmserver, domain, domain_deprecated;
+type drmserver, domain;
 type drmserver_exec, exec_type, file_type;
 
 init_daemon_domain(drmserver)
@@ -12,6 +12,8 @@ binder_use(drmserver)
 binder_call(drmserver, system_server)
 binder_call(drmserver, { appdomain autoplay_app })
 binder_service(drmserver)
+# Inherit or receive open files from system_server.
+allow drmserver system_server:fd use;
 
 # Perform Binder IPC to mediaserver
 binder_call(drmserver, mediaserver)
