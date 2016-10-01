@@ -1,5 +1,5 @@
 # mediaserver - multimedia daemon
-type mediaserver, domain, domain_deprecated;
+type mediaserver, domain;
 type mediaserver_exec, exec_type, file_type;
 
 typeattribute mediaserver mlstrustedsubject;
@@ -8,7 +8,7 @@ net_domain(mediaserver)
 init_daemon_domain(mediaserver)
 
 r_dir_file(mediaserver, sdcard_type)
-r_dir_file(mediaextractor, cgroup)
+r_dir_file(mediaserver, cgroup)
 
 # stat /proc/self
 allow mediaserver proc:lnk_file getattr;
