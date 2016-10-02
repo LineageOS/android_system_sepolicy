@@ -1,4 +1,4 @@
-type gatekeeperd, domain, domain_deprecated;
+type gatekeeperd, domain;
 type gatekeeperd_exec, exec_type, file_type;
 
 # gatekeeperd
