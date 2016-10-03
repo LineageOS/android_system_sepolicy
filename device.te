@@ -4,6 +4,8 @@ type alarm_device, dev_type, mlstrustedobject;
 type adb_device, dev_type;
 type ashmem_device, dev_type, mlstrustedobject;
 type audio_device, dev_type;
+type audio_timer_device, dev_type;
+type audio_seq_device, dev_type;
 type binder_device, dev_type, mlstrustedobject;
 type hwbinder_device, dev_type, mlstrustedobject;
 type block_device, dev_type;
