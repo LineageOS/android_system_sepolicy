@@ -239,7 +239,9 @@ allowxperm { appdomain -bluetooth } self:{ rawip_socket tcp_socket udp_socket }
 
 allow { appdomain -isolated_app } ion_device:chr_file rw_file_perms;
 # TODO is write really necessary ?
-auditallow { appdomain -isolated_app } ion_device:chr_file { write append };
+auditallow appdomain ion_device:chr_file { write append };
+# TODO audit ion ioctl usage by apps
+auditallow appdomain ion_device:chr_file ioctl;
 
 # TODO: switch to meminfo service
 allow appdomain proc_meminfo:file r_file_perms;
