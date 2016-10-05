@@ -22,6 +22,7 @@ commontime_management                     u:object_r:commontime_management_servi
 common_time.clock                         u:object_r:mediaserver_service:s0
 common_time.config                        u:object_r:mediaserver_service:s0
 connectivity                              u:object_r:connectivity_service:s0
+connectivity_metrics_logger               u:object_r:connectivity_metrics_logger_service:s0
 connmetrics                               u:object_r:connmetrics_service:s0
 consumer_ir                               u:object_r:consumer_ir_service:s0
 content                                   u:object_r:content_service:s0
@@ -95,7 +96,6 @@ nfc                                       u:object_r:nfc_service:s0
 notification                              u:object_r:notification_service:s0
 otadexopt                                 u:object_r:otadexopt_service:s0
 package                                   u:object_r:package_service:s0
-sec_key_att_app_id_provider               u:object_r:sec_key_att_app_id_provider_service:s0
 permission                                u:object_r:permission_service:s0
 persistent_data_block                     u:object_r:persistent_data_block_service:s0
 phone_msim                                u:object_r:radio_service:s0
@@ -116,6 +116,7 @@ rttmanager                                u:object_r:rttmanager_service:s0
 samplingprofiler                          u:object_r:samplingprofiler_service:s0
 scheduling_policy                         u:object_r:scheduling_policy_service:s0
 search                                    u:object_r:search_service:s0
+sec_key_att_app_id_provider               u:object_r:sec_key_att_app_id_provider_service:s0
 sensorservice                             u:object_r:sensorservice_service:s0
 serial                                    u:object_r:serial_service:s0
 servicediscovery                          u:object_r:servicediscovery_service:s0
@@ -147,6 +148,7 @@ wifip2p                                   u:object_r:wifip2p_service:s0
 wifiscanner                               u:object_r:wifiscanner_service:s0
 wifi                                      u:object_r:wifi_service:s0
 wificond                                  u:object_r:wificond_service:s0
+wifinan                                   u:object_r:wifinan_service:s0
 window                                    u:object_r:window_service:s0
 wpa                                       u:object_r:wpa_supplicant_service:s0
 *                                         u:object_r:default_android_service:s0
