@@ -346,7 +346,7 @@ int main(int argc, char **argv)
         break;
       case 's':
         mode = filemode_service_contexts;
-        backend = SELABEL_CTX_ANDROID_PROP;
+        backend = SELABEL_CTX_ANDROID_SERVICE;
         break;
       case 'h':
       default:
