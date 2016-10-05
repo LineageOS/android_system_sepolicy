@@ -95,6 +95,8 @@
 /dev/rproc_user	u:object_r:rpmsg_device:s0
 /dev/rtc[0-9]      u:object_r:rtc_device:s0
 /dev/snd(/.*)?		u:object_r:audio_device:s0
+/dev/snd/audio_timer_device	u:object_r:audio_timer_device:s0
+/dev/snd/audio_seq_device	u:object_r:audio_seq_device:s0
 /dev/socket(/.*)?	u:object_r:socket_device:s0
 /dev/socket/adbd	u:object_r:adbd_socket:s0
 /dev/socket/sap_uim_socket[0-9]        u:object_r:sap_uim_socket:s0
