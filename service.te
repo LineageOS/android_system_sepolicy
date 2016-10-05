@@ -38,6 +38,7 @@ type clipboard_service, app_api_service, system_server_service, service_manager_
 type contexthub_service, app_api_service, system_server_service, service_manager_type;
 type IProxyService_service, app_api_service, system_server_service, service_manager_type;
 type commontime_management_service, system_server_service, service_manager_type;
+type connectivity_metrics_logger_service, app_api_service, system_server_service, service_manager_type;
 type connectivity_service, app_api_service, system_server_service, service_manager_type;
 type connmetrics_service, app_api_service, system_server_service, service_manager_type;
 type consumer_ir_service, app_api_service, system_server_service, service_manager_type;
@@ -122,5 +123,6 @@ type wifip2p_service, app_api_service, system_server_service, service_manager_ty
 type wifiscanner_service, system_api_service, system_server_service, service_manager_type;
 type wifi_service, app_api_service, system_server_service, service_manager_type;
 type wificond_service, system_server_service, service_manager_type;
+type wifinan_service, app_api_service, system_server_service, service_manager_type;
 type window_service, system_api_service, system_server_service, service_manager_type;
 type wpa_supplicant_service, system_server_service, service_manager_type;
