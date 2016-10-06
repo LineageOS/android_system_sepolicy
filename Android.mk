@@ -26,13 +26,49 @@ ifdef BOARD_SEPOLICY_M4DEFS
 LOCAL_ADDITIONAL_M4DEFS := $(addprefix -D, $(BOARD_SEPOLICY_M4DEFS))
 endif
 
-# Builds paths for all policy files found in BOARD_SEPOLICY_DIRS and the LOCAL_PATH.
-# $(1): the set of policy name paths to build
-build_policy = $(foreach type, $(1), $(foreach file, $(addsuffix /$(type), $(LOCAL_PATH) $(BOARD_SEPOLICY_DIRS)), $(sort $(wildcard $(file)))))
+# sepolicy is now divided into multiple portions:
+# public - policy exported on which non-platform policy developers may write
+#   additional policy.  types and attributes are versioned and included in
+#   delivered non-platform policy, which is to be combined with platform policy.
+# private - platform-only policy required for platform functionality but which
+#  is not exported to vendor policy developers and as such may not be assumed
+#  to exist.
+# mapping - TODO.  This contains policy statements which map the attributes
+#  exposed in the public policy of previous versions to the concrete types used
+#  in this policy to ensure that policy targeting attributes from public
+#  policy from an older platform version continues to work.
+
+# TODO - build process for device:
+# 1) convert policies to CIL:
+#    - private + public platform policy to CIL
+#    - mapping file to CIL (should already be in CIL form)
+#    - non-platform public policy to CIL
+#    - non-platform public + private policy to CIL
+# 2) attributize policy
+#    - TODO: do this for platform policy?
+#    - run script which takes non-platform public and non-platform combined
+#      private + public policy and produces attributized and versioned
+#      non-platform policy
+# 3) combine policy files
+#    - combine mapping, platform and non-platform policy.
+#    - compile output binary policy file
+
+PLAT_PUBLIC_POLICY := $(LOCAL_PATH)/public
+PLAT_PRIVATE_POLICY := $(LOCAL_PATH)/private
+
+###########################################################
+# Compute policy files to be used in policy build.
+# $(1): files to include
+# $(2): directories in which to find files
+###########################################################
+
+define build_policy
+$(foreach type, $(1), $(foreach file, $(addsuffix /$(type), $(2)), $(sort $(wildcard $(file)))))
+endef
 
 # Builds paths for all policy files found in BOARD_SEPOLICY_DIRS.
 # $(1): the set of policy name paths to build
-build_device_policy = $(foreach type, $(1), $(foreach file, $(addsuffix /$(type), $(BOARD_SEPOLICY_DIRS)), $(sort $(wildcard $(file)))))
+build_device_policy = $(call build_policy, $(1), $(BOARD_SEPOLICY_DIRS))
 
 # Add a file containing only a newline in-between each policy configuration
 # 'contexts' file. This will allow OEM policy configuration files without a
@@ -92,11 +128,28 @@ endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
+platform_policy.conf := $(intermediates)/plat_policy.conf
+$(platform_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(platform_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(platform_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(platform_policy.conf): $(call build_policy, $(sepolicy_build_files), \
+$(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
+	@mkdir -p $(dir $@)
+	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
+		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
+		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
+		-s $^ > $@
+	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+
+# TODO: add steps for non-platform public and combined files with checkpolicy
+# support. b/31932523
+
 sepolicy_policy.conf := $(intermediates)/policy.conf
 $(sepolicy_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(sepolicy_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(sepolicy_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(sepolicy_policy.conf): $(call build_policy, $(sepolicy_build_files))
+$(sepolicy_policy.conf): $(call build_policy, $(sepolicy_build_files), \
+$(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
 	@mkdir -p $(dir $@)
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
@@ -135,7 +188,8 @@ sepolicy_policy_recovery.conf := $(intermediates)/policy_recovery.conf
 $(sepolicy_policy_recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(sepolicy_policy_recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(sepolicy_policy_recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(sepolicy_policy_recovery.conf): $(call build_policy, $(sepolicy_build_files))
+$(sepolicy_policy_recovery.conf): $(call build_policy, $(sepolicy_build_files), \
+$(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
 	@mkdir -p $(dir $@)
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
@@ -168,12 +222,10 @@ LOCAL_MODULE_TAGS := tests
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-exp_sepolicy_build_files :=\
-  $(foreach file, $(addprefix $(LOCAL_PATH)/, $(sepolicy_build_files)), $(sort $(wildcard $(file))))
-
 $(LOCAL_BUILT_MODULE): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(LOCAL_BUILT_MODULE): PRIVATE_MLS_CATS := $(MLS_CATS)
-$(LOCAL_BUILT_MODULE): $(exp_sepolicy_build_files)
+$(LOCAL_BUILT_MODULE): $(call build_policy, $(sepolicy_build_files), \
+$(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 	mkdir -p $(dir $@)
 	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=user \
@@ -223,9 +275,9 @@ include $(BUILD_SYSTEM)/base_rules.mk
 #  Note: That a newline file is placed between each file_context file found to
 #        ensure a proper build when an fc file is missing an ending newline.
 
-local_fc_files := $(LOCAL_PATH)/file_contexts
+local_fc_files := $(PLAT_PRIVATE_POLICY)/file_contexts
 ifneq ($(filter address,$(SANITIZE_TARGET)),)
-  local_fc_files := $(local_fc_files) $(LOCAL_PATH)/file_contexts_asan
+  local_fc_files := $(local_fc_files) $(PLAT_PRIVATE_POLICY)/file_contexts_asan
 endif
 local_fcfiles_with_nl := $(call add_nl, $(local_fc_files), $(built_nl))
 
@@ -281,7 +333,7 @@ LOCAL_MODULE_TAGS := tests
 include $(BUILD_SYSTEM)/base_rules.mk
 
 general_file_contexts.tmp := $(intermediates)/general_file_contexts.tmp
-$(general_file_contexts.tmp): $(addprefix $(LOCAL_PATH)/, file_contexts)
+$(general_file_contexts.tmp): $(addprefix $(PLAT_PRIVATE_POLICY)/, file_contexts)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $< > $@
 
@@ -302,7 +354,7 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-all_sc_files := $(call build_policy, seapp_contexts)
+all_sc_files := $(call build_policy, seapp_contexts, $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): PRIVATE_SC_FILES := $(all_sc_files)
@@ -321,7 +373,7 @@ LOCAL_MODULE_TAGS := tests
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-all_sc_files := $(addprefix $(LOCAL_PATH)/, seapp_contexts)
+all_sc_files := $(addprefix $(PLAT_PRIVATE_POLICY)/, seapp_contexts)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
 $(LOCAL_BUILT_MODULE): PRIVATE_SC_FILE := $(all_sc_files)
@@ -339,7 +391,7 @@ LOCAL_MODULE_TAGS := tests
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-$(LOCAL_BUILT_MODULE): $(addprefix $(LOCAL_PATH)/, seapp_contexts)
+$(LOCAL_BUILT_MODULE): $(addprefix $(PLAT_PRIVATE_POLICY)/, seapp_contexts)
 	@mkdir -p $(dir $@)
 	- $(hide) grep -ie '^neverallow' $< > $@
 
@@ -354,7 +406,7 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-all_pc_files := $(call build_policy, property_contexts)
+all_pc_files := $(call build_policy, property_contexts, $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
 all_pcfiles_with_nl := $(call add_nl, $(all_pc_files), $(built_nl))
 
 property_contexts.tmp := $(intermediates)/property_contexts.tmp
@@ -386,7 +438,7 @@ LOCAL_MODULE_TAGS := tests
 include $(BUILD_SYSTEM)/base_rules.mk
 
 general_property_contexts.tmp := $(intermediates)/general_property_contexts.tmp
-$(general_property_contexts.tmp): $(addprefix $(LOCAL_PATH)/, property_contexts)
+$(general_property_contexts.tmp): $(addprefix $(PLAT_PRIVATE_POLICY)/, property_contexts)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $< > $@
 
@@ -408,7 +460,7 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-all_svc_files := $(call build_policy, service_contexts)
+all_svc_files := $(call build_policy, service_contexts, $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
 all_svcfiles_with_nl := $(call add_nl, $(all_svc_files), $(built_nl))
 
 service_contexts.tmp := $(intermediates)/service_contexts.tmp
@@ -439,7 +491,7 @@ LOCAL_MODULE_TAGS := tests
 include $(BUILD_SYSTEM)/base_rules.mk
 
 general_service_contexts.tmp := $(intermediates)/general_service_contexts.tmp
-$(general_service_contexts.tmp): $(addprefix $(LOCAL_PATH)/, service_contexts)
+$(general_service_contexts.tmp): $(addprefix $(PLAT_PRIVATE_POLICY)/, service_contexts)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $< > $@
 
@@ -464,11 +516,11 @@ include $(BUILD_SYSTEM)/base_rules.mk
 # Build keys.conf
 mac_perms_keys.tmp := $(intermediates)/keys.tmp
 $(mac_perms_keys.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(mac_perms_keys.tmp): $(call build_policy, keys.conf)
+$(mac_perms_keys.tmp): $(call build_policy, keys.conf, $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
 
-all_mac_perms_files := $(call build_policy, $(LOCAL_MODULE))
+all_mac_perms_files := $(call build_policy, $(LOCAL_MODULE), $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
 
 # Should be synced with keys.conf.
 all_keys := platform media shared testkey
