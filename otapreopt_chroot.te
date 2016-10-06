@@ -10,6 +10,8 @@ allow otapreopt_chroot self:capability { sys_admin sys_chroot };
 # This is required to mount /vendor.
 allow otapreopt_chroot block_device:dir search;
 allow otapreopt_chroot labeledfs:filesystem mount;
+# Mounting /vendor can have this side-effect. Ignore denial.
+dontaudit otapreopt_chroot kernel:process setsched;
 
 # Allow to transition to postinstall_ota, to run otapreopt in its own sandbox.
 domain_auto_trans(otapreopt_chroot, postinstall_file, postinstall_dexopt)
