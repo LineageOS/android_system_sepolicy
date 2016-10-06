@@ -9,7 +9,7 @@ net_domain(drmserver)
 # Perform Binder IPC to system server.
 binder_use(drmserver)
 binder_call(drmserver, system_server)
-binder_call(drmserver, { appdomain autoplay_app })
+binder_call(drmserver, { appdomain ephemeral_app })
 binder_service(drmserver)
 # Inherit or receive open files from system_server.
 allow drmserver system_server:fd use;
@@ -21,7 +21,7 @@ allow drmserver sdcard_type:dir search;
 allow drmserver drm_data_file:dir create_dir_perms;
 allow drmserver drm_data_file:file create_file_perms;
 allow drmserver tee_device:chr_file rw_file_perms;
-allow drmserver { app_data_file autoplay_data_file}:file { read write getattr };
+allow drmserver { app_data_file ephemeral_data_file}:file { read write getattr };
 allow drmserver sdcard_type:file { read write getattr };
 r_dir_file(drmserver, efs_file)
 
