@@ -1,0 +1,6 @@
+# type_transition must be private policy the domain_trans rules could stay
+# public, but conceptually should go with this
+# Define a type for tmpfs-backed ashmem regions.
+tmpfs_domain(system_server)
+# Create a socket for connections from debuggerd.
+type_transition system_server system_data_file:sock_file system_ndebug_socket "ndebugsocket";
