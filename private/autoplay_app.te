@@ -1,0 +1,5 @@
+# type_transition must be private policy the domain_trans rules could stay
+# public, but conceptually should go with this
+# Define and allow access to our own type for ashmem regions.
+# Label ashmem objects with our own unique type.
+tmpfs_domain(autoplay_app)

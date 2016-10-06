@@ -1,0 +1,6 @@
+# type_transition must be private policy the domain_trans rules could stay
+# public, but conceptually should go with this
+init_daemon_domain(dumpstate)
+
+# Execute and transition to the vdc domain
+domain_auto_trans(dumpstate, vdc_exec, vdc)
