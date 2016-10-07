@@ -2,4 +2,4 @@
 # public, but conceptually should go with this
 # Define and allow access to our own type for ashmem regions.
 # Label ashmem objects with our own unique type.
-tmpfs_domain(autoplay_app)
+tmpfs_domain(ephemeral_app)
