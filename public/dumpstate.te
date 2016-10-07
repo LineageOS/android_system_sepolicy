@@ -49,7 +49,7 @@ allow dumpstate pstorefs:file r_file_perms;
 allow dumpstate domain:process getattr;
 
 # Signal java processes to dump their stack
-allow dumpstate { appdomain autoplay_app system_server }:process signal;
+allow dumpstate { appdomain ephemeral_app system_server }:process signal;
 
 # Signal native processes to dump their stack.
 # This list comes from native_processes_to_dump in dumpstate/utils.c
@@ -97,7 +97,7 @@ allow dumpstate { dm_device cache_block_device }:blk_file getattr;
 
 # Allow dumpstate to make binder calls to any binder service
 binder_call(dumpstate, binderservicedomain)
-binder_call(dumpstate, { appdomain autoplay_app netd wificond })
+binder_call(dumpstate, { appdomain ephemeral_app netd wificond })
 
 # Reading /proc/PID/maps of other processes
 allow dumpstate self:capability sys_ptrace;

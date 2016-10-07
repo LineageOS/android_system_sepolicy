@@ -202,7 +202,7 @@ static bool validate_selinux_level(char *value, char **errmsg);
 key_map rules[] = {
                 /*Inputs*/
                 { .name = "isSystemServer", .dir = dir_in, .fn_validate = validate_bool },
-                { .name = "isAutoPlayApp",  .dir = dir_in, .fn_validate = validate_bool },
+                { .name = "isEphemeralApp",  .dir = dir_in, .fn_validate = validate_bool },
                 { .name = "isOwner",        .dir = dir_in, .fn_validate = validate_bool },
                 { .name = "user",           .dir = dir_in,                              },
                 { .name = "seinfo",         .dir = dir_in,                              },

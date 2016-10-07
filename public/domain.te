@@ -299,7 +299,7 @@ neverallow { domain -kernel -init -recovery -vold -zygote -update_engine -otapre
 neverallow {
     domain
     -appdomain
-    -autoplay_app
+    -ephemeral_app
     -dumpstate
     -shell
     userdebug_or_eng(`-su')
