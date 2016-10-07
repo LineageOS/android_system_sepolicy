@@ -6,7 +6,7 @@ r_dir_file(audioserver, sdcard_type)
 
 binder_use(audioserver)
 binder_call(audioserver, binderservicedomain)
-binder_call(audioserver, { appdomain autoplay_app })
+binder_call(audioserver, { appdomain ephemeral_app })
 binder_service(audioserver)
 
 r_dir_file(audioserver, proc)
