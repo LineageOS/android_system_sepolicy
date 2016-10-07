@@ -555,6 +555,9 @@ r_dir_file(system_server, proc_net)
 r_dir_file(system_server, rootfs)
 r_dir_file(system_server, sysfs_type)
 
+# Allow system_server to make binder calls to hwservicemanager
+binder_call(system_server, hwservicemanager)
+
 
 ###
 ### Neverallow rules
