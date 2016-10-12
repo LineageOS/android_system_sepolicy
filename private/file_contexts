@@ -149,6 +149,7 @@
 /system/bin/e2fsck	--	u:object_r:fsck_exec:s0
 /system/bin/fsck\.f2fs	--	u:object_r:fsck_exec:s0
 /system/bin/fsck_msdos	--	u:object_r:fsck_exec:s0
+/system/bin/tune2fs	--	u:object_r:fsck_exec:s0
 /system/bin/toolbox	--	u:object_r:toolbox_exec:s0
 /system/bin/toybox	--	u:object_r:toolbox_exec:s0
 /system/bin/logcat	--	u:object_r:logcat_exec:s0
