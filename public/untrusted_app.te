@@ -38,10 +38,6 @@ allow untrusted_app asec_apk_file:dir r_dir_perms;
 # Execute libs in asec containers.
 allow untrusted_app asec_public_file:file { execute execmod };
 
-# Allow the allocation and use of ptys
-# Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
-create_pty(untrusted_app)
-
 # Used by Finsky / Android "Verify Apps" functionality when
 # running "adb install foo.apk".
 # TODO: Long term, we don't want apps probing into shell data files.

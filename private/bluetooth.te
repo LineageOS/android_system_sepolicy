@@ -2,3 +2,8 @@
 # public, but conceptually should go with this
 # Socket creation under /data/misc/bluedroid.
 type_transition bluetooth bluetooth_data_file:sock_file bluetooth_socket;
+
+# app_domain macro fallout
+tmpfs_domain(bluetooth)
+# Map with PROT_EXEC.
+allow bluetooth bluetooth_tmpfs:file execute;

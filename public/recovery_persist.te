@@ -25,5 +25,3 @@ neverallow recovery_persist system_file:dir_file_class_set write;
 # Write to files in /data/data
 neverallow recovery_persist { app_data_file system_data_file }:dir_file_class_set write;
 
-# recovery_persist is not allowed to write anywhere other than recovery_data_file
-neverallow recovery_persist { file_type -recovery_data_file -recovery_persist_tmpfs userdebug_or_eng(`-coredump_file') }:file write;

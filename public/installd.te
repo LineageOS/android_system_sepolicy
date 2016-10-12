@@ -53,7 +53,6 @@ allow installd keychain_data_file:dir create_dir_perms;
 allow installd keychain_data_file:file {r_file_perms unlink};
 
 # Create /data/.layout_version.* file
-type_transition installd system_data_file:file install_data_file;
 allow installd install_data_file:file create_file_perms;
 
 # Create files under /data/dalvik-cache.

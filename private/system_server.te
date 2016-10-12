@@ -4,3 +4,12 @@
 tmpfs_domain(system_server)
 # Create a socket for connections from debuggerd.
 type_transition system_server system_data_file:sock_file system_ndebug_socket "ndebugsocket";
+
+allow system_server zygote_tmpfs:file read;
+
+# Create a socket for receiving info from wpa.
+type_transition system_server wifi_data_file:sock_file system_wpa_socket;
+type_transition system_server wpa_socket:sock_file system_wpa_socket;
+
+# TODO: deal with tmpfs_domain pub/priv split properly
+neverallow system_server system_server_tmpfs:file execute;

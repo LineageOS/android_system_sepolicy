@@ -1,0 +1,7 @@
+# app_domain fallout
+tmpfs_domain(isolated_app)
+# Map with PROT_EXEC.
+allow isolated_app isolated_app_tmpfs:file execute;
+
+# Read system properties managed by webview_zygote.
+allow isolated_app webview_zygote_tmpfs:file read;

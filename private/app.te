@@ -1,0 +1,3 @@
+# TODO: deal with tmpfs_domain pub/priv split properly
+# Read system properties managed by zygote.
+allow appdomain zygote_tmpfs:file read;
