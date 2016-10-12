@@ -1,0 +1,10 @@
+# graphics buffer allocator subsystem
+type hal_graphics_allocator, domain;
+type hal_graphics_allocator_exec, exec_type, file_type;
+
+# hwbinder access
+hwbinder_use(hal_graphics_allocator)
+
+# GPU device access
+allow hal_graphics_allocator gpu_device:chr_file rw_file_perms;
+allow hal_graphics_allocator ion_device:chr_file r_file_perms;

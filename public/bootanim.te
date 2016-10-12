@@ -20,6 +20,7 @@ allow bootanim surfaceflinger_service:service_manager find;
 
 # Allow access to ion memory allocation device
 allow bootanim ion_device:chr_file rw_file_perms;
+allow bootanim hal_graphics_allocator:fd use;
 
 # Read access to pseudo filesystems.
 r_dir_file(bootanim, proc)

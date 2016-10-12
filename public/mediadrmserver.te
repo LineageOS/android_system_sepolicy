@@ -30,6 +30,7 @@ allow mediadrmserver cgroup:file w_file_perms;
 
 # Allow access to ion memory allocation device
 allow mediadrmserver ion_device:chr_file rw_file_perms;
+allow mediadrmserver hal_graphics_allocator:fd use;
 
 # Allow access to app_data and media_data_files
 allow mediadrmserver media_data_file:dir create_dir_perms;
