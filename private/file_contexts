@@ -222,6 +222,7 @@
 /system/fake-lib(64)?/libart.*   u:object_r:libart_file:s0
 /system/lib(64)?/libart.*        u:object_r:libart_file:s0
 /system/bin/hw/android.hardware.nfc@1.0-service   u:object_r:android_hardware_nfc_1_0_service_exec:s0
+/system/bin/hw/android.hardware.vibrator@1.0-service   u:object_r:android_hardware_vibrator_1_0_service_exec:s0
 
 #############################
 # Vendor files
@@ -384,6 +385,7 @@
 /sys/kernel/uevent_helper --	u:object_r:usermodehelper:s0
 /sys/module/lowmemorykiller(/.*)? -- u:object_r:sysfs_lowmemorykiller:s0
 /sys/module/wlan/parameters/fwpath u:object_r:sysfs_wlan_fwpath:s0
+/sys/devices/virtual/timed_output/vibrator/enable u:object_r:sysfs_vibrator:s0
 
 #############################
 # debugfs files
