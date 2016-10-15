@@ -5,6 +5,7 @@ type racoon_exec, exec_type, file_type;
 typeattribute racoon mlstrustedsubject;
 
 net_domain(racoon)
+allowxperm racoon self:udp_socket ioctl { SIOCSIFFLAGS SIOCSIFADDR };
 
 binder_use(racoon)
 
