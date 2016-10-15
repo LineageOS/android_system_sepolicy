@@ -66,8 +66,6 @@ recovery_only(`
   allow recovery dev_type:blk_file rw_file_perms;
 
   # GUI
-  allow recovery self:process execmem;
-  allow recovery ashmem_device:chr_file execute;
   allow recovery graphics_device:chr_file rw_file_perms;
   allow recovery graphics_device:dir r_dir_perms;
   allow recovery input_device:dir r_dir_perms;
