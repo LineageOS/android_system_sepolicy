@@ -987,6 +987,7 @@ static void rule_add(rule_map *rm) {
 	list *list_to_addto;
 
 	e.key = rm->key;
+	e.data = NULL;
 
 	log_info("Searching for key: %s\n", e.key);
 	/* Check to see if it has already been added*/
