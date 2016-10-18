@@ -197,6 +197,9 @@ allow system_server sysfs_mac_address:file r_file_perms;
 allow system_server sysfs_thermal:dir search;
 allow system_server sysfs_thermal:file r_file_perms;
 
+# TODO: Remove when HALs are forced into separate processes
+allow system_server sysfs_vibrator:file write;
+
 # TODO: added to match above sysfs rule. Remove me?
 allow system_server sysfs_usb:file w_file_perms;
 
