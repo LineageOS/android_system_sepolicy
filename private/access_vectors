@@ -577,12 +577,6 @@ class keystore_key
 	user_changed
 }
 
-class debuggerd
-{
-	dump_tombstone
-	dump_backtrace
-}
-
 class drmservice {
 	consumeRights
 	setPlaybackStatus

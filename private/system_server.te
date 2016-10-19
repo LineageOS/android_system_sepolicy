@@ -2,7 +2,7 @@
 # public, but conceptually should go with this
 # Define a type for tmpfs-backed ashmem regions.
 tmpfs_domain(system_server)
-# Create a socket for connections from debuggerd.
+# Create a socket for connections from crash_dump.
 type_transition system_server system_data_file:sock_file system_ndebug_socket "ndebugsocket";
 
 allow system_server zygote_tmpfs:file read;

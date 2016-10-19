@@ -103,8 +103,5 @@ class service_manager           # userspace
 # Keystore Key
 class keystore_key              # userspace
 
-# debuggerd service
-class debuggerd                 # userspace
-
 class drmservice                # userspace
 # FLASK

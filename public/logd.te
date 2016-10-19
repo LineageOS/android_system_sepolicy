@@ -36,7 +36,7 @@ neverallow logd dev_type:blk_file { read write };
 neverallow logd domain:process ptrace;
 
 # ... and nobody may ptrace me (except on userdebug or eng builds)
-neverallow { domain userdebug_or_eng(`-debuggerd') } logd:process ptrace;
+neverallow { domain userdebug_or_eng(`-crash_dump') } logd:process ptrace;
 
 # Write to /system.
 neverallow logd system_file:dir_file_class_set write;

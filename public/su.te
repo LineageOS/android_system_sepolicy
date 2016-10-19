@@ -36,7 +36,6 @@ userdebug_or_eng(`
   dontaudit su service_manager_type:service_manager *;
   dontaudit su servicemanager:service_manager list;
   dontaudit su keystore:keystore_key *;
-  dontaudit su domain:debuggerd *;
   dontaudit su domain:drmservice *;
   dontaudit su unlabeled:filesystem *;
   dontaudit su postinstall_file:filesystem *;

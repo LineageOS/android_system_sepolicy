@@ -53,12 +53,6 @@ userdebug_or_eng(`
   allow domain coredump_file:dir ra_dir_perms;
 ')
 
-###
-### Talk to debuggerd.
-###
-allow domain debuggerd:process sigchld;
-allow domain debuggerd:unix_stream_socket connectto;
-
 # Root fs.
 allow domain rootfs:dir search;
 allow domain rootfs:lnk_file read;
@@ -106,7 +100,7 @@ allow domain libart_file:file { execute read open getattr };
 auditallow {
   domain
   -appdomain
-  -debuggerd
+  -crash_dump
   -dex2oat
   -dumpstate
   -profman
@@ -462,6 +456,16 @@ neverallow { domain -system_server } zygote_socket:sock_file write;
 neverallow { domain -system_server -webview_zygote } webview_zygote:unix_stream_socket connectto;
 neverallow { domain -system_server } webview_zygote_socket:sock_file write;
 
+neverallow {
+  domain
+  -tombstoned
+  -crash_dump
+  -dumpstate
+  -system_server
+} tombstoned:unix_stream_socket connectto;
+neverallow { domain -crash_dump } tombstoned_crash_socket:sock_file write;
+neverallow { domain -dumpstate -system_server } tombstoned_intercept_socket:sock_file write;
+
 # Android does not support System V IPCs.
 #
 # The reason for this is due to the fact that, by design, they lead to global
@@ -691,3 +695,6 @@ neverallow {
   domain
   -recovery
 } self:capability setfcap;
+
+# Enforce AT_SECURE for executing crash_dump.
+neverallow domain crash_dump:process noatsecure;
