@@ -147,6 +147,7 @@ allow system_server surfaceflinger:unix_stream_socket { read write setopt };
 
 # Perform Binder IPC.
 binder_use(system_server)
+binder_call(system_server, android_hardware_vibrator_service)
 binder_call(system_server, binderservicedomain)
 binder_call(system_server, gatekeeperd)
 binder_call(system_server, fingerprintd)
@@ -155,7 +156,6 @@ binder_call(system_server, dumpstate)
 binder_call(system_server, netd)
 binder_call(system_server, wificond)
 binder_service(system_server)
-binder_call(system_server, android_hardware_vibrator_1_0_service)
 
 # Ask debuggerd to dump backtraces for native stacks of interest.
 #
