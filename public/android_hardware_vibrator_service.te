@@ -1,0 +1,9 @@
+# vibrator subsystem
+type android_hardware_vibrator_service, domain;
+type android_hardware_vibrator_service_exec, exec_type, file_type;
+
+# hwbinder access
+hwbinder_use(android_hardware_vibrator_service)
+
+# vibrator sysfs rw access
+allow android_hardware_vibrator_service sysfs_vibrator:file rw_file_perms;
