@@ -1,5 +1,5 @@
 # IKE key management daemon
-type racoon, domain, domain_deprecated;
+type racoon, domain;
 type racoon_exec, exec_type, file_type;
 
 typeattribute racoon mlstrustedsubject;
