@@ -897,8 +897,7 @@ static void init() {
 		}
 
 		if (sepol_policydb_read(pol.db, pol.pf) < 0) {
-			log_error("Could not lod policy file to db: %s!\n",
-					strerror(errno));
+			log_error("Could not load policy file to db: invalid input file!\n");
 			exit(EXIT_FAILURE);
 		}
 	}
