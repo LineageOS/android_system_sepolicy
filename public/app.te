@@ -37,8 +37,8 @@ allow appdomain dalvikcache_data_file:dir { search getattr };
 allow appdomain dalvikcache_data_file:file r_file_perms;
 
 # Read the /sdcard and /mnt/sdcard symlinks
-allow appdomain rootfs:lnk_file r_file_perms;
-allow appdomain tmpfs:lnk_file r_file_perms;
+allow { appdomain -isolated_app } rootfs:lnk_file r_file_perms;
+allow { appdomain -isolated_app } tmpfs:lnk_file r_file_perms;
 
 # Search /storage/emulated tmpfs mount.
 allow appdomain tmpfs:dir r_dir_perms;
@@ -174,36 +174,36 @@ allow appdomain system_data_file:lnk_file r_file_perms;
 allow appdomain system_data_file:file { getattr read };
 
 # Allow read/stat of /data/media files passed by Binder or local socket IPC.
-allow appdomain media_rw_data_file:file { read getattr };
+allow { appdomain -isolated_app } media_rw_data_file:file { read getattr };
 
 # Read and write /data/data/com.android.providers.telephony files passed over Binder.
-allow appdomain radio_data_file:file { read write getattr };
+allow { appdomain -isolated_app } radio_data_file:file { read write getattr };
 
 # Allow access to external storage; we have several visible mount points under /storage
 # and symlinks to primary storage at places like /storage/sdcard0 and /mnt/user/0/primary
-allow appdomain storage_file:dir r_dir_perms;
-allow appdomain storage_file:lnk_file r_file_perms;
-allow appdomain mnt_user_file:dir r_dir_perms;
-allow appdomain mnt_user_file:lnk_file r_file_perms;
+allow { appdomain -isolated_app } storage_file:dir r_dir_perms;
+allow { appdomain -isolated_app } storage_file:lnk_file r_file_perms;
+allow { appdomain -isolated_app } mnt_user_file:dir r_dir_perms;
+allow { appdomain -isolated_app } mnt_user_file:lnk_file r_file_perms;
 
 # Read/write visible storage
-allow appdomain fuse:dir create_dir_perms;
-allow appdomain fuse:file create_file_perms;
-allow appdomain sdcardfs:dir create_dir_perms;
-allow appdomain sdcardfs:file create_file_perms;
+allow { appdomain -isolated_app } fuse:dir create_dir_perms;
+allow { appdomain -isolated_app } fuse:file create_file_perms;
+allow { appdomain -isolated_app } sdcardfs:dir create_dir_perms;
+allow { appdomain -isolated_app } sdcardfs:file create_file_perms;
 
 # Access OBBs (vfat images) mounted by vold (b/17633509)
 # File write access allowed for FDs returned through Storage Access Framework
-allow appdomain vfat:dir r_dir_perms;
-allow appdomain vfat:file rw_file_perms;
+allow { appdomain -isolated_app } vfat:dir r_dir_perms;
+allow { appdomain -isolated_app } vfat:file rw_file_perms;
 
 # Allow apps to use the USB Accessory interface.
 # http://developer.android.com/guide/topics/connectivity/usb/accessory.html
 #
 # USB devices are first opened by the system server (USBDeviceManagerService)
 # and the file descriptor is passed to the right Activity via binder.
-allow appdomain usb_device:chr_file { read write getattr ioctl };
-allow appdomain usbaccessory_device:chr_file { read write getattr };
+allow { appdomain -isolated_app } usb_device:chr_file { read write getattr ioctl };
+allow { appdomain -isolated_app } usbaccessory_device:chr_file { read write getattr };
 
 # For art.
 allow appdomain dalvikcache_data_file:file execute;
