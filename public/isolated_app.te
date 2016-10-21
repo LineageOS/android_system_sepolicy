@@ -76,3 +76,10 @@ neverallow isolated_app *:{
   netlink_netfilter_socket netlink_generic_socket netlink_scsitransport_socket
   netlink_rdma_socket netlink_crypto_socket
 } *;
+
+# Do not allow isolated_app to access external storage
+neverallow isolated_app { storage_file mnt_user_file sdcard_type }:dir ~getattr;
+neverallow isolated_app { storage_file mnt_user_file sdcard_type }:file_class_set *;
+
+# Do not allow USB access
+neverallow isolated_app { usb_device usbaccessory_device }:chr_file *;
