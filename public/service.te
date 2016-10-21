@@ -29,6 +29,7 @@ type appops_service, app_api_service, system_server_service, service_manager_typ
 type appwidget_service, app_api_service, system_server_service, service_manager_type;
 type assetatlas_service, app_api_service, system_server_service, service_manager_type;
 type audio_service, app_api_service, system_server_service, service_manager_type;
+type autofill_service, app_api_service, system_server_service, service_manager_type;
 type backup_service, app_api_service, system_server_service, service_manager_type;
 type batterystats_service, app_api_service, system_server_service, service_manager_type;
 type battery_service, system_server_service, service_manager_type;
