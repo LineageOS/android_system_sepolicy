@@ -1,0 +1,9 @@
+# boot_control subsystem
+type hal_boot, domain;
+type hal_boot_exec, exec_type, file_type;
+
+# hwbinder access
+hwbinder_use(hal_boot)
+
+# call into system_server process (callbacks)
+binder_call(hal_boot, system_server)
