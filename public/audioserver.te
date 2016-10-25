@@ -10,7 +10,7 @@ binder_call(audioserver, { appdomain ephemeral_app })
 binder_service(audioserver)
 
 hwbinder_use(audioserver)
-binder_call(audioserver, android_hardware_audio_2_0_service)
+binder_call(audioserver, hal_audio)
 
 r_dir_file(audioserver, proc)
 allow audioserver ion_device:chr_file r_file_perms;

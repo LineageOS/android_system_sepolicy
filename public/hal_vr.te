@@ -1,0 +1,9 @@
+# vr subsystem
+type hal_vr, domain;
+type hal_vr_exec, exec_type, file_type;
+
+# hwbinder access
+hwbinder_use(hal_vr)
+
+# call into system_server process
+binder_call(hal_vr, system_server)
