@@ -8,7 +8,7 @@ type postinstall_dexopt, domain;
 # init_daemon_domain(otapreopt)
 allow postinstall_dexopt self:capability { chown dac_override fowner setgid setuid };
 
-allow postinstall_dexopt postinstall_file:dir getattr;
+allow postinstall_dexopt postinstall_file:dir { getattr search };
 allow postinstall_dexopt proc:file { getattr open read };
 allow postinstall_dexopt tmpfs:file read;
 
@@ -49,9 +49,11 @@ selinux_check_access(postinstall_dexopt)
 # We have to manually transition, as we don't have an entrypoint.
 domain_auto_trans(postinstall_dexopt, postinstall_file, dex2oat)
 
-# installd wants to know about our child.
-allow postinstall_dexopt installd:process sigchld;
+# Postinstall wants to know about our child.
+allow postinstall_dexopt postinstall:process sigchld;
 
 # Allow otapreopt to use file descriptors from otapreopt_chroot.
 # TODO: Probably we can actually close file descriptors...
 allow postinstall_dexopt otapreopt_chroot:fd use;
+
+allow postinstall_dexopt cpuctl_device:dir search;

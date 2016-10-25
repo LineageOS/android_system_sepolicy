@@ -265,7 +265,7 @@ neverallow { domain -init -ueventd } device:chr_file { open read write };
 # Limit what domains can mount filesystems or change their mount flags.
 # sdcard_type / vfat is exempt as a larger set of domains need
 # this capability, including device-specific domains.
-neverallow { domain -kernel -init -recovery -vold -zygote -update_engine } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
+neverallow { domain -kernel -init -recovery -vold -zygote -update_engine -otapreopt_chroot } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
 
 #
 # Assert that, to the extent possible, we're not loading executable content from
@@ -292,9 +292,7 @@ neverallow domain { cache_file cache_backup_file cache_private_backup_file cache
 # Protect most domains from executing arbitrary content from /data.
 neverallow {
   domain
-  -untrusted_app
-  -priv_app
-  -shell
+  -appdomain
 } {
   data_file_type
   -dalvikcache_data_file
@@ -382,7 +380,9 @@ neverallow {
   -zygote
   -installd
   -postinstall_dexopt
+  -cppreopts
   -dex2oat
+  -otapreopt_slot
 } dalvikcache_data_file:file no_w_file_perms;
 
 neverallow {
@@ -390,8 +390,10 @@ neverallow {
   -init
   -installd
   -postinstall_dexopt
+  -cppreopts
   -dex2oat
   -zygote
+  -otapreopt_slot
 } dalvikcache_data_file:dir no_w_dir_perms;
 
 # Only system_server should be able to send commands via the zygote socket
@@ -501,6 +503,11 @@ neverallow {
   -runas
   -zygote
 } shell:process { transition dyntransition };
+
+# Only domains spawned from zygote and runas may have the appdomain attribute.
+neverallow { domain -runas -zygote } {
+  appdomain -shell userdebug_or_eng(`-su') -bluetooth
+}:process { transition dyntransition };
 
 # Minimize read access to shell- or app-writable symlinks.
 # This is to prevent malicious symlink attacks.

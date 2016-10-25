@@ -440,6 +440,21 @@ neverallow appdomain {
   tmpfs
 }:lnk_file no_w_file_perms;
 
+# Blacklist app domains not allowed to execute from /data
+neverallow {
+  bluetooth
+  isolated_app
+  nfc
+  radio
+  shared_relro
+  system_app
+} {
+  data_file_type
+  -dalvikcache_data_file
+  -system_data_file # shared libs in apks
+  -apk_data_file
+}:file no_x_file_perms;
+
 # Foreign dex profiles are just markers. Prevent apps to do anything but touch them.
 neverallow appdomain user_profile_foreign_dex_data_file:file rw_file_perms;
 neverallow appdomain user_profile_foreign_dex_data_file:dir { open getattr read ioctl remove_name };

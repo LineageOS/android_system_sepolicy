@@ -98,6 +98,8 @@ type apk_private_tmp_file, file_type, data_file_type, mlstrustedobject;
 type dalvikcache_data_file, file_type, data_file_type;
 # /data/ota
 type ota_data_file, file_type, data_file_type;
+# /data/ota_package
+type ota_package_file, file_type, data_file_type, mlstrustedobject;
 # /data/misc/profiles
 type user_profile_data_file, file_type, data_file_type, mlstrustedobject;
 type user_profile_foreign_dex_data_file, file_type, data_file_type, mlstrustedobject;

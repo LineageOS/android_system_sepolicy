@@ -89,6 +89,7 @@ allow system_server { appdomain autoplay_app }:process { getsched setsched };
 allow system_server audioserver:process { getsched setsched };
 allow system_server cameraserver:process { getsched setsched };
 allow system_server mediaserver:process { getsched setsched };
+allow system_server bootanim:process { getsched setsched };
 
 # Read /proc/pid data for all domains. This is used by ProcessCpuTracker
 # within system_server to keep track of memory and CPU usage for
@@ -347,6 +348,9 @@ userdebug_or_eng(`set_prop(system_server, wifi_log_prop)')
 set_prop(system_server, ctl_default_prop)
 set_prop(system_server, ctl_bugreport_prop)
 
+# cppreopt property
+set_prop(system_server, cppreopt_prop)
+
 # Create a socket for receiving info from wpa.
 type_transition system_server wifi_data_file:sock_file system_wpa_socket;
 type_transition system_server wpa_socket:sock_file system_wpa_socket;
@@ -534,7 +538,7 @@ allow system_server update_engine:fifo_file write;
 
 # Access to /data/preloads
 allow system_server preloads_data_file:file { r_file_perms unlink };
-allow system_server preloads_data_file:dir { r_dir_perms write remove_name };
+allow system_server preloads_data_file:dir { r_dir_perms write remove_name rmdir };
 
 ###
 ### Neverallow rules

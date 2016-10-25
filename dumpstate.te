@@ -148,6 +148,14 @@ allow dumpstate cache_recovery_file:file r_file_perms;
 allow dumpstate recovery_data_file:dir r_dir_perms;
 allow dumpstate recovery_data_file:file r_file_perms;
 
+# Access /data/misc/profiles/{cur,ref}/
+userdebug_or_eng(`
+  allow dumpstate user_profile_data_file:dir r_dir_perms;
+  allow dumpstate user_profile_data_file:file r_file_perms;
+  allow dumpstate user_profile_foreign_dex_data_file:dir r_dir_perms;
+  allow dumpstate user_profile_foreign_dex_data_file:file r_file_perms;
+')
+
 # Access /data/misc/logd
 userdebug_or_eng(`
   allow dumpstate misc_logd_file:dir r_dir_perms;

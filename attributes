@@ -109,5 +109,10 @@ attribute binderservicedomain;
 # common daemons need to be aware of those when calling into the HAL.
 attribute boot_control_hal;
 
- # Domain type used for debugfs access by QCOM
- attribute qti_debugfs_domain;
+# Domain type used for debugfs access by QCOM
+attribute qti_debugfs_domain;
+
+# update_engine related domains that need to apply an update and run
+# postinstall. This includes the background daemon and the sideload tool from
+# recovery for A/B devices.
+attribute update_engine_common;
