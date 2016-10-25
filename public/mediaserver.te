@@ -98,6 +98,13 @@ allow mediaserver mediadrmserver_service:service_manager find;
 # For interfacing with OMX HAL
 allow mediaserver hidl_token_hwservice:hwservice_manager find;
 
+ifelse(target_has_legacy_camera_hal1, `true',
+  allow mediaserver cameraproxy_service:service_manager find;
+  allow mediaserver cameraserver_service:service_manager add;
+  allow mediaserver hal_camera_hwservice:hwservice_manager find;
+,
+)
+
 # /oem access
 allow mediaserver oemfs:dir search;
 allow mediaserver oemfs:file r_file_perms;
