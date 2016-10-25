@@ -282,6 +282,13 @@ define(`userdebug_or_eng', ifelse(target_build_variant, `eng', $1, ifelse(target
 define(`eng', ifelse(target_build_variant, `eng', $1))
 
 #####################################
+# Treble or non-Treble builds
+# SELinux rules which only apply to Treble or non-Treble builds
+#
+define(`treble_only', ifelse(target_build_treble, `true', $1))
+define(`non_treble_only', ifelse(target_build_treble, `', $1))
+
+#####################################
 # write_logd(domain)
 # Ability to write to android log
 # daemon via sockets
