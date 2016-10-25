@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff2e2bb8_96210751",
+        "filename": "mediaserver.te",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 10067
+      },
+      "writtenOn": "2016-10-25T20:02:32Z",
+      "side": 1,
+      "message": "Anyone knows how to handle code style properly here? IMO this just looks hideous.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 2
+      },
+      "revId": "fd7724672428e4059ab18fb3dbe883e98aa00ab5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
