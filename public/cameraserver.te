@@ -16,7 +16,12 @@ allow cameraserver ion_device:chr_file rw_file_perms;
 # Talk with graphics composer fences
 allow cameraserver hal_graphics_composer:fd use;
 
-add_service(cameraserver, cameraserver_service)
+ifelse(target_has_legacy_camera_hal1, `true',
+  allow cameraserver cameraserver_service:service_manager { add find };
+  neverallow { domain -cameraserver -mediaserver } cameraserver_service:service_manager add;
+,
+  add_service(cameraserver, cameraserver_service)
+)
 
 allow cameraserver activity_service:service_manager find;
 allow cameraserver appops_service:service_manager find;
