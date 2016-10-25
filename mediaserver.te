@@ -94,6 +94,12 @@ allow mediaserver processinfo_service:service_manager find;
 allow mediaserver scheduling_policy_service:service_manager find;
 allow mediaserver surfaceflinger_service:service_manager find;
 
+ifelse(target_has_legacy_camera_hal1, `true',
+  allow mediaserver cameraproxy_service:service_manager find;
+  allow mediaserver cameraserver_service:service_manager add;
+,
+)
+
 # /oem access
 allow mediaserver oemfs:dir search;
 allow mediaserver oemfs:file r_file_perms;
