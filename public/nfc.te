@@ -36,4 +36,4 @@ allow nfc system_api_service:service_manager find;
 allow nfc shell_data_file:file read;
 
 # allow NFC process to call into the NFC HAL
-binder_call(nfc, android_hardware_nfc_1_0_service)
+binder_call(nfc, hal_nfc)
