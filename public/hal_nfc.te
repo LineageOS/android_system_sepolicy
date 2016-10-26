@@ -1,0 +1,19 @@
+# nfc subsystem
+type hal_nfc, domain;
+type hal_nfc_exec, exec_type, file_type;
+
+# hwbinder access
+hwbinder_use(hal_nfc)
+
+# call into NFC process (callbacks)
+binder_call(hal_nfc, nfc)
+
+# Set NFC properties (used by bcm2079x HAL).
+set_prop(hal_nfc, nfc_prop)
+
+# NFC device access.
+allow hal_nfc nfc_device:chr_file rw_file_perms;
+
+# Data file accesses.
+allow hal_nfc nfc_data_file:dir create_dir_perms;
+allow hal_nfc nfc_data_file:notdevfile_class_set create_file_perms;
