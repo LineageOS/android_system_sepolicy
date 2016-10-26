@@ -1,9 +1,0 @@
-# vr subsystem
-type android_hardware_vr, domain;
-type android_hardware_vr_exec, exec_type, file_type;
-
-# hwbinder access
-hwbinder_use(android_hardware_vr)
-
-# call into system_server process
-binder_call(android_hardware_vr, system_server)

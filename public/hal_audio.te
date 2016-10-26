@@ -1,0 +1,36 @@
+# hal_audio - audio services daemon
+type hal_audio, domain;
+type hal_audio_exec, exec_type, file_type;
+
+hwbinder_use(hal_audio)
+binder_call(hal_audio, audioserver)
+
+allow hal_audio ion_device:chr_file r_file_perms;
+
+allow hal_audio system_file:dir { open read };
+
+userdebug_or_eng(`
+  # used for pcm capture for debug.
+  allow hal_audio audiohal_data_file:dir create_dir_perms;
+  allow hal_audio audiohal_data_file:file create_file_perms;
+')
+
+r_dir_file(hal_audio, proc)
+allow hal_audio audio_device:dir r_dir_perms;
+allow hal_audio audio_device:chr_file rw_file_perms;
+
+# Needed on some devices for playing audio on paired BT device,
+# but seems appropriate for all devices.
+unix_socket_connect(hal_audio, bluetooth, bluetooth)
+
+###
+### neverallow rules
+###
+
+# hal_audio should never execute any executable without
+# a domain transition
+neverallow hal_audio { file_type fs_type }:file execute_no_trans;
+
+# hal_audio should never need network access.
+# Disallow network sockets.
+neverallow hal_audio domain:{ tcp_socket udp_socket rawip_socket } *;

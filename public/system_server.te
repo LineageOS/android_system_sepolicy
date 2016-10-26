@@ -148,8 +148,8 @@ allow system_server surfaceflinger:unix_stream_socket { read write setopt };
 # Perform Binder IPC.
 binder_use(system_server)
 binder_call(system_server, hal_boot)
-binder_call(system_server, android_hardware_vibrator_service)
-binder_call(system_server, android_hardware_vr)
+binder_call(system_server, hal_vibrator)
+binder_call(system_server, hal_vr)
 binder_call(system_server, binderservicedomain)
 binder_call(system_server, gatekeeperd)
 binder_call(system_server, fingerprintd)
