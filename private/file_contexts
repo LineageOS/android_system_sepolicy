@@ -169,7 +169,6 @@
 /system/bin/wificond	u:object_r:wificond_exec:s0
 /system/bin/rild	u:object_r:rild_exec:s0
 /system/bin/audioserver	u:object_r:audioserver_exec:s0
-/system/bin/hw/android\.hardware\.audio@2\.0-service	u:object_r:android_hardware_audio_2_0_service_exec:s0
 /system/bin/mediadrmserver	u:object_r:mediadrmserver_exec:s0
 /system/bin/mediaserver	u:object_r:mediaserver_exec:s0
 /system/bin/cameraserver	u:object_r:cameraserver_exec:s0
@@ -219,13 +218,14 @@
 /system/bin/idmap u:object_r:idmap_exec:s0
 /system/bin/update_engine        u:object_r:update_engine_exec:s0
 /system/bin/bspatch              u:object_r:update_engine_exec:s0
-/system/bin/hw/wifi_hal_legacy   u:object_r:wifi_hal_legacy_exec:s0
 /system/fake-lib(64)?/libart.*   u:object_r:libart_file:s0
 /system/lib(64)?/libart.*        u:object_r:libart_file:s0
-/system/bin/hw/android.hardware.boot@1.0-service u:object_r:hal_boot_exec:s0
-/system/bin/hw/android.hardware.nfc@1.0-service   u:object_r:android_hardware_nfc_1_0_service_exec:s0
-/system/bin/hw/android.hardware.vibrator@1.0-service   u:object_r:android_hardware_vibrator_service_exec:s0
-/system/bin/hw/android.hardware.vr@1.0-service   u:object_r:android_hardware_vr_exec:s0
+/system/bin/hw/android\.hardware\.audio@2\.0-service          u:object_r:hal_audio_exec:s0
+/system/bin/hw/android\.hardware\.boot@1\.0-service           u:object_r:hal_boot_exec:s0
+/system/bin/hw/android\.hardware\.nfc@1\.0-service            u:object_r:hal_nfc_exec:s0
+/system/bin/hw/android\.hardware\.vibrator@1\.0-service       u:object_r:hal_vibrator_exec:s0
+/system/bin/hw/android\.hardware\.vr@1\.0-service             u:object_r:hal_vr_exec:s0
+/system/bin/hw/wifi_hal_legacy                                u:object_r:wifi_hal_legacy_exec:s0
 
 #############################
 # Vendor files
