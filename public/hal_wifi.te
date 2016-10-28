@@ -1,0 +1,22 @@
+# wifi legacy hal
+type hal_wifi, domain;
+type hal_wifi_exec, exec_type, file_type;
+
+## hwbinder access
+hwbinder_use(hal_wifi)
+
+## call into wificond process (callbacks)
+binder_call(hal_wifi, wificond)
+
+r_dir_file(hal_wifi, proc_net)
+r_dir_file(hal_wifi, sysfs_type)
+
+# allow hal wifi set interfaces up and down
+allow hal_wifi self:udp_socket create_socket_perms;
+allowxperm hal_wifi self:udp_socket ioctl { SIOCSIFFLAGS };
+
+allow hal_wifi self:capability { net_admin net_raw };
+# allow hal_wifi to speak to nl80211 in the kernel
+allow hal_wifi self:netlink_socket create_socket_perms_no_ioctl;
+# newer kernels (e.g. 4.4 but not 4.1) have a new class for sockets
+allow hal_wifi self:netlink_generic_socket create_socket_perms_no_ioctl;
