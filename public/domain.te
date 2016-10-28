@@ -108,6 +108,7 @@ auditallow {
   domain
   -appdomain
   -dex2oat
+  -dumpstate
   -recovery
   -zygote
 } libart_file:file { execute read open getattr };
