@@ -653,3 +653,10 @@ neverallow {
 # Do not allow kernel module loading except from system,
 # vendor, and boot partitions.
 neverallow * ~{ system_file rootfs }:system module_load;
+
+# Only allow filesystem caps to be set at build time or
+# during upgrade by recovery.
+neverallow {
+  domain
+  -recovery
+} self:capability setfcap;
