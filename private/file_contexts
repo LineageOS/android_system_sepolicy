@@ -225,7 +225,7 @@
 /system/bin/hw/android\.hardware\.nfc@1\.0-service            u:object_r:hal_nfc_exec:s0
 /system/bin/hw/android\.hardware\.vibrator@1\.0-service       u:object_r:hal_vibrator_exec:s0
 /system/bin/hw/android\.hardware\.vr@1\.0-service             u:object_r:hal_vr_exec:s0
-/system/bin/hw/wifi_hal_legacy                                u:object_r:wifi_hal_legacy_exec:s0
+/system/bin/hw/android\.hardware\.wifi@1\.0-service           u:object_r:hal_wifi_exec:s0
 
 #############################
 # Vendor files
