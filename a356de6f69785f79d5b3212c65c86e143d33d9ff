@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff2e2bb8_0925cdc2",
+        "filename": "untrusted_app.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 11221
+      },
+      "writtenOn": "2016-10-30T15:17:24Z",
+      "side": 1,
+      "message": "I dislike giving permission to untrusted apps, but how else will google player sdcard/Android/com.google.android.music/* ?",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 45
+      },
+      "revId": "a356de6f69785f79d5b3212c65c86e143d33d9ff",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
