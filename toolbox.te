@@ -5,6 +5,7 @@ type toolbox, domain, domain_deprecated;
 type toolbox_exec, exec_type, file_type;
 
 init_daemon_domain(toolbox)
+domain_auto_trans(sysinit, toolbox_exec, toolbox)
 
 # /dev/__null__ created by init prior to policy load,
 # open fd inherited by fsck.
@@ -21,6 +22,6 @@ allow toolbox block_device:dir search;
 allow toolbox swap_block_device:blk_file rw_file_perms;
 
 # Only allow entry from init via the toolbox binary.
-neverallow { domain -init } toolbox:process transition;
+neverallow { domain -init -sysinit } toolbox:process transition;
 neverallow * toolbox:process dyntransition;
 neverallow toolbox { file_type fs_type -toolbox_exec}:file entrypoint;
