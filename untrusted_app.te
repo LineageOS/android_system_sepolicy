@@ -105,6 +105,10 @@ r_dir_file(untrusted_app, proc_net)
 allow untrusted_app sysfs_hwrandom:dir search;
 allow untrusted_app sysfs_hwrandom:file r_file_perms;
 
+# For ext4/f2fs portable storage using sdcardfs
+allow untrusted_app sdcard_posix:dir { write create add_name };
+allow untrusted_app sdcard_posix:file create;
+
 ###
 ### neverallow rules
 ###

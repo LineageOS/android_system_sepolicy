@@ -55,3 +55,7 @@ allow platform_app vr_manager_service:service_manager find;
 # Access to /data/preloads
 allow platform_app preloads_data_file:file r_file_perms;
 allow platform_app preloads_data_file:dir r_dir_perms;
+
+# For ext4/f2fs portable storage using sdcardfs
+allow platform_app sdcard_posix:dir { write remove_name create add_name rmdir };
+allow platform_app sdcard_posix:file { create unlink };
