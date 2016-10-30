@@ -20,6 +20,10 @@ allow nfc sysfs:file write;
 # TODO: added to match above sysfs rule. Remove me?
 allow nfc sysfs_usb:file write;
 
+# Beam image transfer
+allow nfc media_rw_data_file:dir create_dir_perms;
+allow nfc media_rw_data_file:file create_file_perms;
+
 # SoundPool loading and playback
 allow nfc audioserver_service:service_manager find;
 allow nfc drmserver_service:service_manager find;
