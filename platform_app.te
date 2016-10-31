@@ -36,8 +36,14 @@ auditallow platform_app cache_recovery_file:file create_file_perms;
 # Direct access to vold-mounted storage under /mnt/media_rw
 # This is a performance optimization that allows platform apps to bypass the FUSE layer
 allow platform_app mnt_media_rw_file:dir r_dir_perms;
+
+# Allow sdcard access via sdcardfs
 allow platform_app vfat:dir create_dir_perms;
 allow platform_app vfat:file create_file_perms;
+allow platform_app sdcard_posix:dir create_dir_perms;
+allow platform_app sdcard_posix:file create_file_perms;
+allow platform_app fuseblk:dir create_dir_perms;
+allow platform_app fuseblk:file create_file_perms;
 
 allow platform_app audioserver_service:service_manager find;
 allow platform_app cameraserver_service:service_manager find;
