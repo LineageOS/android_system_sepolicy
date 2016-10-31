@@ -38,6 +38,8 @@ auditallow platform_app cache_recovery_file:file create_file_perms;
 allow platform_app mnt_media_rw_file:dir r_dir_perms;
 allow platform_app vfat:dir create_dir_perms;
 allow platform_app vfat:file create_file_perms;
+allow platform_app sdcard_posix:dir create_dir_perms;
+allow platform_app sdcard_posix:file create_file_perms;
 
 allow platform_app audioserver_service:service_manager find;
 allow platform_app cameraserver_service:service_manager find;
