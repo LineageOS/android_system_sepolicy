@@ -84,7 +84,8 @@ neverallow { all_untrusted_apps -mediaprovider } {
   fs_type
   -fuse                     # sdcard
   -sdcardfs                 # sdcard
-  -vfat
+  -sdcard_posix             # sdcard
+  -vfat                     # sdcard
   file_type
   -app_data_file            # The apps sandbox itself
   -media_rw_data_file       # Internal storage. Known that apps can

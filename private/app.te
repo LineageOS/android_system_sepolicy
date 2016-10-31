@@ -238,8 +238,8 @@ allow { appdomain -isolated_app -ephemeral_app } sdcardfs:dir create_dir_perms;
 allow { appdomain -isolated_app -ephemeral_app } sdcardfs:file create_file_perms;
 # This should be removed if sdcardfs is modified to alter the secontext for its
 # accesses to the underlying FS.
-allow { appdomain -isolated_app -ephemeral_app } { media_rw_data_file vfat }:dir create_dir_perms;
-allow { appdomain -isolated_app -ephemeral_app } { media_rw_data_file vfat }:file create_file_perms;
+allow { appdomain -isolated_app -ephemeral_app } { media_rw_data_file sdcard_posix vfat }:dir create_dir_perms;
+allow { appdomain -isolated_app -ephemeral_app } { media_rw_data_file sdcard_posix vfat }:file create_file_perms;
 
 # Access OBBs (vfat images) mounted by vold (b/17633509)
 # File write access allowed for FDs returned through Storage Access Framework
