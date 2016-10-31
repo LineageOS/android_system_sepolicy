@@ -87,9 +87,6 @@ neverallow * kernel:process { transition dyntransition };
 # possible causes include:
 # - The program is a kernel usermodehelper.  In this case, define a domain
 #   for the program and domain_auto_trans() to it.
-# - You failed to setcon u:r:init:s0 in your init.rc and thus your init
-#   program was left in the kernel domain and is now trying to execute
-#   some other program.  Fix your init.rc file.
 # - You are running an exploit which switched to the init task credentials
 #   and is then trying to exec a shell or other program.  You lose!
-neverallow kernel { file_type fs_type -rootfs }:file { entrypoint execute_no_trans };
+neverallow kernel *:file { entrypoint execute_no_trans };
