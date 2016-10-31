@@ -184,11 +184,17 @@ allow appdomain storage_file:lnk_file r_file_perms;
 allow appdomain mnt_user_file:dir r_dir_perms;
 allow appdomain mnt_user_file:lnk_file r_file_perms;
 
-# Read/write visible storage
+# Read/write visible storage (vfat/f2fs/ext4/exfat) via fuse/sdcardfs
 allow appdomain fuse:dir create_dir_perms;
 allow appdomain fuse:file create_file_perms;
 allow appdomain sdcardfs:dir create_dir_perms;
 allow appdomain sdcardfs:file create_file_perms;
+allow appdomain vfat:dir create_dir_perms;
+allow appdomain vfat:file create_file_perms;
+allow appdomain sdcard_posix:dir create_dir_perms;
+allow appdomain sdcard_posix:file create_file_perms;
+allow appdomain fuseblk:dir create_dir_perms;
+allow appdomain fuseblk:file create_file_perms;
 
 # Access OBBs (vfat images) mounted by vold (b/17633509)
 # File write access allowed for FDs returned through Storage Access Framework
