@@ -95,6 +95,9 @@ allow dumpstate { storage_file block_device }:dir { search getattr };
 allow dumpstate fuse_device:chr_file getattr;
 allow dumpstate { dm_device cache_block_device }:blk_file getattr;
 
+# Read /dev/cpuctl and /dev/cpuset
+r_dir_file(dumpstate, cgroup)
+
 # Allow dumpstate to make binder calls to any binder service
 binder_call(dumpstate, binderservicedomain)
 binder_call(dumpstate, { appdomain ephemeral_app netd wificond })
