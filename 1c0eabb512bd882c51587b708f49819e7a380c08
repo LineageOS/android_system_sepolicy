@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff2e2bb8_572f6ba0",
+        "filename": "platform_app.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 10067
+      },
+      "writtenOn": "2016-10-31T15:54:45Z",
+      "side": 1,
+      "message": "put this in separate commit.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 55
+      },
+      "revId": "1c0eabb512bd882c51587b708f49819e7a380c08",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff2e2bb8_372aa78f",
+        "filename": "priv_app.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 10067
+      },
+      "writtenOn": "2016-10-31T15:54:45Z",
+      "side": 1,
+      "message": "ugh",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 51
+      },
+      "revId": "1c0eabb512bd882c51587b708f49819e7a380c08",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff2e2bb8_971a937a",
+        "filename": "untrusted_app.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 10067
+      },
+      "writtenOn": "2016-10-31T15:54:45Z",
+      "side": 1,
+      "message": "ugh",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 56
+      },
+      "revId": "1c0eabb512bd882c51587b708f49819e7a380c08",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
