@@ -11,6 +11,7 @@ binder_service(mediaextractor)
 
 add_service(mediaextractor, mediaextractor_service)
 allow mediaextractor mediametrics_service:service_manager find;
+allow mediaextractor mediacasserver_service:service_manager find;
 
 allow mediaextractor system_server:fd use;
 
