@@ -246,8 +246,8 @@ allow init vold_data_file:file { getattr };
 allow init shell_data_file:dir { open create read getattr setattr search };
 allow init shell_data_file:file { getattr };
 
-# Set UID and GID for services.
-allow init self:capability { setuid setgid };
+# Set UID, GID, and adjust capability bounding set for services.
+allow init self:capability { setuid setgid setpcap };
 
 # For bootchart to read the /proc/$pid/cmdline file of each process,
 # we need to have following line to allow init to have access
