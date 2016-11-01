@@ -122,6 +122,7 @@ sec_key_att_app_id_provider               u:object_r:sec_key_att_app_id_provider
 sensorservice                             u:object_r:sensorservice_service:s0
 serial                                    u:object_r:serial_service:s0
 servicediscovery                          u:object_r:servicediscovery_service:s0
+settings                                  u:object_r:settings_service:s0
 shortcut                                  u:object_r:shortcut_service:s0
 simphonebook_msim                         u:object_r:radio_service:s0
 simphonebook2                             u:object_r:radio_service:s0
