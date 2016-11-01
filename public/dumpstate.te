@@ -174,7 +174,7 @@ userdebug_or_eng(`
   allow dumpstate misc_logd_file:file r_file_perms;
 ')
 
-allow dumpstate { service_manager_type -gatekeeper_service }:service_manager find;
+allow dumpstate { service_manager_type -gatekeeper_service -dumpstate_service }:service_manager find;
 allow dumpstate servicemanager:service_manager list;
 
 allow dumpstate devpts:chr_file rw_file_perms;
@@ -197,3 +197,16 @@ allow dumpstate atrace_exec:file rx_file_perms;
 allow dumpstate media_rw_data_file:dir getattr;
 allow dumpstate proc_interrupts:file r_file_perms;
 allow dumpstate proc_zoneinfo:file r_file_perms;
+
+# Create a service for talking back to system_server
+allow dumpstate dumpstate_service:service_manager add;
+
+###
+### neverallow rules
+###
+
+# only dumpstate can add the dumpstate service
+neverallow { domain -dumpstate } dumpstate_service:service_manager add;
+
+# only system_server and shell can find the dumpstate service
+neverallow { domain -system_server -shell } dumpstate_service:service_manager find;
