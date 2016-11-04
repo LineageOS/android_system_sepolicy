@@ -130,6 +130,8 @@ binder_use(vold)
 binder_call(vold, healthd)
 
 # talk to keymaster
+binder_call(vold, hwservicemanager)
+binder_call(vold, hal_keymaster)
 allow vold tee_device:chr_file rw_file_perms;
 
 # Access userdata block device.
