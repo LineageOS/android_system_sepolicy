@@ -224,6 +224,7 @@
 /system/bin/hw/android\.hardware\.boot@1\.0-service           u:object_r:hal_boot_exec:s0
 /system/bin/hw/android\.hardware\.light@2\.0-service          u:object_r:hal_light_exec:s0
 /system/bin/hw/android\.hardware\.nfc@1\.0-service            u:object_r:hal_nfc_exec:s0
+/system/bin/hw/android\.hardware\.power@1\.0-service          u:object_r:hal_power_exec:s0
 /system/bin/hw/android\.hardware\.vibrator@1\.0-service       u:object_r:hal_vibrator_exec:s0
 /system/bin/hw/android\.hardware\.vr@1\.0-service             u:object_r:hal_vr_exec:s0
 /system/bin/hw/android\.hardware\.wifi@1\.0-service           u:object_r:hal_wifi_exec:s0
