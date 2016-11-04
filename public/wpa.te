@@ -21,6 +21,9 @@ allow wpa wifi_data_file:dir create_dir_perms;
 allow wpa wifi_data_file:file create_file_perms;
 unix_socket_send(wpa, system_wpa, system_server)
 
+# Keystore access via binder.
+binder_use(wpa)
+
 # HIDL interface exposed by WPA.
 hwbinder_use(wpa)
 binder_call(wpa, wificond)
