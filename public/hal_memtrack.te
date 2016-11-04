@@ -1,0 +1,6 @@
+# memtrack subsystem
+type hal_memtrack, domain;
+type hal_memtrack_exec, exec_type, file_type;
+
+# hwbinder access
+hwbinder_use(hal_memtrack);
