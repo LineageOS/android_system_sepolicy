@@ -81,7 +81,7 @@ allow system_server self:netlink_generic_socket create_socket_perms_no_ioctl;
 # to the kernel. The ioctl permission is specifically omitted here, but may
 # be added to device specific policy along with the ioctl commands to be
 # whitelisted.
-allow system_server self:socket create_socket_perms_no_ioctl;
+allow system_server self:socket create_socket_perms;
 
 # Set and get routes directly via netlink.
 allow system_server self:netlink_route_socket nlmsg_write;
