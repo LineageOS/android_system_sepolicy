@@ -64,6 +64,7 @@ type oemfs, fs_type, contextmount_type;
 type usbfs, fs_type;
 type binfmt_miscfs, fs_type;
 type app_fusefs, fs_type, contextmount_type;
+type fuseblk, sdcard_type, fs_type, mlstrustedobject;
 
 # File types
 type unlabeled, file_type;
