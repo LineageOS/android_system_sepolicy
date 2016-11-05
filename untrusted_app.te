@@ -186,10 +186,15 @@ neverallow untrusted_app property_type:property_service set;
 neverallow untrusted_app {
   fs_type
   -fuse                     # sdcard
-  -fuseblk                  # sdcard
   -sdcardfs                 # sdcard
-  -sdcard_posix             # sdcard
-  -vfat                     # sdcard
+  -vfat
+
+# For exfat and f2fs/ext4 sdcards via sdcardfs
+ifelse(shipping_build, `true', ,`
+  -fuseblk
+  -sdcard_posix
+')
+
   file_type
   -app_data_file            # The apps sandbox itself
   -media_rw_data_file       # Internal storage. Known that apps can
