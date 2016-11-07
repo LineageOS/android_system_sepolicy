@@ -4,6 +4,8 @@ type surfaceflinger_exec, exec_type, file_type;
 
 typeattribute surfaceflinger mlstrustedsubject;
 
+read_runtime_log_tags(surfaceflinger)
+
 # Perform HwBinder IPC.
 hwbinder_use(surfaceflinger)
 binder_call(surfaceflinger, hal_graphics_allocator)
