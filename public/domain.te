@@ -175,7 +175,7 @@ allowxperm domain domain:{ unix_dgram_socket unix_stream_socket }
 ###
 
 # All socket ioctls must be restricted to a whitelist.
-neverallowxperm { domain -system_server } domain:socket_class_set ioctl { 0 };
+neverallowxperm domain domain:socket_class_set ioctl { 0 };
 
 # Do not allow any domain other than init or recovery to create unlabeled files.
 neverallow { domain -init -recovery } unlabeled:dir_file_class_set create;
