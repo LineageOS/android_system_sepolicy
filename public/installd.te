@@ -25,6 +25,8 @@ allow installd mnt_expand_file:dir { search getattr };
 selinux_check_context(installd)
 
 r_dir_file(installd, rootfs)
+# Scan through APKs in /system/app and /system/priv-app
+r_dir_file(installd, system_file)
 
 # Search /data/app-asec and stat files in it.
 allow installd asec_image_file:dir search;
