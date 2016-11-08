@@ -1,0 +1,9 @@
+# thermal subsystem
+type hal_thermal, domain;
+type hal_thermal_exec, exec_type, file_type;
+
+# hwbinder access
+hwbinder_use(hal_thermal)
+
+# call into system_server process (callbacks)
+binder_call(hal_thermal, system_server)
