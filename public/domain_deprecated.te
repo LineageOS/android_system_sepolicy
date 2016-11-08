@@ -41,9 +41,35 @@ auditallow domain_deprecated device:file read;
 allow domain_deprecated system_file:dir r_dir_perms;
 allow domain_deprecated system_file:file r_file_perms;
 allow domain_deprecated system_file:lnk_file r_file_perms;
-auditallow { domain_deprecated -appdomain -init -rild -surfaceflinger -system_server -zygote } system_file:dir { open read ioctl lock }; # search getattr in domain
-auditallow { domain_deprecated -appdomain -init -rild -surfaceflinger -system_server -zygote } system_file:file { ioctl lock }; # read open getattr in domain
-auditallow { domain_deprecated -appdomain -init -rild -surfaceflinger -system_server -zygote } system_file:lnk_file { getattr open ioctl lock }; # read in domain
+auditallow {
+  domain_deprecated
+  -appdomain
+  -init
+  -installd
+  -rild
+  -surfaceflinger
+  -system_server
+  -zygote
+} system_file:dir { open read ioctl lock }; # search getattr in domain
+auditallow {
+  domain_deprecated
+  -appdomain
+  -init
+  -rild
+  -surfaceflinger
+  -system_server
+  -zygote
+} system_file:file { ioctl lock }; # read open getattr in domain
+auditallow {
+  domain_deprecated
+  -appdomain
+  -init
+  -installd
+  -rild
+  -surfaceflinger
+  -system_server
+  -zygote
+} system_file:lnk_file { getattr open ioctl lock }; # read in domain
 
 # Read files already opened under /data.
 allow domain_deprecated system_data_file:file { getattr read };
