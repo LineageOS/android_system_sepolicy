@@ -2,6 +2,8 @@
 type profman, domain;
 type profman_exec, exec_type, file_type;
 
+allow profman libart_file:file r_file_perms;
+
 allow profman user_profile_data_file:file { getattr read write lock };
 
 # Dumping profile info opens the application APK file for pretty printing.
@@ -13,5 +15,9 @@ allow profman tmpfs:file { read };
 allow profman profman_dump_data_file:file { write };
 
 allow profman installd:fd use;
+
+###
+### neverallow rules
+###
 
 neverallow profman app_data_file:notdevfile_class_set open;

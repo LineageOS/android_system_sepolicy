@@ -107,8 +107,10 @@ allow domain libart_file:file { execute read open getattr };
 auditallow {
   domain
   -appdomain
+  -debuggerd
   -dex2oat
   -dumpstate
+  -profman
   -recovery
   -zygote
 } libart_file:file { execute read open getattr };
