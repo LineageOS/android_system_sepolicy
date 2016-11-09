@@ -79,8 +79,6 @@ allow priv_app exec_type:file { getattr read open };
 # For AppFuse.
 allow priv_app vold:fd use;
 allow priv_app fuse_device:chr_file { read write };
-allow priv_app app_fuse_file:dir rw_dir_perms;
-allow priv_app app_fuse_file:file rw_file_perms;
 
 # /sys and /proc access
 r_dir_file(priv_app, sysfs_type)
