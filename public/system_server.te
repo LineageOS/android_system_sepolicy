@@ -357,6 +357,7 @@ set_prop(system_server, fingerprint_prop)
 set_prop(system_server, device_logging_prop)
 set_prop(system_server, wifi_prop)
 set_prop(system_server, dumpstate_options_prop)
+set_prop(system_server, overlay_prop)
 userdebug_or_eng(`set_prop(system_server, wifi_log_prop)')
 
 # ctl interface
