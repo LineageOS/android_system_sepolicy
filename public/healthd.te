@@ -24,6 +24,7 @@ binder_use(healthd)
 binder_service(healthd)
 binder_call(healthd, system_server)
 binder_call(healthd, hwservicemanager)
+binder_call(healthd, hal_health)
 
 allow healthd sysfs_batteryinfo:file r_file_perms;
 allow healthd batteryproperties_service:service_manager { add find };
