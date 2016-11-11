@@ -35,7 +35,6 @@ type powerctl_prop, property_type, core_property_type;
 type radio_prop, property_type, core_property_type;
 type restorecon_prop, property_type, core_property_type;
 type safemode_prop, property_type;
-type security_prop, property_type, core_property_type;
 type shell_prop, property_type, core_property_type;
 type system_prop, property_type, core_property_type;
 type system_radio_prop, property_type, core_property_type;

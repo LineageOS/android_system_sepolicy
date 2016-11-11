@@ -229,9 +229,6 @@ neverallow { domain -recovery } self:capability2 mac_admin;
 # It is sealed.
 neverallow * kernel:security load_policy;
 
-# Only init and the system_server shall use the property_service.
-neverallow { domain -init -system_server } security_prop:property_service set;
-
 # Only init prior to switching context should be able to set enforcing mode.
 # init starts in kernel domain and switches to init domain via setcon in
 # the init.rc, so the setenforce occurs while still in kernel. After
