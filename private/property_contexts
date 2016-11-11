@@ -65,7 +65,6 @@ ro.device_owner         u:object_r:device_logging_prop:s0
 
 # selinux non-persistent properties
 selinux.restorecon_recursive   u:object_r:restorecon_prop:s0
-selinux.                       u:object_r:security_prop:s0
 
 # default property context
 *                       u:object_r:default_prop:s0
