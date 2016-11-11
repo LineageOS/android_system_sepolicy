@@ -119,6 +119,7 @@
 /dev/socket/rild-debug	u:object_r:rild_debug_socket:s0
 /dev/socket/uncrypt	u:object_r:uncrypt_socket:s0
 /dev/socket/vold	u:object_r:vold_socket:s0
+/dev/socket/webview_zygote	u:object_r:webview_zygote_socket:s0
 /dev/socket/wpa_eth[0-9] u:object_r:wpa_socket:s0
 /dev/socket/wpa_wlan[0-9] u:object_r:wpa_socket:s0
 /dev/socket/zygote	u:object_r:zygote_socket:s0
@@ -218,6 +219,8 @@
 /system/bin/idmap u:object_r:idmap_exec:s0
 /system/bin/update_engine        u:object_r:update_engine_exec:s0
 /system/bin/bspatch              u:object_r:update_engine_exec:s0
+/system/bin/webview_zygote32     u:object_r:webview_zygote_exec:s0
+/system/bin/webview_zygote64     u:object_r:webview_zygote_exec:s0
 /system/fake-lib(64)?/libart.*   u:object_r:libart_file:s0
 /system/lib(64)?/libart.*        u:object_r:libart_file:s0
 /system/bin/hw/android\.hardware\.audio@2\.0-service          u:object_r:hal_audio_exec:s0
