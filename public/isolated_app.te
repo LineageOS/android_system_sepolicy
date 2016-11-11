@@ -26,6 +26,18 @@ allow isolated_app webviewupdate_service:service_manager find;
 # https://code.google.com/p/chromium/issues/detail?id=475270
 allow isolated_app self:process ptrace;
 
+# For webviews, isolated_app processes can be forked from the webview_zygote
+# in addition to the zygote. Allow access to resources inherited from the
+# webview_zygote process. These rules are specialized copies of the ones in app.te.
+# Inherit FDs from the webview_zygote.
+allow isolated_app webview_zygote:fd use;
+# Read system properties managed by webview_zygote.
+allow isolated_app webview_zygote_tmpfs:file read;
+# Notify webview_zygote of child death.
+allow isolated_app webview_zygote:process sigchld;
+# Inherit logd write socket.
+allow isolated_app webview_zygote:unix_dgram_socket write;
+
 #####
 ##### Neverallow
 #####
@@ -83,3 +95,6 @@ neverallow isolated_app { storage_file mnt_user_file sdcard_type }:file_class_se
 
 # Do not allow USB access
 neverallow isolated_app { usb_device usbaccessory_device }:chr_file *;
+
+# Restrict the webview_zygote control socket.
+neverallow isolated_app webview_zygote_socket:sock_file write;
