@@ -38,6 +38,10 @@ allow ephemeral_app zygote:unix_dgram_socket write;
 allow ephemeral_app ephemeral_data_file:dir create_dir_perms;
 allow ephemeral_app ephemeral_data_file:{ file sock_file fifo_file } create_file_perms;
 
+# Allow apps to read/execute installed binaries
+allow ephemeral_app ephemeral_apk_data_file:dir search;
+allow ephemeral_app ephemeral_apk_data_file:file { r_file_perms execute };
+
 # For art.
 allow ephemeral_app dalvikcache_data_file:file { execute r_file_perms };
 allow ephemeral_app dalvikcache_data_file:lnk_file r_file_perms;
@@ -88,6 +92,9 @@ allow ephemeral_app textservices_service:service_manager find;
 ###
 ### neverallow rules
 ###
+
+# Executable content should never be loaded from an ephemeral app home directory.
+neverallow ephemeral_app ephemeral_data_file:file { execute execute_no_trans };
 
 # Receive or send uevent messages.
 neverallow ephemeral_app domain:netlink_kobject_uevent_socket *;
