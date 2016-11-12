@@ -271,6 +271,10 @@
 /data/app/vmdl[^/]+\.tmp/oat(/.*)?           u:object_r:dalvikcache_data_file:s0
 /data/app-private(/.*)?               u:object_r:apk_private_data_file:s0
 /data/app-private/vmdl.*\.tmp(/.*)?   u:object_r:apk_private_tmp_file:s0
+/data/app-ephemeral(/.*)?             u:object_r:ephemeral_apk_data_file:s0
+/data/app-ephemeral/[^/]+/oat(/.*)?   u:object_r:dalvikcache_data_file:s0
+/data/app-ephemeral/vmdl[^/]+\.tmp(/.*)?           u:object_r:ephemeral_apk_tmp_file:s0
+/data/app-ephemeral/vmdl[^/]+\.tmp/oat(/.*)?           u:object_r:dalvikcache_data_file:s0
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
 /data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
 /data/media(/.*)?	u:object_r:media_rw_data_file:s0
