@@ -252,6 +252,12 @@ allow system_server apk_private_data_file:file create_file_perms;
 allow system_server apk_private_tmp_file:dir create_dir_perms;
 allow system_server apk_private_tmp_file:file create_file_perms;
 
+# Manage /data/app-ephemeral
+allow system_server ephemeral_apk_data_file:dir create_dir_perms;
+allow system_server ephemeral_apk_data_file:file create_file_perms;
+allow system_server ephemeral_apk_tmp_file:dir create_dir_perms;
+allow system_server ephemeral_apk_tmp_file:file create_file_perms;
+
 # Manage files within asec containers.
 allow system_server asec_apk_file:dir create_dir_perms;
 allow system_server asec_apk_file:file create_file_perms;
@@ -319,8 +325,8 @@ allow system_server { system_app_data_file bluetooth_data_file nfc_data_file rad
 allow system_server media_rw_data_file:file { getattr read write append };
 
 # Relabel apk files.
-allow system_server { apk_tmp_file apk_private_tmp_file }:{ dir file } { relabelfrom relabelto };
-allow system_server { apk_data_file apk_private_data_file }:{ dir file } { relabelfrom relabelto };
+allow system_server { apk_tmp_file apk_private_tmp_file ephemeral_apk_tmp_file }:{ dir file } { relabelfrom relabelto };
+allow system_server { apk_data_file apk_private_data_file ephemeral_apk_data_file}:{ dir file } { relabelfrom relabelto };
 
 # Relabel wallpaper.
 allow system_server system_data_file:file relabelfrom;

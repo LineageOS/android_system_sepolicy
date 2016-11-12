@@ -96,6 +96,9 @@ type apk_tmp_file, file_type, data_file_type, mlstrustedobject;
 # /data/app-private - forward-locked apps
 type apk_private_data_file, file_type, data_file_type;
 type apk_private_tmp_file, file_type, data_file_type, mlstrustedobject;
+# /data/app-ephemeral - ephemeral apps
+type ephemeral_apk_data_file, file_type, data_file_type;
+type ephemeral_apk_tmp_file, file_type, data_file_type, mlstrustedobject;
 # /data/dalvik-cache
 type dalvikcache_data_file, file_type, data_file_type;
 # /data/ota
