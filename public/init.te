@@ -337,8 +337,6 @@ unix_socket_connect(init, vold, vold)
 # Raw writes to misc block device
 allow init misc_block_device:blk_file w_file_perms;
 
-allow init apk_data_file:dir { getattr search };
-allow init dalvikcache_data_file:dir { search getattr };
 r_dir_file(init, system_file)
 allow init proc_meminfo:file r_file_perms;
 
