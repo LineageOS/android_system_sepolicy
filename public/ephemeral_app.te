@@ -11,7 +11,7 @@
 ###
 ### PackageManager flags an app as ephemeral at install time.
 type ephemeral_app, domain;
-
+net_domain(ephemeral_app)
 # allow JITing
 allow ephemeral_app self:process execmem;
 allow ephemeral_app ashmem_device:chr_file execute;
@@ -37,6 +37,11 @@ allow ephemeral_app zygote:unix_dgram_socket write;
 # App sandbox file accesses.
 allow ephemeral_app ephemeral_data_file:dir create_dir_perms;
 allow ephemeral_app ephemeral_data_file:{ file sock_file fifo_file } create_file_perms;
+
+# Keychain and user-trusted credentials
+r_dir_file(ephemeral_app, keychain_data_file)
+allow ephemeral_app misc_user_data_file:dir r_dir_perms;
+allow ephemeral_app misc_user_data_file:file r_file_perms;
 
 # Allow apps to read/execute installed binaries
 allow ephemeral_app ephemeral_apk_data_file:dir search;
