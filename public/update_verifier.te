@@ -13,3 +13,8 @@ allow update_verifier ota_package_file:file r_file_perms;
 # Read all blocks in system partition.
 allow update_verifier system_block_device:blk_file r_file_perms;
 
+# Use binderized HAL
+hwbinder_use(update_verifier)
+binder_call(update_verifier, hal_boot)
+
+allow update_verifier system_file:dir r_dir_perms;
