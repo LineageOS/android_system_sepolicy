@@ -15,6 +15,7 @@ allow mediacodec gpu_device:chr_file rw_file_perms;
 allow mediacodec video_device:chr_file rw_file_perms;
 allow mediacodec video_device:dir search;
 allow mediacodec ion_device:chr_file rw_file_perms;
+allow mediacodec hal_graphics_allocator:fd use;
 
 ###
 ### neverallow rules
