@@ -567,6 +567,7 @@ allow system_server preloads_data_file:dir { r_dir_perms write remove_name rmdir
 
 r_dir_file(system_server, cgroup)
 allow system_server ion_device:chr_file r_file_perms;
+allow system_server hal_graphics_allocator:fd use;
 
 r_dir_file(system_server, proc)
 r_dir_file(system_server, proc_meminfo)

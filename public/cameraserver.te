@@ -15,6 +15,7 @@ allow cameraserver video_device:dir r_dir_perms;
 allow cameraserver video_device:chr_file rw_file_perms;
 allow cameraserver camera_device:chr_file rw_file_perms;
 allow cameraserver ion_device:chr_file rw_file_perms;
+allow cameraserver hal_graphics_allocator:fd use;
 
 allow cameraserver appops_service:service_manager find;
 allow cameraserver audioserver_service:service_manager find;
