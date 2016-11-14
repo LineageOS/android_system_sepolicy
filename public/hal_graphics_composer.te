@@ -1,0 +1,22 @@
+# graphics composer subsystem
+type hal_graphics_composer, domain;
+type hal_graphics_composer_exec, exec_type, file_type;
+
+# HwBinder access
+hwbinder_use(hal_graphics_composer)
+# IComposerCallback
+binder_call(hal_graphics_composer, surfaceflinger)
+
+# GPU device access
+allow hal_graphics_composer gpu_device:chr_file rw_file_perms;
+allow hal_graphics_composer ion_device:chr_file r_file_perms;
+allow hal_graphics_composer hal_graphics_allocator:fd use;
+
+# Access /dev/graphics/fb0.
+allow hal_graphics_composer graphics_device:dir search;
+allow hal_graphics_composer graphics_device:chr_file rw_file_perms;
+
+# Fences
+allow hal_graphics_composer system_server:fd use;
+allow hal_graphics_composer bootanim:fd use;
+allow hal_graphics_composer {appdomain ephemeral_app}:fd use;
