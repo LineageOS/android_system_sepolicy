@@ -26,6 +26,14 @@ allow isolated_app webviewupdate_service:service_manager find;
 # https://code.google.com/p/chromium/issues/detail?id=475270
 allow isolated_app self:process ptrace;
 
+# b/32896414: Allow accessing sdcard file descriptors passed to isolated_apps
+# by other processes. Open should never be allowed, and is blocked by
+# neverallow rules below.
+# TODO: consider removing write/append. We want to limit isolated_apps
+# ability to mutate files of any type.
+allow isolated_app sdcard_type:file { read write append getattr lock };
+auditallow isolated_app sdcard_type:file { write append };
+
 # For webviews, isolated_app processes can be forked from the webview_zygote
 # in addition to the zygote. Allow access to resources inherited from the
 # webview_zygote process. These rules are specialized copies of the ones in app.te.
@@ -89,9 +97,12 @@ neverallow isolated_app *:{
   netlink_rdma_socket netlink_crypto_socket
 } *;
 
-# Do not allow isolated_app to access external storage
+# Do not allow isolated_app to access external storage, except for files passed
+# via file descriptors (b/32896414).
 neverallow isolated_app { storage_file mnt_user_file sdcard_type }:dir ~getattr;
-neverallow isolated_app { storage_file mnt_user_file sdcard_type }:file_class_set *;
+neverallow isolated_app { storage_file mnt_user_file }:file_class_set *;
+neverallow isolated_app sdcard_type:{ devfile_class_set lnk_file sock_file fifo_file } *;
+neverallow isolated_app sdcard_type:file ~{ read write append getattr lock };
 
 # Do not allow USB access
 neverallow isolated_app { usb_device usbaccessory_device }:chr_file *;
