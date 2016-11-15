@@ -22,6 +22,9 @@ allow bootanim surfaceflinger_service:service_manager find;
 allow bootanim ion_device:chr_file rw_file_perms;
 allow bootanim hal_graphics_allocator:fd use;
 
+# Fences
+allow bootanim hal_graphics_composer:fd use;
+
 # Read access to pseudo filesystems.
 r_dir_file(bootanim, proc)
 allow bootanim proc_meminfo:file r_file_perms;
