@@ -425,10 +425,7 @@ neverallow appdomain
     proc:dir_file_class_set write;
 
 # Access to syslog(2) or /proc/kmsg.
-neverallow { appdomain -system_app }
-    kernel:system { syslog_mod syslog_console };
-neverallow { appdomain -system_app -shell }
-    kernel:system syslog_read;
+neverallow appdomain kernel:system { syslog_read syslog_mod syslog_console };
 
 # Ability to perform any filesystem operation other than statfs(2).
 # i.e. no mount(2), unmount(2), etc.
