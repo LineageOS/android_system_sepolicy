@@ -85,9 +85,6 @@ userdebug_or_eng(`
   set_prop(shell, persist_debug_prop)
 ')
 
-# allow shell to run dmesg
-allow shell kernel:system syslog_read;
-
 # allow shell access to services
 allow shell servicemanager:service_manager list;
 # don't allow shell to access GateKeeper service
