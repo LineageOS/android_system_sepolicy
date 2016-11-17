@@ -1,6 +1,5 @@
 # update_verifier
-# update_verifier uses the boot_control_hal.
-type update_verifier, domain, boot_control_hal;
+type update_verifier, domain;
 type update_verifier_exec, exec_type, file_type;
 
 # Allow update_verifier to reach block devices in /dev/block.
@@ -13,8 +12,7 @@ allow update_verifier ota_package_file:file r_file_perms;
 # Read all blocks in system partition.
 allow update_verifier system_block_device:blk_file r_file_perms;
 
-# Use binderized HAL
+# Use binderized boot HAL.
 hwbinder_use(update_verifier)
 binder_call(update_verifier, hal_boot)
 
-allow update_verifier system_file:dir r_dir_perms;
