@@ -289,6 +289,12 @@ define(`binderized_hal', ifelse(target_build_treble, `true', $1))
 define(`passthrough_hal', ifelse(target_build_treble, `', $1))
 
 #####################################
+# WITH_DEXPREOPT builds
+# SELinux rules which apply only when pre-opting.
+#
+define(`with_dexpreopt', ifelse(target_with_dexpreopt, `true', $1))
+
+#####################################
 # write_logd(domain)
 # Ability to write to android log
 # daemon via sockets
