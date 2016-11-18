@@ -1,5 +1,6 @@
 # Domain for update_engine daemon.
-type update_engine, domain, domain_deprecated, update_engine_common;
+# update_engine uses the boot_control_hal.
+type update_engine, domain, domain_deprecated, update_engine_common, boot_control_hal;
 type update_engine_exec, exec_type, file_type;
 type update_engine_data_file, file_type, data_file_type;
 
@@ -32,7 +33,3 @@ binder_call(update_engine, priv_app)
 # Read OTA zip file at /data/ota_package/.
 allow update_engine ota_package_file:file r_file_perms;
 allow update_engine ota_package_file:dir r_dir_perms;
-
-# Use binderized boot HAL.
-hwbinder_use(update_engine)
-binder_call(update_engine, hal_boot)
