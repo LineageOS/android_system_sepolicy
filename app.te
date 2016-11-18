@@ -195,6 +195,8 @@ allow appdomain sdcard_posix:dir create_dir_perms;
 allow appdomain sdcard_posix:file create_file_perms;
 allow appdomain fuseblk:dir create_dir_perms;
 allow appdomain fuseblk:file create_file_perms;
+allow appdomain exfat:dir create_dir_perms;
+allow appdomain exfat:file create_file_perms;
 
 # Access OBBs (vfat images) mounted by vold (b/17633509)
 # File write access allowed for FDs returned through Storage Access Framework
