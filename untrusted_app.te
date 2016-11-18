@@ -185,6 +185,7 @@ neverallow untrusted_app property_type:property_service set;
 # application un-installation.
 neverallow untrusted_app {
   fs_type
+  -exfat                    # sdcard
   -fuse                     # sdcard
   -fuseblk                  # sdcard
   -sdcardfs                 # sdcard

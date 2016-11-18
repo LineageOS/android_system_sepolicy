@@ -185,6 +185,8 @@ allow appdomain mnt_user_file:dir r_dir_perms;
 allow appdomain mnt_user_file:lnk_file r_file_perms;
 
 # Read/write visible storage (vfat/f2fs/ext4/exfat) via fuse/sdcardfs
+allow appdomain exfat:dir create_dir_perms;
+allow appdomain exfat:file create_file_perms;
 allow appdomain fuse:dir create_dir_perms;
 allow appdomain fuse:file create_file_perms;
 allow appdomain sdcardfs:dir create_dir_perms;
