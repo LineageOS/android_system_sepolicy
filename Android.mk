@@ -140,6 +140,7 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
+		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
@@ -158,6 +159,7 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
+		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
 		-D target_arch=$(LOCAL_TARGET_ARCH) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
@@ -200,6 +202,7 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
+		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
 		-D target_recovery=true \
 		-s $^ > $@
 
@@ -237,6 +240,7 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 		-D target_build_variant=user \
 		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
+		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
