@@ -40,7 +40,6 @@ type serial_device, dev_type;
 type socket_device, dev_type;
 type owntty_device, dev_type, mlstrustedobject;
 type tty_device, dev_type;
-type urandom_device, dev_type, mlstrustedobject;
 type video_device, dev_type;
 type vcs_device, dev_type;
 type zero_device, dev_type, mlstrustedobject;
