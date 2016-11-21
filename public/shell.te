@@ -82,7 +82,7 @@ allow shell servicemanager:service_manager list;
 # don't allow shell to access GateKeeper service
 # TODO: why is this so broad? Tightening candidate? It needs at list:
 # - dumpstate_service (so it can receive dumpstate progress updates)
-allow shell { service_manager_type -gatekeeper_service -netd_service -installd_service}:service_manager find;
+allow shell { service_manager_type -gatekeeper_service -incident_service -installd_service -netd_service }:service_manager find;
 allow shell dumpstate:binder call;
 
 # allow shell to get information from hwservicemanager
