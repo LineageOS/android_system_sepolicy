@@ -193,3 +193,7 @@ neverallow untrusted_app tun_device:chr_file open;
 # Only allow appending to /data/anr/traces.txt (b/27853304, b/18340553)
 neverallow untrusted_app anr_data_file:file ~{ open append };
 neverallow untrusted_app anr_data_file:dir ~search;
+
+# Avoid reads from generically labeled /proc files
+# Create a more specific label if needed
+neverallow untrusted_app proc:file { no_rw_file_perms no_x_file_perms };

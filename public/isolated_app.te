@@ -109,3 +109,7 @@ neverallow isolated_app { usb_device usbaccessory_device }:chr_file *;
 
 # Restrict the webview_zygote control socket.
 neverallow isolated_app webview_zygote_socket:sock_file write;
+
+# Avoid reads from generically labeled /proc files
+# Create a more specific label if needed
+neverallow isolated_app proc:file { no_rw_file_perms no_x_file_perms };
