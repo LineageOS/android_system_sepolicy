@@ -171,6 +171,11 @@ allowxperm domain domain:{ rawip_socket tcp_socket udp_socket }
 allowxperm domain domain:{ unix_dgram_socket unix_stream_socket }
   ioctl unpriv_unix_sock_ioctls;
 
+# Restrict PTYs to only whitelisted ioctls.
+# Note that granting this whitelist to domain does
+# not grant the wider ioctl permission. That must be granted
+# separately.
+allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
 
 ###
 ### neverallow rules
@@ -178,6 +183,11 @@ allowxperm domain domain:{ unix_dgram_socket unix_stream_socket }
 
 # All socket ioctls must be restricted to a whitelist.
 neverallowxperm domain domain:socket_class_set ioctl { 0 };
+
+# TIOCSTI is only ever used for exploits. Block it.
+# b/33073072, b/7530569
+# http://www.openwall.com/lists/oss-security/2016/09/26/14
+neverallowxperm * devpts:chr_file ioctl TIOCSTI;
 
 # Do not allow any domain other than init or recovery to create unlabeled files.
 neverallow { domain -init -recovery } unlabeled:dir_file_class_set create;
