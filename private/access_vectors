@@ -24,7 +24,6 @@ common file
 	link
 	rename
 	execute
-	swapon
 	quotaon
 	mounton
 }
@@ -57,8 +56,6 @@ common socket
 	shutdown
 	recvfrom
 	sendto
-	recv_msg
-	send_msg
 	name_bind
 }
 
@@ -97,7 +94,6 @@ class filesystem
 	getattr
 	relabelfrom
 	relabelto
-	transition
 	associate
 	quotamod
 	quotaget
@@ -184,9 +180,6 @@ inherits socket
 class tcp_socket
 inherits socket
 {
-	connectto
-	newconn
-	acceptfrom
 	node_bind
 	name_connect
 }
@@ -205,29 +198,12 @@ inherits socket
 
 class node
 {
-	tcp_recv
-	tcp_send
-	udp_recv
-	udp_send
-	rawip_recv
-	rawip_send
-	enforce_dest
-	dccp_recv
-	dccp_send
 	recvfrom
 	sendto
 }
 
 class netif
 {
-	tcp_recv
-	tcp_send
-	udp_recv
-	udp_send
-	rawip_recv
-	rawip_send
-	dccp_recv
-	dccp_send
 	ingress
 	egress
 }
@@ -245,8 +221,6 @@ class unix_stream_socket
 inherits socket
 {
 	connectto
-	newconn
-	acceptfrom
 }
 
 class unix_dgram_socket
