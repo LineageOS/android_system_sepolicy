@@ -237,7 +237,7 @@ define(`selinux_check_access', `
 r_dir_file($1, selinuxfs)
 allow $1 selinuxfs:file w_file_perms;
 allow $1 kernel:security compute_av;
-allow $1 self:netlink_selinux_socket { read write create getattr setattr lock relabelfrom relabelto append bind connect listen accept getopt setopt shutdown recvfrom sendto recv_msg send_msg name_bind };
+allow $1 self:netlink_selinux_socket { read write create getattr setattr lock relabelfrom relabelto append bind connect listen accept getopt setopt shutdown recvfrom sendto name_bind };
 ')
 
 #####################################
