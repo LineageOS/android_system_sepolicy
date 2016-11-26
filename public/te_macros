@@ -259,6 +259,11 @@ type $1_devpts, fs_type;
 type_transition $1 devpts:chr_file $1_devpts;
 # Allow use of the pty after creation.
 allow $1 $1_devpts:chr_file { open getattr read write ioctl };
+allowxperm $1 $1_devpts:chr_file ioctl unpriv_tty_ioctls;
+# TIOCSTI is only ever used for exploits. Block it.
+# b/33073072, b/7530569
+# http://www.openwall.com/lists/oss-security/2016/09/26/14
+neverallowxperm * $1_devpts:chr_file ioctl TIOCSTI;
 # Note: devpts:dir search and ptmx_device:chr_file rw_file_perms
 # allowed to everyone via domain.te.
 ')
