@@ -42,10 +42,16 @@ SIOCIWFIRSTPRIV-SIOCIWLASTPRIV
 }')
 
 # commonly used ioctls on unix sockets
-define(`unpriv_unix_sock_ioctls', `{TIOCOUTQ FIOCLEX TCGETS TIOCGWINSZ TIOCSWINSZ FIONREAD }')
+define(`unpriv_unix_sock_ioctls', `{
+  TIOCOUTQ FIOCLEX TCGETS TIOCGWINSZ TIOCSWINSZ FIONREAD
+}')
 
 # commonly used TTY ioctls
-define(`unpriv_tty_ioctls', `{ TIOCOUTQ FIOCLEX }')
+# merge with unpriv_unix_sock_ioctls?
+define(`unpriv_tty_ioctls', `{
+  TIOCOUTQ FIOCLEX TCGETS TIOCGWINSZ TIOCSWINSZ TIOCSCTTY TCSETSW TCFLSH
+  TIOCSPGRP TIOCGPGRP
+}')
 
 # point to point ioctls
 define(`ppp_ioctls', `{
