@@ -501,6 +501,7 @@ neverallow {
   -adbd
   -init
   -runas
+  -sshd
   -zygote
 } shell:process { transition dyntransition };
 
