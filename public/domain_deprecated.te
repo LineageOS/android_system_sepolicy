@@ -27,6 +27,7 @@ allow domain_deprecated system_file:file r_file_perms;
 auditallow {
   domain_deprecated
   -appdomain
+  -fingerprintd
   -init
   -installd
   -rild
