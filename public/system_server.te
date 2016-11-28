@@ -391,11 +391,8 @@ allow system_server { cache_file cache_recovery_file }:dir { relabelfrom create_
 allow system_server { cache_file cache_recovery_file }:file { relabelfrom create_file_perms };
 allow system_server { cache_file cache_recovery_file }:fifo_file create_file_perms;
 
-# Run system programs, e.g. dexopt. Needed? (b/28035297)
-allow system_server system_file:file rx_file_perms;
 allow system_server system_file:dir r_dir_perms;
 allow system_server system_file:lnk_file r_file_perms;
-auditallow system_server system_file:file execute_no_trans;
 
 # LocationManager(e.g, GPS) needs to read and write
 # to uart driver and ctrl proc entry
@@ -599,7 +596,7 @@ neverallow system_server { bluetooth_data_file nfc_data_file shell_data_file app
 # example, https://www.linuxprogrammingblog.com/threads-and-fork-think-twice-before-using-them
 # Prevent the addition of new file execs to stop the problem from
 # getting worse. b/28035297
-neverallow system_server { file_type -toolbox_exec -logcat_exec -system_file }:file execute_no_trans;
+neverallow system_server { file_type -toolbox_exec -logcat_exec }:file execute_no_trans;
 
 # System server should never transition to a new domain. This compliments
 # and enforces the already pre-existing PR_SET_NO_NEW_PRIVS flag.
