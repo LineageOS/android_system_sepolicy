@@ -22,10 +22,6 @@ userdebug_or_eng(`
 allow logd pstorefs:dir search;
 allow logd pstorefs:file r_file_perms;
 
-# Set persist.sys. and sys.powerctl
-set_prop(logd, safemode_prop)
-set_prop(logd, powerctl_prop)
-
 # Access device logging gating property
 get_prop(logd, device_logging_prop)
 userdebug_or_eng(`get_prop(logd, logpersistd_logging_prop)')
