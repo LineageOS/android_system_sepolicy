@@ -284,7 +284,6 @@ define(`recovery_only', ifelse(target_recovery, `true', $1, ))
 # SELinux rules which apply only to userdebug or eng builds
 #
 define(`userdebug_or_eng', ifelse(target_build_variant, `eng', $1, ifelse(target_build_variant, `userdebug', $1)))
-define(`eng', ifelse(target_build_variant, `eng', $1))
 
 #####################################
 # SELinux rules for HALs that have either been binderized or are
