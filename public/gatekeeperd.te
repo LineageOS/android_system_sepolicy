@@ -10,6 +10,9 @@ allow gatekeeperd ion_device:chr_file r_file_perms;
 # need to find KeyStore and add self
 allow gatekeeperd gatekeeper_service:service_manager { add find };
 
+# Scan through /system/lib64/hw looking for installed HALs
+allow gatekeeperd system_file:dir r_dir_perms;
+
 # Need to add auth tokens to KeyStore
 use_keystore(gatekeeperd)
 allow gatekeeperd keystore:keystore_key { add_auth };
