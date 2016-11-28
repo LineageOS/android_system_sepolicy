@@ -1,5 +1,5 @@
 # inputflinger
-type inputflinger, domain, domain_deprecated;
+type inputflinger, domain;
 type inputflinger_exec, exec_type, file_type;
 
 binder_use(inputflinger)

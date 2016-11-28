@@ -1,5 +1,5 @@
 # servicemanager - the Binder context manager
-type servicemanager, domain, domain_deprecated, mlstrustedsubject;
+type servicemanager, domain, mlstrustedsubject;
 type servicemanager_exec, exec_type, file_type;
 
 # Note that we do not use the binder_* macros here.
