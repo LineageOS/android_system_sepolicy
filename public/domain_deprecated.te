@@ -77,7 +77,6 @@ auditallow domain_deprecated ion_device:chr_file { write append };
 # Read access to pseudo filesystems.
 r_dir_file(domain_deprecated, proc)
 r_dir_file(domain_deprecated, sysfs)
-r_dir_file(domain_deprecated, inotify)
 r_dir_file(domain_deprecated, cgroup)
 allow domain_deprecated proc_meminfo:file r_file_perms;
 r_dir_file(domain_deprecated, proc_net)
@@ -87,8 +86,6 @@ auditallow { domain_deprecated -fsck -fsck_untrusted -init -priv_app -rild -syst
 auditallow { domain_deprecated -bluetooth -fingerprintd -healthd -init -netd -priv_app -rild -system_app -surfaceflinger -system_server -tee -ueventd -vold -wpa } sysfs:dir { open getattr read ioctl lock }; # search granted in domain
 auditallow { domain_deprecated -bluetooth -fingerprintd -healthd -init -netd -priv_app -rild -system_app -surfaceflinger -system_server -tee -ueventd -vold -wpa } sysfs:file r_file_perms;
 auditallow { domain_deprecated -bluetooth -fingerprintd -healthd -init -netd -priv_app -rild -system_app -surfaceflinger -system_server -tee -ueventd -vold -wpa } sysfs:lnk_file { getattr open ioctl lock }; # read granted in domain
-auditallow domain_deprecated inotify:dir r_dir_perms;
-auditallow domain_deprecated inotify:{ file lnk_file } r_file_perms;
 auditallow {
   domain_deprecated
   -appdomain
@@ -141,9 +138,3 @@ allow domain_deprecated selinuxfs:dir r_dir_perms;
 allow domain_deprecated selinuxfs:file r_file_perms;
 auditallow { domain_deprecated -appdomain -debuggerd -init -installd -keystore -postinstall_dexopt -runas -servicemanager -system_server -ueventd -zygote } selinuxfs:dir { open getattr read ioctl lock }; # search granted in domain
 auditallow { domain_deprecated -appdomain -debuggerd -init -installd -keystore -postinstall_dexopt -runas -servicemanager -system_server -ueventd -zygote } selinuxfs:file { open read ioctl lock }; # getattr granted in domain
-
-# World readable asec image contents
-allow domain_deprecated asec_public_file:file r_file_perms;
-allow domain_deprecated { asec_public_file asec_apk_file }:dir r_dir_perms;
-auditallow domain_deprecated asec_public_file:file r_file_perms;
-auditallow domain_deprecated { asec_public_file asec_apk_file }:dir r_dir_perms;
