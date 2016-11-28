@@ -13,6 +13,9 @@ allow hwservicemanager { domain -init }:binder transfer;
 
 set_prop(hwservicemanager, hwservicemanager_prop)
 
+# Scan through /system/lib64/hw looking for installed HALs
+allow hwservicemanager system_file:dir r_dir_perms;
+
 # TODO once hwservicemanager checks whether HALs are
 # allowed to register a certain service, add policy here
 # for allowing to check SELinux permissions.
