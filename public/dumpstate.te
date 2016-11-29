@@ -79,11 +79,6 @@ allow dumpstate {
   surfaceflinger
 }:debuggerd dump_backtrace;
 
-# Vibrate the device after we're done collecting the bugreport
-# /sys/class/timed_output/vibrator/enable
-# TODO: create a new file class, instead of allowing write access to all of /sys
-allow dumpstate sysfs:file w_file_perms;
-
 # TODO: added to match above sysfs rule. Remove me?
 allow dumpstate sysfs_usb:file w_file_perms;
 
@@ -101,6 +96,13 @@ r_dir_file(dumpstate, cgroup)
 # Allow dumpstate to make binder calls to any binder service
 binder_call(dumpstate, binderservicedomain)
 binder_call(dumpstate, { appdomain ephemeral_app netd wificond })
+
+# Vibrate the device after we are done collecting the bugreport
+# For binderized mode:
+binder_call(dumpstate, hal_vibrator)
+binder_call(dumpstate, hwservicemanager)
+# For passthrough mode:
+allow dumpstate sysfs_vibrator:file { rw_file_perms getattr };
 
 # Reading /proc/PID/maps of other processes
 allow dumpstate self:capability sys_ptrace;
@@ -210,3 +212,7 @@ neverallow { domain -dumpstate } dumpstate_service:service_manager add;
 
 # only system_server and shell can find the dumpstate service
 neverallow { domain -system_server -shell } dumpstate_service:service_manager find;
+
+# Dumpstate should not be writing to any generically labeled sysfs files.
+# Create a specific label for the file type
+neverallow dumpstate sysfs:file no_w_file_perms;
