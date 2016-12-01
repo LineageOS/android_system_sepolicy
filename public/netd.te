@@ -29,6 +29,7 @@ allow netd shell_exec:file rx_file_perms;
 allow netd system_file:file x_file_perms;
 allow netd devpts:chr_file rw_file_perms;
 
+r_dir_file(netd, proc_net)
 # For /proc/sys/net/ipv[46]/route/flush.
 allow netd proc_net:file rw_file_perms;
 
