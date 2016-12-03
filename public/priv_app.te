@@ -14,6 +14,7 @@ allow priv_app self:process ptrace;
 # Some apps ship with shared libraries and binaries that they write out
 # to their sandbox directory and then execute.
 allow priv_app app_data_file:file rx_file_perms;
+auditallow priv_app app_data_file:file { execute execute_no_trans };
 
 # android.process.media uses /dev/mtp_usb
 allow priv_app mtp_device:chr_file rw_file_perms;
