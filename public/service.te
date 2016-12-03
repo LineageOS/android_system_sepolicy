@@ -11,6 +11,7 @@ type gpu_service,               service_manager_type;
 type inputflinger_service,      service_manager_type;
 type keystore_service,          service_manager_type;
 type mediaserver_service,       service_manager_type;
+type mediaanalytics_service,    service_manager_type;
 type mediaextractor_service,    service_manager_type;
 type mediacodec_service,        service_manager_type;
 type mediadrmserver_service,    service_manager_type;
