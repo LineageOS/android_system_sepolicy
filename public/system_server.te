@@ -179,6 +179,7 @@ allow system_server {
   mediadrmserver
   mediaextractor
   mediaserver
+  mediaanalytics
   sdcardd
   surfaceflinger
 }:debuggerd dump_backtrace;
@@ -462,6 +463,7 @@ allow system_server keystore_service:service_manager find;
 allow system_server gatekeeper_service:service_manager find;
 allow system_server fingerprintd_service:service_manager find;
 allow system_server mediaserver_service:service_manager find;
+allow system_server mediaanalytics_service:service_manager find;
 allow system_server mediaextractor_service:service_manager find;
 allow system_server mediacodec_service:service_manager find;
 allow system_server mediadrmserver_service:service_manager find;
