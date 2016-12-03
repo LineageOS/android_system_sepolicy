@@ -321,7 +321,11 @@ allow system_server system_app_data_file:file create_file_perms;
 # Types extracted from seapp_contexts type= fields.
 allow system_server { system_app_data_file bluetooth_data_file nfc_data_file radio_data_file shell_data_file app_data_file }:file { getattr read write append };
 
+# Access to /data/media for measuring disk usage.
+allow system_server media_rw_data_file:dir { search getattr open read };
+
 # Receive and use open /data/media files passed over binder IPC.
+# Also used for measuring disk usage.
 allow system_server media_rw_data_file:file { getattr read write append };
 
 # Relabel apk files.
@@ -540,11 +544,6 @@ allow system_server configfs:file { getattr open unlink write };
 allow system_server adbd:unix_stream_socket connectto;
 allow system_server adbd:fd use;
 allow system_server adbd:unix_stream_socket { getattr getopt ioctl read write shutdown };
-
-# Access to /data/media.
-# This should be removed if sdcardfs is modified to alter the secontext for its
-# accesses to the underlying FS.
-allow system_server media_rw_data_file:dir search;
 
 # Allow invoking tools like "timeout"
 allow system_server toolbox_exec:file rx_file_perms;
