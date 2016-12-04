@@ -36,3 +36,7 @@ allow radio radio_service:service_manager { add find };
 allow radio surfaceflinger_service:service_manager find;
 allow radio app_api_service:service_manager find;
 allow radio system_api_service:service_manager find;
+
+# Allow access to hwservicemanager for binderized hal
+binder_call(radio, hwservicemanager)
+binder_call(radio, rild)
