@@ -85,6 +85,7 @@
 /dev/mtp_usb		u:object_r:mtp_device:s0
 /dev/pmsg0		u:object_r:pmsg_device:s0
 /dev/pn544		u:object_r:nfc_device:s0
+/dev/port		u:object_r:port_device:s0
 /dev/ppp		u:object_r:ppp_device:s0
 /dev/ptmx		u:object_r:ptmx_device:s0
 /dev/pvrsrvkm		u:object_r:gpu_device:s0
