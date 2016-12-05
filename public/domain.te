@@ -299,8 +299,9 @@ neverallow { domain -kernel -init -recovery } block_device:blk_file { open read 
 # Don't allow raw read/write/open access to generic devices.
 # Rather force a relabel to a more specific type.
 # init is exempt from this as there are character devices that only it uses.
-# ueventd is exempt from this, as it is managing these devices.
-neverallow { domain -init -ueventd } device:chr_file { open read write };
+# uevent historically was granted access, but this does not appear used.
+# Tightening candidate?
+neverallow { domain -init -ueventd } device:chr_file no_rw_file_perms;
 
 # Limit what domains can mount filesystems or change their mount flags.
 # sdcard_type / vfat is exempt as a larger set of domains need
