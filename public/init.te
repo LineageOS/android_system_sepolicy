@@ -184,7 +184,7 @@ allow init { fs_type -contextmount_type -sdcard_type -rootfs }:file { open read 
 allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read setattr search };
 
 # chown/chmod on devices.
-allow init { dev_type -kmem_device }:chr_file { read open setattr };
+allow init { dev_type -kmem_device -port_device }:chr_file { read open setattr };
 
 # Unlabeled file access for upgrades from 4.2.
 allow init unlabeled:dir { create_dir_perms relabelfrom };
