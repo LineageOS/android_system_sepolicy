@@ -25,6 +25,11 @@ allow webview_zygote dalvikcache_data_file:dir r_dir_perms;
 allow webview_zygote dalvikcache_data_file:lnk_file r_file_perms;
 allow webview_zygote dalvikcache_data_file:file { r_file_perms execute };
 
+# Allow webview_zygote to stat the files that it opens. It must
+# be able to inspect them so that it can reopen them on fork
+# if necessary: b/30963384.
+allow webview_zygote debugfs_trace_marker:file getattr;
+
 # Allow webview_zygote to manage the pgroup of its children.
 allow webview_zygote system_server:process getpgid;
 
