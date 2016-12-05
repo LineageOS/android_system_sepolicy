@@ -252,8 +252,7 @@ allow { appdomain -isolated_app } hal_graphics_allocator:fd use;
 allow appdomain proc_meminfo:file r_file_perms;
 
 # For app fuse.
-allow appdomain app_fuse_file:dir rw_dir_perms;
-allow appdomain app_fuse_file:file rw_file_perms;
+allow appdomain app_fuse_file:file { getattr read append write };
 
 ###
 ### CTS-specific rules
