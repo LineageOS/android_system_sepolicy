@@ -46,5 +46,5 @@ neverallow ueventd property_type:property_service set;
 # Restrict ueventd access on block devices to maintenence operations.
 neverallow ueventd dev_type:blk_file ~{ getattr relabelfrom relabelto create setattr unlink };
 
-# Only relabelto as we would never want to relabelfrom kmem_device
-neverallow ueventd kmem_device:chr_file ~{ getattr create setattr unlink relabelto };
+# Only relabelto as we would never want to relabelfrom kmem_device or port_device
+neverallow ueventd { kmem_device port_device }:chr_file ~{ getattr create setattr unlink relabelto };
