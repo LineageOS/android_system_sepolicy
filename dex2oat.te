@@ -24,7 +24,7 @@ allow dex2oat user_profile_data_file:file { getattr read lock };
 # Allow dex2oat to use file descriptors from otapreopt.
 allow dex2oat postinstall_dexopt:fd use;
 
-allow dex2oat postinstall_file:dir getattr;
+allow dex2oat postinstall_file:dir { getattr search };
 
 # Allow dex2oat access to files in /data/ota.
 allow dex2oat ota_data_file:dir ra_dir_perms;

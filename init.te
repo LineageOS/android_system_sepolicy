@@ -44,7 +44,7 @@ allow init self:capability sys_admin;
 
 # Create and mount on directories in /.
 allow init rootfs:dir create_dir_perms;
-allow init { rootfs cache_file cgroup storage_file system_data_file system_file }:dir mounton;
+allow init { rootfs cache_file cgroup storage_file system_data_file system_file postinstall_mnt_dir }:dir mounton;
 
 # Mount on /dev/usb-ffs/adb.
 allow init device:dir mounton;
