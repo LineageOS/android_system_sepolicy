@@ -120,7 +120,6 @@ allow dumpstate shell_exec:file rx_file_perms;
 allow dumpstate zygote_exec:file rx_file_perms;
 # Dalvik Compiler JIT.
 allow dumpstate ashmem_device:chr_file execute;
-allow dumpstate dumpstate_tmpfs:file execute;
 allow dumpstate self:process execmem;
 # For art.
 allow dumpstate libart_file:file { r_file_perms execute };
@@ -186,12 +185,6 @@ allow dumpstate devpts:chr_file rw_file_perms;
 set_prop(dumpstate, dumpstate_prop)
 # dumpstate_options_prop is used to pass extra command-line args.
 set_prop(dumpstate, dumpstate_options_prop)
-
-# systrace support - allow atrace to run
-allow dumpstate debugfs_tracing:dir r_dir_perms;
-allow dumpstate debugfs_tracing:file rw_file_perms;
-allow dumpstate debugfs_trace_marker:file getattr;
-allow dumpstate atrace_exec:file rx_file_perms;
 
 # Access to /data/media.
 # This should be removed if sdcardfs is modified to alter the secontext for its

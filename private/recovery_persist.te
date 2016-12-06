@@ -1,3 +1,7 @@
 # type_transition must be private policy the domain_trans rules could stay
 # public, but conceptually should go with this
 init_daemon_domain(recovery_persist)
+
+# recovery_persist is not allowed to write anywhere other than recovery_data_file
+# TODO: deal with tmpfs_domain pub/priv split properly
+neverallow recovery_persist { file_type -recovery_data_file -recovery_persist_tmpfs userdebug_or_eng(`-coredump_file') }:file write;

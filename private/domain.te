@@ -1,0 +1,10 @@
+# Limit ability to ptrace or read sensitive /proc/pid files of processes
+# with other UIDs to these whitelisted domains.
+neverallow {
+  domain
+  -debuggerd
+  -vold
+  -dumpstate
+  -system_server
+  userdebug_or_eng(`-perfprofd')
+} self:capability sys_ptrace;
