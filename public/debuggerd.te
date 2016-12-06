@@ -15,9 +15,15 @@ allow debuggerd {
   -healthd
   -init
   -keystore
+  -logd
   -ueventd
   -watchdogd
 }:process { execmem ptrace getattr };
+
+userdebug_or_eng(`
+  allow debuggerd logd:process { execmem ptrace getattr };
+')
+
 allow debuggerd tombstone_data_file:dir rw_dir_perms;
 allow debuggerd tombstone_data_file:file create_file_perms;
 allow debuggerd shared_relro_file:dir r_dir_perms;
