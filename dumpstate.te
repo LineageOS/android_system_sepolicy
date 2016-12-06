@@ -5,6 +5,7 @@ type dumpstate_exec, exec_type, file_type;
 init_daemon_domain(dumpstate)
 net_domain(dumpstate)
 binder_use(dumpstate)
+wakelock_use(dumpstate)
 
 # Allow setting process priority, protect from OOM killer, and dropping
 # privileges by switching UID / GID
@@ -135,6 +136,9 @@ control_logd(dumpstate)
 # Read network state info files.
 allow dumpstate net_data_file:dir search;
 allow dumpstate net_data_file:file r_file_perms;
+
+# List sockets via ss.
+allow dumpstate self:netlink_tcpdiag_socket { create_socket_perms nlmsg_read };
 
 # Access /data/tombstones.
 allow dumpstate tombstone_data_file:dir r_dir_perms;
