@@ -22,9 +22,6 @@ allow appdomain zygote:fd use;
 # valgrind needs mmap exec for zygote
 allow appdomain zygote_exec:file rx_file_perms;
 
-# Read system properties managed by zygote.
-allow appdomain zygote_tmpfs:file read;
-
 # Notify zygote of death;
 allow appdomain zygote:process sigchld;
 

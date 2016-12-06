@@ -25,7 +25,6 @@ allow system_server self:process ptrace;
 # Child of the zygote.
 allow system_server zygote:fd use;
 allow system_server zygote:process sigchld;
-allow system_server zygote_tmpfs:file read;
 
 # May kill zygote on crashes.
 allow system_server zygote:process sigkill;
@@ -381,8 +380,6 @@ set_prop(system_server, ctl_bugreport_prop)
 set_prop(system_server, cppreopt_prop)
 
 # Create a socket for receiving info from wpa.
-type_transition system_server wifi_data_file:sock_file system_wpa_socket;
-type_transition system_server wpa_socket:sock_file system_wpa_socket;
 allow system_server wpa_socket:dir rw_dir_perms;
 allow system_server system_wpa_socket:sock_file create_file_perms;
 
@@ -626,4 +623,3 @@ neverallow system_server { dev_type -frp_block_device }:blk_file no_rw_file_perm
 # system_server should never use JIT functionality
 neverallow system_server self:process execmem;
 neverallow system_server ashmem_device:chr_file execute;
-neverallow system_server system_server_tmpfs:file execute;

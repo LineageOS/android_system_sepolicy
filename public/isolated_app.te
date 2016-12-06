@@ -39,8 +39,6 @@ auditallow isolated_app sdcard_type:file { write append };
 # webview_zygote process. These rules are specialized copies of the ones in app.te.
 # Inherit FDs from the webview_zygote.
 allow isolated_app webview_zygote:fd use;
-# Read system properties managed by webview_zygote.
-allow isolated_app webview_zygote_tmpfs:file read;
 # Notify webview_zygote of child death.
 allow isolated_app webview_zygote:process sigchld;
 # Inherit logd write socket.
