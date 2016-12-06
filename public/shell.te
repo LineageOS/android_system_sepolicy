@@ -72,12 +72,6 @@ set_prop(shell, wifi_log_prop)
 userdebug_or_eng(`set_prop(shell, log_prop)')
 userdebug_or_eng(`set_prop(shell, logpersistd_logging_prop)')
 
-# systrace support - allow atrace to run
-allow shell debugfs_tracing:dir r_dir_perms;
-allow shell debugfs_tracing:file rw_file_perms;
-allow shell debugfs_trace_marker:file getattr;
-allow shell atrace_exec:file rx_file_perms;
-
 userdebug_or_eng(`
   # "systrace --boot" support - allow boottrace service to run
   allow shell boottrace_data_file:dir rw_dir_perms;

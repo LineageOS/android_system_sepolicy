@@ -1,0 +1,4 @@
+# app_domain fallout
+tmpfs_domain(radio)
+# Map with PROT_EXEC.
+allow radio radio_tmpfs:file execute;

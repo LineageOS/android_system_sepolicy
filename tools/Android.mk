@@ -46,4 +46,17 @@ LOCAL_CXX_STL := none
 
 include $(BUILD_HOST_EXECUTABLE)
 
+###################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := version_policy
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := -Wall -Werror
+LOCAL_SRC_FILES := version_policy.c
+LOCAL_SHARED_LIBRARIES := libsepol
+LOCAL_CXX_STL := none
+
+include $(BUILD_HOST_EXECUTABLE)
+
+
 include $(call all-makefiles-under,$(LOCAL_PATH))
