@@ -118,3 +118,21 @@ allow installd devpts:chr_file rw_file_perms;
 
 # execute toybox for app relocation
 allow installd toolbox_exec:file rx_file_perms;
+
+# Allow installd to publish a binder service and make binder calls.
+binder_use(installd)
+allow installd installd_service:service_manager add;
+allow installd dumpstate:fifo_file  { getattr write };
+
+# Allow installd to call into the system server so it can check permissions.
+binder_call(installd, system_server)
+allow installd permission_service:service_manager find;
+
+###
+### Neverallow rules
+###
+
+# only system_server and dumpstate may interact with installd over binder
+neverallow { domain -system_server -dumpstate } installd_service:service_manager find;
+neverallow { domain -system_server -dumpstate } installd:binder call;
+neverallow installd { domain -system_server -servicemanager userdebug_or_eng(`-su') }:binder call;
