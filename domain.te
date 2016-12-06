@@ -485,12 +485,11 @@ neverallow {
   -init
   -runas
   -zygote
-  userdebug_or_eng(`-qti-testscripts')
 } shell:process { transition dyntransition };
 
 # Only domains spawned from zygote and runas may have the appdomain attribute.
 neverallow { domain -runas -zygote } {
-  appdomain -shell userdebug_or_eng(`-su') -bluetooth
+  appdomain -shell userdebug_or_eng(`-su') -bluetooth userdebug_or_eng(`-qti-testscripts')
 }:process { transition dyntransition };
 
 # Minimize read access to shell- or app-writable symlinks.
