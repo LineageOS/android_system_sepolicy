@@ -16,12 +16,6 @@ net_domain(ephemeral_app)
 allow ephemeral_app self:process execmem;
 allow ephemeral_app ashmem_device:chr_file execute;
 
-# Map with PROT_EXEC.
-allow ephemeral_app ephemeral_app_tmpfs:file execute;
-
-# Read system properties managed by zygote.
-allow ephemeral_app zygote_tmpfs:file read;
-
 # Send logcat messages to logd.
 write_logd(ephemeral_app)
 

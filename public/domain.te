@@ -192,17 +192,6 @@ neverallowxperm * devpts:chr_file ioctl TIOCSTI;
 # Do not allow any domain other than init or recovery to create unlabeled files.
 neverallow { domain -init -recovery } unlabeled:dir_file_class_set create;
 
-# Limit ability to ptrace or read sensitive /proc/pid files of processes
-# with other UIDs to these whitelisted domains.
-neverallow {
-  domain
-  -debuggerd
-  -vold
-  -dumpstate
-  -system_server
-  userdebug_or_eng(`-perfprofd')
-} self:capability sys_ptrace;
-
 # Limit device node creation to these whitelisted domains.
 neverallow {
   domain
@@ -506,7 +495,7 @@ neverallow { domain -init } proc:{ file dir } mounton;
 # written on domain are applied to all processes.
 # This is achieved by ensuring that it is impossible to transition
 # from a domain to a non-domain type and vice versa.
-neverallow domain ~domain:process { transition dyntransition };
+# TODO - rework this: neverallow domain ~domain:process { transition dyntransition };
 neverallow ~domain domain:process { transition dyntransition };
 
 #
@@ -617,10 +606,10 @@ neverallow {
 neverallow * ~servicemanager:service_manager list;
 
 # only service_manager_types can be added to service_manager
-neverallow * ~service_manager_type:service_manager { add find };
+# TODO - rework this: neverallow * ~service_manager_type:service_manager { add find };
 
 # Prevent assigning non property types to properties
-neverallow * ~property_type:property_service set;
+# TODO - rework this: neverallow * ~property_type:property_service set; 
 
 # Domain types should never be assigned to any files other
 # than the /proc/pid files associated with a process. The

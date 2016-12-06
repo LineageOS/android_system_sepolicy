@@ -3,3 +3,9 @@
 # Define and allow access to our own type for ashmem regions.
 # Label ashmem objects with our own unique type.
 tmpfs_domain(ephemeral_app)
+# TODO: deal with tmpfs_domain pub/priv split properly
+# Map with PROT_EXEC.
+allow ephemeral_app ephemeral_app_tmpfs:file execute;
+
+# Read system properties managed by zygote.
+allow ephemeral_app zygote_tmpfs:file read;
