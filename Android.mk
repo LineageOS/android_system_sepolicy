@@ -33,7 +33,7 @@ endif
 # private - platform-only policy required for platform functionality but which
 #  is not exported to vendor policy developers and as such may not be assumed
 #  to exist.
-# mapping - TODO.  This contains policy statements which map the attributes
+# mapping - This contains policy statements which map the attributes
 #  exposed in the public policy of previous versions to the concrete types used
 #  in this policy to ensure that policy targeting attributes from public
 #  policy from an older platform version continues to work.
@@ -222,8 +222,7 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 plat_policy.cil := $(intermediates)/plat_policy.cil
 $(plat_policy.cil): $(plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c $(POLICYVERS) -o $@.tmp $<
-	$(hide) grep -v neverallow $@.tmp > $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c $(POLICYVERS) -o $@ $<
 
 # nonplat_policy.conf - A combination of the non-platform private and the
 # exported platform policy associated with the version the non-platform policy
@@ -255,7 +254,7 @@ $(nonplat_policy.cil): $(nonplat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolic
 pruned_nonplat_policy.cil := $(intermediates)/pruned_nonplat_policy.cil
 $(pruned_nonplat_policy.cil): $(reqd_policy_mask.cil) $(nonplat_policy.cil)
 	@mkdir -p $(dir $@)
-	$(hide) grep -Fxv -f $^ | grep -v neverallow > $@
+	$(hide) grep -Fxv -f $^ > $@
 
 vers_nonplat_policy.cil := $(intermediates)/vers_nonplat_policy.cil
 $(vers_nonplat_policy.cil) : PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
@@ -445,7 +444,7 @@ file_contexts.device.sorted.tmp := $(intermediates)/file_contexts.device.sorted.
 $(file_contexts.device.sorted.tmp): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(file_contexts.device.sorted.tmp): $(file_contexts.device.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/fc_sort $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
-	# TODO: fix with attributized types $(hide) $(HOST_OUT_EXECUTABLES)/checkfc -e $(PRIVATE_SEPOLICY) $<
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -e $(PRIVATE_SEPOLICY) $<
 	$(hide) $(HOST_OUT_EXECUTABLES)/fc_sort $< $@
 
 file_contexts.concat.tmp := $(intermediates)/file_contexts.concat.tmp
@@ -456,7 +455,7 @@ $(file_contexts.concat.tmp): $(file_contexts.local.tmp) $(file_contexts.device.s
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): $(file_contexts.concat.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/sefcontext_compile $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
-	# TODO: fix with attributized types	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $<
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $<
 	$(hide) $(HOST_OUT_EXECUTABLES)/sefcontext_compile -o $@ $<
 
 built_fc := $(LOCAL_BUILT_MODULE)
@@ -486,7 +485,7 @@ $(general_file_contexts.tmp): $(addprefix $(PLAT_PRIVATE_POLICY)/, file_contexts
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
 $(LOCAL_BUILT_MODULE): $(general_file_contexts.tmp) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/sefcontext_compile $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
-	#  TODO: fix with attributized types $(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $<
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $<
 	$(hide) $(HOST_OUT_EXECUTABLES)/sefcontext_compile -o $@ $<
 
 general_file_contexts.tmp :=
@@ -567,7 +566,7 @@ $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): $(property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
 	$(hide) sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
-	# TODO: fix with attributized types $(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
 built_pc := $(LOCAL_BUILT_MODULE)
 all_pc_files :=
@@ -592,7 +591,7 @@ $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
 $(LOCAL_BUILT_MODULE): $(general_property_contexts.tmp) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
 	@mkdir -p $(dir $@)
 	$(hide) sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
-	# TODO: fix with attributized types $(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
 general_property_contexts.tmp :=
 
@@ -620,7 +619,7 @@ $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): $(service_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
 	@mkdir -p $(dir $@)
 	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
-	# TODO: fix with attributized types$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -s $(PRIVATE_SEPOLICY) $@
+	$(HOST_OUT_EXECUTABLES)/checkfc -s $(PRIVATE_SEPOLICY) $@
 
 built_svc := $(LOCAL_BUILT_MODULE)
 all_svc_files :=
@@ -645,7 +644,7 @@ $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
 $(LOCAL_BUILT_MODULE): $(general_service_contexts.tmp) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
 	@mkdir -p $(dir $@)
 	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
-	# TODO: fix with attributized types $(hide) $(HOST_OUT_EXECUTABLES)/checkfc -s $(PRIVATE_SEPOLICY) $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -s $(PRIVATE_SEPOLICY) $@
 
 general_service_contexts.tmp :=
 
