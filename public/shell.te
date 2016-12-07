@@ -129,12 +129,6 @@ allow shell sysfs:dir r_dir_perms;
 # Allow access to ion memory allocation device.
 allow shell ion_device:chr_file rw_file_perms;
 
-# Access to /data/media.
-# This should be removed if sdcardfs is modified to alter the secontext for its
-# accesses to the underlying FS.
-allow shell media_rw_data_file:dir create_dir_perms;
-allow shell media_rw_data_file:file create_file_perms;
-
 #
 # filesystem test for insecure chr_file's is done
 # via a host side test
