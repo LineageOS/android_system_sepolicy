@@ -111,3 +111,5 @@ allow adbd mnt_user_file:lnk_file r_file_perms;
 # accesses to the underlying FS.
 allow adbd media_rw_data_file:dir create_dir_perms;
 allow adbd media_rw_data_file:file create_file_perms;
+
+r_dir_file(adbd, apk_data_file)

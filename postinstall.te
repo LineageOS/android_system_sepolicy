@@ -5,8 +5,8 @@ type postinstall, domain;
 
 # Allow postinstall to write to its stdout/stderr when redirected via pipes to
 # update_engine.
-allow postinstall update_engine:fd use;
-allow postinstall update_engine:fifo_file rw_file_perms;
+allow postinstall update_engine_common:fd use;
+allow postinstall update_engine_common:fifo_file rw_file_perms;
 
 # Allow postinstall to read and execute directories and files in the same
 # mounted location.
@@ -19,10 +19,6 @@ allow postinstall shell_exec:file rx_file_perms;
 allow postinstall system_file:file rx_file_perms;
 allow postinstall toolbox_exec:file rx_file_perms;
 
-# No domain other than update_engine should transition to postinstall, as it is
-# only meant to run during the update.
-neverallow { domain -update_engine } postinstall:process { transition dyntransition };
-
 #
 # For OTA dexopt.
 #
@@ -33,3 +29,10 @@ binder_call(postinstall, system_server)
 
 # Need to talk to the otadexopt service.
 allow postinstall otadexopt_service:service_manager find;
+
+domain_auto_trans(postinstall, otapreopt_chroot_exec, otapreopt_chroot)
+
+# No domain other than update_engine and recovery (via update_engine_sideload)
+# should transition to postinstall, as it is only meant to run during the
+# update.
+neverallow { domain -update_engine -recovery } postinstall:process { transition dyntransition };

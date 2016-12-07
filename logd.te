@@ -28,6 +28,7 @@ set_prop(logd, powerctl_prop)
 
 # Access device logging gating property
 get_prop(logd, device_logging_prop)
+userdebug_or_eng(`get_prop(logd, logpersistd_logging_prop)')
 
 r_dir_file(logd, domain)
 

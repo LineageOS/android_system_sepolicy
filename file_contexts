@@ -175,6 +175,7 @@
 /system/bin/mdnsd	u:object_r:mdnsd_exec:s0
 /system/bin/installd	u:object_r:installd_exec:s0
 /system/bin/otapreopt_chroot   u:object_r:otapreopt_chroot_exec:s0
+/system/bin/otapreopt_slot   u:object_r:otapreopt_slot_exec:s0
 /system/bin/keystore	u:object_r:keystore_exec:s0
 /system/bin/fingerprintd u:object_r:fingerprintd_exec:s0
 /system/bin/gatekeeperd u:object_r:gatekeeperd_exec:s0
@@ -203,6 +204,8 @@
 /system/bin/update_verifier u:object_r:update_verifier_exec:s0
 /system/bin/logwrapper  u:object_r:system_file:s0
 /system/bin/vdc         u:object_r:vdc_exec:s0
+/system/bin/cppreopts.sh   u:object_r:cppreopts_exec:s0
+/system/bin/preopt2cachename u:object_r:preopt2cachename_exec:s0
 /system/bin/install-recovery.sh u:object_r:install_recovery_exec:s0
 /system/bin/dex2oat     u:object_r:dex2oat_exec:s0
 # patchoat executable has (essentially) the same requirements as dex2oat.
@@ -246,6 +249,7 @@
 /data/resource-cache(/.*)? u:object_r:resourcecache_data_file:s0
 /data/dalvik-cache(/.*)? u:object_r:dalvikcache_data_file:s0
 /data/ota(/.*)? u:object_r:ota_data_file:s0
+/data/ota_package(/.*)? u:object_r:ota_package_file:s0
 /data/adb(/.*)?		u:object_r:adb_data_file:s0
 /data/anr(/.*)?		u:object_r:anr_data_file:s0
 /data/app(/.*)?                       u:object_r:apk_data_file:s0

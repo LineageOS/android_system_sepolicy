@@ -5,4 +5,13 @@ type update_verifier_exec, exec_type, file_type;
 
 init_daemon_domain(update_verifier)
 
-# TODO: Add rules to allow update_verifier to read system_block_device.
+# Allow update_verifier to reach block devices in /dev/block.
+allow update_verifier block_device:dir search;
+
+# Read care map in /data/ota_package/.
+allow update_verifier ota_package_file:dir r_dir_perms;
+allow update_verifier ota_package_file:file r_file_perms;
+
+# Read all blocks in system partition.
+allow update_verifier system_block_device:blk_file r_file_perms;
+

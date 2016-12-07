@@ -39,6 +39,7 @@ type contexthub_service, app_api_service, system_server_service, service_manager
 type IProxyService_service, app_api_service, system_server_service, service_manager_type;
 type commontime_management_service, system_server_service, service_manager_type;
 type connectivity_service, app_api_service, system_server_service, service_manager_type;
+type connmetrics_service, app_api_service, system_server_service, service_manager_type;
 type consumer_ir_service, app_api_service, system_server_service, service_manager_type;
 type content_service, app_api_service, system_server_service, service_manager_type;
 type country_detector_service, app_api_service, system_server_service, service_manager_type;
