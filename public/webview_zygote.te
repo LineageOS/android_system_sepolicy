@@ -8,6 +8,11 @@ type webview_zygote_exec, exec_type, file_type;
 # Access to system files for SELinux contexts.
 allow webview_zygote rootfs:file r_file_perms;
 
+# Allow reading/executing installed binaries to enable preloading the
+# installed WebView implementation.
+allow webview_zygote apk_data_file:dir r_dir_perms;
+allow webview_zygote apk_data_file:file { r_file_perms execute };
+
 # Access to the WebView relro file.
 allow webview_zygote shared_relro_file:dir search;
 allow webview_zygote shared_relro_file:file r_file_perms;
@@ -47,6 +52,17 @@ selinux_check_access(webview_zygote)
 
 # Only permit transition to isolated_app.
 neverallow webview_zygote { domain -isolated_app }:process dyntransition;
+
+# Only setcon() transitions, no exec() based transitions
+neverallow webview_zygote *:process transition;
+
+# Must not exec() a program without changing domains.
+# Having said that, exec() above is not allowed.
+neverallow webview_zygote *:file execute_no_trans;
+
+# The only way to enter this domain is for init to exec() us.
+neverallow { domain -init } webview_zygote:process transition;
+neverallow * webview_zygote:process dyntransition;
 
 # Disallow write access to properties.
 neverallow webview_zygote property_socket:sock_file write;
