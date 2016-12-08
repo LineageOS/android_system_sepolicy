@@ -1,4 +1,3 @@
-# app_domain fallout
-tmpfs_domain(shared_relro)
-# Map with PROT_EXEC.
-allow shared_relro shared_relro_tmpfs:file execute;
+# The shared relro process is a Java program forked from the zygote, so it
+# inherits from app to get basic permissions it needs to run.
+app_domain(shared_relro)

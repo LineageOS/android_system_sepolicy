@@ -11,8 +11,5 @@ userdebug_or_eng(`
 # su is also permissive to permit setenforce.
   permissive su;
 
-  # app_domain fallout
-  tmpfs_domain(su)
-  # Map with PROT_EXEC.
-  allow su su_tmpfs:file execute;
+  app_domain(su)
 ')
