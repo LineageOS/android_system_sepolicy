@@ -1,4 +1,1 @@
-# app_domain_fallout
-tmpfs_domain(nfc)
-# Map with PROT_EXEC.
-allow nfc nfc_tmpfs:file execute;
+app_domain(nfc)

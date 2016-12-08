@@ -1,7 +1,4 @@
-# app_domain fallout
-tmpfs_domain(priv_app)
-# Map with PROT_EXEC.
-allow priv_app priv_app_tmpfs:file execute;
+app_domain(priv_app)
 
 # Allow the allocation and use of ptys
 # Used by: https://play.privileged.com/store/apps/details?id=jackpal.androidterm

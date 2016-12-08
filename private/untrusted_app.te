@@ -1,7 +1,4 @@
-# app_domain fallout
-tmpfs_domain(untrusted_app)
-# Map with PROT_EXEC.
-allow untrusted_app untrusted_app_tmpfs:file execute;
+app_domain(untrusted_app)
 
 # Allow the allocation and use of ptys
 # Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm

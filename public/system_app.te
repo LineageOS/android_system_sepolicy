@@ -4,7 +4,7 @@
 # server.
 #
 type system_app, domain, domain_deprecated;
-app_domain(system_app)
+
 net_domain(system_app)
 binder_service(system_app)
 
