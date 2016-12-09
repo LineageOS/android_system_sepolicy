@@ -5,10 +5,6 @@ type shell_exec, exec_type, file_type;
 # Create and use network sockets.
 net_domain(shell)
 
-# Run app_process.
-# XXX Transition into its own domain?
-app_domain(shell)
-
 # logcat
 read_logd(shell)
 control_logd(shell)

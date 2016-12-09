@@ -1,6 +1,6 @@
 # phone subsystem
 type radio, domain, domain_deprecated, mlstrustedsubject;
-app_domain(radio)
+
 net_domain(radio)
 bluetooth_domain(radio)
 binder_service(radio)
