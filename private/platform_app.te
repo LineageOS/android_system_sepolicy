@@ -1,4 +1,1 @@
-# app_domain fallout
-tmpfs_domain(platform_app)
-# Map with PROT_EXEC.
-allow platform_app platform_app_tmpfs:file execute;
+app_domain(platform_app)

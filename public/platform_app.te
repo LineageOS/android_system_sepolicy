@@ -3,7 +3,7 @@
 ###
 
 type platform_app, domain, domain_deprecated;
-app_domain(platform_app)
+
 # Access the network.
 net_domain(platform_app)
 # Access bluetooth.
