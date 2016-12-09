@@ -106,7 +106,6 @@
 /dev/socket/dnsproxyd	u:object_r:dnsproxyd_socket:s0
 /dev/socket/dumpstate	u:object_r:dumpstate_socket:s0
 /dev/socket/fwmarkd	u:object_r:fwmarkd_socket:s0
-/dev/socket/installd	u:object_r:installd_socket:s0
 /dev/socket/lmkd        u:object_r:lmkd_socket:s0
 /dev/socket/logd	u:object_r:logd_socket:s0
 /dev/socket/logdr	u:object_r:logdr_socket:s0

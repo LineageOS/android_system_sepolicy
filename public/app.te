@@ -334,7 +334,6 @@ neverallow appdomain socket_device:sock_file write;
 
 # Unix domain sockets.
 neverallow appdomain adbd_socket:sock_file write;
-neverallow appdomain installd_socket:sock_file write;
 neverallow { appdomain -radio } rild_socket:sock_file write;
 neverallow appdomain vold_socket:sock_file write;
 neverallow appdomain zygote_socket:sock_file write;
