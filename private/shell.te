@@ -4,7 +4,6 @@ allow shell debugfs_tracing:file rw_file_perms;
 allow shell debugfs_trace_marker:file getattr;
 allow shell atrace_exec:file rx_file_perms;
 
-# app_domain fallout
-tmpfs_domain(shell)
-# Map with PROT_EXEC.
-allow shell shell_tmpfs:file execute;
+# Run app_process.
+# XXX Transition into its own domain?
+app_domain(shell)

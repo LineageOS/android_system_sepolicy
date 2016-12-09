@@ -9,7 +9,6 @@ userdebug_or_eng(`
 
   # Add su to various domains
   net_domain(su)
-  app_domain(su)
 
   dontaudit su self:capability_class_set *;
   dontaudit su kernel:security *;
