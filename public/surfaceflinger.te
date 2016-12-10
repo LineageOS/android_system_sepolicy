@@ -1,5 +1,5 @@
 # surfaceflinger - display compositor service
-type surfaceflinger, domain, domain_deprecated;
+type surfaceflinger, domain;
 type surfaceflinger_exec, exec_type, file_type;
 
 typeattribute surfaceflinger mlstrustedsubject;

@@ -1,5 +1,5 @@
 # nfc subsystem
-type nfc, domain, domain_deprecated;
+type nfc, domain;
 
 net_domain(nfc)
 binder_service(nfc)
