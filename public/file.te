@@ -217,7 +217,6 @@ type bluetooth_socket, file_type;
 type dnsproxyd_socket, file_type, mlstrustedobject;
 type dumpstate_socket, file_type;
 type fwmarkd_socket, file_type, mlstrustedobject;
-type installd_socket, file_type;
 type lmkd_socket, file_type;
 type logd_socket, file_type, mlstrustedobject;
 type logdr_socket, file_type, mlstrustedobject;
