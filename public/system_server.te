@@ -131,7 +131,6 @@ allow system_server node:rawip_socket node_bind;
 allow system_server self:tun_socket create_socket_perms_no_ioctl;
 
 # Talk to init and various daemons via sockets.
-unix_socket_connect(system_server, installd, installd)
 unix_socket_connect(system_server, lmkd, lmkd)
 unix_socket_connect(system_server, mtpd, mtp)
 unix_socket_connect(system_server, netd, netd)
