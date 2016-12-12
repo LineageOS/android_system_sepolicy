@@ -5,7 +5,7 @@
 # We also transition into this domain from dumpstate, when
 # collecting bug reports.
 
-type vdc, domain, domain_deprecated;
+type vdc, domain;
 type vdc_exec, exec_type, file_type;
 
 unix_socket_connect(vdc, vold, vold)

@@ -1,5 +1,5 @@
 # sgdisk called from vold
-type sgdisk, domain, domain_deprecated;
+type sgdisk, domain;
 type sgdisk_exec, exec_type, file_type;
 
 # Allowed to read/write low-level partition tables

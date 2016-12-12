@@ -1,5 +1,5 @@
 # DNS, DHCP services
-type dnsmasq, domain, domain_deprecated;
+type dnsmasq, domain;
 type dnsmasq_exec, exec_type, file_type;
 
 net_domain(dnsmasq)
