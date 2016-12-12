@@ -1,5 +1,5 @@
 # idmap, when executed by installd
-type idmap, domain, domain_deprecated;
+type idmap, domain;
 type idmap_exec, exec_type, file_type;
 
 # Use open file to /data/resource-cache file inherited from installd.
