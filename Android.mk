@@ -120,36 +120,6 @@ sepolicy_build_files := security_classes \
                         port_contexts
 
 ##################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := sectxfile_nl
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-
-# Create a file containing newline only to add between context config files
-include $(BUILD_SYSTEM)/base_rules.mk
-$(LOCAL_BUILT_MODULE):
-	@mkdir -p $(dir $@)
-	$(hide) echo > $@
-
-built_nl := $(LOCAL_BUILT_MODULE)
-
-#################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := sepolicy
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-LOCAL_TARGET_ARCH := $(TARGET_ARCH)
-
-# Set LOCAL_TARGET_ARCH to mips for mips and mips64.
-ifneq (,$(filter mips mips64,$(TARGET_ARCH)))
-  LOCAL_TARGET_ARCH := mips
-endif
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
 # reqd_policy_mask - a policy.conf file which contains only the bare minimum
 # policy necessary to use checkpolicy.  This bare-minimum policy needs to be
 # present in all policy.conf files, but should not necessarily be exported as
@@ -173,6 +143,9 @@ $(reqd_policy_mask.cil): $(reqd_policy_mask.conf) $(HOST_OUT_EXECUTABLES)/checkp
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -C -M -c $(POLICYVERS) -o $@ $<
 
+reqd_policy_mask.conf :=
+
+##################################
 # plat_pub_policy - policy that will be exported to be a part of non-platform
 # policy corresponding to this platform version.  This is a limited subset of
 # policy that would not compile in checkpolicy on its own.  To get around this
@@ -191,14 +164,44 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY))
 		-s $^ > $@
 
 plat_pub_policy.cil := $(intermediates)/plat_pub_policy.cil
-$(plat_pub_policy.cil): $(plat_pub_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
+$(plat_pub_policy.cil): PRIVATE_POL_CONF := $(plat_pub_policy.conf)
+$(plat_pub_policy.cil): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
+$(plat_pub_policy.cil): $(HOST_OUT_EXECUTABLES)/checkpolicy $(plat_pub_policy.conf) $(reqd_policy_mask.cil)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -C -M -c $(POLICYVERS) -o $@ $<
+	$(hide) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
+	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
 
-pruned_plat_pub_policy.cil := $(intermediates)/pruned_plat_pub_policy.cil
-$(pruned_plat_pub_policy.cil): $(reqd_policy_mask.cil) $(plat_pub_policy.cil)
+plat_pub_policy.conf :=
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := sectxfile_nl
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+
+# Create a file containing newline only to add between context config files
+include $(BUILD_SYSTEM)/base_rules.mk
+$(LOCAL_BUILT_MODULE):
 	@mkdir -p $(dir $@)
-	$(hide) grep -Fxv -f $^ > $@
+	$(hide) echo > $@
+
+built_nl := $(LOCAL_BUILT_MODULE)
+
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := plat_sepolicy.cil
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+LOCAL_TARGET_ARCH := $(TARGET_ARCH)
+
+# Set LOCAL_TARGET_ARCH to mips for mips and mips64.
+ifneq (,$(filter mips mips64,$(TARGET_ARCH)))
+  LOCAL_TARGET_ARCH := mips
+endif
+
+include $(BUILD_SYSTEM)/base_rules.mk
 
 # plat_policy.conf - A combination of the private and public platform policy
 # which will ship with the device.  The platform will always reflect the most
@@ -219,10 +222,67 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
-plat_policy.cil := $(intermediates)/plat_policy.cil
-$(plat_policy.cil): $(plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
+plat_policy_nvr := $(intermediates)/plat_policy_nvr.cil
+$(plat_policy_nvr): $(plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c $(POLICYVERS) -o $@ $<
+
+$(LOCAL_BUILT_MODULE): $(plat_policy_nvr)
+	@mkdir -p $(dir $@)
+	grep -v neverallow $< > $@
+
+plat_policy.conf :=
+
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := mapping_sepolicy.cil
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+LOCAL_TARGET_ARCH := $(TARGET_ARCH)
+
+# Set LOCAL_TARGET_ARCH to mips for mips and mips64.
+ifneq (,$(filter mips mips64,$(TARGET_ARCH)))
+  LOCAL_TARGET_ARCH := mips
+endif
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+# auto-generate the mapping file for current platform policy, since it needs to
+# track platform policy development
+current_mapping.cil := $(intermediates)/mapping/current.cil
+$(current_mapping.cil) : PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
+$(current_mapping.cil) : $(plat_pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
+
+ifeq ($(BOARD_SEPOLICY_VERS), current)
+mapping_policy_nvr := $(current_mapping.cil)
+else
+mapping_policy_nvr := $(addsuffix /$(BOARD_SEPOLICY_VERS).cil, $(PLAT_PRIVATE_POLICY)/mapping)
+endif
+
+$(LOCAL_BUILT_MODULE): $(mapping_policy_nvr)
+	grep -v neverallow $< > $@
+
+current_mapping.cil :=
+
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := nonplat_sepolicy.cil
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+LOCAL_TARGET_ARCH := $(TARGET_ARCH)
+
+# Set LOCAL_TARGET_ARCH to mips for mips and mips64.
+ifneq (,$(filter mips mips64,$(TARGET_ARCH)))
+  LOCAL_TARGET_ARCH := mips
+endif
+
+include $(BUILD_SYSTEM)/base_rules.mk
 
 # nonplat_policy.conf - A combination of the non-platform private and the
 # exported platform policy associated with the version the non-platform policy
@@ -246,42 +306,51 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(BOARD_SEPOLICY_DIRS))
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
-nonplat_policy.cil := $(intermediates)/nonplat_policy.cil
-$(nonplat_policy.cil): $(nonplat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
+nonplat_policy_raw := $(intermediates)/nonplat_policy_raw.cil
+$(nonplat_policy_raw): PRIVATE_POL_CONF := $(nonplat_policy.conf)
+$(nonplat_policy_raw): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
+$(nonplat_policy_raw): $(HOST_OUT_EXECUTABLES)/checkpolicy $(nonplat_policy.conf) \
+$(reqd_policy_mask.cil)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -C -M -c $(POLICYVERS) -o $@ $<
+	$(hide) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
+	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
 
-pruned_nonplat_policy.cil := $(intermediates)/pruned_nonplat_policy.cil
-$(pruned_nonplat_policy.cil): $(reqd_policy_mask.cil) $(nonplat_policy.cil)
-	@mkdir -p $(dir $@)
-	$(hide) grep -Fxv -f $^ > $@
-
-vers_nonplat_policy.cil := $(intermediates)/vers_nonplat_policy.cil
-$(vers_nonplat_policy.cil) : PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
-$(vers_nonplat_policy.cil) : PRIVATE_TGT_POL := $(pruned_nonplat_policy.cil)
-$(vers_nonplat_policy.cil) : $(pruned_plat_pub_policy.cil) $(pruned_nonplat_policy.cil) \
+nonplat_policy_nvr := $(intermediates)/nonplat_policy_nvr.cil
+$(nonplat_policy_nvr) : PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
+$(nonplat_policy_nvr) : PRIVATE_TGT_POL := $(nonplat_policy_raw)
+$(nonplat_policy_nvr) : $(plat_pub_policy.cil) $(nonplat_policy_raw) \
 $(HOST_OUT_EXECUTABLES)/version_policy
 	@mkdir -p $(dir $@)
 	$(HOST_OUT_EXECUTABLES)/version_policy -b $< -t $(PRIVATE_TGT_POL) -n $(PRIVATE_VERS) -o $@
 
-# auto-generate the mapping file for current platform policy, since it needs to
-# track platform policy development
-current_mapping.cil := $(intermediates)/mapping/current.cil
-$(current_mapping.cil) : PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
-$(current_mapping.cil) : $(pruned_plat_pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy
+$(LOCAL_BUILT_MODULE): $(nonplat_policy_nvr)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
+	grep -v neverallow $< > $@
 
-ifeq ($(BOARD_SEPOLICY_VERS), current)
-mapping.cil := $(current_mapping.cil)
-else
-mapping.cil := $(addsuffix /$(BOARD_SEPOLICY_VERS).cil, $(PLAT_PRIVATE_POLICY)/mapping)
+nonplat_policy.conf :=
+nonplat_policy_raw :=
+
+#################################
+include $(CLEAR_VARS)
+# TODO: keep the built sepolicy around for now until we're ready to switch over.
+
+LOCAL_MODULE := sepolicy
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+LOCAL_TARGET_ARCH := $(TARGET_ARCH)
+
+# Set LOCAL_TARGET_ARCH to mips for mips and mips64.
+ifneq (,$(filter mips mips64,$(TARGET_ARCH)))
+  LOCAL_TARGET_ARCH := mips
 endif
 
+include $(BUILD_SYSTEM)/base_rules.mk
+
 all_cil_files := \
-    $(plat_policy.cil) \
-    $(vers_nonplat_policy.cil) \
-    $(mapping.cil)
+    $(plat_policy_nvr) \
+    $(mapping_policy_nvr) \
+    $(nonplat_policy_nvr) \
 
 $(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(all_cil_files)
 $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $(all_cil_files)
@@ -298,21 +367,7 @@ $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(HOST_OUT_EXECUTABLES)/se
 	$(hide) mv $@.tmp $@
 
 built_sepolicy := $(LOCAL_BUILT_MODULE)
-reqd_policy_mask.conf :=
-reqd_policy_mask.cil :=
-plat_pub_policy.conf :=
-plat_pub_policy.cil :=
-pruned_plat_pub_policy.cil :=
-plat_policy.conf :=
-plat_policy.cil :=
-nonplat_policy.conf :=
-nonplat_policy.cil :=
-pruned_nonplat_policy.cil :=
-vers_nonplat_policy.cil :=
-current_mapping.cil :=
-mapping.cil :=
 all_cil_files :=
-sepolicy_policy.conf :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -708,5 +763,7 @@ built_general_sepolicy :=
 built_general_sepolicy.conf :=
 built_nl :=
 add_nl :=
+plat_pub_policy.cil :=
+reqd_policy_mask.cil :=
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
