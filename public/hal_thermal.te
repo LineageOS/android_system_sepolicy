@@ -1,7 +1,3 @@
-# thermal subsystem
-type hal_thermal, domain;
-type hal_thermal_exec, exec_type, file_type;
-
 # hwbinder access
 hwbinder_use(hal_thermal)
 

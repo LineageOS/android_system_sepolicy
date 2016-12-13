@@ -1,0 +1,4 @@
+type hal_nfc_default, hal_nfc, domain;
+type hal_nfc_default_exec, exec_type, file_type;
+
+init_daemon_domain(hal_nfc_default)

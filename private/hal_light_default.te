@@ -1,5 +1,4 @@
 type hal_light_default, hal_light, domain;
 type hal_light_default_exec, exec_type, file_type;
 
-# may be started by init
 init_daemon_domain(hal_light_default)
