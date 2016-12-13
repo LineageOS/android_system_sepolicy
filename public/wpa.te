@@ -26,7 +26,7 @@ binder_use(wpa)
 
 # HIDL interface exposed by WPA.
 hwbinder_use(wpa)
-binder_call(wpa, wificond)
+binder_call(wpa, system_server)
 
 # Create a socket for receiving info from wpa
 allow wpa wpa_socket:dir create_dir_perms;
