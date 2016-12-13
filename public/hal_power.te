@@ -1,6 +1,2 @@
-# power subsystem
-type hal_power, domain;
-type hal_power_exec, exec_type, file_type;
-
 # hwbinder access
 hwbinder_use(hal_power);
