@@ -16,9 +16,6 @@ allow priv_app self:process ptrace;
 allow priv_app app_data_file:file rx_file_perms;
 auditallow priv_app app_data_file:file execute_no_trans;
 
-# android.process.media uses /dev/mtp_usb
-allow priv_app mtp_device:chr_file rw_file_perms;
-
 allow priv_app audioserver_service:service_manager find;
 allow priv_app cameraserver_service:service_manager find;
 allow priv_app drmserver_service:service_manager find;
@@ -33,10 +30,6 @@ allow priv_app app_api_service:service_manager find;
 allow priv_app system_api_service:service_manager find;
 allow priv_app persistent_data_block_service:service_manager find;
 allow priv_app recovery_service:service_manager find;
-
-# Traverse into /mnt/media_rw for bypassing FUSE daemon
-# TODO: narrow this to just MediaProvider
-allow priv_app mnt_media_rw_file:dir search;
 
 # Write to /cache.
 allow priv_app { cache_file cache_recovery_file }:dir create_dir_perms;

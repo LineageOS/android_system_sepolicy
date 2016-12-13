@@ -59,7 +59,7 @@ type debugfs, fs_type;
 type debugfs_trace_marker, fs_type, debugfs_type, mlstrustedobject;
 type debugfs_tracing, fs_type, debugfs_type;
 type pstorefs, fs_type;
-type functionfs, fs_type;
+type functionfs, fs_type, mlstrustedobject;
 type oemfs, fs_type, contextmount_type;
 type usbfs, fs_type;
 type binfmt_miscfs, fs_type;
