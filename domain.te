@@ -62,7 +62,7 @@ allow domain debuggerd:unix_stream_socket connectto;
 
 # Root fs.
 allow domain rootfs:dir search;
-allow domain rootfs:lnk_file read;
+allow domain rootfs:lnk_file { read getattr };
 
 # Device accesses.
 allow domain device:dir search;
