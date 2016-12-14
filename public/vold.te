@@ -93,10 +93,7 @@ allow vold ion_device:chr_file r_file_perms;
 #
 
 # Unmount and mount the fs.
-allow vold labeledfs:filesystem { mount unmount remount };
-# audit any attempts of vold to remount a filesystem, monitor in a few weeks
-# then remove
-auditallow vold labeledfs:filesystem { remount };
+allow vold labeledfs:filesystem { mount unmount };
 
 # Access /efs/userdata_footer.
 # XXX Split into a separate type?
