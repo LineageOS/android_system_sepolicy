@@ -54,6 +54,8 @@ binder_use(ephemeral_app)
 # Perform binder IPC to binder services.
 binder_call(ephemeral_app, surfaceflinger)
 binder_call(ephemeral_app, system_server)
+# Perform binder IPC to apps.
+binder_call(ephemeral_app, appdomain)
 
 # Allow read access to ion memory allocation device
 allow ephemeral_app ion_device:chr_file { read open };
