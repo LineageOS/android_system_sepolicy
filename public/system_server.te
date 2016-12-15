@@ -384,6 +384,9 @@ set_prop(system_server, ctl_bugreport_prop)
 # cppreopt property
 set_prop(system_server, cppreopt_prop)
 
+# Collect metrics on boot time created by init
+get_prop(system_server, boottime_prop)
+
 # Create a socket for receiving info from wpa.
 allow system_server wpa_socket:dir rw_dir_perms;
 allow system_server system_wpa_socket:sock_file create_file_perms;
