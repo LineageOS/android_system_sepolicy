@@ -31,6 +31,7 @@ allow untrusted_app app_data_file:file { rx_file_perms execmod };
 
 # ASEC
 allow untrusted_app asec_apk_file:file r_file_perms;
+allow untrusted_app asec_apk_file:dir r_dir_perms;
 # Execute libs in asec containers.
 allow untrusted_app asec_public_file:file { execute execmod };
 
@@ -104,6 +105,10 @@ r_dir_file(untrusted_app, proc_net)
 # Cts: HwRngTest
 allow untrusted_app sysfs_hwrandom:dir search;
 allow untrusted_app sysfs_hwrandom:file r_file_perms;
+
+# Allow apps to view preloaded content
+allow untrusted_app preloads_data_file:dir r_dir_perms;
+allow untrusted_app preloads_data_file:file r_file_perms;
 
 ###
 ### neverallow rules
@@ -182,6 +187,7 @@ neverallow untrusted_app {
   fs_type
   -fuse                     # sdcard
   -sdcardfs                 # sdcard
+  -vfat
   file_type
   -app_data_file            # The apps sandbox itself
   -media_rw_data_file       # Internal storage. Known that apps can

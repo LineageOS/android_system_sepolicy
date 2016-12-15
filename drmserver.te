@@ -41,6 +41,7 @@ r_dir_file(drmserver, media_rw_data_file)
 # Read resources from open apk files passed over Binder.
 allow drmserver apk_data_file:file { read getattr };
 allow drmserver asec_apk_file:file { read getattr };
+allow drmserver ringtone_file:file { read getattr };
 
 # Read /data/data/com.android.providers.telephony files passed over Binder.
 allow drmserver radio_data_file:file { read getattr };
