@@ -1,0 +1,4 @@
+type hal_vibrator_default, hal_vibrator, domain;
+type hal_vibrator_default_exec, exec_type, file_type;
+
+init_daemon_domain(hal_vibrator_default)
