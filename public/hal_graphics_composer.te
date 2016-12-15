@@ -1,7 +1,3 @@
-# graphics composer subsystem
-type hal_graphics_composer, domain;
-type hal_graphics_composer_exec, exec_type, file_type;
-
 # HwBinder access
 hwbinder_use(hal_graphics_composer)
 # IComposerCallback
