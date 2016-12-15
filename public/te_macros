@@ -192,6 +192,8 @@ allow servicemanager $1:process getattr;
 define(`hwbinder_use', `
 # Call the hwservicemanager and transfer references to it.
 allow $1 hwservicemanager:binder { call transfer };
+# Allow hwservicemanager to send out callbacks
+allow hwservicemanager $1:binder { call transfer };
 # hwservicemanager performs getpidcon on clients.
 allow hwservicemanager $1:dir search;
 allow hwservicemanager $1:file { read open };
