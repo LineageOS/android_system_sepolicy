@@ -1,7 +1,3 @@
-# vr subsystem
-type hal_vr, domain;
-type hal_vr_exec, exec_type, file_type;
-
 # hwbinder access
 hwbinder_use(hal_vr)
 

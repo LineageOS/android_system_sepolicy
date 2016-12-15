@@ -115,5 +115,15 @@ attribute boot_control_hal;
 attribute update_engine_common;
 
 # HALs
-attribute hal_light;
+attribute hal_audio;
+attribute hal_graphics_allocator;
+attribute hal_graphics_composer;
 attribute hal_ir;
+attribute hal_light;
+attribute hal_memtrack;
+attribute hal_nfc;
+attribute hal_power;
+attribute hal_thermal;
+attribute hal_vibrator;
+attribute hal_vr;
+attribute hal_wifi;

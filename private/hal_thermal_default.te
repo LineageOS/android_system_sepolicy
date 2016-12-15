@@ -1,0 +1,4 @@
+type hal_thermal_default, hal_thermal, domain;
+type hal_thermal_default_exec, exec_type, file_type;
+
+init_daemon_domain(hal_thermal_default)
