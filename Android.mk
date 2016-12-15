@@ -706,7 +706,7 @@ general_service_contexts.tmp :=
 ##################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := mac_permissions.xml
+LOCAL_MODULE := plat_mac_permissions.xml
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/security
@@ -714,26 +714,56 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/security
 include $(BUILD_SYSTEM)/base_rules.mk
 
 # Build keys.conf
-mac_perms_keys.tmp := $(intermediates)/keys.tmp
-$(mac_perms_keys.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(mac_perms_keys.tmp): $(call build_policy, keys.conf, $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
+plat_mac_perms_keys.tmp := $(intermediates)/plat_keys.tmp
+$(plat_mac_perms_keys.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(plat_mac_perms_keys.tmp): $(call build_policy, keys.conf, $(PLAT_PRIVATE_POLICY))
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
 
-all_mac_perms_files := $(call build_policy, $(LOCAL_MODULE), $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
+all_plat_mac_perms_files := $(call build_policy, mac_permissions.xml, $(PLAT_PRIVATE_POLICY))
 
 # Should be synced with keys.conf.
-all_keys := platform media shared testkey
-all_keys := $(all_keys:%=$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))/%.x509.pem)
+all_plat_keys := platform media shared testkey
+all_plat_keys := $(all_keys:%=$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))/%.x509.pem)
 
-$(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_mac_perms_files)
-$(LOCAL_BUILT_MODULE): $(mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py $(all_mac_perms_files) $(all_keys)
+$(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_plat_mac_perms_files)
+$(LOCAL_BUILT_MODULE): $(plat_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
+$(all_plat_mac_perms_files) $(all_plat_keys)
 	@mkdir -p $(dir $@)
 	$(hide) DEFAULT_SYSTEM_DEV_CERTIFICATE="$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))" \
 		$(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
 
-mac_perms_keys.tmp :=
 all_mac_perms_files :=
+all_plat_keys :=
+plat_mac_perms_keys.tmp :=
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := nonplat_mac_permissions.xml
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/security
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+# Build keys.conf
+nonplat_mac_perms_keys.tmp := $(intermediates)/nonplat_keys.tmp
+$(nonplat_mac_perms_keys.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(nonplat_mac_perms_keys.tmp): $(call build_policy, keys.conf, $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
+
+all_nonplat_mac_perms_files := $(call build_policy, mac_permissions.xml, $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+
+$(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_nonplat_mac_perms_files)
+$(LOCAL_BUILT_MODULE): $(nonplat_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
+$(all_nonplat_mac_perms_files)
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
+
+nonplat_mac_perms_keys.tmp :=
+all_nonplat_mac_perms_files :=
 
 ##################################
 include $(CLEAR_VARS)
