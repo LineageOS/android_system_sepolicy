@@ -154,6 +154,8 @@ binder_use(appdomain)
 binder_call(appdomain, binderservicedomain)
 # Perform binder IPC to other apps.
 binder_call(appdomain, appdomain)
+# Perform binder IPC to ephemeral apps.
+binder_call(appdomain, ephemeral_app)
 
 # Already connected, unnamed sockets being passed over some other IPC
 # hence no sock_file or connectto permission. This appears to be how
