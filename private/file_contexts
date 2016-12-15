@@ -228,19 +228,19 @@
 /system/bin/webview_zygote64     u:object_r:webview_zygote_exec:s0
 /system/fake-lib(64)?/libart.*   u:object_r:libart_file:s0
 /system/lib(64)?/libart.*        u:object_r:libart_file:s0
-/system/bin/hw/android\.hardware\.audio@2\.0-service          u:object_r:hal_audio_exec:s0
+/system/bin/hw/android\.hardware\.audio@2\.0-service          u:object_r:hal_audio_default_exec:s0
 /system/bin/hw/android\.hardware\.boot@1\.0-service           u:object_r:hal_boot_exec:s0
-/system/bin/hw/android\.hardware\.ir@1\.0-service           u:object_r:hal_ir_default_exec:s0
-/system/bin/hw/android\.hardware\.graphics\.allocator@2\.0-service   u:object_r:hal_graphics_allocator_exec:s0
-/system/bin/hw/android\.hardware\.graphics\.composer@2\.1-service    u:object_r:hal_graphics_composer_exec:s0
+/system/bin/hw/android\.hardware\.graphics\.allocator@2\.0-service   u:object_r:hal_graphics_allocator_default_exec:s0
+/system/bin/hw/android\.hardware\.graphics\.composer@2\.1-service    u:object_r:hal_graphics_composer_default_exec:s0
+/system/bin/hw/android\.hardware\.ir@1\.0-service             u:object_r:hal_ir_default_exec:s0
 /system/bin/hw/android\.hardware\.light@2\.0-service          u:object_r:hal_light_default_exec:s0
-/system/bin/hw/android\.hardware\.memtrack@1\.0-service       u:object_r:hal_memtrack_exec:s0
-/system/bin/hw/android\.hardware\.nfc@1\.0-service            u:object_r:hal_nfc_exec:s0
-/system/bin/hw/android\.hardware\.power@1\.0-service          u:object_r:hal_power_exec:s0
-/system/bin/hw/android\.hardware\.thermal@1\.0-service        u:object_r:hal_thermal_exec:s0
-/system/bin/hw/android\.hardware\.vibrator@1\.0-service       u:object_r:hal_vibrator_exec:s0
-/system/bin/hw/android\.hardware\.vr@1\.0-service             u:object_r:hal_vr_exec:s0
-/system/bin/hw/android\.hardware\.wifi@1\.0-service           u:object_r:hal_wifi_exec:s0
+/system/bin/hw/android\.hardware\.memtrack@1\.0-service       u:object_r:hal_memtrack_default_exec:s0
+/system/bin/hw/android\.hardware\.nfc@1\.0-service            u:object_r:hal_nfc_default_exec:s0
+/system/bin/hw/android\.hardware\.power@1\.0-service          u:object_r:hal_power_default_exec:s0
+/system/bin/hw/android\.hardware\.thermal@1\.0-service        u:object_r:hal_thermal_default_exec:s0
+/system/bin/hw/android\.hardware\.vibrator@1\.0-service       u:object_r:hal_vibrator_default_exec:s0
+/system/bin/hw/android\.hardware\.vr@1\.0-service             u:object_r:hal_vr_default_exec:s0
+/system/bin/hw/android\.hardware\.wifi@1\.0-service           u:object_r:hal_wifi_default_exec:s0
 
 #############################
 # Vendor files

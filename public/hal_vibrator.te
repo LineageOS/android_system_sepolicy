@@ -1,7 +1,3 @@
-# vibrator subsystem
-type hal_vibrator, domain;
-type hal_vibrator_exec, exec_type, file_type;
-
 # hwbinder access
 hwbinder_use(hal_vibrator)
 

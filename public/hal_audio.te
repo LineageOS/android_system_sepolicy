@@ -1,7 +1,3 @@
-# hal_audio - audio services daemon
-type hal_audio, domain;
-type hal_audio_exec, exec_type, file_type;
-
 hwbinder_use(hal_audio)
 binder_call(hal_audio, audioserver)
 

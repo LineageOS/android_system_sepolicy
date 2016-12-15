@@ -1,7 +1,3 @@
-# graphics buffer allocator subsystem
-type hal_graphics_allocator, domain;
-type hal_graphics_allocator_exec, exec_type, file_type;
-
 # hwbinder access
 hwbinder_use(hal_graphics_allocator)
 
