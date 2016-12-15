@@ -1,0 +1,4 @@
+type hal_wifi_default, hal_wifi, domain;
+type hal_wifi_default_exec, exec_type, file_type;
+
+init_daemon_domain(hal_wifi_default)

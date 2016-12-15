@@ -1,0 +1,4 @@
+type hal_graphics_allocator_default, hal_graphics_allocator, domain;
+type hal_graphics_allocator_default_exec, exec_type, file_type;
+
+init_daemon_domain(hal_graphics_allocator_default)

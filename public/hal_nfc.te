@@ -1,7 +1,3 @@
-# nfc subsystem
-type hal_nfc, domain;
-type hal_nfc_exec, exec_type, file_type;
-
 # hwbinder access
 hwbinder_use(hal_nfc)
 
