@@ -5,6 +5,7 @@ tmpfs_domain(init)
 # Transitions to seclabel processes in init.rc
 domain_trans(init, rootfs, adbd)
 domain_trans(init, rootfs, charger)
+domain_trans(init, rootfs, healthd)
 domain_trans(init, rootfs, slideshow)
 recovery_only(`
   domain_trans(init, rootfs, recovery)
