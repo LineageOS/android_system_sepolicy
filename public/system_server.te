@@ -164,6 +164,7 @@ binder_call(system_server, hal_boot)
 binder_call(system_server, hal_contexthub)
 binder_call(system_server, hal_fingerprint)
 binder_call(system_server, hal_gnss);
+binder_call(system_server, hal_fingerprint)
 binder_call(system_server, hal_ir)
 binder_call(system_server, hal_light)
 binder_call(system_server, hal_memtrack)
