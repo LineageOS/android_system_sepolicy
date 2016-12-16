@@ -119,6 +119,11 @@ sepolicy_build_files := security_classes \
                         genfs_contexts \
                         port_contexts
 
+my_target_arch := $(TARGET_ARCH)
+ifneq (,$(filter mips mips64,$(TARGET_ARCH)))
+  my_target_arch := mips
+endif
+
 ##################################
 # reqd_policy_mask - a policy.conf file which contains only the bare minimum
 # policy necessary to use checkpolicy.  This bare-minimum policy needs to be
@@ -130,12 +135,17 @@ sepolicy_build_files := security_classes \
 reqd_policy_mask.conf := $(intermediates)/reqd_policy_mask.conf
 $(reqd_policy_mask.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(reqd_policy_mask.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(reqd_policy_mask.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(reqd_policy_mask.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(reqd_policy_mask.conf): $(call build_policy, $(sepolicy_build_files), $(REQD_MASK_POLICY))
 	@mkdir -p $(dir $@)
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
+		-D target_build_treble=$(ENABLE_TREBLE) \
+		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
+		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
+		-D target_arch=$(PRIVATE_TGT_ARCH) \
 		-s $^ > $@
 
 reqd_policy_mask.cil := $(intermediates)/reqd_policy_mask.cil
@@ -154,6 +164,7 @@ reqd_policy_mask.conf :=
 plat_pub_policy.conf := $(intermediates)/plat_pub_policy.conf
 $(plat_pub_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(plat_pub_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(plat_pub_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(plat_pub_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(plat_pub_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY))
@@ -161,6 +172,10 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY))
 	 $(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
+		-D target_build_treble=$(ENABLE_TREBLE) \
+		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
+		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
+		-D target_arch=$(PRIVATE_TGT_ARCH) \
 		-s $^ > $@
 
 plat_pub_policy.cil := $(intermediates)/plat_pub_policy.cil
@@ -172,6 +187,7 @@ $(plat_pub_policy.cil): $(HOST_OUT_EXECUTABLES)/checkpolicy $(plat_pub_policy.co
 	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
 
 plat_pub_policy.conf :=
+
 ##################################
 include $(CLEAR_VARS)
 
@@ -194,12 +210,6 @@ LOCAL_MODULE := plat_sepolicy.cil
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-LOCAL_TARGET_ARCH := $(TARGET_ARCH)
-
-# Set LOCAL_TARGET_ARCH to mips for mips and mips64.
-ifneq (,$(filter mips mips64,$(TARGET_ARCH)))
-  LOCAL_TARGET_ARCH := mips
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -209,6 +219,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 plat_policy.conf := $(intermediates)/plat_policy.conf
 $(plat_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(plat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
@@ -219,6 +230,7 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
+		-D target_arch=$(PRIVATE_TGT_ARCH) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
@@ -240,12 +252,6 @@ LOCAL_MODULE := mapping_sepolicy.cil
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-LOCAL_TARGET_ARCH := $(TARGET_ARCH)
-
-# Set LOCAL_TARGET_ARCH to mips for mips and mips64.
-ifneq (,$(filter mips mips64,$(TARGET_ARCH)))
-  LOCAL_TARGET_ARCH := mips
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -275,12 +281,6 @@ LOCAL_MODULE := nonplat_sepolicy.cil
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-LOCAL_TARGET_ARCH := $(TARGET_ARCH)
-
-# Set LOCAL_TARGET_ARCH to mips for mips and mips64.
-ifneq (,$(filter mips mips64,$(TARGET_ARCH)))
-  LOCAL_TARGET_ARCH := mips
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -292,6 +292,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 nonplat_policy.conf := $(intermediates)/nonplat_policy.conf
 $(nonplat_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(nonplat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(nonplat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(nonplat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(nonplat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(BOARD_SEPOLICY_DIRS))
@@ -302,7 +303,7 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(BOARD_SEPOLICY_DIRS))
 		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
-		-D target_arch=$(LOCAL_TARGET_ARCH) \
+		-D target_arch=$(PRIVATE_TGT_ARCH) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
@@ -332,18 +333,12 @@ nonplat_policy_raw :=
 
 #################################
 include $(CLEAR_VARS)
-# TODO: keep the built sepolicy around for now until we're ready to switch over.
+# build this target so that we can still perform neverallow checks
 
 LOCAL_MODULE := sepolicy
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-LOCAL_TARGET_ARCH := $(TARGET_ARCH)
-
-# Set LOCAL_TARGET_ARCH to mips for mips and mips64.
-ifneq (,$(filter mips mips64,$(TARGET_ARCH)))
-  LOCAL_TARGET_ARCH := mips
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -370,20 +365,13 @@ built_sepolicy := $(LOCAL_BUILT_MODULE)
 all_cil_files :=
 
 ##################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := sepolicy.recovery
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := eng
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-sepolicy_policy_recovery.conf := $(intermediates)/policy_recovery.conf
-$(sepolicy_policy_recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
-$(sepolicy_policy_recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
-$(sepolicy_policy_recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(sepolicy_policy_recovery.conf): $(call build_policy, $(sepolicy_build_files), \
-$(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
+plat_pub_policy.recovery.conf := $(intermediates)/plat_pub_policy.recovery.conf
+$(plat_pub_policy.recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(plat_pub_policy.recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(plat_pub_policy.recovery.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(plat_pub_policy.recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(plat_pub_policy.recovery.conf): $(call build_policy, $(sepolicy_build_files), \
+$(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY))
 	@mkdir -p $(dir $@)
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
@@ -391,12 +379,165 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
 		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
+		-D target_arch=$(PRIVATE_TGT_ARCH) \
 		-D target_recovery=true \
 		-s $^ > $@
 
-$(LOCAL_BUILT_MODULE): $(sepolicy_policy_recovery.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy $(HOST_OUT_EXECUTABLES)/sepolicy-analyze
+plat_pub_policy.recovery.cil := $(intermediates)/plat_pub_policy.recovery.cil
+$(plat_pub_policy.recovery.cil): PRIVATE_POL_CONF := $(plat_pub_policy.recovery.conf)
+$(plat_pub_policy.recovery.cil): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
+$(plat_pub_policy.recovery.cil): $(HOST_OUT_EXECUTABLES)/checkpolicy \
+$(plat_pub_policy.recovery.conf) $(reqd_policy_mask.cil)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@.tmp $< > /dev/null
+	$(hide) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
+	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
+
+plat_pub_policy.recovery.conf :=
+
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := plat_sepolicy.recovery.cil
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+plat_policy.recovery.conf := $(intermediates)/plat_policy.recovery.conf
+$(plat_policy.recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(plat_policy.recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(plat_policy.recovery.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(plat_policy.recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(plat_policy.recovery.conf): $(call build_policy, $(sepolicy_build_files), \
+$(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
+	@mkdir -p $(dir $@)
+	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
+		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
+		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
+		-D target_build_treble=$(ENABLE_TREBLE) \
+		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
+		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
+		-D target_arch=$(PRIVATE_TGT_ARCH) \
+		-D target_recovery=true \
+		-s $^ > $@
+	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+
+plat_policy_nvr.recovery := $(intermediates)/plat_policy_nvr.recovery.cil
+$(plat_policy_nvr.recovery): $(plat_policy.recovery.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c $(POLICYVERS) -o $@ $<
+
+$(LOCAL_BUILT_MODULE): $(plat_policy_nvr.recovery)
+	@mkdir -p $(dir $@)
+	grep -v neverallow $< > $@
+
+plat_policy.recovery.conf :=
+
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := mapping_sepolicy.recovery.cil
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+# auto-generate the mapping file for current platform policy, since it needs to
+# track platform policy development
+current_mapping.recovery.cil := $(intermediates)/mapping/current.recovery.cil
+$(current_mapping.recovery.cil) : PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
+$(current_mapping.recovery.cil) : $(plat_pub_policy.recovery.cil) $(HOST_OUT_EXECUTABLES)/version_policy
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
+
+ifeq ($(BOARD_SEPOLICY_VERS), current)
+mapping_policy_nvr.recovery := $(current_mapping.recovery.cil)
+else
+mapping_policy_nvr.recovery := $(addsuffix /$(BOARD_SEPOLICY_VERS).recovery.cil, \
+$(PLAT_PRIVATE_POLICY)/mapping)
+endif
+
+$(LOCAL_BUILT_MODULE): $(mapping_policy_nvr.recovery)
+	grep -v neverallow $< > $@
+
+current_mapping.recovery.cil :=
+
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := nonplat_sepolicy.recovery.cil
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+nonplat_policy.recovery.conf := $(intermediates)/nonplat_policy.recovery.conf
+$(nonplat_policy.recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(nonplat_policy.recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(nonplat_policy.recovery.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(nonplat_policy.recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(nonplat_policy.recovery.conf): $(call build_policy, $(sepolicy_build_files), \
+$(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(BOARD_SEPOLICY_DIRS))
+	@mkdir -p $(dir $@)
+	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
+		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
+		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
+		-D target_build_treble=$(ENABLE_TREBLE) \
+		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
+		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
+		-D target_arch=$(PRIVATE_TGT_ARCH) \
+		-D target_recovery=true \
+		-s $^ > $@
+	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+
+nonplat_policy_raw.recovery := $(intermediates)/nonplat_policy_raw.recovery.cil
+$(nonplat_policy_raw.recovery): PRIVATE_POL_CONF := $(nonplat_policy.recovery.conf)
+$(nonplat_policy_raw.recovery): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
+$(nonplat_policy_raw.recovery): $(HOST_OUT_EXECUTABLES)/checkpolicy $(nonplat_policy.recovery.conf) \
+$(reqd_policy_mask.cil)
+	@mkdir -p $(dir $@)
+	$(hide) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
+	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
+
+nonplat_policy_nvr.recovery := $(intermediates)/nonplat_policy_nvr.recovery.cil
+$(nonplat_policy_nvr.recovery) : PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
+$(nonplat_policy_nvr.recovery) : PRIVATE_TGT_POL := $(nonplat_policy_raw.recovery)
+$(nonplat_policy_nvr.recovery) : $(plat_pub_policy.recovery.cil) $(nonplat_policy_raw.recovery) \
+$(HOST_OUT_EXECUTABLES)/version_policy
+	@mkdir -p $(dir $@)
+	$(HOST_OUT_EXECUTABLES)/version_policy -b $< -t $(PRIVATE_TGT_POL) -n $(PRIVATE_VERS) -o $@
+
+$(LOCAL_BUILT_MODULE): $(nonplat_policy_nvr.recovery)
+	@mkdir -p $(dir $@)
+	grep -v neverallow $< > $@
+
+nonplat_policy.recovery.conf :=
+nonplat_policy_raw.recovery :=
+
+##################################
+include $(CLEAR_VARS)
+
+# keep concrete sepolicy for neverallow checks
+
+LOCAL_MODULE := sepolicy.recovery
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+all_cil_files.recovery := \
+    $(plat_policy_nvr.recovery) \
+    $(mapping_policy_nvr.recovery) \
+    $(nonplat_policy_nvr.recovery) \
+
+$(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(all_cil_files.recovery)
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $(all_cil_files.recovery)
+	@mkdir -p $(dir $@)
+	$(hide) $< -M true -c $(POLICYVERS) $(PRIVATE_CIL_FILES) -o $@.tmp
 	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $@.tmp permissive > $@.permissivedomains
 	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
 		echo "==========" 1>&2; \
@@ -407,8 +548,7 @@ $(LOCAL_BUILT_MODULE): $(sepolicy_policy_recovery.conf) $(HOST_OUT_EXECUTABLES)/
 		fi
 	$(hide) mv $@.tmp $@
 
-built_sepolicy_recovery := $(LOCAL_BUILT_MODULE)
-sepolicy_policy_recovery.conf :=
+all_cil_files.recovery :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -421,6 +561,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 $(LOCAL_BUILT_MODULE): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(LOCAL_BUILT_MODULE): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(LOCAL_BUILT_MODULE): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(LOCAL_BUILT_MODULE): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 	mkdir -p $(dir $@)
@@ -429,6 +570,7 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
+		-D target_arch=$(PRIVATE_TGT_ARCH) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
@@ -780,20 +922,27 @@ $(LOCAL_BUILT_MODULE): $(built_sepolicy) $(built_pc) $(built_fc) $(built_sc) $(b
 
 ##################################
 
-build_policy :=
+add_nl :=
 build_device_policy :=
-sepolicy_build_files :=
-built_sepolicy :=
-built_sepolicy_recovery :=
-built_sc :=
+build_policy :=
 built_fc :=
-built_pc :=
-built_svc :=
 built_general_sepolicy :=
 built_general_sepolicy.conf :=
 built_nl :=
-add_nl :=
+built_pc :=
+built_sc :=
+built_sepolicy :=
+built_svc :=
+mapping_policy_nvr :=
+mapping_policy_nvr.recovery :=
+my_target_arch :=
+nonplat_policy_nvr :=
+nonplat_policy_nvr.recovery :=
+plat_policy_nvr :=
+plat_policy_nvr.recovery :=
 plat_pub_policy.cil :=
+plat_pub_policy.recovery.cil :=
 reqd_policy_mask.cil :=
+sepolicy_build_files :=
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
