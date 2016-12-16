@@ -16,6 +16,24 @@
       "revId": "41ae668d0be9dfde72a25f00e9f3b74c9339386c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f681702_d4508761",
+        "filename": "domain.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1848
+      },
+      "writtenOn": "2016-12-16T05:25:04Z",
+      "side": 1,
+      "message": "I think the guy who posted the change made a mistake and edited this first thinking it was the denials.  But after a comment, went and edited the rootfs:lnk_file as well.  I haven\u0027t seen any denials for this.",
+      "parentUuid": "5f681702_454cc49d",
+      "revId": "41ae668d0be9dfde72a25f00e9f3b74c9339386c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
