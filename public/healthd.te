@@ -10,6 +10,10 @@ r_dir_file(healthd, sysfs_type)
 r_dir_file(healthd, rootfs)
 r_dir_file(healthd, cgroup)
 
+# Read access to system files for passthrough HALs in
+# /{system,vendor,odm}/lib[64]/hw/
+r_dir_file(healthd, system_file)
+
 allow healthd self:capability { net_admin sys_tty_config };
 
 wakelock_use(healthd)
@@ -19,6 +23,7 @@ allow healthd self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 binder_use(healthd)
 binder_service(healthd)
 binder_call(healthd, system_server)
+binder_call(healthd, hwservicemanager)
 
 allow healthd sysfs_batteryinfo:file r_file_perms;
 allow healthd batteryproperties_service:service_manager { add find };
