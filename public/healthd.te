@@ -14,7 +14,7 @@ r_dir_file(healthd, cgroup)
 # /{system,vendor,odm}/lib[64]/hw/
 r_dir_file(healthd, system_file)
 
-allow healthd self:capability { net_admin sys_tty_config };
+allow healthd self:capability { sys_tty_config };
 allow healthd self:capability sys_boot;
 
 allow healthd self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
