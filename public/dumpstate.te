@@ -99,6 +99,7 @@ binder_call(dumpstate, { appdomain ephemeral_app netd wificond })
 
 # Vibrate the device after we are done collecting the bugreport
 # For binderized mode:
+binder_call(dumpstate, hal_dumpstate)
 binder_call(dumpstate, hal_vibrator)
 binder_call(dumpstate, hwservicemanager)
 # For passthrough mode:
