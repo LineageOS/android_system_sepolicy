@@ -58,6 +58,7 @@ allow installd install_data_file:file create_file_perms;
 # Create files under /data/dalvik-cache.
 allow installd dalvikcache_data_file:dir create_dir_perms;
 allow installd dalvikcache_data_file:file create_file_perms;
+allow installd dalvikcache_data_file:lnk_file getattr;
 
 # Create files under /data/resource-cache.
 allow installd resourcecache_data_file:dir rw_dir_perms;
