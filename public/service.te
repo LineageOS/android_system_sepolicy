@@ -48,6 +48,9 @@ type connmetrics_service, app_api_service, system_server_service, service_manage
 type consumer_ir_service, app_api_service, system_server_service, service_manager_type;
 type content_service, app_api_service, system_server_service, service_manager_type;
 type country_detector_service, app_api_service, system_server_service, service_manager_type;
+# Note: The coverage_service should only be enabled for userdebug / eng builds that were compiled
+# with EMMA_INSTRUMENT=true. We should consider locking this down in the future.
+type coverage_service, system_server_service, service_manager_type;
 type cpuinfo_service, system_api_service, system_server_service, service_manager_type;
 type dbinfo_service, system_api_service, system_server_service, service_manager_type;
 type device_policy_service, app_api_service, system_server_service, service_manager_type;
