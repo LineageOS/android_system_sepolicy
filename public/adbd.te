@@ -55,6 +55,9 @@ set_prop(adbd, ffs_prop)
 # Access device logging gating property
 get_prop(adbd, device_logging_prop)
 
+# Read device's serial number from system properties
+get_prop(adbd, serialno_prop)
+
 # Run /system/bin/bu
 allow adbd system_file:file rx_file_perms;
 
