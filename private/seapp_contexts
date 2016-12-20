@@ -22,7 +22,7 @@
 # All specified input selectors in an entry must match (i.e. logical AND).
 # Matching is case-insensitive.
 #
-# Precedence rules:
+# Precedence rules (see external/selinux/libselinux/src/android/android.c seapp_context_cmp()):
 # 	  (1) isSystemServer=true before isSystemServer=false.
 # 	  (2) Specified isEphemeralApp= before unspecified isEphemeralApp= boolean.
 # 	  (3) Specified isOwner= before unspecified isOwner= boolean.
