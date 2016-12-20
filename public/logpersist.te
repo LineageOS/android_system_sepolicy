@@ -1,0 +1,16 @@
+# android debug logging, logpersist domains
+type logpersist, domain;
+
+###
+### Neverallow rules
+###
+### logpersist should NEVER do any of this
+
+# Block device access.
+neverallow logpersist dev_type:blk_file { read write };
+
+# ptrace any other app
+neverallow logpersist domain:process ptrace;
+
+# Write to files in /data/data or system files on /data except misc_logd_file
+neverallow logpersist { app_data_file system_data_file }:dir_file_class_set write;
