@@ -11,11 +11,6 @@ control_logd(shell)
 # logcat -L (directly, or via dumpstate)
 allow shell pstorefs:dir search;
 allow shell pstorefs:file r_file_perms;
-# logpersistd (nee logcatd) files
-userdebug_or_eng(`
-  allow shell misc_logd_file:dir r_dir_perms;
-  allow shell misc_logd_file:file r_file_perms;
-')
 
 # Root fs.
 allow shell rootfs:dir r_dir_perms;
@@ -65,7 +60,9 @@ set_prop(shell, debug_prop)
 set_prop(shell, powerctl_prop)
 set_prop(shell, log_tag_prop)
 set_prop(shell, wifi_log_prop)
+# adjust is_loggable properties
 userdebug_or_eng(`set_prop(shell, log_prop)')
+# logpersist script
 userdebug_or_eng(`set_prop(shell, logpersistd_logging_prop)')
 
 userdebug_or_eng(`
