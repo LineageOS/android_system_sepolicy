@@ -142,7 +142,6 @@ $(reqd_policy_mask.conf): $(call build_policy, $(sepolicy_build_files), $(REQD_M
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
-		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
@@ -172,7 +171,6 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY))
 	 $(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
-		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
@@ -227,7 +225,6 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
-		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
@@ -300,7 +297,6 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(BOARD_SEPOLICY_DIRS))
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
-		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
@@ -376,7 +372,6 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY))
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
-		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
@@ -415,7 +410,6 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
-		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
@@ -485,7 +479,6 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(BOARD_SEPOLICY_DIRS))
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
-		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
@@ -567,7 +560,6 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 	mkdir -p $(dir $@)
 	$(hide) m4 -D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 		-D target_build_variant=user \
-		-D target_build_treble=$(ENABLE_TREBLE) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_with_dexpreopt_pic=$(WITH_DEXPREOPT_PIC) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
