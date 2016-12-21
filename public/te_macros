@@ -288,13 +288,6 @@ define(`recovery_only', ifelse(target_recovery, `true', $1, ))
 define(`userdebug_or_eng', ifelse(target_build_variant, `eng', $1, ifelse(target_build_variant, `userdebug', $1)))
 
 #####################################
-# SELinux rules for HALs that have either been binderized or are
-# still passthrough.
-#
-define(`binderized_hal', ifelse(target_build_treble, `true', $1))
-define(`passthrough_hal', ifelse(target_build_treble, `', $1))
-
-#####################################
 # WITH_DEXPREOPT builds
 # SELinux rules which apply only when pre-opting with PIC.
 #
