@@ -16,5 +16,5 @@ neverallow logpersist domain:process ptrace;
 neverallow logpersist { app_data_file system_data_file }:dir_file_class_set write;
 
 # Only init is allowed to enter the logpersist domain via exec()
-neverallow { domain -init } logpersist:process transition;
-neverallow * logpersist:process dyntransition;
+#neverallow { domain -init } logpersist:process transition;
+#neverallow * logpersist:process dyntransition;
