@@ -14,3 +14,7 @@ neverallow logpersist domain:process ptrace;
 
 # Write to files in /data/data or system files on /data except misc_logd_file
 neverallow logpersist { app_data_file system_data_file }:dir_file_class_set write;
+
+# Only init is allowed to enter the logpersist domain via exec()
+neverallow { domain -init } logpersist:process transition;
+neverallow * logpersist:process dyntransition;
