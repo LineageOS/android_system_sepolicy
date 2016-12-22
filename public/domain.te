@@ -374,6 +374,18 @@ neverallow * default_android_service:service_manager add;
 neverallow { domain -init } default_prop:property_service set;
 neverallow { domain -init } mmc_prop:property_service set;
 
+# Do not allow reading device's serial number from system properties except form
+# a few whitelisted domains.
+neverallow {
+  domain
+  -adbd
+  -dumpstate
+  -init
+  -mediadrmserver
+  -recovery
+  -system_server
+} serialno_prop:file r_file_perms;
+
 neverallow {
   domain
   -init
