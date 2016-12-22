@@ -1,5 +1,7 @@
 hwbinder_use(hal_audio)
+binder_use(hal_audio)
 binder_call(hal_audio, audioserver)
+binder_call(hal_audio, system_server)
 
 allow hal_audio ion_device:chr_file r_file_perms;
 
@@ -14,6 +16,8 @@ userdebug_or_eng(`
 r_dir_file(hal_audio, proc)
 allow hal_audio audio_device:dir r_dir_perms;
 allow hal_audio audio_device:chr_file rw_file_perms;
+
+allow hal_audio scheduling_policy_service:service_manager find;
 
 # Needed on some devices for playing audio on paired BT device,
 # but seems appropriate for all devices.
