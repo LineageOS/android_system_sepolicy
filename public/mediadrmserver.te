@@ -55,6 +55,9 @@ allow mediadrmserver surfaceflinger_service:service_manager find;
 allowxperm mediadrmserver self:{ rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
 
+# Permit reading device's serial number from system properties
+get_prop(mediadrmserver, serialno_prop)
+
 ###
 ### neverallow rules
 ###

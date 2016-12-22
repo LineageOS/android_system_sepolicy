@@ -187,6 +187,9 @@ set_prop(dumpstate, dumpstate_prop)
 # dumpstate_options_prop is used to pass extra command-line args.
 set_prop(dumpstate, dumpstate_options_prop)
 
+# Read device's serial number from system properties
+get_prop(dumpstate, serialno_prop)
+
 # Access to /data/media.
 # This should be removed if sdcardfs is modified to alter the secontext for its
 # accesses to the underlying FS.
