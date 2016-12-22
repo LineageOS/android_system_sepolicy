@@ -91,6 +91,7 @@ allow system_server { appdomain ephemeral_app }:process { sigkill signal };
 # Set scheduling info for apps.
 allow system_server { appdomain ephemeral_app }:process { getsched setsched };
 allow system_server audioserver:process { getsched setsched };
+allow system_server hal_audio:process { getsched setsched };
 allow system_server cameraserver:process { getsched setsched };
 allow system_server mediaserver:process { getsched setsched };
 allow system_server bootanim:process { getsched setsched };
