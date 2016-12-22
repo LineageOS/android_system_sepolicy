@@ -7,6 +7,10 @@ binder_call(cameraserver, binderservicedomain)
 binder_call(cameraserver, appdomain)
 binder_service(cameraserver)
 
+hwbinder_use(cameraserver)
+binder_call(cameraserver, hal_camera)
+binder_call(cameraserver, hwservicemanager)
+
 # access /data/misc/camera
 allow cameraserver camera_data_file:dir create_dir_perms;
 allow cameraserver camera_data_file:file create_file_perms;
