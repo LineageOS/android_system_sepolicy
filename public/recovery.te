@@ -92,7 +92,7 @@ recovery_only(`
   # Start/stop adbd via ctl.start adbd
   set_prop(recovery, ctl_default_prop)
 
-  # Read device's serial number from system properties
+  # Read serial number of the device from system properties
   get_prop(recovery, serialno_prop)
 
   # Use setfscreatecon() to label files for OTA updates.
