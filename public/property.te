@@ -21,6 +21,7 @@ type dumpstate_options_prop, property_type;
 type dumpstate_prop, property_type, core_property_type;
 type ffs_prop, property_type, core_property_type;
 type fingerprint_prop, property_type, core_property_type;
+type firstboot_prop, property_type;
 type hwservicemanager_prop, property_type;
 type logd_prop, property_type, core_property_type;
 type logpersistd_logging_prop, property_type;

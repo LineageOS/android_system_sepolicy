@@ -391,6 +391,9 @@ get_prop(system_server, boottime_prop)
 # Read device's serial number from system properties
 get_prop(system_server, serialno_prop)
 
+# Read/write the property which keeps track of whether this is the first start of system_server
+set_prop(system_server, firstboot_prop)
+
 # Create a socket for receiving info from wpa.
 allow system_server wpa_socket:dir rw_dir_perms;
 allow system_server system_wpa_socket:sock_file create_file_perms;
