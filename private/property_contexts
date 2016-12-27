@@ -18,6 +18,7 @@ persist.radio           u:object_r:radio_prop:s0
 net.                    u:object_r:system_prop:s0
 dev.                    u:object_r:system_prop:s0
 ro.runtime.             u:object_r:system_prop:s0
+ro.runtime.firstboot    u:object_r:firstboot_prop:s0
 hw.                     u:object_r:system_prop:s0
 ro.hw.                  u:object_r:system_prop:s0
 sys.                    u:object_r:system_prop:s0
