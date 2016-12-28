@@ -58,6 +58,10 @@ unix_socket_connect(bluetooth, sap_uim, rild)
 # /data/data/com.android.shell/files/bugreports/bugreport-*.
 allow bluetooth shell_data_file:file read;
 
+# Perform HwBinder IPC.
+hwbinder_use(bluetooth)
+binder_call(bluetooth, hal_telephony)
+
 ###
 ### Neverallow rules
 ###
