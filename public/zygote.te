@@ -123,3 +123,6 @@ neverallow zygote {
   data_file_type
   -dalvikcache_data_file # map PROT_EXEC
 }:file no_x_file_perms;
+
+# Do not allow access to Bluetooth-related system properties and files
+neverallow zygote bluetooth_prop:file create_file_perms;

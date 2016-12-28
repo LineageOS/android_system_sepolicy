@@ -102,3 +102,7 @@ neverallow webview_zygote domain:{
   netlink_fib_lookup_socket netlink_connector_socket netlink_netfilter_socket
   netlink_generic_socket netlink_scsitransport_socket netlink_rdma_socket netlink_crypto_socket
 } *;
+
+# Do not allow access to Bluetooth-related system properties.
+# neverallow rules for Bluetooth-related data files are listed above.
+neverallow webview_zygote bluetooth_prop:file create_file_perms;
