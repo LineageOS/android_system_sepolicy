@@ -1,6 +1,6 @@
 type audio_prop, property_type, core_property_type;
 type boottime_prop, property_type;
-type bluetooth_prop, property_type, core_property_type;
+type bluetooth_prop, property_type;
 type config_prop, property_type, core_property_type;
 type cppreopt_prop, property_type, core_property_type;
 type ctl_bootanim_prop, property_type;
@@ -61,7 +61,6 @@ allow property_type tmpfs:filesystem associate;
 neverallow * {
   core_property_type
   -audio_prop
-  -bluetooth_prop
   -config_prop
   -cppreopt_prop
   -dalvik_prop
