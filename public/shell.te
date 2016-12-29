@@ -72,6 +72,9 @@ userdebug_or_eng(`
   set_prop(shell, persist_debug_prop)
 ')
 
+# Read device's serial number from system properties
+get_prop(shell, serialno_prop)
+
 # allow shell access to services
 allow shell servicemanager:service_manager list;
 # don't allow shell to access GateKeeper service
