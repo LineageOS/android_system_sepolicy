@@ -383,6 +383,7 @@ neverallow {
   -init
   -mediadrmserver
   -recovery
+  -shell
   -system_server
 } serialno_prop:file r_file_perms;
 
