@@ -231,6 +231,7 @@
 /system/lib(64)?/libart.*        u:object_r:libart_file:s0
 /system/bin/hw/android\.hardware\.audio@2\.0-service          u:object_r:hal_audio_default_exec:s0
 /system/bin/hw/android\.hardware\.boot@1\.0-service           u:object_r:hal_boot_exec:s0
+/system/bin/hw/android\.hardware\.contexthub@1\.0-service     u:object_r:hal_contexthub_default_exec:s0
 /system/bin/hw/android\.hardware\.dumpstate@1\.0-service      u:object_r:hal_dumpstate_default_exec:s0
 /system/bin/hw/android\.hardware\.graphics\.allocator@2\.0-service   u:object_r:hal_graphics_allocator_default_exec:s0
 /system/bin/hw/android\.hardware\.graphics\.composer@2\.1-service    u:object_r:hal_graphics_composer_default_exec:s0
