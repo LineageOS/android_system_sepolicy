@@ -3,3 +3,6 @@ hwbinder_use(hal_dumpstate)
 
 # call into dumpstate process (callbacks)
 binder_call(hal_dumpstate, dumpstate)
+
+# write bug reports in /data/data/com.android.shell/files/bugreports/bugreport
+allow hal_dumpstate shell_data_file:file write;
