@@ -1,0 +1,9 @@
+# hwbinder access
+hwbinder_use(hal_gatekeeper)
+
+# call into gatekeeperd process (callbacks)
+binder_call(hal_gatekeeper, gatekeeperd)
+
+# TEE access.
+allow hal_gatekeeper tee_device:chr_file rw_file_perms;
+allow hal_gatekeeper ion_device:chr_file r_file_perms;

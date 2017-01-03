@@ -117,6 +117,7 @@ attribute update_engine_common;
 # HALs
 attribute hal_audio;
 attribute hal_dumpstate;
+attribute hal_gatekeeper;
 attribute hal_graphics_allocator;
 attribute hal_graphics_composer;
 attribute hal_health;
