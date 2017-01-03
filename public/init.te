@@ -277,6 +277,12 @@ allow init property_data_file:file create_file_perms;
 # Set any property.
 allow init property_type:property_service set;
 
+# Send an SELinux userspace denial to the kernel audit subsystem,
+# so it can be picked up and processed by logd. These denials are
+# generated when an attempt to set a property is denied by policy.
+allow init self:netlink_audit_socket { create_socket_perms_no_ioctl nlmsg_relay };
+allow init self:capability audit_write;
+
 # Run "ifup lo" to bring up the localhost interface
 allow init self:udp_socket { create ioctl };
 # in addition to unpriv ioctls granted to all domains, init also needs:
