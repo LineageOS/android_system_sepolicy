@@ -297,9 +297,9 @@ define(`userdebug_or_eng', ifelse(target_build_variant, `eng', $1, ifelse(target
 
 #####################################
 # WITH_DEXPREOPT builds
-# SELinux rules which apply only when pre-opting with PIC.
+# SELinux rules which apply only when pre-opting.
 #
-define(`with_dexpreopt', ifelse(target_with_dexpreopt, `true', ifelse(target_with_dexpreopt_pic, `true', $1)))
+define(`with_dexpreopt', ifelse(target_with_dexpreopt, `true', $1))
 
 #####################################
 # write_logd(domain)
