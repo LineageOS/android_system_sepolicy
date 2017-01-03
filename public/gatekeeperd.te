@@ -1,11 +1,10 @@
-type gatekeeperd, domain;
+# normally uses HAL; implements HAL in pass-through mode only
+type gatekeeperd, hal_gatekeeper, domain;
 type gatekeeperd_exec, exec_type, file_type;
 
 # gatekeeperd
 binder_service(gatekeeperd)
 binder_use(gatekeeperd)
-allow gatekeeperd tee_device:chr_file rw_file_perms;
-allow gatekeeperd ion_device:chr_file r_file_perms;
 
 # need to find KeyStore and add self
 allow gatekeeperd gatekeeper_service:service_manager { add find };
@@ -20,6 +19,7 @@ allow gatekeeperd keystore:keystore_key { add_auth };
 # For permissions checking
 allow gatekeeperd system_server:binder call;
 allow gatekeeperd permission_service:service_manager find;
+
 # For parent user ID lookup
 allow gatekeeperd user_service:service_manager find;
 
