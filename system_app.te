@@ -75,3 +75,7 @@ allow system_app sysfs_zram:dir search;
 allow system_app sysfs_zram:file r_file_perms;
 
 control_logd(system_app)
+
+# Themes
+allow system_app theme_data_file:dir create_dir_perms;
+allow system_app theme_data_file:file create_file_perms;
