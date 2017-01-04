@@ -401,3 +401,6 @@
 /mnt/user(/.*)?             u:object_r:mnt_user_file:s0
 /mnt/runtime(/.*)?          u:object_r:storage_file:s0
 /storage(/.*)?              u:object_r:storage_file:s0
+
+# Themes
+/data/system/theme(/.*)?  u:object_r:theme_data_file:s0
