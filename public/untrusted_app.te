@@ -97,6 +97,12 @@ allow untrusted_app sysfs_hwrandom:file r_file_perms;
 allow untrusted_app preloads_data_file:dir r_dir_perms;
 allow untrusted_app preloads_data_file:file r_file_perms;
 
+# Access to /proc/tty/drivers, to allow apps to determine if they
+# are running in an emulated environment.
+# b/33214085 b/33814662 b/33791054 b/33211769
+# https://github.com/strazzere/anti-emulator/blob/master/AntiEmulator/src/diff/strazzere/anti/emulator/FindEmulator.java
+allow untrusted_app proc_tty_drivers:file r_file_perms;
+
 ###
 ### neverallow rules
 ###

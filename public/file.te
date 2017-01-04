@@ -20,6 +20,7 @@ type proc_net, fs_type;
 type proc_stat, fs_type;
 type proc_sysrq, fs_type;
 type proc_timer, fs_type;
+type proc_tty_drivers, fs_type;
 type proc_uid_cputime_showstat, fs_type;
 type proc_uid_cputime_removeuid, fs_type;
 type proc_zoneinfo, fs_type;
