@@ -77,7 +77,7 @@ allow { domain -servicemanager } hwbinder_device:chr_file rw_file_perms;
 allow domain ptmx_device:chr_file rw_file_perms;
 allow domain alarm_device:chr_file r_file_perms;
 allow domain random_device:chr_file rw_file_perms;
-allow domain properties_device:dir r_dir_perms;
+allow domain properties_device:dir { search getattr };
 allow domain properties_serial:file r_file_perms;
 
 # For now, everyone can access core property files
