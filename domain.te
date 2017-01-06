@@ -158,6 +158,7 @@ neverallow {
   -vold
   -dumpstate
   -system_server
+  -perfd
   userdebug_or_eng(`-perfprofd')
 } self:capability sys_ptrace;
 
