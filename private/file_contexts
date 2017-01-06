@@ -36,6 +36,8 @@
 
 # SELinux policy files
 /file_contexts\.bin u:object_r:rootfs:s0
+/nonplat_file_contexts u:object_r:rootfs:s0
+/plat_file_contexts u:object_r:rootfs:s0
 /mapping_sepolicy\.cil   u:object_r:rootfs:s0
 /nonplat_sepolicy\.cil   u:object_r:rootfs:s0
 /plat_sepolicy\.cil      u:object_r:rootfs:s0
