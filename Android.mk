@@ -576,7 +576,10 @@ $(LOCAL_BUILT_MODULE): $(built_general_sepolicy.conf) $(HOST_OUT_EXECUTABLES)/ch
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@ $(PRIVATE_BUILT_SEPOLICY.CONF) > /dev/null
 
 built_general_sepolicy := $(LOCAL_BUILT_MODULE)
+
 ##################################
+# TODO - remove this.   Keep around until we get the filesystem creation stuff taken care of.
+#
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := file_contexts.bin
@@ -652,24 +655,54 @@ file_contexts.local.tmp :=
 ##################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := general_file_contexts.bin
+LOCAL_MODULE := plat_file_contexts
 LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-general_file_contexts.tmp := $(intermediates)/general_file_contexts.tmp
-$(general_file_contexts.tmp): $(addprefix $(PLAT_PRIVATE_POLICY)/, file_contexts)
-	@mkdir -p $(dir $@)
-	$(hide) m4 -s $< > $@
+local_fc_files := $(PLAT_PRIVATE_POLICY)/file_contexts
+ifneq ($(filter address,$(SANITIZE_TARGET)),)
+  local_fc_files += $(PLAT_PRIVATE_POLICY)/file_contexts_asan
+endif
 
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
-$(LOCAL_BUILT_MODULE): $(general_file_contexts.tmp) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/sefcontext_compile $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): PRIVATE_FC_FILES := $(local_fcfiles)
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/checkfc $(local_fcfiles) $(built_sepolicy)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $<
-	$(hide) $(HOST_OUT_EXECUTABLES)/sefcontext_compile -o $@ $<
+	$(hide) m4 -s $(PRIVATE_FC_FILES) > $@
+	$(hide) $< $(PRIVATE_SEPOLICY) $@
 
-general_file_contexts.tmp :=
+built_plat_fc := $(LOCAL_BUILT_MODULE)
+local_fc_files :=
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := nonplat_file_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+nonplat_fc_files := $(call build_device_policy, file_contexts)
+nonplat_fcfiles_with_nl := $(call add_nl, $(nonplat_fc_files), $(built_nl))
+
+$(LOCAL_BUILT_MODULE): PRIVATE_FC_FILES := $(nonplat_fcfiles_with_nl)
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_FC_SORT := $(HOST_OUT_EXECUTABLES)/fc_sort
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/checkfc $(HOST_OUT_EXECUTABLES)/fc_sort \
+$(device_fcfiles_with_nl) $(built_sepolicy)
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_FC_FILES) > $@.tmp
+	$(hide) $< $(PRIVATE_SEPOLICY) $@.tmp
+	$(hide) $(PRIVATE_FC_SORT) $@.tmp $@
+
+built_nonplat_fc := $(LOCAL_BUILT_MODULE)
+nonplat_fc_files :=
+nonplat_fcfiles_with_nl :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -900,7 +933,8 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
-$(LOCAL_BUILT_MODULE): $(built_sepolicy) $(built_pc) $(built_fc) $(built_sc) $(built_svc)
+$(LOCAL_BUILT_MODULE): $(built_sepolicy) $(built_pc) $(built_plat_fc) \
+$(buit_nonplat_fc) $(built_sc) $(built_svc)
 	@mkdir -p $(dir $@)
 	$(hide) echo -n $(BUILD_FINGERPRINT_FROM_FILE) > $@
 
@@ -909,7 +943,8 @@ $(LOCAL_BUILT_MODULE): $(built_sepolicy) $(built_pc) $(built_fc) $(built_sc) $(b
 add_nl :=
 build_device_policy :=
 build_policy :=
-built_fc :=
+built_plat_fc :=
+built_nonplat_fc :=
 built_general_sepolicy :=
 built_general_sepolicy.conf :=
 built_nl :=
