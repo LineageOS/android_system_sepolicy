@@ -19,6 +19,7 @@ type mediadrmserver_service,    service_manager_type;
 type netd_service,              service_manager_type;
 type nfc_service,               service_manager_type;
 type radio_service,             service_manager_type;
+type storaged_service,          service_manager_type;
 type surfaceflinger_service,    service_manager_type;
 type system_app_service,        service_manager_type;
 type update_engine_service,     service_manager_type;
