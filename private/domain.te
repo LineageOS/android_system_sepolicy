@@ -5,6 +5,7 @@ neverallow {
   -debuggerd
   -vold
   -dumpstate
+  -storaged
   -system_server
   userdebug_or_eng(`-perfprofd')
 } self:capability sys_ptrace;

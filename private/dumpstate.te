@@ -13,3 +13,7 @@ allow dumpstate debugfs_tracing:dir r_dir_perms;
 allow dumpstate debugfs_tracing:file rw_file_perms;
 allow dumpstate debugfs_trace_marker:file getattr;
 allow dumpstate atrace_exec:file rx_file_perms;
+allow dumpstate storaged_exec:file rx_file_perms;
+
+# Allow dumpstate to make binder calls to storaged service
+binder_call(dumpstate, storaged)
