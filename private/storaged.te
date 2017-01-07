@@ -1,5 +1,5 @@
 # storaged daemon
-type storaged, domain;
+type storaged, domain, mlstrustedsubject;
 type storaged_exec, exec_type, file_type;
 
 init_daemon_domain(storaged)
@@ -11,9 +11,22 @@ allow storaged kmsg_device:chr_file { write append };
 allow storaged proc:dir r_dir_perms;
 r_dir_file(storaged, sysfs_type)
 r_dir_file(storaged, proc_net)
+r_dir_file(storaged, domain)
 
-# Read access to debugfs
-allow storaged debugfs_mmc:dir search;
-allow storaged debugfs_mmc:file r_file_perms;
+allow storaged self:capability { setgid setuid sys_nice sys_ptrace };
 
+userdebug_or_eng(`
+  # Read access to debugfs
+  allow storaged debugfs_mmc:dir search;
+  allow storaged debugfs_mmc:file r_file_perms;
+')
 
+# Binder permissions
+allow storaged storaged_service:service_manager add;
+binder_use(storaged)
+binder_call(storaged, system_server)
+
+###
+### neverallow
+###
+neverallow storaged domain:process ptrace;
