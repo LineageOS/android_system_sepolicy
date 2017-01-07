@@ -26,12 +26,8 @@ allow platform_app media_rw_data_file:dir create_dir_perms;
 allow platform_app media_rw_data_file:file create_file_perms;
 
 # Write to /cache.
-allow platform_app { cache_file cache_recovery_file }:dir create_dir_perms;
-allow platform_app { cache_file cache_recovery_file }:file create_file_perms;
-
-# Likely not needed
-auditallow platform_app cache_recovery_file:dir create_dir_perms;
-auditallow platform_app cache_recovery_file:file create_file_perms;
+allow platform_app cache_file:dir create_dir_perms;
+allow platform_app cache_file:file create_file_perms;
 
 # Direct access to vold-mounted storage under /mnt/media_rw
 # This is a performance optimization that allows platform apps to bypass the FUSE layer
