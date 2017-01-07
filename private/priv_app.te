@@ -2,8 +2,6 @@
 ### A domain for further sandboxing privileged apps.
 ###
 
-typeattribute priv_app domain_deprecated;
-
 app_domain(priv_app)
 
 # Access the network.
