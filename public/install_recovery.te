@@ -1,5 +1,5 @@
 # service flash_recovery in init.rc
-type install_recovery, domain, domain_deprecated;
+type install_recovery, domain;
 type install_recovery_exec, exec_type, file_type;
 
 allow install_recovery self:capability dac_override;
