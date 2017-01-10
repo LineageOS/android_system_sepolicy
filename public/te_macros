@@ -228,7 +228,7 @@ typeattribute $1 binderservicedomain;
 define(`hwallocator_use', `
 # Call into the allocator hal
 binder_call($1, hal_allocator);
-'')
+')
 
 #####################################
 # wakelock_use(domain)
