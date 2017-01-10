@@ -11,6 +11,7 @@ binder_service(audioserver)
 
 hwbinder_use(audioserver)
 binder_call(audioserver, hal_audio)
+hwallocator_use(audioserver)
 
 r_dir_file(audioserver, proc)
 allow audioserver ion_device:chr_file r_file_perms;
