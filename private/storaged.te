@@ -4,13 +4,13 @@ type storaged_exec, exec_type, file_type;
 
 init_daemon_domain(storaged)
 
-# Write to /dev/kmsg (opened in init)
-allow storaged kmsg_device:chr_file { write append };
-
 # Read access to pseudo filesystems
 r_dir_file(storaged, sysfs_type)
 r_dir_file(storaged, proc_net)
 r_dir_file(storaged, domain)
+
+# Read /proc/uid_io/stats
+allow storaged proc_uid_io_stats:file r_file_perms;
 
 allow storaged self:capability { setgid setuid sys_nice sys_ptrace };
 
@@ -22,6 +22,8 @@ userdebug_or_eng(`
 
 # Binder permissions
 allow storaged storaged_service:service_manager add;
+allow storaged permission_service:service_manager find;
+
 binder_use(storaged)
 binder_call(storaged, system_server)
 
