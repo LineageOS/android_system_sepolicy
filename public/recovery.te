@@ -58,8 +58,7 @@ recovery_only(`
 
   allow recovery kernel:system syslog_read;
 
-  # Access /dev/android_adb or /dev/usb-ffs/adb/ep0
-  allow recovery adb_device:chr_file rw_file_perms;
+  # Access /dev/usb-ffs/adb/ep0
   allow recovery functionfs:dir search;
   allow recovery functionfs:file rw_file_perms;
 
