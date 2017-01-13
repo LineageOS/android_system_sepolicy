@@ -1,0 +1,4 @@
+# hwbinder access
+hwbinder_use(hal_gnss)
+
+binder_call(hal_gnss, system_server)
