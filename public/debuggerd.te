@@ -55,6 +55,12 @@ allow debuggerd {
 # Connect to system_server via /data/system/ndebugsocket.
 unix_socket_connect(debuggerd, system_ndebug, system_server)
 
+# Get stack traces for VTS executables
+userdebug_or_eng(`
+  allow debuggerd nativetest_data_file:dir search;
+  allow debuggerd nativetest_data_file:file r_file_perms;
+')
+
 userdebug_or_eng(`
   allow debuggerd input_device:dir r_dir_perms;
   allow debuggerd input_device:chr_file rw_file_perms;
