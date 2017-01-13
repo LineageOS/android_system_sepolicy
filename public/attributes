@@ -119,6 +119,7 @@ attribute hal_audio;
 attribute hal_bluetooth;
 attribute hal_dumpstate;
 attribute hal_gatekeeper;
+attribute hal_gnss;
 attribute hal_graphics_allocator;
 attribute hal_graphics_composer;
 attribute hal_health;
