@@ -308,13 +308,13 @@ allow init hw_random_device:chr_file r_file_perms;
 allow init device:file create_file_perms;
 
 # Access character devices without a specific type,
-# e.g. /dev/keychord.
-# TODO: Move these devices into their own type unless they
-# are only ever accessed by init.
+# TODO: Remove this access and auditallow (b/33347297)
 allow init device:chr_file { rw_file_perms setattr };
+auditallow init device:chr_file { rw_file_perms setattr };
 
 # keychord configuration
 allow init self:capability sys_tty_config;
+allow init keychord_device:chr_file rw_file_perms;
 
 # Access device mapper for setting up dm-verity
 allow init dm_device:chr_file rw_file_perms;
