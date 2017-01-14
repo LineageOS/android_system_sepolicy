@@ -162,6 +162,7 @@ hwbinder_use(system_server)
 binder_call(system_server, hal_bluetooth)
 binder_call(system_server, hal_boot)
 binder_call(system_server, hal_contexthub)
+binder_call(system_server, hal_fingerprint)
 binder_call(system_server, hal_gnss);
 binder_call(system_server, hal_ir)
 binder_call(system_server, hal_light)
@@ -477,6 +478,7 @@ allow system_server cameraserver_service:service_manager find;
 allow system_server drmserver_service:service_manager find;
 allow system_server dumpstate_service:service_manager find;
 allow system_server fingerprintd_service:service_manager find;
+allow system_server hal_fingerprint_service:service_manager find;
 allow system_server gatekeeper_service:service_manager find;
 allow system_server installd_service:service_manager find;
 allow system_server keystore_service:service_manager find;

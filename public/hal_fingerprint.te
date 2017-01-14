@@ -1,0 +1,23 @@
+hwbinder_use(hal_fingerprint)
+
+# Scan through /system/lib64/hw looking for installed HALs
+allow hal_fingerprint system_file:dir r_dir_perms;
+
+# allow HAL module to read dir contents
+allow hal_fingerprint fingerprintd_data_file:file create_file_perms;
+
+# allow HAL module to read/write/unlink contents of this dir
+allow hal_fingerprint fingerprintd_data_file:dir rw_dir_perms;
+
+# Need to add auth tokens to KeyStore
+use_keystore(hal_fingerprint)
+allow hal_fingerprint keystore:keystore_key add_auth;
+
+# For permissions checking
+binder_call(hal_fingerprint, system_server);
+allow hal_fingerprint permission_service:service_manager find;
+
+# For memory allocation
+allow hal_fingerprint ion_device:chr_file r_file_perms;
+
+r_dir_file(hal_fingerprint, cgroup)
