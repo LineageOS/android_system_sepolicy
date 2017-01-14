@@ -118,6 +118,7 @@ attribute update_engine_common;
 attribute hal_audio;
 attribute hal_bluetooth;
 attribute hal_dumpstate;
+attribute hal_fingerprint;
 attribute hal_gatekeeper;
 attribute hal_gnss;
 attribute hal_graphics_allocator;
