@@ -2,6 +2,7 @@ hwbinder_use(hal_audio)
 binder_use(hal_audio)
 binder_call(hal_audio, audioserver)
 binder_call(hal_audio, system_server)
+hwallocator_use(hal_audio)
 
 allow hal_audio ion_device:chr_file r_file_perms;
 
