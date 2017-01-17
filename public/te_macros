@@ -116,6 +116,20 @@ typeattribute $1 bluetoothdomain;
 ')
 
 #####################################
+# hal_impl_domain(domain, hal_type_attr)
+# Allow a base set of permissions required for a domain to host a
+# HAL implementation of the specified HAL type.
+#
+# For example, default implementation of Foo HAL:
+#   type hal_foo_default, domain;
+#   hal_impl_domain(hal_foo_default, hal_foo)
+#
+define(`hal_impl_domain', `
+typeattribute $1 haldomain;
+typeattribute $1 $2;
+')
+
+#####################################
 # unix_socket_connect(clientdomain, socket, serverdomain)
 # Allow a local socket connection from clientdomain via
 # socket to serverdomain.

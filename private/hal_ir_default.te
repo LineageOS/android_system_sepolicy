@@ -1,4 +1,5 @@
-type hal_ir_default, hal_ir, domain;
-type hal_ir_default_exec, exec_type, file_type;
+type hal_ir_default, domain;
+hal_impl_domain(hal_ir_default, hal_ir)
 
+type hal_ir_default_exec, exec_type, file_type;
 init_daemon_domain(hal_ir_default)

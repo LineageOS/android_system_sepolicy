@@ -1,4 +1,5 @@
-type hal_contexthub_default, hal_contexthub, domain;
-type hal_contexthub_default_exec, exec_type, file_type;
+type hal_contexthub_default, domain;
+hal_impl_domain(hal_contexthub_default, hal_contexthub)
 
+type hal_contexthub_default_exec, exec_type, file_type;
 init_daemon_domain(hal_contexthub_default)
