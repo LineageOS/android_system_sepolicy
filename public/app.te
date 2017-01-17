@@ -180,20 +180,20 @@ allow { appdomain -isolated_app } radio_data_file:file { read write getattr };
 
 # Allow access to external storage; we have several visible mount points under /storage
 # and symlinks to primary storage at places like /storage/sdcard0 and /mnt/user/0/primary
-allow { appdomain -isolated_app } storage_file:dir r_dir_perms;
-allow { appdomain -isolated_app } storage_file:lnk_file r_file_perms;
-allow { appdomain -isolated_app } mnt_user_file:dir r_dir_perms;
-allow { appdomain -isolated_app } mnt_user_file:lnk_file r_file_perms;
+allow { appdomain -isolated_app -ephemeral_app } storage_file:dir r_dir_perms;
+allow { appdomain -isolated_app -ephemeral_app } storage_file:lnk_file r_file_perms;
+allow { appdomain -isolated_app -ephemeral_app } mnt_user_file:dir r_dir_perms;
+allow { appdomain -isolated_app -ephemeral_app } mnt_user_file:lnk_file r_file_perms;
 
 # Read/write visible storage
-allow { appdomain -isolated_app } fuse:dir create_dir_perms;
-allow { appdomain -isolated_app } fuse:file create_file_perms;
-allow { appdomain -isolated_app } sdcardfs:dir create_dir_perms;
-allow { appdomain -isolated_app } sdcardfs:file create_file_perms;
+allow { appdomain -isolated_app -ephemeral_app } fuse:dir create_dir_perms;
+allow { appdomain -isolated_app -ephemeral_app } fuse:file create_file_perms;
+allow { appdomain -isolated_app -ephemeral_app } sdcardfs:dir create_dir_perms;
+allow { appdomain -isolated_app -ephemeral_app } sdcardfs:file create_file_perms;
 # This should be removed if sdcardfs is modified to alter the secontext for its
 # accesses to the underlying FS.
-allow { appdomain -isolated_app } media_rw_data_file:dir create_dir_perms;
-allow { appdomain -isolated_app } media_rw_data_file:file create_file_perms;
+allow { appdomain -isolated_app -ephemeral_app } media_rw_data_file:dir create_dir_perms;
+allow { appdomain -isolated_app -ephemeral_app } media_rw_data_file:file create_file_perms;
 
 # Access OBBs (vfat images) mounted by vold (b/17633509)
 # File write access allowed for FDs returned through Storage Access Framework
@@ -205,8 +205,8 @@ allow { appdomain -isolated_app } vfat:file rw_file_perms;
 #
 # USB devices are first opened by the system server (USBDeviceManagerService)
 # and the file descriptor is passed to the right Activity via binder.
-allow { appdomain -isolated_app } usb_device:chr_file { read write getattr ioctl };
-allow { appdomain -isolated_app } usbaccessory_device:chr_file { read write getattr };
+allow { appdomain -isolated_app -ephemeral_app } usb_device:chr_file { read write getattr ioctl };
+allow { appdomain -isolated_app -ephemeral_app } usbaccessory_device:chr_file { read write getattr };
 
 # For art.
 allow appdomain dalvikcache_data_file:file execute;
@@ -230,9 +230,9 @@ control_logd(appdomain)
 # application inherit logd write socket (urge is to deprecate this long term)
 allow appdomain zygote:unix_dgram_socket write;
 
-allow { appdomain -isolated_app } keystore:keystore_key { get_state get insert delete exist list sign verify };
+allow { appdomain -isolated_app -ephemeral_app } keystore:keystore_key { get_state get insert delete exist list sign verify };
 
-use_keystore({ appdomain -isolated_app })
+use_keystore({ appdomain -isolated_app -ephemeral_app })
 
 allow appdomain console_device:chr_file { read write };
 
@@ -270,7 +270,7 @@ selinux_check_context(appdomain)
 
 # Apps receive an open tun fd from the framework for
 # device traffic. Do not allow untrusted app to directly open tun_device
-allow { appdomain -isolated_app } tun_device:chr_file { read write getattr ioctl append };
+allow { appdomain -isolated_app -ephemeral_app } tun_device:chr_file { read write getattr ioctl append };
 
 # Connect to adbd and use a socket transferred from it.
 # This is used for e.g. adb backup/restore.
