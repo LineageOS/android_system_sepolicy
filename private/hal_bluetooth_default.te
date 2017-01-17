@@ -1,6 +1,7 @@
-type hal_bluetooth_default, hal_bluetooth, domain;
-type hal_bluetooth_default_exec, exec_type, file_type;
+type hal_bluetooth_default, domain;
+hal_impl_domain(hal_bluetooth_default, hal_bluetooth)
 
+type hal_bluetooth_default_exec, exec_type, file_type;
 init_daemon_domain(hal_bluetooth_default)
 
 # VTS tests need to be able to toggle rfkill

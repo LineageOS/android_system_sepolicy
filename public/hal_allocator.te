@@ -1,5 +1,5 @@
 # allocator subsystem
-type hal_allocator, domain;
+type hal_allocator, domain, haldomain;
 type hal_allocator_exec, exec_type, file_type;
 
 # hwbinder access

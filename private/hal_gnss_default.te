@@ -1,6 +1,7 @@
-type hal_gnss_default, hal_gnss, domain;
-type hal_gnss_default_exec, exec_type, file_type;
+type hal_gnss_default, domain;
+hal_impl_domain(hal_gnss_default, hal_gnss)
 
+type hal_gnss_default_exec, exec_type, file_type;
 init_daemon_domain(hal_gnss_default)
 
 # Read access to system files for HALs in
