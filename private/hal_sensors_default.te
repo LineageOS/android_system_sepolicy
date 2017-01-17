@@ -1,4 +1,5 @@
-type hal_sensors_default, hal_sensors, domain;
-type hal_sensors_default_exec, exec_type, file_type;
+type hal_sensors_default, domain;
+hal_impl_domain(hal_sensors_default, hal_sensors)
 
+type hal_sensors_default_exec, exec_type, file_type;
 init_daemon_domain(hal_sensors_default)
