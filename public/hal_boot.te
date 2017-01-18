@@ -1,5 +1,7 @@
 # boot_control subsystem
-type hal_boot, domain, boot_control_hal, haldomain;
+type hal_boot, domain, boot_control_hal;
+hal_impl_domain(hal_boot)
+
 type hal_boot_exec, exec_type, file_type;
 
 # hwbinder access
