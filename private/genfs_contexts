@@ -32,6 +32,7 @@ genfscon proc /timer_stats u:object_r:proc_timer:s0
 genfscon proc /tty/drivers u:object_r:proc_tty_drivers:s0
 genfscon proc /uid_cputime/show_uid_stat u:object_r:proc_uid_cputime_showstat:s0
 genfscon proc /uid_cputime/remove_uid_range u:object_r:proc_uid_cputime_removeuid:s0
+genfscon proc /uid_io/stats u:object_r:proc_uid_io_stats:s0
 genfscon proc /uid_procstat/set u:object_r:proc_uid_procstat_set:s0
 genfscon proc /zoneinfo u:object_r:proc_zoneinfo:s0
 
