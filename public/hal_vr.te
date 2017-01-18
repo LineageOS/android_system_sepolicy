@@ -1,5 +1,2 @@
-# hwbinder access
-hwbinder_use(hal_vr)
-
 # call into system_server process
 binder_call(hal_vr, system_server)
