@@ -46,7 +46,8 @@
 /nonplat_seapp_contexts     u:object_r:rootfs:s0
 /plat_seapp_contexts     u:object_r:rootfs:s0
 /sepolicy           u:object_r:rootfs:s0
-/service_contexts   u:object_r:rootfs:s0
+/plat_service_contexts   u:object_r:rootfs:s0
+/nonplat_service_contexts   u:object_r:rootfs:s0
 
 ##########################
 # Devices

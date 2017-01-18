@@ -814,55 +814,62 @@ general_property_contexts.tmp :=
 ##################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := service_contexts
+LOCAL_MODULE := plat_service_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
+# TODO: Change module path to TARGET_SYSTEM_OUT after b/27805372
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-all_svc_files := $(call build_policy, service_contexts, $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
-all_svcfiles_with_nl := $(call add_nl, $(all_svc_files), $(built_nl))
+plat_svcfiles := $(call build_policy, service_contexts, $(PLAT_PRIVATE_POLICY))
 
-service_contexts.tmp := $(intermediates)/service_contexts.tmp
-$(service_contexts.tmp): PRIVATE_SVC_FILES := $(all_svcfiles_with_nl)
-$(service_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(service_contexts.tmp): $(all_svcfiles_with_nl)
+plat_service_contexts.tmp := $(intermediates)/plat_service_contexts.tmp
+$(plat_service_contexts.tmp): PRIVATE_SVC_FILES := $(plat_svcfiles)
+$(plat_service_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(plat_service_contexts.tmp): $(plat_svcfiles)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): $(service_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
+$(LOCAL_BUILT_MODULE): $(plat_service_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
 	@mkdir -p $(dir $@)
 	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
 	$(HOST_OUT_EXECUTABLES)/checkfc -s $(PRIVATE_SEPOLICY) $@
 
-built_svc := $(LOCAL_BUILT_MODULE)
-all_svc_files :=
-all_svcfiles_with_nl :=
-service_contexts.tmp :=
+built_plat_svc := $(LOCAL_BUILT_MODULE)
+plat_svcfiles :=
+plat_service_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := general_service_contexts
+LOCAL_MODULE := nonplat_service_contexts
 LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_TAGS := optional
+# TODO: Change module path to TARGET_VENDOR_OUT after b/27805372
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-general_service_contexts.tmp := $(intermediates)/general_service_contexts.tmp
-$(general_service_contexts.tmp): $(addprefix $(PLAT_PRIVATE_POLICY)/, service_contexts)
-	@mkdir -p $(dir $@)
-	$(hide) m4 -s $< > $@
+nonplat_svcfiles := $(call build_policy, service_contexts, $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
 
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
-$(LOCAL_BUILT_MODULE): $(general_service_contexts.tmp) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
+nonplat_service_contexts.tmp := $(intermediates)/nonplat_service_contexts.tmp
+$(nonplat_service_contexts.tmp): PRIVATE_SVC_FILES := $(nonplat_svcfiles)
+$(nonplat_service_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(nonplat_service_contexts.tmp): $(nonplat_svcfiles)
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(nonplat_service_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
 	@mkdir -p $(dir $@)
 	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -s $(PRIVATE_SEPOLICY) $@
 
-general_service_contexts.tmp :=
+built_nonplat_svc := $(LOCAL_BUILT_MODULE)
+nonplat_svcfiles :=
+nonplat_service_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -936,7 +943,7 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 $(LOCAL_BUILT_MODULE): $(built_sepolicy) $(built_pc) $(built_plat_fc) \
-$(buit_nonplat_fc) $(built_plat_sc) $(built_nonplat_sc) $(built_svc)
+$(buit_nonplat_fc) $(built_plat_sc) $(built_nonplat_sc) $(built_plat_svc) $(built_nonplat_svc)
 	@mkdir -p $(dir $@)
 	$(hide) echo -n $(BUILD_FINGERPRINT_FROM_FILE) > $@
 
@@ -954,7 +961,8 @@ built_pc :=
 built_nonplat_sc :=
 built_plat_sc :=
 built_sepolicy :=
-built_svc :=
+built_plat_svc :=
+built_nonplat_svc :=
 mapping_policy_nvr :=
 mapping_policy_nvr.recovery :=
 my_target_arch :=
