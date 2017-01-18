@@ -1,0 +1,50 @@
+type crash_dump, domain;
+type crash_dump_exec, exec_type, file_type;
+
+allow crash_dump self:capability { sys_ptrace kill };
+allow crash_dump {
+  domain
+  -init
+  -crash_dump
+  -keystore
+  -logd
+}:process { ptrace signal sigchld sigstop sigkill };
+userdebug_or_eng(`
+  allow crash_dump logd:process { ptrace signal sigchld sigstop sigkill };
+')
+
+# Use inherited file descriptors
+allow crash_dump domain:fd use;
+allow crash_dump domain:fifo_file write;
+
+r_dir_file(crash_dump, domain)
+allow crash_dump exec_type:file r_file_perms;
+
+# Read /data/dalvik-cache.
+allow crash_dump dalvikcache_data_file:dir { search getattr };
+allow crash_dump dalvikcache_data_file:file r_file_perms;
+
+# Unwind through libart.
+allow crash_dump libart_file:file r_file_perms;
+
+# Talk to tombstoned
+unix_socket_connect(crash_dump, tombstoned_crash, tombstoned)
+
+# Talk to ActivityManager.
+unix_socket_connect(crash_dump, system_ndebug, system_server)
+
+# Append to ANR files.
+allow crash_dump anr_data_file:file { append getattr };
+
+# Append to tombstone files.
+allow crash_dump tombstone_data_file:file { append getattr };
+
+read_logd(crash_dump)
+
+###
+### neverallow assertions
+###
+
+# A domain transition must occur for crash_dump to get the privileges needed to trace the process.
+# Do not allow the execution of crash_dump without a domain transition.
+neverallow domain crash_dump_exec:file execute_no_trans;

@@ -353,10 +353,12 @@ neverallow appdomain { domain -appdomain }:process
     { sigkill sigstop signal };
 
 # Transition to a non-app domain.
-# Exception for the shell domain and the su domain, can transition to runas,
-# etc.
+# Exception for the shell and su domains, can transition to runas, etc.
+# Exception for crash_dump.
+neverallow { appdomain -shell userdebug_or_eng(`-su') } { domain -appdomain -crash_dump }:process
+    { transition };
 neverallow { appdomain -shell userdebug_or_eng(`-su') } { domain -appdomain }:process
-    { transition dyntransition };
+    { dyntransition };
 
 # Write to rootfs.
 neverallow appdomain rootfs:dir_file_class_set
