@@ -41,7 +41,8 @@
 /mapping_sepolicy\.cil   u:object_r:rootfs:s0
 /nonplat_sepolicy\.cil   u:object_r:rootfs:s0
 /plat_sepolicy\.cil      u:object_r:rootfs:s0
-/property_contexts  u:object_r:property_contexts:s0
+/plat_property_contexts  u:object_r:property_contexts:s0
+/nonplat_property_contexts  u:object_r:property_contexts:s0
 /seapp_contexts     u:object_r:rootfs:s0
 /nonplat_seapp_contexts     u:object_r:rootfs:s0
 /plat_seapp_contexts     u:object_r:rootfs:s0
