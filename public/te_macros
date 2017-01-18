@@ -116,9 +116,14 @@ typeattribute $1 bluetoothdomain;
 ')
 
 #####################################
-# hal_impl_domain(domain, hal_type_attr)
+# hal_impl_domain(domain[, hal_type_attr])
 # Allow a base set of permissions required for a domain to host a
-# HAL implementation of the specified HAL type.
+# HAL implementation.
+#
+# Optionally, the type of the HAL can be specified as the second
+# argument. This is useful for HALs which may have multiple
+# implementations. Attributes are used to group the various
+# implementations of such HALs.
 #
 # For example, default implementation of Foo HAL:
 #   type hal_foo_default, domain;
@@ -126,7 +131,7 @@ typeattribute $1 bluetoothdomain;
 #
 define(`hal_impl_domain', `
 typeattribute $1 haldomain;
-typeattribute $1 $2;
+ifelse($2, `', `', `typeattribute $1 $2;')
 ')
 
 #####################################
