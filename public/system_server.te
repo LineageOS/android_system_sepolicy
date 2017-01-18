@@ -559,6 +559,8 @@ userdebug_or_eng(`
 # For AppFuse.
 allow system_server vold:fd use;
 allow system_server fuse_device:chr_file { read write ioctl getattr };
+allow system_server app_fuse_file:dir rw_dir_perms;
+allow system_server app_fuse_file:file { read write open getattr append };
 
 # For configuring sdcardfs
 allow system_server configfs:dir { create_dir_perms };
