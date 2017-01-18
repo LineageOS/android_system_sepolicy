@@ -123,5 +123,5 @@ auditallow { domain_deprecated -appdomain -init -surfaceflinger -system_server -
 # Get SELinux enforcing status.
 allow domain_deprecated selinuxfs:dir r_dir_perms;
 allow domain_deprecated selinuxfs:file r_file_perms;
-auditallow { domain_deprecated -appdomain -debuggerd -init -installd -keystore -postinstall_dexopt -runas -servicemanager -system_server -ueventd -zygote } selinuxfs:dir { open getattr read ioctl lock }; # search granted in domain
-auditallow { domain_deprecated -appdomain -debuggerd -init -installd -keystore -postinstall_dexopt -runas -servicemanager -system_server -ueventd -zygote } selinuxfs:file { open read ioctl lock }; # getattr granted in domain
+auditallow { domain_deprecated -appdomain -init -installd -keystore -postinstall_dexopt -runas -servicemanager -system_server -ueventd -zygote } selinuxfs:dir { open getattr read ioctl lock }; # search granted in domain
+auditallow { domain_deprecated -appdomain -init -installd -keystore -postinstall_dexopt -runas -servicemanager -system_server -ueventd -zygote } selinuxfs:file { open read ioctl lock }; # getattr granted in domain
