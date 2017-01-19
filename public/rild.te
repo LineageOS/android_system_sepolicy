@@ -28,10 +28,6 @@ allow rild system_file:file x_file_perms;
 
 # property service
 set_prop(rild, radio_prop)
-set_prop(rild, net_radio_prop)
-set_prop(rild, system_radio_prop)
-auditallow rild net_radio_prop:property_service set;
-auditallow rild system_radio_prop:property_service set;
 
 allow rild tty_device:chr_file rw_file_perms;
 
