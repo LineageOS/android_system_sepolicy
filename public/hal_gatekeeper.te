@@ -1,6 +1,3 @@
-# hwbinder access
-hwbinder_use(hal_gatekeeper)
-
 # call into gatekeeperd process (callbacks)
 binder_call(hal_gatekeeper, gatekeeperd)
 

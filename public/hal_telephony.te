@@ -1,5 +1,3 @@
 # Perform HwBinder IPC.
-hwbinder_use(hal_telephony)
 binder_call(hal_telephony, radio)
 binder_call(hal_telephony, bluetooth)
-

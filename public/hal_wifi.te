@@ -1,6 +1,3 @@
-## hwbinder access
-hwbinder_use(hal_wifi)
-
 ## call into system_server process (for invoking callbacks)
 binder_call(hal_wifi, system_server)
 
