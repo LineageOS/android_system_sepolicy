@@ -1,6 +1,3 @@
-# hwbinder access
-hwbinder_use(hal_nfc)
-
 # call into NFC process (callbacks)
 binder_call(hal_nfc, nfc)
 

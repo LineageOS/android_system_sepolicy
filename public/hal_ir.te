@@ -1,5 +1,2 @@
-# hwbinder access
-hwbinder_use(hal_ir)
-
 # call into system_server process (callbacks)
 binder_call(hal_ir, system_server)
