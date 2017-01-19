@@ -604,6 +604,12 @@ r_dir_file(system_server, sysfs_type)
 # Allow system_server to make binder calls to hwservicemanager
 binder_call(system_server, hwservicemanager)
 
+userdebug_or_eng(`
+  # Allow WifiService to start, stop, and read wifi-specific trace events.
+  allow system_server debugfs_tracing_instances:dir search;
+  allow system_server debugfs_wifi_tracing:file rw_file_perms;
+')
+
 ###
 ### Neverallow rules
 ###
