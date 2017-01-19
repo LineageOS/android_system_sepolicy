@@ -22,7 +22,7 @@ userdebug_or_eng(`
 
 binder_use(mediaserver)
 binder_call(mediaserver, binderservicedomain)
-binder_call(mediaserver, { appdomain ephemeral_app })
+binder_call(mediaserver, appdomain)
 binder_service(mediaserver)
 
 allow mediaserver media_data_file:dir create_dir_perms;
@@ -48,7 +48,7 @@ allow mediaserver ringtone_file:file { read getattr };
 allow mediaserver radio_data_file:file { read getattr };
 
 # Use pipes passed over Binder from app domains.
-allow mediaserver { appdomain ephemeral_app }:fifo_file { getattr read write };
+allow mediaserver appdomain:fifo_file { getattr read write };
 
 allow mediaserver rpmsg_device:chr_file rw_file_perms;
 

@@ -13,15 +13,15 @@ allow zygote self:capability setpcap;
 # Switch SELinux context to app domains.
 allow zygote self:process setcurrent;
 allow zygote system_server:process dyntransition;
-allow zygote { appdomain ephemeral_app }:process dyntransition;
+allow zygote appdomain:process dyntransition;
 
 # Allow zygote to read app /proc/pid dirs (b/10455872).
-allow zygote { appdomain ephemeral_app }:dir { getattr search };
-allow zygote { appdomain ephemeral_app }:file { r_file_perms };
+allow zygote appdomain:dir { getattr search };
+allow zygote appdomain:file { r_file_perms };
 
 # Move children into the peer process group.
 allow zygote system_server:process { getpgid setpgid };
-allow zygote { appdomain ephemeral_app }:process { getpgid setpgid };
+allow zygote appdomain:process { getpgid setpgid };
 
 # Read system data.
 allow zygote system_data_file:dir r_dir_perms;
@@ -116,7 +116,7 @@ get_prop(zygote, overlay_prop)
 # This is achieved by ensuring that it is impossible for zygote to
 # setcon (dyntransition) to any types other than those associated
 # with appdomain plus system_server.
-neverallow zygote ~{ appdomain ephemeral_app system_server }:process dyntransition;
+neverallow zygote ~{ appdomain system_server }:process dyntransition;
 
 # Zygote should never execute anything from /data except for /data/dalvik-cache files.
 neverallow zygote {
