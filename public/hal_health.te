@@ -1,6 +1,3 @@
-# hwbinder access
-hwbinder_use(hal_health)
-
 # call into healthd for callbacks
 binder_call(hal_health, healthd)
 

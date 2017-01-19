@@ -1,5 +1,3 @@
-# HwBinder access
-hwbinder_use(hal_graphics_composer)
 # IComposerCallback
 binder_call(hal_graphics_composer, surfaceflinger)
 

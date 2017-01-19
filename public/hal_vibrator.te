@@ -1,5 +1,2 @@
-# hwbinder access
-hwbinder_use(hal_vibrator)
-
 # vibrator sysfs rw access
 allow hal_vibrator sysfs_vibrator:file rw_file_perms;
