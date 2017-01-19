@@ -22,6 +22,9 @@ allow ephemeral_app ephemeral_data_file:{ file sock_file fifo_file } create_file
 allow ephemeral_app ephemeral_apk_data_file:dir r_dir_perms;
 allow ephemeral_app ephemeral_apk_data_file:file { r_file_perms execute };
 
+# Allow ephemeral apps to read/write files in visible storage if provided fds
+allow ephemeral_app { sdcard_type media_rw_data_file }:file {read write getattr ioctl lock append};
+
 # services
 allow ephemeral_app surfaceflinger_service:service_manager find;
 allow ephemeral_app radio_service:service_manager find;
@@ -54,3 +57,7 @@ neverallow ephemeral_app sysfs:file *;
 # Avoid reads from generically labeled /proc files
 # Create a more specific label if needed
 neverallow ephemeral_app proc:file { no_rw_file_perms no_x_file_perms };
+
+# Directly access external storage
+neverallow ephemeral_app { sdcard_type media_rw_data_file }:file {open create};
+neverallow ephemeral_app { sdcard_type media_rw_data_file }:dir search;
