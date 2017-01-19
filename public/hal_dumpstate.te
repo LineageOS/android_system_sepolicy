@@ -1,6 +1,3 @@
-# hwbinder access
-hwbinder_use(hal_dumpstate)
-
 # call into dumpstate process (callbacks)
 binder_call(hal_dumpstate, dumpstate)
 
