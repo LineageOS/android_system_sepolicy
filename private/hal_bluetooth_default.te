@@ -8,3 +8,7 @@ init_daemon_domain(hal_bluetooth_default)
 userdebug_or_eng(`
   allow hal_bluetooth_default self:capability net_admin;
 ')
+
+# Logging for backward compatibility
+allow hal_bluetooth_default bluetooth_data_file:dir ra_dir_perms;
+allow hal_bluetooth_default bluetooth_data_file:file create_file_perms;
