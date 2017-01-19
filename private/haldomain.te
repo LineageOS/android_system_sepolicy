@@ -1,3 +1,5 @@
 ###
 ### Rules for all HAL implementations
 ###
+
+hwbinder_use(haldomain)
