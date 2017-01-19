@@ -120,8 +120,8 @@ allow adbd rootfs:dir r_dir_perms;
 ### Neverallow rules
 ###
 
-# No transitions from adbd to non-shell domains. adbd only ever
-# transitions to the shell domain. In particular, we never want
-# to see a transition from adbd to su (aka "adb root")
-neverallow adbd { domain -shell }:process transition;
+# No transitions from adbd to non-shell, non-crash_dump domains. adbd only ever
+# transitions to the shell domain (except when it crashes). In particular, we
+# never want to see a transition from adbd to su (aka "adb root")
+neverallow adbd { domain -crash_dump -shell }:process transition;
 neverallow adbd { domain userdebug_or_eng(`-su') }:process dyntransition;

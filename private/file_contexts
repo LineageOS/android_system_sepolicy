@@ -126,6 +126,8 @@
 /dev/socket/racoon	u:object_r:racoon_socket:s0
 /dev/socket/rild	u:object_r:rild_socket:s0
 /dev/socket/rild-debug	u:object_r:rild_debug_socket:s0
+/dev/socket/tombstoned_crash u:object_r:tombstoned_crash_socket:s0
+/dev/socket/tombstoned_intercept u:object_r:tombstoned_intercept_socket:s0
 /dev/socket/uncrypt	u:object_r:uncrypt_socket:s0
 /dev/socket/vold	u:object_r:vold_socket:s0
 /dev/socket/webview_zygote	u:object_r:webview_zygote_socket:s0
@@ -192,8 +194,9 @@
 /system/bin/keystore	u:object_r:keystore_exec:s0
 /system/bin/fingerprintd u:object_r:fingerprintd_exec:s0
 /system/bin/gatekeeperd u:object_r:gatekeeperd_exec:s0
-/system/bin/debuggerd	u:object_r:debuggerd_exec:s0
-/system/bin/debuggerd64	u:object_r:debuggerd_exec:s0
+/system/bin/crash_dump32 u:object_r:crash_dump_exec:s0
+/system/bin/crash_dump64 u:object_r:crash_dump_exec:s0
+/system/bin/tombstoned u:object_r:tombstoned_exec:s0
 /system/bin/wpa_supplicant	u:object_r:wpa_exec:s0
 /system/bin/recovery-persist     u:object_r:recovery_persist_exec:s0
 /system/bin/recovery-refresh     u:object_r:recovery_refresh_exec:s0

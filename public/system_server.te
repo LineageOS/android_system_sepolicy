@@ -28,6 +28,7 @@ allow system_server zygote:process sigchld;
 
 # May kill zygote on crashes.
 allow system_server zygote:process sigkill;
+allow system_server crash_dump:process sigkill;
 
 # Read /system/bin/app_process.
 allow system_server zygote_exec:file r_file_perms;
@@ -179,14 +180,15 @@ binder_call(system_server, hal_vr)
 binder_call(system_server, hal_wifi)
 binder_call(system_server, wpa)
 
-# Ask debuggerd to dump backtraces for native stacks of interest.
-#
+# Talk to tombstoned to get ANR traces.
+unix_socket_connect(system_server, tombstoned_intercept, tombstoned)
+
+# Send signals to trigger ANR traces.
 # This is derived from the list that system server defines as interesting native processes
 # to dump during ANRs or watchdog aborts, defined in NATIVE_STACKS_OF_INTEREST in
 # frameworks/base/services/core/java/com/android/server/Watchdog.java.
 allow system_server {
   audioserver
-  bluetooth
   cameraserver
   drmserver
   inputflinger
@@ -197,7 +199,7 @@ allow system_server {
   mediaanalytics
   sdcardd
   surfaceflinger
-}:debuggerd dump_backtrace;
+}:process { signal };
 
 # Use sockets received over binder from various services.
 allow system_server audioserver:tcp_socket rw_socket_perms;
@@ -625,9 +627,13 @@ neverallow system_server { bluetooth_data_file nfc_data_file shell_data_file app
 # getting worse. b/28035297
 neverallow system_server { file_type -toolbox_exec -logcat_exec }:file execute_no_trans;
 
-# System server should never transition to a new domain. This compliments
-# and enforces the already pre-existing PR_SET_NO_NEW_PRIVS flag.
-neverallow system_server *:process { transition dyntransition };
+# Ensure that system_server doesn't perform any domain transitions other than
+# transitioning to the crash_dump domain when a crash occurs.
+neverallow system_server { domain -crash_dump }:process transition;
+neverallow system_server *:process dyntransition;
+
+# Only allow crash_dump to connect to system_ndebug_socket.
+neverallow { domain -init -system_server -crash_dump } system_ndebug_socket:sock_file { open write };
 
 # system_server should never be executing dex2oat. This is either
 # a bug (for example, bug 16317188), or represents an attempt by
