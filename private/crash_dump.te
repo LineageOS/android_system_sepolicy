@@ -1,0 +1,4 @@
+### HACK: Make crash_dump permissive temporarily to catch denials without breaking backtraces.
+userdebug_or_eng(`
+  permissive crash_dump;
+')
