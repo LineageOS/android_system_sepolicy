@@ -188,17 +188,14 @@ allow dumpstate proc_interrupts:file r_file_perms;
 allow dumpstate proc_zoneinfo:file r_file_perms;
 
 # Create a service for talking back to system_server
-allow dumpstate dumpstate_service:service_manager add;
+add_service(dumpstate, dumpstate_service)
 
 ###
 ### neverallow rules
 ###
 
-# only dumpstate can add the dumpstate service
-neverallow { domain -dumpstate } dumpstate_service:service_manager add;
-
-# only system_server and shell can find the dumpstate service
-neverallow { domain -system_server -shell } dumpstate_service:service_manager find;
+# only system_server, dumpstate and shell can find the dumpstate service
+neverallow { domain -system_server -shell -dumpstate } dumpstate_service:service_manager find;
 
 # Dumpstate should not be writing to any generically labeled sysfs files.
 # Create a specific label for the file type

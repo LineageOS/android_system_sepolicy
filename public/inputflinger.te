@@ -9,7 +9,7 @@ binder_call(inputflinger, system_server)
 
 wakelock_use(inputflinger)
 
-allow inputflinger inputflinger_service:service_manager { add find };
+add_service(inputflinger, inputflinger_service)
 allow inputflinger input_device:dir r_dir_perms;
 allow inputflinger input_device:chr_file rw_file_perms;
 
