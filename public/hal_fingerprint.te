@@ -18,4 +18,7 @@ allow hal_fingerprint permission_service:service_manager find;
 # For memory allocation
 allow hal_fingerprint ion_device:chr_file r_file_perms;
 
+# Allow fingerprint to find and call keystore binder interfaces
+binder_use(hal_fingerprint);
+
 r_dir_file(hal_fingerprint, cgroup)
