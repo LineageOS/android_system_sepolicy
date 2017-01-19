@@ -12,95 +12,21 @@
 ### PackageManager flags an app as ephemeral at install time.
 
 net_domain(ephemeral_app)
-
-# Define and allow access to our own type for ashmem regions.
-# Label ashmem objects with our own unique type.
-tmpfs_domain(ephemeral_app)
-
-# TODO: deal with tmpfs_domain pub/priv split properly
-# Map with PROT_EXEC.
-allow ephemeral_app ephemeral_app_tmpfs:file execute;
-
-# allow JITing
-allow ephemeral_app self:process execmem;
-allow ephemeral_app ashmem_device:chr_file execute;
-
-# Send logcat messages to logd.
-write_logd(ephemeral_app)
-
-# Receive and use open file descriptors inherited from zygote.
-allow ephemeral_app zygote:fd use;
-
-# Notify zygote of death;
-allow ephemeral_app zygote:process sigchld;
-
-# application inherit logd write socket (urge is to deprecate this long term)
-allow ephemeral_app zygote:unix_dgram_socket write;
-
-# Read system properties managed by zygote.
-allow ephemeral_app zygote_tmpfs:file read;
+app_domain(ephemeral_app)
 
 # App sandbox file accesses.
 allow ephemeral_app ephemeral_data_file:dir create_dir_perms;
 allow ephemeral_app ephemeral_data_file:{ file sock_file fifo_file } create_file_perms;
 
-# Keychain and user-trusted credentials
-r_dir_file(ephemeral_app, keychain_data_file)
-allow ephemeral_app misc_user_data_file:dir r_dir_perms;
-allow ephemeral_app misc_user_data_file:file r_file_perms;
-
 # Allow apps to read/execute installed binaries
-allow ephemeral_app ephemeral_apk_data_file:dir search;
+allow ephemeral_app ephemeral_apk_data_file:dir r_dir_perms;
 allow ephemeral_app ephemeral_apk_data_file:file { r_file_perms execute };
 
-# For art.
-allow ephemeral_app dalvikcache_data_file:file { execute r_file_perms };
-allow ephemeral_app dalvikcache_data_file:lnk_file r_file_perms;
-allow ephemeral_app dalvikcache_data_file:dir getattr;
-
-# Grant GPU access. ephemeral_app needs that to render the standard UI.
-allow ephemeral_app gpu_device:chr_file rw_file_perms;
-
-# Use the Binder.
-binder_use(ephemeral_app)
-# Perform binder IPC to binder services.
-binder_call(ephemeral_app, surfaceflinger)
-binder_call(ephemeral_app, system_server)
-# Perform binder IPC to apps.
-binder_call(ephemeral_app, appdomain)
-
-# Allow read access to ion memory allocation device
-allow ephemeral_app ion_device:chr_file { read open };
-
-# Use pipes and sockets provided by system_server via binder or local socket.
-allow ephemeral_app system_server:fifo_file rw_file_perms;
-allow ephemeral_app system_server:unix_stream_socket { read write setopt getattr getopt shutdown };
-allow ephemeral_app system_server:tcp_socket { read write getattr getopt shutdown };
-
-# Inherit or receive open files from system_server.
-allow ephemeral_app system_server:fd use;
-
-# Communicate with surfaceflinger.
-allow ephemeral_app surfaceflinger:unix_stream_socket { read write setopt getattr getopt shutdown };
-
-# Read files already opened under /data.
-allow ephemeral_app system_data_file:file { getattr read };
-allow ephemeral_app system_data_file:lnk_file read;
-
-# System file accesses. Check for libraries
-allow ephemeral_app system_file:dir getattr;
-
 # services
-allow ephemeral_app accessibility_service:service_manager find;
-allow ephemeral_app activity_service:service_manager find;
-allow ephemeral_app assetatlas_service:service_manager find;
-allow ephemeral_app connectivity_service:service_manager find;
-allow ephemeral_app display_service:service_manager find;
-allow ephemeral_app graphicsstats_service:service_manager find;
-allow ephemeral_app input_method_service:service_manager find;
-allow ephemeral_app input_service:service_manager find;
 allow ephemeral_app surfaceflinger_service:service_manager find;
-allow ephemeral_app textservices_service:service_manager find;
+allow ephemeral_app radio_service:service_manager find;
+# TODO: Replace app_api_service with a smaller ephemeral_api_service
+allow ephemeral_app app_api_service:service_manager find;
 
 ###
 ### neverallow rules
