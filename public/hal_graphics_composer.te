@@ -13,4 +13,4 @@ allow hal_graphics_composer graphics_device:chr_file rw_file_perms;
 # Fences
 allow hal_graphics_composer system_server:fd use;
 allow hal_graphics_composer bootanim:fd use;
-allow hal_graphics_composer {appdomain ephemeral_app}:fd use;
+allow hal_graphics_composer appdomain:fd use;
