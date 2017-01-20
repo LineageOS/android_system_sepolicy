@@ -1,5 +1,6 @@
+type gatekeeperd, domain;
 # normally uses HAL; implements HAL in pass-through mode only
-type gatekeeperd, hal_gatekeeper, domain;
+hal_impl_domain(gatekeeperd, hal_gatekeeper)
 type gatekeeperd_exec, exec_type, file_type;
 
 # gatekeeperd
