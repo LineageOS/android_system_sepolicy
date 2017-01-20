@@ -87,10 +87,10 @@ allow system_server self:socket create_socket_perms_no_ioctl;
 allow system_server self:netlink_route_socket nlmsg_write;
 
 # Kill apps.
-allow system_server { appdomain ephemeral_app }:process { sigkill signal };
+allow system_server appdomain:process { sigkill signal };
 
 # Set scheduling info for apps.
-allow system_server { appdomain ephemeral_app }:process { getsched setsched };
+allow system_server appdomain:process { getsched setsched };
 allow system_server audioserver:process { getsched setsched };
 allow system_server hal_audio:process { getsched setsched };
 allow system_server cameraserver:process { getsched setsched };
@@ -151,7 +151,7 @@ allow system_server surfaceflinger:unix_stream_socket { read write setopt };
 
 # Perform Binder IPC.
 binder_use(system_server)
-binder_call(system_server, { appdomain ephemeral_app })
+binder_call(system_server, appdomain)
 binder_call(system_server, binderservicedomain)
 binder_call(system_server, dumpstate)
 binder_call(system_server, fingerprintd)
@@ -429,8 +429,8 @@ allow system_server system_file:lnk_file r_file_perms;
 allow system_server gps_control:file rw_file_perms;
 
 # Allow system_server to use app-created sockets and pipes.
-allow system_server { appdomain ephemeral_app }:{ tcp_socket udp_socket } { getattr getopt setopt read write shutdown };
-allow system_server { appdomain ephemeral_app }:{ fifo_file unix_stream_socket } { getattr read write };
+allow system_server appdomain:{ tcp_socket udp_socket } { getattr getopt setopt read write shutdown };
+allow system_server appdomain:{ fifo_file unix_stream_socket } { getattr read write };
 
 # Allow abstract socket connection
 allow system_server rild:unix_stream_socket connectto;
