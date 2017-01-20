@@ -1,5 +1,6 @@
 # rild - radio interface layer daemon
-type rild, domain, domain_deprecated, hal_telephony;
+type rild, domain, domain_deprecated;
+hal_impl_domain(rild, hal_telephony)
 type rild_exec, exec_type, file_type;
 
 net_domain(rild)
