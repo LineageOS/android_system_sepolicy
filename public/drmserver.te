@@ -9,7 +9,7 @@ net_domain(drmserver)
 # Perform Binder IPC to system server.
 binder_use(drmserver)
 binder_call(drmserver, system_server)
-binder_call(drmserver, { appdomain ephemeral_app })
+binder_call(drmserver, appdomain)
 binder_service(drmserver)
 # Inherit or receive open files from system_server.
 allow drmserver system_server:fd use;
