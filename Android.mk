@@ -666,16 +666,21 @@ local_fc_files := $(PLAT_PRIVATE_POLICY)/file_contexts
 ifneq ($(filter address,$(SANITIZE_TARGET)),)
   local_fc_files += $(PLAT_PRIVATE_POLICY)/file_contexts_asan
 endif
+local_fcfiles_with_nl := $(call add_nl, $(local_fc_files), $(built_nl))
 
-$(LOCAL_BUILT_MODULE): PRIVATE_FC_FILES := $(local_fcfiles)
+$(LOCAL_BUILT_MODULE): PRIVATE_FC_FILES := $(local_fcfiles_with_nl)
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/checkfc $(local_fcfiles) $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_FC_SORT := $(HOST_OUT_EXECUTABLES)/fc_sort
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/checkfc $(HOST_OUT_EXECUTABLES)/fc_sort \
+$(local_fcfiles_with_nl) $(built_sepolicy)
 	@mkdir -p $(dir $@)
-	$(hide) m4 -s $(PRIVATE_FC_FILES) > $@
-	$(hide) $< $(PRIVATE_SEPOLICY) $@
+	$(hide) m4 -s $(PRIVATE_FC_FILES) > $@.tmp
+	$(hide) $< $(PRIVATE_SEPOLICY) $@.tmp
+	$(hide) $(PRIVATE_FC_SORT) $@.tmp $@
 
 built_plat_fc := $(LOCAL_BUILT_MODULE)
 local_fc_files :=
+local_fcfiles_with_nl :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -694,7 +699,7 @@ $(LOCAL_BUILT_MODULE): PRIVATE_FC_FILES := $(nonplat_fcfiles_with_nl)
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): PRIVATE_FC_SORT := $(HOST_OUT_EXECUTABLES)/fc_sort
 $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/checkfc $(HOST_OUT_EXECUTABLES)/fc_sort \
-$(device_fcfiles_with_nl) $(built_sepolicy)
+$(nonplat_fcfiles_with_nl) $(built_sepolicy)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_FC_FILES) > $@.tmp
 	$(hide) $< $(PRIVATE_SEPOLICY) $@.tmp
