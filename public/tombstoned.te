@@ -10,3 +10,4 @@ allow tombstoned domain:dir r_dir_perms;
 allow tombstoned domain:file r_file_perms;
 allow tombstoned tombstone_data_file:dir rw_dir_perms;
 allow tombstoned tombstone_data_file:file create_file_perms;
+allow tombstoned anr_data_file:file { getattr append };
