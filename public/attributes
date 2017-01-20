@@ -120,6 +120,7 @@ attribute haldomain;
 # HALs
 attribute hal_audio;
 attribute hal_bluetooth;
+attribute hal_contexthub;
 attribute hal_dumpstate;
 attribute hal_fingerprint;
 attribute hal_gatekeeper;
@@ -138,4 +139,3 @@ attribute hal_thermal;
 attribute hal_vibrator;
 attribute hal_vr;
 attribute hal_wifi;
-attribute hal_contexthub;
