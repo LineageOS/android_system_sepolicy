@@ -436,12 +436,12 @@
 # debugfs files
 #
 /sys/kernel/debug/mmc0(/.*)?                            u:object_r:debugfs_mmc:s0
-/sys/kernel/debug/tracing(/.*)?				u:object_r:debugfs_tracing:s0
-/sys/kernel/debug/tracing/trace_marker			u:object_r:debugfs_trace_marker:s0
-/sys/kernel/debug/tracing/instances(/.*)?		u:object_r:debugfs_tracing_instances:s0
-/sys/kernel/debug/tracing/instances/wifi/free_buffer	u:object_r:debugfs_wifi_tracing:s0
-/sys/kernel/debug/tracing/instances/wifi/trace		u:object_r:debugfs_wifi_tracing:s0
-/sys/kernel/debug/tracing/instances/wifi/tracing_on	u:object_r:debugfs_wifi_tracing:s0
+/sys/kernel(/debug)?/tracing(/.*)?			u:object_r:debugfs_tracing:s0
+/sys/kernel(/debug)?/tracing/trace_marker		u:object_r:debugfs_trace_marker:s0
+/sys/kernel(/debug)?/tracing/instances(/.*)?		u:object_r:debugfs_tracing_instances:s0
+/sys/kernel(/debug)?/tracing/instances/wifi/free_buffer	u:object_r:debugfs_wifi_tracing:s0
+/sys/kernel(/debug)?/tracing/instances/wifi/trace	u:object_r:debugfs_wifi_tracing:s0
+/sys/kernel(/debug)?/tracing/instances/wifi/tracing_on	u:object_r:debugfs_wifi_tracing:s0
 
 #############################
 # asec containers
