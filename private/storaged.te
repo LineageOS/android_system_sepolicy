@@ -12,6 +12,9 @@ r_dir_file(storaged, domain)
 # Read /proc/uid_io/stats
 allow storaged proc_uid_io_stats:file r_file_perms;
 
+# Read /data/system/packages.list
+allow storaged system_data_file:file r_file_perms;
+
 allow storaged self:capability { setgid setuid sys_nice sys_ptrace };
 
 userdebug_or_eng(`
@@ -22,7 +25,6 @@ userdebug_or_eng(`
 
 # Binder permissions
 allow storaged storaged_service:service_manager add;
-allow storaged permission_service:service_manager find;
 
 binder_use(storaged)
 binder_call(storaged, system_server)
