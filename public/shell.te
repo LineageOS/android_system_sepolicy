@@ -83,6 +83,10 @@ allow shell servicemanager:service_manager list;
 allow shell { service_manager_type -gatekeeper_service -netd_service -installd_service}:service_manager find;
 allow shell dumpstate:binder call;
 
+# allow shell to get information from hwservicemanager
+# for instance, listing hardware services with dumpsys
+hwbinder_use(shell)
+
 # allow shell to look through /proc/ for ps, top, netstat
 r_dir_file(shell, proc)
 r_dir_file(shell, proc_net)
