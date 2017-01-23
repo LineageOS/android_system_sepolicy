@@ -61,6 +61,7 @@ type device_identifiers_service, app_api_service, system_server_service, service
 type devicestoragemonitor_service, system_server_service, service_manager_type;
 type diskstats_service, system_api_service, system_server_service, service_manager_type;
 type display_service, app_api_service, system_server_service, service_manager_type;
+type font_service, app_api_service, system_server_service, service_manager_type;
 type netd_listener_service, system_server_service, service_manager_type;
 type DockObserver_service, system_server_service, service_manager_type;
 type dreams_service, app_api_service, system_server_service, service_manager_type;
