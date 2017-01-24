@@ -5,7 +5,7 @@ type init, domain, domain_deprecated, mlstrustedsubject;
 type init_exec, exec_type, file_type;
 
 # /dev/__null__ node created by init.
-allow init tmpfs:chr_file create_file_perms;
+allow init tmpfs:chr_file { create setattr unlink rw_file_perms };
 
 #
 # init direct restorecon calls.
