@@ -1,0 +1,14 @@
+# call into system_server process (callbacks)
+binder_call(hal_usb, system_server)
+
+allow hal_usb self:netlink_kobject_uevent_socket create;
+allow hal_usb self:netlink_kobject_uevent_socket setopt;
+allow hal_usb self:netlink_kobject_uevent_socket bind;
+allow hal_usb self:netlink_kobject_uevent_socket read;
+allow hal_usb sysfs:dir open;
+allow hal_usb sysfs:dir read;
+allow hal_usb sysfs:file read;
+allow hal_usb sysfs:file open;
+allow hal_usb sysfs:file write;
+allow hal_usb sysfs:file getattr;
+
