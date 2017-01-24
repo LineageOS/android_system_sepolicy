@@ -3,6 +3,9 @@
 type update_verifier, domain, boot_control_hal;
 type update_verifier_exec, exec_type, file_type;
 
+# find the boot_control_hal
+allow update_verifier system_file:dir r_dir_perms;
+
 # Allow update_verifier to reach block devices in /dev/block.
 allow update_verifier block_device:dir search;
 
