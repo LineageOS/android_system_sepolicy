@@ -72,6 +72,7 @@ allow untrusted_app drmserver_service:service_manager find;
 allow untrusted_app mediaserver_service:service_manager find;
 allow untrusted_app mediaextractor_service:service_manager find;
 allow untrusted_app mediacodec_service:service_manager find;
+allow untrusted_app mediametrics_service:service_manager find;
 allow untrusted_app mediadrmserver_service:service_manager find;
 allow untrusted_app nfc_service:service_manager find;
 allow untrusted_app radio_service:service_manager find;
