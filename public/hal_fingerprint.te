@@ -1,6 +1,3 @@
-# Scan through /system/lib64/hw looking for installed HALs
-allow hal_fingerprint system_file:dir r_dir_perms;
-
 # allow HAL module to read dir contents
 allow hal_fingerprint fingerprintd_data_file:file create_file_perms;
 
