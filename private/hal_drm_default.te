@@ -1,0 +1,5 @@
+type hal_drm_default, domain;
+hal_impl_domain(hal_drm_default, hal_drm)
+
+type hal_drm_default_exec, exec_type, file_type;
+init_daemon_domain(hal_drm_default)
