@@ -13,3 +13,7 @@ type_transition system_server wpa_socket:sock_file system_wpa_socket;
 
 # TODO: deal with tmpfs_domain pub/priv split properly
 neverallow system_server system_server_tmpfs:file execute;
+
+# dexoptanalyzer is currently used only for secondary dex files which
+# system_server should never access.
+neverallow system_server dexoptanalyzer_exec:file no_x_file_perms;
