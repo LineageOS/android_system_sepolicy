@@ -95,6 +95,9 @@ allow mediaserver processinfo_service:service_manager find;
 allow mediaserver scheduling_policy_service:service_manager find;
 allow mediaserver surfaceflinger_service:service_manager find;
 
+# for ModDrm/MediaPlayer
+allow mediaserver mediadrmserver_service:service_manager find;
+
 # /oem access
 allow mediaserver oemfs:dir search;
 allow mediaserver oemfs:file r_file_perms;
