@@ -21,6 +21,7 @@ allow nfc nfc_data_file:notdevfile_class_set create_file_perms;
 allow nfc audioserver_service:service_manager find;
 allow nfc drmserver_service:service_manager find;
 allow nfc mediacodec_service:service_manager find;
+allow nfc mediametrics_service:service_manager find;
 allow nfc mediaextractor_service:service_manager find;
 allow nfc mediaserver_service:service_manager find;
 

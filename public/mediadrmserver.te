@@ -47,7 +47,7 @@ allow mediadrmserver tee:unix_stream_socket connectto;
 
 allow mediadrmserver mediadrmserver_service:service_manager { add find };
 allow mediadrmserver mediaserver_service:service_manager { add find };
-allow mediadrmserver mediaanalytics_service:service_manager find;
+allow mediadrmserver mediametrics_service:service_manager find;
 allow mediadrmserver processinfo_service:service_manager find;
 allow mediadrmserver surfaceflinger_service:service_manager find;
 
