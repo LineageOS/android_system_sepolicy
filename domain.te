@@ -213,9 +213,9 @@ neverallow { domain -init } security_file:{ dir file lnk_file } { relabelfrom re
 # system_server is for creating subdirectories under /data/security.
 neverallow { domain -init -system_server } security_file:dir { create setattr };
 # Only system_server can create subdirectories and files under /data/security.
-neverallow { domain -system_server } security_file:dir { rename write add_name remove_name rmdir };
-neverallow { domain -system_server } security_file:file { create setattr write append unlink link rename };
-neverallow { domain -system_server } security_file:lnk_file { create setattr unlink rename };
+neverallow { domain -system_server userdebug_or_eng(`-recovery') } security_file:dir { rename write add_name remove_name rmdir };
+neverallow { domain -system_server userdebug_or_eng(`-recovery') } security_file:file { create setattr write append unlink link rename };
+neverallow { domain -system_server userdebug_or_eng(`-recovery') } security_file:lnk_file { create setattr unlink rename };
 
 # Only init prior to switching context should be able to set enforcing mode.
 # init starts in kernel domain and switches to init domain via setcon in
@@ -305,8 +305,8 @@ neverallow {
 neverallow { domain userdebug_or_eng(`-shell') } nativetest_data_file:file no_x_file_perms;
 
 # Only the init property service should write to /data/property and /dev/__properties__
-neverallow { domain -init } property_data_file:dir no_w_dir_perms;
-neverallow { domain -init } property_data_file:file { no_w_file_perms no_x_file_perms };
+neverallow { domain -init userdebug_or_eng(`-recovery') } property_data_file:dir no_w_dir_perms;
+neverallow { domain -init userdebug_or_eng(`-recovery') } property_data_file:file { no_w_file_perms no_x_file_perms };
 neverallow { domain -init } property_type:file { no_w_file_perms no_x_file_perms };
 neverallow { domain -init } properties_device:file { no_w_file_perms no_x_file_perms };
 neverallow { domain -init } properties_serial:file { no_w_file_perms no_x_file_perms };
@@ -389,6 +389,7 @@ neverallow {
   -cppreopts
   -dex2oat
   -otapreopt_slot
+  userdebug_or_eng(`-recovery')
 } dalvikcache_data_file:file no_w_file_perms;
 
 neverallow {
@@ -400,6 +401,7 @@ neverallow {
   -dex2oat
   -zygote
   -otapreopt_slot
+  userdebug_or_eng(`-recovery')
 } dalvikcache_data_file:dir no_w_dir_perms;
 
 # Only system_server should be able to send commands via the zygote socket
@@ -492,6 +494,7 @@ neverallow {
   -system_app
   -init
   -installd # for relabelfrom and unlink, check for this in explicit neverallow
+  userdebug_or_eng(`-recovery')
 } system_data_file:file no_w_file_perms;
 # do not grant anything greater than r_file_perms and relabelfrom unlink
 # to installd
@@ -543,6 +546,7 @@ neverallow {
   -init
   -shell
   -vold
+  userdebug_or_eng(`-recovery')
 } shell_data_file:dir no_w_dir_perms;
 
 neverallow {
@@ -554,6 +558,7 @@ neverallow {
   -installd
   -system_server # why?
   userdebug_or_eng(`-uncrypt')
+  userdebug_or_eng(`-recovery')
 } shell_data_file:dir { open search };
 
 # Same as above for /data/local/tmp files. We allow shell files

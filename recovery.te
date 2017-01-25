@@ -120,5 +120,7 @@ recovery_only(`
 # domains, including recovery.
 #
 # TODO: tighten this up further.
+ifelse(target_build_variant, `user', `
 neverallow recovery data_file_type:file { no_w_file_perms no_x_file_perms };
 neverallow recovery data_file_type:dir no_w_dir_perms;
+')

@@ -63,6 +63,6 @@ neverallow logd { app_data_file system_data_file }:dir_file_class_set write;
 neverallow logd { file_type -logd_tmpfs userdebug_or_eng(` -misc_logd_file -coredump_file ') }:file { create write append };
 
 # logpersist is only allowed on userdebug/eng builds
-neverallow { domain userdebug_or_eng(`-logd -shell -dumpstate') } misc_logd_file:file no_rw_file_perms;
-neverallow { domain userdebug_or_eng(`-logd') } misc_logd_file:dir { add_name link relabelfrom remove_name rename reparent rmdir write };
+neverallow { domain userdebug_or_eng(`-logd -shell -dumpstate -recovery') } misc_logd_file:file no_rw_file_perms;
+neverallow { domain userdebug_or_eng(`-logd -recovery') } misc_logd_file:dir { add_name link relabelfrom remove_name rename reparent rmdir write };
 neverallow { domain -init } misc_logd_file:dir create;

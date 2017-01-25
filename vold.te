@@ -199,10 +199,10 @@ allow vold user_profile_foreign_dex_data_file:dir { getattr setattr };
 # Raw writes to misc block device
 allow vold misc_block_device:blk_file w_file_perms;
 
-neverallow { domain -vold } vold_data_file:dir ~{ open create read getattr setattr search relabelto ioctl };
-neverallow { domain -vold } vold_data_file:notdevfile_class_set ~{ relabelto getattr };
-neverallow { domain -vold -init } vold_data_file:dir *;
-neverallow { domain -vold -init } vold_data_file:notdevfile_class_set *;
+neverallow { domain -vold userdebug_or_eng(`-recovery') } vold_data_file:dir ~{ open create read getattr setattr search relabelto ioctl };
+neverallow { domain -vold userdebug_or_eng(`-recovery') } vold_data_file:notdevfile_class_set ~{ relabelto getattr };
+neverallow { domain -vold -init userdebug_or_eng(`-recovery') } vold_data_file:dir *;
+neverallow { domain -vold -init userdebug_or_eng(`-recovery') } vold_data_file:notdevfile_class_set *;
 neverallow { domain -vold -init } restorecon_prop:property_service set;
 
 neverallow vold fsck_exec:file execute_no_trans;
