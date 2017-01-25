@@ -3,3 +3,6 @@
 ###
 
 hwbinder_use(haldomain)
+
+# find passthrough hals
+allow haldomain system_file:dir r_dir_perms;
