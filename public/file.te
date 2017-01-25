@@ -103,9 +103,6 @@ type apk_tmp_file, file_type, data_file_type, mlstrustedobject;
 # /data/app-private - forward-locked apps
 type apk_private_data_file, file_type, data_file_type;
 type apk_private_tmp_file, file_type, data_file_type, mlstrustedobject;
-# /data/app-ephemeral - ephemeral apps
-type ephemeral_apk_data_file, file_type, data_file_type;
-type ephemeral_apk_tmp_file, file_type, data_file_type, mlstrustedobject;
 # /data/dalvik-cache
 type dalvikcache_data_file, file_type, data_file_type;
 # /data/ota
@@ -181,7 +178,6 @@ type method_trace_data_file, file_type, data_file_type, mlstrustedobject;
 
 # /data/data subdirectories - app sandboxes
 type app_data_file, file_type, data_file_type;
-type ephemeral_data_file, file_type, data_file_type;
 # /data/data subdirectory for system UID apps.
 type system_app_data_file, file_type, data_file_type, mlstrustedobject;
 # Compatibility with type name used in Android 4.3 and 4.4.
