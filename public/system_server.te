@@ -181,6 +181,7 @@ binder_call(system_server, hal_thermal)
 binder_call(system_server, hal_vibrator)
 binder_call(system_server, hal_vr)
 binder_call(system_server, hal_wifi)
+binder_call(system_server, hal_drm)
 binder_call(system_server, wpa)
 
 # Talk to tombstoned to get ANR traces.
