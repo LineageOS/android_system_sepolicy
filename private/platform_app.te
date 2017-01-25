@@ -41,6 +41,7 @@ allow platform_app audioserver_service:service_manager find;
 allow platform_app cameraserver_service:service_manager find;
 allow platform_app drmserver_service:service_manager find;
 allow platform_app mediaserver_service:service_manager find;
+allow platform_app mediametrics_service:service_manager find;
 allow platform_app mediaextractor_service:service_manager find;
 allow platform_app mediacodec_service:service_manager find;
 allow platform_app mediadrmserver_service:service_manager find;

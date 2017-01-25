@@ -10,7 +10,7 @@ binder_call(mediaextractor, appdomain)
 binder_service(mediaextractor)
 
 allow mediaextractor mediaextractor_service:service_manager add;
-allow mediaextractor mediaanalytics_service:service_manager find;
+allow mediaextractor mediametrics_service:service_manager find;
 
 allow mediaextractor system_server:fd use;
 
