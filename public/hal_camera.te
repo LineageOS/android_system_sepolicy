@@ -1,8 +1,6 @@
 hwbinder_use(hal_camera)
 binder_call(hal_camera, cameraserver)
 
-allow hal_camera system_file:dir { open read };
-
 # access /data/misc/camera
 allow hal_camera camera_data_file:dir create_dir_perms;
 allow hal_camera camera_data_file:file create_file_perms;
