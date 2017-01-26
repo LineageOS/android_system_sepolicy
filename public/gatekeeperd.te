@@ -1,17 +1,25 @@
 type gatekeeperd, domain;
-# normally uses HAL; implements HAL in pass-through mode only
-hal_impl_domain(gatekeeperd, hal_gatekeeper)
 type gatekeeperd_exec, exec_type, file_type;
 
 # gatekeeperd
 binder_service(gatekeeperd)
 binder_use(gatekeeperd)
 
+### Rules needed when Gatekeeper HAL runs inside gatekeeperd process.
+### These rules should eventually be granted only when needed.
+allow gatekeeperd tee_device:chr_file rw_file_perms;
+allow gatekeeperd ion_device:chr_file r_file_perms;
+# Load HAL implementation
+allow gatekeeperd system_file:dir r_dir_perms;
+###
+
+### Rules needed when Gatekeeper HAL runs outside of gatekeeperd process.
+### These rules should eventually be granted only when needed.
+hwbinder_use(gatekeeperd)
+###
+
 # need to find KeyStore and add self
 add_service(gatekeeperd, gatekeeper_service)
-
-# Scan through /system/lib64/hw looking for installed HALs
-allow gatekeeperd system_file:dir r_dir_perms;
 
 # Need to add auth tokens to KeyStore
 use_keystore(gatekeeperd)
