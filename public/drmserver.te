@@ -50,7 +50,7 @@ allow drmserver radio_data_file:file { read getattr };
 allow drmserver oemfs:dir search;
 allow drmserver oemfs:file r_file_perms;
 
-allow drmserver drmserver_service:service_manager { add find };
+add_service(drmserver, drmserver_service)
 allow drmserver permission_service:service_manager find;
 
 selinux_check_access(drmserver)

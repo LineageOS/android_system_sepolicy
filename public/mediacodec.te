@@ -9,7 +9,7 @@ binder_call(mediacodec, binderservicedomain)
 binder_call(mediacodec, appdomain)
 binder_service(mediacodec)
 
-allow mediacodec mediacodec_service:service_manager add;
+add_service(mediacodec, mediacodec_service)
 allow mediacodec mediametrics_service:service_manager find;
 allow mediacodec surfaceflinger_service:service_manager find;
 allow mediacodec gpu_device:chr_file rw_file_perms;

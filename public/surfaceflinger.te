@@ -57,11 +57,12 @@ allow surfaceflinger tee_device:chr_file rw_file_perms;
 
 
 # media.player service
+add_service(surfaceflinger, gpu_service)
+add_service(surfaceflinger, surfaceflinger_service)
+
 allow surfaceflinger mediaserver_service:service_manager find;
 allow surfaceflinger permission_service:service_manager find;
 allow surfaceflinger power_service:service_manager find;
-allow surfaceflinger gpu_service:service_manager { add find };
-allow surfaceflinger surfaceflinger_service:service_manager { add find };
 allow surfaceflinger window_service:service_manager find;
 
 # allow self to set SCHED_FIFO
