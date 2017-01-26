@@ -5,7 +5,7 @@ type wificond_exec, exec_type, file_type;
 binder_use(wificond)
 binder_call(wificond, system_server)
 
-allow wificond wificond_service:service_manager { add find };
+add_service(wificond, wificond_service)
 
 # wificond writes firmware paths to this file.
 # wificond also changes the owership of this file on startup.

@@ -30,7 +30,7 @@ userdebug_or_eng(`
 allow audioserver audio_device:dir r_dir_perms;
 allow audioserver audio_device:chr_file rw_file_perms;
 
-allow audioserver audioserver_service:service_manager { add find };
+add_service(audioserver, audioserver_service)
 allow audioserver appops_service:service_manager find;
 allow audioserver batterystats_service:service_manager find;
 allow audioserver permission_service:service_manager find;

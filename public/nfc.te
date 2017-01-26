@@ -25,7 +25,7 @@ allow nfc mediametrics_service:service_manager find;
 allow nfc mediaextractor_service:service_manager find;
 allow nfc mediaserver_service:service_manager find;
 
-allow nfc nfc_service:service_manager { add find };
+add_service(nfc, nfc_service)
 allow nfc radio_service:service_manager find;
 allow nfc surfaceflinger_service:service_manager find;
 allow nfc app_api_service:service_manager find;

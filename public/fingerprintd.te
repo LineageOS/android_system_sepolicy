@@ -7,7 +7,7 @@ binder_use(fingerprintd)
 allow fingerprintd system_file:dir r_dir_perms;
 
 # need to find KeyStore and add self
-allow fingerprintd fingerprintd_service:service_manager { add find };
+add_service(fingerprintd, fingerprintd_service)
 
 # allow HAL module to read dir contents
 allow fingerprintd fingerprintd_data_file:file { create_file_perms };
