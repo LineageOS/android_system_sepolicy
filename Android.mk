@@ -252,8 +252,12 @@ $(file_contexts.concat.tmp): $(file_contexts.local.tmp) $(file_contexts.device.s
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $^ > $@
 
+file_contexts_plaintext := $(OUT)/file_contexts
+$(file_contexts_plaintext): $(file_contexts.concat.tmp)
+	$(hide) cp $< $(file_contexts_plaintext)
+
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): $(file_contexts.concat.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/sefcontext_compile $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): $(file_contexts.concat.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/sefcontext_compile $(HOST_OUT_EXECUTABLES)/checkfc $(file_contexts_plaintext)
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $<
 	$(hide) $(HOST_OUT_EXECUTABLES)/sefcontext_compile -o $@ $<
