@@ -7,7 +7,7 @@ binder_use(mediametrics)
 binder_call(mediametrics, binderservicedomain)
 binder_service(mediametrics)
 
-allow mediametrics mediametrics_service:service_manager add;
+add_service(mediametrics, mediametrics_service)
 
 allow mediametrics system_server:fd use;
 

@@ -8,7 +8,7 @@ binder_service(gatekeeperd)
 binder_use(gatekeeperd)
 
 # need to find KeyStore and add self
-allow gatekeeperd gatekeeper_service:service_manager { add find };
+add_service(gatekeeperd, gatekeeper_service)
 
 # Scan through /system/lib64/hw looking for installed HALs
 allow gatekeeperd system_file:dir r_dir_perms;
@@ -32,5 +32,3 @@ allow gatekeeperd gatekeeper_data_file:file create_file_perms;
 allow gatekeeperd hardware_properties_service:service_manager find;
 
 r_dir_file(gatekeeperd, cgroup)
-
-neverallow { domain -gatekeeperd } gatekeeper_service:service_manager add;
