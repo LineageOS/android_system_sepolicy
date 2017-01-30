@@ -765,56 +765,64 @@ $(LOCAL_BUILT_MODULE): $(addprefix $(PLAT_PRIVATE_POLICY)/, seapp_contexts)
 ##################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := property_contexts
+LOCAL_MODULE := plat_property_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
+# TODO: Change module path to TARGET_SYSTEM_OUT after b/27805372
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-all_pc_files := $(call build_policy, property_contexts, $(PLAT_PRIVATE_POLICY) $(BOARD_SEPOLICY_DIRS))
-all_pcfiles_with_nl := $(call add_nl, $(all_pc_files), $(built_nl))
+plat_pcfiles := $(call build_policy, property_contexts, $(PLAT_PRIVATE_POLICY))
 
-property_contexts.tmp := $(intermediates)/property_contexts.tmp
-$(property_contexts.tmp): PRIVATE_PC_FILES := $(all_pcfiles_with_nl)
-$(property_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(property_contexts.tmp): $(all_pcfiles_with_nl)
+plat_property_contexts.tmp := $(intermediates)/plat_property_contexts.tmp
+$(plat_property_contexts.tmp): PRIVATE_PC_FILES := $(plat_pcfiles)
+$(plat_property_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(plat_property_contexts.tmp): $(plat_pcfiles)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
 
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): $(property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): $(plat_property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
 	@mkdir -p $(dir $@)
-	$(hide) sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
+	$(hide) sed -e 's/#.*$$//' -e '/^$$/d' $< | sort -u -o $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
-built_pc := $(LOCAL_BUILT_MODULE)
-all_pc_files :=
-all_pcfiles_with_nl :=
-property_contexts.tmp :=
+built_plat_pc := $(LOCAL_BUILT_MODULE)
+plat_pcfiles :=
+plat_property_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := general_property_contexts
+LOCAL_MODULE := nonplat_property_contexts
 LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_TAGS := optional
+# TODO: Change module path to TARGET_SYSTEM_OUT after b/27805372
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-general_property_contexts.tmp := $(intermediates)/general_property_contexts.tmp
-$(general_property_contexts.tmp): $(addprefix $(PLAT_PRIVATE_POLICY)/, property_contexts)
-	@mkdir -p $(dir $@)
-	$(hide) m4 -s $< > $@
+nonplat_pcfiles := $(call build_policy, property_contexts, $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
 
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_general_sepolicy)
-$(LOCAL_BUILT_MODULE): $(general_property_contexts.tmp) $(built_general_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
+nonplat_property_contexts.tmp := $(intermediates)/nonplat_property_contexts.tmp
+$(nonplat_property_contexts.tmp): PRIVATE_PC_FILES := $(nonplat_pcfiles)
+$(nonplat_property_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(nonplat_property_contexts.tmp): $(nonplat_pcfiles)
 	@mkdir -p $(dir $@)
-	$(hide) sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
+
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(nonplat_property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+	@mkdir -p $(dir $@)
+	$(hide) sed -e 's/#.*$$//' -e '/^$$/d' $< | sort -u -o $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
-general_property_contexts.tmp :=
+built_nonplat_pc := $(LOCAL_BUILT_MODULE)
+nonplat_pcfiles :=
+nonplat_property_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -947,7 +955,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
-$(LOCAL_BUILT_MODULE): $(built_sepolicy) $(built_pc) $(built_plat_fc) \
+$(LOCAL_BUILT_MODULE): $(built_sepolicy) $(built_plat_pc) $(built_nonplat_pc) $(built_plat_fc) \
 $(buit_nonplat_fc) $(built_plat_sc) $(built_nonplat_sc) $(built_plat_svc) $(built_nonplat_svc)
 	@mkdir -p $(dir $@)
 	$(hide) echo -n $(BUILD_FINGERPRINT_FROM_FILE) > $@
@@ -962,7 +970,8 @@ built_nonplat_fc :=
 built_general_sepolicy :=
 built_general_sepolicy.conf :=
 built_nl :=
-built_pc :=
+built_plat_pc :=
+built_nonplat_pc :=
 built_nonplat_sc :=
 built_plat_sc :=
 built_sepolicy :=
