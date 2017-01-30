@@ -4,9 +4,6 @@
 #
 type system_server, domain, domain_deprecated, mlstrustedsubject;
 
-# Attributes for passthrough hals
-typeattribute system_server hal_light;
-
 # For art.
 allow system_server dalvikcache_data_file:dir r_dir_perms;
 allow system_server dalvikcache_data_file:file { r_file_perms execute };
@@ -609,6 +606,13 @@ r_dir_file(system_server, sysfs_type)
 
 # Allow system_server to make binder calls to hwservicemanager
 binder_call(system_server, hwservicemanager)
+
+### Rules needed when Light HAL runs inside system_server process.
+### These rules should eventually be granted only when needed.
+allow system_server sysfs_leds:lnk_file read;
+allow system_server sysfs_leds:file rw_file_perms;
+allow system_server sysfs_leds:dir r_dir_perms;
+###
 
 userdebug_or_eng(`
   # Allow WifiService to start, stop, and read wifi-specific trace events.
