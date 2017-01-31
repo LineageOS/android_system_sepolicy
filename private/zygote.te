@@ -4,6 +4,8 @@ typeattribute zygote mlstrustedsubject;
 
 init_daemon_domain(zygote)
 
+read_runtime_log_tags(zygote)
+
 # Override DAC on files and switch uid/gid.
 allow zygote self:capability { dac_override setgid setuid fowner chown };
 

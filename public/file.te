@@ -76,6 +76,8 @@ type app_fusefs, fs_type, contextmount_type;
 type unlabeled, file_type;
 # Default type for anything under /system.
 type system_file, file_type;
+# Speedup access for trusted applications to the runtime event tags
+type runtime_event_log_tags_file, file_type;
 # Type for /system/*/libart*
 type libart_file, file_type;
 # Type for /system/bin/logcat.

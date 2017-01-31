@@ -23,6 +23,15 @@ r_dir_file(logd, domain)
 allow logd kernel:system syslog_mod;
 
 control_logd(logd)
+read_runtime_log_tags(logd)
+
+allow runtime_event_log_tags_file tmpfs:filesystem associate;
+# Typically harmlessly blindly trying to access via liblog
+# event tag mapping while in the untrusted_app domain.
+# Access for that domain is controlled and gated via the
+# event log tag service (albeit at a performance penalty,
+# expected to be locally cached).
+dontaudit domain runtime_event_log_tags_file:file { open read };
 
 ###
 ### Neverallow rules
@@ -47,3 +56,6 @@ neverallow logd { app_data_file system_data_file }:dir_file_class_set write;
 # Only init is allowed to enter the logd domain via exec()
 neverallow { domain -init } logd:process transition;
 neverallow * logd:process dyntransition;
+
+# protect the event-log-tags file
+neverallow * runtime_event_log_tags_file:file no_w_file_perms;
