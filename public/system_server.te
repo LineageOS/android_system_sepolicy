@@ -465,6 +465,7 @@ allow system_server zygote:unix_dgram_socket write;
 
 # Read from log daemon.
 read_logd(system_server)
+read_runtime_log_tags(system_server)
 
 # Be consistent with DAC permissions. Allow system_server to write to
 # /sys/module/lowmemorykiller/parameters/adj

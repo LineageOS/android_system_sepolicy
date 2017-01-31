@@ -138,6 +138,7 @@ allow init {
 allow init {
   file_type
   -app_data_file
+  -runtime_event_log_tags_file
   -exec_type
   -keystore_data_file
   -misc_logd_file
