@@ -33,6 +33,10 @@ endif
 # private - platform-only policy required for platform functionality but which
 #  is not exported to vendor policy developers and as such may not be assumed
 #  to exist.
+# vendor - vendor-only policy required for vendor functionality. This policy can
+#  reference the public policy but cannot reference the private policy. This
+#  policy is for components which are produced from the core/non-vendor tree and
+#  placed into a vendor partition.
 # mapping - This contains policy statements which map the attributes
 #  exposed in the public policy of previous versions to the concrete types used
 #  in this policy to ensure that policy targeting attributes from public
@@ -54,6 +58,7 @@ endif
 
 PLAT_PUBLIC_POLICY := $(LOCAL_PATH)/public
 PLAT_PRIVATE_POLICY := $(LOCAL_PATH)/private
+PLAT_VENDOR_POLICY := $(LOCAL_PATH)/vendor
 REQD_MASK_POLICY := $(LOCAL_PATH)/reqd_mask
 
 # TODO: move to README when doing the README update and finalizing versioning.
@@ -88,7 +93,7 @@ endef
 
 # Builds paths for all policy files found in BOARD_SEPOLICY_DIRS.
 # $(1): the set of policy name paths to build
-build_device_policy = $(call build_policy, $(1), $(BOARD_SEPOLICY_DIRS))
+build_device_policy = $(call build_policy, $(1), $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS))
 
 # Add a file containing only a newline in-between each policy configuration
 # 'contexts' file. This will allow OEM policy configuration files without a
@@ -278,9 +283,9 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-# nonplat_policy.conf - A combination of the non-platform private and the
-# exported platform policy associated with the version the non-platform policy
-# targets.  This needs attributization and to be combined with the
+# nonplat_policy.conf - A combination of the non-platform private, vendor and
+# the exported platform policy associated with the version the non-platform
+# policy targets.  This needs attributization and to be combined with the
 # platform-provided policy.  Like plat_pub_policy.conf, this needs to make use
 # of the reqd_policy_mask files from private policy in order to use checkpolicy.
 nonplat_policy.conf := $(intermediates)/nonplat_policy.conf
@@ -289,7 +294,7 @@ $(nonplat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(nonplat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(nonplat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(nonplat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
-$(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(BOARD_SEPOLICY_DIRS))
+$(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS))
 	@mkdir -p $(dir $@)
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
@@ -468,7 +473,7 @@ $(nonplat_policy.recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(nonplat_policy.recovery.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(nonplat_policy.recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(nonplat_policy.recovery.conf): $(call build_policy, $(sepolicy_build_files), \
-$(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(BOARD_SEPOLICY_DIRS))
+$(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS))
 	@mkdir -p $(dir $@)
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
@@ -738,7 +743,7 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-nonplat_sc_files := $(call build_policy, seapp_contexts, $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+nonplat_sc_files := $(call build_policy, seapp_contexts, $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): PRIVATE_SC_FILES := $(nonplat_sc_files)
@@ -804,7 +809,7 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-nonplat_pcfiles := $(call build_policy, property_contexts, $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+nonplat_pcfiles := $(call build_policy, property_contexts, $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
 
 nonplat_property_contexts.tmp := $(intermediates)/nonplat_property_contexts.tmp
 $(nonplat_property_contexts.tmp): PRIVATE_PC_FILES := $(nonplat_pcfiles)
@@ -865,7 +870,7 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-nonplat_svcfiles := $(call build_policy, service_contexts, $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+nonplat_svcfiles := $(call build_policy, service_contexts, $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
 
 nonplat_service_contexts.tmp := $(intermediates)/nonplat_service_contexts.tmp
 $(nonplat_service_contexts.tmp): PRIVATE_SVC_FILES := $(nonplat_svcfiles)
@@ -931,11 +936,11 @@ include $(BUILD_SYSTEM)/base_rules.mk
 # Build keys.conf
 nonplat_mac_perms_keys.tmp := $(intermediates)/nonplat_keys.tmp
 $(nonplat_mac_perms_keys.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(nonplat_mac_perms_keys.tmp): $(call build_policy, keys.conf, $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+$(nonplat_mac_perms_keys.tmp): $(call build_policy, keys.conf, $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
 
-all_nonplat_mac_perms_files := $(call build_policy, mac_permissions.xml, $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+all_nonplat_mac_perms_files := $(call build_policy, mac_permissions.xml, $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_nonplat_mac_perms_files)
 $(LOCAL_BUILT_MODULE): $(nonplat_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
