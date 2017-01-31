@@ -63,6 +63,8 @@ hwbinder_use(bluetooth)
 binder_call(bluetooth, hal_bluetooth)
 binder_call(bluetooth, hal_telephony)
 
+read_runtime_log_tags(bluetooth)
+
 ###
 ### Neverallow rules
 ###
