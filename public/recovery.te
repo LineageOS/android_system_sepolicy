@@ -56,6 +56,12 @@ recovery_only(`
 
   allow recovery sysfs_batteryinfo:file r_file_perms;
 
+  # Read from /sys/class/leds/lcd-backlight/max_brightness and write to /s/c/l/l/brightness to
+  # control backlight brightness.
+  allow recovery sysfs_leds:dir r_dir_perms;
+  allow recovery sysfs_leds:file rw_file_perms;
+  allow recovery sysfs_leds:lnk_file read;
+
   allow recovery kernel:system syslog_read;
 
   # Access /dev/usb-ffs/adb/ep0
