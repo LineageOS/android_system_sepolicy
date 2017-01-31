@@ -345,6 +345,13 @@ unix_socket_connect($1, logdr, logd)
 ')
 
 #####################################
+# read_runtime_log_tags(domain)
+# ability to directly map the runtime event log tags
+define(`read_runtime_log_tags', `
+allow $1 runtime_event_log_tags_file:file r_file_perms;
+')
+
+#####################################
 # control_logd(domain)
 # Ability to control
 # android log daemon via sockets

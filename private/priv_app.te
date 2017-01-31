@@ -110,6 +110,8 @@ allow priv_app functionfs:file rw_file_perms;
 # TODO: narrow this to just MediaProvider
 allow priv_app mnt_media_rw_file:dir search;
 
+read_runtime_log_tags(priv_app)
+
 ###
 ### neverallow rules
 ###
