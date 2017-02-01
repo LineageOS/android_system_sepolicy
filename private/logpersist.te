@@ -18,5 +18,5 @@ userdebug_or_eng(`
 
 # logpersist is allowed to write to /data/misc/log for userdebug and eng builds
 neverallow logpersist { file_type userdebug_or_eng(`-misc_logd_file -coredump_file') }:file { create write append };
-neverallow { domain userdebug_or_eng(`-logpersist -dumpstate') } misc_logd_file:file no_rw_file_perms;
-neverallow { domain userdebug_or_eng(`-logpersist') } misc_logd_file:dir { add_name link relabelfrom remove_name rename reparent rmdir write };
+neverallow { domain -init userdebug_or_eng(`-logpersist -logd -dumpstate') } misc_logd_file:file no_rw_file_perms;
+neverallow { domain -init userdebug_or_eng(`-logpersist -logd') } misc_logd_file:dir { add_name link relabelfrom remove_name rename reparent rmdir write };
