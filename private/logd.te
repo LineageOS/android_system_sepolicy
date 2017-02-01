@@ -9,7 +9,7 @@ neverallow logd {
   file_type
   -logd_tmpfs
   -runtime_event_log_tags_file
-  userdebug_or_eng(`-coredump_file')
+  userdebug_or_eng(`-coredump_file -misc_logd_file')
 }:file { create write append };
 
 # protect the event-log-tags file
@@ -18,6 +18,7 @@ neverallow {
   -appdomain # covered below
   -bootstat
   -dumpstate
+  -init
   -logd
   userdebug_or_eng(`-logpersist')
   -servicemanager
