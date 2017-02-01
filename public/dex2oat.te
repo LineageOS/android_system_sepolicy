@@ -6,9 +6,6 @@ r_dir_file(dex2oat, {apk_data_file ephemeral_apk_data_file})
 
 allow dex2oat tmpfs:file { read getattr };
 
-# allow access to the interpreter
-allow dex2oat libart_file:file { execute read open getattr };
-
 r_dir_file(dex2oat, dalvikcache_data_file)
 allow dex2oat dalvikcache_data_file:file write;
 # Read symlinks in /data/dalvik-cache. This is required for PIC mode boot images, where

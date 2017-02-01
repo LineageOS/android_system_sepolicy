@@ -94,21 +94,6 @@ allow domain system_file:dir { search getattr };
 allow domain system_file:file { execute read open getattr };
 allow domain system_file:lnk_file read;
 
-# Initially grant all domains access to libart.
-# TODO move to a whitelist. b/29795519
-allow domain libart_file:file { execute read open getattr };
-auditallow {
-  domain
-  -appdomain
-  -crash_dump
-  -dex2oat
-  -dumpstate
-  -profman
-  -recovery
-  -webview_zygote
-  -zygote
-} libart_file:file { execute read open getattr };
-
 # read any sysfs symlinks
 allow domain sysfs:lnk_file read;
 
@@ -308,7 +293,7 @@ neverallow {
     -system_server
     -webview_zygote
     -zygote
-} { file_type -libart_file -system_file -exec_type -postinstall_file }:file execute;
+} { file_type -system_file -exec_type -postinstall_file }:file execute;
 neverallow {
     domain
     -appdomain # for oemfs
@@ -640,7 +625,7 @@ neverallow * ~servicemanager:service_manager list;
 # TODO - rework this: neverallow * ~service_manager_type:service_manager { add find };
 
 # Prevent assigning non property types to properties
-# TODO - rework this: neverallow * ~property_type:property_service set; 
+# TODO - rework this: neverallow * ~property_type:property_service set;
 
 # Domain types should never be assigned to any files other
 # than the /proc/pid files associated with a process. The
