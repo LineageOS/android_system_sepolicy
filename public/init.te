@@ -17,6 +17,9 @@ allow init kmsg_device:chr_file { write relabelto };
 allow init properties_device:dir relabelto;
 allow init properties_serial:file { write relabelto };
 allow init property_type:file { create_file_perms relabelto };
+# /dev/event-log-tags
+allow init device:file relabelfrom;
+allow init runtime_event_log_tags_file:file { open write setattr relabelto };
 # /dev/socket
 allow init { device socket_device }:dir relabelto;
 # /dev/random, /dev/urandom
@@ -233,8 +236,8 @@ allow init sysfs_type:file rw_file_perms;
 
 # Init will create /data/misc/logd when the property persist.logd.logpersistd is "logcatd".
 # Init will also walk through the directory as part of a recursive restorecon.
-allow init misc_logd_file:dir { open create read getattr setattr search };
-allow init misc_logd_file:file { getattr };
+allow init misc_logd_file:dir { add_name open create read getattr setattr search write };
+allow init misc_logd_file:file { open create getattr setattr write };
 
 # Support "adb shell stop"
 allow init self:capability kill;
