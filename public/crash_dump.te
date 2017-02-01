@@ -24,9 +24,6 @@ allow crash_dump exec_type:file r_file_perms;
 allow crash_dump dalvikcache_data_file:dir { search getattr };
 allow crash_dump dalvikcache_data_file:file r_file_perms;
 
-# Unwind through libart.
-allow crash_dump libart_file:file r_file_perms;
-
 # Talk to tombstoned
 unix_socket_connect(crash_dump, tombstoned_crash, tombstoned)
 
