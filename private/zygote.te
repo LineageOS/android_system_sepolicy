@@ -40,8 +40,6 @@ allow zygote dalvikcache_data_file:lnk_file create_file_perms;
 allow zygote resourcecache_data_file:dir rw_dir_perms;
 allow zygote resourcecache_data_file:file create_file_perms;
 
-# For art.
-allow zygote libart_file:file { execute read open getattr };
 # When WITH_DEXPREOPT is true, the zygote does not load executable content from
 # /data/dalvik-cache.
 allow { zygote with_dexpreopt(`-zygote') } dalvikcache_data_file:file execute;

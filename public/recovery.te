@@ -28,7 +28,7 @@ recovery_only(`
 
   # Create and relabel files and directories under /system.
   allow recovery exec_type:{ file lnk_file } { create_file_perms relabelfrom relabelto };
-  allow recovery { system_file libart_file }:{ file lnk_file } { create_file_perms relabelfrom relabelto };
+  allow recovery { system_file }:{ file lnk_file } { create_file_perms relabelfrom relabelto };
   allow recovery system_file:dir { create_dir_perms relabelfrom relabelto };
 
   # We may be asked to set an SELinux label for a type not known to the
