@@ -271,9 +271,7 @@ neverallow * *:{ blk_file chr_file } rename;
 
 # Don't allow raw read/write/open access to generic devices.
 # Rather force a relabel to a more specific type.
-# init is exempt from this as there are character devices that only it uses.
-# ueventd is exempt from this, as it is managing these devices.
-neverallow { domain -init -ueventd } device:chr_file { open read write };
+neverallow domain device:chr_file { open read write };
 
 # Limit what domains can mount filesystems or change their mount flags.
 # sdcard_type / vfat is exempt as a larger set of domains need

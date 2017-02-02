@@ -7,8 +7,6 @@ allow ueventd kmsg_device:chr_file rw_file_perms;
 
 allow ueventd self:capability { chown mknod net_admin setgid fsetid sys_rawio dac_override fowner };
 allow ueventd device:file create_file_perms;
-allow ueventd device:chr_file rw_file_perms;
-auditallow ueventd device:chr_file rw_file_perms;
 
 r_dir_file(ueventd, sysfs_type)
 r_dir_file(ueventd, rootfs)
