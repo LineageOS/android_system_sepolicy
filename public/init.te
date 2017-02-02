@@ -195,8 +195,13 @@ userdebug_or_eng(`
 allow init { fs_type -contextmount_type -sdcard_type -rootfs }:file { open read setattr };
 allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read setattr search };
 
+# init should not be able to read or open generic devices
+# TODO: auditing to see if this can be deleted entirely
+allow init { dev_type -kmem_device -port_device -device }:chr_file { read open };
+auditallow init { dev_type -kmem_device -port_device -device }:chr_file { read open };
+
 # chown/chmod on devices.
-allow init { dev_type -kmem_device -port_device }:chr_file { read open setattr };
+allow init { dev_type -kmem_device -port_device }:chr_file setattr;
 
 # Unlabeled file access for upgrades from 4.2.
 allow init unlabeled:dir { create_dir_perms relabelfrom };
@@ -317,11 +322,6 @@ allow init hw_random_device:chr_file r_file_perms;
 # TODO:  Move these files into their own type unless they are
 # only ever accessed by init.
 allow init device:file create_file_perms;
-
-# Access character devices without a specific type,
-# TODO: Remove this access and auditallow (b/33347297)
-allow init device:chr_file { rw_file_perms setattr };
-auditallow init device:chr_file { rw_file_perms setattr };
 
 # keychord configuration
 allow init self:capability sys_tty_config;
