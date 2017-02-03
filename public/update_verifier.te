@@ -13,8 +13,8 @@ allow update_verifier block_device:dir search;
 allow update_verifier ota_package_file:dir r_dir_perms;
 allow update_verifier ota_package_file:file r_file_perms;
 
-# Read all blocks in system partition.
-allow update_verifier system_block_device:blk_file r_file_perms;
+# Read all blocks in dm wrapped system partition.
+allow update_verifier dm_device:blk_file r_file_perms;
 
 # Use binderized HAL
 hwbinder_use(update_verifier)
