@@ -175,7 +175,7 @@ allow init {
   -vold_data_file
 }:lnk_file { create getattr setattr relabelfrom unlink };
 
-allow init {file_type -system_file -exec_type}:dir_file_class_set relabelto;
+allow init { file_type -system_file -exec_type }:dir_file_class_set relabelto;
 allow init { sysfs debugfs debugfs_tracing }:{ dir file lnk_file } { getattr relabelfrom };
 allow init { sysfs_type debugfs_type }:{ dir file lnk_file } relabelto;
 allow init dev_type:dir create_dir_perms;
@@ -198,7 +198,13 @@ allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read 
 # init should not be able to read or open generic devices
 # TODO: auditing to see if this can be deleted entirely
 allow init { dev_type -kmem_device -port_device -device }:chr_file { read open };
-auditallow init { dev_type -kmem_device -port_device -device }:chr_file { read open };
+auditallow init {
+  dev_type
+  -kmem_device
+  -port_device
+  -device
+  -null_device
+}:chr_file { read open };
 
 # chown/chmod on devices.
 allow init { dev_type -kmem_device -port_device }:chr_file setattr;
