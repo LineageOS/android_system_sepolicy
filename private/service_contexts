@@ -141,6 +141,7 @@ SurfaceFlinger                            u:object_r:surfaceflinger_service:s0
 task                                      u:object_r:task_service:s0
 telecom                                   u:object_r:telecom_service:s0
 telephony.registry                        u:object_r:registry_service:s0
+textclassification                        u:object_r:textclassification_service:s0
 textservices                              u:object_r:textservices_service:s0
 trust                                     u:object_r:trust_service:s0
 tv_input                                  u:object_r:tv_input_service:s0
