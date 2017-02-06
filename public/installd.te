@@ -9,13 +9,13 @@ allow installd dalvikcache_data_file:dir relabelto;
 allow installd dalvikcache_data_file:file { relabelto link };
 
 # Allow movement of APK files between volumes
-allow installd {apk_data_file ephemeral_apk_data_file}:dir { create_dir_perms relabelfrom };
-allow installd {apk_data_file ephemeral_apk_data_file}:file { create_file_perms relabelfrom link };
-allow installd {apk_data_file ephemeral_apk_data_file}:lnk_file { create r_file_perms unlink };
+allow installd apk_data_file:dir { create_dir_perms relabelfrom };
+allow installd apk_data_file:file { create_file_perms relabelfrom link };
+allow installd apk_data_file:lnk_file { create r_file_perms unlink };
 
 allow installd asec_apk_file:file r_file_perms;
-allow installd {apk_tmp_file ephemeral_apk_tmp_file}:file { r_file_perms unlink };
-allow installd {apk_tmp_file ephemeral_apk_tmp_file}:dir { relabelfrom create_dir_perms };
+allow installd apk_tmp_file:file { r_file_perms unlink };
+allow installd apk_tmp_file:dir { relabelfrom create_dir_perms };
 allow installd oemfs:dir r_dir_perms;
 allow installd oemfs:file r_file_perms;
 allow installd cgroup:dir create_dir_perms;
@@ -88,7 +88,6 @@ allow installd {
     radio_data_file
     shell_data_file
     app_data_file
-    ephemeral_data_file
 }:dir { create_dir_perms relabelfrom relabelto };
 
 allow installd {
@@ -98,7 +97,6 @@ allow installd {
     radio_data_file
     shell_data_file
     app_data_file
-    ephemeral_data_file
 }:notdevfile_class_set { create_file_perms relabelfrom relabelto };
 
 # Similar for the files under /data/misc/profiles/

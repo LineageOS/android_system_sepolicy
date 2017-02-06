@@ -309,7 +309,6 @@ neverallow {
   -dalvikcache_data_file
   -system_data_file # shared libs in apks
   -apk_data_file
-  -ephemeral_apk_data_file
 }:file no_x_file_perms;
 
 neverallow { domain userdebug_or_eng(`-shell') } nativetest_data_file:file no_x_file_perms;
