@@ -1,0 +1,96 @@
+###
+### neverallow rules for untrusted app domains
+###
+
+# Receive or send uevent messages.
+neverallow { untrusted_app ephemeral_app isolated_app } domain:netlink_kobject_uevent_socket *;
+
+# Receive or send generic netlink messages
+neverallow { untrusted_app ephemeral_app isolated_app } domain:netlink_socket *;
+
+# Too much leaky information in debugfs. It's a security
+# best practice to ensure these files aren't readable.
+neverallow { untrusted_app ephemeral_app isolated_app } debugfs_type:file read;
+
+# Do not allow untrusted apps to register services.
+# Only trusted components of Android should be registering
+# services.
+neverallow { untrusted_app ephemeral_app isolated_app } service_manager_type:service_manager add;
+
+# Do not allow untrusted apps to connect to the property service
+# or set properties. b/10243159
+neverallow { untrusted_app ephemeral_app isolated_app } property_socket:sock_file write;
+neverallow { untrusted_app ephemeral_app isolated_app } init:unix_stream_socket connectto;
+neverallow { untrusted_app ephemeral_app isolated_app } property_type:property_service set;
+
+# Do not allow untrusted apps to be assigned mlstrustedsubject.
+# This would undermine the per-user isolation model being
+# enforced via levelFrom=user in seapp_contexts and the mls
+# constraints.  As there is no direct way to specify a neverallow
+# on attribute assignment, this relies on the fact that fork
+# permission only makes sense within a domain (hence should
+# never be granted to any other domain within mlstrustedsubject)
+# and an untrusted app is allowed fork permission to itself.
+neverallow { untrusted_app ephemeral_app isolated_app } mlstrustedsubject:process fork;
+
+# Do not allow untrusted apps to hard link to any files.
+# In particular, if an untrusted app links to other app data
+# files, installd will not be able to guarantee the deletion
+# of the linked to file. Hard links also contribute to security
+# bugs, so we want to ensure untrusted apps never have this
+# capability.
+neverallow { untrusted_app ephemeral_app isolated_app } file_type:file link;
+
+# Do not allow untrusted apps to access network MAC address file
+neverallow { untrusted_app ephemeral_app isolated_app } sysfs_mac_address:file no_rw_file_perms;
+
+# Restrict socket ioctls. Either 1. disallow privileged ioctls, 2. disallow the
+# ioctl permission, or 3. disallow the socket class.
+neverallowxperm { untrusted_app ephemeral_app isolated_app } domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
+neverallow { untrusted_app ephemeral_app isolated_app } *:{ netlink_route_socket netlink_selinux_socket } ioctl;
+neverallow { untrusted_app ephemeral_app isolated_app } *:{
+  socket netlink_socket packet_socket key_socket appletalk_socket
+  netlink_firewall_socket netlink_tcpdiag_socket netlink_nflog_socket
+  netlink_xfrm_socket netlink_audit_socket netlink_ip6fw_socket
+  netlink_dnrt_socket netlink_kobject_uevent_socket tun_socket
+  netlink_iscsi_socket netlink_fib_lookup_socket netlink_connector_socket
+  netlink_netfilter_socket netlink_generic_socket netlink_scsitransport_socket
+  netlink_rdma_socket netlink_crypto_socket
+} *;
+
+# Do not allow untrusted apps access to /cache
+neverallow { untrusted_app ephemeral_app isolated_app } { cache_file cache_recovery_file }:dir ~{ r_dir_perms };
+neverallow { untrusted_app ephemeral_app isolated_app } { cache_file cache_recovery_file }:file ~{ read getattr };
+
+# Do not allow untrusted apps to create/unlink files outside of its sandbox,
+# internal storage or sdcard.
+# World accessible data locations allow application to fill the device
+# with unaccounted for data. This data will not get removed during
+# application un-installation.
+neverallow { untrusted_app ephemeral_app isolated_app } {
+  fs_type
+  -fuse                     # sdcard
+  -sdcardfs                 # sdcard
+  -vfat
+  file_type
+  -app_data_file            # The apps sandbox itself
+  -media_rw_data_file       # Internal storage. Known that apps can
+                            # leave artfacts here after uninstall.
+  -user_profile_data_file   # Access to profile files
+  -user_profile_foreign_dex_data_file   # Access to profile files
+  userdebug_or_eng(`
+    -method_trace_data_file # only on ro.debuggable=1
+    -coredump_file          # userdebug/eng only
+  ')
+}:dir_file_class_set { create unlink };
+
+# Do not allow untrusted apps to directly open tun_device
+neverallow { untrusted_app ephemeral_app isolated_app } tun_device:chr_file open;
+
+# Only allow appending to /data/anr/traces.txt (b/27853304, b/18340553)
+neverallow { untrusted_app ephemeral_app isolated_app } anr_data_file:file ~{ open append };
+neverallow { untrusted_app ephemeral_app isolated_app } anr_data_file:dir ~search;
+
+# Avoid reads from generically labeled /proc files
+# Create a more specific label if needed
+neverallow { untrusted_app ephemeral_app isolated_app } proc:file { no_rw_file_perms no_x_file_perms };
