@@ -79,7 +79,6 @@ neverallow webview_zygote {
     nfc_data_file
     radio_data_file
     shell_data_file
-    ephemeral_data_file
 }:file { rwx_file_perms };
 
 neverallow webview_zygote {
