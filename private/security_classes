@@ -94,6 +94,10 @@ class netlink_scsitransport_socket
 class netlink_rdma_socket
 class netlink_crypto_socket
 
+# Capability checks when on a non-init user namespace
+class cap_userns
+class cap2_userns
+
 # Property service
 class property_service          # userspace
 
