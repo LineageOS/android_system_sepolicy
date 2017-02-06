@@ -29,6 +29,10 @@ add_service(storaged, storaged_service)
 binder_use(storaged)
 binder_call(storaged, system_server)
 
+# use batteryproperties service
+allow storaged batteryproperties_service:service_manager find;
+binder_call(storaged, healthd)
+
 ###
 ### neverallow
 ###
