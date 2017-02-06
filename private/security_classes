@@ -45,13 +45,11 @@ class ipc
 
 # extended netlink sockets
 class netlink_route_socket
-class netlink_firewall_socket
 class netlink_tcpdiag_socket
 class netlink_nflog_socket
 class netlink_xfrm_socket
 class netlink_selinux_socket
 class netlink_audit_socket
-class netlink_ip6fw_socket
 class netlink_dnrt_socket
 
 # IPSec association

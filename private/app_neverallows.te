@@ -50,8 +50,8 @@ neverallowxperm { untrusted_app ephemeral_app isolated_app } domain:{ rawip_sock
 neverallow { untrusted_app ephemeral_app isolated_app } *:{ netlink_route_socket netlink_selinux_socket } ioctl;
 neverallow { untrusted_app ephemeral_app isolated_app } *:{
   socket netlink_socket packet_socket key_socket appletalk_socket
-  netlink_firewall_socket netlink_tcpdiag_socket netlink_nflog_socket
-  netlink_xfrm_socket netlink_audit_socket netlink_ip6fw_socket
+  netlink_tcpdiag_socket netlink_nflog_socket
+  netlink_xfrm_socket netlink_audit_socket
   netlink_dnrt_socket netlink_kobject_uevent_socket tun_socket
   netlink_iscsi_socket netlink_fib_lookup_socket netlink_connector_socket
   netlink_netfilter_socket netlink_generic_socket netlink_scsitransport_socket
