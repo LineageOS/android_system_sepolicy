@@ -403,13 +403,6 @@ inherits socket
 	nlmsg_write
 }
 
-class netlink_firewall_socket
-inherits socket
-{
-	nlmsg_read
-	nlmsg_write
-}
-
 class netlink_tcpdiag_socket
 inherits socket
 {
@@ -438,13 +431,6 @@ inherits socket
 	nlmsg_relay
 	nlmsg_readpriv
 	nlmsg_tty_audit
-}
-
-class netlink_ip6fw_socket
-inherits socket
-{
-	nlmsg_read
-	nlmsg_write
 }
 
 class netlink_dnrt_socket
