@@ -14,10 +14,10 @@ bluetooth_domain(platform_app)
 allow platform_app shell_data_file:dir search;
 allow platform_app shell_data_file:file { open getattr read };
 allow platform_app icon_file:file { open getattr read };
-# Populate /data/app/vmdl*.tmp, /data/app-private/vmdl*.tmp, /data/app-ephemeral/vmdl*.tmp files
+# Populate /data/app/vmdl*.tmp, /data/app-private/vmdl*.tmp files
 # created by system server.
-allow platform_app { apk_tmp_file apk_private_tmp_file ephemeral_apk_tmp_file}:dir rw_dir_perms;
-allow platform_app { apk_tmp_file apk_private_tmp_file ephemeral_apk_tmp_file}:file rw_file_perms;
+allow platform_app { apk_tmp_file apk_private_tmp_file }:dir rw_dir_perms;
+allow platform_app { apk_tmp_file apk_private_tmp_file }:file rw_file_perms;
 allow platform_app apk_private_data_file:dir search;
 # ASEC
 allow platform_app asec_apk_file:dir create_dir_perms;
@@ -55,9 +55,5 @@ allow platform_app vr_manager_service:service_manager find;
 # Access to /data/preloads
 allow platform_app preloads_data_file:file r_file_perms;
 allow platform_app preloads_data_file:dir r_dir_perms;
-
-# Access to ephemeral APKs
-allow platform_app ephemeral_apk_data_file:dir r_dir_perms;
-allow platform_app ephemeral_apk_data_file:file r_file_perms;
 
 read_runtime_log_tags(platform_app)

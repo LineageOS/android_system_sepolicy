@@ -82,8 +82,8 @@ userdebug_or_eng(`
 ')
 
 # ndk-gdb invokes adb forward to forward the gdbserver socket.
-allow adbd { app_data_file ephemeral_data_file }:dir search;
-allow adbd { app_data_file ephemeral_data_file }:sock_file write;
+allow adbd app_data_file:dir search;
+allow adbd app_data_file:sock_file write;
 allow adbd appdomain:unix_stream_socket connectto;
 
 # ndk-gdb invokes adb pull of app_process, linker, and libc.so.
