@@ -8,6 +8,9 @@ userdebug_or_eng(`
   # from the "init" domain.
   domain_auto_trans(su, dumpstate_exec, dumpstate)
 
+  # Put the incident command into its domain so it is the same on user, userdebug and eng.
+  domain_auto_trans(su, incident_exec, incident)
+
 # su is also permissive to permit setenforce.
   permissive su;
 

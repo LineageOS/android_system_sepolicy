@@ -167,7 +167,7 @@ userdebug_or_eng(`
   allow dumpstate misc_logd_file:file r_file_perms;
 ')
 
-allow dumpstate { service_manager_type -gatekeeper_service -dumpstate_service }:service_manager find;
+allow dumpstate { service_manager_type -gatekeeper_service -dumpstate_service -incident_service }:service_manager find;
 allow dumpstate servicemanager:service_manager list;
 
 allow dumpstate devpts:chr_file rw_file_perms;
