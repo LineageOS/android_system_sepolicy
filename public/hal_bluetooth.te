@@ -20,3 +20,6 @@ allow hal_bluetooth self:capability2 wake_alarm;
 
 # Allow write access to bluetooth-specific properties
 set_prop(hal_bluetooth, bluetooth_prop)
+
+# /proc access (bluesleep etc.).
+allow hal_bluetooth proc_bluetooth_writable:file rw_file_perms;
