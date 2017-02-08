@@ -51,6 +51,9 @@ allow system_app anr_data_file:file create_file_perms;
 # Settings need to access app name and icon from asec
 allow system_app asec_apk_file:file r_file_perms;
 
+# Allow system apps to interact with incidentd
+binder_call(system_app, incidentd)
+
 allow system_app servicemanager:service_manager list;
 # TODO: scope this down? Too broad?
 allow system_app { service_manager_type -netd_service -dumpstate_service -installd_service }:service_manager find;
