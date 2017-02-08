@@ -10,6 +10,7 @@ type hal_fingerprint_service,   service_manager_type;
 type gatekeeper_service,        app_api_service, service_manager_type;
 type gpu_service,               service_manager_type;
 type inputflinger_service,      service_manager_type;
+type incident_service,          service_manager_type;
 type installd_service,          service_manager_type;
 type keystore_service,          service_manager_type;
 type mediaserver_service,       service_manager_type;
