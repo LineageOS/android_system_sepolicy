@@ -54,3 +54,7 @@ allow drmserver drmserver_service:service_manager { add find };
 allow drmserver permission_service:service_manager find;
 
 selinux_check_access(drmserver)
+
+# Themed resources (i.e. composed icons)
+allow drmserver theme_data_file:dir r_dir_perms;
+allow drmserver theme_data_file:file r_file_perms;
