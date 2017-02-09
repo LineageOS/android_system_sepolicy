@@ -200,10 +200,24 @@ allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read 
 allow init { dev_type -kmem_device -port_device -device }:chr_file { read open };
 auditallow init {
   dev_type
-  -kmem_device
-  -port_device
+  -alarm_device
+  -ashmem_device
+  -binder_device
+  -console_device
   -device
+  -devpts
+  -dm_device
+  -hwbinder_device
+  -hw_random_device
+  -keychord_device
+  -kmem_device
+  -kmsg_device
   -null_device
+  -owntty_device
+  -port_device
+  -ptmx_device
+  -random_device
+  -zero_device
 }:chr_file { read open };
 
 # chown/chmod on devices.
