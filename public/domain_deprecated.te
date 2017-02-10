@@ -56,7 +56,7 @@ allow domain_deprecated apk_data_file:dir { getattr search };
 allow domain_deprecated apk_data_file:file r_file_perms;
 allow domain_deprecated apk_data_file:lnk_file r_file_perms;
 auditallow { domain_deprecated -appdomain -dex2oat -init -installd -system_server } apk_data_file:dir { getattr search };
-auditallow { domain_deprecated -appdomain -dex2oat -installd -system_server } apk_data_file:file r_file_perms;
+auditallow { domain_deprecated -appdomain -dex2oat -init -installd -system_server } apk_data_file:file r_file_perms;
 auditallow { domain_deprecated -appdomain -dex2oat -installd -system_server } apk_data_file:lnk_file r_file_perms;
 
 # Read already opened /cache files.
