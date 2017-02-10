@@ -21,6 +21,10 @@ app_domain(untrusted_app)
 net_domain(untrusted_app)
 bluetooth_domain(untrusted_app)
 
+# b/34115651 - net.dns* properties read
+# This will go away in a future Android release
+get_prop(untrusted_app, net_dns_prop)
+
 # Allow the allocation and use of ptys
 # Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
 create_pty(untrusted_app)
