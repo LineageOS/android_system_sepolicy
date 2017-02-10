@@ -1,5 +1,5 @@
 # init is its own domain.
-type init, domain, domain_deprecated, mlstrustedsubject;
+type init, domain, mlstrustedsubject;
 
 # The init domain is entered by execing init.
 type init_exec, exec_type, file_type;
@@ -174,6 +174,8 @@ allow init {
   -system_file
   -vold_data_file
 }:lnk_file { create getattr setattr relabelfrom unlink };
+
+allow init cache_file:lnk_file r_file_perms;
 
 allow init { file_type -system_file -exec_type }:dir_file_class_set relabelto;
 allow init { sysfs debugfs debugfs_tracing }:{ dir file lnk_file } { getattr relabelfrom };
