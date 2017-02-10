@@ -24,6 +24,7 @@ allow fsck dm_device:blk_file rw_file_perms;
 allow fsck swap_block_device:blk_file getattr;
 
 r_dir_file(fsck, proc)
+allow fsck rootfs:dir r_dir_perms;
 
 ###
 ### neverallow rules
