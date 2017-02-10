@@ -27,6 +27,7 @@ allow vold shell_exec:file rx_file_perms;
 
 typeattribute vold mlstrustedsubject;
 allow vold self:process setfscreate;
+allow vold system_file:dir r_dir_perms;
 allow vold system_file:file x_file_perms;
 allow vold block_device:dir create_dir_perms;
 allow vold device:dir write;
