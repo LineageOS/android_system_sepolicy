@@ -1,0 +1,12 @@
+type virtual_touchpad, domain;
+type virtual_touchpad_exec, exec_type, file_type;
+
+binder_use(virtual_touchpad)
+binder_service(virtual_touchpad)
+add_service(virtual_touchpad, virtual_touchpad_service)
+
+# Requires access to /dev/uinput to create and feed the virtual device.
+allow virtual_touchpad uhid_device:chr_file { w_file_perms ioctl };
+
+# Limit access so that nothing else can inject input.
+neverallow { domain -system_app -virtual_touchpad } virtual_touchpad_service:service_manager find;
