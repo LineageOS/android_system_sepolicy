@@ -32,3 +32,8 @@ allow update_engine_common shell_exec:file rx_file_perms;
 # Allow update_engine_common to suspend, resume and kill the postinstall program.
 allow update_engine_common postinstall:process { signal sigstop };
 
+# access /proc/misc
+allow update_engine proc:file r_file_perms;
+
+# read directories on /system and /vendor
+allow update_engine system_file:dir r_dir_perms;

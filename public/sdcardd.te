@@ -31,6 +31,9 @@ allow sdcardd vold:fifo_file { read write getattr };
 # Allow running on top of expanded storage
 allow sdcardd mnt_expand_file:dir search;
 
+# access /proc/filesystems
+allow sdcardd proc:file r_file_perms;
+
 ###
 ### neverallow rules
 ###
