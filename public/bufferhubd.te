@@ -1,0 +1,12 @@
+# bufferhubd
+type bufferhubd, domain, mlstrustedsubject;
+type bufferhubd_exec, exec_type, file_type;
+
+pdx_server(bufferhubd)
+use_pdx(bufferhubd, performanced)
+
+# Access the GPU.
+allow bufferhubd gpu_device:chr_file rw_file_perms;
+
+# Access /dev/ion
+allow bufferhubd ion_device:chr_file r_file_perms;

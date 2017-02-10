@@ -81,6 +81,32 @@ allow $1 $1_tmpfs:file { read write };
 allow $1 tmpfs:dir { getattr search };
 ')
 
+# pdx macros for IPC. pdx is a high-level name which contains transport-specific
+# rules from underlying transport (e.g. UDS-based implementation).
+
+#####################################
+# pdx_server(domain)
+define(`pdx_server', `
+allow $1 pdx_socket:dir create_dir_perms;
+allow $1 pdx_socket:sock_file create_file_perms;
+')
+
+#####################################
+# use_pdx(clientdomain, serverdomain)
+define(`use_pdx', `
+# Open the socket.
+allow $1 pdx_socket:dir r_dir_perms;
+allow $1 pdx_socket:sock_file rw_file_perms;
+# Use the socket.
+allow $1 $2:unix_stream_socket { connectto read write shutdown };
+# Clients recieve an event fd from the server.
+allow $1 $2:fd use;
+# Servers may receive sync fences, gralloc buffers, etc, from clients.
+# This could be tightened on a per-server basis, but keeping track of service
+# clients is error prone.
+allow $2 $1:fd use;
+')
+
 #####################################
 # init_daemon_domain(domain)
 # Set up a transition from init to the daemon domain
