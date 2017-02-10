@@ -230,6 +230,7 @@ type mdnsd_socket, file_type, mlstrustedobject;
 type misc_logd_file, file_type;
 type mtpd_socket, file_type;
 type netd_socket, file_type;
+type pdx_socket, file_type, mlstrustedobject;
 type property_socket, file_type, mlstrustedobject;
 type racoon_socket, file_type;
 type rild_socket, file_type;
