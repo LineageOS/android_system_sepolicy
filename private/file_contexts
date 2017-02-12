@@ -445,12 +445,39 @@
 # debugfs files
 #
 /sys/kernel/debug/mmc0(/.*)?                            u:object_r:debugfs_mmc:s0
-/sys/kernel(/debug)?/tracing/(.*)?			u:object_r:debugfs_tracing:s0
-/sys/kernel(/debug)?/tracing/trace_marker		u:object_r:debugfs_trace_marker:s0
-/sys/kernel(/debug)?/tracing/instances(/.*)?		u:object_r:debugfs_tracing_instances:s0
-/sys/kernel(/debug)?/tracing/instances/wifi/free_buffer	u:object_r:debugfs_wifi_tracing:s0
-/sys/kernel(/debug)?/tracing/instances/wifi/trace	u:object_r:debugfs_wifi_tracing:s0
-/sys/kernel(/debug)?/tracing/instances/wifi/tracing_on	u:object_r:debugfs_wifi_tracing:s0
+
+#############################
+# tracefs files
+#
+/sys/kernel(/debug)?/tracing/buffer_size_kb                                         u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/binder/binder_locked/enable                     u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/binder/binder_lock/enable                       u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/binder/binder_transaction/enable                u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/binder/binder_transaction_received/enable       u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/binder/binder_unlock/enable                     u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/cpufreq_interactive/enable                      u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/power/clock_set_rate/enable                     u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/power/cpu_frequency/enable                      u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/power/cpu_frequency_limits/enable               u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/power/cpu_idle/enable                           u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/sched/sched_blocked_reason/enable               u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/sched/sched_cpu_hotplug/enable                  u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/sched/sched_switch/enable                       u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/sched/sched_wakeup/enable                       u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/vmscan/mm_vmscan_direct_reclaim_begin/enable    u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/vmscan/mm_vmscan_direct_reclaim_end/enable      u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/vmscan/mm_vmscan_kswapd_sleep/enable            u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/events/vmscan/mm_vmscan_kswapd_wake/enable             u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/instances(/.*)?                                        u:object_r:debugfs_tracing_instances:s0
+/sys/kernel(/debug)?/tracing/instances/wifi/free_buffer                             u:object_r:debugfs_wifi_tracing:s0
+/sys/kernel(/debug)?/tracing/instances/wifi/trace                                   u:object_r:debugfs_wifi_tracing:s0
+/sys/kernel(/debug)?/tracing/instances/wifi/tracing_on                              u:object_r:debugfs_wifi_tracing:s0
+/sys/kernel(/debug)?/tracing/options/overwrite                                      u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/options/print-tgid                                     u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/trace                                                  u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/trace_clock                                            u:object_r:tracing_shell_writable:s0
+/sys/kernel(/debug)?/tracing/trace_marker                                           u:object_r:debugfs_trace_marker:s0
+/sys/kernel(/debug)?/tracing/tracing_on                                             u:object_r:tracing_shell_writable:s0
 
 #############################
 # asec containers
