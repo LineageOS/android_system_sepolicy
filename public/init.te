@@ -184,7 +184,7 @@ allow init dev_type:dir create_dir_perms;
 allow init dev_type:lnk_file create;
 
 # Disable tracing by writing to /sys/kernel/debug/tracing/tracing_on
-allow init debugfs_tracing:file w_file_perms;
+allow init tracing_shell_writable:file w_file_perms;
 
 userdebug_or_eng(`
   # Setup and control wifi event tracing (see wifi-events.rc)
