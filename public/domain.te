@@ -499,7 +499,7 @@ neverallow * self:process { execstack execheap };
 
 # prohibit non-zygote spawned processes from using shared libraries
 # with text relocations. b/20013628 .
-neverallow { domain -untrusted_app } file_type:file execmod;
+neverallow { domain -untrusted_app_all } file_type:file execmod;
 
 neverallow { domain -init } proc:{ file dir } mounton;
 
