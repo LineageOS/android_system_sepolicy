@@ -18,6 +18,11 @@ allow mediacodec video_device:dir search;
 allow mediacodec ion_device:chr_file rw_file_perms;
 allow mediacodec hal_graphics_allocator:fd use;
 
+# hidl access
+hwbinder_use(mediacodec)
+hwallocator_use(mediacodec)
+allow mediacodec system_file:dir { open read };
+
 ###
 ### neverallow rules
 ###
