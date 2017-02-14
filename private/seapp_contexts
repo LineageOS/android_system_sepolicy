@@ -1,12 +1,13 @@
 # Input selectors:
-#	isSystemServer (boolean)
-#	isEphemeralApp (boolean)
-#	isOwner (boolean)
-#	user (string)
-#	seinfo (string)
-#	name (string)
-#	path (string)
-#	isPrivApp (boolean)
+#       isSystemServer (boolean)
+#       isEphemeralApp (boolean)
+#       isOwner (boolean)
+#       user (string)
+#       seinfo (string)
+#       name (string)
+#       path (string)
+#       isPrivApp (boolean)
+#       minTargetSdkVersion (unsigned integer)
 # isSystemServer=true can only be used once.
 # An unspecified isSystemServer defaults to false.
 # isEphemeralApp=true will match apps marked by PackageManager as Ephemeral
@@ -19,27 +20,32 @@
 # user=_isolated will match any isolated service UID.
 # isPrivApp=true will only match for applications preinstalled in
 #       /system/priv-app.
+# minTargetSdkVersion will match applications with a targetSdkVersion
+#       greater than or equal to the specified value. If unspecified,
+#       it has a default value of 0.
 # All specified input selectors in an entry must match (i.e. logical AND).
 # Matching is case-insensitive.
 #
 # Precedence rules (see external/selinux/libselinux/src/android/android.c seapp_context_cmp()):
-# 	  (1) isSystemServer=true before isSystemServer=false.
-# 	  (2) Specified isEphemeralApp= before unspecified isEphemeralApp= boolean.
-# 	  (3) Specified isOwner= before unspecified isOwner= boolean.
-#	  (4) Specified user= string before unspecified user= string.
-#	  (5) Fixed user= string before user= prefix (i.e. ending in *).
-#	  (6) Longer user= prefix before shorter user= prefix.
-#	  (7) Specified seinfo= string before unspecified seinfo= string.
-#	      ':' character is reserved and may not be used.
-#	  (8) Specified name= string before unspecified name= string.
-#	  (9) Specified path= string before unspecified path= string.
-# 	  (10) Specified isPrivApp= before unspecified isPrivApp= boolean.
+#       (1) isSystemServer=true before isSystemServer=false.
+#       (2) Specified isEphemeralApp= before unspecified isEphemeralApp= boolean.
+#       (3) Specified isOwner= before unspecified isOwner= boolean.
+#       (4) Specified user= string before unspecified user= string.
+#       (5) Fixed user= string before user= prefix (i.e. ending in *).
+#       (6) Longer user= prefix before shorter user= prefix.
+#       (7) Specified seinfo= string before unspecified seinfo= string.
+#           ':' character is reserved and may not be used.
+#       (8) Specified name= string before unspecified name= string.
+#       (9) Specified path= string before unspecified path= string.
+#       (10) Specified isPrivApp= before unspecified isPrivApp= boolean.
+#       (11) Higher value of minTargetSdkVersion= before lower value of minTargetSdkVersion=
+#              integer. Note that minTargetSdkVersion= defaults to 0 if unspecified.
 #
 # Outputs:
-#	domain (string)
-#	type (string)
-#	levelFrom (string; one of none, all, app, or user)
-#	level (string)
+#       domain (string)
+#       type (string)
+#       levelFrom (string; one of none, all, app, or user)
+#       level (string)
 # Only entries that specify domain= will be used for app process labeling.
 # Only entries that specify type= will be used for app directory labeling.
 # levelFrom=user is only supported for _app or _isolated UIDs.
@@ -96,4 +102,5 @@ user=_isolated domain=isolated_app levelFrom=user
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
 user=_app isEphemeralApp=true domain=ephemeral_app type=app_data_file levelFrom=all
 user=_app isPrivApp=true domain=priv_app type=app_data_file levelFrom=user
-user=_app domain=untrusted_app type=app_data_file levelFrom=user
+user=_app minTargetSdkVersion=26 domain=untrusted_app type=app_data_file levelFrom=user
+user=_app domain=untrusted_app_25 type=app_data_file levelFrom=user
