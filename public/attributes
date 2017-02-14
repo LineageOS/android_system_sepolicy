@@ -95,6 +95,9 @@ attribute mlstrustedobject;
 # All domains used for apps.
 attribute appdomain;
 
+# All third party apps.
+attribute untrusted_app_all;
+
 # All domains used for apps with network access.
 attribute netdomain;
 
