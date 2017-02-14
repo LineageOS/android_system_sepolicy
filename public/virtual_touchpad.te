@@ -9,4 +9,4 @@ add_service(virtual_touchpad, virtual_touchpad_service)
 allow virtual_touchpad uhid_device:chr_file { w_file_perms ioctl };
 
 # Limit access so that nothing else can inject input.
-neverallow { domain -system_app -virtual_touchpad } virtual_touchpad_service:service_manager find;
+neverallow { domain -virtual_touchpad -vr_wm } virtual_touchpad_service:service_manager find;
