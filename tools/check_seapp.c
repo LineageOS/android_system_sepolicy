@@ -194,6 +194,7 @@ static bool validate_bool(char *value, char **errmsg);
 static bool validate_levelFrom(char *value, char **errmsg);
 static bool validate_selinux_type(char *value, char **errmsg);
 static bool validate_selinux_level(char *value, char **errmsg);
+static bool validate_uint(char *value, char **errmsg);
 
 /**
  * The heart of the mapping process, this must be updated if a new key value pair is added
@@ -209,6 +210,7 @@ key_map rules[] = {
                 { .name = "name",           .dir = dir_in,                              },
                 { .name = "path",           .dir = dir_in,                              },
                 { .name = "isPrivApp",      .dir = dir_in, .fn_validate = validate_bool },
+                { .name = "minTargetSdkVersion", .dir = dir_in, .fn_validate = validate_uint },
                 /*Outputs*/
                 { .name = "domain",         .dir = dir_out, .fn_validate = validate_selinux_type  },
                 { .name = "type",           .dir = dir_out, .fn_validate = validate_selinux_type  },
@@ -411,6 +413,19 @@ static bool validate_selinux_level(char *value, char **errmsg) {
 	int ret = sepol_mls_check(pol.handle, pol.db, value);
 	if (ret < 0) {
 		*errmsg = "Expecting a valid SELinux MLS value";
+		return false;
+	}
+
+	return true;
+}
+
+static bool validate_uint(char *value, char **errmsg) {
+
+	char *endptr;
+	long longvalue;
+	longvalue = strtol(value, &endptr, 10);
+	if (('\0' != *endptr) || (longvalue < 0) || (longvalue > INT32_MAX)) {
+		*errmsg = "Expecting a valid unsigned integer";
 		return false;
 	}
 
