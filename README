@@ -26,7 +26,7 @@ for additional policy files. Order matters in this list.
 For example, if you have 2 instances of widget.te files in the
 BOARD_SEPOLICY_DIRS search path, then the first one found (at the
 first search dir containing the file) will be concatenated first.
-Reviewing out/target/product/<device>/etc/sepolicy_intermediates/policy.conf
+Reviewing out/target/product/<device>/obj/ETC/sepolicy_intermediates/policy.conf
 will help sort out ordering issues.
 
 Example BoardConfig.mk Usage:
