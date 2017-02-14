@@ -86,7 +86,7 @@ allow shell { service_manager_type -gatekeeper_service -incident_service -instal
 allow shell dumpstate:binder call;
 
 # allow shell to get information from hwservicemanager
-# for instance, listing hardware services with dumpsys
+# for instance, listing hardware services with lshal
 hwbinder_use(shell)
 
 # allow shell to look through /proc/ for ps, top, netstat
