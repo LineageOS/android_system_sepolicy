@@ -17,3 +17,8 @@ domain_trans(init, init_exec, watchdogd)
 userdebug_or_eng(`
   domain_auto_trans(init, logcat_exec, logpersist)
 ')
+
+# Creating files on sysfs is impossible so this isn't a threat
+# Sometimes we have to write to non-existent files to avoid conditional
+# init behavior. See b/35303861 for an example.
+dontaudit init sysfs:dir write;
