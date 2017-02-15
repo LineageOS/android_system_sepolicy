@@ -1,8 +1,5 @@
 # boot_control subsystem
 type hal_boot, domain, boot_control_hal;
-hal_impl_domain(hal_boot)
-
-type hal_boot_exec, exec_type, file_type;
 
 # call into system_server process (callbacks)
 binder_call(hal_boot, system_server)
