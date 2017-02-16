@@ -19,7 +19,10 @@ userdebug_or_eng(`
 
 # Use inherited file descriptors
 allow crash_dump domain:fd use;
-allow crash_dump domain:fifo_file write;
+
+# Write to the IPC pipe inherited from crashing processes.
+# Append to pipes given to us by processes requesting dumps (e.g. dumpstate)
+allow crash_dump domain:fifo_file { write append };
 
 r_dir_file(crash_dump, domain)
 allow crash_dump exec_type:file r_file_perms;
