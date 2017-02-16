@@ -1,0 +1,26 @@
+type vr_wm, domain;
+type vr_wm_exec, exec_type, file_type;
+
+binder_use(vr_wm)
+binder_call(vr_wm, surfaceflinger)
+binder_call(vr_wm, virtual_touchpad)
+
+allow vr_wm virtual_touchpad_service:service_manager find;
+
+binder_service(vr_wm)
+add_service(vr_wm, vr_window_manager_service)
+
+# Hosts the VR HWC implementation and provides a simple Binder interface for VR
+# Window Manager to receive the layers/buffers.
+hwbinder_use(vr_wm)
+
+# Load vendor libraries.
+allow vr_wm system_file:dir r_dir_perms;
+
+allow vr_wm gpu_device:chr_file rw_file_perms;
+allow vr_wm ion_device:chr_file r_file_perms;
+
+use_pdx(vr_wm, bufferhubd)
+use_pdx(vr_wm, sensord)
+use_pdx(vr_wm, surfaceflinger)
+use_pdx(vr_wm, performanced)
