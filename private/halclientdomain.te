@@ -1,0 +1,7 @@
+###
+### Rules for all domains which are clients of a HAL
+###
+
+# Find out whether a HAL in passthrough/in-process mode or
+# binderized/out-of-process mode
+hwbinder_use(halclientdomain)
