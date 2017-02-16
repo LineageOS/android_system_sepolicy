@@ -1,0 +1,9 @@
+###
+### Rules for all domains which offer a HAL service over HwBinder
+###
+
+# Register the HAL service with hwservicemanager
+hwbinder_use(halserverdomain)
+
+# Find HAL implementations
+allow halserverdomain system_file:dir r_dir_perms;
