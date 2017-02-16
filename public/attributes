@@ -117,11 +117,15 @@ attribute boot_control_hal;
 # recovery for A/B devices.
 attribute update_engine_common;
 
-# All domains used for HAL implementations
-attribute haldomain;
+# All HAL servers
+attribute halserverdomain;
+# All HAL clients
+attribute halclientdomain;
 
 # HALs
 attribute hal_audio;
+attribute hal_audio_client;
+attribute hal_audio_server;
 attribute hal_bluetooth;
 attribute hal_camera;
 attribute hal_configstore;
