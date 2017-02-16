@@ -8,7 +8,6 @@ allow domain crash_dump:process sigchld;
 neverallow {
   domain
   -vold
-  -crash_dump
   -dumpstate
   -storaged
   -system_server
