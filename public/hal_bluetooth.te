@@ -1,7 +1,6 @@
-r_dir_file(hal_bluetooth, system_file)
-
-# call into the Bluetooth process (callbacks)
-binder_call(hal_bluetooth, bluetooth)
+# HwBinder IPC from clients into server, and callbacks
+binder_call(hal_bluetooth_client, hal_bluetooth_server)
+binder_call(hal_bluetooth_server, hal_bluetooth_client)
 
 wakelock_use(hal_bluetooth);
 
