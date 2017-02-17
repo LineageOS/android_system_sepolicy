@@ -1,5 +1,6 @@
-hwbinder_use(hal_camera)
-binder_call(hal_camera, cameraserver)
+# HwBinder IPC from clients to server and callbacks
+binder_call(hal_camera_client, hal_camera_server)
+binder_call(hal_camera_server, hal_camera_client)
 
 # access /data/misc/camera
 allow hal_camera camera_data_file:dir create_dir_perms;
@@ -9,7 +10,8 @@ allow hal_camera video_device:dir r_dir_perms;
 allow hal_camera video_device:chr_file rw_file_perms;
 allow hal_camera camera_device:chr_file rw_file_perms;
 allow hal_camera ion_device:chr_file rw_file_perms;
-allow hal_camera hal_graphics_allocator:fd use;
+# Both the client and the server need to use the graphics allocator
+allow { hal_camera_client hal_camera_server } hal_graphics_allocator:fd use;
 
 
 ###
