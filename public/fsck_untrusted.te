@@ -14,6 +14,17 @@ allow fsck_untrusted vold_device:blk_file rw_file_perms;
 
 r_dir_file(fsck_untrusted, proc)
 
+# To determine if it is safe to run fsck on a filesystem, e2fsck
+# must first determine if the filesystem is mounted. To do that,
+# e2fsck scans through /proc/mounts and collects all the mounted
+# block devices. With that information, it runs stat() on each block
+# device, comparing the major and minor numbers to the filesystem
+# passed in on the command line. If there is a match, then the filesystem
+# is currently mounted and running fsck is dangerous.
+# Allow stat access to all block devices so that fsck can compare
+# major/minor values.
+allow fsck_untrusted dev_type:blk_file getattr;
+
 ###
 ### neverallow rules
 ###
