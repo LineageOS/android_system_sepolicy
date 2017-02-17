@@ -127,6 +127,8 @@ attribute hal_audio;
 attribute hal_audio_client;
 attribute hal_audio_server;
 attribute hal_bluetooth;
+attribute hal_bluetooth_client;
+attribute hal_bluetooth_server;
 attribute hal_camera;
 attribute hal_camera_client;
 attribute hal_camera_server;
