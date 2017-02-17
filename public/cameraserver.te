@@ -29,5 +29,14 @@ allow cameraserver surfaceflinger_service:service_manager find;
 # domain transition
 neverallow cameraserver { file_type fs_type }:file execute_no_trans;
 
-# cameraserver should never need network access. Disallow network sockets.
+# The goal of the mediaserver split is to place media processing code into
+# restrictive sandboxes with limited responsibilities and thus limited
+# permissions. Example: Audioserver is only responsible for controlling audio
+# hardware and processing audio content. Cameraserver does the same for camera
+# hardware/content. Etc.
+#
+# Media processing code is inherently risky and thus should have limited
+# permissions and be isolated from the rest of the system and network.
+# Lengthier explanation here:
+# https://android-developers.googleblog.com/2016/05/hardening-media-stack.html
 neverallow cameraserver domain:{ tcp_socket udp_socket rawip_socket } *;
