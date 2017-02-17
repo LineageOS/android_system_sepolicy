@@ -1,5 +1,5 @@
 type hal_bluetooth_default, domain;
-hal_impl_domain(hal_bluetooth_default, hal_bluetooth)
+hal_server_domain(hal_bluetooth_default, hal_bluetooth)
 
 type hal_bluetooth_default_exec, exec_type, file_type;
 init_daemon_domain(hal_bluetooth_default)
