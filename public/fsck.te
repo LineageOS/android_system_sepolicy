@@ -19,9 +19,16 @@ allow fsck userdata_block_device:blk_file rw_file_perms;
 allow fsck cache_block_device:blk_file rw_file_perms;
 allow fsck dm_device:blk_file rw_file_perms;
 
-# fsck performs a stat() on swap to verify that it is a valid
-# swap device before setting the EXT2_MF_SWAP mount flag.
-allow fsck swap_block_device:blk_file getattr;
+# To determine if it is safe to run fsck on a filesystem, e2fsck
+# must first determine if the filesystem is mounted. To do that,
+# e2fsck scans through /proc/mounts and collects all the mounted
+# block devices. With that information, it runs stat() on each block
+# device, comparing the major and minor numbers to the filesystem
+# passed in on the command line. If there is a match, then the filesystem
+# is currently mounted and running fsck is dangerous.
+# Allow stat access to all block devices so that fsck can compare
+# major/minor values.
+allow fsck dev_type:blk_file getattr;
 
 r_dir_file(fsck, proc)
 allow fsck rootfs:dir r_dir_perms;
