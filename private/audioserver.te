@@ -43,5 +43,14 @@ allow audioserver audio_data_file:file create_file_perms;
 # domain transition
 neverallow audioserver { file_type fs_type }:file execute_no_trans;
 
-# audioserver should never need network access. Disallow network sockets.
+# The goal of the mediaserver split is to place media processing code into
+# restrictive sandboxes with limited responsibilities and thus limited
+# permissions. Example: Audioserver is only responsible for controlling audio
+# hardware and processing audio content. Cameraserver does the same for camera
+# hardware/content. Etc.
+#
+# Media processing code is inherently risky and thus should have limited
+# permissions and be isolated from the rest of the system and network.
+# Lengthier explanation here:
+# https://android-developers.googleblog.com/2016/05/hardening-media-stack.html
 neverallow audioserver domain:{ tcp_socket udp_socket rawip_socket } *;
