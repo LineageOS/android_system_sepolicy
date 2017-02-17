@@ -128,6 +128,8 @@ attribute hal_audio_client;
 attribute hal_audio_server;
 attribute hal_bluetooth;
 attribute hal_camera;
+attribute hal_camera_client;
+attribute hal_camera_server;
 attribute hal_configstore;
 attribute hal_contexthub;
 attribute hal_drm;

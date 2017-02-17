@@ -7,19 +7,9 @@ binder_call(cameraserver, binderservicedomain)
 binder_call(cameraserver, appdomain)
 binder_service(cameraserver)
 
-hwbinder_use(cameraserver)
-binder_call(cameraserver, hal_camera)
-binder_call(cameraserver, hwservicemanager)
+hal_client_domain(cameraserver, hal_camera)
 
-# access /data/misc/camera
-allow cameraserver camera_data_file:dir create_dir_perms;
-allow cameraserver camera_data_file:file create_file_perms;
-
-allow cameraserver video_device:dir r_dir_perms;
-allow cameraserver video_device:chr_file rw_file_perms;
-allow cameraserver camera_device:chr_file rw_file_perms;
 allow cameraserver ion_device:chr_file rw_file_perms;
-allow cameraserver hal_graphics_allocator:fd use;
 
 add_service(cameraserver, cameraserver_service)
 allow cameraserver appops_service:service_manager find;
@@ -30,9 +20,6 @@ allow cameraserver mediaserver_service:service_manager find;
 allow cameraserver processinfo_service:service_manager find;
 allow cameraserver scheduling_policy_service:service_manager find;
 allow cameraserver surfaceflinger_service:service_manager find;
-
-# For HIDL hwservicemanager
-allow cameraserver system_file:dir r_dir_perms;
 
 ###
 ### neverallow rules
