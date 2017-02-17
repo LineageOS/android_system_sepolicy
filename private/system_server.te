@@ -181,7 +181,6 @@ binder_service(system_server)
 # Perform HwBinder IPC.
 hwbinder_use(system_server)
 hwallocator_use(system_server)
-binder_call(system_server, hal_bluetooth)
 binder_call(system_server, hal_boot)
 binder_call(system_server, hal_contexthub)
 binder_call(system_server, hal_fingerprint)
