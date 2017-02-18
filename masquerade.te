@@ -1,0 +1,50 @@
+#
+# Masquerade needs additional permissions when not running with system_server
+# masquerade.substratum.
+#
+#
+type masquerade_app, domain;
+
+# Add masquerade to domains
+net_domain(masquerade_app)
+app_domain(masquerade_app)
+binder_service(masquerade_app)
+
+# Modify system dalvik-cache
+allow masquerade_app dalvikcache_data_file:file {  getattr open read  };
+allow masquerade_app dalvikcache_data_file:dir { getattr search  };
+
+# Read and write /data/data subdirectory.
+allow masquerade_app system_app_data_file:dir create_dir_perms;
+allow masquerade_app system_app_data_file:{ file lnk_file } create_file_perms;
+
+# /data/resource-cache
+allow masquerade_app resourcecache_data_file:file r_file_perms;
+allow masquerade_app resourcecache_data_file:dir r_dir_perms;
+
+# Read wallpaper file.
+allow masquerade_app wallpaper_file:file r_file_perms;
+
+# Read icon file.
+allow masquerade_app icon_file:file r_file_perms;
+
+# Set bootanimation
+allow masquerade_app bootanim:process { getsched setsched };
+
+# Backup of wallpaper imagery uses temporary hard links to avoid data churn
+allow masquerade_app { system_data_file wallpaper_file }:file link;
+
+# Manage ringtones.
+allow masquerade_app ringtone_file:dir { create_dir_perms relabelto };
+allow masquerade_app ringtone_file:file create_file_perms;
+
+# Manage overlays
+allow masquerade_app overlay_service:service_manager find;
+
+# System file accesses.
+allow masquerade_app system_file:dir r_dir_perms;
+allow masquerade_app system_file:dir rmdir;
+allow masquerade_app kernel:system module_request;
+allow masquerade_app dalvikcache_data_file:file { setattr write };
+allow masquerade_app system_data_file:dir { add_name create rmdir remove_name setattr write };
+allow masquerade_app system_data_file:file { create getattr setattr unlink write };
