@@ -1,6 +1,0 @@
-# type_transition must be private policy the domain_trans rules could stay
-# public, but conceptually should go with this
-init_daemon_domain(wpa)
-
-# Create a socket for receiving info from wpa
-type_transition wpa wifi_data_file:dir wpa_socket "sockets";
