@@ -6,6 +6,8 @@ binder_use(bootanim)
 binder_call(bootanim, surfaceflinger)
 binder_call(bootanim, audioserver)
 
+hwbinder_use(bootanim)
+
 allow bootanim gpu_device:chr_file rw_file_perms;
 
 # /oem access
