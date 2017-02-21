@@ -195,6 +195,10 @@ add_service(dumpstate, dumpstate_service)
 ### neverallow rules
 ###
 
+# dumpstate has capability sys_ptrace, but should only use that capability for
+# accessing sensitive /proc/PID files, never for using ptrace attach.
+neverallow dumpstate *:process ptrace;
+
 # only system_server, dumpstate and shell can find the dumpstate service
 neverallow { domain -system_server -shell -dumpstate } dumpstate_service:service_manager find;
 
