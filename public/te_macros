@@ -164,7 +164,6 @@ typeattribute $1 bluetoothdomain;
 #   hal_impl_domain(hal_foo_default, hal_foo)
 #
 define(`hal_impl_domain', `
-print(`deprecated: hal_impl_domain($1, $2) Please use hal_server_domain($1, $2) instead.');
 typeattribute $1 halserverdomain;
 ifelse($2, `', `', `typeattribute $1 $2;')
 ')
