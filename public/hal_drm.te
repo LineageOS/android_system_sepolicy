@@ -1,5 +1,6 @@
-## call into system_server process (for invoking callbacks)
-binder_call(hal_drm, mediadrmserver)
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_drm_client, hal_drm_server)
+binder_call(hal_drm_server, hal_drm_client)
 
 # Required by Widevine DRM (b/22990512)
 allow hal_drm self:process execmem;

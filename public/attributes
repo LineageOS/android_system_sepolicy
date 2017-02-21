@@ -135,6 +135,8 @@ attribute hal_camera_server;
 attribute hal_configstore;
 attribute hal_contexthub;
 attribute hal_drm;
+attribute hal_drm_client;
+attribute hal_drm_server;
 attribute hal_dumpstate;
 attribute hal_fingerprint;
 attribute hal_gatekeeper;
