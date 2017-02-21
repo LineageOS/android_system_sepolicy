@@ -68,6 +68,7 @@ type jobscheduler_service, app_api_service, system_server_service, service_manag
 type launcherapps_service, app_api_service, system_server_service, service_manager_type;
 type location_service, app_api_service, system_server_service, service_manager_type;
 type lock_settings_service, system_api_service, system_server_service, service_manager_type;
+type masquerade_service, app_api_service, system_server_service, service_manager_type;
 type media_projection_service, app_api_service, system_server_service, service_manager_type;
 type media_router_service, app_api_service, system_server_service, service_manager_type;
 type media_session_service, app_api_service, system_server_service, service_manager_type;

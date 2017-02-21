@@ -374,7 +374,7 @@ neverallow appdomain exec_type:file
 # This is the default type for anything under /data not otherwise
 # specified in file_contexts.  Define a different type for portions
 # that should be writable by apps.
-neverallow { appdomain -masquerade_app } system_data_file:dir_file_class_set
+neverallow { appdomain -masquerade } system_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # Write to various other parts of /data.

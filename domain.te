@@ -381,7 +381,7 @@ neverallow {
   -init # TODO: limit init to relabelfrom for files
   -zygote
   -installd
-  -masquerade_app
+  -masquerade
   -postinstall_dexopt
   -cppreopts
   -dex2oat
@@ -488,7 +488,7 @@ neverallow {
   -system_server
   -system_app
   -init
-  -masquerade_app
+  -masquerade
   -installd # for relabelfrom and unlink, check for this in explicit neverallow
 } system_data_file:file no_w_file_perms;
 # do not grant anything greater than r_file_perms and relabelfrom unlink
