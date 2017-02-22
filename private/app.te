@@ -86,9 +86,9 @@ allow appdomain oemfs:dir r_dir_perms;
 allow appdomain oemfs:file rx_file_perms;
 
 # Execute the shell or other system executables.
-allow appdomain shell_exec:file rx_file_perms;
-allow appdomain system_file:file rx_file_perms;
-allow appdomain toolbox_exec:file rx_file_perms;
+allow { appdomain -ephemeral_app -untrusted_v2_app } shell_exec:file rx_file_perms;
+allow { appdomain -ephemeral_app -untrusted_v2_app } system_file:file rx_file_perms;
+allow { appdomain -ephemeral_app -untrusted_v2_app } toolbox_exec:file rx_file_perms;
 
 # Renderscript needs the ability to read directories on /system
 r_dir_file(appdomain, system_file)
@@ -232,7 +232,7 @@ allow appdomain resourcecache_data_file:dir r_dir_perms;
 
 # logd access
 read_logd(appdomain)
-control_logd(appdomain)
+control_logd({ appdomain -ephemeral_app untrusted_v2_app })
 # application inherit logd write socket (urge is to deprecate this long term)
 allow appdomain zygote:unix_dgram_socket write;
 
