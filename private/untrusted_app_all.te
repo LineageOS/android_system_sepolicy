@@ -17,10 +17,6 @@
 ### seapp_contexts.
 ###
 
-# Allow the allocation and use of ptys
-# Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
-create_pty(untrusted_app)
-
 # Legacy text relocations
 allow untrusted_app_all apk_data_file:file execmod;
 
