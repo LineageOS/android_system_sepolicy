@@ -15,7 +15,7 @@ allow racoon kernel:system module_request;
 
 allow racoon self:key_socket create_socket_perms_no_ioctl;
 allow racoon self:tun_socket create_socket_perms_no_ioctl;
-allow racoon self:capability { net_admin net_bind_service net_raw setuid };
+allow racoon self:capability { net_admin net_bind_service net_raw };
 
 # XXX: should we give ip-up-vpn its own label (currently racoon domain)
 allow racoon system_file:file rx_file_perms;
