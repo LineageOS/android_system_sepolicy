@@ -139,6 +139,8 @@ attribute hal_drm_client;
 attribute hal_drm_server;
 attribute hal_dumpstate;
 attribute hal_fingerprint;
+attribute hal_fingerprint_client;
+attribute hal_fingerprint_server;
 attribute hal_gatekeeper;
 attribute hal_gnss;
 attribute hal_graphics_allocator;
