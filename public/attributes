@@ -138,6 +138,8 @@ attribute hal_drm;
 attribute hal_drm_client;
 attribute hal_drm_server;
 attribute hal_dumpstate;
+attribute hal_dumpstate_client;
+attribute hal_dumpstate_server;
 attribute hal_fingerprint;
 attribute hal_fingerprint_client;
 attribute hal_fingerprint_server;
