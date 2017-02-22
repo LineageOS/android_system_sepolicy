@@ -1,6 +1,7 @@
 # Input selectors:
 #       isSystemServer (boolean)
 #       isEphemeralApp (boolean)
+#       isV2App (boolean)
 #       isOwner (boolean)
 #       user (string)
 #       seinfo (string)
@@ -11,6 +12,7 @@
 # isSystemServer=true can only be used once.
 # An unspecified isSystemServer defaults to false.
 # isEphemeralApp=true will match apps marked by PackageManager as Ephemeral
+# isV2App=true will match apps in the v2 app sandbox.
 # isOwner=true will only match for the owner/primary user.
 # isOwner=false will only match for secondary users.
 # If unspecified, the entry can match either case.
@@ -29,16 +31,17 @@
 # Precedence rules (see external/selinux/libselinux/src/android/android.c seapp_context_cmp()):
 #       (1) isSystemServer=true before isSystemServer=false.
 #       (2) Specified isEphemeralApp= before unspecified isEphemeralApp= boolean.
-#       (3) Specified isOwner= before unspecified isOwner= boolean.
-#       (4) Specified user= string before unspecified user= string.
-#       (5) Fixed user= string before user= prefix (i.e. ending in *).
-#       (6) Longer user= prefix before shorter user= prefix.
-#       (7) Specified seinfo= string before unspecified seinfo= string.
+#       (3) Specified isV2App= before unspecified isV2App= boolean.
+#       (4) Specified isOwner= before unspecified isOwner= boolean.
+#       (5) Specified user= string before unspecified user= string.
+#       (6) Fixed user= string before user= prefix (i.e. ending in *).
+#       (7) Longer user= prefix before shorter user= prefix.
+#       (8) Specified seinfo= string before unspecified seinfo= string.
 #           ':' character is reserved and may not be used.
-#       (8) Specified name= string before unspecified name= string.
-#       (9) Specified path= string before unspecified path= string.
-#       (10) Specified isPrivApp= before unspecified isPrivApp= boolean.
-#       (11) Higher value of minTargetSdkVersion= before lower value of minTargetSdkVersion=
+#       (9) Specified name= string before unspecified name= string.
+#       (10) Specified path= string before unspecified path= string.
+#       (11) Specified isPrivApp= before unspecified isPrivApp= boolean.
+#       (12) Higher value of minTargetSdkVersion= before lower value of minTargetSdkVersion=
 #              integer. Note that minTargetSdkVersion= defaults to 0 if unspecified.
 #
 # Outputs:
@@ -100,7 +103,8 @@ user=shared_relro domain=shared_relro
 user=shell seinfo=platform domain=shell type=shell_data_file
 user=_isolated domain=isolated_app levelFrom=user
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
-user=_app isEphemeralApp=true domain=ephemeral_app type=app_data_file levelFrom=all
+user=_app isV2App=true isEphemeralApp=true domain=ephemeral_app type=app_data_file levelFrom=all
+user=_app isV2App=true domain=untrusted_v2_app type=app_data_file levelFrom=all
 user=_app isPrivApp=true domain=priv_app type=app_data_file levelFrom=user
 user=_app minTargetSdkVersion=26 domain=untrusted_app type=app_data_file levelFrom=user
 user=_app domain=untrusted_app_25 type=app_data_file levelFrom=user
