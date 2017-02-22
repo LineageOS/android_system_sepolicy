@@ -4,6 +4,9 @@ binder_call(hal_bluetooth_server, hal_bluetooth_client)
 
 wakelock_use(hal_bluetooth);
 
+# The HAL toggles rfkill to power the chip off/on.
+allow hal_bluetooth self:capability net_admin;
+
 # bluetooth factory file accesses.
 r_dir_file(hal_bluetooth, bluetooth_efs_file)
 
