@@ -49,3 +49,15 @@ allow masquerade kernel:system module_request;
 allow masquerade dalvikcache_data_file:file { setattr write };
 allow masquerade system_data_file:dir { add_name create rmdir remove_name setattr write };
 allow masquerade system_data_file:file { create getattr setattr unlink write read };
+
+# Allow handling of theme assets
+allow masquerade theme_data_file:dir { add_name create remove_name setattr write rmdir };
+allow masquerade theme_data_file:file { create setattr write unlink };
+
+# Modify system properties
+allow masquerade init:unix_stream_socket connectto;
+allow masquerade mount_service:service_manager find;
+allow masquerade property_socket:sock_file write;
+allow masquerade system_prop:property_service set;
+allow masquerade connectivity_service:service_manager find;
+allow masquerade display_service:service_manager find;
