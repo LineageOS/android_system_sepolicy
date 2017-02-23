@@ -1,5 +1,5 @@
 type hal_keymaster_default, domain;
-hal_impl_domain(hal_keymaster_default, hal_keymaster)
+hal_server_domain(hal_keymaster_default, hal_keymaster)
 
 type hal_keymaster_default_exec, exec_type, file_type;
 init_daemon_domain(hal_keymaster_default)

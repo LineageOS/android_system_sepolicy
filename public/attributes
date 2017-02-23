@@ -150,6 +150,8 @@ attribute hal_graphics_composer;
 attribute hal_health;
 attribute hal_ir;
 attribute hal_keymaster;
+attribute hal_keymaster_client;
+attribute hal_keymaster_server;
 attribute hal_light;
 attribute hal_memtrack;
 attribute hal_nfc;
