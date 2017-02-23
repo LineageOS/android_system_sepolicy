@@ -15,8 +15,6 @@ allow storaged proc_uid_io_stats:file r_file_perms;
 # Read /data/system/packages.list
 allow storaged system_data_file:file r_file_perms;
 
-allow storaged self:capability { setgid setuid sys_nice sys_ptrace };
-
 userdebug_or_eng(`
   # Read access to debugfs
   allow storaged debugfs_mmc:dir search;
@@ -33,7 +31,12 @@ binder_call(storaged, system_server)
 allow storaged batteryproperties_service:service_manager find;
 binder_call(storaged, healthd)
 
+# Kernel does extra check on CAP_DAC_OVERRIDE for libbinder when storaged is
+# running as root. See b/35323867 #3.
+dontaudit storaged self:capability dac_override;
+
 ###
 ### neverallow
 ###
 neverallow storaged domain:process ptrace;
+neverallow storaged self:capability_class_set *;
