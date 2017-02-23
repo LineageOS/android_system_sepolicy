@@ -27,7 +27,6 @@ allow vold shell_exec:file rx_file_perms;
 
 typeattribute vold mlstrustedsubject;
 allow vold self:process setfscreate;
-allow vold system_file:dir r_dir_perms;
 allow vold system_file:file x_file_perms;
 allow vold block_device:dir create_dir_perms;
 allow vold device:dir write;
@@ -87,8 +86,6 @@ allow vold fsck_exec:file { r_file_perms execute };
 allow vold fscklogs:dir rw_dir_perms;
 allow vold fscklogs:file create_file_perms;
 
-allow vold ion_device:chr_file r_file_perms;
-
 #
 # Rules to support encrypted fs support.
 #
@@ -131,9 +128,7 @@ binder_use(vold)
 binder_call(vold, healthd)
 
 # talk to keymaster
-binder_call(vold, hwservicemanager)
-binder_call(vold, hal_keymaster)
-allow vold tee_device:chr_file rw_file_perms;
+hal_client_domain(vold, hal_keymaster)
 
 # Access userdata block device.
 allow vold userdata_block_device:blk_file rw_file_perms;
