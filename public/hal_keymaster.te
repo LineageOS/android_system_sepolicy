@@ -1,5 +1,5 @@
-# hwbinder access
-hwbinder_use(hal_keymaster)
+# HwBinder IPC from client to server
+binder_call(hal_keymaster_client, hal_keymaster_server)
 
 allow hal_keymaster tee_device:chr_file rw_file_perms;
 allow hal_keymaster tee:unix_stream_socket connectto;
