@@ -26,6 +26,8 @@ genfscon proc /sys/kernel/randomize_va_space u:object_r:proc_security:s0
 genfscon proc /sys/kernel/usermodehelper u:object_r:usermodehelper:s0
 genfscon proc /sys/net u:object_r:proc_net:s0
 genfscon proc /sys/vm/mmap_min_addr u:object_r:proc_security:s0
+genfscon proc /sys/vm/mmap_rnd_bits u:object_r:proc_security:s0
+genfscon proc /sys/vm/mmap_rnd_compat_bits u:object_r:proc_security:s0
 genfscon proc /sys/vm/drop_caches u:object_r:proc_drop_caches:s0
 genfscon proc /sys/vm/overcommit_memory u:object_r:proc_overcommit_memory:s0
 genfscon proc /timer_list u:object_r:proc_timer:s0
