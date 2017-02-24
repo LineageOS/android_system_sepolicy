@@ -90,3 +90,8 @@ neverallow * kernel:process { transition dyntransition };
 # - You are running an exploit which switched to the init task credentials
 #   and is then trying to exec a shell or other program.  You lose!
 neverallow kernel *:file { entrypoint execute_no_trans };
+
+# the kernel should not be accessing files owned by other users.
+# Instead of adding dac_{read_search,override}, fix the unix permissions
+# on files being accessed.
+neverallow kernel self:capability { dac_override dac_read_search };
