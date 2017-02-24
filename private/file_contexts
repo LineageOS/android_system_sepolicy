@@ -187,7 +187,6 @@
 /system/bin/vold	u:object_r:vold_exec:s0
 /system/bin/netd	u:object_r:netd_exec:s0
 /system/bin/wificond	u:object_r:wificond_exec:s0
-/system/bin/rild	u:object_r:rild_exec:s0
 /system/bin/audioserver	u:object_r:audioserver_exec:s0
 /system/bin/mediadrmserver	u:object_r:mediadrmserver_exec:s0
 /system/bin/mediaserver	u:object_r:mediaserver_exec:s0
