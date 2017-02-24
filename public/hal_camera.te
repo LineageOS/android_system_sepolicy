@@ -13,8 +13,11 @@ allow hal_camera ion_device:chr_file rw_file_perms;
 # Both the client and the server need to use the graphics allocator
 allow { hal_camera_client hal_camera_server } hal_graphics_allocator:fd use;
 
-# Allow hal_camera to use fence FD from surface owned by application
-allow hal_camera appdomain:fd use;
+# Allow fd to be passed between hal_camera related processes
+allow hal_camera { appdomain -isolated_app }:fd use;
+allow { appdomain -isolated_app } hal_camera:fd use;
+allow hal_camera surfaceflinger:fd use;
+allow mediaserver hal_camera:fd use;
 
 ###
 ### neverallow rules
