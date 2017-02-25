@@ -238,10 +238,17 @@ $(plat_policy_nvr): $(plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c $(POLICYVERS) -o $@ $<
 
-$(LOCAL_BUILT_MODULE): $(plat_policy_nvr)
+$(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(plat_policy_nvr)
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(plat_policy_nvr)
 	@mkdir -p $(dir $@)
-	grep -v neverallow $< > $@
+	# Strip out neverallow statements. They aren't needed on-device and their presence
+	# significantly slows down on-device compilation (e.g., from 400 ms to 6,400 ms on
+	# sailfish-eng).
+	grep -v '^(neverallow' $(PRIVATE_CIL_FILES) > $@
+	# Confirm that the resulting policy compiles
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -c $(POLICYVERS) $@ -o /dev/null -f /dev/null
 
+built_plat_cil := $(LOCAL_BUILT_MODULE)
 plat_policy.conf :=
 
 #################################
@@ -269,8 +276,12 @@ mapping_policy_nvr := $(addsuffix /$(BOARD_SEPOLICY_VERS).cil, $(PLAT_PRIVATE_PO
 endif
 
 $(LOCAL_BUILT_MODULE): $(mapping_policy_nvr)
-	grep -v neverallow $< > $@
+	# Strip out neverallow statements. They aren't needed on-device and their presence
+	# significantly slows down on-device compilation (e.g., from 400 ms to 6,400 ms on
+	# sailfish-eng).
+	grep -v '^(neverallow' $< > $@
 
+built_mapping_cil := $(LOCAL_BUILT_MODULE)
 current_mapping.cil :=
 
 #################################
@@ -321,9 +332,18 @@ $(HOST_OUT_EXECUTABLES)/version_policy
 	@mkdir -p $(dir $@)
 	$(HOST_OUT_EXECUTABLES)/version_policy -b $< -t $(PRIVATE_TGT_POL) -n $(PRIVATE_VERS) -o $@
 
-$(LOCAL_BUILT_MODULE): $(nonplat_policy_nvr)
+$(LOCAL_BUILT_MODULE): PRIVATE_NONPLAT_CIL_FILES := $(nonplat_policy_nvr)
+$(LOCAL_BUILT_MODULE): PRIVATE_DEP_CIL_FILES := $(built_plat_cil) $(built_mapping_cil)
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(nonplat_policy_nvr) $(built_plat_cil) \
+$(built_mapping_cil)
 	@mkdir -p $(dir $@)
-	grep -v neverallow $< > $@
+	# Strip out neverallow statements. They aren't needed on-device and their presence
+	# significantly slows down on-device compilation (e.g., from 400 ms to 6,400 ms on
+	# sailfish-eng).
+	grep -v '^(neverallow' $(PRIVATE_NONPLAT_CIL_FILES) > $@
+	# Confirm that the resulting policy compiles combined with platform and mapping policies
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -c $(POLICYVERS) \
+		$(PRIVATE_DEP_CIL_FILES) $@ -o /dev/null -f /dev/null
 
 nonplat_policy.conf :=
 nonplat_policy_raw :=
@@ -421,10 +441,17 @@ $(plat_policy_nvr.recovery): $(plat_policy.recovery.conf) $(HOST_OUT_EXECUTABLES
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c $(POLICYVERS) -o $@ $<
 
-$(LOCAL_BUILT_MODULE): $(plat_policy_nvr.recovery)
+$(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(plat_policy_nvr.recovery)
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(plat_policy_nvr.recovery)
 	@mkdir -p $(dir $@)
-	grep -v neverallow $< > $@
+	# Strip out neverallow statements. They aren't needed on-device and their presence
+	# significantly slows down on-device compilation (e.g., from 400 ms to 6,400 ms on
+	# sailfish-eng).
+	grep -v '^(neverallow' $(PRIVATE_CIL_FILES) > $@
+	# Confirm that the resulting policy compiles
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -c $(POLICYVERS) $@ -o /dev/null -f /dev/null
 
+built_plat_cil.recovery := $(LOCAL_BUILT_MODULE)
 plat_policy.recovery.conf :=
 
 #################################
@@ -453,8 +480,12 @@ $(PLAT_PRIVATE_POLICY)/mapping)
 endif
 
 $(LOCAL_BUILT_MODULE): $(mapping_policy_nvr.recovery)
-	grep -v neverallow $< > $@
+	# Strip out neverallow statements. They aren't needed on-device and their presence
+	# significantly slows down on-device compilation (e.g., from 400 ms to 6,400 ms on
+	# sailfish-eng).
+	grep -v '^(neverallow' $< > $@
 
+built_mapping_cil.recovery := $(LOCAL_BUILT_MODULE)
 current_mapping.recovery.cil :=
 
 #################################
@@ -467,6 +498,12 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
+# nonplat_policy.recovery.conf - A combination of the non-platform private,
+# vendor and the exported platform policy associated with the version the
+# non-platform policy targets.  This needs attributization and to be combined
+# with the platform-provided policy.  Like plat_pub_policy.recovery.conf, this
+# needs to make use of the reqd_policy_mask files from private policy in order
+# to use checkpolicy.
 nonplat_policy.recovery.conf := $(intermediates)/nonplat_policy.recovery.conf
 $(nonplat_policy.recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(nonplat_policy.recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
@@ -501,9 +538,19 @@ $(HOST_OUT_EXECUTABLES)/version_policy
 	@mkdir -p $(dir $@)
 	$(HOST_OUT_EXECUTABLES)/version_policy -b $< -t $(PRIVATE_TGT_POL) -n $(PRIVATE_VERS) -o $@
 
-$(LOCAL_BUILT_MODULE): $(nonplat_policy_nvr.recovery)
+$(LOCAL_BUILT_MODULE): PRIVATE_NONPLAT_CIL_FILES := $(nonplat_policy_nvr.recovery)
+$(LOCAL_BUILT_MODULE): PRIVATE_DEP_CIL_FILES := $(built_plat_cil.recovery) \
+$(built_mapping_cil.recovery)
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(nonplat_policy_nvr.recovery) \
+$(built_plat_cil.recovery) $(built_mapping_cil.recovery)
 	@mkdir -p $(dir $@)
-	grep -v neverallow $< > $@
+	# Strip out neverallow statements. They aren't needed on-device and their presence
+	# significantly slows down on-device compilation (e.g., from 400 ms to 6,400 ms on
+	# sailfish-eng).
+	grep -v '^(neverallow' $(PRIVATE_NONPLAT_CIL_FILES) > $@
+	# Confirm that the resulting policy compiles combined with platform and mapping policies
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -c $(POLICYVERS) \
+		$(PRIVATE_DEP_CIL_FILES) $@ -o /dev/null -f /dev/null
 
 nonplat_policy.recovery.conf :=
 nonplat_policy_raw.recovery :=
@@ -975,6 +1022,10 @@ built_nonplat_fc :=
 built_general_sepolicy :=
 built_general_sepolicy.conf :=
 built_nl :=
+built_plat_cil :=
+built_plat_cil.recovery :=
+built_mapping_cil :=
+built_mapping_cil.recovery :=
 built_plat_pc :=
 built_nonplat_pc :=
 built_nonplat_sc :=
