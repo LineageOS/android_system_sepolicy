@@ -39,7 +39,7 @@ allow priv_app recovery_service:service_manager find;
 
 # Traverse into /mnt/media_rw for bypassing FUSE daemon
 # TODO: narrow this to just MediaProvider
-allow priv_app mnt_media_rw_file:dir search;
+allow priv_app mnt_media_rw_file:dir { getattr search };
 
 # Write to /cache.
 allow priv_app { cache_file cache_recovery_file }:dir create_dir_perms;
