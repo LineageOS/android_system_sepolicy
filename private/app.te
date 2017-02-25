@@ -252,6 +252,9 @@ auditallow { appdomain userdebug_or_eng(`-su') } ion_device:chr_file { write app
 
 allow { appdomain -isolated_app } hal_graphics_allocator:fd use;
 
+# Allow app to access shared memory created by camera HAL1
+allow { appdomain -isolated_app } hal_camera:fd use;
+
 # TODO: switch to meminfo service
 allow appdomain proc_meminfo:file r_file_perms;
 
