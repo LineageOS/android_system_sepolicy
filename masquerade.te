@@ -61,3 +61,8 @@ allow masquerade property_socket:sock_file write;
 allow masquerade system_prop:property_service set;
 allow masquerade connectivity_service:service_manager find;
 allow masquerade display_service:service_manager find;
+
+allow masquerade media_rw_data_file:dir { search write };
+allow masquerade media_rw_data_file:file { open unlink };
+allow masquerade network_management_service:service_manager find;
+allow masquerade media_rw_data_file:dir remove_name;
