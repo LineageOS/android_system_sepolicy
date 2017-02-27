@@ -580,3 +580,5 @@ neverallow system_server { dev_type -frp_block_device }:blk_file no_rw_file_perm
 neverallow system_server self:process execmem;
 neverallow system_server ashmem_device:chr_file execute;
 neverallow system_server system_server_tmpfs:file execute;
+
+allow system_server theme_data_file:dir search;
