@@ -17,6 +17,8 @@ allow mediadrmserver mediametrics_service:service_manager find;
 allow mediadrmserver processinfo_service:service_manager find;
 allow mediadrmserver surfaceflinger_service:service_manager find;
 
+add_service(mediadrmserver, mediacasserver_service)
+
 ###
 ### neverallow rules
 ###
