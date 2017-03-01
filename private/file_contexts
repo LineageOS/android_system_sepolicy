@@ -315,6 +315,7 @@
 /data/misc/logd(/.*)?           u:object_r:misc_logd_file:s0
 /data/misc/media(/.*)?          u:object_r:media_data_file:s0
 /data/misc/net(/.*)?            u:object_r:net_data_file:s0
+/data/misc/reboot(/.*)?         u:object_r:reboot_data_file:s0
 /data/misc/recovery(/.*)?       u:object_r:recovery_data_file:s0
 /data/misc/shared_relro(/.*)?   u:object_r:shared_relro_file:s0
 /data/misc/sms(/.*)?            u:object_r:radio_data_file:s0
