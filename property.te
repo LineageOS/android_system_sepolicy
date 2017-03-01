@@ -38,5 +38,6 @@ type dalvik_prop, property_type, core_property_type;
 type config_prop, property_type, core_property_type;
 type device_logging_prop, property_type;
 type safemode_prop, property_type;
+type theme_prop, property_type;
 
 allow property_type tmpfs:filesystem associate;

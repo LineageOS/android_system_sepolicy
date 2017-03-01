@@ -351,6 +351,9 @@ set_prop(system_server, ctl_bugreport_prop)
 # cppreopt property
 set_prop(system_server, cppreopt_prop)
 
+# theme property
+get_prop(system_server, theme_prop)
+
 # Create a socket for receiving info from wpa.
 type_transition system_server wifi_data_file:sock_file system_wpa_socket;
 type_transition system_server wpa_socket:sock_file system_wpa_socket;
@@ -529,6 +532,9 @@ allow system_server media_rw_data_file:dir search;
 # Allow invoking tools like "timeout"
 allow system_server toolbox_exec:file rx_file_perms;
 
+# Allow `search` in theme_data_file directory
+allow system_server theme_data_file:dir search;
+
 # Postinstall
 #
 # For OTA dexopt, allow calls coming from postinstall.
@@ -580,5 +586,3 @@ neverallow system_server { dev_type -frp_block_device }:blk_file no_rw_file_perm
 neverallow system_server self:process execmem;
 neverallow system_server ashmem_device:chr_file execute;
 neverallow system_server system_server_tmpfs:file execute;
-
-allow system_server theme_data_file:dir search;
