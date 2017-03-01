@@ -1,0 +1,2 @@
+#Allow sensor hals to access ashmem memory allocated by apps
+allow hal_sensors {appdomain - isolated_app}:fd use;
