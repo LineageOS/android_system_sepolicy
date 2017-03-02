@@ -84,6 +84,8 @@ ro.crypto.              u:object_r:vold_prop:s0
 # set at runtime by system_server.
 ro.build.fingerprint    u:object_r:fingerprint_prop:s0
 
+ro.persistent_properties.ready  u:object_r:persistent_properties_ready_prop:s0
+
 # ctl properties
 ctl.bootanim            u:object_r:ctl_bootanim_prop:s0
 ctl.dumpstate           u:object_r:ctl_dumpstate_prop:s0
