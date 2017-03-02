@@ -20,8 +20,7 @@ allow ephemeral_app { sdcard_type media_rw_data_file }:file {read write getattr 
 # services
 allow ephemeral_app surfaceflinger_service:service_manager find;
 allow ephemeral_app radio_service:service_manager find;
-# TODO: Replace app_api_service with a smaller ephemeral_api_service
-allow ephemeral_app app_api_service:service_manager find;
+allow ephemeral_app ephemeral_app_api_service:service_manager find;
 
 ###
 ### neverallow rules
