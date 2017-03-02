@@ -76,6 +76,9 @@ attribute system_server_service;
 # services which should be available to all but isolated apps
 attribute app_api_service;
 
+# services which should be available to all ephemeral apps
+attribute ephemeral_app_api_service;
+
 # services which export only system_api
 attribute system_api_service;
 
