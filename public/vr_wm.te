@@ -20,6 +20,9 @@ allow vr_wm system_file:dir r_dir_perms;
 allow vr_wm gpu_device:chr_file rw_file_perms;
 allow vr_wm ion_device:chr_file r_file_perms;
 
+# Get buffer metadata.
+allow vr_wm hal_graphics_allocator:fd use;
+
 use_pdx(vr_wm, bufferhubd)
 use_pdx(vr_wm, sensord)
 use_pdx(vr_wm, surfaceflinger)
