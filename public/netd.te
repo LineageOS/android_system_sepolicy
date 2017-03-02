@@ -80,6 +80,9 @@ allow netd netdomain:{
 } { read write getattr setattr getopt setopt };
 allow netd netdomain:fd use;
 
+# give netd permission to read and write netlink xfrm
+allow netd self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_write nlmsg_read };
+
 ###
 ### Neverallow rules
 ###
