@@ -16,6 +16,7 @@ type proc_cpuinfo, fs_type;
 type proc_interrupts, fs_type;
 type proc_iomem, fs_type;
 type proc_meminfo, fs_type;
+type proc_misc, fs_type;
 type proc_net, fs_type;
 type proc_stat, fs_type;
 type proc_sysrq, fs_type;
