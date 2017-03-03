@@ -33,7 +33,10 @@ allow update_engine_common shell_exec:file rx_file_perms;
 allow update_engine_common postinstall:process { signal sigstop };
 
 # access /proc/misc
-allow update_engine proc:file r_file_perms;
+# Access is also granted to proc:file, but it is likely unneeded
+# due to the more specific grant to proc_misc immediately below.
+allow update_engine proc:file r_file_perms; # delete candidate
+allow update_engine proc_misc:file r_file_perms;
 
 # read directories on /system and /vendor
 allow update_engine system_file:dir r_dir_perms;
