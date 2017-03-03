@@ -6,6 +6,7 @@ genfscon proc /config.gz u:object_r:config_gz:s0
 genfscon proc /interrupts u:object_r:proc_interrupts:s0
 genfscon proc /iomem u:object_r:proc_iomem:s0
 genfscon proc /meminfo u:object_r:proc_meminfo:s0
+genfscon proc /misc u:object_r:proc_misc:s0
 genfscon proc /net u:object_r:proc_net:s0
 genfscon proc /net/xt_qtaguid/ctrl u:object_r:qtaguid_proc:s0
 genfscon proc /cpuinfo u:object_r:proc_cpuinfo:s0
