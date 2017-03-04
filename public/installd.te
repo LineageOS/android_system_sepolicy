@@ -104,8 +104,6 @@ allow installd user_profile_data_file:dir create_dir_perms;
 allow installd user_profile_data_file:file create_file_perms;
 allow installd user_profile_data_file:dir rmdir;
 allow installd user_profile_data_file:file unlink;
-allow installd user_profile_foreign_dex_data_file:dir { add_name getattr rmdir open read write search remove_name };
-allow installd user_profile_foreign_dex_data_file:file { getattr rename unlink };
 
 # Files created/updated by profman dumps.
 allow installd profman_dump_data_file:dir { search add_name write };

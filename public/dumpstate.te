@@ -155,8 +155,6 @@ allow dumpstate recovery_data_file:file r_file_perms;
 userdebug_or_eng(`
   allow dumpstate user_profile_data_file:dir r_dir_perms;
   allow dumpstate user_profile_data_file:file r_file_perms;
-  allow dumpstate user_profile_foreign_dex_data_file:dir r_dir_perms;
-  allow dumpstate user_profile_foreign_dex_data_file:file r_file_perms;
 ')
 
 # Access /data/misc/logd

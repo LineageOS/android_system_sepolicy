@@ -81,7 +81,6 @@ neverallow all_untrusted_apps {
   -media_rw_data_file       # Internal storage. Known that apps can
                             # leave artfacts here after uninstall.
   -user_profile_data_file   # Access to profile files
-  -user_profile_foreign_dex_data_file   # Access to profile files
   userdebug_or_eng(`
     -method_trace_data_file # only on ro.debuggable=1
     -coredump_file          # userdebug/eng only
