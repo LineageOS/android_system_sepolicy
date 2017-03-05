@@ -438,7 +438,7 @@ allow system_server batteryproperties_service:service_manager find;
 allow system_server keystore_service:service_manager find;
 allow system_server gatekeeper_service:service_manager find;
 allow system_server fingerprintd_service:service_manager find;
-allow system_server masquerade_service:service_manager find;
+allow system_server interfacer_service:service_manager find;
 allow system_server mediaserver_service:service_manager find;
 allow system_server mediaextractor_service:service_manager find;
 allow system_server mediacodec_service:service_manager find;

@@ -57,6 +57,7 @@ iphonesubinfo2                            u:object_r:radio_service:s0
 iphonesubinfo                             u:object_r:radio_service:s0
 ims                                       u:object_r:radio_service:s0
 imms                                      u:object_r:imms_service:s0
+interfacer                                u:object_r:interfacer_service:s0
 isms_msim                                 u:object_r:radio_service:s0
 isms2                                     u:object_r:radio_service:s0
 isms                                      u:object_r:radio_service:s0
@@ -65,7 +66,6 @@ jobscheduler                              u:object_r:jobscheduler_service:s0
 launcherapps                              u:object_r:launcherapps_service:s0
 location                                  u:object_r:location_service:s0
 lock_settings                             u:object_r:lock_settings_service:s0
-masquerade                                u:object_r:masquerade_service:s0
 media.audio_flinger                       u:object_r:audioserver_service:s0
 media.audio_policy                        u:object_r:audioserver_service:s0
 media.camera                              u:object_r:cameraserver_service:s0
