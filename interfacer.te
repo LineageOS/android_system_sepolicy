@@ -1,0 +1,63 @@
+#
+# Theme Interfacer needs additional permissions when not running with system_server
+# projekt.interfacer.
+#
+#
+type interfacer, domain;
+
+# Add Theme Interfacer to domains
+net_domain(interfacer)
+app_domain(interfacer)
+binder_service(interfacer)
+
+# Modify system dalvik-cache
+allow interfacer dalvikcache_data_file:dir r_dir_perms;
+allow interfacer dalvikcache_data_file:file rw_file_perms;
+
+# Read and write /data/data subdirectory.
+allow interfacer system_app_data_file:dir create_dir_perms;
+allow interfacer system_app_data_file:{ file lnk_file } create_file_perms;
+
+# /data/resource-cache
+r_dir_file(interfacer, resourcecache_data_file)
+
+# Read wallpaper file.
+allow interfacer wallpaper_file:file r_file_perms;
+
+# Read icon file.
+allow interfacer icon_file:file r_file_perms;
+
+# Set bootanimation
+allow interfacer bootanim:process { getsched setsched };
+
+# Backup of wallpaper imagery uses temporary hard links to avoid data churn
+allow interfacer { system_data_file wallpaper_file }:file link;
+
+# Manage ringtones.
+allow interfacer ringtone_file:dir { create_dir_perms relabelto };
+allow interfacer ringtone_file:file create_file_perms;
+
+# System file accesses.
+allow interfacer kernel:system module_request;
+allow interfacer system_data_file:dir create_dir_perms;
+allow interfacer system_data_file:file create_file_perms;
+allow interfacer system_file:dir { r_dir_perms rmdir };
+
+# Allow handling of theme assets
+allow interfacer theme_data_file:dir create_dir_perms;
+allow interfacer theme_data_file:file create_file_perms;
+
+# Modify system properties
+set_prop(interfacer, theme_prop)
+
+# Edit files in /sdcard
+allow interfacer media_rw_data_file:dir rw_dir_perms;
+allow interfacer media_rw_data_file:file rw_file_perms;
+
+# Services
+allow interfacer activity_service:service_manager find;
+allow interfacer connectivity_service:service_manager find;
+allow interfacer display_service:service_manager find;
+allow interfacer mount_service:service_manager find;
+allow interfacer network_management_service:service_manager find;
+allow interfacer overlay_service:service_manager find;
