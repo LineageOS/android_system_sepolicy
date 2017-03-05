@@ -35,3 +35,10 @@ get_prop(untrusted_app_25, net_dns_prop)
 # b/35917228 - /proc/misc access
 # This will go away in a future Android release
 allow untrusted_app_25 proc_misc:file r_file_perms;
+
+# Access to /proc/tty/drivers, to allow apps to determine if they
+# are running in an emulated environment.
+# b/33214085 b/33814662 b/33791054 b/33211769
+# https://github.com/strazzere/anti-emulator/blob/master/AntiEmulator/src/diff/strazzere/anti/emulator/FindEmulator.java
+# This will go away in a future Android release
+allow untrusted_app_25 proc_tty_drivers:file r_file_perms;
