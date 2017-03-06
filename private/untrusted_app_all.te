@@ -17,18 +17,15 @@
 ### seapp_contexts.
 ###
 
-# Legacy text relocations
-allow untrusted_app_all apk_data_file:file execmod;
-
 # Some apps ship with shared libraries and binaries that they write out
 # to their sandbox directory and then execute.
-allow untrusted_app_all app_data_file:file { rx_file_perms execmod };
+allow untrusted_app_all app_data_file:file rx_file_perms;
 
 # ASEC
 allow untrusted_app_all asec_apk_file:file r_file_perms;
 allow untrusted_app_all asec_apk_file:dir r_dir_perms;
 # Execute libs in asec containers.
-allow untrusted_app_all asec_public_file:file { execute execmod };
+allow untrusted_app_all asec_public_file:file execute;
 
 # Used by Finsky / Android "Verify Apps" functionality when
 # running "adb install foo.apk".
