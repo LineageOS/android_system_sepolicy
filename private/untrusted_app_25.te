@@ -42,3 +42,6 @@ allow untrusted_app_25 proc_misc:file r_file_perms;
 # https://github.com/strazzere/anti-emulator/blob/master/AntiEmulator/src/diff/strazzere/anti/emulator/FindEmulator.java
 # This will go away in a future Android release
 allow untrusted_app_25 proc_tty_drivers:file r_file_perms;
+
+# Legacy text relocations
+allow untrusted_app_25 { apk_data_file app_data_file asec_public_file }:file execmod;
