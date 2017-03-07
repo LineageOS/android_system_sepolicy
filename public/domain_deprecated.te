@@ -228,7 +228,6 @@ auditallow {
   -tee
   -ueventd
   -vold
-  -wpa
 } sysfs:dir { open getattr read ioctl lock }; # search granted in domain
 auditallow {
   domain_deprecated
@@ -243,7 +242,6 @@ auditallow {
   -tee
   -ueventd
   -vold
-  -wpa
 } sysfs:file r_file_perms;
 auditallow {
   domain_deprecated
@@ -258,7 +256,6 @@ auditallow {
   -tee
   -ueventd
   -vold
-  -wpa
 } sysfs:lnk_file { getattr open ioctl lock }; # read granted in domain
 auditallow {
   domain_deprecated
