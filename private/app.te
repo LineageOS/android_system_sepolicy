@@ -121,13 +121,6 @@ allow appdomain shell_data_file:file { write getattr };
 # Write profiles /data/misc/profiles
 allow appdomain user_profile_data_file:dir { search write add_name };
 allow appdomain user_profile_data_file:file create_file_perms;
-# Profiles for foreign dex files are just markers and only need create permissions.
-allow appdomain user_profile_foreign_dex_data_file:dir { search write add_name };
-allow appdomain user_profile_foreign_dex_data_file:file create;
-# There is no way to create user_profile_foreign_dex_data_file without
-# generating open/read denials. These permissions should not be granted and the
-# denial is harmless. dontaudit to suppress the denial.
-dontaudit appdomain user_profile_foreign_dex_data_file:file { open read };
 
 # Send heap dumps to system_server via an already open file descriptor
 # % adb shell am set-watch-heap com.android.systemui 1048576
@@ -470,10 +463,6 @@ neverallow {
   -system_data_file # shared libs in apks
   -apk_data_file
 }:file no_x_file_perms;
-
-# Foreign dex profiles are just markers. Prevent apps to do anything but touch them.
-neverallow appdomain user_profile_foreign_dex_data_file:file rw_file_perms;
-neverallow appdomain user_profile_foreign_dex_data_file:dir { open getattr read ioctl remove_name };
 
 # Applications should use the activity model for receiving events
 neverallow {
