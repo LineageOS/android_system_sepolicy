@@ -158,7 +158,8 @@ unix_socket_connect(system_server, vold, vold)
 unix_socket_connect(system_server, webview_zygote, webview_zygote)
 unix_socket_connect(system_server, zygote, zygote)
 unix_socket_connect(system_server, racoon, racoon)
-unix_socket_send(system_server, wpa, wpa)
+# TODO(b/35707797): Remove this socket access.
+unix_socket_send(system_server, wpa, hal_wifi_supplicant_server)
 unix_socket_connect(system_server, uncrypt, uncrypt)
 
 # Communicate over a socket created by surfaceflinger.
@@ -194,7 +195,7 @@ binder_call(system_server, hal_usb)
 binder_call(system_server, hal_vibrator)
 binder_call(system_server, hal_vr)
 hal_client_domain(system_server, hal_wifi)
-binder_call(system_server, wpa)
+hal_client_domain(system_server, hal_wifi_supplicant)
 
 # Talk to tombstoned to get ANR traces.
 unix_socket_connect(system_server, tombstoned_intercept, tombstoned)
