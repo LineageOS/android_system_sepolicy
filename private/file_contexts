@@ -335,7 +335,6 @@
 # TODO(calin) label profile reference differently so that only
 # profman run as a special user can write to them
 /data/misc/profiles/cur(/.*)?       u:object_r:user_profile_data_file:s0
-/data/misc/profiles/cur/[0-9]+/foreign-dex(/.*)? u:object_r:user_profile_foreign_dex_data_file:s0
 /data/misc/profiles/ref(/.*)?       u:object_r:user_profile_data_file:s0
 /data/misc/profman(/.*)?        u:object_r:profman_dump_data_file:s0
 
