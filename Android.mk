@@ -793,12 +793,15 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 include $(BUILD_SYSTEM)/base_rules.mk
 
 nonplat_sc_files := $(call build_policy, seapp_contexts, $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+plat_sc_neverallow_files := $(addprefix $(PLAT_PRIVATE_POLICY)/, seapp_contexts)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): PRIVATE_SC_FILES := $(nonplat_sc_files)
-$(LOCAL_BUILT_MODULE): $(built_sepolicy) $(nonplat_sc_files) $(HOST_OUT_EXECUTABLES)/checkseapp
+$(LOCAL_BUILT_MODULE): PRIVATE_SC_NEVERALLOW_FILES := $(plat_sc_neverallow_files)
+$(LOCAL_BUILT_MODULE): $(built_sepolicy) $(nonplat_sc_files) $(HOST_OUT_EXECUTABLES)/checkseapp $(plat_sc_neverallow_files)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $(PRIVATE_SC_FILES)
+	$(hide) grep -ie '^neverallow' $(PRIVATE_SC_NEVERALLOW_FILES) > plat_seapp_neverallows.tmp
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $(PRIVATE_SC_FILES) plat_seapp_neverallows.tmp
 
 built_nonplat_sc := $(LOCAL_BUILT_MODULE)
 nonplat_sc_files :=
@@ -811,10 +814,11 @@ LOCAL_MODULE_TAGS := tests
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-$(LOCAL_BUILT_MODULE): $(addprefix $(PLAT_PRIVATE_POLICY)/, seapp_contexts)
+$(LOCAL_BUILT_MODULE): $(plat_sc_neverallow_files)
 	@mkdir -p $(dir $@)
 	- $(hide) grep -ie '^neverallow' $< > $@
 
+plat_sc_neverallow_files :=
 
 ##################################
 include $(CLEAR_VARS)
