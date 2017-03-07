@@ -168,3 +168,6 @@ attribute hal_vr;
 attribute hal_wifi;
 attribute hal_wifi_client;
 attribute hal_wifi_server;
+attribute hal_wifi_supplicant;
+attribute hal_wifi_supplicant_client;
+attribute hal_wifi_supplicant_server;
