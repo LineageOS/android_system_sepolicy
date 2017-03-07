@@ -118,6 +118,9 @@ allow domain proc_cpuinfo:file r_file_perms;
 # jemalloc needs to read /proc/sys/vm/overcommit_memory
 allow domain proc_overcommit_memory:file r_file_perms;
 
+# profiling needs to read /proc/sys/kernel/perf_event_max_sample_rate
+allow domain proc_perf:file r_file_perms;
+
 # toybox loads libselinux which stats /sys/fs/selinux/
 allow domain selinuxfs:dir search;
 allow domain selinuxfs:file getattr;
