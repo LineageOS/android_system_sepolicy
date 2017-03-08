@@ -254,6 +254,19 @@ plat_policy.conf :=
 #################################
 include $(CLEAR_VARS)
 
+LOCAL_MODULE := plat_sepolicy.cil.sha256
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH = $(TARGET_OUT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_plat_cil)
+	sha256sum $^ | cut -d' ' -f1 > $@
+
+#################################
+include $(CLEAR_VARS)
+
 LOCAL_MODULE := mapping_sepolicy.cil
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
@@ -347,8 +360,45 @@ $(built_mapping_cil)
 	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -c $(POLICYVERS) \
 		$(PRIVATE_DEP_CIL_FILES) $@ -o /dev/null -f /dev/null
 
+built_nonplat_cil := $(LOCAL_BUILT_MODULE)
 nonplat_policy.conf :=
 nonplat_policy_raw :=
+
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := precompiled_sepolicy
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_PROPRIETARY_MODULE := true
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := \
+$(built_plat_cil) $(built_mapping_cil) $(built_nonplat_cil)
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc \
+$(built_plat_cil) $(built_mapping_cil) $(built_nonplat_cil)
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -c $(POLICYVERS) \
+		$(PRIVATE_CIL_FILES) -o $@ -f /dev/null
+
+built_precompiled_sepolicy := $(LOCAL_BUILT_MODULE)
+
+#################################
+# SHA-256 digest of the plat_sepolicy.cil file against which precompiled_policy was built.
+#################################
+include $(CLEAR_VARS)
+LOCAL_MODULE := precompiled_sepolicy.plat.sha256
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_PROPRIETARY_MODULE := true
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILE := $(built_plat_cil)
+$(LOCAL_BUILT_MODULE): $(built_precompiled_sepolicy) $(built_plat_cil)
+	sha256sum $(PRIVATE_CIL_FILE) | cut -d' ' -f1 > $@
 
 #################################
 include $(CLEAR_VARS)
@@ -1033,9 +1083,11 @@ built_plat_cil.recovery :=
 built_mapping_cil :=
 built_mapping_cil.recovery :=
 built_plat_pc :=
+built_nonplat_cil :=
 built_nonplat_pc :=
 built_nonplat_sc :=
 built_plat_sc :=
+built_precompiled_sepolicy :=
 built_sepolicy :=
 built_plat_svc :=
 built_nonplat_svc :=
