@@ -452,8 +452,17 @@ neverallow {
   -crash_dump
   -dumpstate
   -system_server
+
+  # Processes that can't exec crash_dump
+  -mediacodec
+  -mediaextractor
 } tombstoned:unix_stream_socket connectto;
-neverallow { domain -crash_dump } tombstoned_crash_socket:sock_file write;
+neverallow {
+  domain
+  -crash_dump
+  -mediacodec
+  -mediaextractor
+} tombstoned_crash_socket:sock_file write;
 neverallow { domain -dumpstate -system_server } tombstoned_intercept_socket:sock_file write;
 
 # Android does not support System V IPCs.
