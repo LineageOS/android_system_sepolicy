@@ -433,7 +433,18 @@ $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(HOST_OUT_EXECUTABLES)/se
 built_sepolicy := $(LOCAL_BUILT_MODULE)
 all_cil_files :=
 
-##################################
+#################################
+include $(CLEAR_VARS)
+
+# keep concrete sepolicy for neverallow checks
+
+LOCAL_MODULE := sepolicy.recovery
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
 plat_pub_policy.recovery.conf := $(intermediates)/plat_pub_policy.recovery.conf
 $(plat_pub_policy.recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(plat_pub_policy.recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
@@ -461,16 +472,6 @@ $(plat_pub_policy.recovery.conf) $(reqd_policy_mask.cil)
 
 plat_pub_policy.recovery.conf :=
 
-#################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := plat_sepolicy.recovery.cil
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
 plat_policy.recovery.conf := $(intermediates)/plat_policy.recovery.conf
 $(plat_policy.recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(plat_policy.recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
@@ -493,28 +494,7 @@ $(plat_policy_nvr.recovery): $(plat_policy.recovery.conf) $(HOST_OUT_EXECUTABLES
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c $(POLICYVERS) -o $@ $<
 
-$(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(plat_policy_nvr.recovery)
-$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(plat_policy_nvr.recovery)
-	@mkdir -p $(dir $@)
-	# Strip out neverallow statements. They aren't needed on-device and their presence
-	# significantly slows down on-device compilation (e.g., from 400 ms to 6,400 ms on
-	# sailfish-eng).
-	grep -v '^(neverallow' $(PRIVATE_CIL_FILES) > $@
-	# Confirm that the resulting policy compiles
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -c $(POLICYVERS) $@ -o /dev/null -f /dev/null
-
-built_plat_cil.recovery := $(LOCAL_BUILT_MODULE)
 plat_policy.recovery.conf :=
-
-#################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := mapping_sepolicy.recovery.cil
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-
-include $(BUILD_SYSTEM)/base_rules.mk
 
 # auto-generate the mapping file for current platform policy, since it needs to
 # track platform policy development
@@ -531,24 +511,7 @@ mapping_policy_nvr.recovery := $(addsuffix /$(BOARD_SEPOLICY_VERS).recovery.cil,
 $(PLAT_PRIVATE_POLICY)/mapping)
 endif
 
-$(LOCAL_BUILT_MODULE): $(mapping_policy_nvr.recovery)
-	# Strip out neverallow statements. They aren't needed on-device and their presence
-	# significantly slows down on-device compilation (e.g., from 400 ms to 6,400 ms on
-	# sailfish-eng).
-	grep -v '^(neverallow' $< > $@
-
-built_mapping_cil.recovery := $(LOCAL_BUILT_MODULE)
 current_mapping.recovery.cil :=
-
-#################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := nonplat_sepolicy.recovery.cil
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-
-include $(BUILD_SYSTEM)/base_rules.mk
 
 # nonplat_policy.recovery.conf - A combination of the non-platform private,
 # vendor and the exported platform policy associated with the version the
@@ -590,34 +553,8 @@ $(HOST_OUT_EXECUTABLES)/version_policy
 	@mkdir -p $(dir $@)
 	$(HOST_OUT_EXECUTABLES)/version_policy -b $< -t $(PRIVATE_TGT_POL) -n $(PRIVATE_VERS) -o $@
 
-$(LOCAL_BUILT_MODULE): PRIVATE_NONPLAT_CIL_FILES := $(nonplat_policy_nvr.recovery)
-$(LOCAL_BUILT_MODULE): PRIVATE_DEP_CIL_FILES := $(built_plat_cil.recovery) \
-$(built_mapping_cil.recovery)
-$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(nonplat_policy_nvr.recovery) \
-$(built_plat_cil.recovery) $(built_mapping_cil.recovery)
-	@mkdir -p $(dir $@)
-	# Strip out neverallow statements. They aren't needed on-device and their presence
-	# significantly slows down on-device compilation (e.g., from 400 ms to 6,400 ms on
-	# sailfish-eng).
-	grep -v '^(neverallow' $(PRIVATE_NONPLAT_CIL_FILES) > $@
-	# Confirm that the resulting policy compiles combined with platform and mapping policies
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -c $(POLICYVERS) \
-		$(PRIVATE_DEP_CIL_FILES) $@ -o /dev/null -f /dev/null
-
 nonplat_policy.recovery.conf :=
 nonplat_policy_raw.recovery :=
-
-##################################
-include $(CLEAR_VARS)
-
-# keep concrete sepolicy for neverallow checks
-
-LOCAL_MODULE := sepolicy.recovery
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-
-include $(BUILD_SYSTEM)/base_rules.mk
 
 all_cil_files.recovery := \
     $(plat_policy_nvr.recovery) \
@@ -639,6 +576,10 @@ $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(HOST_OUT_EXECUTABLES)/se
 	$(hide) mv $@.tmp $@
 
 all_cil_files.recovery :=
+plat_pub_policy.recovery.cil :=
+plat_policy_nvr.recovery :=
+mapping_policy_nvr.recovery :=
+nonplat_policy_nvr.recovery :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -1093,9 +1034,7 @@ built_general_sepolicy :=
 built_general_sepolicy.conf :=
 built_nl :=
 built_plat_cil :=
-built_plat_cil.recovery :=
 built_mapping_cil :=
-built_mapping_cil.recovery :=
 built_plat_pc :=
 built_nonplat_cil :=
 built_nonplat_pc :=
@@ -1106,14 +1045,10 @@ built_sepolicy :=
 built_plat_svc :=
 built_nonplat_svc :=
 mapping_policy_nvr :=
-mapping_policy_nvr.recovery :=
 my_target_arch :=
 nonplat_policy_nvr :=
-nonplat_policy_nvr.recovery :=
 plat_policy_nvr :=
-plat_policy_nvr.recovery :=
 plat_pub_policy.cil :=
-plat_pub_policy.recovery.cil :=
 reqd_policy_mask.cil :=
 sepolicy_build_files :=
 
