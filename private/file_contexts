@@ -217,7 +217,6 @@
 /system/xbin/perfprofd  u:object_r:perfprofd_exec:s0
 /system/bin/dnsmasq     u:object_r:dnsmasq_exec:s0
 /system/bin/healthd     u:object_r:healthd_exec:s0
-/system/bin/hostapd     u:object_r:hostapd_exec:s0
 /system/bin/clatd	u:object_r:clatd_exec:s0
 /system/bin/lmkd        u:object_r:lmkd_exec:s0
 /system/bin/inputflinger u:object_r:inputflinger_exec:s0
@@ -325,7 +324,6 @@
 /data/misc/wifi(/.*)?           u:object_r:wifi_data_file:s0
 /data/misc/wifi/sockets(/.*)?   u:object_r:wpa_socket:s0
 /data/misc/wifi/sockets/wpa_ctrl.*   u:object_r:system_wpa_socket:s0
-/data/misc/wifi/hostapd(/.*)?   u:object_r:hostapd_socket:s0
 /data/misc/zoneinfo(/.*)?       u:object_r:zoneinfo_data_file:s0
 /data/misc/vold(/.*)?           u:object_r:vold_data_file:s0
 /data/misc/perfprofd(/.*)?      u:object_r:perfprofd_data_file:s0
