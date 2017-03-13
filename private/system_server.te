@@ -623,6 +623,12 @@ allow system_server sysfs_leds:dir r_dir_perms;
 allow system_server debugfs_tracing_instances:dir search;
 allow system_server debugfs_wifi_tracing:file rw_file_perms;
 
+# allow system_server to exec shell on ASAN builds. Needed to run
+# asanwrapper.
+with_asan(`
+  allow system_server shell_exec:file rx_file_perms;
+')
+
 ###
 ### Neverallow rules
 ###
@@ -644,7 +650,12 @@ neverallow system_server { bluetooth_data_file nfc_data_file shell_data_file app
 # example, https://www.linuxprogrammingblog.com/threads-and-fork-think-twice-before-using-them
 # Prevent the addition of new file execs to stop the problem from
 # getting worse. b/28035297
-neverallow system_server { file_type -toolbox_exec -logcat_exec }:file execute_no_trans;
+neverallow system_server {
+  file_type
+  -toolbox_exec
+  -logcat_exec
+  with_asan(`-shell_exec')
+}:file execute_no_trans;
 
 # Ensure that system_server doesn't perform any domain transitions other than
 # transitioning to the crash_dump domain when a crash occurs.
