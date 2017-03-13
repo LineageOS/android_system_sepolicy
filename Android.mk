@@ -840,8 +840,12 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := plat_property_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-# TODO: Change module path to TARGET_SYSTEM_OUT after b/27805372
+
+ifeq ($(PRODUCT_FULL_TREBLE),true)
+LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
+else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -871,8 +875,12 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := nonplat_property_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-# TODO: Change module path to TARGET_SYSTEM_OUT after b/27805372
+
+ifeq ($(PRODUCT_FULL_TREBLE),true)
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
+else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
