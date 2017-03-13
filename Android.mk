@@ -439,9 +439,10 @@ include $(CLEAR_VARS)
 # keep concrete sepolicy for neverallow checks
 
 LOCAL_MODULE := sepolicy.recovery
+LOCAL_MODULE_STEM := sepolicy
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -700,6 +701,20 @@ file_contexts.local.tmp :=
 ##################################
 include $(CLEAR_VARS)
 
+LOCAL_MODULE := file_contexts.bin.recovery
+LOCAL_MODULE_STEM := file_contexts.bin
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_fc)
+	$(hide) cp -f $< $@
+
+##################################
+include $(CLEAR_VARS)
+
 LOCAL_MODULE := plat_file_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
@@ -880,6 +895,34 @@ $(LOCAL_BUILT_MODULE): $(nonplat_property_contexts.tmp) $(built_sepolicy) $(HOST
 built_nonplat_pc := $(LOCAL_BUILT_MODULE)
 nonplat_pcfiles :=
 nonplat_property_contexts.tmp :=
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := plat_property_contexts.recovery
+LOCAL_MODULE_STEM := plat_property_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_plat_pc)
+	$(hide) cp -f $< $@
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := nonplat_property_contexts.recovery
+LOCAL_MODULE_STEM := nonplat_property_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_nonplat_pc)
+	$(hide) cp -f $< $@
 
 ##################################
 include $(CLEAR_VARS)
