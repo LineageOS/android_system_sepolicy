@@ -38,3 +38,6 @@ neverallow hal_audio { file_type fs_type }:file execute_no_trans;
 # Should never need network access.
 # Disallow network sockets.
 neverallow hal_audio domain:{ tcp_socket udp_socket rawip_socket } *;
+
+# Only audio HAL may directly access the audio hardware
+neverallow { halserverdomain -hal_audio_server } audio_device:chr_file *;
