@@ -160,6 +160,8 @@ attribute hal_memtrack;
 attribute hal_nfc;
 attribute hal_power;
 attribute hal_sensors;
+attribute hal_sensors_client;
+attribute hal_sensors_server;
 attribute hal_telephony;
 attribute hal_thermal;
 attribute hal_usb;

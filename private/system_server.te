@@ -182,7 +182,7 @@ binder_call(system_server, hal_ir)
 binder_call(system_server, hal_light)
 binder_call(system_server, hal_memtrack)
 binder_call(system_server, hal_power)
-binder_call(system_server, hal_sensors)
+hal_client_domain(system_server, hal_sensors)
 binder_call(system_server, hal_thermal)
 binder_call(system_server, hal_usb)
 binder_call(system_server, hal_vibrator)
@@ -452,9 +452,6 @@ allow system_server cache_private_backup_file:file create_file_perms;
 # Allow system to talk to usb device
 allow system_server usb_device:chr_file rw_file_perms;
 allow system_server usb_device:dir r_dir_perms;
-
-# Allow system to talk to sensors
-allow system_server sensors_device:chr_file rw_file_perms;
 
 # Read from HW RNG (needed by EntropyMixer).
 allow system_server hw_random_device:chr_file r_file_perms;
