@@ -88,6 +88,7 @@ allow untrusted_app_all self:process ptrace;
 allow untrusted_app_all sysfs_hwrandom:dir search;
 allow untrusted_app_all sysfs_hwrandom:file r_file_perms;
 
-# Allow apps to view preloaded content
-allow untrusted_app_all preloads_data_file:dir r_dir_perms;
-allow untrusted_app_all preloads_data_file:file r_file_perms;
+# Allow apps to view preloaded media content
+allow untrusted_app_all preloads_media_file:dir r_dir_perms;
+allow untrusted_app_all preloads_media_file:file r_file_perms;
+allow untrusted_app_all preloads_data_file:dir search;
