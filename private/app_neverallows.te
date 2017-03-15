@@ -97,3 +97,6 @@ neverallow all_untrusted_apps anr_data_file:dir ~search;
 # Avoid reads from generically labeled /proc files
 # Create a more specific label if needed
 neverallow all_untrusted_apps proc:file { no_rw_file_perms no_x_file_perms };
+
+# Do not allow untrusted apps access to preloads data files
+neverallow all_untrusted_apps preloads_data_file:file no_rw_file_perms;

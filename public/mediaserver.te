@@ -124,8 +124,8 @@ allowxperm mediaserver self:{ rawip_socket tcp_socket udp_socket }
 allow mediaserver media_rw_data_file:dir create_dir_perms;
 allow mediaserver media_rw_data_file:file create_file_perms;
 
-# Access to /data/preloads
-allow mediaserver preloads_data_file:file { getattr read ioctl };
+# Access to media in /data/preloads
+allow mediaserver preloads_media_file:file { getattr read ioctl };
 
 allow mediaserver ion_device:chr_file r_file_perms;
 allow mediaserver hal_graphics_allocator:fd use;
