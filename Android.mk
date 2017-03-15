@@ -1061,20 +1061,6 @@ nonplat_mac_perms_keys.tmp :=
 all_nonplat_mac_perms_files :=
 
 ##################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := selinux_version
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-
-include $(BUILD_SYSTEM)/base_rules.mk
-$(LOCAL_BUILT_MODULE): $(built_sepolicy) $(built_plat_pc) $(built_nonplat_pc) $(built_plat_fc) \
-$(buit_nonplat_fc) $(built_plat_sc) $(built_nonplat_sc) $(built_plat_svc) $(built_nonplat_svc)
-	@mkdir -p $(dir $@)
-	$(hide) echo -n $(BUILD_FINGERPRINT_FROM_FILE) > $@
-
-##################################
 
 add_nl :=
 build_device_policy :=
