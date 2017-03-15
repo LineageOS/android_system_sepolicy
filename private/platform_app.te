@@ -56,5 +56,7 @@ allow platform_app vr_manager_service:service_manager find;
 # Access to /data/preloads
 allow platform_app preloads_data_file:file r_file_perms;
 allow platform_app preloads_data_file:dir r_dir_perms;
+allow platform_app preloads_media_file:file r_file_perms;
+allow platform_app preloads_media_file:dir r_dir_perms;
 
 read_runtime_log_tags(platform_app)

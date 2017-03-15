@@ -291,6 +291,8 @@
 /data/nativetest64(/.*)?	u:object_r:nativetest_data_file:s0
 /data/property(/.*)?	u:object_r:property_data_file:s0
 /data/preloads(/.*)?	u:object_r:preloads_data_file:s0
+/data/preloads/media(/.*)?	u:object_r:preloads_media_file:s0
+/data/preloads/demo(/.*)?	u:object_r:preloads_media_file:s0
 
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
