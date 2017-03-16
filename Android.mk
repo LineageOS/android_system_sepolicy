@@ -129,6 +129,8 @@ ifneq (,$(filter mips mips64,$(TARGET_ARCH)))
   my_target_arch := mips
 endif
 
+intermediates := $(TARGET_OUT_INTERMEDIATES)/ETC/sepolicy_intermediates
+
 ##################################
 # reqd_policy_mask - a policy.conf file which contains only the bare minimum
 # policy necessary to use checkpolicy.  This bare-minimum policy needs to be
