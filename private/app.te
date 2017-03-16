@@ -243,7 +243,8 @@ allow { appdomain -isolated_app } ion_device:chr_file rw_file_perms;
 # TODO is write really necessary ?
 auditallow { appdomain userdebug_or_eng(`-su') } ion_device:chr_file { write append };
 
-allow { appdomain -isolated_app } hal_graphics_allocator:fd use;
+# Allow app to access the graphic allocator HAL
+binder_call({ appdomain -isolated_app }, hal_graphics_allocator)
 
 # Allow app to access shared memory created by camera HAL1
 allow { appdomain -isolated_app } hal_camera:fd use;
