@@ -99,6 +99,3 @@ type metadata_block_device, dev_type;
 
 # The 'misc' partition used by recovery and A/B.
 type misc_block_device, dev_type;
-
-# Bootctrl block device used by A/B update (update_engine, update_verifier).
-type bootctrl_block_device, dev_type;
