@@ -14,6 +14,11 @@ allow profman profman_dump_data_file:file { write };
 
 allow profman installd:fd use;
 
+# Allow profman to analyze profiles for the secondary dex files. These
+# are application dex files reported back to the framework when using
+# BaseDexClassLoader.
+allow profman app_data_file:file { getattr read write lock };
+
 ###
 ### neverallow rules
 ###
