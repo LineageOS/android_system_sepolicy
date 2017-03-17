@@ -1,6 +1,6 @@
 # rild - radio interface layer daemon
 type rild, domain, domain_deprecated;
-hal_impl_domain(rild, hal_telephony)
+hal_server_domain(rild, hal_telephony)
 
 net_domain(rild)
 allowxperm rild self:udp_socket ioctl priv_sock_ioctls;

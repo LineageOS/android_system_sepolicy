@@ -26,6 +26,7 @@ binder_service(healthd)
 binder_call(healthd, system_server)
 binder_call(healthd, hwservicemanager)
 binder_call(healthd, hal_health)
+hal_client_domain(healthd, hal_health)
 
 # Write to state file.
 # TODO:  Split into a separate type?

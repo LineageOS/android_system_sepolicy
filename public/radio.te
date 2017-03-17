@@ -37,4 +37,4 @@ allow radio system_api_service:service_manager find;
 # Perform HwBinder IPC.
 hwbinder_use(radio)
 binder_call(radio, hal_telephony)
-
+hal_client_domain(radio, hal_telephony)
