@@ -1,5 +1,5 @@
 type hal_configstore_default, domain;
-hal_impl_domain(hal_configstore_default, hal_configstore)
+hal_server_domain(hal_configstore_default, hal_configstore)
 
 type hal_configstore_default_exec, exec_type, file_type;
 init_daemon_domain(hal_configstore_default)
