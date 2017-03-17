@@ -91,6 +91,7 @@ binder_call(dumpstate, { appdomain netd wificond })
 # For binderized mode:
 hal_client_domain(dumpstate, hal_dumpstate)
 binder_call(dumpstate, hal_vibrator)
+hal_client_domain(dumpstate, hal_vibrator)
 # For passthrough mode:
 allow dumpstate sysfs_vibrator:file { rw_file_perms getattr };
 

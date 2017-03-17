@@ -1,4 +1,5 @@
 type hal_usb_default, domain;
-hal_impl_domain(hal_usb_default, hal_usb)
+hal_server_domain(hal_usb_default, hal_usb)
+
 type hal_usb_default_exec, exec_type, file_type;
 init_daemon_domain(hal_usb_default)

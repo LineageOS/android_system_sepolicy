@@ -1,5 +1,5 @@
 type hal_gatekeeper_default, domain;
-hal_impl_domain(hal_gatekeeper_default, hal_gatekeeper)
+hal_server_domain(hal_gatekeeper_default, hal_gatekeeper)
 
 type hal_gatekeeper_default_exec, exec_type, file_type;
 init_daemon_domain(hal_gatekeeper_default);
