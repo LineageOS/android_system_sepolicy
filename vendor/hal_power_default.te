@@ -1,5 +1,5 @@
 type hal_power_default, domain;
-hal_impl_domain(hal_power_default, hal_power)
+hal_server_domain(hal_power_default, hal_power)
 
 type hal_power_default_exec, exec_type, file_type;
 init_daemon_domain(hal_power_default)

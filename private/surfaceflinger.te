@@ -10,8 +10,11 @@ read_runtime_log_tags(surfaceflinger)
 # Perform HwBinder IPC.
 hwbinder_use(surfaceflinger)
 binder_call(surfaceflinger, hal_graphics_allocator)
+hal_client_domain(surfaceflinger, hal_graphics_allocator)
 binder_call(surfaceflinger, hal_graphics_composer)
+hal_client_domain(surfaceflinger, hal_graphics_composer)
 binder_call(surfaceflinger, hal_configstore)
+hal_client_domain(surfaceflinger, hal_configstore)
 
 # Perform Binder IPC.
 binder_use(surfaceflinger)

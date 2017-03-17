@@ -1,5 +1,5 @@
 type hal_vr_default, domain;
-hal_impl_domain(hal_vr_default, hal_vr)
+hal_server_domain(hal_vr_default, hal_vr)
 
 type hal_vr_default_exec, exec_type, file_type;
 init_daemon_domain(hal_vr_default)

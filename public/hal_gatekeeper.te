@@ -1,4 +1,6 @@
 # call into gatekeeperd process (callbacks)
+# TODO: This rules is unlikely to be needed because Gatekeeper HIDL
+# says there are no callbacks
 binder_call(hal_gatekeeper, gatekeeperd)
 
 # TEE access.
