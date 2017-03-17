@@ -247,7 +247,7 @@
 /system/bin/webview_zygote32     u:object_r:webview_zygote_exec:s0
 /system/bin/webview_zygote64     u:object_r:webview_zygote_exec:s0
 /system/bin/virtual_touchpad     u:object_r:virtual_touchpad_exec:s0
-/system/bin/hw/android\.hidl\.allocator@1\.0-service          u:object_r:hal_allocator_exec:s0
+/system/bin/hw/android\.hidl\.allocator@1\.0-service          u:object_r:hal_allocator_default_exec:s0
 
 #############################
 # Vendor files
