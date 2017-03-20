@@ -204,6 +204,22 @@ allow $2 system_file:dir r_dir_perms;
 ')
 
 #####################################
+# passthrough_hal_client_domain(domain, hal_type)
+# Allow a base set of permissions required for a domain to be a
+# client of a passthrough HAL of the specified type.
+#
+# For example, make some_domain a client of passthrough Foo HAL:
+#   passthrough_hal_client_domain(some_domain, hal_foo)
+#
+define(`passthrough_hal_client_domain', `
+typeattribute $1 halclientdomain;
+typeattribute $1 $2_client;
+typeattribute $1 $2;
+# Find passthrough HAL implementations
+allow $2 system_file:dir r_dir_perms;
+')
+
+#####################################
 # unix_socket_connect(clientdomain, socket, serverdomain)
 # Allow a local socket connection from clientdomain via
 # socket to serverdomain.
