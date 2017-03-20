@@ -338,7 +338,7 @@ typeattribute $1 binderservicedomain;
 # Allow a domain to use Hidl shared memory
 define(`hwallocator_use', `
 # Call into the allocator hal
-binder_call($1, hal_allocator);
+binder_call($1, hal_allocator_server);
 ')
 
 #####################################

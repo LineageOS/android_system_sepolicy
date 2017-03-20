@@ -121,6 +121,9 @@ attribute halserverdomain;
 attribute halclientdomain;
 
 # HALs
+attribute hal_allocator;
+attribute hal_allocator_client;
+attribute hal_allocator_server;
 attribute hal_audio;
 attribute hal_audio_client;
 attribute hal_audio_server;
