@@ -1,0 +1,3 @@
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_bootctl_client, hal_bootctl_server)
+binder_call(hal_bootctl_server, hal_bootctl_client)

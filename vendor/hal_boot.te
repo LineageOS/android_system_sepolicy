@@ -1,6 +1,0 @@
-# boot_control subsystem
-
-hal_impl_domain(hal_boot)
-
-type hal_boot_exec, exec_type, file_type;
-init_daemon_domain(hal_boot)
