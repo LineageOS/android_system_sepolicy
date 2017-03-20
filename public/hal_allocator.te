@@ -1,5 +1,0 @@
-# allocator subsystem
-type hal_allocator, domain;
-hal_impl_domain(hal_allocator)
-
-type hal_allocator_exec, exec_type, file_type;
