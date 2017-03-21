@@ -1,0 +1,14 @@
+# vndservicemanager - the Binder context manager for vendor processes
+type vndservicemanager_exec, exec_type, file_type;
+
+init_daemon_domain(vndservicemanager);
+
+allow vndservicemanager self:binder set_context_mgr;
+
+# transfer binder objects to other processes (TODO b/35870313 limit this to vendor-only)
+allow vndservicemanager { domain -init }:binder transfer;
+
+allow vndservicemanager vndbinder_device:chr_file rw_file_perms;
+
+# Check SELinux permissions.
+selinux_check_access(vndservicemanager)
