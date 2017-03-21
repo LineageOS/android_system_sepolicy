@@ -168,7 +168,7 @@ binder_service(system_server)
 
 # Perform HwBinder IPC.
 hwbinder_use(system_server)
-hwallocator_use(system_server)
+hal_client_domain(system_server, hal_allocator)
 binder_call(system_server, hal_contexthub)
 hal_client_domain(system_server, hal_contexthub)
 hal_client_domain(system_server, hal_fingerprint)

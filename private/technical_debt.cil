@@ -1,0 +1,13 @@
+; THIS IS A WORKAROUND for the current limitations of the module policy language
+; This should be used sparingly until we figure out a saner way to achieve the
+; stuff below, for example, by improving typeattribute statement of module
+; language.
+;
+; NOTE: This file has no effect on recovery policy.
+
+; Apps, except isolated apps, are clients of Allocator HAL
+; Unfortunately, we can't currently express this in module policy language:
+;     typeattribute { appdomain -isolated_app } hal_allocator_client;
+;     typeattribute hal_allocator_client halclientdomain;
+(typeattributeset hal_allocator_client ((and (appdomain) ((not (isolated_app))))))
+(typeattributeset halclientdomain (hal_allocator_client))
