@@ -133,7 +133,7 @@ userdebug_or_eng(`
 # Write to /proc/net/xt_qtaguid/ctrl file.
 allow appdomain qtaguid_proc:file rw_file_perms;
 # read /proc/net/xt_qtguid/stats
-r_dir_file(appdomain, proc_net)
+r_dir_file({ appdomain -ephemeral_app}, proc_net)
 # Everybody can read the xt_qtaguid resource tracking misc dev.
 # So allow all apps to read from /dev/xt_qtaguid.
 allow appdomain qtaguid_device:chr_file r_file_perms;
