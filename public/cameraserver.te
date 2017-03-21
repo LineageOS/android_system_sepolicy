@@ -5,9 +5,11 @@ type cameraserver_exec, exec_type, file_type;
 binder_use(cameraserver)
 binder_call(cameraserver, binderservicedomain)
 binder_call(cameraserver, appdomain)
+binder_call(cameraserver, hal_graphics_allocator)
 binder_service(cameraserver)
 
 hal_client_domain(cameraserver, hal_camera)
+hal_client_domain(cameraserver, hal_graphics_allocator)
 
 allow cameraserver ion_device:chr_file rw_file_perms;
 
