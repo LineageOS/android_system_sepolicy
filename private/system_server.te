@@ -14,10 +14,6 @@ type_transition system_server system_data_file:sock_file system_ndebug_socket "n
 
 allow system_server zygote_tmpfs:file read;
 
-# Create a socket for receiving info from wpa.
-type_transition system_server wifi_data_file:sock_file system_wpa_socket;
-type_transition system_server wpa_socket:sock_file system_wpa_socket;
-
 # For art.
 allow system_server dalvikcache_data_file:dir r_dir_perms;
 allow system_server dalvikcache_data_file:file { r_file_perms execute };
@@ -151,8 +147,6 @@ unix_socket_connect(system_server, vold, vold)
 unix_socket_connect(system_server, webview_zygote, webview_zygote)
 unix_socket_connect(system_server, zygote, zygote)
 unix_socket_connect(system_server, racoon, racoon)
-# TODO(b/35707797): Remove this socket access.
-unix_socket_send(system_server, wpa, hal_wifi_supplicant_server)
 unix_socket_connect(system_server, uncrypt, uncrypt)
 
 # Communicate over a socket created by surfaceflinger.
@@ -422,13 +416,6 @@ get_prop(system_server, serialno_prop)
 
 # Read/write the property which keeps track of whether this is the first start of system_server
 set_prop(system_server, firstboot_prop)
-
-# Create a socket for receiving info from wpa.
-allow system_server wpa_socket:dir rw_dir_perms;
-allow system_server system_wpa_socket:sock_file create_file_perms;
-
-# Remove sockets created by wpa_supplicant
-allow system_server wpa_socket:sock_file unlink;
 
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
