@@ -52,18 +52,24 @@ allow dumpstate domain:process getattr;
 allow dumpstate { appdomain system_server }:process signal;
 
 # Signal native processes to dump their stack.
-# This list comes from native_processes_to_dump in dumpstate/utils.c
 allow dumpstate {
+  # This list comes from native_processes_to_dump in dumpstate/utils.c
   audioserver
   cameraserver
   drmserver
   inputflinger
-  mediacodec
   mediadrmserver
   mediaextractor
   mediaserver
   sdcardd
   surfaceflinger
+
+  # This list comes from hal_interfaces_to_dump in dumpstate/utils.c
+  hal_audio_server
+  hal_bluetooth_server
+  hal_camera_server
+  hal_vr_server
+  mediacodec # TODO(b/36375899): hal_omx_server
 }:process signal;
 
 # Connect to tombstoned to intercept dumps.
