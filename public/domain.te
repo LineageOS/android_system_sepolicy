@@ -66,8 +66,8 @@ allow domain owntty_device:chr_file rw_file_perms;
 allow domain null_device:chr_file rw_file_perms;
 allow domain zero_device:chr_file rw_file_perms;
 allow domain ashmem_device:chr_file rw_file_perms;
-allow { domain -hwservicemanager } binder_device:chr_file rw_file_perms;
-allow { domain -servicemanager } hwbinder_device:chr_file rw_file_perms;
+allow { domain -hwservicemanager -vndservicemanager } binder_device:chr_file rw_file_perms;
+allow { domain -servicemanager -vndservicemanager } hwbinder_device:chr_file rw_file_perms;
 allow domain ptmx_device:chr_file rw_file_perms;
 allow domain alarm_device:chr_file r_file_perms;
 allow domain random_device:chr_file rw_file_perms;
@@ -410,11 +410,15 @@ neverallow {
   -ueventd
 } misc_block_device:blk_file { append link relabelfrom rename write open read ioctl lock };
 
-# Only servicemanager/hwservicemanager should be able to register with binder as the context manager
-neverallow { domain -servicemanager -hwservicemanager} *:binder set_context_mgr;
+# Only (hw|vnd|)servicemanager should be able to register with binder as the context manager
+neverallow { domain -servicemanager -hwservicemanager -vndservicemanager } *:binder set_context_mgr;
 # The service managers are only allowed to access their own device node
 neverallow servicemanager hwbinder_device:chr_file no_rw_file_perms;
+neverallow servicemanager vndbinder_device:chr_file no_rw_file_perms;
 neverallow hwservicemanager binder_device:chr_file no_rw_file_perms;
+neverallow hwservicemanager vndbinder_device:chr_file no_rw_file_perms;
+neverallow vndservicemanager binder_device:chr_file no_rw_file_perms;
+neverallow vndservicemanager hwbinder_device:chr_file no_rw_file_perms;
 
 # Only authorized processes should be writing to files in /data/dalvik-cache
 neverallow {
