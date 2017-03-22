@@ -300,6 +300,7 @@ neverallow { domain -kernel -init -recovery -vold -zygote -update_engine -otapre
 neverallow {
     domain
     -appdomain
+    with_asan(`-asan_extract')
     -dumpstate
     -shell
     userdebug_or_eng(`-su')
@@ -336,9 +337,9 @@ neverallow { domain -init } properties_device:file { no_w_file_perms no_x_file_p
 neverallow { domain -init } properties_serial:file { no_w_file_perms no_x_file_perms };
 
 # Only recovery should be doing writes to /system
-neverallow { domain -recovery } { system_file exec_type }:dir_file_class_set
+neverallow { domain -recovery with_asan(`-asan_extract') } { system_file exec_type }:dir_file_class_set
     { create write setattr relabelfrom append unlink link rename };
-neverallow { domain -recovery -kernel } { system_file exec_type }:dir_file_class_set relabelto;
+neverallow { domain -recovery -kernel with_asan(`-asan_extract') } { system_file exec_type }:dir_file_class_set relabelto;
 
 # Don't allow mounting on top of /system files or directories
 neverallow * exec_type:dir_file_class_set mounton;
@@ -739,6 +740,7 @@ neverallow {
   -system_app
   -init
   -installd # for relabelfrom and unlink, check for this in explicit neverallow
+  with_asan(`-asan_extract')
 } system_data_file:file no_w_file_perms;
 # do not grant anything greater than r_file_perms and relabelfrom unlink
 # to installd
