@@ -4,3 +4,5 @@ binder_call(hal_dumpstate_server, hal_dumpstate_client)
 
 # write bug reports in /data/data/com.android.shell/files/bugreports/bugreport
 allow hal_dumpstate shell_data_file:file write;
+# allow reading /proc/interrupts for all hal impls
+allow hal_dumpstate proc_interrupts:file r_file_perms;
