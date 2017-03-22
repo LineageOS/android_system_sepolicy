@@ -18,12 +18,6 @@ allow hal_wifi_supplicant self:packet_socket create_socket_perms;
 allowxperm hal_wifi_supplicant self:packet_socket ioctl { unpriv_sock_ioctls priv_sock_ioctls unpriv_tty_ioctls };
 allow hal_wifi_supplicant wifi_data_file:dir create_dir_perms;
 allow hal_wifi_supplicant wifi_data_file:file create_file_perms;
-# TODO(b/35707797): Remove this socket access.
-unix_socket_send(hal_wifi_supplicant, system_wpa, system_server)
-
-# HIDL interface exposed by WPA.
-hwbinder_use(hal_wifi_supplicant)
-binder_call(hal_wifi_supplicant, system_server)
 
 # Create a socket for receiving info from wpa
 allow hal_wifi_supplicant wpa_socket:dir create_dir_perms;
