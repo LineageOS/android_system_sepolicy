@@ -148,26 +148,6 @@ define(`bluetooth_domain', `
 typeattribute $1 bluetoothdomain;
 ')
 
-# TODO: Remove hal_impl_domain once all uses have been switched to hal_server_domain.
-#####################################
-# hal_impl_domain(domain[, hal_type_attr])
-# Allow a base set of permissions required for a domain to host a
-# HAL implementation.
-#
-# Optionally, the type of the HAL can be specified as the second
-# argument. This is useful for HALs which may have multiple
-# implementations. Attributes are used to group the various
-# implementations of such HALs.
-#
-# For example, default implementation of Foo HAL:
-#   type hal_foo_default, domain;
-#   hal_impl_domain(hal_foo_default, hal_foo)
-#
-define(`hal_impl_domain', `
-typeattribute $1 halserverdomain;
-ifelse($2, `', `', `typeattribute $1 $2;')
-')
-
 #####################################
 # hal_server_domain(domain, hal_type)
 # Allow a base set of permissions required for a domain to offer a
