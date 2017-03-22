@@ -15,7 +15,6 @@ allow gatekeeperd system_file:dir r_dir_perms;
 
 ### Rules needed when Gatekeeper HAL runs outside of gatekeeperd process.
 ### These rules should eventually be granted only when needed.
-hwbinder_use(gatekeeperd)
 hal_client_domain(gatekeeperd, hal_gatekeeper)
 ###
 
