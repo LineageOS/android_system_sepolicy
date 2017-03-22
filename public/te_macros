@@ -386,6 +386,12 @@ define(`recovery_only', ifelse(target_recovery, `true', $1, ))
 #
 define(`userdebug_or_eng', ifelse(target_build_variant, `eng', $1, ifelse(target_build_variant, `userdebug', $1)))
 
+#####################################
+# asan builds
+# SELinux rules which apply only to asan builds
+#
+define(`with_asan', ifelse(target_with_asan, `true', userdebug_or_eng(`$1'), ))
+
 ####################################
 # Fallback crash handling for processes that can't exec crash_dump (e.g. because of seccomp).
 #

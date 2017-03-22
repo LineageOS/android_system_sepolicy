@@ -131,6 +131,11 @@ endif
 
 intermediates := $(TARGET_OUT_INTERMEDIATES)/ETC/sepolicy_intermediates
 
+with_asan := false
+ifneq (,$(filter address,$(SANITIZE_TARGET)))
+  with_asan := true
+endif
+
 ##################################
 # reqd_policy_mask - a policy.conf file which contains only the bare minimum
 # policy necessary to use checkpolicy.  This bare-minimum policy needs to be
@@ -143,6 +148,7 @@ reqd_policy_mask.conf := $(intermediates)/reqd_policy_mask.conf
 $(reqd_policy_mask.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(reqd_policy_mask.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(reqd_policy_mask.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(reqd_policy_mask.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(reqd_policy_mask.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(reqd_policy_mask.conf): $(call build_policy, $(sepolicy_build_files), $(REQD_MASK_POLICY))
 	@mkdir -p $(dir $@)
@@ -151,6 +157,7 @@ $(reqd_policy_mask.conf): $(call build_policy, $(sepolicy_build_files), $(REQD_M
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
+		-D target_with_asan=$(PRIVATE_TGT_WITH_ASAN) \
 		-s $^ > $@
 
 reqd_policy_mask.cil := $(intermediates)/reqd_policy_mask.cil
@@ -170,6 +177,7 @@ plat_pub_policy.conf := $(intermediates)/plat_pub_policy.conf
 $(plat_pub_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(plat_pub_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(plat_pub_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(plat_pub_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(plat_pub_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(plat_pub_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY))
@@ -179,6 +187,7 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY))
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
+		-D target_with_asan=$(PRIVATE_TGT_WITH_ASAN) \
 		-s $^ > $@
 
 plat_pub_policy.cil := $(intermediates)/plat_pub_policy.cil
@@ -223,6 +232,7 @@ plat_policy.conf := $(intermediates)/plat_policy.conf
 $(plat_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(plat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
@@ -232,6 +242,7 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
+		-D target_with_asan=$(PRIVATE_TGT_WITH_ASAN) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
@@ -320,6 +331,7 @@ nonplat_policy.conf := $(intermediates)/nonplat_policy.conf
 $(nonplat_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(nonplat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(nonplat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(nonplat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(nonplat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(nonplat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS))
@@ -329,6 +341,7 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEP
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
+		-D target_with_asan=$(PRIVATE_TGT_WITH_ASAN) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
@@ -452,6 +465,7 @@ plat_pub_policy.recovery.conf := $(intermediates)/plat_pub_policy.recovery.conf
 $(plat_pub_policy.recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(plat_pub_policy.recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(plat_pub_policy.recovery.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(plat_pub_policy.recovery.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(plat_pub_policy.recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(plat_pub_policy.recovery.conf): $(call build_policy, $(sepolicy_build_files), \
 $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY))
@@ -461,6 +475,7 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY))
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
+		-D target_with_asan=$(PRIVATE_TGT_WITH_ASAN) \
 		-D target_recovery=true \
 		-s $^ > $@
 
@@ -479,6 +494,7 @@ plat_policy.recovery.conf := $(intermediates)/plat_policy.recovery.conf
 $(plat_policy.recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(plat_policy.recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(plat_policy.recovery.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(plat_policy.recovery.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(plat_policy.recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(plat_policy.recovery.conf): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
@@ -488,6 +504,7 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
+		-D target_with_asan=$(PRIVATE_TGT_WITH_ASAN) \
 		-D target_recovery=true \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
@@ -526,6 +543,7 @@ nonplat_policy.recovery.conf := $(intermediates)/nonplat_policy.recovery.conf
 $(nonplat_policy.recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(nonplat_policy.recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(nonplat_policy.recovery.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(nonplat_policy.recovery.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(nonplat_policy.recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(nonplat_policy.recovery.conf): $(call build_policy, $(sepolicy_build_files), \
 $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS))
@@ -535,6 +553,7 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEP
 		-D target_build_variant=$(TARGET_BUILD_VARIANT) \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
+		-D target_with_asan=$(PRIVATE_TGT_WITH_ASAN) \
 		-D target_recovery=true \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
@@ -603,6 +622,7 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 		-D target_build_variant=user \
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
+		-D target_with_asan=false \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
@@ -1090,5 +1110,6 @@ plat_policy_nvr :=
 plat_pub_policy.cil :=
 reqd_policy_mask.cil :=
 sepolicy_build_files :=
+with_asan :=
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
