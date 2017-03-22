@@ -1,7 +1,4 @@
-# call into gatekeeperd process (callbacks)
-# TODO: This rules is unlikely to be needed because Gatekeeper HIDL
-# says there are no callbacks
-binder_call(hal_gatekeeper, gatekeeperd)
+binder_call(hal_gatekeeper_client, hal_gatekeeper_server)
 
 # TEE access.
 allow hal_gatekeeper tee_device:chr_file rw_file_perms;
