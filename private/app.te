@@ -87,11 +87,12 @@ allow appdomain oemfs:file rx_file_perms;
 
 # Execute the shell or other system executables.
 allow { appdomain -ephemeral_app -untrusted_v2_app } shell_exec:file rx_file_perms;
-allow { appdomain -ephemeral_app -untrusted_v2_app } system_file:file rx_file_perms;
+allow { appdomain -ephemeral_app -untrusted_v2_app } system_file:file x_file_perms;
 allow { appdomain -ephemeral_app -untrusted_v2_app } toolbox_exec:file rx_file_perms;
 
 # Renderscript needs the ability to read directories on /system
-r_dir_file(appdomain, system_file)
+allow appdomain system_file:dir r_dir_perms;
+allow appdomain system_file:lnk_file { getattr open read };
 
 # Execute dex2oat when apps call dexclassloader
 allow appdomain dex2oat_exec:file rx_file_perms;
