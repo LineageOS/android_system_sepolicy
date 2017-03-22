@@ -2,6 +2,9 @@
 type hwservicemanager, domain, mlstrustedsubject;
 type hwservicemanager_exec, exec_type, file_type;
 
+# serving android.hidl.manager@1.0 and android.hidl.token@1.0
+typeattribute hwservicemanager halserverdomain;
+
 # Note that we do not use the binder_* macros here.
 # hwservicemanager provides name service (aka context manager)
 # for hwbinder.
