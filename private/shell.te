@@ -10,3 +10,6 @@ allow shell atrace_exec:file rx_file_perms;
 # Run app_process.
 # XXX Transition into its own domain?
 app_domain(shell)
+
+# allow shell to call dumpsys storaged
+binder_call(shell, storaged)
