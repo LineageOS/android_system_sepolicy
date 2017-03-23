@@ -7,3 +7,6 @@ hwbinder_use(halserverdomain)
 
 # Find HAL implementations
 allow halserverdomain system_file:dir r_dir_perms;
+
+# Used to wait for hwservicemanager
+get_prop(halserverdomain, hwservicemanager_prop)

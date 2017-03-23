@@ -2,6 +2,9 @@
 type sensord, domain, mlstrustedsubject;
 type sensord_exec, exec_type, file_type;
 
+hal_client_domain(sensord, hal_graphics_allocator)
+allow sensord hal_graphics_allocator:fd use;
+
 pdx_server(sensord)
 use_pdx(sensord, bufferhubd)
 use_pdx(sensord, performanced)
