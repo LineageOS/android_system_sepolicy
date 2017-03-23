@@ -294,6 +294,20 @@ get_prop($1, vold_prop)
 ')
 
 #####################################
+# vndbinder_use(domain)
+# Allow domain to use Binder IPC.
+define(`vndbinder_use', `
+# Talk to the vndbinder device node
+allow $1 vndbinder_device:chr_file rw_file_perms;
+# Call the vndservicemanager and transfer references to it.
+allow $1 vndservicemanager:binder { call transfer };
+# vndservicemanager performs getpidcon on clients.
+allow vndservicemanager $1:dir search;
+allow vndservicemanager $1:file { read open };
+allow vndservicemanager $1:process getattr;
+')
+
+#####################################
 # binder_call(clientdomain, serverdomain)
 # Allow clientdomain to perform binder IPC to serverdomain.
 define(`binder_call', `
