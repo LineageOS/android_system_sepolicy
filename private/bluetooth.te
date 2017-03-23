@@ -59,6 +59,9 @@ unix_socket_connect(bluetooth, sap_uim, rild)
 # /data/data/com.android.shell/files/bugreports/bugreport-*.
 allow bluetooth shell_data_file:file read;
 
+# Bluetooth audio needs RT scheduling to meet deadlines, allow sys_nice
+allow bluetooth self:capability sys_nice;
+
 hal_client_domain(bluetooth, hal_bluetooth)
 binder_call(bluetooth, hal_telephony)
 hal_client_domain(bluetooth, hal_telephony)
@@ -72,6 +75,6 @@ read_runtime_log_tags(bluetooth)
 ###
 
 # Superuser capabilities.
-# bluetooth requires net_{admin,raw,bind_service} and wake_alarm and block_suspend.
-neverallow bluetooth self:capability ~{ net_admin net_raw net_bind_service };
+# Bluetooth requires net_{admin,raw,bind_service} and wake_alarm and block_suspend and sys_nice.
+neverallow bluetooth self:capability ~{ net_admin net_raw net_bind_service sys_nice};
 neverallow bluetooth self:capability2 ~{ wake_alarm block_suspend };
