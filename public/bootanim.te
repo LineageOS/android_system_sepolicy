@@ -2,6 +2,9 @@
 type bootanim, domain;
 type bootanim_exec, exec_type, file_type;
 
+hal_client_domain(bootanim, hal_graphics_allocator)
+hal_client_domain(bootanim, hal_graphics_composer)
+
 binder_use(bootanim)
 binder_call(bootanim, surfaceflinger)
 binder_call(bootanim, audioserver)

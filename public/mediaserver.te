@@ -4,6 +4,9 @@ type mediaserver_exec, exec_type, file_type;
 
 typeattribute mediaserver mlstrustedsubject;
 
+# TODO(b/36375899): replace with hal_client_domain macro on hal_omx
+typeattribute mediaserver halclientdomain;
+
 net_domain(mediaserver)
 
 r_dir_file(mediaserver, sdcard_type)
