@@ -1,5 +1,7 @@
 # surfaceflinger - display compositor service
 
+typeattribute surfaceflinger coredomain;
+
 type surfaceflinger_exec, exec_type, file_type;
 init_daemon_domain(surfaceflinger)
 

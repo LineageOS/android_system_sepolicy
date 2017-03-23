@@ -1,6 +1,8 @@
 # webview_zygote is an auxiliary zygote process that is used to spawn
 # isolated_app processes for rendering untrusted web content.
 
+typeattribute webview_zygote coredomain;
+
 # The webview_zygote needs to be able to transition domains.
 typeattribute webview_zygote mlstrustedsubject;
 

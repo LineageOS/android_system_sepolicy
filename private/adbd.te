@@ -1,5 +1,6 @@
 ### ADB daemon
 
+typeattribute adbd coredomain;
 typeattribute adbd mlstrustedsubject;
 
 domain_auto_trans(adbd, shell_exec, shell)

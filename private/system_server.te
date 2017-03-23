@@ -3,6 +3,7 @@
 # Most of the framework services run in this process.
 #
 
+typeattribute system_server coredomain;
 typeattribute system_server domain_deprecated;
 typeattribute system_server mlstrustedsubject;
 

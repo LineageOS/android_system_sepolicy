@@ -66,7 +66,10 @@ allow domain owntty_device:chr_file rw_file_perms;
 allow domain null_device:chr_file rw_file_perms;
 allow domain zero_device:chr_file rw_file_perms;
 allow domain ashmem_device:chr_file rw_file_perms;
-allow { domain -hwservicemanager -vndservicemanager } binder_device:chr_file rw_file_perms;
+# /dev/binder can be accessed by non-vendor domains and by apps
+allow { coredomain appdomain -hwservicemanager } binder_device:chr_file rw_file_perms;
+# Devices which are not full TREBLE have fewer restrictions on access to /dev/binder
+not_full_treble(`allow { domain -hwservicemanager -vndservicemanager } binder_device:chr_file rw_file_perms;')
 allow { domain -servicemanager -vndservicemanager } hwbinder_device:chr_file rw_file_perms;
 allow domain ptmx_device:chr_file rw_file_perms;
 allow domain alarm_device:chr_file r_file_perms;
@@ -419,6 +422,24 @@ neverallow hwservicemanager binder_device:chr_file no_rw_file_perms;
 neverallow hwservicemanager vndbinder_device:chr_file no_rw_file_perms;
 neverallow vndservicemanager binder_device:chr_file no_rw_file_perms;
 neverallow vndservicemanager hwbinder_device:chr_file no_rw_file_perms;
+
+# On full TREBLE devices, only core components and apps can use Binder and servicemanager. Non-core
+# domain apps need this because Android framework offers many of its services to apps as Binder
+# services.
+full_treble_only(`
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
+  } binder_device:chr_file rw_file_perms;
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
+  } servicemanager:binder { call transfer };
+')
 
 # Only authorized processes should be writing to files in /data/dalvik-cache
 neverallow {

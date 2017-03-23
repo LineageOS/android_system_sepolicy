@@ -1,5 +1,5 @@
-# type_transition must be private policy the domain_trans rules could stay
-# public, but conceptually should go with this
+typeattribute vold coredomain;
+
 init_daemon_domain(vold)
 
 # Switch to more restrictive domains when executing common tools

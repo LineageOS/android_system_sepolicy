@@ -1,5 +1,5 @@
-# type_transition must be private policy the domain_trans rules could stay
-# public, but conceptually should go with this
+typeattribute recovery_refresh coredomain;
+
 init_daemon_domain(recovery_refresh)
 
 # recovery_refresh is not allowed to write anywhere

@@ -1,4 +1,4 @@
-type hal_allocator_default, domain;
+type hal_allocator_default, domain, coredomain;
 hal_server_domain(hal_allocator_default, hal_allocator)
 
 type hal_allocator_default_exec, exec_type, file_type;

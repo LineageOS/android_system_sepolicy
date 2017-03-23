@@ -1,4 +1,4 @@
-# type_transition must be private policy the domain_trans rules could stay
-# public, but conceptually should go with this
+typeattribute otapreopt_chroot coredomain;
+
 # Allow to transition to postinstall_ota, to run otapreopt in its own sandbox.
 domain_auto_trans(otapreopt_chroot, postinstall_file, postinstall_dexopt)

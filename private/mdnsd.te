@@ -1,5 +1,6 @@
 # mdns daemon
 
+typeattribute mdnsd coredomain;
 typeattribute mdnsd mlstrustedsubject;
 
 type mdnsd_exec, exec_type, file_type;

@@ -1,6 +1,9 @@
 ###
 ### Untrusted v2 sandbox apps.
 ###
+
+typeattribute untrusted_v2_app coredomain;
+
 app_domain(untrusted_v2_app)
 net_domain(untrusted_v2_app)
 bluetooth_domain(untrusted_v2_app)

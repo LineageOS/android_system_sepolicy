@@ -1,5 +1,7 @@
 # audioserver - audio services daemon
 
+typeattribute audioserver coredomain;
+
 type audioserver_exec, exec_type, file_type;
 init_daemon_domain(audioserver)
 

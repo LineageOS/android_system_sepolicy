@@ -158,6 +158,7 @@ $(reqd_policy_mask.conf): $(call build_policy, $(sepolicy_build_files), $(REQD_M
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
 		-D target_with_asan=$(PRIVATE_TGT_WITH_ASAN) \
+		-D target_full_treble=$(PRODUCT_FULL_TREBLE) \
 		-s $^ > $@
 
 reqd_policy_mask.cil := $(intermediates)/reqd_policy_mask.cil
@@ -188,6 +189,7 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY))
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
 		-D target_with_asan=$(PRIVATE_TGT_WITH_ASAN) \
+		-D target_full_treble=$(PRODUCT_FULL_TREBLE) \
 		-s $^ > $@
 
 plat_pub_policy.cil := $(intermediates)/plat_pub_policy.cil
@@ -243,6 +245,7 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
 		-D target_with_asan=$(PRIVATE_TGT_WITH_ASAN) \
+		-D target_full_treble=$(PRODUCT_FULL_TREBLE) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
@@ -342,6 +345,7 @@ $(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEP
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
 		-D target_with_asan=$(PRIVATE_TGT_WITH_ASAN) \
+		-D target_full_treble=$(PRODUCT_FULL_TREBLE) \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 

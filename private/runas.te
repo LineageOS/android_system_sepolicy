@@ -1,4 +1,4 @@
-# type_transition must be private policy the domain_trans rules could stay
-# public, but conceptually should go with this
+typeattribute runas coredomain;
+
 # ndk-gdb invokes adb shell run-as.
 domain_auto_trans(shell, runas_exec, runas)

@@ -7,3 +7,6 @@ init_daemon_domain(hal_wifi_supplicant_default)
 net_domain(hal_wifi_supplicant_default)
 # Create a socket for receiving info from wpa
 type_transition hal_wifi_supplicant_default wifi_data_file:dir wpa_socket "sockets";
+
+# TODO(b/34603782): Remove this once Wi-Fi Supplicant HAL stops using Binder
+typeattribute hal_wifi_supplicant_default binder_in_vendor_violators;
