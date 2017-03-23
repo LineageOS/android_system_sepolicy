@@ -2,6 +2,8 @@
 type bufferhubd, domain, mlstrustedsubject;
 type bufferhubd_exec, exec_type, file_type;
 
+hal_client_domain(bufferhubd, hal_graphics_allocator)
+
 pdx_server(bufferhubd)
 use_pdx(bufferhubd, performanced)
 

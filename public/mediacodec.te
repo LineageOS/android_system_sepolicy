@@ -4,6 +4,10 @@ type mediacodec_exec, exec_type, file_type;
 
 typeattribute mediacodec mlstrustedsubject;
 
+# TODO(b/36375899) attributize this domain appropriately as hal_omx
+# and use macro hal_server_domain
+get_prop(mediacodec, hwservicemanager_prop)
+
 binder_use(mediacodec)
 binder_call(mediacodec, binderservicedomain)
 binder_call(mediacodec, appdomain)
