@@ -3,3 +3,5 @@ hal_server_domain(hal_audio_default, hal_audio)
 
 type hal_audio_default_exec, exec_type, file_type;
 init_daemon_domain(hal_audio_default)
+
+hal_client_domain(hal_audio_default, hal_allocator)

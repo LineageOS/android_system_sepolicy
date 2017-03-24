@@ -2,13 +2,7 @@
 binder_call(hal_audio_client, hal_audio_server)
 binder_call(hal_audio_server, hal_audio_client)
 
-# Both client and the server need to use hwallocator
-hwallocator_use(hal_audio_client)
-hwallocator_use(hal_audio_server)
-
 allow hal_audio ion_device:chr_file r_file_perms;
-
-allow hal_audio system_file:dir { open read };
 
 userdebug_or_eng(`
   # used for pcm capture for debug.
