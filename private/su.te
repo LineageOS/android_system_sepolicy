@@ -1,4 +1,6 @@
 userdebug_or_eng(`
+  typeattribute su coredomain;
+
   domain_auto_trans(shell, su_exec, su)
   # Allow dumpstate to call su on userdebug / eng builds to collect
   # additional information.
