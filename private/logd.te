@@ -1,5 +1,5 @@
-# type_transition must be private policy the domain_trans rules could stay
-# public, but conceptually should go with this
+typeattribute logd coredomain;
+
 init_daemon_domain(logd)
 
 # logd is not allowed to write anywhere other than /data/misc/logd, and then

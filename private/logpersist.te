@@ -1,3 +1,5 @@
+typeattribute logpersist coredomain;
+
 # android debug log storage in logpersist domains (eng and userdebug only)
 userdebug_or_eng(`
 

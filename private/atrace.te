@@ -3,7 +3,7 @@
 type atrace_exec, exec_type, file_type;
 
 userdebug_or_eng(`
-  type atrace, domain, domain_deprecated;
+  type atrace, domain, coredomain, domain_deprecated;
 
   init_daemon_domain(atrace)
 

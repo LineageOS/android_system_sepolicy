@@ -1,3 +1,5 @@
+typeattribute shell coredomain;
+
 # systrace support - allow atrace to run
 allow shell debugfs_tracing:dir r_dir_perms;
 allow shell debugfs_tracing:file r_file_perms;

@@ -1,3 +1,5 @@
+typeattribute incident coredomain;
+
 type incident_exec, exec_type, file_type;
 
 # switch to incident domain for incident command
