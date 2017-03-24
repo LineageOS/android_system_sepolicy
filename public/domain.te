@@ -89,7 +89,7 @@ get_prop(domain, core_property_type)
 # messages to logd.
 get_prop(domain, log_property_type)
 dontaudit domain property_type:file audit_access;
-allow domain property_contexts:file r_file_perms;
+allow domain property_contexts_file:file r_file_perms;
 
 allow domain init:key search;
 allow domain vold:key search;
