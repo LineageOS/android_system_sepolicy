@@ -1,0 +1,2 @@
+# HwBinder IPC from client to server
+binder_call(hal_allocator_client, hal_allocator_server)

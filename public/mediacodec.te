@@ -25,10 +25,7 @@ allow mediacodec hal_camera:fd use;
 
 crash_dump_fallback(mediacodec)
 
-# hidl access
-hwbinder_use(mediacodec)
-hwallocator_use(mediacodec)
-allow mediacodec system_file:dir { open read };
+hal_client_domain(mediacodec, hal_allocator)
 
 # Recieve gralloc buffer FDs from bufferhubd. Note that mediacodec never
 # directly connects to bufferhubd via PDX. Instead, a VR app acts as a bridge
