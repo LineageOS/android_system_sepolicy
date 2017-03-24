@@ -1,5 +1,7 @@
 # blkid for untrusted block devices
 
+typeattribute blkid_untrusted coredomain;
+
 # Allowed read-only access to vold block devices to extract UUID/label
 allow blkid_untrusted block_device:dir search;
 allow blkid_untrusted vold_device:blk_file r_file_perms;

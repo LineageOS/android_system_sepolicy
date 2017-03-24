@@ -11,6 +11,8 @@
 ###
 ### PackageManager flags an app as ephemeral at install time.
 
+typeattribute ephemeral_app coredomain;
+
 net_domain(ephemeral_app)
 app_domain(ephemeral_app)
 

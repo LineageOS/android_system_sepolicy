@@ -4,6 +4,7 @@
 ### server.
 ###
 
+typeattribute system_app coredomain;
 typeattribute system_app domain_deprecated;
 
 app_domain(system_app)

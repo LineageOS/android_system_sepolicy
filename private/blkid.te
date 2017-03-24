@@ -1,5 +1,7 @@
 # blkid called from vold
 
+typeattribute blkid coredomain;
+
 type blkid_exec, exec_type, file_type;
 
 # Allowed read-only access to encrypted devices to extract UUID/label

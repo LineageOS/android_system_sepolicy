@@ -6,6 +6,8 @@
 ### and AID_ISOLATED_END (99999).
 ###
 
+typeattribute isolated_app coredomain;
+
 app_domain(isolated_app)
 
 # Access already open app data files received over Binder or local socket IPC.

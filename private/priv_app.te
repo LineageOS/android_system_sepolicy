@@ -2,6 +2,7 @@
 ### A domain for further sandboxing privileged apps.
 ###
 
+typeattribute priv_app coredomain;
 app_domain(priv_app)
 
 # Access the network.

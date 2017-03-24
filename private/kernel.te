@@ -1,3 +1,3 @@
-# type_transition must be private policy the domain_trans rules could stay
-# public, but conceptually should go with this
+typeattribute kernel coredomain;
+
 domain_auto_trans(kernel, init_exec, init)
