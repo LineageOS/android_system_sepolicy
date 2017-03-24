@@ -441,6 +441,51 @@ full_treble_only(`
   } servicemanager:binder { call transfer };
 ')
 
+# On full TREBLE devices, socket communications between core components and vendor components are
+# not permitted.
+full_treble_only(`
+  # Most general rules first, more specific rules below.
+
+  # Core domains are not permitted to initiate communications to vendor domain sockets.
+  # We are not restricting the use of already established sockets because it is fine for a process
+  # to obtain an already established socket via some public/official/stable API and then exchange
+  # data with its peer over that socket. The wire format in this scenario is dicatated by the API
+  # and thus does not break the core-vendor separation.
+  neverallow_establish_socket_comms({
+    coredomain
+    -init
+    -adbd
+  }, {
+    domain
+    -coredomain
+    -socket_between_core_and_vendor_violators
+  });
+  # Vendor domains are not permitted to initiate communications to core domain sockets
+  neverallow_establish_socket_comms({
+    domain
+    -coredomain
+    -appdomain
+    -socket_between_core_and_vendor_violators
+  }, {
+    coredomain
+    -logd # Logging by writing to logd Unix domain socket is public API
+    -netd # netdomain needs this
+    -mdnsd # netdomain needs this
+    userdebug_or_eng(`-su') # communications with su are permitted only on userdebug or eng builds
+    -init
+    -incidentd # TODO(b/35870313): Remove incidentd from this list once vendor domains no longer declare Binder services
+    -tombstoned # TODO(b/36604251): Remove tombstoned from this list once mediacodec (OMX HAL) no longer declares Binder services
+  });
+
+  # Vendor domains (except netdomain) are not permitted to initiate communications to netd sockets
+  neverallow_establish_socket_comms({
+    domain
+    -coredomain
+    -netdomain
+    -socket_between_core_and_vendor_violators
+  }, netd);
+')
+
 # Only authorized processes should be writing to files in /data/dalvik-cache
 neverallow {
   domain

@@ -2,6 +2,7 @@
 binder_call(hal_keymaster_client, hal_keymaster_server)
 
 allow hal_keymaster tee_device:chr_file rw_file_perms;
+# TODO(b/36601092): Remove this once Keymaster HAL no longer talks to tee domain over Unix domain sockets
 allow hal_keymaster tee:unix_stream_socket connectto;
 
 allow hal_keymaster ion_device:chr_file r_file_perms;

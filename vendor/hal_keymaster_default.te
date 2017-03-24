@@ -3,3 +3,6 @@ hal_server_domain(hal_keymaster_default, hal_keymaster)
 
 type hal_keymaster_default_exec, exec_type, file_type;
 init_daemon_domain(hal_keymaster_default)
+
+# TODO(b/36601092): Remove this once Keymaster HAL no longer talks to tee domain over Unix domain sockets
+typeattribute hal_keymaster_default socket_between_core_and_vendor_violators;

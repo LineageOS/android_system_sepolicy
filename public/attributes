@@ -122,6 +122,11 @@ attribute coredomain;
 # TODO(b/35870313): Remove this once there are no violations
 attribute binder_in_vendor_violators;
 
+# All vendor domains which violate the requirement of not using sockets for
+# communicating with core components
+# TODO(b/36577153): Remove this once there are no violations
+attribute socket_between_core_and_vendor_violators;
+
 # All HAL servers
 attribute halserverdomain;
 # All HAL clients
