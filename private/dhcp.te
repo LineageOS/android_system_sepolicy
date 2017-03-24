@@ -1,4 +1,4 @@
-# type_transition must be private policy the domain_trans rules could stay
-# public, but conceptually should go with this
+typeattribute dhcp coredomain;
+
 init_daemon_domain(dhcp)
 type_transition dhcp system_data_file:{ dir file } dhcp_data_file;

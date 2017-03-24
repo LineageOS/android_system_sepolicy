@@ -1,5 +1,5 @@
 # storaged daemon
-type storaged, domain, mlstrustedsubject;
+type storaged, domain, coredomain, mlstrustedsubject;
 type storaged_exec, exec_type, file_type;
 
 init_daemon_domain(storaged)

@@ -1,3 +1,5 @@
+typeattribute incidentd coredomain;
+
 init_daemon_domain(incidentd)
 type incidentd_exec, exec_type, file_type;
 binder_use(incidentd)

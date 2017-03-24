@@ -1,5 +1,5 @@
-# type_transition must be private policy the domain_trans rules could stay
-# public, but conceptually should go with this
+typeattribute netd coredomain;
+
 init_daemon_domain(netd)
 
 # Allow netd to spawn dnsmasq in it's own domain

@@ -19,6 +19,8 @@
 ### seapp_contexts.
 ###
 
+typeattribute untrusted_app_25 coredomain;
+
 app_domain(untrusted_app_25)
 untrusted_app_domain(untrusted_app_25)
 net_domain(untrusted_app_25)

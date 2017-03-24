@@ -115,6 +115,13 @@ attribute binderservicedomain;
 # recovery for A/B devices.
 attribute update_engine_common;
 
+# All core domains (as opposed to vendor/device-specific domains)
+attribute coredomain;
+
+# All vendor domains which violate the requirement of not using Binder
+# TODO(b/35870313): Remove this once there are no violations
+attribute binder_in_vendor_violators;
+
 # All HAL servers
 attribute halserverdomain;
 # All HAL clients

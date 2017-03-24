@@ -1,4 +1,5 @@
 # nfc subsystem
+typeattribute nfc coredomain;
 app_domain(nfc)
 net_domain(nfc)
 
