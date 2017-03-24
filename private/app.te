@@ -155,7 +155,6 @@ binder_call(appdomain, ephemeral_app)
 # hidl access for mediacodec
 # TODO(b/34454312): only allow getting and talking to mediacodec service
 hwbinder_use(appdomain)
-hwallocator_use(appdomain)
 
 # Already connected, unnamed sockets being passed over some other IPC
 # hence no sock_file or connectto permission. This appears to be how

@@ -136,9 +136,7 @@ allow mediaserver hal_camera:fd use;
 
 allow mediaserver system_server:fd use;
 
-# hidl access
-hwbinder_use(mediaserver)
-hwallocator_use(mediaserver)
+hal_client_domain(mediaserver, hal_allocator)
 
 ###
 ### neverallow rules
