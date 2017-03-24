@@ -328,14 +328,6 @@ typeattribute $1 binderservicedomain;
 ')
 
 #####################################
-# hwallocator_use(domain)
-# Allow a domain to use Hidl shared memory
-define(`hwallocator_use', `
-# Call into the allocator hal
-binder_call($1, hal_allocator_server);
-')
-
-#####################################
 # wakelock_use(domain)
 # Allow domain to manage wake locks
 define(`wakelock_use', `
