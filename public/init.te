@@ -77,6 +77,7 @@ allow init tmpfs:dir mounton;
 allow init cgroup:dir create_dir_perms;
 r_dir_file(init, cgroup)
 allow init cpuctl_device:dir { create mounton };
+allow init memcg_device:dir { create mounton };
 
 # /config
 allow init configfs:dir mounton;

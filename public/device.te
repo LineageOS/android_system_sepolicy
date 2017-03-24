@@ -21,6 +21,7 @@ type rtc_device, dev_type;
 type vold_device, dev_type;
 type console_device, dev_type;
 type cpuctl_device, dev_type;
+type memcg_device, dev_type;
 type fscklogs, dev_type;
 type full_device, dev_type;
 # GPU (used by most UI apps)
