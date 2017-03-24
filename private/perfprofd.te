@@ -1,3 +1,4 @@
 userdebug_or_eng(`
+  typeattribute perfprofd coredomain;
   init_daemon_domain(perfprofd)
 ')
