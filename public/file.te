@@ -256,6 +256,9 @@ type sap_uim_socket, file_type;
 # UART (for GPS) control proc file
 type gps_control, file_type;
 
+# file_contexts files
+type file_contexts_file, file_type;
+
 # property_contexts file
 type property_contexts_file, file_type;
 
