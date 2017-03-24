@@ -50,8 +50,8 @@
 /nonplat_seapp_contexts     u:object_r:rootfs:s0
 /plat_seapp_contexts     u:object_r:rootfs:s0
 /sepolicy           u:object_r:rootfs:s0
-/plat_service_contexts   u:object_r:rootfs:s0
-/nonplat_service_contexts   u:object_r:rootfs:s0
+/plat_service_contexts   u:object_r:service_contexts_file:s0
+/nonplat_service_contexts   u:object_r:service_contexts_file:s0
 
 ##########################
 # Devices
@@ -250,12 +250,14 @@
 /system/bin/vr_wm                u:object_r:vr_wm_exec:s0
 /system/bin/hw/android\.hidl\.allocator@1\.0-service          u:object_r:hal_allocator_default_exec:s0
 /system/etc/selinux/plat_property_contexts  u:object_r:property_contexts_file:s0
+/system/etc/selinux/plat_service_contexts  u:object_r:service_contexts_file:s0
 
 #############################
 # Vendor files
 #
 /vendor(/.*)?		u:object_r:system_file:s0
 /vendor/etc/selinux/nonplat_property_contexts   u:object_r:property_contexts_file:s0
+/vendor/etc/selinux/nonplat_service_contexts    u:object_r:service_contexts_file:s0
 
 #############################
 # OEM and ODM files

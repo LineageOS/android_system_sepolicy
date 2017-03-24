@@ -259,6 +259,9 @@ type gps_control, file_type;
 # property_contexts file
 type property_contexts_file, file_type;
 
+# service_contexts file
+type service_contexts_file, file_type;
+
 # Allow files to be created in their appropriate filesystems.
 allow fs_type self:filesystem associate;
 allow sysfs_type sysfs:filesystem associate;
