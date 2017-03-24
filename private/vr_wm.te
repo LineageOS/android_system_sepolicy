@@ -1,4 +1,5 @@
 # vr_wm - VR Window Manager
+typeattribute vr_wm coredomain;
 
 # The vr_wm is started by init.
 init_daemon_domain(vr_wm)
