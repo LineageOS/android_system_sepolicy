@@ -71,9 +71,9 @@ binder_call(adbd, surfaceflinger)
 allow adbd gpu_device:chr_file rw_file_perms;
 allow adbd ion_device:chr_file rw_file_perms;
 r_dir_file(adbd, system_file)
-# Needed for Android Studio screenshot
-hwbinder_use(adbd)
-allow adbd hal_graphics_allocator:fd use;
+
+# Needed for various screenshots
+hal_client_domain(adbd, hal_graphics_allocator)
 
 # Read /data/misc/adb/adb_keys.
 allow adbd adb_keys_file:dir search;
