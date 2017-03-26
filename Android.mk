@@ -447,7 +447,7 @@ all_cil_files := \
 $(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(all_cil_files)
 $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $(all_cil_files)
 	@mkdir -p $(dir $@)
-	$(hide) $< -M true -c $(POLICYVERS) $(PRIVATE_CIL_FILES) -o $@.tmp
+	$(hide) $< -M true -c $(POLICYVERS) $(PRIVATE_CIL_FILES) -o $@.tmp -f /dev/null
 	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $@.tmp permissive > $@.permissivedomains
 	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
 		echo "==========" 1>&2; \
@@ -599,7 +599,7 @@ all_cil_files.recovery := \
 $(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(all_cil_files.recovery)
 $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $(all_cil_files.recovery)
 	@mkdir -p $(dir $@)
-	$(hide) $< -M true -c $(POLICYVERS) $(PRIVATE_CIL_FILES) -o $@.tmp
+	$(hide) $< -M true -c $(POLICYVERS) $(PRIVATE_CIL_FILES) -o $@.tmp -f /dev/null
 	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $@.tmp permissive > $@.permissivedomains
 	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
 		echo "==========" 1>&2; \
