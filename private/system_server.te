@@ -199,21 +199,28 @@ hal_client_domain(system_server, hal_wifi_supplicant)
 unix_socket_connect(system_server, tombstoned_intercept, tombstoned)
 
 # Send signals to trigger ANR traces.
-# This is derived from the list that system server defines as interesting native processes
-# to dump during ANRs or watchdog aborts, defined in NATIVE_STACKS_OF_INTEREST in
-# frameworks/base/services/core/java/com/android/server/Watchdog.java.
 allow system_server {
+  # This is derived from the list that system server defines as interesting native processes
+  # to dump during ANRs or watchdog aborts, defined in NATIVE_STACKS_OF_INTEREST in
+  # frameworks/base/services/core/java/com/android/server/Watchdog.java.
   audioserver
   cameraserver
   drmserver
   inputflinger
-  mediacodec
   mediadrmserver
   mediaextractor
   mediaserver
   mediametrics
   sdcardd
   surfaceflinger
+
+  # This list comes from HAL_INTERFACES_OF_INTEREST in
+  # frameworks/base/services/core/java/com/android/server/Watchdog.java.
+  hal_audio_server
+  hal_bluetooth_server
+  hal_camera_server
+  hal_vr_server
+  mediacodec # TODO(b/36375899): hal_omx_server
 }:process { signal };
 
 # Use sockets received over binder from various services.
