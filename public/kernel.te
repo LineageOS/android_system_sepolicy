@@ -73,6 +73,9 @@ userdebug_or_eng(`
 allow kernel media_rw_data_file:dir create_dir_perms;
 allow kernel media_rw_data_file:file create_file_perms;
 
+# Access to /data/misc/vold/virtual_disk.
+allow kernel vold_data_file:file read;
+
 ###
 ### neverallow rules
 ###
