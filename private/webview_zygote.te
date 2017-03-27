@@ -10,9 +10,6 @@ typeattribute webview_zygote mlstrustedsubject;
 # resulting process into webview_zygote domain.
 init_daemon_domain(webview_zygote)
 
-# Access to system files for SELinux contexts.
-allow webview_zygote rootfs:file r_file_perms;
-
 # Allow reading/executing installed binaries to enable preloading the
 # installed WebView implementation.
 allow webview_zygote apk_data_file:dir r_dir_perms;
@@ -46,6 +43,8 @@ allow webview_zygote system_server:process getpgid;
 # Interaction between the webview_zygote and its children.
 allow webview_zygote isolated_app:process setpgid;
 
+# Get seapp_contexts
+allow webview_zygote seapp_contexts_file:file r_file_perms;
 # Check validity of SELinux context before use.
 selinux_check_context(webview_zygote)
 # Check SELinux permissions.
