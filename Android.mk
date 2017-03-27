@@ -1,7 +1,38 @@
 LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := selinux_policy
+LOCAL_MODULE_TAGS := optional
+# Include SELinux policy. We do this here because different modules
+# need to be included based on the value of PRODUCT_FULL_TREBLE. This
+# type of conditional inclusion cannot be done in top-level files such
+# as build/target/product/embedded.mk.
+# This conditional inclusion closely mimics the conditional logic
+# inside init/init.cpp for loading SELinux policy from files.
+ifeq ($(PRODUCT_FULL_TREBLE),true)
+# Use split SELinux policy
+LOCAL_REQUIRED_MODULES += \
+    mapping_sepolicy.cil \
+    nonplat_sepolicy.cil \
+    plat_sepolicy.cil \
+    plat_sepolicy.cil.sha256 \
+    secilc \
+    nonplat_file_contexts \
+    plat_file_contexts
 
+# Include precompiled policy, unless told otherwise
+ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+LOCAL_REQUIRED_MODULES += precompiled_sepolicy precompiled_sepolicy.plat.sha256
+endif
+
+else
+# Use monolithic SELinux policy
+LOCAL_REQUIRED_MODULES += sepolicy \
+    file_contexts.bin
+endif
+include $(BUILD_PHONY_PACKAGE)
+
+include $(CLEAR_VARS)
 # SELinux policy version.
 # Must be <= /sys/fs/selinux/policyvers reported by the Android kernel.
 # Must be within the compatibility range reported by checkpolicy -V.
