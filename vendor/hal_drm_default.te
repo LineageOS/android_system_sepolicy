@@ -6,3 +6,6 @@ init_daemon_domain(hal_drm_default)
 
 allow hal_drm_default mediacodec:fd use;
 allow hal_drm_default { appdomain -isolated_app }:fd use;
+
+# TODO(b/36601602): Remove this once DRM HAL no longer uses Unix domain sockets to talk to tee daemon
+typeattribute hal_drm_default socket_between_core_and_vendor_violators;

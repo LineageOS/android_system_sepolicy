@@ -1,3 +1,7 @@
 typeattribute tee coredomain;
 
 init_daemon_domain(tee)
+
+# TODO(b/36601092, b/36601602): Remove this once Keymaster HAL and DRM HAL no longer communicate
+# with tee daemon over sockets or once the tee daemon is moved to vendor partition
+typeattribute tee socket_between_core_and_vendor_violators;
