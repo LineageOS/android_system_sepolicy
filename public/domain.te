@@ -106,7 +106,8 @@ allow domain system_file:lnk_file { getattr read };
 allow domain sysfs:lnk_file read;
 
 # libc references /data/misc/zoneinfo for timezone related information
-r_dir_file(domain, zoneinfo_data_file)
+not_full_treble(`r_dir_file(domain, zoneinfo_data_file)')
+r_dir_file({ coredomain appdomain }, zoneinfo_data_file)
 
 # Lots of processes access current CPU information
 r_dir_file(domain, sysfs_devices_system_cpu)
@@ -114,8 +115,11 @@ r_dir_file(domain, sysfs_devices_system_cpu)
 r_dir_file(domain, sysfs_usb);
 
 # files under /data.
-allow domain system_data_file:dir { search getattr };
-allow domain system_data_file:lnk_file read;
+not_full_treble(`allow domain system_data_file:dir getattr;')
+allow { coredomain appdomain } system_data_file:dir getattr;
+# /data has the label system_data_file. Vendor components need the search
+# permission on system_data_file for path traversal to /data/vendor.
+allow domain system_data_file:dir search;
 
 # required by the dynamic linker
 allow domain proc:lnk_file { getattr read };
@@ -444,6 +448,38 @@ full_treble_only(`
     -appdomain
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
   } servicemanager:binder { call transfer };
+
+  ##
+  # On full TREBLE devices core android components and vendor components may
+  # not directly access each other's data types. All communication must occur
+  # over HW binder. Open file descriptors may be passed and read/write/stat
+  # operations my be performed on those FDs. Disallow all other operations.
+  #
+  # do not allow vendor component access to coredomains' data types
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -coredata_in_vendor_violators
+  } core_data_file_type:{
+    file_class_set
+  } ~{ append getattr ioctl read write };
+  # do not allow vendor component access to coredomains' data directories.
+  # /data has the system_data_file type. Allow all domains to have dir
+  # search permissions which allows path traversal.
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -coredata_in_vendor_violators
+  } { core_data_file_type -system_data_file }:dir *;
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -coredata_in_vendor_violators
+  } system_data_file:dir ~search;
+
 ')
 
 # On full TREBLE devices, socket communications between core components and vendor components are

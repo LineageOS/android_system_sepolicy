@@ -3,3 +3,8 @@ hal_server_domain(hal_camera_default, hal_camera)
 
 type hal_camera_default_exec, exec_type, file_type;
 init_daemon_domain(hal_camera_default)
+
+# TODO (b/36601397) move hal_camera's data file to
+# /data/vendor/hardware/hal_camera. Remove coredata_in_vendor_violators
+# attribute.
+typeattribute hal_camera_default coredata_in_vendor_violators;

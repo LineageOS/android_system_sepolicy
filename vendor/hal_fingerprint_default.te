@@ -3,3 +3,7 @@ hal_server_domain(hal_fingerprint_default, hal_fingerprint)
 
 type hal_fingerprint_default_exec, exec_type, file_type;
 init_daemon_domain(hal_fingerprint_default)
+
+# TODO (b/36644492) move hal_fingerprint's data file to
+# /data/vendor/. Remove coredata_in_vendor_violators attribute.
+typeattribute hal_fingerprint_default coredata_in_vendor_violators;

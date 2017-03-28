@@ -7,3 +7,7 @@ init_daemon_domain(hal_bluetooth_default)
 # Logging for backward compatibility
 allow hal_bluetooth_default bluetooth_data_file:dir ra_dir_perms;
 allow hal_bluetooth_default bluetooth_data_file:file create_file_perms;
+
+# TODO (b/36602160) Remove hal_bluetooth's access to the Bluetooth app's
+# data type. Remove coredata_in_vendor_violators attribute.
+typeattribute hal_bluetooth_default coredata_in_vendor_violators;
