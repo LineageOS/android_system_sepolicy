@@ -1,6 +1,5 @@
 type dhcp, domain, domain_deprecated;
 type dhcp_exec, exec_type, file_type;
-type dhcp_data_file, file_type, data_file_type;
 
 net_domain(dhcp)
 
