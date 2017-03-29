@@ -62,6 +62,8 @@ allow zygote self:capability sys_admin;
 allow zygote pmsg_device:chr_file getattr;
 allow zygote debugfs_trace_marker:file getattr;
 
+# Get seapp_contexts
+allow zygote seapp_contexts_file:file r_file_perms;
 # Check validity of SELinux context before use.
 selinux_check_context(zygote)
 # Check SELinux permissions.
