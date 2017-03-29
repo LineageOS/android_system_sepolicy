@@ -41,15 +41,15 @@
 /file_contexts\.bin     u:object_r:file_contexts_file:s0
 /nonplat_file_contexts  u:object_r:file_contexts_file:s0
 /plat_file_contexts     u:object_r:file_contexts_file:s0
-/mapping_sepolicy\.cil   u:object_r:rootfs:s0
-/nonplat_sepolicy\.cil   u:object_r:rootfs:s0
-/plat_sepolicy\.cil      u:object_r:rootfs:s0
+/mapping_sepolicy\.cil   u:object_r:sepolicy_file:s0
+/nonplat_sepolicy\.cil   u:object_r:sepolicy_file:s0
+/plat_sepolicy\.cil      u:object_r:sepolicy_file:s0
 /plat_property_contexts  u:object_r:property_contexts_file:s0
 /nonplat_property_contexts  u:object_r:property_contexts_file:s0
 /seapp_contexts     u:object_r:seapp_contexts_file:s0
 /nonplat_seapp_contexts     u:object_r:seapp_contexts_file:s0
 /plat_seapp_contexts     u:object_r:seapp_contexts_file:s0
-/sepolicy           u:object_r:rootfs:s0
+/sepolicy           u:object_r:sepolicy_file:s0
 /plat_service_contexts   u:object_r:service_contexts_file:s0
 /nonplat_service_contexts   u:object_r:service_contexts_file:s0
 
@@ -253,15 +253,21 @@
 /system/etc/selinux/plat_service_contexts  u:object_r:service_contexts_file:s0
 /system/etc/selinux/plat_file_contexts  u:object_r:file_contexts_file:s0
 /system/etc/selinux/plat_seapp_contexts  u:object_r:seapp_contexts_file:s0
+/system/etc/selinux/plat_sepolicy.cil       u:object_r:sepolicy_file:s0
+/system/etc/selinux/plat_sepolicy.cil.sha256 u:object_r:sepolicy_file:s0
 
 #############################
 # Vendor files
 #
 /vendor(/.*)?		u:object_r:system_file:s0
+/vendor/etc/selinux/mapping_sepolicy.cil       u:object_r:sepolicy_file:s0
 /vendor/etc/selinux/nonplat_property_contexts   u:object_r:property_contexts_file:s0
 /vendor/etc/selinux/nonplat_service_contexts    u:object_r:service_contexts_file:s0
 /vendor/etc/selinux/nonplat_file_contexts   u:object_r:file_contexts_file:s0
 /vendor/etc/selinux/nonplat_seapp_contexts    u:object_r:seapp_contexts_file:s0
+/vendor/etc/selinux/nonplat_sepolicy.cil       u:object_r:sepolicy_file:s0
+/vendor/etc/selinux/precompiled_sepolicy        u:object_r:sepolicy_file:s0
+/vendor/etc/selinux/precompiled_sepolicy.plat.sha256 u:object_r:sepolicy_file:s0
 
 #############################
 # OEM and ODM files
