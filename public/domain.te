@@ -509,6 +509,25 @@ full_treble_only(`
     -appdomain
     -coredata_in_vendor_violators
   } system_data_file:dir ~search;
+  # do not allow coredomains to directly access vendor data. Exempt init
+  # because it is responsible for dir/file creation in init.rc scripts.
+  # Also exempt halclientdomain to exclude rules for passthrough mode.
+  neverallow {
+    coredomain
+    -halclientdomain
+    -init
+    -vendordata_in_core_violators
+  } {
+    data_file_type
+    -core_data_file_type
+  }:file_class_set ~{ append getattr ioctl read write };
+  # do not allow coredomain to access vendor data directories.
+  neverallow {
+    coredomain
+    -halclientdomain
+    -init
+    -vendordata_in_core_violators
+    } { data_file_type -core_data_file_type }:dir *;
 ')
 
 # On full TREBLE devices, socket communications between core components and vendor components are
