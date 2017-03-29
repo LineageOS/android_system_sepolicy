@@ -39,6 +39,12 @@ attribute exec_type;
 
 # All types used for /data files.
 attribute data_file_type;
+# All types in /data, not in /data/vendor
+attribute core_data_file_type;
+# All vendor domains which violate the requirement of not accessing
+# data outside /data/vendor.
+# TODO(b/34980020): Remove this once there are no violations
+attribute coredata_in_vendor_violators;
 
 # All types use for sysfs files.
 attribute sysfs_type;
