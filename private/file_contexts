@@ -38,9 +38,9 @@
 /sdcard             u:object_r:rootfs:s0
 
 # SELinux policy files
-/file_contexts\.bin u:object_r:rootfs:s0
-/nonplat_file_contexts u:object_r:rootfs:s0
-/plat_file_contexts u:object_r:rootfs:s0
+/file_contexts\.bin     u:object_r:file_contexts_file:s0
+/nonplat_file_contexts  u:object_r:file_contexts_file:s0
+/plat_file_contexts     u:object_r:file_contexts_file:s0
 /mapping_sepolicy\.cil   u:object_r:rootfs:s0
 /nonplat_sepolicy\.cil   u:object_r:rootfs:s0
 /plat_sepolicy\.cil      u:object_r:rootfs:s0
@@ -251,6 +251,7 @@
 /system/bin/hw/android\.hidl\.allocator@1\.0-service          u:object_r:hal_allocator_default_exec:s0
 /system/etc/selinux/plat_property_contexts  u:object_r:property_contexts_file:s0
 /system/etc/selinux/plat_service_contexts  u:object_r:service_contexts_file:s0
+/system/etc/selinux/plat_file_contexts  u:object_r:file_contexts_file:s0
 
 #############################
 # Vendor files
@@ -258,6 +259,7 @@
 /vendor(/.*)?		u:object_r:system_file:s0
 /vendor/etc/selinux/nonplat_property_contexts   u:object_r:property_contexts_file:s0
 /vendor/etc/selinux/nonplat_service_contexts    u:object_r:service_contexts_file:s0
+/vendor/etc/selinux/nonplat_file_contexts   u:object_r:file_contexts_file:s0
 
 #############################
 # OEM and ODM files

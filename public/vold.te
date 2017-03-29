@@ -19,6 +19,9 @@ allow vold sysfs_zram_uevent:file w_file_perms;
 r_dir_file(vold, rootfs)
 allow vold proc_meminfo:file r_file_perms;
 
+#Get file contexts
+allow vold file_contexts_file:file r_file_perms;
+
 # Allow us to jump into execution domains of above tools
 allow vold self:process setexec;
 
