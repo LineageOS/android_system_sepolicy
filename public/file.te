@@ -257,7 +257,7 @@ type sap_uim_socket, file_type;
 type gps_control, file_type;
 
 # property_contexts file
-type property_contexts, file_type;
+type property_contexts_file, file_type;
 
 # Allow files to be created in their appropriate filesystems.
 allow fs_type self:filesystem associate;
