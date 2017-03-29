@@ -13,5 +13,8 @@ allow tee self:netlink_socket create_socket_perms_no_ioctl;
 allow tee self:netlink_generic_socket create_socket_perms_no_ioctl;
 allow tee ion_device:chr_file r_file_perms;
 r_dir_file(tee, sysfs_type)
+
+# TODO(b/36720355): Remove this once tee no longer access non-vendor files
+typeattribute tee coredata_in_vendor_violators;
 allow tee system_data_file:file { getattr read };
 allow tee system_data_file:lnk_file r_file_perms;
