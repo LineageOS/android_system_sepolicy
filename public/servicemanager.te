@@ -11,7 +11,8 @@ type servicemanager_exec, exec_type, file_type;
 allow servicemanager self:binder set_context_mgr;
 allow servicemanager { domain -init }:binder transfer;
 
-r_dir_file(servicemanager, rootfs)
+# Access to all (system and vendor) service_contexts
+allow servicemanager service_contexts_file:file r_file_perms;
 
 # Check SELinux permissions.
 selinux_check_access(servicemanager)
