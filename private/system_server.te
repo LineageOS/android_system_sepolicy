@@ -232,6 +232,8 @@ allow system_server mediadrmserver:udp_socket rw_socket_perms;
 
 # Get file context
 allow system_server file_contexts_file:file r_file_perms;
+# access for mac_permissions
+allow system_server mac_perms_file: file r_file_perms;
 # Check SELinux permissions.
 selinux_check_access(system_server)
 

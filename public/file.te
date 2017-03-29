@@ -259,6 +259,9 @@ type gps_control, file_type;
 # file_contexts files
 type file_contexts_file, file_type;
 
+# mac_permissions file
+type mac_perms_file, file_type;
+
 # property_contexts file
 type property_contexts_file, file_type;
 
