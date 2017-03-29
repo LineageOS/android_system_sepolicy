@@ -11,6 +11,9 @@ r_dir_file(kernel, proc)
 allow kernel selinuxfs:dir r_dir_perms;
 allow kernel selinuxfs:file r_file_perms;
 
+# Get file contexts during first stage
+allow kernel file_contexts_file:file r_file_perms;
+
 # Allow init relabel itself.
 allow kernel rootfs:file relabelfrom;
 allow kernel init_exec:file relabelto;
