@@ -265,6 +265,9 @@ type property_contexts_file, file_type;
 # seapp_contexts file
 type seapp_contexts_file, file_type;
 
+# sepolicy files binary and others
+type sepolicy_file, file_type;
+
 # service_contexts file
 type service_contexts_file, file_type;
 
