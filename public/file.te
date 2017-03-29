@@ -87,54 +87,54 @@ type logcat_exec, exec_type, file_type;
 # /cores for coredumps on userdebug / eng builds
 type coredump_file, file_type;
 # Default type for anything under /data.
-type system_data_file, file_type, data_file_type;
+type system_data_file, file_type, data_file_type, core_data_file_type;
 # Unencrypted data
-type unencrypted_data_file, file_type, data_file_type;
+type unencrypted_data_file, file_type, data_file_type, core_data_file_type;
 # /data/.layout_version or other installd-created files that
 # are created in a system_data_file directory.
-type install_data_file, file_type, data_file_type;
+type install_data_file, file_type, data_file_type, core_data_file_type;
 # /data/drm - DRM plugin data
-type drm_data_file, file_type, data_file_type;
+type drm_data_file, file_type, data_file_type, core_data_file_type;
 # /data/adb - adb debugging files
-type adb_data_file, file_type, data_file_type;
+type adb_data_file, file_type, data_file_type, core_data_file_type;
 # /data/anr - ANR traces
-type anr_data_file, file_type, data_file_type, mlstrustedobject;
+type anr_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/tombstones - core dumps
-type tombstone_data_file, file_type, data_file_type, mlstrustedobject;
+type tombstone_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/app - user-installed apps
-type apk_data_file, file_type, data_file_type;
-type apk_tmp_file, file_type, data_file_type, mlstrustedobject;
+type apk_data_file, file_type, data_file_type, core_data_file_type;
+type apk_tmp_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/app-private - forward-locked apps
-type apk_private_data_file, file_type, data_file_type;
-type apk_private_tmp_file, file_type, data_file_type, mlstrustedobject;
+type apk_private_data_file, file_type, data_file_type, core_data_file_type;
+type apk_private_tmp_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/dalvik-cache
-type dalvikcache_data_file, file_type, data_file_type;
+type dalvikcache_data_file, file_type, data_file_type, core_data_file_type;
 # /data/ota
-type ota_data_file, file_type, data_file_type;
+type ota_data_file, file_type, data_file_type, core_data_file_type;
 # /data/ota_package
-type ota_package_file, file_type, data_file_type, mlstrustedobject;
+type ota_package_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/misc/profiles
-type user_profile_data_file, file_type, data_file_type, mlstrustedobject;
+type user_profile_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/misc/profman
-type profman_dump_data_file, file_type, data_file_type;
+type profman_dump_data_file, file_type, data_file_type, core_data_file_type;
 # /data/resource-cache
-type resourcecache_data_file, file_type, data_file_type;
+type resourcecache_data_file, file_type, data_file_type, core_data_file_type;
 # /data/local - writable by shell
-type shell_data_file, file_type, data_file_type, mlstrustedobject;
+type shell_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/property
-type property_data_file, file_type, data_file_type;
+type property_data_file, file_type, data_file_type, core_data_file_type;
 # /data/bootchart
-type bootchart_data_file, file_type, data_file_type;
+type bootchart_data_file, file_type, data_file_type, core_data_file_type;
 # /data/system/heapdump
-type heapdump_data_file, file_type, data_file_type, mlstrustedobject;
+type heapdump_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/nativetest
-type nativetest_data_file, file_type, data_file_type;
+type nativetest_data_file, file_type, data_file_type, core_data_file_type;
 # /data/system_de/0/ringtones
-type ringtone_file, file_type, data_file_type, mlstrustedobject;
+type ringtone_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/preloads
-type preloads_data_file, file_type, data_file_type;
+type preloads_data_file, file_type, data_file_type, core_data_file_type;
 # /data/preloads/media
-type preloads_media_file, file_type, data_file_type;
+type preloads_media_file, file_type, data_file_type, core_data_file_type;
 
 # Mount locations managed by vold
 type mnt_media_rw_file, file_type;
@@ -152,41 +152,43 @@ type postinstall_mnt_dir, file_type;
 type postinstall_file, file_type;
 
 # /data/misc subdirectories
-type adb_keys_file, file_type, data_file_type;
-type audio_data_file, file_type, data_file_type;
-type audiohal_data_file, file_type, data_file_type;
-type audioserver_data_file, file_type, data_file_type;
-type bluetooth_data_file, file_type, data_file_type;
-type bluetooth_logs_data_file, file_type, data_file_type;
-type bootstat_data_file, file_type, data_file_type;
-type boottrace_data_file, file_type, data_file_type;
-type camera_data_file, file_type, data_file_type;
-type gatekeeper_data_file, file_type, data_file_type;
-type incident_data_file, file_type, data_file_type;
-type keychain_data_file, file_type, data_file_type;
-type keystore_data_file, file_type, data_file_type;
-type media_data_file, file_type, data_file_type;
-type media_rw_data_file, file_type, data_file_type, mlstrustedobject;
-type misc_user_data_file, file_type, data_file_type;
-type net_data_file, file_type, data_file_type;
-type nfc_data_file, file_type, data_file_type;
-type radio_data_file, file_type, data_file_type, mlstrustedobject;
-type reboot_data_file, file_type, data_file_type;
-type recovery_data_file, file_type, data_file_type;
-type shared_relro_file, file_type, data_file_type;
-type systemkeys_data_file, file_type, data_file_type;
-type vpn_data_file, file_type, data_file_type;
-type wifi_data_file, file_type, data_file_type;
-type zoneinfo_data_file, file_type, data_file_type;
-type vold_data_file, file_type, data_file_type;
-type perfprofd_data_file, file_type, data_file_type, mlstrustedobject;
+type adb_keys_file, file_type, data_file_type, core_data_file_type;
+type audio_data_file, file_type, data_file_type, core_data_file_type;
+type audiohal_data_file, file_type, data_file_type, core_data_file_type;
+type audioserver_data_file, file_type, data_file_type, core_data_file_type;
+type bluetooth_data_file, file_type, data_file_type, core_data_file_type;
+type bluetooth_logs_data_file, file_type, data_file_type, core_data_file_type;
+type bootstat_data_file, file_type, data_file_type, core_data_file_type;
+type boottrace_data_file, file_type, data_file_type, core_data_file_type;
+type camera_data_file, file_type, data_file_type, core_data_file_type;
+type gatekeeper_data_file, file_type, data_file_type, core_data_file_type;
+type incident_data_file, file_type, data_file_type, core_data_file_type;
+type keychain_data_file, file_type, data_file_type, core_data_file_type;
+type keystore_data_file, file_type, data_file_type, core_data_file_type;
+type media_data_file, file_type, data_file_type, core_data_file_type;
+type media_rw_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
+type misc_user_data_file, file_type, data_file_type, core_data_file_type;
+type net_data_file, file_type, data_file_type, core_data_file_type;
+type nfc_data_file, file_type, data_file_type, core_data_file_type;
+type radio_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
+type reboot_data_file, file_type, data_file_type, core_data_file_type;
+type recovery_data_file, file_type, data_file_type, core_data_file_type;
+type shared_relro_file, file_type, data_file_type, core_data_file_type;
+type systemkeys_data_file, file_type, data_file_type, core_data_file_type;
+type vpn_data_file, file_type, data_file_type, core_data_file_type;
+type wifi_data_file, file_type, data_file_type, core_data_file_type;
+type zoneinfo_data_file, file_type, data_file_type, core_data_file_type;
+type vold_data_file, file_type, data_file_type, core_data_file_type;
+type perfprofd_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
+type tee_data_file, file_type, data_file_type, core_data_file_type;
+type update_engine_data_file, file_type, data_file_type, core_data_file_type;
 # /data/misc/trace for method traces on userdebug / eng builds
-type method_trace_data_file, file_type, data_file_type, mlstrustedobject;
+type method_trace_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 
 # /data/data subdirectories - app sandboxes
-type app_data_file, file_type, data_file_type;
+type app_data_file, file_type, data_file_type, core_data_file_type;
 # /data/data subdirectory for system UID apps.
-type system_app_data_file, file_type, data_file_type, mlstrustedobject;
+type system_app_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # Compatibility with type name used in Android 4.3 and 4.4.
 # Default type for anything under /cache
 type cache_file, file_type, mlstrustedobject;
@@ -199,27 +201,27 @@ type cache_recovery_file, file_type, mlstrustedobject;
 # Default type for anything under /efs
 type efs_file, file_type;
 # Type for wallpaper file.
-type wallpaper_file, file_type, data_file_type, mlstrustedobject;
+type wallpaper_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # Type for shortcut manager icon file.
-type shortcut_manager_icons, file_type, data_file_type, mlstrustedobject;
+type shortcut_manager_icons, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # Type for user icon file.
-type icon_file, file_type, data_file_type;
+type icon_file, file_type, data_file_type, core_data_file_type;
 # /mnt/asec
-type asec_apk_file, file_type, data_file_type, mlstrustedobject;
+type asec_apk_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # Elements of asec files (/mnt/asec) that are world readable
-type asec_public_file, file_type, data_file_type;
+type asec_public_file, file_type, data_file_type, core_data_file_type;
 # /data/app-asec
-type asec_image_file, file_type, data_file_type;
+type asec_image_file, file_type, data_file_type, core_data_file_type;
 # /data/backup and /data/secure/backup
-type backup_data_file, file_type, data_file_type, mlstrustedobject;
+type backup_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # All devices have bluetooth efs files. But they
 # vary per device, so this type is used in per
 # device policy
 type bluetooth_efs_file, file_type;
 # Type for fingerprint template file
-type fingerprintd_data_file, file_type, data_file_type;
+type fingerprintd_data_file, file_type, data_file_type, core_data_file_type;
 # Type for appfuse file.
-type app_fuse_file, file_type, data_file_type, mlstrustedobject;
+type app_fuse_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 
 # Socket types
 type adbd_socket, file_type;

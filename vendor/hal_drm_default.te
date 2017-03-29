@@ -9,3 +9,7 @@ allow hal_drm_default { appdomain -isolated_app }:fd use;
 
 # TODO(b/36601602): Remove this once DRM HAL no longer uses Unix domain sockets to talk to tee daemon
 typeattribute hal_drm_default socket_between_core_and_vendor_violators;
+# TODO (b/36601695) remove hal_drm's access to /data or move to
+# /data/vendor/hardware/hal_drm. Remove coredata_in_vendor_violators
+# attribute.
+typeattribute hal_drm_default coredata_in_vendor_violators;
