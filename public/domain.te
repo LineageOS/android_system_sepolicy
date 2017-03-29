@@ -656,10 +656,17 @@ neverallow installd system_data_file:file ~{ r_file_perms relabelfrom unlink };
 # respect system_app sandboxes
 neverallow {
   domain
-  -system_app # its own sandbox
+  -appdomain # finer-grained rules for appdomain are listed below
   -system_server #populate com.android.providers.settings/databases/settings.db.
   -installd # creation of app sandbox
 } system_app_data_file:dir_file_class_set { create unlink open };
+neverallow {
+  isolated_app
+  untrusted_app_all # finer-grained rules for appdomain are listed below
+  ephemeral_app
+  priv_app
+} system_app_data_file:dir_file_class_set { create unlink open };
+
 
 # Services should respect app sandboxes
 neverallow {
