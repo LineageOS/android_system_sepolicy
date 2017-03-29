@@ -256,8 +256,23 @@ type sap_uim_socket, file_type;
 # UART (for GPS) control proc file
 type gps_control, file_type;
 
+# file_contexts files
+type file_contexts_file, file_type;
+
+# mac_permissions file
+type mac_perms_file, file_type;
+
 # property_contexts file
-type property_contexts, file_type;
+type property_contexts_file, file_type;
+
+# seapp_contexts file
+type seapp_contexts_file, file_type;
+
+# sepolicy files binary and others
+type sepolicy_file, file_type;
+
+# service_contexts file
+type service_contexts_file, file_type;
 
 # Allow files to be created in their appropriate filesystems.
 allow fs_type self:filesystem associate;

@@ -27,6 +27,10 @@ selinux_check_context(installd)
 r_dir_file(installd, rootfs)
 # Scan through APKs in /system/app and /system/priv-app
 r_dir_file(installd, system_file)
+# Get file context
+allow installd file_contexts_file:file r_file_perms;
+# Get seapp_context
+allow installd seapp_contexts_file:file r_file_perms;
 
 # Search /data/app-asec and stat files in it.
 allow installd asec_image_file:dir search;
