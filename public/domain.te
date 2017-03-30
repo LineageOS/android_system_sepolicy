@@ -445,16 +445,46 @@ full_treble_only(`
   neverallow {
     domain
     -coredomain
+    -appdomain # restrictions for vendor apps are declared lower down
+    -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
+  } service_manager_type:service_manager find;
+  # Vendor apps are permited to use only stable public services. If they were to use arbitrary
+  # services which can change any time framework/core is updated, breakage is likely.
+  neverallow {
+    appdomain
+    -coredomain
+  } {
+    service_manager_type
+    -app_api_service
+    -ephemeral_app_api_service
+    -audioserver_service # TODO(b/36783122) remove exemptions below once app_api_service is fixed
+    -cameraserver_service
+    -drmserver_service
+    -keystore_service
+    -mediacasserver_service
+    -mediadrmserver_service
+    -mediaextractor_service
+    -mediametrics_service
+    -mediaserver_service
+    -nfc_service
+    -radio_service
+    -surfaceflinger_service
+    -vr_manager_service
+  }:service_manager find;
+  neverallow {
+    domain
+    -coredomain
     -appdomain
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
   } servicemanager:binder { call transfer };
+')
 
-  ##
-  # On full TREBLE devices core android components and vendor components may
-  # not directly access each other data types. All communication must occur
-  # over HW binder. Open file descriptors may be passed and read/write/stat
-  # operations my be performed on those FDs. Disallow all other operations.
-  #
+##
+# On full TREBLE devices core android components and vendor components may
+# not directly access each other's data types. All communication must occur
+# over HW binder. Open file descriptors may be passed and read/write/stat
+# operations my be performed on those FDs. Disallow all other operations.
+full_treble_only(`
   # do not allow vendor component access to coredomains data types
   neverallow {
     domain
@@ -479,7 +509,6 @@ full_treble_only(`
     -appdomain
     -coredata_in_vendor_violators
   } system_data_file:dir ~search;
-
 ')
 
 # On full TREBLE devices, socket communications between core components and vendor components are
