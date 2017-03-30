@@ -31,7 +31,6 @@ allow system_app icon_file:file r_file_perms;
 # Write to properties
 set_prop(system_app, bluetooth_prop)
 set_prop(system_app, debug_prop)
-set_prop(system_app, hal_binderization_prop)
 set_prop(system_app, system_prop)
 set_prop(system_app, logd_prop)
 set_prop(system_app, net_radio_prop)
