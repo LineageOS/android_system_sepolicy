@@ -1,3 +1,6 @@
 typeattribute mediaserver coredomain;
 
 init_daemon_domain(mediaserver)
+
+# allocate and use graphic buffers
+hal_client_domain(mediaserver, hal_graphics_allocator)
