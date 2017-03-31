@@ -5,5 +5,7 @@ type hal_nfc_default_exec, exec_type, file_type;
 init_daemon_domain(hal_nfc_default)
 
 # TODO (b/36645109) Remove hal_nfc's access to the nfc app's
-# data type. Remove coredata_in_vendor_violators attribute.
+# data type. Remove coredata_in_vendor_violators and
+# socket_between_core_and_vendor_violators attribute associations below.
 typeattribute hal_nfc_default coredata_in_vendor_violators;
+typeattribute hal_nfc_default socket_between_core_and_vendor_violators;
