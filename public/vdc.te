@@ -22,3 +22,6 @@ allow vdc dumpstate:unix_dgram_socket { read write };
 
 # vdc can be invoked with logwrapper, so let it write to pty
 allow vdc devpts:chr_file rw_file_perms;
+
+# vdc writes directly to kmsg during the boot process
+allow vdc kmsg_device:chr_file w_file_perms;
