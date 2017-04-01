@@ -106,8 +106,8 @@ allow domain system_file:lnk_file { getattr read };
 allow domain sysfs:lnk_file read;
 
 # libc references /data/misc/zoneinfo for timezone related information
-not_full_treble(`r_dir_file(domain, zoneinfo_data_file)')
-r_dir_file({ coredomain appdomain }, zoneinfo_data_file)
+# This directory is considered to be a VNDK-stable
+r_dir_file(domain, zoneinfo_data_file)
 
 # Lots of processes access current CPU information
 r_dir_file(domain, sysfs_devices_system_cpu)
@@ -491,7 +491,10 @@ full_treble_only(`
     -coredomain
     -appdomain
     -coredata_in_vendor_violators
-  } core_data_file_type:{
+  }
+    core_data_file_type
+    -zoneinfo_data_file # VNDK stable API provided by libc
+  :{
     file_class_set
   } ~{ append getattr ioctl read write };
   # do not allow vendor component access to coredomains data directories.
@@ -502,7 +505,11 @@ full_treble_only(`
     -coredomain
     -appdomain
     -coredata_in_vendor_violators
-  } { core_data_file_type -system_data_file }:dir *;
+  } {
+    core_data_file_type
+    -system_data_file
+    -zoneinfo_data_file # VNDK stable API provided by libc
+  }:dir *;
   neverallow {
     domain
     -coredomain
