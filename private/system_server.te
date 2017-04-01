@@ -190,6 +190,12 @@ hal_client_domain(system_server, hal_vibrator)
 binder_call(system_server, hal_vr)
 hal_client_domain(system_server, hal_vr)
 hal_client_domain(system_server, hal_wifi)
+
+# TODO(b/34274385): Remove this once Wi-Fi Supplicant HAL is guaranteed to be binderized on full
+# Treble devices. Passthrough Wi-Fi Supplicant HAL makes system_server touch wpa_socket which is a
+# vendor type. system_server, being a non-vendor component, is not permitted to touch that socket.
+typeattribute system_server socket_between_core_and_vendor_violators;
+
 hal_client_domain(system_server, hal_wifi_supplicant)
 
 # Talk to tombstoned to get ANR traces.
