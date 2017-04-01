@@ -52,6 +52,7 @@
 /sepolicy           u:object_r:sepolicy_file:s0
 /plat_service_contexts   u:object_r:service_contexts_file:s0
 /nonplat_service_contexts   u:object_r:service_contexts_file:s0
+/vndservice_contexts   u:object_r:vndservice_contexts_file:s0
 
 ##########################
 # Devices
@@ -270,6 +271,7 @@
 /vendor/etc/selinux/nonplat_sepolicy.cil       u:object_r:sepolicy_file:s0
 /vendor/etc/selinux/precompiled_sepolicy        u:object_r:sepolicy_file:s0
 /vendor/etc/selinux/precompiled_sepolicy.plat.sha256 u:object_r:sepolicy_file:s0
+/vendor/etc/selinux/vndservice_contexts         u:object_r:vndservice_contexts_file:s0
 
 #############################
 # OEM and ODM files
