@@ -78,8 +78,27 @@ type app_fusefs, fs_type, contextmount_type;
 
 # File types
 type unlabeled, file_type;
+
 # Default type for anything under /system.
 type system_file, file_type;
+
+# Default type for directories search for
+# HAL implementations
+type vendor_hal_file, vendor_file_type, file_type;
+# Default type for under /vendor or /system/vendor
+type vendor_file, vendor_file_type, file_type;
+# Default type for everything in /vendor/app
+type vendor_app_file, vendor_file_type, file_type;
+# Default type for everything under /vendor/etc/
+type vendor_configs_file, vendor_file_type, file_type;
+# Default type for all *same process* HALs.
+# e.g. libEGL_xxx.so, android.hardware.graphics.mapper@2.0-impl.so
+type same_process_hal_file, vendor_file_type, file_type;
+# Default type for everything in /vendor/framework
+type vendor_framework_file, vendor_file_type, file_type;
+# Default type for everything in /vendor/overlay
+type vendor_overlay_file, vendor_file_type, file_type;
+
 # Speedup access for trusted applications to the runtime event tags
 type runtime_event_log_tags_file, file_type;
 # Type for /system/bin/logcat.
