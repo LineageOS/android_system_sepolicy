@@ -27,10 +27,6 @@ r_dir_file(wificond, proc_net)
 allow wificond wifi_data_file:dir rw_dir_perms;
 allow wificond wifi_data_file:file create_file_perms;
 
-# wificond drops root shortly after starting
-# wificond changes the ownership of some files before dropping root
-allow wificond self:capability { setuid setgid setpcap chown };
-
 # dumpstate support
 allow wificond dumpstate:fd use;
 allow wificond dumpstate:fifo_file write;
