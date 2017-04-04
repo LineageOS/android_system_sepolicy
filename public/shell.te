@@ -64,8 +64,6 @@ set_prop(shell, wifi_log_prop)
 userdebug_or_eng(`set_prop(shell, log_prop)')
 # logpersist script
 userdebug_or_eng(`set_prop(shell, logpersistd_logging_prop)')
-# hal binderization
-userdebug_or_eng(`set_prop(shell, hal_binderization_prop)')
 
 userdebug_or_eng(`
   # "systrace --boot" support - allow boottrace service to run

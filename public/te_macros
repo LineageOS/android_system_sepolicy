@@ -282,13 +282,6 @@ allow hwservicemanager $1:binder { call transfer };
 allow hwservicemanager $1:dir search;
 allow hwservicemanager $1:file { read open };
 allow hwservicemanager $1:process getattr;
-# TODO(b/34274385): hals wait for data to be mounted so they can
-# start only if persist.hal.binderization is enabled. (for dogfood
-# stability). getService must also check for data to be mounted
-# if the vintf promises the hal will be registered over hwbinder.
-get_prop($1, hal_binderization_prop)
-get_prop($1, persistent_properties_ready_prop)
-get_prop($1, vold_prop)
 # rw access to /dev/hwbinder and /dev/ashmem is presently granted to
 # all domains in domain.te.
 ')
