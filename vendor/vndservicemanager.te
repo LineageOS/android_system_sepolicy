@@ -10,5 +10,8 @@ allow vndservicemanager { domain -coredomain -init }:binder transfer;
 
 allow vndservicemanager vndbinder_device:chr_file rw_file_perms;
 
+# Read vndservice_contexts
+allow vndservicemanager vndservice_contexts_file:file r_file_perms;
+
 # Check SELinux permissions.
 selinux_check_access(vndservicemanager)
