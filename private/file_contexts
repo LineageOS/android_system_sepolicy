@@ -145,7 +145,6 @@
 /dev/socket/zygote_secondary	u:object_r:zygote_socket:s0
 /dev/spdif_out.*	u:object_r:audio_device:s0
 /dev/tegra.*		u:object_r:video_device:s0
-/dev/tf_driver		u:object_r:tee_device:s0
 /dev/tty		u:object_r:owntty_device:s0
 /dev/tty[0-9]*		u:object_r:tty_device:s0
 /dev/ttyS[0-9]*		u:object_r:serial_device:s0
@@ -216,7 +215,6 @@
 /system/bin/dhcpcd-6.8.2	u:object_r:dhcp_exec:s0
 /system/bin/mtpd	u:object_r:mtp_exec:s0
 /system/bin/pppd	u:object_r:ppp_exec:s0
-/system/bin/tf_daemon	u:object_r:tee_exec:s0
 /system/bin/racoon	u:object_r:racoon_exec:s0
 /system/xbin/su		u:object_r:su_exec:s0
 /system/xbin/perfprofd  u:object_r:perfprofd_exec:s0
