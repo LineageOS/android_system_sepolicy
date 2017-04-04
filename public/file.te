@@ -276,6 +276,9 @@ type sepolicy_file, file_type;
 # service_contexts file
 type service_contexts_file, file_type;
 
+# vndservice_contexts file
+type vndservice_contexts_file, file_type;
+
 # Allow files to be created in their appropriate filesystems.
 allow fs_type self:filesystem associate;
 allow sysfs_type sysfs:filesystem associate;
