@@ -6,10 +6,6 @@ typeattribute tee domain_deprecated;
 type tee_exec, exec_type, file_type;
 init_daemon_domain(tee)
 
-# TODO(b/36714625, b/36715266): Remove this once drmserver, mediaserver, and surfaceflinger no
-# longer communicate with tee daemon over sockets
-typeattribute tee socket_between_core_and_vendor_violators;
-
 allow tee self:capability { dac_override };
 allow tee tee_device:chr_file rw_file_perms;
 allow tee tee_data_file:dir rw_dir_perms;
