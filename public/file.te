@@ -254,7 +254,6 @@ type vold_socket, file_type, coredomain_socket;
 type webview_zygote_socket, file_type, coredomain_socket;
 type wpa_socket, file_type;
 type zygote_socket, file_type, coredomain_socket;
-type sap_uim_socket, file_type;
 # UART (for GPS) control proc file
 type gps_control, file_type;
 
