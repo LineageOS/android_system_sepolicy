@@ -15,14 +15,14 @@ LOCAL_REQUIRED_MODULES += \
     mapping_sepolicy.cil \
     nonplat_sepolicy.cil \
     plat_sepolicy.cil \
-    plat_sepolicy.cil.sha256 \
+    plat_and_mapping_sepolicy.cil.sha256 \
     secilc \
     nonplat_file_contexts \
     plat_file_contexts
 
 # Include precompiled policy, unless told otherwise
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
-LOCAL_REQUIRED_MODULES += precompiled_sepolicy precompiled_sepolicy.plat.sha256
+LOCAL_REQUIRED_MODULES += precompiled_sepolicy precompiled_sepolicy.plat_and_mapping.sha256
 endif
 
 else
@@ -310,24 +310,10 @@ plat_policy.conf :=
 #################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := plat_sepolicy.cil.sha256
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH = $(TARGET_OUT)/etc/selinux
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE): $(built_plat_cil)
-	sha256sum $^ | cut -d' ' -f1 > $@
-
-#################################
-include $(CLEAR_VARS)
-
 LOCAL_MODULE := mapping_sepolicy.cil
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-LOCAL_PROPRIETARY_MODULE := true
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
+LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -353,6 +339,19 @@ $(LOCAL_BUILT_MODULE): $(mapping_policy_nvr)
 
 built_mapping_cil := $(LOCAL_BUILT_MODULE)
 current_mapping.cil :=
+
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := plat_and_mapping_sepolicy.cil.sha256
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH = $(TARGET_OUT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_plat_cil) $(built_mapping_cil)
+	cat $^ | sha256sum | cut -d' ' -f1 > $@
 
 #################################
 include $(CLEAR_VARS)
@@ -444,10 +443,11 @@ $(built_plat_cil) $(built_mapping_cil) $(built_nonplat_cil)
 built_precompiled_sepolicy := $(LOCAL_BUILT_MODULE)
 
 #################################
-# SHA-256 digest of the plat_sepolicy.cil file against which precompiled_policy was built.
+# SHA-256 digest of the plat_sepolicy.cil and mapping_sepolicy.cil files against
+# which precompiled_policy was built.
 #################################
 include $(CLEAR_VARS)
-LOCAL_MODULE := precompiled_sepolicy.plat.sha256
+LOCAL_MODULE := precompiled_sepolicy.plat_and_mapping.sha256
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_PROPRIETARY_MODULE := true
@@ -455,9 +455,9 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-$(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILE := $(built_plat_cil)
-$(LOCAL_BUILT_MODULE): $(built_precompiled_sepolicy) $(built_plat_cil)
-	sha256sum $(PRIVATE_CIL_FILE) | cut -d' ' -f1 > $@
+$(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(built_plat_cil) $(built_mapping_cil)
+$(LOCAL_BUILT_MODULE): $(built_precompiled_sepolicy) $(built_plat_cil) $(built_mapping_cil)
+	cat $(PRIVATE_CIL_FILES) | sha256sum | cut -d' ' -f1 > $@
 
 #################################
 include $(CLEAR_VARS)
