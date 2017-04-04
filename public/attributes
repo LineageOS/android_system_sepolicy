@@ -239,3 +239,12 @@ attribute hal_wifi_keystore_server;
 attribute hal_wifi_supplicant;
 attribute hal_wifi_supplicant_client;
 attribute hal_wifi_supplicant_server;
+
+# HwBinder services offered across the core-vendor boundary
+#
+# We annotate server domains with x_server  to loosen the coupling between
+# system and vendor images. For example, it should be possible to move a service
+# from one core domain to another, without having to update the vendor image
+# which contains clients of this service.
+
+attribute wifi_keystore_service_server;
