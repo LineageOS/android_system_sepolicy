@@ -34,8 +34,6 @@ allow hal_drm media_data_file:file { getattr read };
 
 allow hal_drm sysfs:file r_file_perms;
 
-# Connect to tee service.
-allow hal_drm tee:unix_stream_socket connectto;
 allow hal_drm tee_device:chr_file rw_file_perms;
 
 # only allow unprivileged socket ioctl commands

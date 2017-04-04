@@ -78,9 +78,6 @@ unix_socket_connect(mediaserver, drmserver, drmserver)
 # but seems appropriate for all devices.
 unix_socket_connect(mediaserver, bluetooth, bluetooth)
 
-# Connect to tee service.
-allow mediaserver tee:unix_stream_socket connectto;
-
 add_service(mediaserver, mediaserver_service)
 allow mediaserver activity_service:service_manager find;
 allow mediaserver appops_service:service_manager find;
