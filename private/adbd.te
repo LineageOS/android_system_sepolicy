@@ -103,6 +103,8 @@ allow adbd kernel:security read_policy;
 allow adbd service_contexts_file:file r_file_perms;
 allow adbd file_contexts_file:file r_file_perms;
 allow adbd seapp_contexts_file:file r_file_perms;
+allow adbd property_contexts_file:file r_file_perms;
+allow adbd sepolicy_file:file r_file_perms;
 
 allow adbd surfaceflinger_service:service_manager find;
 allow adbd bootchart_data_file:dir search;
