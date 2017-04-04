@@ -12,5 +12,8 @@ allow update_verifier ota_package_file:file r_file_perms;
 # Read all blocks in dm wrapped system partition.
 allow update_verifier dm_device:blk_file r_file_perms;
 
+# Allow update_verifier to reboot the device.
+set_prop(update_verifier, powerctl_prop)
+
 # Use Boot Control HAL
 hal_client_domain(update_verifier, hal_bootctl)
