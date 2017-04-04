@@ -23,17 +23,6 @@ allow hal_wifi_supplicant wifi_data_file:file create_file_perms;
 allow hal_wifi_supplicant wpa_socket:dir create_dir_perms;
 allow hal_wifi_supplicant wpa_socket:sock_file create_file_perms;
 
-# TODO(b/34131400): Use hwbinder to access keystore.
-use_keystore(hal_wifi_supplicant)
-binder_use(hal_wifi_supplicant)
-
-# WPA (wifi) has a restricted set of permissions from the default.
-allow hal_wifi_supplicant keystore:keystore_key {
-    get
-    sign
-    verify
-};
-
 # Allow wpa_cli to work. wpa_cli creates a socket in
 # /data/misc/wifi/sockets which hal_wifi_supplicant supplicant communicates with.
 userdebug_or_eng(`
