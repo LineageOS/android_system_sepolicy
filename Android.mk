@@ -1067,6 +1067,37 @@ nonplat_service_contexts.tmp :=
 ##################################
 include $(CLEAR_VARS)
 
+LOCAL_MODULE := vndservice_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+ifeq ($(PRODUCT_FULL_TREBLE),true)
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
+else
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+endif
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+vnd_svcfiles := $(call build_policy, vndservice_contexts, $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+
+vndservice_contexts.tmp := $(intermediates)/vndservice_contexts.tmp
+$(vndservice_contexts.tmp): PRIVATE_SVC_FILES := $(vnd_svcfiles)
+$(vndservice_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(vndservice_contexts.tmp): $(vnd_svcfiles)
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(vndservice_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
+	@mkdir -p $(dir $@)
+	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -s $(PRIVATE_SEPOLICY) $@
+
+vnd_svcfiles :=
+vndservice_contexts.tmp :=
+##################################
+include $(CLEAR_VARS)
+
 LOCAL_MODULE := plat_mac_permissions.xml
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
