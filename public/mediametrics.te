@@ -14,6 +14,9 @@ allow mediametrics system_server:fd use;
 r_dir_file(mediametrics, cgroup)
 allow mediametrics proc_meminfo:file r_file_perms;
 
+# allows interactions with dumpsys to GMScore
+allow mediametrics app_data_file:file write;
+
 ###
 ### neverallow rules
 ###
