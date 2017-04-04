@@ -43,7 +43,6 @@ type serialno_prop, property_type;
 type shell_prop, property_type, core_property_type;
 type system_prop, property_type, core_property_type;
 type system_radio_prop, property_type, core_property_type;
-type hal_binderization_prop, property_type;
 type vold_prop, property_type, core_property_type;
 type wifi_log_prop, property_type, log_property_type;
 type wifi_prop, property_type;
