@@ -92,6 +92,10 @@ recovery_only(`
   allow recovery { cache_file cache_recovery_file }:dir create_dir_perms;
   allow recovery { cache_file cache_recovery_file }:file create_file_perms;
 
+  # Read /sys/class/thermal/*/temp for thermal info.
+  allow recovery sysfs_thermal:dir search;
+  allow recovery sysfs_thermal:file r_file_perms;
+
   # Read files on /oem.
   r_dir_file(recovery, oemfs);
 
