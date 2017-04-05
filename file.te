@@ -145,6 +145,7 @@ type adb_keys_file, file_type, data_file_type;
 type audio_data_file, file_type, data_file_type;
 type audioserver_data_file, file_type, data_file_type;
 type bluetooth_data_file, file_type, data_file_type;
+type bluetooth_logs_data_file, file_type, data_file_type;
 type bootstat_data_file, file_type, data_file_type;
 type boottrace_data_file, file_type, data_file_type;
 type camera_data_file, file_type, data_file_type;
