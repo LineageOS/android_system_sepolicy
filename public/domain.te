@@ -136,11 +136,6 @@ full_treble_only(`
     # TODO: b/36806861
     allow domain vendor_app_file:lnk_file { open read };
 
-    # TODO: b/36656392, find out who needs access and only allow
-    # specific domains.
-    allow domain vendor_overlay_file:dir r_dir_perms;
-    allow domain vendor_overlay_file:file { read open getattr };
-
     # TODO: b/36680116, find out who neeeds access and only allow
     # specific domains
     allow domain vendor_framework_file:dir r_dir_perms;
@@ -687,7 +682,7 @@ full_treble_only(`
 # On TREBLE devices, a limited set of files in /vendor are accessible to
 # only a few whitelisted coredomains to keep system/vendor separation.
 full_treble_only(`
-    # Limit access to /vendor/app except for whitelisted domains
+    # Limit access to /vendor/app
     neverallow {
         coredomain
         -appdomain
@@ -707,6 +702,25 @@ full_treble_only(`
         -installd
         -system_server
     } vendor_app_file:{ file lnk_file } r_file_perms;
+
+    # Limit access to /vendor/overlay
+    neverallow {
+        coredomain
+        -appdomain
+        -idmap
+	-init
+        -system_server
+        -zygote
+    } vendor_overlay_file:dir { getattr open read search };
+
+    neverallow {
+        coredomain
+        -appdomain
+        -idmap
+	-init
+        -system_server
+        -zygote
+    } vendor_overlay_file:{ file lnk_file } r_file_perms;
 ')
 
 # Only authorized processes should be writing to files in /data/dalvik-cache
