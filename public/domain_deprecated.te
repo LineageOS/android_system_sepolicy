@@ -71,7 +71,6 @@ auditallow {
 
 # System file accesses.
 allow domain_deprecated system_file:dir r_dir_perms;
-allow domain_deprecated system_file:file r_file_perms;
 userdebug_or_eng(`
 auditallow {
   domain_deprecated
@@ -86,14 +85,6 @@ auditallow {
   -vold
   -zygote
 } system_file:dir { open read ioctl lock }; # search getattr in domain
-auditallow {
-  domain_deprecated
-  -appdomain
-  -rild
-  -surfaceflinger
-  -system_server
-  -zygote
-} system_file:file { ioctl lock }; # read open getattr in domain
 ')
 
 # Read files already opened under /data.
