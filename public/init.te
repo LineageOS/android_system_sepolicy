@@ -60,7 +60,7 @@ allow init self:capability sys_admin;
 
 # Create and mount on directories in /.
 allow init rootfs:dir create_dir_perms;
-allow init { rootfs cache_file cgroup storage_file system_data_file system_file postinstall_mnt_dir }:dir mounton;
+allow init { rootfs cache_file cgroup storage_file system_data_file system_file vendor_file postinstall_mnt_dir }:dir mounton;
 
 # Mount on /dev/usb-ffs/adb.
 allow init device:dir mounton;
@@ -127,6 +127,7 @@ allow init {
   -misc_logd_file
   -system_app_data_file
   -system_file
+  -vendor_file_type
 }:dir { create search getattr open read setattr ioctl };
 
 allow init {
@@ -138,6 +139,7 @@ allow init {
   -shell_data_file
   -system_app_data_file
   -system_file
+  -vendor_file_type
   -vold_data_file
 }:dir { write add_name remove_name rmdir relabelfrom };
 
@@ -151,6 +153,7 @@ allow init {
   -shell_data_file
   -system_app_data_file
   -system_file
+  -vendor_file_type
   -vold_data_file
 }:file { create getattr open read write setattr relabelfrom unlink };
 
@@ -163,6 +166,7 @@ allow init {
   -shell_data_file
   -system_app_data_file
   -system_file
+  -vendor_file_type
   -vold_data_file
 }:{ sock_file fifo_file } { create getattr open read setattr relabelfrom unlink };
 
@@ -175,12 +179,13 @@ allow init {
   -shell_data_file
   -system_app_data_file
   -system_file
+  -vendor_file_type
   -vold_data_file
 }:lnk_file { create getattr setattr relabelfrom unlink };
 
 allow init cache_file:lnk_file r_file_perms;
 
-allow init { file_type -system_file -exec_type }:dir_file_class_set relabelto;
+allow init { file_type -system_file -vendor_file_type -exec_type }:dir_file_class_set relabelto;
 allow init { sysfs debugfs debugfs_tracing }:{ dir file lnk_file } { getattr relabelfrom };
 allow init { sysfs_type debugfs_type }:{ dir file lnk_file } { relabelto getattr };
 allow init dev_type:dir create_dir_perms;
@@ -384,6 +389,7 @@ unix_socket_connect(init, vold, vold)
 allow init misc_block_device:blk_file w_file_perms;
 
 r_dir_file(init, system_file)
+r_dir_file(init, vendor_file_type)
 allow init proc_meminfo:file r_file_perms;
 
 allow init system_data_file:file { getattr read };
