@@ -668,6 +668,20 @@ class service_manager
 	list
 }
 
+class hwservice_manager
+{
+	add
+	find
+	list
+}
+
+class vndservice_manager
+{
+	add
+	find
+	list
+}
+
 class keystore_key
 {
 	get_state
