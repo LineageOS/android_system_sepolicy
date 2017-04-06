@@ -648,6 +648,9 @@ mapping_policy_nvr.recovery :=
 nonplat_policy_nvr.recovery :=
 
 ##################################
+# SELinux policy embedded into CTS.
+# CTS checks neverallow rules of this policy against the policy of the device under test.
+##################################
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := general_sepolicy.conf
@@ -667,27 +670,9 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 		-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 		-D target_arch=$(PRIVATE_TGT_ARCH) \
 		-D target_with_asan=false \
+		-D target_full_treble=cts \
 		-s $^ > $@
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
-
-built_general_sepolicy.conf := $(LOCAL_BUILT_MODULE)
-exp_sepolicy_build_files :=
-
-##################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := sepolicy.general
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := tests
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE): PRIVATE_BUILT_SEPOLICY.CONF := $(built_general_sepolicy.conf)
-$(LOCAL_BUILT_MODULE): $(built_general_sepolicy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
-	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@ $(PRIVATE_BUILT_SEPOLICY.CONF) > /dev/null
-
-built_general_sepolicy := $(LOCAL_BUILT_MODULE)
 
 ##################################
 # TODO - remove this.   Keep around until we get the filesystem creation stuff taken care of.
@@ -1164,8 +1149,6 @@ build_device_policy :=
 build_policy :=
 built_plat_fc :=
 built_nonplat_fc :=
-built_general_sepolicy :=
-built_general_sepolicy.conf :=
 built_nl :=
 built_plat_cil :=
 built_mapping_cil :=
