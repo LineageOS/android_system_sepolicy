@@ -131,11 +131,6 @@ full_treble_only(`
     # through linker/loader.
     allow domain vendor_file:dir { getattr search };
 
-    # Some apps (com.android.phone) need to be able to open
-    # symlinked libraries
-    # TODO: b/36806861
-    allow domain vendor_app_file:lnk_file { open read };
-
     # Allow reading and executing out of /vendor to all vendor domains
     allow { domain -coredomain } vendor_file_type:dir r_dir_perms;
     allow { domain -coredomain } vendor_file_type:file { read open getattr execute };
