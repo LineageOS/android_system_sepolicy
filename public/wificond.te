@@ -27,6 +27,9 @@ r_dir_file(wificond, proc_net)
 allow wificond wifi_data_file:dir rw_dir_perms;
 allow wificond wifi_data_file:file create_file_perms;
 
+# allow wificond to check permission for dumping logs
+allow wificond permission_service:service_manager find;
+
 # dumpstate support
 allow wificond dumpstate:fd use;
 allow wificond dumpstate:fifo_file write;
