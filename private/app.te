@@ -94,6 +94,10 @@ allow { appdomain -ephemeral_app -untrusted_v2_app } toolbox_exec:file rx_file_p
 allow appdomain system_file:dir r_dir_perms;
 allow appdomain system_file:lnk_file { getattr open read };
 
+# Allow apps access to /vendor/app except for privileged
+# apps which cannot be in /vendor.
+r_dir_file({ appdomain -ephemeral_app -untrusted_v2_app }, vendor_app_file)
+
 # Execute dex2oat when apps call dexclassloader
 allow appdomain dex2oat_exec:file rx_file_perms;
 
