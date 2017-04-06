@@ -12,3 +12,6 @@ allow idmap apk_data_file:dir search;
 
 # Allow apps access to /vendor/app
 r_dir_file(idmap, vendor_app_file)
+
+# Allow apps access to /vendor/overlay
+r_dir_file(idmap, vendor_overlay_file)
