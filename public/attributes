@@ -41,6 +41,9 @@ attribute exec_type;
 attribute data_file_type;
 # All types in /data, not in /data/vendor
 attribute core_data_file_type;
+# All types in /vendor
+attribute vendor_file_type;
+
 # All vendor domains which violate the requirement of not accessing
 # data outside /data/vendor.
 # TODO(b/34980020): Remove this once there are no violations
