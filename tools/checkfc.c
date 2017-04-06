@@ -15,12 +15,16 @@
 static const char * const CHECK_FC_ASSERT_ATTRS[] = { "fs_type", "dev_type", "file_type", NULL };
 static const char * const CHECK_PC_ASSERT_ATTRS[] = { "property_type", NULL };
 static const char * const CHECK_SC_ASSERT_ATTRS[] = { "service_manager_type", NULL };
+static const char * const CHECK_HW_SC_ASSERT_ATTRS[] = { "hwservice_manager_type", NULL };
+static const char * const CHECK_VND_SC_ASSERT_ATTRS[] = { "vndservice_manager_type", NULL };
 
 typedef enum filemode filemode;
 enum filemode {
     filemode_file_contexts = 0,
     filemode_property_contexts,
-    filemode_service_contexts
+    filemode_service_contexts,
+    filemode_hw_service_contexts,
+    filemode_vendor_service_contexts
 };
 
 static struct {
@@ -55,6 +59,10 @@ static const char * const *filemode_to_assert_attrs(filemode mode)
         return CHECK_PC_ASSERT_ATTRS;
     case filemode_service_contexts:
         return CHECK_SC_ASSERT_ATTRS;
+    case filemode_hw_service_contexts:
+        return CHECK_HW_SC_ASSERT_ATTRS;
+    case filemode_vendor_service_contexts:
+        return CHECK_VND_SC_ASSERT_ATTRS;
     }
     /* die on invalid parameters */
     fprintf(stderr, "Error: Invalid mode of operation: %d\n", mode);
@@ -185,10 +193,13 @@ static int validate(char **contextp)
 }
 
 static void usage(char *name) {
-    fprintf(stderr, "usage1:  %s [-p|-s] [-e] sepolicy context_file\n\n"
+    fprintf(stderr, "usage1:  %s [-l|-p|-s|-v] [-e] sepolicy context_file\n\n"
         "Parses a context file and checks for syntax errors.\n"
-        "The context_file is assumed to be a file_contexts file\n"
-        "unless the -p or -s option is used to indicate the property or service backend respectively.\n"
+        "If -p is specified, the property backend is used.\n"
+        "If -s is specified, the service backend is used to verify binder services.\n"
+        "If -l is specified, the service backend is used to verify hwbinder services.\n"
+        "If -v is specified, the service backend is used to verify vndbinder services.\n"
+        "Otherwise, context_file is assumed to be a file_contexts file\n"
         "If -e is specified, then the context_file is allowed to be empty.\n\n"
 
         "usage2:  %s -c file_contexts1 file_contexts2\n\n"
@@ -332,7 +343,7 @@ int main(int argc, char **argv)
 
   filemode mode = filemode_file_contexts;
 
-  while ((c = getopt(argc, argv, "cpse")) != -1) {
+  while ((c = getopt(argc, argv, "clpsve")) != -1) {
     switch (c) {
       case 'c':
         compare = true;
@@ -346,6 +357,14 @@ int main(int argc, char **argv)
         break;
       case 's':
         mode = filemode_service_contexts;
+        backend = SELABEL_CTX_ANDROID_SERVICE;
+        break;
+      case 'l':
+        mode = filemode_hw_service_contexts;
+        backend = SELABEL_CTX_ANDROID_SERVICE;
+        break;
+      case 'v':
+        mode = filemode_vendor_service_contexts;
         backend = SELABEL_CTX_ANDROID_SERVICE;
         break;
       case 'h':
