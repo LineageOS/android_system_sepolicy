@@ -123,12 +123,9 @@ allow domain same_process_hal_file:file { execute read open getattr };
 allow domain vendor_configs_file:dir r_dir_perms;
 allow domain vendor_configs_file:file { read open getattr };
 
-# TODO: (b/36681074) - Remove after this is resolved
-# TODO: (b/36680116, b/36656392, b/36681210) All need directory
-# lookup to find / open their libraries
 full_treble_only(`
-    # Everyone needs to lookup libraries in /vendor/lib(64)
-    # through linker/loader.
+    # This is required "most likely" for LD_LIBRARY_PATH
+    # (b/36681074)
     allow domain vendor_file:dir { getattr search };
 
     # Allow reading and executing out of /vendor to all vendor domains
