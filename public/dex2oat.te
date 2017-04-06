@@ -3,6 +3,11 @@ type dex2oat, domain, domain_deprecated;
 type dex2oat_exec, exec_type, file_type;
 
 r_dir_file(dex2oat, apk_data_file)
+# Access to /vendor/app
+r_dir_file(dex2oat, vendor_app_file)
+# Access /vendor/framework
+allow dex2oat vendor_framework_file:dir { getattr search };
+allow dex2oat vendor_framework_file:file { getattr open read };
 
 allow dex2oat tmpfs:file { read getattr };
 

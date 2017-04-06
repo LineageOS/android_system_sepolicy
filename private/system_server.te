@@ -297,6 +297,9 @@ allow system_server apk_tmp_file:file create_file_perms;
 # Access /vendor/app
 r_dir_file(system_server, vendor_app_file)
 
+# Access /vendor/app
+r_dir_file(system_server, vendor_overlay_file)
+
 # Manage /data/app-private.
 allow system_server apk_private_data_file:dir create_dir_perms;
 allow system_server apk_private_data_file:file create_file_perms;

@@ -51,6 +51,10 @@ allow { zygote with_dexpreopt(`-zygote') } dalvikcache_data_file:file execute;
 allow zygote idmap_exec:file rx_file_perms;
 allow zygote dex2oat_exec:file rx_file_perms;
 
+# /vendor/overlay existence is checked before
+# passing it on as an argument to idmap in AssetManager
+allow zygote vendor_overlay_file:dir { getattr open read search };
+
 # Control cgroups.
 allow zygote cgroup:dir create_dir_perms;
 allow zygote cgroup:{ file lnk_file } r_file_perms;

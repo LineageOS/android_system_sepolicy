@@ -123,33 +123,10 @@ allow domain same_process_hal_file:file { execute read open getattr };
 allow domain vendor_configs_file:dir r_dir_perms;
 allow domain vendor_configs_file:file { read open getattr };
 
-# TODO: (b/36681074) - Remove after this is resolved
-# TODO: (b/36680116, b/36656392, b/36681210) All need directory
-# lookup to find / open their libraries
 full_treble_only(`
-    # Everyone needs to lookup libraries in /vendor/lib(64)
-    # through linker/loader.
+    # This is required "most likely" for LD_LIBRARY_PATH
+    # (b/36681074)
     allow domain vendor_file:dir { getattr search };
-
-    # TODO: b/36681210, find out who needs access and only allow
-    # specific domains for Treble
-    allow domain vendor_app_file:dir r_dir_perms;
-    allow domain vendor_app_file:file { read open getattr };
-
-    # Some apps (com.android.phone) need to be able to open
-    # symlinked libraries
-    # TODO: b/36806861
-    allow domain vendor_app_file:lnk_file { open read };
-
-    # TODO: b/36656392, find out who needs access and only allow
-    # specific domains.
-    allow domain vendor_overlay_file:dir r_dir_perms;
-    allow domain vendor_overlay_file:file { read open getattr };
-
-    # TODO: b/36680116, find out who neeeds access and only allow
-    # specific domains
-    allow domain vendor_framework_file:dir r_dir_perms;
-    allow domain vendor_framework_file:file { read open getattr };
 
     # Allow reading and executing out of /vendor to all vendor domains
     allow { domain -coredomain } vendor_file_type:dir r_dir_perms;
@@ -689,6 +666,50 @@ full_treble_only(`
   }:sock_file ~{ append getattr ioctl read write };
 ')
 
+# On TREBLE devices, a limited set of files in /vendor are accessible to
+# only a few whitelisted coredomains to keep system/vendor separation.
+full_treble_only(`
+    # Limit access to /vendor/app
+    neverallow {
+        coredomain
+        -appdomain
+        -dex2oat
+        -idmap
+        -init
+        -installd
+        -system_server
+    } vendor_app_file:dir { open read getattr search };
+
+    neverallow {
+        coredomain
+        -appdomain
+        -dex2oat
+        -idmap
+        -init
+        -installd
+        -system_server
+    } vendor_app_file:{ file lnk_file } r_file_perms;
+
+    # Limit access to /vendor/overlay
+    neverallow {
+        coredomain
+        -appdomain
+        -idmap
+	-init
+        -system_server
+        -zygote
+    } vendor_overlay_file:dir { getattr open read search };
+
+    neverallow {
+        coredomain
+        -appdomain
+        -idmap
+	-init
+        -system_server
+        -zygote
+    } vendor_overlay_file:{ file lnk_file } r_file_perms;
+')
+
 # Only authorized processes should be writing to files in /data/dalvik-cache
 neverallow {
   domain
@@ -907,6 +928,7 @@ neverallow {
   -installd
   userdebug_or_eng(`-uncrypt')
 } shell_data_file:file open;
+
 
 # servicemanager is the only process which handles list request
 neverallow * ~servicemanager:service_manager list;
