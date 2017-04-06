@@ -131,11 +131,6 @@ full_treble_only(`
     # through linker/loader.
     allow domain vendor_file:dir { getattr search };
 
-    # TODO: b/36681210, find out who needs access and only allow
-    # specific domains for Treble
-    allow domain vendor_app_file:dir r_dir_perms;
-    allow domain vendor_app_file:file { read open getattr };
-
     # Some apps (com.android.phone) need to be able to open
     # symlinked libraries
     # TODO: b/36806861
@@ -689,6 +684,31 @@ full_treble_only(`
   }:sock_file ~{ append getattr ioctl read write };
 ')
 
+# On TREBLE devices, a limited set of files in /vendor are accessible to
+# only a few whitelisted coredomains to keep system/vendor separation.
+full_treble_only(`
+    # Limit access to /vendor/app except for whitelisted domains
+    neverallow {
+        coredomain
+        -appdomain
+        -dex2oat
+        -idmap
+        -init
+        -installd
+        -system_server
+    } vendor_app_file:dir { open read getattr search };
+
+    neverallow {
+        coredomain
+        -appdomain
+        -dex2oat
+        -idmap
+        -init
+        -installd
+        -system_server
+    } vendor_app_file:{ file lnk_file } r_file_perms;
+')
+
 # Only authorized processes should be writing to files in /data/dalvik-cache
 neverallow {
   domain
@@ -907,6 +927,7 @@ neverallow {
   -installd
   userdebug_or_eng(`-uncrypt')
 } shell_data_file:file open;
+
 
 # servicemanager is the only process which handles list request
 neverallow * ~servicemanager:service_manager list;
