@@ -119,6 +119,11 @@ allow domain vendor_hal_file:dir r_dir_perms;
 allow domain same_process_hal_file:dir r_dir_perms;
 allow domain same_process_hal_file:file { execute read open getattr };
 
+# Any process can load vndk-stable libraries, which are system libraries
+# used by same process HALs
+allow domain vndk_stable_file:dir r_dir_perms;
+allow domain vndk_stable_file:file { execute read open getattr };
+
 # All domains get access to /vendor/etc
 allow domain vendor_configs_file:dir r_dir_perms;
 allow domain vendor_configs_file:file { read open getattr };
