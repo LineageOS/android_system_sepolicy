@@ -10,6 +10,9 @@ userdebug_or_eng(`
   # Add su to various domains
   net_domain(su)
 
+  # grant su access to vndbinder
+  vndbinder_use(su)
+
   dontaudit su self:capability_class_set *;
   dontaudit su kernel:security *;
   dontaudit su kernel:system *;
@@ -34,6 +37,8 @@ userdebug_or_eng(`
   dontaudit su property_type:property_service *;
   dontaudit su property_type:file *;
   dontaudit su service_manager_type:service_manager *;
+  dontaudit su hwservice_manager_type:hwservice_manager *;
+  dontaudit su vndservice_manager_type:vndservice_manager *;
   dontaudit su servicemanager:service_manager list;
   dontaudit su keystore:keystore_key *;
   dontaudit su domain:drmservice *;
