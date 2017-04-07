@@ -92,11 +92,15 @@ PLAT_PRIVATE_POLICY := $(LOCAL_PATH)/private
 PLAT_VENDOR_POLICY := $(LOCAL_PATH)/vendor
 REQD_MASK_POLICY := $(LOCAL_PATH)/reqd_mask
 
+# The current version of the platform sepolicy.
+# TODO: This must be fetched from build system after b/36783775
+PLAT_PUBLIC_POLICY_CURRENT_VERSION := 100000.0
+
 # TODO: move to README when doing the README update and finalizing versioning.
-# BOARD_SEPOLICY_VERS should contain the platform version identifier
-#  corresponding to the platform on which the non-platform policy is to be
-#  based.  If unspecified, this will build against the current public platform
-#  policy in tree.
+# BOARD_SEPOLICY_VERS must take the format "NN.m" and contain the sepolicy
+# version identifier corresponding to the sepolicy on which the non-platform
+# policy is to be based. If unspecified, this will build against the current
+# public platform policy in tree
 # BOARD_SEPOLICY_VERS_DIR should contain the public platform policy which
 #  is associated with the given BOARD_SEPOLICY_VERS.  The policy therein will be
 #  versioned according to the BOARD_SEPOLICY_VERS identifier and included as
@@ -104,7 +108,8 @@ REQD_MASK_POLICY := $(LOCAL_PATH)/reqd_mask
 #  platform policy does not break non-platform policy.
 ifndef BOARD_SEPOLICY_VERS
 $(warning BOARD_SEPOLICY_VERS not specified, assuming current platform version)
-BOARD_SEPOLICY_VERS := current
+# The default platform policy version.
+BOARD_SEPOLICY_VERS := $(PLAT_PUBLIC_POLICY_CURRENT_VERSION)
 BOARD_SEPOLICY_VERS_DIR := $(PLAT_PUBLIC_POLICY)
 else
 ifndef BOARD_SEPOLICY_VERS_DIR
@@ -319,13 +324,14 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 # auto-generate the mapping file for current platform policy, since it needs to
 # track platform policy development
-current_mapping.cil := $(intermediates)/mapping/current.cil
-$(current_mapping.cil) : PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
+current_mapping.cil := $(intermediates)/mapping/$(PLAT_PUBLIC_POLICY_CURRENT_VERSION).cil
+$(current_mapping.cil) : PRIVATE_VERS := $(PLAT_PUBLIC_POLICY_CURRENT_VERSION)
 $(current_mapping.cil) : $(plat_pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
 
-ifeq ($(BOARD_SEPOLICY_VERS), current)
+
+ifeq ($(BOARD_SEPOLICY_VERS), $(PLAT_PUBLIC_POLICY_CURRENT_VERSION))
 mapping_policy_nvr := $(current_mapping.cil)
 else
 mapping_policy_nvr := $(addsuffix /$(BOARD_SEPOLICY_VERS).cil, $(PLAT_PRIVATE_POLICY)/mapping)
@@ -562,17 +568,17 @@ plat_policy.recovery.conf :=
 
 # auto-generate the mapping file for current platform policy, since it needs to
 # track platform policy development
-current_mapping.recovery.cil := $(intermediates)/mapping/current.recovery.cil
-$(current_mapping.recovery.cil) : PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
+current_mapping.recovery.cil := $(intermediates)/mapping/$(PLAT_PUBLIC_POLICY_CURRENT_VERSION).recovery.cil
+$(current_mapping.recovery.cil) : PRIVATE_VERS := $(PLAT_PUBLIC_POLICY_CURRENT_VERSION)
 $(current_mapping.recovery.cil) : $(plat_pub_policy.recovery.cil) $(HOST_OUT_EXECUTABLES)/version_policy
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
 
-ifeq ($(BOARD_SEPOLICY_VERS), current)
+ifeq ($(BOARD_SEPOLICY_VERS), $(PLAT_PUBLIC_POLICY_CURRENT_VERSION))
 mapping_policy_nvr.recovery := $(current_mapping.recovery.cil)
 else
 mapping_policy_nvr.recovery := $(addsuffix /$(BOARD_SEPOLICY_VERS).recovery.cil, \
-$(PLAT_PRIVATE_POLICY)/mapping)
+                               $(PLAT_PRIVATE_POLICY)/mapping)
 endif
 
 current_mapping.recovery.cil :=
