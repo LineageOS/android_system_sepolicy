@@ -87,6 +87,7 @@ int main(int argc, char *argv[])
 	char *base = NULL;
 	char *tgt_policy = NULL;
 	char *num = NULL;
+	char *dot;
 	char *output = NULL;
 	struct cil_db *base_db = NULL;
 	struct cil_db *out_db = NULL;
@@ -136,6 +137,13 @@ int main(int argc, char *argv[])
 	if (num == NULL || base == NULL || (mapping == false && tgt_policy == NULL)) {
 		fprintf(stderr, "Please specify required arguments\n");
 		usage(argv[0]);
+	}
+
+	/* policy language doesn't like '.', so replace them with '_' in mapping version */
+	dot = num;
+	while ((dot = strchr(dot, '.')) != NULL) {
+		*dot = '_';
+		++dot;
 	}
 
 	if (mapping && tgt_policy) {
