@@ -387,7 +387,12 @@ define(`recovery_only', ifelse(target_recovery, `true', $1, ))
 # Full TREBLE only
 # SELinux rules which apply only to full TREBLE devices
 #
-define(`full_treble_only', ifelse(target_full_treble, `true', $1, ))
+define(`full_treble_only', ifelse(target_full_treble, `true', $1,
+ifelse(target_full_treble, `cts',
+# BEGIN_TREBLE_ONLY -- this marker is used by CTS -- do not modify
+$1
+# END_TREBLE_ONLY -- this marker is used by CTS -- do not modify
+, )))
 
 #####################################
 # Not full TREBLE
