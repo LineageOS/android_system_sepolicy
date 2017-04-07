@@ -101,6 +101,10 @@ r_dir_file({ appdomain -ephemeral_app -untrusted_v2_app }, vendor_app_file)
 # Allow apps access to /vendor/overlay
 r_dir_file(appdomain, vendor_overlay_file)
 
+# Allow apps access to /vendor/framework
+# for vendor provided libraries.
+r_dir_file(appdomain, vendor_framework_file)
+
 # Execute dex2oat when apps call dexclassloader
 allow appdomain dex2oat_exec:file rx_file_perms;
 
