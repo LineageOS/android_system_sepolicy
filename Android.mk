@@ -1091,7 +1091,7 @@ $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): $(vndservice_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
 	@mkdir -p $(dir $@)
 	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -v $(PRIVATE_SEPOLICY) -e $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -e -v $(PRIVATE_SEPOLICY) $@
 
 vnd_svcfiles :=
 vndservice_contexts.tmp :=
