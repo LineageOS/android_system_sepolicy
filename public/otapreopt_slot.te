@@ -11,6 +11,8 @@ type otapreopt_slot_exec, exec_type, file_type;
 # the directory afterwards. For logging of aggregate size, we need getattr.
 allow otapreopt_slot ota_data_file:dir { rw_dir_perms rename reparent rmdir };
 allow otapreopt_slot ota_data_file:{ file lnk_file } getattr;
+# (du follows symlinks)
+allow otapreopt_slot ota_data_file:lnk_file read;
 
 # Delete old content of the dalvik-cache.
 allow otapreopt_slot dalvikcache_data_file:dir { add_name getattr open read remove_name rmdir search write };
