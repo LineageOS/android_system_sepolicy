@@ -13,6 +13,9 @@ binder_call(audioserver, appdomain)
 binder_service(audioserver)
 
 hal_client_domain(audioserver, hal_allocator)
+# /system/lib64/hw for always-passthrough Allocator HAL ashmem / mapper .so
+r_dir_file(audioserver, system_file)
+
 hal_client_domain(audioserver, hal_audio)
 
 userdebug_or_eng(`
