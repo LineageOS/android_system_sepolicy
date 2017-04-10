@@ -119,10 +119,10 @@ allow domain vendor_hal_file:dir r_dir_perms;
 allow domain same_process_hal_file:dir r_dir_perms;
 allow domain same_process_hal_file:file { execute read open getattr };
 
-# Any process can load vndk-stable libraries, which are system libraries
+# Any process can load vndk-sp libraries, which are system libraries
 # used by same process HALs
-allow domain vndk_stable_file:dir r_dir_perms;
-allow domain vndk_stable_file:file { execute read open getattr };
+allow domain vndk_sp_file:dir r_dir_perms;
+allow domain vndk_sp_file:file { execute read open getattr };
 
 # All domains get access to /vendor/etc
 allow domain vendor_configs_file:dir r_dir_perms;
@@ -546,7 +546,7 @@ full_treble_only(`
     -coredata_in_vendor_violators
   }
     core_data_file_type
-    -zoneinfo_data_file # VNDK stable API provided by libc
+    -zoneinfo_data_file # Stable API provided by libc
   :{
     file_class_set
   } ~{ append getattr ioctl read write };
@@ -561,7 +561,7 @@ full_treble_only(`
   } {
     core_data_file_type
     -system_data_file
-    -zoneinfo_data_file # VNDK stable API provided by libc
+    -zoneinfo_data_file # Stable API provided by libc
   }:dir *;
   neverallow {
     domain
