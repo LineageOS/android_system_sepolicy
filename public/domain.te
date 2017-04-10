@@ -129,8 +129,12 @@ allow domain vendor_configs_file:dir r_dir_perms;
 allow domain vendor_configs_file:file { read open getattr };
 
 full_treble_only(`
-    # This is required "most likely" for LD_LIBRARY_PATH
-    # (b/36681074)
+    # Allow all domains to be able to follow /system/vendor symlink
+    allow domain vendor_file:lnk_file { getattr open read };
+
+    # This is required to be able to search & read /vendor/lib64
+    # in order to lookup vendor libraries. The 'execute' permission
+    # for coredomains is granted *only* for same process HALs
     allow domain vendor_file:dir { getattr search };
 
     # Allow reading and executing out of /vendor to all vendor domains
