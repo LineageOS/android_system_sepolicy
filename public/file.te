@@ -94,8 +94,8 @@ type vendor_configs_file, vendor_file_type, file_type;
 # Default type for all *same process* HALs.
 # e.g. libEGL_xxx.so, android.hardware.graphics.mapper@2.0-impl.so
 type same_process_hal_file, vendor_file_type, file_type;
-# Default type for vndk-stable libs. /vendor/lib/vndk-stable
-type vndk_stable_file, vendor_file_type, file_type;
+# Default type for vndk-sp libs. /vendor/lib/vndk-sp
+type vndk_sp_file, vendor_file_type, file_type;
 # Default type for everything in /vendor/framework
 type vendor_framework_file, vendor_file_type, file_type;
 # Default type for everything in /vendor/overlay
