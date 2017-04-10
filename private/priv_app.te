@@ -100,20 +100,6 @@ allow priv_app preloads_data_file:dir r_dir_perms;
 allow priv_app preloads_media_file:file r_file_perms;
 allow priv_app preloads_media_file:dir r_dir_perms;
 
-# TODO: revert this as part of fixing 33574909
-# android.process.media uses /dev/mtp_usb
-allow priv_app mtp_device:chr_file rw_file_perms;
-
-# TODO: revert this as part of fixing 33574909
-# MtpServer uses /dev/usb-ffs/mtp
-allow priv_app functionfs:dir search;
-allow priv_app functionfs:file rw_file_perms;
-
-# TODO: revert this as part of fixing 33574909
-# Traverse into /mnt/media_rw for bypassing FUSE daemon
-# TODO: narrow this to just MediaProvider
-allow priv_app mnt_media_rw_file:dir search;
-
 read_runtime_log_tags(priv_app)
 
 ###
