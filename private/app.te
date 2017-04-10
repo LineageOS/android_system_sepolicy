@@ -93,6 +93,16 @@ allow { appdomain -ephemeral_app -untrusted_v2_app } toolbox_exec:file rx_file_p
 # Renderscript needs the ability to read directories on /system
 allow appdomain system_file:dir r_dir_perms;
 allow appdomain system_file:lnk_file { getattr open read };
+# Renderscript specific permissions to open /system/vendor/lib64.
+not_full_treble(`
+    allow appdomain vendor_file_type:dir r_dir_perms;
+    allow appdomain vendor_file_type:lnk_file { getattr open read };
+')
+
+full_treble_only(`
+    # For looking up Renderscript vendor drivers
+    allow { appdomain -isolated_app } vendor_file:dir { open read };
+')
 
 # Allow apps access to /vendor/app except for privileged
 # apps which cannot be in /vendor.
