@@ -133,7 +133,7 @@ full_treble_only(`
     allow domain vendor_file:lnk_file { getattr open read };
 
     # This is required to be able to search & read /vendor/lib64
-    # in order to lookup vendor libraries. The 'execute' permission
+    # in order to lookup vendor libraries. The execute permission
     # for coredomains is granted *only* for same process HALs
     allow domain vendor_file:dir { getattr search };
 
