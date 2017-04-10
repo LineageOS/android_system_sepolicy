@@ -266,7 +266,7 @@
 
 /(vendor|system/vendor)/lib(64)?/egl(/.*)?     u:object_r:same_process_hal_file:s0
 
-/(vendor|system/vendor)/lib(64)?/vndk-stable(/.*)? u:object_r:vndk_stable_file:s0
+/(vendor|system/vendor)/lib(64)?/vndk-sp(/.*)? u:object_r:vndk_sp_file:s0
 
 # TODO: b/36790901 move this to /vendor/etc
 /(vendor|system/vendor)/manifest.xml           u:object_r:vendor_configs_file:s0
