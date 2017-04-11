@@ -1,5 +1,29 @@
 LOCAL_PATH:= $(call my-dir)
 
+# PLATFORM_SEPOLICY_VERSION is a number of the form "NN.m" with "NN" mapping to
+# PLATFORM_SDK_VERSION and "m" as a minor number which allows for SELinux
+# changes independent of PLATFORM_SDK_VERSION.  This value will be set to
+# 10000.0 to represent tip-of-tree development that is inherently unstable and
+# thus designed not to work with any shipping vendor policy.  This is similar in
+# spirit to how DEFAULT_APP_TARGET_SDK is set.
+# The minor version ('m' component) must be updated every time a platform release
+# is made which breaks compatibility with the previous platform sepolicy version,
+# not just on every increase in PLATFORM_SDK_VERSION.  The minor version should
+# be reset to 0 on every bump of the PLATFORM_SDK_VERSION.
+sepolicy_major_vers := 25
+sepolicy_minor_vers := 0
+
+ifneq ($(sepolicy_major_vers), $(PLATFORM_SDK_VERSION))
+$(error sepolicy_major_version does not match PLATFORM_SDK_VERSION, please update.)
+endif
+ifneq (REL,$(PLATFORM_VERSION_CODENAME))
+    sepolicy_major_vers := 10000
+    sepolicy_minor_vers := 0
+endif
+PLATFORM_SEPOLICY_VERSION := $(join $(addsuffix .,$(sepolicy_major_vers)), $(sepolicy_minor_vers))
+sepolicy_major_vers :=
+sepolicy_minor_vers :=
+
 include $(CLEAR_VARS)
 LOCAL_MODULE := selinux_policy
 LOCAL_MODULE_TAGS := optional
@@ -92,10 +116,6 @@ PLAT_PRIVATE_POLICY := $(LOCAL_PATH)/private
 PLAT_VENDOR_POLICY := $(LOCAL_PATH)/vendor
 REQD_MASK_POLICY := $(LOCAL_PATH)/reqd_mask
 
-# The current version of the platform sepolicy.
-# TODO: This must be fetched from build system after b/36783775
-PLAT_PUBLIC_POLICY_CURRENT_VERSION := 100000.0
-
 # TODO: move to README when doing the README update and finalizing versioning.
 # BOARD_SEPOLICY_VERS must take the format "NN.m" and contain the sepolicy
 # version identifier corresponding to the sepolicy on which the non-platform
@@ -109,7 +129,7 @@ PLAT_PUBLIC_POLICY_CURRENT_VERSION := 100000.0
 ifndef BOARD_SEPOLICY_VERS
 $(warning BOARD_SEPOLICY_VERS not specified, assuming current platform version)
 # The default platform policy version.
-BOARD_SEPOLICY_VERS := $(PLAT_PUBLIC_POLICY_CURRENT_VERSION)
+BOARD_SEPOLICY_VERS := $(PLATFORM_SEPOLICY_VERSION)
 BOARD_SEPOLICY_VERS_DIR := $(PLAT_PUBLIC_POLICY)
 else
 ifndef BOARD_SEPOLICY_VERS_DIR
@@ -324,14 +344,14 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 # auto-generate the mapping file for current platform policy, since it needs to
 # track platform policy development
-current_mapping.cil := $(intermediates)/mapping/$(PLAT_PUBLIC_POLICY_CURRENT_VERSION).cil
-$(current_mapping.cil) : PRIVATE_VERS := $(PLAT_PUBLIC_POLICY_CURRENT_VERSION)
+current_mapping.cil := $(intermediates)/mapping/$(PLATFORM_SEPOLICY_VERSION).cil
+$(current_mapping.cil) : PRIVATE_VERS := $(PLATFORM_SEPOLICY_VERSION)
 $(current_mapping.cil) : $(plat_pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
 
 
-ifeq ($(BOARD_SEPOLICY_VERS), $(PLAT_PUBLIC_POLICY_CURRENT_VERSION))
+ifeq ($(BOARD_SEPOLICY_VERS), $(PLATFORM_SEPOLICY_VERSION))
 mapping_policy_nvr := $(current_mapping.cil)
 else
 mapping_policy_nvr := $(addsuffix /$(BOARD_SEPOLICY_VERS).cil, $(PLAT_PRIVATE_POLICY)/mapping)
@@ -568,13 +588,13 @@ plat_policy.recovery.conf :=
 
 # auto-generate the mapping file for current platform policy, since it needs to
 # track platform policy development
-current_mapping.recovery.cil := $(intermediates)/mapping/$(PLAT_PUBLIC_POLICY_CURRENT_VERSION).recovery.cil
-$(current_mapping.recovery.cil) : PRIVATE_VERS := $(PLAT_PUBLIC_POLICY_CURRENT_VERSION)
+current_mapping.recovery.cil := $(intermediates)/mapping/$(PLATFORM_SEPOLICY_VERSION).recovery.cil
+$(current_mapping.recovery.cil) : PRIVATE_VERS := $(PLATFORM_SEPOLICY_VERSION)
 $(current_mapping.recovery.cil) : $(plat_pub_policy.recovery.cil) $(HOST_OUT_EXECUTABLES)/version_policy
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
 
-ifeq ($(BOARD_SEPOLICY_VERS), $(PLAT_PUBLIC_POLICY_CURRENT_VERSION))
+ifeq ($(BOARD_SEPOLICY_VERS), $(PLATFORM_SEPOLICY_VERSION))
 mapping_policy_nvr.recovery := $(current_mapping.recovery.cil)
 else
 mapping_policy_nvr.recovery := $(addsuffix /$(BOARD_SEPOLICY_VERS).recovery.cil, \
