@@ -63,6 +63,15 @@ get_prop(adbd, serialno_prop)
 # Run /system/bin/bu
 allow adbd system_file:file rx_file_perms;
 
+# Perform binder IPC to surfaceflinger (screencap)
+# XXX Run screencap in a separate domain?
+binder_use(adbd)
+binder_call(adbd, surfaceflinger)
+# b/13188914
+allow adbd gpu_device:chr_file rw_file_perms;
+allow adbd ion_device:chr_file rw_file_perms;
+r_dir_file(adbd, system_file)
+
 # Needed for various screenshots
 hal_client_domain(adbd, hal_graphics_allocator)
 
