@@ -30,7 +30,6 @@ type hw_random_device, dev_type;
 type input_device, dev_type;
 type kmem_device, dev_type;
 type port_device, dev_type;
-type log_device, dev_type, mlstrustedobject;
 type mtd_device, dev_type;
 type mtp_device, dev_type, mlstrustedobject;
 type nfc_device, dev_type;
