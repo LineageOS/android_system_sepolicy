@@ -715,7 +715,7 @@ full_treble_only(`
         coredomain
         -appdomain
         -idmap
-	-init
+        -init
         -system_server
         -zygote
     } vendor_overlay_file:dir { getattr open read search };
@@ -724,7 +724,7 @@ full_treble_only(`
         coredomain
         -appdomain
         -idmap
-	-init
+        -init
         -system_server
         -zygote
     } vendor_overlay_file:{ file lnk_file } r_file_perms;
@@ -735,6 +735,21 @@ full_treble_only(`
         coredomain
         -init
     } vendor_shell_exec:file { execute execute_no_trans };
+
+    # Do not allow vendor components to execute files from system
+    # except for the ones whitelist here.
+    # TODO:(b/36463595) Make this a neverallow
+    userdebug_or_eng(`
+        auditallow {
+            domain
+            -coredomain
+            -appdomain
+        } {
+            exec_type
+            -vendor_file_type
+            -crash_dump_exec
+        }:file { entrypoint execute execute_no_trans };
+    ')
 ')
 
 # Only authorized processes should be writing to files in /data/dalvik-cache
