@@ -114,6 +114,9 @@ allow priv_app functionfs:file rw_file_perms;
 # TODO: narrow this to just MediaProvider
 allow priv_app mnt_media_rw_file:dir search;
 
+# Allow privileged apps (e.g. GMS core) to generate unique hardware IDs
+allow priv_app keystore:keystore_key gen_unique_id;
+
 read_runtime_log_tags(priv_app)
 
 ###
