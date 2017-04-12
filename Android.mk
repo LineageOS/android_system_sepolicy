@@ -95,6 +95,9 @@ $(warning BOARD_SEPOLICY_VERS not specified, assuming current platform version)
 BOARD_SEPOLICY_VERS := $(PLATFORM_SEPOLICY_VERSION)
 endif
 
+
+platform_mapping_file := $(BOARD_SEPOLICY_VERS).cil
+
 ###########################################################
 # Compute policy files to be used in policy build.
 # $(1): files to include
@@ -165,8 +168,6 @@ LOCAL_MODULE_TAGS := optional
 # This conditional inclusion closely mimics the conditional logic
 # inside init/init.cpp for loading SELinux policy from files.
 ifeq ($(PRODUCT_FULL_TREBLE),true)
-
-platform_mapping_file := $(BOARD_SEPOLICY_VERS).cil
 
 # Use split SELinux policy
 LOCAL_REQUIRED_MODULES += \
@@ -343,7 +344,6 @@ $(LOCAL_BUILT_MODULE) :
 	echo $(PRIVATE_PLAT_SEPOL_VERS) > $@
 
 #################################
-ifeq ($(PRODUCT_FULL_TREBLE),true)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := $(platform_mapping_file)
@@ -377,7 +377,6 @@ $(LOCAL_BUILT_MODULE): $(mapping_policy_nvr)
 built_mapping_cil := $(LOCAL_BUILT_MODULE)
 current_mapping.cil :=
 
-endif # ifeq ($(PRODUCT_FULL_TREBLE),true)
 #################################
 include $(CLEAR_VARS)
 
