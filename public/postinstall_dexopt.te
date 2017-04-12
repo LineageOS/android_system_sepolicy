@@ -17,6 +17,8 @@ allow postinstall_dexopt tmpfs:file read;
 
 # Read app data (APKs) as input to dex2oat.
 r_dir_file(postinstall_dexopt, apk_data_file)
+# Read vendor app data (APKs) as input to dex2oat.
+r_dir_file(postinstall_dexopt, vendor_app_file)
 # Access to app oat directory.
 r_dir_file(postinstall_dexopt, dalvikcache_data_file)
 
