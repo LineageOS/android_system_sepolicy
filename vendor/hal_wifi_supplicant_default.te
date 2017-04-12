@@ -1,7 +1,7 @@
 # wpa supplicant or equivalent
 type hal_wifi_supplicant_default, domain;
 hal_server_domain(hal_wifi_supplicant_default, hal_wifi_supplicant)
-type hal_wifi_supplicant_default_exec, exec_type, file_type;
+type hal_wifi_supplicant_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_wifi_supplicant_default)
 
 net_domain(hal_wifi_supplicant_default)
