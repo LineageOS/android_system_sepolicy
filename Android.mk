@@ -25,38 +25,6 @@ sepolicy_major_vers :=
 sepolicy_minor_vers :=
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := selinux_policy
-LOCAL_MODULE_TAGS := optional
-# Include SELinux policy. We do this here because different modules
-# need to be included based on the value of PRODUCT_FULL_TREBLE. This
-# type of conditional inclusion cannot be done in top-level files such
-# as build/target/product/embedded.mk.
-# This conditional inclusion closely mimics the conditional logic
-# inside init/init.cpp for loading SELinux policy from files.
-ifeq ($(PRODUCT_FULL_TREBLE),true)
-# Use split SELinux policy
-LOCAL_REQUIRED_MODULES += \
-    mapping_sepolicy.cil \
-    nonplat_sepolicy.cil \
-    plat_sepolicy.cil \
-    plat_and_mapping_sepolicy.cil.sha256 \
-    secilc \
-    nonplat_file_contexts \
-    plat_file_contexts
-
-# Include precompiled policy, unless told otherwise
-ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
-LOCAL_REQUIRED_MODULES += precompiled_sepolicy precompiled_sepolicy.plat_and_mapping.sha256
-endif
-
-else
-# Use monolithic SELinux policy
-LOCAL_REQUIRED_MODULES += sepolicy \
-    file_contexts.bin
-endif
-include $(BUILD_PHONY_PACKAGE)
-
-include $(CLEAR_VARS)
 # SELinux policy version.
 # Must be <= /sys/fs/selinux/policyvers reported by the Android kernel.
 # Must be within the compatibility range reported by checkpolicy -V.
@@ -197,6 +165,42 @@ ifneq (,$(filter address,$(SANITIZE_TARGET)))
   with_asan := true
 endif
 
+include $(CLEAR_VARS)
+LOCAL_MODULE := selinux_policy
+LOCAL_MODULE_TAGS := optional
+# Include SELinux policy. We do this here because different modules
+# need to be included based on the value of PRODUCT_FULL_TREBLE. This
+# type of conditional inclusion cannot be done in top-level files such
+# as build/target/product/embedded.mk.
+# This conditional inclusion closely mimics the conditional logic
+# inside init/init.cpp for loading SELinux policy from files.
+ifeq ($(PRODUCT_FULL_TREBLE),true)
+
+platform_mapping_file := $(BOARD_SEPOLICY_VERS).cil
+
+# Use split SELinux policy
+LOCAL_REQUIRED_MODULES += \
+    $(platform_mapping_file) \
+    nonplat_sepolicy.cil \
+    plat_sepolicy.cil \
+    plat_and_mapping_sepolicy.cil.sha256 \
+    secilc \
+    nonplat_file_contexts \
+    plat_file_contexts \
+    plat_sepolicy_vers.txt
+
+# Include precompiled policy, unless told otherwise
+ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+LOCAL_REQUIRED_MODULES += precompiled_sepolicy precompiled_sepolicy.plat_and_mapping.sha256
+endif
+
+else
+# Use monolithic SELinux policy
+LOCAL_REQUIRED_MODULES += sepolicy \
+    file_contexts.bin
+endif
+include $(BUILD_PHONY_PACKAGE)
+
 ##################################
 # reqd_policy_mask - a policy.conf file which contains only the bare minimum
 # policy necessary to use checkpolicy.  This bare-minimum policy needs to be
@@ -335,10 +339,26 @@ plat_policy.conf :=
 #################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := mapping_sepolicy.cil
+LOCAL_MODULE := plat_sepolicy_vers.txt
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
+LOCAL_PROPRIETARY_MODULE := true
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE) : PRIVATE_PLAT_SEPOL_VERS := $(BOARD_SEPOLICY_VERS)
+$(LOCAL_BUILT_MODULE) :
+	mkdir -p $(dir $@)
+	echo $(PRIVATE_PLAT_SEPOL_VERS) > $@
+
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := $(platform_mapping_file)
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux/mapping
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
