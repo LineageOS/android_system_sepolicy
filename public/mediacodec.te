@@ -8,7 +8,14 @@ typeattribute mediacodec mlstrustedsubject;
 # and use macro hal_server_domain
 get_prop(mediacodec, hwservicemanager_prop)
 
-binder_use(mediacodec)
+full_treble_only(`
+    # on full-Treble devices, route all /dev/binder traffic to /dev/vndbinder
+    vndbinder_use(mediacodec)
+')
+not_full_treble(`
+    # on legacy devices, continue to allow /dev/binder traffic
+    binder_use(mediacodec)
+')
 binder_call(mediacodec, binderservicedomain)
 binder_call(mediacodec, appdomain)
 binder_service(mediacodec)
