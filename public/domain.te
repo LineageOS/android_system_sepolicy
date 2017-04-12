@@ -686,6 +686,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
+        -postinstall_dexopt
         -system_server
     } vendor_app_file:dir { open read getattr search };
 
@@ -696,6 +697,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
+        -postinstall_dexopt
         -system_server
     } vendor_app_file:{ file lnk_file } r_file_perms;
 
