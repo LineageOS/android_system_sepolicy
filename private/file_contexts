@@ -265,6 +265,7 @@
 # Vendor files
 #
 /(vendor|system/vendor)(/.*)?                  u:object_r:vendor_file:s0
+/(vendor|system/vendor)/bin/toybox_vendor      u:object_r:vendor_toolbox_exec:s0
 /(vendor|system/vendor)/etc(/.*)?              u:object_r:vendor_configs_file:s0
 
 /(vendor|system/vendor)/lib(64)?/egl(/.*)?     u:object_r:same_process_hal_file:s0
