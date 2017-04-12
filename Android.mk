@@ -89,20 +89,10 @@ REQD_MASK_POLICY := $(LOCAL_PATH)/reqd_mask
 # version identifier corresponding to the sepolicy on which the non-platform
 # policy is to be based. If unspecified, this will build against the current
 # public platform policy in tree
-# BOARD_SEPOLICY_VERS_DIR should contain the public platform policy which
-#  is associated with the given BOARD_SEPOLICY_VERS.  The policy therein will be
-#  versioned according to the BOARD_SEPOLICY_VERS identifier and included as
-#  part of the non-platform policy to ensure removal of access in future
-#  platform policy does not break non-platform policy.
 ifndef BOARD_SEPOLICY_VERS
 $(warning BOARD_SEPOLICY_VERS not specified, assuming current platform version)
 # The default platform policy version.
 BOARD_SEPOLICY_VERS := $(PLATFORM_SEPOLICY_VERSION)
-BOARD_SEPOLICY_VERS_DIR := $(PLAT_PUBLIC_POLICY)
-else
-ifndef BOARD_SEPOLICY_VERS_DIR
-$(error BOARD_SEPOLICY_VERS_DIR not specified for versioned sepolicy.)
-endif
 endif
 
 ###########################################################
@@ -246,7 +236,7 @@ $(plat_pub_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(plat_pub_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(plat_pub_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(plat_pub_policy.conf): $(call build_policy, $(sepolicy_build_files), \
-$(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY))
+$(PLAT_PUBLIC_POLICY) $(REQD_MASK_POLICY))
 	@mkdir -p $(dir $@)
 	 $(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
@@ -422,7 +412,7 @@ $(nonplat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(nonplat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(nonplat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(nonplat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
-$(BOARD_SEPOLICY_VERS_DIR) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS))
+$(PLAT_PUBLIC_POLICY) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS))
 	@mkdir -p $(dir $@)
 	$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 		-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
