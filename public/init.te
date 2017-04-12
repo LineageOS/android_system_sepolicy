@@ -85,6 +85,7 @@ allow init cpuctl_device:dir { create mounton };
 # /config
 allow init configfs:dir mounton;
 allow init configfs:dir create_dir_perms;
+allow init configfs:{ file lnk_file } create_file_perms;
 
 # Use tmpfs as /data, used for booting when /data is encrypted
 allow init tmpfs:dir relabelfrom;
