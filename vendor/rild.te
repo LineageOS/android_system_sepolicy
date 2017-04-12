@@ -1,6 +1,6 @@
 # type_transition must be private policy the domain_trans rules could stay
 # public, but conceptually should go with this
-type rild_exec, exec_type, file_type;
+type rild_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(rild)
 
 # TODO(b/36613472), TODO(b/36718031): Remove this once rild no longer

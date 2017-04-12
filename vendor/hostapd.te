@@ -1,6 +1,6 @@
 # userspace wifi access points
 type hostapd, domain;
-type hostapd_exec, exec_type, file_type;
+type hostapd_exec, exec_type, vendor_file_type, file_type;
 
 init_daemon_domain(hostapd)
 
