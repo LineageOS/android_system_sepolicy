@@ -1,6 +1,6 @@
 # mediacodec - audio and video codecs live here
 type mediacodec, domain;
-type mediacodec_exec, exec_type, file_type;
+type mediacodec_exec, exec_type, vendor_file_type, file_type;
 
 typeattribute mediacodec mlstrustedsubject;
 
