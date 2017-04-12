@@ -343,6 +343,7 @@ $(LOCAL_BUILT_MODULE) :
 	echo $(PRIVATE_PLAT_SEPOL_VERS) > $@
 
 #################################
+ifeq ($(PRODUCT_FULL_TREBLE),true)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := $(platform_mapping_file)
@@ -376,6 +377,7 @@ $(LOCAL_BUILT_MODULE): $(mapping_policy_nvr)
 built_mapping_cil := $(LOCAL_BUILT_MODULE)
 current_mapping.cil :=
 
+endif # ifeq ($(PRODUCT_FULL_TREBLE),true)
 #################################
 include $(CLEAR_VARS)
 
