@@ -91,6 +91,10 @@ allowxperm priv_app self:udp_socket ioctl SIOCGIFHWADDR;
 binder_call(priv_app, update_engine)
 allow priv_app update_engine_service:service_manager find;
 
+# Allow GMS core to communicate with dumpsys storaged.
+binder_call(priv_app, storaged)
+allow priv_app storaged_service:service_manager find;
+
 # Allow Phone to read/write cached ringtones (opened by system).
 allow priv_app ringtone_file:file { getattr read write };
 
