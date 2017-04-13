@@ -702,6 +702,7 @@ class keystore_key
 	clear_uid
 	add_auth
 	user_changed
+	gen_unique_id
 }
 
 class drmservice {
