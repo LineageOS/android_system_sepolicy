@@ -322,7 +322,7 @@ $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(plat_policy_nvr)
 	# sailfish-eng).
 	grep -v '^(neverallow' $(PRIVATE_CIL_FILES) > $@
 	# Confirm that the resulting policy compiles
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -c $(POLICYVERS) $@ -o /dev/null -f /dev/null
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -G -c $(POLICYVERS) $@ -o /dev/null -f /dev/null
 
 built_plat_cil := $(LOCAL_BUILT_MODULE)
 plat_policy.conf :=
@@ -452,7 +452,7 @@ $(built_mapping_cil)
 	# sailfish-eng).
 	grep -v '^(neverallow' $(PRIVATE_NONPLAT_CIL_FILES) > $@
 	# Confirm that the resulting policy compiles combined with platform and mapping policies
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -c $(POLICYVERS) \
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -G -c $(POLICYVERS) \
 		$(PRIVATE_DEP_CIL_FILES) $@ -o /dev/null -f /dev/null
 
 built_nonplat_cil := $(LOCAL_BUILT_MODULE)
@@ -515,7 +515,7 @@ all_cil_files := \
 $(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(all_cil_files)
 $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $(all_cil_files)
 	@mkdir -p $(dir $@)
-	$(hide) $< -M true -c $(POLICYVERS) $(PRIVATE_CIL_FILES) -o $@.tmp -f /dev/null
+	$(hide) $< -M true -G -c $(POLICYVERS) $(PRIVATE_CIL_FILES) -o $@.tmp -f /dev/null
 	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $@.tmp permissive > $@.permissivedomains
 	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
 		echo "==========" 1>&2; \
