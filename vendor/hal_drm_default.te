@@ -6,8 +6,3 @@ init_daemon_domain(hal_drm_default)
 
 allow hal_drm_default mediacodec:fd use;
 allow hal_drm_default { appdomain -isolated_app }:fd use;
-
-# TODO (b/36601695) remove hal_drm's access to /data or move to
-# /data/vendor/hardware/hal_drm. Remove coredata_in_vendor_violators
-# attribute.
-typeattribute hal_drm_default coredata_in_vendor_violators;
