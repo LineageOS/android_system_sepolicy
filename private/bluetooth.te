@@ -1,7 +1,6 @@
-# bluetooth subsystem
+# bluetooth app
 
 typeattribute bluetooth coredomain;
-typeattribute bluetooth domain_deprecated;
 
 app_domain(bluetooth)
 net_domain(bluetooth)
