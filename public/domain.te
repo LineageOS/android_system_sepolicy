@@ -728,6 +728,13 @@ full_treble_only(`
         -system_server
         -zygote
     } vendor_overlay_file:{ file lnk_file } r_file_perms;
+
+    # Non-vendor domains are not allowed to file execute shell
+    # from vendor
+    neverallow {
+        coredomain
+        -init
+    } vendor_shell_exec:file { execute execute_no_trans };
 ')
 
 # Only authorized processes should be writing to files in /data/dalvik-cache
