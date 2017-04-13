@@ -214,6 +214,7 @@ allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
 
 # TODO(b/34454312) remove this when the correct policy is in place
 allow domain default_android_hwservice:hwservice_manager { add find };
+allow domain hwservice_manager_type:hwservice_manager { add find };
 
 ###
 ### neverallow rules
