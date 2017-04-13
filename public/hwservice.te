@@ -1,1 +1,2 @@
 type default_android_hwservice,   hwservice_manager_type;
+type hw_camera_provider_ICameraProvider,             hwservice_manager_type;

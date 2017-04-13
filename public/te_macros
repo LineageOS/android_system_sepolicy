@@ -500,6 +500,16 @@ define(`add_service', `
   neverallow { domain -$1 } $2:service_manager add;
 ')
 
+###########################################
+# add_hwservice(domain, service)
+# Ability for domain to add a service to hwservice_manager
+# and find it. It also creates a neverallow preventing
+# others from adding it.
+define(`add_hwservice', `
+  allow $1 $2:hwservice_manager { add find };
+  neverallow { domain -$1 } $2:hwservice_manager add;
+')
+
 ##########################################
 # print a message with a trailing newline
 # print(`args')
