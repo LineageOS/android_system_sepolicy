@@ -509,7 +509,8 @@ define(`add_service', `
 # others from adding it.
 define(`add_hwservice', `
   allow $1 $2:hwservice_manager { add find };
-  neverallow { domain -$1 } $2:hwservice_manager add;
+# TODO(b/34454312): Uncomment the neverallow once issues on user builds are resolved
+#  neverallow { domain -$1 } $2:hwservice_manager add;
 ')
 
 ##########################################
