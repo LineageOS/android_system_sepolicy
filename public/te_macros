@@ -175,14 +175,16 @@ define(`hal_client_domain', `
 typeattribute $1 halclientdomain;
 typeattribute $1 $2_client;
 
-# TODO(b/34170079): Make the inclusion of the rules below conditional,
-# once we know at build time whether a HAL is going to run in
-# passthrough or binderized mode.
+# TODO(b/34170079): Make the inclusion of the rules below conditional also on
+# non-Treble devices. For now, on non-Treble device, always grant clients of a
+# HAL sufficient access to run the HAL in passthrough mode (i.e., in-process).
+not_full_treble(`
 typeattribute $1 $2;
 # Find passthrough HAL implementations
 allow $2 system_file:dir r_dir_perms;
 allow $2 vendor_file:dir r_dir_perms;
 allow $2 vendor_file:file { read open getattr execute };
+')
 ')
 
 #####################################
