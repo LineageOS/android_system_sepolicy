@@ -443,7 +443,7 @@ $(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := \
 $(built_plat_cil) $(built_mapping_cil) $(built_nonplat_cil)
 $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc \
 $(built_plat_cil) $(built_mapping_cil) $(built_nonplat_cil)
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -c $(POLICYVERS) \
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -G -c $(POLICYVERS) \
 		$(PRIVATE_CIL_FILES) -o $@ -f /dev/null
 
 built_precompiled_sepolicy := $(LOCAL_BUILT_MODULE)
