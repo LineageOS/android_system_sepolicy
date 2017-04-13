@@ -979,6 +979,70 @@ nonplat_service_contexts.tmp :=
 ##################################
 include $(CLEAR_VARS)
 
+LOCAL_MODULE := plat_hwservice_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+ifeq ($(PRODUCT_FULL_TREBLE),true)
+LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
+else
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+endif
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+plat_hwsvcfiles := $(call build_policy, hwservice_contexts, $(PLAT_PRIVATE_POLICY))
+
+plat_hwservice_contexts.tmp := $(intermediates)/plat_hwservice_contexts.tmp
+$(plat_hwservice_contexts.tmp): PRIVATE_SVC_FILES := $(plat_hwsvcfiles)
+$(plat_hwservice_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(plat_hwservice_contexts.tmp): $(plat_hwsvcfiles)
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(plat_hwservice_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
+	@mkdir -p $(dir $@)
+	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
+	$(HOST_OUT_EXECUTABLES)/checkfc -e -l $(PRIVATE_SEPOLICY) $@
+
+plat_hwsvcfiles :=
+plat_hwservice_contexts.tmp :=
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := nonplat_hwservice_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+ifeq ($(PRODUCT_FULL_TREBLE),true)
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
+else
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+endif
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+nonplat_hwsvcfiles := $(call build_policy, hwservice_contexts, $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+
+nonplat_hwservice_contexts.tmp := $(intermediates)/nonplat_hwservice_contexts.tmp
+$(nonplat_hwservice_contexts.tmp): PRIVATE_SVC_FILES := $(nonplat_hwsvcfiles)
+$(nonplat_hwservice_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(nonplat_hwservice_contexts.tmp): $(nonplat_hwsvcfiles)
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(nonplat_hwservice_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
+	@mkdir -p $(dir $@)
+	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -e -l $(PRIVATE_SEPOLICY) $@
+
+nonplat_hwsvcfiles :=
+nonplat_hwservice_contexts.tmp :=
+
+##################################
+include $(CLEAR_VARS)
+
 LOCAL_MODULE := vndservice_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional

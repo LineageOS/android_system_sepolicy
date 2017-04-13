@@ -296,6 +296,9 @@ type sepolicy_file, file_type;
 # service_contexts file
 type service_contexts_file, file_type;
 
+# hwservice_contexts file
+type hwservice_contexts_file, file_type;
+
 # vndservice_contexts file
 type vndservice_contexts_file, file_type;
 

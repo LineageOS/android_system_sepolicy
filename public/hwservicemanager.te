@@ -15,6 +15,8 @@ set_prop(hwservicemanager, hwservicemanager_prop)
 # Scan through /system/lib64/hw looking for installed HALs
 allow hwservicemanager system_file:dir r_dir_perms;
 
-# TODO once hwservicemanager checks whether HALs are
-# allowed to register a certain service, add policy here
-# for allowing to check SELinux permissions.
+# Read hwservice_contexts
+allow hwservicemanager hwservice_contexts_file:file r_file_perms;
+
+# Check SELinux permissions.
+selinux_check_access(hwservicemanager)

@@ -86,6 +86,7 @@ allow shell dumpstate:binder call;
 # allow shell to get information from hwservicemanager
 # for instance, listing hardware services with lshal
 hwbinder_use(shell)
+allow shell hwservicemanager:hwservice_manager list;
 
 # allow shell to look through /proc/ for ps, top, netstat
 r_dir_file(shell, proc)
