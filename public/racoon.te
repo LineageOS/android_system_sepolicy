@@ -19,6 +19,7 @@ allow racoon self:capability { net_admin net_bind_service net_raw };
 
 # XXX: should we give ip-up-vpn its own label (currently racoon domain)
 allow racoon system_file:file rx_file_perms;
+not_full_treble(`allow racoon vendor_file:file rx_file_perms;')
 allow racoon vpn_data_file:file create_file_perms;
 allow racoon vpn_data_file:dir w_dir_perms;
 

@@ -26,6 +26,7 @@ allow dumpstate self:capability {
 #   /system/bin/logcat
 #   /system/bin/dumpsys
 allow dumpstate system_file:file execute_no_trans;
+not_full_treble(`allow dumpstate vendor_file:file execute_no_trans;')
 allow dumpstate toolbox_exec:file rx_file_perms;
 
 # Create and write into /data/anr/

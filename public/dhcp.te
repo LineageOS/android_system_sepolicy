@@ -9,6 +9,7 @@ allow dhcp self:packet_socket create_socket_perms_no_ioctl;
 allow dhcp self:netlink_route_socket nlmsg_write;
 allow dhcp shell_exec:file rx_file_perms;
 allow dhcp system_file:file rx_file_perms;
+not_full_treble(`allow dhcp vendor_file:file rx_file_perms;')
 
 # dhcpcd runs dhcpcd-hooks/*, which runs getprop / setprop (toolbox_exec)
 allow dhcp toolbox_exec:file rx_file_perms;
