@@ -219,7 +219,7 @@ allow domain default_android_hwservice:hwservice_manager { add find };
 allow { domain -domain } hwservice_manager_type:hwservice_manager { add find };
 # Workaround for policy compiler being too aggressive and removing vndservice_manager_type
 # when it's not explicitly used in allow rules
-allow { domain -domain } vndservice_manager_type:vndservice_manager { add find };
+allow { domain -domain } vndservice_manager_type:service_manager { add find };
 
 ###
 ### neverallow rules
@@ -914,8 +914,17 @@ neverallow {
 } shell_data_file:file open;
 
 
-# servicemanager is the only process which handles list request
-neverallow * ~servicemanager:service_manager list;
+# servicemanager and vndservicemanager are the only processes which handle the
+# service_manager list request
+neverallow * ~{
+    servicemanager
+    vndservicemanager
+    }:service_manager list;
+
+# hwservicemanager is the only process which handles hw list requests
+neverallow * ~{
+    hwservicemanager
+    }:hwservice_manager list;
 
 # only service_manager_types can be added to service_manager
 # TODO - rework this: neverallow * ~service_manager_type:service_manager { add find };
