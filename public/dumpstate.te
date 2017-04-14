@@ -94,11 +94,9 @@ r_dir_file(dumpstate, cgroup)
 binder_call(dumpstate, binderservicedomain)
 binder_call(dumpstate, { appdomain netd wificond })
 
-# Vibrate the device after we are done collecting the bugreport
-# For binderized mode:
 hal_client_domain(dumpstate, hal_dumpstate)
 hal_client_domain(dumpstate, hal_graphics_allocator)
-binder_call(dumpstate, hal_vibrator)
+# Vibrate the device after we are done collecting the bugreport
 hal_client_domain(dumpstate, hal_vibrator)
 # For passthrough mode:
 allow dumpstate sysfs_vibrator:file { rw_file_perms getattr };

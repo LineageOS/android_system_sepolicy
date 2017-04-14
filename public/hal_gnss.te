@@ -1,1 +1,6 @@
-binder_call(hal_gnss, system_server)
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_gnss_client, hal_gnss_server)
+binder_call(hal_gnss_server, hal_gnss_client)
+
+add_hwservice(hal_gnss_server, hal_gnss_hwservice)
+allow hal_gnss_client hal_gnss_hwservice:hwservice_manager find;

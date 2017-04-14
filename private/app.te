@@ -69,6 +69,9 @@ allow appdomain appdomain:fifo_file rw_file_perms;
 # Communicate with surfaceflinger.
 allow appdomain surfaceflinger:unix_stream_socket { read write setopt getattr getopt shutdown };
 
+# Query whether a Surface supports wide color
+allow { appdomain -isolated_app } hal_configstore_ISurfaceFlingerConfigs:hwservice_manager find;
+
 # App sandbox file accesses.
 allow { appdomain -isolated_app } app_data_file:dir create_dir_perms;
 allow { appdomain -isolated_app } app_data_file:notdevfile_class_set create_file_perms;
@@ -174,9 +177,11 @@ binder_call(appdomain, appdomain)
 # Perform binder IPC to ephemeral apps.
 binder_call(appdomain, ephemeral_app)
 
-# hidl access for mediacodec
-# TODO(b/34454312): only allow getting and talking to mediacodec service
-hwbinder_use(appdomain)
+# TODO(b/36375899): Replace this with hal_client_domain once mediacodec is properly attributized
+# as OMX HAL
+hwbinder_use({ appdomain  -isolated_app })
+allow { appdomain -isolated_app } hal_omx_hwservice:hwservice_manager find;
+allow { appdomain -isolated_app } hidl_token_hwservice:hwservice_manager find;
 
 # Talk with graphics composer fences
 allow appdomain hal_graphics_composer:fd use;
@@ -276,6 +281,9 @@ binder_call({ appdomain -isolated_app }, mediacodec)
 
 # Allow app to access shared memory created by camera HAL1
 allow { appdomain -isolated_app } hal_camera:fd use;
+
+# RenderScript always-passthrough HAL
+allow { appdomain -isolated_app } hal_renderscript_hwservice:hwservice_manager find;
 
 # TODO: switch to meminfo service
 allow appdomain proc_meminfo:file r_file_perms;

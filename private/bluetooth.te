@@ -58,7 +58,6 @@ allow bluetooth system_api_service:service_manager find;
 allow bluetooth shell_data_file:file read;
 
 hal_client_domain(bluetooth, hal_bluetooth)
-binder_call(bluetooth, hal_telephony)
 hal_client_domain(bluetooth, hal_telephony)
 
 read_runtime_log_tags(bluetooth)
