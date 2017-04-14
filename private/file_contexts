@@ -495,6 +495,28 @@
 /sys/kernel(/debug)?/tracing/trace_marker                                           u:object_r:debugfs_trace_marker:s0
 /sys/kernel(/debug)?/tracing/tracing_on                                             u:object_r:tracing_shell_writable:s0
 
+###########################################
+# debug-only tracing
+#
+/sys/kernel/debug/tracing/events/sync/enable                         u:object_r:tracing_shell_writable_debug:s0
+/sys/kernel/debug/tracing/events/workqueue/enable                    u:object_r:tracing_shell_writable_debug:s0
+/sys/kernel/debug/tracing/events/regulator/enable                    u:object_r:tracing_shell_writable_debug:s0
+/sys/kernel/debug/tracing/events/pagecache/enable                    u:object_r:tracing_shell_writable_debug:s0
+
+/sys/kernel/debug/tracing/events/irq/enable                          u:object_r:tracing_shell_writable_debug:s0
+/sys/kernel/debug/tracing/events/ipi/enable                          u:object_r:tracing_shell_writable_debug:s0
+
+/sys/kernel/debug/tracing/events/f2fs/f2fs_sync_file_enter/enable    u:object_r:tracing_shell_writable_debug:s0
+/sys/kernel/debug/tracing/events/f2fs/f2fs_sync_file_exit/enable     u:object_r:tracing_shell_writable_debug:s0
+/sys/kernel/debug/tracing/events/f2fs/f2fs_write_begin/enable        u:object_r:tracing_shell_writable_debug:s0
+/sys/kernel/debug/tracing/events/f2fs/f2fs_write_end/enable          u:object_r:tracing_shell_writable_debug:s0
+/sys/kernel/debug/tracing/events/ext4/ext4_da_write_begin/enable     u:object_r:tracing_shell_writable_debug:s0
+/sys/kernel/debug/tracing/events/ext4/ext4_da_write_end/enable       u:object_r:tracing_shell_writable_debug:s0
+/sys/kernel/debug/tracing/events/ext4/ext4_sync_file_enter/enable    u:object_r:tracing_shell_writable_debug:s0
+/sys/kernel/debug/tracing/events/ext4/ext4_sync_file_exit/enable     u:object_r:tracing_shell_writable_debug:s0
+/sys/kernel/debug/tracing/events/block/block_rq_issue/enable         u:object_r:tracing_shell_writable_debug:s0
+/sys/kernel/debug/tracing/events/block/block_rq_complete/enable      u:object_r:tracing_shell_writable_debug:s0
+
 #############################
 # asec containers
 /mnt/asec(/.*)?             u:object_r:asec_apk_file:s0
