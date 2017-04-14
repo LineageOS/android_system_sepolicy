@@ -14,6 +14,9 @@ hal_client_domain(cameraserver, hal_graphics_allocator)
 
 allow cameraserver ion_device:chr_file rw_file_perms;
 
+# Talk with graphics composer fences
+allow cameraserver hal_graphics_composer:fd use;
+
 add_service(cameraserver, cameraserver_service)
 allow cameraserver appops_service:service_manager find;
 allow cameraserver audioserver_service:service_manager find;
