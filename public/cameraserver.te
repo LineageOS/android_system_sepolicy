@@ -8,7 +8,6 @@ binder_call(cameraserver, appdomain)
 binder_service(cameraserver)
 
 hal_client_domain(cameraserver, hal_camera)
-allow cameraserver hw_camera_provider_ICameraProvider:hwservice_manager find;
 
 hal_client_domain(cameraserver, hal_graphics_allocator)
 
@@ -26,6 +25,8 @@ allow cameraserver mediaserver_service:service_manager find;
 allow cameraserver processinfo_service:service_manager find;
 allow cameraserver scheduling_policy_service:service_manager find;
 allow cameraserver surfaceflinger_service:service_manager find;
+
+allow cameraserver hidl_token_hwservice:hwservice_manager find;
 
 ###
 ### neverallow rules

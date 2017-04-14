@@ -2,6 +2,9 @@
 binder_call(hal_bluetooth_client, hal_bluetooth_server)
 binder_call(hal_bluetooth_server, hal_bluetooth_client)
 
+add_hwservice(hal_bluetooth_server, hal_bluetooth_hwservice)
+allow hal_bluetooth_client hal_bluetooth_hwservice:hwservice_manager find;
+
 wakelock_use(hal_bluetooth);
 
 # The HAL toggles rfkill to power the chip off/on.

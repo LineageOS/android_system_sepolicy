@@ -509,6 +509,7 @@ define(`add_service', `
 # others from adding it.
 define(`add_hwservice', `
   allow $1 $2:hwservice_manager { add find };
+  allow $1 hidl_base_hwservice:hwservice_manager add;
   neverallow { domain -$1 } $2:hwservice_manager add;
 ')
 
