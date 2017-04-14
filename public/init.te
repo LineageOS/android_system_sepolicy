@@ -400,6 +400,8 @@ allow init proc_meminfo:file r_file_perms;
 allow init system_data_file:file { getattr read };
 allow init system_data_file:lnk_file r_file_perms;
 
+# For init to be able to run shell scripts from vendor
+allow init vendor_shell_exec:file execute;
 
 ###
 ### neverallow rules
