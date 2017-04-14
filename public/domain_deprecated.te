@@ -208,7 +208,6 @@ auditallow {
 } proc:lnk_file { open ioctl lock }; # getattr read granted in domain
 auditallow {
   domain_deprecated
-  -bluetooth
   -fingerprintd
   -healthd
   -netd
@@ -222,7 +221,6 @@ auditallow {
 } sysfs:dir { open getattr read ioctl lock }; # search granted in domain
 auditallow {
   domain_deprecated
-  -bluetooth
   -fingerprintd
   -healthd
   -netd
@@ -236,7 +234,6 @@ auditallow {
 } sysfs:file r_file_perms;
 auditallow {
   domain_deprecated
-  -bluetooth
   -fingerprintd
   -healthd
   -netd
