@@ -744,6 +744,7 @@ full_treble_only(`
             domain
             -coredomain
             -appdomain
+            -rild
         } {
             exec_type
             -vendor_file_type
