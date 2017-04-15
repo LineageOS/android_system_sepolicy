@@ -177,6 +177,9 @@ binder_call(appdomain, ephemeral_app)
 # TODO(b/34454312): only allow getting and talking to mediacodec service
 hwbinder_use(appdomain)
 
+# Talk with graphics composer fences
+allow appdomain hal_graphics_composer:fd use;
+
 # Already connected, unnamed sockets being passed over some other IPC
 # hence no sock_file or connectto permission. This appears to be how
 # Chrome works, may need to be updated as more apps using isolated services
