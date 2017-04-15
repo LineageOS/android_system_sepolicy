@@ -680,20 +680,18 @@ full_treble_only(`
 
     # Do not allow vendor components to execute files from system
     # except for the ones whitelist here.
-    # TODO:(b/36463595) Make this a neverallow
-    userdebug_or_eng(`
-        auditallow {
-            domain
-            -coredomain
-            -appdomain
-            -rild
-        } {
-            exec_type
-            -vendor_file_type
-            -crash_dump_exec
-            -netutils_wrapper_exec
-        }:file { entrypoint execute execute_no_trans };
-    ')
+    neverallow {
+        domain
+        -coredomain
+        -appdomain
+        -rild
+        -vendor_executes_system_violators
+    } {
+        exec_type
+        -vendor_file_type
+        -crash_dump_exec
+        -netutils_wrapper_exec
+    }:file { entrypoint execute execute_no_trans };
 ')
 
 # Only authorized processes should be writing to files in /data/dalvik-cache
