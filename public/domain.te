@@ -691,6 +691,7 @@ full_treble_only(`
             exec_type
             -vendor_file_type
             -crash_dump_exec
+            -netutils_wrapper_exec
         }:file { entrypoint execute execute_no_trans };
     ')
 ')
