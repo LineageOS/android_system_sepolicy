@@ -132,6 +132,8 @@ allow mediaserver system_server:fd use;
 
 hal_client_domain(mediaserver, hal_allocator)
 
+binder_call(mediaserver, mediacodec)
+
 ###
 ### neverallow rules
 ###
