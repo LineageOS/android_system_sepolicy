@@ -61,3 +61,8 @@ allow interfacer display_service:service_manager find;
 allow interfacer mount_service:service_manager find;
 allow interfacer network_management_service:service_manager find;
 allow interfacer overlay_service:service_manager find;
+
+# Allow file and type transition for contexts
+type_transition interfacer system_data_file:file theme_data_file "theme";
+type_transition interfacer system_data_file:dir theme_data_file;
+file_type_auto_trans(interfacer, system_data_file, theme_data_file);
