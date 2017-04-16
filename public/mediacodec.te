@@ -20,6 +20,9 @@ binder_call(mediacodec, binderservicedomain)
 binder_call(mediacodec, appdomain)
 binder_service(mediacodec)
 
+# Allow mediacodec access to composer sync fences
+allow mediacodec hal_graphics_composer:fd use;
+
 # TODO(b/36604251): Remove this once OMX HAL stops using Binder
 typeattribute mediacodec binder_in_vendor_violators;
 add_service(mediacodec, mediacodec_service)
