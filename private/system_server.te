@@ -202,6 +202,8 @@ hal_client_domain(system_server, hal_wifi_offload)
 
 hal_client_domain(system_server, hal_wifi_supplicant)
 
+binder_call(system_server, mediacodec)
+
 # Talk with graphics composer fences
 allow system_server hal_graphics_composer:fd use;
 

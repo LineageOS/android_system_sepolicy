@@ -273,6 +273,9 @@ get_prop({ appdomain -isolated_app }, hwservicemanager_prop);
 # Allow app to access the graphic allocator HAL
 binder_call({ appdomain -isolated_app }, hal_graphics_allocator)
 
+# Allow app access to mediacodec (IOMX HAL)
+binder_call({ appdomain -isolated_app }, mediacodec)
+
 # App can access configstore HAL which is read only
 binder_call({ appdomain -isolated_app }, hal_configstore)
 
