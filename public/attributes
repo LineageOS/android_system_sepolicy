@@ -141,6 +141,11 @@ attribute binder_in_vendor_violators;
 # TODO(b/36577153): Remove this once there are no violations
 attribute socket_between_core_and_vendor_violators;
 
+# All vendor domains which violate the requirement of not executing
+# system processes
+# TODO(b/36463595)
+attribute vendor_executes_system_violators;
+
 # All HAL servers
 attribute halserverdomain;
 # All HAL clients
