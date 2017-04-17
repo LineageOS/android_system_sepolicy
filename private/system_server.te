@@ -175,7 +175,7 @@ hal_client_domain(system_server, hal_contexthub)
 hal_client_domain(system_server, hal_fingerprint)
 binder_call(system_server, hal_gnss)
 hal_client_domain(system_server, hal_gnss)
-binder_call(system_server, hal_graphics_allocator)
+hal_client_domain(system_server, hal_graphics_allocator)
 binder_call(system_server, hal_ir)
 hal_client_domain(system_server, hal_ir)
 binder_call(system_server, hal_light)
@@ -627,7 +627,6 @@ allow system_server preloads_media_file:dir { r_dir_perms write remove_name rmdi
 
 r_dir_file(system_server, cgroup)
 allow system_server ion_device:chr_file r_file_perms;
-allow system_server hal_graphics_allocator:fd use;
 
 r_dir_file(system_server, proc)
 r_dir_file(system_server, proc_meminfo)
