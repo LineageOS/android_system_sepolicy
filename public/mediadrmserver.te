@@ -19,6 +19,7 @@ allow mediadrmserver surfaceflinger_service:service_manager find;
 
 add_service(mediadrmserver, mediacasserver_service)
 
+binder_call(mediadrmserver, mediacodec)
 ###
 ### neverallow rules
 ###
