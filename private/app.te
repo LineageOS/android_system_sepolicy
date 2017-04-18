@@ -270,9 +270,6 @@ auditallow { appdomain userdebug_or_eng(`-su') } ion_device:chr_file { write app
 # TODO(b/36375899) replace with hal_client_domain for mediacodec (hal_omx)
 get_prop({ appdomain -isolated_app }, hwservicemanager_prop);
 
-# Allow app to access the graphic allocator HAL
-binder_call({ appdomain -isolated_app }, hal_graphics_allocator)
-
 # Allow app access to mediacodec (IOMX HAL)
 binder_call({ appdomain -isolated_app }, mediacodec)
 
