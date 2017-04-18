@@ -5,7 +5,7 @@
 # Only allow domains in AOSP to use the untrusted_app_all attribute.
 neverallow { untrusted_app_all -untrusted_app -untrusted_app_25 } domain:process fork;
 
-define(`all_untrusted_apps',`{ untrusted_app_all untrusted_app_25 untrusted_app ephemeral_app isolated_app }')
+define(`all_untrusted_apps',`{ untrusted_app_all untrusted_app_25 untrusted_app ephemeral_app isolated_app mediaprovider }')
 # Receive or send uevent messages.
 neverallow all_untrusted_apps domain:netlink_kobject_uevent_socket *;
 
@@ -23,9 +23,9 @@ neverallow all_untrusted_apps service_manager_type:service_manager add;
 
 # Do not allow untrusted apps to connect to the property service
 # or set properties. b/10243159
-neverallow all_untrusted_apps property_socket:sock_file write;
-neverallow all_untrusted_apps init:unix_stream_socket connectto;
-neverallow all_untrusted_apps property_type:property_service set;
+neverallow { all_untrusted_apps -mediaprovider } property_socket:sock_file write;
+neverallow { all_untrusted_apps -mediaprovider } init:unix_stream_socket connectto;
+neverallow { all_untrusted_apps -mediaprovider } property_type:property_service set;
 
 # Do not allow untrusted apps to be assigned mlstrustedsubject.
 # This would undermine the per-user isolation model being
@@ -63,15 +63,15 @@ neverallow all_untrusted_apps *:{
 } *;
 
 # Do not allow untrusted apps access to /cache
-neverallow all_untrusted_apps { cache_file cache_recovery_file }:dir ~{ r_dir_perms };
-neverallow all_untrusted_apps { cache_file cache_recovery_file }:file ~{ read getattr };
+neverallow { all_untrusted_apps -mediaprovider } { cache_file cache_recovery_file }:dir ~{ r_dir_perms };
+neverallow { all_untrusted_apps -mediaprovider } { cache_file cache_recovery_file }:file ~{ read getattr };
 
 # Do not allow untrusted apps to create/unlink files outside of its sandbox,
 # internal storage or sdcard.
 # World accessible data locations allow application to fill the device
 # with unaccounted for data. This data will not get removed during
 # application un-installation.
-neverallow all_untrusted_apps {
+neverallow { all_untrusted_apps -mediaprovider } {
   fs_type
   -fuse                     # sdcard
   -sdcardfs                 # sdcard
