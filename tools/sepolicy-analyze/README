@@ -69,6 +69,10 @@ sepolicy-analyze
 
     Displays the attributes associated with the specified type name.
 
+    sepolicy-analyze out/target/product/<board>/root/sepolicy attribute -l
+
+    Displays all attributes in the policy.
+
     NEVERALLOW CHECKING (neverallow)
     sepolicy-analyze out/target/product/<board>/root/sepolicy neverallow \
     [-w] [-d] [-f neverallows.conf] | [-n "neverallow string"]
