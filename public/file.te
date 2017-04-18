@@ -69,6 +69,8 @@ type debugfs_tracing, fs_type, debugfs_type;
 type debugfs_tracing_instances, fs_type, debugfs_type;
 type debugfs_wifi_tracing, fs_type, debugfs_type;
 type tracing_shell_writable, fs_type, debugfs_type;
+type tracing_shell_writable_debug, fs_type, debugfs_type;
+
 type pstorefs, fs_type;
 type functionfs, fs_type, mlstrustedobject;
 type oemfs, fs_type, contextmount_type;
