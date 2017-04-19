@@ -82,6 +82,9 @@ r_dir_file(priv_app, sysfs_type)
 r_dir_file(priv_app, proc)
 r_dir_file(priv_app, rootfs)
 
+# Allow GMS core to open kernel config for OTA matching through libvintf
+allow priv_app config_gz:file { open read getattr };
+
 # access the mac address
 allowxperm priv_app self:udp_socket ioctl SIOCGIFHWADDR;
 
