@@ -12,6 +12,11 @@
 (typeattributeset hal_allocator_client ((and (appdomain) ((not (isolated_app))))))
 (typeattributeset halclientdomain (hal_allocator_client))
 
+; Apps, except isolated apps, are clients of Configstore HAL
+; Unfortunately, we can't currently express this in module policy language:
+;     typeattribute { appdomain -isolated_app } hal_configstore_client;
+(typeattributeset hal_configstore_client ((and (appdomain) ((not (isolated_app))))))
+
 ; Apps, except isolated apps, are clients of Graphics Allocator HAL
 ; Unfortunately, we can't currently express this in module policy language:
 ;     typeattribute { appdomain -isolated_app } hal_graphics_allocator_client;
