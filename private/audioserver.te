@@ -39,6 +39,9 @@ allow audioserver scheduling_policy_service:service_manager find;
 allow audioserver audio_data_file:dir ra_dir_perms;
 allow audioserver audio_data_file:file create_file_perms;
 
+# allow access to ALSA MMAP FDs for AAudio API
+allow audioserver audio_device:chr_file { read write };
+
 ###
 ### neverallow rules
 ###
