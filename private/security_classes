@@ -137,9 +137,6 @@ class service_manager           # userspace
 # hardware service manager      # userspace
 class hwservice_manager
 
-# vendor service manager        # userspace
-class vndservice_manager
-
 # Keystore Key
 class keystore_key              # userspace
 
