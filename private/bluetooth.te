@@ -33,6 +33,9 @@ allow bluetooth self:tun_socket create_socket_perms_no_ioctl;
 allow bluetooth tun_device:chr_file rw_file_perms;
 allow bluetooth efs_file:dir search;
 
+# allow Bluetooth to access uhid device for HID profile
+allow bluetooth uhid_device:chr_file rw_file_perms;
+
 # proc access.
 allow bluetooth proc_bluetooth_writable:file rw_file_perms;
 
