@@ -51,6 +51,9 @@ recovery_only(`
   # Write to /proc/sys/vm/drop_caches
   allow recovery proc_drop_caches:file w_file_perms;
 
+  # Read kernel config through libvintf for OTA matching
+  allow recovery config_gz:file { open read getattr };
+
   # Write to /sys/class/android_usb/android0/enable.
   # TODO: create more specific label?
   allow recovery sysfs:file w_file_perms;
