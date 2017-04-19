@@ -1,0 +1,2 @@
+# HwBinder IPC from client to server
+binder_call(hal_configstore_client, hal_configstore_server)
