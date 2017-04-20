@@ -221,6 +221,9 @@ allow { domain -domain } hwservice_manager_type:hwservice_manager { add find };
 # when it's not explicitly used in allow rules
 allow { domain -domain } vndservice_manager_type:service_manager { add find };
 
+# Under ASAN, processes will try to read /data, as the sanitized libraries are there.
+with_asan(`allow domain system_data_file:dir getattr;')
+
 ###
 ### neverallow rules
 ###

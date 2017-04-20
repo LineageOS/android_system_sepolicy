@@ -22,6 +22,9 @@ userdebug_or_eng(`
   # Report dalvikcache_data_file:file execute violations.
   auditallow system_server dalvikcache_data_file:file execute;
 ')
+# When running system server under --invoke-with, we'll try to load the boot image under the
+# system server domain, following links to the system partition.
+with_asan(`allow system_server dalvikcache_data_file:lnk_file r_file_perms;')
 
 # /data/resource-cache
 allow system_server resourcecache_data_file:file r_file_perms;
@@ -655,6 +658,7 @@ allow system_server debugfs_wifi_tracing:file rw_file_perms;
 # asanwrapper.
 with_asan(`
   allow system_server shell_exec:file rx_file_perms;
+  allow system_server asanwrapper_exec:file rx_file_perms;
 ')
 
 ###
@@ -682,7 +686,7 @@ neverallow system_server {
   file_type
   -toolbox_exec
   -logcat_exec
-  with_asan(`-shell_exec')
+  with_asan(`-shell_exec -asanwrapper_exec -zygote_exec')
 }:file execute_no_trans;
 
 # Ensure that system_server doesn't perform any domain transitions other than

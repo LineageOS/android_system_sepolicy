@@ -315,6 +315,9 @@ allow appdomain adbd:unix_stream_socket { getattr getopt ioctl read write shutdo
 
 allow appdomain cache_file:dir getattr;
 
+# Allow apps to run with asanwrapper.
+with_asan(`allow appdomain asanwrapper_exec:file rx_file_perms;')
+
 ###
 ### Neverallow rules
 ###
