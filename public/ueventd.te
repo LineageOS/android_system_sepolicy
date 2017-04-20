@@ -30,7 +30,7 @@ allow ueventd efs_file:file r_file_perms;
 r_dir_file(ueventd, selinuxfs)
 
 # Access for /vendor/ueventd.rc and /vendor/firmware
-r_dir_file(ueventd, vendor_file)
+r_dir_file(ueventd, { vendor_file_type -vendor_app_file -vendor_overlay_file })
 
 # Get file contexts for new device nodes
 allow ueventd file_contexts_file:file r_file_perms;
