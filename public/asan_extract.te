@@ -31,6 +31,6 @@ with_asan(`
   # Restorecon will actually already try to run with sanitized libraries (libpackagelistparser).
   allow asan_extract system_data_file:file execute;
 
-  # We use asan.restore_reboot to signal a reboot is required.
-  set_prop(asan_extract, asan_reboot_prop)
+  # We need to signal a reboot when done.
+  set_prop(asan_extract, powerctl_prop)
 ')

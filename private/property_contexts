@@ -111,6 +111,3 @@ wlan.                   u:object_r:wifi_prop:s0
 
 # hwservicemanager properties
 hwservicemanager.       u:object_r:hwservicemanager_prop:s0
-
-# ASAN install trigger
-asan.restore_reboot  u:object_r:asan_reboot_prop:s0
