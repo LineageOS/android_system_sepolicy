@@ -46,6 +46,7 @@ allow shell input_device:chr_file rw_file_perms;
 r_dir_file(shell, system_file)
 allow shell system_file:file x_file_perms;
 allow shell toolbox_exec:file rx_file_perms;
+allow shell tzdatacheck_exec:file rx_file_perms;
 allow shell shell_exec:file rx_file_perms;
 allow shell zygote_exec:file rx_file_perms;
 
