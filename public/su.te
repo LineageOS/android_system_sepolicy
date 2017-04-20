@@ -38,10 +38,10 @@ userdebug_or_eng(`
   dontaudit su property_type:file *;
   dontaudit su service_manager_type:service_manager *;
   dontaudit su hwservice_manager_type:hwservice_manager *;
-  dontaudit su vndservice_manager_type:vndservice_manager *;
+  dontaudit su vndservice_manager_type:service_manager *;
   dontaudit su servicemanager:service_manager list;
   dontaudit su hwservicemanager:hwservice_manager list;
-  dontaudit su vndservicemanager:vndservice_manager list;
+  dontaudit su vndservicemanager:service_manager list;
   dontaudit su keystore:keystore_key *;
   dontaudit su domain:drmservice *;
   dontaudit su unlabeled:filesystem *;

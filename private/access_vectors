@@ -675,13 +675,6 @@ class hwservice_manager
 	list
 }
 
-class vndservice_manager
-{
-	add
-	find
-	list
-}
-
 class keystore_key
 {
 	get_state
