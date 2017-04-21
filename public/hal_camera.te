@@ -34,4 +34,4 @@ neverallow hal_camera domain:{ tcp_socket udp_socket rawip_socket } *;
 
 # Only camera HAL may directly access the camera and video hardware
 neverallow { halserverdomain -hal_camera_server } camera_device:chr_file *;
-neverallow { halserverdomain -hal_camera_server } video_device:chr_file *;
+neverallow { halserverdomain -coredomain -hal_camera_server } video_device:chr_file *;
