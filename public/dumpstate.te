@@ -172,6 +172,7 @@ userdebug_or_eng(`
 
 allow dumpstate { service_manager_type -gatekeeper_service -dumpstate_service -incident_service -virtual_touchpad_service -vr_hwc_service }:service_manager find;
 allow dumpstate servicemanager:service_manager list;
+allow dumpstate hwservicemanager:hwservice_manager list;
 
 allow dumpstate devpts:chr_file rw_file_perms;
 
