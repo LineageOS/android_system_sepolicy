@@ -167,42 +167,39 @@ binder_call(system_server, netd)
 binder_call(system_server, wificond)
 binder_service(system_server)
 
-# Perform HwBinder IPC.
-hwbinder_use(system_server)
+# Use HALs
 hal_client_domain(system_server, hal_allocator)
-binder_call(system_server, hal_contexthub)
 hal_client_domain(system_server, hal_contexthub)
 hal_client_domain(system_server, hal_fingerprint)
-binder_call(system_server, hal_gnss)
 hal_client_domain(system_server, hal_gnss)
 hal_client_domain(system_server, hal_graphics_allocator)
-binder_call(system_server, hal_ir)
 hal_client_domain(system_server, hal_ir)
-binder_call(system_server, hal_light)
 hal_client_domain(system_server, hal_light)
-binder_call(system_server, hal_memtrack)
 hal_client_domain(system_server, hal_memtrack)
-binder_call(system_server, hal_power)
+allow system_server hal_omx_hwservice:hwservice_manager find;
+allow system_server hidl_token_hwservice:hwservice_manager find;
 hal_client_domain(system_server, hal_power)
 hal_client_domain(system_server, hal_sensors)
-binder_call(system_server, hal_thermal)
 hal_client_domain(system_server, hal_thermal)
 hal_client_domain(system_server, hal_tv_cec)
 hal_client_domain(system_server, hal_tv_input)
-binder_call(system_server, hal_usb)
 hal_client_domain(system_server, hal_usb)
-binder_call(system_server, hal_vibrator)
 hal_client_domain(system_server, hal_vibrator)
-binder_call(system_server, hal_vr)
 hal_client_domain(system_server, hal_vr)
 hal_client_domain(system_server, hal_wifi)
-
 hal_client_domain(system_server, hal_wifi_supplicant)
 
 binder_call(system_server, mediacodec)
 
 # Talk with graphics composer fences
 allow system_server hal_graphics_composer:fd use;
+
+# Use RenderScript always-passthrough HAL
+allow system_server hal_renderscript_hwservice:hwservice_manager find;
+
+# Offer HwBinder services
+add_hwservice(system_server, fwk_scheduler_hwservice)
+add_hwservice(system_server, fwk_sensor_hwservice)
 
 # Talk to tombstoned to get ANR traces.
 unix_socket_connect(system_server, tombstoned_intercept, tombstoned)
@@ -633,9 +630,6 @@ r_dir_file(system_server, proc_meminfo)
 r_dir_file(system_server, proc_net)
 r_dir_file(system_server, rootfs)
 r_dir_file(system_server, sysfs_type)
-
-# Allow system_server to make binder calls to hwservicemanager
-binder_call(system_server, hwservicemanager)
 
 ### Rules needed when Light HAL runs inside system_server process.
 ### These rules should eventually be granted only when needed.
