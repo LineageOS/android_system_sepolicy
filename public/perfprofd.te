@@ -1,9 +1,12 @@
 # perfprofd - perf profile collection daemon
+type perfprofd, domain;
 type perfprofd_exec, exec_type, file_type;
 
 userdebug_or_eng(`
 
-  type perfprofd, domain, domain_deprecated, mlstrustedsubject, coredomain;
+  typeattribute perfprofd domain_deprecated;
+  typeattribute perfprofd coredomain;
+  typeattribute perfprofd mlstrustedsubject;
 
   # perfprofd needs to control CPU hot-plug in order to avoid kernel
   # perfevents problems in cases where CPU goes on/off during measurement;
