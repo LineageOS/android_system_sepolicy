@@ -1,5 +1,9 @@
-# IComposerCallback
-binder_call(hal_graphics_composer, surfaceflinger)
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_graphics_composer_client, hal_graphics_composer_server)
+binder_call(hal_graphics_composer_server, hal_graphics_composer_client)
+
+add_hwservice(hal_graphics_composer_server, hal_graphics_composer_hwservice)
+allow hal_graphics_composer_client hal_graphics_composer_hwservice:hwservice_manager find;
 
 # GPU device access
 allow hal_graphics_composer gpu_device:chr_file rw_file_perms;

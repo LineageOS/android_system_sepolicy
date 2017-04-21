@@ -2,6 +2,9 @@
 binder_call(hal_fingerprint_client, hal_fingerprint_server)
 binder_call(hal_fingerprint_server, hal_fingerprint_client)
 
+add_hwservice(hal_fingerprint_server, hal_fingerprint_hwservice)
+allow hal_fingerprint_client hal_fingerprint_hwservice:hwservice_manager find;
+
 # allow HAL module to read dir contents
 allow hal_fingerprint fingerprintd_data_file:file create_file_perms;
 

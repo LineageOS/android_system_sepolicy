@@ -1,3 +1,7 @@
-# Perform HwBinder IPC.
-binder_call(hal_telephony, radio)
-binder_call(hal_telephony, bluetooth)
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_telephony_client, hal_telephony_server)
+binder_call(hal_telephony_server, hal_telephony_client)
+
+add_hwservice(hal_telephony_server, hal_telephony_hwservice)
+allow hal_telephony_client hal_telephony_hwservice:hwservice_manager find;
+
