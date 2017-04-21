@@ -98,6 +98,9 @@ neverallow all_untrusted_apps anr_data_file:dir ~search;
 # Create a more specific label if needed
 neverallow all_untrusted_apps proc:file { no_rw_file_perms no_x_file_perms };
 
+# Avoid all access to kernel configuration
+neverallow all_untrusted_apps config_gz:file { no_rw_file_perms no_x_file_perms };
+
 # Do not allow untrusted apps access to preloads data files
 neverallow all_untrusted_apps preloads_data_file:file no_rw_file_perms;
 
