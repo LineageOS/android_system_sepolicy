@@ -75,7 +75,7 @@ allow {
 } binder_device:chr_file rw_file_perms;
 # Devices which are not full TREBLE have fewer restrictions on access to /dev/binder
 not_full_treble(`allow { domain -hwservicemanager -vndservicemanager } binder_device:chr_file rw_file_perms;')
-allow { domain -servicemanager -vndservicemanager } hwbinder_device:chr_file rw_file_perms;
+allow { domain -servicemanager -vndservicemanager -isolated_app } hwbinder_device:chr_file rw_file_perms;
 allow domain ptmx_device:chr_file rw_file_perms;
 allow domain alarm_device:chr_file r_file_perms;
 allow domain random_device:chr_file rw_file_perms;

@@ -62,6 +62,17 @@ neverallow isolated_app app_data_file:file open;
 neverallow isolated_app anr_data_file:file ~{ open append };
 neverallow isolated_app anr_data_file:dir ~search;
 
+# Isolated apps must not be permitted to use HwBinder
+neverallow isolated_app hwbinder_device:chr_file *;
+neverallow isolated_app *:hwservice_manager *;
+
+# Isolated apps must not be permitted to use VndBinder
+neverallow isolated_app vndbinder_device:chr_file *;
+
+# Isolated apps must not be permitted to perform actions on Binder and VndBinder service_manager
+# except the find actions for services whitelisted below.
+neverallow isolated_app *:service_manager ~find;
+
 # b/17487348
 # Isolated apps can only access three services,
 # activity_service, display_service and webviewupdate_service.
