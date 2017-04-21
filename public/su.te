@@ -1,3 +1,7 @@
+# All types must be defined regardless of build variant to ensure
+# policy compilation succeeds with userdebug/user combination at boot
+type su, domain;
+
 # File types must be defined for file_contexts.
 type su_exec, exec_type, file_type;
 
@@ -5,7 +9,7 @@ userdebug_or_eng(`
   # Domain used for su processes, as well as for adbd and adb shell
   # after performing an adb root command.  The domain definition is
   # wrapped to ensure that it does not exist at all on -user builds.
-  type su, domain, mlstrustedsubject;
+  typeattribute su mlstrustedsubject;
 
   # Add su to various domains
   net_domain(su)
