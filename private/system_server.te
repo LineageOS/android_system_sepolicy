@@ -204,6 +204,9 @@ add_hwservice(system_server, fwk_sensor_hwservice)
 # Talk to tombstoned to get ANR traces.
 unix_socket_connect(system_server, tombstoned_intercept, tombstoned)
 
+# List HAL interfaces to get ANR traces.
+allow system_server hwservicemanager:hwservice_manager list;
+
 # Send signals to trigger ANR traces.
 allow system_server {
   # This is derived from the list that system server defines as interesting native processes
@@ -225,6 +228,7 @@ allow system_server {
   hal_audio_server
   hal_bluetooth_server
   hal_camera_server
+  hal_graphics_composer_server
   hal_vr_server
   mediacodec # TODO(b/36375899): hal_omx_server
 }:process { signal };
