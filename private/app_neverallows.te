@@ -107,3 +107,55 @@ neverallow all_untrusted_apps preloads_data_file:file no_rw_file_perms;
 # Locking of files on /system could lead to denial of service attacks
 # against privileged system components
 neverallow all_untrusted_apps system_file:file lock;
+
+# Do not permit access from apps which host arbitrary code to HwBinder services,
+# except those considered sufficiently safe for access from such apps.
+# The two main reasons for this are:
+# 1. HwBinder servers do not perform client authentication because HIDL
+#    currently does not expose caller UID information and, even if it did, many
+#    HwBinder services either operate at a level below that of apps (e.g., HALs)
+#    or must not rely on app identity for authorization. Thus, to be safe, the
+#    default assumption is that every HwBinder service treats all its clients as
+#    equally authorized to perform operations offered by the service.
+# 2. HAL servers (a subset of HwBinder services) contain code with higher
+#    incidence rate of security issues than system/core components and have
+#    access to lower layes of the stack (all the way down to hardware) thus
+#    increasing opportunities for bypassing the Android security model.
+neverallow all_untrusted_apps {
+  hwservice_manager_type
+  # Same process services are safe because they by definition run in the process
+  # of the client and thus have the same access as the client domain in which
+  # the process runs
+  -same_process_hwservice
+  -coredomain_hwservice # neverallows for coredomain HwBinder services are below
+  -hal_configstore_ISurfaceFlingerConfigs # Designed for use by any domain
+  # These operations are also offered by surfaceflinger Binder service which
+  # apps are permitted to access
+  -hal_graphics_allocator_hwservice
+  # HwBinder version of mediacodec Binder service which apps were permitted to
+  # access
+  -hal_omx_hwservice
+}:hwservice_manager find;
+# HwBinder services offered by core components (as opposed to vendor components)
+# are considered somewhat safer due to point #2 above.
+neverallow all_untrusted_apps {
+  coredomain_hwservice
+  -same_process_hwservice
+  -hidl_allocator_hwservice # Designed for use by any domain
+  -hidl_manager_hwservice # Designed for use by any domain
+  -hidl_memory_hwservice # Designed for use by any domain
+  -hidl_token_hwservice # Designed for use by any domain
+}:hwservice_manager find;
+
+# Restrict *Binder access from apps to HAL domains. We can only do this on full
+# Treble devices where *Binder communications between apps and HALs are tightly
+# restricted.
+full_treble_only(`
+  neverallow all_untrusted_apps {
+    halserverdomain
+    -coredomain
+    -hal_configstore_server
+    -hal_graphics_allocator_server
+    -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
+  }:binder { call transfer };
+')
