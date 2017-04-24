@@ -134,10 +134,6 @@
 /dev/socket/pdx/system/buffer_hub/client	u:object_r:pdx_bufferhub_client_endpoint_socket:s0
 /dev/socket/pdx/system/performance	u:object_r:pdx_performance_dir:s0
 /dev/socket/pdx/system/performance/client	u:object_r:pdx_performance_client_endpoint_socket:s0
-/dev/socket/pdx/system/vr/sensors	u:object_r:pdx_sensors_dir:s0
-/dev/socket/pdx/system/vr/sensors/client	u:object_r:pdx_sensors_client_endpoint_socket:s0
-/dev/socket/pdx/system/vr/pose	u:object_r:pdx_pose_dir:s0
-/dev/socket/pdx/system/vr/pose/client	u:object_r:pdx_pose_client_endpoint_socket:s0
 /dev/socket/pdx/system/vr/display	u:object_r:pdx_display_dir:s0
 /dev/socket/pdx/system/vr/display/client	u:object_r:pdx_display_client_endpoint_socket:s0
 /dev/socket/pdx/system/vr/display/manager	u:object_r:pdx_display_manager_endpoint_socket:s0
@@ -198,7 +194,6 @@
 /system/bin/surfaceflinger	u:object_r:surfaceflinger_exec:s0
 /system/bin/bufferhubd	u:object_r:bufferhubd_exec:s0
 /system/bin/performanced	u:object_r:performanced_exec:s0
-/system/bin/sensord	u:object_r:sensord_exec:s0
 /system/bin/drmserver	u:object_r:drmserver_exec:s0
 /system/bin/dumpstate   u:object_r:dumpstate_exec:s0
 /system/bin/incident   u:object_r:incident_exec:s0
