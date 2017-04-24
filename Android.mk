@@ -427,7 +427,7 @@ $(LOCAL_BUILT_MODULE) : PRIVATE_TGT_POL := $(nonplat_policy_raw)
 $(LOCAL_BUILT_MODULE) : PRIVATE_DEP_CIL_FILES := $(built_plat_cil) $(built_mapping_cil)
 $(LOCAL_BUILT_MODULE) : $(plat_pub_policy.cil) $(nonplat_policy_raw) \
 $(HOST_OUT_EXECUTABLES)/version_policy $(HOST_OUT_EXECUTABLES)/secilc \
-$(build_plat_cil) $(built_mapping_cil)
+$(built_plat_cil) $(built_mapping_cil)
 	@mkdir -p $(dir $@)
 	$(HOST_OUT_EXECUTABLES)/version_policy -b $< -t $(PRIVATE_TGT_POL) -n $(PRIVATE_VERS) -o $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -G -N -c $(POLICYVERS) \
