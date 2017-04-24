@@ -1007,3 +1007,12 @@ neverallow {
 
 # Enforce AT_SECURE for executing crash_dump.
 neverallow domain crash_dump:process noatsecure;
+
+# Do not permit non-core domains to register HwBinder services which are
+# guaranteed to be provided by core domains only.
+neverallow ~coredomain coredomain_hwservice:hwservice_manager add;
+
+# Do not permit the registeration of HwBinder services which are guaranteed to
+# be passthrough only (i.e., run in the process of their clients instead of a
+# separate server process).
+neverallow * same_process_hwservice:hwservice_manager add;

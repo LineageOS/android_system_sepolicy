@@ -94,6 +94,14 @@ attribute service_manager_type;
 # All types used for services managed by hwservicemanager
 attribute hwservice_manager_type;
 
+# All HwBinder services guaranteed to be passthrough. These services always run
+# in the process of their clients, and thus operate with the same access as
+# their clients.
+attribute same_process_hwservice;
+
+# All HwBinder services guaranteed to be offered only by core domain components
+attribute coredomain_hwservice;
+
 # All types used for services managed by vndservicemanager
 attribute vndservice_manager_type;
 
