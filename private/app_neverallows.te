@@ -108,6 +108,10 @@ neverallow all_untrusted_apps preloads_data_file:file no_rw_file_perms;
 # against privileged system components
 neverallow all_untrusted_apps system_file:file lock;
 
+# Do not permit untrusted apps to perform actions on HwBinder service_manager
+# other than find actions for services listed below
+neverallow all_untrusted_apps *:hwservice_manager ~find;
+
 # Do not permit access from apps which host arbitrary code to HwBinder services,
 # except those considered sufficiently safe for access from such apps.
 # The two main reasons for this are:
