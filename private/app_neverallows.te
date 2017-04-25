@@ -21,6 +21,10 @@ neverallow all_untrusted_apps debugfs_type:file read;
 # services.
 neverallow all_untrusted_apps service_manager_type:service_manager add;
 
+# Do not allow untrusted apps to use VendorBinder
+neverallow all_untrusted_apps vndbinder_device:chr_file *;
+neverallow all_untrusted_apps vndservice_manager_type:service_manager *;
+
 # Do not allow untrusted apps to connect to the property service
 # or set properties. b/10243159
 neverallow all_untrusted_apps property_socket:sock_file write;
