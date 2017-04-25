@@ -4,4 +4,5 @@ hal_server_domain(hal_nfc_default, hal_nfc)
 type hal_nfc_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_nfc_default)
 
+# TODO(b/37640900): Remove this one NFC HAL no longer needs access to nfc_data_file:sock_file
 typeattribute hal_nfc_default socket_between_core_and_vendor_violators;
