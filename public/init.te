@@ -205,7 +205,13 @@ allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read 
 
 # init should not be able to read or open generic devices
 # TODO: auditing to see if this can be deleted entirely
-allow init { dev_type -kmem_device -port_device -device }:chr_file { read open };
+allow init {
+  dev_type
+  -kmem_device
+  -port_device
+  -device
+  -vndbinder_device
+  }:chr_file { read open };
 auditallow init {
   dev_type
   -alarm_device
