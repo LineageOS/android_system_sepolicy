@@ -173,9 +173,6 @@ static int read_typeset(policydb_t *policydb, char **ptr, char *end,
         }
     }
 
-    if (warn && ebitmap_length(&typeset->types) == 0 && !(*flags))
-        fprintf(stderr, "Warning!  Empty type set\n");
-
     *ptr = p;
     return 0;
 err:
