@@ -98,6 +98,7 @@ allow system_server appdomain:process { sigkill signal };
 allow system_server appdomain:process { getsched setsched };
 allow system_server audioserver:process { getsched setsched };
 allow system_server hal_audio:process { getsched setsched };
+allow system_server hal_bluetooth:process { getsched setsched };
 allow system_server cameraserver:process { getsched setsched };
 allow system_server hal_camera:process { getsched setsched };
 allow system_server mediaserver:process { getsched setsched };
