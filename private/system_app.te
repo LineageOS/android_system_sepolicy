@@ -83,3 +83,10 @@ r_dir_file(system_app, sysfs_type)
 
 control_logd(system_app)
 read_runtime_log_tags(system_app)
+
+###
+### Neverallow rules
+###
+
+# app domains which access /dev/fuse should not run as system_app
+neverallow system_app fuse_device:chr_file *;
