@@ -549,6 +549,8 @@ full_treble_only(`
     -nfc_service
     -radio_service
     -surfaceflinger_service
+    -virtual_touchpad_service
+    -vr_hwc_service
     -vr_manager_service
   }:service_manager find;
   neverallow {
