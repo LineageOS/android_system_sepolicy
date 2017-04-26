@@ -8,6 +8,7 @@ binder_use(vr_hwc)
 binder_service(vr_hwc)
 
 binder_call(vr_hwc, surfaceflinger)
+# TODO(dnicoara): Remove once vr_wm is disabled.
 binder_call(vr_hwc, vr_wm)
 
 add_service(vr_hwc, vr_hwc_service)
@@ -24,6 +25,3 @@ allow vr_hwc ion_device:chr_file r_file_perms;
 # Allow connection to VR DisplayClient to get the primary display metadata
 # (ie: size).
 use_pdx(vr_hwc, surfaceflinger)
-
-# Limit access so only vr_wm can connect.
-neverallow { domain -vr_hwc -vr_wm } vr_hwc_service:service_manager find;
