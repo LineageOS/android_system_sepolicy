@@ -17,6 +17,7 @@ allow mediaprovider cache_file:lnk_file r_file_perms;
 
 allow mediaprovider app_api_service:service_manager find;
 allow mediaprovider audioserver_service:service_manager find;
+allow mediaprovider drmserver_service:service_manager find;
 allow mediaprovider mediaserver_service:service_manager find;
 allow mediaprovider surfaceflinger_service:service_manager find;
 
