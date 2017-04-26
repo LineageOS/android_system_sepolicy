@@ -559,6 +559,27 @@ full_treble_only(`
   } servicemanager:binder { call transfer };
 ')
 
+# On full TREBLE devices, only vendor components, shell, and su can use VendorBinder.
+full_treble_only(`
+  neverallow {
+    coredomain
+    -shell
+    userdebug_or_eng(`-su')
+    -ueventd # uevent is granted create for this device, but we still neverallow I/O below
+  } vndbinder_device:chr_file rw_file_perms;
+  neverallow ueventd vndbinder_device:chr_file { read write append ioctl };
+  neverallow {
+    coredomain
+    -shell
+    userdebug_or_eng(`-su')
+  } vndservice_manager_type:service_manager *;
+  neverallow {
+    coredomain
+    -shell
+    userdebug_or_eng(`-su')
+  } vndservicemanager:binder *;
+')
+
 # On full TREBLE devices, socket communications between core components and vendor components are
 # not permitted.
 full_treble_only(`

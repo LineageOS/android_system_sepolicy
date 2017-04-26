@@ -9,7 +9,12 @@ type servicemanager_exec, exec_type, file_type;
 # created by other domains.  It never passes its own references
 # or initiates a Binder IPC.
 allow servicemanager self:binder set_context_mgr;
-allow servicemanager { domain -init }:binder transfer;
+allow servicemanager {
+  domain
+  -init
+  -hwservicemanager
+  -vndservicemanager
+}:binder transfer;
 
 # Access to all (system and vendor) service_contexts
 # TODO(b/36866029) access to nonplat_service_contexts
