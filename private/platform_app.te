@@ -61,3 +61,10 @@ allow platform_app preloads_media_file:file r_file_perms;
 allow platform_app preloads_media_file:dir r_dir_perms;
 
 read_runtime_log_tags(platform_app)
+
+###
+### Neverallow rules
+###
+
+# app domains which access /dev/fuse should not run as platform_app
+neverallow platform_app fuse_device:chr_file *;
