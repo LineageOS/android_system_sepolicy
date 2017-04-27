@@ -552,6 +552,8 @@ full_treble_only(`
     -nfc_service
     -radio_service
     -surfaceflinger_service
+    -virtual_touchpad_service
+    -vr_hwc_service
     -vr_manager_service
   }:service_manager find;
   neverallow {
@@ -696,6 +698,7 @@ full_treble_only(`
         -appdomain
         -idmap
         -init
+        -installd
         -system_server
         -zygote
     } vendor_overlay_file:dir { getattr open read search };
@@ -705,6 +708,7 @@ full_treble_only(`
         -appdomain
         -idmap
         -init
+        -installd
         -system_server
         -zygote
     } vendor_overlay_file:{ file lnk_file } r_file_perms;
@@ -988,26 +992,6 @@ neverallow * domain:file { execute execute_no_trans entrypoint };
 # more specific label.
 # TODO: fix system_server and dumpstate
 neverallow { domain -init -system_server -dumpstate } debugfs:file no_rw_file_perms;
-
-neverallow {
-  domain
-  -init
-  -recovery
-  -sdcardd
-  -vold
-} fuse_device:chr_file open;
-neverallow {
-  domain
-  -dumpstate
-  -init
-  -priv_app
-  -recovery
-  -sdcardd
-  -shell # Restricted by shell.te to only getattr
-  -system_server
-  -ueventd
-  -vold
-} fuse_device:chr_file *;
 
 # Profiles contain untrusted data and profman parses that. We should only run
 # in from installd forked processes.

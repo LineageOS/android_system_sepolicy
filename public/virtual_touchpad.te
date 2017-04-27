@@ -7,6 +7,3 @@ add_service(virtual_touchpad, virtual_touchpad_service)
 
 # Requires access to /dev/uinput to create and feed the virtual device.
 allow virtual_touchpad uhid_device:chr_file { w_file_perms ioctl };
-
-# Limit access so that nothing else can inject input.
-neverallow { domain -virtual_touchpad -vr_wm } virtual_touchpad_service:service_manager find;
