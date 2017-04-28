@@ -57,6 +57,7 @@ int main(int argc, char **argv)
             rc = analyze_components[i].func(argc - 2, argv + 2, &policydb);
             if (rc && USAGE_ERROR) {
                 usage(argv[0]); }
+            policydb_destroy(&policydb);
             return rc;
         }
     }
