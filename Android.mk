@@ -222,10 +222,14 @@ $(reqd_policy_mask.conf): $(call build_policy, $(sepolicy_build_files), $(REQD_M
 		-D target_full_treble=$(PRODUCT_FULL_TREBLE) \
 		-s $^ > $@
 
+# b/37755687
+CHECKPOLICY_ASAN_OPTIONS := ASAN_OPTIONS=detect_leaks=0
+
 reqd_policy_mask.cil := $(intermediates)/reqd_policy_mask.cil
 $(reqd_policy_mask.cil): $(reqd_policy_mask.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -C -M -c $(POLICYVERS) -o $@ $<
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -C -M -c \
+		$(POLICYVERS) -o $@ $<
 
 reqd_policy_mask.conf :=
 
@@ -258,7 +262,7 @@ $(plat_pub_policy.cil): PRIVATE_POL_CONF := $(plat_pub_policy.conf)
 $(plat_pub_policy.cil): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
 $(plat_pub_policy.cil): $(HOST_OUT_EXECUTABLES)/checkpolicy $(plat_pub_policy.conf) $(reqd_policy_mask.cil)
 	@mkdir -p $(dir $@)
-	$(hide) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
 	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
 
 plat_pub_policy.conf :=
@@ -316,7 +320,8 @@ $(plat_policy_nvr): PRIVATE_ADDITIONAL_CIL_FILES := \
 $(plat_policy_nvr): $(plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
   $(call build_policy, $(sepolicy_build_cil_workaround_files), $(PLAT_PRIVATE_POLICY))
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c $(POLICYVERS) -o $@ $<
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
+		$(POLICYVERS) -o $@ $<
 	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@
 
 $(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(plat_policy_nvr)
@@ -420,7 +425,7 @@ $(nonplat_policy_raw): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
 $(nonplat_policy_raw): $(HOST_OUT_EXECUTABLES)/checkpolicy $(nonplat_policy.conf) \
 $(reqd_policy_mask.cil)
 	@mkdir -p $(dir $@)
-	$(hide) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
 	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
 
 nonplat_policy_nvr := $(intermediates)/nonplat_policy_nvr.cil
@@ -555,7 +560,7 @@ $(plat_pub_policy.recovery.cil): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
 $(plat_pub_policy.recovery.cil): $(HOST_OUT_EXECUTABLES)/checkpolicy \
 $(plat_pub_policy.recovery.conf) $(reqd_policy_mask.cil)
 	@mkdir -p $(dir $@)
-	$(hide) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
 	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
 
 plat_pub_policy.recovery.conf :=
@@ -582,7 +587,8 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 plat_policy_nvr.recovery := $(intermediates)/plat_policy_nvr.recovery.cil
 $(plat_policy_nvr.recovery): $(plat_policy.recovery.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c $(POLICYVERS) -o $@ $<
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
+		$(POLICYVERS) -o $@ $<
 
 plat_policy.recovery.conf :=
 
@@ -634,7 +640,7 @@ $(nonplat_policy_raw.recovery): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
 $(nonplat_policy_raw.recovery): $(HOST_OUT_EXECUTABLES)/checkpolicy $(nonplat_policy.recovery.conf) \
 $(reqd_policy_mask.cil)
 	@mkdir -p $(dir $@)
-	$(hide) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
 	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
 
 nonplat_policy_nvr.recovery := $(intermediates)/nonplat_policy_nvr.recovery.cil
@@ -711,7 +717,8 @@ include $(BUILD_SYSTEM)/base_rules.mk
 $(LOCAL_BUILT_MODULE): PRIVATE_BUILT_SEPOLICY.CONF := $(built_general_sepolicy.conf)
 $(LOCAL_BUILT_MODULE): $(built_general_sepolicy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@ $(PRIVATE_BUILT_SEPOLICY.CONF) > /dev/null
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c \
+		$(POLICYVERS) -o $@ $(PRIVATE_BUILT_SEPOLICY.CONF) > /dev/null
 
 built_general_sepolicy := $(LOCAL_BUILT_MODULE)
 
