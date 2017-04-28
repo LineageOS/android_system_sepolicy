@@ -8,6 +8,8 @@ binder_use(vr_hwc)
 binder_service(vr_hwc)
 
 binder_call(vr_hwc, surfaceflinger)
+# Needed to check for app permissions.
+binder_call(vr_hwc, system_server)
 # TODO(dnicoara): Remove once vr_wm is disabled.
 binder_call(vr_hwc, vr_wm)
 
@@ -25,3 +27,7 @@ allow vr_hwc ion_device:chr_file r_file_perms;
 # Allow connection to VR DisplayClient to get the primary display metadata
 # (ie: size).
 use_pdx(vr_hwc, surfaceflinger)
+
+# Requires access to the permission service to validate that clients have the
+# appropriate VR permissions.
+allow vr_hwc permission_service:service_manager find;
