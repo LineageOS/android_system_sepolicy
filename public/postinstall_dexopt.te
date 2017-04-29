@@ -7,6 +7,7 @@ type postinstall_dexopt, domain;
 
 allow postinstall_dexopt self:capability { chown dac_override fowner setgid setuid };
 
+allow postinstall_dexopt postinstall_file:filesystem getattr;
 allow postinstall_dexopt postinstall_file:dir { getattr search };
 allow postinstall_dexopt postinstall_file:lnk_file read;
 allow postinstall_dexopt proc:file { getattr open read };
