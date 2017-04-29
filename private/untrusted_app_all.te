@@ -96,3 +96,11 @@ allow untrusted_app_all sysfs_hwrandom:file r_file_perms;
 allow untrusted_app_all preloads_media_file:dir r_dir_perms;
 allow untrusted_app_all preloads_media_file:file r_file_perms;
 allow untrusted_app_all preloads_data_file:dir search;
+
+# Allow untrusted apps read / execute access to /vendor/app for there can
+# be pre-installed vendor apps that package a library within themselves.
+# TODO (b/37784178) Consider creating  a special type for /vendor/app installed
+# apps.
+allow untrusted_app_all vendor_app_file:dir { open getattr read search };
+allow untrusted_app_all vendor_app_file:file { open getattr read execute };
+allow untrusted_app_all vendor_app_file:lnk_file { open getattr read };
