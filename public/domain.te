@@ -421,18 +421,13 @@ neverallow * {fs_type -contextmount_type}:filesystem relabelto;
 neverallow { domain -recovery } contextmount_type:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 
-# Do not allow service_manager add for default_android_service.
+# Do not allow service_manager add for default service labels.
 # Instead domains should use a more specific type such as
 # system_app_service rather than the generic type.
-# New service_types are defined in service.te and new mappings
-# from service name to service_type are defined in service_contexts.
+# New service_types are defined in {,hw,vnd}service.te and new mappings
+# from service name to service_type are defined in {,hw,vnd}service_contexts.
 neverallow * default_android_service:service_manager add;
-
-# Do not allow hwservice_manager add for default_android_hwservice.
-# Instead domains should use a more specific type such as
-# hal_audio_hwservice rather than the generic type.
-# New service_types are defined in hwservice.te and new mappings
-# from service name to service_type are defined in hwservice_contexts.
+neverallow * default_android_vndservice:service_manager { add find };
 neverallow * default_android_hwservice:hwservice_manager { add find };
 
 # Looking up the base class/interface of all HwBinder services is a bad idea.
