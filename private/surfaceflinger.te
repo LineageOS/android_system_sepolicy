@@ -52,6 +52,9 @@ set_prop(surfaceflinger, ctl_bootanim_prop)
 allow surfaceflinger appdomain:fd use;
 allow surfaceflinger app_data_file:file { read write };
 
+# Use socket supplied by adbd, for cmd gpu vkjson etc.
+allow surfaceflinger adbd:unix_stream_socket { read write getattr };
+
 # Allow a dumpstate triggered screenshot
 binder_call(surfaceflinger, dumpstate)
 binder_call(surfaceflinger, shell)
