@@ -217,10 +217,14 @@ $(reqd_policy_mask.conf): $(call build_policy, $(sepolicy_build_files), $(REQD_M
 		-D target_full_treble=$(PRODUCT_FULL_TREBLE) \
 		-s $^ > $@
 
+# b/37755687
+CHECKPOLICY_ASAN_OPTIONS := ASAN_OPTIONS=detect_leaks=0
+
 reqd_policy_mask.cil := $(intermediates)/reqd_policy_mask.cil
 $(reqd_policy_mask.cil): $(reqd_policy_mask.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -C -M -c $(POLICYVERS) -o $@ $<
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -C -M -c \
+		$(POLICYVERS) -o $@ $<
 
 reqd_policy_mask.conf :=
 
@@ -253,7 +257,7 @@ $(plat_pub_policy.cil): PRIVATE_POL_CONF := $(plat_pub_policy.conf)
 $(plat_pub_policy.cil): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
 $(plat_pub_policy.cil): $(HOST_OUT_EXECUTABLES)/checkpolicy $(plat_pub_policy.conf) $(reqd_policy_mask.cil)
 	@mkdir -p $(dir $@)
-	$(hide) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
 	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
 
 plat_pub_policy.conf :=
@@ -311,7 +315,8 @@ $(LOCAL_BUILT_MODULE): $(plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
   $(HOST_OUT_EXECUTABLES)/secilc \
   $(call build_policy, $(sepolicy_build_cil_workaround_files), $(PLAT_PRIVATE_POLICY))
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c $(POLICYVERS) -o $@ $<
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
+		$(POLICYVERS) -o $@ $<
 	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -G -N -c $(POLICYVERS) $@ -o /dev/null -f /dev/null
 
@@ -419,7 +424,7 @@ $(nonplat_policy_raw): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
 $(nonplat_policy_raw): $(HOST_OUT_EXECUTABLES)/checkpolicy $(nonplat_policy.conf) \
 $(reqd_policy_mask.cil)
 	@mkdir -p $(dir $@)
-	$(hide) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
 	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
 
 $(LOCAL_BUILT_MODULE) : PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
@@ -543,7 +548,8 @@ $(sepolicy.recovery.conf): $(call build_policy, $(sepolicy_build_files), \
 $(LOCAL_BUILT_MODULE): $(sepolicy.recovery.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
                        $(HOST_OUT_EXECUTABLES)/sepolicy-analyze
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@.tmp $<
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c \
+		$(POLICYVERS) -o $@.tmp $<
 	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $@.tmp permissive > $@.permissivedomains
 	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
 		echo "==========" 1>&2; \
