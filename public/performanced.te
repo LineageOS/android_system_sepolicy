@@ -2,7 +2,7 @@
 type performanced, domain, mlstrustedsubject;
 type performanced_exec, exec_type, file_type;
 
-pdx_server(performanced)
+pdx_server(performanced, performance_client)
 
 # TODO: use file caps to obtain sys_nice instead of setuid / setgid.
 allow performanced self:capability { setuid setgid sys_nice };
