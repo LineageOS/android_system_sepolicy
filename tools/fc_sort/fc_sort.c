@@ -350,6 +350,7 @@ int main(int argc, char *argv[])
 
 	/* Parse the file into a file_context linked list. */
 	line_buf = NULL;
+	buf_len = 0;
 
 	while ( getline(&line_buf, &buf_len, in_file) != -1 ){
 		line_len = strlen(line_buf);
@@ -478,15 +479,13 @@ int main(int argc, char *argv[])
 		current->next = temp;
 		current = current->next;
 		lines++;
-
-
-		free(line_buf);
-		line_buf = NULL;
 	}
+	free(line_buf);
 	fclose(in_file);
 
 	/* Create the bucket linked list from the earlier linked list. */
 	current = head->next;
+	free(head);
 	bcurrent = master =
 	    (file_context_bucket_t *)
 	    malloc(sizeof(file_context_bucket_t));
