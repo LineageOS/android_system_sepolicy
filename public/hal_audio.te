@@ -21,10 +21,6 @@ allow hal_audio audio_device:chr_file rw_file_perms;
 allow hal_audio shell:fd use;
 allow hal_audio shell:fifo_file write;
 
-# Needed on some devices for playing audio on paired BT device,
-# but seems appropriate for all devices.
-unix_socket_connect(hal_audio, bluetooth, bluetooth)
-
 ###
 ### neverallow rules
 ###

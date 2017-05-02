@@ -42,6 +42,9 @@ allow audioserver audio_data_file:file create_file_perms;
 # allow access to ALSA MMAP FDs for AAudio API
 allow audioserver audio_device:chr_file { read write };
 
+# For A2DP bridge which is loaded directly into audioserver
+unix_socket_connect(audioserver, bluetooth, bluetooth)
+
 ###
 ### neverallow rules
 ###
