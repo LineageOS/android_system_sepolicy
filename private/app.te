@@ -282,6 +282,9 @@ get_prop({ appdomain -isolated_app }, hwservicemanager_prop);
 # Allow app access to mediacodec (IOMX HAL)
 binder_call({ appdomain -isolated_app }, mediacodec)
 
+# Allow AAudio apps to use shared memory file descriptors from the HAL
+allow { appdomain -isolated_app } hal_audio:fd use;
+
 # Allow app to access shared memory created by camera HAL1
 allow { appdomain -isolated_app } hal_camera:fd use;
 
