@@ -8,10 +8,9 @@ typeattribute mediacodec mlstrustedsubject;
 # and use macro hal_server_domain
 get_prop(mediacodec, hwservicemanager_prop)
 
-full_treble_only(`
-    # on full-Treble devices, route all /dev/binder traffic to /dev/vndbinder
-    vndbinder_use(mediacodec)
-')
+# can route /dev/binder traffic to /dev/vndbinder
+vndbinder_use(mediacodec)
+
 not_full_treble(`
     # on legacy devices, continue to allow /dev/binder traffic
     binder_use(mediacodec)
