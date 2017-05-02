@@ -7,6 +7,7 @@ domain_trans(init, rootfs, adbd)
 domain_trans(init, rootfs, charger)
 domain_trans(init, rootfs, healthd)
 domain_trans(init, rootfs, slideshow)
+domain_auto_trans(init, e2fs_exec, e2fs)
 recovery_only(`
   domain_trans(init, rootfs, recovery)
 ')
