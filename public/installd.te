@@ -46,6 +46,12 @@ allow installd media_rw_data_file:file { getattr unlink };
 allow installd system_data_file:dir relabelfrom;
 allow installd media_rw_data_file:dir relabelto;
 
+# Delete /data/media files through sdcardfs, instead of going behind its back
+allow installd tmpfs:dir r_dir_perms;
+allow installd storage_file:dir search;
+allow installd sdcardfs:dir { search open read write remove_name getattr rmdir };
+allow installd sdcardfs:file { getattr unlink };
+
 # Upgrade /data/misc/keychain for multi-user if necessary.
 allow installd misc_user_data_file:dir create_dir_perms;
 allow installd misc_user_data_file:file create_file_perms;
