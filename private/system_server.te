@@ -17,11 +17,8 @@ allow system_server zygote_tmpfs:file read;
 
 # For art.
 allow system_server dalvikcache_data_file:dir r_dir_perms;
-allow system_server dalvikcache_data_file:file { r_file_perms execute };
-userdebug_or_eng(`
-  # Report dalvikcache_data_file:file execute violations.
-  auditallow system_server dalvikcache_data_file:file execute;
-')
+allow system_server dalvikcache_data_file:file r_file_perms;
+
 # When running system server under --invoke-with, we'll try to load the boot image under the
 # system server domain, following links to the system partition.
 with_asan(`allow system_server dalvikcache_data_file:lnk_file r_file_perms;')
