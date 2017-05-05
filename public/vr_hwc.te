@@ -10,8 +10,6 @@ binder_service(vr_hwc)
 binder_call(vr_hwc, surfaceflinger)
 # Needed to check for app permissions.
 binder_call(vr_hwc, system_server)
-# TODO(dnicoara): Remove once vr_wm is disabled.
-binder_call(vr_hwc, vr_wm)
 
 add_service(vr_hwc, vr_hwc_service)
 

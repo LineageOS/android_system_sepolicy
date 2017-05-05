@@ -249,7 +249,6 @@
 /system/bin/webview_zygote32     u:object_r:webview_zygote_exec:s0
 /system/bin/webview_zygote64     u:object_r:webview_zygote_exec:s0
 /system/bin/virtual_touchpad     u:object_r:virtual_touchpad_exec:s0
-/system/bin/vr_wm                u:object_r:vr_wm_exec:s0
 /system/bin/hw/android\.hidl\.allocator@1\.0-service          u:object_r:hal_allocator_default_exec:s0
 /system/etc/selinux/mapping/[0-9]+\.[0-9]+\.cil       u:object_r:sepolicy_file:s0
 /system/etc/selinux/plat_mac_permissions\.xml u:object_r:mac_perms_file:s0
