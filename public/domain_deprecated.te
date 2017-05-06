@@ -1,11 +1,12 @@
 # rules removed from the domain attribute
 
 # Search /storage/emulated tmpfs mount.
-allow domain_deprecated tmpfs:dir r_dir_perms;
+allow { domain_deprecated -installd } tmpfs:dir r_dir_perms;
 userdebug_or_eng(`
 auditallow {
   domain_deprecated
   -appdomain
+  -installd
   -sdcardd
   -surfaceflinger
   -system_server
