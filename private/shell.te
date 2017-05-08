@@ -13,3 +13,7 @@ app_domain(shell)
 
 # allow shell to call dumpsys storaged
 binder_call(shell, storaged)
+
+# Perform SELinux access checks, needed for CTS
+selinux_check_access(shell)
+selinux_check_context(shell)
