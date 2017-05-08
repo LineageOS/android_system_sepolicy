@@ -312,11 +312,6 @@ use_pdx({ appdomain -isolated_app -ephemeral_app }, bufferhubd)
 allow appdomain runas_exec:file getattr;
 # Others are either allowed elsewhere or not desired.
 
-# For cts/tests/tests/security/src/android/security/cts/SELinuxTest.java
-# Check SELinux policy and contexts.
-selinux_check_access(appdomain)
-selinux_check_context(appdomain)
-
 # Apps receive an open tun fd from the framework for
 # device traffic. Do not allow untrusted app to directly open tun_device
 allow { appdomain -isolated_app -ephemeral_app } tun_device:chr_file { read write getattr ioctl append };
@@ -476,6 +471,11 @@ neverallow appdomain
 
 # Access to syslog(2) or /proc/kmsg.
 neverallow appdomain kernel:system { syslog_read syslog_mod syslog_console };
+
+# SELinux is not an API for apps to use
+neverallow { appdomain -shell } selinuxfs:file no_rw_file_perms;
+neverallow { appdomain -shell } *:security { compute_av check_context };
+neverallow { appdomain -shell } *:netlink_selinux_socket *;
 
 # Ability to perform any filesystem operation other than statfs(2).
 # i.e. no mount(2), unmount(2), etc.
