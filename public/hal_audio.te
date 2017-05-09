@@ -20,6 +20,8 @@ allow hal_audio audio_device:chr_file rw_file_perms;
 # Needed to provide debug dump output via dumpsys' pipes.
 allow hal_audio shell:fd use;
 allow hal_audio shell:fifo_file write;
+allow hal_audio dumpstate:fd use;
+allow hal_audio dumpstate:fifo_file write;
 
 ###
 ### neverallow rules
