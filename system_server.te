@@ -353,6 +353,7 @@ set_prop(system_server, cppreopt_prop)
 
 # theme property
 get_prop(system_server, theme_prop)
+set_prop(system_server, theme_prop)
 
 # Create a socket for receiving info from wpa.
 type_transition system_server wifi_data_file:sock_file system_wpa_socket;
