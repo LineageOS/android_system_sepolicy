@@ -85,26 +85,73 @@ allow $1 tmpfs:dir { getattr search };
 # rules from underlying transport (e.g. UDS-based implementation).
 
 #####################################
-# pdx_server(domain)
-define(`pdx_server', `
-allow $1 pdx_socket:dir create_dir_perms;
-allow $1 pdx_socket:sock_file create_file_perms;
+# pdx_service_attributes(service)
+# Defines type attribute used to identify various service-related types.
+define(`pdx_service_attributes', `
+attribute pdx_$1_endpoint_dir_type;
+attribute pdx_$1_endpoint_socket_type;
+attribute pdx_$1_channel_socket_type;
+attribute pdx_$1_server_type;
 ')
 
 #####################################
-# use_pdx(clientdomain, serverdomain)
-define(`use_pdx', `
-# Open the socket.
-allow $1 pdx_socket:dir r_dir_perms;
-allow $1 pdx_socket:sock_file rw_file_perms;
-# Use the socket.
-allow $1 $2:unix_stream_socket { connectto read write shutdown };
-# Clients recieve an event fd from the server.
-allow $1 $2:fd use;
+# pdx_service_socket_types(service, endpoint_dir_t)
+# Define types for endpoint and channel sockets.
+define(`pdx_service_socket_types', `
+typeattribute $2 pdx_$1_endpoint_dir_type;
+type pdx_$1_endpoint_socket, pdx_$1_endpoint_socket_type, pdx_endpoint_socket_type, file_type, coredomain_socket, mlstrustedobject, mlstrustedsubject;
+type pdx_$1_channel_socket, pdx_$1_channel_socket_type, pdx_channel_socket_type, coredomain_socket;
+')
+
+#####################################
+# pdx_server(server_domain, service)
+define(`pdx_server', `
+# Mark the server domain as a PDX server.
+typeattribute $1 pdx_$2_server_type;
+# Allow the init process to create the initial endpoint socket.
+allow init pdx_$2_endpoint_socket_type:unix_stream_socket { create bind };
+# Allow the server domain to use the endpoint socket and accept connections on it.
+# Not using macro like "rw_socket_perms_no_ioctl" because it provides more rights
+# than we need (e.g. we don"t need "bind" or "connect").
+allow $1 pdx_$2_endpoint_socket_type:unix_stream_socket { read getattr write setattr lock append getopt setopt shutdown listen accept };
+# Allow the server domain to apply security context label to the channel socket pair (allow process to use setsockcreatecon_raw()).
+allow $1 self:process setsockcreate;
+# Allow the server domain to create a client channel socket.
+allow $1 pdx_$2_channel_socket_type:unix_stream_socket create_stream_socket_perms;
+# Prevent other processes from claiming to be a server for the same service.
+neverallow {domain -$1} pdx_$2_endpoint_socket_type:unix_stream_socket { listen accept };
+')
+
+#####################################
+# pdx_connect(client, service)
+define(`pdx_connect', `
+# Allow client to open the service endpoint file.
+allow $1 pdx_$2_endpoint_dir_type:dir r_dir_perms;
+allow $1 pdx_$2_endpoint_socket_type:sock_file rw_file_perms;
+# Allow the client to connect to endpoint socket.
+allow $1 pdx_$2_endpoint_socket_type:unix_stream_socket { connectto read write shutdown };
+')
+
+#####################################
+# pdx_use(client, service)
+define(`pdx_use', `
+# Allow the client to use the PDX channel socket.
+# Not using macro like "rw_socket_perms_no_ioctl" because it provides more rights
+# than we need (e.g. we don"t need "bind" or "connect").
+allow $1 pdx_$2_channel_socket_type:unix_stream_socket { read getattr write setattr lock append getopt setopt shutdown };
+# Client needs to use an channel event fd from the server.
+allow $1 pdx_$2_server_type:fd use;
 # Servers may receive sync fences, gralloc buffers, etc, from clients.
 # This could be tightened on a per-server basis, but keeping track of service
 # clients is error prone.
-allow $2 $1:fd use;
+allow pdx_$2_server_type $1:fd use;
+')
+
+#####################################
+# pdx_client(client, service)
+define(`pdx_client', `
+pdx_connect($1, $2)
+pdx_use($1, $2)
 ')
 
 #####################################

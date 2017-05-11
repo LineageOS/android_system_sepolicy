@@ -264,7 +264,6 @@ type mdnsd_socket, file_type, coredomain_socket, mlstrustedobject;
 type misc_logd_file, coredomain_socket, file_type;
 type mtpd_socket, file_type, coredomain_socket;
 type netd_socket, file_type, coredomain_socket;
-type pdx_socket, file_type, coredomain_socket, mlstrustedobject;
 type property_socket, file_type, coredomain_socket, mlstrustedobject;
 type racoon_socket, file_type, coredomain_socket;
 type rild_socket, file_type;
@@ -280,6 +279,22 @@ type wpa_socket, file_type;
 type zygote_socket, file_type, coredomain_socket;
 # UART (for GPS) control proc file
 type gps_control, file_type;
+
+# PDX endpoint types
+type pdx_display_dir, pdx_endpoint_dir_type, file_type;
+type pdx_performance_dir, pdx_endpoint_dir_type, file_type;
+type pdx_sensors_dir, pdx_endpoint_dir_type, file_type;
+type pdx_pose_dir, pdx_endpoint_dir_type, file_type;
+type pdx_bufferhub_dir, pdx_endpoint_dir_type, file_type;
+
+pdx_service_socket_types(display_client, pdx_display_dir)
+pdx_service_socket_types(display_manager, pdx_display_dir)
+pdx_service_socket_types(display_screenshot, pdx_display_dir)
+pdx_service_socket_types(display_vsync, pdx_display_dir)
+pdx_service_socket_types(performance_client, pdx_performance_dir)
+pdx_service_socket_types(sensors_client, pdx_sensors_dir)
+pdx_service_socket_types(pose_client, pdx_pose_dir)
+pdx_service_socket_types(bufferhub_client, pdx_bufferhub_dir)
 
 # file_contexts files
 type file_contexts_file, file_type;
