@@ -696,7 +696,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 local_fc_files := $(call build_policy, file_contexts, $(PLAT_PRIVATE_POLICY))
 ifneq ($(filter address,$(SANITIZE_TARGET)),)
-  local_fc_files += $(PLAT_PRIVATE_POLICY)/file_contexts_asan
+  local_fc_files += $(wildcard $(addsuffix /file_contexts_asan, $(PLAT_PRIVATE_POLICY)))
 endif
 local_fcfiles_with_nl := $(call add_nl, $(local_fc_files), $(built_nl))
 
