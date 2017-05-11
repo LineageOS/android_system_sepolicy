@@ -154,6 +154,20 @@ attribute socket_between_core_and_vendor_violators;
 # TODO(b/36463595)
 attribute vendor_executes_system_violators;
 
+# PDX services
+attribute pdx_endpoint_dir_type;
+attribute pdx_endpoint_socket_type;
+attribute pdx_channel_socket_type;
+
+pdx_service_attributes(display_client)
+pdx_service_attributes(display_manager)
+pdx_service_attributes(display_screenshot)
+pdx_service_attributes(display_vsync)
+pdx_service_attributes(performance_client)
+pdx_service_attributes(sensors_client)
+pdx_service_attributes(pose_client);
+pdx_service_attributes(bufferhub_client)
+
 # All HAL servers
 attribute halserverdomain;
 # All HAL clients
