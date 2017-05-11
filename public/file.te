@@ -41,6 +41,7 @@ type sysfs_nfc_power_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_wake_lock, fs_type, sysfs_type;
 type sysfs_mac_address, fs_type, sysfs_type;
 type sysfs_usb, sysfs_type, file_type, mlstrustedobject;
+type sysfs_fs_ext4_features, sysfs_type, fs_type;
 type configfs, fs_type;
 # /sys/devices/system/cpu
 type sysfs_devices_system_cpu, fs_type, sysfs_type;
