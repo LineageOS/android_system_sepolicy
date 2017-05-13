@@ -98,8 +98,6 @@ pdx_server(surfaceflinger, display_vsync)
 
 pdx_client(surfaceflinger, bufferhub_client)
 pdx_client(surfaceflinger, performance_client)
-pdx_client(surfaceflinger, sensors_client)
-pdx_client(surfaceflinger, pose_client)
 
 ###
 ### Neverallow rules

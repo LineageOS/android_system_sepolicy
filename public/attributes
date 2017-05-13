@@ -164,8 +164,6 @@ pdx_service_attributes(display_manager)
 pdx_service_attributes(display_screenshot)
 pdx_service_attributes(display_vsync)
 pdx_service_attributes(performance_client)
-pdx_service_attributes(sensors_client)
-pdx_service_attributes(pose_client);
 pdx_service_attributes(bufferhub_client)
 
 # All HAL servers

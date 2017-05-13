@@ -10,9 +10,9 @@ allow performanced self:capability { setuid setgid sys_nice };
 # Access /proc to validate we're only affecting threads in the same thread group.
 # Performanced also shields unbound kernel threads.  It scans every task in the
 # root cpu set, but only affects the kernel threads.
-r_dir_file(performanced, { appdomain bufferhubd kernel sensord surfaceflinger })
+r_dir_file(performanced, { appdomain bufferhubd kernel surfaceflinger })
 dontaudit performanced domain:dir read;
-allow performanced { appdomain bufferhubd kernel sensord surfaceflinger }:process setsched;
+allow performanced { appdomain bufferhubd kernel surfaceflinger }:process setsched;
 
 # Access /dev/cpuset/cpuset.cpus
 r_dir_file(performanced, cgroup)
