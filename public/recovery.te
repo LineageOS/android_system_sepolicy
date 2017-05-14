@@ -110,6 +110,9 @@ recovery_only(`
   # Read serial number of the device from system properties
   get_prop(recovery, serialno_prop)
 
+  # Set sys.usb.ffs.ready when starting minadbd for sideload.
+  set_prop(recovery, ffs_prop)
+
   # Use setfscreatecon() to label files for OTA updates.
   allow recovery self:process setfscreate;
 
