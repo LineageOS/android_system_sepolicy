@@ -122,6 +122,20 @@ attribute coredomain;
 # TODO(b/35870313): Remove this once there are no violations
 attribute binder_in_vendor_violators;
 
+# PDX services
+attribute pdx_endpoint_dir_type;
+attribute pdx_endpoint_socket_type;
+attribute pdx_channel_socket_type;
+
+pdx_service_attributes(display_client)
+pdx_service_attributes(display_manager)
+pdx_service_attributes(display_screenshot)
+pdx_service_attributes(display_vsync)
+pdx_service_attributes(performance_client)
+pdx_service_attributes(sensors_client)
+pdx_service_attributes(pose_client);
+pdx_service_attributes(bufferhub_client)
+
 # All HAL servers
 attribute halserverdomain;
 # All HAL clients

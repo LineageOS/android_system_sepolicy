@@ -30,7 +30,7 @@ hal_client_domain(mediacodec, hal_allocator)
 # Recieve gralloc buffer FDs from bufferhubd. Note that mediacodec never
 # directly connects to bufferhubd via PDX. Instead, a VR app acts as a bridge
 # between those two: it talks to mediacodec via Binder and talks to bufferhubd
-# via PDX. Thus, there is no need to use use_pdx macro.
+# via PDX. Thus, there is no need to use pdx_client macro.
 allow mediacodec bufferhubd:fd use;
 
 ###

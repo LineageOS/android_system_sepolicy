@@ -90,11 +90,15 @@ allow surfaceflinger system_server:fd use;
 allow surfaceflinger ion_device:chr_file r_file_perms;
 
 # pdx IPC
-pdx_server(surfaceflinger)
+pdx_server(surfaceflinger, display_client)
+pdx_server(surfaceflinger, display_manager)
+pdx_server(surfaceflinger, display_screenshot)
+pdx_server(surfaceflinger, display_vsync)
 
-use_pdx(surfaceflinger, bufferhubd)
-use_pdx(surfaceflinger, performanced)
-use_pdx(surfaceflinger, sensord)
+pdx_client(surfaceflinger, bufferhub_client)
+pdx_client(surfaceflinger, performance_client)
+pdx_client(surfaceflinger, sensors_client)
+pdx_client(surfaceflinger, pose_client)
 
 ###
 ### Neverallow rules
