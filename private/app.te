@@ -261,11 +261,14 @@ allow appdomain proc_meminfo:file r_file_perms;
 # For app fuse.
 allow appdomain app_fuse_file:file { getattr read append write };
 
-use_pdx({ appdomain -isolated_app -ephemeral_app }, surfaceflinger)
-use_pdx({ appdomain -isolated_app -ephemeral_app }, sensord)
-use_pdx({ appdomain -isolated_app -ephemeral_app }, performanced)
-# TODO: apps do not directly open the IPC socket for bufferhubd.
-use_pdx({ appdomain -isolated_app -ephemeral_app }, bufferhubd)
+pdx_client({ appdomain -isolated_app -ephemeral_app }, display_client)
+pdx_client({ appdomain -isolated_app -ephemeral_app }, display_manager)
+pdx_client({ appdomain -isolated_app -ephemeral_app }, display_vsync)
+pdx_client({ appdomain -isolated_app -ephemeral_app }, sensors_client)
+pdx_client({ appdomain -isolated_app -ephemeral_app }, pose_client)
+pdx_client({ appdomain -isolated_app -ephemeral_app }, performance_client)
+# Apps do not directly open the IPC socket for bufferhubd.
+pdx_use({ appdomain -isolated_app -ephemeral_app }, bufferhub_client)
 
 ###
 ### CTS-specific rules
