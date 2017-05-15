@@ -109,9 +109,21 @@ allow appdomain shortcut_manager_icons:file { getattr read };
 # Read icon file (opened by system).
 allow appdomain icon_file:file { getattr read };
 
-# Write to /data/anr/traces.txt.
+# Old stack dumping scheme : append to a global trace file (/data/anr/traces.txt).
+#
+# TODO: All of these permissions except for anr_data_file:file append can be
+# withdrawn once we've switched to the new stack dumping mechanism, see b/32064548
+# and the rules below.
 allow appdomain anr_data_file:dir search;
 allow appdomain anr_data_file:file { open append };
+
+# New stack dumping scheme : request an output FD from tombstoned via a unix
+# domain socket.
+#
+# Allow apps to connect and write to the tombstoned java trace socket in
+# order to dump their traces.
+unix_socket_connect(appdomain, tombstoned_java_trace, tombstoned)
+allow appdomain tombstoned:fd use;
 
 # Allow apps to send dump information to dumpstate
 allow appdomain dumpstate:fd use;
