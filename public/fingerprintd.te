@@ -1,4 +1,4 @@
-type fingerprintd, domain, domain_deprecated;
+type fingerprintd, domain;
 type fingerprintd_exec, exec_type, file_type;
 
 binder_use(fingerprintd)
