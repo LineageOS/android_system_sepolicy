@@ -1,5 +1,5 @@
 # volume manager
-type vold, domain, domain_deprecated;
+type vold, domain;
 type vold_exec, exec_type, file_type;
 
 # Read already opened /cache files.

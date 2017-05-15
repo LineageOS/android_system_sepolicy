@@ -1,4 +1,4 @@
-type runas, domain, domain_deprecated, mlstrustedsubject;
+type runas, domain, mlstrustedsubject;
 type runas_exec, exec_type, file_type;
 
 allow runas adbd:fd use;

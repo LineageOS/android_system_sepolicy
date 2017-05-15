@@ -37,7 +37,6 @@ auditallow {
   domain_deprecated
   -fsck
   -fsck_untrusted
-  -rild
   -sdcardd
   -system_server
   -update_engine
@@ -47,7 +46,6 @@ auditallow {
   domain_deprecated
   -fsck
   -fsck_untrusted
-  -rild
   -system_server
   -vold
 } proc:lnk_file { open ioctl lock }; # getattr read granted in domain
@@ -56,7 +54,6 @@ auditallow {
   -fingerprintd
   -healthd
   -netd
-  -rild
   -recovery
   -system_app
   -surfaceflinger
@@ -70,7 +67,6 @@ auditallow {
   -fingerprintd
   -healthd
   -netd
-  -rild
   -recovery
   -system_app
   -surfaceflinger
@@ -84,7 +80,6 @@ auditallow {
   -fingerprintd
   -healthd
   -netd
-  -rild
   -recovery
   -system_app
   -surfaceflinger

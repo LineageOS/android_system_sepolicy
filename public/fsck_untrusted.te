@@ -1,5 +1,5 @@
 # Any fsck program run on untrusted block devices
-type fsck_untrusted, domain, domain_deprecated;
+type fsck_untrusted, domain;
 
 # Inherit and use pty created by android_fork_execvp_ext().
 allow fsck_untrusted devpts:chr_file { read write ioctl getattr };
