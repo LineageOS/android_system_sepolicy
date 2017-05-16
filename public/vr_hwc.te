@@ -24,7 +24,7 @@ allow vr_hwc ion_device:chr_file r_file_perms;
 
 # Allow connection to VR DisplayClient to get the primary display metadata
 # (ie: size).
-use_pdx(vr_hwc, surfaceflinger)
+pdx_client(vr_hwc, display_client)
 
 # Requires access to the permission service to validate that clients have the
 # appropriate VR permissions.
