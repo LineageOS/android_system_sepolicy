@@ -79,7 +79,6 @@ auditallow {
   -fingerprintd
   -installd
   -keystore
-  -rild
   -surfaceflinger
   -system_server
   -update_engine
@@ -193,7 +192,6 @@ auditallow {
   domain_deprecated
   -fsck
   -fsck_untrusted
-  -rild
   -sdcardd
   -system_server
   -update_engine
@@ -203,7 +201,6 @@ auditallow {
   domain_deprecated
   -fsck
   -fsck_untrusted
-  -rild
   -system_server
   -vold
 } proc:lnk_file { open ioctl lock }; # getattr read granted in domain
@@ -213,7 +210,6 @@ auditallow {
   -fingerprintd
   -healthd
   -netd
-  -rild
   -system_app
   -surfaceflinger
   -system_server
@@ -227,7 +223,6 @@ auditallow {
   -fingerprintd
   -healthd
   -netd
-  -rild
   -system_app
   -surfaceflinger
   -system_server
@@ -241,7 +236,6 @@ auditallow {
   -fingerprintd
   -healthd
   -netd
-  -rild
   -system_app
   -surfaceflinger
   -system_server
@@ -259,7 +253,6 @@ auditallow {
   -installd
   -keystore
   -netd
-  -rild
   -surfaceflinger
   -system_server
   -zygote
@@ -274,7 +267,6 @@ auditallow {
   -installd
   -keystore
   -netd
-  -rild
   -surfaceflinger
   -system_server
   -zygote

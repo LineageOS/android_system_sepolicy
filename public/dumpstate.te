@@ -1,5 +1,5 @@
 # dumpstate
-type dumpstate, domain, domain_deprecated, mlstrustedsubject;
+type dumpstate, domain, mlstrustedsubject;
 type dumpstate_exec, exec_type, file_type;
 
 net_domain(dumpstate)
