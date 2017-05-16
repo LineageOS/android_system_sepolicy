@@ -4,7 +4,6 @@ type perfprofd_exec, exec_type, file_type;
 
 userdebug_or_eng(`
 
-  typeattribute perfprofd domain_deprecated;
   typeattribute perfprofd coredomain;
   typeattribute perfprofd mlstrustedsubject;
 

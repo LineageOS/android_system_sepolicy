@@ -1,8 +1,6 @@
 ##
 # trusted execution environment (tee) daemon
 #
-typeattribute tee domain_deprecated;
-
 type tee_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(tee)
 
