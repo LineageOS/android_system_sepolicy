@@ -37,6 +37,8 @@ add_hwservice(mediacodec, hal_omx_hwservice)
 
 hal_client_domain(mediacodec, hal_allocator)
 
+hal_client_domain(mediacodec, hal_cas)
+
 # allocate and use graphic buffers
 hal_client_domain(mediacodec, hal_graphics_allocator)
 

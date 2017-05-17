@@ -154,6 +154,7 @@ neverallow all_untrusted_apps {
   # HwBinder version of mediacodec Binder service which apps were permitted to
   # access
   -hal_omx_hwservice
+  -hal_cas_hwservice
 }:hwservice_manager find;
 # HwBinder services offered by core components (as opposed to vendor components)
 # are considered somewhat safer due to point #2 above.
@@ -178,6 +179,7 @@ full_treble_only(`
     -coredomain
     -hal_configstore_server
     -hal_graphics_allocator_server
+    -hal_cas_server
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
   }:binder { call transfer };
 ')

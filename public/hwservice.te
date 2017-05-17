@@ -9,6 +9,7 @@ type hal_camera_hwservice, hwservice_manager_type;
 type hal_configstore_ISurfaceFlingerConfigs, hwservice_manager_type;
 type hal_contexthub_hwservice, hwservice_manager_type;
 type hal_drm_hwservice, hwservice_manager_type;
+type hal_cas_hwservice, hwservice_manager_type;
 type hal_dumpstate_hwservice, hwservice_manager_type;
 type hal_fingerprint_hwservice, hwservice_manager_type;
 type hal_gatekeeper_hwservice, hwservice_manager_type;

@@ -11,9 +11,11 @@ binder_service(mediaextractor)
 
 add_service(mediaextractor, mediaextractor_service)
 allow mediaextractor mediametrics_service:service_manager find;
-allow mediaextractor mediacasserver_service:service_manager find;
+allow mediaextractor hidl_token_hwservice:hwservice_manager find;
 
 allow mediaextractor system_server:fd use;
+
+hal_client_domain(mediaextractor, hal_cas)
 
 r_dir_file(mediaextractor, cgroup)
 allow mediaextractor proc_meminfo:file r_file_perms;

@@ -457,6 +457,7 @@ neverallow {
   -adbd
   -dumpstate
   -hal_drm
+  -hal_cas
   -init
   -mediadrmserver
   -recovery
@@ -543,7 +544,6 @@ full_treble_only(`
     -cameraserver_service
     -drmserver_service
     -keystore_service
-    -mediacasserver_service
     -mediadrmserver_service
     -mediaextractor_service
     -mediametrics_service
