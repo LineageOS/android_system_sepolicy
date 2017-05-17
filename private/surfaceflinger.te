@@ -6,6 +6,7 @@ type surfaceflinger_exec, exec_type, file_type;
 init_daemon_domain(surfaceflinger)
 
 typeattribute surfaceflinger mlstrustedsubject;
+typeattribute surfaceflinger display_service_server;
 
 read_runtime_log_tags(surfaceflinger)
 
