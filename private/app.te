@@ -114,6 +114,7 @@ full_treble_only(`
 # Allow apps access to /vendor/app except for privileged
 # apps which cannot be in /vendor.
 r_dir_file({ appdomain -ephemeral_app -untrusted_v2_app }, vendor_app_file)
+allow { appdomain -ephemeral_app -untrusted_v2_app } vendor_app_file:file execute;
 
 # Allow apps access to /vendor/overlay
 r_dir_file(appdomain, vendor_overlay_file)
