@@ -272,4 +272,5 @@ attribute hal_wifi_supplicant_server;
 # from one core domain to another, without having to update the vendor image
 # which contains clients of this service.
 
+attribute display_service_server;
 attribute wifi_keystore_service_server;
