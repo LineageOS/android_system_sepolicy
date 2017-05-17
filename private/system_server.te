@@ -181,6 +181,7 @@ hal_client_domain(system_server, hal_graphics_allocator)
 hal_client_domain(system_server, hal_ir)
 hal_client_domain(system_server, hal_light)
 hal_client_domain(system_server, hal_memtrack)
+hal_client_domain(system_server, hal_oemlock)
 allow system_server hal_omx_hwservice:hwservice_manager find;
 allow system_server hidl_token_hwservice:hwservice_manager find;
 hal_client_domain(system_server, hal_power)
@@ -191,6 +192,7 @@ hal_client_domain(system_server, hal_tv_input)
 hal_client_domain(system_server, hal_usb)
 hal_client_domain(system_server, hal_vibrator)
 hal_client_domain(system_server, hal_vr)
+hal_client_domain(system_server, hal_weaver)
 hal_client_domain(system_server, hal_wifi)
 hal_client_domain(system_server, hal_wifi_supplicant)
 

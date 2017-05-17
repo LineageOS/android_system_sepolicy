@@ -1,5 +1,5 @@
 # Point to Point Protocol daemon
-type ppp, domain, domain_deprecated;
+type ppp, domain;
 type ppp_device, dev_type;
 type ppp_exec, exec_type, file_type;
 

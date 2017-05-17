@@ -32,6 +32,5 @@ neverallow hal_camera { file_type fs_type }:file execute_no_trans;
 # hal_camera should never need network access. Disallow network sockets.
 neverallow hal_camera domain:{ tcp_socket udp_socket rawip_socket } *;
 
-# Only camera HAL may directly access the camera and video hardware
+# Only camera HAL may directly access the camera hardware
 neverallow { halserverdomain -hal_camera_server } camera_device:chr_file *;
-neverallow { halserverdomain -coredomain -hal_camera_server } video_device:chr_file *;
