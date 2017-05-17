@@ -10,7 +10,7 @@ LOCAL_PATH:= $(call my-dir)
 # is made which breaks compatibility with the previous platform sepolicy version,
 # not just on every increase in PLATFORM_SDK_VERSION.  The minor version should
 # be reset to 0 on every bump of the PLATFORM_SDK_VERSION.
-sepolicy_major_vers := 25
+sepolicy_major_vers := 26
 sepolicy_minor_vers := 0
 
 ifneq ($(sepolicy_major_vers), $(PLATFORM_SDK_VERSION))
@@ -80,7 +80,9 @@ endif
 #    - compile output binary policy file
 
 PLAT_PUBLIC_POLICY := $(LOCAL_PATH)/public
+PLAT_PUBLIC_POLICY += $(BOARD_PLAT_PUBLIC_SEPOLICY_DIRS)
 PLAT_PRIVATE_POLICY := $(LOCAL_PATH)/private
+PLAT_PRIVATE_POLICY += $(BOARD_PLAT_PRIVATE_SEPOLICY_DIRS)
 PLAT_VENDOR_POLICY := $(LOCAL_PATH)/vendor
 REQD_MASK_POLICY := $(LOCAL_PATH)/reqd_mask
 
@@ -217,10 +219,14 @@ $(reqd_policy_mask.conf): $(call build_policy, $(sepolicy_build_files), $(REQD_M
 		-D target_full_treble=$(PRODUCT_FULL_TREBLE) \
 		-s $^ > $@
 
+# b/37755687
+CHECKPOLICY_ASAN_OPTIONS := ASAN_OPTIONS=detect_leaks=0
+
 reqd_policy_mask.cil := $(intermediates)/reqd_policy_mask.cil
 $(reqd_policy_mask.cil): $(reqd_policy_mask.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -C -M -c $(POLICYVERS) -o $@ $<
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -C -M -c \
+		$(POLICYVERS) -o $@ $<
 
 reqd_policy_mask.conf :=
 
@@ -253,7 +259,7 @@ $(plat_pub_policy.cil): PRIVATE_POL_CONF := $(plat_pub_policy.conf)
 $(plat_pub_policy.cil): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
 $(plat_pub_policy.cil): $(HOST_OUT_EXECUTABLES)/checkpolicy $(plat_pub_policy.conf) $(reqd_policy_mask.cil)
 	@mkdir -p $(dir $@)
-	$(hide) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
 	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
 
 plat_pub_policy.conf :=
@@ -311,7 +317,8 @@ $(LOCAL_BUILT_MODULE): $(plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
   $(HOST_OUT_EXECUTABLES)/secilc \
   $(call build_policy, $(sepolicy_build_cil_workaround_files), $(PLAT_PRIVATE_POLICY))
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c $(POLICYVERS) -o $@ $<
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
+		$(POLICYVERS) -o $@ $<
 	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -G -N -c $(POLICYVERS) $@ -o /dev/null -f /dev/null
 
@@ -344,22 +351,25 @@ LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux/mapping
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
+current_mapping.cil := $(intermediates)/mapping/$(PLATFORM_SEPOLICY_VERSION).cil
+ifeq ($(BOARD_SEPOLICY_VERS), $(PLATFORM_SEPOLICY_VERSION))
 # auto-generate the mapping file for current platform policy, since it needs to
 # track platform policy development
-current_mapping.cil := $(intermediates)/mapping/$(PLATFORM_SEPOLICY_VERSION).cil
 $(current_mapping.cil) : PRIVATE_VERS := $(PLATFORM_SEPOLICY_VERSION)
 $(current_mapping.cil) : $(plat_pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
 
+else # ifeq ($(BOARD_SEPOLICY_VERS), $(PLATFORM_SEPOLICY_VERSION))
+prebuilt_mapping_files := $(wildcard $(addsuffix /mapping/$(BOARD_SEPOLICY_VERS).cil, $(PLAT_PRIVATE_POLICY)))
+$(current_mapping.cil) : $(prebuilt_mapping_files)
+	@mkdir -p $(dir $@)
+	cat $^ > $@
 
-ifeq ($(BOARD_SEPOLICY_VERS), $(PLATFORM_SEPOLICY_VERSION))
-mapping_policy := $(current_mapping.cil)
-else
-mapping_policy := $(addsuffix /$(BOARD_SEPOLICY_VERS).cil, $(PLAT_PRIVATE_POLICY)/mapping)
+prebuilt_mapping_files :=
 endif
 
-$(LOCAL_BUILT_MODULE): $(mapping_policy) $(ACP)
+$(LOCAL_BUILT_MODULE): $(current_mapping.cil) $(ACP)
 	$(hide) $(ACP) $< $@
 
 built_mapping_cil := $(LOCAL_BUILT_MODULE)
@@ -419,7 +429,7 @@ $(nonplat_policy_raw): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
 $(nonplat_policy_raw): $(HOST_OUT_EXECUTABLES)/checkpolicy $(nonplat_policy.conf) \
 $(reqd_policy_mask.cil)
 	@mkdir -p $(dir $@)
-	$(hide) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
 	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
 
 $(LOCAL_BUILT_MODULE) : PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
@@ -543,7 +553,8 @@ $(sepolicy.recovery.conf): $(call build_policy, $(sepolicy_build_files), \
 $(LOCAL_BUILT_MODULE): $(sepolicy.recovery.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
                        $(HOST_OUT_EXECUTABLES)/sepolicy-analyze
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c $(POLICYVERS) -o $@.tmp $<
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c \
+		$(POLICYVERS) -o $@.tmp $<
 	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $@.tmp permissive > $@.permissivedomains
 	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
 		echo "==========" 1>&2; \
@@ -610,9 +621,10 @@ include $(BUILD_SYSTEM)/base_rules.mk
 #  Note: That a newline file is placed between each file_context file found to
 #        ensure a proper build when an fc file is missing an ending newline.
 
-local_fc_files := $(PLAT_PRIVATE_POLICY)/file_contexts
+local_fc_files := $(call build_policy, file_contexts, $(PLAT_PRIVATE_POLICY))
+
 ifneq ($(filter address,$(SANITIZE_TARGET)),)
-  local_fc_files := $(local_fc_files) $(PLAT_PRIVATE_POLICY)/file_contexts_asan
+  local_fc_files := $(local_fc_files) $(wildcard $(addsuffix /file_contexts_asan, $(PLAT_PRIVATE_POLICY)))
 endif
 local_fcfiles_with_nl := $(call add_nl, $(local_fc_files), $(built_nl))
 
@@ -682,9 +694,9 @@ LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-local_fc_files := $(PLAT_PRIVATE_POLICY)/file_contexts
+local_fc_files := $(call build_policy, file_contexts, $(PLAT_PRIVATE_POLICY))
 ifneq ($(filter address,$(SANITIZE_TARGET)),)
-  local_fc_files += $(PLAT_PRIVATE_POLICY)/file_contexts_asan
+  local_fc_files += $(wildcard $(addsuffix /file_contexts_asan, $(PLAT_PRIVATE_POLICY)))
 endif
 local_fcfiles_with_nl := $(call add_nl, $(local_fc_files), $(built_nl))
 
@@ -767,7 +779,7 @@ endif
 include $(BUILD_SYSTEM)/base_rules.mk
 
 nonplat_sc_files := $(call build_policy, seapp_contexts, $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
-plat_sc_neverallow_files := $(addprefix $(PLAT_PRIVATE_POLICY)/, seapp_contexts)
+plat_sc_neverallow_files := $(call build_policy, seapp_contexts, $(PLAT_PRIVATE_POLICY))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): PRIVATE_SC_FILES := $(nonplat_sc_files)

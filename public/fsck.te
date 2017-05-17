@@ -1,5 +1,5 @@
 # Any fsck program run by init
-type fsck, domain, domain_deprecated;
+type fsck, domain;
 type fsck_exec, exec_type, file_type;
 
 # /dev/__null__ created by init prior to policy load,

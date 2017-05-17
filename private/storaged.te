@@ -40,6 +40,9 @@ binder_call(storaged, system_server)
 allow storaged batteryproperties_service:service_manager find;
 binder_call(storaged, healthd)
 
+# Implements a dumpsys interface.
+allow storaged dumpstate:fd use;
+
 # Kernel does extra check on CAP_DAC_OVERRIDE for libbinder when storaged is
 # running as root. See b/35323867 #3.
 dontaudit storaged self:capability dac_override;

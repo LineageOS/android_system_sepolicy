@@ -1,5 +1,5 @@
 # installer daemon
-type installd, domain, domain_deprecated;
+type installd, domain;
 type installd_exec, exec_type, file_type;
 typeattribute installd mlstrustedsubject;
 allow installd self:capability { chown dac_override fowner fsetid setgid setuid sys_admin };
@@ -53,6 +53,12 @@ allow installd media_rw_data_file:file { getattr unlink };
 # restorecon new /data/media directory.
 allow installd system_data_file:dir relabelfrom;
 allow installd media_rw_data_file:dir relabelto;
+
+# Delete /data/media files through sdcardfs, instead of going behind its back
+allow installd tmpfs:dir r_dir_perms;
+allow installd storage_file:dir search;
+allow installd sdcardfs:dir { search open read write remove_name getattr rmdir };
+allow installd sdcardfs:file { getattr unlink };
 
 # Upgrade /data/misc/keychain for multi-user if necessary.
 allow installd misc_user_data_file:dir create_dir_perms;

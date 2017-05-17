@@ -114,6 +114,7 @@ full_treble_only(`
 # Allow apps access to /vendor/app except for privileged
 # apps which cannot be in /vendor.
 r_dir_file({ appdomain -ephemeral_app -untrusted_v2_app }, vendor_app_file)
+allow { appdomain -ephemeral_app -untrusted_v2_app } vendor_app_file:file execute;
 
 # Allow apps access to /vendor/overlay
 r_dir_file(appdomain, vendor_overlay_file)
@@ -282,6 +283,9 @@ get_prop({ appdomain -isolated_app }, hwservicemanager_prop);
 # Allow app access to mediacodec (IOMX HAL)
 binder_call({ appdomain -isolated_app }, mediacodec)
 
+# Allow AAudio apps to use shared memory file descriptors from the HAL
+allow { appdomain -isolated_app } hal_audio:fd use;
+
 # Allow app to access shared memory created by camera HAL1
 allow { appdomain -isolated_app } hal_camera:fd use;
 
@@ -294,11 +298,12 @@ allow appdomain proc_meminfo:file r_file_perms;
 # For app fuse.
 allow appdomain app_fuse_file:file { getattr read append write };
 
-use_pdx({ appdomain -isolated_app -ephemeral_app }, surfaceflinger)
-use_pdx({ appdomain -isolated_app -ephemeral_app }, sensord)
-use_pdx({ appdomain -isolated_app -ephemeral_app }, performanced)
-# TODO: apps do not directly open the IPC socket for bufferhubd.
-use_pdx({ appdomain -isolated_app -ephemeral_app }, bufferhubd)
+pdx_client({ appdomain -isolated_app -ephemeral_app }, display_client)
+pdx_client({ appdomain -isolated_app -ephemeral_app }, display_manager)
+pdx_client({ appdomain -isolated_app -ephemeral_app }, display_vsync)
+pdx_client({ appdomain -isolated_app -ephemeral_app }, performance_client)
+# Apps do not directly open the IPC socket for bufferhubd.
+pdx_use({ appdomain -isolated_app -ephemeral_app }, bufferhub_client)
 
 ###
 ### CTS-specific rules
@@ -308,11 +313,6 @@ use_pdx({ appdomain -isolated_app -ephemeral_app }, bufferhubd)
 # testRunAsHasCorrectCapabilities
 allow appdomain runas_exec:file getattr;
 # Others are either allowed elsewhere or not desired.
-
-# For cts/tests/tests/security/src/android/security/cts/SELinuxTest.java
-# Check SELinux policy and contexts.
-selinux_check_access(appdomain)
-selinux_check_context(appdomain)
 
 # Apps receive an open tun fd from the framework for
 # device traffic. Do not allow untrusted app to directly open tun_device
@@ -476,6 +476,11 @@ neverallow appdomain
 
 # Access to syslog(2) or /proc/kmsg.
 neverallow appdomain kernel:system { syslog_read syslog_mod syslog_console };
+
+# SELinux is not an API for apps to use
+neverallow { appdomain -shell } selinuxfs:file no_rw_file_perms;
+neverallow { appdomain -shell } *:security { compute_av check_context };
+neverallow { appdomain -shell } *:netlink_selinux_socket *;
 
 # Ability to perform any filesystem operation other than statfs(2).
 # i.e. no mount(2), unmount(2), etc.
