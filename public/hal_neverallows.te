@@ -12,7 +12,6 @@ neverallow {
 # using network sockets.
 neverallow {
   halserverdomain
-  -hal_gnss # TODO b/36085168 b/35757613
   -hal_wifi_server
   -hal_wifi_supplicant_server
   -rild
