@@ -398,6 +398,7 @@ neverallow { domain -init } properties_serial:file { no_w_file_perms no_x_file_p
 neverallow {
     domain
     -recovery
+    -update_engine
     with_asan(`-asan_extract')
 } {
     system_file
@@ -405,14 +406,15 @@ neverallow {
     exec_type
 }:dir_file_class_set { create write setattr relabelfrom append unlink link rename };
 
-neverallow { domain -recovery -kernel with_asan(`-asan_extract') } { system_file vendor_file_type exec_type }:dir_file_class_set relabelto;
+neverallow { domain -recovery -kernel -update_engine with_asan(`-asan_extract') } { system_file vendor_file_type exec_type }:dir_file_class_set relabelto;
 
 # Don't allow mounting on top of /system files or directories
 neverallow * exec_type:dir_file_class_set mounton;
 neverallow { domain -init } { system_file vendor_file_type }:dir_file_class_set mounton;
 
 # Nothing should be writing to files in the rootfs.
-neverallow { domain userdebug_or_eng(`-recovery') } rootfs:file { create write setattr relabelto append unlink link rename };
+neverallow { domain userdebug_or_eng(`-recovery -update_engine') } rootfs:file { create write setattr relabelto append unlink link rename };
+neverallow { -update_engine } rootfs:file { create write setattr relabelto append unlink link rename };
 
 # Restrict context mounts to specific types marked with
 # the contextmount_type attribute.
@@ -868,6 +870,7 @@ neverallow {
   -system_app
   -init
   -installd # for relabelfrom and unlink, check for this in explicit neverallow
+  -update_engine
   with_asan(`-asan_extract')
 } system_data_file:file no_w_file_perms;
 # do not grant anything greater than r_file_perms and relabelfrom unlink
