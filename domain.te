@@ -321,7 +321,11 @@ neverallow * exec_type:dir_file_class_set mounton;
 neverallow { domain -init } system_file:dir_file_class_set mounton;
 
 # Nothing should be writing to files in the rootfs.
-neverallow * rootfs:file { create write setattr relabelto append unlink link rename };
+ifelse(target_build_variant, `user',
+  `neverallow * rootfs:file { create write setattr relabelto append unlink link rename };'
+,
+  `neverallow { domain -recovery } rootfs:file { create write setattr relabelto append unlink link rename };'
+)
 
 # Restrict context mounts to specific types marked with
 # the contextmount_type attribute.
