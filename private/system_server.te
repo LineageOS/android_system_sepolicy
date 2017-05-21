@@ -186,6 +186,7 @@ allow system_server hal_omx_hwservice:hwservice_manager find;
 allow system_server hidl_token_hwservice:hwservice_manager find;
 hal_client_domain(system_server, hal_power)
 hal_client_domain(system_server, hal_sensors)
+hal_client_domain(system_server, hal_tetheroffload)
 hal_client_domain(system_server, hal_thermal)
 hal_client_domain(system_server, hal_tv_cec)
 hal_client_domain(system_server, hal_tv_input)
