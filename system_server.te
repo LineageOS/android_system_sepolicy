@@ -54,15 +54,12 @@ allow system_server self:capability {
     net_raw
     sys_boot
     sys_nice
-    sys_resource
+    sys_ptrace
     sys_time
     sys_tty_config
 };
 
 wakelock_use(system_server)
-
-# Triggered by /proc/pid accesses, not allowed.
-dontaudit system_server self:capability sys_ptrace;
 
 # Trigger module auto-load.
 allow system_server kernel:system module_request;
