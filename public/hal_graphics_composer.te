@@ -5,6 +5,9 @@ binder_call(hal_graphics_composer_server, hal_graphics_composer_client)
 add_hwservice(hal_graphics_composer_server, hal_graphics_composer_hwservice)
 allow hal_graphics_composer_client hal_graphics_composer_hwservice:hwservice_manager find;
 
+# Coordinate with hal_graphics_mapper
+allow hal_graphics_composer_server hal_graphics_mapper_hwservice:hwservice_manager find;
+
 # GPU device access
 allow hal_graphics_composer gpu_device:chr_file rw_file_perms;
 allow hal_graphics_composer ion_device:chr_file r_file_perms;
