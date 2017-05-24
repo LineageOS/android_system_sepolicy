@@ -86,6 +86,9 @@ allow system_server self:netlink_kobject_uevent_socket create_socket_perms_no_io
 allow system_server self:netlink_socket create_socket_perms_no_ioctl;
 allow system_server self:netlink_generic_socket create_socket_perms_no_ioctl;
 
+# libvintf reads the kernel config to verify vendor interface compatibility.
+allow system_server config_gz:file { read open };
+
 # Use generic "sockets" where the address family is not known
 # to the kernel. The ioctl permission is specifically omitted here, but may
 # be added to device specific policy along with the ioctl commands to be
