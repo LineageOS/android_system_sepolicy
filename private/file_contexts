@@ -282,6 +282,7 @@
 
 # TODO: b/36790901 move this to /vendor/etc
 /(vendor|system/vendor)/manifest.xml           u:object_r:vendor_configs_file:s0
+/(vendor|system/vendor)/compatibility_matrix.xml u:object_r:vendor_configs_file:s0
 /(vendor|system/vendor)/app(/.*)?              u:object_r:vendor_app_file:s0
 /(vendor|system/vendor)/overlay(/.*)?          u:object_r:vendor_overlay_file:s0
 /(vendor|system/vendor)/framework(/.*)?        u:object_r:vendor_framework_file:s0
