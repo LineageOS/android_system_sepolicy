@@ -13,10 +13,6 @@ allow init tmpfs:chr_file { create setattr unlink rw_file_perms };
 # /dev/kmsg
 allow init tmpfs:chr_file relabelfrom;
 allow init kmsg_device:chr_file { write relabelto };
-# /dev/kmsg_debug
-userdebug_or_eng(`
-  allow init kmsg_debug_device:chr_file { write relabelto };
-')
 # /dev/__properties__
 allow init properties_device:dir relabelto;
 allow init properties_serial:file { write relabelto };
