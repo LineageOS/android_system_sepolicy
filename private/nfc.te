@@ -24,6 +24,7 @@ allow nfc radio_service:service_manager find;
 allow nfc surfaceflinger_service:service_manager find;
 allow nfc app_api_service:service_manager find;
 allow nfc system_api_service:service_manager find;
+allow nfc vr_manager_service:service_manager find;
 
 # already open bugreport file descriptors may be shared with
 # the nfc process, from a file in
