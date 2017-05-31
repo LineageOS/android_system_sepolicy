@@ -1,6 +1,7 @@
 from ctypes import *
 import re
 import os
+import sys
 
 class TERule:
     def __init__(self, rule):
@@ -28,15 +29,17 @@ class Policy:
     # Return all attributes associated with a type if IsAttr=False or
     # all types associated with an attribute if IsAttr=True
     def QueryTypeAttribute(self, Type, IsAttr):
-        TypeIterP = self.__libsepolwrap.init_type_iter(self.__policydbP,
-                create_string_buffer(Type), c_bool(IsAttr))
+        init_type_iter = self.__libsepolwrap.init_type_iter
+        init_type_iter.restype = c_void_p
+        TypeIterP = init_type_iter(c_void_p(self.__policydbP),
+                        create_string_buffer(Type), c_bool(IsAttr))
         if (TypeIterP == None):
             sys.exit("Failed to initialize type iterator")
         buf = create_string_buffer(2048)
 
         while True:
             ret = self.__libsepolwrap.get_type(buf, c_int(2048),
-                    self.__policydbP, TypeIterP)
+                    c_void_p(self.__policydbP), c_void_p(TypeIterP))
             if ret == 0:
                 yield buf.value
                 continue
@@ -44,7 +47,7 @@ class Policy:
                 break;
             # We should never get here.
             sys.exit("Failed to import policy")
-        self.__libsepolwrap.destroy_type_iter(TypeIterP)
+        self.__libsepolwrap.destroy_type_iter(c_void_p(TypeIterP))
 
     # Return all TERules that match:
     # (any scontext) or (any tcontext) or (any tclass) or (any perms),
@@ -79,7 +82,8 @@ class Policy:
         buf = create_string_buffer(2048)
         ret = 0
         while True:
-            ret = self.__libsepolwrap.get_allow_rule(buf, c_int(2048), policydbP, avtabIterP)
+            ret = self.__libsepolwrap.get_allow_rule(buf, c_int(2048),
+                        c_void_p(policydbP), c_void_p(avtabIterP))
             if ret == 0:
                 Rule = TERule(buf.value)
                 self.__Rules.add(Rule)
@@ -90,20 +94,29 @@ class Policy:
             sys.exit("Failed to import policy")
 
     def __InitTERules(self):
-        avtabIterP = self.__libsepolwrap.init_avtab(self.__policydbP)
+        init_avtab = self.__libsepolwrap.init_avtab
+        init_avtab.restype = c_void_p
+        avtabIterP = init_avtab(c_void_p(self.__policydbP))
         if (avtabIterP == None):
             sys.exit("Failed to initialize avtab")
         self.__GetTERules(self.__policydbP, avtabIterP)
-        self.__libsepolwrap.destroy_avtab(avtabIterP)
-        avtabIterP = self.__libsepolwrap.init_cond_avtab(self.__policydbP)
+        self.__libsepolwrap.destroy_avtab(c_void_p(avtabIterP))
+        init_cond_avtab = self.__libsepolwrap.init_cond_avtab
+        init_cond_avtab.restype = c_void_p
+        avtabIterP = init_cond_avtab(c_void_p(self.__policydbP))
         if (avtabIterP == None):
             sys.exit("Failed to initialize conditional avtab")
         self.__GetTERules(self.__policydbP, avtabIterP)
-        self.__libsepolwrap.destroy_avtab(avtabIterP)
+        self.__libsepolwrap.destroy_avtab(c_void_p(avtabIterP))
 
     # load ctypes-ified libsepol wrapper
-    def __InitLibsepolwrap(self):
-        self.__libsepolwrap = CDLL("libsepolwrap.so")
+    def __InitLibsepolwrap(self, LibPath):
+        if "linux" in sys.platform:
+            self.__libsepolwrap = CDLL(LibPath + "/libsepolwrap.so")
+        elif "darwin" in sys.platform:
+            self.__libsepolwrap = CDLL(LibPath + "/libsepolwrap.dylib")
+        else:
+            sys.exit("only Linux and Mac currrently supported")
 
     # load file_contexts
     def __InitFC(self, FcPaths):
@@ -128,15 +141,17 @@ class Policy:
 
     # load policy
     def __InitPolicy(self, PolicyPath):
-        self.__policydbP = self.__libsepolwrap.load_policy(create_string_buffer(PolicyPath))
+        load_policy = self.__libsepolwrap.load_policy
+        load_policy.restype = c_void_p
+        self.__policydbP = load_policy(create_string_buffer(PolicyPath))
         if (self.__policydbP is None):
             sys.exit("Failed to load policy")
 
-    def __init__(self, PolicyPath, FcPaths):
-        self.__InitLibsepolwrap()
+    def __init__(self, PolicyPath, FcPaths, LibPath):
+        self.__InitLibsepolwrap(LibPath)
         self.__InitFC(FcPaths)
         self.__InitPolicy(PolicyPath)
 
     def __del__(self):
         if self.__policydbP is not None:
-            self.__libsepolwrap.destroy_policy(self.__policydbP)
+            self.__libsepolwrap.destroy_policy(c_void_p(self.__policydbP))
