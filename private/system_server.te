@@ -303,8 +303,21 @@ allow system_server asec_apk_file:file create_file_perms;
 allow system_server asec_public_file:file create_file_perms;
 
 # Manage /data/anr.
+#
+# TODO: Some of these permissions can be withdrawn once we've switched to the
+# new stack dumping mechanism, see b/32064548 and the rules below. In particular,
+# the system_server should never need to create a new anr_data_file:file or write
+# to one, but it will still need to read and append to existing files.
 allow system_server anr_data_file:dir create_dir_perms;
 allow system_server anr_data_file:file create_file_perms;
+
+# New stack dumping scheme : request an output FD from tombstoned via a unix
+# domain socket.
+#
+# Allow system_server to connect and write to the tombstoned java trace socket in
+# order to dump its traces.
+unix_socket_connect(system_server, tombstoned_java_trace, tombstoned)
+allow system_server tombstoned:fd use;
 
 # Read /data/misc/incidents - only read. The fd will be sent over binder,
 # with no DAC access to it, for dropbox to read.

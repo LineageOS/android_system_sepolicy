@@ -243,6 +243,7 @@ type rild_debug_socket, file_type;
 type system_wpa_socket, file_type;
 type system_ndebug_socket, file_type, mlstrustedobject;
 type tombstoned_crash_socket, file_type, mlstrustedobject;
+type tombstoned_java_trace_socket, file_type, mlstrustedobject;
 type tombstoned_intercept_socket, file_type;
 type uncrypt_socket, file_type;
 type vold_socket, file_type;
