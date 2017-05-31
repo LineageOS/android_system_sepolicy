@@ -121,9 +121,13 @@ allow appdomain anr_data_file:file { open append };
 # domain socket.
 #
 # Allow apps to connect and write to the tombstoned java trace socket in
-# order to dump their traces.
+# order to dump their traces. Also allow them to append traces to pipes
+# created by dumptrace. (Also see the rules below where they are given
+# additional permissions to dumpstate pipes for other aspects of bug report
+# creation).
 unix_socket_connect(appdomain, tombstoned_java_trace, tombstoned)
 allow appdomain tombstoned:fd use;
+allow appdomain dumpstate:fifo_file append;
 
 # Allow apps to send dump information to dumpstate
 allow appdomain dumpstate:fd use;

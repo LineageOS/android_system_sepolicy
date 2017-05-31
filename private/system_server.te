@@ -315,9 +315,11 @@ allow system_server anr_data_file:file create_file_perms;
 # domain socket.
 #
 # Allow system_server to connect and write to the tombstoned java trace socket in
-# order to dump its traces.
+# order to dump its traces. Also allow the system server to write its traces to
+# dumpstate during bugreport capture.
 unix_socket_connect(system_server, tombstoned_java_trace, tombstoned)
 allow system_server tombstoned:fd use;
+allow system_server dumpstate:fifo_file append;
 
 # Read /data/misc/incidents - only read. The fd will be sent over binder,
 # with no DAC access to it, for dropbox to read.
