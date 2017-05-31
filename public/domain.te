@@ -489,6 +489,7 @@ neverallow { domain -install_recovery -recovery } recovery_block_device:blk_file
 neverallow {
   domain
   userdebug_or_eng(`-domain') # exclude debuggable builds
+  -hal_bootctl
   -init
   -uncrypt
   -update_engine
