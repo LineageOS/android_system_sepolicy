@@ -147,6 +147,7 @@ telecom                                   u:object_r:telecom_service:s0
 telephony.registry                        u:object_r:registry_service:s0
 textclassification                        u:object_r:textclassification_service:s0
 textservices                              u:object_r:textservices_service:s0
+timezone                                  u:object_r:timezone_service:s0
 trust                                     u:object_r:trust_service:s0
 tv_input                                  u:object_r:tv_input_service:s0
 uimode                                    u:object_r:uimode_service:s0
