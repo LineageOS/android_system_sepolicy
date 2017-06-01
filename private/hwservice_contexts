@@ -39,6 +39,7 @@ android.hardware.tv.input::ITvInput                             u:object_r:hal_t
 android.hardware.usb::IUsb                                      u:object_r:hal_usb_hwservice:s0
 android.hardware.vibrator::IVibrator                            u:object_r:hal_vibrator_hwservice:s0
 android.hardware.vr::IVr                                        u:object_r:hal_vr_hwservice:s0
+android.hardware.weaver::IWeaver                                u:object_r:hal_weaver_hwservice:s0
 android.hardware.wifi::IWifi                                    u:object_r:hal_wifi_hwservice:s0
 android.hardware.wifi.supplicant::ISupplicant                   u:object_r:hal_wifi_supplicant_hwservice:s0
 android.hidl.allocator::IAllocator                              u:object_r:hidl_allocator_hwservice:s0
