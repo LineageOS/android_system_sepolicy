@@ -469,6 +469,7 @@ userdebug_or_eng(`
   allow $1 su:fifo_file append;
 ')
 allow $1 anr_data_file:file append;
+allow $1 dumpstate:fd use;
 allow $1 dumpstate:fifo_file append;
 allow $1 tombstoned:unix_stream_socket connectto;
 allow $1 tombstoned:fd use;
