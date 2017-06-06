@@ -192,7 +192,8 @@ LOCAL_REQUIRED_MODULES += \
     secilc \
     nonplat_file_contexts \
     plat_file_contexts \
-    plat_sepolicy_vers.txt
+    plat_sepolicy_vers.txt \
+    treble_sepolicy_tests
 
 # Include precompiled policy, unless told otherwise
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
@@ -1130,6 +1131,27 @@ nonplat_mac_perms_keys.tmp :=
 all_nonplat_mac_perms_files :=
 
 ##################################
+ifeq ($(PRODUCT_FULL_TREBLE),true)
+include $(CLEAR_VARS)
+# For Treble builds run tests verifying that processes are properly labeled and
+# permissions granted do not violate the treble model.
+LOCAL_MODULE := treble_sepolicy_tests
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := tests
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+treble_sepolicy_tests := $(intermediates)/treble_sepolicy_tests
+$(treble_sepolicy_tests): PRIVATE_PLAT_FC := $(built_plat_fc)
+$(treble_sepolicy_tests): PRIVATE_NONPLAT_FC := $(built_nonplat_fc)
+$(treble_sepolicy_tests): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(treble_sepolicy_tests): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests.py \
+$(built_plat_fc) $(built_nonplat_fc) $(built_sepolicy)
+	@mkdir -p $(dir $@)
+	$(hide) python $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests.py -l $(HOST_OUT)/lib64 -f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) -p $(PRIVATE_SEPOLICY)
+	$(hide) touch $@
+endif # ($(PRODUCT_FULL_TREBLE),true)
+#################################
 
 add_nl :=
 build_device_policy :=
