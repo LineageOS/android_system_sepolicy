@@ -18,6 +18,7 @@ class Policy:
     __FcDict = None
     __libsepolwrap = None
     __policydbP = None
+    __BUFSIZE = 2048
 
     # Return all file_contexts entries that map to the input Type.
     def QueryFc(self, Type):
@@ -29,17 +30,15 @@ class Policy:
     # Return all attributes associated with a type if IsAttr=False or
     # all types associated with an attribute if IsAttr=True
     def QueryTypeAttribute(self, Type, IsAttr):
-        init_type_iter = self.__libsepolwrap.init_type_iter
-        init_type_iter.restype = c_void_p
-        TypeIterP = init_type_iter(c_void_p(self.__policydbP),
-                        create_string_buffer(Type), c_bool(IsAttr))
+        TypeIterP = self.__libsepolwrap.init_type_iter(self.__policydbP,
+                        create_string_buffer(Type), IsAttr)
         if (TypeIterP == None):
             sys.exit("Failed to initialize type iterator")
-        buf = create_string_buffer(2048)
+        buf = create_string_buffer(self.__BUFSIZE)
 
         while True:
-            ret = self.__libsepolwrap.get_type(buf, c_int(2048),
-                    c_void_p(self.__policydbP), c_void_p(TypeIterP))
+            ret = self.__libsepolwrap.get_type(buf, self.__BUFSIZE,
+                    self.__policydbP, TypeIterP)
             if ret == 0:
                 yield buf.value
                 continue
@@ -47,7 +46,7 @@ class Policy:
                 break;
             # We should never get here.
             sys.exit("Failed to import policy")
-        self.__libsepolwrap.destroy_type_iter(c_void_p(TypeIterP))
+        self.__libsepolwrap.destroy_type_iter(TypeIterP)
 
     # Return all TERules that match:
     # (any scontext) or (any tcontext) or (any tclass) or (any perms),
@@ -79,11 +78,11 @@ class Policy:
     def __GetTERules(self, policydbP, avtabIterP):
         if self.__Rules is None:
             self.__Rules = set()
-        buf = create_string_buffer(2048)
+        buf = create_string_buffer(self.__BUFSIZE)
         ret = 0
         while True:
-            ret = self.__libsepolwrap.get_allow_rule(buf, c_int(2048),
-                        c_void_p(policydbP), c_void_p(avtabIterP))
+            ret = self.__libsepolwrap.get_allow_rule(buf, self.__BUFSIZE,
+                        policydbP, avtabIterP)
             if ret == 0:
                 Rule = TERule(buf.value)
                 self.__Rules.add(Rule)
@@ -94,29 +93,53 @@ class Policy:
             sys.exit("Failed to import policy")
 
     def __InitTERules(self):
-        init_avtab = self.__libsepolwrap.init_avtab
-        init_avtab.restype = c_void_p
-        avtabIterP = init_avtab(c_void_p(self.__policydbP))
+        avtabIterP = self.__libsepolwrap.init_avtab(self.__policydbP)
         if (avtabIterP == None):
             sys.exit("Failed to initialize avtab")
         self.__GetTERules(self.__policydbP, avtabIterP)
-        self.__libsepolwrap.destroy_avtab(c_void_p(avtabIterP))
-        init_cond_avtab = self.__libsepolwrap.init_cond_avtab
-        init_cond_avtab.restype = c_void_p
-        avtabIterP = init_cond_avtab(c_void_p(self.__policydbP))
+        self.__libsepolwrap.destroy_avtab(avtabIterP)
+        avtabIterP = self.__libsepolwrap.init_cond_avtab(self.__policydbP)
         if (avtabIterP == None):
             sys.exit("Failed to initialize conditional avtab")
         self.__GetTERules(self.__policydbP, avtabIterP)
-        self.__libsepolwrap.destroy_avtab(c_void_p(avtabIterP))
+        self.__libsepolwrap.destroy_avtab(avtabIterP)
 
     # load ctypes-ified libsepol wrapper
     def __InitLibsepolwrap(self, LibPath):
         if "linux" in sys.platform:
-            self.__libsepolwrap = CDLL(LibPath + "/libsepolwrap.so")
+            lib = CDLL(LibPath + "/libsepolwrap.so")
         elif "darwin" in sys.platform:
-            self.__libsepolwrap = CDLL(LibPath + "/libsepolwrap.dylib")
+            lib = CDLL(LibPath + "/libsepolwrap.dylib")
         else:
             sys.exit("only Linux and Mac currrently supported")
+
+        # int get_allow_rule(char *out, size_t len, void *policydbp, void *avtab_iterp);
+        lib.get_allow_rule.restype = c_int
+        lib.get_allow_rule.argtypes = [c_char_p, c_size_t, c_void_p, c_void_p];
+        # void *load_policy(const char *policy_path);
+        lib.load_policy.restype = c_void_p
+        lib.load_policy.argtypes = [c_char_p]
+        # void destroy_policy(void *policydbp);
+        lib.destroy_policy.argtypes = [c_void_p]
+        # void *init_avtab(void *policydbp);
+        lib.init_avtab.restype = c_void_p
+        lib.init_avtab.argtypes = [c_void_p]
+        # void *init_cond_avtab(void *policydbp);
+        lib.init_cond_avtab.restype = c_void_p
+        lib.init_cond_avtab.argtypes = [c_void_p]
+        # void destroy_avtab(void *avtab_iterp);
+        lib.destroy_avtab.argtypes = [c_void_p]
+        # int get_type(char *out, size_t max_size, void *policydbp, void *type_iterp);
+        lib.get_type.restype = c_int
+        lib.get_type.argtypes = [c_char_p, c_size_t, c_void_p, c_void_p]
+        # void *init_type_iter(void *policydbp, const char *type, bool is_attr);
+        lib.init_type_iter.restype = c_void_p
+        lib.init_type_iter.argtypes = [c_void_p, c_char_p, c_bool]
+        # void destroy_type_iter(void *type_iterp);
+        lib.destroy_type_iter.argtypes = [c_void_p]
+
+        self.__libsepolwrap = lib
+
 
     # load file_contexts
     def __InitFC(self, FcPaths):
@@ -141,9 +164,8 @@ class Policy:
 
     # load policy
     def __InitPolicy(self, PolicyPath):
-        load_policy = self.__libsepolwrap.load_policy
-        load_policy.restype = c_void_p
-        self.__policydbP = load_policy(create_string_buffer(PolicyPath))
+        cPolicyPath = create_string_buffer(PolicyPath)
+        self.__policydbP = self.__libsepolwrap.load_policy(cPolicyPath)
         if (self.__policydbP is None):
             sys.exit("Failed to load policy")
 
@@ -154,4 +176,4 @@ class Policy:
 
     def __del__(self):
         if self.__policydbP is not None:
-            self.__libsepolwrap.destroy_policy(c_void_p(self.__policydbP))
+            self.__libsepolwrap.destroy_policy(self.__policydbP)
