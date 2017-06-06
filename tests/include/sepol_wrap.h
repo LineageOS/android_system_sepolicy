@@ -4,7 +4,6 @@ extern "C" {
 #endif
 
 int get_allow_rule(char *out, size_t len, void *policydbp, void *avtab_iterp);
-bool init_libsepol(const char *policy_path);
 void *load_policy(const char *policy_path);
 void destroy_policy(void *policydbp);
 void *init_avtab(void *policydbp);

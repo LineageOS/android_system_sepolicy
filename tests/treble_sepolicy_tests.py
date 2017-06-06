@@ -228,7 +228,7 @@ class MultipleOption(Option):
 Tests = ["CoredomainViolators"]
 
 if __name__ == '__main__':
-    usage = "sepolicy-trebletests -f nonplat_file_contexts -f "
+    usage = "treble_sepolicy_tests.py -f nonplat_file_contexts -f "
     usage +="plat_file_contexts -p policy [--test test] [--help]"
     parser = OptionParser(option_class=MultipleOption, usage=usage)
     parser.add_option("-f", "--file_contexts", dest="file_contexts",
