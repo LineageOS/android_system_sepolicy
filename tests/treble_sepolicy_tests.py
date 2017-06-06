@@ -5,6 +5,8 @@ import policy
 import re
 import sys
 
+DEBUG=False
+
 '''
 Use file_contexts and policy to verify Treble requirements
 are not violated.
@@ -47,18 +49,20 @@ class scontext:
         self.entrypoints = []
         self.entrypointpaths = []
 
-def PrintScontext(domain, sctx):
-    print domain
-    print "\tcoredomain="+str(sctx.coredomain)
-    print "\tappdomain="+str(sctx.appdomain)
-    print "\tfromSystem="+str(sctx.fromSystem)
-    print "\tfromVendor="+str(sctx.fromVendor)
-    print "\tattributes="+str(sctx.attributes)
-    print "\tentrypoints="+str(sctx.entrypoints)
-    print "\tentrypointpaths="
-    if sctx.entrypointpaths is not None:
-        for path in sctx.entrypointpaths:
-            print "\t\t"+str(path)
+def PrintScontexts():
+    for d in sorted(alldomains.keys()):
+        sctx = alldomains[d]
+        print d
+        print "\tcoredomain="+str(sctx.coredomain)
+        print "\tappdomain="+str(sctx.appdomain)
+        print "\tfromSystem="+str(sctx.fromSystem)
+        print "\tfromVendor="+str(sctx.fromVendor)
+        print "\tattributes="+str(sctx.attributes)
+        print "\tentrypoints="+str(sctx.entrypoints)
+        print "\tentrypointpaths="
+        if sctx.entrypointpaths is not None:
+            for path in sctx.entrypointpaths:
+                print "\t\t"+str(path)
 
 alldomains = {}
 coredomains = set()
@@ -150,7 +154,10 @@ def GetDomainEntrypoints(pol):
         # so skip the lookup.
         if x.tctx == "postinstall_file":
             continue
-        alldomains[x.sctx].entrypointpaths = pol.QueryFc(x.tctx)
+        entrypointpath = pol.QueryFc(x.tctx)
+        if not entrypointpath:
+            continue
+        alldomains[x.sctx].entrypointpaths.extend(entrypointpath)
 ###
 # Get attributes associated with each domain
 #
@@ -227,10 +234,17 @@ if __name__ == '__main__':
     parser.add_option("-f", "--file_contexts", dest="file_contexts",
             metavar="FILE", action="extend", type="string")
     parser.add_option("-p", "--policy", dest="policy", metavar="FILE")
+    parser.add_option("-l", "--library-path", dest="libpath", metavar="FILE")
     parser.add_option("-t", "--test", dest="test", action="extend",
             help="Test options include "+str(Tests))
 
     (options, args) = parser.parse_args()
+
+    if not options.libpath:
+        sys.exit("Must specify path to host libraries\n" + parser.usage)
+    if not os.path.exists(options.libpath):
+        sys.exit("Error: library-path " + options.libpath + " does not exist\n"
+                + parser.usage)
 
     if not options.policy:
         sys.exit("Must specify monolithic policy file\n" + parser.usage)
@@ -245,8 +259,11 @@ if __name__ == '__main__':
             sys.exit("Error: File_contexts file " + f + " does not exist\n" +
                     parser.usage)
 
-    pol = policy.Policy(options.policy, options.file_contexts)
+    pol = policy.Policy(options.policy, options.file_contexts, options.libpath)
     setup(pol)
+
+    if DEBUG:
+        PrintScontexts()
 
     results = ""
     # If an individual test is not specified, run all tests.
