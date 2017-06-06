@@ -820,7 +820,7 @@ $(LOCAL_BUILT_MODULE): PRIVATE_SC_FILES := $(nonplat_sc_files)
 $(LOCAL_BUILT_MODULE): PRIVATE_SC_NEVERALLOW_FILES := $(plat_sc_neverallow_files)
 $(LOCAL_BUILT_MODULE): $(built_sepolicy) $(nonplat_sc_files) $(HOST_OUT_EXECUTABLES)/checkseapp $(plat_sc_neverallow_files)
 	@mkdir -p $(dir $@)
-	$(hide) grep -ie '^neverallow' $(PRIVATE_SC_NEVERALLOW_FILES) > $@.tmp
+	$(hide) grep -ihe '^neverallow' $(PRIVATE_SC_NEVERALLOW_FILES) > $@.tmp
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $(PRIVATE_SC_FILES) $@.tmp
 
 built_nonplat_sc := $(LOCAL_BUILT_MODULE)
@@ -836,7 +836,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 $(LOCAL_BUILT_MODULE): $(plat_sc_neverallow_files)
 	@mkdir -p $(dir $@)
-	- $(hide) grep -ie '^neverallow' $< > $@
+	- $(hide) grep -ihe '^neverallow' $< > $@
 
 plat_sc_neverallow_files :=
 
