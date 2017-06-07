@@ -50,10 +50,11 @@ allow kernel tmpfs:chr_file write;
 allow kernel selinuxfs:file write;
 allow kernel self:security setcheckreqprot;
 
-# MTP sync (b/15835289)
 # kernel thread "loop0", used by the loop block device, for ASECs (b/17158723)
-allow kernel priv_app:fd use;
 allow kernel sdcard_type:file { read write };
+
+# f_mtp driver accesses files from kernel context.
+allow kernel mediaprovider:fd use;
 
 # Allow the kernel to read OBB files from app directories. (b/17428116)
 # Kernel thread "loop0" reads a vold supplied file descriptor.
