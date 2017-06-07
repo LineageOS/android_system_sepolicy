@@ -126,6 +126,9 @@ allow system_server proc_uid_cputime_removeuid:file { w_file_perms getattr };
 # Write /proc/uid_procstat/set.
 allow system_server proc_uid_procstat_set:file { w_file_perms getattr };
 
+# Read /proc/uid_time_in_state.
+allow system_server proc_uid_time_in_state:file r_file_perms;
+
 # Write to /proc/sysrq-trigger.
 allow system_server proc_sysrq:file rw_file_perms;
 
