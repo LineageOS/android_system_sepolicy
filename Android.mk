@@ -190,8 +190,6 @@ LOCAL_REQUIRED_MODULES += \
     plat_sepolicy.cil \
     plat_and_mapping_sepolicy.cil.sha256 \
     secilc \
-    nonplat_file_contexts \
-    plat_file_contexts \
     plat_sepolicy_vers.txt \
     treble_sepolicy_tests
 
@@ -199,12 +197,15 @@ LOCAL_REQUIRED_MODULES += \
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 LOCAL_REQUIRED_MODULES += precompiled_sepolicy precompiled_sepolicy.plat_and_mapping.sha256
 endif
-
 else
 # Use monolithic SELinux policy
-LOCAL_REQUIRED_MODULES += sepolicy \
-    file_contexts.bin
+LOCAL_REQUIRED_MODULES += sepolicy
 endif
+
+LOCAL_REQUIRED_MODULES += \
+    nonplat_file_contexts \
+    plat_file_contexts
+
 include $(BUILD_PHONY_PACKAGE)
 
 ##################################
@@ -697,7 +698,11 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := plat_file_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
+ifeq ($(PRODUCT_FULL_TREBLE),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
+else
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -727,7 +732,11 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := nonplat_file_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
+ifeq ($(PRODUCT_FULL_TREBLE),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
+else
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
