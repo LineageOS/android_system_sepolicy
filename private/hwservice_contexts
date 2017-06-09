@@ -37,6 +37,7 @@ android.hardware.renderscript::IDevice                          u:object_r:hal_r
 android.hardware.sensors::ISensors                              u:object_r:hal_sensors_hwservice:s0
 android.hardware.soundtrigger::ISoundTriggerHw                  u:object_r:hal_audio_hwservice:s0
 android.hardware.thermal::IThermal                              u:object_r:hal_thermal_hwservice:s0
+android.hardware.thermal::IThermalCallback                      u:object_r:thermalcallback_hwservice:s0
 android.hardware.tv.cec::IHdmiCec                               u:object_r:hal_tv_cec_hwservice:s0
 android.hardware.tv.input::ITvInput                             u:object_r:hal_tv_input_hwservice:s0
 android.hardware.usb::IUsb                                      u:object_r:hal_usb_hwservice:s0
