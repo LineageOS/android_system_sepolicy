@@ -681,20 +681,6 @@ file_contexts.local.tmp :=
 ##################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := file_contexts.bin.recovery
-LOCAL_MODULE_STEM := file_contexts.bin
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE): $(built_fc)
-	$(hide) cp -f $< $@
-
-##################################
-include $(CLEAR_VARS)
-
 LOCAL_MODULE := plat_file_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
@@ -756,6 +742,33 @@ $(nonplat_fcfiles_with_nl) $(built_sepolicy)
 built_nonplat_fc := $(LOCAL_BUILT_MODULE)
 nonplat_fc_files :=
 nonplat_fcfiles_with_nl :=
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := plat_file_contexts.recovery
+LOCAL_MODULE_STEM := plat_file_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_plat_fc)
+	$(hide) cp -f $< $@
+
+##################################
+include $(CLEAR_VARS)
+LOCAL_MODULE := nonplat_file_contexts.recovery
+LOCAL_MODULE_STEM := nonplat_file_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_nonplat_fc)
+	$(hide) cp -f $< $@
 
 ##################################
 include $(CLEAR_VARS)
