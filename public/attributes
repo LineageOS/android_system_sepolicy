@@ -29,6 +29,7 @@ attribute exec_type;
 
 # All types used for /data files.
 attribute data_file_type;
+expandattribute data_file_type false;
 # All types in /data, not in /data/vendor
 attribute core_data_file_type;
 # All types in /vendor
