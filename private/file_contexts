@@ -38,7 +38,6 @@
 /sdcard             u:object_r:rootfs:s0
 
 # SELinux policy files
-/file_contexts\.bin     u:object_r:file_contexts_file:s0
 /nonplat_file_contexts  u:object_r:file_contexts_file:s0
 /plat_file_contexts     u:object_r:file_contexts_file:s0
 /mapping_sepolicy\.cil   u:object_r:sepolicy_file:s0
@@ -451,28 +450,6 @@
 /data/cache/backup_stage(/.*)?	u:object_r:cache_backup_file:s0
 # LocalTransport (backup) uses this subtree
 /data/cache/backup(/.*)?	u:object_r:cache_private_backup_file:s0
-
-###########################################
-# debug-only tracing
-#
-/sys/kernel/debug/tracing/events/sync/enable                         u:object_r:tracing_shell_writable_debug:s0
-/sys/kernel/debug/tracing/events/workqueue/enable                    u:object_r:tracing_shell_writable_debug:s0
-/sys/kernel/debug/tracing/events/regulator/enable                    u:object_r:tracing_shell_writable_debug:s0
-/sys/kernel/debug/tracing/events/pagecache/enable                    u:object_r:tracing_shell_writable_debug:s0
-
-/sys/kernel/debug/tracing/events/irq/enable                          u:object_r:tracing_shell_writable_debug:s0
-/sys/kernel/debug/tracing/events/ipi/enable                          u:object_r:tracing_shell_writable_debug:s0
-
-/sys/kernel/debug/tracing/events/f2fs/f2fs_sync_file_enter/enable    u:object_r:tracing_shell_writable_debug:s0
-/sys/kernel/debug/tracing/events/f2fs/f2fs_sync_file_exit/enable     u:object_r:tracing_shell_writable_debug:s0
-/sys/kernel/debug/tracing/events/f2fs/f2fs_write_begin/enable        u:object_r:tracing_shell_writable_debug:s0
-/sys/kernel/debug/tracing/events/f2fs/f2fs_write_end/enable          u:object_r:tracing_shell_writable_debug:s0
-/sys/kernel/debug/tracing/events/ext4/ext4_da_write_begin/enable     u:object_r:tracing_shell_writable_debug:s0
-/sys/kernel/debug/tracing/events/ext4/ext4_da_write_end/enable       u:object_r:tracing_shell_writable_debug:s0
-/sys/kernel/debug/tracing/events/ext4/ext4_sync_file_enter/enable    u:object_r:tracing_shell_writable_debug:s0
-/sys/kernel/debug/tracing/events/ext4/ext4_sync_file_exit/enable     u:object_r:tracing_shell_writable_debug:s0
-/sys/kernel/debug/tracing/events/block/block_rq_issue/enable         u:object_r:tracing_shell_writable_debug:s0
-/sys/kernel/debug/tracing/events/block/block_rq_complete/enable      u:object_r:tracing_shell_writable_debug:s0
 
 #############################
 # asec containers
