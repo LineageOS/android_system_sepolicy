@@ -13,8 +13,8 @@ userdebug_or_eng(`
 
   # Allow atrace to access tracefs.
   allow atrace debugfs_tracing:dir r_dir_perms;
-  allow atrace debugfs_tracing:file r_file_perms;
-  allow atrace tracing_shell_writable:file rw_file_perms;
+  allow atrace debugfs_tracing:file rw_file_perms;
+  allow atrace debugfs_tracing_debug:file rw_file_perms;
   allow atrace debugfs_trace_marker:file getattr;
 
   # atrace sets debug.atrace.* properties
