@@ -50,6 +50,7 @@ persist.logd.logpersistd        u:object_r:logpersistd_logging_prop:s0
 logd.logpersistd        u:object_r:logpersistd_logging_prop:s0
 persist.log.tag         u:object_r:log_tag_prop:s0
 persist.mmc.            u:object_r:mmc_prop:s0
+persist.netd.stable_secret      u:object_r:netd_stable_secret_prop:s0
 persist.sys.            u:object_r:system_prop:s0
 persist.sys.safemode    u:object_r:safemode_prop:s0
 ro.sys.safemode         u:object_r:safemode_prop:s0
