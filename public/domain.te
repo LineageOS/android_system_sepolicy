@@ -226,9 +226,6 @@ with_asan(`allow domain system_data_file:dir getattr;')
 ### neverallow rules
 ###
 
-# Don't allow others to access memcg.
-neverallow { domain -init -lmkd userdebug_or_eng(`-domain') } memcg_device:dir_file_class_set *;
-
 # All socket ioctls must be restricted to a whitelist.
 neverallowxperm domain domain:socket_class_set ioctl { 0 };
 
