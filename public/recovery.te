@@ -18,6 +18,7 @@ recovery_only(`
   allow recovery self:capability2 mac_admin;
 
   # Run helpers from / or /system without changing domain.
+  r_dir_file(recovery, rootfs)
   allow recovery rootfs:file execute_no_trans;
   allow recovery system_file:file execute_no_trans;
   allow recovery toolbox_exec:file rx_file_perms;
@@ -51,6 +52,7 @@ recovery_only(`
 
   # Write to /sys/class/android_usb/android0/enable.
   # TODO: create more specific label?
+  r_dir_file(recovery, sysfs)
   allow recovery sysfs:file w_file_perms;
 
   # Write to /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq.
