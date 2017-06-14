@@ -21,6 +21,9 @@ allow lmkd system_server:file write;
 r_dir_file(lmkd, sysfs_type)
 allow lmkd sysfs_lowmemorykiller:file w_file_perms;
 
+allow lmkd memcg_device:dir search;
+allow lmkd memcg_device:file rw_file_perms;
+
 # Send kill signals
 allow lmkd appdomain:process sigkill;
 
@@ -31,6 +34,8 @@ allow lmkd cgroup:dir { remove_name rmdir };
 allow lmkd self:capability sys_nice;
 
 allow lmkd proc_zoneinfo:file r_file_perms;
+
+r_dir_file(lmkd, cgroup)
 
 ### neverallow rules
 
