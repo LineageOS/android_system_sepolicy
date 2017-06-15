@@ -190,9 +190,13 @@ LOCAL_REQUIRED_MODULES += \
     plat_sepolicy.cil \
     plat_and_mapping_sepolicy.cil.sha256 \
     secilc \
-    plat_sepolicy_vers.txt \
+    plat_sepolicy_vers.txt
+
+ifneq ($(with_asan),true)
+LOCAL_REQUIRED_MODULES += \
     treble_sepolicy_tests \
     sepolicy_tests
+endif
 
 # Include precompiled policy, unless told otherwise
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
