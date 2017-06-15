@@ -270,7 +270,7 @@ allow init misc_logd_file:file { open create getattr setattr write };
 
 # Support "adb shell stop"
 allow init self:capability kill;
-allow init domain:process { sigkill signal };
+allow init domain:process { getpgid sigkill signal };
 
 # Init creates keystore's directory on boot, and walks through
 # the directory as part of a recursive restorecon.
