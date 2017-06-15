@@ -3,6 +3,33 @@ import re
 import os
 import sys
 
+###
+# Check whether the regex will match a file path starting with the provided
+# prefix
+#
+# Compares regex entries in file_contexts with a path prefix. Regex entries
+# are often more specific than this file prefix. For example, the regex could
+# be /system/bin/foo\.sh and the prefix could be /system. This function
+# loops over the regex removing characters from the end until
+# 1) there is a match - return True or 2) run out of characters - return
+#    False.
+#
+def MatchPathPrefix(pathregex, prefix):
+    for i in range(len(pathregex), 0, -1):
+        try:
+            pattern = re.compile('^' + pathregex[0:i] + "$")
+        except:
+            continue
+        if pattern.match(prefix):
+            return True
+    return False
+
+def MatchPathPrefixes(pathregex, Prefixes):
+    for Prefix in Prefixes:
+        if MatchPathPrefix(pathregex, Prefix):
+            return True
+    return False
+
 class TERule:
     def __init__(self, rule):
         data = rule.split(',')
@@ -20,6 +47,27 @@ class Policy:
     __policydbP = None
     __BUFSIZE = 2048
 
+    # Check that path prefixes that match MatchPrefix, and do not Match
+    # DoNotMatchPrefix have the attribute Attr.
+    # For example assert that all types in /sys, and not in /sys/kernel/debugfs
+    # have the sysfs_type attribute.
+    def AssertPathTypesHaveAttr(self, MatchPrefix, DoNotMatchPrefix, Attr):
+        # Query policy for the types associated with Attr
+        TypesPol = self.QueryTypeAttribute(Attr, True)
+        # Search file_contexts to find paths/types that should be associated with
+        # Attr.
+        TypesFc = self.__GetTypesByFilePathPrefix(MatchPrefix, DoNotMatchPrefix)
+        violators = TypesFc.difference(TypesPol)
+
+        ret = ""
+        if len(violators) > 0:
+            ret += "The following types on "
+            ret += " ".join(str(x) for x in sorted(MatchPrefix))
+            ret += " must be associated with the "
+            ret += "\"" + Attr + "\" attribute: "
+            ret += " ".join(str(x) for x in sorted(violators)) + "\n"
+        return ret
+
     # Return all file_contexts entries that map to the input Type.
     def QueryFc(self, Type):
         if Type in self.__FcDict:
@@ -35,18 +83,19 @@ class Policy:
         if (TypeIterP == None):
             sys.exit("Failed to initialize type iterator")
         buf = create_string_buffer(self.__BUFSIZE)
-
+        TypeAttr = set()
         while True:
             ret = self.__libsepolwrap.get_type(buf, self.__BUFSIZE,
                     self.__policydbP, TypeIterP)
             if ret == 0:
-                yield buf.value
+                TypeAttr.add(buf.value)
                 continue
             if ret == 1:
                 break;
             # We should never get here.
             sys.exit("Failed to import policy")
         self.__libsepolwrap.destroy_type_iter(TypeIterP)
+        return TypeAttr
 
     # Return all TERules that match:
     # (any scontext) or (any tcontext) or (any tclass) or (any perms),
@@ -73,6 +122,17 @@ class Policy:
             if "perms" in kwargs and not bool(Rule.perms & set(kwargs['perms'])):
                 continue
             yield Rule
+
+    def __GetTypesByFilePathPrefix(self, MatchPrefixes, DoNotMatchPrefixes):
+        Types = set()
+        for Type in self.__FcDict:
+            for pathregex in self.__FcDict[Type]:
+                if not MatchPathPrefixes(pathregex, MatchPrefixes):
+                    continue
+                if MatchPathPrefixes(pathregex, DoNotMatchPrefixes):
+                    continue
+                Types.add(Type)
+        return Types
 
 
     def __GetTERules(self, policydbP, avtabIterP):

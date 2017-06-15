@@ -2,6 +2,7 @@ from optparse import OptionParser
 from optparse import Option, OptionValueError
 import os
 import policy
+from policy import MatchPathPrefix
 import re
 import sys
 
@@ -68,27 +69,6 @@ alldomains = {}
 coredomains = set()
 appdomains = set()
 vendordomains = set()
-
-###
-# Check whether the regex will match a file path starting with the provided
-# prefix
-#
-# Compares regex entries in file_contexts with a path prefix. Regex entries
-# are often more specific than this file prefix. For example, the regex could
-# be /system/bin/foo\.sh and the prefix could be /system. This function
-# loops over the regex removing characters from the end until
-# 1) there is a match - return True or 2) run out of characters - return
-#    False.
-#
-def MatchPathPrefix(pathregex, prefix):
-    for i in range(len(pathregex), 0, -1):
-        try:
-            pattern = re.compile('^' + pathregex[0:i] + "$")
-        except:
-            continue
-        if pattern.match(prefix):
-            return True
-    return False
 
 def GetAllDomains(pol):
     global alldomains

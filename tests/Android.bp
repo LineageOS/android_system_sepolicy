@@ -19,3 +19,10 @@ cc_prebuilt_binary {
     host_supported: true,
     required: ["policy.py"],
 }
+
+cc_prebuilt_binary {
+    name: "sepolicy_tests.py",
+    srcs: ["sepolicy_tests.py"],
+    host_supported: true,
+    required: ["policy.py"],
+}
