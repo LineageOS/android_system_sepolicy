@@ -190,9 +190,13 @@ LOCAL_REQUIRED_MODULES += \
     plat_sepolicy.cil \
     plat_and_mapping_sepolicy.cil.sha256 \
     secilc \
-    plat_sepolicy_vers.txt \
+    plat_sepolicy_vers.txt
+
+ifneq ($(with_asan),true)
+LOCAL_REQUIRED_MODULES += \
     treble_sepolicy_tests \
     sepolicy_tests
+endif
 
 # Include precompiled policy, unless told otherwise
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
@@ -335,7 +339,7 @@ $(LOCAL_BUILT_MODULE): $(plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
 	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
 		$(POLICYVERS) -o $@ $<
 	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -G -N -c $(POLICYVERS) $@ -o /dev/null -f /dev/null
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -G -c $(POLICYVERS) $@ -o /dev/null -f /dev/null
 
 built_plat_cil := $(LOCAL_BUILT_MODULE)
 plat_policy.conf :=

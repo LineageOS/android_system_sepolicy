@@ -127,6 +127,9 @@ allow priv_app selinuxfs:file r_file_perms;
 
 read_runtime_log_tags(priv_app)
 
+# suppress denials when safetynet scans /system
+dontaudit priv_app exec_type:file getattr;
+
 ###
 ### neverallow rules
 ###

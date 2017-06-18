@@ -13,7 +13,7 @@ allow shell atrace_exec:file rx_file_perms;
 allow shell config_gz:file r_file_perms;
 
 userdebug_or_eng(`
-  allow shell tracing_shell_writable_debug:file rw_file_perms;
+  allow shell debugfs_tracing_debug:file rw_file_perms;
 ')
 
 # Run app_process.
