@@ -5,9 +5,8 @@ net_domain(radio)
 bluetooth_domain(radio)
 binder_service(radio)
 
-# TODO(b/36613472): Remove this once radio no longer communicates with rild over sockets.
-# Talks to rild via the rild socket.
-unix_socket_connect(radio, rild, rild)
+# Talks to rild via the rild socket only for devices without full treble
+not_full_treble(`unix_socket_connect(radio, rild, rild)')
 
 # Data file accesses.
 allow radio radio_data_file:dir create_dir_perms;
