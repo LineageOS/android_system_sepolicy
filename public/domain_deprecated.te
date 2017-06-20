@@ -24,7 +24,7 @@ auditallow { domain_deprecated -appdomain -netd -surfaceflinger } system_server:
 # This is used for e.g. adb backup/restore.
 allow domain_deprecated adbd:fd use;
 userdebug_or_eng(`
-auditallow { domain_deprecated -appdomain -system_server } adbd:fd use;
+auditallow { domain_deprecated -appdomain -system_server -runas } adbd:fd use;
 ')
 
 # Root fs.
