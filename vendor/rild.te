@@ -2,7 +2,3 @@
 # public, but conceptually should go with this
 type rild_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(rild)
-
-# TODO(b/36613472), TODO(b/36718031): Remove this once rild no longer
-# communicates with non-vendor components over sockets.
-typeattribute rild socket_between_core_and_vendor_violators;
