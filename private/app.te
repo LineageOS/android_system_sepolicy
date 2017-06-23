@@ -69,9 +69,6 @@ allow appdomain appdomain:fifo_file rw_file_perms;
 # Communicate with surfaceflinger.
 allow appdomain surfaceflinger:unix_stream_socket { read write setopt getattr getopt shutdown };
 
-# Query whether a Surface supports wide color
-allow { appdomain -isolated_app } hal_configstore_ISurfaceFlingerConfigs:hwservice_manager find;
-
 # App sandbox file accesses.
 allow { appdomain -isolated_app } app_data_file:dir create_dir_perms;
 allow { appdomain -isolated_app } app_data_file:notdevfile_class_set create_file_perms;

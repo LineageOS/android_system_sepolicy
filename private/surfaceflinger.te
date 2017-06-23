@@ -14,7 +14,6 @@ read_runtime_log_tags(surfaceflinger)
 hal_client_domain(surfaceflinger, hal_graphics_allocator)
 hal_client_domain(surfaceflinger, hal_graphics_composer)
 hal_client_domain(surfaceflinger, hal_configstore)
-allow surfaceflinger hal_configstore_ISurfaceFlingerConfigs:hwservice_manager find;
 allow surfaceflinger hidl_token_hwservice:hwservice_manager find;
 
 # Perform Binder IPC.
