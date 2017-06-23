@@ -28,6 +28,9 @@ allow vold self:process setexec;
 # For sgdisk launched through popen()
 allow vold shell_exec:file rx_file_perms;
 
+# For formatting adoptable storage devices
+allow vold e2fs_exec:file rx_file_perms;
+
 typeattribute vold mlstrustedsubject;
 allow vold self:process setfscreate;
 allow vold system_file:file x_file_perms;
