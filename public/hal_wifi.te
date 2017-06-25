@@ -21,3 +21,5 @@ allow hal_wifi self:netlink_socket create_socket_perms_no_ioctl;
 allow hal_wifi self:netlink_generic_socket create_socket_perms_no_ioctl;
 # hal_wifi writes firmware paths to this file.
 allow hal_wifi sysfs_wlan_fwpath:file { w_file_perms };
+# allow hal_wifi to access /proc/modules to check if Wi-Fi driver is loaded
+allow hal_wifi proc_modules:file { getattr open read };
