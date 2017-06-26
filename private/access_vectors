@@ -316,6 +316,7 @@ class process
 	execheap
 	setkeycreate
 	setsockcreate
+	getrlimit
 }
 
 
