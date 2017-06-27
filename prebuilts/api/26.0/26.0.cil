@@ -1,3 +1,6 @@
+;; private attributes removed from public types
+(typeattributeset domain_deprecated (bluetooth_26_0))
+
 ;; types removed from current policy
 (type log_device)
 
