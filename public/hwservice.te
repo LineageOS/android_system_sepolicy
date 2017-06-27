@@ -28,6 +28,7 @@ type hal_power_hwservice, hwservice_manager_type;
 type hal_renderscript_hwservice, hwservice_manager_type, same_process_hwservice;
 type hal_sensors_hwservice, hwservice_manager_type;
 type hal_telephony_hwservice, hwservice_manager_type;
+type hal_tetheroffload_hwservice, hwservice_manager_type;
 type hal_thermal_hwservice, hwservice_manager_type;
 type hal_tv_cec_hwservice, hwservice_manager_type;
 type hal_tv_input_hwservice, hwservice_manager_type;

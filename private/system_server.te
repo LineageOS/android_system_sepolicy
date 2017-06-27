@@ -79,6 +79,9 @@ allow system_server kernel:system module_request;
 # Allow alarmtimers to be set
 allow system_server self:capability2 wake_alarm;
 
+# Create and share netlink_netfilter_sockets for tetheroffload.
+allow system_server self:netlink_netfilter_socket create_socket_perms_no_ioctl;
+
 # Use netlink uevent sockets.
 allow system_server self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 
