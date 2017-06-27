@@ -316,6 +316,7 @@ class process
 	execheap
 	setkeycreate
 	setsockcreate
+	getrlimit
 }
 
 
@@ -654,6 +655,9 @@ class kcm_socket
 inherits socket
 
 class qipcrtr_socket
+inherits socket
+
+class smc_socket
 inherits socket
 
 class property_service
