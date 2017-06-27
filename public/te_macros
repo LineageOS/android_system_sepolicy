@@ -101,6 +101,10 @@ define(`pdx_service_socket_types', `
 typeattribute $2 pdx_$1_endpoint_dir_type;
 type pdx_$1_endpoint_socket, pdx_$1_endpoint_socket_type, pdx_endpoint_socket_type, file_type, coredomain_socket, mlstrustedobject, mlstrustedsubject;
 type pdx_$1_channel_socket, pdx_$1_channel_socket_type, pdx_channel_socket_type, coredomain_socket;
+userdebug_or_eng(`
+dontaudit su pdx_$1_endpoint_socket:unix_stream_socket *;
+dontaudit su pdx_$1_channel_socket:unix_stream_socket *;
+')
 ')
 
 #####################################
