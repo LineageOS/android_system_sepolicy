@@ -108,7 +108,7 @@ neverallow webview_zygote domain:{
   x25_socket rose_socket decnet_socket atmsvc_socket rds_socket irda_socket
   pppox_socket llc_socket can_socket tipc_socket bluetooth_socket iucv_socket
   rxrpc_socket isdn_socket phonet_socket ieee802154_socket caif_socket
-  alg_socket nfc_socket vsock_socket kcm_socket qipcrtr_socket
+  alg_socket nfc_socket vsock_socket kcm_socket qipcrtr_socket smc_socket
 } *;
 
 # Do not allow access to Bluetooth-related system properties.
