@@ -6,6 +6,7 @@
   ( e2fs
     e2fs_exec
     kmsg_debug_device
+    netd_stable_secret_prop
     sysfs_fs_ext4_features
     timezone_service
     tombstoned_java_trace_socket))
