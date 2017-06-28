@@ -32,7 +32,6 @@ allow untrusted_v2_app mediaextractor_service:service_manager find;
 allow untrusted_v2_app mediacodec_service:service_manager find;
 allow untrusted_v2_app mediametrics_service:service_manager find;
 allow untrusted_v2_app mediadrmserver_service:service_manager find;
-allow untrusted_v2_app mediacasserver_service:service_manager find;
 allow untrusted_v2_app nfc_service:service_manager find;
 allow untrusted_v2_app radio_service:service_manager find;
 allow untrusted_v2_app surfaceflinger_service:service_manager find;
