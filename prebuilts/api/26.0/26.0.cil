@@ -2,6 +2,7 @@
 (typeattributeset domain_deprecated (bluetooth_26_0))
 
 ;; types removed from current policy
+(type asan_reboot_prop)
 (type log_device)
 
 (typeattributeset accessibility_service_26_0 (accessibility_service))
