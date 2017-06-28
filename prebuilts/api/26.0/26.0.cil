@@ -1,3 +1,10 @@
+;; private attributes removed from public types
+(typeattributeset domain_deprecated (bluetooth_26_0))
+
+;; types removed from current policy
+(type asan_reboot_prop)
+(type log_device)
+
 (typeattributeset accessibility_service_26_0 (accessibility_service))
 (typeattributeset account_service_26_0 (account_service))
 (typeattributeset activity_service_26_0 (activity_service))

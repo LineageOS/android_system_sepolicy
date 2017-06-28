@@ -94,7 +94,6 @@
 /dev/ion		u:object_r:ion_device:s0
 /dev/keychord   u:object_r:keychord_device:s0
 /dev/kmem		u:object_r:kmem_device:s0
-/dev/log(/.*)?		u:object_r:log_device:s0
 /dev/loop-control	u:object_r:loop_control_device:s0
 /dev/mem		u:object_r:kmem_device:s0
 /dev/modem.*		u:object_r:radio_device:s0
@@ -107,6 +106,7 @@
 /dev/ptmx		u:object_r:ptmx_device:s0
 /dev/pvrsrvkm		u:object_r:gpu_device:s0
 /dev/kmsg		u:object_r:kmsg_device:s0
+/dev/kmsg_debug	u:object_r:kmsg_debug_device:s0
 /dev/null		u:object_r:null_device:s0
 /dev/nvhdcp1		u:object_r:video_device:s0
 /dev/random		u:object_r:random_device:s0
