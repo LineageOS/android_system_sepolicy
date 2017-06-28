@@ -2,4 +2,8 @@
 ;;   analogue in older policy.  Thus, we do not need to map these types to
 ;;   previous ones.  Add here to pass checkapi tests.
 (typeattribute new_objects)
-(typeattributeset new_objects (kmsg_debug_device))
+(typeattributeset new_objects
+  ( e2fs
+    e2fs_exec
+    kmsg_debug_device
+    sysfs_fs_ext4_features))
