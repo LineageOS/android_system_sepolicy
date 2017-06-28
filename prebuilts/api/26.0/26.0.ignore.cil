@@ -6,4 +6,5 @@
   ( e2fs
     e2fs_exec
     kmsg_debug_device
-    sysfs_fs_ext4_features))
+    sysfs_fs_ext4_features
+    tombstoned_java_trace_socket))
