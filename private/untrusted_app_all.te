@@ -70,7 +70,6 @@ allow untrusted_app_all mediaextractor_service:service_manager find;
 allow untrusted_app_all mediacodec_service:service_manager find;
 allow untrusted_app_all mediametrics_service:service_manager find;
 allow untrusted_app_all mediadrmserver_service:service_manager find;
-allow untrusted_app_all mediacasserver_service:service_manager find;
 allow untrusted_app_all nfc_service:service_manager find;
 allow untrusted_app_all radio_service:service_manager find;
 allow untrusted_app_all surfaceflinger_service:service_manager find;
