@@ -14,12 +14,6 @@ auditallow {
 } tmpfs:dir r_dir_perms;
 ')
 
-# Inherit or receive open files from others.
-allow domain_deprecated system_server:fd use;
-userdebug_or_eng(`
-auditallow { domain_deprecated -appdomain -netd -surfaceflinger } system_server:fd use;
-')
-
 # Root fs.
 allow domain_deprecated rootfs:dir r_dir_perms;
 allow domain_deprecated rootfs:file r_file_perms;
