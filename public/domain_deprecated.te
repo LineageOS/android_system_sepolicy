@@ -20,13 +20,6 @@ userdebug_or_eng(`
 auditallow { domain_deprecated -appdomain -netd -surfaceflinger } system_server:fd use;
 ')
 
-# Connect to adbd and use a socket transferred from it.
-# This is used for e.g. adb backup/restore.
-allow domain_deprecated adbd:fd use;
-userdebug_or_eng(`
-auditallow { domain_deprecated -appdomain -system_server -runas } adbd:fd use;
-')
-
 # Root fs.
 allow domain_deprecated rootfs:dir r_dir_perms;
 allow domain_deprecated rootfs:file r_file_perms;
