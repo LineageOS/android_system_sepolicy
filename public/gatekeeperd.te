@@ -29,9 +29,6 @@ allow gatekeeperd keystore:keystore_key { add_auth };
 allow gatekeeperd system_server:binder call;
 allow gatekeeperd permission_service:service_manager find;
 
-# For parent user ID lookup
-allow gatekeeperd user_service:service_manager find;
-
 # for SID file access
 allow gatekeeperd gatekeeper_data_file:dir rw_dir_perms;
 allow gatekeeperd gatekeeper_data_file:file create_file_perms;
