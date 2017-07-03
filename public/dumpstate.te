@@ -194,6 +194,9 @@ allow dumpstate proc_zoneinfo:file r_file_perms;
 # Create a service for talking back to system_server
 add_service(dumpstate, dumpstate_service)
 
+# use /dev/ion for screen capture
+allow dumpstate ion_device:chr_file r_file_perms;
+
 ###
 ### neverallow rules
 ###

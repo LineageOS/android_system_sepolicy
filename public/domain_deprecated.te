@@ -158,25 +158,6 @@ auditallow {
 } cache_file:lnk_file r_file_perms;
 ')
 
-# Allow access to ion memory allocation device
-allow domain_deprecated ion_device:chr_file rw_file_perms;
-# split this auditallow into read and write perms since most domains seem to
-# only require read
-userdebug_or_eng(`
-auditallow {
-  domain_deprecated
-  -appdomain
-  -fingerprintd
-  -keystore
-  -surfaceflinger
-  -system_server
-  -tee
-  -vold
-  -zygote
-} ion_device:chr_file r_file_perms;
-auditallow domain_deprecated ion_device:chr_file { write append };
-')
-
 # Read access to pseudo filesystems.
 r_dir_file(domain_deprecated, proc)
 r_dir_file(domain_deprecated, sysfs)
