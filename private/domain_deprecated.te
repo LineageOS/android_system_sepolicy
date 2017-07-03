@@ -7,6 +7,7 @@ auditallow {
   domain_deprecated
   -appdomain
   -installd
+  -recovery
   -sdcardd
   -surfaceflinger
   -system_server
@@ -25,6 +26,7 @@ auditallow {
   -fsck
   -healthd
   -installd
+  -recovery
   -servicemanager
   -system_server
   -ueventd
@@ -36,6 +38,7 @@ auditallow {
   domain_deprecated
   -healthd
   -installd
+  -recovery
   -servicemanager
   -system_server
   -ueventd
@@ -48,6 +51,7 @@ auditallow {
   -appdomain
   -healthd
   -installd
+  -recovery
   -servicemanager
   -system_server
   -ueventd
@@ -128,17 +132,20 @@ allow domain_deprecated cache_file:lnk_file r_file_perms;
 userdebug_or_eng(`
 auditallow {
   domain_deprecated
+  -recovery
   -system_server
   -vold
 } cache_file:dir { open read search ioctl lock };
 auditallow {
   domain_deprecated
   -appdomain
+  -recovery
   -system_server
   -vold
 } cache_file:dir getattr;
 auditallow {
   domain_deprecated
+  -recovery
   -system_server
   -vold
 } cache_file:file { getattr read };
@@ -177,6 +184,7 @@ auditallow {
   -fingerprintd
   -healthd
   -netd
+  -recovery
   -system_app
   -surfaceflinger
   -system_server
@@ -189,6 +197,7 @@ auditallow {
   -fingerprintd
   -healthd
   -netd
+  -recovery
   -system_app
   -surfaceflinger
   -system_server
@@ -201,6 +210,7 @@ auditallow {
   -fingerprintd
   -healthd
   -netd
+  -recovery
   -system_app
   -surfaceflinger
   -system_server
