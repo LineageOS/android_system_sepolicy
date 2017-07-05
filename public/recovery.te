@@ -29,9 +29,6 @@ recovery_only(`
   allow recovery unlabeled:filesystem ~relabelto;
   allow recovery contextmount_type:filesystem relabelto;
 
-  # Format ext4 filesystem
-  allow recovery e2fs_exec:file rx_file_perms;
-
   # Create and relabel files and directories under /system.
   allow recovery exec_type:{ file lnk_file } { create_file_perms relabelfrom relabelto };
   allow recovery { system_file }:{ file lnk_file } { create_file_perms relabelfrom relabelto };
