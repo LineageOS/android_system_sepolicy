@@ -4,6 +4,8 @@
 ;; types removed from current policy
 (type asan_reboot_prop)
 (type log_device)
+(type tracing_shell_writable)
+(type tracing_shell_writable_debug)
 
 (typeattributeset accessibility_service_26_0 (accessibility_service))
 (typeattributeset account_service_26_0 (account_service))
@@ -604,8 +606,8 @@
 (typeattributeset tombstoned_intercept_socket_26_0 (tombstoned_intercept_socket))
 (typeattributeset toolbox_26_0 (toolbox))
 (typeattributeset toolbox_exec_26_0 (toolbox_exec))
-(typeattributeset tracing_shell_writable_26_0 (tracing_shell_writable))
-(typeattributeset tracing_shell_writable_debug_26_0 (tracing_shell_writable_debug))
+(typeattributeset tracing_shell_writable_26_0 (debugfs_tracing tracing_shell_writable))
+(typeattributeset tracing_shell_writable_debug_26_0 (debugfs_tracing_debug tracing_shell_writable_debug))
 (typeattributeset trust_service_26_0 (trust_service))
 (typeattributeset tty_device_26_0 (tty_device))
 (typeattributeset tun_device_26_0 (tun_device))
