@@ -17,7 +17,6 @@ neverallow {
   -hal_wifi_supplicant_server
   -rild
 } domain:{ tcp_socket udp_socket rawip_socket } *;
-neverallow hal_tetheroffload_server unlabeled:service_manager list; #TODO: b/62658302
 
 ###
 # HALs are defined as an attribute and so a given domain could hypothetically
