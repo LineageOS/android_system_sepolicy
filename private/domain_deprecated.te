@@ -1,21 +1,5 @@
 # rules removed from the domain attribute
 
-# Search /storage/emulated tmpfs mount.
-allow { domain_deprecated -installd } tmpfs:dir r_dir_perms;
-userdebug_or_eng(`
-auditallow {
-  domain_deprecated
-  -appdomain
-  -installd
-  -recovery
-  -sdcardd
-  -surfaceflinger
-  -system_server
-  -vold
-  -zygote
-} tmpfs:dir r_dir_perms;
-')
-
 # Root fs.
 allow domain_deprecated rootfs:dir r_dir_perms;
 allow domain_deprecated rootfs:file r_file_perms;
