@@ -82,7 +82,7 @@ allow dumpstate sysfs_usb:file w_file_perms;
 allow dumpstate qtaguid_proc:file r_file_perms;
 allow dumpstate debugfs:file r_file_perms;
 # df for /storage/emulated needs search
-allow dumpstate { storage_file block_device }:dir { search getattr };
+allow dumpstate { block_device storage_file tmpfs }:dir { search getattr };
 allow dumpstate fuse_device:chr_file getattr;
 allow dumpstate { dm_device cache_block_device }:blk_file getattr;
 
