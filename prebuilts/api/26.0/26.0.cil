@@ -9,6 +9,7 @@
 ;; types removed from current policy
 (type asan_reboot_prop)
 (type log_device)
+(type mediacasserver_service)
 (type tracing_shell_writable)
 (type tracing_shell_writable_debug)
 
