@@ -1,9 +1,15 @@
 ;; private attributes removed from public types
 (typeattributeset domain_deprecated (bluetooth_26_0))
 
+;; attributes removed from current policy
+(typeattribute hal_wifi_keystore)
+(typeattribute hal_wifi_keystore_client)
+(typeattribute hal_wifi_keystore_server)
+
 ;; types removed from current policy
 (type asan_reboot_prop)
 (type log_device)
+(type mediacasserver_service)
 (type tracing_shell_writable)
 (type tracing_shell_writable_debug)
 
@@ -443,7 +449,7 @@
 (typeattributeset preopt2cachename_exec_26_0 (preopt2cachename_exec))
 (typeattributeset print_service_26_0 (print_service))
 (typeattributeset priv_app_26_0 (mediaprovider priv_app))
-(typeattributeset proc_26_0 (proc))
+(typeattributeset proc_26_0 (proc proc_uid_time_in_state))
 (typeattributeset proc_bluetooth_writable_26_0 (proc_bluetooth_writable))
 (typeattributeset proc_cpuinfo_26_0 (proc_cpuinfo))
 (typeattributeset proc_drop_caches_26_0 (proc_drop_caches))
