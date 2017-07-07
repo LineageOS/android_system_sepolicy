@@ -68,12 +68,8 @@ genfscon debugfs /mmc0                                u:object_r:debugfs_mmc:s0
 genfscon debugfs /tracing                             u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/instances                   u:object_r:debugfs_tracing_instances:s0
 genfscon tracefs /instances                           u:object_r:debugfs_tracing_instances:s0
-genfscon debugfs /tracing/instances/wifi/free_buffer  u:object_r:debugfs_wifi_tracing:s0
-genfscon debugfs /tracing/instances/wifi/trace        u:object_r:debugfs_wifi_tracing:s0
-genfscon debugfs /tracing/instances/wifi/tracing_on   u:object_r:debugfs_wifi_tracing:s0
-genfscon tracefs /instances/wifi/free_buffer          u:object_r:debugfs_wifi_tracing:s0
-genfscon tracefs /instances/wifi/trace                u:object_r:debugfs_wifi_tracing:s0
-genfscon tracefs /instances/wifi/tracing_on           u:object_r:debugfs_wifi_tracing:s0
+genfscon debugfs /tracing/instances/wifi              u:object_r:debugfs_wifi_tracing:s0
+genfscon tracefs /instances/wifi                      u:object_r:debugfs_wifi_tracing:s0
 genfscon debugfs /tracing/trace_marker                u:object_r:debugfs_trace_marker:s0
 genfscon tracefs /trace_marker                        u:object_r:debugfs_trace_marker:s0
 
