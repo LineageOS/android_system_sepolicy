@@ -14,6 +14,7 @@ userdebug_or_eng(`
 
 # Read /cache/recovery/command
 # Read /cache/recovery/uncrypt_file
+allow uncrypt cache_file:dir search;
 allow uncrypt cache_recovery_file:dir rw_dir_perms;
 allow uncrypt cache_recovery_file:file create_file_perms;
 

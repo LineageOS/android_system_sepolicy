@@ -119,37 +119,6 @@ auditallow {
 } apk_data_file:lnk_file r_file_perms;
 ')
 
-# Read already opened /cache files.
-allow domain_deprecated cache_file:dir r_dir_perms;
-allow domain_deprecated cache_file:file { getattr read };
-allow domain_deprecated cache_file:lnk_file r_file_perms;
-userdebug_or_eng(`
-auditallow {
-  domain_deprecated
-  -recovery
-  -system_server
-  -vold
-} cache_file:dir { open read search ioctl lock };
-auditallow {
-  domain_deprecated
-  -appdomain
-  -recovery
-  -system_server
-  -vold
-} cache_file:dir getattr;
-auditallow {
-  domain_deprecated
-  -recovery
-  -system_server
-  -vold
-} cache_file:file { getattr read };
-auditallow {
-  domain_deprecated
-  -system_server
-  -vold
-} cache_file:lnk_file r_file_perms;
-')
-
 # Read access to pseudo filesystems.
 r_dir_file(domain_deprecated, proc)
 r_dir_file(domain_deprecated, sysfs)
