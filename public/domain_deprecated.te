@@ -122,7 +122,6 @@ auditallow {
 # Read access to pseudo filesystems.
 r_dir_file(domain_deprecated, proc)
 r_dir_file(domain_deprecated, sysfs)
-r_dir_file(domain_deprecated, cgroup)
 
 userdebug_or_eng(`
 auditallow {
@@ -185,32 +184,4 @@ auditallow {
   -ueventd
   -vold
 } sysfs:lnk_file { getattr open ioctl lock }; # read granted in domain
-auditallow {
-  domain_deprecated
-  -appdomain
-  -fingerprintd
-  -healthd
-  -inputflinger
-  -installd
-  -keystore
-  -netd
-  -rild
-  -surfaceflinger
-  -system_server
-  -zygote
-} cgroup:dir r_dir_perms;
-auditallow {
-  domain_deprecated
-  -appdomain
-  -fingerprintd
-  -healthd
-  -inputflinger
-  -installd
-  -keystore
-  -netd
-  -rild
-  -surfaceflinger
-  -system_server
-  -zygote
-} cgroup:{ file lnk_file } r_file_perms;
 ')
