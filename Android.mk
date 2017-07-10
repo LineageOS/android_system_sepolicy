@@ -1185,22 +1185,38 @@ $(built_plat_fc) $(built_nonplat_fc) $(built_sepolicy)
 ifeq ($(PRODUCT_FULL_TREBLE),true)
 include $(CLEAR_VARS)
 # For Treble builds run tests verifying that processes are properly labeled and
-# permissions granted do not violate the treble model.
+# permissions granted do not violate the treble model.  Also ensure that treble
+# compatibility guarantees are upheld between SELinux version bumps.
 LOCAL_MODULE := treble_sepolicy_tests
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := tests
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
+# 26.0_compat - the current plat_sepolicy.cil built
+# with the compatibility file targeting the 26.0
+# SELinux release.
+26.0_compat := $(intermediates)/26.0_compat
+26.0_mapping_cil := $(LOCAL_PATH)/prebuilts/api/26.0/26.0.cil
+26.0_nonplat := $(LOCAL_PATH)/prebuilts/api/26.0/nonplat_sepolicy.cil
+$(26.0_compat): PRIVATE_CIL_FILES := \
+$(built_plat_cil) $(26.0_mapping_cil) $(26.0_nonplat)
+$(26.0_compat): $(HOST_OUT_EXECUTABLES)/secilc \
+$(built_plat_cil) $(26.0_mapping_cil) $(26.0_nonplat)
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -G -N -c $(POLICYVERS) \
+		$(PRIVATE_CIL_FILES) -o $@ -f /dev/null
+
 treble_sepolicy_tests := $(intermediates)/treble_sepolicy_tests
 $(treble_sepolicy_tests): PRIVATE_PLAT_FC := $(built_plat_fc)
 $(treble_sepolicy_tests): PRIVATE_NONPLAT_FC := $(built_nonplat_fc)
 $(treble_sepolicy_tests): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(treble_sepolicy_tests): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests.py \
-$(built_plat_fc) $(built_nonplat_fc) $(built_sepolicy)
+$(built_plat_fc) $(built_nonplat_fc) $(built_sepolicy) $(26.0_compat)
 	@mkdir -p $(dir $@)
 	$(hide) python $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests.py -l $(HOST_OUT)/lib64 -f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) -p $(PRIVATE_SEPOLICY)
 	$(hide) touch $@
+
+26.0_compat :=
 endif # ($(PRODUCT_FULL_TREBLE),true)
 #################################
 
