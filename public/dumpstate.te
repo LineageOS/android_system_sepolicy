@@ -29,6 +29,9 @@ allow dumpstate system_file:file execute_no_trans;
 not_full_treble(`allow dumpstate vendor_file:file execute_no_trans;')
 allow dumpstate toolbox_exec:file rx_file_perms;
 
+# hidl searches for files in /system/lib(64)/hw/
+allow dumpstate system_file:dir r_dir_perms;
+
 # Create and write into /data/anr/
 allow dumpstate self:capability { dac_override chown fowner fsetid };
 allow dumpstate anr_data_file:dir rw_dir_perms;
@@ -83,10 +86,19 @@ allow dumpstate sysfs_usb:file w_file_perms;
 # Other random bits of data we want to collect
 allow dumpstate qtaguid_proc:file r_file_perms;
 allow dumpstate debugfs:file r_file_perms;
-# df for /storage/emulated needs search
-allow dumpstate { block_device storage_file tmpfs }:dir { search getattr };
+
+# df for
+allow dumpstate {
+  block_device
+  cache_file
+  rootfs
+  selinuxfs
+  storage_file
+  tmpfs
+}:dir { search getattr };
 allow dumpstate fuse_device:chr_file getattr;
 allow dumpstate { dm_device cache_block_device }:blk_file getattr;
+allow dumpstate { cache_file rootfs }:lnk_file { getattr read };
 
 # Read /dev/cpuctl and /dev/cpuset
 r_dir_file(dumpstate, cgroup)
@@ -137,7 +149,8 @@ read_logd(dumpstate)
 control_logd(dumpstate)
 read_runtime_log_tags(dumpstate)
 
-# Read /proc and /proc/net
+# Read files in /proc
+allow dumpstate proc_meminfo:file r_file_perms;
 allow dumpstate proc_net:file r_file_perms;
 r_dir_file(dumpstate, proc)
 
@@ -202,6 +215,9 @@ add_service(dumpstate, dumpstate_service)
 
 # use /dev/ion for screen capture
 allow dumpstate ion_device:chr_file r_file_perms;
+
+# read default labeled files in /sys
+r_dir_file(dumpstate, sysfs)
 
 ###
 ### neverallow rules
