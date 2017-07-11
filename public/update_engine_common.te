@@ -24,6 +24,8 @@ allow update_engine_common postinstall_file:file rx_file_perms;
 allow update_engine_common postinstall_file:lnk_file r_file_perms;
 allow update_engine_common postinstall_file:dir r_dir_perms;
 
+# install update.zip from cache
+r_dir_file(update_engine_common, cache_file)
 
 # A postinstall program is typically a shell script (with a #!), so we allow
 # to execute those.
