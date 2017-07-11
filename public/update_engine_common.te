@@ -13,6 +13,10 @@ allow update_engine_common system_block_device:blk_file rw_file_perms;
 # requires it.
 allow update_engine_common misc_block_device:blk_file rw_file_perms;
 
+# read fstab
+allow update_engine_common rootfs:dir getattr;
+allow update_engine_common rootfs:file r_file_perms;
+
 # Allow update_engine_common to mount on the /postinstall directory and reset the
 # labels on the mounted filesystem to postinstall_file.
 allow update_engine_common postinstall_mnt_dir:dir mounton;
