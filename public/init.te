@@ -252,7 +252,7 @@ allow init kernel:system syslog_mod;
 allow init self:capability2 syslog;
 
 # Set usermodehelpers and /proc security settings.
-allow init usermodehelper:file rw_file_perms;
+allow init { usermodehelper sysfs_usermodehelper }:file rw_file_perms;
 allow init proc_security:file rw_file_perms;
 
 # Write to /proc/sys/kernel/panic_on_oops.
