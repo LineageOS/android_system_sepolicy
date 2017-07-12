@@ -59,7 +59,7 @@ genfscon sysfs /devices/virtual/misc/hw_random    u:object_r:sysfs_hwrandom:s0
 genfscon sysfs /fs/ext4/features                  u:object_r:sysfs_fs_ext4_features:s0
 genfscon sysfs /power/wake_lock u:object_r:sysfs_wake_lock:s0
 genfscon sysfs /power/wake_unlock u:object_r:sysfs_wake_lock:s0
-genfscon sysfs /kernel/uevent_helper u:object_r:usermodehelper:s0
+genfscon sysfs /kernel/uevent_helper u:object_r:sysfs_usermodehelper:s0
 genfscon sysfs /module/lowmemorykiller u:object_r:sysfs_lowmemorykiller:s0
 genfscon sysfs /module/wlan/parameters/fwpath u:object_r:sysfs_wlan_fwpath:s0
 genfscon sysfs /devices/virtual/timed_output/vibrator/enable u:object_r:sysfs_vibrator:s0

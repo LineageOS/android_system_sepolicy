@@ -9,7 +9,8 @@ type proc_security, fs_type;
 type proc_drop_caches, fs_type;
 type proc_overcommit_memory, fs_type;
 # proc, sysfs, or other nodes that permit configuration of kernel usermodehelpers.
-type usermodehelper, fs_type, sysfs_type;
+type usermodehelper, fs_type;
+type sysfs_usermodehelper, fs_type, sysfs_type;
 type qtaguid_proc, fs_type, mlstrustedobject;
 type proc_bluetooth_writable, fs_type;
 type proc_cpuinfo, fs_type;

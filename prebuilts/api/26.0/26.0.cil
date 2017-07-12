@@ -645,7 +645,7 @@
 (typeattributeset usbfs_26_0 (usbfs))
 (typeattributeset usb_service_26_0 (usb_service))
 (typeattributeset userdata_block_device_26_0 (userdata_block_device))
-(typeattributeset usermodehelper_26_0 (usermodehelper))
+(typeattributeset usermodehelper_26_0 (sysfs_usermodehelper usermodehelper))
 (typeattributeset user_profile_data_file_26_0 (user_profile_data_file))
 (typeattributeset user_service_26_0 (user_service))
 (typeattributeset vcs_device_26_0 (vcs_device))
