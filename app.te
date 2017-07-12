@@ -193,12 +193,12 @@ allow appdomain vfat:dir create_dir_perms;
 allow appdomain vfat:file create_file_perms;
 
 # Read/write rules for f2fs/ext4 and exfat visible storage via sdcardfs
-ifelse(shipping_build, `true', ,
+userdebug_or_eng(`
   allow appdomain sdcard_posix:dir create_dir_perms;
   allow appdomain sdcard_posix:file create_file_perms;
   allow appdomain fuseblk:dir create_dir_perms;
   allow appdomain fuseblk:file create_file_perms;
-)
+')
 
 # Access OBBs (vfat images) mounted by vold (b/17633509)
 # File write access allowed for FDs returned through Storage Access Framework

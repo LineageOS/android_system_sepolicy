@@ -329,7 +329,7 @@ ifelse(target_build_variant, `user',
 
 # Restrict context mounts to specific types marked with
 # the contextmount_type attribute.
-ifelse(shipping_build, `true',
+ifelse(userdebug_or_eng, `false',
   `neverallow * {fs_type -contextmount_type}:filesystem relabelto;'
 ,
   `neverallow * {fs_type -contextmount_type -sdcard_posix}:filesystem relabelto;'
