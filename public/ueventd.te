@@ -8,13 +8,15 @@ allow ueventd kmsg_device:chr_file rw_file_perms;
 allow ueventd self:capability { chown mknod net_admin setgid fsetid sys_rawio dac_override fowner };
 allow ueventd device:file create_file_perms;
 
-r_dir_file(ueventd, rootfs)
-
-# ueventd needs write access to files in /sys to regenerate uevents
-allow ueventd { sysfs_type -usermodehelper }:file w_file_perms;
 r_dir_file(ueventd, sysfs_type)
-allow ueventd sysfs_type:{ file lnk_file } { relabelfrom relabelto setattr };
-allow ueventd sysfs_type:dir { relabelfrom relabelto setattr };
+r_dir_file(ueventd, rootfs)
+allow ueventd sysfs:file w_file_perms;
+allow ueventd sysfs_usb:file w_file_perms;
+allow ueventd sysfs_hwrandom:file w_file_perms;
+allow ueventd sysfs_zram_uevent:file w_file_perms;
+allow ueventd sysfs_type:{ file lnk_file } { relabelfrom relabelto setattr getattr };
+allow ueventd sysfs_type:dir { relabelfrom relabelto setattr r_dir_perms };
+allow ueventd sysfs_devices_system_cpu:file rw_file_perms;
 allow ueventd tmpfs:chr_file rw_file_perms;
 allow ueventd dev_type:dir create_dir_perms;
 allow ueventd dev_type:lnk_file { create unlink };
