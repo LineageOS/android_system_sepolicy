@@ -1,24 +1,5 @@
 # rules removed from the domain attribute
 
-# Read files already opened under /data.
-allow domain_deprecated system_data_file:file { getattr read };
-allow domain_deprecated system_data_file:lnk_file r_file_perms;
-userdebug_or_eng(`
-auditallow {
-  domain_deprecated
-  -appdomain
-  -sdcardd
-  -system_server
-  -tee
-} system_data_file:file { getattr read };
-auditallow {
-  domain_deprecated
-  -appdomain
-  -system_server
-  -tee
-} system_data_file:lnk_file r_file_perms;
-')
-
 # Read apk files under /data/app.
 allow domain_deprecated apk_data_file:dir { getattr search };
 allow domain_deprecated apk_data_file:file r_file_perms;

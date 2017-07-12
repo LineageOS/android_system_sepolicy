@@ -37,7 +37,7 @@ allow installd asec_image_file:file getattr;
 # and lib symlinks before the setfilecon call.  May want to
 # move symlink creation after setfilecon in installd.
 allow installd system_data_file:dir create_dir_perms;
-allow installd system_data_file:lnk_file { create setattr unlink };
+allow installd system_data_file:lnk_file { create getattr setattr unlink };
 
 # Upgrade /data/media for multi-user if necessary.
 allow installd media_rw_data_file:dir create_dir_perms;
