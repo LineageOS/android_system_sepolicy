@@ -11,7 +11,7 @@ allow ueventd device:file create_file_perms;
 r_dir_file(ueventd, rootfs)
 
 # ueventd needs write access to files in /sys to regenerate uevents
-allow ueventd { sysfs_type -usermodehelper }:file w_file_perms;
+allow ueventd sysfs_type:file w_file_perms;
 r_dir_file(ueventd, sysfs_type)
 allow ueventd sysfs_type:{ file lnk_file } { relabelfrom relabelto setattr };
 allow ueventd sysfs_type:dir { relabelfrom relabelto setattr };

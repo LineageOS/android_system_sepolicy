@@ -43,6 +43,10 @@ allow webview_zygote system_server:process getpgid;
 # Interaction between the webview_zygote and its children.
 allow webview_zygote isolated_app:process setpgid;
 
+# TODO (b/63631799) fix this access
+# Suppress denials to storage. Webview zygote should not be accessing.
+dontaudit webview_zygote mnt_expand_file:dir getattr;
+
 # Get seapp_contexts
 allow webview_zygote seapp_contexts_file:file r_file_perms;
 # Check validity of SELinux context before use.
