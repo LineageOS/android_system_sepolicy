@@ -58,6 +58,7 @@ allow netd dnsmasq:process signal;
 allow netd clatd:process signal;
 
 set_prop(netd, ctl_mdnsd_prop)
+set_prop(netd, netd_stable_secret_prop)
 
 # Allow netd to publish a binder service and make binder calls.
 binder_use(netd)
@@ -104,3 +105,11 @@ neverallow netd { app_data_file system_data_file }:dir_file_class_set write;
 neverallow { domain -system_server -dumpstate -netd } netd_service:service_manager find;
 neverallow { domain -system_server -dumpstate } netd:binder call;
 neverallow netd { domain -system_server -servicemanager userdebug_or_eng(`-su') }:binder call;
+
+# persist.netd.stable_secret contains RFC 7217 secret key which should never be
+# leaked to other processes. Make sure it never leaks.
+neverallow { domain -netd -init } netd_stable_secret_prop:file r_file_perms;
+
+# We want to ensure that no other process ever tries tampering with persist.netd.stable_secret,
+# the RFC 7217 secret key managed by netd. Doing so could compromise user privacy.
+neverallow { domain -netd -init } netd_stable_secret_prop:property_service set;
