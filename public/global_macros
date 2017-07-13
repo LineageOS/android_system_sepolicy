@@ -18,9 +18,9 @@ define(`ipc_class_set', `{ sem msgq shm ipc }')
 #####################################
 # Common groupings of permissions.
 #
-define(`x_file_perms', `{ getattr execute execute_no_trans }')
-define(`r_file_perms', `{ getattr open read ioctl lock }')
-define(`w_file_perms', `{ open append write lock }')
+define(`x_file_perms', `{ getattr execute execute_no_trans map }')
+define(`r_file_perms', `{ getattr open read ioctl lock map }')
+define(`w_file_perms', `{ open append write lock map }')
 define(`rx_file_perms', `{ r_file_perms x_file_perms }')
 define(`ra_file_perms', `{ r_file_perms append }')
 define(`rw_file_perms', `{ r_file_perms w_file_perms }')
