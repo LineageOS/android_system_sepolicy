@@ -46,6 +46,10 @@ allow isolated_app webview_zygote:unix_dgram_socket write;
 # Read system properties managed by webview_zygote.
 allow isolated_app webview_zygote_tmpfs:file read;
 
+# TODO (b/63631799) fix this access
+# suppress denials to /data/local/tmp
+dontaudit isolated_app shell_data_file:dir search;
+
 #####
 ##### Neverallow
 #####
