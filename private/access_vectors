@@ -369,6 +369,7 @@ class security
 	setsecparam
 	setcheckreqprot
 	read_policy
+	validate_trans
 }
 
 
