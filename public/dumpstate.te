@@ -70,6 +70,7 @@ allow dumpstate {
   hal_bluetooth_server
   hal_camera_server
   hal_graphics_composer_server
+  hal_sensors_server
   hal_vr_server
   mediacodec # TODO(b/36375899): hal_omx_server
 }:process signal;
