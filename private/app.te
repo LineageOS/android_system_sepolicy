@@ -41,10 +41,10 @@ allow { appdomain -isolated_app } tmpfs:lnk_file r_file_perms;
 # Search /storage/emulated tmpfs mount.
 allow appdomain tmpfs:dir r_dir_perms;
 
-userdebug_or_eng(`
-  # Notify zygote of the wrapped process PID when using --invoke-with.
-  allow appdomain zygote:fifo_file write;
+# Notify zygote of the wrapped process PID when using --invoke-with.
+allow appdomain zygote:fifo_file write;
 
+userdebug_or_eng(`
   # Allow apps to create and write method traces in /data/misc/trace.
   allow appdomain method_trace_data_file:dir w_dir_perms;
   allow appdomain method_trace_data_file:file { create w_file_perms };
