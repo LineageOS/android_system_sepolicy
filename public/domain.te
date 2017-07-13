@@ -94,7 +94,7 @@ write_logd(domain)
 
 # System file accesses.
 allow domain system_file:dir { search getattr };
-allow domain system_file:file { execute read open getattr };
+allow domain system_file:file { execute read open getattr map };
 allow domain system_file:lnk_file { getattr read };
 
 # read any sysfs symlinks

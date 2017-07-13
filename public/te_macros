@@ -8,10 +8,10 @@
 #
 define(`domain_trans', `
 # Old domain may exec the file and transition to the new domain.
-allow $1 $2:file { getattr open read execute };
+allow $1 $2:file { getattr open read execute map };
 allow $1 $3:process transition;
 # New domain is entered by executing the file.
-allow $3 $2:file { entrypoint open read execute getattr };
+allow $3 $2:file { entrypoint open read execute getattr map };
 # New domain can send SIGCHLD to its caller.
 ifelse($1, `init', `', `allow $3 $1:process sigchld;')
 # Enable AT_SECURE, i.e. libc secure mode.
