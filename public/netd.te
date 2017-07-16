@@ -55,6 +55,9 @@ allow netd net_data_file:file create_file_perms;
 allow netd net_data_file:dir rw_dir_perms;
 allow netd self:capability fowner;
 
+# Needed to lock the iptables lock.
+allow netd system_file:file lock;
+
 # Allow netd to spawn dnsmasq in it's own domain
 allow netd dnsmasq:process signal;
 
