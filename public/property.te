@@ -30,6 +30,7 @@ type log_tag_prop, property_type, log_property_type;
 type mmc_prop, property_type;
 type net_dns_prop, property_type;
 type net_radio_prop, property_type, core_property_type;
+type netd_stable_secret_prop, property_type;
 type nfc_prop, property_type, core_property_type;
 type overlay_prop, property_type;
 type pan_result_prop, property_type, core_property_type;

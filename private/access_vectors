@@ -20,6 +20,7 @@ common file
 	relabelfrom
 	relabelto
 	append
+	map
 	unlink
 	link
 	rename
@@ -46,6 +47,7 @@ common socket
 	relabelfrom
 	relabelto
 	append
+	map
 # socket-specific
 	bind
 	connect
@@ -367,6 +369,7 @@ class security
 	setsecparam
 	setcheckreqprot
 	read_policy
+	validate_trans
 }
 
 
