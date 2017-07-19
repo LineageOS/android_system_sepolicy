@@ -25,6 +25,10 @@ selinux_check_context(runas) # validate context
 allow runas self:process setcurrent;
 allow runas non_system_app_set:process dyntransition; # setcon
 
+# Grant access to seapp_contexts files
+# To be replaced by seapp_contexts_file label from commit 1e149967a
+allow runas rootfs:file r_file_perms;
+
 ###
 ### neverallow rules
 ###
