@@ -2,9 +2,6 @@
 ### neverallow rules for untrusted app domains
 ###
 
-# Only allow domains in AOSP to use the untrusted_app_all attribute.
-neverallow { untrusted_app_all -untrusted_app -untrusted_app_25 } domain:process fork;
-
 define(`all_untrusted_apps',`{
   ephemeral_app
   isolated_app
