@@ -25,7 +25,11 @@ allow adbd self:capability setpcap;
 # Create and use network sockets.
 net_domain(adbd)
 
-# Access /dev/usb-ffs/adb/ep0
+# Access /dev/android_adb or /dev/usb-ffs/adb/ep0
+ifelse(target_uses_legacy_adb_interface, `true',
+  allow adbd adb_device:chr_file rw_file_perms;
+,
+)
 allow adbd functionfs:dir search;
 allow adbd functionfs:file rw_file_perms;
 
