@@ -1,33 +1,5 @@
 # rules removed from the domain attribute
 
-# Read apk files under /data/app.
-allow domain_deprecated apk_data_file:dir { getattr search };
-allow domain_deprecated apk_data_file:file r_file_perms;
-allow domain_deprecated apk_data_file:lnk_file r_file_perms;
-userdebug_or_eng(`
-auditallow {
-  domain_deprecated
-  -appdomain
-  -dex2oat
-  -installd
-  -system_server
-} apk_data_file:dir { getattr search };
-auditallow {
-  domain_deprecated
-  -appdomain
-  -dex2oat
-  -installd
-  -system_server
-} apk_data_file:file r_file_perms;
-auditallow {
-  domain_deprecated
-  -appdomain
-  -dex2oat
-  -installd
-  -system_server
-} apk_data_file:lnk_file r_file_perms;
-')
-
 # Read access to pseudo filesystems.
 r_dir_file(domain_deprecated, proc)
 r_dir_file(domain_deprecated, sysfs)
