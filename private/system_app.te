@@ -84,5 +84,8 @@ allow system_app keystore:keystore_key {
 # /sys access
 r_dir_file(system_app, sysfs_type)
 
+# settings app reads /proc/version and /proc/pagetypeinfo
+allow system_app proc:file r_file_perms;
+
 control_logd(system_app)
 read_runtime_log_tags(system_app)

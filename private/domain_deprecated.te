@@ -1,26 +1,9 @@
 # rules removed from the domain attribute
 
 # Read access to pseudo filesystems.
-r_dir_file(domain_deprecated, proc)
 r_dir_file(domain_deprecated, sysfs)
 
 userdebug_or_eng(`
-auditallow {
-  domain_deprecated
-  -fsck
-  -fsck_untrusted
-  -sdcardd
-  -system_server
-  -update_engine
-  -vold
-} proc:file r_file_perms;
-auditallow {
-  domain_deprecated
-  -fsck
-  -fsck_untrusted
-  -system_server
-  -vold
-} proc:lnk_file { open ioctl lock }; # getattr read granted in domain
 auditallow {
   domain_deprecated
   -fingerprintd
