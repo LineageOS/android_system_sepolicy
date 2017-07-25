@@ -26,6 +26,7 @@ android.hardware.light::ILight                                  u:object_r:hal_l
 android.hardware.media.omx::IOmx                                u:object_r:hal_omx_hwservice:s0
 android.hardware.media.omx::IOmxStore                           u:object_r:hal_omx_hwservice:s0
 android.hardware.memtrack::IMemtrack                            u:object_r:hal_memtrack_hwservice:s0
+android.hardware.neuralnetworks::IDevice                        u:object_r:hal_neuralnetworks_hwservice:s0
 android.hardware.nfc::INfc                                      u:object_r:hal_nfc_hwservice:s0
 android.hardware.oemlock::IOemLock                              u:object_r:hal_oemlock_hwservice:s0
 android.hardware.power::IPower                                  u:object_r:hal_power_hwservice:s0
