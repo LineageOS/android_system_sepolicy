@@ -37,3 +37,6 @@ allow uncrypt block_device:dir r_dir_perms;
 allow uncrypt userdata_block_device:blk_file w_file_perms;
 
 r_dir_file(uncrypt, rootfs)
+
+# uncrypt reads /proc/cmdline
+allow uncrypt proc:file r_file_perms;
