@@ -656,6 +656,7 @@ allow system_server sysfs_leds:dir r_dir_perms;
 
 # Allow WifiService to start, stop, and read wifi-specific trace events.
 allow system_server debugfs_tracing_instances:dir search;
+allow system_server debugfs_wifi_tracing:dir search;
 allow system_server debugfs_wifi_tracing:file rw_file_perms;
 
 # allow system_server to exec shell on ASAN builds. Needed to run

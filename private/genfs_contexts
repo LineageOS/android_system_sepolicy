@@ -48,6 +48,66 @@ genfscon selinuxfs / u:object_r:selinuxfs:s0
 genfscon cgroup / u:object_r:cgroup:s0
 # sysfs labels can be set by userspace.
 genfscon sysfs / u:object_r:sysfs:s0
+genfscon sysfs /devices/system/cpu u:object_r:sysfs_devices_system_cpu:s0
+genfscon sysfs /class/leds                        u:object_r:sysfs_leds:s0
+genfscon sysfs /devices/platform/nfc-power/nfc_power u:object_r:sysfs_nfc_power_writable:s0
+genfscon sysfs /devices/virtual/block/zram0     u:object_r:sysfs_zram:s0
+genfscon sysfs /devices/virtual/block/zram1     u:object_r:sysfs_zram:s0
+genfscon sysfs /devices/virtual/block/zram0/uevent    u:object_r:sysfs_zram_uevent:s0
+genfscon sysfs /devices/virtual/block/zram1/uevent    u:object_r:sysfs_zram_uevent:s0
+genfscon sysfs /devices/virtual/misc/hw_random    u:object_r:sysfs_hwrandom:s0
+genfscon sysfs /power/wake_lock u:object_r:sysfs_wake_lock:s0
+genfscon sysfs /power/wake_unlock u:object_r:sysfs_wake_lock:s0
+genfscon sysfs /kernel/uevent_helper u:object_r:usermodehelper:s0
+genfscon sysfs /module/lowmemorykiller u:object_r:sysfs_lowmemorykiller:s0
+genfscon sysfs /module/wlan/parameters/fwpath u:object_r:sysfs_wlan_fwpath:s0
+genfscon sysfs /devices/virtual/timed_output/vibrator/enable u:object_r:sysfs_vibrator:s0
+
+genfscon debugfs /mmc0                                u:object_r:debugfs_mmc:s0
+genfscon debugfs /tracing                             u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/instances                   u:object_r:debugfs_tracing_instances:s0
+genfscon tracefs /instances                           u:object_r:debugfs_tracing_instances:s0
+genfscon debugfs /tracing/instances/wifi              u:object_r:debugfs_wifi_tracing:s0
+genfscon tracefs /instances/wifi                      u:object_r:debugfs_wifi_tracing:s0
+genfscon debugfs /tracing/trace_marker                u:object_r:debugfs_trace_marker:s0
+genfscon tracefs /trace_marker                        u:object_r:debugfs_trace_marker:s0
+
+genfscon debugfs /tracing/events/sync/enable                         u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/workqueue/enable                    u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/regulator/enable                    u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/pagecache/enable                    u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/irq/enable                          u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/ipi/enable                          u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/f2fs/f2fs_sync_file_enter/enable    u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/f2fs/f2fs_sync_file_exit/enable     u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/f2fs/f2fs_write_begin/enable        u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/f2fs/f2fs_write_end/enable          u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/ext4/ext4_da_write_begin/enable     u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/ext4/ext4_da_write_end/enable       u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/ext4/ext4_sync_file_enter/enable    u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/ext4/ext4_sync_file_exit/enable     u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/block/block_rq_issue/enable         u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/block/block_rq_complete/enable      u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/saved_cmdlines_size                        u:object_r:debugfs_tracing_debug:s0
+
+genfscon tracefs /events/sync/enable                         u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/workqueue/enable                    u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/regulator/enable                    u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/pagecache/enable                    u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/irq/enable                          u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/ipi/enable                          u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/f2fs/f2fs_sync_file_enter/enable    u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/f2fs/f2fs_sync_file_exit/enable     u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/f2fs/f2fs_write_begin/enable        u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/f2fs/f2fs_write_end/enable          u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/ext4/ext4_da_write_begin/enable     u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/ext4/ext4_da_write_end/enable       u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/ext4/ext4_sync_file_enter/enable    u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/ext4/ext4_sync_file_exit/enable     u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/block/block_rq_issue/enable         u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/block/block_rq_complete/enable      u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /saved_cmdlines_size                        u:object_r:debugfs_tracing_debug:s0
+
 genfscon inotifyfs / u:object_r:inotify:s0
 genfscon vfat / u:object_r:vfat:s0
 genfscon debugfs / u:object_r:debugfs:s0
