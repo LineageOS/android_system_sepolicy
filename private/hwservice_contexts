@@ -48,5 +48,6 @@ android.hidl.base::IBase                                        u:object_r:hidl_
 android.hidl.manager::IServiceManager                           u:object_r:hidl_manager_hwservice:s0
 android.hidl.memory::IMapper                                    u:object_r:hidl_memory_hwservice:s0
 android.hidl.token::ITokenManager                               u:object_r:hidl_token_hwservice:s0
+android.system.net.netd::INetd                                  u:object_r:system_net_netd_hwservice:s0
 android.system.wifi.keystore::IKeystore                         u:object_r:system_wifi_keystore_hwservice:s0
 *                                                               u:object_r:default_android_hwservice:s0

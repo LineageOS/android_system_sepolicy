@@ -87,6 +87,11 @@ allow netd netdomain:fd use;
 # give netd permission to read and write netlink xfrm
 allow netd self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_write nlmsg_read };
 
+# Allow netd to register as hal server.
+add_hwservice(netd, system_net_netd_hwservice)
+hwbinder_use(netd)
+get_prop(netd, hwservicemanager_prop)
+
 ###
 ### Neverallow rules
 ###

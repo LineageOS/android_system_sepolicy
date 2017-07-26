@@ -42,4 +42,5 @@ type hidl_base_hwservice, hwservice_manager_type;
 type hidl_manager_hwservice, hwservice_manager_type, coredomain_hwservice;
 type hidl_memory_hwservice, hwservice_manager_type, coredomain_hwservice;
 type hidl_token_hwservice, hwservice_manager_type, coredomain_hwservice;
+type system_net_netd_hwservice, hwservice_manager_type, coredomain_hwservice;
 type system_wifi_keystore_hwservice, hwservice_manager_type, coredomain_hwservice;
