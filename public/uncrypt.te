@@ -40,3 +40,6 @@ r_dir_file(uncrypt, rootfs)
 
 # uncrypt reads /proc/cmdline
 allow uncrypt proc:file r_file_perms;
+
+# Read files in /sys
+r_dir_file(uncrypt, sysfs)
