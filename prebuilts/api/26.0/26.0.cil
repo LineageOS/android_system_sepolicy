@@ -1,6 +1,3 @@
-;; private attributes removed from public types
-(typeattributeset domain_deprecated (bluetooth_26_0))
-
 ;; attributes removed from current policy
 (typeattribute hal_wifi_keystore)
 (typeattribute hal_wifi_keystore_client)

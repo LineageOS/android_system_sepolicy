@@ -1,5 +1,4 @@
 typeattribute netd coredomain;
-typeattribute netd domain_deprecated;
 
 init_daemon_domain(netd)
 
