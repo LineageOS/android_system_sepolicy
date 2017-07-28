@@ -1,5 +1,4 @@
 typeattribute dumpstate coredomain;
-typeattribute dumpstate domain_deprecated;
 
 init_daemon_domain(dumpstate)
 
