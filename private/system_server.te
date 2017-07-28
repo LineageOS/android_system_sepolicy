@@ -4,7 +4,6 @@
 #
 
 typeattribute system_server coredomain;
-typeattribute system_server domain_deprecated;
 typeattribute system_server mlstrustedsubject;
 
 # Define a type for tmpfs-backed ashmem regions.
