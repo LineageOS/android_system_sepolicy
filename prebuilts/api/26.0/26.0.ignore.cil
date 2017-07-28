@@ -12,5 +12,9 @@
     kmsg_debug_device
     netd_stable_secret_prop
     sysfs_fs_ext4_features
+    thermal_service
+    thermalcallback_hwservice
+    thermalserviced
+    thermalserviced_exec
     timezone_service
     tombstoned_java_trace_socket))
