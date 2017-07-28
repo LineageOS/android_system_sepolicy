@@ -114,7 +114,9 @@ allow system_server hal_camera:process { getsched setsched };
 allow system_server mediaserver:process { getsched setsched };
 allow system_server bootanim:process { getsched setsched };
 
-# Allow system_server to write to cameraserver's /proc/<pid>/timerslack_ns
+# Allow system_server to write to /proc/<pid>/timerslack_ns
+allow system_server appdomain:file w_file_perms;
+allow system_server audioserver:file w_file_perms;
 allow system_server cameraserver:file w_file_perms;
 
 # Read /proc/pid data for all domains. This is used by ProcessCpuTracker
