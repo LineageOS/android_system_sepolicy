@@ -9,7 +9,9 @@
     hal_cas_hwservice
     hal_neuralnetworks_hwservice
     hal_tetheroffload_hwservice
+    hal_wifi_offload_hwservice
     kmsg_debug_device
+    mediaprovider_tmpfs
     netd_stable_secret_prop
     sysfs_fs_ext4_features
     timezone_service
