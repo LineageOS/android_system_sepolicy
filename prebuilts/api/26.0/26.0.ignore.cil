@@ -23,3 +23,11 @@
     thermalserviced_tmpfs
     timezone_service
     tombstoned_java_trace_socket))
+
+;; private_objects - a collection of types that were labeled differently in
+;;     older policy, but that should not remain accessible to vendor policy.
+;;     Thus, these types are also not mapped, but recorded for checkapi tests
+(typeattribute priv_objects)
+(typeattributeset priv_objects
+     ( screencap
+       screencap_exec ))

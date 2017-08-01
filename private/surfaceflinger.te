@@ -21,6 +21,7 @@ binder_use(surfaceflinger)
 binder_call(surfaceflinger, binderservicedomain)
 binder_call(surfaceflinger, appdomain)
 binder_call(surfaceflinger, bootanim)
+binder_call(surfaceflinger, screencap)
 binder_service(surfaceflinger)
 
 # Binder IPC to bu, presently runs in adbd domain.
