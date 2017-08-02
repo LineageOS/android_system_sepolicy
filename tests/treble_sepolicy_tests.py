@@ -92,7 +92,7 @@ def GetCoreDomains():
     global alldomains
     global coredomains
     for d in alldomains:
-        # TestCoredomainViolators will verify if coredomain was incorrectly
+        # TestCoredomainViolations will verify if coredomain was incorrectly
         # applied.
         if "coredomain" in alldomains[d].attributes:
             alldomains[d].coredomain = True
@@ -205,7 +205,7 @@ class MultipleOption(Option):
         else:
             Option.take_action(self, action, dest, opt, value, values, parser)
 
-Tests = ["CoredomainViolators"]
+Tests = ["CoredomainViolations"]
 
 if __name__ == '__main__':
     usage = "treble_sepolicy_tests.py -f nonplat_file_contexts -f "
@@ -215,7 +215,7 @@ if __name__ == '__main__':
             metavar="FILE", action="extend", type="string")
     parser.add_option("-p", "--policy", dest="policy", metavar="FILE")
     parser.add_option("-l", "--library-path", dest="libpath", metavar="FILE")
-    parser.add_option("-t", "--test", dest="test", action="extend",
+    parser.add_option("-t", "--test", dest="tests", action="extend",
             help="Test options include "+str(Tests))
 
     (options, args) = parser.parse_args()
@@ -247,8 +247,11 @@ if __name__ == '__main__':
 
     results = ""
     # If an individual test is not specified, run all tests.
-    if options.test is None or "CoredomainViolations" in options.tests:
+    if ( options.tests is None
+        or ("CoredomainViolations" in options.tests and len(options.tests) == 1)):
         results += TestCoredomainViolations()
+    else:
+        sys.exit("Error: unknown test(s): " + str(options.tests))
 
     if len(results) > 0:
         sys.exit(results)
