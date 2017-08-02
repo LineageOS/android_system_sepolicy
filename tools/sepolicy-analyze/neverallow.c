@@ -261,6 +261,7 @@ static int read_classperms(policydb_t *policydb, char **ptr, char *end,
         node->next = classperms;
         classperms = node;
         free(id);
+        id = NULL;
     } while (p < end && openparens);
 
     if (p == end)
@@ -328,6 +329,8 @@ static int read_classperms(policydb_t *policydb, char **ptr, char *end,
         if (!strcmp(id, "*")) {
             for (node = classperms; node; node = node->next)
                 node->data = ~0;
+            free(id);
+            id = NULL;
             continue;
         }
 
@@ -344,6 +347,7 @@ static int read_classperms(policydb_t *policydb, char **ptr, char *end,
             node->data |= 1U << (perm->s.value - 1);
         }
         free(id);
+        id = NULL;
     } while (p < end && openparens);
 
     if (p == end)
@@ -364,6 +368,12 @@ static int read_classperms(policydb_t *policydb, char **ptr, char *end,
     *ptr = p;
     return 0;
 err:
+    // free classperms memory
+    for (node = classperms; node; ) {
+      class_perm_node_t *freeptr = node;
+      node = node->next;
+      free(freeptr);
+    }
     return -1;
 }
 
