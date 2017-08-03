@@ -155,8 +155,8 @@ def GetAttributes(pol):
 def GetAllTypes(pol, oldpol):
     global alltypes
     global oldalltypes
-    alltypes = pol.GetAllTypes()
-    oldalltypes = oldpol.GetAllTypes()
+    alltypes = pol.GetAllTypes(False)
+    oldalltypes = oldpol.GetAllTypes(False)
 
 def setup(pol):
     GetAllDomains(pol)
