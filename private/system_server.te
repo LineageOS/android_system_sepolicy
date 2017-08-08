@@ -180,6 +180,7 @@ binder_service(system_server)
 
 # Use HALs
 hal_client_domain(system_server, hal_allocator)
+hal_client_domain(system_server, hal_broadcastradio)
 hal_client_domain(system_server, hal_contexthub)
 hal_client_domain(system_server, hal_fingerprint)
 hal_client_domain(system_server, hal_gnss)
