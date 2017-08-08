@@ -17,8 +17,11 @@
 #include <android-base/strings.h>
 #include <sepol_wrap.h>
 
-
+#define TYPE_ITER_LOOKUP   0
+#define TYPE_ITER_ALLTYPES 1
+#define TYPE_ITER_ALLATTRS 2
 struct type_iter {
+    unsigned int alltypes;
     type_datum *d;
     ebitmap_node *n;
     unsigned int length;
@@ -36,23 +39,33 @@ void *init_type_iter(void *policydbp, const char *type, bool is_attr)
         return NULL;
     }
 
-    out->d = static_cast<type_datum *>(hashtab_search(db->p_types.table, type));
-    if (is_attr && out->d->flavor != TYPE_ATTRIB) {
-        std::cerr << "\"" << type << "\" MUST be an attribute in the policy" << std::endl;
-        free(out);
-        return NULL;
-    } else if (!is_attr && out->d->flavor !=TYPE_TYPE) {
-        std::cerr << "\"" << type << "\" MUST be a type in the policy" << std::endl;
-        free(out);
-        return NULL;
-    }
-
-    if (is_attr) {
-        out->bit = ebitmap_start(&db->attr_type_map[out->d->s.value - 1], &out->n);
-        out->length = ebitmap_length(&db->attr_type_map[out->d->s.value - 1]);
+    if (type == NULL) {
+        out->length = db->p_types.nprim;
+        out->bit = 0;
+        if (is_attr)
+            out->alltypes = TYPE_ITER_ALLATTRS;
+        else
+            out->alltypes = TYPE_ITER_ALLTYPES;
     } else {
-        out->bit = ebitmap_start(&db->type_attr_map[out->d->s.value - 1], &out->n);
-        out->length = ebitmap_length(&db->type_attr_map[out->d->s.value - 1]);
+        out->alltypes = TYPE_ITER_LOOKUP;
+        out->d = static_cast<type_datum *>(hashtab_search(db->p_types.table, type));
+        if (is_attr && out->d->flavor != TYPE_ATTRIB) {
+            std::cerr << "\"" << type << "\" MUST be an attribute in the policy" << std::endl;
+            free(out);
+            return NULL;
+        } else if (!is_attr && out->d->flavor !=TYPE_TYPE) {
+            std::cerr << "\"" << type << "\" MUST be a type in the policy" << std::endl;
+            free(out);
+            return NULL;
+        }
+
+        if (is_attr) {
+            out->bit = ebitmap_start(&db->attr_type_map[out->d->s.value - 1], &out->n);
+            out->length = ebitmap_length(&db->attr_type_map[out->d->s.value - 1]);
+        } else {
+            out->bit = ebitmap_start(&db->type_attr_map[out->d->s.value - 1], &out->n);
+            out->length = ebitmap_length(&db->type_attr_map[out->d->s.value - 1]);
+        }
     }
 
     return static_cast<void *>(out);
@@ -65,7 +78,7 @@ void destroy_type_iter(void *type_iterp)
 }
 
 /*
- * print allow rule into *out buffer.
+ * print type into *out buffer.
  *
  * Returns -1 on error.
  * Returns 0 on successfully reading an avtab entry.
@@ -77,20 +90,28 @@ int get_type(char *out, size_t max_size, void *policydbp, void *type_iterp)
     policydb_t *db = static_cast<policydb_t *>(policydbp);
     struct type_iter *i = static_cast<struct type_iter *>(type_iterp);
 
-    for (; i->bit < i->length; i->bit = ebitmap_next(&i->n, i->bit)) {
-        if (!ebitmap_node_get_bit(i->n, i->bit)) {
-            continue;
+    if (!i->alltypes) {
+        for (; i->bit < i->length; i->bit = ebitmap_next(&i->n, i->bit)) {
+            if (!ebitmap_node_get_bit(i->n, i->bit)) {
+                continue;
+            }
+            break;
         }
-        len = snprintf(out, max_size, "%s", db->p_type_val_to_name[i->bit]);
-        if (len >= max_size) {
-               std::cerr << "type name exceeds buffer size." << std::endl;
-               return -1;
-        }
-        i->bit = ebitmap_next(&i->n, i->bit);
-        return 0;
     }
-
-    return 1;
+    if (i->bit >= i->length)
+        return 1;
+    while ((i->alltypes == TYPE_ITER_ALLATTRS
+            && db->type_val_to_struct[i->bit]->flavor != TYPE_ATTRIB)
+            || (i->alltypes == TYPE_ITER_ALLTYPES
+            && db->type_val_to_struct[i->bit]->flavor != TYPE_TYPE))
+        i->bit++;
+    len = snprintf(out, max_size, "%s", db->p_type_val_to_name[i->bit]);
+    if (len >= max_size) {
+        std::cerr << "type name exceeds buffer size." << std::endl;
+        return -1;
+    }
+    i->alltypes ? i->bit++ : i->bit = ebitmap_next(&i->n, i->bit);
+    return 0;
 }
 
 void *load_policy(const char *policy_path)

@@ -7,6 +7,12 @@ cc_library_host_shared {
 }
 
 cc_prebuilt_binary {
+    name: "mini_parser.py",
+    srcs: ["mini_parser.py"],
+    host_supported: true,
+}
+
+cc_prebuilt_binary {
     name: "policy.py",
     srcs: ["policy.py"],
     host_supported: true,
@@ -17,7 +23,7 @@ cc_prebuilt_binary {
     name: "treble_sepolicy_tests.py",
     srcs: ["treble_sepolicy_tests.py"],
     host_supported: true,
-    required: ["policy.py"],
+    required: ["mini_parser.py", "policy.py"],
 }
 
 cc_prebuilt_binary {

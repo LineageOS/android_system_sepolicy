@@ -123,6 +123,26 @@ class Policy:
                 continue
             yield Rule
 
+
+    def GetAllTypes(self):
+        TypeIterP = self.__libsepolwrap.init_type_iter(self.__policydbP, None, False)
+        if (TypeIterP == None):
+            sys.exit("Failed to initialize type iterator")
+        buf = create_string_buffer(self.__BUFSIZE)
+        AllTypes = set()
+        while True:
+            ret = self.__libsepolwrap.get_type(buf, self.__BUFSIZE,
+                    self.__policydbP, TypeIterP)
+            if ret == 0:
+                AllTypes.add(buf.value)
+                continue
+            if ret == 1:
+                break;
+            # We should never get here.
+            sys.exit("Failed to import policy")
+        self.__libsepolwrap.destroy_type_iter(TypeIterP)
+        return AllTypes
+
     def __GetTypesByFilePathPrefix(self, MatchPrefixes, DoNotMatchPrefixes):
         Types = set()
         for Type in self.__FcDict:
@@ -203,6 +223,8 @@ class Policy:
 
     # load file_contexts
     def __InitFC(self, FcPaths):
+        if FcPaths is None:
+            return
         fc = []
         for path in FcPaths:
             if not os.path.exists(path):
