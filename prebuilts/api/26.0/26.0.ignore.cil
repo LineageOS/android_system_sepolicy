@@ -15,5 +15,9 @@
     netd_stable_secret_prop
     sysfs_fs_ext4_features
     system_net_netd_hwservice
+    thermal_service
+    thermalcallback_hwservice
+    thermalserviced
+    thermalserviced_exec
     timezone_service
     tombstoned_java_trace_socket))

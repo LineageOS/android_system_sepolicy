@@ -25,7 +25,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.power@1\.0-service          u:object_r:hal_power_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.sensors@1\.0-service        u:object_r:hal_sensors_default_exec:s0
 /(vendor|system/vendor)/bin/hw/rild                                           u:object_r:rild_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.thermal@1\.0-service        u:object_r:hal_thermal_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.thermal@1\.[01]-service        u:object_r:hal_thermal_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.tv\.cec@1\.0-service        u:object_r:hal_tv_cec_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.tv\.input@1\.0-service      u:object_r:hal_tv_input_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.usb@1\.0-service            u:object_r:hal_usb_default_exec:s0
