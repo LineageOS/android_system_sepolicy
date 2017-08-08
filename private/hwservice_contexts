@@ -6,7 +6,7 @@ android.hardware.audio::IDevicesFactory                         u:object_r:hal_a
 android.hardware.biometrics.fingerprint::IBiometricsFingerprint u:object_r:hal_fingerprint_hwservice:s0
 android.hardware.bluetooth::IBluetoothHci                       u:object_r:hal_bluetooth_hwservice:s0
 android.hardware.boot::IBootControl                             u:object_r:hal_bootctl_hwservice:s0
-android.hardware.broadcastradio::IBroadcastRadioFactory         u:object_r:hal_audio_hwservice:s0
+android.hardware.broadcastradio::IBroadcastRadioFactory         u:object_r:hal_broadcastradio_hwservice:s0
 android.hardware.camera.provider::ICameraProvider               u:object_r:hal_camera_hwservice:s0
 android.hardware.configstore::ISurfaceFlingerConfigs            u:object_r:hal_configstore_ISurfaceFlingerConfigs:s0
 android.hardware.contexthub::IContexthub                        u:object_r:hal_contexthub_hwservice:s0
