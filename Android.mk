@@ -1155,30 +1155,121 @@ LOCAL_MODULE_TAGS := tests
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-# 26.0_compat - the current plat_sepolicy.cil built
-# with the compatibility file targeting the 26.0
-# SELinux release.
+# 26.0_plat - the platform policy shipped as part of the 26.0 release.  This is
+# built to enable us to determine the diff between the current policy and the
+# 26.0 policy, which will be used in tests to make sure that compatibility has
+# been maintained by our mapping files.
+26.0_PLAT_PUBLIC_POLICY := $(LOCAL_PATH)/prebuilts/api/26.0/public
+26.0_PLAT_PRIVATE_POLICY := $(LOCAL_PATH)/prebuilts/api/26.0/private
+26.0_plat_policy.conf := $(intermediates)/26.0_plat_policy.conf
+$(26.0_plat_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(26.0_plat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(26.0_plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(26.0_plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
+$(26.0_plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(26.0_plat_policy.conf): PRIVATE_FULL_TREBLE := true
+$(26.0_plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
+$(26.0_PLAT_PUBLIC_POLICY) $(26.0_PLAT_PRIVATE_POLICY))
+	$(transform-policy-to-conf)
+	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+
+built_26.0_plat_sepolicy := $(intermediates)/built_26.0_plat_sepolicy
+$(built_26.0_plat_sepolicy): PRIVATE_ADDITIONAL_CIL_FILES := \
+  $(call build_policy, technical_debt.cil , $(26.0_PLAT_PRIVATE_POLICY))
+$(built_26.0_plat_sepolicy): $(26.0_plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
+  $(HOST_OUT_EXECUTABLES)/secilc \
+  $(call build_policy, technical_debt.cil, $(26.0_PLAT_PRIVATE_POLICY))
+	@mkdir -p $(dir $@)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
+		$(POLICYVERS) -o $@ $<
+	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -G -c $(POLICYVERS) $@ -o $@ -f /dev/null
+
+26.0_plat_policy.conf :=
+
+
+# 26.0_compat - the current plat_sepolicy.cil built with the compatibility file
+# targeting the 26.0 SELinux release.  This ensures that our policy will build
+# when used on a device that has non-platform policy targetting the 26.0 release.
 26.0_compat := $(intermediates)/26.0_compat
-26.0_mapping_cil := $(LOCAL_PATH)/prebuilts/api/26.0/26.0.cil
+26.0_mapping.cil := $(LOCAL_PATH)/prebuilts/api/26.0/26.0.cil
+26.0_mapping.ignore.cil := $(LOCAL_PATH)/prebuilts/api/26.0/26.0.ignore.cil
 26.0_nonplat := $(LOCAL_PATH)/prebuilts/api/26.0/nonplat_sepolicy.cil
 $(26.0_compat): PRIVATE_CIL_FILES := \
-$(built_plat_cil) $(26.0_mapping_cil) $(26.0_nonplat)
+$(built_plat_cil) $(26.0_mapping.cil) $(26.0_nonplat)
 $(26.0_compat): $(HOST_OUT_EXECUTABLES)/secilc \
-$(built_plat_cil) $(26.0_mapping_cil) $(26.0_nonplat)
+$(built_plat_cil) $(26.0_mapping.cil) $(26.0_nonplat)
 	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -G -N -c $(POLICYVERS) \
 		$(PRIVATE_CIL_FILES) -o $@ -f /dev/null
+
+# 26.0_mapping.combined.cil - a combination of the mapping file used when
+# combining the current platform policy with nonplatform policy based on the
+# 26.0 policy release and also a special ignored file that exists purely for
+# these tests.
+26.0_mapping.combined.cil := $(intermediates)/26.0_mapping.combined.cil
+$(26.0_mapping.combined.cil): $(26.0_mapping.cil) $(26.0_mapping.ignore.cil)
+	mkdir -p $(dir $@)
+	cat $^ > $@
+
+# plat_sepolicy - the current platform policy only, built into a policy binary.
+# TODO - this currently excludes partner extensions, but support should be added
+# to enable partners to add their own compatibility mapping
+BASE_PLAT_PUBLIC_POLICY := $(filter-out $(BOARD_PLAT_PUBLIC_SEPOLICY_DIR), $(PLAT_PUBLIC_POLICY))
+BASE_PLAT_PRIVATE_POLICY := $(filter-out $(BOARD_PLAT_PRIVATE_SEPOLICY_DIR), $(PLAT_PRIVATE_POLICY))
+base_plat_policy.conf := $(intermediates)/base_plat_policy.conf
+$(base_plat_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(base_plat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(base_plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(base_plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
+$(base_plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(base_plat_policy.conf): PRIVATE_FULL_TREBLE := true
+$(base_plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
+$(BASE_PLAT_PUBLIC_POLICY) $(BASE_PLAT_PRIVATE_POLICY))
+	$(transform-policy-to-conf)
+	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+
+built_plat_sepolicy := $(intermediates)/built_plat_sepolicy
+$(built_plat_sepolicy): PRIVATE_ADDITIONAL_CIL_FILES := \
+  $(call build_policy, $(sepolicy_build_cil_workaround_files), $(BASE_PLAT_PRIVATE_POLICY))
+$(built_plat_sepolicy): $(base_plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
+$(HOST_OUT_EXECUTABLES)/secilc \
+$(call build_policy, $(sepolicy_build_cil_workaround_files), $(BASE_PLAT_PRIVATE_POLICY))
+	@mkdir -p $(dir $@)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
+		$(POLICYVERS) -o $@ $<
+	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -M true -G -c $(POLICYVERS) $@ -o $@ -f /dev/null
 
 treble_sepolicy_tests := $(intermediates)/treble_sepolicy_tests
 $(treble_sepolicy_tests): PRIVATE_PLAT_FC := $(built_plat_fc)
 $(treble_sepolicy_tests): PRIVATE_NONPLAT_FC := $(built_nonplat_fc)
 $(treble_sepolicy_tests): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(treble_sepolicy_tests): PRIVATE_SEPOLICY_OLD := $(built_26.0_plat_sepolicy)
+$(treble_sepolicy_tests): PRIVATE_COMBINED_MAPPING := $(26.0_mapping.combined.cil)
+$(treble_sepolicy_tests): PRIVATE_PLAT_SEPOLICY := $(built_plat_sepolicy)
 $(treble_sepolicy_tests): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests.py \
-$(built_plat_fc) $(built_nonplat_fc) $(built_sepolicy) $(26.0_compat)
+$(built_plat_fc) $(built_nonplat_fc) $(built_sepolicy) $(built_plat_sepolicy) \
+$(built_26.0_plat_sepolicy) $(26.0_compat) $(26.0_mapping.combined.cil)
 	@mkdir -p $(dir $@)
-	$(hide) python $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests.py -l $(HOST_OUT)/lib64 -f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) -p $(PRIVATE_SEPOLICY)
+	$(hide) python $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests.py -l \
+		$(HOST_OUT)/lib64 -f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) \
+		-b $(PRIVATE_PLAT_SEPOLICY) -m $(PRIVATE_COMBINED_MAPPING) \
+		-o $(PRIVATE_SEPOLICY_OLD) -p $(PRIVATE_SEPOLICY)
 	$(hide) touch $@
 
+26.0_PLAT_PUBLIC_POLICY :=
+26.0_PLAT_PRIVATE_POLICY :=
 26.0_compat :=
+26.0_mapping.cil :=
+26.0_mapping.combined.cil :=
+26.0_mapping.ignore.cil :=
+26.0_nonplat :=
+BASE_PLAT_PUBLIC_POLICY :=
+BASE_PLAT_PRIVATE_POLICY :=
+base_plat_policy.conf :=
+built_26.0_plat_sepolicy :=
+plat_sepolicy :=
+
 endif # ($(PRODUCT_FULL_TREBLE),true)
 #################################
 
