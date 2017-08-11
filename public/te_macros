@@ -172,6 +172,8 @@ typeattribute $1 appdomain;
 tmpfs_domain($1)
 # Map with PROT_EXEC.
 allow $1 $1_tmpfs:file execute;
+neverallow { $1 -shell } { domain -$1 }:file no_rw_file_perms;
+neverallow { appdomain -shell -$1 } $1:file no_rw_file_perms;
 ')
 
 #####################################
