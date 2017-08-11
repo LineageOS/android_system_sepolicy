@@ -15,6 +15,9 @@ dontaudit crash_dump self:capability { sys_ptrace };
 
 userdebug_or_eng(`
   allow crash_dump logd:process { ptrace signal sigchld sigstop sigkill };
+
+  # Let crash_dump write to /dev/kmsg_debug crashes that happen before logd comes up.
+  allow crash_dump kmsg_debug_device:chr_file { open append };
 ')
 
 # Use inherited file descriptors
