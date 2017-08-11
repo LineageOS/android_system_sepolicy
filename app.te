@@ -374,7 +374,7 @@ neverallow appdomain exec_type:file
 # This is the default type for anything under /data not otherwise
 # specified in file_contexts.  Define a different type for portions
 # that should be writable by apps.
-neverallow appdomain system_data_file:dir_file_class_set
+neverallow { appdomain -interfacer } system_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # Write to various other parts of /data.
@@ -468,3 +468,7 @@ neverallow {
 # Foreign dex profiles are just markers. Prevent apps to do anything but touch them.
 neverallow appdomain user_profile_foreign_dex_data_file:file rw_file_perms;
 neverallow appdomain user_profile_foreign_dex_data_file:dir { open getattr read ioctl remove_name };
+
+# Themed resources (i.e. composed icons)
+allow appdomain theme_data_file:dir r_dir_perms;
+allow appdomain theme_data_file:file r_file_perms;

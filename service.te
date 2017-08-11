@@ -63,6 +63,7 @@ type hardware_properties_service, app_api_service, system_server_service, servic
 type hdmi_control_service, system_api_service, system_server_service, service_manager_type;
 type input_method_service, app_api_service, system_server_service, service_manager_type;
 type input_service, app_api_service, system_server_service, service_manager_type;
+type interfacer_service, app_api_service, system_server_service, service_manager_type;
 type imms_service, app_api_service, system_server_service, service_manager_type;
 type jobscheduler_service, app_api_service, system_server_service, service_manager_type;
 type launcherapps_service, app_api_service, system_server_service, service_manager_type;
@@ -81,6 +82,7 @@ type network_score_service, system_api_service, system_server_service, service_m
 type network_time_update_service, system_server_service, service_manager_type;
 type notification_service, app_api_service, system_server_service, service_manager_type;
 type otadexopt_service, system_server_service, service_manager_type;
+type overlay_service, app_api_service, system_server_service, service_manager_type;
 type package_service, app_api_service, system_server_service, service_manager_type;
 type permission_service, app_api_service, system_server_service, service_manager_type;
 type persistent_data_block_service, system_api_service, system_server_service, service_manager_type;

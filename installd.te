@@ -126,3 +126,7 @@ allow installd devpts:chr_file rw_file_perms;
 
 # execute toybox for app relocation
 allow installd toolbox_exec:file rx_file_perms;
+
+# allow /data/data/ theme attributes for theme_data explicitly without macros
+allow installd theme_data_file:dir { add_name getattr read relabelto remove_name setattr write open search };
+allow installd theme_data_file:lnk_file { create getattr unlink };

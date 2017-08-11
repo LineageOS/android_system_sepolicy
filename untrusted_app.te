@@ -110,6 +110,9 @@ allow untrusted_app sysfs_hwrandom:file r_file_perms;
 allow untrusted_app preloads_data_file:dir r_dir_perms;
 allow untrusted_app preloads_data_file:file r_file_perms;
 
+# Allow AOPT to call module_request
+allow untrusted_app kernel:system module_request;
+
 ###
 ### neverallow rules
 ###
@@ -213,3 +216,4 @@ neverallow untrusted_app tun_device:chr_file open;
 # Only allow appending to /data/anr/traces.txt (b/27853304, b/18340553)
 neverallow untrusted_app anr_data_file:file ~{ open append };
 neverallow untrusted_app anr_data_file:dir ~search;
+allow untrusted_app system_app_data_file:dir getattr;

@@ -104,3 +104,7 @@ neverallow zygote {
   data_file_type
   -dalvikcache_data_file # map PROT_EXEC
 }:file no_x_file_perms;
+
+# Themes
+allow zygote theme_data_file:file r_file_perms;
+allow zygote theme_data_file:dir r_dir_perms;
