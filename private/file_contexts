@@ -51,7 +51,7 @@
 /sepolicy           u:object_r:sepolicy_file:s0
 /plat_service_contexts   u:object_r:service_contexts_file:s0
 /plat_hwservice_contexts   u:object_r:hwservice_contexts_file:s0
-/nonplat_service_contexts   u:object_r:service_contexts_file:s0
+/nonplat_service_contexts   u:object_r:nonplat_service_contexts_file:s0
 /nonplat_hwservice_contexts   u:object_r:hwservice_contexts_file:s0
 /vndservice_contexts   u:object_r:vndservice_contexts_file:s0
 
@@ -298,7 +298,7 @@
 
 /vendor/etc/selinux/nonplat_mac_permissions.xml u:object_r:mac_perms_file:s0
 /vendor/etc/selinux/nonplat_property_contexts   u:object_r:property_contexts_file:s0
-/vendor/etc/selinux/nonplat_service_contexts    u:object_r:service_contexts_file:s0
+/vendor/etc/selinux/nonplat_service_contexts    u:object_r:nonplat_service_contexts_file:s0
 /vendor/etc/selinux/nonplat_hwservice_contexts    u:object_r:hwservice_contexts_file:s0
 /vendor/etc/selinux/nonplat_file_contexts   u:object_r:file_contexts_file:s0
 /vendor/etc/selinux/nonplat_seapp_contexts    u:object_r:seapp_contexts_file:s0
