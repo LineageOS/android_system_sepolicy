@@ -16,10 +16,9 @@ allow servicemanager {
   -vndservicemanager
 }:binder transfer;
 
-# Access to all (system and vendor) service_contexts
-# TODO(b/36866029) access to nonplat_service_contexts
-#                  should not be allowed on full treble devices
 allow servicemanager service_contexts_file:file r_file_perms;
+# nonplat_service_contexts only accessible on non full-treble devices
+not_full_treble('allow servicemanager nonplat_service_contexts_file:file r_file_perms;')
 
 # Check SELinux permissions.
 selinux_check_access(servicemanager)
