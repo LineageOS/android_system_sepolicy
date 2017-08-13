@@ -313,6 +313,9 @@ type sepolicy_file, file_type;
 # service_contexts file
 type service_contexts_file, file_type;
 
+# nonplat service_contexts file (only accessible on non full-treble devices)
+type nonplat_service_contexts_file, file_type;
+
 # hwservice_contexts file
 type hwservice_contexts_file, file_type;
 
