@@ -5,6 +5,7 @@
 (typeattribute hal_wifi_keystore)
 (typeattribute hal_wifi_keystore_client)
 (typeattribute hal_wifi_keystore_server)
+(typeattribute untrusted_app_visible_hwservice)
 
 ;; types removed from current policy
 (type asan_reboot_prop)
@@ -537,7 +538,7 @@
 (typeattributeset serial_device_26_0 (serial_device))
 (typeattributeset serialno_prop_26_0 (serialno_prop))
 (typeattributeset serial_service_26_0 (serial_service))
-(typeattributeset service_contexts_file_26_0 (service_contexts_file))
+(typeattributeset service_contexts_file_26_0 (service_contexts_file nonplat_service_contexts_file))
 (typeattributeset servicediscovery_service_26_0 (servicediscovery_service))
 (typeattributeset servicemanager_26_0 (servicemanager))
 (typeattributeset servicemanager_exec_26_0 (servicemanager_exec))
