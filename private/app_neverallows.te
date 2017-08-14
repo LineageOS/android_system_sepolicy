@@ -225,5 +225,6 @@ full_treble_only(`
     -hal_graphics_allocator_server
     -hal_cas_server
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
+    -untrusted_app_visible_halserver
   }:binder { call transfer };
 ')
