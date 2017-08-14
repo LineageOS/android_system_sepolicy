@@ -115,6 +115,9 @@ recovery_only(`
   # Set sys.usb.ffs.ready when starting minadbd for sideload.
   set_prop(recovery, ffs_prop)
 
+  # Read ro.boot.bootreason
+  get_prop(recovery, bootloader_boot_reason_prop)
+
   # Use setfscreatecon() to label files for OTA updates.
   allow recovery self:process setfscreate;
 
