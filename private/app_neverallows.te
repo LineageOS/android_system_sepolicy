@@ -160,7 +160,7 @@ neverallow all_untrusted_apps {
   -hal_cas_hwservice
   -untrusted_app_visible_hwservice
 }:hwservice_manager find;
-neverallow untrusted_app_visible_hwservice unlabeled:service_manager list; #TODO: b/62658302
+
 # Make sure that the following services are never accessible by untrusted_apps
 neverallow all_untrusted_apps {
   default_android_hwservice
