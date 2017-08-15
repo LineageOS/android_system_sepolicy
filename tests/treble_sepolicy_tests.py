@@ -212,6 +212,7 @@ def TestCoredomainViolations():
 def TestNoUnmappedNewTypes():
     global alltypes
     global oldalltypes
+    global compatMapping
     newt = alltypes - oldalltypes
     ret = ""
     violators = []
@@ -228,8 +229,31 @@ def TestNoUnmappedNewTypes():
         ret += " ".join(str(x) for x in sorted(violators)) + "\n"
     return ret
 
+###
+# Make sure that any public type removed in the current policy has its
+# declaration added to the mapping file for use in non-platform policy
+def TestNoUnmappedRmTypes():
+    global alltypes
+    global oldalltypes
+    global compatMapping
+    rmt = oldalltypes - alltypes
+    ret = ""
+    violators = []
+
+    for o in rmt:
+        if o in compatMapping.pubtypes and not o in compatMapping.types:
+            violators.append(o)
+
+    if len(violators) > 0:
+        ret += "SELinux: The following formerly public types were removed from "
+        ret += "policy without a declaration in the compatibility mapping "
+        ret += "file(s) found in prebuilts/api/" + compatMapping.apiLevel + "/\n"
+        ret += " ".join(str(x) for x in sorted(violators)) + "\n"
+    return ret
+
 def TestTrebleCompatMapping():
     ret = TestNoUnmappedNewTypes()
+    ret += TestNoUnmappedRmTypes()
     return ret
 ###
 # extend OptionParser to allow the same option flag to be used multiple times.
