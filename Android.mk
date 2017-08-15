@@ -1192,8 +1192,8 @@ $(built_26.0_plat_sepolicy): $(26.0_plat_policy.conf) $(HOST_OUT_EXECUTABLES)/ch
 # targeting the 26.0 SELinux release.  This ensures that our policy will build
 # when used on a device that has non-platform policy targetting the 26.0 release.
 26.0_compat := $(intermediates)/26.0_compat
-26.0_mapping.cil := $(LOCAL_PATH)/prebuilts/api/26.0/26.0.cil
-26.0_mapping.ignore.cil := $(LOCAL_PATH)/prebuilts/api/26.0/26.0.ignore.cil
+26.0_mapping.cil := $(LOCAL_PATH)/private/compat/26.0/26.0.cil
+26.0_mapping.ignore.cil := $(LOCAL_PATH)/private/compat/26.0/26.0.ignore.cil
 26.0_nonplat := $(LOCAL_PATH)/prebuilts/api/26.0/nonplat_sepolicy.cil
 $(26.0_compat): PRIVATE_CIL_FILES := \
 $(built_plat_cil) $(26.0_mapping.cil) $(26.0_nonplat)
