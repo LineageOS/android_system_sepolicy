@@ -41,12 +41,12 @@ class MiniCilParser:
 
     def _parseType(self, stmt):
         m = re.match(r"type\s+(.+)", stmt)
-        self.types.update(set(m.group(1)))
+        self.types.add(m.group(1))
         return
 
     def _parseTypeattribute(self, stmt):
         m = re.match(r"typeattribute\s+(.+)", stmt)
-        self.typeattributes.update(set(m.group(1)))
+        self.typeattributes.add(m.group(1))
         return
 
     def _parseTypeattributeset(self, stmt):
@@ -67,7 +67,7 @@ class MiniCilParser:
         # check to see if this typeattributeset is a versioned public type
         pub = re.match(r"(\w+)_\d+_\d+", ta)
         if pub is not None:
-            self.pubtypes.update(set(pub.group(1)))
+            self.pubtypes.add(pub.group(1))
         return
 
     def _parseStmt(self, stmt):
