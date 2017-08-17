@@ -32,3 +32,10 @@ cc_prebuilt_binary {
     host_supported: true,
     required: ["policy.py"],
 }
+
+cc_prebuilt_binary {
+    name: "searchpolicy.py",
+    srcs: ["searchpolicy.py"],
+    host_supported: true,
+    required: ["policy.py"],
+}
