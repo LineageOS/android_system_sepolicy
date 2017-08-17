@@ -38,7 +38,6 @@ device_identifiers                        u:object_r:device_identifiers_service:
 deviceidle                                u:object_r:deviceidle_service:s0
 devicestoragemonitor                      u:object_r:devicestoragemonitor_service:s0
 diskstats                                 u:object_r:diskstats_service:s0
-display.qservice                          u:object_r:surfaceflinger_service:s0
 display                                   u:object_r:display_service:s0
 netd_listener                             u:object_r:netd_listener_service:s0
 DockObserver                              u:object_r:DockObserver_service:s0
