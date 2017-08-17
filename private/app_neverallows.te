@@ -137,21 +137,68 @@ neverallow all_untrusted_apps *:hwservice_manager ~find;
 #    incidence rate of security issues than system/core components and have
 #    access to lower layes of the stack (all the way down to hardware) thus
 #    increasing opportunities for bypassing the Android security model.
+#
+# Safe services include:
+# - same process services: because they by definition run in the process
+#   of the client and thus have the same access as the client domain in which
+#   the process runs
+# - coredomain_hwservice: are considered safe because they do not pose risks
+#   associated with reason #2 above.
+# - hal_configstore_ISurfaceFlingerConfigs:  becuase it has specifically been
+#   designed for use by any domain.
+# - hal_graphics_allocator_hwservice: because these operations are also offered
+#   by surfaceflinger Binder service, which apps are permitted to access
+# - hal_omx_hwservice: because this is a HwBinder version of the mediacodec
+#   Binder service which apps were permitted to access.
 neverallow all_untrusted_apps {
   hwservice_manager_type
-  # Same process services are safe because they by definition run in the process
-  # of the client and thus have the same access as the client domain in which
-  # the process runs
   -same_process_hwservice
-  -coredomain_hwservice # neverallows for coredomain HwBinder services are below
-  -hal_configstore_ISurfaceFlingerConfigs # Designed for use by any domain
-  # These operations are also offered by surfaceflinger Binder service which
-  # apps are permitted to access
+  -coredomain_hwservice
+  -hal_configstore_ISurfaceFlingerConfigs
   -hal_graphics_allocator_hwservice
-  # HwBinder version of mediacodec Binder service which apps were permitted to
-  # access
   -hal_omx_hwservice
   -hal_cas_hwservice
+  -untrusted_app_visible_hwservice
+}:hwservice_manager find;
+
+# Make sure that the following services are never accessible by untrusted_apps
+neverallow all_untrusted_apps {
+  default_android_hwservice
+  hal_audio_hwservice
+  hal_bluetooth_hwservice
+  hal_bootctl_hwservice
+  hal_camera_hwservice
+  hal_contexthub_hwservice
+  hal_drm_hwservice
+  hal_dumpstate_hwservice
+  hal_fingerprint_hwservice
+  hal_gatekeeper_hwservice
+  hal_gnss_hwservice
+  hal_graphics_composer_hwservice
+  hal_health_hwservice
+  hal_ir_hwservice
+  hal_keymaster_hwservice
+  hal_light_hwservice
+  hal_memtrack_hwservice
+  hal_neuralnetworks_hwservice
+  hal_nfc_hwservice
+  hal_oemlock_hwservice
+  hal_power_hwservice
+  hal_sensors_hwservice
+  hal_telephony_hwservice
+  hal_thermal_hwservice
+  hal_tv_cec_hwservice
+  hal_tv_input_hwservice
+  hal_usb_hwservice
+  hal_vibrator_hwservice
+  hal_vr_hwservice
+  hal_weaver_hwservice
+  hal_wifi_hwservice
+  hal_wifi_offload_hwservice
+  hal_wifi_supplicant_hwservice
+  hidl_base_hwservice
+  system_net_netd_hwservice
+  thermalcallback_hwservice
 }:hwservice_manager find;
 # HwBinder services offered by core components (as opposed to vendor components)
 # are considered somewhat safer due to point #2 above.
@@ -178,5 +225,6 @@ full_treble_only(`
     -hal_graphics_allocator_server
     -hal_cas_server
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
+    -untrusted_app_visible_halserver
   }:binder { call transfer };
 ')

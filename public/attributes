@@ -148,6 +148,27 @@ expandattribute socket_between_core_and_vendor_violators false;
 attribute vendor_executes_system_violators;
 expandattribute vendor_executes_system_violators false;
 
+# hwservices that are accessible from untrusted applications
+# WARNING: Use of this attribute should be avoided unless
+# absolutely necessary.  It is a temporary allowance to aid the
+# transition to treble and will be removed in a future platform
+# version, requiring all hwservices that are labeled with this
+# attribute to be submitted to AOSP in order to maintain their
+# app-visibility.
+attribute untrusted_app_visible_hwservice;
+expandattribute untrusted_app_visible_hwservice false;
+
+# halserver domains that are accessible to untrusted applications.  These
+# domains are typically those hosting  hwservices attributed by the
+# untrusted_app_visible_hwservice.
+# WARNING: Use of this attribute should be avoided unless absolutely necessary.
+# It is a temporary allowance to aid the transition to treble and will be
+# removed in the future platform version, requiring all halserver domains that
+# are labeled with this attribute to be submitted to AOSP in order to maintain
+# their app-visibility.
+attribute untrusted_app_visible_halserver;
+expandattribute untrusted_app_visible_halserver false;
+
 # PDX services
 attribute pdx_endpoint_dir_type;
 attribute pdx_endpoint_socket_type;
