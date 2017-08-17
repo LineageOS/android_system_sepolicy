@@ -5,7 +5,6 @@
 (typeattribute hal_wifi_keystore)
 (typeattribute hal_wifi_keystore_client)
 (typeattribute hal_wifi_keystore_server)
-(typeattribute untrusted_app_visible_hwservice)
 
 ;; types removed from current policy
 (type asan_reboot_prop)
