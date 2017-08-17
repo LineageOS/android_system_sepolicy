@@ -98,13 +98,15 @@ int get_type(char *out, size_t max_size, void *policydbp, void *type_iterp)
             break;
         }
     }
-    if (i->bit >= i->length)
-        return 1;
-    while ((i->alltypes == TYPE_ITER_ALLATTRS
+    while (i->bit < i->length &&
+           ((i->alltypes == TYPE_ITER_ALLATTRS
             && db->type_val_to_struct[i->bit]->flavor != TYPE_ATTRIB)
             || (i->alltypes == TYPE_ITER_ALLTYPES
-            && db->type_val_to_struct[i->bit]->flavor != TYPE_TYPE))
+            && db->type_val_to_struct[i->bit]->flavor != TYPE_TYPE))) {
         i->bit++;
+    }
+    if (i->bit >= i->length)
+        return 1;
     len = snprintf(out, max_size, "%s", db->p_type_val_to_name[i->bit]);
     if (len >= max_size) {
         std::cerr << "type name exceeds buffer size." << std::endl;
