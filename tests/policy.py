@@ -124,8 +124,8 @@ class Policy:
             yield Rule
 
 
-    def GetAllTypes(self):
-        TypeIterP = self.__libsepolwrap.init_type_iter(self.__policydbP, None, False)
+    def GetAllTypes(self, isAttr):
+        TypeIterP = self.__libsepolwrap.init_type_iter(self.__policydbP, None, isAttr)
         if (TypeIterP == None):
             sys.exit("Failed to initialize type iterator")
         buf = create_string_buffer(self.__BUFSIZE)
