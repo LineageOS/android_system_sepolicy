@@ -3,7 +3,8 @@
 ;;   previous ones.  Add here to pass checkapi tests.
 (typeattribute new_objects)
 (typeattributeset new_objects
-  ( broadcastradio_service
+  ( adbd_exec
+    broadcastradio_service
     e2fs
     e2fs_exec
     hal_cas_hwservice
@@ -29,5 +30,6 @@
 ;;     Thus, these types are also not mapped, but recorded for checkapi tests
 (typeattribute priv_objects)
 (typeattributeset priv_objects
-     ( screencap
+     ( adbd_tmpfs
+       screencap
        screencap_exec ))
