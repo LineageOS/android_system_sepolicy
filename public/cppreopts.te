@@ -9,7 +9,7 @@ type cppreopts_exec, exec_type, file_type;
 
 # Allow cppreopts copy files into the dalvik-cache
 allow cppreopts dalvikcache_data_file:dir { add_name remove_name search write };
-allow cppreopts dalvikcache_data_file:file { create getattr open read rename write };
+allow cppreopts dalvikcache_data_file:file { create getattr open read rename write unlink };
 
 # Allow cppreopts to execute itself using #!/system/bin/sh
 allow cppreopts shell_exec:file rx_file_perms;
