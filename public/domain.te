@@ -106,7 +106,7 @@ allow domain system_file:lnk_file { getattr read };
 # devices
 not_full_treble(`
     allow domain vendor_file_type:dir { search getattr };
-    allow domain vendor_file_type:file { execute read open getattr };
+    allow domain vendor_file_type:file { execute read open getattr map };
     allow domain vendor_file_type:lnk_file { getattr read };
 ')
 
@@ -117,12 +117,12 @@ allow domain vendor_hal_file:dir r_dir_perms;
 
 # Everyone can read and execute all same process HALs
 allow domain same_process_hal_file:dir r_dir_perms;
-allow domain same_process_hal_file:file { execute read open getattr };
+allow domain same_process_hal_file:file { execute read open getattr map };
 
 # Any process can load vndk-sp libraries, which are system libraries
 # used by same process HALs
 allow domain vndk_sp_file:dir r_dir_perms;
-allow domain vndk_sp_file:file { execute read open getattr };
+allow domain vndk_sp_file:file { execute read open getattr map };
 
 # All domains get access to /vendor/etc
 allow domain vendor_configs_file:dir r_dir_perms;
@@ -139,7 +139,7 @@ full_treble_only(`
 
     # Allow reading and executing out of /vendor to all vendor domains
     allow { domain -coredomain } vendor_file_type:dir r_dir_perms;
-    allow { domain -coredomain } vendor_file_type:file { read open getattr execute };
+    allow { domain -coredomain } vendor_file_type:file { read open getattr execute map };
     allow { domain -coredomain } vendor_file_type:lnk_file { getattr read };
 ')
 
