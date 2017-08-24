@@ -89,7 +89,7 @@
 /dev/hw_random		u:object_r:hw_random_device:s0
 /dev/hwbinder		u:object_r:hwbinder_device:s0
 /dev/i2c-[0-9]+		u:object_r:i2c_device:s0
-/dev/input(/.*)		u:object_r:input_device:s0
+/dev/input(/.*)?	u:object_r:input_device:s0
 /dev/iio:device[0-9]+   u:object_r:iio_device:s0
 /dev/ion		u:object_r:ion_device:s0
 /dev/keychord   u:object_r:keychord_device:s0
