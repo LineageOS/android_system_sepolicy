@@ -13,3 +13,6 @@ r_dir_file(bootstat, proc)
 
 # Collect metrics on boot time created by init
 get_prop(bootstat, boottime_prop)
+
+# Read ro.boot.bootreason
+get_prop(bootstat, bootloader_boot_reason_prop)

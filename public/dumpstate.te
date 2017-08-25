@@ -204,6 +204,11 @@ get_prop(dumpstate, serialno_prop)
 # Read state of logging-related properties
 get_prop(dumpstate, device_logging_prop)
 
+# Read state of boot reason properties
+get_prop(dumpstate, bootloader_boot_reason_prop)
+get_prop(dumpstate, last_boot_reason_prop)
+get_prop(dumpstate, system_boot_reason_prop)
+
 # Access to /data/media.
 # This should be removed if sdcardfs is modified to alter the secontext for its
 # accesses to the underlying FS.
