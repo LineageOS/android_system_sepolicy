@@ -129,7 +129,7 @@ def GetCoreDomains():
 #
 def GetDomainEntrypoints(pol):
     global alldomains
-    for x in pol.QueryTERule(tclass="file", perms=["entrypoint"]):
+    for x in pol.QueryExpandedTERule(tclass=set(["file"]), perms=set(["entrypoint"])):
         if not x.sctx in alldomains:
             continue
         alldomains[x.sctx].entrypoints.append(str(x.tctx))

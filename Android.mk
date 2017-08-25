@@ -224,6 +224,7 @@ LOCAL_REQUIRED_MODULES += \
     plat_seapp_contexts \
     plat_service_contexts \
     plat_hwservice_contexts \
+    searchpolicy.py \
     vndservice_contexts \
 
 ifneq ($(with_asan),true)
