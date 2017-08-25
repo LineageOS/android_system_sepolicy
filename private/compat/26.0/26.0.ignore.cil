@@ -4,6 +4,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( adbd_exec
+    bootloader_boot_reason_prop
     broadcastradio_service
     e2fs
     e2fs_exec
@@ -12,11 +13,13 @@
     hal_tetheroffload_hwservice
     hal_wifi_offload_hwservice
     kmsg_debug_device
+    last_boot_reason_prop
     mediaprovider_tmpfs
     netd_stable_secret_prop
     package_native_service
     storaged_data_file
     sysfs_fs_ext4_features
+    system_boot_reason_prop
     system_net_netd_hwservice
     thermal_service
     thermalcallback_hwservice
