@@ -29,10 +29,6 @@ allow system_server resourcecache_data_file:dir r_dir_perms;
 # ptrace to processes in the same domain for debugging crashes.
 allow system_server self:process ptrace;
 
-# Read and delete last_reboot_reason file
-allow system_server reboot_data_file:file { rename r_file_perms unlink };
-allow system_server reboot_data_file:dir { write search open remove_name };
-
 # Child of the zygote.
 allow system_server zygote:fd use;
 allow system_server zygote:process sigchld;
@@ -473,6 +469,11 @@ set_prop(system_server, ctl_bugreport_prop)
 
 # cppreopt property
 set_prop(system_server, cppreopt_prop)
+
+# BootReceiver to read ro.boot.bootreason
+get_prop(system_server, bootloader_boot_reason_prop)
+# PowerManager to read persist.sys.boot.reason
+get_prop(system_server, last_boot_reason_prop)
 
 # Collect metrics on boot time created by init
 get_prop(system_server, boottime_prop)
