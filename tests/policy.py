@@ -41,7 +41,8 @@ class TERule:
         self.rule = rule
 
 class Policy:
-    __Rules = None
+    __ExpandedRules = set()
+    __Rules = set()
     __FcDict = None
     __libsepolwrap = None
     __policydbP = None
@@ -97,6 +98,50 @@ class Policy:
         self.__libsepolwrap.destroy_type_iter(TypeIterP)
         return TypeAttr
 
+    def __TERuleMatch(self, Rule, **kwargs):
+        # Match source type
+        if ("scontext" in kwargs and
+                len(kwargs['scontext']) > 0 and
+                Rule.sctx not in kwargs['scontext']):
+            return False
+        # Match target type
+        if ("tcontext" in kwargs and
+                len(kwargs['tcontext']) > 0 and
+                Rule.tctx not in kwargs['tcontext']):
+            return False
+        # Match target class
+        if ("tclass" in kwargs and
+                len(kwargs['tclass']) > 0 and
+                not bool(set([Rule.tclass]) & kwargs['tclass'])):
+            return False
+        # Match any perms
+        if ("perms" in kwargs and
+                len(kwargs['perms']) > 0 and
+                not bool(Rule.perms & kwargs['perms'])):
+            return False
+        return True
+
+    # resolve a type to its attributes or
+    # resolve an attribute to its types and attributes
+    # For example if scontext is the domain attribute, then we need to
+    # include all types with the domain attribute such as untrusted_app and
+    # priv_app and all the attributes of those types such as appdomain.
+    def ResolveTypeAttribute(self, Type):
+        types = self.GetAllTypes(False)
+        attributes = self.GetAllTypes(True)
+
+        if Type in types:
+            return self.QueryTypeAttribute(Type, False)
+        elif Type in attributes:
+            TypesAndAttributes = set()
+            Types = self.QueryTypeAttribute(Type, True)
+            TypesAndAttributes |= Types
+            for T in Types:
+                TypesAndAttributes |= self.QueryTypeAttribute(T, False)
+            return TypesAndAttributes
+        else:
+            return set()
+
     # Return all TERules that match:
     # (any scontext) or (any tcontext) or (any tclass) or (any perms),
     # perms.
@@ -106,23 +151,32 @@ class Policy:
     # Will return any rule with:
     # (tcontext="foo" or tcontext="bar") and ("entrypoint" in perms)
     def QueryTERule(self, **kwargs):
-        if self.__Rules is None:
+        if len(self.__Rules) == 0:
             self.__InitTERules()
-        for Rule in self.__Rules:
-            # Match source type
-            if "scontext" in kwargs and Rule.sctx not in kwargs['scontext']:
-                continue
-            # Match target type
-            if "tcontext" in kwargs and Rule.tctx not in kwargs['tcontext']:
-                continue
-            # Match target class
-            if "tclass" in kwargs and Rule.tclass not in kwargs['tclass']:
-                continue
-            # Match any perms
-            if "perms" in kwargs and not bool(Rule.perms & set(kwargs['perms'])):
-                continue
-            yield Rule
 
+        # add any matching types and attributes for scontext and tcontext
+        if ("scontext" in kwargs and len(kwargs['scontext']) > 0):
+            scontext = set()
+            for sctx in kwargs['scontext']:
+                scontext |= self.ResolveTypeAttribute(sctx)
+            kwargs['scontext'] = scontext
+        if ("tcontext" in kwargs and len(kwargs['tcontext']) > 0):
+            tcontext = set()
+            for tctx in kwargs['tcontext']:
+                tcontext |= self.ResolveTypeAttribute(tctx)
+            kwargs['tcontext'] = tcontext
+        for Rule in self.__Rules:
+            if self.__TERuleMatch(Rule, **kwargs):
+                yield Rule
+
+    # Same as QueryTERule but only using the expanded ruleset.
+    # i.e. all attributes have been expanded to their various types.
+    def QueryExpandedTERule(self, **kwargs):
+        if len(self.__ExpandedRules) == 0:
+            self.__InitExpandedTERules()
+        for Rule in self.__ExpandedRules:
+            if self.__TERuleMatch(Rule, **kwargs):
+                yield Rule
 
     def GetAllTypes(self, isAttr):
         TypeIterP = self.__libsepolwrap.init_type_iter(self.__policydbP, None, isAttr)
@@ -155,9 +209,9 @@ class Policy:
         return Types
 
 
-    def __GetTERules(self, policydbP, avtabIterP):
-        if self.__Rules is None:
-            self.__Rules = set()
+    def __GetTERules(self, policydbP, avtabIterP, Rules):
+        if Rules is None:
+            Rules = set()
         buf = create_string_buffer(self.__BUFSIZE)
         ret = 0
         while True:
@@ -165,7 +219,7 @@ class Policy:
                         policydbP, avtabIterP)
             if ret == 0:
                 Rule = TERule(buf.value)
-                self.__Rules.add(Rule)
+                Rules.add(Rule)
                 continue
             if ret == 1:
                 break;
@@ -176,13 +230,25 @@ class Policy:
         avtabIterP = self.__libsepolwrap.init_avtab(self.__policydbP)
         if (avtabIterP == None):
             sys.exit("Failed to initialize avtab")
-        self.__GetTERules(self.__policydbP, avtabIterP)
+        self.__GetTERules(self.__policydbP, avtabIterP, self.__Rules)
         self.__libsepolwrap.destroy_avtab(avtabIterP)
         avtabIterP = self.__libsepolwrap.init_cond_avtab(self.__policydbP)
         if (avtabIterP == None):
             sys.exit("Failed to initialize conditional avtab")
-        self.__GetTERules(self.__policydbP, avtabIterP)
+        self.__GetTERules(self.__policydbP, avtabIterP, self.__Rules)
         self.__libsepolwrap.destroy_avtab(avtabIterP)
+
+    def __InitExpandedTERules(self):
+        avtabIterP = self.__libsepolwrap.init_expanded_avtab(self.__policydbP)
+        if (avtabIterP == None):
+            sys.exit("Failed to initialize avtab")
+        self.__GetTERules(self.__policydbP, avtabIterP, self.__ExpandedRules)
+        self.__libsepolwrap.destroy_expanded_avtab(avtabIterP)
+        avtabIterP = self.__libsepolwrap.init_expanded_cond_avtab(self.__policydbP)
+        if (avtabIterP == None):
+            sys.exit("Failed to initialize conditional avtab")
+        self.__GetTERules(self.__policydbP, avtabIterP, self.__ExpandedRules)
+        self.__libsepolwrap.destroy_expanded_avtab(avtabIterP)
 
     # load ctypes-ified libsepol wrapper
     def __InitLibsepolwrap(self, LibPath):
@@ -201,6 +267,14 @@ class Policy:
         lib.load_policy.argtypes = [c_char_p]
         # void destroy_policy(void *policydbp);
         lib.destroy_policy.argtypes = [c_void_p]
+        # void *init_expanded_avtab(void *policydbp);
+        lib.init_expanded_avtab.restype = c_void_p
+        lib.init_expanded_avtab.argtypes = [c_void_p]
+        # void *init_expanded_cond_avtab(void *policydbp);
+        lib.init_expanded_cond_avtab.restype = c_void_p
+        lib.init_expanded_cond_avtab.argtypes = [c_void_p]
+        # void destroy_expanded_avtab(void *avtab_iterp);
+        lib.destroy_expanded_avtab.argtypes = [c_void_p]
         # void *init_avtab(void *policydbp);
         lib.init_avtab.restype = c_void_p
         lib.init_avtab.argtypes = [c_void_p]
