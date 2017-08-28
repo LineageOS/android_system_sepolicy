@@ -8,6 +8,10 @@ add_hwservice(hal_configstore_server, hal_configstore_ISurfaceFlingerConfigs)
 # this HAL should be restricted to different clients. Thus, the allow rules for
 # clients are defined in the .te files of the clients.
 
+# hal_configstore runs with a strict seccomp filter. Use crash_dump's
+# fallback path to collect crash data.
+crash_dump_fallback(hal_configstore_server)
+
 ###
 ### neverallow rules
 ###
@@ -33,11 +37,14 @@ neverallow hal_configstore_server {
   -hal_configstore_server
   -logd
   userdebug_or_eng(`-su')
+  -tombstoned
 }:{ unix_dgram_socket unix_stream_socket } *;
 
 # Should never need access to anything on /data
 neverallow hal_configstore_server {
   data_file_type
+  -anr_data_file # for crash dump collection
+  -tombstone_data_file # for crash dump collection
   -zoneinfo_data_file # granted to domain
 }:{ file fifo_file sock_file } *;
 

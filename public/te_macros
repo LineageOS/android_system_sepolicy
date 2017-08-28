@@ -234,7 +234,7 @@ typeattribute $1 $2;
 # Find passthrough HAL implementations
 allow $2 system_file:dir r_dir_perms;
 allow $2 vendor_file:dir r_dir_perms;
-allow $2 vendor_file:file { read open getattr execute };
+allow $2 vendor_file:file { read open getattr execute map };
 ')
 ')
 
@@ -253,7 +253,7 @@ typeattribute $1 $2;
 # Find passthrough HAL implementations
 allow $2 system_file:dir r_dir_perms;
 allow $2 vendor_file:dir r_dir_perms;
-allow $2 vendor_file:file { read open getattr execute };
+allow $2 vendor_file:file { read open getattr execute map };
 ')
 
 #####################################
