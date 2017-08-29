@@ -143,8 +143,8 @@ full_treble_only(`
     allow { domain -coredomain } vendor_file_type:lnk_file { getattr read };
 ')
 
-# read any sysfs symlinks
-allow domain sysfs:lnk_file read;
+# read and stat any sysfs symlinks
+allow domain sysfs:lnk_file { getattr read };
 
 # libc references /data/misc/zoneinfo for timezone related information
 # This directory is considered to be a VNDK-stable
