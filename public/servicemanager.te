@@ -18,7 +18,7 @@ allow servicemanager {
 
 allow servicemanager service_contexts_file:file r_file_perms;
 # nonplat_service_contexts only accessible on non full-treble devices
-not_full_treble('allow servicemanager nonplat_service_contexts_file:file r_file_perms;')
+not_full_treble(`allow servicemanager nonplat_service_contexts_file:file r_file_perms;')
 
 # Check SELinux permissions.
 selinux_check_access(servicemanager)
