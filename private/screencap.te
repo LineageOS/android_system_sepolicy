@@ -1,4 +1,3 @@
-type screencap, domain;
 type screencap_exec, exec_type, file_type;
 
 typeattribute screencap coredomain;
@@ -35,6 +34,8 @@ allow screencap mnt_user_file:dir search;
 allow screencap mnt_user_file:lnk_file read;
 allow screencap sdcardfs:dir { search write };
 allow screencap sdcardfs:file { open write };
+allow screencap shell_data_file:file create_file_perms;
+allow screencap shell_data_file:dir rw_dir_perms;
 allow screencap storage_file:dir search;
 allow screencap storage_file:lnk_file read;
 allow screencap tmpfs:dir search;
