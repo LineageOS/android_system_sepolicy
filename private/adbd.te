@@ -3,6 +3,8 @@
 typeattribute adbd coredomain;
 typeattribute adbd mlstrustedsubject;
 
+init_daemon_domain(adbd)
+
 domain_auto_trans(adbd, shell_exec, shell)
 
 userdebug_or_eng(`
