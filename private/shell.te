@@ -26,7 +26,3 @@ binder_call(shell, storaged)
 # Perform SELinux access checks, needed for CTS
 selinux_check_access(shell)
 selinux_check_context(shell)
-
-# Use screencap
-domain_auto_trans(shell, screencap_exec, screencap)
-allow shell screencap:process signal;
