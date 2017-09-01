@@ -24,7 +24,3 @@ binder_call(dumpstate, storaged)
 
 # Collect metrics on boot time created by init
 get_prop(dumpstate, boottime_prop)
-
-# Use screencap
-domain_auto_trans(dumpstate, screencap_exec, screencap)
-allow dumpstate screencap:process signal;

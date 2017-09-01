@@ -924,7 +924,6 @@ neverallow {
   -dumpstate
   -installd
   -init
-  -screencap
   -shell
   -vold
 } shell_data_file:dir no_w_dir_perms;
@@ -936,7 +935,6 @@ neverallow {
   -dumpstate
   -init
   -installd
-  -screencap
   -system_server # why?
   userdebug_or_eng(`-uncrypt')
 } shell_data_file:dir { open search };
@@ -949,7 +947,6 @@ neverallow {
   -appdomain
   -dumpstate
   -installd
-  -screencap
   userdebug_or_eng(`-uncrypt')
 } shell_data_file:file open;
 
