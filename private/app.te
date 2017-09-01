@@ -409,9 +409,7 @@ neverallow appdomain { domain -appdomain }:file write;
 # sigchld allowed for parent death notification.
 # signull allowed for kill(pid, 0) existence test.
 # All others prohibited.
-neverallow { appdomain -shell } { domain -appdomain }:process
-    { sigkill sigstop signal };
-neverallow shell { domain -appdomain -screencap }:process
+neverallow appdomain { domain -appdomain }:process
     { sigkill sigstop signal };
 
 # Transition to a non-app domain.

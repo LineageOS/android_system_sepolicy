@@ -65,9 +65,14 @@ get_prop(adbd, serialno_prop)
 # Run /system/bin/bu
 allow adbd system_file:file rx_file_perms;
 
-# Use screencap
-domain_auto_trans(adbd, screencap_exec, screencap)
-allow adbd screencap:process signal;
+# Perform binder IPC to surfaceflinger (screencap)
+# XXX Run screencap in a separate domain?
+binder_use(adbd)
+binder_call(adbd, surfaceflinger)
+# b/13188914
+allow adbd gpu_device:chr_file rw_file_perms;
+allow adbd ion_device:chr_file rw_file_perms;
+r_dir_file(adbd, system_file)
 
 # Needed for various screenshots
 hal_client_domain(adbd, hal_graphics_allocator)
@@ -134,5 +139,5 @@ allow adbd rootfs:dir r_dir_perms;
 # No transitions from adbd to non-shell, non-crash_dump domains. adbd only ever
 # transitions to the shell domain (except when it crashes). In particular, we
 # never want to see a transition from adbd to su (aka "adb root")
-neverallow adbd { domain -crash_dump -shell -screencap }:process transition;
+neverallow adbd { domain -crash_dump -shell }:process transition;
 neverallow adbd { domain userdebug_or_eng(`-su') }:process dyntransition;
