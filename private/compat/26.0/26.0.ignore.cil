@@ -31,6 +31,4 @@
 ;;     Thus, these types are also not mapped, but recorded for checkapi tests
 (typeattribute priv_objects)
 (typeattributeset priv_objects
-     ( adbd_tmpfs
-       screencap
-       screencap_exec ))
+     ( adbd_tmpfs ))
