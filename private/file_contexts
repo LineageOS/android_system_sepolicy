@@ -212,7 +212,6 @@
 /system/bin/mediametrics	u:object_r:mediametrics_exec:s0
 /system/bin/cameraserver	u:object_r:cameraserver_exec:s0
 /system/bin/mediaextractor	u:object_r:mediaextractor_exec:s0
-/system/bin/screencap	u:object_r:screencap_exec:s0
 /system/bin/mdnsd	u:object_r:mdnsd_exec:s0
 /system/bin/installd	u:object_r:installd_exec:s0
 /system/bin/otapreopt_chroot   u:object_r:otapreopt_chroot_exec:s0
