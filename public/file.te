@@ -324,6 +324,7 @@ type vndservice_contexts_file, file_type;
 
 # Allow files to be created in their appropriate filesystems.
 allow fs_type self:filesystem associate;
+allow cgroup tmpfs:filesystem associate;
 allow sysfs_type sysfs:filesystem associate;
 allow debugfs_type { debugfs debugfs_tracing }:filesystem associate;
 allow file_type labeledfs:filesystem associate;
