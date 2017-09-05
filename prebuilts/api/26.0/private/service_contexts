@@ -96,6 +96,7 @@ media_router                              u:object_r:media_router_service:s0
 media_session                             u:object_r:media_session_service:s0
 meminfo                                   u:object_r:meminfo_service:s0
 midi                                      u:object_r:midi_service:s0
+mirror_power_save                         u:object_r:lcd_power_save_service:s0
 mount                                     u:object_r:mount_service:s0
 netd                                      u:object_r:netd_service:s0
 netpolicy                                 u:object_r:netpolicy_service:s0
