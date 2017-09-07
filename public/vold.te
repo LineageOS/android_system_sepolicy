@@ -135,8 +135,15 @@ allow vold unlabeled:file { r_file_perms setattr relabelfrom };
 # Handle wake locks (used for device encryption)
 wakelock_use(vold)
 
-# talk to batteryservice
+# Allow vold to publish a binder service and make binder calls.
 binder_use(vold)
+add_service(vold, vold_service)
+
+# Allow vold to call into the system server so it can check permissions.
+binder_call(vold, system_server)
+allow vold permission_service:service_manager find;
+
+# talk to batteryservice
 binder_call(vold, healthd)
 
 # talk to keymaster
@@ -190,5 +197,17 @@ neverallow { domain -vold -kernel } vold_data_file:notdevfile_class_set ~{ relab
 neverallow { domain -vold -init } vold_data_file:dir *;
 neverallow { domain -vold -init -kernel } vold_data_file:notdevfile_class_set *;
 neverallow { domain -vold -init } restorecon_prop:property_service set;
+
+# Only system_server can interact with vold over binder
+neverallow { domain -system_server -vold } vold_service:service_manager find;
+neverallow vold {
+  domain
+  -hal_keymaster
+  -healthd
+  -hwservicemanager
+  -servicemanager
+  -system_server
+  userdebug_or_eng(`-su')
+}:binder call;
 
 neverallow vold fsck_exec:file execute_no_trans;

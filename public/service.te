@@ -27,6 +27,7 @@ type system_app_service,        service_manager_type;
 type thermal_service,           service_manager_type;
 type update_engine_service,     service_manager_type;
 type virtual_touchpad_service,  service_manager_type;
+type vold_service,              service_manager_type;
 type vr_hwc_service,            service_manager_type;
 
 # system_server_services broken down
