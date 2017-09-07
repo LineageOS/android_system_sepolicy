@@ -211,7 +211,6 @@ LOCAL_REQUIRED_MODULES += \
     nonplat_mac_permissions.xml \
     nonplat_property_contexts \
     nonplat_seapp_contexts \
-    nonplat_service_contexts \
     nonplat_hwservice_contexts \
     plat_file_contexts \
     plat_mac_permissions.xml \
@@ -220,6 +219,10 @@ LOCAL_REQUIRED_MODULES += \
     plat_service_contexts \
     plat_hwservice_contexts \
     vndservice_contexts \
+
+ifneq ($(PRODUCT_FULL_TREBLE),true)
+LOCAL_REQUIRED_MODULES += nonplat_service_contexts
+endif
 
 include $(BUILD_PHONY_PACKAGE)
 
@@ -942,16 +945,15 @@ plat_svcfiles :=
 plat_service_contexts.tmp :=
 
 ##################################
+# nonplat_service_contexts is only allowed on non-full-treble devices
+ifneq ($(PRODUCT_FULL_TREBLE),true)
+
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := nonplat_service_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_FULL_TREBLE),true)
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
-else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -973,6 +975,8 @@ $(LOCAL_BUILT_MODULE): $(nonplat_service_contexts.tmp) $(built_sepolicy) $(HOST_
 built_nonplat_svc := $(LOCAL_BUILT_MODULE)
 nonplat_svcfiles :=
 nonplat_service_contexts.tmp :=
+
+endif
 
 ##################################
 include $(CLEAR_VARS)
