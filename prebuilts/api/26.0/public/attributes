@@ -144,6 +144,15 @@ attribute socket_between_core_and_vendor_violators;
 # TODO(b/36463595)
 attribute vendor_executes_system_violators;
 
+# hwservices that are accessible from untrusted applications
+# WARNING: Use of this attribute should be avoided unless
+# absolutely necessary.  It is a temporary allowance to aid the
+# transition to treble and will be removed in a future platform
+# version, requiring all hwservices that are labeled with this
+# attribute to be submitted to AOSP in order to maintain their
+# app-visibility.
+attribute untrusted_app_visible_hwservice;
+
 # PDX services
 attribute pdx_endpoint_dir_type;
 attribute pdx_endpoint_socket_type;
