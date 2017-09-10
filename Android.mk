@@ -216,7 +216,6 @@ LOCAL_REQUIRED_MODULES += \
     nonplat_mac_permissions.xml \
     nonplat_property_contexts \
     nonplat_seapp_contexts \
-    nonplat_service_contexts \
     nonplat_hwservice_contexts \
     plat_file_contexts \
     plat_mac_permissions.xml \
@@ -226,6 +225,16 @@ LOCAL_REQUIRED_MODULES += \
     plat_hwservice_contexts \
     searchpolicy.py \
     vndservice_contexts \
+
+ifneq ($(PRODUCT_FULL_TREBLE),true)
+LOCAL_REQUIRED_MODULES += nonplat_service_contexts
+endif
+
+ifneq ($(TARGET_BUILD_VARIANT), user)
+LOCAL_REQUIRED_MODULES += \
+    selinux_denial_metadata \
+
+endif
 
 ifneq ($(with_asan),true)
 LOCAL_REQUIRED_MODULES += \
@@ -670,6 +679,24 @@ file_contexts.device.tmp :=
 file_contexts.local.tmp :=
 
 ##################################
+ifneq ($(TARGET_BUILD_VARIANT), user)
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := selinux_denial_metadata
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+bug_files := $(call build_policy, bug_map, $(LOCAL_PATH) $(PLAT_PRIVATE_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS) $(PLAT_PUBLIC_POLICY))
+
+$(LOCAL_BUILT_MODULE) : $(bug_files)
+	@mkdir -p $(dir $@)
+	cat $^ > $@
+
+bug_files :=
+endif
+##################################
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := plat_file_contexts
@@ -954,16 +981,15 @@ plat_svcfiles :=
 plat_service_contexts.tmp :=
 
 ##################################
+# nonplat_service_contexts is only allowed on non-full-treble devices
+ifneq ($(PRODUCT_FULL_TREBLE),true)
+
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := nonplat_service_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_FULL_TREBLE),true)
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
-else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -985,6 +1011,8 @@ $(LOCAL_BUILT_MODULE): $(nonplat_service_contexts.tmp) $(built_sepolicy) $(HOST_
 built_nonplat_svc := $(LOCAL_BUILT_MODULE)
 nonplat_svcfiles :=
 nonplat_service_contexts.tmp :=
+
+endif
 
 ##################################
 include $(CLEAR_VARS)

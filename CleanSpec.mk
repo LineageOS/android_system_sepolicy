@@ -71,3 +71,6 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/selinux/mapping_sepolicy
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/selinux/plat_sepolicy.cil.sha256)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/selinux/precompiled_sepolicy.plat.sha256)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/selinux/mapping_sepolicy.cil)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/selinux/nonplat_service_contexts)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/obj/ETC/nonplat_service_contexts_intermediates)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/obj/NOTICE_FILES/src/vendor/etc/selinux/nonplat_service_contexts.txt)
