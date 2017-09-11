@@ -106,5 +106,3 @@ neverallow netd { app_data_file system_data_file }:dir_file_class_set write;
 
 # only system_server, dumpstate and netd  may interact with netd over binder
 neverallow { domain -system_server -dumpstate -netd } netd_service:service_manager find;
-neverallow { domain -system_server -dumpstate } netd:binder call;
-neverallow netd { domain -system_server -servicemanager userdebug_or_eng(`-su') }:binder call;
