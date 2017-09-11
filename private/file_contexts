@@ -17,6 +17,8 @@
 /charger            u:object_r:rootfs:s0
 /init               u:object_r:init_exec:s0
 /sbin(/.*)?         u:object_r:rootfs:s0
+/sbin/e2fsdroid     u:object_r:e2fs_exec:s0
+/sbin/mke2fs        u:object_r:e2fs_exec:s0
 
 # For kernel modules
 /lib(/.*)?          u:object_r:rootfs:s0
