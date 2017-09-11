@@ -1,3 +1,0 @@
-## HwBinder IPC from client to server, and callbacks
-binder_call(hal_tetheroffload_client, hal_tetheroffload_server)
-binder_call(hal_tetheroffload_server, hal_tetheroffload_client)
