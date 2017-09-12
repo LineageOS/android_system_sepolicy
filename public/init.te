@@ -37,6 +37,7 @@ allow init kernel:fd use;
 # restorecon for early mount device symlinks
 allow init tmpfs:lnk_file { getattr read relabelfrom };
 allow init system_block_device:{ blk_file lnk_file } relabelto;
+allow init misc_block_device:{ blk_file lnk_file } relabelto;
 
 # setrlimit
 allow init self:capability sys_resource;

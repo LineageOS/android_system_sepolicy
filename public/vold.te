@@ -211,3 +211,6 @@ neverallow vold {
 }:binder call;
 
 neverallow vold fsck_exec:file execute_no_trans;
+neverallow { domain -init } vold:process { transition dyntransition };
+neverallow vold *:process ptrace;
+neverallow vold *:rawip_socket *;
