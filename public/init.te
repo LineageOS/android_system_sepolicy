@@ -271,6 +271,9 @@ allow init proc_sysrq:file w_file_perms;
 # Read /proc/stat for bootchart.
 allow init proc_stat:file r_file_perms;
 
+# Read /proc/version.
+allow init proc_version:file r_file_perms;
+
 # Reboot.
 allow init self:capability sys_boot;
 

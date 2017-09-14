@@ -675,9 +675,13 @@ allow system_server preloads_media_file:dir { r_dir_perms write remove_name rmdi
 r_dir_file(system_server, cgroup)
 allow system_server ion_device:chr_file r_file_perms;
 
-r_dir_file(system_server, proc)
+r_dir_file(system_server, proc_asound_cards)
+r_dir_file(system_server, proc_loadavg)
 r_dir_file(system_server, proc_meminfo)
 r_dir_file(system_server, proc_net)
+r_dir_file(system_server, proc_pagetypeinfo)
+r_dir_file(system_server, proc_version)
+r_dir_file(system_server, proc_vmallocinfo)
 r_dir_file(system_server, rootfs)
 r_dir_file(system_server, sysfs_type)
 

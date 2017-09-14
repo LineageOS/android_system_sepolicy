@@ -153,6 +153,9 @@ read_runtime_log_tags(dumpstate)
 # Read files in /proc
 allow dumpstate proc_meminfo:file r_file_perms;
 allow dumpstate proc_net:file r_file_perms;
+allow dumpstate proc_pagetypeinfo:file r_file_perms;
+allow dumpstate proc_version:file r_file_perms;
+allow dumpstate proc_vmallocinfo:file r_file_perms;
 r_dir_file(dumpstate, proc)
 
 # Read network state info files.
