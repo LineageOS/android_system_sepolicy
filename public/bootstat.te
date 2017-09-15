@@ -30,3 +30,31 @@ allow bootstat kernel:system syslog_read;
 read_logd(bootstat)
 
 # ToDo: end
+
+neverallow {
+  domain
+  -bootanim
+  -bootstat
+  -dumpstate
+  -init
+  -recovery
+  -shell
+  -system_server
+} { bootloader_boot_reason_prop last_boot_reason_prop }:file r_file_perms;
+# ... and refine, as these components should not set the last boot reason
+neverallow { bootanim recovery } last_boot_reason_prop:file r_file_perms;
+
+neverallow {
+  domain
+  -bootstat
+  -init
+  -system_server
+} { bootloader_boot_reason_prop last_boot_reason_prop }:property_service set;
+# ... and refine ... for a ro propertly no less ... keep this _tight_
+neverallow system_server bootloader_boot_reason_prop:property_service set;
+
+neverallow {
+  domain
+  -bootstat
+  -init
+} system_boot_reason_prop:property_service set;
