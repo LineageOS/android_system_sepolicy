@@ -191,6 +191,7 @@ neverallow untrusted_app {
 
 # For exfat and f2fs/ext4 sdcards via sdcardfs
 ifelse(shipping_build, `true', ,`
+  -exfat
   -fuseblk
   -sdcard_posix
 ')
