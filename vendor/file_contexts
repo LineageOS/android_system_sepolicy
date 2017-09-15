@@ -5,6 +5,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.0-service      u:object_r:hal_bluetooth_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service u:object_r:hal_fingerprint_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.boot@1\.0-service           u:object_r:hal_bootctl_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.broadcastradio@1\.1-service u:object_r:hal_broadcastradio_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider@2\.4-service          u:object_r:hal_camera_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.configstore@1\.[0-9]+-service    u:object_r:hal_configstore_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.contexthub@1\.0-service     u:object_r:hal_contexthub_default_exec:s0
