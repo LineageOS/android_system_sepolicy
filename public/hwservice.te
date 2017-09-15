@@ -5,6 +5,7 @@ type fwk_sensor_hwservice, hwservice_manager_type, coredomain_hwservice;
 type hal_audio_hwservice, hwservice_manager_type;
 type hal_bluetooth_hwservice, hwservice_manager_type;
 type hal_bootctl_hwservice, hwservice_manager_type;
+type hal_broadcastradio_hwservice, hwservice_manager_type;
 type hal_camera_hwservice, hwservice_manager_type;
 type hal_configstore_ISurfaceFlingerConfigs, hwservice_manager_type;
 type hal_contexthub_hwservice, hwservice_manager_type;
