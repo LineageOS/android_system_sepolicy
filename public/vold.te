@@ -198,8 +198,8 @@ neverallow { domain -vold -init } vold_data_file:dir *;
 neverallow { domain -vold -init -kernel } vold_data_file:notdevfile_class_set *;
 neverallow { domain -vold -init } restorecon_prop:property_service set;
 
-# Only system_server can interact with vold over binder
-neverallow { domain -system_server -vold } vold_service:service_manager find;
+# Only system_server and vdc can interact with vold over binder
+neverallow { domain -system_server -vdc -vold } vold_service:service_manager find;
 neverallow vold {
   domain
   -hal_keymaster
