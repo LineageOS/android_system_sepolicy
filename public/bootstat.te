@@ -8,9 +8,6 @@ read_runtime_log_tags(bootstat)
 allow bootstat bootstat_data_file:dir rw_dir_perms;
 allow bootstat bootstat_data_file:file create_file_perms;
 
-# Read access to pseudo filesystems (for /proc/uptime).
-r_dir_file(bootstat, proc)
-
 # Collect metrics on boot time created by init
 get_prop(bootstat, boottime_prop)
 
