@@ -9,6 +9,7 @@
 (type mediacasserver_service)
 (type tracing_shell_writable)
 (type tracing_shell_writable_debug)
+(type vold_socket)
 
 (typeattributeset accessibility_service_26_0 (accessibility_service))
 (typeattributeset account_service_26_0 (account_service))
