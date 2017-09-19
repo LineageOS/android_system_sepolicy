@@ -39,7 +39,6 @@ allow rild self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 # Access to wake locks
 wakelock_use(rild)
 
-r_dir_file(rild, proc)
 r_dir_file(rild, proc_net)
 r_dir_file(rild, sysfs_type)
 r_dir_file(rild, system_file)
