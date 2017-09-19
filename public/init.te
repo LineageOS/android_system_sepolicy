@@ -395,8 +395,6 @@ allow init unencrypted_data_file:dir create_dir_perms;
 # Allow init to write to /proc/sys/vm/overcommit_memory
 allow init proc_overcommit_memory:file { write };
 
-unix_socket_connect(init, vold, vold)
-
 # Raw writes to misc block device
 allow init misc_block_device:blk_file w_file_perms;
 
