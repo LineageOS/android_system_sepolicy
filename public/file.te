@@ -277,7 +277,6 @@ type tombstoned_crash_socket, file_type, coredomain_socket, mlstrustedobject;
 type tombstoned_java_trace_socket, file_type, mlstrustedobject;
 type tombstoned_intercept_socket, file_type, coredomain_socket;
 type uncrypt_socket, file_type, coredomain_socket;
-type vold_socket, file_type, coredomain_socket;
 type webview_zygote_socket, file_type, coredomain_socket;
 type wpa_socket, file_type, data_file_type;
 type zygote_socket, file_type, coredomain_socket;
