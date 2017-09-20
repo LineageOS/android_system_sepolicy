@@ -32,7 +32,7 @@ allow sdcardd vold:fifo_file { read write getattr };
 allow sdcardd mnt_expand_file:dir search;
 
 # access /proc/filesystems
-allow sdcardd proc:file r_file_perms;
+allow sdcardd proc_filesystems:file r_file_perms;
 
 ###
 ### neverallow rules

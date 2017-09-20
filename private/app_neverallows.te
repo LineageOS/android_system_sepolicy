@@ -111,9 +111,12 @@ neverallow all_untrusted_apps anr_data_file:dir ~search;
 neverallow all_untrusted_apps {
   proc
   proc_asound_cards
+  proc_filesystems
   proc_kmsg
   proc_loadavg
+  proc_mounts
   proc_pagetypeinfo
+  proc_swaps
   proc_version
   proc_vmallocinfo
 }:file { no_rw_file_perms no_x_file_perms };
