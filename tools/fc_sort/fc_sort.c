@@ -507,9 +507,17 @@ int main(int argc, char *argv[])
 			    (file_context_bucket_t *)
 			    malloc(sizeof(file_context_bucket_t));
 			if (!(bcurrent->next)) {
-				printf
-				    ("Error: failure allocating memory.\n");
-				return -1;
+			    // Static analyzer complains about a
+			    // memory leak of the memory used by the
+			    // list created with bcurrent. We could
+			    // try to deallocate it before returning
+			    // it but since this is the "main"
+			    // routine, it is not worth doing
+			    // that. Just silence the static analyzer.
+			    // NOLINTNEXTLINE
+			    printf
+				("Error: failure allocating memory.\n");
+			    return -1;
 			}
 
 			/* Make sure the new bucket thinks it's the end of the
