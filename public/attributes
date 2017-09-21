@@ -245,7 +245,7 @@ expandattribute hal_drm_client true;
 attribute hal_drm_server;
 expandattribute hal_drm_server true;
 attribute hal_cas;
-expandattribute hal_cas true;
+expandattribute hal_cas false;
 attribute hal_cas_client;
 expandattribute hal_cas_client true;
 attribute hal_cas_server;
