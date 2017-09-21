@@ -14,6 +14,9 @@ allow runas shell_data_file:file { read write };
 allow runas system_data_file:file r_file_perms;
 allow runas system_data_file:lnk_file getattr;
 
+# The app's data dir may be accessed through a symlink.
+allow runas system_data_file:lnk_file read;
+
 # run-as checks and changes to the app data dir.
 dontaudit runas self:capability dac_override;
 allow runas app_data_file:dir { getattr search };
