@@ -8,7 +8,6 @@ allow vold cache_file:file { getattr read };
 allow vold cache_file:lnk_file r_file_perms;
 
 # Read access to pseudo filesystems.
-r_dir_file(vold, proc)
 r_dir_file(vold, proc_net)
 r_dir_file(vold, sysfs_type)
 # XXX Label sysfs files with a specific type?
@@ -18,6 +17,8 @@ allow vold sysfs_zram_uevent:file w_file_perms;
 
 r_dir_file(vold, rootfs)
 allow vold {
+  proc_cmdline
+  proc_drop_caches
   proc_filesystems
   proc_meminfo
   proc_mounts
