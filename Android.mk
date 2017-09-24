@@ -1150,10 +1150,10 @@ treble_sepolicy_tests := $(intermediates)/treble_sepolicy_tests
 $(treble_sepolicy_tests): PRIVATE_PLAT_FC := $(built_plat_fc)
 $(treble_sepolicy_tests): PRIVATE_NONPLAT_FC := $(built_nonplat_fc)
 $(treble_sepolicy_tests): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(treble_sepolicy_tests): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests.py \
+$(treble_sepolicy_tests): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests \
 $(built_plat_fc) $(built_nonplat_fc) $(built_sepolicy)
 	@mkdir -p $(dir $@)
-	$(hide) python $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests.py -l $(HOST_OUT)/lib64 -f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) -p $(PRIVATE_SEPOLICY)
+	$(hide) python $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests -l $(HOST_OUT)/lib64 -f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) -p $(PRIVATE_SEPOLICY)
 	$(hide) touch $@
 endif # ($(PRODUCT_FULL_TREBLE),true)
 #################################
