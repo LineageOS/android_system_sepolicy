@@ -2,7 +2,6 @@ from ctypes import *
 import re
 import os
 import sys
-import platform
 
 ###
 # Check whether the regex will match a file path starting with the provided
@@ -253,13 +252,12 @@ class Policy:
 
     # load ctypes-ified libsepol wrapper
     def __InitLibsepolwrap(self, LibPath):
-        if "linux" in platform.system().lower():
+        if "linux" in sys.platform:
             lib = CDLL(LibPath + "/libsepolwrap.so")
-        elif "darwin" in platform.system.lower():
+        elif "darwin" in sys.platform:
             lib = CDLL(LibPath + "/libsepolwrap.dylib")
         else:
-            sys.exit("policy.py: " + platform.system() + " not supported." +
-                    " Only Linux and Darwin platforms are currently supported.")
+            sys.exit("only Linux and Mac currrently supported")
 
         # int get_allow_rule(char *out, size_t len, void *policydbp, void *avtab_iterp);
         lib.get_allow_rule.restype = c_int
