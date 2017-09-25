@@ -19,7 +19,6 @@ python_defaults {
     name: "py2_only",
     version: {
         py2: {
-            embedded_launcher: true,
             enabled: true,
         },
         py3: {
