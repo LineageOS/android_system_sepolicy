@@ -249,7 +249,7 @@ expandattribute hal_cas false;
 attribute hal_cas_client;
 expandattribute hal_cas_client true;
 attribute hal_cas_server;
-expandattribute hal_cas_server true;
+expandattribute hal_cas_server false;
 attribute hal_dumpstate;
 expandattribute hal_dumpstate true;
 attribute hal_dumpstate_client;
