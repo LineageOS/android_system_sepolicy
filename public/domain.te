@@ -817,6 +817,7 @@ ifelse(target_needs_platform_text_relocations, `true',
     file_type
     -system_file
     -system_data_file
+    -vendor_file
     -apk_data_file
     -app_data_file
     -asec_public_file
