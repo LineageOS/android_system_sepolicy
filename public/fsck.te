@@ -30,7 +30,10 @@ allow fsck dm_device:blk_file rw_file_perms;
 # major/minor values.
 allow fsck dev_type:blk_file getattr;
 
-r_dir_file(fsck, proc)
+allow fsck {
+  proc_mounts
+  proc_swaps
+}:file r_file_perms;
 allow fsck rootfs:dir r_dir_perms;
 
 ###

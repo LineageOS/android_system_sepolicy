@@ -108,10 +108,24 @@ neverallow all_untrusted_apps anr_data_file:dir ~search;
 
 # Avoid reads from generically labeled /proc files
 # Create a more specific label if needed
-neverallow all_untrusted_apps proc:file { no_rw_file_perms no_x_file_perms };
+neverallow all_untrusted_apps {
+  proc
+  proc_asound_cards
+  proc_filesystems
+  proc_kmsg
+  proc_loadavg
+  proc_mounts
+  proc_pagetypeinfo
+  proc_swaps
+  proc_version
+  proc_vmallocinfo
+}:file { no_rw_file_perms no_x_file_perms };
 
 # Avoid all access to kernel configuration
 neverallow all_untrusted_apps config_gz:file { no_rw_file_perms no_x_file_perms };
+
+# Only system_server can access proc_uid_time_in_state
+neverallow { domain -init -system_server } proc_uid_time_in_state:file *;
 
 # Do not allow untrusted apps access to preloads data files
 neverallow all_untrusted_apps preloads_data_file:file no_rw_file_perms;

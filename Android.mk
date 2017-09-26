@@ -194,12 +194,13 @@ LOCAL_REQUIRED_MODULES += \
     plat_sepolicy.cil \
     plat_and_mapping_sepolicy.cil.sha256 \
     secilc \
-    plat_sepolicy_vers.txt
+    plat_sepolicy_vers.txt \
 
 ifneq ($(with_asan),true)
 LOCAL_REQUIRED_MODULES += \
     treble_sepolicy_tests \
     sepolicy_tests
+
 endif
 
 # Include precompiled policy, unless told otherwise
@@ -223,10 +224,23 @@ LOCAL_REQUIRED_MODULES += \
     plat_seapp_contexts \
     plat_service_contexts \
     plat_hwservice_contexts \
+    searchpolicy \
     vndservice_contexts \
 
 ifneq ($(PRODUCT_FULL_TREBLE),true)
 LOCAL_REQUIRED_MODULES += nonplat_service_contexts
+endif
+
+ifneq ($(TARGET_BUILD_VARIANT), user)
+LOCAL_REQUIRED_MODULES += \
+    selinux_denial_metadata \
+
+endif
+
+ifneq ($(with_asan),true)
+LOCAL_REQUIRED_MODULES += \
+    sepolicy_tests \
+
 endif
 
 include $(BUILD_PHONY_PACKAGE)
@@ -665,6 +679,24 @@ file_contexts.device.sorted.tmp :=
 file_contexts.device.tmp :=
 file_contexts.local.tmp :=
 
+##################################
+ifneq ($(TARGET_BUILD_VARIANT), user)
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := selinux_denial_metadata
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+bug_files := $(call build_policy, bug_map, $(LOCAL_PATH) $(PLAT_PRIVATE_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS) $(PLAT_PUBLIC_POLICY))
+
+$(LOCAL_BUILT_MODULE) : $(bug_files)
+	@mkdir -p $(dir $@)
+	cat $^ > $@
+
+bug_files :=
+endif
 ##################################
 include $(CLEAR_VARS)
 
@@ -1262,6 +1294,11 @@ $(treble_sepolicy_tests): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(treble_sepolicy_tests): PRIVATE_SEPOLICY_OLD := $(built_26.0_plat_sepolicy)
 $(treble_sepolicy_tests): PRIVATE_COMBINED_MAPPING := $(26.0_mapping.combined.cil)
 $(treble_sepolicy_tests): PRIVATE_PLAT_SEPOLICY := $(built_plat_sepolicy)
+ifeq ($(PRODUCT_FULL_TREBLE_OVERRIDE),true)
+$(treble_sepolicy_tests): PRIVATE_FAKE_TREBLE := --fake-treble
+else
+$(treble_sepolicy_tests): PRIVATE_FAKE_TREBLE :=
+endif
 $(treble_sepolicy_tests): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests \
 $(built_plat_fc) $(built_nonplat_fc) $(built_sepolicy) $(built_plat_sepolicy) \
 $(built_26.0_plat_sepolicy) $(26.0_compat) $(26.0_mapping.combined.cil)
@@ -1269,7 +1306,8 @@ $(built_26.0_plat_sepolicy) $(26.0_compat) $(26.0_mapping.combined.cil)
 	$(hide) python $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests -l \
 		$(HOST_OUT)/lib64 -f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) \
 		-b $(PRIVATE_PLAT_SEPOLICY) -m $(PRIVATE_COMBINED_MAPPING) \
-		-o $(PRIVATE_SEPOLICY_OLD) -p $(PRIVATE_SEPOLICY)
+		-o $(PRIVATE_SEPOLICY_OLD) -p $(PRIVATE_SEPOLICY) \
+		$(PRIVATE_FAKE_TREBLE)
 	$(hide) touch $@
 
 26.0_PLAT_PUBLIC_POLICY :=

@@ -58,7 +58,15 @@ binder_call(system_app, incidentd)
 
 allow system_app servicemanager:service_manager list;
 # TODO: scope this down? Too broad?
-allow system_app { service_manager_type -netd_service -dumpstate_service -installd_service -virtual_touchpad_service -vr_hwc_service }:service_manager find;
+allow system_app {
+  service_manager_type
+  -dumpstate_service
+  -installd_service
+  -netd_service
+  -virtual_touchpad_service
+  -vold_service
+  -vr_hwc_service
+}:service_manager find;
 
 allow system_app keystore:keystore_key {
     get_state
