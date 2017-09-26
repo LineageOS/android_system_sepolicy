@@ -2,9 +2,6 @@
 ### neverallow rules for untrusted app domains
 ###
 
-# Only allow domains in AOSP to use the untrusted_app_all attribute.
-neverallow { untrusted_app_all -untrusted_app -untrusted_app_25 } domain:process fork;
-
 define(`all_untrusted_apps',`{
   ephemeral_app
   isolated_app
@@ -111,10 +108,24 @@ neverallow all_untrusted_apps anr_data_file:dir ~search;
 
 # Avoid reads from generically labeled /proc files
 # Create a more specific label if needed
-neverallow all_untrusted_apps proc:file { no_rw_file_perms no_x_file_perms };
+neverallow all_untrusted_apps {
+  proc
+  proc_asound_cards
+  proc_filesystems
+  proc_kmsg
+  proc_loadavg
+  proc_mounts
+  proc_pagetypeinfo
+  proc_swaps
+  proc_version
+  proc_vmallocinfo
+}:file { no_rw_file_perms no_x_file_perms };
 
 # Avoid all access to kernel configuration
 neverallow all_untrusted_apps config_gz:file { no_rw_file_perms no_x_file_perms };
+
+# Only system_server can access proc_uid_time_in_state
+neverallow { domain -init -system_server } proc_uid_time_in_state:file *;
 
 # Do not allow untrusted apps access to preloads data files
 neverallow all_untrusted_apps preloads_data_file:file no_rw_file_perms;
@@ -160,9 +171,10 @@ neverallow all_untrusted_apps {
   -hal_configstore_ISurfaceFlingerConfigs
   -hal_graphics_allocator_hwservice
   -hal_omx_hwservice
+  -hal_cas_hwservice
   -untrusted_app_visible_hwservice
 }:hwservice_manager find;
-neverallow untrusted_app_visible_hwservice unlabeled:service_manager list; #TODO: b/62658302
+
 # Make sure that the following services are never accessible by untrusted_apps
 neverallow all_untrusted_apps {
   default_android_hwservice
@@ -182,6 +194,7 @@ neverallow all_untrusted_apps {
   hal_keymaster_hwservice
   hal_light_hwservice
   hal_memtrack_hwservice
+  hal_neuralnetworks_hwservice
   hal_nfc_hwservice
   hal_oemlock_hwservice
   hal_power_hwservice
@@ -195,8 +208,11 @@ neverallow all_untrusted_apps {
   hal_vr_hwservice
   hal_weaver_hwservice
   hal_wifi_hwservice
+  hal_wifi_offload_hwservice
   hal_wifi_supplicant_hwservice
   hidl_base_hwservice
+  system_net_netd_hwservice
+  thermalcallback_hwservice
 }:hwservice_manager find;
 # HwBinder services offered by core components (as opposed to vendor components)
 # are considered somewhat safer due to point #2 above.
@@ -209,6 +225,9 @@ neverallow all_untrusted_apps {
   -hidl_token_hwservice # Designed for use by any domain
 }:hwservice_manager find;
 
+# SELinux is not an API for untrusted apps to use
+neverallow all_untrusted_apps selinuxfs:file no_rw_file_perms;
+
 # Restrict *Binder access from apps to HAL domains. We can only do this on full
 # Treble devices where *Binder communications between apps and HALs are tightly
 # restricted.
@@ -218,6 +237,8 @@ full_treble_only(`
     -coredomain
     -hal_configstore_server
     -hal_graphics_allocator_server
+    -hal_cas_server
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
+    -untrusted_app_visible_halserver
   }:binder { call transfer };
 ')

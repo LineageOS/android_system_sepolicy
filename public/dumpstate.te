@@ -73,6 +73,7 @@ allow dumpstate {
   hal_bluetooth_server
   hal_camera_server
   hal_graphics_composer_server
+  hal_sensors_server
   hal_vr_server
   mediacodec # TODO(b/36375899): hal_omx_server
 }:process signal;
@@ -152,6 +153,9 @@ read_runtime_log_tags(dumpstate)
 # Read files in /proc
 allow dumpstate proc_meminfo:file r_file_perms;
 allow dumpstate proc_net:file r_file_perms;
+allow dumpstate proc_pagetypeinfo:file r_file_perms;
+allow dumpstate proc_version:file r_file_perms;
+allow dumpstate proc_vmallocinfo:file r_file_perms;
 r_dir_file(dumpstate, proc)
 
 # Read network state info files.
@@ -185,7 +189,15 @@ userdebug_or_eng(`
   allow dumpstate misc_logd_file:file r_file_perms;
 ')
 
-allow dumpstate { service_manager_type -gatekeeper_service -dumpstate_service -incident_service -virtual_touchpad_service -vr_hwc_service }:service_manager find;
+allow dumpstate {
+  service_manager_type
+  -dumpstate_service
+  -gatekeeper_service
+  -incident_service
+  -virtual_touchpad_service
+  -vold_service
+  -vr_hwc_service
+}:service_manager find;
 allow dumpstate servicemanager:service_manager list;
 allow dumpstate hwservicemanager:hwservice_manager list;
 

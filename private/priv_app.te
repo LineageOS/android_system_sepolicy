@@ -27,7 +27,6 @@ allow priv_app drmserver_service:service_manager find;
 allow priv_app mediacodec_service:service_manager find;
 allow priv_app mediametrics_service:service_manager find;
 allow priv_app mediadrmserver_service:service_manager find;
-allow priv_app mediacasserver_service:service_manager find;
 allow priv_app mediaextractor_service:service_manager find;
 allow priv_app mediaserver_service:service_manager find;
 allow priv_app nfc_service:service_manager find;
@@ -108,7 +107,13 @@ allow priv_app preloads_media_file:dir r_dir_perms;
 # Allow privileged apps (e.g. GMS core) to generate unique hardware IDs
 allow priv_app keystore:keystore_key gen_unique_id;
 
+# Allow GMS core to access /sys/fs/selinux/policyvers for compatibility check
+allow priv_app selinuxfs:file r_file_perms;
+
 read_runtime_log_tags(priv_app)
+
+# suppress denials when safetynet scans /system
+dontaudit priv_app exec_type:file getattr;
 
 ###
 ### neverallow rules

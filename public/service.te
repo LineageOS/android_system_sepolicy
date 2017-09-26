@@ -18,15 +18,16 @@ type mediametrics_service,      service_manager_type;
 type mediaextractor_service,    service_manager_type;
 type mediacodec_service,        service_manager_type;
 type mediadrmserver_service,    service_manager_type;
-type mediacasserver_service,    service_manager_type;
 type netd_service,              service_manager_type;
 type nfc_service,               service_manager_type;
 type radio_service,             service_manager_type;
 type storaged_service,          service_manager_type;
 type surfaceflinger_service,    service_manager_type;
 type system_app_service,        service_manager_type;
+type thermal_service,           service_manager_type;
 type update_engine_service,     service_manager_type;
 type virtual_touchpad_service,  service_manager_type;
+type vold_service,              service_manager_type;
 type vr_hwc_service,            service_manager_type;
 
 # system_server_services broken down
@@ -71,6 +72,7 @@ type netd_listener_service, system_server_service, service_manager_type;
 type DockObserver_service, system_server_service, service_manager_type;
 type dreams_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type dropbox_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type lowpan_service, system_api_service, system_server_service, service_manager_type;
 type ethernet_service, app_api_service, system_server_service, service_manager_type;
 type fingerprint_service, app_api_service, system_server_service, service_manager_type;
 type gfxinfo_service, system_api_service, system_server_service, service_manager_type;
@@ -102,6 +104,7 @@ type oem_lock_service, system_api_service, system_server_service, service_manage
 type otadexopt_service, system_server_service, service_manager_type;
 type overlay_service, system_api_service, system_server_service, service_manager_type;
 type package_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type package_native_service, system_server_service, service_manager_type;
 type permission_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type persistent_data_block_service, system_api_service, system_server_service, service_manager_type;
 type pinner_service, system_server_service, service_manager_type;

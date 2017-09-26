@@ -41,6 +41,9 @@ allow untrusted_app_all asec_public_file:file { execute execmod };
 allow untrusted_app_all shell_data_file:file r_file_perms;
 allow untrusted_app_all shell_data_file:dir r_dir_perms;
 
+# Allow to read staged apks.
+allow untrusted_app_all { apk_tmp_file apk_private_tmp_file }:file {read getattr};
+
 # Read and write system app data files passed over Binder.
 # Motivating case was /data/data/com.android.settings/cache/*.jpg for
 # cropping or taking user photos.
@@ -70,7 +73,6 @@ allow untrusted_app_all mediaextractor_service:service_manager find;
 allow untrusted_app_all mediacodec_service:service_manager find;
 allow untrusted_app_all mediametrics_service:service_manager find;
 allow untrusted_app_all mediadrmserver_service:service_manager find;
-allow untrusted_app_all mediacasserver_service:service_manager find;
 allow untrusted_app_all nfc_service:service_manager find;
 allow untrusted_app_all radio_service:service_manager find;
 allow untrusted_app_all surfaceflinger_service:service_manager find;

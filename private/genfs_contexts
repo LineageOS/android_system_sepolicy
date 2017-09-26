@@ -2,18 +2,25 @@
 genfscon rootfs / u:object_r:rootfs:s0
 # proc labeling can be further refined (longest matching prefix).
 genfscon proc / u:object_r:proc:s0
+genfscon proc /asound/cards u:object_r:proc_asound_cards:s0
+genfscon proc /cmdline u:object_r:proc_cmdline:s0
 genfscon proc /config.gz u:object_r:config_gz:s0
+genfscon proc /filesystems u:object_r:proc_filesystems:s0
 genfscon proc /interrupts u:object_r:proc_interrupts:s0
 genfscon proc /iomem u:object_r:proc_iomem:s0
 genfscon proc /kmsg u:object_r:proc_kmsg:s0
+genfscon proc /loadavg u:object_r:proc_loadavg:s0
 genfscon proc /meminfo u:object_r:proc_meminfo:s0
 genfscon proc /misc u:object_r:proc_misc:s0
 genfscon proc /modules u:object_r:proc_modules:s0
+genfscon proc /mounts u:object_r:proc_mounts:s0
 genfscon proc /net u:object_r:proc_net:s0
 genfscon proc /net/xt_qtaguid/ctrl u:object_r:qtaguid_proc:s0
 genfscon proc /cpuinfo u:object_r:proc_cpuinfo:s0
+genfscon proc /pagetypeinfo u:object_r:proc_pagetypeinfo:s0
 genfscon proc /softirqs u:object_r:proc_timer:s0
 genfscon proc /stat u:object_r:proc_stat:s0
+genfscon proc /swaps u:object_r:proc_swaps:s0
 genfscon proc /sysrq-trigger u:object_r:proc_sysrq:s0
 genfscon proc /sys/fs/protected_hardlinks u:object_r:proc_security:s0
 genfscon proc /sys/fs/protected_symlinks u:object_r:proc_security:s0
@@ -42,6 +49,8 @@ genfscon proc /uid_cputime/remove_uid_range u:object_r:proc_uid_cputime_removeui
 genfscon proc /uid_io/stats u:object_r:proc_uid_io_stats:s0
 genfscon proc /uid_procstat/set u:object_r:proc_uid_procstat_set:s0
 genfscon proc /uid_time_in_state u:object_r:proc_uid_time_in_state:s0
+genfscon proc /version u:object_r:proc_version:s0
+genfscon proc /vmallocinfo u:object_r:proc_vmallocinfo:s0
 genfscon proc /zoneinfo u:object_r:proc_zoneinfo:s0
 
 # selinuxfs booleans can be individually labeled.
@@ -60,7 +69,7 @@ genfscon sysfs /devices/virtual/misc/hw_random    u:object_r:sysfs_hwrandom:s0
 genfscon sysfs /fs/ext4/features                  u:object_r:sysfs_fs_ext4_features:s0
 genfscon sysfs /power/wake_lock u:object_r:sysfs_wake_lock:s0
 genfscon sysfs /power/wake_unlock u:object_r:sysfs_wake_lock:s0
-genfscon sysfs /kernel/uevent_helper u:object_r:usermodehelper:s0
+genfscon sysfs /kernel/uevent_helper u:object_r:sysfs_usermodehelper:s0
 genfscon sysfs /module/lowmemorykiller u:object_r:sysfs_lowmemorykiller:s0
 genfscon sysfs /module/wlan/parameters/fwpath u:object_r:sysfs_wlan_fwpath:s0
 genfscon sysfs /devices/virtual/timed_output/vibrator/enable u:object_r:sysfs_vibrator:s0

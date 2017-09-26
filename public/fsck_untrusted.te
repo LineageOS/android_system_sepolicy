@@ -12,7 +12,7 @@ allow fsck_untrusted vold:fifo_file { read write getattr };
 allow fsck_untrusted block_device:dir search;
 allow fsck_untrusted vold_device:blk_file rw_file_perms;
 
-r_dir_file(fsck_untrusted, proc)
+allow fsck_untrusted proc_mounts:file r_file_perms;
 
 # To determine if it is safe to run fsck on a filesystem, e2fsck
 # must first determine if the filesystem is mounted. To do that,

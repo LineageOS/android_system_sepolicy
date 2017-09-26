@@ -75,7 +75,7 @@ allow {
 } binder_device:chr_file rw_file_perms;
 # Devices which are not full TREBLE have fewer restrictions on access to /dev/binder
 not_full_treble(`allow { domain -hwservicemanager -vndservicemanager } binder_device:chr_file rw_file_perms;')
-allow { domain -servicemanager -vndservicemanager } hwbinder_device:chr_file rw_file_perms;
+allow { domain -servicemanager -vndservicemanager -isolated_app } hwbinder_device:chr_file rw_file_perms;
 allow domain ptmx_device:chr_file rw_file_perms;
 allow domain alarm_device:chr_file r_file_perms;
 allow domain random_device:chr_file rw_file_perms;
@@ -219,6 +219,9 @@ allow { domain -domain } hwservice_manager_type:hwservice_manager { add find };
 # when it's not explicitly used in allow rules
 allow { domain -domain } vndservice_manager_type:service_manager { add find };
 
+# Under ASAN, processes will try to read /data, as the sanitized libraries are there.
+with_asan(`allow domain system_data_file:dir getattr;')
+
 ###
 ### neverallow rules
 ###
@@ -314,6 +317,7 @@ neverallow * port_device:chr_file ~{ create relabelto unlink setattr getattr };
 # Only init should be able to configure kernel usermodehelpers or
 # security-sensitive proc settings.
 neverallow { domain -init } usermodehelper:file { append write };
+neverallow { domain -init -ueventd } sysfs_usermodehelper:file { append write };
 neverallow { domain -init } proc_security:file { append open read write };
 
 # No domain should be allowed to ptrace init.
@@ -352,7 +356,6 @@ neverallow {
     -dumpstate
     -shell
     userdebug_or_eng(`-su')
-    -system_server
     -webview_zygote
     -zygote
 } {
@@ -452,6 +455,7 @@ neverallow {
   -adbd
   -dumpstate
   -hal_drm
+  -hal_cas
   -init
   -mediadrmserver
   -recovery
@@ -498,7 +502,6 @@ neverallow {
   -recovery
   -ueventd
 } misc_block_device:blk_file { append link relabelfrom rename write open read ioctl lock };
-neverallow hal_bootctl unlabeled:service_manager list; #TODO: b/62658302
 
 # Only (hw|vnd|)servicemanager should be able to register with binder as the context manager
 neverallow { domain -servicemanager -hwservicemanager -vndservicemanager } *:binder set_context_mgr;
@@ -539,7 +542,6 @@ full_treble_only(`
     -cameraserver_service
     -drmserver_service
     -keystore_service
-    -mediacasserver_service
     -mediadrmserver_service
     -mediaextractor_service
     -mediametrics_service
@@ -557,7 +559,6 @@ full_treble_only(`
     -appdomain
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
   } servicemanager:binder { call transfer };
-  neverallow binder_in_vendor_violators unlabeled:service_manager list ; #TODO: b/62658302
 ')
 
 # On full TREBLE devices, only vendor components, shell, and su can use VendorBinder.
@@ -616,7 +617,6 @@ full_treble_only(`
     -incidentd # TODO(b/35870313): Remove incidentd from this list once vendor domains no longer declare Binder services
     -tombstoned # TODO(b/36604251): Remove tombstoned from this list once mediacodec (OMX HAL) no longer declares Binder services
   });
-  neverallow socket_between_core_and_vendor_violators unlabeled:service_manager list ; #TODO: b/62658302
 
   # Vendor domains (except netdomain) are not permitted to initiate communications to netd sockets
   neverallow_establish_socket_comms({
@@ -648,10 +648,6 @@ full_treble_only(`
     -pdx_endpoint_socket_type # used by VR layer
     -pdx_channel_socket_type # used by VR layer
   }:sock_file ~{ append getattr ioctl read write };
-  neverallow {
-    pdx_endpoint_socket_type
-    pdx_channel_socket_type
-  } unlabeled:service_manager list; #TODO: b/62658302
 
   # Core domains are not permitted to create/open sockets owned by vendor domains
   neverallow {
@@ -736,7 +732,6 @@ full_treble_only(`
         -crash_dump_exec
         -netutils_wrapper_exec
     }:file { entrypoint execute execute_no_trans };
-    neverallow vendor_executes_system_violators unlabeled:service_manager list; #TODO: b/62658302
 ')
 
 # Only authorized processes should be writing to files in /data/dalvik-cache
@@ -780,13 +775,6 @@ neverallow {
   -mediacodec
   -mediaextractor
 } tombstoned_crash_socket:unix_stream_socket connectto;
-
-neverallow {
-  domain
-  -crash_dump
-  -mediacodec
-  -mediaextractor
-} tombstoned_crash_socket:sock_file write;
 
 # Never allow anyone except dumpstate or the system server to connect or write to
 # the tombstoned intercept socket.

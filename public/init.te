@@ -253,7 +253,7 @@ allow init kernel:system syslog_mod;
 allow init self:capability2 syslog;
 
 # Set usermodehelpers and /proc security settings.
-allow init usermodehelper:file rw_file_perms;
+allow init { usermodehelper sysfs_usermodehelper }:file rw_file_perms;
 allow init proc_security:file rw_file_perms;
 
 # Write to /proc/sys/kernel/panic_on_oops.
@@ -270,6 +270,12 @@ allow init proc_sysrq:file w_file_perms;
 
 # Read /proc/stat for bootchart.
 allow init proc_stat:file r_file_perms;
+
+# Read /proc/version.
+allow init proc_version:file r_file_perms;
+
+# Read /proc/cmdline
+allow init proc_cmdline:file r_file_perms;
 
 # Reboot.
 allow init self:capability sys_boot;

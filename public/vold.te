@@ -8,7 +8,6 @@ allow vold cache_file:file { getattr read };
 allow vold cache_file:lnk_file r_file_perms;
 
 # Read access to pseudo filesystems.
-r_dir_file(vold, proc)
 r_dir_file(vold, proc_net)
 r_dir_file(vold, sysfs_type)
 # XXX Label sysfs files with a specific type?
@@ -17,7 +16,13 @@ allow vold sysfs_usb:file w_file_perms;
 allow vold sysfs_zram_uevent:file w_file_perms;
 
 r_dir_file(vold, rootfs)
-allow vold proc_meminfo:file r_file_perms;
+allow vold {
+  proc_cmdline
+  proc_drop_caches
+  proc_filesystems
+  proc_meminfo
+  proc_mounts
+}:file r_file_perms;
 
 #Get file contexts
 allow vold file_contexts_file:file r_file_perms;
@@ -27,6 +32,9 @@ allow vold self:process setexec;
 
 # For sgdisk launched through popen()
 allow vold shell_exec:file rx_file_perms;
+
+# For formatting adoptable storage devices
+allow vold e2fs_exec:file rx_file_perms;
 
 typeattribute vold mlstrustedsubject;
 allow vold self:process setfscreate;
@@ -132,8 +140,15 @@ allow vold unlabeled:file { r_file_perms setattr relabelfrom };
 # Handle wake locks (used for device encryption)
 wakelock_use(vold)
 
-# talk to batteryservice
+# Allow vold to publish a binder service and make binder calls.
 binder_use(vold)
+add_service(vold, vold_service)
+
+# Allow vold to call into the system server so it can check permissions.
+binder_call(vold, system_server)
+allow vold permission_service:service_manager find;
+
+# talk to batteryservice
 binder_call(vold, healthd)
 
 # talk to keymaster
@@ -187,6 +202,18 @@ neverallow { domain -vold -kernel } vold_data_file:notdevfile_class_set ~{ relab
 neverallow { domain -vold -init } vold_data_file:dir *;
 neverallow { domain -vold -init -kernel } vold_data_file:notdevfile_class_set *;
 neverallow { domain -vold -init } restorecon_prop:property_service set;
+
+# Only system_server and vdc can interact with vold over binder
+neverallow { domain -system_server -vdc -vold } vold_service:service_manager find;
+neverallow vold {
+  domain
+  -hal_keymaster
+  -healthd
+  -hwservicemanager
+  -servicemanager
+  -system_server
+  userdebug_or_eng(`-su')
+}:binder call;
 
 neverallow vold fsck_exec:file execute_no_trans;
 neverallow { domain -init } vold:process { transition dyntransition };

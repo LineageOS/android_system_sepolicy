@@ -69,9 +69,6 @@ allow appdomain appdomain:fifo_file rw_file_perms;
 # Communicate with surfaceflinger.
 allow appdomain surfaceflinger:unix_stream_socket { read write setopt getattr getopt shutdown };
 
-# Query whether a Surface supports wide color
-allow { appdomain -isolated_app } hal_configstore_ISurfaceFlingerConfigs:hwservice_manager find;
-
 # App sandbox file accesses.
 allow { appdomain -isolated_app } app_data_file:dir create_dir_perms;
 allow { appdomain -isolated_app } app_data_file:notdevfile_class_set create_file_perms;
@@ -342,6 +339,9 @@ allow appdomain adbd:unix_stream_socket { getattr getopt ioctl read write shutdo
 
 allow appdomain cache_file:dir getattr;
 
+# Allow apps to run with asanwrapper.
+with_asan(`allow appdomain asanwrapper_exec:file rx_file_perms;')
+
 ###
 ### Neverallow rules
 ###
@@ -476,8 +476,11 @@ neverallow appdomain
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # access tmp apk files
-neverallow { appdomain -platform_app -priv_app }
+neverallow { appdomain -untrusted_app_all -platform_app -priv_app }
     { apk_tmp_file apk_private_tmp_file }:dir_file_class_set *;
+
+neverallow untrusted_app_all { apk_tmp_file apk_private_tmp_file }:{ devfile_class_set dir fifo_file lnk_file sock_file } *;
+neverallow untrusted_app_all { apk_tmp_file apk_private_tmp_file }:file ~{ getattr read };
 
 # Access to factory files.
 neverallow appdomain efs_file:dir_file_class_set write;
@@ -493,7 +496,6 @@ neverallow appdomain
 neverallow appdomain kernel:system { syslog_read syslog_mod syslog_console };
 
 # SELinux is not an API for apps to use
-neverallow { appdomain -shell } selinuxfs:file no_rw_file_perms;
 neverallow { appdomain -shell } *:security { compute_av check_context };
 neverallow { appdomain -shell } *:netlink_selinux_socket *;
 

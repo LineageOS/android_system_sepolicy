@@ -101,6 +101,10 @@ define(`pdx_service_socket_types', `
 typeattribute $2 pdx_$1_endpoint_dir_type;
 type pdx_$1_endpoint_socket, pdx_$1_endpoint_socket_type, pdx_endpoint_socket_type, file_type, coredomain_socket, mlstrustedobject, mlstrustedsubject;
 type pdx_$1_channel_socket, pdx_$1_channel_socket_type, pdx_channel_socket_type, coredomain_socket;
+userdebug_or_eng(`
+dontaudit su pdx_$1_endpoint_socket:unix_stream_socket *;
+dontaudit su pdx_$1_channel_socket:unix_stream_socket *;
+')
 ')
 
 #####################################
@@ -195,6 +199,22 @@ typeattribute $1 netdomain;
 # Allow a base set of permissions required for bluetooth access.
 define(`bluetooth_domain', `
 typeattribute $1 bluetoothdomain;
+')
+
+#####################################
+# hal_attribute(hal_name)
+# Add an attribute for hal implementations along with necessary
+# restrictions.
+define(`hal_attribute', `
+attribute hal_$1;
+expandattribute hal_$1 true;
+attribute hal_$1_client;
+expandattribute hal_$1_client true;
+attribute hal_$1_server;
+expandattribute hal_$1_server false;
+
+neverallow { hal_$1_client -halclientdomain } domain:process fork;
+neverallow { hal_$1_server -halserverdomain } domain:process fork;
 ')
 
 #####################################
@@ -553,7 +573,6 @@ define(`use_drmservice', `
 define(`add_service', `
   allow $1 $2:service_manager { add find };
   neverallow { domain -$1 } $2:service_manager add;
-  neverallow $1 unlabeled:service_manager add; #TODO: b/62658302
 ')
 
 ###########################################
@@ -565,7 +584,6 @@ define(`add_hwservice', `
   allow $1 $2:hwservice_manager { add find };
   allow $1 hidl_base_hwservice:hwservice_manager add;
   neverallow { domain -$1 } $2:hwservice_manager add;
-  neverallow $1 unlabeled:hwservice_manager add; #TODO: b/62658302
 ')
 
 ##########################################

@@ -9,19 +9,27 @@ type proc_security, fs_type;
 type proc_drop_caches, fs_type;
 type proc_overcommit_memory, fs_type;
 # proc, sysfs, or other nodes that permit configuration of kernel usermodehelpers.
-type usermodehelper, fs_type, sysfs_type;
+type usermodehelper, fs_type;
+type sysfs_usermodehelper, fs_type, sysfs_type;
 type qtaguid_proc, fs_type, mlstrustedobject;
 type proc_bluetooth_writable, fs_type;
+type proc_asound_cards, fs_type;
+type proc_cmdline, fs_type;
 type proc_cpuinfo, fs_type;
+type proc_filesystems, fs_type;
 type proc_interrupts, fs_type;
 type proc_iomem, fs_type;
 type proc_kmsg, fs_type;
+type proc_loadavg, fs_type;
 type proc_meminfo, fs_type;
 type proc_misc, fs_type;
 type proc_modules, fs_type;
+type proc_mounts, fs_type;
 type proc_net, fs_type;
+type proc_pagetypeinfo, fs_type;
 type proc_perf, fs_type;
 type proc_stat, fs_type;
+type proc_swaps, fs_type;
 type proc_sysrq, fs_type;
 type proc_timer, fs_type;
 type proc_tty_drivers, fs_type;
@@ -30,6 +38,8 @@ type proc_uid_cputime_removeuid, fs_type;
 type proc_uid_io_stats, fs_type;
 type proc_uid_procstat_set, fs_type;
 type proc_uid_time_in_state, fs_type;
+type proc_version, fs_type;
+type proc_vmallocinfo, fs_type;
 type proc_zoneinfo, fs_type;
 type selinuxfs, fs_type, mlstrustedobject;
 type cgroup, fs_type, mlstrustedobject;
@@ -65,13 +75,14 @@ type mqueue, fs_type;
 type fuse, sdcard_type, fs_type, mlstrustedobject;
 type sdcardfs, sdcard_type, fs_type, mlstrustedobject;
 type vfat, sdcard_type, fs_type, mlstrustedobject;
-type debugfs, fs_type;
+type debugfs, fs_type, debugfs_type;
 type debugfs_mmc, fs_type, debugfs_type;
 type debugfs_trace_marker, fs_type, debugfs_type, mlstrustedobject;
 type debugfs_tracing, fs_type, debugfs_type;
 type debugfs_tracing_debug, fs_type, debugfs_type;
 type debugfs_tracing_instances, fs_type, debugfs_type;
 type debugfs_wifi_tracing, fs_type, debugfs_type;
+
 type pstorefs, fs_type;
 type functionfs, fs_type, mlstrustedobject;
 type oemfs, fs_type, contextmount_type;
@@ -218,13 +229,13 @@ type app_data_file, file_type, data_file_type, core_data_file_type;
 type system_app_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # Compatibility with type name used in Android 4.3 and 4.4.
 # Default type for anything under /cache
-type cache_file, file_type, mlstrustedobject;
+type cache_file, file_type, data_file_type, mlstrustedobject;
 # Type for /cache/backup_stage/* (fd interchange with apps)
-type cache_backup_file, file_type, mlstrustedobject;
+type cache_backup_file, file_type, data_file_type, mlstrustedobject;
 # type for anything under /cache/backup (local transport storage)
-type cache_private_backup_file, file_type;
+type cache_private_backup_file, file_type, data_file_type;
 # Type for anything under /cache/recovery
-type cache_recovery_file, file_type, mlstrustedobject;
+type cache_recovery_file, file_type, data_file_type, mlstrustedobject;
 # Default type for anything under /efs
 type efs_file, file_type;
 # Type for wallpaper file.
@@ -252,7 +263,7 @@ type app_fuse_file, file_type, data_file_type, core_data_file_type, mlstrustedob
 
 # Socket types
 type adbd_socket, file_type, coredomain_socket;
-type bluetooth_socket, file_type, coredomain_socket;
+type bluetooth_socket, file_type, data_file_type, coredomain_socket;
 type dnsproxyd_socket, file_type, coredomain_socket, mlstrustedobject;
 type dumpstate_socket, file_type, coredomain_socket;
 type fwmarkd_socket, file_type, coredomain_socket, mlstrustedobject;
@@ -262,22 +273,22 @@ type logdr_socket, file_type, coredomain_socket, mlstrustedobject;
 type logdw_socket, file_type, coredomain_socket, mlstrustedobject;
 type mdns_socket, file_type, coredomain_socket;
 type mdnsd_socket, file_type, coredomain_socket, mlstrustedobject;
-type misc_logd_file, coredomain_socket, file_type;
+type misc_logd_file, coredomain_socket, file_type, data_file_type;
 type mtpd_socket, file_type, coredomain_socket;
 type netd_socket, file_type, coredomain_socket;
 type property_socket, file_type, coredomain_socket, mlstrustedobject;
 type racoon_socket, file_type, coredomain_socket;
 type rild_socket, file_type;
 type rild_debug_socket, file_type;
-type system_wpa_socket, file_type, coredomain_socket;
-type system_ndebug_socket, file_type, coredomain_socket, mlstrustedobject;
+type system_wpa_socket, file_type, data_file_type, coredomain_socket;
+type system_ndebug_socket, file_type, data_file_type, coredomain_socket, mlstrustedobject;
 type tombstoned_crash_socket, file_type, coredomain_socket, mlstrustedobject;
 type tombstoned_java_trace_socket, file_type, mlstrustedobject;
 type tombstoned_intercept_socket, file_type, coredomain_socket;
 type uncrypt_socket, file_type, coredomain_socket;
 type vold_socket, file_type, coredomain_socket;
 type webview_zygote_socket, file_type, coredomain_socket;
-type wpa_socket, file_type;
+type wpa_socket, file_type, data_file_type;
 type zygote_socket, file_type, coredomain_socket;
 # UART (for GPS) control proc file
 type gps_control, file_type;
@@ -312,6 +323,9 @@ type sepolicy_file, file_type;
 # service_contexts file
 type service_contexts_file, file_type;
 
+# nonplat service_contexts file (only accessible on non full-treble devices)
+type nonplat_service_contexts_file, file_type;
+
 # hwservice_contexts file
 type hwservice_contexts_file, file_type;
 
@@ -329,6 +343,9 @@ allow file_type rootfs:filesystem associate;
 allow dev_type tmpfs:filesystem associate;
 allow app_fuse_file app_fusefs:filesystem associate;
 allow postinstall_file self:filesystem associate;
+
+# asanwrapper (run a sanitized app_process, to be used with wrap properties)
+with_asan(`type asanwrapper_exec, exec_type, file_type;')
 
 # It's a bug to assign the file_type attribute and fs_type attribute
 # to any type. Do not allow it.

@@ -77,6 +77,9 @@ recovery_only(`
   allow recovery functionfs:dir search;
   allow recovery functionfs:file rw_file_perms;
 
+  # Access to /sys/fs/selinux/policyvers for compatibility check
+  allow recovery selinuxfs:file r_file_perms;
+
   # Required to e.g. wipe userdata/cache.
   allow recovery device:dir r_dir_perms;
   allow recovery block_device:dir r_dir_perms;
@@ -147,5 +150,13 @@ recovery_only(`
 # domains, including recovery.
 #
 # TODO: tighten this up further.
-neverallow recovery data_file_type:file { no_w_file_perms no_x_file_perms };
-neverallow recovery data_file_type:dir no_w_dir_perms;
+neverallow recovery {
+   data_file_type
+   -cache_file
+   -cache_recovery_file
+}:file { no_w_file_perms no_x_file_perms };
+neverallow recovery {
+   data_file_type
+   -cache_file
+   -cache_recovery_file
+}:dir no_w_dir_perms;
