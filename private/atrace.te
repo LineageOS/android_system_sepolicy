@@ -11,8 +11,11 @@ userdebug_or_eng(`
   allow atrace boottrace_data_file:dir search;
   allow atrace boottrace_data_file:file r_file_perms;
 
-  # atrace reads the files in /sys/kernel/debug/tracing/
-  allow atrace debugfs_tracing:file r_file_perms;
+  # Allow atrace to access tracefs.
+  allow atrace debugfs_tracing:dir r_dir_perms;
+  allow atrace debugfs_tracing:file rw_file_perms;
+  allow atrace debugfs_tracing_debug:file rw_file_perms;
+  allow atrace debugfs_trace_marker:file getattr;
 
   # atrace sets debug.atrace.* properties
   set_prop(atrace, debug_prop)

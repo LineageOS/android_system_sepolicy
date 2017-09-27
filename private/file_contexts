@@ -28,7 +28,6 @@
 /mnt                u:object_r:tmpfs:s0
 /postinstall        u:object_r:postinstall_mnt_dir:s0
 /proc               u:object_r:rootfs:s0
-/root               u:object_r:rootfs:s0
 /sys                u:object_r:sysfs:s0
 
 # Symlinks
@@ -51,7 +50,7 @@
 /sepolicy           u:object_r:sepolicy_file:s0
 /plat_service_contexts   u:object_r:service_contexts_file:s0
 /plat_hwservice_contexts   u:object_r:hwservice_contexts_file:s0
-/nonplat_service_contexts   u:object_r:service_contexts_file:s0
+/nonplat_service_contexts   u:object_r:nonplat_service_contexts_file:s0
 /nonplat_hwservice_contexts   u:object_r:hwservice_contexts_file:s0
 /vndservice_contexts   u:object_r:vndservice_contexts_file:s0
 
@@ -89,12 +88,11 @@
 /dev/hw_random		u:object_r:hw_random_device:s0
 /dev/hwbinder		u:object_r:hwbinder_device:s0
 /dev/i2c-[0-9]+		u:object_r:i2c_device:s0
-/dev/input(/.*)		u:object_r:input_device:s0
+/dev/input(/.*)?	u:object_r:input_device:s0
 /dev/iio:device[0-9]+   u:object_r:iio_device:s0
 /dev/ion		u:object_r:ion_device:s0
 /dev/keychord   u:object_r:keychord_device:s0
 /dev/kmem		u:object_r:kmem_device:s0
-/dev/log(/.*)?		u:object_r:log_device:s0
 /dev/loop-control	u:object_r:loop_control_device:s0
 /dev/mem		u:object_r:kmem_device:s0
 /dev/modem.*		u:object_r:radio_device:s0
@@ -181,6 +179,7 @@
 /system/bin/mke2fs		u:object_r:e2fs_exec:s0
 /system/bin/e2fsck	--	u:object_r:fsck_exec:s0
 /system/bin/fsck\.f2fs	--	u:object_r:fsck_exec:s0
+/system/bin/make_f2fs	--	u:object_r:fsck_exec:s0
 /system/bin/fsck_msdos	--	u:object_r:fsck_exec:s0
 /system/bin/tune2fs	--	u:object_r:fsck_exec:s0
 /system/bin/toolbox	--	u:object_r:toolbox_exec:s0
@@ -257,6 +256,7 @@
 /system/bin/update_engine        u:object_r:update_engine_exec:s0
 /system/bin/bspatch              u:object_r:update_engine_exec:s0
 /system/bin/storaged             u:object_r:storaged_exec:s0
+/system/bin/thermalserviced      u:object_r:thermalserviced_exec:s0
 /system/bin/webview_zygote32     u:object_r:webview_zygote_exec:s0
 /system/bin/webview_zygote64     u:object_r:webview_zygote_exec:s0
 /system/bin/virtual_touchpad     u:object_r:virtual_touchpad_exec:s0
@@ -297,7 +297,7 @@
 
 /vendor/etc/selinux/nonplat_mac_permissions.xml u:object_r:mac_perms_file:s0
 /vendor/etc/selinux/nonplat_property_contexts   u:object_r:property_contexts_file:s0
-/vendor/etc/selinux/nonplat_service_contexts    u:object_r:service_contexts_file:s0
+/vendor/etc/selinux/nonplat_service_contexts    u:object_r:nonplat_service_contexts_file:s0
 /vendor/etc/selinux/nonplat_hwservice_contexts    u:object_r:hwservice_contexts_file:s0
 /vendor/etc/selinux/nonplat_file_contexts   u:object_r:file_contexts_file:s0
 /vendor/etc/selinux/nonplat_seapp_contexts    u:object_r:seapp_contexts_file:s0
@@ -374,6 +374,7 @@
 /data/misc/recovery(/.*)?       u:object_r:recovery_data_file:s0
 /data/misc/shared_relro(/.*)?   u:object_r:shared_relro_file:s0
 /data/misc/sms(/.*)?            u:object_r:radio_data_file:s0
+/data/misc/storaged(/.*)?       u:object_r:storaged_data_file:s0
 /data/misc/systemkeys(/.*)?     u:object_r:systemkeys_data_file:s0
 /data/misc/textclassifier(/.*)?       u:object_r:textclassifier_data_file:s0
 /data/misc/user(/.*)?           u:object_r:misc_user_data_file:s0

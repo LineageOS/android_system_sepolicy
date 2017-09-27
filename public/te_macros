@@ -202,6 +202,22 @@ typeattribute $1 bluetoothdomain;
 ')
 
 #####################################
+# hal_attribute(hal_name)
+# Add an attribute for hal implementations along with necessary
+# restrictions.
+define(`hal_attribute', `
+attribute hal_$1;
+expandattribute hal_$1 true;
+attribute hal_$1_client;
+expandattribute hal_$1_client true;
+attribute hal_$1_server;
+expandattribute hal_$1_server false;
+
+neverallow { hal_$1_client -halclientdomain } domain:process fork;
+neverallow { hal_$1_server -halserverdomain } domain:process fork;
+')
+
+#####################################
 # hal_server_domain(domain, hal_type)
 # Allow a base set of permissions required for a domain to offer a
 # HAL implementation of the specified type over HwBinder.

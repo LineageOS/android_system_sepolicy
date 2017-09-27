@@ -27,7 +27,6 @@ allow ephemeral_app mediaextractor_service:service_manager find;
 allow ephemeral_app mediacodec_service:service_manager find;
 allow ephemeral_app mediametrics_service:service_manager find;
 allow ephemeral_app mediadrmserver_service:service_manager find;
-allow ephemeral_app mediacasserver_service:service_manager find;
 allow ephemeral_app surfaceflinger_service:service_manager find;
 allow ephemeral_app radio_service:service_manager find;
 allow ephemeral_app ephemeral_app_api_service:service_manager find;

@@ -113,8 +113,9 @@ ro.dalvik.              u:object_r:dalvik_prop:s0
 # Shared between system server and wificond
 wlan.                   u:object_r:wifi_prop:s0
 
+# Lowpan properties
+lowpan.                 u:object_r:lowpan_prop:s0
+ro.lowpan.              u:object_r:lowpan_prop:s0
+
 # hwservicemanager properties
 hwservicemanager.       u:object_r:hwservicemanager_prop:s0
-
-# ASAN install trigger
-asan.restore_reboot  u:object_r:asan_reboot_prop:s0

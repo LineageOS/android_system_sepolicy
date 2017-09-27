@@ -15,6 +15,10 @@ allow storaged proc_uid_io_stats:file r_file_perms;
 # Read /data/system/packages.list
 allow storaged system_data_file:file r_file_perms;
 
+# Store storaged proto file
+allow storaged storaged_data_file:dir rw_dir_perms;
+allow storaged storaged_data_file:file create_file_perms;
+
 userdebug_or_eng(`
   # Read access to debugfs
   allow storaged debugfs_mmc:dir search;
@@ -42,6 +46,9 @@ binder_call(storaged, healthd)
 
 # Implements a dumpsys interface.
 allow storaged dumpstate:fd use;
+
+# use a subset of the package manager service
+allow storaged package_native_service:service_manager find;
 
 # Kernel does extra check on CAP_DAC_OVERRIDE for libbinder when storaged is
 # running as root. See b/35323867 #3.

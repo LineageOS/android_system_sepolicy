@@ -50,4 +50,47 @@ userdebug_or_eng(`
   dontaudit su domain:drmservice *;
   dontaudit su unlabeled:filesystem *;
   dontaudit su postinstall_file:filesystem *;
+
+  # VTS tests run in the permissive su domain on debug builds, but the HALs
+  # being tested run in enforcing mode. Because hal_foo_server is enforcing
+  # su needs to be declared as hal_foo_client to grant hal_foo_server
+  # permission to interact with it.
+  typeattribute su halclientdomain;
+  typeattribute su hal_allocator_client;
+  typeattribute su hal_audio_client;
+  typeattribute su hal_bluetooth_client;
+  typeattribute su hal_bootctl_client;
+  typeattribute su hal_camera_client;
+  typeattribute su hal_configstore_client;
+  typeattribute su hal_contexthub_client;
+  typeattribute su hal_drm_client;
+  typeattribute su hal_cas_client;
+  typeattribute su hal_dumpstate_client;
+  typeattribute su hal_fingerprint_client;
+  typeattribute su hal_gatekeeper_client;
+  typeattribute su hal_gnss_client;
+  typeattribute su hal_graphics_allocator_client;
+  typeattribute su hal_graphics_composer_client;
+  typeattribute su hal_health_client;
+  typeattribute su hal_ir_client;
+  typeattribute su hal_keymaster_client;
+  typeattribute su hal_light_client;
+  typeattribute su hal_memtrack_client;
+  typeattribute su hal_neuralnetworks_client;
+  typeattribute su hal_nfc_client;
+  typeattribute su hal_oemlock_client;
+  typeattribute su hal_power_client;
+  typeattribute su hal_sensors_client;
+  typeattribute su hal_telephony_client;
+  typeattribute su hal_tetheroffload_client;
+  typeattribute su hal_thermal_client;
+  typeattribute su hal_tv_cec_client;
+  typeattribute su hal_tv_input_client;
+  typeattribute su hal_usb_client;
+  typeattribute su hal_vibrator_client;
+  typeattribute su hal_vr_client;
+  typeattribute su hal_weaver_client;
+  typeattribute su hal_wifi_client;
+  typeattribute su hal_wifi_offload_client;
+  typeattribute su hal_wifi_supplicant_client;
 ')

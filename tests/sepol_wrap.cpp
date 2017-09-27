@@ -17,8 +17,11 @@
 #include <android-base/strings.h>
 #include <sepol_wrap.h>
 
-
+#define TYPE_ITER_LOOKUP   0
+#define TYPE_ITER_ALLTYPES 1
+#define TYPE_ITER_ALLATTRS 2
 struct type_iter {
+    unsigned int alltypes;
     type_datum *d;
     ebitmap_node *n;
     unsigned int length;
@@ -36,23 +39,33 @@ void *init_type_iter(void *policydbp, const char *type, bool is_attr)
         return NULL;
     }
 
-    out->d = static_cast<type_datum *>(hashtab_search(db->p_types.table, type));
-    if (is_attr && out->d->flavor != TYPE_ATTRIB) {
-        std::cerr << "\"" << type << "\" MUST be an attribute in the policy" << std::endl;
-        free(out);
-        return NULL;
-    } else if (!is_attr && out->d->flavor !=TYPE_TYPE) {
-        std::cerr << "\"" << type << "\" MUST be a type in the policy" << std::endl;
-        free(out);
-        return NULL;
-    }
-
-    if (is_attr) {
-        out->bit = ebitmap_start(&db->attr_type_map[out->d->s.value - 1], &out->n);
-        out->length = ebitmap_length(&db->attr_type_map[out->d->s.value - 1]);
+    if (type == NULL) {
+        out->length = db->p_types.nprim;
+        out->bit = 0;
+        if (is_attr)
+            out->alltypes = TYPE_ITER_ALLATTRS;
+        else
+            out->alltypes = TYPE_ITER_ALLTYPES;
     } else {
-        out->bit = ebitmap_start(&db->type_attr_map[out->d->s.value - 1], &out->n);
-        out->length = ebitmap_length(&db->type_attr_map[out->d->s.value - 1]);
+        out->alltypes = TYPE_ITER_LOOKUP;
+        out->d = static_cast<type_datum *>(hashtab_search(db->p_types.table, type));
+        if (is_attr && out->d->flavor != TYPE_ATTRIB) {
+            std::cerr << "\"" << type << "\" MUST be an attribute in the policy" << std::endl;
+            free(out);
+            return NULL;
+        } else if (!is_attr && out->d->flavor !=TYPE_TYPE) {
+            std::cerr << "\"" << type << "\" MUST be a type in the policy" << std::endl;
+            free(out);
+            return NULL;
+        }
+
+        if (is_attr) {
+            out->bit = ebitmap_start(&db->attr_type_map[out->d->s.value - 1], &out->n);
+            out->length = ebitmap_length(&db->attr_type_map[out->d->s.value - 1]);
+        } else {
+            out->bit = ebitmap_start(&db->type_attr_map[out->d->s.value - 1], &out->n);
+            out->length = ebitmap_length(&db->type_attr_map[out->d->s.value - 1]);
+        }
     }
 
     return static_cast<void *>(out);
@@ -65,7 +78,7 @@ void destroy_type_iter(void *type_iterp)
 }
 
 /*
- * print allow rule into *out buffer.
+ * print type into *out buffer.
  *
  * Returns -1 on error.
  * Returns 0 on successfully reading an avtab entry.
@@ -77,20 +90,30 @@ int get_type(char *out, size_t max_size, void *policydbp, void *type_iterp)
     policydb_t *db = static_cast<policydb_t *>(policydbp);
     struct type_iter *i = static_cast<struct type_iter *>(type_iterp);
 
-    for (; i->bit < i->length; i->bit = ebitmap_next(&i->n, i->bit)) {
-        if (!ebitmap_node_get_bit(i->n, i->bit)) {
-            continue;
+    if (!i->alltypes) {
+        for (; i->bit < i->length; i->bit = ebitmap_next(&i->n, i->bit)) {
+            if (!ebitmap_node_get_bit(i->n, i->bit)) {
+                continue;
+            }
+            break;
         }
-        len = snprintf(out, max_size, "%s", db->p_type_val_to_name[i->bit]);
-        if (len >= max_size) {
-               std::cerr << "type name exceeds buffer size." << std::endl;
-               return -1;
-        }
-        i->bit = ebitmap_next(&i->n, i->bit);
-        return 0;
     }
-
-    return 1;
+    while (i->bit < i->length &&
+           ((i->alltypes == TYPE_ITER_ALLATTRS
+            && db->type_val_to_struct[i->bit]->flavor != TYPE_ATTRIB)
+            || (i->alltypes == TYPE_ITER_ALLTYPES
+            && db->type_val_to_struct[i->bit]->flavor != TYPE_TYPE))) {
+        i->bit++;
+    }
+    if (i->bit >= i->length)
+        return 1;
+    len = snprintf(out, max_size, "%s", db->p_type_val_to_name[i->bit]);
+    if (len >= max_size) {
+        std::cerr << "type name exceeds buffer size." << std::endl;
+        return -1;
+    }
+    i->alltypes ? i->bit++ : i->bit = ebitmap_next(&i->n, i->bit);
+    return 0;
 }
 
 void *load_policy(const char *policy_path)
@@ -158,7 +181,7 @@ void *load_policy(const char *policy_path)
 
 /* items needed to iterate over the avtab */
 struct avtab_iter {
-    avtab_t avtab;
+    avtab_t *avtab;
     uint32_t i;
     avtab_ptr_t cur;
 };
@@ -175,9 +198,9 @@ static int get_avtab_allow_rule(char *out, size_t max_size, policydb_t *db,
 {
     size_t len;
 
-    for (; avtab_i->i < avtab_i->avtab.nslot; (avtab_i->i)++) {
+    for (; avtab_i->i < avtab_i->avtab->nslot; (avtab_i->i)++) {
         if (avtab_i->cur == NULL) {
-            avtab_i->cur = avtab_i->avtab.htable[avtab_i->i];
+            avtab_i->cur = avtab_i->avtab->htable[avtab_i->i];
         }
         for (; avtab_i->cur; avtab_i->cur = (avtab_i->cur)->next) {
             if (!((avtab_i->cur)->key.specified & AVTAB_ALLOWED)) continue;
@@ -210,6 +233,37 @@ int get_allow_rule(char *out, size_t len, void *policydbp, void *avtab_iterp)
     return get_avtab_allow_rule(out, len, db, avtab_i);
 }
 
+static avtab_iter *init_avtab_common(avtab_t *in)
+{
+    struct avtab_iter *out = (struct avtab_iter *)
+                            calloc(1, sizeof(struct avtab_iter));
+    if (!out) {
+        std::cerr << "Failed to allocate avtab iterator" << std::endl;
+        return NULL;
+    }
+
+    out->avtab = in;
+    return out;
+}
+
+void *init_avtab(void *policydbp)
+{
+    policydb_t *p = static_cast<policydb_t *>(policydbp);
+    return static_cast<void *>(init_avtab_common(&p->te_avtab));
+}
+
+void *init_cond_avtab(void *policydbp)
+{
+    policydb_t *p = static_cast<policydb_t *>(policydbp);
+    return static_cast<void *>(init_avtab_common(&p->te_cond_avtab));
+}
+
+void destroy_avtab(void *avtab_iterp)
+{
+    struct avtab_iter *avtab_i = static_cast<struct avtab_iter *>(avtab_iterp);
+    free(avtab_i);
+}
+
 /*
  * <sepol/policydb/expand.h->conditional.h> uses 'bool' as a variable name
  * inside extern "C" { .. } construct, which clang doesn't like.
@@ -217,45 +271,57 @@ int get_allow_rule(char *out, size_t len, void *policydbp, void *avtab_iterp)
  */
 extern "C" int expand_avtab(policydb_t *p, avtab_t *a, avtab_t *expa);
 
-static avtab_iter *init_avtab_common(avtab_t *in, policydb_t *p)
+static avtab_iter *init_expanded_avtab_common(avtab_t *in, policydb_t *p)
 {
     struct avtab_iter *out = (struct avtab_iter *)
                             calloc(1, sizeof(struct avtab_iter));
     if (!out) {
-        std::cerr << "Failed to allocate avtab" << std::endl;
+        std::cerr << "Failed to allocate avtab iterator" << std::endl;
         return NULL;
     }
 
-    if (avtab_init(&out->avtab)) {
-        std::cerr << "Failed to initialize avtab" << std::endl;
+    avtab_t *avtab = (avtab_t *) calloc(1, sizeof(avtab_t));
+
+    if (!avtab) {
+        std::cerr << "Failed to allocate avtab" << std::endl;
         free(out);
         return NULL;
     }
 
-    if (expand_avtab(p, in, &out->avtab)) {
+    out->avtab = avtab;
+    if (avtab_init(out->avtab)) {
+        std::cerr << "Failed to initialize avtab" << std::endl;
+        free(avtab);
+        free(out);
+        return NULL;
+    }
+
+    if (expand_avtab(p, in, out->avtab)) {
         std::cerr << "Failed to expand avtab" << std::endl;
+        free(avtab);
         free(out);
         return NULL;
     }
     return out;
 }
 
-void *init_avtab(void *policydbp)
+void *init_expanded_avtab(void *policydbp)
 {
     policydb_t *p = static_cast<policydb_t *>(policydbp);
-    return static_cast<void *>(init_avtab_common(&p->te_avtab, p));
+    return static_cast<void *>(init_expanded_avtab_common(&p->te_avtab, p));
 }
 
-void *init_cond_avtab(void *policydbp)
+void *init_expanded_cond_avtab(void *policydbp)
 {
     policydb_t *p = static_cast<policydb_t *>(policydbp);
-    return static_cast<void *>(init_avtab_common(&p->te_cond_avtab, p));
+    return static_cast<void *>(init_expanded_avtab_common(&p->te_cond_avtab, p));
 }
 
-void destroy_avtab(void *avtab_iterp)
+void destroy_expanded_avtab(void *avtab_iterp)
 {
     struct avtab_iter *avtab_i = static_cast<struct avtab_iter *>(avtab_iterp);
-    avtab_destroy(&avtab_i->avtab);
+    avtab_destroy(avtab_i->avtab);
+    free(avtab_i->avtab);
     free(avtab_i);
 }
 
