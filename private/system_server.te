@@ -493,6 +493,7 @@ set_prop(system_server, firstboot_prop)
 allow system_server system_ndebug_socket:sock_file create_file_perms;
 
 # Manage cache files.
+allow system_server cache_file:lnk_file r_file_perms;
 allow system_server { cache_file cache_recovery_file }:dir { relabelfrom create_dir_perms };
 allow system_server { cache_file cache_recovery_file }:file { relabelfrom create_file_perms };
 allow system_server { cache_file cache_recovery_file }:fifo_file create_file_perms;
