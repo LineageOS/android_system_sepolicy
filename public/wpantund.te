@@ -1,0 +1,22 @@
+type wpantund, domain;
+type wpantund_exec, exec_type, file_type;
+
+hal_client_domain(wpantund, hal_lowpan)
+net_domain(wpantund)
+
+binder_use(wpantund)
+binder_call(wpantund, system_server)
+
+# wpantund needs to be able to check in with the lowpan_service
+allow wpantund lowpan_service:service_manager find;
+
+# create sockets to set interfaces up and down, add multicast groups, etc.
+allow wpantund self:udp_socket create_socket_perms;
+
+# setting interface state up/down and changing MTU are privileged ioctls
+allowxperm wpantund self:udp_socket ioctl { SIOCSIFFLAGS SIOCSIFMTU };
+
+# Allow us to bring up a TUN network interface.
+allow wpantund tun_device:chr_file rw_file_perms;
+allow wpantund self:capability { net_admin net_raw };
+allow wpantund self:tun_socket create;
