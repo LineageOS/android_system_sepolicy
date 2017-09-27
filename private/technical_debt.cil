@@ -22,6 +22,11 @@
 ;     typeattribute { appdomain -isolated_app } hal_graphics_allocator_client;
 (typeattributeset hal_graphics_allocator_client ((and (appdomain) ((not (isolated_app))))))
 
+; Apps, except isolated apps, are clients of Cas HAL
+; Unfortunately, we can't currently express this in module policy language:
+;     typeattribute { appdomain -isolated_app } hal_cas_client;
+(typeattributeset hal_cas_client ((and (appdomain) ((not (isolated_app))))))
+
 ; Domains hosting Camera HAL implementations are clients of Allocator HAL
 ; Unfortunately, we can't currently express this in module policy language:
 ;     typeattribute hal_camera hal_allocator_client;

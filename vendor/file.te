@@ -1,2 +1,2 @@
 # Socket types
-type hostapd_socket, file_type;
+type hostapd_socket, file_type, data_file_type;

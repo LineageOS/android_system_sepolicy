@@ -178,6 +178,7 @@ binder_call(system_server, gatekeeperd)
 binder_call(system_server, installd)
 binder_call(system_server, incidentd)
 binder_call(system_server, netd)
+binder_call(system_server, vold)
 binder_call(system_server, wificond)
 binder_service(system_server)
 
@@ -192,6 +193,7 @@ hal_client_domain(system_server, hal_graphics_allocator)
 hal_client_domain(system_server, hal_ir)
 hal_client_domain(system_server, hal_light)
 hal_client_domain(system_server, hal_memtrack)
+hal_client_domain(system_server, hal_neuralnetworks)
 hal_client_domain(system_server, hal_oemlock)
 allow system_server hal_omx_hwservice:hwservice_manager find;
 allow system_server hidl_token_hwservice:hwservice_manager find;
@@ -569,11 +571,11 @@ allow system_server mediametrics_service:service_manager find;
 allow system_server mediaextractor_service:service_manager find;
 allow system_server mediacodec_service:service_manager find;
 allow system_server mediadrmserver_service:service_manager find;
-allow system_server mediacasserver_service:service_manager find;
 allow system_server netd_service:service_manager find;
 allow system_server nfc_service:service_manager find;
 allow system_server radio_service:service_manager find;
 allow system_server surfaceflinger_service:service_manager find;
+allow system_server vold_service:service_manager find;
 allow system_server wificond_service:service_manager find;
 
 allow system_server keystore:keystore_key {
@@ -673,9 +675,13 @@ allow system_server preloads_media_file:dir { r_dir_perms write remove_name rmdi
 r_dir_file(system_server, cgroup)
 allow system_server ion_device:chr_file r_file_perms;
 
-r_dir_file(system_server, proc)
+r_dir_file(system_server, proc_asound_cards)
+r_dir_file(system_server, proc_loadavg)
 r_dir_file(system_server, proc_meminfo)
 r_dir_file(system_server, proc_net)
+r_dir_file(system_server, proc_pagetypeinfo)
+r_dir_file(system_server, proc_version)
+r_dir_file(system_server, proc_vmallocinfo)
 r_dir_file(system_server, rootfs)
 r_dir_file(system_server, sysfs_type)
 

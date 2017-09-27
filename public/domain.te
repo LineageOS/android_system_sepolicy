@@ -317,6 +317,7 @@ neverallow * port_device:chr_file ~{ create relabelto unlink setattr getattr };
 # Only init should be able to configure kernel usermodehelpers or
 # security-sensitive proc settings.
 neverallow { domain -init } usermodehelper:file { append write };
+neverallow { domain -init -ueventd } sysfs_usermodehelper:file { append write };
 neverallow { domain -init } proc_security:file { append open read write };
 
 # No domain should be allowed to ptrace init.
@@ -454,6 +455,7 @@ neverallow {
   -adbd
   -dumpstate
   -hal_drm
+  -hal_cas
   -init
   -mediadrmserver
   -recovery
@@ -540,7 +542,6 @@ full_treble_only(`
     -cameraserver_service
     -drmserver_service
     -keystore_service
-    -mediacasserver_service
     -mediadrmserver_service
     -mediaextractor_service
     -mediametrics_service
@@ -774,13 +775,6 @@ neverallow {
   -mediacodec
   -mediaextractor
 } tombstoned_crash_socket:unix_stream_socket connectto;
-
-neverallow {
-  domain
-  -crash_dump
-  -mediacodec
-  -mediaextractor
-} tombstoned_crash_socket:sock_file write;
 
 # Never allow anyone except dumpstate or the system server to connect or write to
 # the tombstoned intercept socket.
