@@ -190,6 +190,7 @@ ifeq ($(PRODUCT_FULL_TREBLE),true)
 # Use split SELinux policy
 LOCAL_REQUIRED_MODULES += \
     $(platform_mapping_file) \
+    26.0.cil \
     nonplat_sepolicy.cil \
     plat_sepolicy.cil \
     plat_and_mapping_sepolicy.cil.sha256 \
@@ -375,6 +376,16 @@ $(LOCAL_BUILT_MODULE): $(current_mapping.cil) $(ACP)
 built_mapping_cil := $(LOCAL_BUILT_MODULE)
 current_mapping.cil :=
 
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := 26.0.cil
+LOCAL_SRC_FILES := private/compat/26.0/26.0.cil
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux/mapping
+
+include $(BUILD_PREBUILT)
 #################################
 include $(CLEAR_VARS)
 
