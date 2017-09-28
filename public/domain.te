@@ -321,7 +321,7 @@ neverallow * port_device:chr_file ~{ create relabelto unlink setattr getattr };
 # security-sensitive proc settings.
 neverallow { domain -init } usermodehelper:file { append write };
 neverallow { domain -init -ueventd } sysfs_usermodehelper:file { append write };
-neverallow { domain -init } proc_security:file { append open read write };
+neverallow { domain -init -vendor_init } proc_security:file { append open read write };
 
 # No domain should be allowed to ptrace init.
 neverallow * init:process ptrace;
@@ -464,6 +464,7 @@ neverallow {
   -recovery
   -shell
   -system_server
+  -vendor_init
 } serialno_prop:file r_file_perms;
 
 # Do not allow reading the last boot timestamp from system properties
@@ -658,6 +659,7 @@ full_treble_only(`
     -init
     -ueventd
     -socket_between_core_and_vendor_violators
+    -vendor_init
   } {
     file_type
     dev_type
@@ -680,6 +682,7 @@ full_treble_only(`
         -installd
         -postinstall_dexopt
         -system_server
+        -vendor_init
     } vendor_app_file:dir { open read getattr search };
 
     neverallow {
@@ -691,6 +694,7 @@ full_treble_only(`
         -installd
         -postinstall_dexopt
         -system_server
+        -vendor_init
     } vendor_app_file:{ file lnk_file } r_file_perms;
 
     # Limit access to /vendor/overlay
@@ -702,6 +706,7 @@ full_treble_only(`
         -installd
         -system_server
         -zygote
+        -vendor_init
     } vendor_overlay_file:dir { getattr open read search };
 
     neverallow {
@@ -712,6 +717,7 @@ full_treble_only(`
         -installd
         -system_server
         -zygote
+        -vendor_init
     } vendor_overlay_file:{ file lnk_file } r_file_perms;
 
     # Non-vendor domains are not allowed to file execute shell
@@ -719,6 +725,7 @@ full_treble_only(`
     neverallow {
         coredomain
         -init
+        -vendor_init
     } vendor_shell_exec:file { execute execute_no_trans };
 
     # Do not allow vendor components to execute files from system
@@ -729,6 +736,7 @@ full_treble_only(`
         -appdomain
         -rild
         -vendor_executes_system_violators
+        -vendor_init
     } {
         exec_type
         -vendor_file_type
@@ -855,6 +863,7 @@ neverallow {
   -system_server
   -system_app
   -init
+  -vendor_init
   -installd # for relabelfrom and unlink, check for this in explicit neverallow
   with_asan(`-asan_extract')
 } system_data_file:file no_w_file_perms;
@@ -990,7 +999,7 @@ neverallow * domain:file { execute execute_no_trans entrypoint };
 # Instead, if access to part of debugfs is desired, it should have a
 # more specific label.
 # TODO: fix system_server and dumpstate
-neverallow { domain -init -system_server -dumpstate } debugfs:file no_rw_file_perms;
+neverallow { domain -init -vendor_init -system_server -dumpstate } debugfs:file no_rw_file_perms;
 
 # Profiles contain untrusted data and profman parses that. We should only run
 # in from installd forked processes.
