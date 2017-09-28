@@ -76,6 +76,9 @@ alltypes = set()
 oldalltypes = set()
 compatMapping = None
 
+# Distinguish between PRODUCT_FULL_TREBLE and PRODUCT_FULL_TREBLE_OVERRIDE
+FakeTreble = False
+
 def GetAllDomains(pol):
     global alldomains
     for result in pol.QueryTypeAttribute("domain", True):
@@ -129,7 +132,7 @@ def GetCoreDomains():
 #
 def GetDomainEntrypoints(pol):
     global alldomains
-    for x in pol.QueryTERule(tclass="file", perms=["entrypoint"]):
+    for x in pol.QueryExpandedTERule(tclass=set(["file"]), perms=set(["entrypoint"])):
         if not x.sctx in alldomains:
             continue
         alldomains[x.sctx].entrypoints.append(str(x.tctx))
@@ -171,6 +174,14 @@ def compatSetup(pol, oldpol, mapping):
 
     GetAllTypes(pol, oldpol)
     compatMapping = mapping
+
+def DomainsWithAttribute(attr):
+    global alldomains
+    domains = []
+    for domain in alldomains:
+        if attr in alldomains[domain].attributes:
+            domains.append(domain)
+    return domains
 
 #############################################################
 # Tests
@@ -255,6 +266,26 @@ def TestTrebleCompatMapping():
     ret = TestNoUnmappedNewTypes()
     ret += TestNoUnmappedRmTypes()
     return ret
+
+def TestViolatorAttribute(attribute):
+    global FakeTreble
+    ret = ""
+    if FakeTreble:
+        return ret
+
+    violators = DomainsWithAttribute(attribute)
+    if len(violators) > 0:
+        ret += "SELinux: The following domains violate the Treble ban "
+        ret += "against use of the " + attribute + " attribute: "
+        ret += " ".join(str(x) for x in sorted(violators)) + "\n"
+    return ret
+
+def TestViolatorAttributes():
+    ret = TestViolatorAttribute("binder_in_vendor_violators")
+    ret += TestViolatorAttribute("socket_between_core_and_vendor_violators")
+    ret += TestViolatorAttribute("vendor_executes_system_violators")
+    return ret
+
 ###
 # extend OptionParser to allow the same option flag to be used multiple times.
 # This is used to allow multiple file_contexts files and tests to be
@@ -273,11 +304,13 @@ class MultipleOption(Option):
             Option.take_action(self, action, dest, opt, value, values, parser)
 
 Tests = {"CoredomainViolations": TestCoredomainViolations,
-         "TrebleCompatMapping": TestTrebleCompatMapping }
+         "TrebleCompatMapping": TestTrebleCompatMapping,
+         "ViolatorAttributes": TestViolatorAttributes}
 
 if __name__ == '__main__':
-    usage = "treble_sepolicy_tests.py -f nonplat_file_contexts -f "
-    usage +="plat_file_contexts -p curr_policy -b base_policy -o old_policy "
+    usage = "treble_sepolicy_tests.py -l out/host/linux-x86/lib64 "
+    usage += "-f nonplat_file_contexts -f plat_file_contexts "
+    usage += "-p curr_policy -b base_policy -o old_policy "
     usage +="-m mapping file [--test test] [--help]"
     parser = OptionParser(option_class=MultipleOption, usage=usage)
     parser.add_option("-b", "--basepolicy", dest="basepolicy", metavar="FILE")
@@ -288,8 +321,9 @@ if __name__ == '__main__':
     parser.add_option("-o", "--oldpolicy", dest="oldpolicy", metavar="FILE")
     parser.add_option("-p", "--policy", dest="policy", metavar="FILE")
     parser.add_option("-t", "--test", dest="tests", action="extend",
-
             help="Test options include "+str(Tests))
+    parser.add_option("--fake-treble", action="store_true", dest="faketreble",
+            default=False)
 
     (options, args) = parser.parse_args()
 
@@ -316,6 +350,9 @@ if __name__ == '__main__':
         if not os.path.exists(f):
             sys.exit("Error: File_contexts file " + f + " does not exist\n" +
                     parser.usage)
+
+    if options.faketreble:
+        FakeTreble = True
 
     pol = policy.Policy(options.policy, options.file_contexts, options.libpath)
     setup(pol)

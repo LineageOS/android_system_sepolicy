@@ -46,6 +46,7 @@ drm.drmManager                            u:object_r:drmserver_service:s0
 dropbox                                   u:object_r:dropbox_service:s0
 dumpstate                                 u:object_r:dumpstate_service:s0
 econtroller                               u:object_r:radio_service:s0
+lowpan                                    u:object_r:lowpan_service:s0
 ethernet                                  u:object_r:ethernet_service:s0
 fingerprint                               u:object_r:fingerprint_service:s0
 font                                      u:object_r:font_service:s0
@@ -160,6 +161,7 @@ user                                      u:object_r:user_service:s0
 vibrator                                  u:object_r:vibrator_service:s0
 virtual_touchpad                          u:object_r:virtual_touchpad_service:s0
 voiceinteraction                          u:object_r:voiceinteraction_service:s0
+vold                                      u:object_r:vold_service:s0
 vr_hwc                                    u:object_r:vr_hwc_service:s0
 vrmanager                                 u:object_r:vr_manager_service:s0
 wallpaper                                 u:object_r:wallpaper_service:s0

@@ -47,3 +47,13 @@ python_binary_host {
     required: ["libsepolwrap"],
     defaults: ["py2_only"],
 }
+
+python_binary_host {
+    name: "searchpolicy",
+    srcs: [
+        "searchpolicy.py",
+        "policy.py",
+    ],
+    required: ["libsepolwrap"],
+    defaults: ["py2_only"],
+}
