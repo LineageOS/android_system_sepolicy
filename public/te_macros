@@ -460,6 +460,12 @@ define(`not_full_treble', ifelse(target_full_treble, `true', , $1))
 define(`userdebug_or_eng', ifelse(target_build_variant, `eng', $1, ifelse(target_build_variant, `userdebug', $1)))
 
 #####################################
+# User builds
+# SELinux rules which apply only to user builds
+#
+define(`userbuild', ifelse(target_build_variant, `user', $1, ))
+
+#####################################
 # asan builds
 # SELinux rules which apply only to asan builds
 #
