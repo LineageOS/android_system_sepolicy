@@ -877,9 +877,10 @@ $(plat_property_contexts.tmp): $(plat_pcfiles)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): $(plat_property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): PRIVATE_FC_SORT := $(HOST_OUT_EXECUTABLES)/fc_sort
+$(LOCAL_BUILT_MODULE): $(plat_property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(HOST_OUT_EXECUTABLES)/fc_sort
 	@mkdir -p $(dir $@)
-	$(hide) sed -e 's/#.*$$//' -e '/^$$/d' $< | sort -u -o $@
+	$(hide) $(PRIVATE_FC_SORT) $< $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
 built_plat_pc := $(LOCAL_BUILT_MODULE)
@@ -911,9 +912,10 @@ $(nonplat_property_contexts.tmp): $(nonplat_pcfiles)
 
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): $(nonplat_property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+$(LOCAL_BUILT_MODULE): PRIVATE_FC_SORT := $(HOST_OUT_EXECUTABLES)/fc_sort
+$(LOCAL_BUILT_MODULE): $(nonplat_property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(HOST_OUT_EXECUTABLES)/fc_sort
 	@mkdir -p $(dir $@)
-	$(hide) sed -e 's/#.*$$//' -e '/^$$/d' $< | sort -u -o $@
+	$(hide) $(PRIVATE_FC_SORT) $< $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
 
 built_nonplat_pc := $(LOCAL_BUILT_MODULE)
