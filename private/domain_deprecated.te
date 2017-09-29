@@ -3,108 +3,12 @@
 # Read files already opened under /data.
 allow domain_deprecated system_data_file:file { getattr read };
 allow domain_deprecated system_data_file:lnk_file r_file_perms;
-userdebug_or_eng(`
-auditallow {
-  domain_deprecated
-  -appdomain
-  -sdcardd
-  -system_server
-  -tee
-} system_data_file:file { getattr read };
-auditallow {
-  domain_deprecated
-  -appdomain
-  -system_server
-  -tee
-} system_data_file:lnk_file r_file_perms;
-')
 
 # Read apk files under /data/app.
 allow domain_deprecated apk_data_file:dir { getattr search };
 allow domain_deprecated apk_data_file:file r_file_perms;
 allow domain_deprecated apk_data_file:lnk_file r_file_perms;
-userdebug_or_eng(`
-auditallow {
-  domain_deprecated
-  -appdomain
-  -dex2oat
-  -installd
-  -system_server
-} apk_data_file:dir { getattr search };
-auditallow {
-  domain_deprecated
-  -appdomain
-  -dex2oat
-  -installd
-  -system_server
-} apk_data_file:file r_file_perms;
-auditallow {
-  domain_deprecated
-  -appdomain
-  -dex2oat
-  -installd
-  -system_server
-} apk_data_file:lnk_file r_file_perms;
-')
 
 # Read access to pseudo filesystems.
 r_dir_file(domain_deprecated, proc)
 r_dir_file(domain_deprecated, sysfs)
-
-userdebug_or_eng(`
-auditallow {
-  domain_deprecated
-  -fsck
-  -fsck_untrusted
-  -sdcardd
-  -system_server
-  -update_engine
-  -vold
-} proc:file r_file_perms;
-auditallow {
-  domain_deprecated
-  -fsck
-  -fsck_untrusted
-  -system_server
-  -vold
-} proc:lnk_file { open ioctl lock }; # getattr read granted in domain
-auditallow {
-  domain_deprecated
-  -fingerprintd
-  -healthd
-  -netd
-  -recovery
-  -system_app
-  -surfaceflinger
-  -system_server
-  -tee
-  -ueventd
-  -vold
-} sysfs:dir { open getattr read ioctl lock }; # search granted in domain
-auditallow {
-  domain_deprecated
-  -fingerprintd
-  -healthd
-  -netd
-  -recovery
-  -system_app
-  -surfaceflinger
-  -system_server
-  -tee
-  -ueventd
-  -vold
-} sysfs:file r_file_perms;
-auditallow {
-  domain_deprecated
-  -fingerprintd
-  -healthd
-  -netd
-  -recovery
-  -system_app
-  -surfaceflinger
-  -system_server
-  -tee
-  -ueventd
-  -vold
-} sysfs:lnk_file { getattr open ioctl lock }; # read granted in domain
-')
