@@ -250,6 +250,9 @@ binder_call(dumpstate, installd);
 # Allow dumpstate to run ip xfrm policy
 allow dumpstate self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_read };
 
+# Allow dumpstate to run iotop
+allow dumpstate self:netlink_socket create_socket_perms_no_ioctl;
+
 ###
 ### neverallow rules
 ###
