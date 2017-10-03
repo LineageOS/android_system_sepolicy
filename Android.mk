@@ -200,7 +200,6 @@ LOCAL_REQUIRED_MODULES += \
 ifneq ($(with_asan),true)
 LOCAL_REQUIRED_MODULES += \
     treble_sepolicy_tests \
-    sepolicy_tests
 
 endif
 
