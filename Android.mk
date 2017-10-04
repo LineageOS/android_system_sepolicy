@@ -1188,7 +1188,7 @@ $(sepolicy_tests): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(sepolicy_tests): $(HOST_OUT_EXECUTABLES)/sepolicy_tests \
 $(built_plat_fc) $(built_nonplat_fc) $(built_sepolicy)
 	@mkdir -p $(dir $@)
-	$(hide) python $(HOST_OUT_EXECUTABLES)/sepolicy_tests -l $(HOST_OUT)/lib64 -f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) -p $(PRIVATE_SEPOLICY)
+	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy_tests -l $(HOST_OUT)/lib64 -f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) -p $(PRIVATE_SEPOLICY)
 	$(hide) touch $@
 
 ##################################
@@ -1304,7 +1304,7 @@ $(treble_sepolicy_tests): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests \
 $(built_plat_fc) $(built_nonplat_fc) $(built_sepolicy) $(built_plat_sepolicy) \
 $(built_26.0_plat_sepolicy) $(26.0_compat) $(26.0_mapping.combined.cil)
 	@mkdir -p $(dir $@)
-	$(hide) python $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests -l \
+	$(hide) $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests -l \
 		$(HOST_OUT)/lib64 -f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) \
 		-b $(PRIVATE_PLAT_SEPOLICY) -m $(PRIVATE_COMBINED_MAPPING) \
 		-o $(PRIVATE_SEPOLICY_OLD) -p $(PRIVATE_SEPOLICY) \
