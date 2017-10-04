@@ -39,7 +39,8 @@ class MultipleOption(Option):
 Tests = ["TestDataTypeViolators"]
 
 if __name__ == '__main__':
-    usage = "sepolicy_tests.py -f nonplat_file_contexts -f "
+    usage = "sepolicy_tests -l $(ANDROID_HOST_OUT)/lib64/libsepolwrap.so "
+    usage += "-f nonplat_file_contexts -f "
     usage +="plat_file_contexts -p policy [--test test] [--help]"
     parser = OptionParser(option_class=MultipleOption, usage=usage)
     parser.add_option("-f", "--file_contexts", dest="file_contexts",
@@ -52,7 +53,7 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
 
     if not options.libpath:
-        sys.exit("Must specify path to host libraries\n" + parser.usage)
+        sys.exit("Must specify path to libsepolwrap library\n" + parser.usage)
     if not os.path.exists(options.libpath):
         sys.exit("Error: library-path " + options.libpath + " does not exist\n"
                 + parser.usage)
@@ -74,11 +75,11 @@ if __name__ == '__main__':
 
     results = ""
     # If an individual test is not specified, run all tests.
-    if options.test is None or "TestDataTypeViolations" in options.tests:
+    if options.test is None or "TestDataTypeViolations" in options.test:
         results += TestDataTypeViolations(pol)
-    if options.test is None or "TestSysfsTypeViolations" in options.tests:
+    if options.test is None or "TestSysfsTypeViolations" in options.test:
         results += TestSysfsTypeViolations(pol)
-    if options.test is None or "TestDebugfsTypeViolations" in options.tests:
+    if options.test is None or "TestDebugfsTypeViolations" in options.test:
         results += TestDebugfsTypeViolations(pol)
 
     if len(results) > 0:
