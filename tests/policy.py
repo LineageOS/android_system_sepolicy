@@ -253,13 +253,7 @@ class Policy:
 
     # load ctypes-ified libsepol wrapper
     def __InitLibsepolwrap(self, LibPath):
-        if "linux" in platform.system().lower():
-            lib = CDLL(LibPath + "/libsepolwrap.so")
-        elif "darwin" in platform.system().lower():
-            lib = CDLL(LibPath + "/libsepolwrap.dylib")
-        else:
-            sys.exit("policy.py: " + platform.system() + " not supported." +
-                    " Only Linux and Darwin platforms are currently supported.")
+        lib = CDLL(LibPath)
 
         # int get_allow_rule(char *out, size_t len, void *policydbp, void *avtab_iterp);
         lib.get_allow_rule.restype = c_int
