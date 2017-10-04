@@ -176,6 +176,13 @@ ifneq (,$(filter address,$(SANITIZE_TARGET)))
   with_asan := true
 endif
 
+# Library extension for host-side tests
+ifeq ($(HOSTOS),darwin)
+SHAREDLIB_EXT=dylib
+else
+SHAREDLIB_EXT=so
+endif
+
 include $(CLEAR_VARS)
 LOCAL_MODULE := selinux_policy
 LOCAL_MODULE_TAGS := optional
@@ -1188,7 +1195,8 @@ $(sepolicy_tests): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(sepolicy_tests): $(HOST_OUT_EXECUTABLES)/sepolicy_tests \
 $(built_plat_fc) $(built_nonplat_fc) $(built_sepolicy)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy_tests -l $(HOST_OUT)/lib64 -f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) -p $(PRIVATE_SEPOLICY)
+	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy_tests -l $(HOST_OUT)/lib64/libsepolwrap.$(SHAREDLIB_EXT) \
+		-f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) -p $(PRIVATE_SEPOLICY)
 	$(hide) touch $@
 
 ##################################
@@ -1305,7 +1313,8 @@ $(built_plat_fc) $(built_nonplat_fc) $(built_sepolicy) $(built_plat_sepolicy) \
 $(built_26.0_plat_sepolicy) $(26.0_compat) $(26.0_mapping.combined.cil)
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests -l \
-		$(HOST_OUT)/lib64 -f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) \
+		$(HOST_OUT)/lib64/libsepolwrap.$(SHAREDLIB_EXT) \
+		-f $(PRIVATE_PLAT_FC) -f $(PRIVATE_NONPLAT_FC) \
 		-b $(PRIVATE_PLAT_SEPOLICY) -m $(PRIVATE_COMBINED_MAPPING) \
 		-o $(PRIVATE_SEPOLICY_OLD) -p $(PRIVATE_SEPOLICY) \
 		$(PRIVATE_FAKE_TREBLE)

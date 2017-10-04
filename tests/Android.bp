@@ -1,14 +1,16 @@
 cc_library_host_shared {
     name: "libsepolwrap",
     srcs: ["sepol_wrap.cpp"],
-    shared_libs: ["libsepol"],
     cflags: ["-Wall", "-Werror",],
     export_include_dirs: ["include"],
 
     // libsepolwrap gets loaded from the system python, which does not have the
     // ASAN runtime. So turn off sanitization for ourself, and  use static
     // libraries, since the shared libraries will use ASAN.
-    static_libs: ["libbase"],
+    static_libs: [
+        "libbase",
+        "libsepol",
+    ],
     stl: "libc++_static",
     sanitize: {
         never: true,
