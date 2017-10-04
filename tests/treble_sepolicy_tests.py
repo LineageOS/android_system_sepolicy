@@ -308,7 +308,7 @@ Tests = {"CoredomainViolations": TestCoredomainViolations,
          "ViolatorAttributes": TestViolatorAttributes}
 
 if __name__ == '__main__':
-    usage = "treble_sepolicy_tests.py -l out/host/linux-x86/lib64 "
+    usage = "treble_sepolicy_tests -l $(ANDROID_HOST_OUT)/lib64/libsepolwrap.so "
     usage += "-f nonplat_file_contexts -f plat_file_contexts "
     usage += "-p curr_policy -b base_policy -o old_policy "
     usage +="-m mapping file [--test test] [--help]"
@@ -328,7 +328,7 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
 
     if not options.libpath:
-        sys.exit("Must specify path to host libraries\n" + parser.usage)
+        sys.exit("Must specify path to libsepolwrap library\n" + parser.usage)
     if not os.path.exists(options.libpath):
         sys.exit("Error: library-path " + options.libpath + " does not exist\n"
                 + parser.usage)
