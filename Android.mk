@@ -177,7 +177,7 @@ ifneq (,$(filter address,$(SANITIZE_TARGET)))
 endif
 
 # Library extension for host-side tests
-ifeq ($(HOSTOS),darwin)
+ifeq ($(HOST_OS),darwin)
 SHAREDLIB_EXT=dylib
 else
 SHAREDLIB_EXT=so
