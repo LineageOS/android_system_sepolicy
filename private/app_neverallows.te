@@ -110,7 +110,7 @@ neverallow all_untrusted_apps anr_data_file:dir ~search;
 # Create a more specific label if needed
 neverallow all_untrusted_apps {
   proc
-  proc_asound_cards
+  proc_asound
   proc_filesystems
   proc_kmsg
   proc_loadavg
