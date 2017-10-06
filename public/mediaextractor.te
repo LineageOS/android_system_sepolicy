@@ -22,6 +22,9 @@ allow mediaextractor proc_meminfo:file r_file_perms;
 
 crash_dump_fallback(mediaextractor)
 
+# Suppress denials from sdcardfs (b/67454004)
+dontaudit mediaextractor sdcardfs:file { getattr read };
+
 # allow mediaextractor read permissions for file sources
 allow mediaextractor media_rw_data_file:file { getattr read };
 allow mediaextractor app_data_file:file { getattr read };
