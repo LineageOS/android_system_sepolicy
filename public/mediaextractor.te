@@ -56,3 +56,11 @@ neverallow mediaextractor { file_type fs_type }:file execute_no_trans;
 # Lengthier explanation here:
 # https://android-developers.googleblog.com/2016/05/hardening-media-stack.html
 neverallow mediaextractor domain:{ tcp_socket udp_socket rawip_socket } *;
+
+# mediaextractor should not be opening /data files directly. Any files
+# it touches (with a few exceptions) need to be passed to it via a file
+# descriptor opened outside the process.
+neverallow mediaextractor {
+  data_file_type
+  -zoneinfo_data_file # time zone data from /data/misc/zoneinfo
+}:file open;
