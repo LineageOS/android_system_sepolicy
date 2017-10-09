@@ -10,9 +10,7 @@ allow hal_cas_server hidl_memory_hwservice:hwservice_manager find;
 get_prop(hal_cas, serialno_prop)
 
 # Read files already opened under /data
-allow hal_cas system_data_file:dir { search getattr };
 allow hal_cas system_data_file:file { getattr read };
-allow hal_cas system_data_file:lnk_file r_file_perms;
 
 # Read access to pseudo filesystems
 r_dir_file(hal_cas, cgroup)
