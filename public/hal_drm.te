@@ -19,9 +19,7 @@ allow hal_drm system_file:file r_file_perms;
 allow hal_drm system_file:lnk_file r_file_perms;
 
 # Read files already opened under /data
-allow hal_drm system_data_file:dir { search getattr };
 allow hal_drm system_data_file:file { getattr read };
-allow hal_drm system_data_file:lnk_file r_file_perms;
 
 # Read access to pseudo filesystems
 r_dir_file(hal_drm, cgroup)
