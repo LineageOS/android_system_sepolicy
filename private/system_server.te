@@ -273,11 +273,20 @@ allow system_server mac_perms_file: file r_file_perms;
 # Check SELinux permissions.
 selinux_check_access(system_server)
 
-# XXX Label sysfs files with a specific type?
-allow system_server sysfs:file rw_file_perms;
+r_dir_file(system_server, sysfs_android_usb)
+allow system_server sysfs_android_usb:file w_file_perms;
+
+r_dir_file(system_server, sysfs_ipv4)
+allow system_server sysfs_ipv4:file w_file_perms;
+
+r_dir_file(system_server, sysfs_rtc)
+r_dir_file(system_server, sysfs_switch)
+r_dir_file(system_server, sysfs_wakeup_reasons)
+
 allow system_server sysfs_nfc_power_writable:file rw_file_perms;
 allow system_server sysfs_devices_system_cpu:file w_file_perms;
 allow system_server sysfs_mac_address:file r_file_perms;
+allow system_server sysfs_power:file rw_file_perms;
 allow system_server sysfs_thermal:dir search;
 allow system_server sysfs_thermal:file r_file_perms;
 
@@ -683,7 +692,6 @@ r_dir_file(system_server, proc_pagetypeinfo)
 r_dir_file(system_server, proc_version)
 r_dir_file(system_server, proc_vmallocinfo)
 r_dir_file(system_server, rootfs)
-r_dir_file(system_server, sysfs_type)
 
 ### Rules needed when Light HAL runs inside system_server process.
 ### These rules should eventually be granted only when needed.
