@@ -34,6 +34,7 @@ type proc_zoneinfo, fs_type;
 type selinuxfs, fs_type, mlstrustedobject;
 type cgroup, fs_type, mlstrustedobject;
 type sysfs, fs_type, sysfs_type, mlstrustedobject;
+type sysfs_android_usb, fs_type, sysfs_type;
 type sysfs_uio, sysfs_type, fs_type;
 type sysfs_batteryinfo, fs_type, sysfs_type;
 type sysfs_bluetooth_writable, fs_type, sysfs_type, mlstrustedobject;
