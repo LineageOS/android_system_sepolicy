@@ -62,6 +62,7 @@ genfscon sysfs / u:object_r:sysfs:s0
 genfscon sysfs /devices/system/cpu u:object_r:sysfs_devices_system_cpu:s0
 genfscon sysfs /class/leds                        u:object_r:sysfs_leds:s0
 genfscon sysfs /devices/platform/nfc-power/nfc_power u:object_r:sysfs_nfc_power_writable:s0
+genfscon sysfs /devices/virtual/block/dm-       u:object_r:sysfs_dm:s0
 genfscon sysfs /devices/virtual/block/zram0     u:object_r:sysfs_zram:s0
 genfscon sysfs /devices/virtual/block/zram1     u:object_r:sysfs_zram:s0
 genfscon sysfs /devices/virtual/block/zram0/uevent    u:object_r:sysfs_zram_uevent:s0
