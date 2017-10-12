@@ -57,6 +57,9 @@ neverallow all_untrusted_apps file_type:file link;
 # Do not allow untrusted apps to access network MAC address file
 neverallow all_untrusted_apps sysfs_mac_address:file no_rw_file_perms;
 
+# Do not allow any write access to files in /sys
+neverallow all_untrusted_apps sysfs_type:file no_w_file_perms;
+
 # Restrict socket ioctls. Either 1. disallow privileged ioctls, 2. disallow the
 # ioctl permission, or 3. disallow the socket class.
 neverallowxperm all_untrusted_apps domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
