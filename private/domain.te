@@ -16,3 +16,119 @@ neverallow {
 
 # Limit ability to generate hardware unique device ID attestations to priv_apps
 neverallow { domain -priv_app } *:keystore_key gen_unique_id;
+
+# Core domains are not permitted to use kernel interfaces which are not
+# explicitly labeled.
+# TODO(b/65643247): Apply these neverallow rules to all coredomain.
+full_treble_only(`
+  # /proc
+  neverallow {
+    coredomain
+    -dumpstate
+    -init
+    -platform_app
+    -priv_app
+    -radio
+    -shell
+    -system_app
+    -vold
+    -vendor_init
+  } proc:file no_rw_file_perms;
+
+  # /sys
+  neverallow {
+    coredomain
+    -charger
+    -dumpstate
+    -healthd
+    -init
+    -mediaserver
+    -priv_app
+    -radio
+    -storaged
+    -system_app
+    -system_server
+    -ueventd
+    -update_verifier
+    -vold
+    -vendor_init
+  } sysfs:file no_rw_file_perms;
+
+  # /dev
+  neverallow {
+    coredomain
+    -fsck
+    -init
+    -shell
+    -ueventd
+    -vendor_init
+  } device:{ blk_file file } no_rw_file_perms;
+
+  # debugfs
+  neverallow {
+    coredomain
+    -dumpstate
+    -init
+    -system_server
+    -vendor_init
+  } debugfs:file no_rw_file_perms;
+
+  # tracefs
+  neverallow {
+    coredomain
+    -atrace
+    -dumpstate
+    -init
+    -perfprofd
+    -shell
+    -vendor_init
+  } debugfs_tracing:file no_rw_file_perms;
+
+  # inotifyfs
+  neverallow {
+    coredomain
+    -init
+    -vendor_init
+  } inotify:file no_rw_file_perms;
+
+  # pstorefs
+  neverallow {
+    coredomain
+    -bootstat
+    -charger
+    -dumpstate
+    -healthd
+    -init
+    -logd
+    -logpersist
+    -recovery_persist
+    -recovery_refresh
+    -shell
+    -system_server
+    -vendor_init
+  } pstorefs:file no_rw_file_perms;
+
+  # configfs
+  neverallow {
+    coredomain
+    -init
+    -system_server
+    -vendor_init
+  } configfs:file no_rw_file_perms;
+
+  # functionfs
+  neverallow {
+    coredomain
+    -adbd
+    -init
+    -mediaprovider
+    -vendor_init
+  }functionfs:file no_rw_file_perms;
+
+  # usbfs and binfmt_miscfs
+  neverallow {
+    coredomain
+    -init
+    -vendor_init
+  }{ usbfs binfmt_miscfs }:file no_rw_file_perms;
+')
