@@ -273,6 +273,7 @@
 /system/etc/selinux/plat_and_mapping_sepolicy\.cil\.sha256 u:object_r:sepolicy_file:s0
 /system/bin/vr_hwc               u:object_r:vr_hwc_exec:s0
 /system/bin/adbd                 u:object_r:adbd_exec:s0
+/system/bin/vold_prepare_subdirs u:object_r:vold_prepare_subdirs_exec:s0
 
 #############################
 # Vendor files
@@ -432,6 +433,10 @@
 
 # User icon files
 /data/system/users/[0-9]+/photo.png             u:object_r:icon_file:s0
+
+# vold per-user data
+/data/misc_de/[0-9]+/vold(/.*)?           u:object_r:vold_data_file:s0
+/data/misc_ce/[0-9]+/vold(/.*)?           u:object_r:vold_data_file:s0
 
 #############################
 # efs files
