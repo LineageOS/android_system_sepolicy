@@ -6,6 +6,7 @@
   ( adbd_exec
     bootloader_boot_reason_prop
     broadcastradio_service
+    crossprofileapps_service
     e2fs
     e2fs_exec
     hal_broadcastradio_hwservice
