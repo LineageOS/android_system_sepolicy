@@ -67,6 +67,15 @@ allow system_app {
   -vold_service
   -vr_hwc_service
 }:service_manager find;
+# suppress denials for services system_app should not be accessing.
+dontaudit system_app {
+  dumpstate_service
+  installd_service
+  netd_service
+  virtual_touchpad_service
+  vold_service
+  vr_hwc_service
+}:service_manager find;
 
 allow system_app keystore:keystore_key {
     get_state
