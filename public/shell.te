@@ -142,8 +142,9 @@ allow shell bootchart_data_file:file create_file_perms;
 allow shell self:process ptrace;
 
 # allow shell to get battery info
-allow shell sysfs_batteryinfo:file r_file_perms;
 allow shell sysfs:dir r_dir_perms;
+allow shell sysfs_batteryinfo:dir r_dir_perms;
+allow shell sysfs_batteryinfo:file r_file_perms;
 
 # Allow access to ion memory allocation device.
 allow shell ion_device:chr_file rw_file_perms;
