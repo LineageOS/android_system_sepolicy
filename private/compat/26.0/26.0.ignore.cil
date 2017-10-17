@@ -36,6 +36,8 @@
     thermalserviced_tmpfs
     timezone_service
     tombstoned_java_trace_socket
+    vold_prepare_subdirs
+    vold_prepare_subdirs_exec
     vold_service
     wpantund
     wpantund_exec
