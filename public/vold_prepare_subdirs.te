@@ -1,0 +1,18 @@
+# SELinux directory creation and labelling for vold-managed directories
+
+type vold_prepare_subdirs, domain;
+type vold_prepare_subdirs_exec, exec_type, file_type;
+
+typeattribute vold_prepare_subdirs coredomain;
+
+allow vold_prepare_subdirs system_file:file execute_no_trans;
+allow vold_prepare_subdirs shell_exec:file rx_file_perms;
+allow vold_prepare_subdirs toolbox_exec:file rx_file_perms;
+allow vold_prepare_subdirs devpts:chr_file { ioctl read write };
+allow vold_prepare_subdirs vold:fd use;
+allow vold_prepare_subdirs vold:fifo_file { read write };
+allow vold_prepare_subdirs file_contexts_file:file r_file_perms;
+allow vold_prepare_subdirs self:capability dac_override;
+allow vold_prepare_subdirs self:process setfscreate;
+allow vold_prepare_subdirs system_data_file:dir { add_name write };
+allow vold_prepare_subdirs vold_data_file:dir { create getattr setattr };
