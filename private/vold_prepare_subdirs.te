@@ -1,1 +1,3 @@
 domain_auto_trans(vold, vold_prepare_subdirs_exec, vold_prepare_subdirs)
+
+allow vold_prepare_subdirs storaged_data_file:dir create_dir_perms;
