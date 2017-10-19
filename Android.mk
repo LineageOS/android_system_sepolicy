@@ -262,6 +262,7 @@ $(reqd_policy_mask.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(reqd_policy_mask.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(reqd_policy_mask.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(reqd_policy_mask.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(reqd_policy_mask.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
 $(reqd_policy_mask.conf): $(call build_policy, $(sepolicy_build_files), $(REQD_MASK_POLICY))
 	$(transform-policy-to-conf)
 # b/37755687
@@ -288,6 +289,7 @@ $(plat_pub_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(plat_pub_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(plat_pub_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(plat_pub_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(plat_pub_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
 $(plat_pub_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(REQD_MASK_POLICY))
 	$(transform-policy-to-conf)
@@ -336,6 +338,7 @@ $(plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(plat_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(plat_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
 $(plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 	$(transform-policy-to-conf)
@@ -451,6 +454,7 @@ $(nonplat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(nonplat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(nonplat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(nonplat_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(nonplat_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
 $(nonplat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS))
 	$(transform-policy-to-conf)
@@ -882,6 +886,9 @@ endif
 include $(BUILD_SYSTEM)/base_rules.mk
 
 plat_pcfiles := $(call build_policy, property_contexts, $(PLAT_PRIVATE_POLICY))
+ifeq ($(PRODUCT_COMPATIBLE_PROPERTY),true)
+plat_pcfiles += $(LOCAL_PATH)/public/property_contexts
+endif
 
 plat_property_contexts.tmp := $(intermediates)/plat_property_contexts.tmp
 $(plat_property_contexts.tmp): PRIVATE_PC_FILES := $(plat_pcfiles)
@@ -1281,6 +1288,7 @@ $(base_plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(base_plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(base_plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(base_plat_policy.conf): PRIVATE_SEPOLICY_SPLIT := true
+$(base_plat_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
 $(base_plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(BASE_PLAT_PUBLIC_POLICY) $(BASE_PLAT_PRIVATE_POLICY))
 	$(transform-policy-to-conf)

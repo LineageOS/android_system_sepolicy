@@ -19,6 +19,8 @@ allow radio net_data_file:file r_file_perms;
 
 # Property service
 set_prop(radio, radio_prop)
+set_prop(radio, exported_radio_prop)
+set_prop(radio, exported2_radio_prop)
 set_prop(radio, net_radio_prop)
 
 # ctl interface
