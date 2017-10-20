@@ -758,11 +758,8 @@ neverallow { domain -init -system_server -crash_dump } system_ndebug_socket:sock
 neverallow system_server dex2oat_exec:file no_x_file_perms;
 
 # system_server should never execute or load executable shared libraries
-# in /data except for /data/dalvik-cache files.
-neverallow system_server {
-  data_file_type
-  -dalvikcache_data_file #mapping with PROT_EXEC
-}:file no_x_file_perms;
+# in /data
+neverallow system_server data_file_type:file no_x_file_perms;
 
 # The only block device system_server should be accessing is
 # the frp_block_device. This helps avoid a system_server to root
