@@ -114,6 +114,9 @@ read_runtime_log_tags(priv_app)
 
 # suppress denials when safetynet scans /system
 dontaudit priv_app exec_type:file getattr;
+dontaudit priv_app device:dir read;
+dontaudit priv_app proc_interrupts:file read;
+dontaudit priv_app proc_modules:file read;
 
 ###
 ### neverallow rules
