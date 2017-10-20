@@ -38,9 +38,11 @@ r_dir_file(netd, proc_net)
 allow netd proc_net:file rw_file_perms;
 
 # Enables PppController and interface enumeration (among others)
-r_dir_file(netd, sysfs_type)
+allow netd sysfs:dir r_dir_perms;
+r_dir_file(netd, sysfs_net)
+
 # Allows setting interface MTU
-allow netd sysfs:file write;
+allow netd sysfs_net:file w_file_perms;
 
 # TODO: added to match above sysfs rule. Remove me?
 allow netd sysfs_usb:file write;
