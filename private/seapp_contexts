@@ -91,6 +91,10 @@ neverallow user=((?!_isolated).)* domain=isolated_app
 # uid's can be in shell domain
 neverallow user=shell domain=((?!shell).)*
 
+# only the package named com.android.shell can run in the shell domain
+neverallow domain=shell name=((?!com\.android\.shell).)*
+neverallow user=shell name=((?!com\.android\.shell).)*
+
 # Ephemeral Apps must run in the ephemeral_app domain
 neverallow isEphemeralApp=true domain=((?!ephemeral_app).)*
 
@@ -100,7 +104,7 @@ user=bluetooth seinfo=platform domain=bluetooth type=bluetooth_data_file
 user=nfc seinfo=platform domain=nfc type=nfc_data_file
 user=radio seinfo=platform domain=radio type=radio_data_file
 user=shared_relro domain=shared_relro
-user=shell seinfo=platform domain=shell type=shell_data_file
+user=shell seinfo=platform domain=shell name=com.android.shell type=shell_data_file
 user=_isolated domain=isolated_app levelFrom=user
 user=_app seinfo=media domain=mediaprovider name=android.process.media type=app_data_file levelFrom=user
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
