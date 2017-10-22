@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c07f4a4b_fe583f5b",
+        "filename": "Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-10-22T20:38:03Z",
+      "side": 1,
+      "message": "Gotta note that this changes the flag used. Need to make sure to update our sepolicy.mk to specify DIRS not DIR.",
+      "range": {
+        "startLine": 83,
+        "startChar": 54,
+        "endLine": 83,
+        "endChar": 55
+      },
+      "revId": "f813026039b54d0660a0ab8dd6d1152040c3b9b5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
