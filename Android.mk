@@ -84,21 +84,9 @@ endif
 #    - compile output binary policy file
 
 PLAT_PUBLIC_POLICY := $(LOCAL_PATH)/public
-ifneq ( ,$(BOARD_PLAT_PUBLIC_SEPOLICY_DIR))
-ifneq (1, $(words $(BOARD_PLAT_PUBLIC_SEPOLICY_DIR)))
-$(error BOARD_PLAT_PUBLIC_SEPOLICY_DIR must only contain one directory)
-else
 PLAT_PUBLIC_POLICY += $(BOARD_PLAT_PUBLIC_SEPOLICY_DIR)
-endif
-endif
 PLAT_PRIVATE_POLICY := $(LOCAL_PATH)/private
-ifneq ( ,$(BOARD_PLAT_PRIVATE_SEPOLICY_DIR))
-ifneq (1, $(words $(BOARD_PLAT_PRIVATE_SEPOLICY_DIR)))
-$(error BOARD_PLAT_PRIVATE_SEPOLICY_DIR must only contain one directory)
-else
 PLAT_PRIVATE_POLICY += $(BOARD_PLAT_PRIVATE_SEPOLICY_DIR)
-endif
-endif
 PLAT_VENDOR_POLICY := $(LOCAL_PATH)/vendor
 REQD_MASK_POLICY := $(LOCAL_PATH)/reqd_mask
 
