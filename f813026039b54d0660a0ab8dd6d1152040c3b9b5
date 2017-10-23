@@ -22,6 +22,30 @@
       "revId": "f813026039b54d0660a0ab8dd6d1152040c3b9b5",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "94613f6e_0f7d6fdc",
+        "filename": "Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 13589
+      },
+      "writtenOn": "2017-10-23T16:02:26Z",
+      "side": 1,
+      "message": "Sounds like a bad idea, you\u0027re removing the empty check and removing the original config. Why not add both with a check instead ? Would preserve the AOSP name while allowing you to add more paths. Or a different config name that would be specific to us or EXTENSION something, on top of the original one?",
+      "parentUuid": "c07f4a4b_fe583f5b",
+      "range": {
+        "startLine": 83,
+        "startChar": 54,
+        "endLine": 83,
+        "endChar": 55
+      },
+      "revId": "f813026039b54d0660a0ab8dd6d1152040c3b9b5",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
