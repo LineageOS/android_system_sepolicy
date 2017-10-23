@@ -376,7 +376,6 @@
 /data/misc/recovery(/.*)?       u:object_r:recovery_data_file:s0
 /data/misc/shared_relro(/.*)?   u:object_r:shared_relro_file:s0
 /data/misc/sms(/.*)?            u:object_r:radio_data_file:s0
-/data/misc/storaged(/.*)?       u:object_r:storaged_data_file:s0
 /data/misc/systemkeys(/.*)?     u:object_r:systemkeys_data_file:s0
 /data/misc/textclassifier(/.*)?       u:object_r:textclassifier_data_file:s0
 /data/misc/user(/.*)?           u:object_r:misc_user_data_file:s0
@@ -395,6 +394,9 @@
 /data/misc/profiles/cur(/.*)?       u:object_r:user_profile_data_file:s0
 /data/misc/profiles/ref(/.*)?       u:object_r:user_profile_data_file:s0
 /data/misc/profman(/.*)?        u:object_r:profman_dump_data_file:s0
+
+# storaged proto files
+/data/misc_ce/[0-9]+/storaged(/.*)?       u:object_r:storaged_data_file:s0
 
 # Fingerprint data
 /data/system/users/[0-9]+/fpdata(/.*)? u:object_r:fingerprintd_data_file:s0
