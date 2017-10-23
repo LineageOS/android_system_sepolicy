@@ -199,7 +199,6 @@ type postinstall_file, file_type;
 # /data/misc subdirectories
 type adb_keys_file, file_type, data_file_type, core_data_file_type;
 type audio_data_file, file_type, data_file_type, core_data_file_type;
-type audiohal_data_file, file_type, data_file_type, core_data_file_type;
 type audioserver_data_file, file_type, data_file_type, core_data_file_type;
 type bluetooth_data_file, file_type, data_file_type, core_data_file_type;
 type bluetooth_logs_data_file, file_type, data_file_type, core_data_file_type;
@@ -352,6 +351,9 @@ allow postinstall_file self:filesystem associate;
 
 # asanwrapper (run a sanitized app_process, to be used with wrap properties)
 with_asan(`type asanwrapper_exec, exec_type, file_type;')
+
+# Deprecated in SDK version 28
+type audiohal_data_file, file_type, data_file_type, core_data_file_type;
 
 # It's a bug to assign the file_type attribute and fs_type attribute
 # to any type. Do not allow it.
