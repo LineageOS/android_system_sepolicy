@@ -786,3 +786,6 @@ neverallow system_server { domain -system_server }:process ptrace;
 # file read access. However, that is now unnecessary (b/34951864)
 # This neverallow can be removed after b/34951864 is fixed.
 neverallow system_server system_server:capability sys_resource;
+
+# TODO(b/67468181): Remove following lines upon resolution of this bug
+dontaudit system_server statscompanion_service:service_manager { add find };
