@@ -10,7 +10,7 @@ allow postinstall_dexopt self:capability { chown dac_override fowner setgid setu
 allow postinstall_dexopt postinstall_file:filesystem getattr;
 allow postinstall_dexopt postinstall_file:dir { getattr search };
 allow postinstall_dexopt postinstall_file:lnk_file read;
-allow postinstall_dexopt proc:file { getattr open read };
+allow postinstall_dexopt proc_filesystems:file { getattr open read };
 allow postinstall_dexopt tmpfs:file read;
 
 # Note: /data/ota is created by init (see system/core/rootdir/init.rc) to avoid giving access
