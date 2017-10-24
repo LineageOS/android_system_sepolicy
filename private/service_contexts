@@ -140,6 +140,7 @@ simphonebook_msim                         u:object_r:radio_service:s0
 simphonebook2                             u:object_r:radio_service:s0
 simphonebook                              u:object_r:radio_service:s0
 sip                                       u:object_r:radio_service:s0
+statscompanion                            u:object_r:statscompanion_service:s0
 soundtrigger                              u:object_r:voiceinteraction_service:s0
 statusbar                                 u:object_r:statusbar_service:s0
 storaged                                  u:object_r:storaged_service:s0
