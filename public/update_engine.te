@@ -40,12 +40,8 @@ allow update_engine ota_package_file:dir r_dir_perms;
 # Use Boot Control HAL
 hal_client_domain(update_engine, hal_bootctl)
 
-# access /proc/misc and /proc/sys/kernel/random/boot_id
-allow update_engine proc:file r_file_perms;
+# access /proc/misc
 allow update_engine proc_misc:file r_file_perms;
 
 # read directories on /system and /vendor
 allow update_engine system_file:dir r_dir_perms;
-
-# Read files in /sys
-r_dir_file(update_engine, sysfs)
