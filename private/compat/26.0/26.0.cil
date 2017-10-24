@@ -447,7 +447,20 @@
 (typeattributeset preopt2cachename_exec_26_0 (preopt2cachename_exec))
 (typeattributeset print_service_26_0 (print_service))
 (typeattributeset priv_app_26_0 (mediaprovider priv_app))
-(typeattributeset proc_26_0 (proc proc_asound proc_cmdline proc_filesystems proc_kmsg proc_loadavg proc_mounts proc_pagetypeinfo proc_swaps proc_uid_time_in_state proc_version proc_vmallocinfo))
+(typeattributeset proc_26_0
+  ( proc
+    proc_asound
+    proc_cmdline
+    proc_filesystems
+    proc_kmsg
+    proc_loadavg
+    proc_mounts
+    proc_pagetypeinfo
+    proc_random
+    proc_swaps
+    proc_uid_time_in_state
+    proc_version
+    proc_vmallocinfo))
 (typeattributeset proc_bluetooth_writable_26_0 (proc_bluetooth_writable))
 (typeattributeset proc_cpuinfo_26_0 (proc_cpuinfo))
 (typeattributeset proc_drop_caches_26_0 (proc_drop_caches))
@@ -568,6 +581,7 @@
   ( sysfs
     sysfs_android_usb
     sysfs_dm
+    sysfs_dt_firmware_android
     sysfs_ipv4
     sysfs_net
     sysfs_power
