@@ -277,6 +277,9 @@ allow init proc_version:file r_file_perms;
 # Read /proc/cmdline
 allow init proc_cmdline:file r_file_perms;
 
+# Write to /proc/sys/vm/page-cluster
+allow init proc_page_cluster:file w_file_perms;
+
 # Reboot.
 allow init self:capability sys_boot;
 
