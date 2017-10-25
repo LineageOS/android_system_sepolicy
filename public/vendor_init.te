@@ -1,0 +1,210 @@
+# vendor_init is its own domain.
+type vendor_init, domain, mlstrustedsubject;
+
+# Communication to the main init process
+allow vendor_init init:unix_stream_socket { read write };
+
+# Logging to kmsg
+allow vendor_init kmsg_device:chr_file { open write };
+
+# Mount on /dev/usb-ffs/adb.
+allow vendor_init device:dir mounton;
+
+# Create and remove symlinks in /.
+allow vendor_init rootfs:lnk_file { create unlink };
+
+# Create cgroups mount points in tmpfs and mount cgroups on them.
+allow vendor_init cgroup:dir create_dir_perms;
+
+# /config
+allow vendor_init configfs:dir mounton;
+allow vendor_init configfs:dir create_dir_perms;
+allow vendor_init configfs:{ file lnk_file } create_file_perms;
+
+# Create directories under /dev/cpuctl after chowning it to system.
+allow vendor_init self:capability dac_override;
+
+# mkdir, symlink, write, rm/rmdir, chown/chmod, restorecon/restorecon_recursive from init.rc files.
+# chown/chmod require open+read+setattr required for open()+fchown/fchmod().
+# system/core/init.rc requires at least cache_file and data_file_type.
+# init.<board>.rc files often include device-specific types, so
+# we just allow all file types except /system files here.
+allow vendor_init self:capability { chown fowner fsetid };
+
+allow vendor_init {
+  file_type
+  -app_data_file
+  -bluetooth_data_file
+  -dalvikcache_data_file
+  -exec_type
+  -incident_data_file
+  -keystore_data_file
+  -misc_logd_file
+  -nfc_data_file
+  -property_data_file
+  -radio_data_file
+  -shell_data_file
+  -system_app_data_file
+  -system_file
+  -system_ndebug_socket
+  -unlabeled
+  -vendor_file_type
+  -vold_data_file
+  -zoneinfo_data_file
+}:dir { create search getattr open read setattr ioctl };
+
+allow vendor_init {
+  file_type
+  -app_data_file
+  -bluetooth_data_file
+  -dalvikcache_data_file
+  -exec_type
+  -incident_data_file
+  -keystore_data_file
+  -misc_logd_file
+  -nfc_data_file
+  -property_data_file
+  -radio_data_file
+  -shell_data_file
+  -system_app_data_file
+  -system_file
+  -system_ndebug_socket
+  -unlabeled
+  -vendor_file_type
+  -vold_data_file
+  -zoneinfo_data_file
+}:dir { write add_name remove_name rmdir relabelfrom };
+
+allow vendor_init {
+  file_type
+  -app_data_file
+  -bluetooth_data_file
+  -dalvikcache_data_file
+  -runtime_event_log_tags_file
+  -exec_type
+  -incident_data_file
+  -keystore_data_file
+  -misc_logd_file
+  -nfc_data_file
+  -property_data_file
+  -radio_data_file
+  -shell_data_file
+  -system_app_data_file
+  -system_file
+  -system_ndebug_socket
+  -unlabeled
+  -vendor_file_type
+  -vold_data_file
+  -zoneinfo_data_file
+}:file { create getattr open read write setattr relabelfrom unlink };
+
+allow vendor_init {
+  file_type
+  -app_data_file
+  -bluetooth_data_file
+  -dalvikcache_data_file
+  -exec_type
+  -incident_data_file
+  -keystore_data_file
+  -misc_logd_file
+  -nfc_data_file
+  -property_data_file
+  -radio_data_file
+  -shell_data_file
+  -system_app_data_file
+  -system_file
+  -system_ndebug_socket
+  -unlabeled
+  -vendor_file_type
+  -vold_data_file
+  -zoneinfo_data_file
+}:{ sock_file fifo_file } { create getattr open read setattr relabelfrom unlink };
+
+allow vendor_init {
+  file_type
+  -app_data_file
+  -bluetooth_data_file
+  -dalvikcache_data_file
+  -exec_type
+  -incident_data_file
+  -keystore_data_file
+  -misc_logd_file
+  -nfc_data_file
+  -property_data_file
+  -radio_data_file
+  -shell_data_file
+  -system_app_data_file
+  -system_file
+  -system_ndebug_socket
+  -unlabeled
+  -vendor_file_type
+  -vold_data_file
+  -zoneinfo_data_file
+}:lnk_file { create getattr setattr relabelfrom unlink };
+
+allow vendor_init {
+  file_type
+  -system_file
+  -vendor_file_type
+  -exec_type
+  -vold_data_file
+  -keystore_data_file
+}:dir_file_class_set relabelto;
+
+allow vendor_init dev_type:dir create_dir_perms;
+allow vendor_init dev_type:lnk_file create;
+
+# Disable tracing by writing to /sys/kernel/debug/tracing/tracing_on
+allow vendor_init debugfs_tracing:file w_file_perms;
+
+# chown/chmod on pseudo files.
+allow vendor_init {
+  fs_type
+  -contextmount_type
+  -sdcard_type
+  -rootfs
+  -proc_uid_time_in_state
+}:file { open read setattr };
+
+allow vendor_init {
+  fs_type
+  -contextmount_type
+  -sdcard_type
+  -rootfs
+  -proc_uid_time_in_state
+}:dir  { open read setattr search };
+
+# chown/chmod on devices, e.g. /dev/ttyHS0
+allow vendor_init {
+  dev_type
+  -kmem_device
+  -port_device
+  -lowpan_device
+  -hw_random_device
+}:chr_file setattr;
+
+allow vendor_init dev_type:blk_file getattr;
+
+# Write to /proc/sys/net/ping_group_range and other /proc/sys/net files.
+r_dir_file(vendor_init, proc_net)
+allow vendor_init proc_net:file w_file_perms;
+allow vendor_init self:capability net_admin;
+
+# Write to /proc/sys/vm/page-cluster
+allow vendor_init proc_page_cluster:file w_file_perms;
+
+# Write to sysfs nodes.
+allow vendor_init sysfs_type:dir r_dir_perms;
+allow vendor_init sysfs_type:lnk_file read;
+allow vendor_init { sysfs_type -sysfs_usermodehelper }:file rw_file_perms;
+
+# setfscreatecon() for labeling directories and socket files.
+allow vendor_init self:process { setfscreate };
+
+r_dir_file(vendor_init, vendor_file_type)
+
+# Vendor init can read properties
+allow vendor_init serialno_prop:file { getattr open read };
+
+# Vendor init can perform operations on trusted and security Extended Attributes
+allow vendor_init self:capability sys_admin;
