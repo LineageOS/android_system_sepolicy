@@ -14,6 +14,7 @@ recovery_only(`
 domain_trans(init, shell_exec, shell)
 domain_trans(init, init_exec, ueventd)
 domain_trans(init, init_exec, watchdogd)
+domain_trans(init, init_exec, vendor_init)
 domain_trans(init, { rootfs toolbox_exec }, modprobe)
 # case where logpersistd is actually logcat -f in logd context (nee: logcatd)
 userdebug_or_eng(`
