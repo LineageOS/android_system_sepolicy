@@ -58,8 +58,6 @@ recovery_only(`
   # Read kernel config through libvintf for OTA matching
   allow recovery config_gz:file { open read getattr };
 
-  r_dir_file(recovery, sysfs)
-
   # Write to /sys/class/android_usb/android0/enable.
   r_dir_file(recovery, sysfs_android_usb)
   allow recovery sysfs_android_usb:file w_file_perms;
