@@ -52,6 +52,9 @@ recovery_only(`
   # Write to /proc/sys/vm/drop_caches
   allow recovery proc_drop_caches:file w_file_perms;
 
+  # Read /proc/swaps
+  allow recovery proc_swaps:file r_file_perms;
+
   # Read kernel config through libvintf for OTA matching
   allow recovery config_gz:file { open read getattr };
 
@@ -65,6 +68,9 @@ recovery_only(`
   allow recovery sysfs_devices_system_cpu:file w_file_perms;
 
   allow recovery sysfs_batteryinfo:file r_file_perms;
+
+  # Read /sysfs/fs/ext4/features
+  r_dir_file(recovery, sysfs_fs_ext4_features)
 
   # Read from /sys/class/leds/lcd-backlight/max_brightness and write to /s/c/l/l/brightness to
   # control backlight brightness.
