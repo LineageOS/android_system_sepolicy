@@ -61,6 +61,9 @@ allow bluetooth self:global_capability_class_set sys_nice;
 hal_client_domain(bluetooth, hal_bluetooth)
 hal_client_domain(bluetooth, hal_telephony)
 
+# Bluetooth A2DP offload requires binding with audio HAL
+hal_client_domain(bluetooth, hal_audio)
+
 read_runtime_log_tags(bluetooth)
 
 ###
