@@ -263,6 +263,8 @@ allow dumpstate self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_re
 
 # Allow dumpstate to run iotop
 allow dumpstate self:netlink_socket create_socket_perms_no_ioctl;
+# newer kernels (e.g. 4.4) have a new class for sockets
+allow dumpstate self:netlink_generic_socket create_socket_perms_no_ioctl;
 
 ###
 ### neverallow rules
