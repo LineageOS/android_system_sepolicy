@@ -19,6 +19,10 @@ app_domain(ephemeral_app)
 # Allow ephemeral apps to read/write files in visible storage if provided fds
 allow ephemeral_app { sdcard_type media_rw_data_file }:file {read write getattr ioctl lock append};
 
+# Some apps ship with shared libraries and binaries that they write out
+# to their sandbox directory and then execute.
+allow ephemeral_app app_data_file:file {r_file_perms execute};
+
 # services
 allow ephemeral_app audioserver_service:service_manager find;
 allow ephemeral_app cameraserver_service:service_manager find;
@@ -35,8 +39,7 @@ allow ephemeral_app ephemeral_app_api_service:service_manager find;
 ### neverallow rules
 ###
 
-# Executable content should never be loaded from an ephemeral app home directory.
-neverallow ephemeral_app app_data_file:file { execute execute_no_trans };
+neverallow ephemeral_app app_data_file:file execute_no_trans;
 
 # Receive or send uevent messages.
 neverallow ephemeral_app domain:netlink_kobject_uevent_socket *;
