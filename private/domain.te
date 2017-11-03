@@ -28,7 +28,6 @@ full_treble_only(`
     -init
     -platform_app
     -priv_app
-    -radio
     -shell
     -system_app
     -vold
@@ -44,7 +43,6 @@ full_treble_only(`
     -init
     -mediaserver
     -priv_app
-    -radio
     -storaged
     -system_app
     -system_server
