@@ -206,7 +206,12 @@ allow init debugfs_tracing_instances:file w_file_perms;
 allow init debugfs_wifi_tracing:file w_file_perms;
 
 # chown/chmod on pseudo files.
-allow init { fs_type -contextmount_type -sdcard_type -rootfs }:file { open read setattr };
+allow init {
+  fs_type
+  -contextmount_type
+  -sdcard_type
+  -rootfs
+}:file { open read setattr };
 allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read setattr search };
 
 # init should not be able to read or open generic devices
@@ -252,36 +257,36 @@ allow init unlabeled:notdevfile_class_set { create_file_perms relabelfrom };
 allow init kernel:system syslog_mod;
 allow init self:capability2 syslog;
 
-# Set usermodehelpers and /proc security settings.
+# init access to /proc.
+r_dir_file(init, proc_net)
+
+allow init {
+  proc_cmdline
+  proc_meminfo
+  proc_overflowuid
+  proc_stat # Read /proc/stat for bootchart.
+  proc_version
+}:file r_file_perms;
+
+allow init {
+  proc_net
+  proc_overcommit_memory
+  proc_page_cluster
+  proc_sysrq
+}:file w_file_perms;
+
+allow init {
+  proc_security
+}:file rw_file_perms;
+
+# Set usermodehelpers.
 allow init { usermodehelper sysfs_usermodehelper }:file rw_file_perms;
-allow init proc_security:file rw_file_perms;
 
 # Write to /proc/sys/kernel/panic_on_oops.
 r_dir_file(init, proc)
 allow init proc:file w_file_perms;
 
-# Write to /proc/sys/net/ping_group_range and other /proc/sys/net files.
-r_dir_file(init, proc_net)
-allow init proc_net:file w_file_perms;
 allow init self:capability net_admin;
-
-# Write to /proc/sysrq-trigger.
-allow init proc_sysrq:file w_file_perms;
-
-# Read /proc/stat for bootchart.
-allow init proc_stat:file r_file_perms;
-
-# Read /proc/version.
-allow init proc_version:file r_file_perms;
-
-# Read /proc/cmdline
-allow init proc_cmdline:file r_file_perms;
-
-# Write to /proc/sys/vm/page-cluster
-allow init proc_page_cluster:file w_file_perms;
-
-# Read /proc/sys/kernel/overflowuid
-allow init proc_overflowuid:file r_file_perms;
 
 # Reboot.
 allow init self:capability sys_boot;
@@ -414,7 +419,6 @@ allow init misc_block_device:blk_file w_file_perms;
 
 r_dir_file(init, system_file)
 r_dir_file(init, vendor_file_type)
-allow init proc_meminfo:file r_file_perms;
 
 allow init system_data_file:file { getattr read };
 allow init system_data_file:lnk_file r_file_perms;
