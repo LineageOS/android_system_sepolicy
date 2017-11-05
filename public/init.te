@@ -209,6 +209,7 @@ allow init debugfs_wifi_tracing:file w_file_perms;
 allow init {
   fs_type
   -contextmount_type
+  -proc
   -sdcard_type
   -rootfs
 }:file { open read setattr };
@@ -262,16 +263,28 @@ r_dir_file(init, proc_net)
 
 allow init {
   proc_cmdline
+  proc_diskstats
+  proc_kmsg # Open /proc/kmsg for logd service.
   proc_meminfo
   proc_overflowuid
   proc_stat # Read /proc/stat for bootchart.
+  proc_uptime
   proc_version
 }:file r_file_perms;
 
 allow init {
+  proc_abi
+  proc_dirty
+  proc_hostname
+  proc_hung_task
+  proc_extra_free_kbytes
   proc_net
+  proc_max_map_count
   proc_overcommit_memory
+  proc_panic
   proc_page_cluster
+  proc_perf
+  proc_sched
   proc_sysrq
 }:file w_file_perms;
 
@@ -281,10 +294,6 @@ allow init {
 
 # Set usermodehelpers.
 allow init { usermodehelper sysfs_usermodehelper }:file rw_file_perms;
-
-# Write to /proc/sys/kernel/panic_on_oops.
-r_dir_file(init, proc)
-allow init proc:file w_file_perms;
 
 allow init self:capability net_admin;
 
