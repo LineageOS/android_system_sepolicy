@@ -238,13 +238,13 @@ type app_data_file, file_type, data_file_type, core_data_file_type;
 type system_app_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # Compatibility with type name used in Android 4.3 and 4.4.
 # Default type for anything under /cache
-type cache_file, file_type, data_file_type, mlstrustedobject;
+type cache_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # Type for /cache/backup_stage/* (fd interchange with apps)
-type cache_backup_file, file_type, data_file_type, mlstrustedobject;
+type cache_backup_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # type for anything under /cache/backup (local transport storage)
-type cache_private_backup_file, file_type, data_file_type;
+type cache_private_backup_file, file_type, data_file_type, core_data_file_type;
 # Type for anything under /cache/recovery
-type cache_recovery_file, file_type, data_file_type, mlstrustedobject;
+type cache_recovery_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # Default type for anything under /efs
 type efs_file, file_type;
 # Type for wallpaper file.
@@ -272,7 +272,7 @@ type app_fuse_file, file_type, data_file_type, core_data_file_type, mlstrustedob
 
 # Socket types
 type adbd_socket, file_type, coredomain_socket;
-type bluetooth_socket, file_type, data_file_type, coredomain_socket;
+type bluetooth_socket, file_type, data_file_type, core_data_file_type, coredomain_socket;
 type dnsproxyd_socket, file_type, coredomain_socket, mlstrustedobject;
 type dumpstate_socket, file_type, coredomain_socket;
 type fwmarkd_socket, file_type, coredomain_socket, mlstrustedobject;
@@ -282,7 +282,7 @@ type logdr_socket, file_type, coredomain_socket, mlstrustedobject;
 type logdw_socket, file_type, coredomain_socket, mlstrustedobject;
 type mdns_socket, file_type, coredomain_socket;
 type mdnsd_socket, file_type, coredomain_socket, mlstrustedobject;
-type misc_logd_file, coredomain_socket, file_type, data_file_type;
+type misc_logd_file, coredomain_socket, file_type, data_file_type, core_data_file_type;
 type mtpd_socket, file_type, coredomain_socket;
 type netd_socket, file_type, coredomain_socket;
 type property_socket, file_type, coredomain_socket, mlstrustedobject;
@@ -290,7 +290,7 @@ type racoon_socket, file_type, coredomain_socket;
 type rild_socket, file_type;
 type rild_debug_socket, file_type;
 type system_wpa_socket, file_type, data_file_type, coredomain_socket;
-type system_ndebug_socket, file_type, data_file_type, coredomain_socket, mlstrustedobject;
+type system_ndebug_socket, file_type, data_file_type, core_data_file_type, coredomain_socket, mlstrustedobject;
 type tombstoned_crash_socket, file_type, coredomain_socket, mlstrustedobject;
 type tombstoned_java_trace_socket, file_type, mlstrustedobject;
 type tombstoned_intercept_socket, file_type, coredomain_socket;
