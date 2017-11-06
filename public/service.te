@@ -16,6 +16,7 @@ type keystore_service,          service_manager_type;
 type mediaserver_service,       service_manager_type;
 type mediametrics_service,      service_manager_type;
 type mediaextractor_service,    service_manager_type;
+type mediaextractor_update_service, service_manager_type;
 type mediacodec_service,        service_manager_type;
 type mediadrmserver_service,    service_manager_type;
 type netd_service,              service_manager_type;

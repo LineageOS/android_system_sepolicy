@@ -243,3 +243,6 @@ full_treble_only(`
     -untrusted_app_visible_halserver
   }:binder { call transfer };
 ')
+
+# Untrusted apps are not allowed to find mediaextractor update service.
+neverallow all_untrusted_apps mediaextractor_update_service:service_manager find;
