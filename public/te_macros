@@ -77,7 +77,7 @@ allow $1 $2:{ file lnk_file } r_file_perms;
 define(`tmpfs_domain', `
 type $1_tmpfs, file_type;
 type_transition $1 tmpfs:file $1_tmpfs;
-allow $1 $1_tmpfs:file { read write getattr };
+allow $1 $1_tmpfs:file { read write getattr map };
 allow $1 tmpfs:dir { getattr search };
 ')
 
