@@ -455,6 +455,7 @@
     proc_kmsg
     proc_loadavg
     proc_mounts
+    proc_overflowuid
     proc_page_cluster
     proc_pagetypeinfo
     proc_random
