@@ -26,6 +26,7 @@ type proc_misc, fs_type;
 type proc_modules, fs_type;
 type proc_mounts, fs_type;
 type proc_net, fs_type;
+type proc_overflowuid, fs_type;
 type proc_page_cluster, fs_type;
 type proc_pagetypeinfo, fs_type;
 type proc_perf, fs_type;
