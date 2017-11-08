@@ -24,6 +24,7 @@ allow vold {
   proc_filesystems
   proc_meminfo
   proc_mounts
+  proc_overflowuid
 }:file r_file_perms;
 
 #Get file contexts
