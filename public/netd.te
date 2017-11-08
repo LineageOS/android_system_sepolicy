@@ -37,6 +37,9 @@ r_dir_file(netd, proc_net)
 # For /proc/sys/net/ipv[46]/route/flush.
 allow netd proc_net:file rw_file_perms;
 
+# Access for /proc/sys/kernel/overflowuid.
+allow netd proc_overflowuid:file r_file_perms;
+
 # Enables PppController and interface enumeration (among others)
 allow netd sysfs:dir r_dir_perms;
 r_dir_file(netd, sysfs_net)
