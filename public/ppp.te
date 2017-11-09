@@ -15,7 +15,7 @@ allowxperm ppp mtp:socket ioctl ppp_ioctls;
 
 allow ppp mtp:unix_dgram_socket rw_socket_perms;
 allow ppp ppp_device:chr_file rw_file_perms;
-allow ppp self:capability net_admin;
+allow ppp self:global_capability_class_set net_admin;
 allow ppp system_file:file rx_file_perms;
 not_full_treble(`allow ppp vendor_file:file rx_file_perms;')
 allow ppp vpn_data_file:dir w_dir_perms;

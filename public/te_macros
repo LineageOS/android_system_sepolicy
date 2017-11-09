@@ -402,7 +402,7 @@ define(`wakelock_use', `
 # Access /sys/power/wake_lock and /sys/power/wake_unlock
 allow $1 sysfs_wake_lock:file rw_file_perms;
 # Accessing these files requires CAP_BLOCK_SUSPEND
-allow $1 self:capability2 block_suspend;
+allow $1 self:global_capability2_class_set block_suspend;
 ')
 
 #####################################

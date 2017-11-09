@@ -2,7 +2,7 @@
 type uncrypt, domain, mlstrustedsubject;
 type uncrypt_exec, exec_type, file_type;
 
-allow uncrypt self:capability dac_override;
+allow uncrypt self:global_capability_class_set dac_override;
 
 # Read OTA zip file from /data/data/com.google.android.gsf/app_download
 r_dir_file(uncrypt, app_data_file)
@@ -29,7 +29,7 @@ unix_socket_connect(uncrypt, uncrypt, uncrypt)
 set_prop(uncrypt, powerctl_prop)
 
 # Raw writes to block device
-allow uncrypt self:capability sys_rawio;
+allow uncrypt self:global_capability_class_set sys_rawio;
 allow uncrypt misc_block_device:blk_file w_file_perms;
 allow uncrypt block_device:dir r_dir_perms;
 

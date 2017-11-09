@@ -22,12 +22,12 @@ allow bluetooth bluetooth_logs_data_file:file create_file_perms;
 # Socket creation under /data/misc/bluedroid.
 allow bluetooth bluetooth_socket:sock_file create_file_perms;
 
-allow bluetooth self:capability net_admin;
-allow bluetooth self:capability2 wake_alarm;
+allow bluetooth self:global_capability_class_set net_admin;
+allow bluetooth self:global_capability2_class_set wake_alarm;
 
 # tethering
 allow bluetooth self:packet_socket create_socket_perms_no_ioctl;
-allow bluetooth self:capability { net_admin net_raw net_bind_service };
+allow bluetooth self:global_capability_class_set { net_admin net_raw net_bind_service };
 allow bluetooth self:tun_socket create_socket_perms_no_ioctl;
 allow bluetooth tun_device:chr_file rw_file_perms;
 allow bluetooth efs_file:dir search;
@@ -56,7 +56,7 @@ allow bluetooth system_api_service:service_manager find;
 allow bluetooth shell_data_file:file read;
 
 # Bluetooth audio needs RT scheduling to meet deadlines, allow sys_nice
-allow bluetooth self:capability sys_nice;
+allow bluetooth self:global_capability_class_set sys_nice;
 
 hal_client_domain(bluetooth, hal_bluetooth)
 hal_client_domain(bluetooth, hal_telephony)
@@ -71,5 +71,5 @@ read_runtime_log_tags(bluetooth)
 
 # Superuser capabilities.
 # Bluetooth requires net_{admin,raw,bind_service} and wake_alarm and block_suspend and sys_nice.
-neverallow bluetooth self:capability ~{ net_admin net_raw net_bind_service sys_nice};
-neverallow bluetooth self:capability2 ~{ wake_alarm block_suspend };
+neverallow bluetooth self:global_capability_class_set ~{ net_admin net_raw net_bind_service sys_nice};
+neverallow bluetooth self:global_capability2_class_set ~{ wake_alarm block_suspend };

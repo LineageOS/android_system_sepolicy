@@ -3,13 +3,13 @@ typeattribute netutils_wrapper coredomain;
 r_dir_file(netutils_wrapper, system_file);
 
 # For netutils (ip, iptables, tc)
-allow netutils_wrapper self:capability net_raw;
+allow netutils_wrapper self:global_capability_class_set net_raw;
 
 allow netutils_wrapper system_file:file { execute execute_no_trans };
 allow netutils_wrapper proc_net:file { open read getattr };
 allow netutils_wrapper self:rawip_socket create_socket_perms;
 allow netutils_wrapper self:udp_socket create_socket_perms;
-allow netutils_wrapper self:capability net_admin;
+allow netutils_wrapper self:global_capability_class_set net_admin;
 # ip utils need everything but ioctl
 allow netutils_wrapper self:netlink_route_socket ~ioctl;
 allow netutils_wrapper self:netlink_xfrm_socket ~ioctl;
