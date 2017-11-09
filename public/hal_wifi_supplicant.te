@@ -26,12 +26,6 @@ allow hal_wifi_supplicant wifi_data_file:file create_file_perms;
 allow hal_wifi_supplicant wpa_socket:dir create_dir_perms;
 allow hal_wifi_supplicant wpa_socket:sock_file create_file_perms;
 
-# Allow wpa_cli to work. wpa_cli creates a socket in
-# /data/misc/wifi/sockets which hal_wifi_supplicant supplicant communicates with.
-userdebug_or_eng(`
-  unix_socket_send(hal_wifi_supplicant, wpa, su)
-')
-
 ###
 ### neverallow rules
 ###
