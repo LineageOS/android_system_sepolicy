@@ -450,18 +450,28 @@
 (typeattributeset priv_app_26_0 (mediaprovider priv_app))
 (typeattributeset proc_26_0
   ( proc
+    proc_abi
     proc_asound
     proc_cmdline
+    proc_dirty
+    proc_diskstats
+    proc_extra_free_kbytes
     proc_filesystems
+    proc_hostname
+    proc_hung_task
     proc_kmsg
     proc_loadavg
+    proc_max_map_count
     proc_mounts
     proc_overflowuid
     proc_page_cluster
     proc_pagetypeinfo
+    proc_panic
     proc_random
+    proc_sched
     proc_swaps
     proc_uid_time_in_state
+    proc_uptime
     proc_version
     proc_vmallocinfo))
 (typeattributeset proc_bluetooth_writable_26_0 (proc_bluetooth_writable))
