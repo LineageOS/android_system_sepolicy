@@ -541,3 +541,12 @@ neverallow {
   -bluetooth
   -system_app
 } bluetooth_prop:file create_file_perms;
+
+# Apps cannot access proc_uid_time_in_state
+neverallow appdomain proc_uid_time_in_state:file *;
+
+# Apps cannot access proc_uid_concurrent_active_time
+neverallow appdomain proc_uid_concurrent_active_time:file *;
+
+# Apps cannot access proc_uid_concurrent_policy_time
+neverallow appdomain proc_uid_concurrent_policy_time:file *;
