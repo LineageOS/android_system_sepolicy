@@ -25,7 +25,6 @@ full_treble_only(`
   neverallow {
     coredomain
     -dumpstate
-    -init
     -platform_app
     -priv_app
     -shell
