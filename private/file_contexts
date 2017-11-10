@@ -387,6 +387,7 @@
 /data/misc/vold(/.*)?           u:object_r:vold_data_file:s0
 /data/misc/perfprofd(/.*)?      u:object_r:perfprofd_data_file:s0
 /data/misc/update_engine(/.*)?  u:object_r:update_engine_data_file:s0
+/data/misc/update_engine_log(/.*)?  u:object_r:update_engine_log_data_file:s0
 /data/system/heapdump(/.*)?     u:object_r:heapdump_data_file:s0
 /data/misc/trace(/.*)?          u:object_r:method_trace_data_file:s0
 # TODO(calin) label profile reference differently so that only
