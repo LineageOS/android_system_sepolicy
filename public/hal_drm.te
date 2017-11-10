@@ -33,11 +33,6 @@ allow hal_drm hal_graphics_allocator:fd use;
 # Allow access to fds allocated by mediaserver
 allow hal_drm mediaserver:fd use;
 
-# Allow access to app_data and media_data_files
-allow hal_drm media_data_file:dir create_dir_perms;
-allow hal_drm media_data_file:file create_file_perms;
-allow hal_drm media_data_file:file { getattr read };
-
 allow hal_drm sysfs:file r_file_perms;
 
 allow hal_drm tee_device:chr_file rw_file_perms;
