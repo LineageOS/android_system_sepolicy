@@ -49,7 +49,6 @@ full_treble_only(`
     coredomain
     -fsck
     -init
-    -shell
     -ueventd
     -vendor_init
   } device:{ blk_file file } no_rw_file_perms;
