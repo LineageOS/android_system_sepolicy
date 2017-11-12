@@ -33,6 +33,11 @@ allow netd devpts:chr_file rw_file_perms;
 # Acquire advisory lock on /system/etc/xtables.lock
 allow netd system_file:file lock;
 
+# Allow netd to write to qtaguid ctrl file. This is the same privilege level that normal apps have
+# TODO: Add proper rules to prevent other process to access qtaguid_proc file after migration
+#       complete
+allow netd qtaguid_proc:file rw_file_perms;
+
 r_dir_file(netd, proc_net)
 # For /proc/sys/net/ipv[46]/route/flush.
 allow netd proc_net:file rw_file_perms;
