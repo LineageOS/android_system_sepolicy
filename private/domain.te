@@ -45,7 +45,6 @@ full_treble_only(`
     -storaged
     -system_app
     -ueventd
-    -update_verifier
     -vold
     -vendor_init
   } sysfs:file no_rw_file_perms;
