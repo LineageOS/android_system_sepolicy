@@ -187,12 +187,12 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := selinux_policy
 LOCAL_MODULE_TAGS := optional
 # Include SELinux policy. We do this here because different modules
-# need to be included based on the value of PRODUCT_FULL_TREBLE. This
+# need to be included based on the value of PRODUCT_SEPOLICY_SPLIT. This
 # type of conditional inclusion cannot be done in top-level files such
 # as build/target/product/embedded.mk.
 # This conditional inclusion closely mimics the conditional logic
 # inside init/init.cpp for loading SELinux policy from files.
-ifeq ($(PRODUCT_FULL_TREBLE),true)
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 
 # Use split SELinux policy
 LOCAL_REQUIRED_MODULES += \
@@ -234,7 +234,7 @@ LOCAL_REQUIRED_MODULES += \
     searchpolicy \
     vndservice_contexts \
 
-ifneq ($(PRODUCT_FULL_TREBLE),true)
+ifneq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_REQUIRED_MODULES += nonplat_service_contexts
 endif
 
@@ -266,7 +266,7 @@ $(reqd_policy_mask.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(reqd_policy_mask.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(reqd_policy_mask.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(reqd_policy_mask.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(reqd_policy_mask.conf): PRIVATE_FULL_TREBLE := $(PRODUCT_FULL_TREBLE)
+$(reqd_policy_mask.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
 $(reqd_policy_mask.conf): $(call build_policy, $(sepolicy_build_files), $(REQD_MASK_POLICY))
 	$(transform-policy-to-conf)
 # b/37755687
@@ -292,7 +292,7 @@ $(plat_pub_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(plat_pub_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(plat_pub_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(plat_pub_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(plat_pub_policy.conf): PRIVATE_FULL_TREBLE := $(PRODUCT_FULL_TREBLE)
+$(plat_pub_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
 $(plat_pub_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(REQD_MASK_POLICY))
 	$(transform-policy-to-conf)
@@ -340,7 +340,7 @@ $(plat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(plat_policy.conf): PRIVATE_FULL_TREBLE := $(PRODUCT_FULL_TREBLE)
+$(plat_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
 $(plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 	$(transform-policy-to-conf)
@@ -455,7 +455,7 @@ $(nonplat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(nonplat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(nonplat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(nonplat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(nonplat_policy.conf): PRIVATE_FULL_TREBLE := $(PRODUCT_FULL_TREBLE)
+$(nonplat_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
 $(nonplat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS))
 	$(transform-policy-to-conf)
@@ -614,7 +614,7 @@ $(LOCAL_BUILT_MODULE): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(LOCAL_BUILT_MODULE): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(LOCAL_BUILT_MODULE): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(LOCAL_BUILT_MODULE): PRIVATE_WITH_ASAN := false
-$(LOCAL_BUILT_MODULE): PRIVATE_FULL_TREBLE := cts
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY_SPLIT := cts
 $(LOCAL_BUILT_MODULE): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 	$(transform-policy-to-conf)
@@ -720,7 +720,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := plat_file_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_FULL_TREBLE),true)
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
 else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -754,7 +754,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := nonplat_file_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_FULL_TREBLE),true)
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
 else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -811,7 +811,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := plat_seapp_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_FULL_TREBLE),true)
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
 else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -835,7 +835,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := nonplat_seapp_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_FULL_TREBLE),true)
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
 else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -878,7 +878,7 @@ LOCAL_MODULE := plat_property_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 
-ifeq ($(PRODUCT_FULL_TREBLE),true)
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
 else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -911,7 +911,7 @@ LOCAL_MODULE := nonplat_property_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 
-ifeq ($(PRODUCT_FULL_TREBLE),true)
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
 else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -973,7 +973,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := plat_service_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_FULL_TREBLE),true)
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
 else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -1002,7 +1002,7 @@ plat_service_contexts.tmp :=
 
 ##################################
 # nonplat_service_contexts is only allowed on non-full-treble devices
-ifneq ($(PRODUCT_FULL_TREBLE),true)
+ifneq ($(PRODUCT_SEPOLICY_SPLIT),true)
 
 include $(CLEAR_VARS)
 
@@ -1040,7 +1040,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := plat_hwservice_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_FULL_TREBLE),true)
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
 else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -1072,7 +1072,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := nonplat_hwservice_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_FULL_TREBLE),true)
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
 else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -1104,7 +1104,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := vndservice_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_FULL_TREBLE),true)
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
 else
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -1211,7 +1211,7 @@ $(built_plat_fc) $(built_nonplat_fc) $(built_sepolicy)
 	$(hide) touch $@
 
 ##################################
-ifeq ($(PRODUCT_FULL_TREBLE),true)
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 include $(CLEAR_VARS)
 # For Treble builds run tests verifying that processes are properly labeled and
 # permissions granted do not violate the treble model.  Also ensure that treble
@@ -1234,7 +1234,7 @@ $(26.0_plat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(26.0_plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(26.0_plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(26.0_plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(26.0_plat_policy.conf): PRIVATE_FULL_TREBLE := true
+$(26.0_plat_policy.conf): PRIVATE_SEPOLICY_SPLIT := true
 $(26.0_plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(26.0_PLAT_PUBLIC_POLICY) $(26.0_PLAT_PRIVATE_POLICY))
 	$(transform-policy-to-conf)
@@ -1289,7 +1289,7 @@ $(base_plat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $(base_plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(base_plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(base_plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(base_plat_policy.conf): PRIVATE_FULL_TREBLE := true
+$(base_plat_policy.conf): PRIVATE_SEPOLICY_SPLIT := true
 $(base_plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(BASE_PLAT_PUBLIC_POLICY) $(BASE_PLAT_PRIVATE_POLICY))
 	$(transform-policy-to-conf)
@@ -1344,7 +1344,7 @@ base_plat_policy.conf :=
 built_26.0_plat_sepolicy :=
 plat_sepolicy :=
 
-endif # ($(PRODUCT_FULL_TREBLE),true)
+endif # ($(PRODUCT_SEPOLICY_SPLIT),true)
 #################################
 
 add_nl :=

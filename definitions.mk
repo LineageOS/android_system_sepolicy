@@ -8,7 +8,7 @@ $(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 	-D target_with_dexpreopt=$(WITH_DEXPREOPT) \
 	-D target_arch=$(PRIVATE_TGT_ARCH) \
 	-D target_with_asan=$(PRIVATE_TGT_WITH_ASAN) \
-	-D target_full_treble=$(PRIVATE_FULL_TREBLE) \
+	-D target_full_treble=$(PRIVATE_SEPOLICY_SPLIT) \
 	$(PRIVATE_TGT_RECOVERY) \
 	-s $^ > $@
 endef
