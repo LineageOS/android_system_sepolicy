@@ -105,7 +105,6 @@ user=_isolated domain=isolated_app levelFrom=user
 user=_app seinfo=media domain=mediaprovider name=android.process.media type=app_data_file levelFrom=user
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
 user=_app isV2App=true isEphemeralApp=true domain=ephemeral_app type=app_data_file levelFrom=user
-user=_app isV2App=true domain=untrusted_v2_app type=app_data_file levelFrom=user
 user=_app isPrivApp=true domain=priv_app type=app_data_file levelFrom=user
 user=_app minTargetSdkVersion=26 domain=untrusted_app type=app_data_file levelFrom=user
 user=_app domain=untrusted_app_25 type=app_data_file levelFrom=user
