@@ -16,6 +16,9 @@
     hal_wifi_offload_hwservice
     kmsg_debug_device
     last_boot_reason_prop
+    mediaprovider_tmpfs
+    netd_stable_secret_prop
+    package_native_service
     lowpan_device
     lowpan_prop
     lowpan_service
