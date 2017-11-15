@@ -17,8 +17,8 @@ wakelock_use(charger)
 
 allow charger self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 
-# Write to /sys/power/state
-allow charger sysfs_power:file write;
+# Read/write to /sys/power/state
+allow charger sysfs_power:file rw_file_perms;
 
 allow charger sysfs_batteryinfo:file r_file_perms;
 
