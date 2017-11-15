@@ -22,6 +22,30 @@
       "revId": "b160701f70779779b0589ac175bacf039aa40268",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b790d690_f58a0f6d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2017-11-15T16:54:01Z",
+      "side": 1,
+      "message": "I think the mention of the reverted commit is still useful. I\u0027ll update this line to say \u0027partial revert\u0027 instead.",
+      "parentUuid": "990b6ea0_d812ab47",
+      "range": {
+        "startLine": 14,
+        "startChar": 20,
+        "endLine": 14,
+        "endChar": 60
+      },
+      "revId": "b160701f70779779b0589ac175bacf039aa40268",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
