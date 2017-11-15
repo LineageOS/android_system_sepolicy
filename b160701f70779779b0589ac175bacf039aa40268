@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "990b6ea0_d812ab47",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2017-11-15T11:11:21Z",
+      "side": 1,
+      "message": "Since this is no longer an exact revert of this commit, I\u0027d just bring back commit message from patchset 1.",
+      "range": {
+        "startLine": 14,
+        "startChar": 20,
+        "endLine": 14,
+        "endChar": 60
+      },
+      "revId": "b160701f70779779b0589ac175bacf039aa40268",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
