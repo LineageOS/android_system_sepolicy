@@ -81,6 +81,7 @@ allow domain proc_random:dir r_dir_perms;
 allow domain proc_random:file r_file_perms;
 allow domain properties_device:dir { search getattr };
 allow domain properties_serial:file r_file_perms;
+allow domain property_info:file r_file_perms;
 
 # For now, everyone can access core property files
 # Device specific properties are not granted by default
