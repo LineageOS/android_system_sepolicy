@@ -643,6 +643,10 @@ userdebug_or_eng(`
 
   # Allow system server to read dmesg
   allow system_server kernel:system syslog_read;
+
+  # Allow writing window traces in /data/misc/wmtrace.
+  allow system_server wm_trace_data_file:dir rw_dir_perms;
+  allow system_server wm_trace_data_file:file { getattr setattr create w_file_perms };
 ')
 
 # For AppFuse.
