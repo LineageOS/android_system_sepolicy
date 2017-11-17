@@ -390,6 +390,7 @@
 /data/misc/update_engine_log(/.*)?  u:object_r:update_engine_log_data_file:s0
 /data/system/heapdump(/.*)?     u:object_r:heapdump_data_file:s0
 /data/misc/trace(/.*)?          u:object_r:method_trace_data_file:s0
+/data/misc/wmtrace(/.*)?        u:object_r:wm_trace_data_file:s0
 # TODO(calin) label profile reference differently so that only
 # profman run as a special user can write to them
 /data/misc/profiles/cur(/.*)?       u:object_r:user_profile_data_file:s0

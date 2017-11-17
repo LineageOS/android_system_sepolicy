@@ -18,6 +18,12 @@ allow dumpstate debugfs_trace_marker:file getattr;
 allow dumpstate atrace_exec:file rx_file_perms;
 allow dumpstate storaged_exec:file rx_file_perms;
 
+# /data/misc/wmtrace for wm traces
+userdebug_or_eng(`
+  allow dumpstate wm_trace_data_file:dir r_dir_perms;
+  allow dumpstate wm_trace_data_file:file r_file_perms;
+')
+
 # Allow dumpstate to make binder calls to storaged service
 binder_call(dumpstate, storaged)
 
