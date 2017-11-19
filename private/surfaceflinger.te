@@ -52,6 +52,12 @@ set_prop(surfaceflinger, ctl_bootanim_prop)
 allow surfaceflinger appdomain:fd use;
 allow surfaceflinger app_data_file:file { read write };
 
+# Allow writing surface traces to /data/misc/wmtrace.
+userdebug_or_eng(`
+  allow surfaceflinger wm_trace_data_file:dir rw_dir_perms;
+  allow surfaceflinger wm_trace_data_file:file { getattr setattr create w_file_perms };
+')
+
 # Use socket supplied by adbd, for cmd gpu vkjson etc.
 allow surfaceflinger adbd:unix_stream_socket { read write getattr };
 
