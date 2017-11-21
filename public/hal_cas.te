@@ -7,7 +7,7 @@ allow hal_cas_client hal_cas_hwservice:hwservice_manager find;
 allow hal_cas_server hidl_memory_hwservice:hwservice_manager find;
 
 # Permit reading device's serial number from system properties
-get_prop(hal_cas, serialno_prop)
+get_prop(hal_cas_server, serialno_prop)
 
 # Read files already opened under /data
 allow hal_cas system_data_file:file { getattr read };
@@ -29,7 +29,7 @@ allow hal_cas tee_device:chr_file rw_file_perms;
 
 # hal_cas should never execute any executable without a
 # domain transition
-neverallow hal_cas { file_type fs_type }:file execute_no_trans;
+neverallow hal_cas_server { file_type fs_type }:file execute_no_trans;
 
 # do not allow privileged socket ioctl commands
-neverallowxperm hal_cas domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
+neverallowxperm hal_cas_server domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
