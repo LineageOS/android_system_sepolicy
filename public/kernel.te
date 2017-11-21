@@ -1,7 +1,7 @@
 # Life begins with the kernel.
 type kernel, domain, mlstrustedsubject;
 
-allow kernel self:capability sys_nice;
+allow kernel self:global_capability_class_set sys_nice;
 
 # Root fs.
 r_dir_file(kernel, rootfs)
@@ -33,14 +33,14 @@ allow kernel usbfs:dir search;
 dontaudit kernel self:security setenforce;
 
 # Write to /proc/1/oom_adj prior to switching to init domain.
-allow kernel self:capability sys_resource;
+allow kernel self:global_capability_class_set sys_resource;
 
 # Init reboot before switching selinux domains under certain error
 # conditions. Allow it.
 # As part of rebooting, init writes "u" to /proc/sysrq-trigger to
 # remount filesystems read-only. /data is not mounted at this point,
 # so we could ignore this. For now, we allow it.
-allow kernel self:capability sys_boot;
+allow kernel self:global_capability_class_set sys_boot;
 allow kernel proc_sysrq:file w_file_perms;
 
 # Allow writing to /dev/kmsg which was created prior to loading policy.
@@ -101,4 +101,4 @@ neverallow kernel *:file { entrypoint execute_no_trans };
 # the kernel should not be accessing files owned by other users.
 # Instead of adding dac_{read_search,override}, fix the unix permissions
 # on files being accessed.
-neverallow kernel self:capability { dac_override dac_read_search };
+neverallow kernel self:global_capability_class_set { dac_override dac_read_search };

@@ -12,7 +12,7 @@ neverallow {
   -storaged
   -system_server
   userdebug_or_eng(`-perfprofd')
-} self:capability sys_ptrace;
+} self:global_capability_class_set sys_ptrace;
 
 # Limit ability to generate hardware unique device ID attestations to priv_apps
 neverallow { domain -priv_app } *:keystore_key gen_unique_id;

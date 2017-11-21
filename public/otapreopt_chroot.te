@@ -5,7 +5,7 @@ type otapreopt_chroot_exec, exec_type, file_type;
 # Chroot preparation and execution.
 # We need to create an unshared mount namespace, and then mount /data.
 allow otapreopt_chroot postinstall_file:dir { search mounton };
-allow otapreopt_chroot self:capability { sys_admin sys_chroot };
+allow otapreopt_chroot self:global_capability_class_set { sys_admin sys_chroot };
 
 # This is required to mount /vendor.
 allow otapreopt_chroot block_device:dir search;

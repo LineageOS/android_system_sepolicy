@@ -12,10 +12,10 @@ recovery_only(`
   # Recovery can only use HALs in passthrough mode
   passthrough_hal_client_domain(recovery, hal_bootctl)
 
-  allow recovery self:capability { chown dac_override fowner fsetid setfcap setuid setgid sys_admin sys_tty_config };
+  allow recovery self:global_capability_class_set { chown dac_override fowner fsetid setfcap setuid setgid sys_admin sys_tty_config };
 
   # Set security contexts on files that are not known to the loaded policy.
-  allow recovery self:capability2 mac_admin;
+  allow recovery self:global_capability2_class_set mac_admin;
 
   # Run helpers from / or /system without changing domain.
   r_dir_file(recovery, rootfs)
