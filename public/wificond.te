@@ -14,7 +14,7 @@ set_prop(wificond, ctl_default_prop)
 allow wificond self:udp_socket create_socket_perms;
 # setting interface state up/down is a privileged ioctl
 allowxperm wificond self:udp_socket ioctl { SIOCSIFFLAGS };
-allow wificond self:capability { net_admin net_raw };
+allow wificond self:global_capability_class_set { net_admin net_raw };
 # allow wificond to speak to nl80211 in the kernel
 allow wificond self:netlink_socket create_socket_perms_no_ioctl;
 # newer kernels (e.g. 4.4 but not 4.1) have a new class for sockets

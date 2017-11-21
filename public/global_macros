@@ -1,7 +1,9 @@
 #####################################
 # Common groupings of object classes.
 #
-define(`capability_class_set', `{ capability capability2 }')
+define(`capability_class_set', `{ capability capability2 cap_userns cap2_userns }')
+define(`global_capability_class_set', `{ capability cap_userns }')
+define(`global_capability2_class_set', `{ capability2 cap2_userns }')
 
 define(`devfile_class_set', `{ chr_file blk_file }')
 define(`notdevfile_class_set', `{ file lnk_file sock_file fifo_file }')

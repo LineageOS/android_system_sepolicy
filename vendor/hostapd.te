@@ -5,7 +5,7 @@ type hostapd_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hostapd)
 
 net_domain(hostapd)
-allow hostapd self:capability { net_admin net_raw };
+allow hostapd self:global_capability_class_set { net_admin net_raw };
 
 # hostapd learns about its network interface via sysfs.
 allow hostapd sysfs:file r_file_perms;

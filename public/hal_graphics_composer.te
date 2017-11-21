@@ -23,4 +23,4 @@ allow hal_graphics_composer bootanim:fd use;
 allow hal_graphics_composer appdomain:fd use;
 
 # allow self to set SCHED_FIFO
-allow hal_graphics_composer self:capability sys_nice;
+allow hal_graphics_composer self:global_capability_class_set sys_nice;
