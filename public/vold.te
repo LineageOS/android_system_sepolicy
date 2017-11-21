@@ -210,7 +210,7 @@ neverallow { domain -vold -init } restorecon_prop:property_service set;
 neverallow { domain -system_server -vdc -vold } vold_service:service_manager find;
 neverallow vold {
   domain
-  -hal_keymaster
+  -hal_keymaster_server
   -healthd
   -hwservicemanager
   -servicemanager

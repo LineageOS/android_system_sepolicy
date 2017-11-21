@@ -462,8 +462,8 @@ neverallow {
   domain
   -adbd
   -dumpstate
-  -hal_drm
-  -hal_cas
+  -hal_drm_server
+  -hal_cas_server
   -init
   -mediadrmserver
   -recovery
@@ -503,7 +503,7 @@ neverallow { domain -install_recovery -recovery } recovery_block_device:blk_file
 neverallow {
   domain
   userdebug_or_eng(`-domain') # exclude debuggable builds
-  -hal_bootctl
+  -hal_bootctl_server
   -init
   -uncrypt
   -update_engine

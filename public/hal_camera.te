@@ -23,10 +23,10 @@ allow hal_camera hal_allocator_server:fd use;
 
 # hal_camera should never execute any executable without a
 # domain transition
-neverallow hal_camera { file_type fs_type }:file execute_no_trans;
+neverallow hal_camera_server { file_type fs_type }:file execute_no_trans;
 
 # hal_camera should never need network access. Disallow network sockets.
-neverallow hal_camera domain:{ tcp_socket udp_socket rawip_socket } *;
+neverallow hal_camera_server domain:{ tcp_socket udp_socket rawip_socket } *;
 
 # Only camera HAL may directly access the camera hardware
 neverallow { halserverdomain -hal_camera_server } camera_device:chr_file *;
