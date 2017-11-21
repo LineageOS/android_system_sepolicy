@@ -20,7 +20,7 @@ userdebug_or_eng(`
   # perfprofd reads a config file from /data/data/com.google.android.gms/files
   allow perfprofd app_data_file:file r_file_perms;
   allow perfprofd app_data_file:dir search;
-  allow perfprofd self:capability { dac_override };
+  allow perfprofd self:global_capability_class_set { dac_override };
 
   # perfprofd opens a file for writing in /data/misc/perfprofd
   allow perfprofd perfprofd_data_file:file create_file_perms;
@@ -34,13 +34,13 @@ userdebug_or_eng(`
   wakelock_use(perfprofd);
 
   # simpleperf uses ioctl() to turn on kernel perf events measurements
-  allow perfprofd self:capability sys_admin;
+  allow perfprofd self:global_capability_class_set sys_admin;
 
   # simpleperf needs to examine /proc to collect task/thread info
   r_dir_file(perfprofd, domain)
 
   # simpleperf needs to access /proc/<pid>/exec
-  allow perfprofd self:capability { sys_resource sys_ptrace };
+  allow perfprofd self:global_capability_class_set { sys_resource sys_ptrace };
   neverallow perfprofd domain:process ptrace;
 
   # simpleperf needs open/read any file that turns up in a profile
@@ -54,6 +54,6 @@ userdebug_or_eng(`
   allow perfprofd toolbox_exec:file rx_file_perms;
 
   # needed for simpleperf on some kernels
-  allow perfprofd self:capability ipc_lock;
+  allow perfprofd self:global_capability_class_set ipc_lock;
 
 ')

@@ -87,7 +87,7 @@ allow surfaceflinger window_service:service_manager find;
 
 
 # allow self to set SCHED_FIFO
-allow surfaceflinger self:capability sys_nice;
+allow surfaceflinger self:global_capability_class_set sys_nice;
 allow surfaceflinger proc_meminfo:file r_file_perms;
 r_dir_file(surfaceflinger, cgroup)
 r_dir_file(surfaceflinger, system_file)

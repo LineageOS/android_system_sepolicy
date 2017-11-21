@@ -6,9 +6,9 @@ net_domain(dnsmasq)
 allowxperm dnsmasq self:udp_socket ioctl priv_sock_ioctls;
 
 # TODO:  Run with dhcp group to avoid need for dac_override.
-allow dnsmasq self:capability dac_override;
+allow dnsmasq self:global_capability_class_set dac_override;
 
-allow dnsmasq self:capability { net_admin net_raw net_bind_service setgid setuid };
+allow dnsmasq self:global_capability_class_set { net_admin net_raw net_bind_service setgid setuid };
 
 allow dnsmasq dhcp_data_file:dir w_dir_perms;
 allow dnsmasq dhcp_data_file:file create_file_perms;

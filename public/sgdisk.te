@@ -14,7 +14,7 @@ allow sgdisk vold:fd use;
 allow sgdisk vold:fifo_file { read write getattr };
 
 # Used to probe kernel to reload partition tables
-allow sgdisk self:capability sys_admin;
+allow sgdisk self:global_capability_class_set sys_admin;
 
 # Only allow entry from vold
 neverallow { domain -vold } sgdisk:process transition;
