@@ -52,7 +52,7 @@ bluetooth_domain(system_server)
 
 # These are the capabilities assigned by the zygote to the
 # system server.
-allow system_server self:capability {
+allow system_server self:global_capability_class_set {
     ipc_lock
     kill
     net_admin
@@ -72,7 +72,7 @@ wakelock_use(system_server)
 allow system_server kernel:system module_request;
 
 # Allow alarmtimers to be set
-allow system_server self:capability2 wake_alarm;
+allow system_server self:global_capability2_class_set wake_alarm;
 
 # Create and share netlink_netfilter_sockets for tetheroffload.
 allow system_server self:netlink_netfilter_socket create_socket_perms_no_ioctl;

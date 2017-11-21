@@ -7,12 +7,12 @@ wakelock_use(incidentd)
 
 # Allow setting process priority, protect from OOM killer, and dropping
 # privileges by switching UID / GID
-# TODO allow incidentd self:capability { setuid setgid sys_resource };
+# TODO allow incidentd self:global_capability_class_set { setuid setgid sys_resource };
 
 # Allow incidentd to scan through /proc/pid for all processes
 r_dir_file(incidentd, domain)
 
-allow incidentd self:capability {
+allow incidentd self:global_capability_class_set {
     # Send signals to processes
     kill
 };
@@ -56,7 +56,7 @@ binder_call(incidentd, binderservicedomain)
 binder_call(incidentd, appdomain)
 
 # Reading /proc/PID/maps of other processes
-# TODO allow incidentd self:capability sys_ptrace;
+# TODO allow incidentd self:global_capability_class_set sys_ptrace;
 
 # Run a shell.
 allow incidentd shell_exec:file rx_file_perms;

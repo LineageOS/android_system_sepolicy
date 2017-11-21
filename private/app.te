@@ -350,8 +350,7 @@ with_asan(`allow appdomain asanwrapper_exec:file rx_file_perms;')
 
 # Superuser capabilities.
 # bluetooth requires net_admin and wake_alarm.
-neverallow { appdomain -bluetooth } self:capability *;
-neverallow { appdomain -bluetooth } self:capability2 *;
+neverallow { appdomain -bluetooth } self:capability_class_set *;
 
 # Block device access.
 neverallow appdomain dev_type:blk_file { read write };

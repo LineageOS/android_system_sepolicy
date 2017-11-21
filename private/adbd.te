@@ -17,10 +17,10 @@ userdebug_or_eng(`
 allow adbd shell:process { noatsecure signal };
 
 # Set UID and GID to shell.  Set supplementary groups.
-allow adbd self:capability { setuid setgid };
+allow adbd self:global_capability_class_set { setuid setgid };
 
 # Drop capabilities from bounding set on user builds.
-allow adbd self:capability setpcap;
+allow adbd self:global_capability_class_set setpcap;
 
 # Create and use network sockets.
 net_domain(adbd)
