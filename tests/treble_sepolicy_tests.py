@@ -332,18 +332,11 @@ if __name__ == '__main__':
     if not os.path.exists(options.libpath):
         sys.exit("Error: library-path " + options.libpath + " does not exist\n"
                 + parser.usage)
-    if not options.basepolicy:
-        sys.exit("Must specify the current platform-only policy file\n" + parser.usage)
-    if not options.mapping:
-        sys.exit("Must specify a compatibility mapping file\n" + parser.usage)
-    if not options.oldpolicy:
-        sys.exit("Must specify the previous monolithic policy file\n" + parser.usage)
     if not options.policy:
         sys.exit("Must specify current monolithic policy file\n" + parser.usage)
     if not os.path.exists(options.policy):
         sys.exit("Error: policy file " + options.policy + " does not exist\n"
                 + parser.usage)
-
     if not options.file_contexts:
         sys.exit("Error: Must specify file_contexts file(s)\n" + parser.usage)
     for f in options.file_contexts:
@@ -351,15 +344,25 @@ if __name__ == '__main__':
             sys.exit("Error: File_contexts file " + f + " does not exist\n" +
                     parser.usage)
 
+    # Mapping files are only necessary for the TrebleCompatMapping test
+    if options.tests is None or options.tests is "TrebleCompatMapping":
+        if not options.basepolicy:
+            sys.exit("Must specify the current platform-only policy file\n" + parser.usage)
+        if not options.mapping:
+            sys.exit("Must specify a compatibility mapping file\n" + parser.usage)
+        if not options.oldpolicy:
+            sys.exit("Must specify the previous monolithic policy file\n" + parser.usage)
+        basepol = policy.Policy(options.basepolicy, None, options.libpath)
+        oldpol = policy.Policy(options.oldpolicy, None, options.libpath)
+        mapping = mini_parser.MiniCilParser(options.mapping)
+        compatSetup(basepol, oldpol, mapping)
+
+
     if options.faketreble:
         FakeTreble = True
 
     pol = policy.Policy(options.policy, options.file_contexts, options.libpath)
     setup(pol)
-    basepol = policy.Policy(options.basepolicy, None, options.libpath)
-    oldpol = policy.Policy(options.oldpolicy, None, options.libpath)
-    mapping = mini_parser.MiniCilParser(options.mapping)
-    compatSetup(basepol, oldpol, mapping)
 
     if DEBUG:
         PrintScontexts()
