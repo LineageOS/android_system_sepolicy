@@ -14,7 +14,7 @@ set_prop(hal_wifi, wifi_prop)
 allow hal_wifi self:udp_socket create_socket_perms;
 allowxperm hal_wifi self:udp_socket ioctl { SIOCSIFFLAGS };
 
-allow hal_wifi self:capability { net_admin net_raw };
+allow hal_wifi self:global_capability_class_set { net_admin net_raw };
 # allow hal_wifi to speak to nl80211 in the kernel
 allow hal_wifi self:netlink_socket create_socket_perms_no_ioctl;
 # newer kernels (e.g. 4.4 but not 4.1) have a new class for sockets

@@ -7,7 +7,7 @@ allowxperm rild self:udp_socket ioctl priv_sock_ioctls;
 
 allow rild self:netlink_route_socket nlmsg_write;
 allow rild kernel:system module_request;
-allow rild self:capability { setpcap setgid setuid net_admin net_raw };
+allow rild self:global_capability_class_set { setpcap setgid setuid net_admin net_raw };
 allow rild alarm_device:chr_file rw_file_perms;
 allow rild cgroup:dir create_dir_perms;
 allow rild cgroup:{ file lnk_file } r_file_perms;

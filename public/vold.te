@@ -75,7 +75,7 @@ allow vold shell_data_file:dir { create getattr setattr };
 allow vold tmpfs:filesystem { mount unmount };
 allow vold tmpfs:dir create_dir_perms;
 allow vold tmpfs:dir mounton;
-allow vold self:capability { net_admin dac_override mknod sys_admin chown fowner fsetid };
+allow vold self:global_capability_class_set { net_admin dac_override mknod sys_admin chown fowner fsetid };
 allow vold self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 allow vold app_data_file:dir search;
 allow vold app_data_file:file rw_file_perms;
@@ -88,7 +88,7 @@ allow vold dm_device:blk_file rw_file_perms;
 allow vold domain:dir r_dir_perms;
 allow vold domain:{ file lnk_file } r_file_perms;
 allow vold domain:process { signal sigkill };
-allow vold self:capability { sys_ptrace kill };
+allow vold self:global_capability_class_set { sys_ptrace kill };
 
 # XXX Label sysfs files with a specific type?
 allow vold sysfs:file rw_file_perms;
@@ -179,10 +179,10 @@ allow vold init:key { write search setattr };
 allow vold vold:key { write search setattr };
 
 # vold temporarily changes its priority when running benchmarks
-allow vold self:capability sys_nice;
+allow vold self:global_capability_class_set sys_nice;
 
 # vold needs to chroot into app namespaces to remount when runtime permissions change
-allow vold self:capability sys_chroot;
+allow vold self:global_capability_class_set sys_chroot;
 allow vold storage_file:dir mounton;
 
 # For AppFuse.
@@ -210,7 +210,7 @@ neverallow { domain -vold -init } restorecon_prop:property_service set;
 neverallow { domain -system_server -vdc -vold } vold_service:service_manager find;
 neverallow vold {
   domain
-  -hal_keymaster
+  -hal_keymaster_server
   -healthd
   -hwservicemanager
   -servicemanager

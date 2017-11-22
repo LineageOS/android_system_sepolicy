@@ -11,12 +11,12 @@ allow update_engine qtaguid_device:chr_file r_file_perms;
 
 # Following permissions are needed for update_engine.
 allow update_engine self:process { setsched };
-allow update_engine self:capability { fowner sys_admin };
+allow update_engine self:global_capability_class_set { fowner sys_admin };
 # Note: fsetid checks are triggered when creating a file in a directory with
 # the setgid bit set to determine if the file should inherit setgid. In this
 # case, setgid on the file is undesirable so we should just suppress the
 # denial.
-dontaudit update_engine self:capability fsetid;
+dontaudit update_engine self:global_capability_class_set fsetid;
 
 allow update_engine kmsg_device:chr_file w_file_perms;
 allow update_engine update_engine_exec:file rx_file_perms;

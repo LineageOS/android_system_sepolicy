@@ -12,4 +12,4 @@ allow hal_sensors { appdomain -isolated_app }:fd use;
 allow hal_sensors hal_allocator:fd use;
 
 # allow to run with real-time scheduling policy
-allow hal_sensors self:capability sys_nice;
+allow hal_sensors self:global_capability_class_set sys_nice;

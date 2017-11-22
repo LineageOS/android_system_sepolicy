@@ -17,7 +17,7 @@ allow clatd netd:udp_socket { read write };
 allow clatd netd:unix_stream_socket { read write };
 allow clatd netd:unix_dgram_socket { read write };
 
-allow clatd self:capability { net_admin net_raw setuid setgid };
+allow clatd self:global_capability_class_set { net_admin net_raw setuid setgid };
 
 # clatd calls mmap(MAP_LOCKED) with a 1M buffer. MAP_LOCKED first checks
 # capable(CAP_IPC_LOCK), and then checks to see the requested amount is
@@ -26,7 +26,7 @@ allow clatd self:capability { net_admin net_raw setuid setgid };
 # so we permit any requests we see from clatd asking for this capability.
 # See https://android-review.googlesource.com/127940 and
 # https://b.corp.google.com/issues/21736319
-allow clatd self:capability ipc_lock;
+allow clatd self:global_capability_class_set ipc_lock;
 
 allow clatd self:netlink_route_socket nlmsg_write;
 allow clatd self:{ packet_socket rawip_socket tun_socket } create_socket_perms_no_ioctl;

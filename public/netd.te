@@ -9,14 +9,14 @@ allowxperm netd self:udp_socket ioctl priv_sock_ioctls;
 r_dir_file(netd, cgroup)
 allow netd system_server:fd use;
 
-allow netd self:capability { net_admin net_raw kill };
+allow netd self:global_capability_class_set { net_admin net_raw kill };
 # Note: fsetid is deliberately not included above. fsetid checks are
 # triggered by chmod on a directory or file owned by a group other
 # than one of the groups assigned to the current process to see if
 # the setgid bit should be cleared, regardless of whether the setgid
 # bit was even set.  We do not appear to truly need this capability
 # for netd to operate.
-dontaudit netd self:capability fsetid;
+dontaudit netd self:global_capability_class_set fsetid;
 
 allow netd self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 allow netd self:netlink_route_socket nlmsg_write;
@@ -60,12 +60,12 @@ allow netd sysfs_usb:file write;
 # TODO: netd previously thought it needed these permissions to do WiFi related
 #       work.  However, after all the WiFi stuff is gone, we still need them.
 #       Why?
-allow netd self:capability { dac_override chown };
+allow netd self:global_capability_class_set { dac_override chown };
 
 # Needed to update /data/misc/net/rt_tables
 allow netd net_data_file:file create_file_perms;
 allow netd net_data_file:dir rw_dir_perms;
-allow netd self:capability fowner;
+allow netd self:global_capability_class_set fowner;
 
 # Needed to lock the iptables lock.
 allow netd system_file:file lock;

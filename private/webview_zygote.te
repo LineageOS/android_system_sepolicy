@@ -20,9 +20,9 @@ allow webview_zygote shared_relro_file:dir search;
 allow webview_zygote shared_relro_file:file r_file_perms;
 
 # Set the UID/GID of the process.
-allow webview_zygote self:capability { setgid setuid };
+allow webview_zygote self:global_capability_class_set { setgid setuid };
 # Drop capabilities from bounding set.
-allow webview_zygote self:capability setpcap;
+allow webview_zygote self:global_capability_class_set setpcap;
 # Switch SELinux context to app domains.
 allow webview_zygote self:process setcurrent;
 allow webview_zygote isolated_app:process dyntransition;

@@ -7,10 +7,10 @@ init_daemon_domain(zygote)
 read_runtime_log_tags(zygote)
 
 # Override DAC on files and switch uid/gid.
-allow zygote self:capability { dac_override setgid setuid fowner chown };
+allow zygote self:global_capability_class_set { dac_override setgid setuid fowner chown };
 
 # Drop capabilities from bounding set.
-allow zygote self:capability setpcap;
+allow zygote self:global_capability_class_set setpcap;
 
 # Switch SELinux context to app domains.
 allow zygote self:process setcurrent;
@@ -56,7 +56,7 @@ r_dir_file(zygote, vendor_overlay_file)
 # Control cgroups.
 allow zygote cgroup:dir create_dir_perms;
 allow zygote cgroup:{ file lnk_file } r_file_perms;
-allow zygote self:capability sys_admin;
+allow zygote self:global_capability_class_set sys_admin;
 
 # Allow zygote to stat the files that it opens. The zygote must
 # be able to inspect them so that it can reopen them on fork
