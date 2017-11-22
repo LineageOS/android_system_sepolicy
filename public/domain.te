@@ -238,8 +238,8 @@ neverallowxperm domain domain:socket_class_set ioctl { SIOCATMARK };
 # http://www.openwall.com/lists/oss-security/2016/09/26/14
 neverallowxperm * devpts:chr_file ioctl TIOCSTI;
 
-# Do not allow any domain other than init to create unlabeled files.
-neverallow { domain -init } unlabeled:dir_file_class_set create;
+# Do not allow any domain other than init or recovery to create unlabeled files.
+neverallow { domain -init -recovery } unlabeled:dir_file_class_set create;
 
 # Limit device node creation to these whitelisted domains.
 neverallow {
@@ -269,10 +269,8 @@ neverallow * self:memprotect mmap_zero;
 # No domain needs mac_override as it is unused by SELinux.
 neverallow * self:global_capability2_class_set mac_override;
 
-# Disallow attempts to set contexts not defined in current policy
-# This helps guarantee that unknown or dangerous contents will not ever
-# be set.
-neverallow * self:global_capability2_class_set mac_admin;
+# Only recovery needs mac_admin to set contexts not defined in current policy.
+neverallow { domain -recovery } self:global_capability2_class_set mac_admin;
 
 # Once the policy has been loaded there shall be none to modify the policy.
 # It is sealed.
@@ -378,7 +376,6 @@ neverallow {
     -bootanim # for oemfs
     -recovery # for /tmp/update_binary in tmpfs
 } { fs_type -rootfs }:file execute;
-
 # Files from cache should never be executed
 neverallow domain { cache_file cache_backup_file cache_private_backup_file cache_recovery_file }:file execute;
 
@@ -402,12 +399,10 @@ neverallow { domain -init } property_type:file { no_w_file_perms no_x_file_perms
 neverallow { domain -init } properties_device:file { no_w_file_perms no_x_file_perms };
 neverallow { domain -init } properties_serial:file { no_w_file_perms no_x_file_perms };
 
-# Nobody should be doing writes to /system & /vendor
-# These partitions are intended to be read-only and must never be
-# modified. Doing so would violate important Android security guarantees
-# and invalidate dm-verity signatures.
+# Only recovery should be doing writes to /system & /vendor
 neverallow {
     domain
+    -recovery
     with_asan(`-asan_extract')
 } {
     system_file
@@ -415,7 +410,7 @@ neverallow {
     exec_type
 }:dir_file_class_set { create write setattr relabelfrom append unlink link rename };
 
-neverallow { domain -kernel with_asan(`-asan_extract') } { system_file vendor_file_type exec_type }:dir_file_class_set relabelto;
+neverallow { domain -recovery -kernel with_asan(`-asan_extract') } { system_file vendor_file_type exec_type }:dir_file_class_set relabelto;
 
 # Don't allow mounting on top of /system files or directories
 neverallow * exec_type:dir_file_class_set mounton;
@@ -431,7 +426,7 @@ neverallow * {fs_type -contextmount_type}:filesystem relabelto;
 # Ensure that context mount types are not writable, to ensure that
 # the write to /system restriction above is not bypassed via context=
 # mount to another type.
-neverallow * contextmount_type:dir_file_class_set
+neverallow { domain -recovery } contextmount_type:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # Do not allow service_manager add for default service labels.
@@ -1096,9 +1091,12 @@ neverallow {
 # vendor, and boot partitions.
 neverallow * ~{ system_file vendor_file rootfs }:system module_load;
 
-# Only allow filesystem caps to be set at build time. Runtime changes
-# to filesystem capabilities are not permitted.
-neverallow * self:global_capability_class_set setfcap;
+# Only allow filesystem caps to be set at build time or
+# during upgrade by recovery.
+neverallow {
+  domain
+  -recovery
+} self:global_capability_class_set setfcap;
 
 # Enforce AT_SECURE for executing crash_dump.
 neverallow domain crash_dump:process noatsecure;
