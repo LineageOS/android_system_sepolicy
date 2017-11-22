@@ -720,6 +720,13 @@ with_asan(`
   allow system_server zygote_exec:file rx_file_perms;
 ')
 
+# ART Profiles.
+# Allow system_server to open profile snapshots for read.
+# System server never reads the actual content. It passes the descriptor to
+# to privileged apps which acquire the permissions to inspect the profiles.
+allow system_server user_profile_data_file:dir { search };
+allow system_server user_profile_data_file:file { open read };
+
 ###
 ### Neverallow rules
 ###
