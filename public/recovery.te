@@ -12,7 +12,10 @@ recovery_only(`
   # Recovery can only use HALs in passthrough mode
   passthrough_hal_client_domain(recovery, hal_bootctl)
 
-  allow recovery self:global_capability_class_set { dac_override fowner setuid setgid sys_admin sys_tty_config };
+  allow recovery self:global_capability_class_set { chown dac_override fowner fsetid setfcap setuid setgid sys_admin sys_tty_config };
+
+  # Set security contexts on files that are not known to the loaded policy.
+  allow recovery self:global_capability2_class_set mac_admin;
 
   # Run helpers from / or /system without changing domain.
   r_dir_file(recovery, rootfs)
@@ -26,8 +29,25 @@ recovery_only(`
   allow recovery unlabeled:filesystem ~relabelto;
   allow recovery contextmount_type:filesystem relabelto;
 
+  # Create and relabel files and directories under /system.
+  allow recovery exec_type:{ file lnk_file } { create_file_perms relabelfrom relabelto };
+  allow recovery { system_file }:{ file lnk_file } { create_file_perms relabelfrom relabelto };
+  allow recovery system_file:dir { create_dir_perms relabelfrom relabelto };
+
+  # We may be asked to set an SELinux label for a type not known to the
+  # currently loaded policy. Allow it.
+  allow recovery unlabeled:{ file lnk_file } { create_file_perms relabelfrom relabelto };
+  allow recovery unlabeled:dir { create_dir_perms relabelfrom relabelto };
   # Get file contexts
   allow recovery file_contexts_file:file r_file_perms;
+
+  # 0eb17d944704b3eb140bb9dded299d3be3aed77e in build/ added SELinux
+  # support to OTAs. However, that code has a bug. When an update occurs,
+  # some directories are inappropriately labeled as exec_type. This is
+  # only transient, and subsequent steps in the OTA script correct this
+  # mistake. New devices are moving to block based OTAs, so this is not
+  # worth fixing. b/15575013
+  allow recovery exec_type:dir { create_dir_perms relabelfrom relabelto };
 
   # Write to /proc/sys/vm/drop_caches
   allow recovery proc_drop_caches:file w_file_perms;
