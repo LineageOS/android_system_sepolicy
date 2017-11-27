@@ -100,12 +100,18 @@ $(warning Be careful when using the SELINUX_IGNORE_NEVERALLOWS flag. \
 NEVERALLOW_ARG := -N
 endif
 
-# BOARD_SEPOLICY_DIRS was used for vendor sepolicy customization before.
-# It has been replaced by BOARD_VENDOR_SEPOLICY_DIRS. BOARD_SEPOLICY_DIRS is
-# still allowed for backward compatibility, which will be merged into
-# BOARD_VENDOR_SEPOLICY_DIRS.
+# BOARD_SEPOLICY_DIRS was used for vendor/odm sepolicy customization before.
+# It has been replaced by BOARD_VENDOR_SEPOLICY_DIRS (mandatory) and
+# BOARD_ODM_SEPOLICY_DIRS (optional). BOARD_SEPOLICY_DIRS is still allowed for
+# backward compatibility, which will be merged into BOARD_VENDOR_SEPOLICY_DIRS.
 ifdef BOARD_SEPOLICY_DIRS
 BOARD_VENDOR_SEPOLICY_DIRS += $(BOARD_SEPOLICY_DIRS)
+endif
+
+ifdef BOARD_ODM_SEPOLICY_DIRS
+ifneq ($(PRODUCT_SEPOLICY_SPLIT),true)
+$(error PRODUCT_SEPOLICY_SPLIT needs to be true when using BOARD_ODM_SEPOLICY_DIRS)
+endif
 endif
 
 platform_mapping_file := $(BOARD_SEPOLICY_VERS).cil
@@ -240,6 +246,10 @@ LOCAL_REQUIRED_MODULES += \
     treble_sepolicy_tests_27.0 \
 
 endif
+endif
+
+ifdef BOARD_ODM_SEPOLICY_DIRS
+LOCAL_REQUIRED_MODULES += odm_sepolicy.cil
 endif
 
 include $(BUILD_PHONY_PACKAGE)
@@ -554,11 +564,65 @@ vendor_policy.conf :=
 #################################
 include $(CLEAR_VARS)
 
+# odm_policy.cil - the odm sepolicy. This needs attributization and to be combined
+# with the platform-provided policy.  It makes use of the reqd_policy_mask files from private
+# policy and the platform public policy files in order to use checkpolicy.
+LOCAL_MODULE := odm_sepolicy.cil
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_PROPRIETARY_MODULE := true
+LOCAL_MODULE_PATH := $(TARGET_OUT_ODM)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+odm_policy.conf := $(intermediates)/odm_policy.conf
+$(odm_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(odm_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(odm_policy.conf): PRIVATE_TARGET_BUILD_VARIANT := $(TARGET_BUILD_VARIANT)
+$(odm_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(odm_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
+$(odm_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(odm_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(odm_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
+$(odm_policy.conf): $(call build_policy, $(sepolicy_build_files), \
+  $(PLAT_PUBLIC_POLICY) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) \
+  $(BOARD_VENDOR_SEPOLICY_DIRS) $(BOARD_ODM_SEPOLICY_DIRS))
+	$(transform-policy-to-conf)
+	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+
+$(LOCAL_BUILT_MODULE): PRIVATE_POL_CONF := $(odm_policy.conf)
+$(LOCAL_BUILT_MODULE): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
+$(LOCAL_BUILT_MODULE): PRIVATE_BASE_CIL := $(plat_pub_policy.cil)
+$(LOCAL_BUILT_MODULE): PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
+$(LOCAL_BUILT_MODULE): PRIVATE_DEP_CIL_FILES := $(built_plat_cil) $(built_plat_pub_vers_cil) \
+  $(built_mapping_cil) $(built_vendor_cil)
+$(LOCAL_BUILT_MODULE) : PRIVATE_FILTER_CIL_FILES := $(built_plat_pub_vers_cil) $(built_vendor_cil)
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/build_sepolicy \
+  $(odm_policy.conf) $(reqd_policy_mask.cil) $(plat_pub_policy.cil) \
+  $(built_plat_cil) $(built_plat_pub_vers_cil) $(built_mapping_cil) $(built_vendor_cil)
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/build_sepolicy -a $(HOST_OUT_EXECUTABLES) build_cil \
+		-i $(PRIVATE_POL_CONF) -m $(PRIVATE_REQD_MASK) -c $(CHECKPOLICY_ASAN_OPTIONS) \
+		-b $(PRIVATE_BASE_CIL) -d $(PRIVATE_DEP_CIL_FILES) -f $(PRIVATE_FILTER_CIL_FILES) \
+		-t $(PRIVATE_VERS) -p $(POLICYVERS) -o $@
+
+built_odm_cil := $(LOCAL_BUILT_MODULE)
+odm_policy.conf :=
+odm_policy_raw :=
+
+#################################
+include $(CLEAR_VARS)
+
 LOCAL_MODULE := precompiled_sepolicy
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_PROPRIETARY_MODULE := true
+
+ifeq ($(BOARD_USES_ODMIMAGE),true)
+LOCAL_MODULE_PATH := $(TARGET_OUT_ODM)/etc/selinux
+else
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
+endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -567,6 +631,10 @@ all_cil_files := \
     $(built_mapping_cil) \
     $(built_plat_pub_vers_cil) \
     $(built_vendor_cil)
+
+ifdef BOARD_ODM_SEPOLICY_DIRS
+all_cil_files += $(built_odm_cil)
+endif
 
 $(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(all_cil_files)
 $(LOCAL_BUILT_MODULE): PRIVATE_NEVERALLOW_ARG := $(NEVERALLOW_ARG)
@@ -586,7 +654,12 @@ LOCAL_MODULE := precompiled_sepolicy.plat_and_mapping.sha256
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_PROPRIETARY_MODULE := true
+
+ifeq ($(BOARD_USES_ODMIMAGE),true)
+LOCAL_MODULE_PATH := $(TARGET_OUT_ODM)/etc/selinux
+else
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
+endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -610,6 +683,10 @@ all_cil_files := \
     $(built_mapping_cil) \
     $(built_plat_pub_vers_cil) \
     $(built_vendor_cil)
+
+ifdef BOARD_ODM_SEPOLICY_DIRS
+all_cil_files += $(built_odm_cil)
+endif
 
 $(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(all_cil_files)
 $(LOCAL_BUILT_MODULE): PRIVATE_NEVERALLOW_ARG := $(NEVERALLOW_ARG)
@@ -654,7 +731,8 @@ $(sepolicy.recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEF
 $(sepolicy.recovery.conf): PRIVATE_TGT_RECOVERY := -D target_recovery=true
 $(sepolicy.recovery.conf): $(call build_policy, $(sepolicy_build_files), \
                            $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY) \
-                           $(PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS))
+                           $(PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS) \
+                           $(BOARD_ODM_SEPOLICY_DIRS))
 	$(transform-policy-to-conf)
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 ifeq ($(SELINUX_IGNORE_NEVERALLOWS),true)
@@ -1365,6 +1443,7 @@ built_plat_pc :=
 built_vendor_cil :=
 built_vendor_pc :=
 built_vendor_sc :=
+built_odm_cil :=
 built_plat_sc :=
 built_precompiled_sepolicy :=
 built_sepolicy :=
