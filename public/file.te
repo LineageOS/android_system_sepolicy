@@ -38,6 +38,7 @@ type proc_page_cluster, fs_type;
 type proc_pagetypeinfo, fs_type;
 type proc_panic, fs_type;
 type proc_perf, fs_type;
+type proc_pid_max, fs_type;
 type proc_pipe_conf, fs_type;
 type proc_random, fs_type;
 type proc_sched, fs_type;
