@@ -115,6 +115,7 @@ allow shell {
   proc_interrupts
   proc_meminfo
   proc_modules
+  proc_pid_max
   proc_stat
   proc_timer
   proc_uptime

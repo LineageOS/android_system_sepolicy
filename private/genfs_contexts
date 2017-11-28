@@ -42,6 +42,7 @@ genfscon proc /sys/kernel/overflowuid u:object_r:proc_overflowuid:s0
 genfscon proc /sys/kernel/panic_on_oops u:object_r:proc_panic:s0
 genfscon proc /sys/kernel/perf_event_max_sample_rate u:object_r:proc_perf:s0
 genfscon proc /sys/kernel/perf_event_paranoid u:object_r:proc_perf:s0
+genfscon proc /sys/kernel/pid_max u:object_r:proc_pid_max:s0
 genfscon proc /sys/kernel/poweroff_cmd u:object_r:usermodehelper:s0
 genfscon proc /sys/kernel/random u:object_r:proc_random:s0
 genfscon proc /sys/kernel/randomize_va_space u:object_r:proc_security:s0
