@@ -257,7 +257,8 @@ LOCAL_REQUIRED_MODULES += \
     odm_file_contexts \
     odm_seapp_contexts \
     odm_property_contexts \
-    odm_hwservice_contexts
+    odm_hwservice_contexts \
+    odm_mac_permissions.xml
 endif
 
 include $(BUILD_PHONY_PACKAGE)
@@ -1496,6 +1497,34 @@ $(all_vendor_mac_perms_files)
 
 vendor_mac_perms_keys.tmp :=
 all_vendor_mac_perms_files :=
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := odm_mac_permissions.xml
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_ODM)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+# Build keys.conf
+odm_mac_perms_keys.tmp := $(intermediates)/odm_keys.tmp
+$(odm_mac_perms_keys.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(odm_mac_perms_keys.tmp): $(call build_policy, keys.conf, $(BOARD_ODM_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
+
+all_odm_mac_perms_files := $(call build_policy, mac_permissions.xml, $(BOARD_ODM_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+
+$(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_odm_mac_perms_files)
+$(LOCAL_BUILT_MODULE): $(odm_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
+$(all_odm_mac_perms_files)
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
+
+odm_mac_perms_keys.tmp :=
+all_odm_mac_perms_files :=
 
 #################################
 include $(CLEAR_VARS)
