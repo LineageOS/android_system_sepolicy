@@ -254,7 +254,8 @@ endif
 ifdef BOARD_ODM_SEPOLICY_DIRS
 LOCAL_REQUIRED_MODULES += \
     odm_sepolicy.cil \
-    odm_file_contexts
+    odm_file_contexts \
+    odm_seapp_contexts
 endif
 
 include $(BUILD_PHONY_PACKAGE)
@@ -1071,6 +1072,29 @@ vendor_sc_files :=
 
 ##################################
 include $(CLEAR_VARS)
+LOCAL_MODULE := odm_seapp_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_ODM)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+odm_sc_files := $(call build_policy, seapp_contexts, $(BOARD_ODM_SEPOLICY_DIRS))
+plat_sc_neverallow_files := $(call build_policy, seapp_contexts, $(PLAT_PRIVATE_POLICY))
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_SC_FILES := $(odm_sc_files)
+$(LOCAL_BUILT_MODULE): PRIVATE_SC_NEVERALLOW_FILES := $(plat_sc_neverallow_files)
+$(LOCAL_BUILT_MODULE): $(built_sepolicy) $(odm_sc_files) $(HOST_OUT_EXECUTABLES)/checkseapp $(plat_sc_neverallow_files)
+	@mkdir -p $(dir $@)
+	$(hide) grep -ihe '^neverallow' $(PRIVATE_SC_NEVERALLOW_FILES) > $@.tmp
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $(PRIVATE_SC_FILES) $@.tmp
+
+built_odm_sc := $(LOCAL_BUILT_MODULE)
+odm_sc_files :=
+
+##################################
+include $(CLEAR_VARS)
 LOCAL_MODULE := plat_seapp_neverallows
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := tests
@@ -1502,6 +1526,7 @@ built_vendor_cil :=
 built_vendor_pc :=
 built_vendor_sc :=
 built_odm_cil :=
+built_odm_sc :=
 built_plat_sc :=
 built_precompiled_sepolicy :=
 built_sepolicy :=
