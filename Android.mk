@@ -256,7 +256,8 @@ LOCAL_REQUIRED_MODULES += \
     odm_sepolicy.cil \
     odm_file_contexts \
     odm_seapp_contexts \
-    odm_property_contexts
+    odm_property_contexts \
+    odm_hwservice_contexts
 endif
 
 include $(BUILD_PHONY_PACKAGE)
@@ -1375,6 +1376,33 @@ $(LOCAL_BUILT_MODULE): $(vendor_hwservice_contexts.tmp) $(built_sepolicy) $(HOST
 vendor_hwsvcfiles :=
 vendor_hwservice_contexts.tmp :=
 
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := odm_hwservice_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_ODM)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+odm_hwsvcfiles := $(call build_policy, hwservice_contexts, $(BOARD_ODM_SEPOLICY_DIRS))
+
+odm_hwservice_contexts.tmp := $(intermediates)/odm_hwservice_contexts.tmp
+$(odm_hwservice_contexts.tmp): PRIVATE_SVC_FILES := $(odm_hwsvcfiles)
+$(odm_hwservice_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(odm_hwservice_contexts.tmp): $(odm_hwsvcfiles)
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(odm_hwservice_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
+	@mkdir -p $(dir $@)
+	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -e -l $(PRIVATE_SEPOLICY) $@
+
+odm_hwsvcfiles :=
+odm_hwservice_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
