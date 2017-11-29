@@ -255,7 +255,8 @@ ifdef BOARD_ODM_SEPOLICY_DIRS
 LOCAL_REQUIRED_MODULES += \
     odm_sepolicy.cil \
     odm_file_contexts \
-    odm_seapp_contexts
+    odm_seapp_contexts \
+    odm_property_contexts
 endif
 
 include $(BUILD_PHONY_PACKAGE)
@@ -1177,6 +1178,34 @@ vendor_property_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
+LOCAL_MODULE := odm_property_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_ODM)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+odm_pcfiles := $(call build_policy, property_contexts, $(BOARD_ODM_SEPOLICY_DIRS))
+
+odm_property_contexts.tmp := $(intermediates)/odm_property_contexts.tmp
+$(odm_property_contexts.tmp): PRIVATE_PC_FILES := $(odm_pcfiles)
+$(odm_property_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(odm_property_contexts.tmp): $(odm_pcfiles)
+	@mkdir -p $(dir $@)
+	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
+
+
+$(LOCAL_BUILT_MODULE): $(odm_property_contexts.tmp) $(HOST_OUT_EXECUTABLES)/property_info_checker
+	@mkdir -p $(dir $@)
+	$(hide) cp -f $< $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/property_info_checker $@
+
+built_odm_pc := $(LOCAL_BUILT_MODULE)
+odm_pcfiles :=
+odm_property_contexts.tmp :=
+
+##################################
+include $(CLEAR_VARS)
 
 LOCAL_MODULE := plat_property_contexts.recovery
 LOCAL_MODULE_STEM := plat_property_contexts
@@ -1200,6 +1229,19 @@ LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
 include $(BUILD_SYSTEM)/base_rules.mk
 
 $(LOCAL_BUILT_MODULE): $(built_vendor_pc)
+	$(hide) cp -f $< $@
+
+##################################
+include $(CLEAR_VARS)
+LOCAL_MODULE := odm_property_contexts.recovery
+LOCAL_MODULE_STEM := odm_property_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_odm_pc)
 	$(hide) cp -f $< $@
 
 ##################################
@@ -1526,6 +1568,7 @@ built_vendor_cil :=
 built_vendor_pc :=
 built_vendor_sc :=
 built_odm_cil :=
+built_odm_pc :=
 built_odm_sc :=
 built_plat_sc :=
 built_precompiled_sepolicy :=
