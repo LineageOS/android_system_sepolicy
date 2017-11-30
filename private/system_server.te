@@ -729,7 +729,7 @@ with_asan(`
 # System server never reads the actual content. It passes the descriptor to
 # to privileged apps which acquire the permissions to inspect the profiles.
 allow system_server user_profile_data_file:dir { search };
-allow system_server user_profile_data_file:file { open read };
+allow system_server user_profile_data_file:file { getattr open read };
 
 ###
 ### Neverallow rules
