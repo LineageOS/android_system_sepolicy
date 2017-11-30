@@ -2,5 +2,5 @@ priv_app firstboot_prop file 63801215
 vold system_data_file file 62140539
 system_server vendor_framework_file dir 68826235
 crash_dump app_data_file dir 68319037
-crash_dump bluetooth_data_file 68319037
-crash_dump vendor_overlay_file 68319037
+crash_dump bluetooth_data_file dir 68319037
+crash_dump vendor_overlay_file dir 68319037
