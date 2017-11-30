@@ -700,6 +700,8 @@ allow system_server {
   proc_vmallocinfo
 }:file r_file_perms;
 
+allow system_server proc_uid_time_in_state:dir r_dir_perms;
+
 r_dir_file(system_server, rootfs)
 
 ### Rules needed when Light HAL runs inside system_server process.
