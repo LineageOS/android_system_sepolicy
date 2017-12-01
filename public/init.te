@@ -211,6 +211,7 @@ allow init {
   -contextmount_type
   -proc
   -sdcard_type
+  -sysfs
   -rootfs
 }:file { open read setattr };
 allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read setattr search };
@@ -292,6 +293,24 @@ allow init {
   proc_security
 }:file rw_file_perms;
 
+# init access to /sys files.
+allow init {
+  sysfs_android_usb
+  sysfs_leds
+  sysfs_power
+  sysfs_zram
+}:file w_file_perms;
+
+# init chmod/chown access to /sys files.
+allow init {
+  sysfs_android_usb
+  sysfs_devices_system_cpu
+  sysfs_ipv4
+  sysfs_leds
+  sysfs_lowmemorykiller
+  sysfs_power
+}:file setattr;
+
 # Set usermodehelpers.
 allow init { usermodehelper sysfs_usermodehelper }:file rw_file_perms;
 
@@ -299,11 +318,6 @@ allow init self:global_capability_class_set net_admin;
 
 # Reboot.
 allow init self:global_capability_class_set sys_boot;
-
-# Write to sysfs nodes.
-allow init sysfs_type:dir r_dir_perms;
-allow init sysfs_type:lnk_file read;
-allow init sysfs_type:file rw_file_perms;
 
 # Init will create /data/misc/logd when the property persist.logd.logpersistd is "logcatd".
 # Init will also walk through the directory as part of a recursive restorecon.
@@ -458,3 +472,6 @@ neverallow init servicemanager:service_manager list;
 
 # Init should not be creating subdirectories in /data/local/tmp
 neverallow init shell_data_file:dir { write add_name remove_name };
+
+# Init should not access sysfs node that are not explicitly labeled.
+neverallow init sysfs:file { open read write };
