@@ -33,6 +33,9 @@ userdebug_or_eng(`
   # perfprofd inspects /sys/power/wake_unlock
   wakelock_use(perfprofd);
 
+  # simpleperf reads kernel notes.
+  allow perfprofd sysfs_kernel_notes:file r_file_perms;
+
   # simpleperf uses ioctl() to turn on kernel perf events measurements
   allow perfprofd self:global_capability_class_set sys_admin;
 
