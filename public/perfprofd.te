@@ -56,4 +56,10 @@ userdebug_or_eng(`
   # needed for simpleperf on some kernels
   allow perfprofd self:global_capability_class_set ipc_lock;
 
+  # simpleperf attempts to put a temp file into /data/local/tmp. Do not allow,
+  # use the fallback cwd code, do not spam the log. But ensure this is correctly
+  # removed at some point. b/70232908.
+  dontaudit perfprofd shell_data_file:dir *;
+  dontaudit perfprofd shell_data_file:file *;
+
 ')
