@@ -761,6 +761,10 @@ userdebug_or_eng(`
   allow system_server mediaextractor_update_service:service_manager find;
 ')
 
+# UsbDeviceManager uses /dev/usb-ffs
+allow system_server functionfs:dir search;
+allow system_server functionfs:file rw_file_perms;
+
 ###
 ### Neverallow rules
 ###
