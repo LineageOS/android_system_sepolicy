@@ -77,9 +77,17 @@ userdebug_or_eng(`
 allow priv_app vold:fd use;
 allow priv_app fuse_device:chr_file { read write };
 
-# /sys and /proc access
-r_dir_file(priv_app, sysfs_type)
-r_dir_file(priv_app, proc)
+# /proc access
+allow priv_app {
+  proc_vmstat
+}:file r_file_perms;
+
+allow priv_app sysfs_type:dir search;
+# Read access to /sys/class/net/wlan*/address
+r_dir_file(priv_app, sysfs_net)
+# Read access to /sys/block/zram*/mm_stat
+r_dir_file(priv_app, sysfs_zram)
+
 r_dir_file(priv_app, rootfs)
 
 # Allow GMS core to open kernel config for OTA matching through libvintf
@@ -129,6 +137,7 @@ unix_socket_connect(priv_app, traced_producer, traced)
 # suppress denials for non-API accesses.
 dontaudit priv_app exec_type:file getattr;
 dontaudit priv_app device:dir read;
+dontaudit priv_app proc:file read;
 dontaudit priv_app proc_interrupts:file read;
 dontaudit priv_app proc_modules:file read;
 dontaudit priv_app proc_version:file read;
