@@ -31,6 +31,7 @@
 /sys                u:object_r:sysfs:s0
 
 # Symlinks
+/bin                u:object_r:rootfs:s0
 /bugreports         u:object_r:rootfs:s0
 /d                  u:object_r:rootfs:s0
 /etc                u:object_r:rootfs:s0
