@@ -762,6 +762,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
+        userdebug_or_eng(`-perfprofd')
         -postinstall_dexopt
         -system_server
         -vendor_init
@@ -774,6 +775,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
+        userdebug_or_eng(`-perfprofd')
         -postinstall_dexopt
         -system_server
         -vendor_init
