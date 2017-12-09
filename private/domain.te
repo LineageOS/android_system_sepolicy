@@ -72,7 +72,7 @@ full_treble_only(`
     userdebug_or_eng(`-atrace')
     -dumpstate
     -init
-    -perfprofd
+    userdebug_or_eng(`-perfprofd')
     -shell
     -vendor_init
   } debugfs_tracing:file no_rw_file_perms;
