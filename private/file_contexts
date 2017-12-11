@@ -31,6 +31,7 @@
 /sys                u:object_r:sysfs:s0
 
 # Symlinks
+/bin                u:object_r:rootfs:s0
 /bugreports         u:object_r:rootfs:s0
 /d                  u:object_r:rootfs:s0
 /etc                u:object_r:rootfs:s0
@@ -177,6 +178,7 @@
 /system/bin/mke2fs		u:object_r:e2fs_exec:s0
 /system/bin/e2fsck	--	u:object_r:fsck_exec:s0
 /system/bin/fsck\.f2fs	--	u:object_r:fsck_exec:s0
+/system/bin/sload_f2fs	--	u:object_r:e2fs_exec:s0
 /system/bin/make_f2fs	--	u:object_r:e2fs_exec:s0
 /system/bin/fsck_msdos	--	u:object_r:fsck_exec:s0
 /system/bin/tune2fs	--	u:object_r:fsck_exec:s0

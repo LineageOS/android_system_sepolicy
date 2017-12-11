@@ -33,6 +33,26 @@ userdebug_or_eng(`
   # perfprofd inspects /sys/power/wake_unlock
   wakelock_use(perfprofd);
 
+  # perfprofd looks at thermals.
+  allow perfprofd sysfs_thermal:dir r_dir_perms;
+
+  # perfprofd checks power_supply.
+  r_dir_file(perfprofd, sysfs_batteryinfo)
+
+  # simpleperf reads kernel notes.
+  allow perfprofd sysfs_kernel_notes:file r_file_perms;
+
+  # Simpleperf & perfprofd query a range of proc stats.
+  allow perfprofd proc_loadavg:file r_file_perms;
+  allow perfprofd proc_stat:file r_file_perms;
+  allow perfprofd proc_modules:file r_file_perms;
+
+  # simpleperf writes to perf_event_paranoid under /proc.
+  allow perfprofd proc_perf:file write;
+
+  # Simpleperf: kptr_restrict. This would be required to dump kernel symbols.
+  dontaudit perfprofd proc_security:file *;
+
   # simpleperf uses ioctl() to turn on kernel perf events measurements
   allow perfprofd self:global_capability_class_set sys_admin;
 
@@ -46,9 +66,20 @@ userdebug_or_eng(`
   # simpleperf needs open/read any file that turns up in a profile
   # to see whether it has a build ID
   allow perfprofd exec_type:file r_file_perms;
+  # App & ART artifacts.
+  r_dir_file(perfprofd, apk_data_file)
+  r_dir_file(perfprofd, dalvikcache_data_file)
+  # Vendor libraries.
+  r_dir_file(perfprofd, vendor_file)
+  # Vendor apps.
+  r_dir_file(perfprofd, vendor_app_file)
+
+  # simpleperf will set security.perf_harden to enable access to perf_event_open()
+  set_prop(perfprofd, shell_prop)
 
   # simpleperf examines debugfs on startup to collect tracepoint event types
-  allow perfprofd debugfs_tracing:file r_file_perms;
+  r_dir_file(perfprofd, debugfs_tracing)
+  allow perfprofd debugfs_tracing_debug:file r_file_perms;
 
   # simpleperf is going to execute "sleep"
   allow perfprofd toolbox_exec:file rx_file_perms;
