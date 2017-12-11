@@ -239,7 +239,7 @@ neverallowxperm domain domain:socket_class_set ioctl { SIOCATMARK };
 neverallowxperm * devpts:chr_file ioctl TIOCSTI;
 
 # Do not allow any domain other than init to create unlabeled files.
-neverallow { domain -init } unlabeled:dir_file_class_set create;
+neverallow { domain -init -recovery } unlabeled:dir_file_class_set create;
 
 # Limit device node creation to these whitelisted domains.
 neverallow {

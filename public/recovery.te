@@ -12,7 +12,15 @@ recovery_only(`
   # Recovery can only use HALs in passthrough mode
   passthrough_hal_client_domain(recovery, hal_bootctl)
 
-  allow recovery self:global_capability_class_set { dac_override fowner setuid setgid sys_admin sys_tty_config };
+  allow recovery self:global_capability_class_set {
+    chown
+    dac_override
+    fowner
+    setuid
+    setgid
+    sys_admin
+    sys_tty_config
+  };
 
   # Run helpers from / or /system without changing domain.
   r_dir_file(recovery, rootfs)
@@ -25,6 +33,11 @@ recovery_only(`
   allow recovery fs_type:filesystem ~relabelto;
   allow recovery unlabeled:filesystem ~relabelto;
   allow recovery contextmount_type:filesystem relabelto;
+
+  # We may be asked to set an SELinux label for a type not known to the
+  # currently loaded policy. Allow it.
+  allow recovery unlabeled:{ file lnk_file } { create_file_perms relabelfrom relabelto };
+  allow recovery unlabeled:dir { create_dir_perms relabelfrom relabelto };
 
   # Get file contexts
   allow recovery file_contexts_file:file r_file_perms;
