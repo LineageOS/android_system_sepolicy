@@ -28,6 +28,13 @@
     package_native_service
     property_info
     slice_service
+    stats
+    stats_data_file
+    stats_exec
+    stats_service
+    statsd
+    statsd_exec
+    statsd_tmpfs
     statscompanion_service
     storaged_data_file
     sysfs_fs_ext4_features
