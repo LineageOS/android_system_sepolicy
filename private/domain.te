@@ -35,9 +35,7 @@ full_treble_only(`
   # /sys
   neverallow {
     coredomain
-    -charger
     -dumpstate
-    -healthd
     -init
     -priv_app
     -storaged

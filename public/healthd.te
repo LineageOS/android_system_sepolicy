@@ -6,7 +6,7 @@ type healthd_exec, exec_type, file_type;
 allow healthd kmsg_device:chr_file rw_file_perms;
 
 # Read access to pseudo filesystems.
-r_dir_file(healthd, sysfs_type)
+allow healthd sysfs_type:dir search;
 r_dir_file(healthd, rootfs)
 r_dir_file(healthd, cgroup)
 
@@ -26,16 +26,13 @@ binder_service(healthd)
 binder_call(healthd, system_server)
 hal_client_domain(healthd, hal_health)
 
-# Write to state file.
-# TODO:  Split into a separate type?
-allow healthd sysfs:file write;
+# Read/write to /sys/power/state
+allow healthd sysfs_power:file rw_file_perms;
 
 # TODO: added to match above sysfs rule. Remove me?
 allow healthd sysfs_usb:file write;
 
-allow healthd sysfs_batteryinfo:file r_file_perms;
-
-r_dir_file(healthd, sysfs_type)
+r_dir_file(healthd, sysfs_batteryinfo)
 
 ###
 ### healthd: charger mode
