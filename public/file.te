@@ -52,6 +52,8 @@ type proc_uid_cputime_removeuid, fs_type;
 type proc_uid_io_stats, fs_type;
 type proc_uid_procstat_set, fs_type;
 type proc_uid_time_in_state, fs_type;
+type proc_uid_concurrent_active_time, fs_type;
+type proc_uid_concurrent_policy_time, fs_type;
 type proc_uptime, fs_type;
 type proc_version, fs_type;
 type proc_vmallocinfo, fs_type;
