@@ -123,6 +123,9 @@ allow shell {
   proc_zoneinfo
 }:file r_file_perms;
 
+# allow listing network interfaces under /sys/class/net.
+allow shell sysfs_net:dir r_dir_perms;
+
 r_dir_file(shell, cgroup)
 allow shell domain:dir { search open read getattr };
 allow shell domain:{ file lnk_file } { open read getattr };
