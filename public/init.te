@@ -21,6 +21,9 @@ userdebug_or_eng(`
 allow init properties_device:dir relabelto;
 allow init properties_serial:file { write relabelto };
 allow init property_type:file { create_file_perms relabelto };
+# /dev/__properties__/property_info
+allow init properties_device:file create_file_perms;
+allow init property_info:file relabelto;
 # /dev/event-log-tags
 allow init device:file relabelfrom;
 allow init runtime_event_log_tags_file:file { open write setattr relabelto create };
