@@ -56,7 +56,8 @@ r_dir_file(zygote, vendor_overlay_file)
 
 # Control cgroups.
 allow zygote cgroup:dir create_dir_perms;
-allow zygote cgroup:{ file lnk_file } r_file_perms;
+allow zygote cgroup:file create_file_perms;
+allow zygote cgroup:lnk_file r_file_perms;
 allow zygote self:capability sys_admin;
 
 # Allow zygote to stat the files that it opens. The zygote must
