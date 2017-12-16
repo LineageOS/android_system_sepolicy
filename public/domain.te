@@ -24,6 +24,10 @@ allow domain self:process {
 allow domain self:fd use;
 allow domain proc:dir r_dir_perms;
 allow domain proc_net:dir search;
+# STOPSHIP remove (b/70722355). This is granted temporarily to gather info
+# on uses of /proc/net/. /proc/net/xt_qtaguid/stats is broadly used including
+# by apps.
+allow domain proc_net_xt_qtaguid_stats:file r_file_perms;
 r_dir_file(domain, self)
 allow domain self:{ fifo_file file } rw_file_perms;
 allow domain self:unix_dgram_socket { create_socket_perms sendto };
