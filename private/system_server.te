@@ -169,6 +169,7 @@ binder_call(system_server, gatekeeperd)
 binder_call(system_server, installd)
 binder_call(system_server, incidentd)
 binder_call(system_server, netd)
+binder_call(system_server, statsd)
 binder_call(system_server, storaged)
 binder_call(system_server, vold)
 binder_call(system_server, wificond)
@@ -578,6 +579,7 @@ allow system_server mediadrmserver_service:service_manager find;
 allow system_server netd_service:service_manager find;
 allow system_server nfc_service:service_manager find;
 allow system_server radio_service:service_manager find;
+allow system_server stats_service:service_manager find;
 allow system_server storaged_service:service_manager find;
 allow system_server surfaceflinger_service:service_manager find;
 allow system_server vold_service:service_manager find;
@@ -800,5 +802,3 @@ neverallow system_server { domain -system_server }:process ptrace;
 # file read access. However, that is now unnecessary (b/34951864)
 neverallow system_server system_server:global_capability_class_set sys_resource;
 
-# TODO(b/67468181): Remove following lines upon resolution of this bug
-dontaudit system_server statscompanion_service:service_manager { add find };
