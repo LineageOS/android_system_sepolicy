@@ -7,6 +7,9 @@ userdebug_or_eng(`
   typeattribute perfprofd coredomain;
   typeattribute perfprofd mlstrustedsubject;
 
+  # perfprofd access to sysfs directory structure.
+  allow perfprofd sysfs_type:dir search;
+
   # perfprofd needs to control CPU hot-plug in order to avoid kernel
   # perfevents problems in cases where CPU goes on/off during measurement;
   # this means read access to /sys/devices/system/cpu/possible
