@@ -829,6 +829,20 @@ full_treble_only(`
         -crash_dump_exec
         -netutils_wrapper_exec
     }:file { entrypoint execute execute_no_trans };
+
+    # Do not allow system components to execute files from vendor
+    # except for the ones whitelist here.
+    neverallow {
+      coredomain
+      -init
+      -system_executes_vendor_violators
+      -vendor_init
+    } {
+      vendor_file_type
+      -same_process_hal_file
+      -vndk_sp_file
+      -vendor_app_file
+    }:file { execute execute_no_trans };
 ')
 
 # Only authorized processes should be writing to files in /data/dalvik-cache
