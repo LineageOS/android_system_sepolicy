@@ -214,7 +214,7 @@ allow init {
   -contextmount_type
   -proc
   -sdcard_type
-  -sysfs
+  -sysfs_type
   -rootfs
 }:file { open read setattr };
 allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read setattr search };
@@ -304,6 +304,10 @@ allow init {
   sysfs_zram
 }:file w_file_perms;
 
+allow init {
+  sysfs_dt_firmware_android
+}:file r_file_perms;
+
 # init chmod/chown access to /sys files.
 allow init {
   sysfs_android_usb
@@ -312,6 +316,8 @@ allow init {
   sysfs_leds
   sysfs_lowmemorykiller
   sysfs_power
+  sysfs_vibrator
+  sysfs_wake_lock
 }:file setattr;
 
 # Set usermodehelpers.
