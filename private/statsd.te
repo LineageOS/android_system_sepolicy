@@ -13,9 +13,14 @@ r_dir_file(statsd, domain)
 #   /system/bin/toolbox
 #   /system/bin/logcat
 #   /system/bin/dumpsys
+allow statsd devpts:chr_file { getattr ioctl read write };
 allow statsd shell_exec:file rx_file_perms;
 allow statsd system_file:file execute_no_trans;
 allow statsd toolbox_exec:file rx_file_perms;
+
+userdebug_or_eng(`
+  allow statsd su:fifo_file read;
+')
 
 # Create, read, and write into /data/misc/stats-data, /data/misc/stats-system.
 allow statsd stats_data_file:dir create_dir_perms;
@@ -25,6 +30,7 @@ allow statsd stats_data_file:file create_file_perms;
 binder_call(statsd, appdomain)
 binder_call(statsd, incidentd)
 binder_call(statsd, statscompanion_service)
+binder_call(statsd, system_server)
 
 # Allow logd access.
 read_logd(statsd)
@@ -49,6 +55,10 @@ allow statsd stats:fifo_file write;
 
 # Allow statsd to call back to stats with status updates.
 binder_call(statsd, stats)
+
+# Allow access to with hardware layer and process stats.
+allow statsd proc_uid_cputime_showstat:file { getattr open read };
+hal_client_domain(statsd, hal_power)
 
 ###
 ### neverallow rules
