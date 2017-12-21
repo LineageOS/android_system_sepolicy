@@ -1118,3 +1118,16 @@ neverallow ~coredomain coredomain_hwservice:hwservice_manager add;
 # be passthrough only (i.e., run in the process of their clients instead of a
 # separate server process).
 neverallow * same_process_hwservice:hwservice_manager add;
+
+# On TREBLE devices, most coredomains should not access vendor_files.
+full_treble_only(`
+  neverallow {
+    coredomain
+    -halclientdomain
+    -init
+    -ueventd
+    -crash_dump
+    -perfprofd
+    -vendor_init
+  } vendor_file:file { create_file_perms x_file_perms };
+')
