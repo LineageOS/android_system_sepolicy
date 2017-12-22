@@ -4,6 +4,7 @@ neverallow {
   halserverdomain
   -hal_bluetooth_server
   -hal_wifi_server
+  -hal_wifi_hostapd_server
   -hal_wifi_supplicant_server
   -hal_telephony_server
 } self:global_capability_class_set { net_admin net_raw };
@@ -14,6 +15,7 @@ neverallow {
   halserverdomain
   -hal_tetheroffload_server
   -hal_wifi_server
+  -hal_wifi_hostapd_server
   -hal_wifi_supplicant_server
   -hal_telephony_server
 } domain:{ tcp_socket udp_socket rawip_socket } *;

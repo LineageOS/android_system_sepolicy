@@ -44,8 +44,9 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.vr@1\.0-service             u:object_r:hal_vr_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.wifi\.offload@1\.0-service  u:object_r:hal_wifi_offload_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.wifi@1\.0-service           u:object_r:hal_wifi_default_exec:s0
-/(vendor|system/vendor)/bin/hw/wpa_supplicant                                 u:object_r:hal_wifi_supplicant_default_exec:s0
+/(vendor|system/vendor)/bin/hw/hostapd                                        u:object_r:hal_wifi_hostapd_default_exec:s0
 /(vendor|system/vendor)/bin/hostapd                                           u:object_r:hostapd_exec:s0
+/(vendor|system/vendor)/bin/hw/wpa_supplicant                                 u:object_r:hal_wifi_supplicant_default_exec:s0
 /(vendor|system/vendor)/bin/vndservicemanager                                 u:object_r:vndservicemanager_exec:s0
 
 #############################
@@ -58,4 +59,5 @@
 #############################
 # Data files
 #
+/data/vendor/wifi/hostapd(/.*)?                                               u:object_r:hostapd_data_file:s0
 /data/misc/wifi/hostapd(/.*)?   u:object_r:hostapd_socket:s0
