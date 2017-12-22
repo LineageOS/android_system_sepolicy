@@ -96,4 +96,22 @@ userdebug_or_eng(`
   dontaudit perfprofd shell_data_file:dir *;
   dontaudit perfprofd shell_data_file:file *;
 
+  # Allow perfprofd to publish a binder service and make binder calls.
+  binder_use(perfprofd)
+  add_service(perfprofd, perfprofd_service)
+
+  # Use devpts for streams from cmd.
+  #
+  # This is normally granted to binderservicedomain, but this service
+  # has tighter restrictions on the callers (see below), so must enable
+  # this manually.
+  allow perfprofd devpts:chr_file rw_file_perms;
+
+  # Use socket & pipe supplied by su, for cmd perfprofd dump.
+  allow perfprofd su:unix_stream_socket { read write getattr sendto };
+  allow perfprofd su:fifo_file r_file_perms;
+
+  # For now, only allow su to communicate with us.
+  neverallow domain perfprofd:binder call;
+  neverallow perfprofd { domain -servicemanager -su }:binder call;
 ')
