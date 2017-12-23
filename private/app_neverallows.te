@@ -82,7 +82,10 @@ neverallow { all_untrusted_apps -mediaprovider } { cache_file cache_recovery_fil
 # application un-installation.
 neverallow { all_untrusted_apps -mediaprovider } {
   fs_type
+  -exfat                    # sdcard
   -fuse                     # sdcard
+  -fuseblk                  # sdcard
+  -ntfs                     # sdcard
   -sdcardfs                 # sdcard
   -sdcard_posix             # sdcard
   -vfat                     # sdcard
