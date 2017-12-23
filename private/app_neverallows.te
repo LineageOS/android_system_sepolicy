@@ -83,6 +83,7 @@ neverallow { all_untrusted_apps -mediaprovider } { cache_file cache_recovery_fil
 neverallow { all_untrusted_apps -mediaprovider } {
   fs_type
   -fuse                     # sdcard
+  -fuseblk                  # sdcard
   -sdcardfs                 # sdcard
   -sdcard_posix             # sdcard
   -vfat                     # sdcard
