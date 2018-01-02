@@ -20,6 +20,7 @@ type mediacodec_service,        service_manager_type;
 type mediadrmserver_service,    service_manager_type;
 type netd_service,              service_manager_type;
 type nfc_service,               service_manager_type;
+type perfprofd_service,         service_manager_type;
 type radio_service,             service_manager_type;
 type storaged_service,          service_manager_type;
 type surfaceflinger_service,    app_api_service, ephemeral_app_api_service, service_manager_type;
