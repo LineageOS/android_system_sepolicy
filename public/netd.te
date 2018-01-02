@@ -107,6 +107,9 @@ allow netd netdomain:fd use;
 # give netd permission to read and write netlink xfrm
 allow netd self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_write nlmsg_read };
 
+# give netd permission to use eBPF functionalities
+allow netd self:bpf { map_create map_read map_write prog_load prog_run };
+
 # Allow netd to register as hal server.
 add_hwservice(netd, system_net_netd_hwservice)
 hwbinder_use(netd)

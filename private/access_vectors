@@ -282,6 +282,15 @@ inherits socket
 class unix_dgram_socket
 inherits socket
 
+class bpf
+{
+	map_create
+	map_read
+	map_write
+	prog_load
+	prog_run
+}
+
 #
 # Define the access vector interpretation for process-related objects
 #
