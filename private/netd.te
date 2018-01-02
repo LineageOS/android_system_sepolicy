@@ -7,3 +7,6 @@ domain_auto_trans(netd, dnsmasq_exec, dnsmasq)
 
 # Allow netd to start clatd in its own domain
 domain_auto_trans(netd, clatd_exec, clatd)
+
+# Allow netd to start bpfloader_exec in its own domain
+domain_auto_trans(netd, bpfloader_exec, bpfloader)
