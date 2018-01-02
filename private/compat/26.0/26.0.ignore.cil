@@ -6,9 +6,11 @@
   ( adbd_exec
     bootloader_boot_reason_prop
     broadcastradio_service
+    cgroup_bpf
     crossprofileapps_service
     e2fs
     e2fs_exec
+    fs_bpf
     hal_broadcastradio_hwservice
     hal_cas_hwservice
     hal_lowpan_hwservice
