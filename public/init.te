@@ -69,6 +69,10 @@ allow init self:global_capability_class_set sys_admin;
 # Create and mount on directories in /.
 allow init rootfs:dir create_dir_perms;
 allow init { rootfs cache_file cgroup storage_file system_data_file system_file vendor_file postinstall_mnt_dir }:dir mounton;
+allow init cgroup_bpf:dir { create mounton };
+
+# Mount bpf fs on sys/fs/bpf
+allow init fs_bpf:dir mounton;
 
 # Mount on /dev/usb-ffs/adb.
 allow init device:dir mounton;
