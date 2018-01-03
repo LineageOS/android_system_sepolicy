@@ -305,12 +305,15 @@ allow init {
   sysfs_android_usb
   sysfs_leds
   sysfs_power
-  sysfs_zram
 }:file w_file_perms;
 
 allow init {
   sysfs_dt_firmware_android
 }:file r_file_perms;
+
+allow init {
+  sysfs_zram
+}:file rw_file_perms;
 
 # init chmod/chown access to /sys files.
 allow init {
