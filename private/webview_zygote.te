@@ -54,6 +54,9 @@ selinux_check_context(webview_zygote)
 # Check SELinux permissions.
 selinux_check_access(webview_zygote)
 
+# Directory listing in /system.
+allow zygote system_file:dir r_dir_perms;
+
 #####
 ##### Neverallow
 #####

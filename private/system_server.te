@@ -381,6 +381,10 @@ allow system_server heapdump_data_file:file create_file_perms;
 allow system_server adb_keys_file:dir create_dir_perms;
 allow system_server adb_keys_file:file create_file_perms;
 
+# Manage /data/misc/network_watchlist
+allow system_server network_watchlist_data_file:dir create_dir_perms;
+allow system_server network_watchlist_data_file:file create_file_perms;
+
 # Manage /data/misc/sms.
 # TODO:  Split into a separate type?
 allow system_server radio_data_file:dir create_dir_perms;
@@ -722,6 +726,11 @@ with_asan(`
   allow system_server asanwrapper_exec:file rx_file_perms;
   allow system_server zygote_exec:file rx_file_perms;
 ')
+
+# allow system_server to read the eBPF maps that stores the traffic stats information amd clean up
+# the map after snapshot is recorded
+allow system_server fs_bpf:file write;
+allow system_server netd:bpf { map_read map_write };
 
 # ART Profiles.
 # Allow system_server to open profile snapshots for read.

@@ -6,9 +6,11 @@
   ( adbd_exec
     bootloader_boot_reason_prop
     broadcastradio_service
+    cgroup_bpf
     crossprofileapps_service
     e2fs
     e2fs_exec
+    fs_bpf
     hal_broadcastradio_hwservice
     hal_cas_hwservice
     hal_lowpan_hwservice
@@ -22,8 +24,10 @@
     lowpan_service
     mediaprovider_tmpfs
     netd_stable_secret_prop
+    network_watchlist_data_file
     network_watchlist_service
     package_native_service
+    perfprofd_service
     property_info
     slice_service
     stats

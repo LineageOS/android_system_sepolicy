@@ -7,6 +7,7 @@ net_domain(netd)
 allowxperm netd self:udp_socket ioctl priv_sock_ioctls;
 
 r_dir_file(netd, cgroup)
+r_dir_file(netd, cgroup_bpf)
 allow netd system_server:fd use;
 
 allow netd self:global_capability_class_set { net_admin net_raw kill };
@@ -57,6 +58,9 @@ allow netd sysfs_net:file w_file_perms;
 # TODO: added to match above sysfs rule. Remove me?
 allow netd sysfs_usb:file write;
 
+allow netd fs_bpf:dir  create_dir_perms;
+allow netd fs_bpf:file create_file_perms;
+
 # TODO: netd previously thought it needed these permissions to do WiFi related
 #       work.  However, after all the WiFi stuff is gone, we still need them.
 #       Why?
@@ -102,6 +106,9 @@ allow netd netdomain:fd use;
 
 # give netd permission to read and write netlink xfrm
 allow netd self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_write nlmsg_read };
+
+# give netd permission to use eBPF functionalities
+allow netd self:bpf { map_create map_read map_write prog_load prog_run };
 
 # Allow netd to register as hal server.
 add_hwservice(netd, system_net_netd_hwservice)
