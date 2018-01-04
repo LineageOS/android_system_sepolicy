@@ -40,6 +40,7 @@
     hal_confirmationui_hwservice
     hal_lowpan_hwservice
     hal_neuralnetworks_hwservice
+    hal_secure_element_hwservice
     hal_tetheroffload_hwservice
     hal_usb_gadget_hwservice
     hal_wifi_offload_hwservice
@@ -65,6 +66,9 @@
     perfetto_traces_data_file
     perfprofd_service
     property_info
+    secure_element
+    secure_element_tmpfs
+    secure_element_service
     slice_service
     stats
     stats_data_file

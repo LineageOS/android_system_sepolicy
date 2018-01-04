@@ -99,6 +99,7 @@ user=_app seinfo=platform name=com.android.traceur domain=traceur_app type=app_d
 user=system seinfo=platform domain=system_app type=system_app_data_file
 user=bluetooth seinfo=platform domain=bluetooth type=bluetooth_data_file
 user=nfc seinfo=platform domain=nfc type=nfc_data_file
+user=secure_element seinfo=platform domain=secure_element levelFrom=all
 user=radio seinfo=platform domain=radio type=radio_data_file
 user=shared_relro domain=shared_relro
 user=shell seinfo=platform domain=shell type=shell_data_file
