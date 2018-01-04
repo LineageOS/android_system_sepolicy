@@ -46,14 +46,18 @@
 /plat_sepolicy\.cil      u:object_r:sepolicy_file:s0
 /plat_property_contexts  u:object_r:property_contexts_file:s0
 /nonplat_property_contexts  u:object_r:property_contexts_file:s0
+/vendor_property_contexts   u:object_r:property_contexts_file:s0
 /seapp_contexts     u:object_r:seapp_contexts_file:s0
 /nonplat_seapp_contexts     u:object_r:seapp_contexts_file:s0
+/vendor_seapp_contexts      u:object_r:seapp_contexts_file:s0
 /plat_seapp_contexts     u:object_r:seapp_contexts_file:s0
 /sepolicy           u:object_r:sepolicy_file:s0
 /plat_service_contexts   u:object_r:service_contexts_file:s0
 /plat_hwservice_contexts   u:object_r:hwservice_contexts_file:s0
 /nonplat_service_contexts   u:object_r:nonplat_service_contexts_file:s0
+/vendor_service_contexts    u:object_r:service_contexts_file:s0
 /nonplat_hwservice_contexts   u:object_r:hwservice_contexts_file:s0
+/vendor_hwservice_contexts    u:object_r:hwservice_contexts_file:s0
 /vndservice_contexts   u:object_r:vndservice_contexts_file:s0
 
 ##########################
