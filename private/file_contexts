@@ -187,6 +187,7 @@
 /system/bin/tune2fs	--	u:object_r:fsck_exec:s0
 /system/bin/toolbox	--	u:object_r:toolbox_exec:s0
 /system/bin/toybox	--	u:object_r:toolbox_exec:s0
+/system/bin/getprop		u:object_r:toolbox_exec:s0
 /system/bin/logcat	--	u:object_r:logcat_exec:s0
 /system/bin/logcatd	--	u:object_r:logcat_exec:s0
 /system/bin/sh		--	u:object_r:shell_exec:s0
