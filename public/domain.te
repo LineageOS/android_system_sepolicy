@@ -1116,10 +1116,12 @@ neverallow ~coredomain coredomain_hwservice:hwservice_manager add;
 neverallow * same_process_hwservice:hwservice_manager add;
 
 # On TREBLE devices, most coredomains should not access vendor_files.
+# TODO(b/71553434): Remove exceptions here.
 full_treble_only(`
   neverallow {
     coredomain
-    -halclientdomain
+    -appdomain
+    -bootanim
     -init
     -ueventd
     -crash_dump
