@@ -3,7 +3,9 @@ type rild, domain;
 hal_server_domain(rild, hal_telephony)
 
 net_domain(rild)
+ifelse(old_sepolicy, `30',
 allowxperm rild self:udp_socket ioctl priv_sock_ioctls;
+)
 
 allow rild self:netlink_route_socket nlmsg_write;
 allow rild kernel:system module_request;
