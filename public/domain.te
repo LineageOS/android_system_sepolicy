@@ -203,7 +203,6 @@ ifelse(old_sepolicy, `30',
 # separately.
 allowxperm domain domain:{ rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
-  
 # default whitelist for unix sockets.
 allowxperm domain domain:{ unix_dgram_socket unix_stream_socket }
   ioctl unpriv_unix_sock_ioctls;
