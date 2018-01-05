@@ -889,12 +889,10 @@ $(plat_property_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M
 $(plat_property_contexts.tmp): $(plat_pcfiles)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): PRIVATE_FC_SORT := $(HOST_OUT_EXECUTABLES)/fc_sort
-$(LOCAL_BUILT_MODULE): $(plat_property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(HOST_OUT_EXECUTABLES)/fc_sort
+$(LOCAL_BUILT_MODULE): $(plat_property_contexts.tmp) $(HOST_OUT_EXECUTABLES)/property_info_checker
 	@mkdir -p $(dir $@)
-	$(hide) $(PRIVATE_FC_SORT) $< $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
+	$(hide) cp -f $< $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/property_info_checker $@
 
 built_plat_pc := $(LOCAL_BUILT_MODULE)
 plat_pcfiles :=
@@ -924,12 +922,10 @@ $(nonplat_property_contexts.tmp): $(nonplat_pcfiles)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
 
 
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): PRIVATE_FC_SORT := $(HOST_OUT_EXECUTABLES)/fc_sort
-$(LOCAL_BUILT_MODULE): $(nonplat_property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(HOST_OUT_EXECUTABLES)/fc_sort
+$(LOCAL_BUILT_MODULE): $(nonplat_property_contexts.tmp) $(HOST_OUT_EXECUTABLES)/property_info_checker
 	@mkdir -p $(dir $@)
-	$(hide) $(PRIVATE_FC_SORT) $< $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -p $(PRIVATE_SEPOLICY) $@
+	$(hide) cp -f $< $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/property_info_checker $@
 
 built_nonplat_pc := $(LOCAL_BUILT_MODULE)
 nonplat_pcfiles :=
