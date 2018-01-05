@@ -195,6 +195,7 @@ allow domain debugfs_trace_marker:file w_file_perms;
 allow domain fs_type:filesystem getattr;
 allow domain fs_type:dir getattr;
 
+ifelse(old_sepolicy, `30',
 # Restrict all domains to a whitelist for common socket types. Additional
 # ioctl commands may be added to individual domains, but this sets safe
 # defaults for all processes. Note that granting this whitelist to domain does
@@ -202,6 +203,7 @@ allow domain fs_type:dir getattr;
 # separately.
 allowxperm domain domain:{ rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
+  
 # default whitelist for unix sockets.
 allowxperm domain domain:{ unix_dgram_socket unix_stream_socket }
   ioctl unpriv_unix_sock_ioctls;
@@ -211,6 +213,7 @@ allowxperm domain domain:{ unix_dgram_socket unix_stream_socket }
 # not grant the wider ioctl permission. That must be granted
 # separately.
 allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
+)
 
 # Workaround for policy compiler being too aggressive and removing hwservice_manager_type
 # when it's not explicitly used in allow rules
