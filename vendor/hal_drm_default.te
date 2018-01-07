@@ -6,3 +6,5 @@ init_daemon_domain(hal_drm_default)
 
 allow hal_drm_default mediacodec:fd use;
 allow hal_drm_default { appdomain -isolated_app }:fd use;
+
+allow hal_drm_default hal_allocator_server:fd use;
