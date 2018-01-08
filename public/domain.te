@@ -654,6 +654,8 @@ full_treble_only(`
     -init
     -ueventd
     -socket_between_core_and_vendor_violators
+    -sudaemon
+    -system_app
   } {
     file_type
     dev_type
@@ -805,7 +807,7 @@ neverallow * { file_type fs_type dev_type }:{ lnk_file fifo_file sock_file } mou
 # Nobody should be able to execute su on user builds.
 # On userdebug/eng builds, only dumpstate, shell, and
 # su itself execute su.
-neverallow { domain userdebug_or_eng(`-dumpstate -shell -su -sudaemon') } su_exec:file no_x_file_perms;
+neverallow { domain userdebug_or_eng(`-dumpstate -shell -su -sudaemon -init') } su_exec:file no_x_file_perms;
 
 # Do not allow the introduction of new execmod rules. Text relocations
 # and modification of executable pages are unsafe.
@@ -909,7 +911,7 @@ neverallow {
 
 # Only domains spawned from zygote and runas may have the appdomain attribute.
 neverallow { domain -runas -webview_zygote -zygote } {
-  appdomain -shell userdebug_or_eng(`-su')
+  appdomain -shell userdebug_or_eng(`-su -sudaemon')
 }:process { transition dyntransition };
 
 # Minimize read access to shell- or app-writable symlinks.
