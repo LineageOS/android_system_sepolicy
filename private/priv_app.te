@@ -21,22 +21,23 @@ allow priv_app self:process ptrace;
 # to their sandbox directory and then dlopen().
 allow priv_app app_data_file:file execute;
 
+allow priv_app app_api_service:service_manager find;
 allow priv_app audioserver_service:service_manager find;
 allow priv_app cameraserver_service:service_manager find;
 allow priv_app drmserver_service:service_manager find;
 allow priv_app mediacodec_service:service_manager find;
-allow priv_app mediametrics_service:service_manager find;
 allow priv_app mediadrmserver_service:service_manager find;
 allow priv_app mediaextractor_service:service_manager find;
+allow priv_app mediametrics_service:service_manager find;
 allow priv_app mediaserver_service:service_manager find;
 allow priv_app network_watchlist_service:service_manager find;
 allow priv_app nfc_service:service_manager find;
 allow priv_app oem_lock_service:service_manager find;
-allow priv_app radio_service:service_manager find;
-allow priv_app app_api_service:service_manager find;
-allow priv_app system_api_service:service_manager find;
 allow priv_app persistent_data_block_service:service_manager find;
+allow priv_app radio_service:service_manager find;
 allow priv_app recovery_service:service_manager find;
+allow priv_app stats_service:service_manager find;
+allow priv_app system_api_service:service_manager find;
 
 # Write to /cache.
 allow priv_app { cache_file cache_recovery_file }:dir create_dir_perms;
@@ -94,6 +95,9 @@ allow priv_app update_engine_service:service_manager find;
 # Allow GMS core to communicate with dumpsys storaged.
 binder_call(priv_app, storaged)
 allow priv_app storaged_service:service_manager find;
+
+# Allow GMS core to communicate with statsd.
+binder_call(priv_app, statsd)
 
 # Allow Phone to read/write cached ringtones (opened by system).
 allow priv_app ringtone_file:file { getattr read write };
