@@ -72,6 +72,7 @@ full_treble_only(`
     -init
     userdebug_or_eng(`-perfprofd')
     -shell
+    userdebug_or_eng(`-traceur_app')
     -vendor_init
   } debugfs_tracing:file no_rw_file_perms;
 
