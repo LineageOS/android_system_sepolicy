@@ -283,6 +283,6 @@ neverallow {
   domain
   -system_server
   -shell
-  userdebug_or_eng(`-traceur_app')
+  -traceur_app
   -dumpstate
 } dumpstate_service:service_manager find;
