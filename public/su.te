@@ -62,6 +62,7 @@ userdebug_or_eng(`
   typeattribute su hal_bootctl_client;
   typeattribute su hal_camera_client;
   typeattribute su hal_configstore_client;
+  typeattribute su hal_confirmationui_client;
   typeattribute su hal_contexthub_client;
   typeattribute su hal_drm_client;
   typeattribute su hal_cas_client;

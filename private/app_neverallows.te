@@ -183,6 +183,7 @@ neverallow all_untrusted_apps {
   hal_bluetooth_hwservice
   hal_bootctl_hwservice
   hal_camera_hwservice
+  hal_confirmationui_hwservice
   hal_contexthub_hwservice
   hal_drm_hwservice
   hal_dumpstate_hwservice
