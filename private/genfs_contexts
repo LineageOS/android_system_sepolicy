@@ -38,7 +38,6 @@ genfscon proc /sys/kernel/hung_task_timeout_secs u:object_r:proc_hung_task:s0
 genfscon proc /sys/kernel/kptr_restrict u:object_r:proc_security:s0
 genfscon proc /sys/kernel/modprobe u:object_r:usermodehelper:s0
 genfscon proc /sys/kernel/modules_disabled u:object_r:proc_security:s0
-genfscon proc /sys/kernel/overflowuid u:object_r:proc_overflowuid:s0
 genfscon proc /sys/kernel/panic_on_oops u:object_r:proc_panic:s0
 genfscon proc /sys/kernel/perf_event_max_sample_rate u:object_r:proc_perf:s0
 genfscon proc /sys/kernel/perf_event_paranoid u:object_r:proc_perf:s0
