@@ -272,8 +272,14 @@ allow dumpstate self:netlink_generic_socket create_socket_perms_no_ioctl;
 # accessing sensitive /proc/PID files, never for using ptrace attach.
 neverallow dumpstate *:process ptrace;
 
-# only system_server, dumpstate and shell can find the dumpstate service
-neverallow { domain -system_server -shell -dumpstate } dumpstate_service:service_manager find;
+# only system_server, dumpstate, traceur_app and shell can find the dumpstate service
+neverallow {
+  domain
+  -system_server
+  -shell
+  userdebug_or_eng(`-traceur_app')
+  -dumpstate
+} dumpstate_service:service_manager find;
 
 # Dumpstate should not be writing to any generically labeled sysfs files.
 # Create a specific label for the file type

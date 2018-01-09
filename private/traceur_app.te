@@ -1,0 +1,7 @@
+typeattribute traceur_app coredomain;
+
+userdebug_or_eng(`
+  app_domain(traceur_app);
+  allow traceur_app debugfs_tracing:file r_file_perms;
+  allow traceur_app atrace_exec:file rx_file_perms;
+')
