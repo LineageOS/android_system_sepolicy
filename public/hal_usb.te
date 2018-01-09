@@ -15,5 +15,4 @@ allow hal_usb sysfs:file read;
 allow hal_usb sysfs:file open;
 allow hal_usb sysfs:file write;
 allow hal_usb sysfs:file getattr;
-allow hal_usb proc_overflowuid:file r_file_perms;
 
