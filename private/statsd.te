@@ -55,6 +55,7 @@ binder_call(statsd, stats)
 neverallow {
   domain
   -dumpstate
+  -priv_app
   -shell
   -stats
   -statsd
