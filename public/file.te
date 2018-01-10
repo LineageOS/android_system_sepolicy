@@ -57,6 +57,7 @@ type proc_uid_concurrent_policy_time, fs_type;
 type proc_uptime, fs_type;
 type proc_version, fs_type;
 type proc_vmallocinfo, fs_type;
+type proc_vmstat, fs_type;
 type proc_zoneinfo, fs_type;
 type selinuxfs, fs_type, mlstrustedobject;
 type cgroup, fs_type, mlstrustedobject;
