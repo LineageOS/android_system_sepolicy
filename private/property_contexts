@@ -9,7 +9,10 @@ net.qmi                 u:object_r:net_radio_prop:s0
 net.lte                 u:object_r:net_radio_prop:s0
 net.cdma                u:object_r:net_radio_prop:s0
 net.dns                 u:object_r:net_dns_prop:s0
-sys.usb.config          u:object_r:system_radio_prop:s0
+# TODO(b/36001741): Rename to sys.usb.config when exact match is supported and
+# so an exact-matching spec isn't considered as a duplicate of a
+# prefix-matching spec having the same property name.
+sys.usb.conf            u:object_r:system_radio_prop:s0
 ril.                    u:object_r:radio_prop:s0
 ro.ril.                 u:object_r:radio_prop:s0
 gsm.                    u:object_r:radio_prop:s0
@@ -45,6 +48,7 @@ persist.audio.          u:object_r:audio_prop:s0
 persist.bluetooth.      u:object_r:bluetooth_prop:s0
 persist.debug.          u:object_r:persist_debug_prop:s0
 persist.logd.           u:object_r:logd_prop:s0
+ro.logd.                u:object_r:logd_prop:s0
 persist.logd.security   u:object_r:device_logging_prop:s0
 persist.logd.logpersistd        u:object_r:logpersistd_logging_prop:s0
 logd.logpersistd        u:object_r:logpersistd_logging_prop:s0
@@ -86,6 +90,9 @@ ro.crypto.              u:object_r:vold_prop:s0
 
 # ro.build.fingerprint is either set in /system/build.prop, or is
 # set at runtime by system_server.
+# TODO(b/36001741): Copy into exported_property_contexts when exact match is
+# supported and so an exact-matching spec isn't considered as a duplicate of a
+# prefix-matching spec having the same property name.
 ro.build.fingerprint    u:object_r:fingerprint_prop:s0
 
 ro.persistent_properties.ready  u:object_r:persistent_properties_ready_prop:s0
@@ -120,3 +127,10 @@ ro.lowpan.              u:object_r:lowpan_prop:s0
 
 # hwservicemanager properties
 hwservicemanager.       u:object_r:hwservicemanager_prop:s0
+
+# Common vendor default properties.
+init.svc.vendor.        u:object_r:vendor_default_prop:s0
+ro.hardware.            u:object_r:vendor_default_prop:s0
+ro.vendor.              u:object_r:vendor_default_prop:s0
+persist.vendor.         u:object_r:vendor_default_prop:s0
+vendor.                 u:object_r:vendor_default_prop:s0

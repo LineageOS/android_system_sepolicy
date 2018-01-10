@@ -471,6 +471,23 @@ $1
 define(`not_full_treble', ifelse(target_full_treble, `true', , $1))
 
 #####################################
+# Compatible property only
+# SELinux rules which apply only to devices with compatible property
+#
+define(`compatible_property_only', ifelse(target_compatible_property, `true', $1,
+ifelse(target_compatible_property, `cts',
+# BEGIN_COMPATIBLE_PROPERTY_ONLY -- this marker is used by CTS -- do not modify
+$1
+# END_COMPATIBLE_PROPERTY_ONLY -- this marker is used by CTS -- do not modify
+, )))
+
+#####################################
+# Not compatible property
+# SELinux rules which apply only to devices without compatible property
+#
+define(`not_compatible_property', ifelse(target_compatible_property, `true', , $1))
+
+#####################################
 # Userdebug or eng builds
 # SELinux rules which apply only to userdebug or eng builds
 #
