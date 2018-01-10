@@ -180,6 +180,7 @@ neverallow all_untrusted_apps {
 neverallow all_untrusted_apps {
   default_android_hwservice
   hal_audio_hwservice
+  hal_authsecret_hwservice
   hal_bluetooth_hwservice
   hal_bootctl_hwservice
   hal_camera_hwservice
