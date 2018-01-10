@@ -38,6 +38,7 @@ typedef struct file_context_node {
 	char *path;
 	char *file_type;
 	char *context;
+	char *extra;
 	bool_t meta;
 	int stem_len;
 	int str_len;
@@ -487,6 +488,30 @@ int main(int argc, char *argv[])
 			return 1;
 		}
 
+		/* Get rid of whitespace after the context. */
+		for (; i < line_len; i++) {
+			if (!isspace(line_buf[i]))
+				break;
+		}
+
+		/* Parse out the extra from the line. */
+		start = i;
+		finish = line_len;
+		while (start < finish && (!isspace(line_buf[i - 1])))
+			finish--;
+
+		if (start < finish && line_buf[start] != '#') {
+			temp->extra = (char*)strndup(&line_buf[start], finish - start);
+			if (!(temp->extra)) {
+				file_context_node_destroy(temp);
+				free(temp);
+				free(line_buf);
+				fprintf(stderr, "Error: failure allocating memory.\n");
+				fc_free_file_context_node_list(head);
+				return 1;
+			}
+		}
+
 		/* Set all the data about the regular
 		 * expression. */
 		fc_fill_data(temp);
@@ -577,7 +602,14 @@ int main(int argc, char *argv[])
 		}
 
 		/* Output the context. */
-		fprintf(out_file, "%s\n", current->context);
+		fprintf(out_file, "%s", current->context);
+
+		/* Output the extra, if there is one. */
+		if (current->extra) {
+			fprintf(out_file, "\t%s", current->extra);
+		}
+
+		fprintf(out_file, "\n");
 
 		current = current->next;
 	}
