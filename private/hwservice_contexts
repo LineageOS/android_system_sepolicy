@@ -3,6 +3,7 @@ android.frameworks.schedulerservice::ISchedulingPolicyService   u:object_r:fwk_s
 android.frameworks.sensorservice::ISensorManager                u:object_r:fwk_sensor_hwservice:s0
 android.hardware.audio.effect::IEffectsFactory                  u:object_r:hal_audio_hwservice:s0
 android.hardware.audio::IDevicesFactory                         u:object_r:hal_audio_hwservice:s0
+android.hardware.authsecret::IAuthSecret                        u:object_r:hal_authsecret_hwservice:s0
 android.hardware.biometrics.fingerprint::IBiometricsFingerprint u:object_r:hal_fingerprint_hwservice:s0
 android.hardware.bluetooth::IBluetoothHci                       u:object_r:hal_bluetooth_hwservice:s0
 android.hardware.boot::IBootControl                             u:object_r:hal_bootctl_hwservice:s0
