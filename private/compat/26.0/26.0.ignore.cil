@@ -10,6 +10,24 @@
     crossprofileapps_service
     e2fs
     e2fs_exec
+    exported_config_prop
+    exported_dalvik_prop
+    exported_default_prop
+    exported_dumpstate_prop
+    exported_ffs_prop
+    exported_overlay_prop
+    exported_pm_prop
+    exported_radio_prop
+    exported_system_prop
+    exported_system_radio_prop
+    exported_vold_prop
+    exported2_config_prop
+    exported2_default_prop
+    exported2_radio_prop
+    exported2_system_prop
+    exported2_vold_prop
+    exported3_default_prop
+    exported3_system_prop
     fs_bpf
     hal_broadcastradio_hwservice
     hal_cas_hwservice
@@ -64,6 +82,7 @@
     traced_producer_socket
     traced_tmpfs
     update_engine_log_data_file
+    vendor_default_prop
     vendor_init
     vold_prepare_subdirs
     vold_prepare_subdirs_exec
