@@ -4,3 +4,4 @@ system_server vendor_framework_file dir 68826235
 crash_dump app_data_file dir 68319037
 crash_dump bluetooth_data_file dir 68319037
 crash_dump vendor_overlay_file dir 68319037
+statsd statsd capability 71537285
