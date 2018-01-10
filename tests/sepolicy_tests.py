@@ -19,6 +19,10 @@ def TestDebugfsTypeViolations(pol):
     # TODO: this should apply to genfs_context entries as well
     return pol.AssertPathTypesHaveAttr(["/sys/kernel/debug/",
                                     "/sys/kernel/tracing"], [], "debugfs_type")
+
+def TestVendorTypeViolations(pol):
+    return pol.AssertPathTypesHaveAttr(["/vendor/"], [], "vendor_file_type")
+
 ###
 # extend OptionParser to allow the same option flag to be used multiple times.
 # This is used to allow multiple file_contexts files and tests to be
@@ -81,6 +85,8 @@ if __name__ == '__main__':
         results += TestSysfsTypeViolations(pol)
     if options.test is None or "TestDebugfsTypeViolations" in options.test:
         results += TestDebugfsTypeViolations(pol)
+    if options.test is None or "TestVendorTypeViolations" in options.test:
+        results += TestVendorTypeViolations(pol)
 
     if len(results) > 0:
         sys.exit(results)
