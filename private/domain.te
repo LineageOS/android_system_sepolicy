@@ -71,6 +71,7 @@ full_treble_only(`
     -dumpstate
     -init
     userdebug_or_eng(`-perfprofd')
+    userdebug_or_eng(`-traced_probes')
     -shell
     userdebug_or_eng(`-traceur_app')
     -vendor_init

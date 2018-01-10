@@ -26,3 +26,13 @@ binder_call(shell, storaged)
 # Perform SELinux access checks, needed for CTS
 selinux_check_access(shell)
 selinux_check_context(shell)
+
+# Control Perfetto traced and obtain traces from it.
+# Needed for Studio and debugging.
+unix_socket_connect(shell, traced_consumer, traced)
+
+# Allow shell binaries to write trace data to Perfetto. Used for testing and
+# cmdline utils.
+allow shell traced:fd use;
+allow shell traced_tmpfs:file { read write getattr map };
+unix_socket_connect(shell, traced_producer, traced)

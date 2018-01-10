@@ -149,7 +149,8 @@ allow domain sysfs:lnk_file { getattr read };
 
 # libc references /data/misc/zoneinfo for timezone related information
 # This directory is considered to be a VNDK-stable
-r_dir_file(domain, zoneinfo_data_file)
+allow domain zoneinfo_data_file:file r_file_perms;
+allow domain zoneinfo_data_file:dir r_dir_perms;
 
 # Lots of processes access current CPU information
 r_dir_file(domain, sysfs_devices_system_cpu)
