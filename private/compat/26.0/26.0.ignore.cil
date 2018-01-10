@@ -55,6 +55,14 @@
     tombstone_wifi_data_file
     traceur_app
     traceur_app_tmpfs
+    traced
+    traced_consumer_socket
+    traced_exec
+    traced_probes
+    traced_probes_exec
+    traced_probes_tmpfs
+    traced_producer_socket
+    traced_tmpfs
     update_engine_log_data_file
     vendor_init
     vold_prepare_subdirs

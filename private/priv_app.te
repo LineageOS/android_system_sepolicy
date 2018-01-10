@@ -116,6 +116,12 @@ allow priv_app selinuxfs:file r_file_perms;
 
 read_runtime_log_tags(priv_app)
 
+# Write app-specific trace data to the Perfetto traced damon. This requires
+# connecting to its producer socket and obtaining a (per-process) tmpfs fd.
+allow priv_app traced:fd use;
+allow priv_app traced_tmpfs:file { read write getattr map };
+unix_socket_connect(priv_app, traced_producer, traced)
+
 # suppress denials when safetynet scans /system
 dontaudit priv_app exec_type:file getattr;
 dontaudit priv_app device:dir read;
