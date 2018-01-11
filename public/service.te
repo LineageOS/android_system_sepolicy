@@ -47,6 +47,7 @@ type autofill_service, app_api_service, ephemeral_app_api_service, system_server
 type backup_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type batterystats_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type battery_service, system_server_service, service_manager_type;
+type binder_calls_stats_service, system_server_service, service_manager_type;
 type bluetooth_manager_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type broadcastradio_service, system_server_service, service_manager_type;
 type cameraproxy_service, system_server_service, service_manager_type;
