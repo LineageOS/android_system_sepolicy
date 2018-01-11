@@ -85,7 +85,57 @@ allow domain property_info:file r_file_perms;
 
 # For now, everyone can access core property files
 # Device specific properties are not granted by default
-get_prop(domain, core_property_type)
+not_compatible_property(`
+    get_prop(domain, core_property_type)
+    get_prop(domain, exported_dalvik_prop)
+    get_prop(domain, exported_ffs_prop)
+    get_prop(domain, exported_system_radio_prop)
+    get_prop(domain, exported2_config_prop)
+    get_prop(domain, exported2_radio_prop)
+    get_prop(domain, exported2_system_prop)
+    get_prop(domain, exported2_vold_prop)
+    get_prop(domain, exported3_default_prop)
+    get_prop(domain, exported3_system_prop)
+    get_prop(domain, vendor_default_prop)
+')
+compatible_property_only(`
+    get_prop({coredomain appdomain shell}, core_property_type)
+    get_prop({coredomain appdomain shell}, exported_dalvik_prop)
+    get_prop({coredomain appdomain shell}, exported_ffs_prop)
+    get_prop({coredomain appdomain shell}, exported_system_radio_prop)
+    get_prop({coredomain appdomain shell}, exported2_config_prop)
+    get_prop({coredomain appdomain shell}, exported2_radio_prop)
+    get_prop({coredomain appdomain shell}, exported2_system_prop)
+    get_prop({coredomain appdomain shell}, exported2_vold_prop)
+    get_prop({coredomain appdomain shell}, exported3_default_prop)
+    get_prop({coredomain appdomain shell}, exported3_system_prop)
+    userdebug_or_eng(`
+        get_prop(su, core_property_type)
+        get_prop(su, exported_dalvik_prop)
+        get_prop(su, exported_ffs_prop)
+        get_prop(su, exported_system_radio_prop)
+        get_prop(su, exported2_config_prop)
+        get_prop(su, exported2_radio_prop)
+        get_prop(su, exported2_system_prop)
+        get_prop(su, exported2_vold_prop)
+        get_prop(su, exported3_default_prop)
+        get_prop(su, exported3_system_prop)
+    ')
+    get_prop({domain -coredomain -appdomain}, vendor_default_prop)
+')
+
+# Public readable properties
+get_prop(domain, debug_prop)
+get_prop(domain, exported_config_prop)
+get_prop(domain, exported_default_prop)
+get_prop(domain, exported_dumpstate_prop)
+get_prop(domain, exported_radio_prop)
+get_prop(domain, exported_system_prop)
+get_prop(domain, exported_vold_prop)
+get_prop(domain, exported2_default_prop)
+get_prop(domain, fingerprint_prop)
+get_prop(domain, logd_prop)
+
 # Let everyone read log properties, so that liblog can avoid sending unloggable
 # messages to logd.
 get_prop(domain, log_property_type)
@@ -459,9 +509,21 @@ neverallow * hidl_base_hwservice:hwservice_manager find;
 neverallow { domain -init } default_prop:property_service set;
 neverallow { domain -init } mmc_prop:property_service set;
 
+compatible_property_only(`
+    neverallow { domain -init -vendor_init } exported_default_prop:property_service set;
+    neverallow { domain -init -vendor_init } exported2_default_prop:property_service set;
+    neverallow { domain -init -vendor_init } exported3_default_prop:property_service set;
+    neverallow { domain -init -vendor_init } vendor_default_prop:property_service set;
+')
+
 # Only core domains are allowed to access package_manager properties
 neverallow { domain -init -system_server } pm_prop:property_service set;
 neverallow { domain -coredomain } pm_prop:file no_rw_file_perms;
+
+compatible_property_only(`
+    neverallow { domain -init -system_server -vendor_init } exported_pm_prop:property_service set;
+    neverallow { domain -coredomain -vendor_init } exported_pm_prop:file no_rw_file_perms;
+')
 
 # Do not allow reading device's serial number from system properties except form
 # a few whitelisted domains.
