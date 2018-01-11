@@ -12,6 +12,7 @@ type proc_overcommit_memory, fs_type;
 type usermodehelper, fs_type;
 type sysfs_usermodehelper, fs_type, sysfs_type;
 type qtaguid_proc, fs_type, mlstrustedobject;
+type proc_qtaguid_stat, fs_type, mlstrustedobject;
 type proc_bluetooth_writable, fs_type;
 type proc_abi, fs_type;
 type proc_asound, fs_type;
