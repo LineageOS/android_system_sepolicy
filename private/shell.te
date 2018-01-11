@@ -36,3 +36,5 @@ unix_socket_connect(shell, traced_consumer, traced)
 allow shell traced:fd use;
 allow shell traced_tmpfs:file { read write getattr map };
 unix_socket_connect(shell, traced_producer, traced)
+
+domain_auto_trans(shell, vendor_shell_exec, vendor_shell)

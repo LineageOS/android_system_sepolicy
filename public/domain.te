@@ -874,6 +874,7 @@ full_treble_only(`
         coredomain
         -init
         -vendor_init
+        -shell
     } vendor_shell_exec:file { execute execute_no_trans };
 
     # Do not allow vendor components to execute files from system
