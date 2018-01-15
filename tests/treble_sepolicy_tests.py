@@ -123,6 +123,10 @@ def GetCoreDomains():
             if (MatchPathPrefix(path, "/vendor") or
                     MatchPathPrefix(path, "/system/vendor")):
                 alldomains[d].fromVendor = True
+            # Work around to *not* mark /sbin services as system
+            if MatchPathPrefix(path, "/sbin"):
+                alldomains[d].fromSystem = False
+                alldomains[d].fromVendor = False
 
 ###
 # Add the entrypoint type and path(s) to each domain.
