@@ -123,6 +123,15 @@ def GetCoreDomains():
             if (MatchPathPrefix(path, "/vendor") or
                     MatchPathPrefix(path, "/system/vendor")):
                 alldomains[d].fromVendor = True
+            # SONY: Work around for tad_static
+            #
+            # This parser seems to be really broken. tad_static is labeled as
+            # rootfs, so it evaluates everything which is rootfs too.
+            # As /init..* is part of it, it marks it as system!
+            # So it sets everything in the rootfs to system.
+            if d == "tad" and path == "/sbin/tad_static":
+                alldomains[d].fromSystem = False
+                alldomains[d].fromVendor = False
 
 ###
 # Add the entrypoint type and path(s) to each domain.
