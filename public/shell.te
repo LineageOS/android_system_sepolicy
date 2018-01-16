@@ -185,6 +185,9 @@ allow shell seapp_contexts_file:file r_file_perms;
 allow shell service_contexts_file:file r_file_perms;
 allow shell sepolicy_file:file r_file_perms;
 
+# Allow shell to start up vendor shell
+allow shell vendor_shell_exec:file rx_file_perms;
+
 ###
 ### Neverallow rules
 ###
