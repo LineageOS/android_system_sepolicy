@@ -154,6 +154,12 @@ expandattribute vendor_executes_system_violators false;
 attribute data_between_core_and_vendor_violators;
 expandattribute data_between_core_and_vendor_violators false;
 
+# All system domains which violate the requirement of not executing vendor
+# binaries/libraries.
+# TODO(b/62041836)
+attribute system_executes_vendor_violators;
+expandattribute system_executes_vendor_violators false;
+
 # hwservices that are accessible from untrusted applications
 # WARNING: Use of this attribute should be avoided unless
 # absolutely necessary.  It is a temporary allowance to aid the
