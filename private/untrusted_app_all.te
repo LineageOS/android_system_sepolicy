@@ -111,3 +111,7 @@ allow untrusted_app_all vendor_app_file:lnk_file { open getattr read };
 allow untrusted_app_all traced:fd use;
 allow untrusted_app_all traced_tmpfs:file { read write getattr map };
 unix_socket_connect(untrusted_app_all, traced_producer, traced)
+
+# allow untrusted apps to use UDP sockets provided by the system server but not
+# modify them other than to connect
+allow untrusted_app_all system_server:udp_socket { connect getattr read recvfrom sendto write };
