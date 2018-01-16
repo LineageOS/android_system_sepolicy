@@ -113,6 +113,17 @@ $(warning BOARD_SEPOLICY_VERS not specified, assuming current platform version)
 BOARD_SEPOLICY_VERS := $(PLATFORM_SEPOLICY_VERSION)
 endif
 
+NEVERALLOW_ARG :=
+ifeq ($(SELINUX_IGNORE_NEVERALLOWS),true)
+ifeq ($(TARGET_BUILD_VARIANT),user)
+$(error SELINUX_IGNORE_NEVERALLOWS := true cannot be used in user builds)
+endif
+$(warning Be careful when using the SELINUX_IGNORE_NEVERALLOWS flag. \
+          It does not work in user builds and using it will \
+          not stop you from failing CTS.)
+NEVERALLOW_ARG := -N
+endif
+
 
 platform_mapping_file := $(BOARD_SEPOLICY_VERS).cil
 
@@ -247,6 +258,42 @@ endif
 
 include $(BUILD_PHONY_PACKAGE)
 
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := sepolicy_neverallows
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+# sepolicy_policy.conf - All of the policy for the device.  This is only used to
+# check neverallow rules.
+sepolicy_policy.conf := $(intermediates)/policy.conf
+$(sepolicy_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(sepolicy_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(sepolicy_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(sepolicy_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
+$(sepolicy_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(sepolicy_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(sepolicy_policy.conf): $(call build_policy, $(sepolicy_build_files), \
+$(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS))
+	$(transform-policy-to-conf)
+	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+
+$(LOCAL_BUILT_MODULE): $(sepolicy_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
+	rm -f $@
+ifneq ($(SELINUX_IGNORE_NEVERALLOWS),true)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c \
+		$(POLICYVERS) -o $@ $<
+else # ($(SELINUX_IGNORE_NEVERALLOWS),true)
+	$(hide) touch $@
+endif # ($(SELINUX_IGNORE_NEVERALLOWS),true)
+
+sepolicy_policy.conf :=
+built_sepolicy_neverallows := $(LOCAL_BUILT_MODULE)
+
 ##################################
 # reqd_policy_mask - a policy.conf file which contains only the bare minimum
 # policy necessary to use checkpolicy.  This bare-minimum policy needs to be
@@ -346,14 +393,16 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_CIL_FILES := \
   $(call build_policy, $(sepolicy_build_cil_workaround_files), $(PLAT_PRIVATE_POLICY))
+$(LOCAL_BUILT_MODULE): PRIVATE_NEVERALLOW_ARG := $(NEVERALLOW_ARG)
 $(LOCAL_BUILT_MODULE): $(plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
   $(HOST_OUT_EXECUTABLES)/secilc \
-  $(call build_policy, $(sepolicy_build_cil_workaround_files), $(PLAT_PRIVATE_POLICY))
+  $(call build_policy, $(sepolicy_build_cil_workaround_files), $(PLAT_PRIVATE_POLICY)) \
+  $(built_sepolicy_neverallows)
 	@mkdir -p $(dir $@)
 	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
 		$(POLICYVERS) -o $@ $<
 	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) $@ -o /dev/null -f /dev/null
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) $(PRIVATE_NEVERALLOW_ARG) $@ -o /dev/null -f /dev/null
 
 built_plat_cil := $(LOCAL_BUILT_MODULE)
 plat_policy.conf :=
@@ -497,9 +546,11 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 $(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := \
 $(built_plat_cil) $(built_mapping_cil) $(built_nonplat_cil)
+$(LOCAL_BUILT_MODULE): PRIVATE_NEVERALLOW_ARG := $(NEVERALLOW_ARG)
 $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc \
-$(built_plat_cil) $(built_mapping_cil) $(built_nonplat_cil)
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) \
+$(built_plat_cil) $(built_mapping_cil) $(built_nonplat_cil) \
+$(built_sepolicy_neverallows)
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) $(PRIVATE_NEVERALLOW_ARG) \
 		$(PRIVATE_CIL_FILES) -o $@ -f /dev/null
 
 built_precompiled_sepolicy := $(LOCAL_BUILT_MODULE)
@@ -538,9 +589,11 @@ all_cil_files := \
     $(built_nonplat_cil)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(all_cil_files)
-$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $(all_cil_files)
+$(LOCAL_BUILT_MODULE): PRIVATE_NEVERALLOW_ARG := $(NEVERALLOW_ARG)
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $(all_cil_files) \
+$(built_sepolicy_neverallows)
 	@mkdir -p $(dir $@)
-	$(hide) $< -m -M true -G -c $(POLICYVERS) $(PRIVATE_CIL_FILES) -o $@.tmp -f /dev/null
+	$(hide) $< -m -M true -G -c $(POLICYVERS) $(PRIVATE_NEVERALLOW_ARG) $(PRIVATE_CIL_FILES) -o $@.tmp -f /dev/null
 	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $@.tmp permissive > $@.permissivedomains
 	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
 		echo "==========" 1>&2; \
@@ -558,6 +611,7 @@ all_cil_files :=
 include $(CLEAR_VARS)
 
 # keep concrete sepolicy for neverallow checks
+# If SELINUX_IGNORE_NEVERALLOWS is set, we use sed to remove the neverallow lines before compiling.
 
 LOCAL_MODULE := sepolicy.recovery
 LOCAL_MODULE_STEM := sepolicy
@@ -579,6 +633,10 @@ $(sepolicy.recovery.conf): $(call build_policy, $(sepolicy_build_files), \
                            $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS))
 	$(transform-policy-to-conf)
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+ifeq ($(SELINUX_IGNORE_NEVERALLOWS),true)
+	$(hide) sed -z 's/\n\s*neverallow[^;]*;/\n/g' $@ > $@.neverallow
+	$(hide) mv $@.neverallow $@
+endif
 
 $(LOCAL_BUILT_MODULE): $(sepolicy.recovery.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
                        $(HOST_OUT_EXECUTABLES)/sepolicy-analyze
@@ -1241,14 +1299,16 @@ $(26.0_PLAT_PUBLIC_POLICY) $(26.0_PLAT_PRIVATE_POLICY))
 built_26.0_plat_sepolicy := $(intermediates)/built_26.0_plat_sepolicy
 $(built_26.0_plat_sepolicy): PRIVATE_ADDITIONAL_CIL_FILES := \
   $(call build_policy, technical_debt.cil , $(26.0_PLAT_PRIVATE_POLICY))
+$(built_26.0_plat_sepolicy): PRIVATE_NEVERALLOW_ARG := $(NEVERALLOW_ARG)
 $(built_26.0_plat_sepolicy): $(26.0_plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
   $(HOST_OUT_EXECUTABLES)/secilc \
-  $(call build_policy, technical_debt.cil, $(26.0_PLAT_PRIVATE_POLICY))
+  $(call build_policy, technical_debt.cil, $(26.0_PLAT_PRIVATE_POLICY)) \
+  $(built_sepolicy_neverallows)
 	@mkdir -p $(dir $@)
 	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
 		$(POLICYVERS) -o $@ $<
 	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) $@ -o $@ -f /dev/null
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) $(PRIVATE_NEVERALLOW_ARG) $@ -o $@ -f /dev/null
 
 26.0_plat_policy.conf :=
 
@@ -1297,14 +1357,16 @@ $(BASE_PLAT_PUBLIC_POLICY) $(BASE_PLAT_PRIVATE_POLICY))
 built_plat_sepolicy := $(intermediates)/built_plat_sepolicy
 $(built_plat_sepolicy): PRIVATE_ADDITIONAL_CIL_FILES := \
   $(call build_policy, $(sepolicy_build_cil_workaround_files), $(BASE_PLAT_PRIVATE_POLICY))
+$(built_plat_sepolicy): PRIVATE_NEVERALLOW_ARG := $(NEVERALLOW_ARG)
 $(built_plat_sepolicy): $(base_plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
 $(HOST_OUT_EXECUTABLES)/secilc \
-$(call build_policy, $(sepolicy_build_cil_workaround_files), $(BASE_PLAT_PRIVATE_POLICY))
+$(call build_policy, $(sepolicy_build_cil_workaround_files), $(BASE_PLAT_PRIVATE_POLICY)) \
+$(built_sepolicy_neverallows)
 	@mkdir -p $(dir $@)
 	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
 		$(POLICYVERS) -o $@ $<
 	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) $@ -o $@ -f /dev/null
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) $(PRIVATE_NEVERALLOW_ARG) $@ -o $@ -f /dev/null
 
 treble_sepolicy_tests := $(intermediates)/treble_sepolicy_tests
 $(treble_sepolicy_tests): PRIVATE_PLAT_FC := $(built_plat_fc)
@@ -1361,6 +1423,7 @@ built_nonplat_sc :=
 built_plat_sc :=
 built_precompiled_sepolicy :=
 built_sepolicy :=
+built_sepolicy_neverallows :=
 built_plat_svc :=
 built_nonplat_svc :=
 mapping_policy :=
