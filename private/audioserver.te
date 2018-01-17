@@ -29,6 +29,7 @@ userdebug_or_eng(`
 ')
 
 add_service(audioserver, audioserver_service)
+allow audioserver activity_service:service_manager find;
 allow audioserver appops_service:service_manager find;
 allow audioserver batterystats_service:service_manager find;
 allow audioserver permission_service:service_manager find;
@@ -44,6 +45,17 @@ allow audioserver audio_device:chr_file { read write };
 
 # For A2DP bridge which is loaded directly into audioserver
 unix_socket_connect(audioserver, bluetooth, bluetooth)
+
+# Allow shell commands from ADB for CTS testing/dumping
+allow audioserver adbd:fd use;
+allow audioserver adbd:unix_stream_socket { read write };
+
+# Allow shell commands from ADB for CTS testing/dumping
+userdebug_or_eng(`
+  allow audioserver su:fd use;
+  allow audioserver su:fifo_file { read write };
+  allow audioserver su:unix_stream_socket { read write };
+')
 
 ###
 ### neverallow rules
