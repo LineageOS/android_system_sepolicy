@@ -158,6 +158,7 @@ ro.build.date u:object_r:exported2_default_prop:s0 exact string
 ro.build.date.utc u:object_r:exported2_default_prop:s0 exact int
 ro.build.description u:object_r:exported2_default_prop:s0 exact string
 ro.build.display.id u:object_r:exported2_default_prop:s0 exact string
+ro.build.fingerprint u:object_r:exported_fingerprint_prop:s0 exact string
 ro.build.host u:object_r:exported2_default_prop:s0 exact string
 ro.build.id u:object_r:exported2_default_prop:s0 exact string
 ro.build.product u:object_r:exported2_default_prop:s0 exact string
