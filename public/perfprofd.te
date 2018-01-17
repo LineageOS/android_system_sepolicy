@@ -111,7 +111,11 @@ userdebug_or_eng(`
   allow perfprofd su:unix_stream_socket { read write getattr sendto };
   allow perfprofd su:fifo_file r_file_perms;
 
-  # For now, only allow su to communicate with us.
+  # Allow perfprofd to submit to dropbox.
+  allow perfprofd dropbox_service:service_manager find;
+  allow perfprofd system_server:binder call;
+
+  # Only servicemanager, su and systemserver can communicate.
   neverallow domain perfprofd:binder call;
-  neverallow perfprofd { domain -servicemanager -su }:binder call;
+  neverallow perfprofd { domain -servicemanager -su -system_server }:binder call;
 ')
