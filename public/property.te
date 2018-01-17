@@ -59,6 +59,7 @@ type exported_dalvik_prop, property_type;
 type exported_default_prop, property_type;
 type exported_dumpstate_prop, property_type;
 type exported_ffs_prop, property_type;
+type exported_fingerprint_prop, property_type;
 type exported_overlay_prop, property_type;
 type exported_pm_prop, property_type;
 type exported_radio_prop, property_type;
@@ -127,6 +128,7 @@ compatible_property_only(`
     exported_default_prop
     exported_dumpstate_prop
     exported_ffs_prop
+    exported_fingerprint_prop
     exported_radio_prop
     exported_system_prop
     exported_system_radio_prop
