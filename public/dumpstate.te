@@ -64,6 +64,7 @@ allow dumpstate {
   inputflinger
   mediadrmserver
   mediaextractor
+  mediametrics
   mediaserver
   sdcardd
   surfaceflinger
