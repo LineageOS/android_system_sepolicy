@@ -283,6 +283,7 @@
 /system/bin/vold_prepare_subdirs u:object_r:vold_prepare_subdirs_exec:s0
 /system/bin/stats                u:object_r:stats_exec:s0
 /system/bin/statsd               u:object_r:statsd_exec:s0
+/system/bin/bpfloader            u:object_r:bpfloader_exec:s0
 
 #############################
 # Vendor files

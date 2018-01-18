@@ -5,6 +5,8 @@
 (typeattributeset new_objects
   ( adbd_exec
     bootloader_boot_reason_prop
+    bpfloader
+    bpfloader_exec
     broadcastradio_service
     cgroup_bpf
     crossprofileapps_service
