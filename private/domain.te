@@ -38,7 +38,6 @@ full_treble_only(`
     -dumpstate
     -init
     -priv_app
-    -storaged
     -system_app
     -ueventd
     -vold
