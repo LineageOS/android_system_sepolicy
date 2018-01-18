@@ -27,5 +27,8 @@ userdebug_or_eng(`
 # Allow dumpstate to make binder calls to storaged service
 binder_call(dumpstate, storaged)
 
+# Allow dumpstate to make binder calls to statsd
+binder_call(dumpstate, statsd)
+
 # Collect metrics on boot time created by init
 get_prop(dumpstate, boottime_prop)
