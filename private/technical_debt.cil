@@ -31,3 +31,8 @@
 ; Unfortunately, we can't currently express this in module policy language:
 ;     typeattribute hal_camera hal_allocator_client;
 (typeattributeset hal_allocator_client (hal_camera))
+
+; Apps, except isolated apps, are clients of Neuralnetworks HAL
+; Unfortunately, we can't currently express this in module policy language:
+;     typeattribute { appdomain -isolated_app } hal_neuralnetworks_client;
+(typeattributeset hal_neuralnetworks_client ((and (appdomain) ((not (isolated_app))))))

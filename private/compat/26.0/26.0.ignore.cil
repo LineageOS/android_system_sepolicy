@@ -5,6 +5,8 @@
 (typeattributeset new_objects
   ( adbd_exec
     bootloader_boot_reason_prop
+    bpfloader
+    bpfloader_exec
     broadcastradio_service
     cgroup_bpf
     crossprofileapps_service
@@ -15,6 +17,7 @@
     exported_default_prop
     exported_dumpstate_prop
     exported_ffs_prop
+    exported_fingerprint_prop
     exported_overlay_prop
     exported_pm_prop
     exported_radio_prop
@@ -34,6 +37,7 @@
     hal_lowpan_hwservice
     hal_neuralnetworks_hwservice
     hal_tetheroffload_hwservice
+    hal_wifi_hostapd_hwservice
     hal_wifi_offload_hwservice
     kmsg_debug_device
     last_boot_reason_prop
