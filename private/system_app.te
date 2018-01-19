@@ -113,6 +113,7 @@ allow system_app {
 
 control_logd(system_app)
 read_runtime_log_tags(system_app)
+get_prop(system_app, device_logging_prop)
 
 # allow system apps to use UDP sockets provided by the system server but not
 # modify them other than to connect
