@@ -218,6 +218,19 @@ allow vendor_init serialno_prop:file { getattr open read };
 # Vendor init can perform operations on trusted and security Extended Attributes
 allow vendor_init self:global_capability_class_set sys_admin;
 
+not_compatible_property(`
+    set_prop(vendor_init, {
+      property_type
+      -restorecon_prop
+      -netd_stable_secret_prop
+      -firstboot_prop
+      -pm_prop
+      -system_boot_reason_prop
+      -bootloader_boot_reason_prop
+      -last_boot_reason_prop
+    })
+')
+
 set_prop(vendor_init, debug_prop)
 set_prop(vendor_init, exported_config_prop)
 set_prop(vendor_init, exported_dalvik_prop)
