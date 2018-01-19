@@ -5,6 +5,9 @@
 (typeattributeset new_objects
   ( adb_device
     adbd_exec
+    blank_screen
+    blank_screen_exec
+    blank_screen_tmpfs
     broadcastradio_service
     e2fs
     e2fs_exec
