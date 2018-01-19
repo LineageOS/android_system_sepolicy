@@ -6,9 +6,11 @@ type charger, domain;
 allow charger kmsg_device:chr_file rw_file_perms;
 
 # Read access to pseudo filesystems.
-allow charger sysfs_type:dir search;
 r_dir_file(charger, rootfs)
 r_dir_file(charger, cgroup)
+
+# Allow to read /sys/class/power_supply directory
+allow charger sysfs_type:dir r_dir_perms;
 
 allow charger self:global_capability_class_set { sys_tty_config };
 allow charger self:global_capability_class_set sys_boot;
