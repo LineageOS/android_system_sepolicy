@@ -1,2 +1,17 @@
 get_prop(coredomain, pm_prop)
 get_prop(coredomain, exported_pm_prop)
+
+full_treble_only(`
+neverallow {
+    coredomain
+    -init
+    -vendor_init
+
+    # generic access to sysfs_type
+    -ueventd
+    -vold
+    -priv_app
+    -storaged
+    -system_app
+} sysfs_leds:file *;
+')
