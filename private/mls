@@ -53,11 +53,11 @@ mlsconstrain dir_file_class_set { create relabelfrom relabelto }
 
 # Only constrain open, not read/write.
 # Also constrain other forms of manipulation, e.g. chmod/chown, unlink, rename, etc.
-# Subject must be equivalent to object unless the subject is trusted.
+# Subject must dominate object unless the subject is trusted.
 mlsconstrain dir { open search setattr rename add_name remove_name reparent rmdir }
-	     (t2 != app_data_file or l1 eq l2 or t1 == mlstrustedsubject);
+	     (t2 != app_data_file or l1 dom l2 or t1 == mlstrustedsubject);
 mlsconstrain { file lnk_file sock_file } { open setattr unlink link rename }
-	     (t2 != app_data_file or l1 eq l2 or t1 == mlstrustedsubject);
+	     (t2 != app_data_file or l1 dom l2 or t1 == mlstrustedsubject);
 
 #
 # Constraints for file types other than app data files.
