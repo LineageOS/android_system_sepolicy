@@ -122,9 +122,13 @@ ro.lowpan.              u:object_r:lowpan_prop:s0
 # hwservicemanager properties
 hwservicemanager.       u:object_r:hwservicemanager_prop:s0
 
-# Common vendor default properties.
+# Common default properties for vendor and odm.
+init.svc.odm.           u:object_r:vendor_default_prop:s0
 init.svc.vendor.        u:object_r:vendor_default_prop:s0
 ro.hardware.            u:object_r:vendor_default_prop:s0
+ro.odm.                 u:object_r:vendor_default_prop:s0
 ro.vendor.              u:object_r:vendor_default_prop:s0
+odm.                    u:object_r:vendor_default_prop:s0
+persist.odm.            u:object_r:vendor_default_prop:s0
 persist.vendor.         u:object_r:vendor_default_prop:s0
 vendor.                 u:object_r:vendor_default_prop:s0
