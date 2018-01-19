@@ -235,6 +235,7 @@ hal_attribute(thermal);
 hal_attribute(tv_cec);
 hal_attribute(tv_input);
 hal_attribute(usb);
+hal_attribute(usb_gadget);
 hal_attribute(vibrator);
 hal_attribute(vr);
 hal_attribute(weaver);
