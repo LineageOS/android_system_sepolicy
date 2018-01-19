@@ -17,6 +17,8 @@ allow cameraserver ion_device:chr_file rw_file_perms;
 allow cameraserver hal_graphics_composer:fd use;
 
 add_service(cameraserver, cameraserver_service)
+
+allow cameraserver activity_service:service_manager find;
 allow cameraserver appops_service:service_manager find;
 allow cameraserver audioserver_service:service_manager find;
 allow cameraserver batterystats_service:service_manager find;
@@ -47,3 +49,14 @@ neverallow cameraserver { file_type fs_type }:file execute_no_trans;
 # Lengthier explanation here:
 # https://android-developers.googleblog.com/2016/05/hardening-media-stack.html
 neverallow cameraserver domain:{ tcp_socket udp_socket rawip_socket } *;
+
+# Allow shell commands from ADB for CTS testing/dumping
+allow cameraserver adbd:fd use;
+allow cameraserver adbd:unix_stream_socket { read write };
+
+# Allow shell commands from ADB for CTS testing/dumping
+userdebug_or_eng(`
+  allow cameraserver su:fd use;
+  allow cameraserver su:fifo_file { read write };
+  allow cameraserver su:unix_stream_socket { read write };
+')
