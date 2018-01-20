@@ -79,6 +79,7 @@ genfscon proc /uid_concurrent_policy_time u:object_r:proc_uid_concurrent_policy_
 genfscon proc /uptime u:object_r:proc_uptime:s0
 genfscon proc /version u:object_r:proc_version:s0
 genfscon proc /vmallocinfo u:object_r:proc_vmallocinfo:s0
+genfscon proc /vmstat u:object_r:proc_vmstat:s0
 genfscon proc /zoneinfo u:object_r:proc_zoneinfo:s0
 
 # selinuxfs booleans can be individually labeled.

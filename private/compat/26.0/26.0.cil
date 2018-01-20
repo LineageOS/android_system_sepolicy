@@ -476,7 +476,8 @@
     proc_uid_concurrent_policy_time
     proc_uptime
     proc_version
-    proc_vmallocinfo))
+    proc_vmallocinfo
+    proc_vmstat))
 (typeattributeset proc_bluetooth_writable_26_0 (proc_bluetooth_writable))
 (typeattributeset proc_cpuinfo_26_0 (proc_cpuinfo))
 (typeattributeset proc_drop_caches_26_0 (proc_drop_caches))
