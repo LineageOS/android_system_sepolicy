@@ -25,7 +25,6 @@ full_treble_only(`
   neverallow {
     coredomain
     -dumpstate
-    -priv_app
     -vold
     -vendor_init
   } proc:file no_rw_file_perms;
@@ -35,7 +34,6 @@ full_treble_only(`
     coredomain
     -dumpstate
     -init
-    -priv_app
     -ueventd
     -vold
     -vendor_init
