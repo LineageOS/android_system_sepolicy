@@ -41,7 +41,9 @@ allow platform_app vfat:file create_file_perms;
 allow platform_app rootfs:dir getattr;
 
 # com.android.captiveportallogin reads /proc/vmstat
-allow platform_app proc:file r_file_perms;
+allow platform_app {
+  proc_vmstat
+}:file r_file_perms;
 
 allow platform_app audioserver_service:service_manager find;
 allow platform_app cameraserver_service:service_manager find;
