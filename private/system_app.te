@@ -102,12 +102,8 @@ allow system_app keystore:keystore_key {
     user_changed
 };
 
-# /sys access
-r_dir_file(system_app, sysfs_type)
-
-# settings app reads /proc/version and /proc/pagetypeinfo
+# settings app reads /proc/version
 allow system_app {
-  proc
   proc_version
 }:file r_file_perms;
 
