@@ -238,6 +238,7 @@
 /system/bin/healthd     u:object_r:healthd_exec:s0
 /system/bin/clatd	u:object_r:clatd_exec:s0
 /system/bin/lmkd        u:object_r:lmkd_exec:s0
+/system/bin/usbd   u:object_r:usbd_exec:s0
 /system/bin/inputflinger u:object_r:inputflinger_exec:s0
 /system/bin/logd        u:object_r:logd_exec:s0
 /system/bin/traced        u:object_r:traced_exec:s0
@@ -296,9 +297,9 @@
 
 /(vendor|system/vendor)/lib(64)?/vndk-sp(/.*)? u:object_r:vndk_sp_file:s0
 
-# TODO: b/36790901 move this to /vendor/etc
 /(vendor|system/vendor)/manifest.xml           u:object_r:vendor_configs_file:s0
 /(vendor|system/vendor)/compatibility_matrix.xml u:object_r:vendor_configs_file:s0
+/(vendor|system/vendor)/etc/vintf(/.*)?        u:object_r:vendor_configs_file:s0
 /(vendor|system/vendor)/app(/.*)?              u:object_r:vendor_app_file:s0
 /(vendor|system/vendor)/priv-app(/.*)?         u:object_r:vendor_app_file:s0
 /(vendor|system/vendor)/overlay(/.*)?          u:object_r:vendor_overlay_file:s0

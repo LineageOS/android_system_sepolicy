@@ -77,9 +77,17 @@ userdebug_or_eng(`
 allow priv_app vold:fd use;
 allow priv_app fuse_device:chr_file { read write };
 
-# /sys and /proc access
-r_dir_file(priv_app, sysfs_type)
-r_dir_file(priv_app, proc)
+# /proc access
+allow priv_app {
+  proc_vmstat
+}:file r_file_perms;
+
+allow priv_app sysfs_type:dir search;
+# Read access to /sys/class/net/wlan*/address
+r_dir_file(priv_app, sysfs_net)
+# Read access to /sys/block/zram*/mm_stat
+r_dir_file(priv_app, sysfs_zram)
+
 r_dir_file(priv_app, rootfs)
 
 # Allow GMS core to open kernel config for OTA matching through libvintf
@@ -95,6 +103,10 @@ allow priv_app update_engine_service:service_manager find;
 # Allow GMS core to communicate with dumpsys storaged.
 binder_call(priv_app, storaged)
 allow priv_app storaged_service:service_manager find;
+
+# Allow GMS core to access system_update_service (e.g. to publish pending
+# system update info).
+allow priv_app system_update_service:service_manager find;
 
 # Allow GMS core to communicate with statsd.
 binder_call(priv_app, statsd)
@@ -122,11 +134,15 @@ allow priv_app traced:fd use;
 allow priv_app traced_tmpfs:file { read write getattr map };
 unix_socket_connect(priv_app, traced_producer, traced)
 
-# suppress denials when safetynet scans /system
+# suppress denials for non-API accesses.
 dontaudit priv_app exec_type:file getattr;
 dontaudit priv_app device:dir read;
+dontaudit priv_app proc:file read;
 dontaudit priv_app proc_interrupts:file read;
 dontaudit priv_app proc_modules:file read;
+dontaudit priv_app proc_version:file read;
+dontaudit priv_app wifi_prop:file read;
+dontaudit priv_app net_dns_prop:file read;
 
 # allow privileged apps to use UDP sockets provided by the system server but not
 # modify them other than to connect

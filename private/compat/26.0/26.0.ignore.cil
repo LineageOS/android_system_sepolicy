@@ -38,6 +38,7 @@
     hal_neuralnetworks_hwservice
     hal_tetheroffload_hwservice
     hal_wifi_hostapd_hwservice
+    hal_usb_gadget_hwservice
     hal_wifi_offload_hwservice
     kmsg_debug_device
     last_boot_reason_prop
@@ -64,6 +65,7 @@
     sysfs_fs_ext4_features
     system_boot_reason_prop
     system_net_netd_hwservice
+    system_update_service
     thermal_service
     thermalcallback_hwservice
     thermalserviced
@@ -82,8 +84,12 @@
     traced_probes_tmpfs
     traced_producer_socket
     traced_tmpfs
+    untrusted_app_all_devpts
     update_engine_log_data_file
     vendor_default_prop
+    usbd
+    usbd_exec
+    usbd_tmpfs
     vendor_init
     vendor_shell
     vold_prepare_subdirs
@@ -100,4 +106,6 @@
 ;;     Thus, these types are also not mapped, but recorded for checkapi tests
 (typeattribute priv_objects)
 (typeattributeset priv_objects
-     ( adbd_tmpfs ))
+     ( adbd_tmpfs
+       untrusted_app_27_tmpfs
+     ))

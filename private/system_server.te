@@ -198,6 +198,7 @@ hal_client_domain(system_server, hal_thermal)
 hal_client_domain(system_server, hal_tv_cec)
 hal_client_domain(system_server, hal_tv_input)
 hal_client_domain(system_server, hal_usb)
+hal_client_domain(system_server, hal_usb_gadget)
 hal_client_domain(system_server, hal_vibrator)
 hal_client_domain(system_server, hal_vr)
 hal_client_domain(system_server, hal_weaver)
@@ -281,7 +282,6 @@ r_dir_file(system_server, sysfs_switch)
 r_dir_file(system_server, sysfs_wakeup_reasons)
 
 allow system_server sysfs_nfc_power_writable:file rw_file_perms;
-allow system_server sysfs_devices_system_cpu:file w_file_perms;
 allow system_server sysfs_mac_address:file r_file_perms;
 allow system_server sysfs_power:dir search;
 allow system_server sysfs_power:file rw_file_perms;
