@@ -765,6 +765,7 @@ full_treble_only(`
     -data_between_core_and_vendor_violators
     -init
     -vendor_init
+    -vold_prepare_subdirs
   } {
     data_file_type
     -core_data_file_type
@@ -775,6 +776,7 @@ full_treble_only(`
     -data_between_core_and_vendor_violators
     -init
     -vendor_init
+    -vold_prepare_subdirs
     } {
       data_file_type
       -core_data_file_type
