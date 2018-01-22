@@ -236,7 +236,7 @@ def TestNoUnmappedNewTypes():
         ret += "SELinux: The following types were found added to the policy "
         ret += "without an entry into the compatibility mapping file(s) found "
         ret += "in private/compat/" + compatMapping.apiLevel + "/"
-        ret +=  compatMapping.apiLevel + "[.ignore].cil/n"
+        ret +=  compatMapping.apiLevel + "[.ignore].cil\n"
         ret += " ".join(str(x) for x in sorted(violators)) + "\n"
     return ret
 
