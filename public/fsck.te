@@ -44,7 +44,6 @@ allow fsck rootfs:dir r_dir_perms;
 neverallow fsck {
   boot_block_device
   frp_block_device
-  metadata_block_device
   recovery_block_device
   root_block_device
   swap_block_device
