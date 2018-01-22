@@ -123,7 +123,10 @@
 (typeattributeset dalvikcache_data_file_26_0 (dalvikcache_data_file))
 (typeattributeset dalvik_prop_26_0 (dalvik_prop))
 (typeattributeset dbinfo_service_26_0 (dbinfo_service))
-(typeattributeset debugfs_26_0 (debugfs))
+(typeattributeset debugfs_26_0
+  ( debugfs
+    debugfs_wakeup_sources
+  ))
 (typeattributeset debugfs_mmc_26_0 (debugfs_mmc))
 (typeattributeset debugfs_trace_marker_26_0 (debugfs_trace_marker))
 (typeattributeset debugfs_tracing_26_0 (debugfs_tracing))

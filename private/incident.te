@@ -23,3 +23,5 @@ allow incident incident_service:service_manager find;
 binder_call(incident, incidentd)
 allow incident incidentd:fifo_file write;
 
+# only allow incident being called by shell
+neverallow { domain -su -shell -incident } incident_exec:file { execute execute_no_trans };
