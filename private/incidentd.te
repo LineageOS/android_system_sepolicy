@@ -1,21 +1,16 @@
 typeattribute incidentd coredomain;
+typeattribute incidentd mlstrustedsubject;
 
 init_daemon_domain(incidentd)
 type incidentd_exec, exec_type, file_type;
 binder_use(incidentd)
 wakelock_use(incidentd)
 
-# Allow setting process priority, protect from OOM killer, and dropping
-# privileges by switching UID / GID
-# TODO allow incidentd self:global_capability_class_set { setuid setgid sys_resource };
-
 # Allow incidentd to scan through /proc/pid for all processes
 r_dir_file(incidentd, domain)
 
-allow incidentd self:global_capability_class_set {
-    # Send signals to processes
-    kill
-};
+# Allow incidentd to kill incident_helper when timeout
+allow incidentd incident_helper:process sigkill;
 
 # Allow executing files on system, such as:
 #   /system/bin/toolbox
@@ -23,6 +18,22 @@ allow incidentd self:global_capability_class_set {
 #   /system/bin/dumpsys
 allow incidentd system_file:file execute_no_trans;
 allow incidentd toolbox_exec:file rx_file_perms;
+
+# section id 2001, allow reading /proc/pagetypeinfo
+allow incidentd proc_pagetypeinfo:file r_file_perms;
+
+# section id 2002, allow reading /d/wakeup_sources
+allow incidentd debugfs_wakeup_sources:file r_file_perms;
+
+# section id 2003, allow executing top
+allow incidentd proc_meminfo:file { open read };
+
+# section id 2004, allow reading /sys/devices/system/cpu/cpufreq/all_time_in_state
+allow incidentd sysfs_devices_system_cpu:file r_file_perms;
+
+# section id 2006, allow reading /sys/class/power_supply/bms/battery_type
+allow incidentd sysfs_batteryinfo:dir { search };
+allow incidentd sysfs_batteryinfo:file r_file_perms;
 
 # Create and write into /data/misc/incidents
 allow incidentd incident_data_file:dir rw_dir_perms;
@@ -33,7 +44,7 @@ allow incidentd incident_data_file:file create_file_perms;
 
 # Signal java processes to dump their stack and get the results
 # TODO allow incidentd { appdomain ephemeral_app system_server }:process signal;
-# TODO allow incidentd anr_data_file:dir rw_dir_perms;
+# TODO allow incidentd anr_data_file:dir create_dir_perms;
 # TODO allow incidentd anr_data_file:file create_file_perms;
 
 # Signal native processes to dump their stack.
@@ -52,7 +63,7 @@ allow incidentd {
 }:process signal;
 
 # Allow incidentd to make binder calls to any binder service
-binder_call(incidentd, binderservicedomain)
+binder_call(incidentd, system_server)
 binder_call(incidentd, appdomain)
 
 # Reading /proc/PID/maps of other processes
@@ -62,7 +73,7 @@ binder_call(incidentd, appdomain)
 allow incidentd shell_exec:file rx_file_perms;
 
 # logd access - work to be done is a PII safe log (possibly an event log?)
-# TODO read_logd(incidentd)
+userdebug_or_eng(`read_logd(incidentd)')
 # TODO control_logd(incidentd)
 
 # Allow incidentd to find these standard groups of services.
