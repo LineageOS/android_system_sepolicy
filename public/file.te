@@ -108,8 +108,8 @@ type vfat, sdcard_type, fs_type, mlstrustedobject;
 type debugfs, fs_type, debugfs_type;
 type debugfs_mmc, fs_type, debugfs_type;
 type debugfs_trace_marker, fs_type, debugfs_type, mlstrustedobject;
-type debugfs_tracing, fs_type, debugfs_type;
-type debugfs_tracing_debug, fs_type, debugfs_type;
+type debugfs_tracing, fs_type, debugfs_type, mlstrustedobject;
+type debugfs_tracing_debug, fs_type, debugfs_type, mlstrustedobject;
 type debugfs_tracing_instances, fs_type, debugfs_type;
 type debugfs_wifi_tracing, fs_type, debugfs_type;
 
@@ -244,6 +244,7 @@ type recovery_data_file, file_type, data_file_type, core_data_file_type;
 type shared_relro_file, file_type, data_file_type, core_data_file_type;
 type systemkeys_data_file, file_type, data_file_type, core_data_file_type;
 type textclassifier_data_file, file_type, data_file_type, core_data_file_type;
+type trace_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 type vpn_data_file, file_type, data_file_type, core_data_file_type;
 type wifi_data_file, file_type, data_file_type, core_data_file_type;
 type zoneinfo_data_file, file_type, data_file_type, core_data_file_type;

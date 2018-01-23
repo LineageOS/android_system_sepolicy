@@ -348,6 +348,7 @@
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
 /data/vendor/tombstones/wifi(/.*)? u:object_r:tombstone_wifi_data_file:s0
 /data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
+/data/local/traces(/.*)?	u:object_r:trace_data_file:s0
 /data/media(/.*)?	u:object_r:media_rw_data_file:s0
 /data/mediadrm(/.*)?	u:object_r:media_data_file:s0
 /data/nativetest(/.*)?	u:object_r:nativetest_data_file:s0

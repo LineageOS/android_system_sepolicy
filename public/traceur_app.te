@@ -17,5 +17,7 @@ userdebug_or_eng(`
     -vr_hwc_service
   }:service_manager find;
 
+  dontaudit traceur_app service_manager_type:service_manager find;
+  dontaudit traceur_app hwservice_manager_type:hwservice_manager find;
   dontaudit traceur_app domain:binder call;
 ')
