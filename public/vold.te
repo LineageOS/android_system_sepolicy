@@ -11,7 +11,7 @@ allow vold cache_file:lnk_file r_file_perms;
 r_dir_file(vold, proc_net)
 r_dir_file(vold, sysfs_type)
 # XXX Label sysfs files with a specific type?
-allow vold sysfs:file w_file_perms;
+allow vold sysfs:file w_file_perms; # writing to /sys/*/uevent during coldboot.
 allow vold sysfs_dm:file w_file_perms;
 allow vold sysfs_usb:file w_file_perms;
 allow vold sysfs_zram_uevent:file w_file_perms;
@@ -88,9 +88,6 @@ allow vold domain:dir r_dir_perms;
 allow vold domain:{ file lnk_file } r_file_perms;
 allow vold domain:process { signal sigkill };
 allow vold self:global_capability_class_set { sys_ptrace kill };
-
-# XXX Label sysfs files with a specific type?
-allow vold sysfs:file rw_file_perms;
 
 allow vold kmsg_device:chr_file rw_file_perms;
 
