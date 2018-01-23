@@ -53,6 +53,10 @@ add_service(statsd, stats_service)
 allow statsd stats:fd use;
 allow statsd stats:fifo_file write;
 
+# Allow statsd to send dump info to dumpstate
+allow statsd dumpstate:fd use;
+allow statsd dumpstate:fifo_file { getattr write };
+
 # Allow statsd to call back to stats with status updates.
 binder_call(statsd, stats)
 
