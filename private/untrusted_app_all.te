@@ -41,6 +41,15 @@ allow untrusted_app_all asec_public_file:file { execute execmod };
 allow untrusted_app_all shell_data_file:file r_file_perms;
 allow untrusted_app_all shell_data_file:dir r_dir_perms;
 
+# Allow traceur to pass file descriptors through a content provider to untrusted apps
+# for the purpose of sharing files through e.g. gmail
+allow untrusted_app_all trace_data_file:file { getattr read };
+
+# untrusted apps should not be able to open trace data files, they should depend
+# upon traceur to pass a file descriptor
+neverallow untrusted_app_all trace_data_file:dir *;
+neverallow untrusted_app_all trace_data_file:file { no_w_file_perms open };
+
 # Allow to read staged apks.
 allow untrusted_app_all { apk_tmp_file apk_private_tmp_file }:file {read getattr};
 
