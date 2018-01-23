@@ -53,6 +53,8 @@ neverallow cameraserver domain:{ tcp_socket udp_socket rawip_socket } *;
 # Allow shell commands from ADB for CTS testing/dumping
 allow cameraserver adbd:fd use;
 allow cameraserver adbd:unix_stream_socket { read write };
+allow cameraserver shell:fd use;
+allow cameraserver shell:unix_stream_socket { read write };
 
 # Allow shell commands from ADB for CTS testing/dumping
 userdebug_or_eng(`
