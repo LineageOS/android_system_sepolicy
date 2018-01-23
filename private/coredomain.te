@@ -4,14 +4,13 @@ get_prop(coredomain, exported_pm_prop)
 full_treble_only(`
 neverallow {
     coredomain
+
+    # for chowning
     -init
-    -vendor_init
 
     # generic access to sysfs_type
     -ueventd
+    -vendor_init
     -vold
-    -priv_app
-    -storaged
-    -system_app
 } sysfs_leds:file *;
 ')

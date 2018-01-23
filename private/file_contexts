@@ -177,6 +177,7 @@
 #
 /system(/.*)?		u:object_r:system_file:s0
 /system/bin/atrace	u:object_r:atrace_exec:s0
+/system/bin/blank_screen	u:object_r:blank_screen_exec:s0
 /system/bin/e2fsdroid		u:object_r:e2fs_exec:s0
 /system/bin/mke2fs		u:object_r:e2fs_exec:s0
 /system/bin/e2fsck	--	u:object_r:fsck_exec:s0
@@ -347,6 +348,7 @@
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
 /data/vendor/tombstones/wifi(/.*)? u:object_r:tombstone_wifi_data_file:s0
 /data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
+/data/local/traces(/.*)?	u:object_r:trace_data_file:s0
 /data/media(/.*)?	u:object_r:media_rw_data_file:s0
 /data/mediadrm(/.*)?	u:object_r:media_data_file:s0
 /data/nativetest(/.*)?	u:object_r:nativetest_data_file:s0

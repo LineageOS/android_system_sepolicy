@@ -5,6 +5,9 @@
 (typeattributeset new_objects
   ( adbd_exec
     bootloader_boot_reason_prop
+    blank_screen
+    blank_screen_exec
+    blank_screen_tmpfs
     bpfloader
     bpfloader_exec
     broadcastradio_service
@@ -74,6 +77,7 @@
     timezone_service
     tombstoned_java_trace_socket
     tombstone_wifi_data_file
+    trace_data_file
     traceur_app
     traceur_app_tmpfs
     traced
