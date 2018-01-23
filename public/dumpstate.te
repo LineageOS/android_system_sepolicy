@@ -82,8 +82,14 @@ allow dumpstate {
 # Connect to tombstoned to intercept dumps.
 unix_socket_connect(dumpstate, tombstoned_intercept, tombstoned)
 
-# TODO: added to match above sysfs rule. Remove me?
-allow dumpstate sysfs_usb:file w_file_perms;
+# Access to /sys
+allow dumpstate sysfs_type:dir r_dir_perms;
+
+allow dumpstate {
+  sysfs_dm
+  sysfs_usb
+  sysfs_zram
+}:file r_file_perms;
 
 # Other random bits of data we want to collect
 allow dumpstate qtaguid_proc:file r_file_perms;
@@ -113,8 +119,6 @@ hal_client_domain(dumpstate, hal_dumpstate)
 hal_client_domain(dumpstate, hal_graphics_allocator)
 # Vibrate the device after we are done collecting the bugreport
 hal_client_domain(dumpstate, hal_vibrator)
-# For passthrough mode:
-allow dumpstate sysfs_vibrator:file { rw_file_perms getattr };
 
 # Reading /proc/PID/maps of other processes
 allow dumpstate self:global_capability_class_set sys_ptrace;
@@ -153,15 +157,18 @@ read_runtime_log_tags(dumpstate)
 
 # Read files in /proc
 allow dumpstate {
+  proc_buddyinfo
   proc_cmdline
   proc_meminfo
+  proc_modules
   proc_net
   proc_pipe_conf
   proc_pagetypeinfo
+  proc_qtaguid_stat
   proc_version
   proc_vmallocinfo
+  proc_vmstat
 }:file r_file_perms;
-r_dir_file(dumpstate, proc)
 
 # Read network state info files.
 allow dumpstate net_data_file:dir search;
@@ -249,9 +256,6 @@ add_service(dumpstate, dumpstate_service)
 # use /dev/ion for screen capture
 allow dumpstate ion_device:chr_file r_file_perms;
 
-# read default labeled files in /sys
-r_dir_file(dumpstate, sysfs)
-
 # Allow dumpstate to run top
 allow dumpstate proc_stat:file r_file_perms;
 
@@ -282,7 +286,3 @@ neverallow {
   userdebug_or_eng(`-traceur_app')
   -dumpstate
 } dumpstate_service:service_manager find;
-
-# Dumpstate should not be writing to any generically labeled sysfs files.
-# Create a specific label for the file type
-neverallow dumpstate sysfs:file no_w_file_perms;

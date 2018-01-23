@@ -16,6 +16,7 @@ type proc_qtaguid_stat, fs_type, mlstrustedobject;
 type proc_bluetooth_writable, fs_type;
 type proc_abi, fs_type;
 type proc_asound, fs_type;
+type proc_buddyinfo, fs_type;
 type proc_cmdline, fs_type;
 type proc_cpuinfo, fs_type;
 type proc_dirty, fs_type;
