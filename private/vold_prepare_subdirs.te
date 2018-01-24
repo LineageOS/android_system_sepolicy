@@ -13,3 +13,4 @@ allow vold_prepare_subdirs system_data_file:dir { open read write add_name remov
 allow vold_prepare_subdirs vold_data_file:dir { create open read write search getattr setattr remove_name rmdir };
 allow vold_prepare_subdirs vold_data_file:file { getattr unlink };
 allow vold_prepare_subdirs storaged_data_file:dir create_dir_perms;
+allow vold_prepare_subdirs fingerprint_vendor_data_file:dir create_dir_perms;
