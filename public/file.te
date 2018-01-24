@@ -8,6 +8,7 @@ type proc, fs_type;
 type proc_security, fs_type;
 type proc_drop_caches, fs_type;
 type proc_overcommit_memory, fs_type;
+type proc_min_free_order_shift, fs_type;
 # proc, sysfs, or other nodes that permit configuration of kernel usermodehelpers.
 type usermodehelper, fs_type;
 type sysfs_usermodehelper, fs_type, sysfs_type;
@@ -16,6 +17,7 @@ type proc_qtaguid_stat, fs_type, mlstrustedobject;
 type proc_bluetooth_writable, fs_type;
 type proc_abi, fs_type;
 type proc_asound, fs_type;
+type proc_buddyinfo, fs_type;
 type proc_cmdline, fs_type;
 type proc_cpuinfo, fs_type;
 type proc_dirty, fs_type;
@@ -111,6 +113,7 @@ type debugfs_trace_marker, fs_type, debugfs_type, mlstrustedobject;
 type debugfs_tracing, fs_type, debugfs_type, mlstrustedobject;
 type debugfs_tracing_debug, fs_type, debugfs_type, mlstrustedobject;
 type debugfs_tracing_instances, fs_type, debugfs_type;
+type debugfs_wakeup_sources, fs_type, debugfs_type;
 type debugfs_wifi_tracing, fs_type, debugfs_type;
 
 type pstorefs, fs_type;

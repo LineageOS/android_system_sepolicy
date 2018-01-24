@@ -135,6 +135,7 @@ allow system_server proc_sysrq:file rw_file_perms;
 
 # Read /sys/kernel/debug/wakeup_sources.
 allow system_server debugfs:file r_file_perms;
+allow system_server debugfs_wakeup_sources:file r_file_perms;
 
 # The DhcpClient and WifiWatchdog use packet_sockets
 allow system_server self:packet_socket create_socket_perms_no_ioctl;
@@ -177,6 +178,7 @@ binder_service(system_server)
 
 # Use HALs
 hal_client_domain(system_server, hal_allocator)
+hal_client_domain(system_server, hal_authsecret)
 hal_client_domain(system_server, hal_broadcastradio)
 hal_client_domain(system_server, hal_configstore)
 hal_client_domain(system_server, hal_contexthub)
@@ -747,6 +749,11 @@ allow system_server netd:bpf { map_read map_write };
 # to privileged apps which acquire the permissions to inspect the profiles.
 allow system_server user_profile_data_file:dir { search };
 allow system_server user_profile_data_file:file { getattr open read };
+
+userdebug_or_eng(`
+  # Allow system server to notify mediaextractor of the plugin update.
+  allow system_server mediaextractor_update_service:service_manager find;
+')
 
 ###
 ### Neverallow rules

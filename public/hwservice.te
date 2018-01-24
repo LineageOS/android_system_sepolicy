@@ -3,6 +3,7 @@ type fwk_display_hwservice, hwservice_manager_type, coredomain_hwservice;
 type fwk_scheduler_hwservice, hwservice_manager_type, coredomain_hwservice;
 type fwk_sensor_hwservice, hwservice_manager_type, coredomain_hwservice;
 type hal_audio_hwservice, hwservice_manager_type;
+type hal_authsecret_hwservice, hwservice_manager_type;
 type hal_bluetooth_hwservice, hwservice_manager_type;
 type hal_bootctl_hwservice, hwservice_manager_type;
 type hal_broadcastradio_hwservice, hwservice_manager_type;
