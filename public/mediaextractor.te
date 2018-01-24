@@ -34,6 +34,18 @@ allow mediaextractor apk_data_file:file { read getattr };
 allow mediaextractor asec_apk_file:file { read getattr };
 allow mediaextractor ringtone_file:file { read getattr };
 
+# scan extractor library directory to dynamically load extractors
+allow mediaextractor system_file:dir { read open };
+
+userdebug_or_eng(`
+  # Allow extractor to add update service.
+  add_service(mediaextractor, mediaextractor_update_service)
+
+  # Allow extractor to load media extractor plugins from update apk.
+  allow mediaextractor apk_data_file:dir search;
+  allow mediaextractor apk_data_file:file { execute open };
+')
+
 ###
 ### neverallow rules
 ###
@@ -60,4 +72,5 @@ neverallow mediaextractor domain:{ tcp_socket udp_socket rawip_socket } *;
 neverallow mediaextractor {
   data_file_type
   -zoneinfo_data_file # time zone data from /data/misc/zoneinfo
+  userdebug_or_eng(`-apk_data_file') # for loading media extractor plugins
 }:file open;
