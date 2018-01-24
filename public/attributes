@@ -209,6 +209,7 @@ hal_attribute(bootctl);
 hal_attribute(broadcastradio);
 hal_attribute(camera);
 hal_attribute(configstore);
+hal_attribute(confirmationui);
 hal_attribute(contexthub);
 hal_attribute(drm);
 hal_attribute(cas);
