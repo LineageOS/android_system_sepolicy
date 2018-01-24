@@ -669,7 +669,6 @@ full_treble_only(`
 
 # On full TREBLE devices, socket communications between core components and vendor components are
 # not permitted.
-full_treble_only(`
   # Most general rules first, more specific rules below.
 
   # Core domains are not permitted to initiate communications to vendor domain sockets.
@@ -677,6 +676,7 @@ full_treble_only(`
   # to obtain an already established socket via some public/official/stable API and then exchange
   # data with its peer over that socket. The wire format in this scenario is dicatated by the API
   # and thus does not break the core-vendor separation.
+full_treble_only(`
   neverallow_establish_socket_comms({
     coredomain
     -init
@@ -686,7 +686,9 @@ full_treble_only(`
     -coredomain
     -socket_between_core_and_vendor_violators
   });
+')
   # Vendor domains are not permitted to initiate communications to core domain sockets
+full_treble_only(`
   neverallow_establish_socket_comms({
     domain
     -coredomain
@@ -702,26 +704,33 @@ full_treble_only(`
     -incidentd # TODO(b/35870313): Remove incidentd from this list once vendor domains no longer declare Binder services
     -tombstoned # TODO(b/36604251): Remove tombstoned from this list once mediacodec (OMX HAL) no longer declares Binder services
   });
+')
 
   # Vendor domains (except netdomain) are not permitted to initiate communications to netd sockets
+full_treble_only(`
   neverallow_establish_socket_comms({
     domain
     -coredomain
     -netdomain
     -socket_between_core_and_vendor_violators
   }, netd);
+')
 
   # Vendor domains are not permitted to initiate create/open sockets owned by core domains
+full_treble_only(`
   neverallow {
     domain
     -coredomain
     -appdomain # appdomain restrictions below
+    -data_between_core_and_vendor_violators # b/70393317
     -socket_between_core_and_vendor_violators
   } {
     coredomain_socket
     core_data_file_type
     unlabeled # used only by core domains
   }:sock_file ~{ append getattr ioctl read write };
+')
+full_treble_only(`
   neverallow {
     appdomain
     -coredomain
@@ -733,8 +742,10 @@ full_treble_only(`
     -pdx_endpoint_socket_type # used by VR layer
     -pdx_channel_socket_type # used by VR layer
   }:sock_file ~{ append getattr ioctl read write };
+')
 
   # Core domains are not permitted to create/open sockets owned by vendor domains
+full_treble_only(`
   neverallow {
     coredomain
     -init
