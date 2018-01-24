@@ -66,6 +66,7 @@ genfscon proc /sys/vm/mmap_rnd_compat_bits u:object_r:proc_security:s0
 genfscon proc /sys/vm/page-cluster u:object_r:proc_page_cluster:s0
 genfscon proc /sys/vm/drop_caches u:object_r:proc_drop_caches:s0
 genfscon proc /sys/vm/overcommit_memory u:object_r:proc_overcommit_memory:s0
+genfscon proc /sys/vm/min_free_order_shift u:object_r:proc_min_free_order_shift:s0
 genfscon proc /timer_list u:object_r:proc_timer:s0
 genfscon proc /timer_stats u:object_r:proc_timer:s0
 genfscon proc /tty/drivers u:object_r:proc_tty_drivers:s0
