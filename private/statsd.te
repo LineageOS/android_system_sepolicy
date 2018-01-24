@@ -41,8 +41,9 @@ unix_socket_connect(statsd, traced_consumer, traced)
 
 # Grant statsd with permissions to register the services.
 allow statsd {
-  statscompanion_service
   app_api_service
+  incident_service
+  statscompanion_service
   system_api_service
 }:service_manager find;
 
