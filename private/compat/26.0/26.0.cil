@@ -466,6 +466,7 @@
     proc_kmsg
     proc_loadavg
     proc_max_map_count
+    proc_min_free_order_shift
     proc_mounts
     proc_page_cluster
     proc_pagetypeinfo
