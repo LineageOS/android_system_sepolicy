@@ -481,7 +481,7 @@ neverallow { domain -init -recovery -vold } metadata_block_device:blk_file
   { append link rename write open read ioctl lock };
 
 # No domain other than recovery and update_engine can write to system partition(s).
-neverallow { domain -recovery -update_engine } system_block_device:blk_file write;
+neverallow { domain -recovery -update_engine userdebug_or_eng(`-init') } system_block_device:blk_file write;
 
 # No domains other than install_recovery or recovery can write to recovery.
 neverallow { domain -install_recovery -recovery } recovery_block_device:blk_file write;
