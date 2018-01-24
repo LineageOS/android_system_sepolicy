@@ -54,3 +54,4 @@
 # Data files
 #
 /data/vendor/wifi/hostapd(/.*)?                                               u:object_r:hostapd_data_file:s0
+/data/vendor/wifi/wpa(/.*)?                                                   u:object_r:wpa_data_file:s0
