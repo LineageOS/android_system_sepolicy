@@ -750,6 +750,11 @@ allow system_server netd:bpf { map_read map_write };
 allow system_server user_profile_data_file:dir { search };
 allow system_server user_profile_data_file:file { getattr open read };
 
+userdebug_or_eng(`
+  # Allow system server to notify mediaextractor of the plugin update.
+  allow system_server mediaextractor_update_service:service_manager find;
+')
+
 ###
 ### Neverallow rules
 ###
