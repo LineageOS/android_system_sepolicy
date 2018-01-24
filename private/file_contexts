@@ -38,6 +38,7 @@
 /sdcard             u:object_r:rootfs:s0
 
 # SELinux policy files
+/vendor_file_contexts   u:object_r:file_contexts_file:s0
 /nonplat_file_contexts  u:object_r:file_contexts_file:s0
 /plat_file_contexts     u:object_r:file_contexts_file:s0
 /mapping_sepolicy\.cil   u:object_r:sepolicy_file:s0
