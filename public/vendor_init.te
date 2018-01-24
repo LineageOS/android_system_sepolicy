@@ -33,127 +33,47 @@ allow vendor_init self:global_capability_class_set { chown fowner fsetid };
 
 allow vendor_init {
   file_type
-  -app_data_file
-  -bluetooth_data_file
-  -dalvikcache_data_file
+  -core_data_file_type
   -exec_type
-  -incident_data_file
-  -keystore_data_file
-  -misc_logd_file
-  -network_watchlist_data_file
-  -nfc_data_file
-  -property_data_file
-  -radio_data_file
-  -shell_data_file
-  -system_app_data_file
   -system_file
-  -system_ndebug_socket
   -unlabeled
   -vendor_file_type
-  -vold_data_file
-  -zoneinfo_data_file
-}:dir { create search getattr open read setattr ioctl };
+}:dir { create search getattr open read setattr ioctl write add_name remove_name rmdir relabelfrom };
 
 allow vendor_init {
   file_type
-  -app_data_file
-  -bluetooth_data_file
-  -dalvikcache_data_file
+  -core_data_file_type
   -exec_type
-  -incident_data_file
-  -keystore_data_file
-  -misc_logd_file
-  -network_watchlist_data_file
-  -nfc_data_file
-  -property_data_file
-  -radio_data_file
-  -shell_data_file
-  -system_app_data_file
-  -system_file
-  -system_ndebug_socket
-  -unlabeled
-  -vendor_file_type
-  -vold_data_file
-  -zoneinfo_data_file
-}:dir { write add_name remove_name rmdir relabelfrom };
-
-allow vendor_init {
-  file_type
-  -app_data_file
-  -bluetooth_data_file
-  -dalvikcache_data_file
   -runtime_event_log_tags_file
-  -exec_type
-  -incident_data_file
-  -keystore_data_file
-  -misc_logd_file
-  -network_watchlist_data_file
-  -nfc_data_file
-  -property_data_file
-  -radio_data_file
-  -shell_data_file
-  -system_app_data_file
   -system_file
-  -system_ndebug_socket
   -unlabeled
   -vendor_file_type
-  -vold_data_file
-  -zoneinfo_data_file
 }:file { create getattr open read write setattr relabelfrom unlink };
 
 allow vendor_init {
   file_type
-  -app_data_file
-  -bluetooth_data_file
-  -dalvikcache_data_file
+  -core_data_file_type
   -exec_type
-  -incident_data_file
-  -keystore_data_file
-  -misc_logd_file
-  -network_watchlist_data_file
-  -nfc_data_file
-  -property_data_file
-  -radio_data_file
-  -shell_data_file
-  -system_app_data_file
   -system_file
-  -system_ndebug_socket
   -unlabeled
   -vendor_file_type
-  -vold_data_file
-  -zoneinfo_data_file
 }:{ sock_file fifo_file } { create getattr open read setattr relabelfrom unlink };
 
 allow vendor_init {
   file_type
-  -app_data_file
-  -bluetooth_data_file
-  -dalvikcache_data_file
+  -core_data_file_type
   -exec_type
-  -incident_data_file
-  -keystore_data_file
-  -misc_logd_file
-  -network_watchlist_data_file
-  -nfc_data_file
-  -property_data_file
-  -radio_data_file
-  -shell_data_file
-  -system_app_data_file
   -system_file
-  -system_ndebug_socket
   -unlabeled
   -vendor_file_type
-  -vold_data_file
-  -zoneinfo_data_file
 }:lnk_file { create getattr setattr relabelfrom unlink };
 
 allow vendor_init {
   file_type
+  -core_data_file_type
+  -exec_type
   -system_file
   -vendor_file_type
-  -exec_type
-  -vold_data_file
-  -keystore_data_file
 }:dir_file_class_set relabelto;
 
 allow vendor_init dev_type:dir create_dir_perms;
