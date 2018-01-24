@@ -78,6 +78,7 @@ genfscon proc /uid_procstat/set u:object_r:proc_uid_procstat_set:s0
 genfscon proc /uid_time_in_state u:object_r:proc_uid_time_in_state:s0
 genfscon proc /uid_concurrent_active_time u:object_r:proc_uid_concurrent_active_time:s0
 genfscon proc /uid_concurrent_policy_time u:object_r:proc_uid_concurrent_policy_time:s0
+genfscon proc /uid_cpupower/ u:object_r:proc_uid_cpupower:s0
 genfscon proc /uptime u:object_r:proc_uptime:s0
 genfscon proc /version u:object_r:proc_version:s0
 genfscon proc /vmallocinfo u:object_r:proc_vmallocinfo:s0
