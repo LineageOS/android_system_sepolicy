@@ -38,3 +38,12 @@ allow shell traced_tmpfs:file { read write getattr map };
 unix_socket_connect(shell, traced_producer, traced)
 
 domain_auto_trans(shell, vendor_shell_exec, vendor_shell)
+
+# Allow shell binaries to exec the perfetto cmdline util and have that
+# transition into its own domain, so that it behaves consistently to
+# when exec()-d by statsd.
+domain_auto_trans(shell, perfetto_exec, perfetto)
+
+# Allow shell to read and unlink traces stored in /data/misc/perfetto-traces.
+allow shell perfetto_traces_data_file:dir rw_dir_perms;
+allow shell perfetto_traces_data_file:file r_file_perms;
