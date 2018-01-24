@@ -547,3 +547,6 @@ neverallow appdomain proc_uid_concurrent_active_time:file *;
 
 # Apps cannot access proc_uid_concurrent_policy_time
 neverallow appdomain proc_uid_concurrent_policy_time:file *;
+
+# Apps cannot access proc_uid_cpupower
+neverallow appdomain proc_uid_cpupower:file *;
