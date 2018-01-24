@@ -416,6 +416,7 @@ neverallow {
     userdebug_or_eng(`-su')
     -webview_zygote
     -zygote
+    userdebug_or_eng(`-mediaextractor')
 } {
     file_type
     -system_file
