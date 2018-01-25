@@ -323,6 +323,11 @@
 
 
 #############################
+# Product files
+#
+/(product|system/product)(/.*)?               u:object_r:system_file:s0
+
+#############################
 # Data files
 #
 # NOTE: When modifying existing label rules, changes may also need to
@@ -416,6 +421,9 @@
 
 # Fingerprint data
 /data/system/users/[0-9]+/fpdata(/.*)? u:object_r:fingerprintd_data_file:s0
+
+# Fingerprint vendor data file
+/data/vendor_de/[0-9]+/fpdata(/.*)? u:object_r:fingerprint_vendor_data_file:s0
 
 # Bootchart data
 /data/bootchart(/.*)?		u:object_r:bootchart_data_file:s0

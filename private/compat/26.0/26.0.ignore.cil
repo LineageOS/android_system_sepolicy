@@ -34,10 +34,12 @@
     exported2_vold_prop
     exported3_default_prop
     exported3_system_prop
+    fingerprint_vendor_data_file
     fs_bpf
     hal_authsecret_hwservice
     hal_broadcastradio_hwservice
     hal_cas_hwservice
+    hal_confirmationui_hwservice
     hal_lowpan_hwservice
     hal_neuralnetworks_hwservice
     hal_tetheroffload_hwservice
