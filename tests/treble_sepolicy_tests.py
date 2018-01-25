@@ -38,6 +38,7 @@ coredomainWhitelist = {
         'postinstall_dexopt',
         'recovery',
         'system_server',
+        'vendor_init',
         }
 coredomainWhitelist |= coreAppdomain
 
