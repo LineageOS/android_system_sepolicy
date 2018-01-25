@@ -325,6 +325,11 @@
 
 
 #############################
+# Product files
+#
+/(product|system/product)(/.*)?               u:object_r:system_file:s0
+
+#############################
 # Data files
 #
 # NOTE: When modifying existing label rules, changes may also need to
