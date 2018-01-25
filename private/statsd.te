@@ -28,6 +28,7 @@ allow statsd stats_data_file:file create_file_perms;
 
 # Allow statsd to make binder calls to any binder service.
 binder_call(statsd, appdomain)
+binder_call(statsd, healthd)
 binder_call(statsd, incidentd)
 binder_call(statsd, statscompanion_service)
 binder_call(statsd, system_server)
@@ -46,6 +47,9 @@ allow statsd {
   statscompanion_service
   system_api_service
 }:service_manager find;
+
+# Grant statsd to access health hal to access battery metrics.
+allow statsd hal_health_hwservice:hwservice_manager find;
 
 # Only statsd can publish the binder service.
 add_service(statsd, stats_service)
