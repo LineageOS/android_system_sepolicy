@@ -32,3 +32,8 @@ binder_call(dumpstate, statsd)
 
 # Collect metrics on boot time created by init
 get_prop(dumpstate, boottime_prop)
+
+# Signal native processes to dump their stack.
+allow dumpstate {
+  statsd
+}:process signal;
