@@ -239,6 +239,7 @@ allow system_server {
   mediaserver
   mediametrics
   sdcardd
+  statsd
   surfaceflinger
 
   # This list comes from HAL_INTERFACES_OF_INTEREST in
