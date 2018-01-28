@@ -10,7 +10,6 @@ neverallow {
 
     # generic access to sysfs_type
     -ueventd
-    -vendor_init
     -vold
 } sysfs_leds:file *;
 ')
