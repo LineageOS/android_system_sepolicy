@@ -718,6 +718,7 @@ full_treble_only(`
     -coredomain
     -appdomain # appdomain restrictions below
     -socket_between_core_and_vendor_violators
+    -vendor_init
   } {
     coredomain_socket
     core_data_file_type
@@ -741,7 +742,6 @@ full_treble_only(`
     -init
     -ueventd
     -socket_between_core_and_vendor_violators
-    -vendor_init
   } {
     file_type
     dev_type
@@ -767,7 +767,6 @@ full_treble_only(`
     -appdomain # TODO(b/34980020) remove exemption for appdomain
     -data_between_core_and_vendor_violators
     -init
-    -vendor_init
   } {
     data_file_type
     -core_data_file_type
@@ -777,7 +776,6 @@ full_treble_only(`
     -appdomain # TODO(b/34980020) remove exemption for appdomain
     -data_between_core_and_vendor_violators
     -init
-    -vendor_init
     } {
       data_file_type
       -core_data_file_type
@@ -838,7 +836,6 @@ full_treble_only(`
         userdebug_or_eng(`-perfprofd')
         -postinstall_dexopt
         -system_server
-        -vendor_init
     } vendor_app_file:dir { open read getattr search };
 
     neverallow {
@@ -851,7 +848,6 @@ full_treble_only(`
         userdebug_or_eng(`-perfprofd')
         -postinstall_dexopt
         -system_server
-        -vendor_init
     } vendor_app_file:{ file lnk_file } r_file_perms;
 
     # Limit access to /vendor/overlay
@@ -863,7 +859,6 @@ full_treble_only(`
         -installd
         -system_server
         -zygote
-        -vendor_init
     } vendor_overlay_file:dir { getattr open read search };
 
     neverallow {
@@ -874,7 +869,6 @@ full_treble_only(`
         -installd
         -system_server
         -zygote
-        -vendor_init
     } vendor_overlay_file:{ file lnk_file } r_file_perms;
 
     # Non-vendor domains are not allowed to file execute shell
@@ -882,7 +876,6 @@ full_treble_only(`
     neverallow {
         coredomain
         -init
-        -vendor_init
         -shell
     } vendor_shell_exec:file { execute execute_no_trans };
 
@@ -908,7 +901,6 @@ full_treble_only(`
       coredomain
       -init
       -system_executes_vendor_violators
-      -vendor_init
     } {
       vendor_file_type
       -same_process_hal_file
@@ -1217,6 +1209,5 @@ full_treble_only(`
     -ueventd
     -crash_dump
     -perfprofd
-    -vendor_init
   } vendor_file:file { create_file_perms x_file_perms };
 ')
