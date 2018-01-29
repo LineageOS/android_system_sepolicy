@@ -13,6 +13,9 @@ userdebug_or_eng(`
   # Put the incident command into its domain so it is the same on user, userdebug and eng.
   domain_auto_trans(su, incident_exec, incident)
 
+  # Put the perfetto command into its domain so it is the same on user, userdebug and eng.
+  domain_auto_trans(su, perfetto_exec, perfetto)
+
   # su is also permissive to permit setenforce.
   permissive su;
 
