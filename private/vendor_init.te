@@ -1,5 +1,3 @@
-typeattribute vendor_init coredomain;
-
 # Creating files on sysfs is impossible so this isn't a threat
 # Sometimes we have to write to non-existent files to avoid conditional
 # init behavior. See b/35303861 for an example.
