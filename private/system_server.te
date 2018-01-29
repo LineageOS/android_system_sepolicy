@@ -371,6 +371,11 @@ allow system_server dumpstate:fifo_file append;
 # with no DAC access to it, for dropbox to read.
 allow system_server incident_data_file:file read;
 
+# Allow dropbox to read /data/misc/perfetto-traces. Only the fd is sent over
+# binder.
+allow system_server perfetto_traces_data_file:file read;
+allow system_server perfetto:fd use;
+
 # Manage /data/backup.
 allow system_server backup_data_file:dir create_dir_perms;
 allow system_server backup_data_file:file create_file_perms;
@@ -821,4 +826,3 @@ neverallow system_server { domain -system_server }:process ptrace;
 # CAP_SYS_RESOURCE was traditionally needed for sensitive /proc/PID
 # file read access. However, that is now unnecessary (b/34951864)
 neverallow system_server system_server:global_capability_class_set sys_resource;
-

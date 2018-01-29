@@ -59,6 +59,10 @@
     network_watchlist_data_file
     network_watchlist_service
     package_native_service
+    perfetto
+    perfetto_exec
+    perfetto_tmpfs
+    perfetto_traces_data_file
     perfprofd_service
     property_info
     slice_service
