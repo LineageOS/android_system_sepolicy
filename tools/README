@@ -3,6 +3,15 @@ which are used in building and validating the policy and others are
 available for help in auditing and analyzing policy.  The tools are
 described further below.
 
+build_policies.sh
+   A tool to build SELinux policy for multiple targets in parallel.
+   This is useful for quickly testing a new test or neverallow rule
+   on multiple targets.
+
+   Usage:
+   ./build_policies.sh ~/android/master ~/tmp/build_policies
+   ./build_policies.sh ~/android/master ~/tmp/build_policies sailfish-eng walleye-eng
+
 checkfc
    A utility for checking the validity of a file_contexts or a
    property_contexts configuration file.  Used as part of the policy
