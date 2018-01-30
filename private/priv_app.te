@@ -117,6 +117,7 @@ dontaudit priv_app exec_type:file getattr;
 dontaudit priv_app device:dir read;
 dontaudit priv_app proc_interrupts:file read;
 dontaudit priv_app proc_modules:file read;
+dontaudit priv_app proc_stat:file read;
 dontaudit priv_app wifi_prop:file read;
 dontaudit priv_app net_dns_prop:file read;
 
