@@ -30,6 +30,9 @@ allow statsd stats_data_file:file create_file_perms;
 binder_call(statsd, appdomain)
 binder_call(statsd, healthd)
 binder_call(statsd, incidentd)
+userdebug_or_eng(`
+  binder_call(statsd, perfprofd)
+')
 binder_call(statsd, statscompanion_service)
 binder_call(statsd, system_server)
 
