@@ -157,7 +157,6 @@
 /dev/socket/traced_consumer	u:object_r:traced_consumer_socket:s0
 /dev/socket/uncrypt	u:object_r:uncrypt_socket:s0
 /dev/socket/vold	u:object_r:vold_socket:s0
-/dev/socket/webview_zygote	u:object_r:webview_zygote_socket:s0
 /dev/socket/wpa_eth[0-9] u:object_r:wpa_socket:s0
 /dev/socket/wpa_wlan[0-9] u:object_r:wpa_socket:s0
 /dev/socket/zygote	u:object_r:zygote_socket:s0
@@ -276,8 +275,6 @@
 /system/bin/bspatch              u:object_r:update_engine_exec:s0
 /system/bin/storaged             u:object_r:storaged_exec:s0
 /system/bin/thermalserviced      u:object_r:thermalserviced_exec:s0
-/system/bin/webview_zygote32     u:object_r:webview_zygote_exec:s0
-/system/bin/webview_zygote64     u:object_r:webview_zygote_exec:s0
 /system/bin/wpantund             u:object_r:wpantund_exec:s0
 /system/bin/virtual_touchpad     u:object_r:virtual_touchpad_exec:s0
 /system/bin/hw/android\.hidl\.allocator@1\.0-service          u:object_r:hal_allocator_default_exec:s0

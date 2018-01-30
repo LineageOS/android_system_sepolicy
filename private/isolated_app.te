@@ -108,7 +108,7 @@ neverallow isolated_app sdcard_type:file ~{ read write append getattr lock };
 neverallow isolated_app { usb_device usbaccessory_device }:chr_file *;
 
 # Restrict the webview_zygote control socket.
-neverallow isolated_app webview_zygote_socket:sock_file write;
+neverallow isolated_app webview_zygote:sock_file write;
 
 # Limit the /sys files which isolated_app can access. This is important
 # for controlling isolated_app attack surface.
