@@ -201,6 +201,7 @@ neverallow all_untrusted_apps {
   hal_nfc_hwservice
   hal_oemlock_hwservice
   hal_power_hwservice
+  hal_secure_element_hwservice
   hal_sensors_hwservice
   hal_telephony_hwservice
   hal_thermal_hwservice
