@@ -152,13 +152,15 @@ allow system_server self:tun_socket create_socket_perms_no_ioctl;
 unix_socket_connect(system_server, lmkd, lmkd)
 unix_socket_connect(system_server, mtpd, mtp)
 unix_socket_connect(system_server, netd, netd)
-unix_socket_connect(system_server, webview_zygote, webview_zygote)
 unix_socket_connect(system_server, zygote, zygote)
 unix_socket_connect(system_server, racoon, racoon)
 unix_socket_connect(system_server, uncrypt, uncrypt)
 
 # Communicate over a socket created by surfaceflinger.
 allow system_server surfaceflinger:unix_stream_socket { read write setopt };
+
+# Communicate over a socket created by webview_zygote.
+allow system_server webview_zygote:unix_stream_socket { read write connectto setopt };
 
 # Perform Binder IPC.
 binder_use(system_server)
