@@ -116,6 +116,7 @@ neverallow * {
 }:file no_rw_file_perms;
 
 compatible_property_only(`
+# Prevent properties from being set
   neverallow {
     domain
     -coredomain
@@ -129,19 +130,43 @@ compatible_property_only(`
     exported_dumpstate_prop
     exported_ffs_prop
     exported_fingerprint_prop
-    exported_radio_prop
     exported_system_prop
     exported_system_radio_prop
     exported_vold_prop
     exported2_config_prop
     exported2_default_prop
-    exported2_radio_prop
     exported2_system_prop
     exported2_vold_prop
     exported3_default_prop
     exported3_system_prop
-  }:file no_w_file_perms;
+    -nfc_prop
+    -powerctl_prop
+    -radio_prop
+  }:property_service set;
 
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -hal_nfc
+    -vendor_init
+  } {
+    nfc_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -rild
+    -vendor_init
+  } {
+    exported_radio_prop
+    exported2_radio_prop
+    radio_prop
+  }:property_service set;
+
+# Prevent properties from being read
   neverallow {
     domain
     -coredomain

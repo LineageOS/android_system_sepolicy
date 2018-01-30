@@ -232,6 +232,7 @@ hal_attribute(neuralnetworks);
 hal_attribute(nfc);
 hal_attribute(oemlock);
 hal_attribute(power);
+hal_attribute(secure_element);
 hal_attribute(sensors);
 hal_attribute(telephony);
 hal_attribute(tetheroffload);

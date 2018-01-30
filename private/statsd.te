@@ -37,8 +37,11 @@ binder_call(statsd, system_server)
 read_logd(statsd)
 control_logd(statsd)
 
-# Allow to control Perfetto traced and consume its traces.
-unix_socket_connect(statsd, traced_consumer, traced)
+# Allow to exec the perfetto cmdline client and pass it the trace config on
+# stdint through a pipe. It allows statsd to  capture traces and hand them
+# to Android dropbox.
+allow statsd perfetto_exec:file rx_file_perms;
+domain_auto_trans(statsd, perfetto_exec, perfetto)
 
 # Grant statsd with permissions to register the services.
 allow statsd {

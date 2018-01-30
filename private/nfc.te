@@ -24,6 +24,7 @@ allow nfc radio_service:service_manager find;
 allow nfc app_api_service:service_manager find;
 allow nfc system_api_service:service_manager find;
 allow nfc vr_manager_service:service_manager find;
+allow nfc secure_element_service:service_manager find;
 
 set_prop(nfc, nfc_prop);
 

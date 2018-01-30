@@ -39,6 +39,7 @@ android.hardware.radio.deprecated::IOemHook                     u:object_r:hal_t
 android.hardware.radio::IRadio                                  u:object_r:hal_telephony_hwservice:s0
 android.hardware.radio::ISap                                    u:object_r:hal_telephony_hwservice:s0
 android.hardware.renderscript::IDevice                          u:object_r:hal_renderscript_hwservice:s0
+android.hardware.secure_element::ISecureElement                 u:object_r:hal_secure_element_hwservice:s0
 android.hardware.sensors::ISensors                              u:object_r:hal_sensors_hwservice:s0
 android.hardware.soundtrigger::ISoundTriggerHw                  u:object_r:hal_audio_hwservice:s0
 android.hardware.thermal::IThermal                              u:object_r:hal_thermal_hwservice:s0
