@@ -16,6 +16,7 @@ allow zygote self:global_capability_class_set setpcap;
 allow zygote self:process setcurrent;
 allow zygote system_server:process dyntransition;
 allow zygote appdomain:process dyntransition;
+allow zygote webview_zygote:process dyntransition;
 
 # Allow zygote to read app /proc/pid dirs (b/10455872).
 allow zygote appdomain:dir { getattr search };
@@ -121,8 +122,8 @@ get_prop(zygote, exported_overlay_prop)
 # written on appdomain are applied to all app processes.
 # This is achieved by ensuring that it is impossible for zygote to
 # setcon (dyntransition) to any types other than those associated
-# with appdomain plus system_server.
-neverallow zygote ~{ appdomain system_server }:process dyntransition;
+# with appdomain plus system_server and webview_zygote.
+neverallow zygote ~{ appdomain system_server webview_zygote }:process dyntransition;
 
 # Zygote should never execute anything from /data except for /data/dalvik-cache files.
 neverallow zygote {
