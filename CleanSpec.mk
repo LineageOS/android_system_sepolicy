@@ -74,3 +74,12 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/selinux/mapping_sepolicy
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/vendor/etc/selinux/nonplat_service_contexts)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/obj/ETC/nonplat_service_contexts_intermediates)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/obj/NOTICE_FILES/src/vendor/etc/selinux/nonplat_service_contexts.txt)
+
+$(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/nonplat_sepolicy.cil)
+$(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/nonplat_file_contexts)
+$(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/nonplat_hwservice_contexts)
+$(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/nonplat_mac_permissions.xml)
+$(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/nonplat_property_contexts)
+$(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/nonplat_seapp_contexts)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/nonplat_file_contexts)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/nonplat_property_contexts)
