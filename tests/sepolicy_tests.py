@@ -23,6 +23,10 @@ def TestDebugfsTypeViolations(pol):
 def TestVendorTypeViolations(pol):
     return pol.AssertPathTypesHaveAttr(["/vendor/"], [], "vendor_file_type")
 
+def TestCoreDataTypeViolations(pol):
+    return pol.AssertPathTypesHaveAttr(["/data/"], ["/data/vendor/",
+            "/data/vendor_ce/", "/data/vendor_de/"], "core_data_file_type")
+
 ###
 # extend OptionParser to allow the same option flag to be used multiple times.
 # This is used to allow multiple file_contexts files and tests to be
@@ -40,7 +44,9 @@ class MultipleOption(Option):
         else:
             Option.take_action(self, action, dest, opt, value, values, parser)
 
-Tests = ["TestDataTypeViolators"]
+Tests = ["TestDataTypeViolators", "TestSysfsTypeViolations",
+        "TestDebugfsTypeViolations", "TestVendorTypeViolations",
+        "TestCoreDataTypeViolations"]
 
 if __name__ == '__main__':
     usage = "sepolicy_tests -l $(ANDROID_HOST_OUT)/lib64/libsepolwrap.so "
@@ -87,6 +93,8 @@ if __name__ == '__main__':
         results += TestDebugfsTypeViolations(pol)
     if options.test is None or "TestVendorTypeViolations" in options.test:
         results += TestVendorTypeViolations(pol)
+    if options.test is None or "TestCoreDataTypeViolations" in options.test:
+        results += TestCoreDataTypeViolations(pol)
 
     if len(results) > 0:
         sys.exit(results)
