@@ -222,6 +222,7 @@ LOCAL_REQUIRED_MODULES += \
     plat_and_mapping_sepolicy.cil.sha256 \
     secilc \
     plat_sepolicy_vers.txt \
+    vendor_service_contexts \
 
 # Include precompiled policy, unless told otherwise
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
@@ -233,6 +234,7 @@ LOCAL_REQUIRED_MODULES += sepolicy
 endif
 
 LOCAL_REQUIRED_MODULES += \
+    build_sepolicy \
     vendor_file_contexts \
     vendor_mac_permissions.xml \
     vendor_property_contexts \
@@ -246,10 +248,6 @@ LOCAL_REQUIRED_MODULES += \
     plat_hwservice_contexts \
     searchpolicy \
     vndservice_contexts \
-
-ifneq ($(PRODUCT_SEPOLICY_SPLIT),true)
-LOCAL_REQUIRED_MODULES += vendor_service_contexts
-endif
 
 ifneq ($(TARGET_BUILD_VARIANT), user)
 LOCAL_REQUIRED_MODULES += \
@@ -540,31 +538,23 @@ $(PLAT_PUBLIC_POLICY) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_VENDOR_S
 	$(transform-policy-to-conf)
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
-vendor_policy_raw := $(intermediates)/vendor_policy_raw.cil
-$(vendor_policy_raw): PRIVATE_POL_CONF := $(vendor_policy.conf)
-$(vendor_policy_raw): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
-$(vendor_policy_raw): $(HOST_OUT_EXECUTABLES)/checkpolicy $(vendor_policy.conf) \
-$(reqd_policy_mask.cil)
-	@mkdir -p $(dir $@)
-	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
-	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
-
-$(LOCAL_BUILT_MODULE) : PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
-$(LOCAL_BUILT_MODULE) : PRIVATE_TGT_POL := $(vendor_policy_raw)
-$(LOCAL_BUILT_MODULE) : PRIVATE_DEP_CIL_FILES := $(built_plat_cil) $(built_plat_pub_vers_cil) $(built_mapping_cil)
-$(LOCAL_BUILT_MODULE) : PRIVATE_FILTER_CIL := $(built_plat_pub_vers_cil)
-$(LOCAL_BUILT_MODULE) : $(plat_pub_policy.cil) $(vendor_policy_raw) \
-  $(HOST_OUT_EXECUTABLES)/version_policy $(HOST_OUT_EXECUTABLES)/secilc \
+$(LOCAL_BUILT_MODULE): PRIVATE_POL_CONF := $(vendor_policy.conf)
+$(LOCAL_BUILT_MODULE): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
+$(LOCAL_BUILT_MODULE): PRIVATE_BASE_CIL := $(plat_pub_policy.cil)
+$(LOCAL_BUILT_MODULE): PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
+$(LOCAL_BUILT_MODULE): PRIVATE_DEP_CIL_FILES := $(built_plat_cil) $(built_plat_pub_vers_cil) $(built_mapping_cil)
+$(LOCAL_BUILT_MODULE): PRIVATE_FILTER_CIL := $(built_plat_pub_vers_cil)
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/build_sepolicy \
+  $(vendor_policy.conf) $(reqd_policy_mask.cil) $(plat_pub_policy.cil) \
   $(built_plat_cil) $(built_plat_pub_vers_cil) $(built_mapping_cil)
 	@mkdir -p $(dir $@)
-	$(HOST_OUT_EXECUTABLES)/version_policy -b $< -t $(PRIVATE_TGT_POL) -n $(PRIVATE_VERS) -o $@.tmp
-	$(hide) grep -Fxv -f $(PRIVATE_FILTER_CIL) $@.tmp > $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -N -c $(POLICYVERS) \
-		$(PRIVATE_DEP_CIL_FILES) $@ -o /dev/null -f /dev/null
+	$(hide) $(HOST_OUT_EXECUTABLES)/build_sepolicy -a $(HOST_OUT_EXECUTABLES) build_cil \
+		-i $(PRIVATE_POL_CONF) -m $(PRIVATE_REQD_MASK) -c $(CHECKPOLICY_ASAN_OPTIONS) \
+		-b $(PRIVATE_BASE_CIL) -d $(PRIVATE_DEP_CIL_FILES) -f $(PRIVATE_FILTER_CIL) \
+		-t $(PRIVATE_VERS) -p $(POLICYVERS) -o $@
 
 built_vendor_cil := $(LOCAL_BUILT_MODULE)
 vendor_policy.conf :=
-vendor_policy_raw :=
 
 #################################
 include $(CLEAR_VARS)
