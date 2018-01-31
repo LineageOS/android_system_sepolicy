@@ -199,7 +199,7 @@ allow init {
 allow init cache_file:lnk_file r_file_perms;
 
 allow init { file_type -system_file -vendor_file_type -exec_type }:dir_file_class_set relabelto;
-allow init { sysfs debugfs debugfs_tracing }:{ dir file lnk_file } { getattr relabelfrom };
+allow init { sysfs debugfs debugfs_tracing debugfs_tracing_debug }:{ dir file lnk_file } { getattr relabelfrom };
 allow init { sysfs_type debugfs_type }:{ dir file lnk_file } { relabelto getattr };
 allow init dev_type:dir create_dir_perms;
 allow init dev_type:lnk_file create;
