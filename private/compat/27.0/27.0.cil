@@ -1,3 +1,6 @@
+;; types removed from current policy
+(type reboot_data_file)
+
 (expandtypeattribute (accessibility_service_27_0) true)
 (expandtypeattribute (account_service_27_0) true)
 (expandtypeattribute (activity_service_27_0) true)
