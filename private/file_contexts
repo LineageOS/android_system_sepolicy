@@ -55,7 +55,9 @@
 /plat_service_contexts   u:object_r:service_contexts_file:s0
 /plat_hwservice_contexts   u:object_r:hwservice_contexts_file:s0
 /nonplat_service_contexts   u:object_r:nonplat_service_contexts_file:s0
-/vendor_service_contexts    u:object_r:service_contexts_file:s0
+# Use nonplat_service_contexts_file to allow servicemanager to read it
+# on non full-treble devices.
+/vendor_service_contexts    u:object_r:nonplat_service_contexts_file:s0
 /nonplat_hwservice_contexts   u:object_r:hwservice_contexts_file:s0
 /vendor_hwservice_contexts    u:object_r:hwservice_contexts_file:s0
 /vndservice_contexts   u:object_r:vndservice_contexts_file:s0
