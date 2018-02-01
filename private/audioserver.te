@@ -36,8 +36,8 @@ allow audioserver permission_service:service_manager find;
 allow audioserver power_service:service_manager find;
 allow audioserver scheduling_policy_service:service_manager find;
 
-# Grant access to the "persist.bluetooth.enabledelayreports" property
-get_prop(audioserver, bluetooth_prop);
+# Allow read/write access to bluetooth-specific properties
+set_prop(audioserver, bluetooth_prop)
 
 # Grant access to audio files to audioserver
 allow audioserver audio_data_file:dir ra_dir_perms;
