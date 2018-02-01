@@ -190,8 +190,6 @@ allow shell service_contexts_file:file r_file_perms;
 allow shell sepolicy_file:file r_file_perms;
 
 # Allow shell to start up vendor shell
-# TODO(b/62041836): system processes should not run vendor executables.
-typeattribute shell system_executes_vendor_violators;
 allow shell vendor_shell_exec:file rx_file_perms;
 
 ###
