@@ -827,7 +827,9 @@
 (typeattributeset dalvikcache_data_file_27_0 (dalvikcache_data_file))
 (typeattributeset dalvik_prop_27_0 (dalvik_prop))
 (typeattributeset dbinfo_service_27_0 (dbinfo_service))
-(typeattributeset debugfs_27_0 (debugfs))
+(typeattributeset debugfs_27_0
+  ( debugfs
+    debugfs_wakeup_sources))
 (typeattributeset debugfs_mmc_27_0 (debugfs_mmc))
 (typeattributeset debugfs_trace_marker_27_0 (debugfs_trace_marker))
 (typeattributeset debugfs_tracing_27_0 (debugfs_tracing))
@@ -839,7 +841,9 @@
 (typeattributeset default_android_hwservice_27_0 (default_android_hwservice))
 (typeattributeset default_android_service_27_0 (default_android_service))
 (typeattributeset default_android_vndservice_27_0 (default_android_vndservice))
-(typeattributeset default_prop_27_0 (default_prop))
+(typeattributeset default_prop_27_0
+  ( default_prop
+    pm_prop))
 (typeattributeset device_27_0 (device))
 (typeattributeset device_identifiers_service_27_0 (device_identifiers_service))
 (typeattributeset deviceidle_service_27_0 (deviceidle_service))
@@ -1162,7 +1166,38 @@
 (typeattributeset preopt2cachename_exec_27_0 (preopt2cachename_exec))
 (typeattributeset print_service_27_0 (print_service))
 (typeattributeset priv_app_27_0 (priv_app))
-(typeattributeset proc_27_0 (proc))
+(typeattributeset proc_27_0
+  ( proc
+    proc_abi
+    proc_asound
+    proc_buddyinfo
+    proc_cmdline
+    proc_dirty
+    proc_diskstats
+    proc_extra_free_kbytes
+    proc_filesystems
+    proc_hostname
+    proc_hung_task
+    proc_kmsg
+    proc_loadavg
+    proc_max_map_count
+    proc_min_free_order_shift
+    proc_mounts
+    proc_page_cluster
+    proc_pagetypeinfo
+    proc_panic
+    proc_pid_max
+    proc_pipe_conf
+    proc_random
+    proc_sched
+    proc_swaps
+    proc_uid_concurrent_active_time
+    proc_uid_concurrent_policy_time
+    proc_uid_cpupower
+    proc_uptime
+    proc_version
+    proc_vmallocinfo
+    proc_vmstat))
 (typeattributeset proc_bluetooth_writable_27_0 (proc_bluetooth_writable))
 (typeattributeset proc_cpuinfo_27_0 (proc_cpuinfo))
 (typeattributeset proc_drop_caches_27_0 (proc_drop_caches))
@@ -1172,7 +1207,9 @@
 (typeattributeset proc_meminfo_27_0 (proc_meminfo))
 (typeattributeset proc_misc_27_0 (proc_misc))
 (typeattributeset proc_modules_27_0 (proc_modules))
-(typeattributeset proc_net_27_0 (proc_net))
+(typeattributeset proc_net_27_0
+  ( proc_net
+    proc_qtaguid_stat))
 (typeattributeset proc_overcommit_memory_27_0 (proc_overcommit_memory))
 (typeattributeset proc_perf_27_0 (proc_perf))
 (typeattributeset proc_security_27_0 (proc_security))
@@ -1280,7 +1317,18 @@
 (typeattributeset surfaceflinger_27_0 (surfaceflinger))
 (typeattributeset surfaceflinger_service_27_0 (surfaceflinger_service))
 (typeattributeset swap_block_device_27_0 (swap_block_device))
-(typeattributeset sysfs_27_0 (sysfs))
+(typeattributeset sysfs_27_0
+  ( sysfs
+    sysfs_android_usb
+    sysfs_dm
+    sysfs_dt_firmware_android
+    sysfs_ipv4
+    sysfs_kernel_notes
+    sysfs_net
+    sysfs_power
+    sysfs_rtc
+    sysfs_switch
+    sysfs_wakeup_reasons))
 (typeattributeset sysfs_batteryinfo_27_0 (sysfs_batteryinfo))
 (typeattributeset sysfs_bluetooth_writable_27_0 (sysfs_bluetooth_writable))
 (typeattributeset sysfs_devices_system_cpu_27_0 (sysfs_devices_system_cpu))
