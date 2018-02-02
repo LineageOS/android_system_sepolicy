@@ -1,3 +1,0 @@
-allow e2fs devpts:chr_file { read write };
-allow e2fs metadata_block_device:blk_file rw_file_perms;
-
