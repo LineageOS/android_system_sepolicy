@@ -149,6 +149,9 @@ type vendor_framework_file, vendor_file_type, file_type;
 # Default type for everything in /vendor/overlay
 type vendor_overlay_file, vendor_file_type, file_type;
 
+# /metadata subdirectories
+type vold_metadata_file, file_type;
+
 # Speedup access for trusted applications to the runtime event tags
 type runtime_event_log_tags_file, file_type;
 # Type for /system/bin/logcat.
