@@ -183,10 +183,19 @@ compatible_property_only(`
     exported3_default_prop
     exported3_system_prop
     -debug_prop
-    -fingerprint_prop
     -logd_prop
     -nfc_prop
     -powerctl_prop
     -radio_prop
+  }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -rild
+    -vendor_init
+  } {
+    radio_prop
   }:file no_rw_file_perms;
 ')
