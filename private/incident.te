@@ -8,6 +8,9 @@ domain_auto_trans(shell, incident_exec, incident)
 # allow incident access to stdout from its parent shell.
 allow incident shell:fd use;
 
+# allow incident be able to output data for CTS to fetch.
+allow incident devpts:chr_file { read write };
+
 # allow incident to communicate use, read and write over the adb
 # connection.
 allow incident adbd:fd use;
