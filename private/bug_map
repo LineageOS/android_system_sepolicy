@@ -6,6 +6,7 @@ crash_dump vendor_overlay_file dir 68319037
 hal_graphics_allocator_default unlabeled dir 70180742
 hal_graphics_composer_default unlabeled dir 68864350
 priv_app sysfs dir 72749888
+priv_app sysfs_android_usb file 72749888
 priv_app system_data_file dir 72811052
 surfaceflinger unlabeled dir 68864350
 system_server vendor_framework_file dir 68826235
