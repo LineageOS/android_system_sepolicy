@@ -83,3 +83,22 @@ $(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/nonplat_property_
 $(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/nonplat_seapp_contexts)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/nonplat_file_contexts)
 $(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/nonplat_property_contexts)
+# For non-Treble devices.
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/nonplat_file_contexts)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/nonplat_hwservice_contexts)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/nonplat_property_contexts)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/nonplat_seapp_contexts)
+
+$(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/vendor_sepolicy.cil)
+$(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/vendor_file_contexts)
+$(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/vendor_hwservice_contexts)
+$(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/vendor_mac_permissions.xml)
+$(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/vendor_property_contexts)
+$(call add-clean-step, rm -rf $(TARGET_OUT_VENDOR)/etc/selinux/vendor_seapp_contexts)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/vendor_file_contexts)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/vendor_property_contexts)
+# For non-Treble devices.
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/vendor_file_contexts)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/vendor_hwservice_contexts)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/vendor_property_contexts)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/vendor_seapp_contexts)
