@@ -7,6 +7,7 @@ allow e2fs dev_type:blk_file getattr;
 allow e2fs block_device:dir search;
 allow e2fs userdata_block_device:blk_file rw_file_perms;
 allow e2fs metadata_block_device:blk_file rw_file_perms;
+allow e2fs cache_block_device:blk_file rw_file_perms;
 
 allow e2fs {
   proc_filesystems
