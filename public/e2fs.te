@@ -6,6 +6,7 @@ allow e2fs devpts:chr_file { read write getattr ioctl };
 allow e2fs block_device:blk_file getattr;
 allow e2fs block_device:dir search;
 allow e2fs userdata_block_device:blk_file rw_file_perms;
+allow e2fs cache_block_device:blk_file rw_file_perms;
 
 # access /proc/filesystems
 allow e2fs proc:file r_file_perms;
