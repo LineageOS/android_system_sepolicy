@@ -206,6 +206,7 @@ expandattribute halclientdomain true;
 # HALs
 hal_attribute(allocator);
 hal_attribute(audio);
+hal_attribute(authsecret);
 hal_attribute(bluetooth);
 hal_attribute(bootctl);
 hal_attribute(broadcastradio);
