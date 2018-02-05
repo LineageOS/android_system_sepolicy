@@ -60,7 +60,7 @@ full_treble_only(`
     userdebug_or_eng(`-perfprofd')
     userdebug_or_eng(`-traced_probes')
     -shell
-    userdebug_or_eng(`-traceur_app')
+    -traceur_app
   } debugfs_tracing:file no_rw_file_perms;
 
   # inotifyfs
