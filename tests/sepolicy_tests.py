@@ -50,7 +50,7 @@ Tests = ["TestDataTypeViolators", "TestSysfsTypeViolations",
 
 if __name__ == '__main__':
     usage = "sepolicy_tests -l $(ANDROID_HOST_OUT)/lib64/libsepolwrap.so "
-    usage += "-f nonplat_file_contexts -f "
+    usage += "-f vendor_file_contexts -f "
     usage +="plat_file_contexts -p policy [--test test] [--help]"
     parser = OptionParser(option_class=MultipleOption, usage=usage)
     parser.add_option("-f", "--file_contexts", dest="file_contexts",
