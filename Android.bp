@@ -1,1 +1,4 @@
-subdirs = ["tests"]
+subdirs = [
+    "tests",
+    "build",
+]
