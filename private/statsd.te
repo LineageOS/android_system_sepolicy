@@ -86,7 +86,7 @@ neverallow {
   -statsd
   -system_app
   -system_server
-  userdebug_or_eng(`-traceur_app')
+  -traceur_app
 } stats_service:service_manager find;
 
 # Only statsd and the other root services in limited circumstances.
