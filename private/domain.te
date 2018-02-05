@@ -17,6 +17,13 @@ neverallow {
 # Limit ability to generate hardware unique device ID attestations to priv_apps
 neverallow { domain -priv_app } *:keystore_key gen_unique_id;
 
+neverallow {
+  domain
+  -init
+  -vendor_init
+  userdebug_or_eng(`-domain')
+} debugfs_tracing_debug:file no_rw_file_perms;
+
 # Core domains are not permitted to use kernel interfaces which are not
 # explicitly labeled.
 # TODO(b/65643247): Apply these neverallow rules to all coredomain.

@@ -14,6 +14,7 @@ allow dumpstate dumpstate_tmpfs:file execute;
 # systrace support - allow atrace to run
 allow dumpstate debugfs_tracing:dir r_dir_perms;
 allow dumpstate debugfs_tracing:file rw_file_perms;
+allow dumpstate debugfs_tracing_debug:dir r_dir_perms;
 allow dumpstate debugfs_trace_marker:file getattr;
 allow dumpstate atrace_exec:file rx_file_perms;
 allow dumpstate storaged_exec:file rx_file_perms;
