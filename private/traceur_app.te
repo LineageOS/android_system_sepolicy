@@ -1,10 +1,12 @@
 typeattribute traceur_app coredomain;
 
+app_domain(traceur_app);
+allow traceur_app debugfs_tracing:file rw_file_perms;
+
 userdebug_or_eng(`
-  app_domain(traceur_app);
-  allow traceur_app debugfs_tracing:file rw_file_perms;
   allow traceur_app debugfs_tracing_debug:file rw_file_perms;
-  allow traceur_app trace_data_file:file create_file_perms;
-  allow traceur_app trace_data_file:dir { add_name getattr search write };
-  allow traceur_app atrace_exec:file rx_file_perms;
 ')
+
+allow traceur_app trace_data_file:file create_file_perms;
+allow traceur_app trace_data_file:dir { add_name getattr search write };
+allow traceur_app atrace_exec:file rx_file_perms;
