@@ -380,7 +380,7 @@ allow fs_type self:filesystem associate;
 allow cgroup tmpfs:filesystem associate;
 allow cgroup_bpf tmpfs:filesystem associate;
 allow sysfs_type sysfs:filesystem associate;
-allow debugfs_type { debugfs debugfs_tracing }:filesystem associate;
+allow debugfs_type { debugfs debugfs_tracing debugfs_tracing_debug }:filesystem associate;
 allow file_type labeledfs:filesystem associate;
 allow file_type tmpfs:filesystem associate;
 allow file_type rootfs:filesystem associate;
