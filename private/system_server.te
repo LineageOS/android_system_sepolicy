@@ -678,7 +678,7 @@ allow system_server app_fuse_file:file { read write open getattr append };
 
 # For configuring sdcardfs
 allow system_server configfs:dir { create_dir_perms };
-allow system_server configfs:file { getattr open unlink write };
+allow system_server configfs:file { getattr open create unlink write };
 
 # Connect to adbd and use a socket transferred from it.
 # Used for e.g. jdwp.
