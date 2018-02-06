@@ -35,6 +35,14 @@ allow lmkd self:global_capability_class_set sys_nice;
 
 allow lmkd proc_zoneinfo:file r_file_perms;
 
+# live lock watchdog process allowed to look through /proc/
+allow lmkd domain:dir { search open read };
+allow lmkd domain:file { open read };
+
+# live lock watchdog process allowed to dump process trace and
+# reboot because orderly shutdown may not be possible.
+allow lmkd proc_sysrq:file rw_file_perms;
+
 ### neverallow rules
 
 # never honor LD_PRELOAD
