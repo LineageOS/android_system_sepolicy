@@ -2,30 +2,6 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(LOCAL_PATH)/definitions.mk
 
-# PLATFORM_SEPOLICY_VERSION is a number of the form "NN.m" with "NN" mapping to
-# PLATFORM_SDK_VERSION and "m" as a minor number which allows for SELinux
-# changes independent of PLATFORM_SDK_VERSION.  This value will be set to
-# 10000.0 to represent tip-of-tree development that is inherently unstable and
-# thus designed not to work with any shipping vendor policy.  This is similar in
-# spirit to how DEFAULT_APP_TARGET_SDK is set.
-# The minor version ('m' component) must be updated every time a platform release
-# is made which breaks compatibility with the previous platform sepolicy version,
-# not just on every increase in PLATFORM_SDK_VERSION.  The minor version should
-# be reset to 0 on every bump of the PLATFORM_SDK_VERSION.
-sepolicy_major_vers := 27
-sepolicy_minor_vers := 0
-
-ifneq ($(sepolicy_major_vers), $(PLATFORM_SDK_VERSION))
-$(error sepolicy_major_version does not match PLATFORM_SDK_VERSION, please update.)
-endif
-ifneq (REL,$(PLATFORM_VERSION_CODENAME))
-    sepolicy_major_vers := 10000
-    sepolicy_minor_vers := 0
-endif
-PLATFORM_SEPOLICY_VERSION := $(join $(addsuffix .,$(sepolicy_major_vers)), $(sepolicy_minor_vers))
-sepolicy_major_vers :=
-sepolicy_minor_vers :=
-
 include $(CLEAR_VARS)
 # SELinux policy version.
 # Must be <= /sys/fs/selinux/policyvers reported by the Android kernel.
