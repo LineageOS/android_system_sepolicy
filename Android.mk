@@ -191,8 +191,7 @@ ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 # Use split SELinux policy
 LOCAL_REQUIRED_MODULES += \
     $(platform_mapping_file) \
-    26.0.cil \
-    27.0.cil \
+    $(addsuffix .cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
     plat_pub_versioned.cil \
     vendor_sepolicy.cil \
     plat_sepolicy.cil \
