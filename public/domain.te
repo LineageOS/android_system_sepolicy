@@ -914,6 +914,7 @@ full_treble_only(`
     neverallow {
       coredomain
       -init
+      -shell
       -system_executes_vendor_violators
     } {
       vendor_file_type
@@ -924,6 +925,7 @@ full_treble_only(`
 
     neverallow {
       coredomain
+      -shell
       -system_executes_vendor_violators
     } vendor_file_type:file execute_no_trans;
 ')
