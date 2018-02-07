@@ -35,12 +35,14 @@
     exported_system_prop
     exported_system_radio_prop
     exported_vold_prop
+    fingerprint_vendor_data_file
     fs_bpf
     hal_authsecret_hwservice
     hal_confirmationui_hwservice
     hal_lowpan_hwservice
     hal_secure_element_hwservice
     hal_usb_gadget_hwservice
+    hal_wifi_hostapd_hwservice
     incident_helper
     incident_helper_exec
     last_boot_reason_prop
