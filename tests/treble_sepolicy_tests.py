@@ -71,6 +71,7 @@ alldomains = {}
 coredomains = set()
 appdomains = set()
 vendordomains = set()
+pol = None
 
 # compat vars
 alltypes = set()
@@ -287,6 +288,12 @@ def TestViolatorAttributes():
     ret += TestViolatorAttribute("vendor_executes_system_violators")
     return ret
 
+# TODO move this to sepolicy_tests
+def TestCoreDataTypeViolations():
+    global pol
+    return pol.AssertPathTypesDoNotHaveAttr(["/data/vendor/", "/data/vendor_ce/",
+        "/data/vendor_de/"], [], "core_data_file_type")
+
 ###
 # extend OptionParser to allow the same option flag to be used multiple times.
 # This is used to allow multiple file_contexts files and tests to be
@@ -305,6 +312,7 @@ class MultipleOption(Option):
             Option.take_action(self, action, dest, opt, value, values, parser)
 
 Tests = {"CoredomainViolations": TestCoredomainViolations,
+         "CoreDatatypeViolations": TestCoreDataTypeViolations,
          "TrebleCompatMapping": TestTrebleCompatMapping,
          "ViolatorAttributes": TestViolatorAttributes}
 

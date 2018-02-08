@@ -33,9 +33,10 @@ python_defaults {
 python_binary_host {
     name: "treble_sepolicy_tests",
     srcs: [
-        "treble_sepolicy_tests.py",
+        "FcSort.py",
         "mini_parser.py",
         "policy.py",
+        "treble_sepolicy_tests.py",
     ],
     required: ["libsepolwrap"],
     defaults: ["py2_only"],
@@ -44,8 +45,9 @@ python_binary_host {
 python_binary_host {
     name: "sepolicy_tests",
     srcs: [
-        "sepolicy_tests.py",
+        "FcSort.py",
         "policy.py",
+        "sepolicy_tests.py",
     ],
     required: ["libsepolwrap"],
     defaults: ["py2_only"],
