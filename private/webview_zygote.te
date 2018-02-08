@@ -47,6 +47,10 @@ allow webview_zygote isolated_app:process setpgid;
 # Suppress denials to storage. Webview zygote should not be accessing.
 dontaudit webview_zygote mnt_expand_file:dir getattr;
 
+# TODO (b/72957399) remove this when webview_zygote is reparented to
+# app_process zygote
+dontaudit webview_zygote dex2oat_exec:file execute;
+
 # Get seapp_contexts
 allow webview_zygote seapp_contexts_file:file r_file_perms;
 # Check validity of SELinux context before use.
