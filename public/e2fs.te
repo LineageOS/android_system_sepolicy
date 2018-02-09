@@ -1,6 +1,8 @@
 type e2fs, domain, coredomain;
 type e2fs_exec, exec_type, file_type;
 
+allow e2fs devpts:chr_file { read write getattr ioctl };
+
 allow e2fs block_device:blk_file getattr;
 allow e2fs block_device:dir search;
 allow e2fs userdata_block_device:blk_file rw_file_perms;
