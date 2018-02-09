@@ -425,6 +425,9 @@
 /data/misc/profiles/cur(/.*)?       u:object_r:user_profile_data_file:s0
 /data/misc/profiles/ref(/.*)?       u:object_r:user_profile_data_file:s0
 /data/misc/profman(/.*)?        u:object_r:profman_dump_data_file:s0
+/data/vendor(/.*)?              u:object_r:vendor_data_file:s0
+/data/vendor_ce(/.*)?           u:object_r:vendor_data_file:s0
+/data/vendor_de(/.*)?           u:object_r:vendor_data_file:s0
 
 # storaged proto files
 /data/misc_de/[0-9]+/storaged(/.*)?       u:object_r:storaged_data_file:s0

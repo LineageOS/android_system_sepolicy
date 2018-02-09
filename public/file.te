@@ -160,6 +160,8 @@ type logcat_exec, exec_type, file_type;
 type coredump_file, file_type;
 # Default type for anything under /data.
 type system_data_file, file_type, data_file_type, core_data_file_type;
+# Default type for anything under /data/vendor{_ce,_de}.
+type vendor_data_file, file_type, data_file_type;
 # Unencrypted data
 type unencrypted_data_file, file_type, data_file_type, core_data_file_type;
 # /data/.layout_version or other installd-created files that

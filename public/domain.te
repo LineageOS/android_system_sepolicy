@@ -208,11 +208,15 @@ r_dir_file(domain, sysfs_devices_system_cpu)
 r_dir_file(domain, sysfs_usb);
 
 # files under /data.
-not_full_treble(`allow domain system_data_file:dir getattr;')
+not_full_treble(`
+  allow domain system_data_file:dir getattr;
+')
 allow { coredomain appdomain } system_data_file:dir getattr;
 # /data has the label system_data_file. Vendor components need the search
 # permission on system_data_file for path traversal to /data/vendor.
 allow domain system_data_file:dir search;
+# TODO restrict this to non-coredomain
+allow domain vendor_data_file:dir { getattr search };
 
 # required by the dynamic linker
 allow domain proc:lnk_file { getattr read };
@@ -791,6 +795,9 @@ full_treble_only(`
     } {
       data_file_type
       -core_data_file_type
+      # TODO(b/72998741) Remove exemption. Further restricted in a subsequent
+      # neverallow. Currently only getattr and search are allowed.
+      -vendor_data_file
     }:dir *;
 
 ')
@@ -819,6 +826,7 @@ full_treble_only(`
     } {
       core_data_file_type
       -system_data_file # default label for files on /data. Covered below...
+      -vendor_data_file
       -zoneinfo_data_file
     }:dir *;
 ')
@@ -832,6 +840,30 @@ full_treble_only(`
     } {
       system_data_file # default label for files on /data. Covered below
     }:dir ~{ getattr search };
+')
+
+full_treble_only(`
+  #  coredomains may not access dirs in /data/vendor.
+  neverallow {
+    coredomain
+    -data_between_core_and_vendor_violators # TODO(b/34980020) Remove once all violators have been cleaned up
+    -init
+    -vold # vold creates per-user storage for both system and vendor
+    -vold_prepare_subdirs
+    } {
+      vendor_data_file # default label for files on /data. Covered below
+    }:dir ~{ getattr search };
+')
+
+full_treble_only(`
+  #  coredomains may not access dirs in /data/vendor.
+  neverallow {
+    coredomain
+    -data_between_core_and_vendor_violators # TODO(b/34980020) Remove once all violators have been cleaned up
+    -init
+    } {
+      vendor_data_file # default label for files on /data/vendor{,_ce,_de}.
+    }:file_class_set ~{ append getattr ioctl read write };
 ')
 
 # On TREBLE devices, a limited set of files in /vendor are accessible to

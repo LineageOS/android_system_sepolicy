@@ -53,7 +53,15 @@ neverallow perfetto dev_type:blk_file { read write };
 neverallow perfetto domain:process ptrace;
 
 # Disallows access to other /data files.
-neverallow perfetto { data_file_type -system_data_file -zoneinfo_data_file -perfetto_traces_data_file }:dir *;
+neverallow perfetto {
+  data_file_type
+  -system_data_file
+  # TODO(b/72998741) Remove exemption. Further restricted in a subsequent
+  # neverallow. Currently only getattr and search are allowed.
+  -vendor_data_file
+  -zoneinfo_data_file
+  -perfetto_traces_data_file
+}:dir *;
 neverallow perfetto { system_data_file -perfetto_traces_data_file }:dir ~{ getattr search };
 neverallow perfetto zoneinfo_data_file:dir ~r_dir_perms;
 neverallow perfetto { data_file_type -zoneinfo_data_file -perfetto_traces_data_file }:lnk_file *;
