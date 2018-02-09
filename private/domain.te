@@ -65,7 +65,7 @@ full_treble_only(`
     -dumpstate
     -init
     userdebug_or_eng(`-perfprofd')
-    userdebug_or_eng(`-traced_probes')
+    -traced_probes
     -shell
     -traceur_app
   } debugfs_tracing:file no_rw_file_perms;
