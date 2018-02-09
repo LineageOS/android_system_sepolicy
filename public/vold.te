@@ -113,6 +113,9 @@ allow vold efs_file:file rw_file_perms;
 allow vold system_data_file:dir { create rw_dir_perms mounton setattr rmdir };
 allow vold system_data_file:lnk_file getattr;
 
+# Vold create users in /data/vendor_{ce,de}/[0-9]+
+allow vold vendor_data_file:dir create_dir_perms;
+
 # for secdiscard
 allow vold system_data_file:file read;
 

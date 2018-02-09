@@ -634,7 +634,9 @@
 (typeattributeset system_app_data_file_26_0 (system_app_data_file))
 (typeattributeset system_app_service_26_0 (system_app_service))
 (typeattributeset system_block_device_26_0 (system_block_device))
-(typeattributeset system_data_file_26_0 (system_data_file))
+(typeattributeset system_data_file_26_0
+  ( system_data_file
+    vendor_data_file))
 (typeattributeset system_file_26_0 (system_file))
 (typeattributeset systemkeys_data_file_26_0 (systemkeys_data_file))
 (typeattributeset system_ndebug_socket_26_0 (system_ndebug_socket))
