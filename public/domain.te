@@ -227,7 +227,7 @@ with_asan(`allow domain system_data_file:dir getattr;')
 ###
 
 # All socket ioctls must be restricted to a whitelist.
-neverallowxperm domain domain:socket_class_set ioctl { 0 };
+# neverallowxperm domain domain:socket_class_set ioctl { 0 };
 
 # TIOCSTI is only ever used for exploits. Block it.
 # b/33073072, b/7530569
