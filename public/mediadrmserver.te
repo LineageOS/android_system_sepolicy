@@ -27,5 +27,7 @@ binder_call(mediadrmserver, mediacodec)
 # domain transition
 neverallow mediadrmserver { file_type fs_type }:file execute_no_trans;
 
+ifelse(old_sepolicy, `30',
 # do not allow privileged socket ioctl commands
 neverallowxperm mediadrmserver domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
+)

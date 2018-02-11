@@ -8,8 +8,10 @@ net_domain(bluetooth)
 # Socket creation under /data/misc/bluedroid.
 type_transition bluetooth bluetooth_data_file:sock_file bluetooth_socket;
 
+ifelse(old_sepolicy, `30',
 # Allow access to net_admin ioctls
 allowxperm bluetooth self:udp_socket ioctl priv_sock_ioctls;
+)
 
 wakelock_use(bluetooth);
 

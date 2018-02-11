@@ -290,9 +290,11 @@ use_keystore({ appdomain -isolated_app -ephemeral_app })
 
 allow appdomain console_device:chr_file { read write };
 
+ifelse(old_sepolicy, `30',
 # only allow unprivileged socket ioctl commands
 allowxperm { appdomain -bluetooth } self:{ rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
+)
 
 allow { appdomain -isolated_app } ion_device:chr_file rw_file_perms;
 # TODO is write really necessary ?

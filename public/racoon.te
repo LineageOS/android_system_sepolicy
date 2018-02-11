@@ -5,7 +5,9 @@ type racoon_exec, exec_type, file_type;
 typeattribute racoon mlstrustedsubject;
 
 net_domain(racoon)
+ifelse(old_sepolicy, `30',
 allowxperm racoon self:udp_socket ioctl { SIOCSIFFLAGS SIOCSIFADDR SIOCSIFNETMASK };
+)
 
 binder_use(racoon)
 

@@ -169,8 +169,10 @@ allow shell sepolicy_file:file r_file_perms;
 # capability.
 neverallow shell file_type:file link;
 
+ifelse(old_sepolicy, `30',
 # Do not allow privileged socket ioctl commands
 neverallowxperm shell domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
+)
 
 # limit shell access to sensitive char drivers to
 # only getattr required for host side test.

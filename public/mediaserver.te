@@ -114,9 +114,11 @@ allow mediaserver drmserver:drmservice {
     pread
 };
 
+ifelse(old_sepolicy, `30',
 # only allow unprivileged socket ioctl commands
 allowxperm mediaserver self:{ rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
+)
 
 # Access to /data/media.
 # This should be removed if sdcardfs is modified to alter the secontext for its
@@ -146,5 +148,7 @@ binder_call(mediaserver, mediacodec)
 # domain transition
 neverallow mediaserver { file_type fs_type }:file execute_no_trans;
 
+ifelse(old_sepolicy, `30',
 # do not allow privileged socket ioctl commands
 neverallowxperm mediaserver domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
+)

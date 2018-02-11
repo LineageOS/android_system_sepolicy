@@ -135,9 +135,13 @@ sepolicy_build_files := security_classes \
                         mls \
                         policy_capabilities \
                         te_macros \
-                        attributes \
+                        attributes
+ ifeq ($(POLICYVERS),30)
+  sepolicy_build_files +=\
                         ioctl_defines \
-                        ioctl_macros \
+                        ioctl_macros
+ endif
+  sepolicy_build_files += \
                         *.te \
                         roles_decl \
                         roles \
