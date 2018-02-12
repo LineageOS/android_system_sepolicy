@@ -12,6 +12,7 @@ allow servicemanager self:binder set_context_mgr;
 allow servicemanager {
   domain
   -init
+  -vendor_init
   -hwservicemanager
   -vndservicemanager
 }:binder transfer;
