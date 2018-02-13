@@ -132,6 +132,7 @@ hal.instrumentation.enable u:object_r:exported2_default_prop:s0 exact bool
 init.svc.tombstoned u:object_r:exported2_default_prop:s0 exact string
 libc.debug.malloc.options u:object_r:exported2_default_prop:s0 exact string
 libc.debug.malloc.program u:object_r:exported2_default_prop:s0 exact string
+libc.debug.hooks.enable u:object_r:exported2_default_prop:s0 exact string
 persist.sys.timezone u:object_r:exported_system_prop:s0 exact string
 ro.arch u:object_r:exported2_default_prop:s0 exact string
 ro.audio.ignore_effects u:object_r:exported2_default_prop:s0 exact bool
