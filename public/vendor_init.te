@@ -4,6 +4,9 @@ type vendor_init, domain, mlstrustedsubject;
 # Communication to the main init process
 allow vendor_init init:unix_stream_socket { read write };
 
+# Vendor init shouldn't communicate with any vendor process, nor most system processes.
+neverallow_establish_socket_comms(vendor_init, { domain -init -logd -su -vendor_init });
+
 # Logging to kmsg
 allow vendor_init kmsg_device:chr_file { open write };
 

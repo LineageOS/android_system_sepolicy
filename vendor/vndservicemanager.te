@@ -6,7 +6,7 @@ init_daemon_domain(vndservicemanager);
 allow vndservicemanager self:binder set_context_mgr;
 
 # transfer binder objects to other processes (TODO b/35870313 limit this to vendor-only)
-allow vndservicemanager { domain -coredomain -init }:binder transfer;
+allow vndservicemanager { domain -coredomain -init -vendor_init }:binder transfer;
 
 allow vndservicemanager vndbinder_device:chr_file rw_file_perms;
 
