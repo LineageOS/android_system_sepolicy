@@ -12,13 +12,14 @@ allow traced_probes traced_tmpfs:file { read write getattr map };
 unix_socket_connect(traced_probes, traced_producer, traced)
 
 # Allow traced_probes to access tracefs.
-# TODO(primiano): For the moment this is userdebug/eng only until we get an
-# approval for user builds.
-userdebug_or_eng(`
 allow traced_probes debugfs_tracing:dir r_dir_perms;
 allow traced_probes debugfs_tracing:file rw_file_perms;
-allow traced_probes debugfs_tracing_debug:file rw_file_perms;
 allow traced_probes debugfs_trace_marker:file getattr;
+
+# TODO(primiano): temporarily I/O tracing categories are still
+# userdebug only until we nail down the blacklist/whitelist.
+userdebug_or_eng(`
+allow traced_probes debugfs_tracing_debug:file rw_file_perms;
 ')
 
 # Allow traced_probes to start with a higher scheduling class and then downgrade
