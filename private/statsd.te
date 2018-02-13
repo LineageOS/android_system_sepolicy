@@ -72,6 +72,11 @@ binder_call(statsd, stats)
 allow statsd proc_uid_cputime_showstat:file { getattr open read };
 hal_client_domain(statsd, hal_power)
 
+# Allow 'adb shell cmd' to upload configs and download output.
+allow statsd adbd:fd use;
+allow statsd adbd:unix_stream_socket { read write };
+
+
 ###
 ### neverallow rules
 ###
