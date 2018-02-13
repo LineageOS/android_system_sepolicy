@@ -45,6 +45,9 @@ domain_auto_trans(shell, vendor_shell_exec, vendor_shell)
 # when exec()-d by statsd.
 domain_auto_trans(shell, perfetto_exec, perfetto)
 
+# Allow shell to run adb shell cmd stats commands. Needed for CTS.
+binder_call(shell, statsd);
+
 # Allow shell to read and unlink traces stored in /data/misc/perfetto-traces.
 allow shell perfetto_traces_data_file:dir rw_dir_perms;
 allow shell perfetto_traces_data_file:file r_file_perms;
