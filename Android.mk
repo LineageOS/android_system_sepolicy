@@ -233,10 +233,12 @@ LOCAL_REQUIRED_MODULES += \
 endif
 
 ifneq ($(with_asan),true)
+ifneq ($(SELINUX_IGNORE_NEVERALLOWS),true)
 LOCAL_REQUIRED_MODULES += \
     sepolicy_tests \
     treble_sepolicy_tests \
 
+endif
 endif
 
 include $(BUILD_PHONY_PACKAGE)
