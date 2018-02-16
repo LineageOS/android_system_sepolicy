@@ -61,6 +61,15 @@ selinux_check_access(webview_zygote)
 # Directory listing in /system.
 allow webview_zygote system_file:dir r_dir_perms;
 
+# Read system properties managed by zygote.
+allow webview_zygote zygote_tmpfs:file read;
+# Child of zygote.
+allow webview_zygote zygote:fd use;
+allow webview_zygote zygote:process sigchld;
+
+# Allow apps access to /vendor/overlay
+r_dir_file(webview_zygote, vendor_overlay_file)
+
 #####
 ##### Neverallow
 #####
@@ -75,9 +84,10 @@ neverallow webview_zygote { domain -crash_dump }:process transition;
 # Having said that, exec() above is not allowed.
 neverallow webview_zygote *:file execute_no_trans;
 
-# The only way to enter this domain is for init to exec() us.
+# The only way to enter this domain is for init to exec() us or the zygote
+# to fork a new webview_zygote child.
 neverallow { domain -init } webview_zygote:process transition;
-neverallow * webview_zygote:process dyntransition;
+neverallow { domain -zygote } webview_zygote:process dyntransition;
 
 # Disallow write access to properties.
 neverallow webview_zygote property_socket:sock_file write;
