@@ -1,5 +1,5 @@
 # /proc/config.gz
-type config_gz, fs_type;
+type config_gz, fs_type, proc_type;
 
 # /data/misc/stats-data, /data/misc/stats-service
 type stats_data_file, file_type, data_file_type, core_data_file_type;
