@@ -75,7 +75,7 @@ hal_client_domain(statsd, hal_power)
 # Allow 'adb shell cmd' to upload configs and download output.
 allow statsd adbd:fd use;
 allow statsd adbd:unix_stream_socket { read write };
-
+allow statsd shell:fifo_file read;
 
 ###
 ### neverallow rules
