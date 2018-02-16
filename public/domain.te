@@ -903,6 +903,7 @@ full_treble_only(`
         -init
         -installd
         -system_server
+        -webview_zygote
         -zygote
     } vendor_overlay_file:dir { getattr open read search };
 
@@ -913,6 +914,7 @@ full_treble_only(`
         -init
         -installd
         -system_server
+        -webview_zygote
         -zygote
     } vendor_overlay_file:{ file lnk_file } r_file_perms;
 
