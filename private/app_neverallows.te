@@ -87,6 +87,7 @@ neverallow { all_untrusted_apps -mediaprovider } {
   -fuseblk                  # sdcard
   -ntfs                     # sdcard
   -sdcardfs                 # sdcard
+  -sdcard_external          # sdcard
   -sdcard_posix             # sdcard
   -vfat                     # sdcard
   file_type

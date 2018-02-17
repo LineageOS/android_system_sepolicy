@@ -65,6 +65,7 @@ type mqueue, fs_type;
 type fuse, sdcard_type, fs_type, mlstrustedobject;
 type fuseblk, sdcard_type, fs_type, mlstrustedobject;
 type sdcardfs, sdcard_type, fs_type, mlstrustedobject;
+type sdcard_external, sdcard_type, fs_type, mlstrustedobject;
 type sdcard_posix, sdcard_type, fs_type, mlstrustedobject;
 type vfat, sdcard_type, fs_type, mlstrustedobject;
 type exfat, sdcard_type, fs_type, mlstrustedobject;
