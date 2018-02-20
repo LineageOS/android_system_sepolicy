@@ -62,6 +62,9 @@
     incident_helper
     incident_helper_exec
     kmsg_debug_device
+    llkd
+    llkd_exec
+    llkd_tmpfs
     last_boot_reason_prop
     mediaprovider_tmpfs
     netd_stable_secret_prop
