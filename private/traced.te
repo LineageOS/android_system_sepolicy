@@ -1,9 +1,13 @@
 # Perfetto user-space tracing daemon (unprivileged)
-type traced, domain, coredomain;
+type traced, domain, coredomain, mlstrustedsubject;
 type traced_exec, exec_type, file_type;
 
 # Allow init to exec the daemon.
 init_daemon_domain(traced)
+
+# Allow apps in other MLS contexts (for multi-user) to access
+# share memory buffers created by traced.
+typeattribute traced_tmpfs mlstrustedobject;
 
 # Allow traced to start with a lower scheduling class and change
 # class accordingly to what defined in the config provided by
