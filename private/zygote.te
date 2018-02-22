@@ -25,6 +25,7 @@ allow zygote appdomain:file { r_file_perms };
 # Move children into the peer process group.
 allow zygote system_server:process { getpgid setpgid };
 allow zygote appdomain:process { getpgid setpgid };
+allow zygote webview_zygote:process { getpgid setpgid };
 
 # Read system data.
 allow zygote system_data_file:dir r_dir_perms;
