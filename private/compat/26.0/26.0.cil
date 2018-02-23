@@ -10,6 +10,7 @@
 (type reboot_data_file)
 (type tracing_shell_writable)
 (type tracing_shell_writable_debug)
+(type webview_zygote_socket)
 
 (typeattributeset accessibility_service_26_0 (accessibility_service))
 (typeattributeset account_service_26_0 (account_service))
