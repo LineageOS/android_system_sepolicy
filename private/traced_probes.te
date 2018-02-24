@@ -32,6 +32,9 @@ r_dir_file(traced_probes, domain)
 # Allow to log to kernel dmesg when starting / stopping ftrace.
 allow traced_probes kmsg_device:chr_file write;
 
+# Allow traced_probes to list the system partition.
+allow traced_probes system_file:dir { open read };
+
 ###
 ### Neverallow rules
 ###
