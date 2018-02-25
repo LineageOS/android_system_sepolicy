@@ -452,6 +452,9 @@ neverallow {
   -apk_data_file
 }:file no_x_file_perms;
 
+# The test files and executables MUST not be accessible to any domain
+neverallow domain nativetest_data_file:file_class_set no_w_file_perms;
+neverallow domain nativetest_data_file:dir no_w_dir_perms;
 neverallow { domain userdebug_or_eng(`-shell') } nativetest_data_file:file no_x_file_perms;
 
 # Only the init property service should write to /data/property and /dev/__properties__
@@ -616,12 +619,16 @@ full_treble_only(`
     -appdomain
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
   } binder_device:chr_file rw_file_perms;
+')
+full_treble_only(`
   neverallow {
     domain
     -coredomain
     -appdomain # restrictions for vendor apps are declared lower down
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
   } service_manager_type:service_manager find;
+')
+full_treble_only(`
   # Vendor apps are permited to use only stable public services. If they were to use arbitrary
   # services which can change any time framework/core is updated, breakage is likely.
   neverallow {
@@ -645,6 +652,8 @@ full_treble_only(`
     -vr_hwc_service
     -vr_manager_service
   }:service_manager find;
+')
+full_treble_only(`
   neverallow {
     domain
     -coredomain
@@ -661,12 +670,18 @@ full_treble_only(`
     userdebug_or_eng(`-su')
     -ueventd # uevent is granted create for this device, but we still neverallow I/O below
   } vndbinder_device:chr_file rw_file_perms;
+')
+full_treble_only(`
   neverallow ueventd vndbinder_device:chr_file { read write append ioctl };
+')
+full_treble_only(`
   neverallow {
     coredomain
     -shell
     userdebug_or_eng(`-su')
   } vndservice_manager_type:service_manager *;
+')
+full_treble_only(`
   neverallow {
     coredomain
     -shell
@@ -789,6 +804,8 @@ full_treble_only(`
     data_file_type
     -core_data_file_type
   }:file_class_set ~{ append getattr ioctl read write };
+')
+full_treble_only(`
   neverallow {
     coredomain
     -appdomain # TODO(b/34980020) remove exemption for appdomain
@@ -884,7 +901,9 @@ full_treble_only(`
         -postinstall_dexopt
         -system_server
     } vendor_app_file:dir { open read getattr search };
+')
 
+full_treble_only(`
     neverallow {
         coredomain
         -appdomain
@@ -896,7 +915,9 @@ full_treble_only(`
         -postinstall_dexopt
         -system_server
     } vendor_app_file:{ file lnk_file } r_file_perms;
+')
 
+full_treble_only(`
     # Limit access to /vendor/overlay
     neverallow {
         coredomain
@@ -908,7 +929,9 @@ full_treble_only(`
         -webview_zygote
         -zygote
     } vendor_overlay_file:dir { getattr open read search };
+')
 
+full_treble_only(`
     neverallow {
         coredomain
         -appdomain
@@ -919,7 +942,9 @@ full_treble_only(`
         -webview_zygote
         -zygote
     } vendor_overlay_file:{ file lnk_file } r_file_perms;
+')
 
+full_treble_only(`
     # Non-vendor domains are not allowed to file execute shell
     # from vendor
     neverallow {
@@ -927,7 +952,9 @@ full_treble_only(`
         -init
         -shell
     } vendor_shell_exec:file { execute execute_no_trans };
+')
 
+full_treble_only(`
     # Do not allow vendor components to execute files from system
     # except for the ones whitelist here.
     neverallow {
@@ -943,7 +970,9 @@ full_treble_only(`
         -crash_dump_exec
         -netutils_wrapper_exec
     }:file { entrypoint execute execute_no_trans };
+')
 
+full_treble_only(`
     # Do not allow system components to execute files from vendor
     # except for the ones whitelisted here.
     neverallow {
@@ -957,7 +986,9 @@ full_treble_only(`
       -vndk_sp_file
       -vendor_app_file
     }:file execute;
+')
 
+full_treble_only(`
     neverallow {
       coredomain
       -shell
@@ -993,7 +1024,7 @@ neverallow { domain -zygote -system_server } zygote:unix_stream_socket connectto
 neverallow { domain -system_server } zygote_socket:sock_file write;
 
 neverallow { domain -system_server -webview_zygote } webview_zygote:unix_stream_socket connectto;
-neverallow { domain -system_server } webview_zygote_socket:sock_file write;
+neverallow { domain -system_server } webview_zygote:sock_file write;
 
 neverallow {
   domain
@@ -1181,7 +1212,6 @@ neverallow {
   -installd
   userdebug_or_eng(`-uncrypt')
 } shell_data_file:file open;
-
 
 # servicemanager and vndservicemanager are the only processes which handle the
 # service_manager list request

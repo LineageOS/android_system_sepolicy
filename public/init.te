@@ -138,6 +138,7 @@ allow init {
   -app_data_file
   -exec_type
   -misc_logd_file
+  -nativetest_data_file
   -system_app_data_file
   -system_file
   -vendor_file_type
@@ -149,6 +150,7 @@ allow init {
   -exec_type
   -keystore_data_file
   -misc_logd_file
+  -nativetest_data_file
   -shell_data_file
   -system_app_data_file
   -system_file
@@ -163,6 +165,7 @@ allow init {
   -exec_type
   -keystore_data_file
   -misc_logd_file
+  -nativetest_data_file
   -shell_data_file
   -system_app_data_file
   -system_file
@@ -176,6 +179,7 @@ allow init {
   -exec_type
   -keystore_data_file
   -misc_logd_file
+  -nativetest_data_file
   -shell_data_file
   -system_app_data_file
   -system_file
@@ -189,6 +193,7 @@ allow init {
   -exec_type
   -keystore_data_file
   -misc_logd_file
+  -nativetest_data_file
   -shell_data_file
   -system_app_data_file
   -system_file
