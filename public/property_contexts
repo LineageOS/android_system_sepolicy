@@ -94,6 +94,7 @@ ro.dalvik.vm.native.bridge u:object_r:exported_dalvik_prop:s0 exact string
 ro.gfx.driver.0 u:object_r:exported3_default_prop:s0 exact string
 ro.oem_unlock_supported u:object_r:exported3_default_prop:s0 exact int
 ro.opengles.version u:object_r:exported3_default_prop:s0 exact int
+ro.radio.noril u:object_r:exported3_default_prop:s0 exact string
 ro.retaildemo.video_path u:object_r:exported3_default_prop:s0 exact string
 ro.sf.lcd_density u:object_r:exported3_default_prop:s0 exact int
 ro.storage_manager.enabled u:object_r:exported3_default_prop:s0 exact bool
