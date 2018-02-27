@@ -1,4 +1,5 @@
 ;; types removed from current policy
+(type webview_zygote_socket)
 (type reboot_data_file)
 (type vold_socket)
 
