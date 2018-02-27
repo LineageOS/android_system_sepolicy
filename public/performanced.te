@@ -19,5 +19,12 @@ r_dir_file(performanced, { appdomain bufferhubd kernel surfaceflinger })
 dontaudit performanced domain:dir read;
 allow performanced { appdomain bufferhubd kernel surfaceflinger }:process setsched;
 
+# These /proc accesses only show up in permissive mode but they
+# generate a lot of noise in the log.
+userdebug_or_eng(`
+  dontaudit performanced domain:dir open;
+  dontaudit performanced domain:file { open read getattr };
+')
+
 # Access /dev/cpuset/cpuset.cpus
 r_dir_file(performanced, cgroup)
