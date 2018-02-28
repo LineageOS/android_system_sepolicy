@@ -77,6 +77,9 @@ class MiniCilParser:
             self._parseTypeattribute(stmt)
         elif re.match(r"typeattributeset\s+.+", stmt):
             self._parseTypeattributeset(stmt)
+        elif re.match(r"expandtypeattribute\s+.+", stmt):
+            # To silence the build warnings.
+            pass
         else:
             m = re.match(r"(\w+)\s+.+", stmt)
             ret = "Warning: Unknown statement type (" + m.group(1) + ") in "
