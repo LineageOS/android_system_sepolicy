@@ -118,6 +118,7 @@ vold.post_fs_data_done u:object_r:exported2_vold_prop:s0 exact int
 sys.retaildemo.enabled u:object_r:exported3_system_prop:s0 exact int
 
 # vendor-init-settable|vendor-init-actionable
+persist.sys.zram_enabled u:object_r:exported2_system_prop:s0 exact bool
 sys.usb.config u:object_r:exported_system_radio_prop:s0 exact string
 sys.usb.configfs u:object_r:exported_system_radio_prop:s0 exact int
 
