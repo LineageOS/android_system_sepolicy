@@ -10,7 +10,6 @@ $(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
 	-D target_with_asan=$(PRIVATE_TGT_WITH_ASAN) \
 	-D target_full_treble=$(PRIVATE_FULL_TREBLE) \
 	-D target_needs_platform_text_relocations=$(TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS) \
-	-D target_uses_legacy_adb_interface=$(TARGET_USES_LEGACY_ADB_INTERFACE) \
 	$(PRIVATE_TGT_RECOVERY) \
 	-s $^ > $@
 endef
