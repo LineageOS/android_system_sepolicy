@@ -105,7 +105,8 @@ full_treble_only(`
     -adbd
     -init
     -mediaprovider
-  }functionfs:file no_rw_file_perms;
+    -system_server
+  } functionfs:file no_rw_file_perms;
 
   # usbfs and binfmt_miscfs
   neverallow {
