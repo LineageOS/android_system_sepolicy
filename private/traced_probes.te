@@ -35,6 +35,27 @@ allow traced_probes kmsg_device:chr_file write;
 # Allow traced_probes to list the system partition.
 allow traced_probes system_file:dir { open read };
 
+# ----- Begin of policies for exec(atrace) -----
+# Allow traced_probes to run atrace. atrace pokes at system services to enable
+# their userspace TRACE macros.
+
+allow traced_probes atrace_exec:file rx_file_perms;
+
+# This is needed for: path="/system/bin/linker64"
+# scontext=u:r:atrace:s0 tcontext=u:r:traced_probes:s0 tclass=fd
+allow atrace traced_probes:fd use;
+
+# atrace sets debug.atrace.* properties to tell services to enable their
+# userspace tracing.
+set_prop(traced_probes, debug_prop)
+
+# And then sends them an IPC to tell them to re-read that property.
+binder_use(traced_probes)
+allow traced_probes healthd:binder call;
+allow traced_probes surfaceflinger:binder call;
+get_prop(traced_probes, hwservicemanager_prop)
+# ----- End of policies for exec(atrace) -----
+
 ###
 ### Neverallow rules
 ###
