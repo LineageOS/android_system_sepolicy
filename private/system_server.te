@@ -746,8 +746,8 @@ with_asan(`
 
 # allow system_server to read the eBPF maps that stores the traffic stats information amd clean up
 # the map after snapshot is recorded
-allow system_server fs_bpf:file write;
-allow system_server netd:bpf { map_read map_write };
+allow system_server fs_bpf:file read;
+allow system_server netd:bpf map_read;
 
 # ART Profiles.
 # Allow system_server to open profile snapshots for read.
