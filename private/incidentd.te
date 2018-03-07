@@ -31,6 +31,9 @@ allow incidentd proc_meminfo:file { open read };
 # section id 2004, allow reading /sys/devices/system/cpu/cpufreq/all_time_in_state
 allow incidentd sysfs_devices_system_cpu:file r_file_perms;
 
+# section id 2005, allow reading ps dump in full
+allow incidentd domain:process getattr;
+
 # section id 2006, allow reading /sys/class/power_supply/bms/battery_type
 allow incidentd sysfs_batteryinfo:dir { search };
 allow incidentd sysfs_batteryinfo:file r_file_perms;
@@ -41,6 +44,11 @@ allow incidentd incident_data_file:file create_file_perms;
 
 # Get process attributes
 # TODO allow incidentd domain:process getattr;
+
+# Read files in /proc
+allow incidentd {
+  proc_stat
+}:file r_file_perms;
 
 # Signal java processes to dump their stack and get the results
 # TODO allow incidentd { appdomain ephemeral_app system_server }:process signal;
