@@ -3,7 +3,8 @@
 ;;   previous ones.  Add here to pass checkapi tests.
 (typeattribute new_objects)
 (typeattributeset new_objects
-  ( adbd_exec
+  ( adb_service
+    adbd_exec
     bootloader_boot_reason_prop
     blank_screen
     blank_screen_exec
