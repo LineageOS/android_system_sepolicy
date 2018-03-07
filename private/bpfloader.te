@@ -13,8 +13,7 @@ allow bpfloader fs_bpf:dir  create_dir_perms;
 allow bpfloader fs_bpf:file create_file_perms;
 allow bpfloader devpts:chr_file { read write };
 
-# TODO: unknown fd pass denials, need further investigation.
-dontaudit bpfloader netd:fd use;
+allow bpfloader netd:fd use;
 
 # Use pinned bpf map files from netd.
 allow bpfloader netd:bpf { map_read map_write };
