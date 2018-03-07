@@ -37,6 +37,7 @@ type vr_hwc_service,            service_manager_type;
 type accessibility_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type account_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type activity_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type adb_service, system_server_service, service_manager_type;
 type alarm_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type appops_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type appwidget_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
