@@ -7,5 +7,6 @@ init_daemon_domain(hal_wifi_hostapd_default)
 net_domain(hal_wifi_hostapd_default)
 
 # Allow hostapd to access it's data folder
-allow hal_wifi_hostapd_default hostapd_data_file:dir rw_dir_perms;
+allow hal_wifi_hostapd_default hostapd_data_file:dir create_dir_perms;
 allow hal_wifi_hostapd_default hostapd_data_file:file create_file_perms;
+allow hal_wifi_hostapd_default hostapd_data_file:sock_file create_file_perms;
