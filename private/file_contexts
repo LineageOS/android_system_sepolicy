@@ -319,10 +319,16 @@
 #############################
 # OEM and ODM files
 #
-/odm(/.*)?                                    u:object_r:vendor_file:s0
-/odm/lib(64)?/egl(/.*)?                       u:object_r:same_process_hal_file:s0
-/odm/lib(64)?/hw                              u:object_r:vendor_hal_file:s0
-/odm/lib(64)?/vndk-sp(/.*)?                   u:object_r:vndk_sp_file:s0
+/(odm|vendor/odm)(/.*)?                       u:object_r:vendor_file:s0
+/(odm|vendor/odm)/lib(64)?/egl(/.*)?          u:object_r:same_process_hal_file:s0
+/(odm|vendor/odm)/lib(64)?/hw                 u:object_r:vendor_hal_file:s0
+/(odm|vendor/odm)/lib(64)?/vndk-sp(/.*)?      u:object_r:vndk_sp_file:s0
+/(odm|vendor/odm)/bin/sh                      u:object_r:vendor_shell_exec:s0
+/(odm|vendor/odm)/etc(/.*)?                   u:object_r:vendor_configs_file:s0
+/(odm|vendor/odm)/app(/.*)?                   u:object_r:vendor_app_file:s0
+/(odm|vendor/odm)/priv-app(/.*)?              u:object_r:vendor_app_file:s0
+/(odm|vendor/odm)/overlay(/.*)?               u:object_r:vendor_overlay_file:s0
+/(odm|vendor/odm)/framework(/.*)?             u:object_r:vendor_framework_file:s0
 
 /oem(/.*)?              u:object_r:oemfs:s0
 
