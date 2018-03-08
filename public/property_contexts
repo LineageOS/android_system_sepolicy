@@ -67,7 +67,6 @@ persist.config.calibration_fac u:object_r:exported3_default_prop:s0 exact string
 persist.dbg.volte_avail_ovr u:object_r:exported3_default_prop:s0 exact int
 persist.dbg.vt_avail_ovr u:object_r:exported3_default_prop:s0 exact int
 persist.dbg.wfc_avail_ovr u:object_r:exported3_default_prop:s0 exact int
-persist.rcs.supported u:object_r:exported3_default_prop:s0 exact int
 persist.sys.dalvik.vm.lib.2 u:object_r:exported2_system_prop:s0 exact string
 persist.sys.sf.color_saturation u:object_r:exported2_system_prop:s0 exact string
 pm.dexopt.ab-ota u:object_r:exported_pm_prop:s0 exact string
@@ -201,6 +200,7 @@ aaudio.mmap_policy u:object_r:exported_default_prop:s0 exact int
 aaudio.wakeup_delay_usec u:object_r:exported_default_prop:s0 exact int
 gsm.sim.operator.numeric u:object_r:exported_radio_prop:s0 exact string
 media.mediadrmservice.enable u:object_r:exported_default_prop:s0 exact bool
+persist.rcs.supported u:object_r:exported_default_prop:s0 exact int
 rcs.publish.status u:object_r:exported_radio_prop:s0 exact string
 ro.board.platform u:object_r:exported_default_prop:s0 exact string
 ro.boot.fake_battery u:object_r:exported_default_prop:s0 exact int
