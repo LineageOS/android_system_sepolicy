@@ -5,8 +5,8 @@ net_domain(radio)
 bluetooth_domain(radio)
 binder_service(radio)
 
-# Talks to rild via the rild socket only for devices without full treble
-not_full_treble(`unix_socket_connect(radio, rild, rild)')
+# Talks to hal_telephony_server via the rild socket only for devices without full treble
+not_full_treble(`unix_socket_connect(radio, rild, hal_telephony_server)')
 
 # Data file accesses.
 allow radio radio_data_file:dir create_dir_perms;

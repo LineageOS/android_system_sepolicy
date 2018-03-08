@@ -959,7 +959,6 @@ full_treble_only(`
         domain
         -coredomain
         -appdomain
-        -rild
         -vendor_executes_system_violators
         -vendor_init
     } {
