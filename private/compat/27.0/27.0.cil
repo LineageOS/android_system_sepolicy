@@ -2,6 +2,7 @@
 (type webview_zygote_socket)
 (type reboot_data_file)
 (type vold_socket)
+(type rild)
 
 (expandtypeattribute (accessibility_service_27_0) true)
 (expandtypeattribute (account_service_27_0) true)
