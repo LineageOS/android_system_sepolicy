@@ -9,8 +9,8 @@ allow hal_audio ion_device:chr_file r_file_perms;
 
 r_dir_file(hal_audio, proc)
 r_dir_file(hal_audio, proc_asound)
-allow hal_audio audio_device:dir r_dir_perms;
-allow hal_audio audio_device:chr_file rw_file_perms;
+allow hal_audio_server audio_device:dir r_dir_perms;
+allow hal_audio_server audio_device:chr_file rw_file_perms;
 
 # Needed to provide debug dump output via dumpsys' pipes.
 allow hal_audio shell:fd use;
