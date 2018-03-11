@@ -259,6 +259,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 sepolicy_policy.conf := $(intermediates)/policy.conf
 $(sepolicy_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(sepolicy_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(sepolicy_policy.conf): PRIVATE_TARGET_BUILD_VARIANT := user
 $(sepolicy_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(sepolicy_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(sepolicy_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
@@ -291,6 +292,7 @@ built_sepolicy_neverallows := $(LOCAL_BUILT_MODULE)
 reqd_policy_mask.conf := $(intermediates)/reqd_policy_mask.conf
 $(reqd_policy_mask.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(reqd_policy_mask.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(reqd_policy_mask.conf): PRIVATE_TARGET_BUILD_VARIANT := $(TARGET_BUILD_VARIANT)
 $(reqd_policy_mask.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(reqd_policy_mask.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(reqd_policy_mask.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
@@ -318,6 +320,7 @@ reqd_policy_mask.conf :=
 plat_pub_policy.conf := $(intermediates)/plat_pub_policy.conf
 $(plat_pub_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(plat_pub_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(plat_pub_policy.conf): PRIVATE_TARGET_BUILD_VARIANT := $(TARGET_BUILD_VARIANT)
 $(plat_pub_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(plat_pub_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(plat_pub_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
@@ -367,6 +370,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 plat_policy.conf := $(intermediates)/plat_policy.conf
 $(plat_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(plat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(plat_policy.conf): PRIVATE_TARGET_BUILD_VARIANT := $(TARGET_BUILD_VARIANT)
 $(plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
@@ -518,6 +522,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 vendor_policy.conf := $(intermediates)/vendor_policy.conf
 $(vendor_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(vendor_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(vendor_policy.conf): PRIVATE_TARGET_BUILD_VARIANT := $(TARGET_BUILD_VARIANT)
 $(vendor_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(vendor_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(vendor_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
@@ -642,6 +647,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 sepolicy.recovery.conf := $(intermediates)/sepolicy.recovery.conf
 $(sepolicy.recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(sepolicy.recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(sepolicy.recovery.conf): PRIVATE_TARGET_BUILD_VARIANT := $(TARGET_BUILD_VARIANT)
 $(sepolicy.recovery.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(sepolicy.recovery.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(sepolicy.recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
@@ -687,6 +693,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 
 $(LOCAL_BUILT_MODULE): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(LOCAL_BUILT_MODULE): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(LOCAL_BUILT_MODULE): PRIVATE_TARGET_BUILD_VARIANT := user
 $(LOCAL_BUILT_MODULE): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(LOCAL_BUILT_MODULE): PRIVATE_WITH_ASAN := false
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY_SPLIT := cts
@@ -1301,6 +1308,7 @@ BASE_PLAT_PRIVATE_POLICY := $(filter-out $(BOARD_PLAT_PRIVATE_SEPOLICY_DIR), $(P
 base_plat_policy.conf := $(intermediates)/base_plat_policy.conf
 $(base_plat_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $(base_plat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(base_plat_policy.conf): PRIVATE_TARGET_BUILD_VARIANT := $(TARGET_BUILD_VARIANT)
 $(base_plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $(base_plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(base_plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
