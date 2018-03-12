@@ -57,7 +57,7 @@ allow dumpstate { appdomain system_server }:process signal;
 
 # Signal native processes to dump their stack.
 allow dumpstate {
-  # This list comes from native_processes_to_dump in dumpstate/utils.c
+  # This list comes from native_processes_to_dump in dumputils/dump_utils.c
   audioserver
   cameraserver
   drmserver
@@ -69,7 +69,7 @@ allow dumpstate {
   sdcardd
   surfaceflinger
 
-  # This list comes from hal_interfaces_to_dump in dumpstate/utils.c
+  # This list comes from hal_interfaces_to_dump in dumputils/dump_utils.c
   hal_audio_server
   hal_bluetooth_server
   hal_camera_server

@@ -505,8 +505,10 @@ userdebug_or_eng(`
 ')
 allow $1 anr_data_file:file append;
 allow $1 dumpstate:fd use;
+allow $1 incidentd:fd use;
 # TODO: Figure out why write is needed.
 allow $1 dumpstate:fifo_file { append write };
+allow $1 incidentd:fifo_file { append write };
 allow $1 system_server:fifo_file { append write };
 allow $1 tombstoned:unix_stream_socket connectto;
 allow $1 tombstoned:fd use;
