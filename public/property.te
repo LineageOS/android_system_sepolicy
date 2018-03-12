@@ -158,7 +158,7 @@ compatible_property_only(`
     domain
     -coredomain
     -appdomain
-    -rild
+    -hal_telephony_server
     -vendor_init
   } {
     exported_radio_prop
@@ -203,7 +203,7 @@ compatible_property_only(`
     domain
     -coredomain
     -appdomain
-    -rild
+    -hal_telephony_server
     -vendor_init
   } {
     radio_prop
