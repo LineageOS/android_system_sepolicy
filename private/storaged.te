@@ -51,6 +51,9 @@ allow storaged package_native_service:service_manager find;
 # running as root. See b/35323867 #3.
 dontaudit storaged self:global_capability_class_set dac_override;
 
+# For collecting bugreports.
+allow storaged dumpstate:fifo_file write;
+
 ###
 ### neverallow
 ###
