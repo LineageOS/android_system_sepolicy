@@ -19,3 +19,11 @@ allow hal_wifi_supplicant_default wpa_data_file:sock_file create_file_perms;
 
 # Write to security logs for audit.
 get_prop(hal_wifi_supplicant_default, device_logging_prop)
+
+# Devices upgrading to P may grant this permission in device-specific
+# policy along with the data_between_core_and_vendor_violators
+# attribute needed for an exemption.  However, devices that launch with
+# P should use /data/vendor/wifi, which is already granted in core
+# policy.  This is dontaudited here to avoid conditional
+# device-specific behavior in wpa_supplicant.
+dontaudit hal_wifi_supplicant_default wifi_data_file:dir search;
