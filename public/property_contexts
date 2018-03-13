@@ -212,6 +212,7 @@ ro.frp.pst u:object_r:exported_default_prop:s0 exact string
 ro.hardware.activity_recognition u:object_r:exported_default_prop:s0 exact string
 ro.hardware.audio u:object_r:exported_default_prop:s0 exact string
 ro.hardware.audio.a2dp u:object_r:exported_default_prop:s0 exact string
+ro.hardware.audio.hearing_aid u:object_r:exported_default_prop:s0 exact string
 ro.hardware.audio.primary u:object_r:exported_default_prop:s0 exact string
 ro.hardware.audio.usb u:object_r:exported_default_prop:s0 exact string
 ro.hardware.audio_policy u:object_r:exported_default_prop:s0 exact string
