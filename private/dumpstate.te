@@ -38,3 +38,10 @@ get_prop(dumpstate, boottime_prop)
 allow dumpstate {
   statsd
 }:process signal;
+
+# For collecting bugreports.
+allow dumpstate debugfs_wakeup_sources:file r_file_perms;
+allow dumpstate dev_type:blk_file getattr;
+allow dumpstate webview_zygote:process signal;
+dontaudit dumpstate perfprofd:binder call;
+dontaudit dumpstate update_engine:binder call;
