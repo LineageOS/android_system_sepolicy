@@ -12,6 +12,7 @@
 (type tracing_shell_writable_debug)
 (type vold_socket)
 (type webview_zygote_socket)
+(type rild)
 
 (typeattributeset accessibility_service_26_0 (accessibility_service))
 (typeattributeset account_service_26_0 (account_service))

@@ -180,8 +180,9 @@ allow domain vendor_configs_file:dir r_dir_perms;
 allow domain vendor_configs_file:file { read open getattr };
 
 full_treble_only(`
-    # Allow all domains to be able to follow /system/vendor symlink
-    allow domain vendor_file:lnk_file { getattr open read };
+    # Allow all domains to be able to follow /system/vendor and/or
+    # /vendor/odm symlinks.
+    allow domain vendor_file_type:lnk_file { getattr open read };
 
     # This is required to be able to search & read /vendor/lib64
     # in order to lookup vendor libraries. The execute permission
@@ -914,7 +915,7 @@ full_treble_only(`
         userdebug_or_eng(`-perfprofd')
         -postinstall_dexopt
         -system_server
-    } vendor_app_file:{ file lnk_file } r_file_perms;
+    } vendor_app_file:file r_file_perms;
 ')
 
 full_treble_only(`
@@ -941,7 +942,7 @@ full_treble_only(`
         -system_server
         -webview_zygote
         -zygote
-    } vendor_overlay_file:{ file lnk_file } r_file_perms;
+    } vendor_overlay_file:file r_file_perms;
 ')
 
 full_treble_only(`
@@ -961,7 +962,6 @@ full_treble_only(`
         domain
         -coredomain
         -appdomain
-        -rild
         -vendor_executes_system_violators
         -vendor_init
     } {
