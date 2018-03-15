@@ -18,6 +18,10 @@ allow hal_camera { appdomain -isolated_app }:fd use;
 allow hal_camera surfaceflinger:fd use;
 allow hal_camera hal_allocator_server:fd use;
 
+# Needed to provide debug dump output via dumpsys' pipes.
+allow hal_camera shell:fd use;
+allow hal_camera shell:fifo_file write;
+
 ###
 ### neverallow rules
 ###
