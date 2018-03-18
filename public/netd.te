@@ -146,3 +146,12 @@ neverallow { domain -netd -init } netd_stable_secret_prop:file r_file_perms;
 # We want to ensure that no other process ever tries tampering with persist.netd.stable_secret,
 # the RFC 7217 secret key managed by netd. Doing so could compromise user privacy.
 neverallow { domain -netd -init } netd_stable_secret_prop:property_service set;
+
+# If an already existing file is opened with O_CREATE, the kernel might generate
+# a false report of a create denial. Silence these denials and make sure that
+# inappropriate permissions are not granted.
+neverallow netd proc_net:dir no_w_dir_perms;
+dontaudit netd proc_net:dir write;
+
+neverallow netd sysfs_net:dir no_w_dir_perms;
+dontaudit netd sysfs_net:dir write;
