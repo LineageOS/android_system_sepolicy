@@ -44,7 +44,7 @@ allow dex2oat postinstall_dexopt:fd use;
 
 allow dex2oat postinstall_file:dir { getattr search };
 allow dex2oat postinstall_file:filesystem getattr;
-allow dex2oat postinstall_file:lnk_file read;
+allow dex2oat postinstall_file:lnk_file { getattr read };
 
 # Allow dex2oat access to files in /data/ota.
 allow dex2oat ota_data_file:dir ra_dir_perms;
