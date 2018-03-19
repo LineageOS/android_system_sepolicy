@@ -379,6 +379,12 @@ allow system_server incident_data_file:file read;
 allow system_server perfetto_traces_data_file:file read;
 allow system_server perfetto:fd use;
 
+# Allow dropbox to read /data/misc/perfprofd. Only the fd is sent over binder.
+userdebug_or_eng(`
+  allow system_server perfprofd_data_file:file read;
+  allow system_server perfprofd:fd use;
+')
+
 # Manage /data/backup.
 allow system_server backup_data_file:dir create_dir_perms;
 allow system_server backup_data_file:file create_file_perms;
