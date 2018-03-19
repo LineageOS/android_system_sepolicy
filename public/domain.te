@@ -131,6 +131,7 @@ get_prop(domain, exported_default_prop)
 get_prop(domain, exported_dumpstate_prop)
 get_prop(domain, exported_fingerprint_prop)
 get_prop(domain, exported_radio_prop)
+get_prop(domain, exported_secure_prop)
 get_prop(domain, exported_system_prop)
 get_prop(domain, exported_vold_prop)
 get_prop(domain, exported2_default_prop)
@@ -524,7 +525,8 @@ compatible_property_only(`
     neverallow { domain -init } default_prop:property_service set;
     neverallow { domain -init } mmc_prop:property_service set;
     neverallow { domain -init -vendor_init } exported_default_prop:property_service set;
-    neverallow { domain -init -vendor_init } exported2_default_prop:property_service set;
+    neverallow { domain -init } exported_secure_prop:property_service set;
+    neverallow { domain -init } exported2_default_prop:property_service set;
     neverallow { domain -init -vendor_init } exported3_default_prop:property_service set;
     neverallow { domain -init -vendor_init } vendor_default_prop:property_service set;
 ')
