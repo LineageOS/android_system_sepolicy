@@ -15,6 +15,7 @@ backup                                    u:object_r:backup_service:s0
 batteryproperties                         u:object_r:batteryproperties_service:s0
 batterystats                              u:object_r:batterystats_service:s0
 battery                                   u:object_r:battery_service:s0
+binder_calls_stats                        u:object_r:binder_calls_stats_service:s0
 bluetooth_manager                         u:object_r:bluetooth_manager_service:s0
 bluetooth                                 u:object_r:bluetooth_service:s0
 broadcastradio                            u:object_r:broadcastradio_service:s0
