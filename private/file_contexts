@@ -332,6 +332,17 @@
 
 /oem(/.*)?              u:object_r:oemfs:s0
 
+# The precompiled monolithic sepolicy will be under /odm only when
+# BOARD_USES_ODMIMAGE is true: a separate odm.img is built.
+/odm/etc/selinux/precompiled_sepolicy                           u:object_r:sepolicy_file:s0
+/odm/etc/selinux/precompiled_sepolicy\.plat_and_mapping\.sha256 u:object_r:sepolicy_file:s0
+
+/(odm|vendor/odm)/etc/selinux/odm_sepolicy.cil                  u:object_r:sepolicy_file:s0
+/(odm|vendor/odm)/etc/selinux/odm_file_contexts                 u:object_r:file_contexts_file:s0
+/(odm|vendor/odm)/etc/selinux/odm_seapp_contexts                u:object_r:seapp_contexts_file:s0
+/(odm|vendor/odm)/etc/selinux/odm_property_contexts             u:object_r:property_contexts_file:s0
+/(odm|vendor/odm)/etc/selinux/odm_hwservice_contexts            u:object_r:hwservice_contexts_file:s0
+/(odm|vendor/odm)/etc/selinux/odm_mac_permissions.xml           u:object_r:mac_perms_file:s0
 
 #############################
 # Product files
