@@ -452,7 +452,8 @@ $(current_mapping.cil) : $(plat_pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_
 	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
 
 else # ifeq ($(BOARD_SEPOLICY_VERS), $(PLATFORM_SEPOLICY_VERSION))
-prebuilt_mapping_files := $(wildcard $(addsuffix /mapping/$(BOARD_SEPOLICY_VERS).cil, $(PLAT_PRIVATE_POLICY)))
+prebuilt_mapping_files := $(wildcard \
+  $(addsuffix /compat/$(BOARD_SEPOLICY_VERS)/$(BOARD_SEPOLICY_VERS).cil, $(PLAT_PRIVATE_POLICY)))
 $(current_mapping.cil) : $(prebuilt_mapping_files)
 	@mkdir -p $(dir $@)
 	cat $^ > $@
