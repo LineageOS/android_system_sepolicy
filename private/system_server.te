@@ -118,6 +118,7 @@ allow system_server bootanim:process { getsched setsched };
 allow system_server appdomain:file w_file_perms;
 allow system_server audioserver:file w_file_perms;
 allow system_server cameraserver:file w_file_perms;
+allow system_server hal_audio_server:file w_file_perms;
 
 # Read /proc/pid data for all domains. This is used by ProcessCpuTracker
 # within system_server to keep track of memory and CPU usage for
