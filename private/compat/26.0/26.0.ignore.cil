@@ -5,6 +5,7 @@
 (typeattributeset new_objects
   ( adb_service
     adbd_exec
+    atrace
     binder_calls_stats_service
     bootloader_boot_reason_prop
     blank_screen
