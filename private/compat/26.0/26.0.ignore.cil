@@ -5,6 +5,8 @@
 (typeattributeset new_objects
   ( adb_service
     adbd_exec
+    atrace
+    binder_calls_stats_service
     bootloader_boot_reason_prop
     blank_screen
     blank_screen_exec
@@ -104,6 +106,7 @@
     traced_probes_exec
     traced_probes_tmpfs
     traced_producer_socket
+    traced_prop
     traced_tmpfs
     untrusted_app_all_devpts
     update_engine_log_data_file
