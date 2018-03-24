@@ -7,5 +7,3 @@ recovery_only(`
   allow modprobe rootfs:system module_load;
   allow modprobe rootfs:file r_file_perms;
 ')
-allow modprobe { system_file }:system module_load;
-r_dir_file(modprobe, { system_file })
