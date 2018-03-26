@@ -12,16 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+se_filegroup {
+    name: "26.0.board.compat.map",
+    srcs: [
+        "compat/26.0/26.0.cil",
+    ],
+}
+
+se_filegroup {
+    name: "27.0.board.compat.map",
+    srcs: [
+        "compat/27.0/27.0.cil",
+    ],
+}
+
 se_cil_compat_map {
     name: "26.0.cil",
     srcs: [
-        "private/compat/26.0/26.0.cil",
+        ":26.0.board.compat.map",
     ],
 }
 
 se_cil_compat_map {
     name: "27.0.cil",
     srcs: [
-        "private/compat/27.0/27.0.cil",
+        ":27.0.board.compat.map",
     ],
 }

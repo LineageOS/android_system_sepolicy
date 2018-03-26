@@ -16,10 +16,14 @@ bootstrap_go_package {
     name: "soong-selinux",
     pkgPath: "android/soong/selinux",
     deps: [
+        "blueprint",
+        "soong",
         "soong-android",
+        "soong-genrule",
     ],
     srcs: [
         "cil_compat_map.go",
+        "filegroup.go"
     ],
     pluginFor: ["soong_build"],
 }
