@@ -15,6 +15,9 @@ void destroy_expanded_avtab(void *avtab_iterp);
 int get_type(char *out, size_t max_size, void *policydbp, void *type_iterp);
 void *init_type_iter(void *policydbp, const char *type, bool is_attr);
 void destroy_type_iter(void *type_iterp);
+void *init_genfs_iter(void *policydbp);
+int get_genfs(char *out, size_t max_size, void *policydbp, void *genfs_iterp);
+void destroy_genfs_iter(void *genfs_iterp);
 
 #ifdef __cplusplus
 }
