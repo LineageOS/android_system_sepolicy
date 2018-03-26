@@ -106,3 +106,10 @@ allow untrusted_app_all preloads_data_file:dir search;
 allow untrusted_app_all vendor_app_file:dir { open getattr read search };
 allow untrusted_app_all vendor_app_file:file { open getattr read execute };
 allow untrusted_app_all vendor_app_file:lnk_file { open getattr read };
+
+# This is allowed for targetSdkVersion <= 25 but disallowed on newer versions.
+dontaudit untrusted_app_all net_dns_prop:file read;
+
+# This has been disallowed since Android O.
+# For P, we assume that apps are safely handling the denial.
+dontaudit untrusted_app_all proc_stat:file read;
