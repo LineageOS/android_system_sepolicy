@@ -17,6 +17,73 @@
 #include <android-base/strings.h>
 #include <sepol_wrap.h>
 
+struct genfs_iter {
+    genfs_t *genfs;
+    ocontext_t *ocon;
+};
+
+void *init_genfs_iter(void *policydbp)
+{
+    struct genfs_iter *out = (struct genfs_iter *)
+                            calloc(1, sizeof(struct genfs_iter));
+
+    if (!out) {
+        std::cerr << "Failed to allocate genfs iterator" << std::endl;
+        return NULL;
+    }
+
+    policydb_t *db = static_cast<policydb_t *>(policydbp);
+
+    out->genfs = db->genfs;
+    out->ocon = db->genfs->head;
+
+    return static_cast<void *>(out);
+}
+
+/*
+ * print genfs path into *out buffer.
+ *
+ * Returns -1 on error.
+ * Returns 0 on successfully retrieving a genfs entry.
+ * Returns 1 on successfully retrieving the final genfs entry.
+ */
+int get_genfs(char *out, size_t max_size, void *policydbp, void *genfs_iterp)
+{
+    size_t len;
+    struct genfs_iter *i = static_cast<struct genfs_iter *>(genfs_iterp);
+    policydb_t *db = static_cast<policydb_t *>(policydbp);
+
+    len = snprintf(out, max_size, "%s %s %s:%s:%s:s0",
+            i->genfs->fstype,
+            i->ocon->u.name,
+            db->p_user_val_to_name[i->ocon->context->user-1],
+            db->p_role_val_to_name[i->ocon->context->role-1],
+            db->p_type_val_to_name[i->ocon->context->type-1]);
+
+    if (len >= max_size) {
+        std::cerr << "genfs path exceeds buffer size." << std::endl;
+        return -1;
+    }
+
+    i->ocon = i->ocon->next;
+    if (i->ocon == NULL) {
+        if (i->genfs->next != NULL) {
+            i->genfs = i->genfs->next;
+            i->ocon = i->genfs->head;
+        } else {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+void destroy_genfs_iter(void *genfs_iterp)
+{
+    struct genfs_iter *genfs_i = static_cast<struct genfs_iter *>(genfs_iterp);
+    free(genfs_i);
+}
+
 #define TYPE_ITER_LOOKUP   0
 #define TYPE_ITER_ALLTYPES 1
 #define TYPE_ITER_ALLATTRS 2

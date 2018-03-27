@@ -14,6 +14,13 @@ typeattribute traced_tmpfs mlstrustedobject;
 # the privileged process that controls it.
 allow traced self:global_capability_class_set { sys_nice };
 
+# Allow to pass a file descriptor for the output trace from "perfetto" (the
+# cmdline client) and other shell binaries to traced and let traced write
+# directly into that (rather than returning the trace contents over the socket).
+allow traced perfetto:fd use;
+allow traced shell:fd use;
+allow traced perfetto_traces_data_file:file { read write };
+
 ###
 ### Neverallow rules
 ###
@@ -42,7 +49,11 @@ neverallow traced {
 neverallow traced { system_data_file }:dir ~{ getattr search };
 neverallow traced zoneinfo_data_file:dir ~r_dir_perms;
 neverallow traced { data_file_type -zoneinfo_data_file }:lnk_file *;
-neverallow traced { data_file_type -zoneinfo_data_file }:file ~write;
+neverallow traced {
+  data_file_type
+  -zoneinfo_data_file
+  -perfetto_traces_data_file
+}:file ~write;
 
 # Only init is allowed to enter the traced domain via exec()
 neverallow { domain -init } traced:process transition;

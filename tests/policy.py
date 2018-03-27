@@ -47,6 +47,7 @@ class Policy:
     __Rules = set()
     __FcDict = None
     __FcSorted = None
+    __GenfsDict = None
     __libsepolwrap = None
     __policydbP = None
     __BUFSIZE = 2048
@@ -62,6 +63,21 @@ class Policy:
             ret += "The following types on "
             ret += " ".join(str(x) for x in sorted(MatchPrefix))
             ret += " must not be associated with the "
+            ret += "\"" + Attr + "\" attribute: "
+            ret += " ".join(str(x) for x in sorted(violators)) + "\n"
+        return ret
+
+    # Check that all types for "filesystem" have "attribute" associated with them
+    # for types labeled in genfs_contexts.
+    def AssertGenfsFilesystemTypesHaveAttr(self, Filesystem, Attr):
+        TypesPol = self.QueryTypeAttribute(Attr, True)
+        TypesGenfs = self.__GenfsDict[Filesystem]
+        violators = TypesGenfs.difference(TypesPol)
+
+        ret = ""
+        if len(violators) > 0:
+            ret += "The following types in " + Filesystem
+            ret += " must be associated with the "
             ret += "\"" + Attr + "\" attribute: "
             ret += " ".join(str(x) for x in sorted(violators)) + "\n"
         return ret
@@ -337,9 +353,43 @@ class Policy:
         lib.init_type_iter.argtypes = [c_void_p, c_char_p, c_bool]
         # void destroy_type_iter(void *type_iterp);
         lib.destroy_type_iter.argtypes = [c_void_p]
+        # void *init_genfs_iter(void *policydbp)
+        lib.init_genfs_iter.restype = c_void_p
+        lib.init_genfs_iter.argtypes = [c_void_p]
+        # int get_genfs(char *out, size_t max_size, void *genfs_iterp);
+        lib.get_genfs.restype = c_int
+        lib.get_genfs.argtypes = [c_char_p, c_size_t, c_void_p, c_void_p]
+        # void destroy_genfs_iter(void *genfs_iterp)
+        lib.destroy_genfs_iter.argtypes = [c_void_p]
 
         self.__libsepolwrap = lib
 
+    def __GenfsDictAdd(self, Dict, buf):
+        fs, path, context = buf.split(" ")
+        Type = context.split(":")[2]
+        if not fs in Dict:
+            Dict[fs] = {Type}
+        else:
+            Dict[fs].add(Type)
+
+    def __InitGenfsCon(self):
+        self.__GenfsDict = {}
+        GenfsIterP = self.__libsepolwrap.init_genfs_iter(self.__policydbP)
+        if (GenfsIterP == None):
+            sys.exit("Failed to retreive genfs entries")
+        buf = create_string_buffer(self.__BUFSIZE)
+        while True:
+            ret = self.__libsepolwrap.get_genfs(buf, self.__BUFSIZE,
+                        self.__policydbP, GenfsIterP)
+            if ret == 0:
+                self.__GenfsDictAdd(self.__GenfsDict, buf.value)
+                continue
+            if ret == 1:
+                self.__GenfsDictAdd(self.__GenfsDict, buf.value)
+                break;
+            # We should never get here.
+            sys.exit("Failed to get genfs entries")
+        self.__libsepolwrap.destroy_genfs_iter(GenfsIterP)
 
     # load file_contexts
     def __InitFC(self, FcPaths):
@@ -376,6 +426,7 @@ class Policy:
         self.__InitLibsepolwrap(LibPath)
         self.__InitFC(FcPaths)
         self.__InitPolicy(PolicyPath)
+        self.__InitGenfsCon()
 
     def __del__(self):
         if self.__policydbP is not None:
