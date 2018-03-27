@@ -1137,10 +1137,11 @@ $(plat_property_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M
 $(plat_property_contexts.tmp): $(plat_pcfiles)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
-$(LOCAL_BUILT_MODULE): $(plat_property_contexts.tmp) $(HOST_OUT_EXECUTABLES)/property_info_checker
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(plat_property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/property_info_checker
 	@mkdir -p $(dir $@)
 	$(hide) cp -f $< $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/property_info_checker $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/property_info_checker $(PRIVATE_SEPOLICY) $@
 
 built_plat_pc := $(LOCAL_BUILT_MODULE)
 plat_pcfiles :=
@@ -1169,11 +1170,12 @@ $(vendor_property_contexts.tmp): $(vendor_pcfiles)
 	@mkdir -p $(dir $@)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
 
-
-$(LOCAL_BUILT_MODULE): $(vendor_property_contexts.tmp) $(HOST_OUT_EXECUTABLES)/property_info_checker
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_BUILT_PLAT_PC := $(built_plat_pc)
+$(LOCAL_BUILT_MODULE): $(vendor_property_contexts.tmp) $(built_sepolicy) $(built_plat_pc) $(HOST_OUT_EXECUTABLES)/property_info_checker
 	@mkdir -p $(dir $@)
 	$(hide) cp -f $< $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/property_info_checker $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/property_info_checker $(PRIVATE_SEPOLICY) $(PRIVATE_BUILT_PLAT_PC) $@
 
 built_vendor_pc := $(LOCAL_BUILT_MODULE)
 vendor_pcfiles :=
@@ -1198,10 +1200,13 @@ $(odm_property_contexts.tmp): $(odm_pcfiles)
 	$(hide) m4 -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
 
 
-$(LOCAL_BUILT_MODULE): $(odm_property_contexts.tmp) $(HOST_OUT_EXECUTABLES)/property_info_checker
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_BUILT_PLAT_PC := $(built_plat_pc)
+$(LOCAL_BUILT_MODULE): PRIVATE_BUILT_VENDOR_PC := $(built_vendor_pc)
+$(LOCAL_BUILT_MODULE): $(odm_property_contexts.tmp) $(built_sepolicy) $(built_plat_pc) $(built_vendor_pc) $(HOST_OUT_EXECUTABLES)/property_info_checker
 	@mkdir -p $(dir $@)
 	$(hide) cp -f $< $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/property_info_checker $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/property_info_checker $(PRIVATE_SEPOLICY) $(PRIVATE_BUILT_PLAT_PC) $(PRIVATE_BUILT_VENDOR_PC) $@
 
 built_odm_pc := $(LOCAL_BUILT_MODULE)
 odm_pcfiles :=
