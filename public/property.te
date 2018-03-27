@@ -73,6 +73,7 @@ type exported2_radio_prop, property_type;
 type exported2_system_prop, property_type;
 type exported2_vold_prop, property_type;
 type exported3_default_prop, property_type;
+type exported3_radio_prop, property_type;
 type exported3_system_prop, property_type;
 type vendor_default_prop, property_type;
 
@@ -164,6 +165,7 @@ compatible_property_only(`
   } {
     exported_radio_prop
     exported2_radio_prop
+    exported3_radio_prop
     radio_prop
   }:property_service set;
 
