@@ -95,6 +95,7 @@ not_compatible_property(`
     get_prop(domain, exported2_system_prop)
     get_prop(domain, exported2_vold_prop)
     get_prop(domain, exported3_default_prop)
+    get_prop(domain, exported3_radio_prop)
     get_prop(domain, exported3_system_prop)
     get_prop(domain, vendor_default_prop)
 ')
@@ -108,6 +109,7 @@ compatible_property_only(`
     get_prop({coredomain appdomain shell}, exported2_system_prop)
     get_prop({coredomain appdomain shell}, exported2_vold_prop)
     get_prop({coredomain appdomain shell}, exported3_default_prop)
+    get_prop({coredomain appdomain shell}, exported3_radio_prop)
     get_prop({coredomain appdomain shell}, exported3_system_prop)
     userdebug_or_eng(`
         get_prop(su, core_property_type)
@@ -119,6 +121,7 @@ compatible_property_only(`
         get_prop(su, exported2_system_prop)
         get_prop(su, exported2_vold_prop)
         get_prop(su, exported3_default_prop)
+        get_prop(su, exported3_radio_prop)
         get_prop(su, exported3_system_prop)
     ')
     get_prop({domain -coredomain -appdomain}, vendor_default_prop)
