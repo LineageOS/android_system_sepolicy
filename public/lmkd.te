@@ -43,6 +43,9 @@ allow lmkd domain:file { open read };
 # reboot because orderly shutdown may not be possible.
 allow lmkd proc_sysrq:file rw_file_perms;
 
+# Read /proc/meminfo
+allow lmkd proc_meminfo:file r_file_perms;
+
 ### neverallow rules
 
 # never honor LD_PRELOAD
