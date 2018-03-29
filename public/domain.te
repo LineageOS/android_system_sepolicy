@@ -1333,6 +1333,13 @@ neverallow domain {
   sysfs_type
 }:dir { add_name create link remove_name rename reparent rmdir write };
 
+# cgroupfs directories can be created, but not files within them
+# TODO(b/74182216): Remove the installd allow when we're sure it's not used
+neverallow {
+  domain
+  -installd
+} cgroup:file create;
+
 dontaudit domain proc_type:dir write;
 dontaudit domain sysfs_type:dir write;
 

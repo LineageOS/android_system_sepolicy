@@ -25,3 +25,8 @@ userdebug_or_eng(`
 # Sometimes we have to write to non-existent files to avoid conditional
 # init behavior. See b/35303861 for an example.
 dontaudit init sysfs:dir write;
+
+# Suppress false positives when using O_CREAT
+# to open a file that already exists.
+# There's a neverallow rule for this in domain.te
+dontaudit init cgroup:file create;
