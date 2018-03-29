@@ -124,3 +124,12 @@ unix_socket_connect(untrusted_app_all, traced_producer, traced)
 # allow untrusted apps to use UDP sockets provided by the system server but not
 # modify them other than to connect
 allow untrusted_app_all system_server:udp_socket { connect getattr read recvfrom sendto write };
+
+# This is allowed for targetSdkVersion <= 25 but disallowed on newer versions.
+dontaudit untrusted_app_all net_dns_prop:file read;
+
+# These have been disallowed since Android O.
+# For P, we assume that apps are safely handling the denial.
+dontaudit untrusted_app_all proc_stat:file read;
+dontaudit untrusted_app_all proc_vmstat:file read;
+dontaudit untrusted_app_all proc_uptime:file read;
