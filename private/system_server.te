@@ -199,6 +199,7 @@ hal_client_domain(system_server, hal_light)
 hal_client_domain(system_server, hal_memtrack)
 hal_client_domain(system_server, hal_neuralnetworks)
 hal_client_domain(system_server, hal_oemlock)
+allow system_server hal_codec2_hwservice:hwservice_manager find;
 allow system_server hal_omx_hwservice:hwservice_manager find;
 allow system_server hidl_token_hwservice:hwservice_manager find;
 hal_client_domain(system_server, hal_power)
