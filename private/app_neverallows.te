@@ -93,9 +93,7 @@ neverallow { all_untrusted_apps -mediaprovider } { cache_file cache_recovery_fil
 # application un-installation.
 neverallow { all_untrusted_apps -mediaprovider } {
   fs_type
-  -fuse                     # sdcard
-  -sdcardfs                 # sdcard
-  -vfat
+  -sdcard_type
   file_type
   -app_data_file            # The apps sandbox itself
   -media_rw_data_file       # Internal storage. Known that apps can
