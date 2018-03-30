@@ -38,6 +38,10 @@ allow incidentd domain:process getattr;
 allow incidentd sysfs_batteryinfo:dir { search };
 allow incidentd sysfs_batteryinfo:file r_file_perms;
 
+# section id 2007, allow reading LAST_KMSG /sys/fs/pstore/console-ramoops
+userdebug_or_eng(`allow incidentd pstorefs:dir search');
+userdebug_or_eng(`allow incidentd pstorefs:file r_file_perms');
+
 # Create and write into /data/misc/incidents
 allow incidentd incident_data_file:dir rw_dir_perms;
 allow incidentd incident_data_file:file create_file_perms;
