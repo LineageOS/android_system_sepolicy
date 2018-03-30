@@ -1,5 +1,4 @@
 # Perfetto tracing probes, has tracefs access.
-type traced_probes, domain, coredomain;
 type traced_probes_exec, exec_type, file_type;
 
 # Allow init to exec the daemon.
@@ -35,6 +34,21 @@ allow traced_probes kmsg_device:chr_file write;
 # Allow traced_probes to list the system partition.
 allow traced_probes system_file:dir { open read };
 
+# Allow traced_probes to list some of the data partition.
+allow traced_probes self:capability dac_read_search;
+
+allow traced_probes apk_data_file:dir { getattr open read };
+allow traced_probes dalvikcache_data_file:dir { getattr open read };
+userdebug_or_eng(`
+allow traced_probes system_data_file:dir { getattr open read };
+')
+allow traced_probes system_app_data_file:dir { getattr open read };
+allow traced_probes backup_data_file:dir { getattr open read };
+allow traced_probes bootstat_data_file:dir { getattr open read };
+allow traced_probes update_engine_data_file:dir { getattr open read };
+allow traced_probes update_engine_log_data_file:dir { getattr open read };
+allow traced_probes user_profile_data_file:dir { getattr open read };
+
 # Allow traced_probes to run atrace. atrace pokes at system services to enable
 # their userspace TRACE macros.
 domain_auto_trans(traced_probes, atrace_exec, atrace);
@@ -61,13 +75,21 @@ neverallow traced_probes domain:process ptrace;
 # Disallows access to /data files.
 neverallow traced_probes {
   data_file_type
+  -apk_data_file
+  -dalvikcache_data_file
   -system_data_file
+  -system_app_data_file
+  -backup_data_file
+  -bootstat_data_file
+  -update_engine_data_file
+  -update_engine_log_data_file
+  -user_profile_data_file
   # TODO(b/72998741) Remove vendor_data_file exemption. Further restricted in a
   # subsequent neverallow. Currently only getattr and search are allowed.
   -vendor_data_file
   -zoneinfo_data_file
 }:dir *;
-neverallow traced_probes system_data_file:dir ~{ getattr search };
+neverallow traced_probes system_data_file:dir ~{ getattr userdebug_or_eng(`open read') search };
 neverallow traced_probes zoneinfo_data_file:dir ~r_dir_perms;
 neverallow traced_probes { data_file_type -zoneinfo_data_file }:lnk_file *;
 neverallow traced_probes { data_file_type -zoneinfo_data_file }:file *;
