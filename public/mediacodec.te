@@ -33,6 +33,7 @@ allow mediacodec hal_camera:fd use;
 
 crash_dump_fallback(mediacodec)
 
+add_hwservice(mediacodec, hal_codec2_hwservice)
 add_hwservice(mediacodec, hal_omx_hwservice)
 
 hal_client_domain(mediacodec, hal_allocator)
