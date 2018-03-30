@@ -113,9 +113,5 @@ userdebug_or_eng(`
 
   # Allow perfprofd to submit to dropbox.
   allow perfprofd dropbox_service:service_manager find;
-  allow perfprofd system_server:binder call;
-
-  # Only servicemanager, su and systemserver can communicate.
-  neverallow domain perfprofd:binder call;
-  neverallow perfprofd { domain -servicemanager -su -system_server }:binder call;
+  binder_call(perfprofd, system_server)
 ')
