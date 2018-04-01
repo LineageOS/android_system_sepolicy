@@ -37,6 +37,10 @@ neverallow { all_untrusted_apps -mediaprovider } property_socket:sock_file write
 neverallow { all_untrusted_apps -mediaprovider } init:unix_stream_socket connectto;
 neverallow { all_untrusted_apps -mediaprovider } property_type:property_service set;
 
+# net.dns properties are not a public API. Temporarily exempt pre-Oreo apps,
+# but otherwise disallow untrusted apps from reading this property.
+neverallow { all_untrusted_apps -untrusted_app_25 } net_dns_prop:file read;
+
 # Do not allow untrusted apps to be assigned mlstrustedsubject.
 # This would undermine the per-user isolation model being
 # enforced via levelFrom=user in seapp_contexts and the mls
@@ -59,7 +63,10 @@ neverallow all_untrusted_apps file_type:file link;
 neverallow all_untrusted_apps sysfs_mac_address:file no_rw_file_perms;
 
 # Do not allow any write access to files in /sys
-neverallow all_untrusted_apps sysfs_type:file no_w_file_perms;
+neverallow all_untrusted_apps sysfs_type:file { no_w_file_perms no_x_file_perms };
+
+# Apps may never access the default sysfs label.
+neverallow all_untrusted_apps sysfs:file no_rw_file_perms;
 
 # Restrict socket ioctls. Either 1. disallow privileged ioctls, 2. disallow the
 # ioctl permission, or 3. disallow the socket class.
@@ -120,9 +127,12 @@ neverallow all_untrusted_apps {
   proc_loadavg
   proc_mounts
   proc_pagetypeinfo
+  proc_stat
   proc_swaps
+  proc_uptime
   proc_version
   proc_vmallocinfo
+  proc_vmstat
 }:file { no_rw_file_perms no_x_file_perms };
 
 # Avoid all access to kernel configuration
@@ -165,10 +175,12 @@ neverallow all_untrusted_apps *:hwservice_manager ~find;
 #   by surfaceflinger Binder service, which apps are permitted to access
 # - hal_omx_hwservice: because this is a HwBinder version of the mediacodec
 #   Binder service which apps were permitted to access.
+# - hal_codec2_hwservice: because this is a newer version of hal_omx_hwservice.
 neverallow all_untrusted_apps {
   hwservice_manager_type
   -same_process_hwservice
   -coredomain_hwservice
+  -hal_codec2_hwservice
   -hal_configstore_ISurfaceFlingerConfigs
   -hal_graphics_allocator_hwservice
   -hal_omx_hwservice
