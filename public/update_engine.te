@@ -4,11 +4,6 @@ type update_engine_exec, exec_type, file_type;
 
 net_domain(update_engine);
 
-# Read/[write] to /proc/net/xt_qtaguid/ctrl and /dev/xt_qtaguid to tag network
-# sockets.
-allow update_engine qtaguid_proc:file rw_file_perms;
-allow update_engine qtaguid_device:chr_file r_file_perms;
-
 # Following permissions are needed for update_engine.
 allow update_engine self:process { setsched };
 allow update_engine self:global_capability_class_set { fowner sys_admin };
