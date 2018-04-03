@@ -122,10 +122,6 @@ allow system_server hal_audio_server:file w_file_perms;
 # for dumping stack traces of native processes.
 r_dir_file(system_server, domain)
 
-# Read/Write to /proc/net/xt_qtaguid/ctrl and and /dev/xt_qtaguid.
-allow system_server qtaguid_proc:file rw_file_perms;
-allow system_server qtaguid_device:chr_file rw_file_perms;
-
 # Write /proc/uid_cputime/remove_uid_range.
 allow system_server proc_uid_cputime_removeuid:file { w_file_perms getattr };
 
