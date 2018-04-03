@@ -109,6 +109,7 @@
     traced_probes_tmpfs
     traced_producer_socket
     traced_tmpfs
+    untrusted_app_all_devpts
     update_engine_log_data_file
     vendor_default_prop
     usbd
@@ -131,4 +132,6 @@
 ;;     Thus, these types are also not mapped, but recorded for checkapi tests
 (typeattribute priv_objects)
 (typeattributeset priv_objects
-     ( adbd_tmpfs ))
+     ( adbd_tmpfs
+       untrusted_app_27_tmpfs
+     ))

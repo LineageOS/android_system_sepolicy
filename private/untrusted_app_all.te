@@ -133,3 +133,7 @@ dontaudit untrusted_app_all net_dns_prop:file read;
 dontaudit untrusted_app_all proc_stat:file read;
 dontaudit untrusted_app_all proc_vmstat:file read;
 dontaudit untrusted_app_all proc_uptime:file read;
+
+# Allow the allocation and use of ptys
+# Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
+create_pty(untrusted_app_all)
