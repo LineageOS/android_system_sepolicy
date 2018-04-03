@@ -92,7 +92,6 @@ allow dumpstate {
 }:file r_file_perms;
 
 # Other random bits of data we want to collect
-allow dumpstate qtaguid_proc:file r_file_perms;
 allow dumpstate debugfs:file r_file_perms;
 
 # df for
@@ -164,6 +163,7 @@ allow dumpstate {
   proc_net
   proc_pipe_conf
   proc_pagetypeinfo
+  proc_qtaguid_ctrl
   proc_qtaguid_stat
   proc_version
   proc_vmallocinfo

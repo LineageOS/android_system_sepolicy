@@ -12,7 +12,7 @@ type proc_min_free_order_shift, fs_type, proc_type;
 # proc, sysfs, or other nodes that permit configuration of kernel usermodehelpers.
 type usermodehelper, fs_type, proc_type;
 type sysfs_usermodehelper, fs_type, sysfs_type;
-type qtaguid_proc, fs_type, mlstrustedobject, proc_type;
+type proc_qtaguid_ctrl, fs_type, mlstrustedobject, proc_type;
 type proc_qtaguid_stat, fs_type, mlstrustedobject, proc_type;
 type proc_bluetooth_writable, fs_type, proc_type;
 type proc_abi, fs_type, proc_type;
