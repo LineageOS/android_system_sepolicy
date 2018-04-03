@@ -150,7 +150,8 @@ dontaudit priv_app net_dns_prop:file read;
 
 # allow privileged apps to use UDP sockets provided by the system server but not
 # modify them other than to connect
-allow priv_app system_server:udp_socket { connect getattr read recvfrom sendto write };
+allow priv_app system_server:udp_socket {
+        connect getattr read recvfrom sendto write getopt setopt };
 
 ###
 ### neverallow rules
