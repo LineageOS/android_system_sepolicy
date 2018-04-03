@@ -71,7 +71,8 @@ read_runtime_log_tags(platform_app)
 
 # allow platform apps to use UDP sockets provided by the system server but not
 # modify them other than to connect
-allow platform_app system_server:udp_socket { connect getattr read recvfrom sendto write };
+allow platform_app system_server:udp_socket {
+        connect getattr read recvfrom sendto write getopt setopt };
 
 ###
 ### Neverallow rules
