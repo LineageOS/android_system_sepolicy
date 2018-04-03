@@ -1,7 +1,8 @@
 ;; types removed from current policy
-(type webview_zygote_socket)
+(type qtaguid_proc)
 (type reboot_data_file)
 (type rild)
+(type webview_zygote_socket)
 
 (expandtypeattribute (accessibility_service_27_0) true)
 (expandtypeattribute (account_service_27_0) true)
@@ -1236,7 +1237,9 @@
 (typeattributeset property_socket_27_0 (property_socket))
 (typeattributeset pstorefs_27_0 (pstorefs))
 (typeattributeset ptmx_device_27_0 (ptmx_device))
-(typeattributeset qtaguid_device_27_0 (qtaguid_device))
+(typeattributeset qtaguid_device_27_0
+  ( qtaguid_proc
+    proc_qtaguid_ctrl))
 (typeattributeset qtaguid_proc_27_0 (qtaguid_proc))
 (typeattributeset racoon_27_0 (racoon))
 (typeattributeset racoon_exec_27_0 (racoon_exec))

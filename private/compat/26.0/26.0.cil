@@ -7,6 +7,7 @@
 (type asan_reboot_prop)
 (type log_device)
 (type mediacasserver_service)
+(type qtaguid_proc)
 (type reboot_data_file)
 (type tracing_shell_writable)
 (type tracing_shell_writable_debug)
@@ -522,7 +523,9 @@
 (typeattributeset pstorefs_26_0 (pstorefs))
 (typeattributeset ptmx_device_26_0 (ptmx_device))
 (typeattributeset qtaguid_device_26_0 (qtaguid_device))
-(typeattributeset qtaguid_proc_26_0 (qtaguid_proc))
+(typeattributeset qtaguid_proc_26_0
+  ( qtaguid_proc
+    proc_qtaguid_ctrl))
 (typeattributeset racoon_26_0 (racoon))
 (typeattributeset racoon_exec_26_0 (racoon_exec))
 (typeattributeset racoon_socket_26_0 (racoon_socket))
