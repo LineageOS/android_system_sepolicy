@@ -1034,6 +1034,7 @@ neverallow {
   -tombstoned
   -crash_dump
   -dumpstate
+  -incidentd
   -system_server
 
   # Processes that can't exec crash_dump
@@ -1041,10 +1042,10 @@ neverallow {
   -mediaextractor
 } tombstoned_crash_socket:unix_stream_socket connectto;
 
-# Never allow anyone except dumpstate or the system server to connect or write to
+# Never allow anyone except dumpstate, incidentd, or the system server to connect or write to
 # the tombstoned intercept socket.
-neverallow { domain -dumpstate -system_server } tombstoned_intercept_socket:sock_file write;
-neverallow { domain -dumpstate -system_server } tombstoned_intercept_socket:unix_stream_socket connectto;
+neverallow { domain -dumpstate -incidentd -system_server } tombstoned_intercept_socket:sock_file write;
+neverallow { domain -dumpstate -incidentd -system_server } tombstoned_intercept_socket:unix_stream_socket connectto;
 
 # Android does not support System V IPCs.
 #
