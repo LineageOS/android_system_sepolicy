@@ -174,6 +174,7 @@ userdebug_or_eng(`
   allow appdomain heapdump_data_file:file append;
 ')
 
+r_dir_file({ appdomain -ephemeral_app -isolated_app }, proc_net)
 # Write to /proc/net/xt_qtaguid/ctrl file.
 allow {
     untrusted_app_25
@@ -182,9 +183,7 @@ allow {
     priv_app
     system_app
     platform_app
-    shell
 } proc_qtaguid_ctrl:file rw_file_perms;
-r_dir_file({ appdomain -ephemeral_app -isolated_app }, proc_net)
 # read /proc/net/xt_qtguid/*stat* to per-app network data usage.
 # Exclude isolated app which may not use network sockets.
 r_dir_file({
@@ -194,7 +193,6 @@ r_dir_file({
     priv_app
     system_app
     platform_app
-    shell
 }, proc_qtaguid_stat)
 # Everybody can read the xt_qtaguid resource tracking misc dev.
 # So allow all apps to read from /dev/xt_qtaguid.
@@ -205,7 +203,6 @@ allow {
     priv_app
     system_app
     platform_app
-    shell
 } qtaguid_device:chr_file r_file_perms;
 
 # Grant GPU access to all processes started by Zygote.
