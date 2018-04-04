@@ -181,8 +181,6 @@ allow {
     untrusted_app_27
     ephemeral_app
     priv_app
-    system_app
-    platform_app
 } proc_qtaguid_ctrl:file rw_file_perms;
 # read /proc/net/xt_qtguid/*stat* to per-app network data usage.
 # Exclude isolated app which may not use network sockets.
@@ -191,8 +189,6 @@ r_dir_file({
     untrusted_app_27
     ephemeral_app
     priv_app
-    system_app
-    platform_app
 }, proc_qtaguid_stat)
 # Everybody can read the xt_qtaguid resource tracking misc dev.
 # So allow all apps to read from /dev/xt_qtaguid.
@@ -201,8 +197,6 @@ allow {
     untrusted_app_27
     ephemeral_app
     priv_app
-    system_app
-    platform_app
 } qtaguid_device:chr_file r_file_perms;
 
 # Grant GPU access to all processes started by Zygote.
