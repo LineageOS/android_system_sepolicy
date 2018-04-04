@@ -178,7 +178,7 @@ allow {
     system_app
     platform_app
     shell
-} qtaguid_proc:file rw_file_perms;
+} proc_qtaguid_ctrl:file rw_file_perms;
 r_dir_file({ appdomain -ephemeral_app -isolated_app }, proc_net)
 # read /proc/net/xt_qtguid/*stat* to per-app network data usage.
 # Exclude isolated app which may not use network sockets.
