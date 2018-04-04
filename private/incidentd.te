@@ -46,32 +46,47 @@ userdebug_or_eng(`allow incidentd pstorefs:file r_file_perms');
 allow incidentd incident_data_file:dir rw_dir_perms;
 allow incidentd incident_data_file:file create_file_perms;
 
-# Get process attributes
-# TODO allow incidentd domain:process getattr;
+# Enable incidentd to get stack traces.
+binder_use(incidentd)
+hwbinder_use(incidentd)
+allow incidentd hwservicemanager:hwservice_manager { list };
+get_prop(incidentd, hwservicemanager_prop)
+allow incidentd hidl_manager_hwservice:hwservice_manager { find };
 
 # Read files in /proc
 allow incidentd {
+  proc_cmdline
+  proc_pipe_conf
   proc_stat
 }:file r_file_perms;
 
 # Signal java processes to dump their stack and get the results
-# TODO allow incidentd { appdomain ephemeral_app system_server }:process signal;
-# TODO allow incidentd anr_data_file:dir create_dir_perms;
-# TODO allow incidentd anr_data_file:file create_file_perms;
+allow incidentd { appdomain ephemeral_app system_server }:process signal;
 
 # Signal native processes to dump their stack.
 # This list comes from native_processes_to_dump in incidentd/utils.c
 allow incidentd {
+  # This list comes from native_processes_to_dump in dumputils/dump_utils.cpp
   audioserver
   cameraserver
   drmserver
   inputflinger
-  mediacodec
   mediadrmserver
   mediaextractor
+  mediametrics
   mediaserver
   sdcardd
+  statsd
   surfaceflinger
+
+  # This list comes from hal_interfaces_to_dump in dumputils/dump_utils.cpp
+  hal_audio_server
+  hal_bluetooth_server
+  hal_camera_server
+  hal_graphics_composer_server
+  hal_sensors_server
+  hal_vr_server
+  mediacodec # TODO(b/36375899): hal_omx_server
 }:process signal;
 
 # Allow incidentd to make binder calls to any binder service
@@ -79,7 +94,18 @@ binder_call(incidentd, system_server)
 binder_call(incidentd, appdomain)
 
 # Reading /proc/PID/maps of other processes
-# TODO allow incidentd self:global_capability_class_set sys_ptrace;
+userdebug_or_eng(`allow incidentd self:global_capability_class_set { sys_ptrace }');
+# incidentd has capability sys_ptrace, but should only use that capability for
+# accessing sensitive /proc/PID files, never for using ptrace attach.
+neverallow incidentd *:process ptrace;
+
+allow incidentd self:global_capability_class_set {
+    # Send signals to processes
+    kill
+};
+
+# Connect to tombstoned to intercept dumps.
+unix_socket_connect(incidentd, tombstoned_intercept, tombstoned)
 
 # Run a shell.
 allow incidentd shell_exec:file rx_file_perms;
