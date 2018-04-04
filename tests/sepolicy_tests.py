@@ -11,14 +11,21 @@ import sys
 def TestDataTypeViolations(pol):
     return pol.AssertPathTypesHaveAttr(["/data/"], [], "data_file_type")
 
+def TestProcTypeViolations(pol):
+    return pol.AssertGenfsFilesystemTypesHaveAttr("proc", "proc_type")
+
 def TestSysfsTypeViolations(pol):
-    return pol.AssertPathTypesHaveAttr(["/sys/"], ["/sys/kernel/debug/",
+    ret = pol.AssertGenfsFilesystemTypesHaveAttr("sysfs", "sysfs_type")
+    ret += pol.AssertPathTypesHaveAttr(["/sys/"], ["/sys/kernel/debug/",
                                     "/sys/kernel/tracing"], "sysfs_type")
+    return ret
 
 def TestDebugfsTypeViolations(pol):
-    # TODO: this should apply to genfs_context entries as well
-    return pol.AssertPathTypesHaveAttr(["/sys/kernel/debug/",
+    ret = pol.AssertGenfsFilesystemTypesHaveAttr("debugfs", "debugfs_type")
+    ret += pol.AssertGenfsFilesystemTypesHaveAttr("tracefs", "debugfs_type")
+    ret += pol.AssertPathTypesHaveAttr(["/sys/kernel/debug/",
                                     "/sys/kernel/tracing"], [], "debugfs_type")
+    return ret
 
 def TestVendorTypeViolations(pol):
     return pol.AssertPathTypesHaveAttr(["/vendor/"], [], "vendor_file_type")
@@ -44,9 +51,14 @@ class MultipleOption(Option):
         else:
             Option.take_action(self, action, dest, opt, value, values, parser)
 
-Tests = ["TestDataTypeViolators", "TestSysfsTypeViolations",
-        "TestDebugfsTypeViolations", "TestVendorTypeViolations",
-        "TestCoreDataTypeViolations"]
+Tests = [
+    "TestDataTypeViolators",
+    "TestProcTypeViolations",
+    "TestSysfsTypeViolations",
+    "TestDebugfsTypeViolations",
+    "TestVendorTypeViolations",
+    "TestCoreDataTypeViolations",
+]
 
 if __name__ == '__main__':
     usage = "sepolicy_tests -l $(ANDROID_HOST_OUT)/lib64/libsepolwrap.so "
@@ -87,6 +99,8 @@ if __name__ == '__main__':
     # If an individual test is not specified, run all tests.
     if options.test is None or "TestDataTypeViolations" in options.test:
         results += TestDataTypeViolations(pol)
+    if options.test is None or "TestProcTypeViolations" in options.test:
+        results += TestProcTypeViolations(pol)
     if options.test is None or "TestSysfsTypeViolations" in options.test:
         results += TestSysfsTypeViolations(pol)
     if options.test is None or "TestDebugfsTypeViolations" in options.test:
