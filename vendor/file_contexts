@@ -6,6 +6,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.evs@1\.0-service  u:object_r:hal_evs_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@2\.0-service  u:object_r:hal_vehicle_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.0-service      u:object_r:hal_bluetooth_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.0-service\.btlinux    u:object_r:hal_bluetooth_btlinux_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service u:object_r:hal_fingerprint_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.boot@1\.0-service           u:object_r:hal_bootctl_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.broadcastradio@\d+\.\d+-service u:object_r:hal_broadcastradio_default_exec:s0

@@ -99,6 +99,10 @@ genfscon sysfs /devices/system/cpu u:object_r:sysfs_devices_system_cpu:s0
 genfscon sysfs /class/android_usb                 u:object_r:sysfs_android_usb:s0
 genfscon sysfs /class/leds                        u:object_r:sysfs_leds:s0
 genfscon sysfs /class/net                         u:object_r:sysfs_net:s0
+genfscon sysfs /class/rfkill/rfkill0/state        u:object_r:sysfs_bluetooth_writable:s0
+genfscon sysfs /class/rfkill/rfkill1/state        u:object_r:sysfs_bluetooth_writable:s0
+genfscon sysfs /class/rfkill/rfkill2/state        u:object_r:sysfs_bluetooth_writable:s0
+genfscon sysfs /class/rfkill/rfkill3/state        u:object_r:sysfs_bluetooth_writable:s0
 genfscon sysfs /class/rtc                         u:object_r:sysfs_rtc:s0
 genfscon sysfs /class/switch                      u:object_r:sysfs_switch:s0
 genfscon sysfs /devices/platform/nfc-power/nfc_power u:object_r:sysfs_nfc_power_writable:s0
