@@ -560,7 +560,7 @@ neverallow {
 } serialno_prop:file r_file_perms;
 
 # Do not allow reading the last boot timestamp from system properties
-neverallow { domain -init -system_server } firstboot_prop:file r_file_perms;
+neverallow { domain -init -system_server -dumpstate } firstboot_prop:file r_file_perms;
 
 neverallow {
   domain
