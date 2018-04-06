@@ -9,6 +9,7 @@ neverallow {
   domain
   -vold
   -dumpstate
+  userdebug_or_eng(`-incidentd')
   -storaged
   -system_server
   userdebug_or_eng(`-perfprofd')
