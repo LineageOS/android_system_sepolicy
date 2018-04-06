@@ -134,8 +134,3 @@ neverallow zygote {
 
 # Do not allow access to Bluetooth-related system properties and files
 neverallow zygote bluetooth_prop:file create_file_perms;
-
-# Suppress false positives when using O_CREAT
-# to open a file that already exists.
-# There's a neverallow rule for this in domain.te
-dontaudit zygote cgroup:file create;
