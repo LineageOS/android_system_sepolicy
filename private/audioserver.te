@@ -52,9 +52,10 @@ not_full_treble(`allow audioserver audio_device:chr_file rw_file_perms;')
 # For A2DP bridge which is loaded directly into audioserver
 unix_socket_connect(audioserver, bluetooth, bluetooth)
 
-# Allow shell commands from ADB for CTS testing/dumping
+# Allow shell commands from ADB and shell for CTS testing/dumping
 allow audioserver adbd:fd use;
 allow audioserver adbd:unix_stream_socket { read write };
+allow audioserver shell:fifo_file { read write };
 
 # Allow shell commands from ADB for CTS testing/dumping
 userdebug_or_eng(`
