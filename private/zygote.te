@@ -133,4 +133,8 @@ neverallow zygote {
 }:file no_x_file_perms;
 
 # Do not allow access to Bluetooth-related system properties and files
-neverallow zygote bluetooth_prop:file create_file_perms;
+neverallow zygote {
+  bluetooth_a2dp_offload_prop
+  bluetooth_prop
+  exported_bluetooth_prop
+}:file create_file_perms;
