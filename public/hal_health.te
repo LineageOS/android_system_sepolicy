@@ -25,3 +25,6 @@ r_dir_file(hal_health_server, sysfs_batteryinfo)
 
 # Allow to wake up to send periodic events
 wakelock_use(hal_health_server)
+
+# Write to /dev/kmsg
+allow hal_health_server kmsg_device:chr_file w_file_perms;
