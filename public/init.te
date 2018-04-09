@@ -326,11 +326,6 @@ allow init {
 # Allow init to write to vibrator/trigger
 allow init sysfs_vibrator:file w_file_perms;
 
-# Creating files on sysfs is impossible so this isn't a threat.
-# We may write to a non-existent file to avoid conditional
-# init behavior.
-dontaudit init sysfs_vibrator:dir write;
-
 # init chmod/chown access to /sys files.
 allow init {
   sysfs_android_usb
