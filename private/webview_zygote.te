@@ -131,4 +131,8 @@ neverallow webview_zygote domain:{
 
 # Do not allow access to Bluetooth-related system properties.
 # neverallow rules for Bluetooth-related data files are listed above.
-neverallow webview_zygote bluetooth_prop:file create_file_perms;
+neverallow webview_zygote {
+  bluetooth_a2dp_offload_prop
+  bluetooth_prop
+  exported_bluetooth_prop
+}:file create_file_perms;

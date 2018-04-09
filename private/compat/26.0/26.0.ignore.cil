@@ -11,6 +11,7 @@
     blank_screen
     blank_screen_exec
     blank_screen_tmpfs
+    bluetooth_a2dp_offload_prop
     bpfloader
     bpfloader_exec
     broadcastradio_service
@@ -18,6 +19,7 @@
     crossprofileapps_service
     e2fs
     e2fs_exec
+    exported_bluetooth_prop
     exported_config_prop
     exported_dalvik_prop
     exported_default_prop
@@ -31,6 +33,7 @@
     exported_system_prop
     exported_system_radio_prop
     exported_vold_prop
+    exported_wifi_prop
     exported2_config_prop
     exported2_default_prop
     exported2_radio_prop
