@@ -19,7 +19,6 @@ allow installd apk_tmp_file:dir { relabelfrom create_dir_perms };
 allow installd oemfs:dir r_dir_perms;
 allow installd oemfs:file r_file_perms;
 allow installd cgroup:dir create_dir_perms;
-allow installd cgroup:{ file lnk_file } create_file_perms;
 allow installd mnt_expand_file:dir { search getattr };
 # Check validity of SELinux context before use.
 selinux_check_context(installd)
