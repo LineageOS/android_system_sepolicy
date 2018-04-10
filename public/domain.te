@@ -23,7 +23,7 @@ allow domain self:process {
 };
 allow domain self:fd use;
 allow domain proc:dir r_dir_perms;
-allow domain proc_net:dir search;
+allow domain proc_net_type:dir search;
 r_dir_file(domain, self)
 allow domain self:{ fifo_file file } rw_file_perms;
 allow domain self:unix_dgram_socket { create_socket_perms sendto };

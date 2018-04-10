@@ -39,6 +39,13 @@ attribute vendor_file_type;
 # All types used for procfs files.
 attribute proc_type;
 
+# Types in /proc/net, excluding qtaguid types.
+# TODO(b/9496886) Lock down access to /proc/net.
+# This attribute is used to audit access to proc_net. it is temporary and will
+# be removed.
+attribute proc_net_type;
+expandattribute proc_net_type true;
+
 # All types used for sysfs files.
 attribute sysfs_type;
 
