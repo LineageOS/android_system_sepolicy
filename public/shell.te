@@ -84,6 +84,9 @@ userdebug_or_eng(`
 # Read device's serial number from system properties
 get_prop(shell, serialno_prop)
 
+# Allow shell to read the vendor security patch level for CTS
+get_prop(shell, vendor_security_patch_level_prop)
+
 # Read state of logging-related properties
 get_prop(shell, device_logging_prop)
 
