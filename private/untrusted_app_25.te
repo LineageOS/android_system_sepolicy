@@ -40,3 +40,9 @@ allow untrusted_app_25 proc_misc:file r_file_perms;
 # https://github.com/strazzere/anti-emulator/blob/master/AntiEmulator/src/diff/strazzere/anti/emulator/FindEmulator.java
 # This will go away in a future Android release
 allow untrusted_app_25 proc_tty_drivers:file r_file_perms;
+
+# qtaguid access. This is not a public API. Access will be removed in a
+# future version of Android.
+allow untrusted_app_25 proc_qtaguid_ctrl:file rw_file_perms;
+r_dir_file(untrusted_app_25, proc_qtaguid_stat)
+allow untrusted_app_25 qtaguid_device:chr_file r_file_perms;

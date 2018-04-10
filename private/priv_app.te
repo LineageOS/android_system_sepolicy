@@ -88,6 +88,28 @@ allow priv_app {
   proc_vmstat
 }:file r_file_perms;
 
+# /proc/net access.
+# TODO(b/9496886) Audit access for removal.
+r_dir_file(priv_app, proc_net_type)
+userdebug_or_eng(`
+  auditallow priv_app proc_net_type:{ dir file lnk_file } { getattr open read };
+')
+# TODO(b/68774956) qtaguid access has been moved to netd. Access is deprecated. Audit for
+# removal.
+allow priv_app proc_qtaguid_ctrl:file rw_file_perms;
+userdebug_or_eng(`
+  auditallow priv_app proc_qtaguid_ctrl:file rw_file_perms;
+')
+r_dir_file(priv_app, proc_qtaguid_stat)
+userdebug_or_eng(`
+  auditallow priv_app proc_qtaguid_stat:dir r_dir_perms;
+  auditallow priv_app proc_qtaguid_stat:file r_file_perms;
+')
+allow priv_app qtaguid_device:chr_file r_file_perms;
+userdebug_or_eng(`
+  auditallow priv_app qtaguid_device:chr_file r_file_perms;
+')
+
 allow priv_app sysfs_type:dir search;
 # Read access to /sys/class/net/wlan*/address
 r_dir_file(priv_app, sysfs_net)

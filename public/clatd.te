@@ -4,7 +4,10 @@ type clatd_exec, exec_type, file_type;
 
 net_domain(clatd)
 
-r_dir_file(clatd, proc_net)
+r_dir_file(clatd, proc_net_type)
+userdebug_or_eng(`
+  auditallow clatd proc_net_type:{ dir file lnk_file } { getattr open read };
+')
 
 # Access objects inherited from netd.
 allow clatd netd:fd use;

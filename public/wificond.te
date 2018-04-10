@@ -21,7 +21,7 @@ allow wificond self:netlink_socket create_socket_perms_no_ioctl;
 # newer kernels (e.g. 4.4 but not 4.1) have a new class for sockets
 allow wificond self:netlink_generic_socket create_socket_perms_no_ioctl;
 
-r_dir_file(wificond, proc_net)
+r_dir_file(wificond, proc_net_type)
 
 # wificond writes out configuration files for wpa_supplicant/hostapd.
 # wificond also reads pid files out of this directory

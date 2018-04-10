@@ -41,9 +41,9 @@ allow netd proc_qtaguid_ctrl:file rw_file_perms;
 # Allow netd to read /dev/qtaguid. This is the same privilege level that normal apps have.
 allow netd qtaguid_device:chr_file r_file_perms;
 
-r_dir_file(netd, proc_net)
+r_dir_file(netd, proc_net_type)
 # For /proc/sys/net/ipv[46]/route/flush.
-allow netd proc_net:file rw_file_perms;
+allow netd proc_net_type:file rw_file_perms;
 
 # Enables PppController and interface enumeration (among others)
 allow netd sysfs:dir r_dir_perms;

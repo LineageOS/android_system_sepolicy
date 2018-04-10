@@ -161,7 +161,7 @@ allow dumpstate {
   proc_cmdline
   proc_meminfo
   proc_modules
-  proc_net
+  proc_net_type
   proc_pipe_conf
   proc_pagetypeinfo
   proc_qtaguid_ctrl

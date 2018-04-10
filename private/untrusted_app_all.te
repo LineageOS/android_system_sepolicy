@@ -138,3 +138,15 @@ dontaudit untrusted_app_all proc_uptime:file read;
 # Allow the allocation and use of ptys
 # Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
 create_pty(untrusted_app_all)
+
+# /proc/net access.
+# TODO(b/9496886) Audit access for removal.
+# VPN apps require access to /proc/net/{tcp,udp} so access will need to be
+# limited through a mechanism other than SELinux.
+r_dir_file(untrusted_app_all, proc_net_type)
+userdebug_or_eng(`
+  auditallow untrusted_app_all {
+    proc_net_type
+    -proc_net_vpn
+  }:{ dir file lnk_file } { getattr open read };
+')
