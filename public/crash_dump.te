@@ -59,10 +59,8 @@ read_logd(crash_dump)
 # Crash dump is not intended to access the following data types. Since these
 # are WAI, suppress the denials to clean up the logs.
 dontaudit crash_dump {
-  app_data_file
-  bluetooth_data_file
-  resourcecache_data_file
-  vendor_overlay_file
+  core_data_file_type
+  vendor_file_type
 }:dir search;
 dontaudit crash_dump system_data_file:file read;
 
