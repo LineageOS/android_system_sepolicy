@@ -7,13 +7,15 @@ allow vold_prepare_subdirs devpts:chr_file rw_file_perms;
 allow vold_prepare_subdirs vold:fd use;
 allow vold_prepare_subdirs vold:fifo_file { read write };
 allow vold_prepare_subdirs file_contexts_file:file r_file_perms;
-allow vold_prepare_subdirs self:global_capability_class_set { chown dac_override };
+allow vold_prepare_subdirs self:global_capability_class_set { chown dac_override fowner };
 allow vold_prepare_subdirs self:process setfscreate;
 allow vold_prepare_subdirs {
   system_data_file
   vendor_data_file
-}:dir { open read write add_name remove_name };
-allow vold_prepare_subdirs vold_data_file:dir { create open read write search getattr setattr remove_name rmdir };
+}:dir { open read write add_name remove_name relabelfrom };
+allow vold_prepare_subdirs system_data_file:file getattr;
+allow vold_prepare_subdirs vold_data_file:dir { create open read write search getattr setattr remove_name rmdir relabelto };
 allow vold_prepare_subdirs vold_data_file:file { getattr unlink };
-allow vold_prepare_subdirs storaged_data_file:dir create_dir_perms;
-allow vold_prepare_subdirs fingerprint_vendor_data_file:dir create_dir_perms;
+allow vold_prepare_subdirs storaged_data_file:dir { create_dir_perms relabelto };
+allow vold_prepare_subdirs storaged_data_file:file getattr;
+allow vold_prepare_subdirs fingerprint_vendor_data_file:dir { create_dir_perms relabelto };
