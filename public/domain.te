@@ -1355,3 +1355,9 @@ userdebug_or_eng(`
   dontaudit domain proc_type:file create;
   dontaudit domain sysfs_type:file create;
 ')
+
+# Platform must not have access to /mnt/vendor.
+neverallow {
+  coredomain
+  -init
+} mnt_vendor_file:dir *;
