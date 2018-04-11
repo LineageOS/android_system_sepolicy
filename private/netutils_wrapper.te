@@ -33,3 +33,9 @@ domain_auto_trans({
     -coredomain
     -appdomain
 }, netutils_wrapper_exec, netutils_wrapper)
+
+# suppress spurious denials
+dontaudit netutils_wrapper self:global_capability_class_set sys_resource;
+
+# netutils wrapper may only use the following capabilities.
+neverallow netutils_wrapper self:global_capability_class_set ~{ net_admin net_raw };
