@@ -58,6 +58,9 @@ allow priv_app media_rw_data_file:file create_file_perms;
 allow priv_app shell_data_file:file r_file_perms;
 allow priv_app shell_data_file:dir r_dir_perms;
 
+# Allow traceur to pass file descriptors through a content provider to betterbug
+allow priv_app trace_data_file:file { getattr read };
+
 # Allow verifier to access staged apks.
 allow priv_app { apk_tmp_file apk_private_tmp_file }:dir r_dir_perms;
 allow priv_app { apk_tmp_file apk_private_tmp_file }:file r_file_perms;
@@ -194,3 +197,8 @@ neverallow priv_app mlstrustedsubject:process fork;
 # bugs, so we want to ensure priv_app never has this
 # capability.
 neverallow priv_app file_type:file link;
+
+# priv apps should not be able to open trace data files, they should depend
+# upon traceur to pass a file descriptor which they can then read
+neverallow priv_app trace_data_file:dir *;
+neverallow priv_app trace_data_file:file { no_w_file_perms open };
