@@ -115,6 +115,8 @@ tombstoned.max_tombstone_count u:object_r:exported3_default_prop:s0 exact int
 vold.post_fs_data_done u:object_r:exported2_vold_prop:s0 exact int
 
 # vendor-init-readable|vendor-init-actionable
+dev.bootcomplete u:object_r:exported3_system_prop:s0 exact bool
+sys.boot_completed u:object_r:exported3_system_prop:s0 exact bool
 sys.retaildemo.enabled u:object_r:exported3_system_prop:s0 exact int
 
 # vendor-init-settable|vendor-init-actionable
