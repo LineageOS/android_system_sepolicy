@@ -26,3 +26,9 @@ app_domain(untrusted_app_27)
 untrusted_app_domain(untrusted_app_27)
 net_domain(untrusted_app_27)
 bluetooth_domain(untrusted_app_27)
+
+# qtaguid access. This is not a public API. Access will be removed in a
+# future version of Android.
+allow untrusted_app_27 proc_qtaguid_ctrl:file rw_file_perms;
+r_dir_file(untrusted_app_27, proc_qtaguid_stat)
+allow untrusted_app_27 qtaguid_device:chr_file r_file_perms;

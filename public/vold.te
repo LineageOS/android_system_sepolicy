@@ -8,7 +8,11 @@ allow vold cache_file:file { getattr read };
 allow vold cache_file:lnk_file r_file_perms;
 
 # Read access to pseudo filesystems.
-r_dir_file(vold, proc_net)
+r_dir_file(vold, proc_net_type)
+userdebug_or_eng(`
+  auditallow vold proc_net_type:{ dir file lnk_file } { getattr open read };
+')
+
 r_dir_file(vold, sysfs_type)
 # XXX Label sysfs files with a specific type?
 allow vold sysfs:file w_file_perms; # writing to /sys/*/uevent during coldboot.
