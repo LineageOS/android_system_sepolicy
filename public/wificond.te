@@ -7,6 +7,7 @@ binder_call(wificond, system_server)
 
 add_service(wificond, wificond_service)
 
+set_prop(wificond, exported_wifi_prop)
 set_prop(wificond, wifi_prop)
 set_prop(wificond, ctl_default_prop)
 

@@ -34,3 +34,5 @@ neverallow hal_audio_server domain:{ tcp_socket udp_socket rawip_socket } *;
 
 # Only audio HAL may directly access the audio hardware
 neverallow { halserverdomain -hal_audio_server } audio_device:chr_file *;
+
+get_prop(hal_audio, bluetooth_a2dp_offload_prop)
