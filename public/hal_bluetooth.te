@@ -21,7 +21,9 @@ allow hal_bluetooth sysfs_bluetooth_writable:file rw_file_perms;
 allow hal_bluetooth self:global_capability2_class_set wake_alarm;
 
 # Allow write access to bluetooth-specific properties
+set_prop(hal_bluetooth, bluetooth_a2dp_offload_prop)
 set_prop(hal_bluetooth, bluetooth_prop)
+set_prop(hal_bluetooth, exported_bluetooth_prop)
 
 # /proc access (bluesleep etc.).
 allow hal_bluetooth proc_bluetooth_writable:file rw_file_perms;

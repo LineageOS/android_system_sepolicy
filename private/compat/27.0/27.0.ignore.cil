@@ -10,6 +10,7 @@
     blank_screen_exec
     blank_screen_tmpfs
     bootloader_boot_reason_prop
+    bluetooth_a2dp_offload_prop
     bpfloader
     bpfloader_exec
     cgroup_bpf
@@ -22,6 +23,7 @@
     exported3_default_prop
     exported3_radio_prop
     exported3_system_prop
+    exported_bluetooth_prop
     exported_config_prop
     exported_dalvik_prop
     exported_default_prop
@@ -35,6 +37,7 @@
     exported_system_prop
     exported_system_radio_prop
     exported_vold_prop
+    exported_wifi_prop
     fingerprint_vendor_data_file
     fs_bpf
     hal_authsecret_hwservice
