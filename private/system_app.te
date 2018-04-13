@@ -31,9 +31,11 @@ allow system_app wallpaper_file:file r_file_perms;
 allow system_app icon_file:file r_file_perms;
 
 # Write to properties
+set_prop(system_app, bluetooth_a2dp_offload_prop)
 set_prop(system_app, bluetooth_prop)
 set_prop(system_app, debug_prop)
 set_prop(system_app, system_prop)
+set_prop(system_app, exported_bluetooth_prop)
 set_prop(system_app, exported_system_prop)
 set_prop(system_app, exported2_system_prop)
 set_prop(system_app, exported3_system_prop)
