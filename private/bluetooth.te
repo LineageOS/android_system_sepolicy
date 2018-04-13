@@ -39,7 +39,9 @@ allow bluetooth uhid_device:chr_file rw_file_perms;
 allow bluetooth proc_bluetooth_writable:file rw_file_perms;
 
 # Allow write access to bluetooth specific properties
+set_prop(bluetooth, bluetooth_a2dp_offload_prop)
 set_prop(bluetooth, bluetooth_prop)
+set_prop(bluetooth, exported_bluetooth_prop)
 set_prop(bluetooth, pan_result_prop)
 
 allow bluetooth audioserver_service:service_manager find;
