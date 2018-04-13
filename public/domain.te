@@ -600,6 +600,7 @@ neverallow {
   -init
   -uncrypt
   -update_engine
+  -vendor_init
   -vold
   -recovery
   -ueventd
