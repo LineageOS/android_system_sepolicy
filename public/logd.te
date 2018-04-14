@@ -6,7 +6,10 @@ type logd_exec, exec_type, file_type;
 r_dir_file(logd, cgroup)
 r_dir_file(logd, proc_kmsg)
 r_dir_file(logd, proc_meminfo)
-r_dir_file(logd, proc_net)
+r_dir_file(logd, proc_net_type)
+userdebug_or_eng(`
+  auditallow logd proc_net_type:{ dir file lnk_file } { getattr open read };
+')
 
 allow logd self:global_capability_class_set { setuid setgid setpcap sys_nice audit_control };
 allow logd self:global_capability2_class_set syslog;
