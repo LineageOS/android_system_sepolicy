@@ -21,7 +21,6 @@ allow hal_telephony_server efs_file:file create_file_perms;
 allow hal_telephony_server vendor_shell_exec:file rx_file_perms;
 allow hal_telephony_server bluetooth_efs_file:file r_file_perms;
 allow hal_telephony_server bluetooth_efs_file:dir r_dir_perms;
-allow hal_telephony_server sdcard_type:dir r_dir_perms;
 
 # property service
 set_prop(hal_telephony_server, radio_prop)

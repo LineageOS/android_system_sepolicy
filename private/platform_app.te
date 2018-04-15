@@ -34,8 +34,8 @@ allow platform_app cache_file:file create_file_perms;
 # Direct access to vold-mounted storage under /mnt/media_rw
 # This is a performance optimization that allows platform apps to bypass the FUSE layer
 allow platform_app mnt_media_rw_file:dir r_dir_perms;
-allow platform_app vfat:dir create_dir_perms;
-allow platform_app vfat:file create_file_perms;
+allow platform_app sdcard_type:dir create_dir_perms;
+allow platform_app sdcard_type:file create_file_perms;
 
 # com.android.systemui
 allow platform_app rootfs:dir getattr;
