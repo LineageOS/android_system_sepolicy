@@ -49,7 +49,14 @@ neverallow hal_configstore_server {
 }:{ file fifo_file sock_file } *;
 
 # Should never need sdcard access
-neverallow hal_configstore_server { fuse sdcardfs vfat }:file *;
+neverallow hal_configstore_server {
+    sdcard_type
+    fuse sdcardfs vfat exfat        # manual expansion for completeness
+}:dir ~getattr;
+neverallow hal_configstore_server {
+    sdcard_type
+    fuse sdcardfs vfat exfat        # manual expansion for completeness
+}:file *;
 
 # Do not permit access to service_manager and vndservice_manager
 neverallow hal_configstore_server *:service_manager *;
