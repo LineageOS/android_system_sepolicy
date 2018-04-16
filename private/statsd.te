@@ -73,6 +73,7 @@ binder_call(statsd, stats)
 
 # Allow access to with hardware layer and process stats.
 allow statsd proc_uid_cputime_showstat:file { getattr open read };
+hal_client_domain(statsd, hal_health)
 hal_client_domain(statsd, hal_power)
 hal_client_domain(statsd, hal_thermal)
 
