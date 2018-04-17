@@ -363,6 +363,14 @@ neverallow {
   -system_server
   -ueventd
 } hw_random_device:chr_file *;
+# b/78174219 b/64114943
+neverallow {
+  domain
+  -init
+  -shell # stat of /dev, getattr only
+  -vendor_init
+  -ueventd
+} keychord_device:chr_file *;
 
 # Ensure that all entrypoint executables are in exec_type or postinstall_file.
 neverallow * { file_type -exec_type -postinstall_file }:file entrypoint;
