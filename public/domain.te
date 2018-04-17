@@ -560,7 +560,7 @@ neverallow {
 } serialno_prop:file r_file_perms;
 
 # Do not allow reading the last boot timestamp from system properties
-neverallow { domain -init -system_server } firstboot_prop:file r_file_perms;
+neverallow { domain -init -system_server -dumpstate } firstboot_prop:file r_file_perms;
 
 neverallow {
   domain
@@ -1122,6 +1122,7 @@ neverallow {
   -system_app
   -init
   -installd # for relabelfrom and unlink, check for this in explicit neverallow
+  -vold_prepare_subdirs # For unlink
   with_asan(`-asan_extract')
 } system_data_file:file no_w_file_perms;
 # do not grant anything greater than r_file_perms and relabelfrom unlink

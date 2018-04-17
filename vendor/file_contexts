@@ -32,6 +32,8 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.media\.omx@1\.0-service            u:object_r:mediacodec_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.power@1\.0-service          u:object_r:hal_power_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.radio\.config@1\.0-service  u:object_r:hal_radio_config_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.radio@1\.2-radio-service    u:object_r:hal_radio_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.radio@1\.2-sap-service    u:object_r:hal_radio_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.sensors@1\.0-service        u:object_r:hal_sensors_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.secure_element@1\.0-service u:object_r:hal_secure_element_default_exec:s0
 /(vendor|system/vendor)/bin/hw/rild                                           u:object_r:rild_exec:s0
