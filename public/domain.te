@@ -841,13 +841,25 @@ full_treble_only(`
     -appdomain # TODO(b/34980020) remove exemption for appdomain
     -coredomain
     -data_between_core_and_vendor_violators # TODO(b/34980020) Remove once all violators have been cleaned up
+    -vendor_init
   } {
     core_data_file_type
     # libc includes functions like mktime and localtime which attempt to access
     # files in /data/misc/zoneinfo/tzdata file. These functions are considered
     # vndk-stable and thus must be allowed for all processes.
     -zoneinfo_data_file
-    }:file_class_set ~{ append getattr ioctl read write };
+  }:file_class_set ~{ append getattr ioctl read write };
+  neverallow {
+    vendor_init
+    -data_between_core_and_vendor_violators
+  } {
+    core_data_file_type
+    -unencrypted_data_file
+    -zoneinfo_data_file
+  }:file_class_set ~{ append getattr ioctl read write };
+  # vendor init needs to be able to read unencrypted_data_file to create directories with FBE.
+  # The vendor init binary lives on the system partition so there is not a concern with stability.
+  neverallow vendor_init unencrypted_data_file:file ~r_file_perms;
 ')
 full_treble_only(`
   # vendor domains may only access dirs in /data/vendor, never core_data_file_types
@@ -856,12 +868,26 @@ full_treble_only(`
     -appdomain # TODO(b/34980020) remove exemption for appdomain
     -coredomain
     -data_between_core_and_vendor_violators
-    } {
-      core_data_file_type
-      -system_data_file # default label for files on /data. Covered below...
-      -vendor_data_file
-      -zoneinfo_data_file
-    }:dir *;
+    -vendor_init
+  } {
+    core_data_file_type
+    -system_data_file # default label for files on /data. Covered below...
+    -vendor_data_file
+    -zoneinfo_data_file
+  }:dir *;
+  neverallow {
+    vendor_init
+    -data_between_core_and_vendor_violators
+  } {
+    core_data_file_type
+    -unencrypted_data_file
+    -system_data_file
+    -vendor_data_file
+    -zoneinfo_data_file
+  }:dir *;
+  # vendor init needs to be able to read unencrypted_data_file to create directories with FBE.
+  # The vendor init binary lives on the system partition so there is not a concern with stability.
+  neverallow vendor_init unencrypted_data_file:dir ~search;
 ')
 full_treble_only(`
   # vendor domains may only access dirs in /data/vendor, never core_data_file_types
