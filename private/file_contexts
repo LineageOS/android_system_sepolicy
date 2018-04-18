@@ -525,3 +525,7 @@
 /mnt/user(/.*)?             u:object_r:mnt_user_file:s0
 /mnt/runtime(/.*)?          u:object_r:storage_file:s0
 /storage(/.*)?              u:object_r:storage_file:s0
+
+#############################
+# mount point for read-write vendor partitions
+/mnt/vendor(/.*)?          u:object_r:mnt_vendor_file:s0
