@@ -105,6 +105,7 @@ allow system_server appdomain:process { getsched setsched };
 allow system_server audioserver:process { getsched setsched };
 allow system_server hal_audio:process { getsched setsched };
 allow system_server hal_bluetooth:process { getsched setsched };
+allow system_server mediacodec:process { getsched setsched };
 allow system_server cameraserver:process { getsched setsched };
 allow system_server hal_camera:process { getsched setsched };
 allow system_server mediaserver:process { getsched setsched };
@@ -113,6 +114,7 @@ allow system_server bootanim:process { getsched setsched };
 # Allow system_server to write to /proc/<pid>/timerslack_ns
 allow system_server appdomain:file w_file_perms;
 allow system_server audioserver:file w_file_perms;
+allow system_server mediacodec:file w_file_perms;
 allow system_server cameraserver:file w_file_perms;
 allow system_server hal_audio_server:file w_file_perms;
 
