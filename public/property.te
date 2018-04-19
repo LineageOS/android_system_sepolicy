@@ -155,7 +155,6 @@ compatible_property_only(`
     -coredomain
     -appdomain
     -hal_nfc_server
-    -vendor_init
   } {
     nfc_prop
   }:property_service set;
@@ -168,9 +167,55 @@ compatible_property_only(`
     -vendor_init
   } {
     exported_radio_prop
-    exported2_radio_prop
     exported3_radio_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -hal_telephony_server
+  } {
+    exported2_radio_prop
     radio_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -bluetooth
+    -hal_bluetooth
+  } {
+    bluetooth_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -bluetooth
+    -hal_bluetooth
+    -vendor_init
+  } {
+    exported_bluetooth_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -hal_wifi
+    -wificond
+  } {
+    wifi_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -hal_wifi
+    -wificond
+    -vendor_init
+  } {
+    exported_wifi_prop
   }:property_service set;
 
 # Prevent properties from being read
@@ -201,7 +246,6 @@ compatible_property_only(`
     -coredomain
     -appdomain
     -hal_nfc_server
-    -vendor_init
   } {
     nfc_prop
   }:file no_rw_file_perms;
@@ -211,8 +255,25 @@ compatible_property_only(`
     -coredomain
     -appdomain
     -hal_telephony_server
-    -vendor_init
   } {
     radio_prop
+  }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -coredomain
+    -bluetooth
+    -hal_bluetooth
+  } {
+    bluetooth_prop
+  }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -coredomain
+    -hal_wifi
+    -wificond
+  } {
+    wifi_prop
   }:file no_rw_file_perms;
 ')
