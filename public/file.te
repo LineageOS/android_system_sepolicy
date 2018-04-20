@@ -203,6 +203,8 @@ type shell_data_file, file_type, data_file_type, core_data_file_type, mlstrusted
 type property_data_file, file_type, data_file_type, core_data_file_type;
 # /data/bootchart
 type bootchart_data_file, file_type, data_file_type, core_data_file_type;
+# /data/system/dropbox
+type dropbox_data_file, file_type, data_file_type, core_data_file_type;
 # /data/system/heapdump
 type heapdump_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/nativetest
@@ -225,6 +227,9 @@ type storage_file, file_type;
 # Label for storage dirs which are just mount stubs
 type mnt_media_rw_stub_file, file_type;
 type storage_stub_file, file_type;
+
+# Mount location for read-write vendor partitions.
+type mnt_vendor_file, file_type;
 
 # /postinstall: Mount point used by update_engine to run postinstall.
 type postinstall_mnt_dir, file_type;

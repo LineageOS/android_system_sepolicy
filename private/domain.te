@@ -116,3 +116,8 @@ full_treble_only(`
     -init
   }{ usbfs binfmt_miscfs }:file no_rw_file_perms;
 ')
+
+# System_server owns dropbox data, and init creates/restorecons the directory
+# Disallow direct access by other processes.
+neverallow { domain -init -system_server } dropbox_data_file:dir *;
+neverallow { domain -init -system_server } dropbox_data_file:file ~{ getattr read };
