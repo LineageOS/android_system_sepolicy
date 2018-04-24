@@ -6,3 +6,4 @@ add_hwservice(hwservicemanager, hidl_manager_hwservice)
 add_hwservice(hwservicemanager, hidl_token_hwservice)
 
 set_prop(hwservicemanager, ctl_default_prop)
+set_prop(hwservicemanager, ctl_dumpstate_prop)
