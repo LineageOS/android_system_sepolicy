@@ -17,6 +17,7 @@ allow vold sysfs_usb:file w_file_perms;
 allow vold sysfs_zram_uevent:file w_file_perms;
 
 r_dir_file(vold, rootfs)
+r_dir_file(vold, metadata_file)
 allow vold {
   proc # b/67049235 processes /proc/<pid>/* files are mislabeled.
   proc_cmdline
