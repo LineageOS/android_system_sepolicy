@@ -56,8 +56,9 @@ python_binary_host {
 python_binary_host {
     name: "searchpolicy",
     srcs: [
-        "searchpolicy.py",
+        "FcSort.py",
         "policy.py",
+        "searchpolicy.py",
     ],
     required: ["libsepolwrap"],
     defaults: ["py2_only"],
