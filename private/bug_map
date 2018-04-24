@@ -23,6 +23,7 @@ netd priv_app unix_stream_socket 77870037
 netd untrusted_app unix_stream_socket 77870037
 netd untrusted_app_25 unix_stream_socket 77870037
 netd untrusted_app_27 unix_stream_socket 77870037
+otapreopt_chroot postinstall_file lnk_file 75287236
 platform_app nfc_data_file dir 74331887
 postinstall postinstall capability 77958490
 postinstall_dexopt postinstall_dexopt capability 77958490
