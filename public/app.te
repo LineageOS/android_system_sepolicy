@@ -297,9 +297,7 @@ allow appdomain console_device:chr_file { read write };
 allowxperm { appdomain -bluetooth } self:{ rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
 
-allow { appdomain -isolated_app } ion_device:chr_file rw_file_perms;
-# TODO is write really necessary ?
-auditallow { appdomain userdebug_or_eng(`-su') } ion_device:chr_file { write append };
+allow { appdomain -isolated_app } ion_device:chr_file r_file_perms;
 
 # TODO(b/36375899) replace with hal_client_domain for mediacodec (hal_omx)
 get_prop({ appdomain -isolated_app }, hwservicemanager_prop);
