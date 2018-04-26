@@ -955,6 +955,7 @@ full_treble_only(`
         userdebug_or_eng(`-perfprofd')
         -postinstall_dexopt
         -system_server
+        -mediaserver
     } vendor_app_file:file r_file_perms;
 ')
 
