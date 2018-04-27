@@ -240,6 +240,7 @@ expandattribute hal_cas_server false;
 
 # HALs
 hal_attribute(allocator);
+hal_attribute(audiocontrol);
 hal_attribute(authsecret);
 hal_attribute(bluetooth);
 hal_attribute(broadcastradio);
@@ -247,6 +248,7 @@ hal_attribute(configstore);
 hal_attribute(confirmationui);
 hal_attribute(contexthub);
 hal_attribute(dumpstate);
+hal_attribute(evs);
 hal_attribute(fingerprint);
 hal_attribute(gatekeeper);
 hal_attribute(gnss);
@@ -271,6 +273,7 @@ hal_attribute(tv_cec);
 hal_attribute(tv_input);
 hal_attribute(usb);
 hal_attribute(usb_gadget);
+hal_attribute(vehicle);
 hal_attribute(vibrator);
 hal_attribute(vr);
 hal_attribute(weaver);
