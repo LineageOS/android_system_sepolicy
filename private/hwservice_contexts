@@ -4,6 +4,9 @@ android.frameworks.sensorservice::ISensorManager                u:object_r:fwk_s
 android.hardware.audio.effect::IEffectsFactory                  u:object_r:hal_audio_hwservice:s0
 android.hardware.audio::IDevicesFactory                         u:object_r:hal_audio_hwservice:s0
 android.hardware.authsecret::IAuthSecret                        u:object_r:hal_authsecret_hwservice:s0
+android.hardware.automotive.audiocontrol::IAudioControl         u:object_r:hal_audiocontrol_hwservice:s0
+android.hardware.automotive.evs::IEvsEnumerator                 u:object_r:hal_evs_hwservice:s0
+android.hardware.automotive.vehicle::IVehicle                   u:object_r:hal_vehicle_hwservice:s0
 android.hardware.biometrics.fingerprint::IBiometricsFingerprint u:object_r:hal_fingerprint_hwservice:s0
 android.hardware.bluetooth::IBluetoothHci                       u:object_r:hal_bluetooth_hwservice:s0
 android.hardware.bluetooth.a2dp::IBluetoothAudioOffload         u:object_r:hal_audio_hwservice:s0
