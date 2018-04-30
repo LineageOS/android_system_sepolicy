@@ -213,7 +213,9 @@ expandattribute hal_$1_client true;
 attribute hal_$1_server;
 expandattribute hal_$1_server false;
 
+neverallow { hal_$1_server -hal_$1 } domain:process fork;
 neverallow { hal_$1_server -halserverdomain } domain:process fork;
+neverallow { hal_$1_client -halclientdomain } domain:process fork;
 ')
 
 #####################################
