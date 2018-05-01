@@ -190,6 +190,10 @@ allow dumpstate cache_recovery_file:file r_file_perms;
 allow dumpstate recovery_data_file:dir r_dir_perms;
 allow dumpstate recovery_data_file:file r_file_perms;
 
+#Access /data/misc/update_engine_log
+allow dumpstate update_engine_log_data_file:dir r_dir_perms;
+allow dumpstate update_engine_log_data_file:file r_file_perms;
+
 # Access /data/misc/profiles/{cur,ref}/
 userdebug_or_eng(`
   allow dumpstate user_profile_data_file:dir r_dir_perms;
@@ -233,16 +237,8 @@ set_prop(dumpstate, exported_dumpstate_prop)
 # dumpstate_options_prop is used to pass extra command-line args.
 set_prop(dumpstate, dumpstate_options_prop)
 
-# Read device's serial number from system properties
-get_prop(dumpstate, serialno_prop)
-
-# Read state of logging-related properties
-get_prop(dumpstate, device_logging_prop)
-
-# Read state of boot reason properties
-get_prop(dumpstate, bootloader_boot_reason_prop)
-get_prop(dumpstate, last_boot_reason_prop)
-get_prop(dumpstate, system_boot_reason_prop)
+# Read any system properties
+get_prop(dumpstate, property_type)
 
 # Access to /data/media.
 # This should be removed if sdcardfs is modified to alter the secontext for its
@@ -270,6 +266,9 @@ allow dumpstate self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_re
 allow dumpstate self:netlink_socket create_socket_perms_no_ioctl;
 # newer kernels (e.g. 4.4) have a new class for sockets
 allow dumpstate self:netlink_generic_socket create_socket_perms_no_ioctl;
+
+# Allow dumpstate to kill vendor dumpstate service by init
+set_prop(dumpstate, ctl_dumpstate_prop)
 
 ###
 ### neverallow rules
