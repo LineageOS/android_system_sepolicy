@@ -141,7 +141,7 @@ neverallow netd { appdomain userdebug_or_eng(`-su') }:binder call;
 
 # persist.netd.stable_secret contains RFC 7217 secret key which should never be
 # leaked to other processes. Make sure it never leaks.
-neverallow { domain -netd -init } netd_stable_secret_prop:file r_file_perms;
+neverallow { domain -netd -init -dumpstate } netd_stable_secret_prop:file r_file_perms;
 
 # We want to ensure that no other process ever tries tampering with persist.netd.stable_secret,
 # the RFC 7217 secret key managed by netd. Doing so could compromise user privacy.

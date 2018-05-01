@@ -18,6 +18,7 @@
     crossprofileapps_service
     e2fs
     e2fs_exec
+    exfat
     exported_bluetooth_prop
     exported_config_prop
     exported_dalvik_prop
@@ -43,17 +44,20 @@
     exported3_system_prop
     fingerprint_vendor_data_file
     fs_bpf
+    hal_audiocontrol_hwservice
     hal_authsecret_hwservice
     hal_broadcastradio_hwservice
     hal_cas_hwservice
     hal_codec2_hwservice
     hal_confirmationui_hwservice
+    hal_evs_hwservice
     hal_lowpan_hwservice
     hal_neuralnetworks_hwservice
     hal_secure_element_hwservice
     hal_tetheroffload_hwservice
     hal_wifi_hostapd_hwservice
     hal_usb_gadget_hwservice
+    hal_vehicle_hwservice
     hal_wifi_offload_hwservice
     incident_helper
     incident_helper_exec
@@ -64,6 +68,8 @@
     lowpan_service
     mediaextractor_update_service
     mediaprovider_tmpfs
+    metadata_file
+    mnt_vendor_file
     netd_stable_secret_prop
     network_watchlist_data_file
     network_watchlist_service
@@ -86,6 +92,8 @@
     statsd
     statsd_exec
     statsd_tmpfs
+    statsdw
+    statsdw_socket
     statscompanion_service
     storaged_data_file
     sysfs_fs_ext4_features
@@ -105,6 +113,7 @@
     traceur_app_tmpfs
     traced
     traced_consumer_socket
+    traced_enabled_prop
     traced_exec
     traced_probes
     traced_probes_exec
@@ -114,6 +123,7 @@
     untrusted_app_all_devpts
     update_engine_log_data_file
     vendor_default_prop
+    vendor_security_patch_level_prop
     usbd
     usbd_exec
     usbd_tmpfs
