@@ -22,6 +22,9 @@ allow adbd self:global_capability_class_set { setuid setgid };
 # Drop capabilities from bounding set on user builds.
 allow adbd self:global_capability_class_set setpcap;
 
+# ignore spurious denials for adbd when disk space is low.
+dontaudit adbd self:global_capability_class_set sys_resource;
+
 # Create and use network sockets.
 net_domain(adbd)
 
