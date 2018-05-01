@@ -140,6 +140,7 @@ unix_socket_connect(priv_app, traced_producer, traced)
 # suppress denials for non-API accesses.
 dontaudit priv_app exec_type:file getattr;
 dontaudit priv_app device:dir read;
+dontaudit priv_app fs_bpf:dir search;
 dontaudit priv_app net_dns_prop:file read;
 dontaudit priv_app proc:file read;
 dontaudit priv_app proc_interrupts:file read;

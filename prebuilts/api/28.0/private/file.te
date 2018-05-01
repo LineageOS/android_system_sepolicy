@@ -4,6 +4,8 @@ type config_gz, fs_type, proc_type;
 # /data/misc/stats-data, /data/misc/stats-service
 type stats_data_file, file_type, data_file_type, core_data_file_type;
 
+type statsdw_socket, file_type, coredomain_socket, mlstrustedobject;
+
 # /data/misc/storaged
 type storaged_data_file, file_type, data_file_type, core_data_file_type;
 
