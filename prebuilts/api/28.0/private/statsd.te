@@ -1,4 +1,4 @@
-type statsd, domain;
+type statsd, domain, mlstrustedsubject;
 typeattribute statsd coredomain;
 
 init_daemon_domain(statsd)
@@ -73,6 +73,7 @@ binder_call(statsd, stats)
 
 # Allow access to with hardware layer and process stats.
 allow statsd proc_uid_cputime_showstat:file { getattr open read };
+hal_client_domain(statsd, hal_health)
 hal_client_domain(statsd, hal_power)
 hal_client_domain(statsd, hal_thermal)
 
@@ -80,6 +81,13 @@ hal_client_domain(statsd, hal_thermal)
 allow statsd adbd:fd use;
 allow statsd adbd:unix_stream_socket { getattr read write };
 allow statsd shell:fifo_file { getattr read };
+
+unix_socket_send(bluetooth, statsdw, statsd)
+unix_socket_send(bootstat, statsdw, statsd)
+unix_socket_send(platform_app, statsdw, statsd)
+unix_socket_send(radio, statsdw, statsd)
+unix_socket_send(statsd, statsdw, statsd)
+unix_socket_send(system_server, statsdw, statsd)
 
 ###
 ### neverallow rules

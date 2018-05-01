@@ -108,6 +108,7 @@ type mqueue, fs_type;
 type fuse, sdcard_type, fs_type, mlstrustedobject;
 type sdcardfs, sdcard_type, fs_type, mlstrustedobject;
 type vfat, sdcard_type, fs_type, mlstrustedobject;
+type exfat, sdcard_type, fs_type, mlstrustedobject;
 type debugfs, fs_type, debugfs_type;
 type debugfs_mmc, fs_type, debugfs_type;
 type debugfs_trace_marker, fs_type, debugfs_type, mlstrustedobject;
@@ -149,7 +150,9 @@ type vendor_framework_file, vendor_file_type, file_type;
 # Default type for everything in /vendor/overlay
 type vendor_overlay_file, vendor_file_type, file_type;
 
-# /metadata subdirectories
+# /metadata partition itself
+type metadata_file, file_type;
+# Vold files within /metadata
 type vold_metadata_file, file_type;
 
 # Speedup access for trusted applications to the runtime event tags
@@ -223,6 +226,9 @@ type storage_file, file_type;
 # Label for storage dirs which are just mount stubs
 type mnt_media_rw_stub_file, file_type;
 type storage_stub_file, file_type;
+
+# Mount location for read-write vendor partitions.
+type mnt_vendor_file, file_type;
 
 # /postinstall: Mount point used by update_engine to run postinstall.
 type postinstall_mnt_dir, file_type;

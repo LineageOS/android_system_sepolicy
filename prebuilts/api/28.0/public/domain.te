@@ -363,6 +363,14 @@ neverallow {
   -system_server
   -ueventd
 } hw_random_device:chr_file *;
+# b/78174219 b/64114943
+neverallow {
+  domain
+  -init
+  -shell # stat of /dev, getattr only
+  -vendor_init
+  -ueventd
+} keychord_device:chr_file *;
 
 # Ensure that all entrypoint executables are in exec_type or postinstall_file.
 neverallow * { file_type -exec_type -postinstall_file }:file entrypoint;
@@ -560,7 +568,7 @@ neverallow {
 } serialno_prop:file r_file_perms;
 
 # Do not allow reading the last boot timestamp from system properties
-neverallow { domain -init -system_server } firstboot_prop:file r_file_perms;
+neverallow { domain -init -system_server -dumpstate } firstboot_prop:file r_file_perms;
 
 neverallow {
   domain
@@ -600,6 +608,7 @@ neverallow {
   -init
   -uncrypt
   -update_engine
+  -vendor_init
   -vold
   -recovery
   -ueventd
@@ -834,13 +843,25 @@ full_treble_only(`
     -appdomain # TODO(b/34980020) remove exemption for appdomain
     -coredomain
     -data_between_core_and_vendor_violators # TODO(b/34980020) Remove once all violators have been cleaned up
+    -vendor_init
   } {
     core_data_file_type
     # libc includes functions like mktime and localtime which attempt to access
     # files in /data/misc/zoneinfo/tzdata file. These functions are considered
     # vndk-stable and thus must be allowed for all processes.
     -zoneinfo_data_file
-    }:file_class_set ~{ append getattr ioctl read write };
+  }:file_class_set ~{ append getattr ioctl read write };
+  neverallow {
+    vendor_init
+    -data_between_core_and_vendor_violators
+  } {
+    core_data_file_type
+    -unencrypted_data_file
+    -zoneinfo_data_file
+  }:file_class_set ~{ append getattr ioctl read write };
+  # vendor init needs to be able to read unencrypted_data_file to create directories with FBE.
+  # The vendor init binary lives on the system partition so there is not a concern with stability.
+  neverallow vendor_init unencrypted_data_file:file ~r_file_perms;
 ')
 full_treble_only(`
   # vendor domains may only access dirs in /data/vendor, never core_data_file_types
@@ -849,12 +870,26 @@ full_treble_only(`
     -appdomain # TODO(b/34980020) remove exemption for appdomain
     -coredomain
     -data_between_core_and_vendor_violators
-    } {
-      core_data_file_type
-      -system_data_file # default label for files on /data. Covered below...
-      -vendor_data_file
-      -zoneinfo_data_file
-    }:dir *;
+    -vendor_init
+  } {
+    core_data_file_type
+    -system_data_file # default label for files on /data. Covered below...
+    -vendor_data_file
+    -zoneinfo_data_file
+  }:dir *;
+  neverallow {
+    vendor_init
+    -data_between_core_and_vendor_violators
+  } {
+    core_data_file_type
+    -unencrypted_data_file
+    -system_data_file
+    -vendor_data_file
+    -zoneinfo_data_file
+  }:dir *;
+  # vendor init needs to be able to read unencrypted_data_file to create directories with FBE.
+  # The vendor init binary lives on the system partition so there is not a concern with stability.
+  neverallow vendor_init unencrypted_data_file:dir ~search;
 ')
 full_treble_only(`
   # vendor domains may only access dirs in /data/vendor, never core_data_file_types
@@ -1121,6 +1156,7 @@ neverallow {
   -system_app
   -init
   -installd # for relabelfrom and unlink, check for this in explicit neverallow
+  -vold_prepare_subdirs # For unlink
   with_asan(`-asan_extract')
 } system_data_file:file no_w_file_perms;
 # do not grant anything greater than r_file_perms and relabelfrom unlink
@@ -1355,3 +1391,9 @@ userdebug_or_eng(`
   dontaudit domain proc_type:file create;
   dontaudit domain sysfs_type:file create;
 ')
+
+# Platform must not have access to /mnt/vendor.
+neverallow {
+  coredomain
+  -init
+} mnt_vendor_file:dir *;

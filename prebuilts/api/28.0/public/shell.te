@@ -66,6 +66,9 @@ set_prop(shell, debug_prop)
 set_prop(shell, powerctl_prop)
 set_prop(shell, log_tag_prop)
 set_prop(shell, wifi_log_prop)
+# Allow shell to start/stop traced via the persist.traced.enable
+# property (which also takes care of /data/misc initialization).
+set_prop(shell, traced_enabled_prop)
 # adjust is_loggable properties
 userdebug_or_eng(`set_prop(shell, log_prop)')
 # logpersist script
@@ -80,6 +83,9 @@ userdebug_or_eng(`
 
 # Read device's serial number from system properties
 get_prop(shell, serialno_prop)
+
+# Allow shell to read the vendor security patch level for CTS
+get_prop(shell, vendor_security_patch_level_prop)
 
 # Read state of logging-related properties
 get_prop(shell, device_logging_prop)
