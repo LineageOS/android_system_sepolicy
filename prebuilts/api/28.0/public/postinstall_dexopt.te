@@ -5,7 +5,7 @@
 
 type postinstall_dexopt, domain;
 
-allow postinstall_dexopt self:global_capability_class_set { chown dac_override fowner setgid setuid };
+allow postinstall_dexopt self:global_capability_class_set { chown dac_override fowner fsetid setgid setuid };
 
 allow postinstall_dexopt postinstall_file:filesystem getattr;
 allow postinstall_dexopt postinstall_file:dir { getattr search };
@@ -26,6 +26,8 @@ r_dir_file(postinstall_dexopt, dalvikcache_data_file)
 # Read profile data.
 allow postinstall_dexopt user_profile_data_file:dir { getattr search };
 allow postinstall_dexopt user_profile_data_file:file r_file_perms;
+# Suppress deletion denial (we do not want to update the profile).
+dontaudit postinstall_dexopt user_profile_data_file:file { write };
 
 # Write to /data/ota(/*). Create symlinks in /data/ota(/*)
 allow postinstall_dexopt ota_data_file:dir create_dir_perms;
