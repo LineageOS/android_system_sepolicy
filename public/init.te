@@ -227,7 +227,7 @@ allow init debugfs_wifi_tracing:file w_file_perms;
 allow init {
   fs_type
   -contextmount_type
-  -proc
+  -proc_type
   -sdcard_type
   -sysfs_type
   -rootfs
@@ -310,6 +310,17 @@ allow init {
 allow init {
   proc_security
 }:file rw_file_perms;
+
+# init chmod/chown access to /proc files.
+allow init {
+  proc_cmdline
+  proc_kmsg
+  proc_net
+  proc_qtaguid_stat
+  proc_sysrq
+  proc_qtaguid_ctrl
+  proc_vmallocinfo
+}:file setattr;
 
 # init access to /sys files.
 allow init {
