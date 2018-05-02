@@ -94,6 +94,7 @@ allow dumpstate {
 
 # Other random bits of data we want to collect
 allow dumpstate debugfs:file r_file_perms;
+auditallow dumpstate debugfs:file r_file_perms;
 
 # df for
 allow dumpstate {
