@@ -562,7 +562,9 @@
 (typeattributeset runas_exec_26_0 (runas_exec))
 (typeattributeset runtime_event_log_tags_file_26_0 (runtime_event_log_tags_file))
 (typeattributeset safemode_prop_26_0 (safemode_prop))
-(typeattributeset same_process_hal_file_26_0 (same_process_hal_file))
+(typeattributeset same_process_hal_file_26_0
+  ( same_process_hal_file
+    vendor_public_lib_file))
 (typeattributeset samplingprofiler_service_26_0 (samplingprofiler_service))
 (typeattributeset scheduling_policy_service_26_0 (scheduling_policy_service))
 (typeattributeset sdcardd_26_0 (sdcardd))
