@@ -149,6 +149,9 @@ type vndk_sp_file, vendor_file_type, file_type;
 type vendor_framework_file, vendor_file_type, file_type;
 # Default type for everything in /vendor/overlay
 type vendor_overlay_file, vendor_file_type, file_type;
+# Type for all vendor public libraries. These libs should only be exposed to
+# apps. ABI stability of these libs is vendor's responsibility.
+type vendor_public_lib_file, vendor_file_type, file_type;
 
 # /metadata partition itself
 type metadata_file, file_type;
