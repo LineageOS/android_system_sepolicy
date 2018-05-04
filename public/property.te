@@ -51,6 +51,7 @@ type shell_prop, property_type, core_property_type;
 type system_boot_reason_prop, property_type;
 type system_prop, property_type, core_property_type;
 type system_radio_prop, property_type, core_property_type;
+type test_boot_reason_prop, property_type;
 type traced_enabled_prop, property_type;
 type vold_prop, property_type, core_property_type;
 type wifi_log_prop, property_type, log_property_type;
