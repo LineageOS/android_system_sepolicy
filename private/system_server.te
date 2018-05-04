@@ -772,8 +772,13 @@ allow system_server netd:bpf map_read;
 # Allow system_server to open profile snapshots for read.
 # System server never reads the actual content. It passes the descriptor to
 # to privileged apps which acquire the permissions to inspect the profiles.
-allow system_server user_profile_data_file:dir { search };
+allow system_server user_profile_data_file:dir { getattr search };
 allow system_server user_profile_data_file:file { getattr open read };
+
+# On userdebug build we may profile system server. Allow it to write and create its own profile.
+userdebug_or_eng(`
+  allow system_server user_profile_data_file:file create_file_perms;
+')
 
 userdebug_or_eng(`
   # Allow system server to notify mediaextractor of the plugin update.
