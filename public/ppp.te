@@ -5,7 +5,7 @@ type ppp_exec, exec_type, file_type;
 
 net_domain(ppp)
 
-r_dir_file(ppp, proc_net)
+r_dir_file(ppp, proc_net_type)
 
 allow ppp mtp:socket rw_socket_perms;
 

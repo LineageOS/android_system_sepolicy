@@ -118,7 +118,7 @@ hwbinder_use(shell)
 allow shell hwservicemanager:hwservice_manager list;
 
 # allow shell to look through /proc/ for lsmod, ps, top, netstat.
-r_dir_file(shell, proc_net)
+r_dir_file(shell, proc_net_type)
 
 allow shell {
   proc_asound

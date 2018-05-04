@@ -498,6 +498,7 @@
 (typeattributeset proc_modules_26_0 (proc_modules))
 (typeattributeset proc_net_26_0
   ( proc_net
+    proc_net_vpn
     proc_qtaguid_stat))
 (typeattributeset proc_overcommit_memory_26_0 (proc_overcommit_memory))
 (typeattributeset proc_perf_26_0 (proc_perf))
