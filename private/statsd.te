@@ -84,6 +84,7 @@ allow statsd shell:fifo_file { getattr read };
 
 unix_socket_send(bluetooth, statsdw, statsd)
 unix_socket_send(bootstat, statsdw, statsd)
+unix_socket_send(lmkd, statsdw, statsd)
 unix_socket_send(platform_app, statsdw, statsd)
 unix_socket_send(radio, statsdw, statsd)
 unix_socket_send(statsd, statsdw, statsd)
