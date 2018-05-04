@@ -9,7 +9,7 @@ allow tombstoned domain:fifo_file write;
 allow tombstoned domain:dir r_dir_perms;
 allow tombstoned domain:file r_file_perms;
 allow tombstoned tombstone_data_file:dir rw_dir_perms;
-allow tombstoned tombstone_data_file:file create_file_perms;
+allow tombstoned tombstone_data_file:file { create_file_perms link };
 
 # TODO: Remove append / write permissions. They were temporarily
 # granted due to a bug which appears to have been fixed.
@@ -19,4 +19,4 @@ auditallow tombstoned anr_data_file:file { append write };
 # Changes for the new stack dumping mechanism. Each trace goes into a
 # separate file, and these files are managed by tombstoned.
 allow tombstoned anr_data_file:dir rw_dir_perms;
-allow tombstoned anr_data_file:file { create getattr open unlink };
+allow tombstoned anr_data_file:file { create getattr open link unlink };
