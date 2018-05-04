@@ -94,6 +94,7 @@ userdebug_or_eng(`
   typeattribute su hal_vr_client;
   typeattribute su hal_weaver_client;
   typeattribute su hal_wifi_client;
+  typeattribute su hal_wifi_hostapd_client;
   typeattribute su hal_wifi_offload_client;
   typeattribute su hal_wifi_supplicant_client;
 ')

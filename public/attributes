@@ -276,6 +276,7 @@ hal_attribute(vibrator);
 hal_attribute(vr);
 hal_attribute(weaver);
 hal_attribute(wifi);
+hal_attribute(wifi_hostapd);
 hal_attribute(wifi_offload);
 hal_attribute(wifi_supplicant);
 
