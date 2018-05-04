@@ -38,6 +38,7 @@ attribute vendor_file_type;
 
 # All types used for procfs files.
 attribute proc_type;
+expandattribute proc_type false;
 
 # All types used for sysfs files.
 attribute sysfs_type;
