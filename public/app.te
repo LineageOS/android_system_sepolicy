@@ -222,6 +222,7 @@ binder_call(appdomain, ephemeral_app)
 # TODO(b/36375899): Replace this with hal_client_domain once mediacodec is properly attributized
 # as OMX HAL
 hwbinder_use({ appdomain  -isolated_app })
+allow { appdomain -isolated_app } hal_codec2_hwservice:hwservice_manager find;
 allow { appdomain -isolated_app } hal_omx_hwservice:hwservice_manager find;
 allow { appdomain -isolated_app } hidl_token_hwservice:hwservice_manager find;
 

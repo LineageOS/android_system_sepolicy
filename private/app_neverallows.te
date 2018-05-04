@@ -173,10 +173,12 @@ neverallow all_untrusted_apps *:hwservice_manager ~find;
 #   by surfaceflinger Binder service, which apps are permitted to access
 # - hal_omx_hwservice: because this is a HwBinder version of the mediacodec
 #   Binder service which apps were permitted to access.
+# - hal_codec2_hwservice: because this is a newer version of hal_omx_hwservice.
 neverallow all_untrusted_apps {
   hwservice_manager_type
   -same_process_hwservice
   -coredomain_hwservice
+  -hal_codec2_hwservice
   -hal_configstore_ISurfaceFlingerConfigs
   -hal_graphics_allocator_hwservice
   -hal_omx_hwservice
