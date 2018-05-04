@@ -62,6 +62,7 @@ dalvik.vm.zygote.max-boot-retry u:object_r:exported_dalvik_prop:s0 exact int
 drm.service.enabled u:object_r:exported3_default_prop:s0 exact bool
 keyguard.no_require_sim u:object_r:exported3_default_prop:s0 exact bool
 media.recorder.show_manufacturer_and_model u:object_r:exported3_default_prop:s0 exact bool
+media.stagefright.cache-params u:object_r:exported3_default_prop:s0 exact string
 persist.bluetooth.a2dp_offload.cap u:object_r:bluetooth_a2dp_offload_prop:s0 exact string
 persist.bluetooth.a2dp_offload.disabled u:object_r:bluetooth_a2dp_offload_prop:s0 exact bool
 persist.config.calibration_fac u:object_r:exported3_default_prop:s0 exact string
@@ -70,6 +71,8 @@ persist.dbg.vt_avail_ovr u:object_r:exported3_default_prop:s0 exact int
 persist.dbg.wfc_avail_ovr u:object_r:exported3_default_prop:s0 exact int
 persist.radio.multisim.config u:object_r:exported3_radio_prop:s0 exact string
 persist.sys.dalvik.vm.lib.2 u:object_r:exported2_system_prop:s0 exact string
+persist.sys.media.avsync u:object_r:exported2_system_prop:s0 exact bool
+persist.sys.hdmi.keep_awake u:object_r:exported2_system_prop:s0 exact bool
 persist.sys.sf.color_saturation u:object_r:exported2_system_prop:s0 exact string
 persist.sys.sf.native_mode u:object_r:exported2_system_prop:s0 exact int
 pm.dexopt.ab-ota u:object_r:exported_pm_prop:s0 exact string
@@ -96,10 +99,13 @@ ro.crypto.scrypt_params u:object_r:exported2_vold_prop:s0 exact string
 ro.dalvik.vm.native.bridge u:object_r:exported_dalvik_prop:s0 exact string
 ro.enable_boot_charger_mode u:object_r:exported3_default_prop:s0 exact bool
 ro.gfx.driver.0 u:object_r:exported3_default_prop:s0 exact string
+ro.hdmi.device_type u:object_r:exported3_default_prop:s0 exact string
+ro.hdmi.wake_on_hotplug u:object_r:exported3_default_prop:s0 exact bool
 ro.oem_unlock_supported u:object_r:exported3_default_prop:s0 exact int
 ro.opengles.version u:object_r:exported3_default_prop:s0 exact int
 ro.radio.noril u:object_r:exported3_default_prop:s0 exact string
 ro.retaildemo.video_path u:object_r:exported3_default_prop:s0 exact string
+ro.sf.disable_triple_buffer u:object_r:exported3_default_prop:s0 exact bool
 ro.sf.lcd_density u:object_r:exported3_default_prop:s0 exact int
 ro.storage_manager.enabled u:object_r:exported3_default_prop:s0 exact bool
 ro.telephony.call_ring.multiple u:object_r:exported3_default_prop:s0 exact bool
@@ -266,6 +272,7 @@ ro.kernel.qemu.gles u:object_r:exported_default_prop:s0 exact int
 ro.odm.build.date u:object_r:exported_default_prop:s0 exact string
 ro.odm.build.date.utc u:object_r:exported_default_prop:s0 exact int
 ro.odm.build.fingerprint u:object_r:exported_default_prop:s0 exact string
+ro.oem.key1 u:object_r:exported_default_prop:s0 exact string
 ro.product.board u:object_r:exported_default_prop:s0 exact string
 ro.product.cpu.abilist32 u:object_r:exported_default_prop:s0 exact string
 ro.product.cpu.abilist64 u:object_r:exported_default_prop:s0 exact string
