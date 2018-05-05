@@ -85,7 +85,7 @@ allow platform_app system_server:udp_socket {
         connect getattr read recvfrom sendto write getopt setopt };
 
 # allow platform apps to connect to the property service
-set_prop(platform_app, test_prop)
+set_prop(platform_app, test_boot_reason_prop)
 
 ###
 ### Neverallow rules
