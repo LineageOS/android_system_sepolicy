@@ -38,7 +38,7 @@ allow hal_telephony_server self:netlink_kobject_uevent_socket create_socket_perm
 # Access to wake locks
 wakelock_use(hal_telephony_server)
 
-r_dir_file(hal_telephony_server, proc_net)
+r_dir_file(hal_telephony_server, proc_net_type)
 r_dir_file(hal_telephony_server, sysfs_type)
 r_dir_file(hal_telephony_server, system_file)
 

@@ -178,30 +178,33 @@ userdebug_or_eng(`
   allow appdomain heapdump_data_file:file append;
 ')
 
-r_dir_file({ appdomain -ephemeral_app -isolated_app }, proc_net)
-# Write to /proc/net/xt_qtaguid/ctrl file.
-allow {
-    untrusted_app_25
-    untrusted_app_27
-    ephemeral_app
-    priv_app
-} proc_qtaguid_ctrl:file rw_file_perms;
-# read /proc/net/xt_qtguid/*stat* to per-app network data usage.
-# Exclude isolated app which may not use network sockets.
+# /proc/net access.
+# TODO(b/9496886) Audit access for removal.
+# proc_net access for the negated domains below is granted (or not) in their
+# individual .te files.
 r_dir_file({
-    untrusted_app_25
-    untrusted_app_27
-    ephemeral_app
-    priv_app
-}, proc_qtaguid_stat)
-# Everybody can read the xt_qtaguid resource tracking misc dev.
-# So allow all apps to read from /dev/xt_qtaguid.
-allow {
-    untrusted_app_25
-    untrusted_app_27
-    ephemeral_app
-    priv_app
-} qtaguid_device:chr_file r_file_perms;
+  appdomain
+  -ephemeral_app
+  -isolated_app
+  -platform_app
+  -priv_app
+  -shell
+  -system_app
+  -untrusted_app_all
+}, proc_net_type)
+# audit access for all these non-core app domains.
+userdebug_or_eng(`
+  auditallow {
+    appdomain
+    -ephemeral_app
+    -isolated_app
+    -platform_app
+    -priv_app
+    -shell
+    -system_app
+    -untrusted_app_all
+  } proc_net_type:{ dir file lnk_file } { getattr open read };
+')
 
 # Grant GPU access to all processes started by Zygote.
 # They need that to render the standard UI.
