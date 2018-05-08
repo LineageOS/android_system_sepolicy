@@ -133,6 +133,9 @@
     vold_prepare_subdirs
     vold_prepare_subdirs_exec
     vold_service
+    wait_for_keymaster
+    wait_for_keymaster_exec
+    wait_for_keymaster_tmpfs
     wpantund
     wpantund_exec
     wpantund_service
