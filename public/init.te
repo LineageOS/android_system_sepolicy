@@ -254,6 +254,7 @@ auditallow init {
   -dm_device
   -hwbinder_device
   -hw_random_device
+  -input_device
   -keychord_device
   -kmem_device
   -kmsg_device
@@ -453,6 +454,8 @@ allow init device:file create_file_perms;
 # keychord configuration
 allow init self:global_capability_class_set sys_tty_config;
 allow init keychord_device:chr_file rw_file_perms;
+allow init input_device:dir r_dir_perms;
+allow init input_device:chr_file rw_file_perms;
 
 # Access device mapper for setting up dm-verity
 allow init dm_device:chr_file rw_file_perms;
