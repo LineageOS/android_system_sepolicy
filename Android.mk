@@ -476,26 +476,6 @@ current_mapping.cil :=
 #################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := 27.0.cil
-LOCAL_SRC_FILES := private/compat/27.0/27.0.cil
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux/mapping
-
-include $(BUILD_PREBUILT)
-#################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := 26.0.cil
-LOCAL_SRC_FILES := private/compat/26.0/26.0.cil
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux/mapping
-
-include $(BUILD_PREBUILT)
-#################################
-include $(CLEAR_VARS)
-
 LOCAL_MODULE := plat_and_mapping_sepolicy.cil.sha256
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
