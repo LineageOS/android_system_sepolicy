@@ -22,7 +22,6 @@ cc_defaults {
     ],
     static_libs: ["libsepol"],
     stl: "none",
-    tags: ["optional"],
 }
 
 cc_binary_host {
@@ -55,6 +54,5 @@ cc_binary_host {
 cc_prebuilt_binary {
     name: "insertkeys.py",
     srcs: ["insertkeys.py"],
-    tags: ["optional"],
     host_supported: true,
 }
