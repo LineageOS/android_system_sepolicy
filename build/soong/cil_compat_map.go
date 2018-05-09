@@ -54,8 +54,34 @@ type cilCompatMap struct {
 	installSource android.OptionalPath
 }
 
+func expandSeSources(ctx android.ModuleContext, srcFiles []string) android.Paths {
+	expandedSrcFiles := make(android.Paths, 0, len(srcFiles))
+	for _, s := range srcFiles {
+		if m := android.SrcIsModule(s); m != "" {
+			module := ctx.GetDirectDepWithTag(m, android.SourceDepTag)
+			if module == nil {
+				// Error will have been handled by ExtractSourcesDeps
+				continue
+			}
+			if fg, ok := module.(*fileGroup); ok {
+				// Core compatibility mapping files are under system/sepolicy/private.
+				expandedSrcFiles = append(expandedSrcFiles, fg.SystemPrivateSrcs()...)
+				// Partner extensions to the compatibility mapping in must be located in
+				// BOARD_PLAT_PRIVATE_SEPOLICY_DIR
+				expandedSrcFiles = append(expandedSrcFiles, fg.SystemExtPrivateSrcs()...)
+			} else {
+				ctx.ModuleErrorf("srcs dependency %q is not an selinux filegroup", m)
+			}
+		} else {
+			p := android.PathForModuleSrc(ctx, s)
+			expandedSrcFiles = append(expandedSrcFiles, p)
+		}
+	}
+	return expandedSrcFiles
+}
+
 func (c *cilCompatMap) GenerateAndroidBuildActions(ctx android.ModuleContext) {
-	srcFiles := ctx.ExpandSources(c.properties.Srcs, nil)
+	srcFiles := expandSeSources(ctx, c.properties.Srcs)
 	for _, src := range srcFiles {
 		if src.Ext() != ".cil" {
 			ctx.PropertyErrorf("srcs", "%s has to be a .cil file.", src.String())
