@@ -249,6 +249,7 @@
 /system/bin/dnsmasq     u:object_r:dnsmasq_exec:s0
 /system/bin/healthd     u:object_r:healthd_exec:s0
 /system/bin/clatd	u:object_r:clatd_exec:s0
+/system/bin/llkd        u:object_r:llkd_exec:s0
 /system/bin/lmkd        u:object_r:lmkd_exec:s0
 /system/bin/usbd   u:object_r:usbd_exec:s0
 /system/bin/inputflinger u:object_r:inputflinger_exec:s0
