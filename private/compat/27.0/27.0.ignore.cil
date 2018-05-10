@@ -113,6 +113,9 @@
     vold_prepare_subdirs
     vold_prepare_subdirs_exec
     vold_service
+    wait_for_keymaster
+    wait_for_keymaster_exec
+    wait_for_keymaster_tmpfs
     wm_trace_data_file
     wpantund
     wpantund_exec
