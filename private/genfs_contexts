@@ -38,7 +38,7 @@ genfscon proc /sys/kernel/domainname u:object_r:proc_hostname:s0
 genfscon proc /sys/kernel/dmesg_restrict u:object_r:proc_security:s0
 genfscon proc /sys/kernel/hostname u:object_r:proc_hostname:s0
 genfscon proc /sys/kernel/hotplug u:object_r:usermodehelper:s0
-genfscon proc /sys/kernel/hung_task_timeout_secs u:object_r:proc_hung_task:s0
+genfscon proc /sys/kernel/hung_task_ u:object_r:proc_hung_task:s0
 genfscon proc /sys/kernel/kptr_restrict u:object_r:proc_security:s0
 genfscon proc /sys/kernel/modprobe u:object_r:usermodehelper:s0
 genfscon proc /sys/kernel/modules_disabled u:object_r:proc_security:s0
