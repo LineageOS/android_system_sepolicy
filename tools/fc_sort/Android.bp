@@ -18,7 +18,6 @@ cc_binary_host {
     name: "fc_sort",
     srcs: ["fc_sort.c"],
     stl: "none",
-    tags: ["optional"],
     cflags: [
         "-Wall",
         "-Werror",
