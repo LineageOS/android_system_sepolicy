@@ -207,6 +207,12 @@ attribute halserverdomain;
 attribute halclientdomain;
 expandattribute halclientdomain true;
 
+# Exempt for halserverdomain to access sockets. Only builds for automotive
+# device types are allowed to use this attribute (enforced by CTS).
+# Unlike phone, in a car many modules are external from Android perspective and
+# HALs should be able to communicate with those devices through sockets.
+attribute hal_automotive_socket_exemption;
+
 # TODO(b/72757373): Use hal_attribute macro once expandattribute value conflicts
 # can be resolve.
 attribute hal_audio;
