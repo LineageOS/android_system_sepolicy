@@ -395,7 +395,7 @@ allow system_server perfetto:fd use;
 
 # Allow dropbox to read /data/misc/perfprofd. Only the fd is sent over binder.
 userdebug_or_eng(`
-  allow system_server perfprofd_data_file:file read;
+  allow system_server perfprofd_data_file:file { getattr read };
   allow system_server perfprofd:fd use;
 ')
 
