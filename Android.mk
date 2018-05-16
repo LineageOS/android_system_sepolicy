@@ -195,9 +195,25 @@ LOCAL_MODULE_TAGS := optional
 # as build/target/product/embedded.mk.
 # This conditional inclusion closely mimics the conditional logic
 # inside init/init.cpp for loading SELinux policy from files.
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 
-# Use split SELinux policy
+# Include precompiled policy, unless told otherwise.
+ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+LOCAL_REQUIRED_MODULES += \
+    precompiled_sepolicy \
+    precompiled_sepolicy.plat_and_mapping.sha256 \
+
+endif # ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+
+ifneq ($(PRODUCT_SEPOLICY_SPLIT),true)
+# The following files are only allowed for non-Treble devices.
+LOCAL_REQUIRED_MODULES += \
+    sepolicy \
+    vendor_service_contexts \
+
+endif # ($(PRODUCT_SEPOLICY_SPLIT),true)
+
+# These build targets are not used on non-Treble devices. However, we build these to avoid
+# divergence between Treble and non-Treble devices.
 LOCAL_REQUIRED_MODULES += \
     $(platform_mapping_file) \
     $(addsuffix .cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
@@ -207,17 +223,6 @@ LOCAL_REQUIRED_MODULES += \
     plat_and_mapping_sepolicy.cil.sha256 \
     secilc \
     plat_sepolicy_vers.txt \
-
-# Include precompiled policy, unless told otherwise
-ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
-LOCAL_REQUIRED_MODULES += precompiled_sepolicy precompiled_sepolicy.plat_and_mapping.sha256
-endif
-else
-# The following files are only allowed for non-Treble devices.
-LOCAL_REQUIRED_MODULES += \
-    sepolicy \
-    vendor_service_contexts
-endif
 
 LOCAL_REQUIRED_MODULES += \
     build_sepolicy \
