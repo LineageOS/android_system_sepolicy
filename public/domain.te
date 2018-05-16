@@ -814,6 +814,7 @@ full_treble_only(`
     -appdomain # TODO(b/34980020) remove exemption for appdomain
     -data_between_core_and_vendor_violators
     -init
+    -vold_prepare_subdirs
   } {
     data_file_type
     -core_data_file_type
@@ -825,6 +826,7 @@ full_treble_only(`
     -appdomain # TODO(b/34980020) remove exemption for appdomain
     -data_between_core_and_vendor_violators
     -init
+    -vold_prepare_subdirs
     } {
       data_file_type
       -core_data_file_type
