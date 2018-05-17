@@ -267,6 +267,9 @@ allow dumpstate self:netlink_socket create_socket_perms_no_ioctl;
 # newer kernels (e.g. 4.4) have a new class for sockets
 allow dumpstate self:netlink_generic_socket create_socket_perms_no_ioctl;
 
+# Allow dumpstate to kill vendor dumpstate service by init
+set_prop(dumpstate, ctl_dumpstate_prop)
+
 ###
 ### neverallow rules
 ###
