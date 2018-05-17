@@ -6,6 +6,8 @@ typeattribute webview_zygote coredomain;
 # The webview_zygote needs to be able to transition domains.
 typeattribute webview_zygote mlstrustedsubject;
 
+# Allow access to temporary files, which is normally permitted through
+# a domain macro.
 tmpfs_domain(webview_zygote);
 
 # Allow reading/executing installed binaries to enable preloading the
