@@ -251,6 +251,7 @@ ro.hardware.hdmi_cec u:object_r:exported_default_prop:s0 exact string
 ro.hardware.hwcomposer u:object_r:exported_default_prop:s0 exact string
 ro.hardware.input u:object_r:exported_default_prop:s0 exact string
 ro.hardware.keystore u:object_r:exported_default_prop:s0 exact string
+ro.hardware.keystore_desede u:object_r:exported_default_prop:s0 exact string
 ro.hardware.lights u:object_r:exported_default_prop:s0 exact string
 ro.hardware.local_time u:object_r:exported_default_prop:s0 exact string
 ro.hardware.memtrack u:object_r:exported_default_prop:s0 exact string
