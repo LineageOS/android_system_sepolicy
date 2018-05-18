@@ -61,19 +61,11 @@ endif
 
 PLAT_PUBLIC_POLICY := $(LOCAL_PATH)/public
 ifneq ( ,$(BOARD_PLAT_PUBLIC_SEPOLICY_DIR))
-ifneq (1, $(words $(BOARD_PLAT_PUBLIC_SEPOLICY_DIR)))
-$(error BOARD_PLAT_PUBLIC_SEPOLICY_DIR must only contain one directory)
-else
 PLAT_PUBLIC_POLICY += $(BOARD_PLAT_PUBLIC_SEPOLICY_DIR)
-endif
 endif
 PLAT_PRIVATE_POLICY := $(LOCAL_PATH)/private
 ifneq ( ,$(BOARD_PLAT_PRIVATE_SEPOLICY_DIR))
-ifneq (1, $(words $(BOARD_PLAT_PRIVATE_SEPOLICY_DIR)))
-$(error BOARD_PLAT_PRIVATE_SEPOLICY_DIR must only contain one directory)
-else
 PLAT_PRIVATE_POLICY += $(BOARD_PLAT_PRIVATE_SEPOLICY_DIR)
-endif
 endif
 PLAT_VENDOR_POLICY := $(LOCAL_PATH)/vendor
 REQD_MASK_POLICY := $(LOCAL_PATH)/reqd_mask
@@ -195,9 +187,25 @@ LOCAL_MODULE_TAGS := optional
 # as build/target/product/embedded.mk.
 # This conditional inclusion closely mimics the conditional logic
 # inside init/init.cpp for loading SELinux policy from files.
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 
-# Use split SELinux policy
+# Include precompiled policy, unless told otherwise.
+ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+LOCAL_REQUIRED_MODULES += \
+    precompiled_sepolicy \
+    precompiled_sepolicy.plat_and_mapping.sha256 \
+
+endif # ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+
+ifneq ($(PRODUCT_SEPOLICY_SPLIT),true)
+# The following files are only allowed for non-Treble devices.
+LOCAL_REQUIRED_MODULES += \
+    sepolicy \
+    vendor_service_contexts \
+
+endif # ($(PRODUCT_SEPOLICY_SPLIT),true)
+
+# These build targets are not used on non-Treble devices. However, we build these to avoid
+# divergence between Treble and non-Treble devices.
 LOCAL_REQUIRED_MODULES += \
     $(platform_mapping_file) \
     $(addsuffix .cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
@@ -207,17 +215,6 @@ LOCAL_REQUIRED_MODULES += \
     plat_and_mapping_sepolicy.cil.sha256 \
     secilc \
     plat_sepolicy_vers.txt \
-
-# Include precompiled policy, unless told otherwise
-ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
-LOCAL_REQUIRED_MODULES += precompiled_sepolicy precompiled_sepolicy.plat_and_mapping.sha256
-endif
-else
-# The following files are only allowed for non-Treble devices.
-LOCAL_REQUIRED_MODULES += \
-    sepolicy \
-    vendor_service_contexts
-endif
 
 LOCAL_REQUIRED_MODULES += \
     build_sepolicy \

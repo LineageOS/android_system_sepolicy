@@ -466,7 +466,7 @@ neverallow {
 }:file no_x_file_perms;
 
 # The test files and executables MUST not be accessible to any domain
-neverallow domain nativetest_data_file:file_class_set no_w_file_perms;
+neverallow { domain userdebug_or_eng(`-kernel') } nativetest_data_file:file_class_set no_w_file_perms;
 neverallow domain nativetest_data_file:dir no_w_dir_perms;
 neverallow { domain userdebug_or_eng(`-shell') } nativetest_data_file:file no_x_file_perms;
 
