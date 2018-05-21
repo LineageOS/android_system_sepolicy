@@ -141,7 +141,6 @@ genfscon debugfs /tracing/trace_marker                u:object_r:debugfs_trace_m
 genfscon tracefs /trace_marker                        u:object_r:debugfs_trace_marker:s0
 genfscon debugfs /wakeup_sources                      u:object_r:debugfs_wakeup_sources:s0
 
-genfscon debugfs /tracing/events/sync/                               u:object_r:debugfs_tracing_debug:s0
 genfscon debugfs /tracing/events/workqueue/                          u:object_r:debugfs_tracing_debug:s0
 genfscon debugfs /tracing/events/regulator/                          u:object_r:debugfs_tracing_debug:s0
 genfscon debugfs /tracing/events/pagecache/                          u:object_r:debugfs_tracing_debug:s0
@@ -158,7 +157,6 @@ genfscon debugfs /tracing/events/ext4/ext4_sync_file_exit/           u:object_r:
 genfscon debugfs /tracing/events/block/block_rq_issue/               u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/block/block_rq_complete/            u:object_r:debugfs_tracing:s0
 
-genfscon tracefs /events/sync/                               u:object_r:debugfs_tracing_debug:s0
 genfscon tracefs /events/workqueue/                          u:object_r:debugfs_tracing_debug:s0
 genfscon tracefs /events/regulator/                          u:object_r:debugfs_tracing_debug:s0
 genfscon tracefs /events/pagecache/                          u:object_r:debugfs_tracing_debug:s0
@@ -200,6 +198,8 @@ genfscon tracefs /events/binder/binder_lock/                             u:objec
 genfscon tracefs /events/binder/binder_locked/                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/binder/binder_unlock/                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/lowmemorykiller/                                u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/sync/                                           u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/fence/                                          u:object_r:debugfs_tracing:s0
 
 genfscon debugfs /tracing/trace_clock                                            u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/buffer_size_kb                                         u:object_r:debugfs_tracing:s0
@@ -226,6 +226,8 @@ genfscon debugfs /tracing/events/binder/binder_lock/                            
 genfscon debugfs /tracing/events/binder/binder_locked/                           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/binder/binder_unlock/                           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/lowmemorykiller/                                u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/sync/                                           u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/fence/                                          u:object_r:debugfs_tracing:s0
 
 genfscon inotifyfs / u:object_r:inotify:s0
 genfscon vfat / u:object_r:vfat:s0
