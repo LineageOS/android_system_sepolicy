@@ -86,3 +86,6 @@ neverallow audioserver { file_type fs_type }:file execute_no_trans;
 # Lengthier explanation here:
 # https://android-developers.googleblog.com/2016/05/hardening-media-stack.html
 neverallow audioserver domain:{ tcp_socket udp_socket rawip_socket } *;
+
+# Allow using wake locks
+wakelock_use(audioserver)
