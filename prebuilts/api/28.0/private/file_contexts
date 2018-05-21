@@ -392,6 +392,7 @@
 
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
+/data/misc/apns(/.*)?           u:object_r:radio_data_file:s0
 /data/misc/audio(/.*)?          u:object_r:audio_data_file:s0
 /data/misc/audioserver(/.*)?    u:object_r:audioserver_data_file:s0
 /data/misc/audiohal(/.*)?       u:object_r:audiohal_data_file:s0
