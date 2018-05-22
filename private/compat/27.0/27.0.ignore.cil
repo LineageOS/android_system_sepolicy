@@ -14,6 +14,10 @@
     bpfloader_exec
     cgroup_bpf
     crossprofileapps_service
+    ctl_interface_restart_prop
+    ctl_interface_start_prop
+    ctl_interface_stop_prop
+    ctl_sigstop_prop
     exfat
     exported2_config_prop
     exported2_default_prop
