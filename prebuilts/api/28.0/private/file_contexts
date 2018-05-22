@@ -516,6 +516,12 @@
 /data/cache/backup(/.*)?	u:object_r:cache_private_backup_file:s0
 
 #############################
+# Metadata files
+#
+/metadata(/.*)?           u:object_r:metadata_file:s0
+/metadata/vold(/.*)?      u:object_r:vold_metadata_file:s0
+
+#############################
 # asec containers
 /mnt/asec(/.*)?             u:object_r:asec_apk_file:s0
 /mnt/asec/[^/]+/[^/]+\.zip  u:object_r:asec_public_file:s0
