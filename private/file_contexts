@@ -393,6 +393,7 @@
 
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
+/data/misc/apns(/.*)?           u:object_r:radio_data_file:s0
 /data/misc/audio(/.*)?          u:object_r:audio_data_file:s0
 /data/misc/audioserver(/.*)?    u:object_r:audioserver_data_file:s0
 /data/misc/audiohal(/.*)?       u:object_r:audiohal_data_file:s0
@@ -516,6 +517,12 @@
 /data/cache/backup_stage(/.*)?	u:object_r:cache_backup_file:s0
 # LocalTransport (backup) uses this subtree
 /data/cache/backup(/.*)?	u:object_r:cache_private_backup_file:s0
+
+#############################
+# Metadata files
+#
+/metadata(/.*)?           u:object_r:metadata_file:s0
+/metadata/vold(/.*)?      u:object_r:vold_metadata_file:s0
 
 #############################
 # asec containers
