@@ -26,3 +26,5 @@ neverallow { domain -netd -bpfloader } bpfloader_exec:file { execute execute_no_
 neverallow bpfloader domain:{ tcp_socket udp_socket rawip_socket } *;
 # only system_server, netd and bpfloader can read/write the bpf maps
 neverallow { domain -system_server -netd -bpfloader} netd:bpf { map_read map_write };
+
+dontaudit bpfloader self:capability sys_admin;
