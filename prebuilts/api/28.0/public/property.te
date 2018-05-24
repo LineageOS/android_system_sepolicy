@@ -214,7 +214,7 @@ compatible_property_only(`
     domain
     -coredomain
     -bluetooth
-    -hal_bluetooth
+    -hal_bluetooth_server
   } {
     bluetooth_prop
   }:property_service set;
@@ -223,7 +223,7 @@ compatible_property_only(`
     domain
     -coredomain
     -bluetooth
-    -hal_bluetooth
+    -hal_bluetooth_server
     -vendor_init
   } {
     exported_bluetooth_prop
@@ -232,7 +232,7 @@ compatible_property_only(`
   neverallow {
     domain
     -coredomain
-    -hal_wifi
+    -hal_wifi_server
     -wificond
   } {
     wifi_prop
@@ -241,7 +241,7 @@ compatible_property_only(`
   neverallow {
     domain
     -coredomain
-    -hal_wifi
+    -hal_wifi_server
     -wificond
     -vendor_init
   } {
@@ -293,7 +293,7 @@ compatible_property_only(`
     domain
     -coredomain
     -bluetooth
-    -hal_bluetooth
+    -hal_bluetooth_server
   } {
     bluetooth_prop
   }:file no_rw_file_perms;
@@ -301,7 +301,7 @@ compatible_property_only(`
   neverallow {
     domain
     -coredomain
-    -hal_wifi
+    -hal_wifi_server
     -wificond
   } {
     wifi_prop
