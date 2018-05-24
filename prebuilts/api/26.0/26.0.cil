@@ -102,7 +102,7 @@
 (typeattributeset ctl_bootanim_prop_26_0 (ctl_bootanim_prop))
 (typeattributeset ctl_bugreport_prop_26_0 (ctl_bugreport_prop))
 (typeattributeset ctl_console_prop_26_0 (ctl_console_prop))
-(typeattributeset ctl_default_prop_26_0 (ctl_default_prop))
+(typeattributeset ctl_default_prop_26_0 (ctl_default_prop ctl_restart_prop ctl_start_prop ctl_stop_prop))
 (typeattributeset ctl_dumpstate_prop_26_0 (ctl_dumpstate_prop))
 (typeattributeset ctl_fuse_prop_26_0 (ctl_fuse_prop))
 (typeattributeset ctl_mdnsd_prop_26_0 (ctl_mdnsd_prop))
