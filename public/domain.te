@@ -1077,7 +1077,7 @@ neverallow {
   -system_server
 
   # Processes that can't exec crash_dump
-  -mediacodec
+  -hal_omx_server
   -mediaextractor
 } tombstoned_crash_socket:unix_stream_socket connectto;
 

@@ -1,5 +1,7 @@
 ;; types removed from current policy
 (type qtaguid_proc)
+(type mediacodec)
+(type mediacodec_exec)
 (type reboot_data_file)
 (type rild)
 (type webview_zygote_socket)

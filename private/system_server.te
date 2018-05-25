@@ -105,7 +105,7 @@ allow system_server appdomain:process { getsched setsched };
 allow system_server audioserver:process { getsched setsched };
 allow system_server hal_audio:process { getsched setsched };
 allow system_server hal_bluetooth:process { getsched setsched };
-allow system_server mediacodec:process { getsched setsched };
+allow system_server hal_omx_server:process { getsched setsched };
 allow system_server cameraserver:process { getsched setsched };
 allow system_server hal_camera:process { getsched setsched };
 allow system_server mediaserver:process { getsched setsched };
@@ -114,9 +114,9 @@ allow system_server bootanim:process { getsched setsched };
 # Allow system_server to write to /proc/<pid>/timerslack_ns
 allow system_server appdomain:file w_file_perms;
 allow system_server audioserver:file w_file_perms;
-allow system_server mediacodec:file w_file_perms;
 allow system_server cameraserver:file w_file_perms;
 allow system_server hal_audio_server:file w_file_perms;
+allow system_server hal_omx_server:file w_file_perms;
 
 # Read /proc/pid data for all domains. This is used by ProcessCpuTracker
 # within system_server to keep track of memory and CPU usage for
@@ -201,9 +201,7 @@ hal_client_domain(system_server, hal_light)
 hal_client_domain(system_server, hal_memtrack)
 hal_client_domain(system_server, hal_neuralnetworks)
 hal_client_domain(system_server, hal_oemlock)
-allow system_server hal_codec2_hwservice:hwservice_manager find;
-allow system_server hal_omx_hwservice:hwservice_manager find;
-allow system_server hidl_token_hwservice:hwservice_manager find;
+hal_client_domain(system_server, hal_omx)
 hal_client_domain(system_server, hal_power)
 hal_client_domain(system_server, hal_sensors)
 hal_client_domain(system_server, hal_tetheroffload)
@@ -219,8 +217,6 @@ hal_client_domain(system_server, hal_wifi)
 hal_client_domain(system_server, hal_wifi_hostapd)
 hal_client_domain(system_server, hal_wifi_offload)
 hal_client_domain(system_server, hal_wifi_supplicant)
-
-binder_call(system_server, mediacodec)
 
 # Talk with graphics composer fences
 allow system_server hal_graphics_composer:fd use;
@@ -261,9 +257,9 @@ allow system_server {
   hal_bluetooth_server
   hal_camera_server
   hal_graphics_composer_server
+  hal_omx_server
   hal_sensors_server
   hal_vr_server
-  mediacodec # TODO(b/36375899): hal_omx_server
 }:process { signal };
 
 # Use sockets received over binder from various services.
