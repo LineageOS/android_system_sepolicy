@@ -342,6 +342,7 @@ type mtpd_socket, file_type, coredomain_socket;
 type netd_socket, file_type, coredomain_socket;
 type property_socket, file_type, coredomain_socket, mlstrustedobject;
 type racoon_socket, file_type, coredomain_socket;
+type recovery_socket, file_type, coredomain_socket;
 type rild_socket, file_type;
 type rild_debug_socket, file_type;
 type system_wpa_socket, file_type, data_file_type, core_data_file_type, coredomain_socket;
