@@ -352,7 +352,12 @@
 #############################
 # Product files
 #
-/(product|system/product)(/.*)?               u:object_r:system_file:s0
+/(product|system/product)(/.*)?                                 u:object_r:system_file:s0
+
+#############################
+# Product-Services files
+#
+/(product-services|system/product-services)(/.*)?               u:object_r:system_file:s0
 
 #############################
 # Data files
