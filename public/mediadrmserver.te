@@ -18,7 +18,9 @@ allow mediadrmserver processinfo_service:service_manager find;
 allow mediadrmserver surfaceflinger_service:service_manager find;
 allow mediadrmserver system_file:dir r_dir_perms;
 
-binder_call(mediadrmserver, mediacodec)
+# TODO(b/80317992): remove
+binder_call(mediadrmserver, hal_omx_server)
+
 ###
 ### neverallow rules
 ###

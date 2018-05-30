@@ -34,7 +34,6 @@ profman apk_data_file dir 77922323
 radio statsdw_socket sock_file 78456764
 statsd hal_health_default binder 77919007
 storaged storaged capability 77634061
-surfaceflinger mediacodec binder 77924251
 system_server crash_dump process 73128755
 system_server logd_socket sock_file 64734187
 system_server sdcardfs file 77856826
