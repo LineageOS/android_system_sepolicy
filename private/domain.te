@@ -121,3 +121,58 @@ full_treble_only(`
 # Disallow direct access by other processes.
 neverallow { domain -init -system_server } dropbox_data_file:dir *;
 neverallow { domain -init -system_server } dropbox_data_file:file ~{ getattr read };
+
+###
+# Services should respect app sandboxes
+neverallow {
+  domain
+  -appdomain
+  -installd # creation of sandbox
+} app_data_file:dir_file_class_set { create unlink };
+
+# Only the following processes should be directly accessing private app
+# directories.
+neverallow {
+  domain
+  -adbd
+  -appdomain
+  -dexoptanalyzer
+  -init
+  -installd
+  -mediaserver # b/80300620
+  userdebug_or_eng(`-perfprofd')
+  -profman
+  -runas
+  -system_server
+  -vold
+} app_data_file:dir *;
+
+# Only apps should be modifying app data. init and installd are exempted for
+# restorecon and package install/uninstall.
+neverallow {
+  domain
+  -appdomain
+  -init
+  -installd
+} app_data_file:dir ~r_dir_perms;
+
+neverallow {
+  domain
+  -appdomain
+  -installd
+  -mediaserver # b/80300620
+  userdebug_or_eng(`-perfprofd')
+  -vold # b/80418809
+} app_data_file:file_class_set open;
+
+neverallow {
+  domain
+  -appdomain
+  -installd # creation of sandbox
+} app_data_file:dir_file_class_set { create unlink };
+
+neverallow {
+  domain
+  -init
+  -installd
+} app_data_file:dir_file_class_set { relabelfrom relabelto };
