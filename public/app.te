@@ -219,12 +219,14 @@ binder_call(appdomain, appdomain)
 # Perform binder IPC to ephemeral apps.
 binder_call(appdomain, ephemeral_app)
 
-# TODO(b/36375899): Replace this with hal_client_domain once mediacodec is properly attributized
-# as OMX HAL
+# TODO(b/80317992): use hal_client_domain on individual domains or have tests
+#     that the required individual permissions are all granted
 hwbinder_use({ appdomain  -isolated_app })
 allow { appdomain -isolated_app } hal_codec2_hwservice:hwservice_manager find;
 allow { appdomain -isolated_app } hal_omx_hwservice:hwservice_manager find;
 allow { appdomain -isolated_app } hidl_token_hwservice:hwservice_manager find;
+get_prop({ appdomain -isolated_app }, hwservicemanager_prop);
+binder_call({ appdomain -isolated_app }, hal_omx_server)
 
 # Talk with graphics composer fences
 allow appdomain hal_graphics_composer:fd use;
@@ -306,12 +308,6 @@ allowxperm { appdomain -bluetooth } self:{ rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
 
 allow { appdomain -isolated_app } ion_device:chr_file r_file_perms;
-
-# TODO(b/36375899) replace with hal_client_domain for mediacodec (hal_omx)
-get_prop({ appdomain -isolated_app }, hwservicemanager_prop);
-
-# Allow app access to mediacodec (IOMX HAL)
-binder_call({ appdomain -isolated_app }, mediacodec)
 
 # Allow AAudio apps to use shared memory file descriptors from the HAL
 allow { appdomain -isolated_app } hal_audio:fd use;
