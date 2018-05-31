@@ -70,6 +70,11 @@ attribute core_property_type;
 # All properties used to configure log filtering.
 attribute log_property_type;
 
+# All properties that are not specific to device but are added from
+# outside of AOSP. (e.g. OEM-specific properties)
+# These properties are not accessible from device-specific domains
+attribute extended_core_property_type;
+
 # All service_manager types created by system_server
 attribute system_server_service;
 
