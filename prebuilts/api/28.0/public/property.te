@@ -160,6 +160,7 @@ compatible_property_only(`
     -vendor_init
   } {
     core_property_type
+    extended_core_property_type
     exported_config_prop
     exported_dalvik_prop
     exported_default_prop
@@ -256,6 +257,7 @@ compatible_property_only(`
     -vendor_init
   } {
     core_property_type
+    extended_core_property_type
     exported_dalvik_prop
     exported_ffs_prop
     exported_system_radio_prop
@@ -369,6 +371,7 @@ compatible_property_only(`
     -exported_system_radio_prop
     -exported_vold_prop
     -exported_wifi_prop
+    -extended_core_property_type
     -ffs_prop
     -fingerprint_prop
     -firstboot_prop
