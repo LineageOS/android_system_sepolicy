@@ -1077,7 +1077,7 @@ neverallow {
   -system_server
 
   # Processes that can't exec crash_dump
-  -mediacodec
+  -hal_omx_server
   -mediaextractor
 } tombstoned_crash_socket:unix_stream_socket connectto;
 
@@ -1181,20 +1181,6 @@ neverallow {
   ephemeral_app
   priv_app
 } system_app_data_file:dir_file_class_set { create unlink open };
-
-
-# Services should respect app sandboxes
-neverallow {
-  domain
-  -appdomain
-  -installd # creation of sandbox
-} app_data_file:dir_file_class_set { create unlink };
-
-neverallow {
-  domain
-  -init
-  -installd
-} app_data_file:dir_file_class_set { relabelfrom relabelto };
 
 #
 # Only these domains should transition to shell domain. This domain is

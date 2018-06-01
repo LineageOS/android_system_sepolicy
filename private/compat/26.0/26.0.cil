@@ -7,6 +7,8 @@
 (type asan_reboot_prop)
 (type log_device)
 (type mediacasserver_service)
+(type mediacodec)
+(type mediacodec_exec)
 (type qtaguid_proc)
 (type reboot_data_file)
 (type tracing_shell_writable)

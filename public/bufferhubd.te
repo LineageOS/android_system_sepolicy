@@ -13,8 +13,8 @@ allow bufferhubd gpu_device:chr_file rw_file_perms;
 # Access /dev/ion
 allow bufferhubd ion_device:chr_file r_file_perms;
 
-# Receive sync fence FDs from mediacodec. Note that mediacodec never directly
+# Receive sync fence FDs from hal_omx_server. Note that hal_omx_server never directly
 # connects to bufferhubd via PDX. Instead, a VR app acts as a bridge between
-# those two: it talks to mediacodec via Binder and talks to bufferhubd via PDX.
+# those two: it talks to hal_omx_server via Binder and talks to bufferhubd via PDX.
 # Thus, there is no need to use pdx_client macro.
-allow bufferhubd mediacodec:fd use;
+allow bufferhubd hal_omx_server:fd use;

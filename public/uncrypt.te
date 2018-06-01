@@ -4,9 +4,6 @@ type uncrypt_exec, exec_type, file_type;
 
 allow uncrypt self:global_capability_class_set dac_override;
 
-# Read OTA zip file from /data/data/com.google.android.gsf/app_download
-r_dir_file(uncrypt, app_data_file)
-
 userdebug_or_eng(`
   # For debugging, allow /data/local/tmp access
   r_dir_file(uncrypt, shell_data_file)

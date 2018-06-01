@@ -4,9 +4,6 @@ type mediaserver_exec, exec_type, file_type;
 
 typeattribute mediaserver mlstrustedsubject;
 
-# TODO(b/36375899): replace with hal_client_domain macro on hal_omx
-typeattribute mediaserver halclientdomain;
-
 net_domain(mediaserver)
 
 r_dir_file(mediaserver, sdcard_type)
@@ -30,7 +27,10 @@ binder_service(mediaserver)
 
 allow mediaserver media_data_file:dir create_dir_perms;
 allow mediaserver media_data_file:file create_file_perms;
+# TODO(b/80190017, b/80300620): remove direct access to private app data
+userdebug_or_eng(`auditallow mediaserver app_data_file:dir search;')
 allow mediaserver app_data_file:dir search;
+userdebug_or_eng(`auditallow mediaserver app_data_file:file open;')
 allow mediaserver app_data_file:file rw_file_perms;
 allow mediaserver sdcard_type:file write;
 allow mediaserver gpu_device:chr_file rw_file_perms;
@@ -131,8 +131,6 @@ allow mediaserver hal_camera:fd use;
 allow mediaserver system_server:fd use;
 
 hal_client_domain(mediaserver, hal_allocator)
-
-binder_call(mediaserver, mediacodec)
 
 ###
 ### neverallow rules
