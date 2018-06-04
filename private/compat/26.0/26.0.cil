@@ -5,6 +5,7 @@
 
 ;; types removed from current policy
 (type asan_reboot_prop)
+(type commontime_management_service)
 (type log_device)
 (type mediacasserver_service)
 (type mediacodec)
