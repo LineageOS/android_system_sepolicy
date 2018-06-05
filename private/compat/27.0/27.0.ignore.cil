@@ -3,7 +3,8 @@
 ;;   previous ones.  Add here to pass checkapi tests.
 (typeattribute new_objects)
 (typeattributeset new_objects
-  ( adb_service
+  ( activity_task_service
+    adb_service
     atrace
     binder_calls_stats_service
     blank_screen
