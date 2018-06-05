@@ -225,6 +225,7 @@ rcs.publish.status u:object_r:exported_radio_prop:s0 exact string
 ro.board.platform u:object_r:exported_default_prop:s0 exact string
 ro.boot.fake_battery u:object_r:exported_default_prop:s0 exact int
 ro.boot.hardware.revision u:object_r:exported_default_prop:s0 exact string
+ro.boot.product.hardware.sku u:object_r:exported_default_prop:s0 exact string
 ro.boot.slot_suffix u:object_r:exported_default_prop:s0 exact string
 ro.carrier u:object_r:exported_default_prop:s0 exact string
 ro.config.low_ram u:object_r:exported_config_prop:s0 exact bool
@@ -271,7 +272,8 @@ ro.hardware.vibrator u:object_r:exported_default_prop:s0 exact string
 ro.hardware.virtual_device u:object_r:exported_default_prop:s0 exact string
 ro.hardware.vulkan u:object_r:exported_default_prop:s0 exact string
 ro.kernel.qemu u:object_r:exported_default_prop:s0 exact int
-ro.kernel.qemu.gles u:object_r:exported_default_prop:s0 exact int
+ro.kernel.qemu. u:object_r:exported_default_prop:s0
+ro.kernel.android.bootanim u:object_r:exported_default_prop:s0 exact int
 ro.odm.build.date u:object_r:exported_default_prop:s0 exact string
 ro.odm.build.date.utc u:object_r:exported_default_prop:s0 exact int
 ro.odm.build.fingerprint u:object_r:exported_default_prop:s0 exact string
