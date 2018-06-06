@@ -599,13 +599,15 @@ define(`add_hwservice', `
 ')
 
 ###########################################
-# hal_attribute_hwservice_client(attribute, service)
+# hal_attribute_hwservice(attribute, service)
 # Ability for domain to get a service to hwservice_manager
 # and find it. It also creates a neverallow preventing
 # others from adding it.
 #
 # Used to pair hal_foo_client with hal_foo_hwservice
-define(`hal_attribute_hwservice_client', `
+define(`hal_attribute_hwservice', `
   allow $1_client $2:hwservice_manager find;
   neverallow { domain -$1_client -$1_server } $2:hwservice_manager find;
+
+  add_hwservice($1_server, $2)
 ')
