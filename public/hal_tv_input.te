@@ -2,4 +2,4 @@
 binder_call(hal_tv_input_client, hal_tv_input_server)
 binder_call(hal_tv_input_server, hal_tv_input_client)
 
-hal_attribute_hwservice_client(hal_tv_input, hal_tv_input_hwservice)
+hal_attribute_hwservice(hal_tv_input, hal_tv_input_hwservice)

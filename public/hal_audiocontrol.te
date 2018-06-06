@@ -2,4 +2,4 @@
 binder_call(hal_audiocontrol_client, hal_audiocontrol_server)
 binder_call(hal_audiocontrol_server, hal_audiocontrol_client)
 
-hal_attribute_hwservice_client(hal_audiocontrol, hal_audiocontrol_hwservice)
+hal_attribute_hwservice(hal_audiocontrol, hal_audiocontrol_hwservice)

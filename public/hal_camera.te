@@ -2,7 +2,7 @@
 binder_call(hal_camera_client, hal_camera_server)
 binder_call(hal_camera_server, hal_camera_client)
 
-hal_attribute_hwservice_client(hal_camera, hal_camera_hwservice)
+hal_attribute_hwservice(hal_camera, hal_camera_hwservice)
 
 allow hal_camera device:dir r_dir_perms;
 allow hal_camera video_device:dir r_dir_perms;

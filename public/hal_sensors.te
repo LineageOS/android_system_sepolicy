@@ -1,7 +1,7 @@
 # HwBinder IPC from client to server
 binder_call(hal_sensors_client, hal_sensors_server)
 
-hal_attribute_hwservice_client(hal_sensors, hal_sensors_hwservice)
+hal_attribute_hwservice(hal_sensors, hal_sensors_hwservice)
 
 # Allow sensor hals to access ashmem memory allocated by apps
 allow hal_sensors { appdomain -isolated_app }:fd use;

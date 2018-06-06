@@ -25,8 +25,8 @@ crash_dump_fallback(hal_omx_server)
 # via PDX. Thus, there is no need to use pdx_client macro.
 allow hal_omx_server bufferhubd:fd use;
 
-hal_attribute_hwservice_client(hal_omx, hal_omx_hwservice)
-hal_attribute_hwservice_client(hal_omx, hal_codec2_hwservice)
+hal_attribute_hwservice(hal_omx, hal_omx_hwservice)
+hal_attribute_hwservice(hal_omx, hal_codec2_hwservice)
 
 allow hal_omx_client hidl_token_hwservice:hwservice_manager find;
 
