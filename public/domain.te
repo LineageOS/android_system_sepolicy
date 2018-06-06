@@ -181,7 +181,7 @@ allow domain vndk_sp_file:file { execute read open getattr map };
 
 # All domains get access to /vendor/etc
 allow domain vendor_configs_file:dir r_dir_perms;
-allow domain vendor_configs_file:file { read open getattr };
+allow domain vendor_configs_file:file { read open getattr map };
 
 full_treble_only(`
     # Allow all domains to be able to follow /system/vendor and/or
