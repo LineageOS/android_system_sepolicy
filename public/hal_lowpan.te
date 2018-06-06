@@ -2,7 +2,6 @@
 binder_call(hal_lowpan_client, hal_lowpan_server)
 binder_call(hal_lowpan_server, hal_lowpan_client)
 
-add_hwservice(hal_lowpan_server, hal_lowpan_hwservice)
 
 # Allow hal_lowpan_client to be able to find the hal_lowpan_server
 hal_attribute_hwservice_client(hal_lowpan, hal_lowpan_hwservice)

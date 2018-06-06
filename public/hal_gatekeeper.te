@@ -1,6 +1,5 @@
 binder_call(hal_gatekeeper_client, hal_gatekeeper_server)
 
-add_hwservice(hal_gatekeeper_server, hal_gatekeeper_hwservice)
 hal_attribute_hwservice_client(hal_gatekeeper, hal_gatekeeper_hwservice)
 
 # TEE access.

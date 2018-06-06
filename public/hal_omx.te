@@ -1,8 +1,6 @@
 # applies all permissions to hal_omx NOT hal_omx_server
 # since OMX must always be in its own process.
 
-add_hwservice(hal_omx_server, hal_codec2_hwservice)
-add_hwservice(hal_omx_server, hal_omx_hwservice)
 
 # can route /dev/binder traffic to /dev/vndbinder
 vndbinder_use(hal_omx_server)

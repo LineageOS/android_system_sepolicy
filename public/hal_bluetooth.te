@@ -2,7 +2,6 @@
 binder_call(hal_bluetooth_client, hal_bluetooth_server)
 binder_call(hal_bluetooth_server, hal_bluetooth_client)
 
-add_hwservice(hal_bluetooth_server, hal_bluetooth_hwservice)
 hal_attribute_hwservice_client(hal_bluetooth, hal_bluetooth_hwservice)
 
 wakelock_use(hal_bluetooth);
