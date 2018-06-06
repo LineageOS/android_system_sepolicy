@@ -5,10 +5,6 @@ type storaged_exec, exec_type, file_type;
 init_daemon_domain(storaged)
 
 # Read access to pseudo filesystems
-r_dir_file(storaged, proc_net_type)
-userdebug_or_eng(`
-  auditallow storaged proc_net_type:{ dir file lnk_file } { getattr open read };
-')
 r_dir_file(storaged, domain)
 
 # Read /proc/uid_io/stats
