@@ -173,6 +173,12 @@ expandattribute data_between_core_and_vendor_violators false;
 attribute system_executes_vendor_violators;
 expandattribute system_executes_vendor_violators false;
 
+# All system domains which violate the requirement of not writing vendor
+# properties.
+# TODO(b/78598545): Remove this once there are no violations
+attribute system_writes_vendor_properties_violators;
+expandattribute system_writes_vendor_properties_violators false;
+
 # hwservices that are accessible from untrusted applications
 # WARNING: Use of this attribute should be avoided unless
 # absolutely necessary.  It is a temporary allowance to aid the
