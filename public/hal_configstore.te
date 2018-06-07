@@ -1,12 +1,7 @@
 # HwBinder IPC from client to server
 binder_call(hal_configstore_client, hal_configstore_server)
 
-allow hal_configstore_client hal_configstore_ISurfaceFlingerConfigs:hwservice_manager find;
-
-add_hwservice(hal_configstore_server, hal_configstore_ISurfaceFlingerConfigs)
-# As opposed to the rules of most other HALs, the different services exposed by
-# this HAL should be restricted to different clients. Thus, the allow rules for
-# clients are defined in the .te files of the clients.
+hal_attribute_hwservice(hal_configstore, hal_configstore_ISurfaceFlingerConfigs)
 
 # hal_configstore runs with a strict seccomp filter. Use crash_dump's
 # fallback path to collect crash data.
