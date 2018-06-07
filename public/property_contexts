@@ -112,7 +112,7 @@ ro.sf.lcd_density u:object_r:exported3_default_prop:s0 exact int
 ro.storage_manager.enabled u:object_r:exported3_default_prop:s0 exact bool
 ro.telephony.call_ring.multiple u:object_r:exported3_default_prop:s0 exact bool
 ro.telephony.default_cdma_sub u:object_r:exported3_default_prop:s0 exact int
-ro.telephony.default_network u:object_r:exported3_default_prop:s0 exact int
+ro.telephony.default_network u:object_r:exported3_default_prop:s0 exact string
 ro.url.legal u:object_r:exported3_default_prop:s0 exact string
 ro.url.legal.android_privacy u:object_r:exported3_default_prop:s0 exact string
 ro.vendor.build.security_patch u:object_r:vendor_security_patch_level_prop:s0 exact string
