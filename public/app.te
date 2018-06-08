@@ -87,7 +87,7 @@ allow appdomain oemfs:file rx_file_perms;
 # Execute the shell or other system executables.
 allow { appdomain -ephemeral_app -untrusted_v2_app } shell_exec:file rx_file_perms;
 allow { appdomain -ephemeral_app -untrusted_v2_app } toolbox_exec:file rx_file_perms;
-allow { appdomain -ephemeral_app -untrusted_v2_app } system_file:file x_file_perms;
+allow { appdomain -untrusted_v2_app } system_file:file x_file_perms;
 not_full_treble(`allow { appdomain -ephemeral_app -untrusted_v2_app } vendor_file:file x_file_perms;')
 
 # Renderscript needs the ability to read directories on /system
@@ -218,15 +218,6 @@ binder_call(appdomain, binderservicedomain)
 binder_call(appdomain, appdomain)
 # Perform binder IPC to ephemeral apps.
 binder_call(appdomain, ephemeral_app)
-
-# TODO(b/80317992): use hal_client_domain on individual domains or have tests
-#     that the required individual permissions are all granted
-hwbinder_use({ appdomain  -isolated_app })
-allow { appdomain -isolated_app } hal_codec2_hwservice:hwservice_manager find;
-allow { appdomain -isolated_app } hal_omx_hwservice:hwservice_manager find;
-allow { appdomain -isolated_app } hidl_token_hwservice:hwservice_manager find;
-get_prop({ appdomain -isolated_app }, hwservicemanager_prop);
-binder_call({ appdomain -isolated_app }, hal_omx_server)
 
 # Talk with graphics composer fences
 allow appdomain hal_graphics_composer:fd use;

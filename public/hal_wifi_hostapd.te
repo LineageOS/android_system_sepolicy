@@ -2,8 +2,7 @@
 binder_call(hal_wifi_hostapd_client, hal_wifi_hostapd_server)
 binder_call(hal_wifi_hostapd_server, hal_wifi_hostapd_client)
 
-add_hwservice(hal_wifi_hostapd_server, hal_wifi_hostapd_hwservice)
-allow hal_wifi_hostapd_client hal_wifi_hostapd_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_wifi_hostapd, hal_wifi_hostapd_hwservice)
 
 allow hal_wifi_hostapd_server self:global_capability_class_set { net_admin net_raw };
 

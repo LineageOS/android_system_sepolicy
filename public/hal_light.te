@@ -2,8 +2,7 @@
 binder_call(hal_light_client, hal_light_server)
 binder_call(hal_light_server, hal_light_client)
 
-add_hwservice(hal_light_server, hal_light_hwservice)
-allow hal_light_client hal_light_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_light, hal_light_hwservice)
 
 allow hal_light sysfs_leds:lnk_file read;
 allow hal_light sysfs_leds:file rw_file_perms;

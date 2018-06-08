@@ -213,9 +213,14 @@ expandattribute hal_$1_client true;
 attribute hal_$1_server;
 expandattribute hal_$1_server false;
 
-neverallow { hal_$1_server -hal_$1 } domain:process fork;
 neverallow { hal_$1_server -halserverdomain } domain:process fork;
+# hal_*_client and halclientdomain attributes are always expanded for
+# performance reasons. Neverallow rules targeting expanded attributes can not be
+# verified by CTS since these attributes are already expanded by that time.
+build_test_only(`
+neverallow { hal_$1_server -hal_$1 } domain:process fork;
 neverallow { hal_$1_client -halclientdomain } domain:process fork;
+')
 ')
 
 #####################################
@@ -492,6 +497,12 @@ define(`userdebug_or_eng', ifelse(target_build_variant, `eng', $1, ifelse(target
 #
 define(`with_asan', ifelse(target_with_asan, `true', userdebug_or_eng(`$1'), ))
 
+#####################################
+# Build-time-only test
+# SELinux rules which are verified during build, but not as part of *TS testing.
+#
+define(`build_test_only', ifelse(target_exclude_build_test, `true', , $1))
+
 ####################################
 # Fallback crash handling for processes that can't exec crash_dump (e.g. because of seccomp).
 #
@@ -596,4 +607,20 @@ define(`add_hwservice', `
   allow $1 $2:hwservice_manager { add find };
   allow $1 hidl_base_hwservice:hwservice_manager add;
   neverallow { domain -$1 } $2:hwservice_manager add;
+')
+
+###########################################
+# hal_attribute_hwservice(attribute, service)
+# Ability for domain to get a service to hwservice_manager
+# and find it. It also creates a neverallow preventing
+# others from adding it.
+#
+# Used to pair hal_foo_client with hal_foo_hwservice
+define(`hal_attribute_hwservice', `
+  allow $1_client $2:hwservice_manager find;
+  add_hwservice($1_server, $2)
+
+  build_test_only(`
+    neverallow { domain -$1_client -$1_server } $2:hwservice_manager find;
+  ')
 ')

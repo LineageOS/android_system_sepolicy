@@ -2,8 +2,7 @@
 binder_call(hal_audio_client, hal_audio_server)
 binder_call(hal_audio_server, hal_audio_client)
 
-add_hwservice(hal_audio_server, hal_audio_hwservice)
-allow hal_audio_client hal_audio_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_audio, hal_audio_hwservice)
 
 allow hal_audio ion_device:chr_file r_file_perms;
 

@@ -2,8 +2,7 @@
 binder_call(hal_wifi_supplicant_client, hal_wifi_supplicant_server)
 binder_call(hal_wifi_supplicant_server, hal_wifi_supplicant_client)
 
-add_hwservice(hal_wifi_supplicant_server, hal_wifi_supplicant_hwservice)
-allow hal_wifi_supplicant_client hal_wifi_supplicant_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_wifi_supplicant, hal_wifi_supplicant_hwservice)
 
 # in addition to ioctls whitelisted for all domains, grant hal_wifi_supplicant priv_sock_ioctls.
 allowxperm hal_wifi_supplicant self:udp_socket ioctl priv_sock_ioctls;

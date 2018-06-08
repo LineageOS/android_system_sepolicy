@@ -2,8 +2,7 @@
 binder_call(hal_usb_gadget_client, hal_usb_gadget_server)
 binder_call(hal_usb_gadget_server, hal_usb_gadget_client)
 
-add_hwservice(hal_usb_gadget_server, hal_usb_gadget_hwservice)
-allow hal_usb_gadget_client hal_usb_gadget_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_usb_gadget, hal_usb_gadget_hwservice)
 
 # Configuring usb gadget functions
 allow hal_usb_gadget_server configfs:lnk_file { read create unlink};

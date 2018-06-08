@@ -1,8 +1,7 @@
 # HwBinder IPC from client to server
 binder_call(hal_graphics_allocator_client, hal_graphics_allocator_server)
 
-add_hwservice(hal_graphics_allocator_server, hal_graphics_allocator_hwservice)
-allow hal_graphics_allocator_client hal_graphics_allocator_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_graphics_allocator, hal_graphics_allocator_hwservice)
 allow hal_graphics_allocator_client hal_graphics_mapper_hwservice:hwservice_manager find;
 
 # GPU device access

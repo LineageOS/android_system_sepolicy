@@ -2,5 +2,4 @@
 binder_call(hal_thermal_client, hal_thermal_server)
 binder_call(hal_thermal_server, hal_thermal_client)
 
-add_hwservice(hal_thermal_server, hal_thermal_hwservice)
-allow hal_thermal_client hal_thermal_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_thermal, hal_thermal_hwservice)

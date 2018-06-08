@@ -1,7 +1,6 @@
 binder_call(hal_gatekeeper_client, hal_gatekeeper_server)
 
-add_hwservice(hal_gatekeeper_server, hal_gatekeeper_hwservice)
-allow hal_gatekeeper_client hal_gatekeeper_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_gatekeeper, hal_gatekeeper_hwservice)
 
 # TEE access.
 allow hal_gatekeeper tee_device:chr_file rw_file_perms;

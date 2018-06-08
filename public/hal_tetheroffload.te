@@ -2,7 +2,7 @@
 binder_call(hal_tetheroffload_client, hal_tetheroffload_server)
 binder_call(hal_tetheroffload_server, hal_tetheroffload_client)
 
-allow hal_tetheroffload_client hal_tetheroffload_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_tetheroffload, hal_tetheroffload_hwservice)
 
 # allow the client to pass the server already open netlink sockets
 allow hal_tetheroffload_server hal_tetheroffload_client:netlink_netfilter_socket { getattr read setopt write };

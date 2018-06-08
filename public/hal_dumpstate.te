@@ -2,8 +2,7 @@
 binder_call(hal_dumpstate_client, hal_dumpstate_server)
 binder_call(hal_dumpstate_server, hal_dumpstate_client)
 
-add_hwservice(hal_dumpstate_server, hal_dumpstate_hwservice)
-allow hal_dumpstate_client hal_dumpstate_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_dumpstate, hal_dumpstate_hwservice)
 
 # write bug reports in /data/data/com.android.shell/files/bugreports/bugreport
 allow hal_dumpstate shell_data_file:file write;

@@ -2,8 +2,7 @@
 binder_call(hal_wifi_offload_client, hal_wifi_offload_server)
 binder_call(hal_wifi_offload_server, hal_wifi_offload_client)
 
-add_hwservice(hal_wifi_offload_server, hal_wifi_offload_hwservice)
-allow hal_wifi_offload_client hal_wifi_offload_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_wifi_offload, hal_wifi_offload_hwservice)
 
 r_dir_file(hal_wifi_offload, proc_net_type)
 r_dir_file(hal_wifi_offload, sysfs_type)

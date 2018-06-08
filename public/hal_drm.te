@@ -2,8 +2,7 @@
 binder_call(hal_drm_client, hal_drm_server)
 binder_call(hal_drm_server, hal_drm_client)
 
-add_hwservice(hal_drm_server, hal_drm_hwservice)
-allow hal_drm_client hal_drm_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_drm, hal_drm_hwservice)
 
 allow hal_drm hidl_memory_hwservice:hwservice_manager find;
 

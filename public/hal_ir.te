@@ -2,5 +2,4 @@
 binder_call(hal_ir_client, hal_ir_server)
 binder_call(hal_ir_server, hal_ir_client)
 
-add_hwservice(hal_ir_server, hal_ir_hwservice)
-allow hal_ir_client hal_ir_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_ir, hal_ir_hwservice)

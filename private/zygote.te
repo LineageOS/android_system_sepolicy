@@ -92,12 +92,6 @@ allow zygote storage_file:dir { search mounton };
 # Handle --invoke-with command when launching Zygote with a wrapper command.
 allow zygote zygote_exec:file rx_file_perms;
 
-# Read access to pseudo filesystems.
-r_dir_file(zygote, proc_net_type)
-userdebug_or_eng(`
-  auditallow zygote proc_net_type:{ dir file lnk_file } { getattr open read };
-')
-
 # Root fs.
 r_dir_file(zygote, rootfs)
 

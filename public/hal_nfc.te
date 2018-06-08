@@ -2,8 +2,7 @@
 binder_call(hal_nfc_client, hal_nfc_server)
 binder_call(hal_nfc_server, hal_nfc_client)
 
-add_hwservice(hal_nfc_server, hal_nfc_hwservice)
-allow hal_nfc_client hal_nfc_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_nfc, hal_nfc_hwservice)
 
 # Set NFC properties (used by bcm2079x HAL).
 set_prop(hal_nfc, nfc_prop)

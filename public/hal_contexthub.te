@@ -2,5 +2,4 @@
 binder_call(hal_contexthub_client, hal_contexthub_server)
 binder_call(hal_contexthub_server, hal_contexthub_client)
 
-add_hwservice(hal_contexthub_server, hal_contexthub_hwservice)
-allow hal_contexthub_client hal_contexthub_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_contexthub, hal_contexthub_hwservice)

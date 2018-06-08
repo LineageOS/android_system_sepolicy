@@ -2,5 +2,4 @@
 binder_call(hal_power_client, hal_power_server)
 binder_call(hal_power_server, hal_power_client)
 
-add_hwservice(hal_power_server, hal_power_hwservice)
-allow hal_power_client hal_power_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_power, hal_power_hwservice)

@@ -2,8 +2,7 @@
 binder_call(hal_usb_client, hal_usb_server)
 binder_call(hal_usb_server, hal_usb_client)
 
-add_hwservice(hal_usb_server, hal_usb_hwservice)
-allow hal_usb_client hal_usb_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_usb, hal_usb_hwservice)
 
 allow hal_usb self:netlink_kobject_uevent_socket create;
 allow hal_usb self:netlink_kobject_uevent_socket setopt;

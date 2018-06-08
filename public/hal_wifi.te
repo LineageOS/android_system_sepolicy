@@ -2,8 +2,7 @@
 binder_call(hal_wifi_client, hal_wifi_server)
 binder_call(hal_wifi_server, hal_wifi_client)
 
-add_hwservice(hal_wifi_server, hal_wifi_hwservice)
-allow hal_wifi_client hal_wifi_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_wifi, hal_wifi_hwservice)
 
 r_dir_file(hal_wifi, proc_net_type)
 r_dir_file(hal_wifi, sysfs_type)

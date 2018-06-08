@@ -2,7 +2,6 @@
 binder_call(hal_neuralnetworks_client, hal_neuralnetworks_server)
 binder_call(hal_neuralnetworks_server, hal_neuralnetworks_client)
 
-add_hwservice(hal_neuralnetworks_server, hal_neuralnetworks_hwservice)
-allow hal_neuralnetworks_client hal_neuralnetworks_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_neuralnetworks, hal_neuralnetworks_hwservice)
 allow hal_neuralnetworks hidl_memory_hwservice:hwservice_manager find;
 allow hal_neuralnetworks hal_allocator:fd use;

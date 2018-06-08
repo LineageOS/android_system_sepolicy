@@ -2,8 +2,7 @@
 binder_call(hal_cas_client, hal_cas_server)
 binder_call(hal_cas_server, hal_cas_client)
 
-add_hwservice(hal_cas_server, hal_cas_hwservice)
-allow hal_cas_client hal_cas_hwservice:hwservice_manager find;
+hal_attribute_hwservice(hal_cas, hal_cas_hwservice)
 allow hal_cas_server hidl_memory_hwservice:hwservice_manager find;
 
 # Permit reading device's serial number from system properties
