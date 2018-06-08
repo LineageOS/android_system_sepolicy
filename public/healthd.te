@@ -23,9 +23,6 @@ allow healthd self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 
 wakelock_use(healthd)
 
-binder_use(healthd)
-binder_service(healthd)
-binder_call(healthd, system_server)
 hal_client_domain(healthd, hal_health)
 
 # Read/write to /sys/power/state
@@ -54,8 +51,6 @@ allow healthd tty_device:chr_file rw_file_perms;
 allow healthd ashmem_device:chr_file execute;
 allow healthd self:process execmem;
 allow healthd proc_sysrq:file rw_file_perms;
-
-add_service(healthd, batteryproperties_service)
 
 # Healthd needs to tell init to continue the boot
 # process when running in charger mode.
