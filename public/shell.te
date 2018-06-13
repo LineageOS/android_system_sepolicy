@@ -199,6 +199,12 @@ allow shell sepolicy_file:file r_file_perms;
 # Allow shell to start up vendor shell
 allow shell vendor_shell_exec:file rx_file_perms;
 
+# Everything is labeled as rootfs in recovery mode. Allow shell to
+# execute them.
+recovery_only(`
+  allow shell rootfs:file rx_file_perms;
+')
+
 ###
 ### Neverallow rules
 ###

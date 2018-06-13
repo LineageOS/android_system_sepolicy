@@ -39,6 +39,12 @@ allow ueventd self:process setfscreate;
 # Allow ueventd to read androidboot.android_dt_dir from kernel cmdline.
 allow ueventd proc_cmdline:file r_file_perms;
 
+# Everything is labeled as rootfs in recovery mode. ueventd has to execute
+# the dynamic linker and shared libraries.
+recovery_only(`
+  allow ueventd rootfs:file { r_file_perms execute };
+')
+
 #####
 ##### neverallow rules
 #####

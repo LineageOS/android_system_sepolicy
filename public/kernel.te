@@ -103,3 +103,18 @@ neverallow kernel *:file { entrypoint execute_no_trans };
 # Instead of adding dac_{read_search,override}, fix the unix permissions
 # on files being accessed.
 neverallow kernel self:global_capability_class_set { dac_override dac_read_search };
+
+# Allow the first-stage init (which is running in the kernel domain) to execute the
+# dynamic linker when it re-executes /init to switch into the second stage.
+# Until Linux 4.8, the program interpreter (dynamic linker in this case) is executed
+# before the domain is switched to the target domain. So, we need to allow the kernel
+# domain (the source domain) to execute the dynamic linker (system_file type).
+# TODO(b/110147943) remove these allow rules when we no longer need to support Linux
+# kernel older than 4.8.
+allow kernel system_file:file execute;
+# The label for the dynamic linker is rootfs in the recovery partition. This is because
+# the recovery partition which is rootfs does not support xattr and thus labeling can't be
+# done at build-time. All files are by default labeled as rootfs upon booting.
+recovery_only(`
+  allow kernel rootfs:file execute;
+')
