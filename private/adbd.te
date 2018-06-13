@@ -12,6 +12,14 @@ userdebug_or_eng(`
   allow adbd su:process dyntransition;
 ')
 
+# When 'adb shell' is executed in recovery mode, adbd explicitly
+# switches into shell domain using setcon() because the shell executable
+# is not labeled as shell but as rootfs.
+recovery_only(`
+  domain_trans(adbd, rootfs, shell)
+  allow adbd shell:process dyntransition;
+')
+
 # Do not sanitize the environment or open fds of the shell. Allow signaling
 # created processes.
 allow adbd shell:process { noatsecure signal };
@@ -148,4 +156,4 @@ allow adbd rootfs:dir r_dir_perms;
 # transitions to the shell domain (except when it crashes). In particular, we
 # never want to see a transition from adbd to su (aka "adb root")
 neverallow adbd { domain -crash_dump -shell }:process transition;
-neverallow adbd { domain userdebug_or_eng(`-su') }:process dyntransition;
+neverallow adbd { domain userdebug_or_eng(`-su') recovery_only(`-shell') }:process dyntransition;
