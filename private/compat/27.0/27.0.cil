@@ -452,7 +452,7 @@
 (expandtypeattribute (preopt2cachename_exec_27_0) true)
 (expandtypeattribute (print_service_27_0) true)
 (expandtypeattribute (priv_app_27_0) true)
-(expandtypeattribute (proc_27_0) true)
+(typeattributeset proc_27_0 (proc proc_slabinfo))
 (expandtypeattribute (proc_bluetooth_writable_27_0) true)
 (expandtypeattribute (proc_cpuinfo_27_0) true)
 (expandtypeattribute (proc_drop_caches_27_0) true)

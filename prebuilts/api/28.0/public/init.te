@@ -311,6 +311,17 @@ allow init {
   proc_security
 }:file rw_file_perms;
 
+# init chmod/chown access to /proc files.
+allow init {
+  proc_cmdline
+  proc_kmsg
+  proc_net
+  proc_qtaguid_stat
+  proc_slabinfo
+  proc_sysrq
+  proc_vmallocinfo
+}:file setattr;
+
 # init access to /sys files.
 allow init {
   sysfs_android_usb
