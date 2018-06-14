@@ -1,1 +1,12 @@
 typeattribute crash_dump coredomain;
+
+allow crash_dump {
+  domain
+  -crash_dump
+  -init
+  -kernel
+  -keystore
+  -logd
+  -ueventd
+  -vold
+}:process { ptrace signal sigchld sigstop sigkill };
