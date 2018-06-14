@@ -1,14 +1,6 @@
 type crash_dump, domain;
 type crash_dump_exec, exec_type, file_type;
 
-allow crash_dump {
-  domain
-  -init
-  -crash_dump
-  -keystore
-  -logd
-}:process { ptrace signal sigchld sigstop sigkill };
-
 # crash_dump might inherit CAP_SYS_PTRACE from a privileged process,
 # which will result in an audit log even when it's allowed to trace.
 dontaudit crash_dump self:capability { sys_ptrace };
