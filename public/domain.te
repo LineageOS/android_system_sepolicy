@@ -1390,6 +1390,7 @@ userdebug_or_eng(`
 neverallow {
   coredomain
   -init
+  -ueventd
 } mnt_vendor_file:dir *;
 
 # Only apps are allowed access to vendor public libraries.
