@@ -4,6 +4,8 @@ persist.radio.airplane_mode_on u:object_r:exported2_radio_prop:s0 exact int
 # vendor-init-settable
 af.fast_track_multiplier u:object_r:exported3_default_prop:s0 exact int
 audio.camerasound.force u:object_r:exported_audio_prop:s0 exact bool
+audio.deep_buffer.media u:object_r:exported3_default_prop:s0 exact bool
+audio.offload.video u:object_r:exported3_default_prop:s0 exact bool
 camera.disable_zsl_mode u:object_r:exported3_default_prop:s0 exact bool
 camera.fifo.disable u:object_r:exported3_default_prop:s0 exact int
 dalvik.vm.appimageformat u:object_r:exported_dalvik_prop:s0 exact string
@@ -83,6 +85,7 @@ pm.dexopt.bg-dexopt u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.boot u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.first-boot u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.install u:object_r:exported_pm_prop:s0 exact string
+ro.af.client_heap_size_kbyte u:object_r:exported3_default_prop:s0 exact int
 ro.audio.monitorRotation u:object_r:exported3_default_prop:s0 exact bool
 ro.bluetooth.a2dp_offload.supported u:object_r:bluetooth_a2dp_offload_prop:s0 exact bool
 ro.boot.vendor.overlay.theme u:object_r:exported_overlay_prop:s0 exact string
