@@ -125,6 +125,7 @@ neverallow all_untrusted_apps {
   proc_loadavg
   proc_mounts
   proc_pagetypeinfo
+  proc_slabinfo
   proc_stat
   proc_swaps
   proc_uptime
