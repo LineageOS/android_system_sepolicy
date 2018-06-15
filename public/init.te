@@ -320,6 +320,7 @@ allow init {
   proc_kmsg
   proc_net
   proc_qtaguid_stat
+  proc_slabinfo
   proc_sysrq
   proc_qtaguid_ctrl
   proc_vmallocinfo
