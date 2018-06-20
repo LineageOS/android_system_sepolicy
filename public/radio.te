@@ -36,6 +36,7 @@ allow radio nfc_service:service_manager find;
 allow radio app_api_service:service_manager find;
 allow radio system_api_service:service_manager find;
 allow radio timedetector_service:service_manager find;
+allow radio timezonedetector_service:service_manager find;
 
 # Perform HwBinder IPC.
 hwbinder_use(radio)
