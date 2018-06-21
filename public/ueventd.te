@@ -45,6 +45,10 @@ recovery_only(`
   allow ueventd rootfs:file { r_file_perms execute };
 ')
 
+# Suppress denials for ueventd to getattr /postinstall. This occurs when the
+# linker tries to resolve paths in ld.config.txt.
+dontaudit ueventd postinstall_mnt_dir:dir getattr;
+
 #####
 ##### neverallow rules
 #####
