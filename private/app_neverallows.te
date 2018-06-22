@@ -70,7 +70,7 @@ neverallow all_untrusted_apps sysfs:file no_rw_file_perms;
 
 # Restrict socket ioctls. Either 1. disallow privileged ioctls, 2. disallow the
 # ioctl permission, or 3. disallow the socket class.
-neverallowxperm all_untrusted_apps domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
+neverallowxperm all_untrusted_apps domain:{ icmp_socket rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
 neverallow all_untrusted_apps *:{ netlink_route_socket netlink_selinux_socket } ioctl;
 neverallow all_untrusted_apps *:{
   socket netlink_socket packet_socket key_socket appletalk_socket
@@ -79,7 +79,11 @@ neverallow all_untrusted_apps *:{
   netlink_dnrt_socket netlink_kobject_uevent_socket tun_socket
   netlink_iscsi_socket netlink_fib_lookup_socket netlink_connector_socket
   netlink_netfilter_socket netlink_generic_socket netlink_scsitransport_socket
-  netlink_rdma_socket netlink_crypto_socket
+  netlink_rdma_socket netlink_crypto_socket sctp_socket
+  ax25_socket ipx_socket netrom_socket atmpvc_socket x25_socket rose_socket decnet_socket
+  atmsvc_socket rds_socket irda_socket pppox_socket llc_socket can_socket tipc_socket
+  bluetooth_socket iucv_socket rxrpc_socket isdn_socket phonet_socket ieee802154_socket caif_socket
+  alg_socket nfc_socket vsock_socket kcm_socket qipcrtr_socket smc_socket
 } *;
 
 # Do not allow untrusted apps access to /cache
