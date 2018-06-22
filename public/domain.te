@@ -262,7 +262,7 @@ allow domain fs_type:dir getattr;
 # defaults for all processes. Note that granting this whitelist to domain does
 # not grant the ioctl permission on these socket types. That must be granted
 # separately.
-allowxperm domain domain:{ rawip_socket tcp_socket udp_socket }
+allowxperm domain domain:{ icmp_socket rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
 # default whitelist for unix sockets.
 allowxperm domain domain:{ unix_dgram_socket unix_stream_socket }
