@@ -795,6 +795,9 @@ userdebug_or_eng(`
 allow system_server functionfs:dir search;
 allow system_server functionfs:file rw_file_perms;
 
+# system_server contains time / time zone detection logic so reads the associated properties.
+get_prop(system_server, time_prop)
+
 ###
 ### Neverallow rules
 ###
