@@ -2,3 +2,7 @@
 # it lives in the rootfs and has no unique file type.
 type adbd, domain;
 type adbd_exec, exec_type, file_type;
+
+# Only init is allowed to enter the adbd domain via exec()
+neverallow { domain -init } adbd:process transition;
+neverallow * adbd:process dyntransition;
