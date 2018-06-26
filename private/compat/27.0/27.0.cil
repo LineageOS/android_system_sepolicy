@@ -7,6 +7,7 @@
 (type rild)
 (type webview_zygote_socket)
 (type vold_socket)
+(type thermalcallback_hwservice)
 
 (expandtypeattribute (accessibility_service_27_0) true)
 (expandtypeattribute (account_service_27_0) true)

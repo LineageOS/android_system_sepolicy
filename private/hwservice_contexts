@@ -49,7 +49,6 @@ android.hardware.soundtrigger::ISoundTriggerHw                  u:object_r:hal_a
 android.hardware.tetheroffload.config::IOffloadConfig           u:object_r:hal_tetheroffload_hwservice:s0
 android.hardware.tetheroffload.control::IOffloadControl         u:object_r:hal_tetheroffload_hwservice:s0
 android.hardware.thermal::IThermal                              u:object_r:hal_thermal_hwservice:s0
-android.hardware.thermal::IThermalCallback                      u:object_r:thermalcallback_hwservice:s0
 android.hardware.tv.cec::IHdmiCec                               u:object_r:hal_tv_cec_hwservice:s0
 android.hardware.tv.input::ITvInput                             u:object_r:hal_tv_input_hwservice:s0
 android.hardware.usb::IUsb                                      u:object_r:hal_usb_hwservice:s0

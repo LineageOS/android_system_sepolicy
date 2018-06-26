@@ -231,7 +231,6 @@ neverallow all_untrusted_apps {
   hal_wifi_supplicant_hwservice
   hidl_base_hwservice
   system_net_netd_hwservice
-  thermalcallback_hwservice
 }:hwservice_manager find;
 # HwBinder services offered by core components (as opposed to vendor components)
 # are considered somewhat safer due to point #2 above.
