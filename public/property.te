@@ -5,6 +5,7 @@ type bluetooth_prop, property_type;
 type bootloader_boot_reason_prop, property_type;
 type config_prop, property_type, core_property_type;
 type cppreopt_prop, property_type, core_property_type;
+type ctl_adbd_prop, property_type;
 type ctl_bootanim_prop, property_type;
 type ctl_bugreport_prop, property_type;
 type ctl_console_prop, property_type;
@@ -327,6 +328,7 @@ compatible_property_only(`
     -boottime_prop
     -config_prop
     -cppreopt_prop
+    -ctl_adbd_prop
     -ctl_bootanim_prop
     -ctl_bugreport_prop
     -ctl_console_prop
