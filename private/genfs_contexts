@@ -194,6 +194,7 @@ genfscon tracefs /trace_clock                                            u:objec
 genfscon tracefs /buffer_size_kb                                         u:object_r:debugfs_tracing:s0
 genfscon tracefs /options/overwrite                                      u:object_r:debugfs_tracing:s0
 genfscon tracefs /options/print-tgid                                     u:object_r:debugfs_tracing:s0
+genfscon tracefs /options/record-tgid                                    u:object_r:debugfs_tracing:s0
 genfscon tracefs /saved_cmdlines_size                                    u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/sched/sched_switch/                             u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/sched/sched_wakeup/                             u:object_r:debugfs_tracing:s0
@@ -222,6 +223,7 @@ genfscon debugfs /tracing/trace_clock                                           
 genfscon debugfs /tracing/buffer_size_kb                                         u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/options/overwrite                                      u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/options/print-tgid                                     u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/options/record-tgid                                    u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/saved_cmdlines_size                                    u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/sched/sched_switch/                             u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/sched/sched_wakeup/                             u:object_r:debugfs_tracing:s0
