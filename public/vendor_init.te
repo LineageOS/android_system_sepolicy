@@ -4,9 +4,6 @@ type vendor_init, domain, mlstrustedsubject;
 # Communication to the main init process
 allow vendor_init init:unix_stream_socket { read write };
 
-# Vendor init shouldn't communicate with any vendor process, nor most system processes.
-neverallow_establish_socket_comms(vendor_init, { domain -init -logd -su -vendor_init });
-
 # Logging to kmsg
 allow vendor_init kmsg_device:chr_file { open write };
 
@@ -202,3 +199,29 @@ set_prop(vendor_init, wifi_log_prop)
 
 get_prop(vendor_init, exported2_radio_prop)
 get_prop(vendor_init, exported3_system_prop)
+
+###
+### neverallow rules
+###
+
+# Vendor init shouldn't communicate with any vendor process, nor most system processes.
+neverallow_establish_socket_comms(vendor_init, { domain -init -logd -su -vendor_init });
+
+# The vendor_init domain is only entered via an exec based transition from the
+# init domain, never via setcon().
+neverallow domain vendor_init:process dyntransition;
+neverallow { domain -init } vendor_init:process transition;
+neverallow vendor_init { file_type fs_type -init_exec }:file entrypoint;
+
+# Never read/follow symlinks created by shell or untrusted apps.
+neverallow vendor_init app_data_file:lnk_file read;
+neverallow vendor_init shell_data_file:lnk_file read;
+# Init should not be creating subdirectories in /data/local/tmp
+neverallow vendor_init shell_data_file:dir { write add_name remove_name };
+
+# init should never execute a program without changing to another domain.
+neverallow vendor_init { file_type fs_type }:file execute_no_trans;
+
+# Init never adds or uses services via service_manager.
+neverallow vendor_init service_manager_type:service_manager { add find };
+neverallow vendor_init servicemanager:service_manager list;
