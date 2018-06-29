@@ -1406,3 +1406,24 @@ neverallow {
   domain
   -coredomain
 } mnt_product_file:dir *;
+
+# Platform must not have access to sysfs_batteryinfo, but should do it via health HAL and healthd
+full_treble_only(`
+  neverallow {
+    coredomain
+    -healthd
+    -shell
+    # Generate uevents for health info
+    -ueventd
+    # Recovery uses health HAL passthrough implementation.
+    -recovery
+    # Charger uses health HAL passthrough implementation.
+    -charger
+    # TODO(b/110891300): remove this exception
+    -incidentd
+    # TODO(b/110890430): remove this exception
+    -perfprofd
+    # TODO(b/110891415, b/65643247): remove these exceptions
+    -vold
+  } sysfs_batteryinfo:file { open read };
+')
