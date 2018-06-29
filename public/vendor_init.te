@@ -45,6 +45,7 @@ allow vendor_init {
   -core_data_file_type
   -exec_type
   -system_file
+  -mnt_product_file
   -unlabeled
   -vendor_file_type
   -vold_metadata_file
@@ -85,6 +86,7 @@ allow vendor_init {
   file_type
   -core_data_file_type
   -exec_type
+  -mnt_product_file
   -system_file
   -vendor_file_type
   -vold_metadata_file
