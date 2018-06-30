@@ -173,6 +173,7 @@ dontaudit priv_app proc_modules:file read;
 dontaudit priv_app proc_stat:file read;
 dontaudit priv_app proc_version:file read;
 dontaudit priv_app sysfs:dir read;
+dontaudit priv_app sysfs:file read;
 dontaudit priv_app sysfs_android_usb:file read;
 dontaudit priv_app wifi_prop:file read;
 dontaudit priv_app { wifi_prop exported_wifi_prop }:file read;
