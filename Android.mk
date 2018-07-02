@@ -178,51 +178,32 @@ else
 SHAREDLIB_EXT=so
 endif
 
+#################################
+
 include $(CLEAR_VARS)
+
 LOCAL_MODULE := selinux_policy
 LOCAL_MODULE_TAGS := optional
-# Include SELinux policy. We do this here because different modules
-# need to be included based on the value of PRODUCT_SEPOLICY_SPLIT. This
-# type of conditional inclusion cannot be done in top-level files such
-# as build/target/product/embedded.mk.
-# This conditional inclusion closely mimics the conditional logic
-# inside init/init.cpp for loading SELinux policy from files.
-
-# Include precompiled policy, unless told otherwise.
-ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 LOCAL_REQUIRED_MODULES += \
-    precompiled_sepolicy \
-    precompiled_sepolicy.plat_and_mapping.sha256 \
+    selinux_policy_nonsystem \
+    selinux_policy_system \
 
-endif # ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+include $(BUILD_PHONY_PACKAGE)
 
-ifneq ($(PRODUCT_SEPOLICY_SPLIT),true)
-# The following files are only allowed for non-Treble devices.
-LOCAL_REQUIRED_MODULES += \
-    sepolicy \
-    vendor_service_contexts \
 
-endif # ($(PRODUCT_SEPOLICY_SPLIT),true)
-
+include $(CLEAR_VARS)
+LOCAL_MODULE := selinux_policy_system
 # These build targets are not used on non-Treble devices. However, we build these to avoid
 # divergence between Treble and non-Treble devices.
 LOCAL_REQUIRED_MODULES += \
     $(platform_mapping_file) \
     $(addsuffix .cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
-    plat_pub_versioned.cil \
-    vendor_sepolicy.cil \
     plat_sepolicy.cil \
     plat_and_mapping_sepolicy.cil.sha256 \
     secilc \
-    plat_sepolicy_vers.txt \
 
 LOCAL_REQUIRED_MODULES += \
     build_sepolicy \
-    vendor_file_contexts \
-    vendor_mac_permissions.xml \
-    vendor_property_contexts \
-    vendor_seapp_contexts \
-    vendor_hwservice_contexts \
     plat_file_contexts \
     plat_mac_permissions.xml \
     plat_property_contexts \
@@ -230,7 +211,16 @@ LOCAL_REQUIRED_MODULES += \
     plat_service_contexts \
     plat_hwservice_contexts \
     searchpolicy \
-    vndservice_contexts \
+
+# This conditional inclusion closely mimics the conditional logic
+# inside init/init.cpp for loading SELinux policy from files.
+ifneq ($(PRODUCT_SEPOLICY_SPLIT),true)
+# The following files are only allowed for non-Treble devices.
+LOCAL_REQUIRED_MODULES += \
+    sepolicy \
+    vendor_service_contexts \
+
+endif # ($(PRODUCT_SEPOLICY_SPLIT),true)
 
 ifneq ($(TARGET_BUILD_VARIANT), user)
 LOCAL_REQUIRED_MODULES += \
@@ -248,6 +238,48 @@ LOCAL_REQUIRED_MODULES += \
 endif
 endif
 
+ifneq ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
+LOCAL_REQUIRED_MODULES += \
+    sepolicy_freeze_test \
+
+endif # ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
+
+include $(BUILD_PHONY_PACKAGE)
+
+#################################
+
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := selinux_policy_nonsystem
+# Include precompiled policy, unless told otherwise.
+ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+LOCAL_REQUIRED_MODULES += \
+    precompiled_sepolicy \
+    precompiled_sepolicy.plat_and_mapping.sha256 \
+    vendor_file_contexts \
+    vendor_mac_permissions.xml \
+    vendor_property_contexts \
+    vendor_seapp_contexts \
+    vendor_hwservice_contexts \
+
+endif # ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+
+
+# These build targets are not used on non-Treble devices. However, we build these to avoid
+# divergence between Treble and non-Treble devices.
+LOCAL_REQUIRED_MODULES += \
+    plat_pub_versioned.cil \
+    vendor_sepolicy.cil \
+    plat_sepolicy_vers.txt \
+
+LOCAL_REQUIRED_MODULES += \
+    vendor_file_contexts \
+    vendor_mac_permissions.xml \
+    vendor_property_contexts \
+    vendor_seapp_contexts \
+    vendor_hwservice_contexts \
+    vndservice_contexts \
+
 ifdef BOARD_ODM_SEPOLICY_DIRS
 LOCAL_REQUIRED_MODULES += \
     odm_sepolicy.cil \
@@ -257,13 +289,6 @@ LOCAL_REQUIRED_MODULES += \
     odm_hwservice_contexts \
     odm_mac_permissions.xml
 endif
-
-ifneq ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
-LOCAL_REQUIRED_MODULES += \
-    sepolicy_freeze_test \
-
-endif # ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
-
 include $(BUILD_PHONY_PACKAGE)
 
 #################################
