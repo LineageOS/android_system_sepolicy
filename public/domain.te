@@ -1400,3 +1400,9 @@ full_treble_only(`
     -appdomain
   } vendor_public_lib_file:file { execute execute_no_trans };
 ')
+
+# Vendor domian must not have access to /mnt/product.
+neverallow {
+  domain
+  -coredomain
+} mnt_product_file:dir *;
