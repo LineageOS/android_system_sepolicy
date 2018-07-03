@@ -94,6 +94,7 @@ allow netd netd_listener_service:service_manager find;
 
 # Allow netd to operate on sockets that are passed to it.
 allow netd netdomain:{
+  icmp_socket
   tcp_socket
   udp_socket
   rawip_socket
