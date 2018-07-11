@@ -155,6 +155,7 @@ genfscon debugfs /tracing/events/regulator/                          u:object_r:
 genfscon debugfs /tracing/events/pagecache/                          u:object_r:debugfs_tracing_debug:s0
 genfscon debugfs /tracing/events/irq/                                u:object_r:debugfs_tracing_debug:s0
 genfscon debugfs /tracing/events/ipi/                                u:object_r:debugfs_tracing_debug:s0
+genfscon debugfs /tracing/events/header_page                         u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/f2fs/f2fs_get_data_block/           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/f2fs/f2fs_iget/                     u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/f2fs/f2fs_sync_file_enter/          u:object_r:debugfs_tracing:s0
@@ -176,6 +177,7 @@ genfscon tracefs /events/regulator/                          u:object_r:debugfs_
 genfscon tracefs /events/pagecache/                          u:object_r:debugfs_tracing_debug:s0
 genfscon tracefs /events/irq/                                u:object_r:debugfs_tracing_debug:s0
 genfscon tracefs /events/ipi/                                u:object_r:debugfs_tracing_debug:s0
+genfscon tracefs /events/header_page                         u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/f2fs/f2fs_get_data_block/           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/f2fs/f2fs_iget/                     u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/f2fs/f2fs_sync_file_enter/          u:object_r:debugfs_tracing:s0
