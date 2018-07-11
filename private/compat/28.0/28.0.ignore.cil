@@ -1,0 +1,15 @@
+;; new_objects - a collection of types that have been introduced that have no
+;;   analogue in older policy.  Thus, we do not need to map these types to
+;;   previous ones.  Add here to pass checkapi tests.
+(typeattribute new_objects)
+(typeattributeset new_objects
+  ( activity_task_service
+    adb_service
+    llkd
+    llkd_exec
+    llkd_tmpfs
+    mnt_product_file
+    time_prop
+    timedetector_service
+    timezonedetector_service
+    vrflinger_vsync_service))
