@@ -1423,7 +1423,5 @@ full_treble_only(`
     -incidentd
     # TODO(b/110890430): remove this exception
     -perfprofd
-    # TODO(b/110891415, b/65643247): remove these exceptions
-    -vold
   } sysfs_batteryinfo:file { open read };
 ')
