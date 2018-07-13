@@ -206,6 +206,9 @@ allow vold user_profile_data_file:dir create_dir_perms;
 # Raw writes to misc block device
 allow vold misc_block_device:blk_file w_file_perms;
 
+# vold might need to search or mount /mnt/vendor/*
+allow vold mnt_vendor_file:dir search;
+
 neverallow {
     domain
     -vold
