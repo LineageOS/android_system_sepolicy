@@ -13,7 +13,7 @@ userdebug_or_eng(`
   auditallow vold proc_net_type:{ dir file lnk_file } { getattr open read };
 ')
 
-r_dir_file(vold, sysfs_type)
+r_dir_file(vold, { sysfs_type -sysfs_batteryinfo })
 # XXX Label sysfs files with a specific type?
 allow vold sysfs:file w_file_perms; # writing to /sys/*/uevent during coldboot.
 allow vold sysfs_dm:file w_file_perms;
