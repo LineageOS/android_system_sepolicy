@@ -32,6 +32,7 @@ type update_engine_service,     service_manager_type;
 type virtual_touchpad_service,  service_manager_type;
 type vold_service,              service_manager_type;
 type vr_hwc_service,            service_manager_type;
+type vrflinger_vsync_service,   service_manager_type;
 
 # system_server_services broken down
 type accessibility_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
