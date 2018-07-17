@@ -3,6 +3,6 @@ userdebug_or_eng(`
   init_daemon_domain(perfprofd)
 ')
 
-# Only servicemanager, statsd, su and systemserver can communicate.
-neverallow { domain userdebug_or_eng(`-statsd -system_server') } perfprofd:binder call;
-neverallow perfprofd { domain userdebug_or_eng(`-servicemanager -statsd -su -system_server') }:binder call;
+# Only servicemanager, statsd, su, systemserver, hwservicemanager, health HAL can communicate.
+neverallow { domain userdebug_or_eng(`-statsd -system_server -hal_health_server -hwservicemanager') } perfprofd:binder call;
+neverallow perfprofd { domain userdebug_or_eng(`-servicemanager -statsd -su -system_server -hal_health_server -hwservicemanager') }:binder call;
