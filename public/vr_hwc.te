@@ -29,3 +29,5 @@ pdx_client(vr_hwc, display_client)
 # Requires access to the permission service to validate that clients have the
 # appropriate VR permissions.
 allow vr_hwc permission_service:service_manager find;
+
+allow vr_hwc vrflinger_vsync_service:service_manager find;
