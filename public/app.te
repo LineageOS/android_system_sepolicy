@@ -201,6 +201,7 @@ userdebug_or_eng(`
     -platform_app
     -priv_app
     -shell
+    -su
     -system_app
     -untrusted_app_all
   } proc_net_type:{ dir file lnk_file } { getattr open read };
