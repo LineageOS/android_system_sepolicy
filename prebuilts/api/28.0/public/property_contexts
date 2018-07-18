@@ -3,6 +3,7 @@ persist.radio.airplane_mode_on u:object_r:exported2_radio_prop:s0 exact int
 
 # vendor-init-settable
 af.fast_track_multiplier u:object_r:exported3_default_prop:s0 exact int
+audio.camerasound.force u:object_r:exported_audio_prop:s0 exact bool
 camera.disable_zsl_mode u:object_r:exported3_default_prop:s0 exact bool
 camera.fifo.disable u:object_r:exported3_default_prop:s0 exact int
 dalvik.vm.appimageformat u:object_r:exported_dalvik_prop:s0 exact string
@@ -55,6 +56,7 @@ dalvik.vm.method-trace-file u:object_r:exported_dalvik_prop:s0 exact string
 dalvik.vm.method-trace-file-siz u:object_r:exported_dalvik_prop:s0 exact int
 dalvik.vm.method-trace-stream u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.profilesystemserver u:object_r:exported_dalvik_prop:s0 exact bool
+dalvik.vm.profilebootimage u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.stack-trace-dir u:object_r:exported_dalvik_prop:s0 exact string
 dalvik.vm.usejit u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.usejitprofiles u:object_r:exported_dalvik_prop:s0 exact bool
