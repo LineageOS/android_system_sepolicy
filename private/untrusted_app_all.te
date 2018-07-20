@@ -126,10 +126,6 @@ unix_socket_connect(untrusted_app_all, traced_producer, traced)
 allow untrusted_app_all system_server:udp_socket {
         connect getattr read recvfrom sendto write getopt setopt };
 
-# Allow the allocation and use of ptys
-# Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
-create_pty(untrusted_app_all)
-
 # This is allowed for targetSdkVersion <= 25 but disallowed on newer versions.
 dontaudit untrusted_app_all net_dns_prop:file read;
 
@@ -138,6 +134,10 @@ dontaudit untrusted_app_all net_dns_prop:file read;
 dontaudit untrusted_app_all proc_stat:file read;
 dontaudit untrusted_app_all proc_vmstat:file read;
 dontaudit untrusted_app_all proc_uptime:file read;
+
+# Allow the allocation and use of ptys
+# Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
+create_pty(untrusted_app_all)
 
 # /proc/net access.
 # TODO(b/9496886) Audit access for removal.
