@@ -26,6 +26,13 @@ se_filegroup {
     ],
 }
 
+se_filegroup {
+    name: "28.0.board.compat.map",
+    srcs: [
+        "compat/28.0/28.0.cil",
+    ],
+}
+
 se_cil_compat_map {
     name: "26.0.cil",
     srcs: [
@@ -37,5 +44,12 @@ se_cil_compat_map {
     name: "27.0.cil",
     srcs: [
         ":27.0.board.compat.map",
+    ],
+}
+
+se_cil_compat_map {
+    name: "28.0.cil",
+    srcs: [
+        ":28.0.board.compat.map",
     ],
 }
