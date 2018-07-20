@@ -53,7 +53,16 @@ $(version)_plat_policy.conf :=
 $(version)_compat := $(intermediates)/$(version)_compat
 $(version)_mapping.cil := $(LOCAL_PATH)/private/compat/$(version)/$(version).cil
 $(version)_mapping.ignore.cil := $(LOCAL_PATH)/private/compat/$(version)/$(version).ignore.cil
-$(version)_nonplat := $(LOCAL_PATH)/prebuilts/api/$(version)/nonplat_sepolicy.cil
+$(version)_prebuilts_dir := $(LOCAL_PATH)/prebuilts/api/$(version)
+
+# vendor_sepolicy.cil and plat_pub_versioned.cil are the new design to replace
+# nonplat_sepolicy.cil.
+$(version)_nonplat := $($(version)_prebuilts_dir)/vendor_sepolicy.cil \
+$($(version)_prebuilts_dir)/plat_pub_versioned.cil
+ifeq (,$(wildcard $($(version)_nonplat)))
+$(version)_nonplat := $($(version)_prebuilts_dir)/nonplat_sepolicy.cil
+endif
+
 $($(version)_compat): PRIVATE_CIL_FILES := \
 $(built_plat_cil) $($(version)_mapping.cil) $($(version)_nonplat)
 $($(version)_compat): $(HOST_OUT_EXECUTABLES)/secilc \
@@ -99,6 +108,7 @@ $(version)_mapping.cil :=
 $(version)_mapping.combined.cil :=
 $(version)_mapping.ignore.cil :=
 $(version)_nonplat :=
+$(version)_prebuilts_dir :=
 built_$(version)_plat_sepolicy :=
 version :=
 version_under_treble_tests :=
