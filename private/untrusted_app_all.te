@@ -151,6 +151,10 @@ userdebug_or_eng(`
   }:{ dir file lnk_file } { getattr open read };
 ')
 
+# Temporary auditing to get data on what apps use execmod.
+# TODO(b/111544476) Remove this and deny the permission if feasible.
+auditallow untrusted_app_all { apk_data_file app_data_file asec_public_file }:file execmod;
+
 # Attempts to write to system_data_file is generally a sign
 # that apps are attempting to access encrypted storage before
 # the ACTION_USER_UNLOCKED intent is delivered. Suppress this
