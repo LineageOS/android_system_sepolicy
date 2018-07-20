@@ -232,8 +232,7 @@ ifneq ($(with_asan),true)
 ifneq ($(SELINUX_IGNORE_NEVERALLOWS),true)
 LOCAL_REQUIRED_MODULES += \
     sepolicy_tests \
-    treble_sepolicy_tests_26.0 \
-    treble_sepolicy_tests_27.0 \
+    $(addprefix treble_sepolicy_tests_,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
 
 endif
 endif
@@ -1614,6 +1613,9 @@ version_under_treble_tests := 26.0
 include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
 
 version_under_treble_tests := 27.0
+include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
+
+version_under_treble_tests := 28.0
 include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
 
 BASE_PLAT_PUBLIC_POLICY :=
