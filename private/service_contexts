@@ -168,6 +168,7 @@ trust                                     u:object_r:trust_service:s0
 tv_input                                  u:object_r:tv_input_service:s0
 uimode                                    u:object_r:uimode_service:s0
 updatelock                                u:object_r:updatelock_service:s0
+uri_grants                                u:object_r:uri_grants_service:s0
 usagestats                                u:object_r:usagestats_service:s0
 usb                                       u:object_r:usb_service:s0
 user                                      u:object_r:user_service:s0
