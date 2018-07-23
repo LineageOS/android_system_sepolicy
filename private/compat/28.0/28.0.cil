@@ -11,6 +11,9 @@
 (expandtypeattribute (vold_socket_28_0) true)
 (typeattributeset vold_socket_28_0 (vold_socket))
 
+;; TODO b/111680480: remove once we have consistent P sepolicy on all devices.
+(typeattribute exported_audio_prop_28_0)
+
 (expandtypeattribute (accessibility_service_28_0) true)
 (expandtypeattribute (account_service_28_0) true)
 (expandtypeattribute (activity_service_28_0) true)
