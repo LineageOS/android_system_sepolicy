@@ -29,7 +29,7 @@ void *init_genfs_iter(void *policydbp)
 
     if (!out) {
         std::cerr << "Failed to allocate genfs iterator" << std::endl;
-        return NULL;
+        return nullptr;
     }
 
     policydb_t *db = static_cast<policydb_t *>(policydbp);
@@ -66,8 +66,8 @@ int get_genfs(char *out, size_t max_size, void *policydbp, void *genfs_iterp)
     }
 
     i->ocon = i->ocon->next;
-    if (i->ocon == NULL) {
-        if (i->genfs->next != NULL) {
+    if (i->ocon == nullptr) {
+        if (i->genfs->next != nullptr) {
             i->genfs = i->genfs->next;
             i->ocon = i->genfs->head;
         } else {
@@ -103,10 +103,10 @@ void *init_type_iter(void *policydbp, const char *type, bool is_attr)
 
     if (!out) {
         std::cerr << "Failed to allocate type type iterator" << std::endl;
-        return NULL;
+        return nullptr;
     }
 
-    if (type == NULL) {
+    if (type == nullptr) {
         out->length = db->p_types.nprim;
         out->bit = 0;
         if (is_attr)
@@ -119,11 +119,11 @@ void *init_type_iter(void *policydbp, const char *type, bool is_attr)
         if (is_attr && out->d->flavor != TYPE_ATTRIB) {
             std::cerr << "\"" << type << "\" MUST be an attribute in the policy" << std::endl;
             free(out);
-            return NULL;
+            return nullptr;
         } else if (!is_attr && out->d->flavor !=TYPE_TYPE) {
             std::cerr << "\"" << type << "\" MUST be a type in the policy" << std::endl;
             free(out);
-            return NULL;
+            return nullptr;
         }
 
         if (is_attr) {
@@ -191,14 +191,14 @@ void *load_policy(const char *policy_path)
     fp = fopen(policy_path, "re");
     if (!fp) {
         std::cerr << "Invalid or non-existing policy file: " << policy_path << std::endl;
-        return NULL;
+        return nullptr;
     }
 
     db = (policydb_t *) calloc(1, sizeof(policydb_t));
     if (!db) {
         std::cerr << "Failed to allocate memory for policy db." << std::endl;
         fclose(fp);
-        return NULL;
+        return nullptr;
     }
 
     sidtab_t sidtab;
@@ -210,17 +210,17 @@ void *load_policy(const char *policy_path)
         std::cerr << "Failed to stat the policy file" << std::endl;
         free(db);
         fclose(fp);
-        return NULL;
+        return nullptr;
     }
 
     auto unmap = [=](void *ptr) { munmap(ptr, sb.st_size); };
     std::unique_ptr<void, decltype(unmap)> map(
-        mmap(NULL, sb.st_size, PROT_READ, MAP_PRIVATE, fileno(fp), 0), unmap);
+        mmap(nullptr, sb.st_size, PROT_READ, MAP_PRIVATE, fileno(fp), 0), unmap);
     if (!map) {
         std::cerr << "Failed to map the policy file" << std::endl;
         free(db);
         fclose(fp);
-        return NULL;
+        return nullptr;
     }
 
     struct policy_file pf;
@@ -232,7 +232,7 @@ void *load_policy(const char *policy_path)
         std::cerr << "Failed to initialize policydb" << std::endl;
         free(db);
         fclose(fp);
-        return NULL;
+        return nullptr;
     }
 
     if (policydb_read(db, &pf, 0)) {
@@ -240,7 +240,7 @@ void *load_policy(const char *policy_path)
         policydb_destroy(db);
         free(db);
         fclose(fp);
-        return NULL;
+        return nullptr;
     }
 
     return static_cast<void *>(db);
@@ -266,7 +266,7 @@ static int get_avtab_allow_rule(char *out, size_t max_size, policydb_t *db,
     size_t len;
 
     for (; avtab_i->i < avtab_i->avtab->nslot; (avtab_i->i)++) {
-        if (avtab_i->cur == NULL) {
+        if (avtab_i->cur == nullptr) {
             avtab_i->cur = avtab_i->avtab->htable[avtab_i->i];
         }
         for (; avtab_i->cur; avtab_i->cur = (avtab_i->cur)->next) {
@@ -286,7 +286,7 @@ static int get_avtab_allow_rule(char *out, size_t max_size, policydb_t *db,
             }
             return 0;
         }
-        avtab_i->cur = NULL;
+        avtab_i->cur = nullptr;
     }
 
     return 1;
@@ -306,7 +306,7 @@ static avtab_iter *init_avtab_common(avtab_t *in)
                             calloc(1, sizeof(struct avtab_iter));
     if (!out) {
         std::cerr << "Failed to allocate avtab iterator" << std::endl;
-        return NULL;
+        return nullptr;
     }
 
     out->avtab = in;
@@ -344,7 +344,7 @@ static avtab_iter *init_expanded_avtab_common(avtab_t *in, policydb_t *p)
                             calloc(1, sizeof(struct avtab_iter));
     if (!out) {
         std::cerr << "Failed to allocate avtab iterator" << std::endl;
-        return NULL;
+        return nullptr;
     }
 
     avtab_t *avtab = (avtab_t *) calloc(1, sizeof(avtab_t));
@@ -352,7 +352,7 @@ static avtab_iter *init_expanded_avtab_common(avtab_t *in, policydb_t *p)
     if (!avtab) {
         std::cerr << "Failed to allocate avtab" << std::endl;
         free(out);
-        return NULL;
+        return nullptr;
     }
 
     out->avtab = avtab;
@@ -360,14 +360,14 @@ static avtab_iter *init_expanded_avtab_common(avtab_t *in, policydb_t *p)
         std::cerr << "Failed to initialize avtab" << std::endl;
         free(avtab);
         free(out);
-        return NULL;
+        return nullptr;
     }
 
     if (expand_avtab(p, in, out->avtab)) {
         std::cerr << "Failed to expand avtab" << std::endl;
         free(avtab);
         free(out);
-        return NULL;
+        return nullptr;
     }
     return out;
 }
