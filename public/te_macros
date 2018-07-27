@@ -178,6 +178,12 @@ tmpfs_domain($1)
 allow $1 $1_tmpfs:file execute;
 neverallow { $1 -shell } { domain -$1 }:file no_rw_file_perms;
 neverallow { appdomain -shell -$1 } $1:file no_rw_file_perms;
+# The Android security model guarantees the confidentiality and integrity
+# of application data and execution state. Ptrace bypasses those
+# confidentiality guarantees. Disallow ptrace access from system components
+# to apps. Crash_dump is excluded, as it needs ptrace access to
+# produce stack traces.
+neverallow { domain -$1 -crash_dump } $1:process ptrace;
 ')
 
 #####################################

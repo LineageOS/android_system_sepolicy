@@ -405,6 +405,14 @@ neverallow appdomain zygote_socket:sock_file write;
 # ptrace access to non-app domains.
 neverallow appdomain { domain -appdomain }:process ptrace;
 
+# The Android security model guarantees the confidentiality and integrity
+# of application data and execution state. Ptrace bypasses those
+# confidentiality guarantees. Disallow ptrace access from system components
+# to apps. Crash_dump is excluded, as it needs ptrace access to
+# produce stack traces.
+
+neverallow { domain -appdomain -crash_dump } appdomain:process ptrace;
+
 # Read or write access to /proc/pid entries for any non-app domain.
 # A different form of hidepid=2 like protections
 neverallow appdomain { domain -appdomain }:file no_w_file_perms;
