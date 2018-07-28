@@ -191,19 +191,19 @@ expandattribute system_writes_vendor_properties_violators false;
 # version, requiring all hwservices that are labeled with this
 # attribute to be submitted to AOSP in order to maintain their
 # app-visibility.
-attribute untrusted_app_visible_hwservice;
-expandattribute untrusted_app_visible_hwservice false;
+attribute untrusted_app_visible_hwservice_violators;
+expandattribute untrusted_app_visible_hwservice_violators false;
 
 # halserver domains that are accessible to untrusted applications.  These
 # domains are typically those hosting  hwservices attributed by the
-# untrusted_app_visible_hwservice.
+# untrusted_app_visible_hwservice_violators.
 # WARNING: Use of this attribute should be avoided unless absolutely necessary.
 # It is a temporary allowance to aid the transition to treble and will be
 # removed in the future platform version, requiring all halserver domains that
 # are labeled with this attribute to be submitted to AOSP in order to maintain
 # their app-visibility.
-attribute untrusted_app_visible_halserver;
-expandattribute untrusted_app_visible_halserver false;
+attribute untrusted_app_visible_halserver_violators;
+expandattribute untrusted_app_visible_halserver_violators false;
 
 # PDX services
 attribute pdx_endpoint_dir_type;
