@@ -296,6 +296,7 @@
 /system/bin/statsd               u:object_r:statsd_exec:s0
 /system/bin/bpfloader            u:object_r:bpfloader_exec:s0
 /system/bin/wait_for_keymaster   u:object_r:wait_for_keymaster_exec:s0
+/system/bin/watchdogd            u:object_r:watchdogd_exec:s0
 
 #############################
 # Vendor files

@@ -993,7 +993,7 @@
 (typeattributeset incident_data_file_27_0 (incident_data_file))
 (typeattributeset incident_service_27_0 (incident_service))
 (typeattributeset init_27_0 (init))
-(typeattributeset init_exec_27_0 (init_exec))
+(typeattributeset init_exec_27_0 (init_exec watchdogd_exec))
 (typeattributeset inotify_27_0 (inotify))
 (typeattributeset input_device_27_0 (input_device))
 (typeattributeset inputflinger_27_0 (inputflinger))
