@@ -145,6 +145,7 @@ allow init {
   -exec_type
   -misc_logd_file
   -nativetest_data_file
+  -privapp_data_file
   -system_app_data_file
   -system_file
   -vendor_file_type
@@ -157,6 +158,7 @@ allow init {
   -keystore_data_file
   -misc_logd_file
   -nativetest_data_file
+  -privapp_data_file
   -shell_data_file
   -system_app_data_file
   -system_file
@@ -171,6 +173,7 @@ allow init {
   -keystore_data_file
   -misc_logd_file
   -nativetest_data_file
+  -privapp_data_file
   -runtime_event_log_tags_file
   -shell_data_file
   -system_app_data_file
@@ -186,6 +189,7 @@ allow init {
   -keystore_data_file
   -misc_logd_file
   -nativetest_data_file
+  -privapp_data_file
   -shell_data_file
   -system_app_data_file
   -system_file
@@ -200,6 +204,7 @@ allow init {
   -keystore_data_file
   -misc_logd_file
   -nativetest_data_file
+  -privapp_data_file
   -shell_data_file
   -system_app_data_file
   -system_file
@@ -211,7 +216,7 @@ allow init cache_file:lnk_file r_file_perms;
 
 allow init { file_type -system_file -vendor_file_type -exec_type }:dir_file_class_set relabelto;
 # does init really need to relabel app data?
-userdebug_or_eng(`auditallow init app_data_file:dir_file_class_set relabelto;')
+userdebug_or_eng(`auditallow init { app_data_file privapp_data_file }:dir_file_class_set relabelto;')
 allow init { sysfs debugfs debugfs_tracing debugfs_tracing_debug }:{ dir file lnk_file } { getattr relabelfrom };
 allow init { sysfs_type debugfs_type }:{ dir file lnk_file } { relabelto getattr };
 allow init dev_type:dir create_dir_perms;
@@ -508,7 +513,7 @@ neverallow init { file_type fs_type -init_exec }:file entrypoint;
 
 # Never read/follow symlinks created by shell or untrusted apps.
 neverallow init shell_data_file:lnk_file read;
-neverallow init app_data_file:lnk_file read;
+neverallow init { app_data_file privapp_data_file }:lnk_file read;
 
 # init should never execute a program without changing to another domain.
 neverallow init { file_type fs_type }:file execute_no_trans;

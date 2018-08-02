@@ -58,7 +58,7 @@ neverallow { domain userdebug_or_eng(`-crash_dump') } logd:process ptrace;
 neverallow logd system_file:dir_file_class_set write;
 
 # Write to files in /data/data or system files on /data
-neverallow logd { app_data_file system_data_file }:dir_file_class_set write;
+neverallow logd { app_data_file privapp_data_file system_data_file }:dir_file_class_set write;
 
 # Only init is allowed to enter the logd domain via exec()
 neverallow { domain -init } logd:process transition;

@@ -23,5 +23,5 @@ neverallow recovery_persist domain:process ptrace;
 neverallow recovery_persist system_file:dir_file_class_set write;
 
 # Write to files in /data/data
-neverallow recovery_persist { app_data_file system_data_file }:dir_file_class_set write;
+neverallow recovery_persist { privapp_data_file app_data_file system_data_file }:dir_file_class_set write;
 

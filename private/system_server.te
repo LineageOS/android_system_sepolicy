@@ -446,7 +446,16 @@ allow system_server zoneinfo_data_file:file create_file_perms;
 
 # Walk /data/data subdirectories.
 # Types extracted from seapp_contexts type= fields.
-allow system_server { system_app_data_file bluetooth_data_file nfc_data_file radio_data_file shell_data_file app_data_file }:dir { getattr read search };
+allow system_server {
+  system_app_data_file
+  bluetooth_data_file
+  nfc_data_file
+  radio_data_file
+  shell_data_file
+  app_data_file
+  privapp_data_file
+}:dir { getattr read search };
+
 # Also permit for unlabeled /data/data subdirectories and
 # for unlabeled asec containers on upgrades from 4.2.
 allow system_server unlabeled:dir r_dir_perms;
@@ -459,7 +468,15 @@ allow system_server system_app_data_file:file create_file_perms;
 
 # Receive and use open app data files passed over binder IPC.
 # Types extracted from seapp_contexts type= fields.
-allow system_server { system_app_data_file bluetooth_data_file nfc_data_file radio_data_file shell_data_file app_data_file }:file { getattr read write append };
+allow system_server {
+  system_app_data_file
+  bluetooth_data_file
+  nfc_data_file
+  radio_data_file
+  shell_data_file
+  app_data_file
+  privapp_data_file
+}:file { getattr read write append };
 
 # Access to /data/media for measuring disk usage.
 allow system_server media_rw_data_file:dir { search getattr open read };
@@ -821,7 +838,13 @@ neverallow system_server sdcard_type:file rw_file_perms;
 # file descriptor.
 # Types extracted from seapp_contexts type= fields, excluding
 # those types that system_server needs to open directly.
-neverallow system_server { bluetooth_data_file nfc_data_file shell_data_file app_data_file }:file { open create unlink link };
+neverallow system_server {
+  bluetooth_data_file
+  nfc_data_file
+  shell_data_file
+  app_data_file
+  privapp_data_file
+}:file { open create unlink link };
 
 # Forking and execing is inherently dangerous and racy. See, for
 # example, https://www.linuxprogrammingblog.com/threads-and-fork-think-twice-before-using-them

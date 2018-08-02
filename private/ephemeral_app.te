@@ -21,7 +21,7 @@ allow ephemeral_app { sdcard_type media_rw_data_file }:file {read write getattr 
 
 # Some apps ship with shared libraries and binaries that they write out
 # to their sandbox directory and then execute.
-allow ephemeral_app app_data_file:file {r_file_perms execute};
+allow ephemeral_app { app_data_file privapp_data_file }:file {r_file_perms execute};
 
 # services
 allow ephemeral_app audioserver_service:service_manager find;
@@ -50,7 +50,7 @@ allow ephemeral_app system_server:udp_socket {
 ### neverallow rules
 ###
 
-neverallow ephemeral_app app_data_file:file execute_no_trans;
+neverallow ephemeral_app { app_data_file privapp_data_file }:file execute_no_trans;
 
 # Receive or send uevent messages.
 neverallow ephemeral_app domain:netlink_kobject_uevent_socket *;
