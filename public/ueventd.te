@@ -49,6 +49,11 @@ recovery_only(`
 # linker tries to resolve paths in ld.config.txt.
 dontaudit ueventd postinstall_mnt_dir:dir getattr;
 
+# ueventd loads modules in response to modalias events.
+allow ueventd self:global_capability_class_set sys_module;
+allow ueventd vendor_file:system module_load;
+allow ueventd kernel:key search;
+
 #####
 ##### neverallow rules
 #####
