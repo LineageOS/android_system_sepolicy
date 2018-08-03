@@ -777,6 +777,7 @@ full_treble_only(`
     unlabeled # used only by core domains
     core_data_file_type
     -app_data_file
+    -privapp_data_file
     -pdx_endpoint_socket_type # used by VR layer
     -pdx_channel_socket_type # used by VR layer
   }:sock_file ~{ append getattr ioctl read write };
@@ -1195,7 +1196,7 @@ neverallow {
   -appdomain
   -installd
   -uncrypt  # TODO: see if we can remove
-} app_data_file:lnk_file read;
+} { app_data_file privapp_data_file }:lnk_file read;
 
 neverallow {
   domain

@@ -15,7 +15,7 @@ r_dir_file(mediametrics, cgroup)
 allow mediametrics proc_meminfo:file r_file_perms;
 
 # allows interactions with dumpsys to GMScore
-allow mediametrics app_data_file:file write;
+allow mediametrics { app_data_file privapp_data_file }:file write;
 
 # allow access to package manager for uid->apk mapping
 allow mediametrics package_native_service:service_manager find;

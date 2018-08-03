@@ -95,6 +95,7 @@ neverallow webview_zygote property_type:property_service set;
 # Should not have any access to app data files.
 neverallow webview_zygote {
     app_data_file
+    privapp_data_file
     system_app_data_file
     bluetooth_data_file
     nfc_data_file

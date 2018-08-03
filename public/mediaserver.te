@@ -28,10 +28,10 @@ binder_service(mediaserver)
 allow mediaserver media_data_file:dir create_dir_perms;
 allow mediaserver media_data_file:file create_file_perms;
 # TODO(b/80190017, b/80300620): remove direct access to private app data
-userdebug_or_eng(`auditallow mediaserver app_data_file:dir search;')
-allow mediaserver app_data_file:dir search;
-userdebug_or_eng(`auditallow mediaserver app_data_file:file open;')
-allow mediaserver app_data_file:file rw_file_perms;
+userdebug_or_eng(`auditallow mediaserver { app_data_file privapp_data_file }:dir search;')
+allow mediaserver { app_data_file privapp_data_file }:dir search;
+userdebug_or_eng(`auditallow mediaserver { app_data_file privapp_data_file }:file open;')
+allow mediaserver { app_data_file privapp_data_file }:file rw_file_perms;
 allow mediaserver sdcard_type:file write;
 allow mediaserver gpu_device:chr_file rw_file_perms;
 allow mediaserver video_device:dir r_dir_perms;
