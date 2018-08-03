@@ -62,7 +62,7 @@ allow kernel mediaprovider:fd use;
 #  * android.os.storage.cts.StorageManagerTest#testMountAndUnmountObbNormal
 #  * android.os.storage.cts.StorageManagerTest#testMountAndUnmountTwoObbs
 allow kernel vold:fd use;
-allow kernel app_data_file:file read;
+allow kernel { app_data_file privapp_data_file }:file read;
 allow kernel asec_image_file:file read;
 
 # Allow reading loop device in update_engine_unittests. (b/28319454)

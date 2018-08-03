@@ -33,7 +33,7 @@ allow dex2oat user_profile_data_file:file { getattr read lock };
 
 # Allow dex2oat to compile app's secondary dex files which were reported back to
 # the framework.
-allow dex2oat app_data_file:file { getattr read write lock };
+allow dex2oat { privapp_data_file app_data_file }:file { getattr read write lock };
 
 ##################
 # A/B OTA Dexopt #
@@ -63,4 +63,4 @@ allow dex2oat ota_data_file:file { create w_file_perms setattr };
 # Neverallow #
 ##############
 
-neverallow dex2oat app_data_file:notdevfile_class_set open;
+neverallow dex2oat { privapp_data_file app_data_file }:notdevfile_class_set open;

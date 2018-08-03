@@ -21,4 +21,4 @@ neverallow recovery_refresh domain:process ptrace;
 neverallow recovery_refresh system_file:dir_file_class_set write;
 
 # Write to files in /data/data or system files on /data
-neverallow recovery_refresh { app_data_file system_data_file }:dir_file_class_set write;
+neverallow recovery_refresh { app_data_file privapp_data_file system_data_file }:dir_file_class_set write;

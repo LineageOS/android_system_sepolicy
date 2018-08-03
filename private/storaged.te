@@ -29,7 +29,7 @@ allow storaged shell:fifo_file write;
 
 # Needed for GMScore to call dumpsys storaged
 allow storaged priv_app:fd use;
-allow storaged app_data_file:file write;
+allow storaged { privapp_data_file app_data_file }:file write;
 allow storaged permission_service:service_manager find;
 
 # Binder permissions

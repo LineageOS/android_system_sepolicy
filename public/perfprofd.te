@@ -21,8 +21,8 @@ userdebug_or_eng(`
   allow perfprofd system_file:file rx_file_perms;
 
   # perfprofd reads a config file from /data/data/com.google.android.gms/files
-  allow perfprofd app_data_file:file r_file_perms;
-  allow perfprofd app_data_file:dir search;
+  allow perfprofd { privapp_data_file app_data_file }:file r_file_perms;
+  allow perfprofd { privapp_data_file app_data_file }:dir search;
   allow perfprofd self:global_capability_class_set { dac_override };
 
   # perfprofd opens a file for writing in /data/misc/perfprofd
