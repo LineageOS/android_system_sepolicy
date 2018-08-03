@@ -66,8 +66,8 @@ allow appdomain appdomain:fifo_file rw_file_perms;
 allow appdomain surfaceflinger:unix_stream_socket { read write setopt getattr getopt shutdown };
 
 # App sandbox file accesses.
-allow { appdomain -isolated_app } app_data_file:dir create_dir_perms;
-allow { appdomain -isolated_app } app_data_file:notdevfile_class_set create_file_perms;
+allow { appdomain -isolated_app } { app_data_file privapp_data_file }:dir create_dir_perms;
+allow { appdomain -isolated_app } { app_data_file privapp_data_file }:notdevfile_class_set create_file_perms;
 
 # Traverse into expanded storage
 allow appdomain mnt_expand_file:dir r_dir_perms;

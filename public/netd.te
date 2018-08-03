@@ -128,7 +128,7 @@ neverallow netd { domain }:process ptrace;
 neverallow netd system_file:dir_file_class_set write;
 
 # Write to files in /data/data or system files on /data
-neverallow netd { app_data_file system_data_file }:dir_file_class_set write;
+neverallow netd { app_data_file privapp_data_file system_data_file }:dir_file_class_set write;
 
 # only system_server and dumpstate may find netd service
 neverallow { domain -system_server -dumpstate -netd } netd_service:service_manager find;

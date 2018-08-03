@@ -128,7 +128,7 @@ neverallow {
   domain
   -appdomain
   -installd # creation of sandbox
-} app_data_file:dir_file_class_set { create unlink };
+} { privapp_data_file app_data_file }:dir_file_class_set { create unlink };
 
 # Only the following processes should be directly accessing private app
 # directories.
@@ -145,7 +145,7 @@ neverallow {
   -runas
   -system_server
   -vold
-} app_data_file:dir *;
+} { privapp_data_file app_data_file }:dir *;
 
 # Only apps should be modifying app data. init and installd are exempted for
 # restorecon and package install/uninstall.
@@ -154,7 +154,7 @@ neverallow {
   -appdomain
   -init
   -installd
-} app_data_file:dir ~r_dir_perms;
+} { privapp_data_file app_data_file }:dir ~r_dir_perms;
 
 neverallow {
   domain
@@ -163,16 +163,16 @@ neverallow {
   -mediaserver # b/80300620
   userdebug_or_eng(`-perfprofd')
   -vold # b/80418809
-} app_data_file:file_class_set open;
+} { privapp_data_file app_data_file }:file_class_set open;
 
 neverallow {
   domain
   -appdomain
   -installd # creation of sandbox
-} app_data_file:dir_file_class_set { create unlink };
+} { privapp_data_file app_data_file }:dir_file_class_set { create unlink };
 
 neverallow {
   domain
   -init
   -installd
-} app_data_file:dir_file_class_set { relabelfrom relabelto };
+} { privapp_data_file app_data_file }:dir_file_class_set { relabelfrom relabelto };
