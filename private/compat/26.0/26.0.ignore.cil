@@ -153,6 +153,7 @@
     wait_for_keymaster
     wait_for_keymaster_exec
     wait_for_keymaster_tmpfs
+    watchdogd_tmpfs
     wpantund
     wpantund_exec
     wpantund_service
