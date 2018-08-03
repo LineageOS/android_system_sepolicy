@@ -19,12 +19,12 @@ allow dexoptanalyzer installd:fd use;
 
 # Allow reading secondary dex files that were reported by the app to the
 # package manager.
-allow dexoptanalyzer app_data_file:dir { getattr search };
-allow dexoptanalyzer app_data_file:file { getattr read };
+allow dexoptanalyzer { privapp_data_file app_data_file }:dir { getattr search };
+allow dexoptanalyzer { privapp_data_file app_data_file }:file { getattr read };
 # dexoptanalyzer calls access(2) with W_OK flag on app data. We can use the
 # "dontaudit...audit_access" policy line to suppress the audit access without
 # suppressing denial on actual access.
-dontaudit dexoptanalyzer app_data_file:dir audit_access;
+dontaudit dexoptanalyzer { privapp_data_file app_data_file }:dir audit_access;
 
 # Allow testing /data/user/0 which symlinks to /data/data
 allow dexoptanalyzer system_data_file:lnk_file { getattr };

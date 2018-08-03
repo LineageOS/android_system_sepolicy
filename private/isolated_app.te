@@ -11,7 +11,7 @@ typeattribute isolated_app coredomain;
 app_domain(isolated_app)
 
 # Access already open app data files received over Binder or local socket IPC.
-allow isolated_app app_data_file:file { append read write getattr lock };
+allow isolated_app { app_data_file privapp_data_file }:file { append read write getattr lock };
 
 allow isolated_app activity_service:service_manager find;
 allow isolated_app display_service:service_manager find;
@@ -61,7 +61,7 @@ unix_socket_connect(isolated_app, traced_producer, traced)
 neverallow isolated_app tun_device:chr_file open;
 
 # Isolated apps should not directly open app data files themselves.
-neverallow isolated_app app_data_file:file open;
+neverallow isolated_app { app_data_file privapp_data_file }:file open;
 
 # Only allow appending to /data/anr/traces.txt (b/27853304, b/18340553)
 # TODO: are there situations where isolated_apps write to this file?

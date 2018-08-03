@@ -55,7 +55,7 @@ set_prop(surfaceflinger, ctl_bootanim_prop)
 
 # Use open files supplied by an app.
 allow surfaceflinger appdomain:fd use;
-allow surfaceflinger app_data_file:file { read write };
+allow surfaceflinger { app_data_file privapp_data_file }:file { read write };
 
 # Allow writing surface traces to /data/misc/wmtrace.
 userdebug_or_eng(`
