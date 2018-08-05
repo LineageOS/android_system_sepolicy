@@ -19,7 +19,7 @@ allow priv_app self:process ptrace;
 
 # Some apps ship with shared libraries that they write out
 # to their sandbox directory and then dlopen().
-allow priv_app app_data_file:file execute;
+allow priv_app { app_data_file privapp_data_file }:file execute;
 
 allow priv_app app_api_service:service_manager find;
 allow priv_app audioserver_service:service_manager find;

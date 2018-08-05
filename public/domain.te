@@ -777,6 +777,7 @@ full_treble_only(`
     unlabeled # used only by core domains
     core_data_file_type
     -app_data_file
+    -privapp_data_file
     -pdx_endpoint_socket_type # used by VR layer
     -pdx_channel_socket_type # used by VR layer
   }:sock_file ~{ append getattr ioctl read write };
@@ -1113,26 +1114,14 @@ neverallow * { file_type fs_type dev_type }:{ lnk_file fifo_file sock_file } mou
 # su itself execute su.
 neverallow { domain userdebug_or_eng(`-dumpstate -shell -su') } su_exec:file no_x_file_perms;
 
-# Do not allow the introduction of new execmod rules. Text relocations
-# and modification of executable pages are unsafe.
-# The only exceptions are for NDK text relocations associated with
-# https://code.google.com/p/android/issues/detail?id=23203
-# which, long term, need to go away.
-neverallow * {
-  file_type
-  -apk_data_file
-  -app_data_file
-  -asec_public_file
-}:file execmod;
-
 # Do not allow making the stack or heap executable.
 # We would also like to minimize execmem but it seems to be
 # required by some device-specific service domains.
 neverallow * self:process { execstack execheap };
 
-# prohibit non-zygote spawned processes from using shared libraries
-# with text relocations. b/20013628 .
-neverallow { domain -untrusted_app_all } file_type:file execmod;
+# Do not allow the introduction of execmod rules. Text relocations
+# and modification of executable pages are unsafe.
+neverallow * file_type:file execmod;
 
 neverallow { domain -init } proc:{ file dir } mounton;
 
@@ -1207,7 +1196,7 @@ neverallow {
   -appdomain
   -installd
   -uncrypt  # TODO: see if we can remove
-} app_data_file:lnk_file read;
+} { app_data_file privapp_data_file }:lnk_file read;
 
 neverallow {
   domain

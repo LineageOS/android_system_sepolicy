@@ -55,9 +55,9 @@ mlsconstrain dir_file_class_set { create relabelfrom relabelto }
 # Also constrain other forms of manipulation, e.g. chmod/chown, unlink, rename, etc.
 # Subject must dominate object unless the subject is trusted.
 mlsconstrain dir { open search setattr rename add_name remove_name reparent rmdir }
-	     (t2 != app_data_file or l1 dom l2 or t1 == mlstrustedsubject);
+	     ( (t2 != app_data_file and t2 != privapp_data_file ) or l1 dom l2 or t1 == mlstrustedsubject);
 mlsconstrain { file lnk_file sock_file } { open setattr unlink link rename }
-	     (t2 != app_data_file or l1 dom l2 or t1 == mlstrustedsubject);
+	     ( (t2 != app_data_file and t2 != privapp_data_file) or l1 dom l2 or t1 == mlstrustedsubject);
 
 #
 # Constraints for file types other than app data files.
@@ -66,18 +66,18 @@ mlsconstrain { file lnk_file sock_file } { open setattr unlink link rename }
 # Read operations: Subject must dominate object unless the subject
 # or the object is trusted.
 mlsconstrain dir { read getattr search }
-	     (t2 == app_data_file or l1 dom l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject);
+	     (t2 == app_data_file or t2 == privapp_data_file or l1 dom l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject);
 
 mlsconstrain { file lnk_file sock_file chr_file blk_file } { read getattr execute }
-	     (t2 == app_data_file or l1 dom l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject);
+	     (t2 == app_data_file or t2 == privapp_data_file or l1 dom l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject);
 
 # Write operations: Subject must be equivalent to the object unless the
 # subject or the object is trusted.
 mlsconstrain dir { write setattr rename add_name remove_name reparent rmdir }
-	     (t2 == app_data_file or l1 eq l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject);
+	     (t2 == app_data_file or t2 == privapp_data_file or l1 eq l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject);
 
 mlsconstrain { file lnk_file sock_file chr_file blk_file } { write setattr append unlink link rename }
-	     (t2 == app_data_file or l1 eq l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject);
+	     (t2 == app_data_file or t2 == privapp_data_file or l1 eq l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject);
 
 # Special case for FIFOs.
 # These can be unnamed pipes, in which case they will be labeled with the

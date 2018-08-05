@@ -21,18 +21,15 @@
 ### Note that rules that should apply to all untrusted apps must be in app.te or also
 ### added to untrusted_v2_app.te and ephemeral_app.te.
 
-# Legacy text relocations
-allow untrusted_app_all apk_data_file:file execmod;
-
 # Some apps ship with shared libraries and binaries that they write out
 # to their sandbox directory and then execute.
-allow untrusted_app_all app_data_file:file { rx_file_perms execmod };
+allow untrusted_app_all { app_data_file privapp_data_file }:file { rx_file_perms };
 
 # ASEC
 allow untrusted_app_all asec_apk_file:file r_file_perms;
 allow untrusted_app_all asec_apk_file:dir r_dir_perms;
 # Execute libs in asec containers.
-allow untrusted_app_all asec_public_file:file { execute execmod };
+allow untrusted_app_all asec_public_file:file { execute };
 
 # Used by Finsky / Android "Verify Apps" functionality when
 # running "adb install foo.apk".
@@ -150,10 +147,6 @@ userdebug_or_eng(`
     -proc_net_vpn
   }:{ dir file lnk_file } { getattr open read };
 ')
-
-# Temporary auditing to get data on what apps use execmod.
-# TODO(b/111544476) Remove this and deny the permission if feasible.
-auditallow untrusted_app_all { apk_data_file app_data_file asec_public_file }:file execmod;
 
 # Attempts to write to system_data_file is generally a sign
 # that apps are attempting to access encrypted storage before

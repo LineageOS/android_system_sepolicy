@@ -13,10 +13,14 @@ recovery_only(`
 ')
 domain_trans(init, shell_exec, shell)
 domain_trans(init, init_exec, ueventd)
-domain_trans(init, init_exec, watchdogd)
 domain_trans(init, init_exec, vendor_init)
 domain_trans(init, { rootfs toolbox_exec }, modprobe)
-# case where logpersistd is actually logcat -f in logd context (nee: logcatd)
 userdebug_or_eng(`
+  # case where logpersistd is actually logcat -f in logd context (nee: logcatd)
   domain_auto_trans(init, logcat_exec, logpersist)
+
+  # allow init to execute services marked with seclabel u:r:su:s0 in userdebug/eng
+  allow init su:process transition;
+  dontaudit init su:process noatsecure;
+  allow init su:process { siginh rlimitinh };
 ')

@@ -100,6 +100,7 @@ neverallow { all_untrusted_apps -mediaprovider } {
   -sdcard_type
   file_type
   -app_data_file            # The apps sandbox itself
+  -privapp_data_file
   -media_rw_data_file       # Internal storage. Known that apps can
                             # leave artfacts here after uninstall.
   -user_profile_data_file   # Access to profile files
