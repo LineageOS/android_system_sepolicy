@@ -10,7 +10,6 @@ define(`all_untrusted_apps',`{
   untrusted_app_25
   untrusted_app_27
   untrusted_app_all
-  untrusted_v2_app
 }')
 # Receive or send uevent messages.
 neverallow all_untrusted_apps domain:netlink_kobject_uevent_socket *;
