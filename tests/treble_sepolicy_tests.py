@@ -29,7 +29,6 @@ coreAppdomain = {
         'system_app',
         'untrusted_app',
         'untrusted_app_25',
-        'untrusted_v2_app',
         }
 coredomainWhitelist = {
         'adbd',
