@@ -1,10 +1,11 @@
 ;; types removed from current policy
 (type commontime_management_service)
-(type qtaguid_proc)
 (type mediacodec)
 (type mediacodec_exec)
+(type qtaguid_proc)
 (type reboot_data_file)
 (type rild)
+(type untrusted_v2_app)
 (type webview_zygote_socket)
 (type vold_socket)
 (type thermalcallback_hwservice)
