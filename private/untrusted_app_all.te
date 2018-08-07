@@ -24,6 +24,12 @@
 # to their sandbox directory and then execute.
 allow untrusted_app_all { app_data_file privapp_data_file }:file { rx_file_perms };
 
+# Executing files from an application home directory violates
+# W^X (https://en.wikipedia.org/wiki/W%5EX) constraints (loading executable code
+# from a writable file) and is an unsafe application behavior. Test to see if we
+# can get rid of it.
+auditallow untrusted_app_all app_data_file:file { execute execute_no_trans };
+
 # ASEC
 allow untrusted_app_all asec_apk_file:file r_file_perms;
 allow untrusted_app_all asec_apk_file:dir r_dir_perms;
