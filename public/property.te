@@ -36,6 +36,7 @@ type firstboot_prop, property_type;
 type hwservicemanager_prop, property_type;
 type last_boot_reason_prop, property_type;
 type system_lmk_prop, property_type;
+type llkd_prop, property_type;
 type logd_prop, property_type, core_property_type;
 type logpersistd_logging_prop, property_type;
 type log_prop, property_type, log_property_type;

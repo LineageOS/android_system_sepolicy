@@ -3,7 +3,13 @@ typeattribute llkd coredomain;
 
 init_daemon_domain(llkd)
 
+get_prop(llkd, llkd_prop)
+
 allow llkd self:global_capability_class_set kill;
+userdebug_or_eng(`
+  allow llkd self:global_capability_class_set sys_ptrace;
+  allow llkd self:global_capability_class_set dac_override;
+')
 
 # llkd optionally locks itself in memory, to prevent it from being
 # swapped out and unable to discover a kernel in live-lock state.
@@ -11,6 +17,16 @@ allow llkd self:global_capability_class_set ipc_lock;
 
 # Send kill signals to _anyone_ suffering from Live Lock
 allow llkd domain:process sigkill;
+
+# read stack to check for Live Lock
+userdebug_or_eng(`
+  allow llkd {
+    domain
+    -keystore
+    -init
+    -llkd
+  }:process ptrace;
+')
 
 # live lock watchdog process allowed to look through /proc/
 allow llkd domain:dir r_dir_perms;
@@ -27,6 +43,7 @@ allow llkd kmsg_device:chr_file w_file_perms;
 ### neverallow rules
 
 neverallow { domain -init } llkd:process { dyntransition transition };
+neverallow { domain userdebug_or_eng(`-crash_dump') } llkd:process ptrace;
 
 # never honor LD_PRELOAD
 neverallow * llkd:process noatsecure;
