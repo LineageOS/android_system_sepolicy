@@ -350,7 +350,6 @@ type tombstoned_intercept_socket, file_type, coredomain_socket;
 type traced_producer_socket, file_type, coredomain_socket, mlstrustedobject;
 type traced_consumer_socket, file_type, coredomain_socket;
 type uncrypt_socket, file_type, coredomain_socket;
-type vold_socket, file_type, coredomain_socket;
 type wpa_socket, file_type, data_file_type, core_data_file_type;
 type zygote_socket, file_type, coredomain_socket;
 # UART (for GPS) control proc file

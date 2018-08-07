@@ -126,7 +126,6 @@
 /dev/snd/audio_seq_device	u:object_r:audio_seq_device:s0
 /dev/socket(/.*)?	u:object_r:socket_device:s0
 /dev/socket/adbd	u:object_r:adbd_socket:s0
-/dev/socket/cryptd	u:object_r:vold_socket:s0
 /dev/socket/dnsproxyd	u:object_r:dnsproxyd_socket:s0
 /dev/socket/dumpstate	u:object_r:dumpstate_socket:s0
 /dev/socket/fwmarkd	u:object_r:fwmarkd_socket:s0
@@ -158,7 +157,6 @@
 /dev/socket/traced_producer	u:object_r:traced_producer_socket:s0
 /dev/socket/traced_consumer	u:object_r:traced_consumer_socket:s0
 /dev/socket/uncrypt	u:object_r:uncrypt_socket:s0
-/dev/socket/vold	u:object_r:vold_socket:s0
 /dev/socket/wpa_eth[0-9] u:object_r:wpa_socket:s0
 /dev/socket/wpa_wlan[0-9] u:object_r:wpa_socket:s0
 /dev/socket/zygote	u:object_r:zygote_socket:s0
@@ -526,6 +524,12 @@
 /data/cache/backup_stage(/.*)?	u:object_r:cache_backup_file:s0
 # LocalTransport (backup) uses this subtree
 /data/cache/backup(/.*)?	u:object_r:cache_private_backup_file:s0
+
+#############################
+# Metadata files
+#
+/metadata(/.*)?           u:object_r:metadata_file:s0
+/metadata/vold(/.*)?      u:object_r:vold_metadata_file:s0
 
 #############################
 # asec containers

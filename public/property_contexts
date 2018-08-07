@@ -131,6 +131,7 @@ wlan.driver.status u:object_r:exported_wifi_prop:s0 exact enum ok unloaded
 
 # vendor-init-readable|vendor-init-actionable
 dev.bootcomplete u:object_r:exported3_system_prop:s0 exact bool
+persist.sys.usb.usbradio.config u:object_r:exported3_system_prop:s0 exact string
 sys.boot_completed u:object_r:exported3_system_prop:s0 exact bool
 sys.retaildemo.enabled u:object_r:exported3_system_prop:s0 exact int
 
@@ -145,6 +146,7 @@ aac_drc_cut u:object_r:exported2_default_prop:s0 exact int
 aac_drc_enc_target_level u:object_r:exported2_default_prop:s0 exact int
 aac_drc_heavy u:object_r:exported2_default_prop:s0 exact int
 aac_drc_reference_level u:object_r:exported2_default_prop:s0 exact int
+ro.aac_drc_effect_type u:object_r:exported2_default_prop:s0 exact int
 drm.64bit.enabled u:object_r:exported2_default_prop:s0 exact bool
 dumpstate.dry_run u:object_r:exported_dumpstate_prop:s0 exact bool
 hal.instrumentation.enable u:object_r:exported2_default_prop:s0 exact bool
@@ -252,6 +254,7 @@ ro.hardware.hdmi_cec u:object_r:exported_default_prop:s0 exact string
 ro.hardware.hwcomposer u:object_r:exported_default_prop:s0 exact string
 ro.hardware.input u:object_r:exported_default_prop:s0 exact string
 ro.hardware.keystore u:object_r:exported_default_prop:s0 exact string
+ro.hardware.keystore_desede u:object_r:exported_default_prop:s0 exact string
 ro.hardware.lights u:object_r:exported_default_prop:s0 exact string
 ro.hardware.local_time u:object_r:exported_default_prop:s0 exact string
 ro.hardware.memtrack u:object_r:exported_default_prop:s0 exact string
@@ -271,10 +274,12 @@ ro.hardware.vibrator u:object_r:exported_default_prop:s0 exact string
 ro.hardware.virtual_device u:object_r:exported_default_prop:s0 exact string
 ro.hardware.vulkan u:object_r:exported_default_prop:s0 exact string
 ro.kernel.qemu u:object_r:exported_default_prop:s0 exact int
-ro.kernel.qemu.gles u:object_r:exported_default_prop:s0 exact int
+ro.kernel.qemu. u:object_r:exported_default_prop:s0
+ro.kernel.android.bootanim u:object_r:exported_default_prop:s0 exact int
 ro.odm.build.date u:object_r:exported_default_prop:s0 exact string
 ro.odm.build.date.utc u:object_r:exported_default_prop:s0 exact int
 ro.odm.build.fingerprint u:object_r:exported_default_prop:s0 exact string
+ro.oem.key1 u:object_r:exported_default_prop:s0 exact string
 ro.product.board u:object_r:exported_default_prop:s0 exact string
 ro.product.cpu.abilist32 u:object_r:exported_default_prop:s0 exact string
 ro.product.cpu.abilist64 u:object_r:exported_default_prop:s0 exact string

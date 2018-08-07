@@ -16,6 +16,10 @@ hwbinder_use(hal_wifi_supplicant_default)
 allow hal_wifi_supplicant_default system_wifi_keystore_hwservice:hwservice_manager find;
 binder_call(hal_wifi_supplicant_default, wifi_keystore_service_server)
 
+allow hal_wifi_supplicant_default wpa_data_file:dir create_dir_perms;
+allow hal_wifi_supplicant_default wpa_data_file:file create_file_perms;
+allow hal_wifi_supplicant_default wpa_data_file:sock_file create_file_perms;
+
 # Write to security logs for audit.
 get_prop(hal_wifi_supplicant_default, device_logging_prop)
 

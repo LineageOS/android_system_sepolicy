@@ -10,6 +10,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service u:object_r:hal_fingerprint_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.boot@1\.0-service           u:object_r:hal_bootctl_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.broadcastradio@\d+\.\d+-service u:object_r:hal_broadcastradio_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider@2\.4-service_64       u:object_r:hal_camera_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider@2\.4-service          u:object_r:hal_camera_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider@2\.4-external-service          u:object_r:hal_camera_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.configstore@1\.[0-9]+-service    u:object_r:hal_configstore_default_exec:s0
@@ -24,6 +25,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.composer@2\.1-service    u:object_r:hal_graphics_composer_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.composer@2\.2-service    u:object_r:hal_graphics_composer_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.health@1\.0-service         u:object_r:hal_health_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.health@2\.0-service         u:object_r:hal_health_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.ir@1\.0-service             u:object_r:hal_ir_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.keymaster@3\.0-service      u:object_r:hal_keymaster_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.keymaster@4\.0-service      u:object_r:hal_keymaster_default_exec:s0
@@ -49,7 +51,6 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.wifi\.offload@1\.0-service  u:object_r:hal_wifi_offload_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.wifi@1\.0-service           u:object_r:hal_wifi_default_exec:s0
 /(vendor|system/vendor)/bin/hw/hostapd                                        u:object_r:hal_wifi_hostapd_default_exec:s0
-/(vendor|system/vendor)/bin/hostapd                                           u:object_r:hostapd_exec:s0
 /(vendor|system/vendor)/bin/hw/wpa_supplicant                                 u:object_r:hal_wifi_supplicant_default_exec:s0
 /(vendor|system/vendor)/bin/vndservicemanager                                 u:object_r:vndservicemanager_exec:s0
 
@@ -64,4 +65,4 @@
 # Data files
 #
 /data/vendor/wifi/hostapd(/.*)?                                               u:object_r:hostapd_data_file:s0
-/data/misc/wifi/hostapd(/.*)?   u:object_r:hostapd_socket:s0
+/data/vendor/wifi/wpa(/.*)?                                                   u:object_r:wpa_data_file:s0

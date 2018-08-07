@@ -100,6 +100,7 @@ auditallow dumpstate debugfs:file r_file_perms;
 allow dumpstate {
   block_device
   cache_file
+  metadata_file
   rootfs
   selinuxfs
   storage_file

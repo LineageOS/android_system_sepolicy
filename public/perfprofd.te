@@ -39,8 +39,8 @@ userdebug_or_eng(`
   # perfprofd looks at thermals.
   allow perfprofd sysfs_thermal:dir r_dir_perms;
 
-  # perfprofd checks power_supply.
-  r_dir_file(perfprofd, sysfs_batteryinfo)
+  # perfprofd gets charging status.
+  hal_client_domain(perfprofd, hal_health)
 
   # simpleperf reads kernel notes.
   allow perfprofd sysfs_kernel_notes:file r_file_perms;

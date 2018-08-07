@@ -15,6 +15,7 @@
 (type reboot_data_file)
 (type tracing_shell_writable)
 (type tracing_shell_writable_debug)
+(type vold_socket)
 (type webview_zygote_socket)
 (type rild)
 

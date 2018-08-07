@@ -8,22 +8,6 @@
 type vdc, domain;
 type vdc_exec, exec_type, file_type;
 
-# TODO: remove as part of 13758960
-unix_socket_connect(vdc, vold, vold)
-
-# vdc sends information back to dumpstate when "adb bugreport" is used
-# TODO: remove as part of 13758960
-allow vdc dumpstate:fd use;
-allow vdc dumpstate:unix_stream_socket { read write getattr };
-
-# vdc information is written to shell owned bugreport files
-# TODO: remove as part of 13758960
-allow vdc shell_data_file:file { write getattr };
-
-# Why?
-# TODO: remove as part of 13758960
-allow vdc dumpstate:unix_dgram_socket { read write };
-
 # vdc can be invoked with logwrapper, so let it write to pty
 allow vdc devpts:chr_file rw_file_perms;
 
