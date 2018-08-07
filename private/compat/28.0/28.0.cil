@@ -4,6 +4,7 @@
 (type mediacodec_exec)
 (type qtaguid_proc)
 (type thermalcallback_hwservice)
+(type untrusted_v2_app)
 
 ;; TODO: remove once P sepolicy is pushed to AOSP.
 (type vold_socket)
