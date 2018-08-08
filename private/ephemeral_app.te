@@ -23,6 +23,12 @@ allow ephemeral_app { sdcard_type media_rw_data_file }:file {read write getattr 
 # to their sandbox directory and then execute.
 allow ephemeral_app { app_data_file privapp_data_file }:file {r_file_perms execute};
 
+# Executing files from an application home directory violates
+# W^X (https://en.wikipedia.org/wiki/W%5EX) constraints (loading executable code
+# from a writable file) and is an unsafe application behavior. Test to see if we
+# can get rid of it.
+auditallow ephemeral_app app_data_file:file execute;
+
 # services
 allow ephemeral_app audioserver_service:service_manager find;
 allow ephemeral_app cameraserver_service:service_manager find;
