@@ -290,6 +290,8 @@ type system_app_data_file, file_type, data_file_type, core_data_file_type, mlstr
 # Compatibility with type name used in Android 4.3 and 4.4.
 # Default type for anything under /cache
 type cache_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
+# Type for /cache/overlay
+type overlayfs_file, file_type, data_file_type, core_data_file_type;
 # Type for /cache/backup_stage/* (fd interchange with apps)
 type cache_backup_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # type for anything under /cache/backup (local transport storage)

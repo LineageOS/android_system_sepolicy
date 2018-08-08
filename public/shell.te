@@ -144,7 +144,7 @@ allow shell domain:dir { search open read getattr };
 allow shell domain:{ file lnk_file } { open read getattr };
 
 # statvfs() of /proc and other labeled filesystems
-# (yaffs2, jffs2, ext2, ext3, ext4, xfs, btrfs, f2fs, squashfs)
+# (yaffs2, jffs2, ext2, ext3, ext4, xfs, btrfs, f2fs, squashfs, overlay)
 allow shell { proc labeledfs }:filesystem getattr;
 
 # stat() of /dev
