@@ -5,6 +5,7 @@
 (typeattributeset new_objects
   ( activity_task_service
     adb_service
+    hal_health_filesystem_hwservice
     llkd
     llkd_exec
     llkd_tmpfs
