@@ -3,8 +3,3 @@ hal_server_domain(hal_gnss_default, hal_gnss)
 
 type hal_gnss_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_gnss_default)
-
-# Read access to system files for HALs in
-# /{system,vendor,odm}/lib[64]/hw/ in order
-# to be able to open the hal implementation .so files
-r_dir_file(hal_gnss, system_file)

@@ -4,11 +4,6 @@ binder_call(hal_health_server, hal_health_client)
 
 hal_attribute_hwservice(hal_health, hal_health_hwservice)
 
-# Read access to system files for HALs in
-# /{system,vendor,odm}/lib[64]/hw/ in order
-# to be able to open the hal implementation .so files
-r_dir_file(hal_health, system_file)
-
 # Common rules for a health service.
 
 # Allow to listen to uevents for updates
