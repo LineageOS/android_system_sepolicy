@@ -27,6 +27,7 @@ android.hardware.graphics.allocator::IAllocator                 u:object_r:hal_g
 android.hardware.graphics.composer::IComposer                   u:object_r:hal_graphics_composer_hwservice:s0
 android.hardware.graphics.mapper::IMapper                       u:object_r:hal_graphics_mapper_hwservice:s0
 android.hardware.health::IHealth                                u:object_r:hal_health_hwservice:s0
+android.hardware.health.filesystem::IFileSystem                 u:object_r:hal_health_filesystem_hwservice:s0
 android.hardware.ir::IConsumerIr                                u:object_r:hal_ir_hwservice:s0
 android.hardware.keymaster::IKeymasterDevice                    u:object_r:hal_keymaster_hwservice:s0
 android.hardware.light::ILight                                  u:object_r:hal_light_hwservice:s0

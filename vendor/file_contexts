@@ -26,6 +26,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.composer@2\.2-service    u:object_r:hal_graphics_composer_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.health@1\.0-service         u:object_r:hal_health_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.health@2\.0-service         u:object_r:hal_health_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.health\.filesystem@1\.0-service         u:object_r:hal_health_filesystem_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.ir@1\.0-service             u:object_r:hal_ir_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.keymaster@3\.0-service      u:object_r:hal_keymaster_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.keymaster@4\.0-service      u:object_r:hal_keymaster_default_exec:s0
