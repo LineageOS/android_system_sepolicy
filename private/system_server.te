@@ -477,7 +477,7 @@ allow system_server {
   shell_data_file
   app_data_file
   privapp_data_file
-}:file { getattr read write append };
+}:file { getattr read write append map };
 
 # Access to /data/media for measuring disk usage.
 allow system_server media_rw_data_file:dir { search getattr open read };
