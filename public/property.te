@@ -35,6 +35,7 @@ type fingerprint_prop, property_type, core_property_type;
 type firstboot_prop, property_type;
 type hwservicemanager_prop, property_type;
 type last_boot_reason_prop, property_type;
+type system_lmk_prop, property_type;
 type logd_prop, property_type, core_property_type;
 type logpersistd_logging_prop, property_type;
 type log_prop, property_type, log_property_type;
@@ -381,6 +382,7 @@ compatible_property_only(`
     -firstboot_prop
     -hwservicemanager_prop
     -last_boot_reason_prop
+    -system_lmk_prop
     -log_prop
     -log_tag_prop
     -logd_prop

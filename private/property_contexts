@@ -73,6 +73,7 @@ sys.boot.reason         u:object_r:system_boot_reason_prop:s0
 sys.boot.reason.last    u:object_r:last_boot_reason_prop:s0
 pm.                     u:object_r:pm_prop:s0
 test.sys.boot.reason    u:object_r:test_boot_reason_prop:s0
+sys.lmk.                u:object_r:system_lmk_prop:s0
 
 # Boolean property set by system server upon boot indicating
 # if device owner is provisioned.

@@ -46,3 +46,7 @@ allow untrusted_app_25 proc_tty_drivers:file r_file_perms;
 allow untrusted_app_25 proc_qtaguid_ctrl:file rw_file_perms;
 r_dir_file(untrusted_app_25, proc_qtaguid_stat)
 allow untrusted_app_25 qtaguid_device:chr_file r_file_perms;
+
+# Text relocation support for API < 23
+# https://android.googlesource.com/platform/bionic/+/master/android-changes-for-ndk-developers.md#text-relocations-enforced-for-api-level-23
+allow untrusted_app_25 { apk_data_file app_data_file asec_public_file }:file execmod;

@@ -52,6 +52,7 @@
     hal_codec2_hwservice
     hal_confirmationui_hwservice
     hal_evs_hwservice
+    hal_health_filesystem_hwservice
     hal_lowpan_hwservice
     hal_secure_element_hwservice
     hal_usb_gadget_hwservice
@@ -72,6 +73,7 @@
     mnt_vendor_file
     network_watchlist_data_file
     network_watchlist_service
+    overlayfs_file
     perfetto
     perfetto_exec
     perfetto_tmpfs
@@ -95,6 +97,7 @@
     statsdw_socket
     storaged_data_file
     system_boot_reason_prop
+    system_lmk_prop
     system_update_service
     test_boot_reason_prop
     time_prop
