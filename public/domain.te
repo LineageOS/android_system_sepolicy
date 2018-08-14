@@ -1042,6 +1042,32 @@ full_treble_only(`
     }:file execute_no_trans;
 ')
 
+full_treble_only(`
+  # Do not allow system components access to /vendor files except for the
+  # ones whitelisted here.
+  neverallow {
+    coredomain
+    # TODO(b/37168747): clean up fwk access to /vendor
+    -crash_dump
+    -init # starts vendor executables
+    -kernel # loads /vendor/firmware
+    userdebug_or_eng(`-perfprofd')
+    -shell
+    -system_executes_vendor_violators
+    -system_server # reads vendor input files
+    -ueventd # reads /vendor/ueventd.rc
+  } {
+    vendor_file_type
+    -same_process_hal_file
+    -vendor_app_file
+    -vendor_configs_file
+    -vendor_framework_file
+    -vendor_overlay_file
+    -vendor_public_lib_file
+    -vndk_sp_file
+  }:file *;
+')
+
 # Only authorized processes should be writing to files in /data/dalvik-cache
 neverallow {
   domain
