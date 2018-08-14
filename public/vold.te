@@ -166,6 +166,9 @@ binder_call(vold, healthd)
 # talk to keymaster
 hal_client_domain(vold, hal_keymaster)
 
+# talk to health filesystem HAL
+hal_client_domain(vold, hal_health_filesystem)
+
 # Access userdata block device.
 allow vold userdata_block_device:blk_file rw_file_perms;
 
@@ -266,6 +269,7 @@ neverallow { domain -system_server -vdc -vold } vold_service:service_manager fin
 neverallow vold {
   domain
   -hal_keymaster_server
+  -hal_health_filesystem_server
   -healthd
   -hwservicemanager
   -servicemanager

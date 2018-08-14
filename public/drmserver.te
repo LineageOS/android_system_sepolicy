@@ -21,8 +21,8 @@ allow drmserver sdcard_type:dir search;
 allow drmserver drm_data_file:dir create_dir_perms;
 allow drmserver drm_data_file:file create_file_perms;
 allow drmserver tee_device:chr_file rw_file_perms;
-allow drmserver { app_data_file privapp_data_file }:file { read write getattr };
-allow drmserver sdcard_type:file { read write getattr };
+allow drmserver { app_data_file privapp_data_file }:file { read write getattr map };
+allow drmserver sdcard_type:file { read write getattr map };
 r_dir_file(drmserver, efs_file)
 
 type drmserver_socket, file_type;
@@ -38,12 +38,12 @@ allow drmserver apk_data_file:sock_file unlink;
 r_dir_file(drmserver, media_rw_data_file)
 
 # Read resources from open apk files passed over Binder.
-allow drmserver apk_data_file:file { read getattr };
-allow drmserver asec_apk_file:file { read getattr };
-allow drmserver ringtone_file:file { read getattr };
+allow drmserver apk_data_file:file { read getattr map };
+allow drmserver asec_apk_file:file { read getattr map };
+allow drmserver ringtone_file:file { read getattr map };
 
 # Read /data/data/com.android.providers.telephony files passed over Binder.
-allow drmserver radio_data_file:file { read getattr };
+allow drmserver radio_data_file:file { read getattr map };
 
 # /oem access
 allow drmserver oemfs:dir search;
