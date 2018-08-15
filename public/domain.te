@@ -557,6 +557,7 @@ neverallow {
   domain
   -adbd
   -dumpstate
+  -fastbootd
   -hal_drm_server
   -hal_cas_server
   -init
@@ -591,11 +592,21 @@ neverallow {
   -fsck
 } metadata_block_device:blk_file { append link rename write open read ioctl lock };
 
-# No domain other than recovery and update_engine can write to system partition(s).
-neverallow { domain -recovery -update_engine } system_block_device:blk_file { write append };
+# No domain other than recovery, update_engine and fastbootd can write to system partition(s).
+neverallow {
+  domain
+  -fastbootd
+  -recovery
+  -update_engine
+} system_block_device:blk_file { write append };
 
-# No domains other than install_recovery or recovery can write to recovery.
-neverallow { domain -install_recovery -recovery } recovery_block_device:blk_file { write append };
+# No domains other than install_recovery, recovery or fastbootd can write to recovery.
+neverallow {
+  domain
+  -fastbootd
+  -install_recovery
+  -recovery
+} recovery_block_device:blk_file { write append };
 
 # No domains other than a select few can access the misc_block_device. This
 # block device is reserved for OTA use.
@@ -1040,6 +1051,32 @@ full_treble_only(`
       vendor_file_type
       -same_process_hal_file
     }:file execute_no_trans;
+')
+
+full_treble_only(`
+  # Do not allow system components access to /vendor files except for the
+  # ones whitelisted here.
+  neverallow {
+    coredomain
+    # TODO(b/37168747): clean up fwk access to /vendor
+    -crash_dump
+    -init # starts vendor executables
+    -kernel # loads /vendor/firmware
+    userdebug_or_eng(`-perfprofd')
+    -shell
+    -system_executes_vendor_violators
+    -system_server # reads vendor input files
+    -ueventd # reads /vendor/ueventd.rc
+  } {
+    vendor_file_type
+    -same_process_hal_file
+    -vendor_app_file
+    -vendor_configs_file
+    -vendor_framework_file
+    -vendor_overlay_file
+    -vendor_public_lib_file
+    -vndk_sp_file
+  }:file *;
 ')
 
 # Only authorized processes should be writing to files in /data/dalvik-cache

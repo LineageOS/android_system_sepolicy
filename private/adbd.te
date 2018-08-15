@@ -18,6 +18,9 @@ userdebug_or_eng(`
 recovery_only(`
   domain_trans(adbd, rootfs, shell)
   allow adbd shell:process dyntransition;
+
+  # Allows reboot fastboot to enter fastboot directly
+  unix_socket_connect(adbd, recovery, recovery)
 ')
 
 # Do not sanitize the environment or open fds of the shell. Allow signaling
@@ -77,6 +80,12 @@ get_prop(adbd, device_logging_prop)
 
 # Read device's serial number from system properties
 get_prop(adbd, serialno_prop)
+
+# Read device's overlayfs related properties and files
+userdebug_or_eng(`
+  get_prop(adbd, persistent_properties_ready_prop)
+  r_dir_file(adbd, sysfs_dt_firmware_android)
+')
 
 # Run /system/bin/bu
 allow adbd system_file:file rx_file_perms;

@@ -49,6 +49,7 @@
     exported3_default_prop
     exported3_radio_prop
     exported3_system_prop
+    fastbootd
     fingerprint_vendor_data_file
     fs_bpf
     hal_audiocontrol_hwservice
@@ -62,6 +63,9 @@
     hal_lowpan_hwservice
     hal_neuralnetworks_hwservice
     hal_secure_element_hwservice
+    hal_system_suspend_default
+    hal_system_suspend_default_exec
+    hal_system_suspend_default_tmpfs
     hal_tetheroffload_hwservice
     hal_wifi_hostapd_hwservice
     hal_usb_gadget_hwservice
@@ -93,6 +97,7 @@
     perfetto_traces_data_file
     perfprofd_service
     property_info
+    recovery_socket
     secure_element
     secure_element_device
     secure_element_tmpfs
@@ -113,6 +118,7 @@
     system_boot_reason_prop
     system_lmk_prop
     system_net_netd_hwservice
+    system_suspend_hwservice
     system_update_service
     test_boot_reason_prop
     thermal_service
