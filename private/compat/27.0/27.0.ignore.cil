@@ -45,7 +45,6 @@
     exported_system_radio_prop
     exported_vold_prop
     exported_wifi_prop
-    fastbootd
     fingerprint_vendor_data_file
     fs_bpf
     hal_audiocontrol_hwservice
@@ -84,7 +83,6 @@
     perfetto_traces_data_file
     perfprofd_service
     property_info
-    recovery_socket
     secure_element
     secure_element_device
     secure_element_service
