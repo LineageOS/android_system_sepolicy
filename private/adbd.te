@@ -18,6 +18,9 @@ userdebug_or_eng(`
 recovery_only(`
   domain_trans(adbd, rootfs, shell)
   allow adbd shell:process dyntransition;
+
+  # Allows reboot fastboot to enter fastboot directly
+  unix_socket_connect(adbd, recovery, recovery)
 ')
 
 # Do not sanitize the environment or open fds of the shell. Allow signaling

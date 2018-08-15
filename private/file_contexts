@@ -149,6 +149,7 @@
 /dev/socket/pdx/system/vr/display/vsync	u:object_r:pdx_display_vsync_endpoint_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
 /dev/socket/racoon	u:object_r:racoon_socket:s0
+/dev/socket/recovery    u:object_r:recovery_socket:s0
 /dev/socket/rild	u:object_r:rild_socket:s0
 /dev/socket/rild-debug	u:object_r:rild_debug_socket:s0
 /dev/socket/tombstoned_crash u:object_r:tombstoned_crash_socket:s0
