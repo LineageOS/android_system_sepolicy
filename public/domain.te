@@ -557,7 +557,6 @@ neverallow {
   domain
   -adbd
   -dumpstate
-  -fastbootd
   -hal_drm_server
   -hal_cas_server
   -init
@@ -592,21 +591,11 @@ neverallow {
   -fsck
 } metadata_block_device:blk_file { append link rename write open read ioctl lock };
 
-# No domain other than recovery, update_engine and fastbootd can write to system partition(s).
-neverallow {
-  domain
-  -fastbootd
-  -recovery
-  -update_engine
-} system_block_device:blk_file { write append };
+# No domain other than recovery and update_engine can write to system partition(s).
+neverallow { domain -recovery -update_engine } system_block_device:blk_file { write append };
 
-# No domains other than install_recovery, recovery or fastbootd can write to recovery.
-neverallow {
-  domain
-  -fastbootd
-  -install_recovery
-  -recovery
-} recovery_block_device:blk_file { write append };
+# No domains other than install_recovery or recovery can write to recovery.
+neverallow { domain -install_recovery -recovery } recovery_block_device:blk_file { write append };
 
 # No domains other than a select few can access the misc_block_device. This
 # block device is reserved for OTA use.
