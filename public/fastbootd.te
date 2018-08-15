@@ -1,0 +1,59 @@
+# fastbootd (used in recovery init.rc for /sbin/fastbootd)
+
+# Declare the domain unconditionally so we can always reference it
+# in neverallow rules.
+type fastbootd, domain;
+
+# But the allow rules are only included in the recovery policy.
+# Otherwise fastbootd is only allowed the domain rules.
+recovery_only(`
+  # fastbootd can only use HALs in passthrough mode
+  passthrough_hal_client_domain(fastbootd, hal_bootctl)
+
+  # Access /dev/usb-ffs/fastbootd/ep0
+  allow fastbootd functionfs:dir search;
+  allow fastbootd functionfs:file rw_file_perms;
+
+  # Log to serial
+  allow fastbootd kmsg_device:chr_file { open write };
+
+  # battery info
+  allow fastbootd sysfs_batteryinfo:file r_file_perms;
+
+  allow fastbootd device:dir r_dir_perms;
+
+  # Reboot the device
+  set_prop(fastbootd, powerctl_prop)
+
+  # Read serial number of the device from system properties
+  get_prop(fastbootd, serialno_prop)
+
+  # Set sys.usb.ffs.ready.
+  set_prop(fastbootd, ffs_prop)
+  set_prop(fastbootd, exported_ffs_prop)
+
+  unix_socket_connect(fastbootd, recovery, recovery)
+
+  # Required for flashing
+  allow fastbootd dm_device:chr_file rw_file_perms;
+  allow fastbootd dm_device:blk_file rw_file_perms;
+
+  allow fastbootd system_block_device:blk_file rw_file_perms;
+  allow fastbootd boot_block_device:blk_file rw_file_perms;
+
+  allow fastbootd misc_block_device:blk_file rw_file_perms;
+
+  allow fastbootd proc_cmdline:file r_file_perms;
+  allow fastbootd rootfs:dir r_dir_perms;
+  allow fastbootd sysfs_dt_firmware_android:file r_file_perms;
+')
+
+###
+### neverallow rules
+###
+
+# Write permission is required to wipe userdata
+# until recovery supports vold.
+neverallow fastbootd {
+   data_file_type
+}:file { no_x_file_perms };
