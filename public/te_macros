@@ -408,7 +408,7 @@ allow $1 sysfs_wake_lock:file rw_file_perms;
 allow $1 self:global_capability2_class_set block_suspend;
 # TODO(b/36375663): wake lock clients should be tagged with
 # hal_system_suspend_client and halclientdomain attributes. However,
-# typeattribute statements don't allow applying attributes to other attributes,
+# typeattribute statements do not allow applying attributes to other attributes,
 # so instead we grant appropriate permissions directly within this macro.
 # hal_system_suspend_client permissions
 binder_call($1, hal_system_suspend_server)

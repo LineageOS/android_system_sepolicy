@@ -2,7 +2,7 @@
 # processed by checkpolicy
 define transform-policy-to-conf
 @mkdir -p $(dir $@)
-$(hide) m4 $(PRIVATE_ADDITIONAL_M4DEFS) \
+$(hide) m4 --fatal-warnings $(PRIVATE_ADDITIONAL_M4DEFS) \
 	-D mls_num_sens=$(PRIVATE_MLS_SENS) -D mls_num_cats=$(PRIVATE_MLS_CATS) \
 	-D target_build_variant=$(PRIVATE_TARGET_BUILD_VARIANT) \
 	-D target_with_dexpreopt=$(WITH_DEXPREOPT) \

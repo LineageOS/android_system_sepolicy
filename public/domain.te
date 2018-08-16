@@ -615,6 +615,7 @@ neverallow {
 neverallow {
   domain
   userdebug_or_eng(`-domain') # exclude debuggable builds
+  -fastbootd
   -hal_bootctl_server
   -init
   -uncrypt
@@ -749,7 +750,6 @@ full_treble_only(`
     -mdnsd # netdomain needs this
     userdebug_or_eng(`-su') # communications with su are permitted only on userdebug or eng builds
     -init
-    -incidentd # TODO(b/35870313): Remove incidentd from this list once vendor domains no longer declare Binder services
     -tombstoned # TODO(b/36604251): Remove tombstoned from this list once mediacodec (OMX HAL) no longer declares Binder services
   });
 ')
