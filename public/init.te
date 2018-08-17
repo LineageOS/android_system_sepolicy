@@ -80,6 +80,9 @@ allow init fs_bpf:dir mounton;
 # Mount on /dev/usb-ffs/adb.
 allow init device:dir mounton;
 
+# Mount tmpfs on /apex
+allow init apex_mnt_dir:dir mounton;
+
 # Create and remove symlinks in /.
 allow init rootfs:lnk_file { create unlink };
 
@@ -514,6 +517,11 @@ allow init vold_metadata_file:file getattr;
 
 # Allow init to use binder
 binder_use(init);
+allow init apex_service:service_manager find;
+# Allow servicemanager to pass it
+allow servicemanager init:binder transfer;
+# Allow calls from init to apexd
+allow init apexd:binder call;
 
 ###
 ### neverallow rules
@@ -532,8 +540,11 @@ neverallow init { app_data_file privapp_data_file }:lnk_file read;
 # init should never execute a program without changing to another domain.
 neverallow init { file_type fs_type }:file execute_no_trans;
 
-# Init never adds or uses services via service_manager.
-neverallow init service_manager_type:service_manager { add find };
+# init can only find the APEX service
+neverallow init { service_manager_type -apex_service }:service_manager { find };
+# init can never add binder services
+neverallow init service_manager_type:service_manager { add };
+# init can never list binder services
 neverallow init servicemanager:service_manager list;
 
 # Init should not be creating subdirectories in /data/local/tmp

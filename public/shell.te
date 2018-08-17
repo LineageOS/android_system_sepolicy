@@ -104,6 +104,7 @@ allow shell servicemanager:service_manager list;
 # - dumpstate_service (so it can receive dumpstate progress updates)
 allow shell {
   service_manager_type
+  -apex_service
   -gatekeeper_service
   -incident_service
   -installd_service

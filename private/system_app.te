@@ -70,6 +70,7 @@ allow system_app servicemanager:service_manager list;
 # TODO: scope this down? Too broad?
 allow system_app {
   service_manager_type
+  -apex_service
   -dumpstate_service
   -installd_service
   -netd_service

@@ -31,6 +31,7 @@ hal_client_domain(atrace, hal_atrace)
 
 allow atrace {
   service_manager_type
+  -apex_service
   -incident_service
   -netd_service
   -stats_service
