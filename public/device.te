@@ -104,3 +104,6 @@ type metadata_block_device, dev_type;
 
 # The 'misc' partition used by recovery and A/B.
 type misc_block_device, dev_type;
+
+# 'super' partition to be used for logical partitioning.
+type super_block_device, dev_type;
