@@ -35,7 +35,7 @@ allow traced_probes kmsg_device:chr_file write;
 allow traced_probes system_file:dir { open read };
 
 # Allow traced_probes to list some of the data partition.
-allow traced_probes self:capability dac_read_search;
+allow traced_probes self:global_capability_class_set dac_read_search;
 
 allow traced_probes apk_data_file:dir { getattr open read search };
 allow traced_probes dalvikcache_data_file:dir { getattr open read search };

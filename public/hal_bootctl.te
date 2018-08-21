@@ -4,4 +4,4 @@ binder_call(hal_bootctl_server, hal_bootctl_client)
 
 hal_attribute_hwservice(hal_bootctl, hal_bootctl_hwservice)
 
-dontaudit hal_bootctl self:capability sys_rawio;
+dontaudit hal_bootctl self:global_capability_class_set sys_rawio;

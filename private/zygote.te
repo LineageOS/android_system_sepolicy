@@ -112,7 +112,7 @@ get_prop(zygote, overlay_prop)
 get_prop(zygote, exported_overlay_prop)
 
 # ingore spurious denials
-dontaudit zygote self:capability sys_resource;
+dontaudit zygote self:global_capability_class_set sys_resource;
 
 ###
 ### neverallow rules
