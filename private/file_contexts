@@ -359,7 +359,7 @@
 #############################
 # Product-Services files
 #
-/(product-services|system/product-services)(/.*)?               u:object_r:system_file:s0
+/(product_services|system/product_services)(/.*)?               u:object_r:system_file:s0
 
 #############################
 # Data files
