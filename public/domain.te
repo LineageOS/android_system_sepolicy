@@ -1397,8 +1397,8 @@ neverallow {
   -vold
   -vold_prepare_subdirs
   -zygote
-} self:capability dac_override;
-neverallow { domain -traced_probes } self:capability dac_read_search;
+} self:global_capability_class_set dac_override;
+neverallow { domain -traced_probes } self:global_capability_class_set dac_read_search;
 
 # If an already existing file is opened with O_CREAT, the kernel might generate
 # a false report of a create denial. Silence these denials and make sure that
