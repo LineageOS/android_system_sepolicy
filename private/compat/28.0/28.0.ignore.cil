@@ -6,6 +6,7 @@
   ( activity_task_service
     adb_service
     fastbootd
+    color_display_service
     hal_health_filesystem_hwservice
     hal_system_suspend_default
     hal_system_suspend_default_exec
