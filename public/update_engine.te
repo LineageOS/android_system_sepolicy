@@ -19,7 +19,7 @@ wakelock_use(update_engine);
 
 # Ignore these denials.
 dontaudit update_engine kernel:process setsched;
-dontaudit update_engine self:capability sys_rawio;
+dontaudit update_engine self:global_capability_class_set sys_rawio;
 
 # Allow using persistent storage in /data/misc/update_engine.
 allow update_engine update_engine_data_file:dir create_dir_perms;
