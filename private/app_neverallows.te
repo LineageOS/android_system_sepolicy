@@ -189,7 +189,7 @@ neverallow all_untrusted_apps {
   -hal_omx_hwservice
   -hal_cas_hwservice
   -hal_neuralnetworks_hwservice
-  -untrusted_app_visible_hwservice
+  -untrusted_app_visible_hwservice_violators
 }:hwservice_manager find;
 
 # Make sure that the following services are never accessible by untrusted_apps
@@ -259,7 +259,7 @@ full_treble_only(`
     -hal_neuralnetworks_server
     -hal_omx_server
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
-    -untrusted_app_visible_halserver
+    -untrusted_app_visible_halserver_violators
   }:binder { call transfer };
 ')
 
