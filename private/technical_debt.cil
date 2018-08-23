@@ -40,3 +40,13 @@
 ; Unfortunately, we can't currently express this in module policy language:
 ;     typeattribute { appdomain -isolated_app } hal_neuralnetworks_client;
 (typeattributeset hal_neuralnetworks_client ((and (appdomain) ((not (isolated_app))))))
+
+; TODO(b/112056006): move these to mapping files when/if we implement 'versioned' attributes.
+; Rename untrusted_app_visible_* to untrusted_app_visible_*_violators.
+; Unfortunately, we can't currently express this in module policy language:
+;     typeattribute untrusted_app_visible_hwservice untrusted_app_visible_hwservice_violators;
+;     typeattribute untrusted_app_visible_halserver untrusted_app_visible_halserver_violators;
+(typeattribute untrusted_app_visible_hwservice)
+(typeattributeset untrusted_app_visible_hwservice_violators (untrusted_app_visible_hwservice))
+(typeattribute untrusted_app_visible_halserver)
+(typeattributeset untrusted_app_visible_halserver_violators (untrusted_app_visible_halserver))
