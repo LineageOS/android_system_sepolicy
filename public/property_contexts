@@ -19,6 +19,7 @@ dalvik.vm.dex2oat-threads u:object_r:exported_dalvik_prop:s0 exact int
 dalvik.vm.dexopt.secondary u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.execution-mode u:object_r:exported_dalvik_prop:s0 exact string
 dalvik.vm.extra-opts u:object_r:exported_dalvik_prop:s0 exact string
+dalvik.vm.foreground-heap-growth-multiplier u:object_r:exported_dalvik_prop:s0 exact string
 dalvik.vm.gctype u:object_r:exported_dalvik_prop:s0 exact string
 dalvik.vm.heapgrowthlimit u:object_r:exported_dalvik_prop:s0 exact string
 dalvik.vm.heapmaxfree u:object_r:exported_dalvik_prop:s0 exact string
@@ -107,10 +108,15 @@ ro.enable_boot_charger_mode u:object_r:exported3_default_prop:s0 exact bool
 ro.gfx.driver.0 u:object_r:exported3_default_prop:s0 exact string
 ro.hdmi.device_type u:object_r:exported3_default_prop:s0 exact string
 ro.hdmi.wake_on_hotplug u:object_r:exported3_default_prop:s0 exact bool
+ro.lmk.critical_upgrade u:object_r:exported3_default_prop:s0 exact bool
+ro.lmk.downgrade_pressure u:object_r:exported3_default_prop:s0 exact int
+ro.lmk.kill_heaviest_task u:object_r:exported3_default_prop:s0 exact bool
+ro.lmk.upgrade_pressure u:object_r:exported3_default_prop:s0 exact int
 ro.oem_unlock_supported u:object_r:exported3_default_prop:s0 exact int
 ro.opengles.version u:object_r:exported3_default_prop:s0 exact int
 ro.radio.noril u:object_r:exported3_default_prop:s0 exact string
 ro.retaildemo.video_path u:object_r:exported3_default_prop:s0 exact string
+ro.statsd.enable u:object_r:exported3_default_prop:s0 exact bool
 ro.sf.disable_triple_buffer u:object_r:exported3_default_prop:s0 exact bool
 ro.sf.lcd_density u:object_r:exported3_default_prop:s0 exact int
 ro.storage_manager.enabled u:object_r:exported3_default_prop:s0 exact bool
