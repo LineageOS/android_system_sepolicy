@@ -23,3 +23,29 @@ allow stats stats_service:service_manager find;
 binder_call(stats, statsd)
 allow stats statsd:fifo_file write;
 
+# Only statsd can publish the binder service.
+add_service(statsd, stats_service)
+
+# Allow pipes from (and only from) stats.
+allow statsd stats:fd use;
+allow statsd stats:fifo_file write;
+
+# Allow statsd to call back to stats with status updates.
+binder_call(statsd, stats)
+
+###
+### neverallow rules
+###
+
+# Only system_server, system_app, traceur_app, and stats command can find the stats service.
+neverallow {
+  domain
+  -dumpstate
+  -priv_app
+  -shell
+  -stats
+  -statsd
+  -system_app
+  -system_server
+  -traceur_app
+} stats_service:service_manager find;
