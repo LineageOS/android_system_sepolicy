@@ -166,6 +166,9 @@ allow appdomain shell_data_file:file { write getattr };
 allow appdomain incidentd:fd use;
 allow appdomain incidentd:fifo_file { write getattr };
 
+# Allow apps to send information to statsd socket.
+unix_socket_send(appdomain, statsdw, statsd)
+
 # Write profiles /data/misc/profiles
 allow appdomain user_profile_data_file:dir { search write add_name };
 allow appdomain user_profile_data_file:file create_file_perms;
