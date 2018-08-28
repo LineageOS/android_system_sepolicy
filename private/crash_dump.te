@@ -12,3 +12,15 @@ allow crash_dump {
   -vendor_init
   -vold
 }:process { ptrace signal sigchld sigstop sigkill };
+
+neverallow crash_dump {
+  bpfloader
+  init
+  kernel
+  keystore
+  logd
+  userdebug_or_eng(`-logd')
+  ueventd
+  vendor_init
+  vold
+}:process { ptrace signal sigstop sigkill };
