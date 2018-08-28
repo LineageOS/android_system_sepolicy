@@ -47,11 +47,7 @@ allow shell tty_device:chr_file rw_file_perms;
 allow shell console_device:chr_file rw_file_perms;
 
 allow shell input_device:dir r_dir_perms;
-allow shell input_device:chr_file rw_file_perms;
-# b/30861057: TODO: No shell write access to existing input devices
-userdebug_or_eng(`
-  auditallow shell input_device:chr_file write;
-')
+allow shell input_device:chr_file r_file_perms;
 
 r_dir_file(shell, system_file)
 allow shell system_file:file x_file_perms;
@@ -238,3 +234,12 @@ neverallow shell {
 
 # Limit shell to only getattr on blk devices for host side tests.
 neverallow shell dev_type:blk_file ~getattr;
+
+# b/30861057: Shell access to existing input devices is an abuse
+# vector. The shell user can inject events that look like they
+# originate from the touchscreen etc.
+# Everyone should have already moved to UiAutomation#injectInputEvent
+# if they are running instrumentation tests (i.e. CTS), Monkey for
+# their stress tests, and the input command (adb shell input ...) for
+# injecting swipes and things.
+neverallow shell input_device:chr_file no_w_file_perms;
