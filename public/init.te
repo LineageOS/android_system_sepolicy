@@ -234,6 +234,7 @@ allow init debugfs_wifi_tracing:file w_file_perms;
 allow init {
   fs_type
   -contextmount_type
+  -keychord_device
   -proc_type
   -sdcard_type
   -sysfs_type
@@ -245,11 +246,12 @@ allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read 
 # TODO: auditing to see if this can be deleted entirely
 allow init {
   dev_type
+  -keychord_device
   -kmem_device
   -port_device
   -device
   -vndbinder_device
-  }:chr_file { read open };
+}:chr_file { read open };
 auditallow init {
   dev_type
   -alarm_device
@@ -262,7 +264,6 @@ auditallow init {
   -hwbinder_device
   -hw_random_device
   -input_device
-  -keychord_device
   -kmem_device
   -kmsg_device
   -null_device
@@ -274,7 +275,12 @@ auditallow init {
 }:chr_file { read open };
 
 # chown/chmod on devices.
-allow init { dev_type -kmem_device -port_device }:chr_file setattr;
+allow init {
+  dev_type
+  -keychord_device
+  -kmem_device
+  -port_device
+}:chr_file setattr;
 
 # Unlabeled file access for upgrades from 4.2.
 allow init unlabeled:dir { create_dir_perms relabelfrom };
@@ -464,9 +470,7 @@ allow init hw_random_device:chr_file r_file_perms;
 # only ever accessed by init.
 allow init device:file create_file_perms;
 
-# keychord configuration
-allow init self:global_capability_class_set sys_tty_config;
-allow init keychord_device:chr_file rw_file_perms;
+# keychord retrieval from /dev/input/ devices
 allow init input_device:dir r_dir_perms;
 allow init input_device:chr_file rw_file_perms;
 
