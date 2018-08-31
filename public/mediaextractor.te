@@ -37,7 +37,7 @@ allow mediaextractor system_file:dir { read open };
 
 userdebug_or_eng(`
   # Allow extractor to add update service.
-  add_service(mediaextractor, mediaextractor_update_service)
+  allow mediaextractor mediaextractor_update_service:service_manager { find add };
 
   # Allow extractor to load media extractor plugins from update apk.
   allow mediaextractor apk_data_file:dir search;
