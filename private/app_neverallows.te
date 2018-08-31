@@ -265,8 +265,3 @@ full_treble_only(`
 
 # Untrusted apps are not allowed to find mediaextractor update service.
 neverallow all_untrusted_apps mediaextractor_update_service:service_manager find;
-
-# Untrusted apps are not allowed to use the signature|privileged|development
-# android.permission.READ_LOGS permission, so they may not read dropbox files.
-# Access to the the dropbox directory is covered by a neverallow for domain.
-neverallow all_untrusted_apps dropbox_data_file:file *;
