@@ -174,26 +174,33 @@ static int analyze_types(policydb_t * policydb, char diff, char equiv)
 
     if (avtab_init(&exp_avtab) || avtab_init(&exp_cond_avtab)) {
         fputs("out of memory\n", stderr);
+        free(type_rules);
         return -1;
     }
 
     if (expand_avtab(policydb, &policydb->te_avtab, &exp_avtab)) {
         fputs("out of memory\n", stderr);
         avtab_destroy(&exp_avtab);
+        free(type_rules);
         return -1;
     }
 
     if (expand_avtab(policydb, &policydb->te_cond_avtab, &exp_cond_avtab)) {
         fputs("out of memory\n", stderr);
         avtab_destroy(&exp_avtab); /*  */
+        free(type_rules);
         return -1;
     }
 
-    if (avtab_map(&exp_avtab, create_type_rules, type_rules))
+    if (avtab_map(&exp_avtab, create_type_rules, type_rules)) {
+        free(type_rules);
         exit(1);
+    }
 
-    if (avtab_map(&exp_cond_avtab, create_type_rules_cond, type_rules))
+    if (avtab_map(&exp_cond_avtab, create_type_rules_cond, type_rules)) {
+        free(type_rules);
         exit(1);
+    }
 
     avtab_destroy(&exp_avtab);
     avtab_destroy(&exp_cond_avtab);
