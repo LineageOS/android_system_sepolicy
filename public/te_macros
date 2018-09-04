@@ -182,8 +182,9 @@ neverallow { appdomain -shell -$1 } $1:file no_rw_file_perms;
 # of application data and execution state. Ptrace bypasses those
 # confidentiality guarantees. Disallow ptrace access from system components
 # to apps. Crash_dump is excluded, as it needs ptrace access to
-# produce stack traces.
-neverallow { domain -$1 -crash_dump } $1:process ptrace;
+# produce stack traces.  llkd is excluded, as it needs to inspect
+# the kernel stack for live lock conditions.
+neverallow { domain -$1 -crash_dump userdebug_or_eng(`-llkd') } $1:process ptrace;
 ')
 
 #####################################
