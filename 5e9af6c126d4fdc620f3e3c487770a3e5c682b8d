@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb43829b_a54aa425",
+        "filename": "prebuilts/api/26.0/public/ioctl_macros",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 11883
+      },
+      "writtenOn": "2018-09-04T09:27:19Z",
+      "side": 1,
+      "message": "prebuilts sepolicy versions can\u0027t be touched",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 0
+      },
+      "revId": "5e9af6c126d4fdc620f3e3c487770a3e5c682b8d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": true
+    }
+  ]
+}
