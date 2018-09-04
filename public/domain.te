@@ -1382,6 +1382,7 @@ neverallow {
   -init
   -installd
   -install_recovery
+  userdebug_or_eng(`-llkd')
   -lmkd
   -netd
   -perfprofd
