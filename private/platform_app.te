@@ -27,9 +27,6 @@ allow platform_app asec_apk_file:file create_file_perms;
 allow platform_app media_rw_data_file:dir create_dir_perms;
 allow platform_app media_rw_data_file:file create_file_perms;
 
-# Read access to FDs from the DropboxManagerService.
-allow platform_app dropbox_data_file:file { getattr read };
-
 # Write to /cache.
 allow platform_app cache_file:dir create_dir_perms;
 allow platform_app cache_file:file create_file_perms;
