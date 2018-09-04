@@ -76,10 +76,11 @@
     incident_helper
     incident_helper_exec
     kmsg_debug_device
+    last_boot_reason_prop
     llkd
     llkd_exec
+    llkd_prop
     llkd_tmpfs
-    last_boot_reason_prop
     lowpan_device
     lowpan_prop
     lowpan_service
