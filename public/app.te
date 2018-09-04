@@ -350,6 +350,9 @@ allow appdomain cache_file:dir getattr;
 # Allow apps to run with asanwrapper.
 with_asan(`allow appdomain asanwrapper_exec:file rx_file_perms;')
 
+# Read access to FDs from the DropboxManagerService.
+allow appdomain dropbox_data_file:file { getattr read };
+
 ###
 ### Neverallow rules
 ###
