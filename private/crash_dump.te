@@ -24,3 +24,5 @@ neverallow crash_dump {
   vendor_init
   vold
 }:process { ptrace signal sigstop sigkill };
+
+neverallow crash_dump self:process ptrace;
