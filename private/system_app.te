@@ -24,9 +24,6 @@ allow system_app misc_user_data_file:file create_file_perms;
 # Access to vold-mounted storage for measuring free space
 allow system_app mnt_media_rw_file:dir search;
 
-# Read access to FDs from the DropboxManagerService.
-allow system_app dropbox_data_file:file { getattr read };
-
 # Read wallpaper file.
 allow system_app wallpaper_file:file r_file_perms;
 
