@@ -54,9 +54,6 @@ allow priv_app ota_package_file:file create_file_perms;
 allow priv_app media_rw_data_file:dir create_dir_perms;
 allow priv_app media_rw_data_file:file create_file_perms;
 
-# Read access to FDs from the DropboxManagerService.
-allow priv_app dropbox_data_file:file { getattr read };
-
 # Used by Finsky / Android "Verify Apps" functionality when
 # running "adb install foo.apk".
 allow priv_app shell_data_file:file r_file_perms;

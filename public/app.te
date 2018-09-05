@@ -350,6 +350,9 @@ allow appdomain cache_file:dir getattr;
 # Allow apps to run with asanwrapper.
 with_asan(`allow appdomain asanwrapper_exec:file rx_file_perms;')
 
+# Read access to FDs from the DropboxManagerService.
+allow appdomain dropbox_data_file:file { getattr read };
+
 ###
 ### Neverallow rules
 ###
@@ -412,9 +415,15 @@ neverallow appdomain { domain -appdomain }:process ptrace;
 # of application data and execution state. Ptrace bypasses those
 # confidentiality guarantees. Disallow ptrace access from system components
 # to apps. Crash_dump is excluded, as it needs ptrace access to
-# produce stack traces.
+# produce stack traces.  llkd is excluded, as it needs ptrace access to
+# inspect stack traces for live lock conditions.
 
-neverallow { domain -appdomain -crash_dump } appdomain:process ptrace;
+neverallow {
+  domain
+  -appdomain
+  -crash_dump
+  userdebug_or_eng(`-llkd')
+} appdomain:process ptrace;
 
 # Read or write access to /proc/pid entries for any non-app domain.
 # A different form of hidepid=2 like protections
