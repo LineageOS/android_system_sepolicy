@@ -44,6 +44,11 @@ recovery_only(`
 
   allow fastbootd misc_block_device:blk_file rw_file_perms;
 
+  # Required to wipe userdata
+  allow fastbootd userdata_block_device:blk_file { w_file_perms getattr ioctl };
+  allowxperm fastbootd userdata_block_device:blk_file ioctl { BLKGETSIZE64 BLKSECDISCARD
+                                                              BLKDISCARD };
+
   allow fastbootd proc_cmdline:file r_file_perms;
   allow fastbootd rootfs:dir r_dir_perms;
   allow fastbootd sysfs_dt_firmware_android:file r_file_perms;
