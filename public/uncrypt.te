@@ -2,7 +2,7 @@
 type uncrypt, domain, mlstrustedsubject;
 type uncrypt_exec, exec_type, file_type;
 
-allow uncrypt self:global_capability_class_set dac_override;
+allow uncrypt self:global_capability_class_set { dac_override dac_read_search };
 
 userdebug_or_eng(`
   # For debugging, allow /data/local/tmp access

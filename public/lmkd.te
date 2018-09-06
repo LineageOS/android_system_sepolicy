@@ -2,7 +2,7 @@
 type lmkd, domain, mlstrustedsubject;
 type lmkd_exec, exec_type, file_type;
 
-allow lmkd self:global_capability_class_set { dac_override sys_resource kill };
+allow lmkd self:global_capability_class_set { dac_override dac_read_search sys_resource kill };
 
 # lmkd locks itself in memory, to prevent it from being
 # swapped out and unable to kill other memory hogs.
