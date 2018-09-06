@@ -105,7 +105,7 @@ allow init metadata_file:dir mounton;
 allow init tmpfs:dir relabelfrom;
 
 # Create directories under /dev/cpuctl after chowning it to system.
-allow init self:global_capability_class_set dac_override;
+allow init self:global_capability_class_set { dac_override dac_read_search };
 
 # Set system clock.
 allow init self:global_capability_class_set sys_time;

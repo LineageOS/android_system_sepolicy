@@ -25,7 +25,7 @@ allow vendor_init configfs:dir create_dir_perms;
 allow vendor_init configfs:{ file lnk_file } create_file_perms;
 
 # Create directories under /dev/cpuctl after chowning it to system.
-allow vendor_init self:global_capability_class_set dac_override;
+allow vendor_init self:global_capability_class_set { dac_override dac_read_search };
 
 # mkdir, symlink, write, rm/rmdir, chown/chmod, restorecon/restorecon_recursive from init.rc files.
 # chown/chmod require open+read+setattr required for open()+fchown/fchmod().

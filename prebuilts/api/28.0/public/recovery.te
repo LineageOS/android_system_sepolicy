@@ -15,6 +15,7 @@ recovery_only(`
   allow recovery self:global_capability_class_set {
     chown
     dac_override
+    dac_read_search
     fowner
     setuid
     setgid

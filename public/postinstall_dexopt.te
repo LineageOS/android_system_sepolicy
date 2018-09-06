@@ -5,7 +5,7 @@
 
 type postinstall_dexopt, domain;
 
-allow postinstall_dexopt self:global_capability_class_set { chown dac_override fowner fsetid setgid setuid };
+allow postinstall_dexopt self:global_capability_class_set { chown dac_override dac_read_search fowner fsetid setgid setuid };
 
 allow postinstall_dexopt postinstall_file:filesystem getattr;
 allow postinstall_dexopt postinstall_file:dir { getattr search };
