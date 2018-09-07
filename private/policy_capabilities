@@ -11,3 +11,10 @@ policycap open_perms;
 # to the rawip_socket class.
 policycap extended_socket_class;
 
+# Enable NoNewPrivileges support.  Requires libsepol 2.7+
+# and kernel 4.14 (estimated).
+#
+# Checks enabled;
+# process2: nnp_transition, nosuid_transition
+#
+policycap nnp_nosuid_transition;
