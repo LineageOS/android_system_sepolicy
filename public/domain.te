@@ -428,7 +428,6 @@ neverallow {
     domain
     -appdomain
     with_asan(`-asan_extract')
-    -dumpstate
     -shell
     userdebug_or_eng(`-su')
     -webview_zygote
