@@ -39,8 +39,12 @@ recovery_only(`
   allow fastbootd dm_device:blk_file rw_file_perms;
 
   allow fastbootd super_block_device:blk_file rw_file_perms;
-  allow fastbootd system_block_device:blk_file rw_file_perms;
-  allow fastbootd boot_block_device:blk_file rw_file_perms;
+  allow fastbootd system_block_device:blk_file { w_file_perms ioctl };
+  allowxperm fastbootd system_block_device:blk_file ioctl { BLKGETSIZE64 };
+
+
+  allow fastbootd boot_block_device:blk_file { w_file_perms ioctl };
+  allowxperm fastbootd boot_block_device:blk_file ioctl { BLKGETSIZE64 };
 
   allow fastbootd misc_block_device:blk_file rw_file_perms;
 
