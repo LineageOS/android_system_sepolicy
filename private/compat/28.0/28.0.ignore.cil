@@ -5,6 +5,7 @@
 (typeattributeset new_objects
   ( activity_task_service
     adb_service
+    app_binding_service
     biometric_prompt_service
     fastbootd
     color_display_service
@@ -16,6 +17,7 @@
     llkd_exec
     llkd_prop
     llkd_tmpfs
+    looper_stats_service
     mnt_product_file
     overlayfs_file
     recovery_socket

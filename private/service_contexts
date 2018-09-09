@@ -7,6 +7,7 @@ alarm                                     u:object_r:alarm_service:s0
 android.os.UpdateEngineService            u:object_r:update_engine_service:s0
 android.security.keystore                 u:object_r:keystore_service:s0
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
+app_binding                               u:object_r:app_binding_service:s0
 appops                                    u:object_r:appops_service:s0
 appwidget                                 u:object_r:appwidget_service:s0
 assetatlas                                u:object_r:assetatlas_service:s0
@@ -81,6 +82,7 @@ jobscheduler                              u:object_r:jobscheduler_service:s0
 launcherapps                              u:object_r:launcherapps_service:s0
 location                                  u:object_r:location_service:s0
 lock_settings                             u:object_r:lock_settings_service:s0
+looper_stats                              u:object_r:looper_stats_service:s0
 media.aaudio                              u:object_r:audioserver_service:s0
 media.audio_flinger                       u:object_r:audioserver_service:s0
 media.audio_policy                        u:object_r:audioserver_service:s0
