@@ -2,6 +2,10 @@
 # Read system properties managed by zygote.
 allow appdomain zygote_tmpfs:file read;
 
+# Read from (but not create) system_server buffers transferred through
+# ashmem, e.g. battery stats.
+allow appdomain system_server_tmpfs:file read;
+
 neverallow appdomain system_server:udp_socket {
         accept append bind create ioctl listen lock name_bind
         relabelfrom relabelto setattr shutdown };
