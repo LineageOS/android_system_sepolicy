@@ -10,3 +10,4 @@ hwbinder_use(thermalserviced)
 hal_client_domain(thermalserviced, hal_thermal)
 
 binder_call(thermalserviced, platform_app)
+binder_call(thermalserviced, system_server)
