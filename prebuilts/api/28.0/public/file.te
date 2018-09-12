@@ -230,6 +230,9 @@ type storage_stub_file, file_type;
 # Mount location for read-write vendor partitions.
 type mnt_vendor_file, file_type;
 
+# Mount location for read-write product partitions.
+type mnt_product_file, file_type;
+
 # /postinstall: Mount point used by update_engine to run postinstall.
 type postinstall_mnt_dir, file_type;
 # Files inside the /postinstall mountpoint are all labeled as postinstall_file.
