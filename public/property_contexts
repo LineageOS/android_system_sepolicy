@@ -115,6 +115,9 @@ ro.lmk.critical_upgrade u:object_r:exported3_default_prop:s0 exact bool
 ro.lmk.downgrade_pressure u:object_r:exported3_default_prop:s0 exact int
 ro.lmk.kill_heaviest_task u:object_r:exported3_default_prop:s0 exact bool
 ro.lmk.upgrade_pressure u:object_r:exported3_default_prop:s0 exact int
+ro.minui.default_rotation u:object_r:exported3_default_prop:s0 exact string
+ro.minui.overscan_percent u:object_r:exported3_default_prop:s0 exact int
+ro.minui.pixel_format u:object_r:exported3_default_prop:s0 exact string
 ro.oem_unlock_supported u:object_r:exported3_default_prop:s0 exact int
 ro.opengles.version u:object_r:exported3_default_prop:s0 exact int
 ro.radio.noril u:object_r:exported3_default_prop:s0 exact string
