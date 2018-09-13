@@ -425,6 +425,9 @@ neverallow { domain -kernel -init -recovery -vold -zygote -update_engine -otapre
 #
 # Assert that, to the extent possible, we're not loading executable content from
 # outside the rootfs or /system partition except for a few whitelisted domains.
+# Executable files loaded from /data is a persistence vector
+# we want to avoid. See
+# https://bugs.chromium.org/p/project-zero/issues/detail?id=955 for example.
 #
 neverallow {
     domain
