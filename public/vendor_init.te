@@ -229,3 +229,6 @@ neverallow vendor_init { file_type fs_type }:file execute_no_trans;
 # Init never adds or uses services via service_manager.
 neverallow vendor_init service_manager_type:service_manager { add find };
 neverallow vendor_init servicemanager:service_manager list;
+
+# vendor_init should never be ptraced
+neverallow * vendor_init:process ptrace;

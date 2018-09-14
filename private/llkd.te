@@ -22,9 +22,12 @@ allow llkd domain:process sigkill;
 userdebug_or_eng(`
   allow llkd {
     domain
+    -kernel
     -keystore
     -init
     -llkd
+    -ueventd
+    -vendor_init
   }:process ptrace;
 ')
 
