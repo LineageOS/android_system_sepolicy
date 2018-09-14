@@ -46,7 +46,9 @@ allow crash_dump anr_data_file:file { append getattr };
 # Append to tombstone files.
 allow crash_dump tombstone_data_file:file { append getattr };
 
-read_logd(crash_dump)
+# crash_dump writes out logcat logs at the bottom of tombstones,
+# which is super useful in some cases.
+unix_socket_connect(crash_dump, logdr, logd)
 
 # Crash dump is not intended to access the following data types. Since these
 # are WAI, suppress the denials to clean up the logs.
