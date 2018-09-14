@@ -70,3 +70,6 @@ neverallow ueventd dev_type:blk_file ~{ getattr relabelfrom relabelto create set
 
 # Only relabelto as we would never want to relabelfrom kmem_device or port_device
 neverallow ueventd { kmem_device port_device }:chr_file ~{ getattr create setattr unlink relabelto };
+
+# Nobody should be able to ptrace ueventd
+neverallow * ueventd:process ptrace;
