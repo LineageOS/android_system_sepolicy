@@ -223,6 +223,8 @@ type system_app_data_file, file_type, data_file_type, core_data_file_type, mlstr
 type cache_file, file_type, data_file_type, mlstrustedobject;
 # Type for /cache/backup_stage/* (fd interchange with apps)
 type cache_backup_file, file_type, data_file_type, mlstrustedobject;
+# Type for /cache/restore_stage/* (adb restore, system server writes, DCM reads)
+type cache_restore_file, file_type, data_file_type, mlstrustedobject;
 # type for anything under /cache/backup (local transport storage)
 type cache_private_backup_file, file_type, data_file_type;
 # Type for anything under /cache/recovery

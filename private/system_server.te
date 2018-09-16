@@ -515,6 +515,9 @@ allow system_server appdomain:{ fifo_file unix_stream_socket } { getattr read wr
 # BackupManagerService needs to manipulate backup data files
 allow system_server cache_backup_file:dir rw_dir_perms;
 allow system_server cache_backup_file:file create_file_perms;
+# BackupManagerService needs to manipulate restore data files
+allow system_server cache_restore_file:dir rw_dir_perms;
+allow system_server cache_restore_file:file create_file_perms;
 # LocalTransport works inside /cache/backup
 allow system_server cache_private_backup_file:dir create_dir_perms;
 allow system_server cache_private_backup_file:file create_file_perms;
