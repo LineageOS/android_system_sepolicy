@@ -39,19 +39,26 @@ recovery_only(`
   allow fastbootd dm_device:blk_file rw_file_perms;
 
   allow fastbootd super_block_device:blk_file rw_file_perms;
-  allow fastbootd system_block_device:blk_file { w_file_perms ioctl };
-  allowxperm fastbootd system_block_device:blk_file ioctl { BLKGETSIZE64 };
+  allow fastbootd {
+    boot_block_device
+    metadata_block_device
+    system_block_device
+    userdata_block_device
+  }:blk_file { w_file_perms getattr ioctl };
 
+  allowxperm fastbootd {
+    boot_block_device
+    metadata_block_device
+    system_block_device
+    userdata_block_device
+  }:blk_file ioctl { BLKGETSIZE64 };
 
-  allow fastbootd boot_block_device:blk_file { w_file_perms ioctl };
-  allowxperm fastbootd boot_block_device:blk_file ioctl { BLKGETSIZE64 };
+  allowxperm fastbootd {
+    metadata_block_device
+    userdata_block_device
+  }:blk_file ioctl { BLKSECDISCARD BLKDISCARD };
 
   allow fastbootd misc_block_device:blk_file rw_file_perms;
-
-  # Required to wipe userdata
-  allow fastbootd userdata_block_device:blk_file { w_file_perms getattr ioctl };
-  allowxperm fastbootd userdata_block_device:blk_file ioctl { BLKGETSIZE64 BLKSECDISCARD
-                                                              BLKDISCARD };
 
   allow fastbootd proc_cmdline:file r_file_perms;
   allow fastbootd rootfs:dir r_dir_perms;
