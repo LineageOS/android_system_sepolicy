@@ -2,6 +2,7 @@ type default_android_hwservice, hwservice_manager_type;
 type fwk_display_hwservice, hwservice_manager_type, coredomain_hwservice;
 type fwk_scheduler_hwservice, hwservice_manager_type, coredomain_hwservice;
 type fwk_sensor_hwservice, hwservice_manager_type, coredomain_hwservice;
+type hal_atrace_hwservice, hwservice_manager_type;
 type hal_audiocontrol_hwservice, hwservice_manager_type;
 type hal_audio_hwservice, hwservice_manager_type;
 type hal_authsecret_hwservice, hwservice_manager_type;

@@ -195,6 +195,7 @@ neverallow all_untrusted_apps {
 # Make sure that the following services are never accessible by untrusted_apps
 neverallow all_untrusted_apps {
   default_android_hwservice
+  hal_atrace_hwservice
   hal_audio_hwservice
   hal_authsecret_hwservice
   hal_bluetooth_hwservice
