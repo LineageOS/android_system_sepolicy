@@ -2,7 +2,7 @@
 type install_recovery, domain;
 type install_recovery_exec, exec_type, file_type;
 
-allow install_recovery self:global_capability_class_set dac_override;
+allow install_recovery self:global_capability_class_set { dac_override dac_read_search };
 
 # /system/bin/install-recovery.sh is a shell script.
 # Needs to execute /system/bin/sh
