@@ -33,7 +33,7 @@ allow dumpstate toolbox_exec:file rx_file_perms;
 allow dumpstate system_file:dir r_dir_perms;
 
 # Create and write into /data/anr/
-allow dumpstate self:global_capability_class_set { dac_override chown fowner fsetid };
+allow dumpstate self:global_capability_class_set { dac_override dac_read_search chown fowner fsetid };
 allow dumpstate anr_data_file:dir rw_dir_perms;
 allow dumpstate anr_data_file:file create_file_perms;
 
