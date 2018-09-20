@@ -8,6 +8,7 @@ camera.disable_zsl_mode u:object_r:exported3_default_prop:s0 exact bool
 camera.fifo.disable u:object_r:exported3_default_prop:s0 exact int
 dalvik.vm.appimageformat u:object_r:exported_dalvik_prop:s0 exact string
 dalvik.vm.backgroundgctype u:object_r:exported_dalvik_prop:s0 exact string
+dalvik.vm.boot-dex2oat-threads u:object_r:exported_dalvik_prop:s0 exact int
 dalvik.vm.checkjni u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.dex2oat-Xms u:object_r:exported_dalvik_prop:s0 exact string
 dalvik.vm.dex2oat-Xmx u:object_r:exported_dalvik_prop:s0 exact string
