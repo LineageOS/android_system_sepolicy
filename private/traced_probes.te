@@ -57,6 +57,15 @@ domain_auto_trans(traced_probes, atrace_exec, atrace);
 # scontext=u:r:atrace:s0 tcontext=u:r:traced_probes:s0 tclass=fd
 allow atrace traced_probes:fd use;
 
+# Allow traced_probes to access /proc files for system stats.
+# Note: trace data is NOT exposed to anything other than shell and privileged
+# system apps that have access to the traced consumer socket.
+allow traced_probes {
+  proc_meminfo
+  proc_vmstat
+  proc_stat
+}:file r_file_perms;
+
 ###
 ### Neverallow rules
 ###
