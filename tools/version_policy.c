@@ -151,8 +151,8 @@ int main(int argc, char *argv[])
 		usage(argv[0]);
 	}
 
-	/* gimme all the details */
-	cil_set_log_level(CIL_INFO);
+	/* gimme only the important details */
+	cil_set_log_level(CIL_WARN);
 
 	/* read platform policy */
 	rc = read_cil_file(&base_db, base);
