@@ -652,7 +652,13 @@
   ( system_data_file
     dropbox_data_file
     vendor_data_file))
-(typeattributeset system_file_26_0 (system_file))
+(typeattributeset system_file_26_0
+  ( system_file
+    system_lib_file
+    system_linker_config_file
+    system_linker_exec
+    system_seccomp_policy_file
+    system_security_cacerts_file))
 (typeattributeset systemkeys_data_file_26_0 (systemkeys_data_file))
 (typeattributeset system_ndebug_socket_26_0 (system_ndebug_socket))
 (typeattributeset system_prop_26_0 (system_prop))
