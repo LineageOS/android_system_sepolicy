@@ -186,6 +186,7 @@
 # System files
 #
 /system(/.*)?		u:object_r:system_file:s0
+/system/lib(64)?(/.*)?		u:object_r:system_lib_file:s0
 /system/bin/atrace	u:object_r:atrace_exec:s0
 /system/bin/blank_screen	u:object_r:blank_screen_exec:s0
 /system/bin/e2fsdroid		u:object_r:e2fs_exec:s0
@@ -249,6 +250,7 @@
 /system/bin/dnsmasq     u:object_r:dnsmasq_exec:s0
 /system/bin/healthd     u:object_r:healthd_exec:s0
 /system/bin/clatd	u:object_r:clatd_exec:s0
+/system/bin/linker(_asan)?(64)? u:object_r:system_linker_exec:s0
 /system/bin/llkd        u:object_r:llkd_exec:s0
 /system/bin/lmkd        u:object_r:lmkd_exec:s0
 /system/bin/usbd   u:object_r:usbd_exec:s0
@@ -281,6 +283,9 @@
 /system/bin/virtual_touchpad     u:object_r:virtual_touchpad_exec:s0
 /system/bin/hw/android\.hidl\.allocator@1\.0-service          u:object_r:hal_allocator_default_exec:s0
 /system/bin/hw/android\.system\.suspend@1\.0-service          u:object_r:hal_system_suspend_default_exec:s0
+/system/etc/ld\.config.*                u:object_r:system_linker_config_file:s0
+/system/etc/seccomp_policy(/.*)?        u:object_r:system_seccomp_policy_file:s0
+/system/etc/security/cacerts(/.*)?      u:object_r:system_security_cacerts_file:s0
 /system/etc/selinux/mapping/[0-9]+\.[0-9]+\.cil       u:object_r:sepolicy_file:s0
 /system/etc/selinux/plat_mac_permissions\.xml u:object_r:mac_perms_file:s0
 /system/etc/selinux/plat_property_contexts  u:object_r:property_contexts_file:s0
@@ -439,6 +444,7 @@
 /data/misc/wifi/sockets(/.*)?   u:object_r:wpa_socket:s0
 /data/misc/wifi/sockets/wpa_ctrl.*   u:object_r:system_wpa_socket:s0
 /data/misc/zoneinfo(/.*)?       u:object_r:zoneinfo_data_file:s0
+/system/usr/share/zoneinfo(/.*)? u:object_r:zoneinfo_data_file:s0
 /data/misc/vold(/.*)?           u:object_r:vold_data_file:s0
 /data/misc/perfprofd(/.*)?      u:object_r:perfprofd_data_file:s0
 /data/misc/update_engine(/.*)?  u:object_r:update_engine_data_file:s0

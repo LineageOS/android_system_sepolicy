@@ -12,10 +12,6 @@ allow healthd sysfs:dir r_dir_perms;
 r_dir_file(healthd, rootfs)
 r_dir_file(healthd, cgroup)
 
-# Read access to system files for passthrough HALs in
-# /{system,vendor,odm}/lib[64]/hw/
-r_dir_file(healthd, system_file)
-
 allow healthd self:global_capability_class_set { sys_tty_config };
 allow healthd self:global_capability_class_set sys_boot;
 
