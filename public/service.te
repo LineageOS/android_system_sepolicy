@@ -84,7 +84,7 @@ type dreams_service, app_api_service, ephemeral_app_api_service, system_server_s
 type dropbox_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type lowpan_service, system_api_service, system_server_service, service_manager_type;
 type ethernet_service, app_api_service, system_server_service, service_manager_type;
-type biometric_prompt_service, app_api_service, system_server_service, service_manager_type;
+type biometric_service, app_api_service, system_server_service, service_manager_type;
 type fingerprint_service, app_api_service, system_server_service, service_manager_type;
 type gfxinfo_service, system_api_service, system_server_service, service_manager_type;
 type graphicsstats_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
