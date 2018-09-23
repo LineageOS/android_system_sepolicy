@@ -7,7 +7,7 @@ init_daemon_domain(zygote)
 read_runtime_log_tags(zygote)
 
 # Override DAC on files and switch uid/gid.
-allow zygote self:global_capability_class_set { dac_override setgid setuid fowner chown };
+allow zygote self:global_capability_class_set { dac_override dac_read_search setgid setuid fowner chown };
 
 # Drop capabilities from bounding set.
 allow zygote self:global_capability_class_set setpcap;

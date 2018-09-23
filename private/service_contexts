@@ -18,7 +18,7 @@ batteryproperties                         u:object_r:batteryproperties_service:s
 batterystats                              u:object_r:batterystats_service:s0
 battery                                   u:object_r:battery_service:s0
 binder_calls_stats                        u:object_r:binder_calls_stats_service:s0
-biometric_prompt                          u:object_r:biometric_prompt_service:s0
+biometric                                 u:object_r:biometric_service:s0
 bluetooth_manager                         u:object_r:bluetooth_manager_service:s0
 bluetooth                                 u:object_r:bluetooth_service:s0
 broadcastradio                            u:object_r:broadcastradio_service:s0
@@ -63,6 +63,7 @@ gpu                                       u:object_r:gpu_service:s0
 hardware                                  u:object_r:hardware_service:s0
 hardware_properties                       u:object_r:hardware_properties_service:s0
 hdmi_control                              u:object_r:hdmi_control_service:s0
+ianas                                     u:object_r:radio_service:s0
 incident                                  u:object_r:incident_service:s0
 inputflinger                              u:object_r:inputflinger_service:s0
 input_method                              u:object_r:input_method_service:s0

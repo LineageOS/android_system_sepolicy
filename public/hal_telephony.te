@@ -39,7 +39,6 @@ wakelock_use(hal_telephony_server)
 
 r_dir_file(hal_telephony_server, proc_net_type)
 r_dir_file(hal_telephony_server, sysfs_type)
-r_dir_file(hal_telephony_server, system_file)
 
 # granting the ioctl permission for hal_telephony_server should be device specific
 allow hal_telephony_server self:socket create_socket_perms_no_ioctl;

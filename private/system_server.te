@@ -78,6 +78,9 @@ allow system_server self:global_capability2_class_set wake_alarm;
 # Create and share netlink_netfilter_sockets for tetheroffload.
 allow system_server self:netlink_netfilter_socket create_socket_perms_no_ioctl;
 
+# Create/use netlink_tcpdiag_socket for looking up connection UIDs for VPN apps.
+allow system_server self:netlink_tcpdiag_socket { create_socket_perms_no_ioctl nlmsg_read };
+
 # Use netlink uevent sockets.
 allow system_server self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 
