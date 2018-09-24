@@ -1280,7 +1280,6 @@ neverallow {
   domain
   -appdomain
   -installd
-  -uncrypt  # TODO: see if we can remove
 } { app_data_file privapp_data_file }:lnk_file read;
 
 neverallow {
