@@ -7,6 +7,8 @@
     adb_service
     app_binding_service
     biometric_service
+    ;; TODO(b/116344577): remove after the issue is resolved
+    buffer_hub_service
     fastbootd
     color_display_service
     hal_health_storage_hwservice
