@@ -4,6 +4,7 @@ type bufferhubd_exec, exec_type, file_type;
 
 hal_client_domain(bufferhubd, hal_graphics_allocator)
 
+# TODO(b/112338294): remove these after migrate to Binder
 pdx_server(bufferhubd, bufferhub_client)
 pdx_client(bufferhubd, performance_client)
 

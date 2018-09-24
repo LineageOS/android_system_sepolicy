@@ -51,3 +51,6 @@ binder_call(shell, statsd);
 # Allow shell to read and unlink traces stored in /data/misc/perfetto-traces.
 allow shell perfetto_traces_data_file:dir rw_dir_perms;
 allow shell perfetto_traces_data_file:file r_file_perms;
+
+# Allow shell-based "dumpsys" to call into bufferhubd.
+binder_call(shell, bufferhubd);
