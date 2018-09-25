@@ -7,6 +7,10 @@ init_daemon_domain(storaged)
 # Read access to pseudo filesystems
 r_dir_file(storaged, proc_net)
 r_dir_file(storaged, domain)
+r_dir_file(storaged, sysfs_disk_stat)
+# Allow read access to /sys/block/mmcblk0/stat or /sys/block/sda/stat.
+# Implementations typically have symlinks to vendor specific files.
+# Vendors should mark sysfs_disk_stat on all files read by storaged.
 
 # Read /proc/uid_io/stats
 allow storaged proc_uid_io_stats:file r_file_perms;
