@@ -581,6 +581,7 @@ vendor_policy.conf :=
 #################################
 include $(CLEAR_VARS)
 
+ifdef BOARD_ODM_SEPOLICY_DIRS
 # odm_policy.cil - the odm sepolicy. This needs attributization and to be combined
 # with the platform-provided policy.  It makes use of the reqd_policy_mask files from private
 # policy and the platform public policy files in order to use checkpolicy.
@@ -626,6 +627,7 @@ $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/build_sepolicy \
 built_odm_cil := $(LOCAL_BUILT_MODULE)
 odm_policy.conf :=
 odm_policy_raw :=
+endif
 
 #################################
 include $(CLEAR_VARS)
