@@ -15,6 +15,7 @@ type proc_min_free_order_shift, fs_type, proc_type;
 type proc_kpageflags, fs_type, proc_type;
 # proc, sysfs, or other nodes that permit configuration of kernel usermodehelpers.
 type usermodehelper, fs_type, proc_type;
+type sysfs_disk_stat, fs_type, sysfs_type;
 type sysfs_usermodehelper, fs_type, sysfs_type;
 type proc_qtaguid_ctrl, fs_type, mlstrustedobject, proc_type;
 type proc_qtaguid_stat, fs_type, mlstrustedobject, proc_type;
