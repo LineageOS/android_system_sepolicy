@@ -186,7 +186,11 @@
     surfaceflinger_color_prop
     surfaceflinger_prop
     staging_data_file
+<<<<<<< HEAD   (569c08 Merge tag 'android-12.0.0_r18' into staging/lineage-19.0_mer)
     storagemanager_config_prop
+=======
+    sysfs_disk_stat
+>>>>>>> CHANGE (2814cf Fix storaged access to /sys/block/mmcblk0/stat after 48027a0)
     system_boot_reason_prop
     system_bootstrap_lib_file
     system_lmk_prop
