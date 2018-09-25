@@ -6,4 +6,5 @@
 (typeattributeset new_objects
   ( new_objects
     hypervisor_prop
+    sysfs_disk_stat
   ))
