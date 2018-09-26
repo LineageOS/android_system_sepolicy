@@ -135,7 +135,7 @@ type system_file, file_type;
 # Default type for anything under /system/lib[64].
 type system_lib_file, file_type;
 # Default type for linker executable /system/bin/linker[64].
-type system_linker_exec, exec_type, file_type;
+type system_linker_exec, file_type;
 # Default type for linker config /system/etc/ld.config.*.
 type system_linker_config_file, file_type;
 # Default type for linker config /system/etc/seccomp_policy/*.
