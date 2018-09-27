@@ -11,6 +11,9 @@ import sys
 def TestDataTypeViolations(pol):
     return pol.AssertPathTypesHaveAttr(["/data/"], [], "data_file_type")
 
+# def TestSystemTypeViolations(pol):
+#     return pol.AssertPathTypesHaveAttr(["/system/"], [], "system_file_type")
+
 def TestProcTypeViolations(pol):
     return pol.AssertGenfsFilesystemTypesHaveAttr("proc", "proc_type")
 
@@ -55,6 +58,7 @@ Tests = [
     "TestDataTypeViolators",
     "TestProcTypeViolations",
     "TestSysfsTypeViolations",
+    # "TestSystemTypeViolators",
     "TestDebugfsTypeViolations",
     "TestVendorTypeViolations",
     "TestCoreDataTypeViolations",
@@ -103,6 +107,8 @@ if __name__ == '__main__':
         results += TestProcTypeViolations(pol)
     if options.test is None or "TestSysfsTypeViolations" in options.test:
         results += TestSysfsTypeViolations(pol)
+    # if options.test is None or "TestSystemTypeViolations" in options.test:
+    #     results += TestSystemTypeViolations(pol)
     if options.test is None or "TestDebugfsTypeViolations" in options.test:
         results += TestDebugfsTypeViolations(pol)
     if options.test is None or "TestVendorTypeViolations" in options.test:

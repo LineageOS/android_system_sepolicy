@@ -1,6 +1,6 @@
 # android recovery refresh log manager
 type recovery_refresh, domain;
-type recovery_refresh_exec, exec_type, file_type;
+type recovery_refresh_exec, system_file_type, exec_type, file_type;
 
 allow recovery_refresh pstorefs:dir search;
 allow recovery_refresh pstorefs:file r_file_perms;

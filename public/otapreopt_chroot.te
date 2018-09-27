@@ -1,6 +1,6 @@
 # otapreopt_chroot executable
 type otapreopt_chroot, domain;
-type otapreopt_chroot_exec, exec_type, file_type;
+type otapreopt_chroot_exec, system_file_type, exec_type, file_type;
 
 # Chroot preparation and execution.
 # We need to create an unshared mount namespace, and then mount /data.

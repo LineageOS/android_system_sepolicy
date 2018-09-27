@@ -2,7 +2,7 @@
 
 typeattribute surfaceflinger coredomain;
 
-type surfaceflinger_exec, exec_type, file_type;
+type surfaceflinger_exec, system_file_type, exec_type, file_type;
 init_daemon_domain(surfaceflinger)
 
 typeattribute surfaceflinger mlstrustedsubject;

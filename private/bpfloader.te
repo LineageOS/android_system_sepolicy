@@ -1,6 +1,6 @@
 # bpf program loader
 type bpfloader, domain;
-type bpfloader_exec, exec_type, file_type;
+type bpfloader_exec, system_file_type, exec_type, file_type;
 typeattribute bpfloader coredomain;
 
 # Process need CAP_NET_ADMIN to run bpf programs as cgroup filter

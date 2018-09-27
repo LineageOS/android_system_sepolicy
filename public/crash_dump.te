@@ -1,5 +1,5 @@
 type crash_dump, domain;
-type crash_dump_exec, exec_type, file_type;
+type crash_dump_exec, system_file_type, exec_type, file_type;
 
 # crash_dump might inherit CAP_SYS_PTRACE from a privileged process,
 # which will result in an audit log even when it's allowed to trace.

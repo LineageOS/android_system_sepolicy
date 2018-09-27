@@ -1,7 +1,7 @@
 # Point to Point Protocol daemon
 type ppp, domain;
 type ppp_device, dev_type;
-type ppp_exec, exec_type, file_type;
+type ppp_exec, system_file_type, exec_type, file_type;
 
 net_domain(ppp)
 

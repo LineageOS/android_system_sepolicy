@@ -5,7 +5,7 @@
 # directories.
 
 type cppreopts, domain, mlstrustedsubject;
-type cppreopts_exec, exec_type, file_type;
+type cppreopts_exec, system_file_type, exec_type, file_type;
 
 # Allow cppreopts copy files into the dalvik-cache
 allow cppreopts dalvikcache_data_file:dir { add_name remove_name search write };

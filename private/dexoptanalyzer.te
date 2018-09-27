@@ -1,6 +1,6 @@
 # dexoptanalyzer
 type dexoptanalyzer, domain, coredomain, mlstrustedsubject;
-type dexoptanalyzer_exec, exec_type, file_type;
+type dexoptanalyzer_exec, system_file_type, exec_type, file_type;
 
 # Reading an APK opens a ZipArchive, which unpack to tmpfs.
 # Use tmpfs_domain() which will give tmpfs files created by dexoptanalyzer their

@@ -1,6 +1,6 @@
 # dumpstate
 type dumpstate, domain, mlstrustedsubject;
-type dumpstate_exec, exec_type, file_type;
+type dumpstate_exec, system_file_type, exec_type, file_type;
 
 net_domain(dumpstate)
 binder_use(dumpstate)
