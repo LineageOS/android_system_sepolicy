@@ -1,5 +1,5 @@
 type gatekeeperd, domain;
-type gatekeeperd_exec, exec_type, file_type;
+type gatekeeperd_exec, system_file_type, exec_type, file_type;
 
 # gatekeeperd
 binder_service(gatekeeperd)

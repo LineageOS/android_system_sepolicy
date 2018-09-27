@@ -1,6 +1,6 @@
 # android user-space log manager
 type logd, domain, mlstrustedsubject;
-type logd_exec, exec_type, file_type;
+type logd_exec, system_file_type, exec_type, file_type;
 
 # Read access to pseudo filesystems.
 r_dir_file(logd, cgroup)

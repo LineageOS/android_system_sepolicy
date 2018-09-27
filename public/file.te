@@ -131,19 +131,19 @@ type app_fusefs, fs_type, contextmount_type;
 type unlabeled, file_type;
 
 # Default type for anything under /system.
-type system_file, file_type;
+type system_file, system_file_type, file_type;
 # Default type for anything under /system/lib[64].
-type system_lib_file, file_type;
+type system_lib_file, system_file_type, file_type;
 # Default type for linker executable /system/bin/linker[64].
-type system_linker_exec, file_type;
+type system_linker_exec, system_file_type, file_type;
 # Default type for linker config /system/etc/ld.config.*.
-type system_linker_config_file, file_type;
+type system_linker_config_file, system_file_type, file_type;
 # Default type for linker config /system/etc/seccomp_policy/*.
-type system_seccomp_policy_file, file_type;
+type system_seccomp_policy_file, system_file_type, file_type;
 # Default type for cacerts in /system/etc/security/cacerts/*.
-type system_security_cacerts_file, file_type;
+type system_security_cacerts_file, system_file_type, file_type;
 # Default type for zoneinfo files in /system/usr/share/zoneinfo/*.
-type system_zoneinfo_file, file_type;
+type system_zoneinfo_file, system_file_type, file_type;
 
 # Default type for directories search for
 # HAL implementations
@@ -175,7 +175,7 @@ type vold_metadata_file, file_type;
 # Speedup access for trusted applications to the runtime event tags
 type runtime_event_log_tags_file, file_type;
 # Type for /system/bin/logcat.
-type logcat_exec, exec_type, file_type;
+type logcat_exec, system_file_type, exec_type, file_type;
 # /cores for coredumps on userdebug / eng builds
 type coredump_file, file_type;
 # Default type for anything under /data.
@@ -385,28 +385,28 @@ pdx_service_socket_types(performance_client, pdx_performance_dir)
 pdx_service_socket_types(bufferhub_client, pdx_bufferhub_dir)
 
 # file_contexts files
-type file_contexts_file, file_type;
+type file_contexts_file, system_file_type, file_type;
 
 # mac_permissions file
-type mac_perms_file, file_type;
+type mac_perms_file, system_file_type, file_type;
 
 # property_contexts file
-type property_contexts_file, file_type;
+type property_contexts_file, system_file_type, file_type;
 
 # seapp_contexts file
-type seapp_contexts_file, file_type;
+type seapp_contexts_file, system_file_type, file_type;
 
 # sepolicy files binary and others
-type sepolicy_file, file_type;
+type sepolicy_file, system_file_type, file_type;
 
 # service_contexts file
-type service_contexts_file, file_type;
+type service_contexts_file, system_file_type, file_type;
 
 # nonplat service_contexts file (only accessible on non full-treble devices)
 type nonplat_service_contexts_file, file_type;
 
 # hwservice_contexts file
-type hwservice_contexts_file, file_type;
+type hwservice_contexts_file, system_file_type, file_type;
 
 # vndservice_contexts file
 type vndservice_contexts_file, file_type;

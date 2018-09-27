@@ -1,6 +1,6 @@
 # vpn tunneling protocol manager
 type mtp, domain;
-type mtp_exec, exec_type, file_type;
+type mtp_exec, system_file_type, exec_type, file_type;
 
 net_domain(mtp)
 

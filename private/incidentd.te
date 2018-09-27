@@ -2,7 +2,7 @@ typeattribute incidentd coredomain;
 typeattribute incidentd mlstrustedsubject;
 
 init_daemon_domain(incidentd)
-type incidentd_exec, exec_type, file_type;
+type incidentd_exec, system_file_type, exec_type, file_type;
 binder_use(incidentd)
 wakelock_use(incidentd)
 

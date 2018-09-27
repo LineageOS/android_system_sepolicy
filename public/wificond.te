@@ -1,6 +1,6 @@
 # wificond
 type wificond, domain;
-type wificond_exec, exec_type, file_type;
+type wificond_exec, system_file_type, exec_type, file_type;
 
 binder_use(wificond)
 binder_call(wificond, system_server)

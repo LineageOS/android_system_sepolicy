@@ -1,5 +1,5 @@
 type wpantund, domain;
-type wpantund_exec, exec_type, file_type;
+type wpantund_exec, system_file_type, exec_type, file_type;
 
 hal_client_domain(wpantund, hal_lowpan)
 net_domain(wpantund)
