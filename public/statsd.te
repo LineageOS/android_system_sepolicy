@@ -1,6 +1,6 @@
 type statsd, domain, mlstrustedsubject;
 
-type statsd_exec, exec_type, file_type;
+type statsd_exec, system_file_type, exec_type, file_type;
 binder_use(statsd)
 
 # Allow statsd to scan through /proc/pid for all processes.

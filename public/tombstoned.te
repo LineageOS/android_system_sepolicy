@@ -1,6 +1,6 @@
 # debugger interface
 type tombstoned, domain, mlstrustedsubject;
-type tombstoned_exec, exec_type, file_type;
+type tombstoned_exec, system_file_type, exec_type, file_type;
 
 # Write to arbitrary pipes given to us.
 allow tombstoned domain:fd use;

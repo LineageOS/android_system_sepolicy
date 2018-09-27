@@ -1,5 +1,5 @@
 type vr_hwc, domain;
-type vr_hwc_exec, exec_type, file_type;
+type vr_hwc_exec, system_file_type, exec_type, file_type;
 
 # Get buffer metadata.
 hal_client_domain(vr_hwc, hal_graphics_allocator)

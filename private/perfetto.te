@@ -4,7 +4,7 @@
 # daemon.
 
 type perfetto, domain, coredomain;
-type perfetto_exec, exec_type, file_type;
+type perfetto_exec, system_file_type, exec_type, file_type;
 
 tmpfs_domain(perfetto);
 

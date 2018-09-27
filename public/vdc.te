@@ -6,7 +6,7 @@
 # collecting bug reports.
 
 type vdc, domain;
-type vdc_exec, exec_type, file_type;
+type vdc_exec, system_file_type, exec_type, file_type;
 
 # vdc can be invoked with logwrapper, so let it write to pty
 allow vdc devpts:chr_file rw_file_perms;

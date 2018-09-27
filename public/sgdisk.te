@@ -1,6 +1,6 @@
 # sgdisk called from vold
 type sgdisk, domain;
-type sgdisk_exec, exec_type, file_type;
+type sgdisk_exec, system_file_type, exec_type, file_type;
 
 # Allowed to read/write low-level partition tables
 allow sgdisk block_device:dir search;

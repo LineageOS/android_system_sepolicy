@@ -1,6 +1,6 @@
 # lmkd low memory killer daemon
 type lmkd, domain, mlstrustedsubject;
-type lmkd_exec, exec_type, file_type;
+type lmkd_exec, system_file_type, exec_type, file_type;
 
 allow lmkd self:global_capability_class_set { dac_override dac_read_search sys_resource kill };
 

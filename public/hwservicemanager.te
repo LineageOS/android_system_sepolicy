@@ -1,6 +1,6 @@
 # hwservicemanager - the Binder context manager for HAL services
 type hwservicemanager, domain, mlstrustedsubject;
-type hwservicemanager_exec, exec_type, file_type;
+type hwservicemanager_exec, system_file_type, exec_type, file_type;
 
 # Note that we do not use the binder_* macros here.
 # hwservicemanager provides name service (aka context manager)

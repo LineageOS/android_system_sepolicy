@@ -1,5 +1,5 @@
 type dhcp, domain;
-type dhcp_exec, exec_type, file_type;
+type dhcp_exec, system_file_type, exec_type, file_type;
 
 net_domain(dhcp)
 

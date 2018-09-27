@@ -1,6 +1,6 @@
 # DNS, DHCP services
 type dnsmasq, domain;
-type dnsmasq_exec, exec_type, file_type;
+type dnsmasq_exec, system_file_type, exec_type, file_type;
 
 net_domain(dnsmasq)
 allowxperm dnsmasq self:udp_socket ioctl priv_sock_ioctls;

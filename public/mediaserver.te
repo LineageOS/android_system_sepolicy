@@ -1,6 +1,6 @@
 # mediaserver - multimedia daemon
 type mediaserver, domain;
-type mediaserver_exec, exec_type, file_type;
+type mediaserver_exec, system_file_type, exec_type, file_type;
 
 typeattribute mediaserver mlstrustedsubject;
 

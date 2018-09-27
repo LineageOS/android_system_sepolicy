@@ -1,6 +1,6 @@
 # wait_for_keymaster service
 type wait_for_keymaster, domain, coredomain;
-type wait_for_keymaster_exec, exec_type, file_type;
+type wait_for_keymaster_exec, system_file_type, exec_type, file_type;
 
 init_daemon_domain(wait_for_keymaster)
 

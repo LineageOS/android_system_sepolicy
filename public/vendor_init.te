@@ -41,7 +41,7 @@ allow vendor_init {
   file_type
   -core_data_file_type
   -exec_type
-  -system_file
+  -system_file_type
   -mnt_product_file
   -unlabeled
   -vendor_file_type
@@ -53,7 +53,7 @@ allow vendor_init {
   -core_data_file_type
   -exec_type
   -runtime_event_log_tags_file
-  -system_file
+  -system_file_type
   -unlabeled
   -vendor_file_type
   -vold_metadata_file
@@ -63,7 +63,7 @@ allow vendor_init {
   file_type
   -core_data_file_type
   -exec_type
-  -system_file
+  -system_file_type
   -unlabeled
   -vendor_file_type
   -vold_metadata_file
@@ -73,7 +73,7 @@ allow vendor_init {
   file_type
   -core_data_file_type
   -exec_type
-  -system_file
+  -system_file_type
   -unlabeled
   -vendor_file_type
   -vold_metadata_file
@@ -84,7 +84,7 @@ allow vendor_init {
   -core_data_file_type
   -exec_type
   -mnt_product_file
-  -system_file
+  -system_file_type
   -vendor_file_type
   -vold_metadata_file
 }:dir_file_class_set relabelto;
@@ -174,6 +174,9 @@ not_compatible_property(`
       -last_boot_reason_prop
     })
 ')
+
+# Get file context
+allow vendor_init file_contexts_file:file r_file_perms;
 
 set_prop(vendor_init, bluetooth_a2dp_offload_prop)
 set_prop(vendor_init, debug_prop)

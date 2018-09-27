@@ -2,7 +2,7 @@
 
 typeattribute blkid coredomain;
 
-type blkid_exec, exec_type, file_type;
+type blkid_exec, system_file_type, exec_type, file_type;
 
 # Allowed read-only access to encrypted devices to extract UUID/label
 allow blkid block_device:dir search;

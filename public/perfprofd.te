@@ -1,6 +1,6 @@
 # perfprofd - perf profile collection daemon
 type perfprofd, domain;
-type perfprofd_exec, exec_type, file_type;
+type perfprofd_exec, system_file_type, exec_type, file_type;
 
 userdebug_or_eng(`
 

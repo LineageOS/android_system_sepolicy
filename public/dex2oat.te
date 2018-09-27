@@ -1,6 +1,6 @@
 # dex2oat
 type dex2oat, domain;
-type dex2oat_exec, exec_type, file_type;
+type dex2oat_exec, system_file_type, exec_type, file_type;
 
 r_dir_file(dex2oat, apk_data_file)
 # Access to /vendor/app
