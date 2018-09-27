@@ -142,6 +142,8 @@ type system_linker_config_file, file_type;
 type system_seccomp_policy_file, file_type;
 # Default type for cacerts in /system/etc/security/cacerts/*.
 type system_security_cacerts_file, file_type;
+# Default type for zoneinfo files in /system/usr/share/zoneinfo/*.
+type system_zoneinfo_file, file_type;
 
 # Default type for directories search for
 # HAL implementations
