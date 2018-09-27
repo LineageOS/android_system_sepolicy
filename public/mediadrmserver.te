@@ -1,6 +1,6 @@
 # mediadrmserver - mediadrm daemon
 type mediadrmserver, domain;
-type mediadrmserver_exec, exec_type, file_type;
+type mediadrmserver_exec, system_file_type, exec_type, file_type;
 
 typeattribute mediadrmserver mlstrustedsubject;
 

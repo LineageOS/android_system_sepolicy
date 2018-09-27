@@ -1,6 +1,6 @@
 # thermalserviced -- thermal management services for system and vendor
 type thermalserviced, domain;
-type thermalserviced_exec, exec_type, file_type;
+type thermalserviced_exec, system_file_type, exec_type, file_type;
 
 binder_use(thermalserviced)
 binder_service(thermalserviced)

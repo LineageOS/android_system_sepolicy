@@ -1,6 +1,6 @@
 # healthd - battery/charger monitoring service daemon
 type healthd, domain;
-type healthd_exec, exec_type, file_type;
+type healthd_exec, system_file_type, exec_type, file_type;
 
 # Write to /dev/kmsg
 allow healthd kmsg_device:chr_file rw_file_perms;

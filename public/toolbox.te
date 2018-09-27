@@ -2,7 +2,7 @@
 # At present, the only known usage is for running mkswap via fs_mgr.
 # Do NOT use this domain for toolbox when run by any other domain.
 type toolbox, domain;
-type toolbox_exec, exec_type, file_type;
+type toolbox_exec, system_file_type, exec_type, file_type;
 
 # /dev/__null__ created by init prior to policy load,
 # open fd inherited by fsck.

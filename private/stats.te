@@ -1,6 +1,6 @@
 type stats, domain;
 typeattribute stats coredomain;
-type stats_exec, exec_type, file_type;
+type stats_exec, system_file_type, exec_type, file_type;
 
 # switch to stats domain for stats command
 domain_auto_trans(shell, stats_exec, stats)

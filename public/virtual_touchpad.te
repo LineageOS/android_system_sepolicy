@@ -1,5 +1,5 @@
 type virtual_touchpad, domain;
-type virtual_touchpad_exec, exec_type, file_type;
+type virtual_touchpad_exec, system_file_type, exec_type, file_type;
 
 binder_use(virtual_touchpad)
 binder_service(virtual_touchpad)

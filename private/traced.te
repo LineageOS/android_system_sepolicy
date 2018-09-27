@@ -1,6 +1,6 @@
 # Perfetto user-space tracing daemon (unprivileged)
 type traced, domain, coredomain, mlstrustedsubject;
-type traced_exec, exec_type, file_type;
+type traced_exec, system_file_type, exec_type, file_type;
 
 # Allow init to exec the daemon.
 init_daemon_domain(traced)

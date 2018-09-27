@@ -1,5 +1,5 @@
 type runas, domain, mlstrustedsubject;
-type runas_exec, exec_type, file_type;
+type runas_exec, system_file_type, exec_type, file_type;
 
 allow runas adbd:fd use;
 allow runas adbd:process sigchld;
