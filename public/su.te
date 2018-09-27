@@ -58,6 +58,7 @@ userdebug_or_eng(`
   # permission to interact with it.
   typeattribute su halclientdomain;
   typeattribute su hal_allocator_client;
+  typeattribute su hal_atrace_client;
   typeattribute su hal_audio_client;
   typeattribute su hal_authsecret_client;
   typeattribute su hal_bluetooth_client;

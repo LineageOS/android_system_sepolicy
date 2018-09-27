@@ -238,6 +238,7 @@ attribute hal_automotive_socket_exemption;
 
 # HALs
 hal_attribute(allocator);
+hal_attribute(atrace);
 hal_attribute(audio);
 hal_attribute(audiocontrol);
 hal_attribute(authsecret);
