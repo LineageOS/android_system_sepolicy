@@ -1,6 +1,7 @@
 android.frameworks.displayservice::IDisplayService              u:object_r:fwk_display_hwservice:s0
 android.frameworks.schedulerservice::ISchedulingPolicyService   u:object_r:fwk_scheduler_hwservice:s0
 android.frameworks.sensorservice::ISensorManager                u:object_r:fwk_sensor_hwservice:s0
+android.hardware.atrace::IAtraceDevice                          u:object_r:hal_atrace_hwservice:s0
 android.hardware.audio.effect::IEffectsFactory                  u:object_r:hal_audio_hwservice:s0
 android.hardware.audio::IDevicesFactory                         u:object_r:hal_audio_hwservice:s0
 android.hardware.authsecret::IAuthSecret                        u:object_r:hal_authsecret_hwservice:s0

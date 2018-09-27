@@ -26,6 +26,9 @@ allow atrace system_server:binder call;
 
 get_prop(atrace, hwservicemanager_prop)
 
+# atrace can call atrace HAL
+hal_client_domain(atrace, hal_atrace)
+
 allow atrace {
   service_manager_type
   -incident_service
