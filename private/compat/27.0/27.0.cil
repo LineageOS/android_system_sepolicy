@@ -1375,7 +1375,9 @@
     system_linker_config_file
     system_linker_exec
     system_seccomp_policy_file
-    system_security_cacerts_file))
+    system_security_cacerts_file
+    system_zoneinfo_file
+))
 (typeattributeset systemkeys_data_file_27_0 (systemkeys_data_file))
 (typeattributeset system_ndebug_socket_27_0 (system_ndebug_socket))
 (typeattributeset system_net_netd_hwservice_27_0 (system_net_netd_hwservice))
