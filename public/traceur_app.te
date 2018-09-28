@@ -16,6 +16,9 @@ allow traceur_app {
   -vr_hwc_service
 }:service_manager find;
 
+# Allow traceur_app to use atrace HAL
+hal_client_domain(traceur_app, hal_atrace)
+
 dontaudit traceur_app service_manager_type:service_manager find;
 dontaudit traceur_app hwservice_manager_type:hwservice_manager find;
 dontaudit traceur_app domain:binder call;
