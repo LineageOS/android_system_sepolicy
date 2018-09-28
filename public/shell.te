@@ -129,7 +129,6 @@ allow shell {
   proc_meminfo
   proc_modules
   proc_pid_max
-  proc_qtaguid_stat
   proc_slabinfo
   proc_stat
   proc_timer
