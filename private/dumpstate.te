@@ -42,3 +42,4 @@ allow dumpstate dev_type:blk_file getattr;
 allow dumpstate webview_zygote:process signal;
 dontaudit dumpstate perfprofd:binder call;
 dontaudit dumpstate update_engine:binder call;
+allow dumpstate proc_net_tcp_udp:file r_file_perms;
