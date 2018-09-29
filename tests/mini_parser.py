@@ -9,12 +9,23 @@ import sys
 # get the text in the next matching parens
 
 class MiniCilParser:
-    types = set() # types declared in mapping
-    pubtypes = set()
-    typeattributes = set() # attributes declared in mapping
-    typeattributesets = {} # sets defined in mapping
-    rTypeattributesets = {} # reverse mapping of above sets
-    apiLevel = None
+    def __init__(self, policyFile):
+        self.types = set() # types declared in mapping
+        self.pubtypes = set()
+        self.typeattributes = set() # attributes declared in mapping
+        self.typeattributesets = {} # sets defined in mapping
+        self.rTypeattributesets = {} # reverse mapping of above sets
+        self.apiLevel = None
+
+        with open(policyFile, 'r') as infile:
+            s = self._getNextStmt(infile)
+            while s:
+                self._parseStmt(s)
+                s = self._getNextStmt(infile)
+        fn = basename(policyFile)
+        m = re.match(r"(\d+\.\d+).+\.cil", fn)
+        if m:
+            self.apiLevel = m.group(1)
 
     def _getNextStmt(self, infile):
         parens = 0
@@ -77,26 +88,7 @@ class MiniCilParser:
             self._parseTypeattribute(stmt)
         elif re.match(r"typeattributeset\s+.+", stmt):
             self._parseTypeattributeset(stmt)
-        elif re.match(r"expandtypeattribute\s+.+", stmt):
-            # To silence the build warnings.
-            pass
-        else:
-            m = re.match(r"(\w+)\s+.+", stmt)
-            ret = "Warning: Unknown statement type (" + m.group(1) + ") in "
-            ret += "mapping file, perhaps consider adding support for it in "
-            ret += "system/sepolicy/tests/mini_parser.py!\n"
-            print ret
         return
-
-    def __init__(self, policyFile):
-        with open(policyFile, 'r') as infile:
-            s = self._getNextStmt(infile)
-            while s:
-                self._parseStmt(s)
-                s = self._getNextStmt(infile)
-        fn = basename(policyFile)
-        m = re.match(r"(\d+\.\d+).+\.cil", fn)
-        self.apiLevel = m.group(1)
 
 if __name__ == '__main__':
     f = sys.argv[1]

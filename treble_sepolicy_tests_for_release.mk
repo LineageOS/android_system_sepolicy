@@ -85,6 +85,7 @@ $(treble_sepolicy_tests_$(version)): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(treble_sepolicy_tests_$(version)): PRIVATE_SEPOLICY_OLD := $(built_$(version)_plat_sepolicy)
 $(treble_sepolicy_tests_$(version)): PRIVATE_COMBINED_MAPPING := $($(version)_mapping.combined.cil)
 $(treble_sepolicy_tests_$(version)): PRIVATE_PLAT_SEPOLICY := $(built_plat_sepolicy)
+$(treble_sepolicy_tests_$(version)): PRIVATE_PLAT_PUB_SEPOLICY := $(base_plat_pub_policy.cil)
 $(treble_sepolicy_tests_$(version)): PRIVATE_FAKE_TREBLE :=
 ifeq ($(PRODUCT_FULL_TREBLE_OVERRIDE),true)
 ifdef PRODUCT_SHIPPING_API_LEVEL
@@ -100,12 +101,14 @@ endif # PRODUCT_SHIPPING_API_LEVEL defined
 endif # PRODUCT_FULL_TREBLE_OVERRIDE = true
 $(treble_sepolicy_tests_$(version)): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests \
   $(all_fc_files) $(built_sepolicy) $(built_plat_sepolicy) \
+  $(base_plat_pub_policy.cil) \
   $(built_$(version)_plat_sepolicy) $($(version)_compat) $($(version)_mapping.combined.cil)
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests -l \
 		$(HOST_OUT)/lib64/libsepolwrap.$(SHAREDLIB_EXT) $(ALL_FC_ARGS) \
 		-b $(PRIVATE_PLAT_SEPOLICY) -m $(PRIVATE_COMBINED_MAPPING) \
 		-o $(PRIVATE_SEPOLICY_OLD) -p $(PRIVATE_SEPOLICY) \
+		-u $(PRIVATE_PLAT_PUB_SEPOLICY) \
 		$(PRIVATE_FAKE_TREBLE)
 	$(hide) touch $@
 
