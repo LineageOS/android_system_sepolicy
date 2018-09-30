@@ -116,11 +116,16 @@ void *init_type_iter(void *policydbp, const char *type, bool is_attr)
     } else {
         out->alltypes = TYPE_ITER_LOOKUP;
         out->d = static_cast<type_datum *>(hashtab_search(db->p_types.table, type));
+        if (out->d == nullptr) {
+            std::cerr << "\"" << type << "\" does not exist" << std::endl;
+            free(out);
+            return nullptr;
+        }
         if (is_attr && out->d->flavor != TYPE_ATTRIB) {
             std::cerr << "\"" << type << "\" MUST be an attribute in the policy" << std::endl;
             free(out);
             return nullptr;
-        } else if (!is_attr && out->d->flavor !=TYPE_TYPE) {
+        } else if (!is_attr && out->d->flavor != TYPE_TYPE) {
             std::cerr << "\"" << type << "\" MUST be a type in the policy" << std::endl;
             free(out);
             return nullptr;

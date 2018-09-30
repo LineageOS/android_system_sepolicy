@@ -2,7 +2,7 @@
 
 typeattribute audioserver coredomain;
 
-type audioserver_exec, exec_type, file_type;
+type audioserver_exec, exec_type, file_type, system_file_type;
 init_daemon_domain(audioserver)
 
 r_dir_file(audioserver, sdcard_type)

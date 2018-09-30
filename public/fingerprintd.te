@@ -1,5 +1,5 @@
 type fingerprintd, domain;
-type fingerprintd_exec, exec_type, file_type;
+type fingerprintd_exec, system_file_type, exec_type, file_type;
 
 binder_use(fingerprintd)
 

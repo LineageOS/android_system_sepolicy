@@ -1,6 +1,6 @@
 type statsd, domain, mlstrustedsubject;
 
-type statsd_exec, exec_type, file_type;
+type statsd_exec, system_file_type, exec_type, file_type;
 binder_use(statsd)
 
 # Allow statsd to scan through /proc/pid for all processes.
@@ -45,6 +45,9 @@ allow statsd {
   ')
   system_api_service
 }:service_manager find;
+
+# Allow statsd to add as HIDL service.
+add_hwservice(statsd, fwk_stats_hwservice)
 
 # Grant statsd to access health hal to access battery metrics.
 allow statsd hal_health_hwservice:hwservice_manager find;

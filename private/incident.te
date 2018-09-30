@@ -1,6 +1,6 @@
 typeattribute incident coredomain;
 
-type incident_exec, exec_type, file_type;
+type incident_exec, system_file_type, exec_type, file_type;
 
 # switch to incident domain for incident command
 domain_auto_trans(shell, incident_exec, incident)

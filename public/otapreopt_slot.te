@@ -4,7 +4,7 @@
 # from /data/ota to /data/dalvik-cache.
 
 type otapreopt_slot, domain, mlstrustedsubject;
-type otapreopt_slot_exec, exec_type, file_type;
+type otapreopt_slot_exec, system_file_type, exec_type, file_type;
 
 
 # The otapreopt_slot renames the OTA dalvik-cache to the regular dalvik-cache, and cleans up

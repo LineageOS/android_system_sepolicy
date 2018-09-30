@@ -1,6 +1,6 @@
 typeattribute incident_helper coredomain;
 
-type incident_helper_exec, exec_type, file_type;
+type incident_helper_exec, system_file_type, exec_type, file_type;
 
 # switch to incident_helper domain for incident_helper command
 domain_auto_trans(incidentd, incident_helper_exec, incident_helper)

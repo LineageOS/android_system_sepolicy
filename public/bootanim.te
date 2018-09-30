@@ -1,6 +1,6 @@
 # bootanimation oneshot service
 type bootanim, domain;
-type bootanim_exec, exec_type, file_type;
+type bootanim_exec, system_file_type, exec_type, file_type;
 
 hal_client_domain(bootanim, hal_configstore)
 hal_client_domain(bootanim, hal_graphics_allocator)

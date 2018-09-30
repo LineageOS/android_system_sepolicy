@@ -1,6 +1,6 @@
 # servicemanager - the Binder context manager
 type servicemanager, domain, mlstrustedsubject;
-type servicemanager_exec, exec_type, file_type;
+type servicemanager_exec, system_file_type, exec_type, file_type;
 
 # Note that we do not use the binder_* macros here.
 # servicemanager is unique in that it only provides

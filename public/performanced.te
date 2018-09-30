@@ -1,6 +1,6 @@
 # performanced
 type performanced, domain, mlstrustedsubject;
-type performanced_exec, exec_type, file_type;
+type performanced_exec, system_file_type, exec_type, file_type;
 
 # Needed to check for app permissions.
 binder_use(performanced)

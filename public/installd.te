@@ -1,6 +1,6 @@
 # installer daemon
 type installd, domain;
-type installd_exec, exec_type, file_type;
+type installd_exec, system_file_type, exec_type, file_type;
 typeattribute installd mlstrustedsubject;
 allow installd self:global_capability_class_set { chown dac_override dac_read_search fowner fsetid setgid setuid sys_admin };
 

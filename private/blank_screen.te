@@ -1,5 +1,5 @@
 type blank_screen, domain, coredomain;
-type blank_screen_exec, exec_type, file_type;
+type blank_screen_exec, exec_type, file_type, system_file_type;
 
 init_daemon_domain(blank_screen)
 

@@ -1,6 +1,6 @@
 # mediametrics - daemon for collecting media.metrics data
 type mediametrics, domain;
-type mediametrics_exec, exec_type, file_type;
+type mediametrics_exec, system_file_type, exec_type, file_type;
 
 
 binder_use(mediametrics)

@@ -313,7 +313,7 @@ $(sepolicy_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
 $(sepolicy_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS))
 	$(transform-policy-to-conf)
-	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+	$(hide) sed '/^\s*dontaudit.*;/d' $@ | sed '/^\s*dontaudit/,/;/d' > $@.dontaudit
 
 $(LOCAL_BUILT_MODULE): $(sepolicy_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
 	rm -f $@
@@ -425,7 +425,7 @@ $(plat_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERT
 $(plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 	$(transform-policy-to-conf)
-	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+	$(hide) sed '/^\s*dontaudit.*;/d' $@ | sed '/^\s*dontaudit/,/;/d' > $@.dontaudit
 
 $(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_CIL_FILES := \
   $(call build_policy, $(sepolicy_build_cil_workaround_files), $(PLAT_PRIVATE_POLICY))
@@ -558,7 +558,7 @@ $(vendor_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPE
 $(vendor_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS))
 	$(transform-policy-to-conf)
-	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+	$(hide) sed '/^\s*dontaudit.*;/d' $@ | sed '/^\s*dontaudit/,/;/d' > $@.dontaudit
 
 $(LOCAL_BUILT_MODULE): PRIVATE_POL_CONF := $(vendor_policy.conf)
 $(LOCAL_BUILT_MODULE): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
@@ -606,7 +606,7 @@ $(odm_policy.conf): $(call build_policy, $(sepolicy_build_files), \
   $(PLAT_PUBLIC_POLICY) $(REQD_MASK_POLICY) $(PLAT_VENDOR_POLICY) \
   $(BOARD_VENDOR_SEPOLICY_DIRS) $(BOARD_ODM_SEPOLICY_DIRS))
 	$(transform-policy-to-conf)
-	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+	$(hide) sed '/^\s*dontaudit.*;/d' $@ | sed '/^\s*dontaudit/,/;/d' > $@.dontaudit
 
 $(LOCAL_BUILT_MODULE): PRIVATE_POL_CONF := $(odm_policy.conf)
 $(LOCAL_BUILT_MODULE): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
@@ -753,7 +753,8 @@ $(sepolicy.recovery.conf): $(call build_policy, $(sepolicy_build_files), \
                            $(PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS) \
                            $(BOARD_ODM_SEPOLICY_DIRS))
 	$(transform-policy-to-conf)
-	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+	$(hide) sed '/^\s*dontaudit.*;/d' $@ | sed '/^\s*dontaudit/,/;/d' > $@.dontaudit
+
 ifeq ($(SELINUX_IGNORE_NEVERALLOWS),true)
 	$(hide) sed -z 's/\n\s*neverallow[^;]*;/\n/g' $@ > $@.neverallow
 	$(hide) mv $@.neverallow $@
@@ -799,7 +800,7 @@ $(LOCAL_BUILT_MODULE): PRIVATE_EXCLUDE_BUILD_TEST := true
 $(LOCAL_BUILT_MODULE): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
 	$(transform-policy-to-conf)
-	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+	$(hide) sed '/^\s*dontaudit.*;/d' $@ | sed '/^\s*dontaudit/,/;/d' > $@.dontaudit
 
 ##################################
 # TODO - remove this.   Keep around until we get the filesystem creation stuff taken care of.
@@ -1593,7 +1594,7 @@ $(base_plat_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PR
 $(base_plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(BASE_PLAT_PUBLIC_POLICY) $(BASE_PLAT_PRIVATE_POLICY))
 	$(transform-policy-to-conf)
-	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
+	$(hide) sed '/^\s*dontaudit.*;/d' $@ | sed '/^\s*dontaudit/,/;/d' > $@.dontaudit
 
 built_plat_sepolicy := $(intermediates)/built_plat_sepolicy
 $(built_plat_sepolicy): PRIVATE_ADDITIONAL_CIL_FILES := \
@@ -1608,6 +1609,27 @@ $(built_sepolicy_neverallows)
 		$(POLICYVERS) -o $@ $<
 	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) $(PRIVATE_NEVERALLOW_ARG) $@ -o $@ -f /dev/null
+
+base_plat_pub_policy.conf := $(intermediates)/base_plat_pub_policy.conf
+$(base_plat_pub_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(base_plat_pub_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(base_plat_pub_policy.conf): PRIVATE_TARGET_BUILD_VARIANT := user
+$(base_plat_pub_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(base_plat_pub_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
+$(base_plat_pub_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(base_plat_pub_policy.conf): PRIVATE_SEPOLICY_SPLIT := true
+$(base_plat_pub_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
+$(base_plat_pub_policy.conf): $(call build_policy, $(sepolicy_build_files), \
+$(BASE_PLAT_PUBLIC_POLICY) $(REQD_MASK_POLICY))
+	$(transform-policy-to-conf)
+
+base_plat_pub_policy.cil := $(intermediates)/base_plat_pub_policy.cil
+$(base_plat_pub_policy.cil): PRIVATE_POL_CONF := $(base_plat_pub_policy.conf)
+$(base_plat_pub_policy.cil): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
+$(base_plat_pub_policy.cil): $(HOST_OUT_EXECUTABLES)/checkpolicy $(base_plat_pub_policy.conf) $(reqd_policy_mask.cil)
+	@mkdir -p $(dir $@)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $< -C -M -c $(POLICYVERS) -o $@.tmp $(PRIVATE_POL_CONF)
+	$(hide) grep -Fxv -f $(PRIVATE_REQD_MASK) $@.tmp > $@
 
 all_fc_files := $(built_plat_fc) $(built_vendor_fc)
 ifdef BOARD_ODM_SEPOLICY_DIRS
@@ -1629,6 +1651,7 @@ include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
 BASE_PLAT_PUBLIC_POLICY :=
 BASE_PLAT_PRIVATE_POLICY :=
 base_plat_policy.conf :=
+base_plat_pub_policy.conf :=
 plat_sepolicy :=
 
 endif # ($(PRODUCT_SEPOLICY_SPLIT),true)
