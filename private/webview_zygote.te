@@ -51,6 +51,8 @@ dontaudit webview_zygote mnt_expand_file:dir getattr;
 # app_process zygote
 dontaudit webview_zygote dex2oat_exec:file execute;
 
+allow webview_zygote ion_device:chr_file r_file_perms;
+
 # Get seapp_contexts
 allow webview_zygote seapp_contexts_file:file r_file_perms;
 # Check validity of SELinux context before use.
