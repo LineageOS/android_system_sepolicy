@@ -577,3 +577,8 @@ neverallow appdomain proc_uid_concurrent_policy_time:file *;
 
 # Apps cannot access proc_uid_cpupower
 neverallow appdomain proc_uid_cpupower:file *;
+
+# Apps may not read /proc/net/{tcp,tcp6,udp,udp6}. These files leak information across the
+# application boundary. VPN apps may use the ConnectivityManager.getConnectionOwnerUid() API to
+# perform UID lookups.
+neverallow { appdomain -shell } proc_net_tcp_udp:file *;

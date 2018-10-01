@@ -57,3 +57,6 @@ binder_call(shell, bufferhubd);
 
 # Allow shell to use atrace HAL
 hal_client_domain(shell, hal_atrace)
+
+# For hostside tests such as CTS listening ports test.
+allow shell proc_net_tcp_udp:file r_file_perms;

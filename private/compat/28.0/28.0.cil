@@ -1399,7 +1399,7 @@
 (typeattributeset proc_mounts_28_0 (proc_mounts))
 (typeattributeset proc_net_28_0
   ( proc_net
-    proc_net_vpn))
+    proc_net_tcp_udp))
 (typeattributeset proc_overcommit_memory_28_0 (proc_overcommit_memory))
 (typeattributeset proc_page_cluster_28_0 (proc_page_cluster))
 (typeattributeset proc_pagetypeinfo_28_0 (proc_pagetypeinfo))
