@@ -458,7 +458,7 @@
 (expandtypeattribute (preopt2cachename_exec_27_0) true)
 (expandtypeattribute (print_service_27_0) true)
 (expandtypeattribute (priv_app_27_0) true)
-(typeattributeset proc_27_0 (proc proc_slabinfo))
+(expandtypeattribute (proc_27_0) true)
 (expandtypeattribute (proc_bluetooth_writable_27_0) true)
 (expandtypeattribute (proc_cpuinfo_27_0) true)
 (expandtypeattribute (proc_drop_caches_27_0) true)
@@ -1199,6 +1199,7 @@
     proc_pipe_conf
     proc_random
     proc_sched
+    proc_slabinfo
     proc_swaps
     proc_uid_concurrent_active_time
     proc_uid_concurrent_policy_time
@@ -1244,10 +1245,10 @@
 (typeattributeset property_socket_27_0 (property_socket))
 (typeattributeset pstorefs_27_0 (pstorefs))
 (typeattributeset ptmx_device_27_0 (ptmx_device))
-(typeattributeset qtaguid_device_27_0
-  ( qtaguid_proc
-    proc_qtaguid_ctrl))
-(typeattributeset qtaguid_proc_27_0 (qtaguid_proc))
+(typeattributeset qtaguid_device_27_0 (qtaguid_device))
+(typeattributeset qtaguid_proc_27_0
+  ( proc_qtaguid_ctrl
+    qtaguid_proc))
 (typeattributeset racoon_27_0 (racoon))
 (typeattributeset racoon_exec_27_0 (racoon_exec))
 (typeattributeset racoon_socket_27_0 (racoon_socket))
