@@ -6,13 +6,9 @@
 (type thermalcallback_hwservice)
 (type untrusted_v2_app)
 
-;; TODO: remove once P sepolicy is pushed to AOSP.
-(type vold_socket)
-(typeattribute vold_socket_28_0)
-(expandtypeattribute (vold_socket_28_0) true)
-(typeattributeset vold_socket_28_0 (vold_socket))
-
-;; TODO b/111680480: remove once we have consistent P sepolicy on all devices.
+;; Public 28.0 SEPolicy is divergent on different devices w.r.t
+;; exported_audio_prop type. We need this typeattribute declaration so that the
+;; mapping file compiles with vendor policies without exported_audio_prop type.
 (typeattribute exported_audio_prop_28_0)
 
 (expandtypeattribute (accessibility_service_28_0) true)
