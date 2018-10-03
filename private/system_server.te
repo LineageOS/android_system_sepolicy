@@ -775,6 +775,7 @@ allow system_server {
   proc_pipe_conf
   proc_stat
   proc_uid_cputime_showstat
+  proc_uid_io_stats
   proc_uid_time_in_state
   proc_uid_concurrent_active_time
   proc_uid_concurrent_policy_time
