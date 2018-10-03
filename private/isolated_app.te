@@ -117,3 +117,24 @@ neverallow isolated_app {
   -sysfs_devices_system_cpu
   -sysfs_usb # TODO: check with audio team if needed for isolated_app (b/28417852)
 }:file no_rw_file_perms;
+
+# No creation of sockets families other than AF_UNIX sockets.
+# List taken from system/sepolicy/public/global_macros - socket_class_set
+# excluding unix_stream_socket and unix_dgram_socket.
+# Many of these are socket families which have never and will never
+# be compiled into the Android kernel.
+neverallow isolated_app self:{
+  socket tcp_socket udp_socket rawip_socket netlink_socket packet_socket
+  key_socket appletalk_socket netlink_route_socket
+  netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket
+  netlink_selinux_socket netlink_audit_socket netlink_dnrt_socket
+  netlink_kobject_uevent_socket tun_socket netlink_iscsi_socket
+  netlink_fib_lookup_socket netlink_connector_socket netlink_netfilter_socket
+  netlink_generic_socket netlink_scsitransport_socket netlink_rdma_socket
+  netlink_crypto_socket sctp_socket icmp_socket ax25_socket ipx_socket
+  netrom_socket atmpvc_socket x25_socket rose_socket decnet_socket atmsvc_socket
+  rds_socket irda_socket pppox_socket llc_socket can_socket tipc_socket
+  bluetooth_socket iucv_socket rxrpc_socket isdn_socket phonet_socket
+  ieee802154_socket caif_socket alg_socket nfc_socket vsock_socket kcm_socket
+  qipcrtr_socket smc_socket
+} create;
