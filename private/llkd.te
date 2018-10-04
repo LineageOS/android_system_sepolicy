@@ -22,6 +22,7 @@ allow llkd domain:process sigkill;
 userdebug_or_eng(`
   allow llkd {
     domain
+    -apexd
     -kernel
     -keystore
     -init
