@@ -912,6 +912,11 @@ neverallow system_server ashmem_device:chr_file execute;
 # TODO: deal with tmpfs_domain pub/priv split properly
 neverallow system_server system_server_tmpfs:file execute;
 
+# Resources handed off by system_server_startup
+allow system_server system_server_startup:fd use;
+allow system_server system_server_startup_tmpfs:file { read write map };
+allow system_server system_server_startup:unix_dgram_socket write;
+
 # dexoptanalyzer is currently used only for secondary dex files which
 # system_server should never access.
 neverallow system_server dexoptanalyzer_exec:file no_x_file_perms;

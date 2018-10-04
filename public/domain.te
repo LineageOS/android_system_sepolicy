@@ -476,40 +476,6 @@ neverallow domain device:chr_file { open read write };
 # this capability, including device-specific domains.
 neverallow { domain -kernel -init -recovery -vold -zygote -update_engine -otapreopt_chroot -apexd } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
 
-#
-# Assert that, to the extent possible, we're not loading executable content from
-# outside the rootfs or /system partition except for a few whitelisted domains.
-# Executable files loaded from /data is a persistence vector
-# we want to avoid. See
-# https://bugs.chromium.org/p/project-zero/issues/detail?id=955 for example.
-#
-neverallow {
-    domain
-    -appdomain
-    with_asan(`-asan_extract')
-    -shell
-    userdebug_or_eng(`-su')
-    -webview_zygote
-    -zygote
-    userdebug_or_eng(`-mediaextractor')
-    userdebug_or_eng(`-mediaswcodec')
-} {
-    file_type
-    -system_file_type
-    -system_lib_file
-    -system_linker_exec
-    -vendor_file_type
-    -exec_type
-    -postinstall_file
-}:file execute;
-
-neverallow {
-    domain
-    -appdomain # for oemfs
-    -bootanim # for oemfs
-    -recovery # for /tmp/update_binary in tmpfs
-} { fs_type -rootfs }:file execute;
-
 # Files from cache should never be executed
 neverallow domain { cache_file cache_backup_file cache_private_backup_file cache_recovery_file }:file execute;
 
