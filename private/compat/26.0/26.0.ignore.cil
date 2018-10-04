@@ -1,9 +1,11 @@
 ;; new_objects - a collection of types that have been introduced that have no
 ;;   analogue in older policy.  Thus, we do not need to map these types to
 ;;   previous ones.  Add here to pass checkapi tests.
+(type new_objects)
 (typeattribute new_objects)
 (typeattributeset new_objects
-  ( activity_task_service
+  ( new_objects
+    activity_task_service
     adb_service
     adbd_exec
     app_binding_service
@@ -182,8 +184,9 @@
 ;; private_objects - a collection of types that were labeled differently in
 ;;     older policy, but that should not remain accessible to vendor policy.
 ;;     Thus, these types are also not mapped, but recorded for checkapi tests
+(type priv_objects)
 (typeattribute priv_objects)
 (typeattributeset priv_objects
-     ( adbd_tmpfs
-       untrusted_app_27_tmpfs
-     ))
+  ( priv_objects
+    adbd_tmpfs
+    untrusted_app_27_tmpfs))
