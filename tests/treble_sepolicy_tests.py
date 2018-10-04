@@ -240,8 +240,8 @@ def TestNoUnmappedNewTypes():
     if len(violators) > 0:
         ret += "SELinux: The following public types were found added to the "
         ret += "policy without an entry into the compatibility mapping file(s) "
-        ret += "found in private/compat/" + compatMapping.apiLevel + "/"
-        ret +=  compatMapping.apiLevel + "[.ignore].cil\n"
+        ret += "found in private/compat/V.v/V.v[.ignore].cil, where V.v is the "
+        ret += "latest API level.\n"
         ret += " ".join(str(x) for x in sorted(violators)) + "\n"
     return ret
 
@@ -263,7 +263,8 @@ def TestNoUnmappedRmTypes():
     if len(violators) > 0:
         ret += "SELinux: The following formerly public types were removed from "
         ret += "policy without a declaration in the compatibility mapping "
-        ret += "file(s) found in prebuilts/api/" + compatMapping.apiLevel + "/\n"
+        ret += "found in private/compat/V.v/V.v[.ignore].cil, where V.v is the "
+        ret += "latest API level.\n"
         ret += " ".join(str(x) for x in sorted(violators)) + "\n"
     return ret
 
