@@ -70,4 +70,5 @@ python_binary_host {
         "combine_maps.py",
         "mini_parser.py",
     ],
+    defaults: ["py2_only"],
 }
