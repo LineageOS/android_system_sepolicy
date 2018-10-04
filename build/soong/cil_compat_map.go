@@ -21,10 +21,28 @@ import (
 	"android/soong/android"
 	"fmt"
 	"io"
+
+	"github.com/google/blueprint/proptools"
+	"github.com/google/blueprint"
 )
 
 var (
 	pctx = android.NewPackageContext("android/soong/selinux")
+
+	combine_maps = pctx.HostBinToolVariable("combine_maps", "combine_maps")
+	combineMapsCmd = "${combine_maps} -t ${topHalf} -b ${bottomHalf} -o $out"
+	combineMapsRule = pctx.StaticRule(
+		"combineMapsRule",
+		blueprint.RuleParams{
+			Command: combineMapsCmd,
+			CommandDeps: []string{"${combine_maps}"},
+		},
+		"topHalf",
+		"bottomHalf",
+	)
+
+	String = proptools.String
+	TopHalfDepTag = dependencyTag{name: "top"}
 )
 
 func init() {
@@ -40,18 +58,43 @@ func cilCompatMapFactory() android.Module {
 }
 
 type cilCompatMapProperties struct {
-	// list of source (.cil) files used to build an sepolicy compatibility mapping
-	// file. srcs may reference the outputs of other modules that produce source
-	// files like genrule or filegroup using the syntax ":module". srcs has to be
-	// non-empty.
-	Srcs []string
+	// se_cil_compat_map module representing a compatibility mapping file for
+	// platform versions (x->y). Bottom half represents a mapping (y->z).
+	// Together the halves are used to generate a (x->z) mapping.
+	Top_half *string
+	// list of source (.cil) files used to build an the bottom half of sepolicy
+	// compatibility mapping file. bottom_half may reference the outputs of
+	// other modules that produce source files like genrule or filegroup using
+	// the syntax ":module". srcs has to be non-empty.
+	Bottom_half []string
 }
 
 type cilCompatMap struct {
 	android.ModuleBase
 	properties cilCompatMapProperties
 	// (.intermediate) module output path as installation source.
-	installSource android.OptionalPath
+	installSource android.Path
+}
+
+type CilCompatMapGenerator interface {
+	GeneratedMapFile() android.Path
+}
+
+type dependencyTag struct {
+	blueprint.BaseDependencyTag
+	name string
+}
+
+func expandTopHalf(ctx android.ModuleContext) android.OptionalPath {
+	var topHalf android.OptionalPath
+	ctx.VisitDirectDeps(func(dep android.Module) {
+		depTag := ctx.OtherModuleDependencyTag(dep)
+		switch depTag {
+		case TopHalfDepTag:
+			topHalf = android.OptionalPathForPath(dep.(CilCompatMapGenerator).GeneratedMapFile())
+		}
+	})
+	return topHalf
 }
 
 func expandSeSources(ctx android.ModuleContext, srcFiles []string) android.Paths {
@@ -81,33 +124,62 @@ func expandSeSources(ctx android.ModuleContext, srcFiles []string) android.Paths
 }
 
 func (c *cilCompatMap) GenerateAndroidBuildActions(ctx android.ModuleContext) {
-	srcFiles := expandSeSources(ctx, c.properties.Srcs)
+	srcFiles := expandSeSources(ctx, c.properties.Bottom_half)
+
 	for _, src := range srcFiles {
 		if src.Ext() != ".cil" {
-			ctx.PropertyErrorf("srcs", "%s has to be a .cil file.", src.String())
+			ctx.PropertyErrorf("bottom_half", "%s has to be a .cil file.", src.String())
 		}
 	}
 
-	out := android.PathForModuleGen(ctx, c.Name())
+	bottomHalf := android.PathForModuleGen(ctx, "bottom_half")
 	ctx.Build(pctx, android.BuildParams{
 		Rule:   android.Cat,
-		Output: out,
+		Output: bottomHalf,
 		Inputs: srcFiles,
 	})
-	c.installSource = android.OptionalPathForPath(out)
+
+	topHalf := expandTopHalf(ctx)
+	if (topHalf.Valid()) {
+		out := android.PathForModuleGen(ctx, c.Name())
+		ctx.ModuleBuild(pctx, android.ModuleBuildParams{
+			Rule: combineMapsRule,
+			Output: out,
+			Implicits: []android.Path{
+				topHalf.Path(),
+				bottomHalf,
+			},
+			Args: map[string]string{
+				"topHalf": topHalf.String(),
+				"bottomHalf": bottomHalf.String(),
+			},
+		})
+		c.installSource = out
+	} else {
+		c.installSource = bottomHalf
+	}
 }
 
 func (c *cilCompatMap) DepsMutator(ctx android.BottomUpMutatorContext) {
-	android.ExtractSourcesDeps(ctx, c.properties.Srcs)
+	android.ExtractSourcesDeps(ctx, c.properties.Bottom_half)
+	if (c.properties.Top_half != nil) {
+		ctx.AddDependency(c, TopHalfDepTag, String(c.properties.Top_half))
+	}
 }
 
 func (c *cilCompatMap) AndroidMk() android.AndroidMkData {
 	ret := android.AndroidMkData{
-		OutputFile: c.installSource,
+		OutputFile: android.OptionalPathForPath(c.installSource),
 		Class:      "ETC",
 	}
 	ret.Extra = append(ret.Extra, func(w io.Writer, outputFile android.Path) {
 		fmt.Fprintln(w, "LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux/mapping")
 	})
 	return ret
+}
+
+var _ CilCompatMapGenerator = (*cilCompatMap)(nil)
+
+func (c *cilCompatMap) GeneratedMapFile() android.Path {
+	return c.installSource
 }
