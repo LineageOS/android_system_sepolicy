@@ -8,6 +8,13 @@
     activity_task_service
     adb_service
     app_binding_service
+    apex_data_file
+    apex_mnt_dir
+    apex_key_file
+    apex_service
+    apexd
+    apexd_exec
+    apexd_tmpfs
     biometric_service
     ;; TODO(b/116344577): remove after the issue is resolved
     buffer_hub_service

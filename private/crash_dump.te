@@ -2,6 +2,7 @@ typeattribute crash_dump coredomain;
 
 allow crash_dump {
   domain
+  -apexd
   -bpfloader
   -crash_dump
   -init
