@@ -89,6 +89,11 @@
     hal_wifi_offload_hwservice
     incident_helper
     incident_helper_exec
+    iorapd
+    iorapd_data_file
+    iorapd_exec
+    iorapd_service
+    iorapd_tmpfs
     kmsg_debug_device
     last_boot_reason_prop
     llkd
