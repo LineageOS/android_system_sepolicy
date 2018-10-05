@@ -165,7 +165,7 @@ hal_client_domain(vold, hal_keymaster)
 hal_client_domain(vold, hal_health_storage)
 
 # talk to bootloader HAL
-hal_client_domain(vold, hal_bootctl)
+full_treble_only(`hal_client_domain(vold, hal_bootctl)')
 
 # Access userdata block device.
 allow vold userdata_block_device:blk_file rw_file_perms;
