@@ -109,6 +109,10 @@ find $sedir -name "*.te" -not -path "*prebuilts*" | while read -r file; do
 done
 
 echo
+echo "Scanning for labels in file_contexts that do not escape '.' properly."
+find $sedir -name file_contexts -not -path "*prebuilts*" -exec grep -H "^[^#].*[^\\]\.[^*]" '{}' \;
+
+echo
 echo "Scanning for rules that use the wrong file/dir macros."
 grep -r ":file.*_dir_perms" --exclude=\*_macros $sedir
 grep -r ":dir.*_file_perms" --exclude=\*_macros $sedir
