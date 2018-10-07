@@ -63,3 +63,12 @@ python_binary_host {
     required: ["libsepolwrap"],
     defaults: ["py2_only"],
 }
+
+python_binary_host {
+    name: "combine_maps",
+    srcs: [
+        "combine_maps.py",
+        "mini_parser.py",
+    ],
+    defaults: ["py2_only"],
+}

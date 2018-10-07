@@ -205,6 +205,7 @@ userdebug_or_eng(`
 
 allow dumpstate {
   service_manager_type
+  -apex_service
   -dumpstate_service
   -gatekeeper_service
   -incident_service

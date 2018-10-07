@@ -1,11 +1,20 @@
 ;; new_objects - a collection of types that have been introduced that have no
 ;;   analogue in older policy.  Thus, we do not need to map these types to
 ;;   previous ones.  Add here to pass checkapi tests.
+(type new_objects)
 (typeattribute new_objects)
 (typeattributeset new_objects
-  ( activity_task_service
+  ( new_objects
+    activity_task_service
     adb_service
     app_binding_service
+    apex_data_file
+    apex_mnt_dir
+    apex_key_file
+    apex_service
+    apexd
+    apexd_exec
+    apexd_tmpfs
     biometric_service
     ;; TODO(b/116344577): remove after the issue is resolved
     buffer_hub_service
