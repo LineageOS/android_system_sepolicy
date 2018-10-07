@@ -177,6 +177,11 @@ expandattribute system_executes_vendor_violators false;
 attribute system_writes_vendor_properties_violators;
 expandattribute system_writes_vendor_properties_violators false;
 
+# All system domains which violate the requirement of not writing to
+# /mnt/vendor/*. Must not be used on devices launched with P or later.
+attribute system_writes_mnt_vendor_violators;
+expandattribute system_writes_mnt_vendor_violators false;
+
 # hwservices that are accessible from untrusted applications
 # WARNING: Use of this attribute should be avoided unless
 # absolutely necessary.  It is a temporary allowance to aid the
