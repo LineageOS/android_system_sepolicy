@@ -297,9 +297,9 @@ allow init self:global_capability2_class_set syslog;
 # init access to /proc.
 r_dir_file(init, proc_net_type)
 
-# Overlayfs workdir write access check during mount to permit remount,rw
 userdebug_or_eng(`
-  allow init overlayfs_file:dir { relabelfrom write };
+  # Overlayfs workdir write access check during mount to permit remount,rw
+  allow init overlayfs_file:dir { relabelfrom mounton write };
 ')
 
 allow init {
