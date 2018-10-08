@@ -26,6 +26,9 @@ allow bootstat kernel:system syslog_read;
 # Allow access to reading the logs to read aspects of system health
 read_logd(bootstat)
 
+# Allow bootstat write to statsd.
+unix_socket_send(bootstat, statsdw, statsd)
+
 # ToDo: end
 
 neverallow {
