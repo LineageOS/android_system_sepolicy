@@ -1396,6 +1396,9 @@ userdebug_or_eng(`
 neverallow {
   coredomain
   -init
+  -ueventd
+  -vold
+  -system_writes_mnt_vendor_violators
 } mnt_vendor_file:dir *;
 
 # Vendor domian must not have access to /mnt/product.
