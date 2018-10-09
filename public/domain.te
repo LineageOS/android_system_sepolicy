@@ -274,6 +274,23 @@ allowxperm domain domain:{ unix_dgram_socket unix_stream_socket }
 # separately.
 allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
 
+# All domains must clearly enumerate what ioctls they use
+# on plain files and directories
+allowxperm domain { file_type fs_type }:{ dir file } ioctl { 0 };
+
+# Support sqlite F2FS specific optimizations
+# ioctl permission on the specific file type is still required
+# TODO: consider only compiling these rules if we know the
+# /data partition is F2FS
+allowxperm domain file_type:file ioctl {
+  F2FS_IOC_ABORT_VOLATILE_WRITE
+  F2FS_IOC_COMMIT_ATOMIC_WRITE
+  F2FS_IOC_GET_FEATURES
+  F2FS_IOC_GET_PIN_FILE
+  F2FS_IOC_SET_PIN_FILE
+  F2FS_IOC_START_ATOMIC_WRITE
+};
+
 # Workaround for policy compiler being too aggressive and removing hwservice_manager_type
 # when it's not explicitly used in allow rules
 allow { domain -domain } hwservice_manager_type:hwservice_manager { add find };
