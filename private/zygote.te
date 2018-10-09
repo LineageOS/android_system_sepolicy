@@ -96,6 +96,9 @@ allow zygote sdcardfs:dir { mounton };
 # Handle --invoke-with command when launching Zygote with a wrapper command.
 allow zygote zygote_exec:file rx_file_perms;
 
+# Allow zygote to write to statsd.
+unix_socket_send(zygote, statsdw, statsd)
+
 # Root fs.
 r_dir_file(zygote, rootfs)
 
