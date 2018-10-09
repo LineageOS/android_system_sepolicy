@@ -80,6 +80,11 @@
     hal_wifi_hostapd_hwservice
     incident_helper
     incident_helper_exec
+    iorapd
+    iorapd_data_file
+    iorapd_exec
+    iorapd_service
+    iorapd_tmpfs
     last_boot_reason_prop
     llkd
     llkd_exec
