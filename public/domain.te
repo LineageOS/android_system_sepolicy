@@ -300,6 +300,8 @@ allow { domain -domain } vndservice_manager_type:service_manager { add find };
 
 # Under ASAN, processes will try to read /data, as the sanitized libraries are there.
 with_asan(`allow domain system_data_file:dir getattr;')
+# Under ASAN, /system/asan.options needs to be globally accessible.
+with_asan(`allow domain system_asan_options_file:file r_file_perms;')
 
 ###
 ### neverallow rules

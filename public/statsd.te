@@ -67,10 +67,7 @@ allow statsd adbd:fd use;
 allow statsd adbd:unix_stream_socket { getattr read write };
 allow statsd shell:fifo_file { getattr read };
 
-unix_socket_send(bootstat, statsdw, statsd)
-unix_socket_send(lmkd, statsdw, statsd)
 unix_socket_send(statsd, statsdw, statsd)
-unix_socket_send(system_server, statsdw, statsd)
 
 ###
 ### neverallow rules

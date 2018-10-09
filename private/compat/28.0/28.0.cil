@@ -1565,6 +1565,7 @@
     system_data_file))
 (typeattributeset system_file_28_0
   ( system_file
+    system_asan_options_file
     system_lib_file
     system_linker_config_file
     system_linker_exec

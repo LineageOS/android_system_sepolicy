@@ -535,6 +535,7 @@
 # Overlayfs support directories
 #
 /cache/overlay(/.*)?            u:object_r:overlayfs_file:s0
+/mnt/scratch(/.*)?              u:object_r:overlayfs_file:s0
 
 /data/cache(/.*)?		u:object_r:cache_file:s0
 /data/cache/recovery(/.*)?	u:object_r:cache_recovery_file:s0
