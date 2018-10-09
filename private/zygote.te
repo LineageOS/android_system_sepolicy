@@ -91,7 +91,7 @@ allow zygote mnt_user_file:lnk_file create_file_perms;
 # Allowed to mount user-specific storage into place
 allow zygote storage_file:dir { search mounton };
 # Allow mounting on sdcardfs dirs
-allow zygote sdcardfs:dir { mounton };
+allow zygote sdcardfs:dir { search mounton };
 
 # Handle --invoke-with command when launching Zygote with a wrapper command.
 allow zygote zygote_exec:file rx_file_perms;
