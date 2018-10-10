@@ -79,7 +79,7 @@ allow kernel media_rw_data_file:dir create_dir_perms;
 allow kernel media_rw_data_file:file create_file_perms;
 
 # Access to /data/misc/vold/virtual_disk.
-allow kernel vold_data_file:file read;
+allow kernel vold_data_file:file { read write };
 
 # Allow the first-stage init (which is running in the kernel domain) to execute the
 # dynamic linker when it re-executes /init to switch into the second stage.
