@@ -101,6 +101,12 @@ allow property_type tmpfs:filesystem associate;
 ### Neverallow rules
 ###
 
+# There is no need to perform ioctl or advisory locking operations on
+# property files. If this neverallow is being triggered, it is
+# likely that the policy is using r_file_perms directly instead of
+# the get_prop() macro.
+neverallow domain property_type:file { ioctl lock };
+
 # core_property_type should not be used for new properties or
 # device specific properties. Properties with this attribute
 # are readable to everyone, which is overly broad and should
