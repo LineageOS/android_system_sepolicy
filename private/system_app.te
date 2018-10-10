@@ -73,6 +73,7 @@ allow system_app {
   -apex_service
   -dumpstate_service
   -installd_service
+  -iorapd_service
   -netd_service
   -virtual_touchpad_service
   -vold_service
@@ -82,6 +83,7 @@ allow system_app {
 dontaudit system_app {
   dumpstate_service
   installd_service
+  iorapd_service
   netd_service
   virtual_touchpad_service
   vold_service
@@ -119,6 +121,9 @@ userdebug_or_eng(`
 allow system_app {
   proc_version
 }:file r_file_perms;
+
+# Settings app writes to /dev/stune/foreground/tasks.
+allow system_app cgroup:file w_file_perms;
 
 control_logd(system_app)
 read_runtime_log_tags(system_app)

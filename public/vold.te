@@ -272,6 +272,7 @@ neverallow vold {
   -hal_bootctl
   -healthd
   -hwservicemanager
+  -iorapd_service
   -servicemanager
   -system_server
   userdebug_or_eng(`-su')
