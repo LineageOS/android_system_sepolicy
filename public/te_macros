@@ -323,7 +323,7 @@ get_prop($1, $2)
 # targetproperty.
 #
 define(`get_prop', `
-allow $1 $2:file r_file_perms;
+allow $1 $2:file { getattr open read map };
 ')
 
 #####################################
