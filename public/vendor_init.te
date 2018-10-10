@@ -35,6 +35,12 @@ allow vendor_init self:global_capability_class_set { chown fowner fsetid };
 allow vendor_init unencrypted_data_file:dir search;
 allow vendor_init unencrypted_data_file:file r_file_perms;
 
+# Set encryption policy on dirs in /data
+allowxperm vendor_init data_file_type:dir ioctl {
+  FS_IOC_GET_ENCRYPTION_POLICY
+  FS_IOC_SET_ENCRYPTION_POLICY
+};
+
 allow vendor_init system_data_file:dir getattr;
 
 allow vendor_init {
