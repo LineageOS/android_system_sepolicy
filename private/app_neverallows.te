@@ -275,3 +275,6 @@ neverallow all_untrusted_apps mediaextractor_update_service:service_manager find
 # This will go away in a future Android release
 neverallow { all_untrusted_apps -untrusted_app_25 } proc_tty_drivers:file r_file_perms;
 neverallow all_untrusted_apps proc_tty_drivers:file ~r_file_perms;
+
+# Untrusted apps are not allowed to use cgroups.
+neverallow all_untrusted_apps cgroup:file *;
