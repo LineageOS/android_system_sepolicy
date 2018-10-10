@@ -20,7 +20,7 @@ userdebug_or_eng(`
 # /dev/__properties__
 allow init properties_device:dir relabelto;
 allow init properties_serial:file { write relabelto };
-allow init property_type:file { create_file_perms relabelto };
+allow init property_type:file { append create getattr map open read relabelto rename setattr unlink write };
 # /dev/__properties__/property_info
 allow init properties_device:file create_file_perms;
 allow init property_info:file relabelto;
