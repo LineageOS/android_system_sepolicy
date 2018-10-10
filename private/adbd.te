@@ -42,6 +42,10 @@ net_domain(adbd)
 # Access /dev/usb-ffs/adb/ep0
 allow adbd functionfs:dir search;
 allow adbd functionfs:file rw_file_perms;
+allowxperm adbd functionfs:file ioctl {
+  FUNCTIONFS_ENDPOINT_DESC
+  FUNCTIONFS_CLEAR_HALT
+};
 
 # Use a pseudo tty.
 allow adbd devpts:chr_file rw_file_perms;
