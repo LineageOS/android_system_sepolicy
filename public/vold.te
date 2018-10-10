@@ -43,6 +43,16 @@ allow vold shell_exec:file rx_file_perms;
 # For formatting adoptable storage devices
 allow vold e2fs_exec:file rx_file_perms;
 
+# Run fstrim on mounted partitions
+# allowxperm still requires the ioctl permission for the individual type
+allowxperm vold { fs_type file_type }:dir ioctl FITRIM;
+
+# Get encryption policy for dirs in /data
+allowxperm vold data_file_type:dir ioctl {
+  FS_IOC_GET_ENCRYPTION_POLICY
+  FS_IOC_SET_ENCRYPTION_POLICY
+};
+
 typeattribute vold mlstrustedsubject;
 allow vold self:process setfscreate;
 allow vold system_file:file x_file_perms;
