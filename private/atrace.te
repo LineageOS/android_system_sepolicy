@@ -33,6 +33,7 @@ allow atrace {
   service_manager_type
   -apex_service
   -incident_service
+  -iorapd_service
   -netd_service
   -stats_service
   -dumpstate_service
