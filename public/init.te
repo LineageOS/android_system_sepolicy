@@ -93,7 +93,7 @@ allow init sysfs:dir mounton;
 allow init tmpfs:dir create_dir_perms;
 allow init tmpfs:dir mounton;
 allow init cgroup:dir create_dir_perms;
-r_dir_file(init, cgroup)
+allow init cgroup:file rw_file_perms;
 allow init cpuctl_device:dir { create mounton };
 
 # /config

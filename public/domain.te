@@ -258,9 +258,34 @@ allow domain selinuxfs:file getattr;
 allow domain sysfs:dir search;
 allow domain selinuxfs:filesystem getattr;
 
-# For /acct/uid/*/tasks.
-allow domain cgroup:dir { search write };
-allow domain cgroup:file w_file_perms;
+# Path resolution access in cgroups.
+allow domain cgroup:dir search;
+allow { coredomain -appdomain } cgroup:dir w_dir_perms;
+allow { coredomain -appdomain } cgroup:file w_file_perms;
+
+# TODO(b/110043362): Clean up cgroup access from app domains.
+allow {
+  # Can not use all_untrusted_apps macro here, so expanding inline.
+  # This list is essentially { appdomain -all_untrusted_apps -priv_app }
+  appdomain
+  -ephemeral_app
+  -isolated_app
+  -mediaprovider
+  -untrusted_app
+  -untrusted_app_25
+  -untrusted_app_27
+  -untrusted_app_all
+  -priv_app
+} cgroup:file w_file_perms;
+auditallow appdomain cgroup:file w_file_perms;
+
+# TODO(b/110043362): Clean up cgroup access from non-system domains.
+allow { domain -coredomain } cgroup:file w_file_perms;
+auditallow {
+  domain
+  -coredomain
+  -vendor_init
+} cgroup:file w_file_perms;
 
 # Almost all processes log tracing information to
 # /sys/kernel/debug/tracing/trace_marker
