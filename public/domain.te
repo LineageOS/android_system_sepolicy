@@ -258,17 +258,9 @@ allow domain selinuxfs:file getattr;
 allow domain sysfs:dir search;
 allow domain selinuxfs:filesystem getattr;
 
-# Path resolution access in cgroups.
-allow domain cgroup:dir search;
-allow { coredomain -appdomain } cgroup:dir w_dir_perms;
-allow { coredomain -appdomain } cgroup:file w_file_perms;
-# TODO(b/110043362): Clean up cgroup access from non-system domains.
-allow { domain -coredomain } cgroup:file w_file_perms;
-auditallow {
-  domain
-  -coredomain
-  -vendor_init
-} cgroup:file w_file_perms;
+# For /acct/uid/*/tasks.
+allow domain cgroup:dir { search write };
+allow domain cgroup:file w_file_perms;
 
 # Almost all processes log tracing information to
 # /sys/kernel/debug/tracing/trace_marker
@@ -298,6 +290,24 @@ allowxperm domain domain:{ unix_dgram_socket unix_stream_socket }
 # not grant the wider ioctl permission. That must be granted
 # separately.
 allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
+
+# All domains must clearly enumerate what ioctls they use
+# on filesystem objects (plain files, directories, symbolic links,
+# named pipes, and named sockets)
+allowxperm domain { file_type fs_type }:{ dir notdevfile_class_set } ioctl { 0 };
+
+# Support sqlite F2FS specific optimizations
+# ioctl permission on the specific file type is still required
+# TODO: consider only compiling these rules if we know the
+# /data partition is F2FS
+allowxperm domain file_type:file ioctl {
+  F2FS_IOC_ABORT_VOLATILE_WRITE
+  F2FS_IOC_COMMIT_ATOMIC_WRITE
+  F2FS_IOC_GET_FEATURES
+  F2FS_IOC_GET_PIN_FILE
+  F2FS_IOC_SET_PIN_FILE
+  F2FS_IOC_START_ATOMIC_WRITE
+};
 
 # Workaround for policy compiler being too aggressive and removing hwservice_manager_type
 # when it's not explicitly used in allow rules

@@ -20,7 +20,7 @@ userdebug_or_eng(`
 # /dev/__properties__
 allow init properties_device:dir relabelto;
 allow init properties_serial:file { write relabelto };
-allow init property_type:file { create_file_perms relabelto };
+allow init property_type:file { append create getattr map open read relabelto rename setattr unlink write };
 # /dev/__properties__/property_info
 allow init properties_device:file create_file_perms;
 allow init property_info:file relabelto;
@@ -93,7 +93,7 @@ allow init sysfs:dir mounton;
 allow init tmpfs:dir create_dir_perms;
 allow init tmpfs:dir mounton;
 allow init cgroup:dir create_dir_perms;
-allow init cgroup:file rw_file_perms;
+r_dir_file(init, cgroup)
 allow init cpuctl_device:dir { create mounton };
 
 # /config
@@ -499,6 +499,12 @@ allow init init:key { write search setattr };
 
 # Allow init to create /data/unencrypted
 allow init unencrypted_data_file:dir create_dir_perms;
+
+# Set encryption policy on dirs in /data
+allowxperm init data_file_type:dir ioctl {
+  FS_IOC_GET_ENCRYPTION_POLICY
+  FS_IOC_SET_ENCRYPTION_POLICY
+};
 
 # Allow init to write to /proc/sys/vm/overcommit_memory
 allow init proc_overcommit_memory:file { write };
