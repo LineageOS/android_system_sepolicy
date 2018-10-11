@@ -146,6 +146,8 @@ type system_seccomp_policy_file, system_file_type, file_type;
 type apex_key_file, system_file_type, file_type;
 # Default type for cacerts in /system/etc/security/cacerts/*.
 type system_security_cacerts_file, system_file_type, file_type;
+# Default type for /system/bin/tcpdump.
+type tcpdump_exec, system_file_type, exec_type, file_type;
 # Default type for zoneinfo files in /system/usr/share/zoneinfo/*.
 type system_zoneinfo_file, system_file_type, file_type;
 
