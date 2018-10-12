@@ -36,6 +36,9 @@
     iorapd_data_file
     iorapd_service
     iorapd_tmpfs
+    mediaswcodec
+    mediaswcodec_exec
+    mediaswcodec_tmpfs
     mnt_product_file
     overlayfs_file
     recovery_socket
