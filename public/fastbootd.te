@@ -14,6 +14,7 @@ recovery_only(`
   allow fastbootd functionfs:dir search;
   allow fastbootd functionfs:file rw_file_perms;
 
+  allowxperm fastbootd functionfs:file ioctl { FUNCTIONFS_ENDPOINT_DESC };
   # Log to serial
   allow fastbootd kmsg_device:chr_file { open write };
 
