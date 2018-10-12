@@ -2,18 +2,12 @@
 # since OMX must always be in its own process.
 
 
-# can route /dev/binder traffic to /dev/vndbinder
-vndbinder_use(hal_omx_server)
-
 binder_call(hal_omx_server, binderservicedomain)
 binder_call(hal_omx_server, { appdomain -isolated_app })
 
 # Allow hal_omx_server access to composer sync fences
 allow hal_omx_server hal_graphics_composer:fd use;
 
-allow hal_omx_server gpu_device:chr_file rw_file_perms;
-allow hal_omx_server video_device:chr_file rw_file_perms;
-allow hal_omx_server video_device:dir search;
 allow hal_omx_server ion_device:chr_file rw_file_perms;
 allow hal_omx_server hal_camera:fd use;
 
@@ -26,7 +20,9 @@ crash_dump_fallback(hal_omx_server)
 allow hal_omx_server bufferhubd:fd use;
 
 hal_attribute_hwservice(hal_omx, hal_omx_hwservice)
-hal_attribute_hwservice(hal_omx, hal_codec2_hwservice)
+
+allow hal_omx_client hal_codec2_hwservice:hwservice_manager find;
+allow hal_omx_server hal_codec2_hwservice:hwservice_manager { add find };
 
 allow hal_omx_client hidl_token_hwservice:hwservice_manager find;
 

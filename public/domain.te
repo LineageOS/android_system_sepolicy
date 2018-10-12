@@ -1197,6 +1197,7 @@ neverallow {
 
   # Processes that can't exec crash_dump
   -hal_omx_server
+  -mediaswcodec_server
   -mediaextractor
 } tombstoned_crash_socket:unix_stream_socket connectto;
 
@@ -1551,3 +1552,10 @@ full_treble_only(`
     -incidentd
   } sysfs_batteryinfo:file { open read };
 ')
+
+neverallow {
+  domain
+  -mediaswcodec_server
+  -hal_omx_server
+} hal_codec2_hwservice:hwservice_manager add;
+
