@@ -171,6 +171,11 @@ type vendor_overlay_file, vendor_file_type, file_type;
 # apps. ABI stability of these libs is vendor's responsibility.
 type vendor_public_lib_file, vendor_file_type, file_type;
 
+# Input configuration
+type vendor_keylayout_file, vendor_file_type, file_type;
+type vendor_keychars_file, vendor_file_type, file_type;
+type vendor_idc_file, vendor_file_type, file_type;
+
 # /metadata partition itself
 type metadata_file, file_type;
 # Vold files within /metadata
