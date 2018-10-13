@@ -1571,6 +1571,7 @@
     system_linker_exec
     system_seccomp_policy_file
     system_security_cacerts_file
+    tcpdump_exec
     system_zoneinfo_file
 ))
 (typeattributeset systemkeys_data_file_28_0 (systemkeys_data_file))
