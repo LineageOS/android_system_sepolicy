@@ -325,11 +325,17 @@ allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
 # named pipes, and named sockets)
 allowxperm domain { file_type fs_type }:{ dir notdevfile_class_set } ioctl { 0 };
 
+# Allow a process to make a determination whether a file descriptor
+# for a plain file is a tty. Note that granting this whitelist to domain
+# does not grant the ioctl permission to these files. That must be granted
+# separately.
+allowxperm domain { file_type fs_type }:file ioctl { TCGETS };
+
 # Support sqlite F2FS specific optimizations
 # ioctl permission on the specific file type is still required
 # TODO: consider only compiling these rules if we know the
 # /data partition is F2FS
-allowxperm domain file_type:file ioctl {
+allowxperm domain { file_type sdcard_type }:file ioctl {
   F2FS_IOC_ABORT_VOLATILE_WRITE
   F2FS_IOC_COMMIT_ATOMIC_WRITE
   F2FS_IOC_GET_FEATURES
