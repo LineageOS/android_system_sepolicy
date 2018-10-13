@@ -47,6 +47,12 @@ allow isolated_app webview_zygote_tmpfs:file read;
 # suppress denials to /data/local/tmp
 dontaudit isolated_app shell_data_file:dir search;
 
+# TODO(b/37211678): give isolated_app explicit access to same_process_hal_file
+# if needed.
+userdebug_or_eng(`
+  auditallow isolated_app same_process_hal_file:file *;
+')
+
 # Write app-specific trace data to the Perfetto traced damon. This requires
 # connecting to its producer socket and obtaining a (per-process) tmpfs fd.
 allow isolated_app traced:fd use;
