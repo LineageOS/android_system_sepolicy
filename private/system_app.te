@@ -110,17 +110,13 @@ allow system_app keystore:keystore_key {
     user_changed
 };
 
-# /proc/net access.
-# TODO(b/9496886) Audit access for removal.
-r_dir_file(system_app, proc_net_type)
-userdebug_or_eng(`
-  auditallow system_app proc_net_type:{ dir file lnk_file } { getattr open read };
-')
-
 # settings app reads /proc/version
 allow system_app {
   proc_version
 }:file r_file_perms;
+
+# Settings app writes to /dev/stune/foreground/tasks.
+allow system_app cgroup:file w_file_perms;
 
 control_logd(system_app)
 read_runtime_log_tags(system_app)

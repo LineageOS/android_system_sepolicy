@@ -216,6 +216,7 @@ allow dumpstate {
 }:service_manager find;
 # suppress denials for services dumpstate should not be accessing.
 dontaudit dumpstate {
+  apex_service
   dumpstate_service
   gatekeeper_service
   incident_service
@@ -272,6 +273,10 @@ allow dumpstate { domain pdx_channel_socket_type pdx_endpoint_socket_type }:sock
 
 # For when dumpstate runs df
 dontaudit dumpstate mnt_vendor_file:dir search;
+dontaudit dumpstate apex_mnt_dir:dir getattr;
+
+# Allow dumpstate to talk to bufferhubd over binder
+binder_call(dumpstate, bufferhubd);
 
 # Allow dumpstate to kill vendor dumpstate service by init
 set_prop(dumpstate, ctl_dumpstate_prop)

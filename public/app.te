@@ -22,10 +22,6 @@ allow appdomain zygote_exec:file rx_file_perms;
 # Notify zygote of death;
 allow appdomain zygote:process sigchld;
 
-# Place process into foreground / background
-allow appdomain cgroup:dir { search write };
-allow appdomain cgroup:file rw_file_perms;
-
 # Read /data/dalvik-cache.
 allow appdomain dalvikcache_data_file:dir { search getattr };
 allow appdomain dalvikcache_data_file:file r_file_perms;

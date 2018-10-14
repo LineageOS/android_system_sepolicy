@@ -36,6 +36,9 @@
     iorapd_data_file
     iorapd_service
     iorapd_tmpfs
+    mediaswcodec
+    mediaswcodec_exec
+    mediaswcodec_tmpfs
     mnt_product_file
     overlayfs_file
     recovery_socket
@@ -46,5 +49,8 @@
     timedetector_service
     timezonedetector_service
     uri_grants_service
+    vendor_idc_file
+    vendor_keychars_file
+    vendor_keylayout_file
     vrflinger_vsync_service
     watchdogd_tmpfs))

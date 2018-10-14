@@ -188,7 +188,22 @@ allow domain vendor_hal_file:dir r_dir_perms;
 
 # Everyone can read and execute all same process HALs
 allow domain same_process_hal_file:dir r_dir_perms;
+# TODO(b/37211678): whitelist domains that actually need same process HALs.
 allow domain same_process_hal_file:file { execute read open getattr map };
+# Touching same_process_hal_file indicates usage of SP-HALs or abuse of
+# same_process_hal_file label, which is what we are interested in.
+userdebug_or_eng(`
+  auditallow {
+    coredomain
+    -zygote
+    -hal_allocator_client
+    # Graphics mapper clients.
+    -hal_graphics_allocator_client
+    # Renderscript clients include { system_server appdomain -isolated_app }.
+    -appdomain
+    -system_server
+  } same_process_hal_file:file *;
+')
 
 # Any process can load vndk-sp libraries, which are system libraries
 # used by same process HALs
@@ -258,9 +273,38 @@ allow domain selinuxfs:file getattr;
 allow domain sysfs:dir search;
 allow domain selinuxfs:filesystem getattr;
 
-# For /acct/uid/*/tasks.
-allow domain cgroup:dir { search write };
-allow domain cgroup:file w_file_perms;
+# Path resolution access in cgroups.
+allow domain cgroup:dir search;
+allow { coredomain -appdomain } cgroup:dir w_dir_perms;
+allow { coredomain -appdomain } cgroup:file w_file_perms;
+
+# TODO(b/110043362): Clean up cgroup access from app domains.
+allow {
+  # Can not use all_untrusted_apps macro here, so expanding inline.
+  # This list is essentially { appdomain -all_untrusted_apps -priv_app }
+  appdomain
+  -ephemeral_app
+  -isolated_app
+  -mediaprovider
+  -untrusted_app
+  -untrusted_app_25
+  -untrusted_app_27
+  -untrusted_app_all
+  -priv_app
+} cgroup:file w_file_perms;
+userdebug_or_eng(`
+  auditallow appdomain cgroup:file w_file_perms;
+')
+
+# TODO(b/110043362): Clean up cgroup access from non-system domains.
+allow { domain -coredomain } cgroup:file w_file_perms;
+userdebug_or_eng(`
+  auditallow {
+    domain
+    -coredomain
+    -vendor_init
+  } cgroup:file w_file_perms;
+')
 
 # Almost all processes log tracing information to
 # /sys/kernel/debug/tracing/trace_marker
@@ -296,11 +340,17 @@ allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
 # named pipes, and named sockets)
 allowxperm domain { file_type fs_type }:{ dir notdevfile_class_set } ioctl { 0 };
 
+# Allow a process to make a determination whether a file descriptor
+# for a plain file is a tty. Note that granting this whitelist to domain
+# does not grant the ioctl permission to these files. That must be granted
+# separately.
+allowxperm domain { file_type fs_type }:file ioctl { TCGETS };
+
 # Support sqlite F2FS specific optimizations
 # ioctl permission on the specific file type is still required
 # TODO: consider only compiling these rules if we know the
 # /data partition is F2FS
-allowxperm domain file_type:file ioctl {
+allowxperm domain { file_type sdcard_type }:file ioctl {
   F2FS_IOC_ABORT_VOLATILE_WRITE
   F2FS_IOC_COMMIT_ATOMIC_WRITE
   F2FS_IOC_GET_FEATURES
@@ -1172,6 +1222,7 @@ neverallow {
 
   # Processes that can't exec crash_dump
   -hal_omx_server
+  -mediaswcodec_server
   -mediaextractor
 } tombstoned_crash_socket:unix_stream_socket connectto;
 
@@ -1526,3 +1577,10 @@ full_treble_only(`
     -incidentd
   } sysfs_batteryinfo:file { open read };
 ')
+
+neverallow {
+  domain
+  -mediaswcodec_server
+  -hal_omx_server
+} hal_codec2_hwservice:hwservice_manager add;
+

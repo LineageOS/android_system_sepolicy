@@ -146,6 +146,8 @@ type system_seccomp_policy_file, system_file_type, file_type;
 type apex_key_file, system_file_type, file_type;
 # Default type for cacerts in /system/etc/security/cacerts/*.
 type system_security_cacerts_file, system_file_type, file_type;
+# Default type for /system/bin/tcpdump.
+type tcpdump_exec, system_file_type, exec_type, file_type;
 # Default type for zoneinfo files in /system/usr/share/zoneinfo/*.
 type system_zoneinfo_file, system_file_type, file_type;
 
@@ -170,6 +172,11 @@ type vendor_overlay_file, vendor_file_type, file_type;
 # Type for all vendor public libraries. These libs should only be exposed to
 # apps. ABI stability of these libs is vendor's responsibility.
 type vendor_public_lib_file, vendor_file_type, file_type;
+
+# Input configuration
+type vendor_keylayout_file, vendor_file_type, file_type;
+type vendor_keychars_file, vendor_file_type, file_type;
+type vendor_idc_file, vendor_file_type, file_type;
 
 # /metadata partition itself
 type metadata_file, file_type;
