@@ -158,6 +158,7 @@
 /dev/socket/tombstoned_intercept u:object_r:tombstoned_intercept_socket:s0
 /dev/socket/traced_producer	u:object_r:traced_producer_socket:s0
 /dev/socket/traced_consumer	u:object_r:traced_consumer_socket:s0
+/dev/socket/heapprofd	u:object_r:heapprofd_socket:s0
 /dev/socket/uncrypt	u:object_r:uncrypt_socket:s0
 /dev/socket/wpa_eth[0-9] u:object_r:wpa_socket:s0
 /dev/socket/wpa_wlan[0-9] u:object_r:wpa_socket:s0
@@ -263,6 +264,7 @@
 /system/bin/perfetto        u:object_r:perfetto_exec:s0
 /system/bin/traced        u:object_r:traced_exec:s0
 /system/bin/traced_probes        u:object_r:traced_probes_exec:s0
+/system/bin/heapprofd        u:object_r:heapprofd_exec:s0
 /system/bin/uncrypt     u:object_r:uncrypt_exec:s0
 /system/bin/update_verifier u:object_r:update_verifier_exec:s0
 /system/bin/logwrapper  u:object_r:system_file:s0
