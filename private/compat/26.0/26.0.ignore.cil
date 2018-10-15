@@ -87,6 +87,9 @@
     hal_usb_gadget_hwservice
     hal_vehicle_hwservice
     hal_wifi_offload_hwservice
+    heapprofd
+    heapprofd_exec
+    heapprofd_socket
     incident_helper
     incident_helper_exec
     iorapd

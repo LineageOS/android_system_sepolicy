@@ -26,6 +26,9 @@
     hal_system_suspend_default
     hal_system_suspend_default_exec
     hal_system_suspend_default_tmpfs
+    heapprofd
+    heapprofd_exec
+    heapprofd_socket
     llkd
     llkd_exec
     llkd_prop
