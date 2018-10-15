@@ -1085,6 +1085,7 @@ full_treble_only(`
         -vendor_file_type
         -crash_dump_exec
         -netutils_wrapper_exec
+        userdebug_or_eng(`-tcpdump_exec')
     }:file { entrypoint execute execute_no_trans };
 ')
 
