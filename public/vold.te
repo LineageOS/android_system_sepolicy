@@ -53,6 +53,12 @@ allowxperm vold data_file_type:dir ioctl {
   FS_IOC_SET_ENCRYPTION_POLICY
 };
 
+# Find the location on the raw block device where the
+# crypto key is stored so it can be destroyed
+allowxperm vold vold_data_file:file ioctl {
+  FS_IOC_FIEMAP
+};
+
 typeattribute vold mlstrustedsubject;
 allow vold self:process setfscreate;
 allow vold system_file:file x_file_perms;
