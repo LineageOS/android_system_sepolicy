@@ -42,8 +42,8 @@ define(`create_ipc_perms', `{ create setattr destroy rw_ipc_perms }')
 
 #####################################
 # Common socket permission sets.
-define(`rw_socket_perms', `{ ioctl read getattr write setattr lock append bind connect getopt setopt shutdown }')
-define(`rw_socket_perms_no_ioctl', `{ read getattr write setattr lock append bind connect getopt setopt shutdown }')
+define(`rw_socket_perms', `{ ioctl read getattr write setattr lock append bind connect getopt setopt shutdown map }')
+define(`rw_socket_perms_no_ioctl', `{ read getattr write setattr lock append bind connect getopt setopt shutdown map }')
 define(`create_socket_perms', `{ create rw_socket_perms }')
 define(`create_socket_perms_no_ioctl', `{ create rw_socket_perms_no_ioctl }')
 define(`rw_stream_socket_perms', `{ rw_socket_perms listen accept }')
