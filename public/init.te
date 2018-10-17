@@ -205,6 +205,7 @@ allow init {
 
 allow init {
   file_type
+  -apex_mnt_dir
   -app_data_file
   -exec_type
   -iorapd_data_file
