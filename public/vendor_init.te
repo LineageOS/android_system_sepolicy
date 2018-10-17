@@ -78,6 +78,7 @@ allow vendor_init {
 
 allow vendor_init {
   file_type
+  -apex_mnt_dir
   -core_data_file_type
   -exec_type
   -system_file_type
