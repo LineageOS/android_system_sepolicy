@@ -353,9 +353,9 @@
 /(odm|vendor/odm)/framework(/.*)?             u:object_r:vendor_framework_file:s0
 
 # Input configuration
-/(odm|vendor)/usr/keylayout(/.*)?.kl           u:object_r:vendor_keylayout_file:s0
-/(odm|vendor)/usr/keychars(/.*)?.kcm            u:object_r:vendor_keychars_file:s0
-/(odm|vendor)/usr/idc(/.*)?.idc                 u:object_r:vendor_idc_file:s0
+/(odm|vendor|vendor/odm)/usr/keylayout(/.*)?.kl            u:object_r:vendor_keylayout_file:s0
+/(odm|vendor|vendor/odm)/usr/keychars(/.*)?.kcm            u:object_r:vendor_keychars_file:s0
+/(odm|vendor|vendor/odm)/usr/idc(/.*)?.idc                 u:object_r:vendor_idc_file:s0
 
 /oem(/.*)?              u:object_r:oemfs:s0
 
