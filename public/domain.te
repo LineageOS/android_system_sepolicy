@@ -298,7 +298,7 @@ allow domain fs_type:dir getattr;
 allowxperm domain domain:{ icmp_socket rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
 # default whitelist for unix sockets.
-allowxperm domain domain:{ unix_dgram_socket unix_stream_socket }
+allowxperm domain { domain pdx_channel_socket_type }:{ unix_dgram_socket unix_stream_socket }
   ioctl unpriv_unix_sock_ioctls;
 
 # Restrict PTYs to only whitelisted ioctls.
@@ -309,8 +309,8 @@ allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
 
 # All domains must clearly enumerate what ioctls they use
 # on filesystem objects (plain files, directories, symbolic links,
-# named pipes, and named sockets)
-allowxperm domain { file_type fs_type }:{ dir notdevfile_class_set } ioctl { 0 };
+# named pipes, and named sockets). We start off with a safe set.
+allowxperm domain { file_type fs_type domain dev_type }:{ dir notdevfile_class_set } ioctl { FIOCLEX FIONCLEX };
 
 # Allow a process to make a determination whether a file descriptor
 # for a plain file is a tty. Note that granting this whitelist to domain
@@ -351,8 +351,9 @@ allow domain apex_mnt_dir:lnk_file r_file_perms;
 ### neverallow rules
 ###
 
-# All socket ioctls must be restricted to a whitelist.
-neverallowxperm domain domain:socket_class_set ioctl { 0 };
+# All ioctls on file-like objects (except chr_file and blk_file) and
+# sockets must be restricted to a whitelist.
+neverallowxperm * *:{ dir notdevfile_class_set socket_class_set } ioctl { 0 };
 
 # b/68014825 and https://android-review.googlesource.com/516535
 # rfc6093 says that processes should not use the TCP urgent mechanism
