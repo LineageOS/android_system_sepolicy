@@ -6,6 +6,10 @@ allow appdomain zygote_tmpfs:file read;
 # ashmem, e.g. battery stats.
 allow appdomain system_server_tmpfs:file read;
 
+# Get info from priv_app through ashmem, such as contact
+# info etc.
+allow appdomain priv_app_tmpfs:file read;
+
 neverallow appdomain system_server:udp_socket {
         accept append bind create ioctl listen lock name_bind
         relabelfrom relabelto setattr shutdown };
