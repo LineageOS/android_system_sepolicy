@@ -7,6 +7,9 @@ allow e2fs dev_type:blk_file getattr;
 allow e2fs block_device:dir search;
 allow e2fs userdata_block_device:blk_file rw_file_perms;
 allow e2fs metadata_block_device:blk_file rw_file_perms;
+allowxperm e2fs { userdata_block_device metadata_block_device }:blk_file ioctl {
+  BLKSECDISCARD BLKDISCARD BLKPBSZGET BLKDISCARDZEROES BLKROGET
+};
 
 allow e2fs {
   proc_filesystems
@@ -18,5 +21,5 @@ allow e2fs {
 allow e2fs sysfs_fs_ext4_features:dir search;
 allow e2fs sysfs_fs_ext4_features:file r_file_perms;
 
-# access sselinux context files
-allow e2fs file_contexts_file:file { getattr open read };
+# access SELinux context files
+allow e2fs file_contexts_file:file r_file_perms;
