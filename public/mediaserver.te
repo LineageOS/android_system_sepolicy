@@ -92,7 +92,7 @@ allow mediaserver oemfs:dir search;
 allow mediaserver oemfs:file r_file_perms;
 
 # /vendor apk access
-allow mediaserver vendor_app_file:file { read map };
+allow mediaserver vendor_app_file:file { read map getattr };
 
 use_drmservice(mediaserver)
 allow mediaserver drmserver:drmservice {
