@@ -313,10 +313,11 @@ allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
 allowxperm domain { file_type fs_type domain dev_type }:{ dir notdevfile_class_set } ioctl { FIOCLEX FIONCLEX };
 
 # Allow a process to make a determination whether a file descriptor
-# for a plain file is a tty. Note that granting this whitelist to domain
-# does not grant the ioctl permission to these files. That must be granted
-# separately.
+# for a plain file or pipe (fifo_file) is a tty. Note that granting
+# this whitelist to domain does not grant the ioctl permission to
+# these files. That must be granted separately.
 allowxperm domain { file_type fs_type }:file ioctl { TCGETS };
+allowxperm domain domain:fifo_file ioctl { TCGETS };
 
 # Support sqlite F2FS specific optimizations
 # ioctl permission on the specific file type is still required
