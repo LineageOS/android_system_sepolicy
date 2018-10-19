@@ -251,36 +251,24 @@ allow init {
 }:file { open read setattr };
 allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read setattr search };
 
-# init should not be able to read or open generic devices
-# TODO: auditing to see if this can be deleted entirely
 allow init {
-  dev_type
-  -keychord_device
-  -kmem_device
-  -port_device
-  -device
-  -vndbinder_device
-}:chr_file { read open };
-auditallow init {
-  dev_type
-  -alarm_device
-  -ashmem_device
-  -binder_device
-  -console_device
-  -device
-  -devpts
-  -dm_device
-  -hwbinder_device
-  -hw_random_device
-  -input_device
-  -kmem_device
-  -kmsg_device
-  -null_device
-  -owntty_device
-  -port_device
-  -ptmx_device
-  -random_device
-  -zero_device
+  alarm_device
+  ashmem_device
+  binder_device
+  console_device
+  devpts
+  dm_device
+  hwbinder_device
+  hw_random_device
+  input_device
+  kmsg_device
+  null_device
+  owntty_device
+  pmsg_device
+  ptmx_device
+  random_device
+  tty_device
+  zero_device
 }:chr_file { read open };
 
 # chown/chmod on devices.
