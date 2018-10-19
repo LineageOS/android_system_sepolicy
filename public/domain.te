@@ -310,7 +310,7 @@ allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
 # All domains must clearly enumerate what ioctls they use
 # on filesystem objects (plain files, directories, symbolic links,
 # named pipes, and named sockets). We start off with a safe set.
-allowxperm domain { file_type fs_type domain dev_type }:{ dir notdevfile_class_set } ioctl { FIOCLEX FIONCLEX };
+allowxperm domain { file_type fs_type domain dev_type }:{ dir notdevfile_class_set blk_file } ioctl { FIOCLEX FIONCLEX };
 
 # Allow a process to make a determination whether a file descriptor
 # for a plain file or pipe (fifo_file) is a tty. Note that granting
@@ -318,6 +318,10 @@ allowxperm domain { file_type fs_type domain dev_type }:{ dir notdevfile_class_s
 # these files. That must be granted separately.
 allowxperm domain { file_type fs_type }:file ioctl { TCGETS };
 allowxperm domain domain:fifo_file ioctl { TCGETS };
+
+# If a domain has access to perform an ioctl on a block device, allow these
+# very common, benign ioctls
+allowxperm domain dev_type:blk_file ioctl { BLKGETSIZE64 BLKSSZGET };
 
 # Support sqlite F2FS specific optimizations
 # ioctl permission on the specific file type is still required
@@ -354,7 +358,7 @@ allow domain apex_mnt_dir:lnk_file r_file_perms;
 
 # All ioctls on file-like objects (except chr_file and blk_file) and
 # sockets must be restricted to a whitelist.
-neverallowxperm * *:{ dir notdevfile_class_set socket_class_set } ioctl { 0 };
+neverallowxperm * *:{ dir notdevfile_class_set socket_class_set blk_file } ioctl { 0 };
 
 # b/68014825 and https://android-review.googlesource.com/516535
 # rfc6093 says that processes should not use the TCP urgent mechanism
