@@ -19,6 +19,13 @@ allow fsck userdata_block_device:blk_file rw_file_perms;
 allow fsck cache_block_device:blk_file rw_file_perms;
 allow fsck dm_device:blk_file rw_file_perms;
 
+# For the block devices where we have ioctl access,
+# allow at a minimum the following common fsck ioctls.
+allowxperm fsck dev_type:blk_file ioctl {
+  BLKDISCARDZEROES
+  BLKROGET
+};
+
 # To determine if it is safe to run fsck on a filesystem, e2fsck
 # must first determine if the filesystem is mounted. To do that,
 # e2fsck scans through /proc/mounts and collects all the mounted
