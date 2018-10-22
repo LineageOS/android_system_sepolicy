@@ -1063,7 +1063,6 @@ full_treble_only(`
         -vendor_init
     } {
         system_file_type
-        -system_file # TODO(b/111243627): remove once Treble violations are fixed.
         -system_lib_file
         -system_linker_exec
         -crash_dump_exec
@@ -1141,7 +1140,6 @@ full_treble_only(`
     -vendor_init
   } {
     system_file_type
-    -system_file # TODO(b/111243627): remove once Treble violations are fixed.
     -crash_dump_exec
     -file_contexts_file
     -netutils_wrapper_exec
