@@ -278,6 +278,9 @@ dontaudit dumpstate apex_mnt_dir:dir getattr;
 # Allow dumpstate to talk to bufferhubd over binder
 binder_call(dumpstate, bufferhubd);
 
+# Allow dumpstate to talk to mediaswcodec over binder
+binder_call(dumpstate, mediaswcodec);
+
 # Allow dumpstate to kill vendor dumpstate service by init
 set_prop(dumpstate, ctl_dumpstate_prop)
 
