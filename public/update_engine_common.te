@@ -7,6 +7,7 @@ allow update_engine_common block_device:dir search;
 # Allow read/write on system and boot partitions.
 allow update_engine_common boot_block_device:blk_file rw_file_perms;
 allow update_engine_common system_block_device:blk_file rw_file_perms;
+allowxperm update_engine_common { boot_block_device system_block_device }:blk_file ioctl { BLKROGET BLKROSET };
 
 # Allow to set recovery options in the BCB. Used to trigger factory reset when
 # the update to an older version (channel change) or incompatible version
