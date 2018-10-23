@@ -103,6 +103,7 @@ allowxperm vold loop_device:blk_file ioctl LOOP_GET_STATUS64;
 allow vold vold_device:blk_file { create setattr unlink rw_file_perms };
 allow vold dm_device:chr_file rw_file_perms;
 allow vold dm_device:blk_file rw_file_perms;
+allowxperm vold dm_device:blk_file ioctl BLKSECDISCARD;
 # For vold Process::killProcessesWithOpenFiles function.
 allow vold domain:dir r_dir_perms;
 allow vold domain:{ file lnk_file } r_file_perms;
@@ -186,6 +187,7 @@ full_treble_only(`hal_client_domain(vold, hal_bootctl)')
 
 # Access userdata block device.
 allow vold userdata_block_device:blk_file rw_file_perms;
+allowxperm vold userdata_block_device:blk_file ioctl BLKSECDISCARD;
 
 # Access metadata block device used for encryption meta-data.
 allow vold metadata_block_device:blk_file rw_file_perms;
