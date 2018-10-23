@@ -48,13 +48,6 @@ recovery_only(`
   }:blk_file { w_file_perms getattr ioctl };
 
   allowxperm fastbootd {
-    boot_block_device
-    metadata_block_device
-    system_block_device
-    userdata_block_device
-  }:blk_file ioctl { BLKGETSIZE64 };
-
-  allowxperm fastbootd {
     metadata_block_device
     userdata_block_device
   }:blk_file ioctl { BLKSECDISCARD BLKDISCARD };

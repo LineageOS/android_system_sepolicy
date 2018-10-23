@@ -1176,6 +1176,7 @@ full_treble_only(`
     -netutils_wrapper_exec
     -property_contexts_file
     -system_lib_file
+    with_asan(`-system_asan_options_file')
     -system_linker_exec
     -system_linker_config_file
     -system_seccomp_policy_file
