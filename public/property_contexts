@@ -70,6 +70,7 @@ media.stagefright.cache-params u:object_r:exported3_default_prop:s0 exact string
 media.stagefright.thumbnail.prefer_hw_codecs u:object_r:exported3_default_prop:s0 exact bool
 persist.bluetooth.a2dp_offload.cap u:object_r:bluetooth_a2dp_offload_prop:s0 exact string
 persist.bluetooth.a2dp_offload.disabled u:object_r:bluetooth_a2dp_offload_prop:s0 exact bool
+persist.bluetooth.btsnoopenable u:object_r:exported_bluetooth_prop:s0 exact bool
 persist.config.calibration_fac u:object_r:exported3_default_prop:s0 exact string
 persist.dbg.volte_avail_ovr u:object_r:exported3_default_prop:s0 exact int
 persist.dbg.vt_avail_ovr u:object_r:exported3_default_prop:s0 exact int
@@ -137,20 +138,25 @@ sendbug.preferred.domain u:object_r:exported3_default_prop:s0 exact string
 sys.usb.controller u:object_r:exported2_system_prop:s0 exact string
 sys.usb.ffs.max_read u:object_r:exported_ffs_prop:s0 exact int
 sys.usb.ffs.max_write u:object_r:exported_ffs_prop:s0 exact int
+sys.usb.ffs.ready u:object_r:exported_ffs_prop:s0 exact bool
 sys.usb.mtp.device_type u:object_r:exported2_system_prop:s0 exact int
+sys.usb.ffs.mtp.ready u:object_r:exported_ffs_prop:s0 exact bool
 sys.usb.state u:object_r:exported2_system_prop:s0 exact string
 telephony.lteOnCdmaDevice u:object_r:exported3_default_prop:s0 exact int
 tombstoned.max_tombstone_count u:object_r:exported3_default_prop:s0 exact int
 vold.post_fs_data_done u:object_r:exported2_vold_prop:s0 exact int
+vts.native_server.on u:object_r:exported3_default_prop:s0 exact bool
 wlan.driver.status u:object_r:exported_wifi_prop:s0 exact enum ok unloaded
 
-# vendor-init-readable|vendor-init-actionable
+# vendor-init-readable
 dev.bootcomplete u:object_r:exported3_system_prop:s0 exact bool
 persist.sys.usb.usbradio.config u:object_r:exported3_system_prop:s0 exact string
 sys.boot_completed u:object_r:exported3_system_prop:s0 exact bool
 sys.retaildemo.enabled u:object_r:exported3_system_prop:s0 exact int
+sys.user.0.ce_available u:object_r:exported3_system_prop:s0 exact bool
+sys.vdso u:object_r:exported3_system_prop:s0 exact string
 
-# vendor-init-settable|vendor-init-actionable
+# vendor-init-settable
 persist.sys.zram_enabled u:object_r:exported2_system_prop:s0 exact bool
 sys.usb.config u:object_r:exported_system_radio_prop:s0 exact string
 sys.usb.configfs u:object_r:exported_system_radio_prop:s0 exact int
@@ -165,7 +171,12 @@ ro.aac_drc_effect_type u:object_r:exported2_default_prop:s0 exact int
 drm.64bit.enabled u:object_r:exported2_default_prop:s0 exact bool
 dumpstate.dry_run u:object_r:exported_dumpstate_prop:s0 exact bool
 hal.instrumentation.enable u:object_r:exported2_default_prop:s0 exact bool
+init.svc.console u:object_r:exported2_default_prop:s0 exact string
+init.svc.dumpstatez u:object_r:exported2_default_prop:s0 exact string
+init.svc.mediadrm u:object_r:exported2_default_prop:s0 exact string
+init.svc.surfaceflinger u:object_r:exported2_default_prop:s0 exact string
 init.svc.tombstoned u:object_r:exported2_default_prop:s0 exact string
+init.svc.zygote u:object_r:exported2_default_prop:s0 exact string
 libc.debug.malloc.options u:object_r:exported2_default_prop:s0 exact string
 libc.debug.malloc.program u:object_r:exported2_default_prop:s0 exact string
 libc.debug.hooks.enable u:object_r:exported2_default_prop:s0 exact string
@@ -320,7 +331,7 @@ wifi.concurrent.interface u:object_r:exported_default_prop:s0 exact string
 wifi.direct.interface u:object_r:exported_default_prop:s0 exact string
 wifi.interface u:object_r:exported_default_prop:s0 exact string
 
-# vendor-init-actionable|public-readable
+# public-readable
 ro.boot.revision u:object_r:exported2_default_prop:s0 exact string
 ro.bootmode u:object_r:exported2_default_prop:s0 exact string
 ro.build.type u:object_r:exported2_default_prop:s0 exact string
