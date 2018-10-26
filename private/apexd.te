@@ -14,7 +14,14 @@ allow apexd apex_data_file:file rw_file_perms;
 allow apexd loop_control_device:chr_file rw_file_perms;
 # allow apexd to access loop devices
 allow apexd loop_device:blk_file rw_file_perms;
-allowxperm apexd loop_device:blk_file ioctl LOOP_GET_STATUS64;
+allowxperm apexd loop_device:blk_file ioctl {
+  LOOP_GET_STATUS64
+  LOOP_SET_STATUS64
+  LOOP_SET_FD
+  LOOP_SET_BLOCK_SIZE
+  LOOP_SET_DIRECT_IO
+  LOOP_CLR_FD
+};
 # allow apexd to access /dev/block
 allow apexd block_device:dir r_dir_perms;
 
