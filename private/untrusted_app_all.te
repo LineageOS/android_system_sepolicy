@@ -108,7 +108,7 @@ allow untrusted_app_all preloads_data_file:dir search;
 # TODO (b/37784178) Consider creating  a special type for /vendor/app installed
 # apps.
 allow untrusted_app_all vendor_app_file:dir { open getattr read search };
-allow untrusted_app_all vendor_app_file:file { open getattr read execute };
+allow untrusted_app_all vendor_app_file:file { r_file_perms execute };
 allow untrusted_app_all vendor_app_file:lnk_file { open getattr read };
 
 # Write app-specific trace data to the Perfetto traced damon. This requires
