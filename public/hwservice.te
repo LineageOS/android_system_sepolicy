@@ -1,4 +1,5 @@
 type default_android_hwservice, hwservice_manager_type;
+type fwk_bufferhub_hwservice, hwservice_manager_type, coredomain_hwservice;
 type fwk_display_hwservice, hwservice_manager_type, coredomain_hwservice;
 type fwk_scheduler_hwservice, hwservice_manager_type, coredomain_hwservice;
 type fwk_sensor_hwservice, hwservice_manager_type, coredomain_hwservice;
