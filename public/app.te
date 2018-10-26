@@ -308,6 +308,7 @@ allow { appdomain -isolated_app } hal_camera:fd use;
 
 # RenderScript always-passthrough HAL
 allow { appdomain -isolated_app } hal_renderscript_hwservice:hwservice_manager find;
+allow appdomain same_process_hal_file:file { execute read open getattr map };
 
 # TODO: switch to meminfo service
 allow appdomain proc_meminfo:file r_file_perms;
