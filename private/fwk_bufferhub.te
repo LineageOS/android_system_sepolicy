@@ -1,0 +1,5 @@
+type fwk_bufferhub, domain, coredomain;
+type fwk_bufferhub_exec, system_file_type, exec_type, file_type;
+
+hal_server_domain(fwk_bufferhub, hal_bufferhub)
+init_daemon_domain(fwk_bufferhub)
