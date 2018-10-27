@@ -17,9 +17,16 @@ create_pty(priv_app)
 # webview crash handling depends on self ptrace (b/27697529, b/20150694, b/19277529#comment7)
 allow priv_app self:process ptrace;
 
-# Some apps ship with shared libraries that they write out
-# to their sandbox directory and then dlopen().
-allow priv_app { app_data_file privapp_data_file }:file execute;
+# Allow loading executable code from writable priv-app home
+# directories. This is a W^X violation, however, it needs
+# to be supported for now for the following reasons.
+# * /data/user_*/0/*/code_cache/* POSSIBLE uses (b/117841367)
+#   1) com.android.opengl.shaders_cache
+#   2) com.android.skia.shaders_cache
+#   3) com.android.renderscript.cache
+# * /data/user_de/0/com.google.android.gms/app_chimera
+# TODO: Tighten (b/112357170)
+allow priv_app privapp_data_file:file execute;
 
 allow priv_app app_api_service:service_manager find;
 allow priv_app audioserver_service:service_manager find;
@@ -214,3 +221,9 @@ neverallow priv_app trace_data_file:file { no_w_file_perms open };
 
 # Do not allow priv_app access to cgroups.
 neverallow priv_app cgroup:file *;
+
+# Do not allow loading executable code from non-privileged
+# application home directories. Code loading across a security boundary
+# is dangerous and allows a full compromise of a privileged process
+# by an unprivileged process. b/112357170
+neverallow priv_app app_data_file:file no_x_file_perms;
