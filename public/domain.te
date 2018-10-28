@@ -188,22 +188,10 @@ allow domain vendor_hal_file:dir r_dir_perms;
 
 # Everyone can read and execute all same process HALs
 allow domain same_process_hal_file:dir r_dir_perms;
-# TODO(b/37211678): whitelist domains that actually need same process HALs.
-allow domain same_process_hal_file:file { execute read open getattr map };
-# Touching same_process_hal_file indicates usage of SP-HALs or abuse of
-# same_process_hal_file label, which is what we are interested in.
-userdebug_or_eng(`
-  auditallow {
-    coredomain
-    -zygote
-    -hal_allocator_client
-    # Graphics mapper clients.
-    -hal_graphics_allocator_client
-    # Renderscript clients include { system_server appdomain -isolated_app }.
-    -appdomain
-    -system_server
-  } same_process_hal_file:file *;
-')
+allow {
+    domain
+    -coredomain # access is explicitly granted to individual coredomains
+} same_process_hal_file:file { execute read open getattr map };
 
 # Any process can load vndk-sp libraries, which are system libraries
 # used by same process HALs

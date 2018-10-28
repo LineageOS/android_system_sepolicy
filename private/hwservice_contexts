@@ -1,3 +1,4 @@
+android.frameworks.bufferhub::IBufferHub                        u:object_r:fwk_bufferhub_hwservice:s0
 android.frameworks.displayservice::IDisplayService              u:object_r:fwk_display_hwservice:s0
 android.frameworks.schedulerservice::ISchedulingPolicyService   u:object_r:fwk_scheduler_hwservice:s0
 android.frameworks.sensorservice::ISensorManager                u:object_r:fwk_sensor_hwservice:s0

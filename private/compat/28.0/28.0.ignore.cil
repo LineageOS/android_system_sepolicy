@@ -19,6 +19,7 @@
     ;; TODO(b/116344577): remove after the issue is resolved
     buffer_hub_service
     fastbootd
+    fwk_bufferhub_hwservice
     fwk_stats_hwservice
     color_display_service
     hal_atrace_hwservice

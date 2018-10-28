@@ -70,6 +70,8 @@ allow webview_zygote zygote:process sigchld;
 # Allow apps access to /vendor/overlay
 r_dir_file(webview_zygote, vendor_overlay_file)
 
+allow webview_zygote same_process_hal_file:file { execute read open getattr map };
+
 #####
 ##### Neverallow
 #####

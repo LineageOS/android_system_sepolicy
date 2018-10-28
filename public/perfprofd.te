@@ -76,6 +76,8 @@ userdebug_or_eng(`
   r_dir_file(perfprofd, vendor_file)
   # Vendor apps.
   r_dir_file(perfprofd, vendor_app_file)
+  # SP HAL files.
+  r_dir_file(perfprofd, same_process_hal_file)
 
   # simpleperf will set security.perf_harden to enable access to perf_event_open()
   set_prop(perfprofd, shell_prop)
