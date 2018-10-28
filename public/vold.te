@@ -99,7 +99,13 @@ allow vold self:global_capability_class_set { net_admin dac_override dac_read_se
 allow vold self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 allow vold loop_control_device:chr_file rw_file_perms;
 allow vold loop_device:blk_file { create setattr unlink rw_file_perms };
-allowxperm vold loop_device:blk_file ioctl LOOP_GET_STATUS64;
+allowxperm vold loop_device:blk_file ioctl {
+  LOOP_CLR_FD
+  LOOP_CTL_GET_FREE
+  LOOP_GET_STATUS64
+  LOOP_SET_FD
+  LOOP_SET_STATUS64
+};
 allow vold vold_device:blk_file { create setattr unlink rw_file_perms };
 allow vold dm_device:chr_file rw_file_perms;
 allow vold dm_device:blk_file rw_file_perms;
