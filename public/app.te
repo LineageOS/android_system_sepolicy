@@ -55,6 +55,9 @@ allow appdomain system_server:fifo_file rw_file_perms;
 allow appdomain system_server:unix_stream_socket { read write setopt getattr getopt shutdown };
 allow appdomain system_server:tcp_socket { read write getattr getopt shutdown };
 
+# For AppFuse.
+allow appdomain vold:fd use;
+
 # Communication with other apps via fifos
 allow appdomain appdomain:fifo_file rw_file_perms;
 
