@@ -89,11 +89,7 @@ $(treble_sepolicy_tests_$(version)): PRIVATE_PLAT_SEPOLICY := $(built_plat_sepol
 $(treble_sepolicy_tests_$(version)): PRIVATE_PLAT_PUB_SEPOLICY := $(base_plat_pub_policy.cil)
 $(treble_sepolicy_tests_$(version)): PRIVATE_FAKE_TREBLE :=
 ifeq ($(PRODUCT_FULL_TREBLE_OVERRIDE),true)
-# TODO(b/113124961): undefined PRODUCT_SHIPPING_API_LEVEL should default to full
-# Treble. Change the behavior once the bug is fixed.
-ifndef PRODUCT_SHIPPING_API_LEVEL
-$(treble_sepolicy_tests_$(version)): PRIVATE_FAKE_TREBLE := --fake-treble
-else
+ifdef PRODUCT_SHIPPING_API_LEVEL
 # These requirements were originally added in Android Oreo. Devices
 # launching after this should not distinguish between
 # PRODUCT_FULL_TREBLE and PRODUCT_FULL_TREBLE_OVERRIDE since this could
