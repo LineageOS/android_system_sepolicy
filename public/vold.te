@@ -224,6 +224,8 @@ allow vold fuse_device:chr_file rw_file_perms;
 allow vold fuse:filesystem { relabelfrom };
 allow vold app_fusefs:filesystem { relabelfrom relabelto };
 allow vold app_fusefs:filesystem { mount unmount };
+allow vold app_fuse_file:dir rw_dir_perms;
+allow vold app_fuse_file:file { read write open getattr append };
 
 # MoveTask.cpp executes cp and rm
 allow vold toolbox_exec:file rx_file_perms;
