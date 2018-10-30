@@ -48,6 +48,11 @@ recovery_only(`
   }:blk_file { w_file_perms getattr ioctl };
 
   allowxperm fastbootd {
+    system_block_device
+    super_block_device
+  }:blk_file ioctl { BLKIOMIN BLKALIGNOFF };
+
+  allowxperm fastbootd {
     metadata_block_device
     userdata_block_device
   }:blk_file ioctl { BLKSECDISCARD BLKDISCARD };
