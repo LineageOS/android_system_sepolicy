@@ -40,16 +40,6 @@ neverallow { all_untrusted_apps -mediaprovider } property_type:property_service 
 # but otherwise disallow untrusted apps from reading this property.
 neverallow { all_untrusted_apps -untrusted_app_25 } net_dns_prop:file read;
 
-# Block calling execve() on files in an apps home directory.
-# This is a W^X violation (loading executable code from a writable
-# home directory). For compatibility, allow for targetApi <= 28.
-# b/112357170
-neverallow {
-  all_untrusted_apps
-  -untrusted_app_25
-  -untrusted_app_27
-} { app_data_file privapp_data_file }:file execute_no_trans;
-
 # Do not allow untrusted apps to be assigned mlstrustedsubject.
 # This would undermine the per-user isolation model being
 # enforced via levelFrom=user in seapp_contexts and the mls
