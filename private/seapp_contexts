@@ -98,7 +98,8 @@ neverallow user=shell name=((?!com\.android\.shell).)*
 # Ephemeral Apps must run in the ephemeral_app domain
 neverallow isEphemeralApp=true domain=((?!ephemeral_app).)*
 
-isSystemServer=true domain=system_server
+isSystemServer=true domain=system_server_startup
+
 user=_app seinfo=platform name=com.android.traceur domain=traceur_app type=app_data_file levelFrom=all
 user=system seinfo=platform domain=system_app type=system_app_data_file
 user=bluetooth seinfo=platform domain=bluetooth type=bluetooth_data_file
