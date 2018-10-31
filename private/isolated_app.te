@@ -57,9 +57,6 @@ unix_socket_connect(isolated_app, traced_producer, traced)
 ##### Neverallow
 #####
 
-# Do not allow isolated_app to directly open tun_device
-neverallow isolated_app tun_device:chr_file open;
-
 # Isolated apps should not directly open app data files themselves.
 neverallow isolated_app { app_data_file privapp_data_file }:file open;
 
