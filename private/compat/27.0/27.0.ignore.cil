@@ -34,6 +34,7 @@
     ctl_interface_start_prop
     ctl_interface_stop_prop
     ctl_sigstop_prop
+    device_config_boot_count_prop
     exfat
     exported2_config_prop
     exported2_default_prop
@@ -60,6 +61,8 @@
     exported_vold_prop
     exported_wifi_prop
     fastbootd
+    flags_health_check
+    flags_health_check_exec
     fingerprint_vendor_data_file
     fs_bpf
     fwk_stats_hwservice

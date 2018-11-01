@@ -173,6 +173,7 @@ recovery_only(`
 not_compatible_property(`
     set_prop(vendor_init, {
       property_type
+      -device_config_boot_count_prop
       -restorecon_prop
       -netd_stable_secret_prop
       -firstboot_prop
