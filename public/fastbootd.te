@@ -62,6 +62,27 @@ recovery_only(`
   allow fastbootd proc_cmdline:file r_file_perms;
   allow fastbootd rootfs:dir r_dir_perms;
   allow fastbootd sysfs_dt_firmware_android:file r_file_perms;
+
+  userdebug_or_eng(`
+    # Refined manipulation of /mnt/scratch, without these perms resorts
+    # to deleting scratch partition when partition(s) are flashed.
+    allow fastbootd self:process setfscreate;
+    allow fastbootd overlayfs_file:dir { create_dir_perms mounton };
+    allow fastbootd {
+      system_file_type
+      unlabeled
+      vendor_file_type
+    }:dir { remove_name rmdir search write };
+    allow fastbootd {
+      overlayfs_file
+      system_file_type
+      unlabeled
+      vendor_file_type
+    }:{ file lnk_file } unlink;
+    allow fastbootd tmpfs:dir rw_dir_perms;
+    allow fastbootd labeledfs:filesystem { mount unmount };
+    get_prop(fastbootd, persistent_properties_ready_prop)
+  ')
 ')
 
 ###
