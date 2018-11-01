@@ -18,7 +18,10 @@
     biometric_service
     ;; TODO(b/116344577): remove after the issue is resolved
     buffer_hub_service
+    device_config_boot_count_prop
     fastbootd
+    flags_health_check
+    flags_health_check_exec
     fwk_bufferhub_hwservice
     fwk_stats_hwservice
     color_display_service
