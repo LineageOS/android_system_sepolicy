@@ -474,7 +474,18 @@ neverallow domain device:chr_file { open read write };
 # Limit what domains can mount filesystems or change their mount flags.
 # sdcard_type / vfat is exempt as a larger set of domains need
 # this capability, including device-specific domains.
-neverallow { domain -kernel -init -recovery -vold -zygote -update_engine -otapreopt_chroot -apexd } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
+neverallow {
+    domain
+    -apexd
+    recovery_only(`userdebug_or_eng(`-fastbootd')')
+    -init
+    -kernel
+    -otapreopt_chroot
+    -recovery
+    -update_engine
+    -vold
+    -zygote
+} { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
 
 # Files from cache should never be executed
 neverallow domain { cache_file cache_backup_file cache_private_backup_file cache_recovery_file }:file execute;
@@ -509,6 +520,7 @@ neverallow { domain -init } properties_serial:file { no_w_file_perms no_x_file_p
 neverallow {
     domain
     with_asan(`-asan_extract')
+    recovery_only(`userdebug_or_eng(`-fastbootd')')
 } {
     system_file_type
     vendor_file_type
@@ -532,7 +544,8 @@ neverallow * {fs_type -contextmount_type}:filesystem relabelto;
 # the write to /system restriction above is not bypassed via context=
 # mount to another type.
 neverallow * contextmount_type:dir_file_class_set
-    { create write setattr relabelfrom relabelto append unlink link rename };
+    { create setattr relabelfrom relabelto append link rename };
+neverallow { domain recovery_only(`userdebug_or_eng(`-fastbootd')') } contextmount_type:dir_file_class_set { write unlink };
 
 # Do not allow service_manager add for default service labels.
 # Instead domains should use a more specific type such as
