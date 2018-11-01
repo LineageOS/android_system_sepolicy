@@ -1,3 +1,4 @@
+type apexd_prop, property_type;
 type audio_prop, property_type, core_property_type;
 type boottime_prop, property_type;
 type bluetooth_a2dp_offload_prop, property_type;
@@ -330,6 +331,7 @@ compatible_property_only(`
     -system_writes_vendor_properties_violators
   } {
     property_type
+    -apexd_prop
     -audio_prop
     -bluetooth_a2dp_offload_prop
     -bluetooth_prop
