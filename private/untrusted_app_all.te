@@ -22,7 +22,7 @@
 
 # Some apps ship with shared libraries and binaries that they write out
 # to their sandbox directory and then execute.
-allow untrusted_app_all { app_data_file privapp_data_file }:file { rx_file_perms };
+allow untrusted_app_all { app_data_file privapp_data_file }:file { r_file_perms execute };
 
 # ASEC
 allow untrusted_app_all asec_apk_file:file r_file_perms;
