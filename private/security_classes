@@ -35,7 +35,6 @@ class packet_socket
 class key_socket
 class unix_stream_socket
 class unix_dgram_socket
-class bpf
 
 # sysv-ipc-related classes
 class sem
@@ -93,6 +92,10 @@ class netlink_scsitransport_socket
 class netlink_rdma_socket
 class netlink_crypto_socket
 
+# Infiniband
+class infiniband_pkey
+class infiniband_endport
+
 # Capability checks when on a non-init user namespace
 class cap_userns
 class cap2_userns
@@ -131,6 +134,10 @@ class qipcrtr_socket
 class smc_socket
 
 class process2
+
+class bpf
+
+class xdp_socket
 
 # Property service
 class property_service          # userspace
