@@ -547,6 +547,16 @@ inherits socket
 class netlink_crypto_socket
 inherits socket
 
+class infiniband_pkey
+{
+	access
+}
+
+class infiniband_endport
+{
+	manage_subnet
+}
+
 #
 # Define the access vector interpretation for controlling capabilities
 # in user namespaces
@@ -573,6 +583,8 @@ class sctp_socket
 inherits socket
 {
 	node_bind
+	name_connect
+	association
 }
 
 class icmp_socket
@@ -729,3 +741,6 @@ class drmservice {
 	finalizeDecryptUnit
 	pread
 }
+
+class xdp_socket
+inherits socket
