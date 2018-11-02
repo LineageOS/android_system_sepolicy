@@ -339,6 +339,7 @@ allow system_server audio_device:chr_file rw_file_perms;
 
 # tun device used for 3rd party vpn apps
 allow system_server tun_device:chr_file rw_file_perms;
+allowxperm system_server tun_device:chr_file ioctl { TUNGETIFF TUNSETIFF };
 
 # Manage system data files.
 allow system_server system_data_file:dir create_dir_perms;

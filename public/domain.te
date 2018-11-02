@@ -300,6 +300,10 @@ allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
 # named pipes, and named sockets). We start off with a safe set.
 allowxperm domain { file_type fs_type domain dev_type }:{ dir notdevfile_class_set blk_file } ioctl { FIOCLEX FIONCLEX };
 
+# If a domain has ioctl access to tun_device, it must clearly enumerate the
+# ioctls used. Safe defaults are listed below.
+allowxperm domain tun_device:chr_file ioctl { FIOCLEX FIONCLEX };
+
 # Allow a process to make a determination whether a file descriptor
 # for a plain file or pipe (fifo_file) is a tty. Note that granting
 # this whitelist to domain does not grant the ioctl permission to
