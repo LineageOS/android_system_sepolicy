@@ -4,8 +4,12 @@ type apexd_exec, exec_type, file_type, system_file_type;
 
 binder_use(apexd)
 add_service(apexd, apex_service)
+set_prop(apexd, apexd_prop)
 
 neverallow { domain -init -apexd } apex_service:service_manager find;
 neverallow { domain -init -apexd } apexd:binder call;
 
 neverallow domain apexd:process ptrace;
+
+# only apexd can set apexd sysprop
+neverallow { domain -apexd -init } apexd_prop:property_service set;
