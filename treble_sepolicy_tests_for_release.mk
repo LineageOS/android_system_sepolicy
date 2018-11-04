@@ -89,16 +89,18 @@ $(treble_sepolicy_tests_$(version)): PRIVATE_PLAT_SEPOLICY := $(built_plat_sepol
 $(treble_sepolicy_tests_$(version)): PRIVATE_PLAT_PUB_SEPOLICY := $(base_plat_pub_policy.cil)
 $(treble_sepolicy_tests_$(version)): PRIVATE_FAKE_TREBLE :=
 ifeq ($(PRODUCT_FULL_TREBLE_OVERRIDE),true)
-ifdef PRODUCT_SHIPPING_API_LEVEL
+# TODO(b/113124961): account for PRODUCT_SHIPPING_API_LEVEL when determining
+# fake treble status once emulator is no longer fake treble.
+#ifdef PRODUCT_SHIPPING_API_LEVEL
 # These requirements were originally added in Android Oreo. Devices
 # launching after this should not distinguish between
 # PRODUCT_FULL_TREBLE and PRODUCT_FULL_TREBLE_OVERRIDE since this could
 # lead to release problems where they think they pass this test but
 # fail it when it actually gets runned for compliance.
-ifeq ($(call math_gt_or_eq,$(PRODUCT_SHIPPING_API_LEVEL),26),)
+#ifeq ($(call math_gt_or_eq,$(PRODUCT_SHIPPING_API_LEVEL),26),)
 $(treble_sepolicy_tests_$(version)): PRIVATE_FAKE_TREBLE := --fake-treble
-endif # if PRODUCT_SHIPPING_API_LEVEL < 26 (Android Oreo)
-endif # PRODUCT_SHIPPING_API_LEVEL defined
+#endif # if PRODUCT_SHIPPING_API_LEVEL < 26 (Android Oreo)
+#endif # PRODUCT_SHIPPING_API_LEVEL defined
 endif # PRODUCT_FULL_TREBLE_OVERRIDE = true
 $(treble_sepolicy_tests_$(version)): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests \
   $(all_fc_files) $(built_sepolicy) $(built_plat_sepolicy) \
