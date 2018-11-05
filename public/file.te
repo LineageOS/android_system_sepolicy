@@ -183,6 +183,8 @@ type metadata_file, file_type;
 # Vold files within /metadata
 type vold_metadata_file, file_type;
 
+# Type for /dev/cpu_variant:.*.
+type dev_cpu_variant, file_type;
 # Speedup access for trusted applications to the runtime event tags
 type runtime_event_log_tags_file, file_type;
 # Type for /system/bin/logcat.
