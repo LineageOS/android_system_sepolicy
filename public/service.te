@@ -41,7 +41,7 @@ type accessibility_service, app_api_service, ephemeral_app_api_service, system_s
 type account_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type activity_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type activity_task_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
-type adb_service, system_server_service, service_manager_type;
+type adb_service, system_api_service, system_server_service, service_manager_type;
 type alarm_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type app_binding_service, system_server_service, service_manager_type;
 type appops_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
