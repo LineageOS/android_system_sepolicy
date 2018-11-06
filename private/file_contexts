@@ -68,8 +68,6 @@
 # Devices
 #
 /dev(/.*)?		u:object_r:device:s0
-/dev/akm8973.*		u:object_r:sensors_device:s0
-/dev/accelerometer	u:object_r:sensors_device:s0
 /dev/adf[0-9]*		u:object_r:graphics_device:s0
 /dev/adf-interface[0-9]*\.[0-9]*	u:object_r:graphics_device:s0
 /dev/adf-overlay-engine[0-9]*\.[0-9]*	u:object_r:graphics_device:s0
