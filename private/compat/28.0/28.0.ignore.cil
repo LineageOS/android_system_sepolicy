@@ -17,8 +17,6 @@
     apexd_prop
     apexd_tmpfs
     biometric_service
-    ;; TODO(b/116344577): remove after the issue is resolved
-    buffer_hub_service
     device_config_boot_count_prop
     fastbootd
     flags_health_check
