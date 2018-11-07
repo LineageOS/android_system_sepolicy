@@ -34,3 +34,4 @@ allow clatd self:global_capability_class_set ipc_lock;
 allow clatd self:netlink_route_socket nlmsg_write;
 allow clatd self:{ packet_socket rawip_socket tun_socket } create_socket_perms_no_ioctl;
 allow clatd tun_device:chr_file rw_file_perms;
+allowxperm clatd tun_device:chr_file ioctl { TUNGETIFF TUNSETIFF };
