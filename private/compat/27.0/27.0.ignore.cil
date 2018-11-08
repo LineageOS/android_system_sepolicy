@@ -26,8 +26,6 @@
     bluetooth_a2dp_offload_prop
     bpfloader
     bpfloader_exec
-    ;; TODO(b/116344577): remove after the issue is resolved
-    buffer_hub_service
     cgroup_bpf
     color_display_service
     crossprofileapps_service
