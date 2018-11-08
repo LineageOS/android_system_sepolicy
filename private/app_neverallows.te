@@ -48,6 +48,7 @@ neverallow {
   all_untrusted_apps
   -untrusted_app_25
   -untrusted_app_27
+  -runas_app
 } { app_data_file privapp_data_file }:file execute_no_trans;
 
 # Do not allow untrusted apps to be assigned mlstrustedsubject.
