@@ -81,6 +81,12 @@ allow kernel media_rw_data_file:file create_file_perms;
 # Access to /data/misc/vold/virtual_disk.
 allow kernel vold_data_file:file { read write };
 
+# Allow the kernel to read APEX file descriptors and data files;
+# Needed because APEX uses the loopback driver, which issues requests from
+# a kernel thread in earlier kernel version.
+allow kernel apexd:fd use;
+allow kernel apex_data_file:file read;
+
 # Allow the first-stage init (which is running in the kernel domain) to execute the
 # dynamic linker when it re-executes /init to switch into the second stage.
 # Until Linux 4.8, the program interpreter (dynamic linker in this case) is executed
