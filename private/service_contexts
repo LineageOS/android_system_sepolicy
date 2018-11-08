@@ -56,6 +56,7 @@ econtroller                               u:object_r:radio_service:s0
 euicc_card_controller                     u:object_r:radio_service:s0
 lowpan                                    u:object_r:lowpan_service:s0
 ethernet                                  u:object_r:ethernet_service:s0
+face                                      u:object_r:face_service:s0
 fingerprint                               u:object_r:fingerprint_service:s0
 font                                      u:object_r:font_service:s0
 android.hardware.fingerprint.IFingerprintDaemon u:object_r:fingerprintd_service:s0
@@ -79,6 +80,7 @@ ims                                       u:object_r:radio_service:s0
 imms                                      u:object_r:imms_service:s0
 intelligence                              u:object_r:intelligence_service:s0
 ipsec                                     u:object_r:ipsec_service:s0
+iris                                      u:object_r:iris_service:s0
 isms_msim                                 u:object_r:radio_service:s0
 isms2                                     u:object_r:radio_service:s0
 isms                                      u:object_r:radio_service:s0
