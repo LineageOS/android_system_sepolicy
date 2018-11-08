@@ -943,6 +943,7 @@ vendor_fcfiles_with_nl := $(call add_nl, $(vendor_fc_files), $(built_nl))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_FC_FILES := $(vendor_fcfiles_with_nl)
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(LOCAL_BUILT_MODULE): PRIVATE_FC_SORT := $(HOST_OUT_EXECUTABLES)/fc_sort
 $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/checkfc $(HOST_OUT_EXECUTABLES)/fc_sort \
 $(vendor_fcfiles_with_nl) $(built_sepolicy)
@@ -970,6 +971,7 @@ odm_fcfiles_with_nl := $(call add_nl, $(odm_fc_files), $(built_nl))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_FC_FILES := $(odm_fcfiles_with_nl)
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(LOCAL_BUILT_MODULE): PRIVATE_FC_SORT := $(HOST_OUT_EXECUTABLES)/fc_sort
 $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/checkfc $(HOST_OUT_EXECUTABLES)/fc_sort \
 $(odm_fcfiles_with_nl) $(built_sepolicy)
