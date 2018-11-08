@@ -143,6 +143,9 @@ wlan.                   u:object_r:wifi_prop:s0
 lowpan.                 u:object_r:lowpan_prop:s0
 ro.lowpan.              u:object_r:lowpan_prop:s0
 
+# heapprofd properties
+heapprofd.              u:object_r:heapprofd_prop:s0
+
 # hwservicemanager properties
 hwservicemanager.       u:object_r:hwservicemanager_prop:s0
 
