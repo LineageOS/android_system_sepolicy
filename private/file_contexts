@@ -376,11 +376,13 @@
 # Product files
 #
 /(product|system/product)(/.*)?                                 u:object_r:system_file:s0
+/(product|system/product)/overlay(/.*)?                         u:object_r:vendor_overlay_file:s0
 
 #############################
 # Product-Services files
 #
 /(product_services|system/product_services)(/.*)?               u:object_r:system_file:s0
+/(product_services|system/product_services)/overlay(/.*)?       u:object_r:vendor_overlay_file:s0
 
 #############################
 # Data files
