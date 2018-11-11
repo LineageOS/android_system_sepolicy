@@ -98,6 +98,7 @@ allow adbd system_file:file rx_file_perms;
 # XXX Run screencap in a separate domain?
 binder_use(adbd)
 binder_call(adbd, surfaceflinger)
+binder_call(adbd, gpuservice)
 # b/13188914
 allow adbd gpu_device:chr_file rw_file_perms;
 allow adbd ion_device:chr_file rw_file_perms;
@@ -140,6 +141,7 @@ allow adbd sepolicy_file:file r_file_perms;
 # Allow pulling config.gz for CTS purposes
 allow adbd config_gz:file r_file_perms;
 
+allow adbd gpu_service:service_manager find;
 allow adbd surfaceflinger_service:service_manager find;
 allow adbd bootchart_data_file:dir search;
 allow adbd bootchart_data_file:file r_file_perms;
@@ -160,6 +162,10 @@ allow adbd media_rw_data_file:file create_file_perms;
 r_dir_file(adbd, apk_data_file)
 
 allow adbd rootfs:dir r_dir_perms;
+
+# Allow to pull Perfetto traces.
+allow adbd perfetto_traces_data_file:file r_file_perms;
+allow adbd perfetto_traces_data_file:dir r_dir_perms;
 
 ###
 ### Neverallow rules

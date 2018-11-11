@@ -34,6 +34,7 @@
     ctl_interface_stop_prop
     ctl_sigstop_prop
     device_config_boot_count_prop
+    device_config_reset_performed_prop
     exfat
     exported2_config_prop
     exported2_default_prop
@@ -121,6 +122,7 @@
     secure_element_device
     secure_element_service
     secure_element_tmpfs
+    server_configurable_flags_data_file
     slice_service
     stats
     stats_data_file

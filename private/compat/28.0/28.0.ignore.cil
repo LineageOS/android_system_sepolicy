@@ -18,6 +18,8 @@
     apexd_tmpfs
     biometric_service
     device_config_boot_count_prop
+    device_config_reset_performed_prop
+    face_service
     fastbootd
     flags_health_check
     flags_health_check_exec
@@ -34,6 +36,7 @@
     heapprofd_exec
     heapprofd_socket
     intelligence_service
+    iris_service
     llkd
     llkd_exec
     llkd_prop
@@ -53,6 +56,7 @@
     super_block_device
     system_lmk_prop
     system_suspend_hwservice
+    server_configurable_flags_data_file
     time_prop
     timedetector_service
     timezonedetector_service

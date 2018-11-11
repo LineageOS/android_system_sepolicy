@@ -9,6 +9,7 @@
 #       path (string)
 #       isPrivApp (boolean)
 #       minTargetSdkVersion (unsigned integer)
+#       fromRunAs (boolean)
 # isSystemServer=true can only be used once.
 # An unspecified isSystemServer defaults to false.
 # isEphemeralApp=true will match apps marked by PackageManager as Ephemeral
@@ -25,6 +26,7 @@
 # minTargetSdkVersion will match applications with a targetSdkVersion
 #       greater than or equal to the specified value. If unspecified,
 #       it has a default value of 0.
+# fromRunAs=true means the setcontext request is from run-as. Default is false.
 # All specified input selectors in an entry must match (i.e. logical AND).
 # Matching is case-insensitive.
 #
@@ -43,6 +45,7 @@
 #       (11) Specified isPrivApp= before unspecified isPrivApp= boolean.
 #       (12) Higher value of minTargetSdkVersion= before lower value of minTargetSdkVersion=
 #              integer. Note that minTargetSdkVersion= defaults to 0 if unspecified.
+#       (13) fromRunAs=true before fromRunAs=false.
 #
 # Outputs:
 #       domain (string)
@@ -114,6 +117,8 @@ user=_app seinfo=media domain=mediaprovider name=android.process.media type=app_
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
 user=_app isV2App=true isEphemeralApp=true domain=ephemeral_app type=app_data_file levelFrom=all
 user=_app isPrivApp=true domain=priv_app type=privapp_data_file levelFrom=user
-user=_app minTargetSdkVersion=28 domain=untrusted_app type=app_data_file levelFrom=all
+user=_app minTargetSdkVersion=29 domain=untrusted_app type=app_data_file levelFrom=all
+user=_app minTargetSdkVersion=28 domain=untrusted_app_27 type=app_data_file levelFrom=all
 user=_app minTargetSdkVersion=26 domain=untrusted_app_27 type=app_data_file levelFrom=user
 user=_app domain=untrusted_app_25 type=app_data_file levelFrom=user
+user=_app fromRunAs=true domain=runas_app levelFrom=all
