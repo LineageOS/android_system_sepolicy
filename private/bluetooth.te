@@ -30,6 +30,7 @@ allow bluetooth self:packet_socket create_socket_perms_no_ioctl;
 allow bluetooth self:global_capability_class_set { net_admin net_raw net_bind_service };
 allow bluetooth self:tun_socket create_socket_perms_no_ioctl;
 allow bluetooth tun_device:chr_file rw_file_perms;
+allowxperm bluetooth tun_device:chr_file ioctl { TUNGETIFF TUNSETIFF };
 allow bluetooth efs_file:dir search;
 
 # allow Bluetooth to access uhid device for HID profile
