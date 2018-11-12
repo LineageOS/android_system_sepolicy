@@ -3,8 +3,6 @@ type device, dev_type, fs_type;
 type alarm_device, dev_type, mlstrustedobject;
 type ashmem_device, dev_type, mlstrustedobject;
 type audio_device, dev_type;
-type audio_timer_device, dev_type;
-type audio_seq_device, dev_type;
 type binder_device, dev_type, mlstrustedobject;
 type hwbinder_device, dev_type, mlstrustedobject;
 type vndbinder_device, dev_type;
@@ -22,7 +20,6 @@ type vold_device, dev_type;
 type console_device, dev_type;
 type cpuctl_device, dev_type;
 type fscklogs, dev_type;
-type full_device, dev_type;
 # GPU (used by most UI apps)
 type gpu_device, dev_type, mlstrustedobject;
 type graphics_device, dev_type;
@@ -46,7 +43,6 @@ type socket_device, dev_type;
 type owntty_device, dev_type, mlstrustedobject;
 type tty_device, dev_type;
 type video_device, dev_type;
-type vcs_device, dev_type;
 type zero_device, dev_type, mlstrustedobject;
 type fuse_device, dev_type, mlstrustedobject;
 type iio_device, dev_type;
@@ -61,7 +57,6 @@ type usb_device, dev_type, mlstrustedobject;
 type properties_device, dev_type;
 type properties_serial, dev_type;
 type property_info, dev_type;
-type i2c_device, dev_type;
 
 # All devices have a uart for the hci
 # attach service. The uart dev node
