@@ -1196,6 +1196,9 @@
     proc_panic
     proc_pid_max
     proc_pipe_conf
+    proc_pressure_cpu
+    proc_pressure_io
+    proc_pressure_mem
     proc_random
     proc_sched
     proc_slabinfo

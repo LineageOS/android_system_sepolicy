@@ -1368,6 +1368,9 @@
 (typeattributeset priv_app_28_0 (priv_app))
 (typeattributeset proc_28_0
   ( proc
+    proc_pressure_cpu
+    proc_pressure_io
+    proc_pressure_mem
     proc_slabinfo))
 (typeattributeset proc_abi_28_0 (proc_abi))
 (typeattributeset proc_asound_28_0 (proc_asound))
