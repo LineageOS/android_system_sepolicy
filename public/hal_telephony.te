@@ -14,7 +14,6 @@ allow hal_telephony_server cgroup:dir create_dir_perms;
 allow hal_telephony_server cgroup:{ file lnk_file } r_file_perms;
 allow hal_telephony_server radio_device:chr_file rw_file_perms;
 allow hal_telephony_server radio_device:blk_file r_file_perms;
-allow hal_telephony_server mtd_device:dir search;
 allow hal_telephony_server efs_file:dir create_dir_perms;
 allow hal_telephony_server efs_file:file create_file_perms;
 allow hal_telephony_server vendor_shell_exec:file rx_file_perms;
