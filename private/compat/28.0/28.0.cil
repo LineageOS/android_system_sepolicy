@@ -1,12 +1,17 @@
 ;; types removed from current policy
+(type audio_seq_device)
+(type audio_timer_device)
 (type commontime_management_service)
+(type full_device)
+(type i2c_device)
 (type mediacodec)
 (type mediacodec_exec)
 (type qtaguid_proc)
 (type thermalcallback_hwservice)
-(type untrusted_v2_app)
 (type thermalserviced)
 (type thermalserviced_exec)
+(type untrusted_v2_app)
+(type vcs_device)
 
 ;; Public 28.0 SEPolicy is divergent on different devices w.r.t
 ;; exported_audio_prop type. We need this typeattribute declaration so that the

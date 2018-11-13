@@ -90,12 +90,10 @@
 /dev/eac		u:object_r:audio_device:s0
 /dev/event-log-tags     u:object_r:runtime_event_log_tags_file:s0
 /dev/fscklogs(/.*)?	u:object_r:fscklogs:s0
-/dev/full		u:object_r:full_device:s0
 /dev/fuse		u:object_r:fuse_device:s0
 /dev/graphics(/.*)?	u:object_r:graphics_device:s0
 /dev/hw_random		u:object_r:hw_random_device:s0
 /dev/hwbinder		u:object_r:hwbinder_device:s0
-/dev/i2c-[0-9]+		u:object_r:i2c_device:s0
 /dev/input(/.*)?	u:object_r:input_device:s0
 /dev/iio:device[0-9]+   u:object_r:iio_device:s0
 /dev/ion		u:object_r:ion_device:s0
@@ -121,8 +119,6 @@
 /dev/rproc_user	u:object_r:rpmsg_device:s0
 /dev/rtc[0-9]      u:object_r:rtc_device:s0
 /dev/snd(/.*)?		u:object_r:audio_device:s0
-/dev/snd/audio_timer_device	u:object_r:audio_timer_device:s0
-/dev/snd/audio_seq_device	u:object_r:audio_seq_device:s0
 /dev/socket(/.*)?	u:object_r:socket_device:s0
 /dev/socket/adbd	u:object_r:adbd_socket:s0
 /dev/socket/dnsproxyd	u:object_r:dnsproxyd_socket:s0
@@ -173,7 +169,6 @@
 /dev/urandom		u:object_r:random_device:s0
 /dev/usb_accessory	u:object_r:usbaccessory_device:s0
 /dev/v4l-touch[0-9]*	u:object_r:input_device:s0
-/dev/vcs[0-9a-z]*	u:object_r:vcs_device:s0
 /dev/video[0-9]*	u:object_r:video_device:s0
 /dev/vndbinder		u:object_r:vndbinder_device:s0
 /dev/watchdog		u:object_r:watchdog_device:s0
