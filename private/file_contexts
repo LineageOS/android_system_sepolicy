@@ -213,6 +213,7 @@
 /system/bin/incident   u:object_r:incident_exec:s0
 /system/bin/incidentd   u:object_r:incidentd_exec:s0
 /system/bin/incident_helper  u:object_r:incident_helper_exec:s0
+/system/bin/iw                   u:object_r:iw_exec:s0
 /system/bin/netutils-wrapper-1\.0    u:object_r:netutils_wrapper_exec:s0
 /system/bin/vold	u:object_r:vold_exec:s0
 /system/bin/netd	u:object_r:netd_exec:s0
