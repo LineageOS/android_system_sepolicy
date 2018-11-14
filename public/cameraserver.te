@@ -17,6 +17,7 @@ allow cameraserver ion_device:chr_file rw_file_perms;
 allow cameraserver hal_graphics_composer:fd use;
 
 add_service(cameraserver, cameraserver_service)
+add_hwservice(cameraserver, fwk_camera_hwservice)
 
 allow cameraserver activity_service:service_manager find;
 allow cameraserver appops_service:service_manager find;
