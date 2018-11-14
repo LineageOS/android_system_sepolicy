@@ -136,6 +136,11 @@ allow mediaserver media_rw_data_file:file create_file_perms;
 # Access to media in /data/preloads
 allow mediaserver preloads_media_file:file { getattr read ioctl };
 
+ifelse(target_has_legacy_camera_hal1, `true',
+  allow mediaserver device:dir r_dir_perms;
+,
+)
+
 allow mediaserver ion_device:chr_file r_file_perms;
 allow mediaserver hal_graphics_allocator:fd use;
 allow mediaserver hal_graphics_composer:fd use;
