@@ -107,6 +107,7 @@ allowxperm vold loop_device:blk_file ioctl {
   LOOP_SET_STATUS64
 };
 allow vold vold_device:blk_file { create setattr unlink rw_file_perms };
+allowxperm vold vold_device:blk_file ioctl { BLKDISCARD BLKGETSIZE };
 allow vold dm_device:chr_file rw_file_perms;
 allow vold dm_device:blk_file rw_file_perms;
 allowxperm vold dm_device:blk_file ioctl BLKSECDISCARD;
