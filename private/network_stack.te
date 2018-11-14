@@ -1,0 +1,25 @@
+# Networking service app
+typeattribute network_stack coredomain;
+
+app_domain(network_stack);
+net_domain(network_stack);
+
+allow network_stack self:global_capability_class_set {
+    net_admin
+    net_bind_service
+    net_broadcast
+    net_raw
+};
+
+# Allow access to net_admin ioctl, DHCP server uses SIOCSARP
+allowxperm network_stack self:udp_socket ioctl priv_sock_ioctls;
+
+# The DhcpClient uses packet_sockets
+allow network_stack self:packet_socket create_socket_perms_no_ioctl;
+
+allow network_stack activity_service:service_manager find;
+allow network_stack netd_service:service_manager find;
+allow network_stack wifi_service:service_manager find;
+allow network_stack connmetrics_service:service_manager find;
+
+binder_call(network_stack, netd);
