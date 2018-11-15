@@ -12,7 +12,6 @@ not_full_treble(`unix_socket_connect(radio, rild, hal_telephony_server)')
 allow radio radio_data_file:dir create_dir_perms;
 allow radio radio_data_file:notdevfile_class_set create_file_perms;
 
-allow radio alarm_device:chr_file rw_file_perms;
 
 allow radio net_data_file:dir search;
 allow radio net_data_file:file r_file_perms;
