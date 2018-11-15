@@ -257,7 +257,6 @@ allow init {
 allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read setattr search };
 
 allow init {
-  alarm_device
   ashmem_device
   binder_device
   console_device
