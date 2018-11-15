@@ -229,7 +229,6 @@ neverallowxperm shell domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_s
 neverallow shell {
   fuse_device
   hw_random_device
-  kmem_device
   port_device
 }:chr_file ~getattr;
 
