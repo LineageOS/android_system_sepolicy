@@ -358,6 +358,10 @@ type fingerprintd_data_file, file_type, data_file_type, core_data_file_type;
 type fingerprint_vendor_data_file, file_type, data_file_type;
 # Type for appfuse file.
 type app_fuse_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
+# Type for face template file
+type face_vendor_data_file, file_type, data_file_type;
+# Type for iris template file
+type iris_vendor_data_file, file_type, data_file_type;
 
 # Socket types
 type adbd_socket, file_type, coredomain_socket;
