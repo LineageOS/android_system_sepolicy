@@ -45,6 +45,10 @@ allow incidentd sysfs_batteryinfo:file r_file_perms;
 userdebug_or_eng(`allow incidentd pstorefs:dir search');
 userdebug_or_eng(`allow incidentd pstorefs:file r_file_perms');
 
+# section id 3023, allow obtaining stats report
+allow incidentd stats_service:service_manager find;
+binder_call(incidentd, statsd)
+
 # Create and write into /data/misc/incidents
 allow incidentd incident_data_file:dir rw_dir_perms;
 allow incidentd incident_data_file:file create_file_perms;
