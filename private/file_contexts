@@ -98,9 +98,7 @@
 /dev/iio:device[0-9]+   u:object_r:iio_device:s0
 /dev/ion		u:object_r:ion_device:s0
 /dev/keychord   u:object_r:keychord_device:s0
-/dev/kmem		u:object_r:kmem_device:s0
 /dev/loop-control	u:object_r:loop_control_device:s0
-/dev/mem		u:object_r:kmem_device:s0
 /dev/modem.*		u:object_r:radio_device:s0
 /dev/mtp_usb		u:object_r:mtp_device:s0
 /dev/pmsg0		u:object_r:pmsg_device:s0
