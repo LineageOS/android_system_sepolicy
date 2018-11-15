@@ -14,3 +14,6 @@ domain_auto_trans(statsd, perfetto_exec, perfetto)
 allow statsd {
   statscompanion_service
 }:service_manager find;
+
+# Allow incidentd to obtain the statsd incident section.
+allow statsd incidentd:fifo_file write;
