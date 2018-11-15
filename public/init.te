@@ -275,7 +275,6 @@ allow init {
 allow init {
   dev_type
   -keychord_device
-  -kmem_device
   -port_device
 }:chr_file setattr;
 

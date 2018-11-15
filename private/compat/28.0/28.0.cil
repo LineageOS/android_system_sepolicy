@@ -4,6 +4,7 @@
 (type commontime_management_service)
 (type full_device)
 (type i2c_device)
+(type kmem_device)
 (type mediacodec)
 (type mediacodec_exec)
 (type mtd_device)

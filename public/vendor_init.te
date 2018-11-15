@@ -129,7 +129,6 @@ allow vendor_init {
 allow vendor_init {
   dev_type
   -keychord_device
-  -kmem_device
   -port_device
   -lowpan_device
   -hw_random_device
