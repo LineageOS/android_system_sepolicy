@@ -37,10 +37,10 @@ binder_call(statsd, stats)
 ### neverallow rules
 ###
 
-# Only system_server, system_app, traceur_app, and stats command can find the stats service.
 neverallow {
   domain
   -dumpstate
+  -incidentd
   -priv_app
   -shell
   -stats
