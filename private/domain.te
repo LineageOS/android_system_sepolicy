@@ -48,7 +48,6 @@ neverallow {
   -adbd
   -appdomain
   -dexoptanalyzer
-  -init
   -installd
   userdebug_or_eng(`-perfprofd')
   -profman
@@ -56,12 +55,11 @@ neverallow {
   -system_server
 } { privapp_data_file app_data_file }:dir *;
 
-# Only apps should be modifying app data. init and installd are exempted for
+# Only apps should be modifying app data. installd is exempted for
 # restorecon and package install/uninstall.
 neverallow {
   domain
   -appdomain
-  -init
   -installd
 } { privapp_data_file app_data_file }:dir ~r_dir_perms;
 
@@ -80,7 +78,6 @@ neverallow {
 
 neverallow {
   domain
-  -init
   -installd
 } { privapp_data_file app_data_file }:dir_file_class_set { relabelfrom relabelto };
 
