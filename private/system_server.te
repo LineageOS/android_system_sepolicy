@@ -142,8 +142,6 @@ allow system_server stats_data_file:dir { open read remove_name search write };
 allow system_server stats_data_file:file unlink;
 
 # Read /sys/kernel/debug/wakeup_sources.
-allow system_server debugfs:file r_file_perms;
-auditallow system_server debugfs:file r_file_perms;
 allow system_server debugfs_wakeup_sources:file r_file_perms;
 
 # The DhcpClient and WifiWatchdog use packet_sockets
