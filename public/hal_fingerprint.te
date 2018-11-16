@@ -7,8 +7,8 @@ hal_attribute_hwservice(hal_fingerprint, hal_fingerprint_hwservice)
 # For memory allocation
 allow hal_fingerprint ion_device:chr_file r_file_perms;
 
-allow hal_fingerprint fingerprint_vendor_data_file:file { create_file_perms };
-allow hal_fingerprint fingerprint_vendor_data_file:dir rw_dir_perms;
+allow hal_fingerprint biometric_vendor_data_file:file { create_file_perms };
+allow hal_fingerprint biometric_vendor_data_file:dir rw_dir_perms;
 
 r_dir_file(hal_fingerprint, cgroup)
 r_dir_file(hal_fingerprint, sysfs)
