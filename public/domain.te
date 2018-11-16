@@ -1387,8 +1387,8 @@ neverallow * domain:file { execute execute_no_trans entrypoint };
 # Do not allow access to the generic debugfs label. This is too broad.
 # Instead, if access to part of debugfs is desired, it should have a
 # more specific label.
-# TODO: fix system_server and dumpstate
-neverallow { domain -init -vendor_init -system_server -dumpstate } debugfs:file no_rw_file_perms;
+# TODO: fix dumpstate
+neverallow { domain -init -vendor_init -dumpstate } debugfs:file no_rw_file_perms;
 
 # Profiles contain untrusted data and profman parses that. We should only run
 # in from installd forked processes.
