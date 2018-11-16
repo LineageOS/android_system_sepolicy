@@ -23,7 +23,7 @@ allow mediaextractor proc_meminfo:file r_file_perms;
 crash_dump_fallback(mediaextractor)
 
 # allow mediaextractor read permissions for file sources
-allow mediaextractor sdcardfs:file { getattr read };
+allow mediaextractor sdcard_type:file { getattr read };
 allow mediaextractor media_rw_data_file:file { getattr read };
 allow mediaextractor app_data_file:file { getattr read };
 
