@@ -2,6 +2,7 @@
 (type audio_seq_device)
 (type audio_timer_device)
 (type commontime_management_service)
+(type cpuctl_device)
 (type fingerprint_vendor_data_file)
 (type full_device)
 (type i2c_device)
