@@ -89,6 +89,7 @@ allow surfaceflinger permission_service:service_manager find;
 allow surfaceflinger power_service:service_manager find;
 allow surfaceflinger vr_manager_service:service_manager find;
 allow surfaceflinger window_service:service_manager find;
+allow surfaceflinger inputflinger_service:service_manager find;
 
 
 # allow self to set SCHED_FIFO
@@ -98,6 +99,7 @@ r_dir_file(surfaceflinger, cgroup)
 r_dir_file(surfaceflinger, system_file)
 allow surfaceflinger tmpfs:dir r_dir_perms;
 allow surfaceflinger system_server:fd use;
+allow surfaceflinger system_server:unix_stream_socket { read write };
 allow surfaceflinger ion_device:chr_file r_file_perms;
 
 # pdx IPC
