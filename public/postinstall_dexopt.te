@@ -55,5 +55,3 @@ allow postinstall_dexopt postinstall:process sigchld;
 # Allow otapreopt to use file descriptors from otapreopt_chroot.
 # TODO: Probably we can actually close file descriptors...
 allow postinstall_dexopt otapreopt_chroot:fd use;
-
-allow postinstall_dexopt cpuctl_device:dir search;
