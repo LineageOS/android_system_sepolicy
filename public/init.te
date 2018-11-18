@@ -94,7 +94,6 @@ allow init tmpfs:dir create_dir_perms;
 allow init tmpfs:dir mounton;
 allow init cgroup:dir create_dir_perms;
 allow init cgroup:file rw_file_perms;
-allow init cpuctl_device:dir { create mounton };
 
 # /config
 allow init configfs:dir mounton;
@@ -223,9 +222,15 @@ allow init {
 
 allow init cache_file:lnk_file r_file_perms;
 
-allow init { file_type -system_file_type -vendor_file_type -exec_type }:dir_file_class_set relabelto;
-# does init really need to relabel app data?
-userdebug_or_eng(`auditallow init { app_data_file privapp_data_file }:dir_file_class_set relabelto;')
+allow init {
+  file_type
+  -system_file_type
+  -vendor_file_type
+  -exec_type
+  -app_data_file
+  -privapp_data_file
+}:dir_file_class_set relabelto;
+
 allow init { sysfs debugfs debugfs_tracing debugfs_tracing_debug }:{ dir file lnk_file } { getattr relabelfrom };
 allow init { sysfs_type debugfs_type }:{ dir file lnk_file } { relabelto getattr };
 allow init dev_type:dir create_dir_perms;
@@ -275,7 +280,6 @@ allow init {
 allow init {
   dev_type
   -keychord_device
-  -kmem_device
   -port_device
 }:chr_file setattr;
 

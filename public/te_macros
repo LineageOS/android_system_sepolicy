@@ -643,3 +643,35 @@ define(`hal_attribute_hwservice', `
     neverallow { domain -$1_client -$1_server } $2:hwservice_manager find;
   ')
 ')
+
+###################################
+# can_profile_heap(domain)
+# never_profile_heap(domain)
+#
+# Opt in our out of heap profiling.
+# This will allow a heap profiling daemon to read this
+# process' address space in order to support unwinding.
+#
+define(`can_profile_heap', `
+  userdebug_or_eng(`
+    # RT signal for client initialization.
+    allow heapprofd $1:process signal;
+    # Connect to heapprofd service.
+    unix_socket_connect($1, heapprofd, heapprofd)
+    # To receive file descriptor.
+    allow heapprofd $1:fd use;
+
+    # To read from the received file descriptors.
+    # /proc/[pid]/maps and /proc/[pid]/mem have the same SELinux label as the
+    # process they relate to.
+    allow heapprofd $1:file r_file_perms;
+    # This is needed to search the /proc/[pid] directory.
+    allow heapprofd $1:dir r_dir_perms;
+    allow heapprofd $1:process signal;
+  ')
+')
+
+define(`never_profile_heap', `
+  neverallow heapprofd $1:file read;
+  neverallow heapprofd $1:process signal;
+')

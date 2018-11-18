@@ -82,10 +82,7 @@
 /dev/block/ram[0-9]*	u:object_r:ram_device:s0
 /dev/block/zram[0-9]*	u:object_r:ram_device:s0
 /dev/bus/usb(.*)?       u:object_r:usb_device:s0
-/dev/cam		u:object_r:camera_device:s0
 /dev/console		u:object_r:console_device:s0
-/dev/cpuctl(/.*)?	u:object_r:cpuctl_device:s0
-/dev/memcg(/.*)?        u:object_r:cgroup:s0
 /dev/device-mapper	u:object_r:dm_device:s0
 /dev/eac		u:object_r:audio_device:s0
 /dev/event-log-tags     u:object_r:runtime_event_log_tags_file:s0
@@ -98,9 +95,7 @@
 /dev/iio:device[0-9]+   u:object_r:iio_device:s0
 /dev/ion		u:object_r:ion_device:s0
 /dev/keychord   u:object_r:keychord_device:s0
-/dev/kmem		u:object_r:kmem_device:s0
 /dev/loop-control	u:object_r:loop_control_device:s0
-/dev/mem		u:object_r:kmem_device:s0
 /dev/modem.*		u:object_r:radio_device:s0
 /dev/mtp_usb		u:object_r:mtp_device:s0
 /dev/pmsg0		u:object_r:pmsg_device:s0
@@ -213,6 +208,7 @@
 /system/bin/incident   u:object_r:incident_exec:s0
 /system/bin/incidentd   u:object_r:incidentd_exec:s0
 /system/bin/incident_helper  u:object_r:incident_helper_exec:s0
+/system/bin/iw                   u:object_r:iw_exec:s0
 /system/bin/netutils-wrapper-1\.0    u:object_r:netutils_wrapper_exec:s0
 /system/bin/vold	u:object_r:vold_exec:s0
 /system/bin/netd	u:object_r:netd_exec:s0
@@ -276,6 +272,7 @@
 /system/bin/tzdatacheck u:object_r:tzdatacheck_exec:s0
 /system/bin/flags_health_check -- u:object_r:flags_health_check_exec:s0
 /system/bin/idmap u:object_r:idmap_exec:s0
+/system/bin/idmap2(d)?           u:object_r:idmap_exec:s0
 /system/bin/update_engine        u:object_r:update_engine_exec:s0
 /system/bin/bspatch              u:object_r:update_engine_exec:s0
 /system/bin/storaged             u:object_r:storaged_exec:s0
@@ -483,7 +480,13 @@
 /data/system/users/[0-9]+/fpdata(/.*)? u:object_r:fingerprintd_data_file:s0
 
 # Fingerprint vendor data file
-/data/vendor_de/[0-9]+/fpdata(/.*)? u:object_r:fingerprint_vendor_data_file:s0
+/data/vendor_de/[0-9]+/fpdata(/.*)? u:object_r:biometric_vendor_data_file:s0
+
+# Face vendor data file
+/data/vendor_de/[0-9]+/facedata(/.*)? u:object_r:biometric_vendor_data_file:s0
+
+# Iris vendor data file
+/data/vendor_de/[0-9]+/irisdata(/.*)? u:object_r:biometric_vendor_data_file:s0
 
 # Bootchart data
 /data/bootchart(/.*)?		u:object_r:bootchart_data_file:s0

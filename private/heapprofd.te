@@ -1,5 +1,40 @@
 # Android Heap Profiler Daemon go/heapprofd
-type heapprofd, domain, coredomain;
 type heapprofd_exec, exec_type, file_type, system_file_type;
 
 init_daemon_domain(heapprofd)
+
+userdebug_or_eng(`
+  # Allow to send signal to processes.
+  # This excludes SIGKILL, SIGSTOP and SIGCHLD,
+  # which are controlled by separate permissions.
+  allow heapprofd self:capability kill;
+
+  # Executables and libraries.
+  # These are needed to read the ELF binary data needed for unwinding.
+  allow heapprofd system_file:file r_file_perms;
+  allow heapprofd apk_data_file:file r_file_perms;
+  allow heapprofd dalvikcache_data_file:file r_file_perms;
+  allow heapprofd vendor_file_type:file r_file_perms;
+')
+
+# Write trace data to the Perfetto traced damon. This requires connecting to its
+# producer socket and obtaining a (per-process) tmpfs fd.
+allow heapprofd traced:fd use;
+allow heapprofd traced_tmpfs:file { read write getattr map };
+unix_socket_connect(heapprofd, traced_producer, traced)
+
+never_profile_heap(`{
+  bpfloader
+  init
+  kernel
+  keystore
+  llkd
+  logd
+  ueventd
+  vendor_init
+  vold
+}')
+
+full_treble_only(`
+  neverallow heapprofd vendor_file:file { no_w_file_perms no_x_file_perms };
+')

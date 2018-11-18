@@ -111,19 +111,6 @@ compatible_property_only(`
     get_prop({coredomain appdomain shell}, exported3_default_prop)
     get_prop({coredomain appdomain shell}, exported3_radio_prop)
     get_prop({coredomain appdomain shell}, exported3_system_prop)
-    userdebug_or_eng(`
-        get_prop(su, core_property_type)
-        get_prop(su, exported_dalvik_prop)
-        get_prop(su, exported_ffs_prop)
-        get_prop(su, exported_system_radio_prop)
-        get_prop(su, exported2_config_prop)
-        get_prop(su, exported2_radio_prop)
-        get_prop(su, exported2_system_prop)
-        get_prop(su, exported2_vold_prop)
-        get_prop(su, exported3_default_prop)
-        get_prop(su, exported3_radio_prop)
-        get_prop(su, exported3_system_prop)
-    ')
     get_prop({domain -coredomain -appdomain}, vendor_default_prop)
 ')
 
@@ -341,7 +328,7 @@ with_asan(`allow domain system_data_file:dir getattr;')
 with_asan(`allow domain system_asan_options_file:file r_file_perms;')
 
 # read APEX dir and stat any symlink pointing to APEXs.
-allow domain apex_mnt_dir:dir search;
+allow domain apex_mnt_dir:dir { getattr search };
 allow domain apex_mnt_dir:lnk_file r_file_perms;
 
 ###
@@ -433,14 +420,6 @@ neverallow {
 
 # Ensure that all entrypoint executables are in exec_type or postinstall_file.
 neverallow * { file_type -exec_type -postinstall_file }:file entrypoint;
-
-# Ensure that nothing in userspace can access /dev/mem or /dev/kmem
-neverallow {
-  domain
-  -shell # For CTS and is restricted to getattr in shell.te
-  -ueventd # Further restricted in ueventd.te
-} kmem_device:chr_file *;
-neverallow * kmem_device:chr_file ~{ create relabelto unlink setattr getattr };
 
 #Ensure that nothing in userspace can access /dev/port
 neverallow {
@@ -995,6 +974,7 @@ full_treble_only(`
         -init
         -installd
         userdebug_or_eng(`-perfprofd')
+        userdebug_or_eng(`-heapprofd')
         -postinstall_dexopt
         -system_server
     } vendor_app_file:dir { open read getattr search };
@@ -1009,6 +989,7 @@ full_treble_only(`
         -init
         -installd
         userdebug_or_eng(`-perfprofd')
+        userdebug_or_eng(`-heapprofd')
         -postinstall_dexopt
         -system_server
         -mediaserver
@@ -1026,6 +1007,7 @@ full_treble_only(`
         -system_server
         -webview_zygote
         -zygote
+        userdebug_or_eng(`-heapprofd')
     } vendor_overlay_file:dir { getattr open read search };
 ')
 
@@ -1039,6 +1021,7 @@ full_treble_only(`
         -system_server
         -webview_zygote
         -zygote
+        userdebug_or_eng(`-heapprofd')
     } vendor_overlay_file:file r_file_perms;
 ')
 
@@ -1109,6 +1092,7 @@ full_treble_only(`
     -init # starts vendor executables
     -kernel # loads /vendor/firmware
     userdebug_or_eng(`-perfprofd')
+    userdebug_or_eng(`-heapprofd')
     -shell
     -system_executes_vendor_violators
     -ueventd # reads /vendor/ueventd.rc
@@ -1403,8 +1387,8 @@ neverallow * domain:file { execute execute_no_trans entrypoint };
 # Do not allow access to the generic debugfs label. This is too broad.
 # Instead, if access to part of debugfs is desired, it should have a
 # more specific label.
-# TODO: fix system_server and dumpstate
-neverallow { domain -init -vendor_init -system_server -dumpstate } debugfs:file no_rw_file_perms;
+# TODO: fix dumpstate
+neverallow { domain -init -vendor_init -dumpstate } debugfs:file no_rw_file_perms;
 
 # Profiles contain untrusted data and profman parses that. We should only run
 # in from installd forked processes.
@@ -1446,6 +1430,7 @@ full_treble_only(`
     -init
     -kernel
     -perfprofd
+    -heapprofd
     -ueventd
   } vendor_file:file { no_w_file_perms no_x_file_perms open };
 ')

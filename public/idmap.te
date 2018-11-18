@@ -2,9 +2,11 @@
 type idmap, domain;
 type idmap_exec, system_file_type, exec_type, file_type;
 
+# STOPSHIP remove /system/bin/idmap and the link between idmap and installd (b/118711077)
 # Use open file to /data/resource-cache file inherited from installd.
 allow idmap installd:fd use;
-allow idmap resourcecache_data_file:file { getattr read write };
+allow idmap resourcecache_data_file:file create_file_perms;
+allow idmap resourcecache_data_file:dir rw_dir_perms;
 
 # Ignore reading /proc/<pid>/maps after a fork.
 dontaudit idmap installd:file read;
@@ -18,3 +20,7 @@ r_dir_file(idmap, vendor_app_file)
 
 # Allow apps access to /vendor/overlay
 r_dir_file(idmap, vendor_overlay_file)
+
+# Allow the idmap2d binary to register as a service and communicate via AIDL
+binder_use(idmap)
+add_service(idmap, idmap_service)
