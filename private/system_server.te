@@ -562,6 +562,11 @@ set_prop(system_server, ctl_bugreport_prop)
 # cppreopt property
 set_prop(system_server, cppreopt_prop)
 
+# server configurable flags properties
+# STOPSHIP: Remove the ability for system_server to set property
+# device_config_flags_health_check_prop before release. (b/119627143)
+set_prop(system_server, device_config_flags_health_check_prop)
+
 # BootReceiver to read ro.boot.bootreason
 get_prop(system_server, bootloader_boot_reason_prop)
 # PowerManager to read sys.boot.reason
@@ -888,6 +893,16 @@ neverallow system_server *:process dyntransition;
 
 # Only allow crash_dump to connect to system_ndebug_socket.
 neverallow { domain -init -system_server -crash_dump } system_ndebug_socket:sock_file { open write };
+
+# Only allow init, system_server, flags_health_check to set properties for server configurable flags
+neverallow {
+  domain
+  -init
+  -system_server
+  -flags_health_check
+} {
+  device_config_flags_health_check_prop
+}:property_service set;
 
 # system_server should never be executing dex2oat. This is either
 # a bug (for example, bug 16317188), or represents an attempt by
