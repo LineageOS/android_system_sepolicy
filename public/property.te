@@ -38,6 +38,7 @@ type exported_secure_prop, property_type;
 type ffs_prop, property_type, core_property_type;
 type fingerprint_prop, property_type, core_property_type;
 type firstboot_prop, property_type;
+type heapprofd_prop, property_type;
 type hwservicemanager_prop, property_type;
 type last_boot_reason_prop, property_type;
 type system_lmk_prop, property_type;
@@ -396,6 +397,7 @@ compatible_property_only(`
     -device_config_reset_performed_prop
     -device_config_boot_count_prop
     -device_config_flags_health_check_prop
+    -heapprofd_prop
     -hwservicemanager_prop
     -last_boot_reason_prop
     -system_lmk_prop
