@@ -480,13 +480,7 @@
 /data/system/users/[0-9]+/fpdata(/.*)? u:object_r:fingerprintd_data_file:s0
 
 # Fingerprint vendor data file
-/data/vendor_de/[0-9]+/fpdata(/.*)? u:object_r:biometric_vendor_data_file:s0
-
-# Face vendor data file
-/data/vendor_de/[0-9]+/facedata(/.*)? u:object_r:biometric_vendor_data_file:s0
-
-# Iris vendor data file
-/data/vendor_de/[0-9]+/irisdata(/.*)? u:object_r:biometric_vendor_data_file:s0
+/data/vendor_de/[0-9]+/fpdata(/.*)? u:object_r:fingerprint_vendor_data_file:s0
 
 # Bootchart data
 /data/bootchart(/.*)?		u:object_r:bootchart_data_file:s0
