@@ -48,6 +48,9 @@ allow zygote resourcecache_data_file:file create_file_perms;
 # https://bugs.chromium.org/p/project-zero/issues/detail?id=955 for example.
 allow { zygote with_dexpreopt(`-zygote') } dalvikcache_data_file:file execute;
 
+# Allow zygote to create JIT memory.
+allow zygote self:process execmem;
+
 # Execute idmap and dex2oat within zygote's own domain.
 # TODO:  Should either of these be transitioned to the same domain
 # used by installd or stay in-domain for zygote?
