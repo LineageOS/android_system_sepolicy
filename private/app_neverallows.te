@@ -51,6 +51,15 @@ neverallow {
   -runas_app
 } { app_data_file privapp_data_file }:file execute_no_trans;
 
+# Do not allow untrusted apps to invoke dex2oat. This was historically required
+# by ART for compiling secondary dex files but has been removed in Q.
+# Exempt legacy apps (targetApi<=28) for compatibility.
+neverallow {
+  all_untrusted_apps
+  -untrusted_app_25
+  -untrusted_app_27
+} dex2oat_exec:file no_x_file_perms;
+
 # Do not allow untrusted apps to be assigned mlstrustedsubject.
 # This would undermine the per-user isolation model being
 # enforced via levelFrom=user in seapp_contexts and the mls
