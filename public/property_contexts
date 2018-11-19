@@ -255,6 +255,10 @@ gsm.sim.operator.numeric u:object_r:exported_radio_prop:s0 exact string
 media.mediadrmservice.enable u:object_r:exported_default_prop:s0 exact bool
 persist.rcs.supported u:object_r:exported_default_prop:s0 exact int
 rcs.publish.status u:object_r:exported_radio_prop:s0 exact string
+ro.bionic.2nd_arch u:object_r:cpu_variant_prop:s0 exact string
+ro.bionic.2nd_cpu_variant u:object_r:cpu_variant_prop:s0 exact string
+ro.bionic.arch u:object_r:cpu_variant_prop:s0 exact string
+ro.bionic.cpu_variant u:object_r:cpu_variant_prop:s0 exact string
 ro.board.platform u:object_r:exported_default_prop:s0 exact string
 ro.boot.fake_battery u:object_r:exported_default_prop:s0 exact int
 ro.boot.hardware.revision u:object_r:exported_default_prop:s0 exact string
