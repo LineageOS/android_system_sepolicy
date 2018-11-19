@@ -192,6 +192,7 @@ not_compatible_property(`
 allow vendor_init file_contexts_file:file r_file_perms;
 
 set_prop(vendor_init, bluetooth_a2dp_offload_prop)
+set_prop(vendor_init, cpu_variant_prop)
 set_prop(vendor_init, debug_prop)
 set_prop(vendor_init, exported_audio_prop)
 set_prop(vendor_init, exported_bluetooth_prop)
