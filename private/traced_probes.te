@@ -53,9 +53,8 @@ allow traced_probes user_profile_data_file:dir { getattr open read search };
 # their userspace TRACE macros.
 domain_auto_trans(traced_probes, atrace_exec, atrace);
 
-# This is needed for: path="/system/bin/linker64"
-# scontext=u:r:atrace:s0 tcontext=u:r:traced_probes:s0 tclass=fd
-allow atrace traced_probes:fd use;
+# Allow traced_probes to kill atrace on timeout.
+allow traced_probes atrace:process sigkill;
 
 # Allow traced_probes to access /proc files for system stats.
 # Note: trace data is NOT exposed to anything other than shell and privileged
