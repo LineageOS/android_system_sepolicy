@@ -6,6 +6,7 @@ type bluetooth_prop, property_type;
 type bootloader_boot_reason_prop, property_type;
 type config_prop, property_type, core_property_type;
 type cppreopt_prop, property_type, core_property_type;
+type cpu_variant_prop, property_type;
 type ctl_adbd_prop, property_type;
 type ctl_bootanim_prop, property_type;
 type ctl_bugreport_prop, property_type;
