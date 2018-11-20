@@ -53,5 +53,4 @@ allow untrusted_app_25 app_data_file:file execute_no_trans;
 # The ability to invoke dex2oat. Historically required by ART, now only
 # allowed for targetApi<=28 for compat reasons.
 allow untrusted_app_25 dex2oat_exec:file rx_file_perms;
-auditallow untrusted_app_25 dex2oat_exec:file rx_file_perms;
-
+userdebug_or_eng(`auditallow untrusted_app_25 dex2oat_exec:file rx_file_perms;')
