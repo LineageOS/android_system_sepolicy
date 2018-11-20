@@ -11,14 +11,6 @@ POLICYVERS ?= 30
 MLS_SENS=1
 MLS_CATS=1024
 
-ifdef BOARD_SEPOLICY_REPLACE
-$(error BOARD_SEPOLICY_REPLACE is no longer supported; please remove from your BoardConfig.mk or other .mk file.)
-endif
-
-ifdef BOARD_SEPOLICY_IGNORE
-$(error BOARD_SEPOLICY_IGNORE is no longer supported; please remove from your BoardConfig.mk or other .mk file.)
-endif
-
 ifdef BOARD_SEPOLICY_UNION
 $(warning BOARD_SEPOLICY_UNION is no longer required - all files found in BOARD_SEPOLICY_DIRS are implicitly unioned; please remove from your BoardConfig.mk or other .mk file.)
 endif
