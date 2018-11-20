@@ -938,6 +938,10 @@ allow system_server system_server_startup:fd use;
 allow system_server system_server_startup_tmpfs:file { read write map };
 allow system_server system_server_startup:unix_dgram_socket write;
 
+# Allow system server to communicate to apexd
+allow system_server apex_service:service_manager find;
+allow system_server apexd:binder call;
+
 # dexoptanalyzer is currently used only for secondary dex files which
 # system_server should never access.
 neverallow system_server dexoptanalyzer_exec:file no_x_file_perms;
