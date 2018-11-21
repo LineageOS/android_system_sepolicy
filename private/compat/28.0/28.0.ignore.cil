@@ -17,8 +17,11 @@
     apexd_prop
     apexd_tmpfs
     biometric_service
+    cpu_variant_prop
+    dev_cpu_variant
     device_config_boot_count_prop
     device_config_reset_performed_prop
+    device_config_flags_health_check_prop
     face_service
     fastbootd
     flags_health_check
@@ -35,6 +38,7 @@
     hal_system_suspend_default_tmpfs
     heapprofd
     heapprofd_exec
+    heapprofd_prop
     heapprofd_socket
     idmap_service
     intelligence_service

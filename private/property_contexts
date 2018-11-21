@@ -143,6 +143,9 @@ wlan.                   u:object_r:wifi_prop:s0
 lowpan.                 u:object_r:lowpan_prop:s0
 ro.lowpan.              u:object_r:lowpan_prop:s0
 
+# heapprofd properties
+heapprofd.              u:object_r:heapprofd_prop:s0
+
 # hwservicemanager properties
 hwservicemanager.       u:object_r:hwservicemanager_prop:s0
 
@@ -165,5 +168,6 @@ persist.time.           u:object_r:time_prop:s0
 # Properties that relate to server configurable flags
 device_config.reset_performed           u:object_r:device_config_reset_performed_prop:s0
 persist.device_config.attempted_boot_count        u:object_r:device_config_boot_count_prop:s0
+persist.device_config.global_settings.native_flags_health_check_enabled u:object_r:device_config_flags_health_check_prop:s0
 
 apexd.                  u:object_r:apexd_prop:s0

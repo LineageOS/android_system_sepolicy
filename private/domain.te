@@ -5,6 +5,12 @@
 domain_auto_trans({ domain userdebug_or_eng(`-su') }, crash_dump_exec, crash_dump);
 allow domain crash_dump:process sigchld;
 
+# Allow every process to check the heapprofd.enable properties to determine
+# whether to load the heap profiling library. This does not necessarily enable
+# heap profiling, as initialization will fail if it does not have the
+# necessary SELinux permissions.
+get_prop(domain, heapprofd_prop);
+
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
 # with other UIDs to these whitelisted domains.
 neverallow {

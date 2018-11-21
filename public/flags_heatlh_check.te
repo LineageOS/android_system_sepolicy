@@ -5,6 +5,11 @@ type flags_health_check_exec, system_file_type, exec_type, file_type;
 set_prop(flags_health_check, device_config_boot_count_prop)
 set_prop(flags_health_check, device_config_reset_performed_prop)
 
+# STOPSHIP: Remove the ability for flags_health_check to set property
+# device_config_flags_health_check_prop before release. (b/119627143)
+set_prop(flags_health_check, device_config_flags_health_check_prop)
+
+allow flags_health_check server_configurable_flags_data_file:dir rw_dir_perms;
 allow flags_health_check server_configurable_flags_data_file:file create_file_perms;
 
 # system property device_config_boot_count_prop is used for deciding when to perform server
@@ -21,5 +26,4 @@ neverallow { domain -init -flags_health_check } device_config_reset_performed_pr
 # server_configurable_flags_data_file is used for storing whether server configurable flags which
 # have been reset during current booting. Mistakenly modified by unrelated components can
 # cause bad server configurable flags synced back to device.
-
 neverallow { domain -init -flags_health_check } server_configurable_flags_data_file:file no_w_file_perms;
