@@ -76,6 +76,7 @@ recovery_only(`
   # Access /dev/usb-ffs/adb/ep0
   allow recovery functionfs:dir search;
   allow recovery functionfs:file rw_file_perms;
+  allowxperm recovery functionfs:file ioctl FUNCTIONFS_ENDPOINT_DESC;
 
   # Access to /sys/fs/selinux/policyvers for compatibility check
   allow recovery selinuxfs:file r_file_perms;
