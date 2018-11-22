@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab95a963_bf353720",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 13026
+      },
+      "writtenOn": "2018-11-22T15:23:59Z",
+      "side": 1,
+      "message": "Might be better to reference 48027a00 rather than the merge commit. Another option is to strip \"after …\", or move it to message body to keep title under 50 chars.",
+      "range": {
+        "startLine": 7,
+        "startChar": 53,
+        "endLine": 7,
+        "endChar": 61
+      },
+      "revId": "649bd67e95300da91bbfc9d933f5cb8a20b3f756",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
