@@ -186,6 +186,7 @@ binder_call(system_server, incidentd)
 binder_call(system_server, netd)
 binder_call(system_server, statsd)
 binder_call(system_server, storaged)
+binder_call(system_server, update_engine)
 binder_call(system_server, vold)
 binder_call(system_server, wificond)
 binder_call(system_server, wpantund)
@@ -340,6 +341,10 @@ allow system_server audio_device:chr_file rw_file_perms;
 # tun device used for 3rd party vpn apps
 allow system_server tun_device:chr_file rw_file_perms;
 allowxperm system_server tun_device:chr_file ioctl { TUNGETIFF TUNSETIFF };
+
+# Manage data/ota_package
+allow system_server ota_package_file:dir rw_dir_perms;
+allow system_server ota_package_file:file create_file_perms;
 
 # Manage system data files.
 allow system_server system_data_file:dir create_dir_perms;
@@ -676,6 +681,7 @@ allow system_server radio_service:service_manager find;
 allow system_server stats_service:service_manager find;
 allow system_server storaged_service:service_manager find;
 allow system_server surfaceflinger_service:service_manager find;
+allow system_server update_engine_service:service_manager find;
 allow system_server vold_service:service_manager find;
 allow system_server wificond_service:service_manager find;
 userdebug_or_eng(`
