@@ -20,6 +20,7 @@ genfscon proc /mounts u:object_r:proc_mounts:s0
 genfscon proc /net u:object_r:proc_net:s0
 genfscon proc /net/xt_qtaguid/ctrl u:object_r:qtaguid_proc:s0
 genfscon proc /net/xt_qtaguid/ u:object_r:proc_qtaguid_stat:s0
+genfscon proc /cpu/alignment u:object_r:proc_cpu_alignment:s0
 genfscon proc /cpuinfo u:object_r:proc_cpuinfo:s0
 genfscon proc /pagetypeinfo u:object_r:proc_pagetypeinfo:s0
 genfscon proc /softirqs u:object_r:proc_timer:s0
