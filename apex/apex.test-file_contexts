@@ -1,3 +1,2 @@
-/manifest\.json   u:object_r:system_file:s0
-(/.*)?            u:object_r:system_file:s0
-/bin/surfaceflinger u:object_r:surfaceflinger_exec:s0
+(/.*)?                 u:object_r:system_file:s0
+/bin/surfaceflinger    u:object_r:surfaceflinger_exec:s0
