@@ -286,6 +286,7 @@ allow init {
   proc_last_kmsg
   proc_kmsg # Open /proc/kmsg for logd service.
   proc_meminfo
+  proc_slabinfo
   proc_stat # Read /proc/stat for bootchart.
   proc_uptime
   proc_version
