@@ -23,6 +23,7 @@ genfscon proc /net/xt_qtaguid/ u:object_r:proc_qtaguid_stat:s0
 genfscon proc /cpu/alignment u:object_r:proc_cpu_alignment:s0
 genfscon proc /cpuinfo u:object_r:proc_cpuinfo:s0
 genfscon proc /pagetypeinfo u:object_r:proc_pagetypeinfo:s0
+genfscon proc /slabinfo u:object_r:proc_slabinfo:s0
 genfscon proc /softirqs u:object_r:proc_timer:s0
 genfscon proc /stat u:object_r:proc_stat:s0
 genfscon proc /swaps u:object_r:proc_swaps:s0

@@ -47,6 +47,7 @@ type proc_pid_max, fs_type, proc_type;
 type proc_pipe_conf, fs_type, proc_type;
 type proc_random, fs_type, proc_type;
 type proc_sched, fs_type, proc_type;
+type proc_slabinfo, fs_type, proc_type;
 type proc_stat, fs_type, proc_type;
 type proc_swaps, fs_type, proc_type;
 type proc_sysrq, fs_type, proc_type;
