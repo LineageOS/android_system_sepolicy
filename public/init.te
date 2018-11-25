@@ -343,6 +343,7 @@ allow init {
   proc_cmdline
   proc_diskstats
   proc_kmsg # Open /proc/kmsg for logd service.
+  proc_last_kmsg
   proc_meminfo
   proc_stat # Read /proc/stat for bootchart.
   proc_uptime
@@ -375,6 +376,7 @@ allow init {
 allow init {
   proc_cmdline
   proc_kmsg
+  proc_last_kmsg
   proc_net
   proc_qtaguid_stat
   proc_slabinfo
