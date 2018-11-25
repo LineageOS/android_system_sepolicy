@@ -29,6 +29,7 @@ type proc_hostname, fs_type, proc_type;
 type proc_hung_task, fs_type, proc_type;
 type proc_interrupts, fs_type, proc_type;
 type proc_iomem, fs_type, proc_type;
+type proc_last_kmsg, fs_type, proc_type;
 type proc_kmsg, fs_type, proc_type;
 type proc_loadavg, fs_type, proc_type;
 type proc_max_map_count, fs_type, proc_type;

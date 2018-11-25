@@ -10,6 +10,7 @@ genfscon proc /diskstats u:object_r:proc_diskstats:s0
 genfscon proc /filesystems u:object_r:proc_filesystems:s0
 genfscon proc /interrupts u:object_r:proc_interrupts:s0
 genfscon proc /iomem u:object_r:proc_iomem:s0
+genfscon proc /last_kmsg u:object_r:proc_last_kmsg:s0
 genfscon proc /kmsg u:object_r:proc_kmsg:s0
 genfscon proc /loadavg u:object_r:proc_loadavg:s0
 genfscon proc /meminfo u:object_r:proc_meminfo:s0
