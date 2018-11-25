@@ -10,6 +10,7 @@ genfscon proc /misc u:object_r:proc_misc:s0
 genfscon proc /modules u:object_r:proc_modules:s0
 genfscon proc /net u:object_r:proc_net:s0
 genfscon proc /net/xt_qtaguid/ctrl u:object_r:qtaguid_proc:s0
+genfscon proc /cpu/alignment u:object_r:proc_cpu_alignment:s0
 genfscon proc /cpuinfo u:object_r:proc_cpuinfo:s0
 genfscon proc /softirqs u:object_r:proc_timer:s0
 genfscon proc /stat u:object_r:proc_stat:s0
