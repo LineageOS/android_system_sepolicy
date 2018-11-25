@@ -847,6 +847,7 @@ r_dir_file(system_server, proc_asound)
 r_dir_file(system_server, proc_net_type)
 r_dir_file(system_server, proc_qtaguid_stat)
 allow system_server {
+  proc_last_kmsg
   proc_loadavg
   proc_meminfo
   proc_pagetypeinfo
