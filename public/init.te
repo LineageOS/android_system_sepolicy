@@ -318,6 +318,7 @@ allow init {
   proc # b/67049235 processes /proc/<pid>/* files are mislabeled.
   proc_cmdline
   proc_diskstats
+  proc_last_kmsg
   proc_kmsg # Open /proc/kmsg for logd service.
   proc_meminfo
   proc_stat # Read /proc/stat for bootchart.
