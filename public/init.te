@@ -330,6 +330,10 @@ allow init {
   sysfs_zram
 }:file rw_file_perms;
 
+allow init {
+  sysfs_leds
+}:lnk_file read;
+
 # Allow init to write to vibrator/trigger
 allow init sysfs_vibrator:file w_file_perms;
 
