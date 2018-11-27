@@ -428,9 +428,10 @@ $(LOCAL_BUILT_MODULE): $(plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
   $(built_sepolicy_neverallows)
 	@mkdir -p $(dir $@)
 	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
-		$(POLICYVERS) -o $@ $<
-	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) $(PRIVATE_NEVERALLOW_ARG) $@ -o /dev/null -f /dev/null
+		$(POLICYVERS) -o $@.tmp $<
+	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@.tmp
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) $(PRIVATE_NEVERALLOW_ARG) $@.tmp -o /dev/null -f /dev/null
+	$(hide) mv $@.tmp $@
 
 built_plat_cil := $(LOCAL_BUILT_MODULE)
 plat_policy.conf :=
