@@ -10,6 +10,18 @@ allow domain crash_dump:process sigchld;
 # heap profiling, as initialization will fail if it does not have the
 # necessary SELinux permissions.
 get_prop(domain, heapprofd_prop);
+userdebug_or_eng(`can_profile_heap({
+  domain
+  -bpfloader
+  -init
+  -kernel
+  -keystore
+  -llkd
+  -logd
+  -ueventd
+  -vendor_init
+  -vold
+})')
 
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
 # with other UIDs to these whitelisted domains.
