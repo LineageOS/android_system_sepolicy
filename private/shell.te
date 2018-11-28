@@ -55,6 +55,9 @@ allow shell perfetto_traces_data_file:file r_file_perms;
 # Allow shell-based "dumpsys" to call into bufferhubd.
 binder_call(shell, bufferhubd);
 
+# Allow shell to run adb shell cmd gpu commands.
+binder_call(shell, gpuservice);
+
 # Allow shell to use atrace HAL
 hal_client_domain(shell, hal_atrace)
 
