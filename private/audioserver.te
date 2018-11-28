@@ -67,6 +67,9 @@ userdebug_or_eng(`
   allow audioserver su:unix_stream_socket { read write };
 ')
 
+# Allow write access to log tag property
+set_prop(audioserver, log_tag_prop);
+
 ###
 ### neverallow rules
 ###
