@@ -125,7 +125,7 @@ allow vold fscklogs:file create_file_perms;
 #
 
 # Unmount and mount the fs.
-allow vold labeledfs:filesystem { mount unmount };
+allow vold labeledfs:filesystem { mount unmount remount };
 
 # Access /efs/userdata_footer.
 # XXX Split into a separate type?
