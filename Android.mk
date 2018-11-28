@@ -307,16 +307,41 @@ $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOL
 	$(transform-policy-to-conf)
 	$(hide) sed '/^\s*dontaudit.*;/d' $@ | sed '/^\s*dontaudit/,/;/d' > $@.dontaudit
 
-$(LOCAL_BUILT_MODULE): $(sepolicy_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy
-	rm -f $@
+# sepolicy_policy_2.conf - All of the policy for the device.  This is only used to
+# check neverallow rules using sepolicy-analyze, similar to CTS.
+sepolicy_policy_2.conf := $(intermediates)/policy_2.conf
+$(sepolicy_policy_2.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(sepolicy_policy_2.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(sepolicy_policy_2.conf): PRIVATE_TARGET_BUILD_VARIANT := user
+$(sepolicy_policy_2.conf): PRIVATE_EXCLUDE_BUILD_TEST := true
+$(sepolicy_policy_2.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(sepolicy_policy_2.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
+$(sepolicy_policy_2.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(sepolicy_policy_2.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(sepolicy_policy_2.conf): $(call build_policy, $(sepolicy_build_files), \
+$(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_SEPOLICY_DIRS))
+	$(transform-policy-to-conf)
+	$(hide) sed '/^\s*dontaudit.*;/d' $@ | sed '/^\s*dontaudit/,/;/d' > $@.dontaudit
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY_1 := $(sepolicy_policy.conf)
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY_2 := $(sepolicy_policy_2.conf)
+$(LOCAL_BUILT_MODULE): $(sepolicy_policy.conf) $(sepolicy_policy_2.conf) \
+  $(HOST_OUT_EXECUTABLES)/checkpolicy $(HOST_OUT_EXECUTABLES)/sepolicy-analyze
 ifneq ($(SELINUX_IGNORE_NEVERALLOWS),true)
 	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c \
-		$(POLICYVERS) -o $@ $<
-else # ($(SELINUX_IGNORE_NEVERALLOWS),true)
-	$(hide) touch $@
+		$(POLICYVERS) -o $@.tmp $(PRIVATE_SEPOLICY_1)
+	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $@.tmp neverallow -w -f $(PRIVATE_SEPOLICY_2) || \
+	  ( echo "" 1>&2; \
+	    echo "sepolicy-analyze failed. This is most likely due to the use" 1>&2; \
+	    echo "of an expanded attribute in a neverallow assertion. Please fix" 1>&2; \
+	    echo "the policy." 1>&2; \
+	    exit 1 )
 endif # ($(SELINUX_IGNORE_NEVERALLOWS),true)
+	$(hide) touch $@.tmp
+	$(hide) mv $@.tmp $@
 
 sepolicy_policy.conf :=
+sepolicy_policy_2.conf :=
 built_sepolicy_neverallows := $(LOCAL_BUILT_MODULE)
 
 ##################################
