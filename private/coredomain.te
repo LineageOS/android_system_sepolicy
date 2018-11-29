@@ -14,6 +14,69 @@ neverallow {
 } sysfs_leds:file *;
 ')
 
+# On TREBLE devices, a limited set of files in /vendor are accessible to
+# only a few whitelisted coredomains to keep system/vendor separation.
+full_treble_only(`
+    # Limit access to /vendor/app
+    neverallow {
+        coredomain
+        -appdomain
+        -dex2oat
+        -idmap
+        -init
+        -installd
+        userdebug_or_eng(`-perfprofd')
+        userdebug_or_eng(`-heapprofd')
+        -postinstall_dexopt
+        -system_server
+    } vendor_app_file:dir { open read getattr search };
+')
+
+full_treble_only(`
+    neverallow {
+        coredomain
+        -appdomain
+        -dex2oat
+        -idmap
+        -init
+        -installd
+        userdebug_or_eng(`-perfprofd')
+        userdebug_or_eng(`-heapprofd')
+        -postinstall_dexopt
+        -system_server
+        -mediaserver
+    } vendor_app_file:file r_file_perms;
+')
+
+full_treble_only(`
+    # Limit access to /vendor/overlay
+    neverallow {
+        coredomain
+        -appdomain
+        -idmap
+        -init
+        -installd
+        -system_server
+        -webview_zygote
+        -zygote
+        userdebug_or_eng(`-heapprofd')
+    } vendor_overlay_file:dir { getattr open read search };
+')
+
+full_treble_only(`
+    neverallow {
+        coredomain
+        -appdomain
+        -idmap
+        -init
+        -installd
+        -system_server
+        -webview_zygote
+        -zygote
+        userdebug_or_eng(`-heapprofd')
+    } vendor_overlay_file:file r_file_perms;
+')
+
 # Core domains are not permitted to use kernel interfaces which are not
 # explicitly labeled.
 # TODO(b/65643247): Apply these neverallow rules to all coredomain.
