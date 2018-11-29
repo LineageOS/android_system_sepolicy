@@ -536,6 +536,10 @@ get_prop(system_server, serialno_prop)
 # Read/write the property which keeps track of whether this is the first start of system_server
 set_prop(system_server, firstboot_prop)
 
+# Audio service in system server can read exported audio properties,
+# such as camera shutter enforcement
+get_prop(system_server, exported_audio_prop)
+
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
 
