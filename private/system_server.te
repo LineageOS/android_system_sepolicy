@@ -5,7 +5,6 @@
 
 typeattribute system_server coredomain;
 typeattribute system_server mlstrustedsubject;
-can_profile_heap(system_server)
 
 # Define a type for tmpfs-backed ashmem regions.
 tmpfs_domain(system_server)
@@ -271,6 +270,7 @@ allow system_server {
   hal_camera_server
   hal_graphics_allocator_server
   hal_graphics_composer_server
+  hal_health_server
   hal_omx_server
   hal_sensors_server
   hal_vr_server

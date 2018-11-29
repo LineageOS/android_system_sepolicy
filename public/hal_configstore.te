@@ -33,6 +33,7 @@ neverallow hal_configstore_server {
   -logd
   userdebug_or_eng(`-su')
   -tombstoned
+  userdebug_or_eng(`-heapprofd')
 }:{ unix_dgram_socket unix_stream_socket } *;
 
 # Should never need access to anything on /data
