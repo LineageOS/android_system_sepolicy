@@ -5,7 +5,6 @@
 
 typeattribute system_server coredomain;
 typeattribute system_server mlstrustedsubject;
-can_profile_heap(system_server)
 
 # Define a type for tmpfs-backed ashmem regions.
 tmpfs_domain(system_server)
