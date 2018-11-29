@@ -7,7 +7,6 @@ binder_use(gatekeeperd)
 
 ### Rules needed when Gatekeeper HAL runs inside gatekeeperd process.
 ### These rules should eventually be granted only when needed.
-allow gatekeeperd tee_device:chr_file rw_file_perms;
 allow gatekeeperd ion_device:chr_file r_file_perms;
 # Load HAL implementation
 allow gatekeeperd system_file:dir r_dir_perms;

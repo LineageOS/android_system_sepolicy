@@ -326,10 +326,8 @@ allow system_server device:dir r_dir_perms;
 allow system_server mdns_socket:sock_file rw_file_perms;
 allow system_server alarm_device:chr_file rw_file_perms;
 allow system_server gpu_device:chr_file rw_file_perms;
-allow system_server iio_device:chr_file rw_file_perms;
 allow system_server input_device:dir r_dir_perms;
 allow system_server input_device:chr_file rw_file_perms;
-allow system_server radio_device:chr_file r_file_perms;
 allow system_server tty_device:chr_file rw_file_perms;
 allow system_server usbaccessory_device:chr_file rw_file_perms;
 allow system_server video_device:dir r_dir_perms;
@@ -338,7 +336,7 @@ allow system_server adbd_socket:sock_file rw_file_perms;
 allow system_server rtc_device:chr_file rw_file_perms;
 allow system_server audio_device:dir r_dir_perms;
 
-# write access needed for MIDI
+# write access to ALSA interfaces (/dev/snd/*) needed for MIDI
 allow system_server audio_device:chr_file rw_file_perms;
 
 # tun device used for 3rd party vpn apps
