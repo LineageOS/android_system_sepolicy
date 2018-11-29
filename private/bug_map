@@ -11,6 +11,7 @@ init shell_data_file file 77873135
 init shell_data_file lnk_file 77873135
 init shell_data_file sock_file 77873135
 init system_data_file chr_file 77873135
+isolated_app privapp_data_file dir 119596573
 mediaextractor app_data_file file 77923736
 mediaextractor radio_data_file file 77923736
 mediaprovider cache_file blk_file 77925342
