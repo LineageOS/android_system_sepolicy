@@ -20,6 +20,6 @@ allow dnsmasq netd:fifo_file { read write };
 allow dnsmasq netd:netlink_kobject_uevent_socket { read write };
 allow dnsmasq netd:netlink_nflog_socket { read write };
 allow dnsmasq netd:netlink_route_socket { read write };
-allow dnsmasq netd:unix_stream_socket { read write };
+allow dnsmasq netd:unix_stream_socket { getattr read write };
 allow dnsmasq netd:unix_dgram_socket { read write };
 allow dnsmasq netd:udp_socket { read write };
