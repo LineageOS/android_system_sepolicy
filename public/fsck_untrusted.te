@@ -9,7 +9,7 @@ allow fsck_untrusted vold:fd use;
 allow fsck_untrusted vold:fifo_file { read write getattr };
 
 # Run fsck on vold block devices
-allow fsck_untrusted block_device:dir search;
+allow fsck_untrusted block_device:dir { getattr search };
 allow fsck_untrusted vold_device:blk_file rw_file_perms;
 
 allow fsck_untrusted proc_mounts:file r_file_perms;
