@@ -140,3 +140,10 @@ create_pty(untrusted_app_all)
 # the ACTION_USER_UNLOCKED intent is delivered. Suppress this
 # denial to prevent third party apps from spamming the logs.
 dontaudit untrusted_app_all system_data_file:dir write;
+
+# Allow access to kcov via its ioctl interface for coverage
+# guided kernel fuzzing.
+userdebug_or_eng(`
+  allow untrusted_app_all debugfs_kcov:file rw_file_perms;
+  allowxperm untrusted_app_all debugfs_kcov:file ioctl { KCOV_INIT_TRACE KCOV_ENABLE KCOV_DISABLE };
+')
