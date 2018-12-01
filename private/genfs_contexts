@@ -252,6 +252,9 @@ genfscon debugfs /tracing/events/lowmemorykiller/                               
 genfscon debugfs /tracing/events/sync/                                           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/fence/                                          u:object_r:debugfs_tracing:s0
 
+genfscon debugfs /kcov								 u:object_r:debugfs_kcov:s0
+
+
 genfscon inotifyfs / u:object_r:inotify:s0
 genfscon vfat / u:object_r:vfat:s0
 genfscon exfat / u:object_r:exfat:s0
