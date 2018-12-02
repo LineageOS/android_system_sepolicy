@@ -25,3 +25,6 @@ userdebug_or_eng(`
   dontaudit init su:process noatsecure;
   allow init su:process { siginh rlimitinh };
 ')
+
+# Allow the BoringSSL self test to request a reboot upon failure
+set_prop(init, powerctl_prop)

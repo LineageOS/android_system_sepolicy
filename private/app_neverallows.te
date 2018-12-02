@@ -19,7 +19,8 @@ neverallow all_untrusted_apps domain:netlink_socket *;
 
 # Too much leaky information in debugfs. It's a security
 # best practice to ensure these files aren't readable.
-neverallow all_untrusted_apps debugfs_type:file read;
+neverallow all_untrusted_apps { debugfs_type -debugfs_kcov }:file read;
+neverallow {all_untrusted_apps userdebug_or_eng(`-domain')} debugfs_type:file read;
 
 # Do not allow untrusted apps to register services.
 # Only trusted components of Android should be registering

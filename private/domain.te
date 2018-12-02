@@ -23,6 +23,42 @@ userdebug_or_eng(`can_profile_heap({
   -vold
 })')
 
+# Path resolution access in cgroups.
+allow domain cgroup:dir search;
+allow { domain -appdomain } cgroup:dir w_dir_perms;
+allow { domain -appdomain } cgroup:file w_file_perms;
+
+# For now, everyone can access core property files
+# Device specific properties are not granted by default
+not_compatible_property(`
+    get_prop(domain, core_property_type)
+    get_prop(domain, exported_dalvik_prop)
+    get_prop(domain, exported_ffs_prop)
+    get_prop(domain, exported_system_radio_prop)
+    get_prop(domain, exported2_config_prop)
+    get_prop(domain, exported2_radio_prop)
+    get_prop(domain, exported2_system_prop)
+    get_prop(domain, exported2_vold_prop)
+    get_prop(domain, exported3_default_prop)
+    get_prop(domain, exported3_radio_prop)
+    get_prop(domain, exported3_system_prop)
+    get_prop(domain, vendor_default_prop)
+')
+compatible_property_only(`
+    get_prop({coredomain appdomain shell}, core_property_type)
+    get_prop({coredomain appdomain shell}, exported_dalvik_prop)
+    get_prop({coredomain appdomain shell}, exported_ffs_prop)
+    get_prop({coredomain appdomain shell}, exported_system_radio_prop)
+    get_prop({coredomain appdomain shell}, exported2_config_prop)
+    get_prop({coredomain appdomain shell}, exported2_radio_prop)
+    get_prop({coredomain appdomain shell}, exported2_system_prop)
+    get_prop({coredomain appdomain shell}, exported2_vold_prop)
+    get_prop({coredomain appdomain shell}, exported3_default_prop)
+    get_prop({coredomain appdomain shell}, exported3_radio_prop)
+    get_prop({coredomain appdomain shell}, exported3_system_prop)
+    get_prop({domain -coredomain -appdomain}, vendor_default_prop)
+')
+
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
 # with other UIDs to these whitelisted domains.
 neverallow {

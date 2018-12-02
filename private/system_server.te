@@ -182,6 +182,7 @@ binder_call(system_server, gatekeeperd)
 binder_call(system_server, idmap)
 binder_call(system_server, installd)
 binder_call(system_server, incidentd)
+binder_call(system_server, iorapd)
 binder_call(system_server, netd)
 binder_call(system_server, statsd)
 binder_call(system_server, storaged)
@@ -323,10 +324,8 @@ allow system_server device:dir r_dir_perms;
 allow system_server mdns_socket:sock_file rw_file_perms;
 allow system_server alarm_device:chr_file rw_file_perms;
 allow system_server gpu_device:chr_file rw_file_perms;
-allow system_server iio_device:chr_file rw_file_perms;
 allow system_server input_device:dir r_dir_perms;
 allow system_server input_device:chr_file rw_file_perms;
-allow system_server radio_device:chr_file r_file_perms;
 allow system_server tty_device:chr_file rw_file_perms;
 allow system_server usbaccessory_device:chr_file rw_file_perms;
 allow system_server video_device:dir r_dir_perms;
@@ -335,7 +334,7 @@ allow system_server adbd_socket:sock_file rw_file_perms;
 allow system_server rtc_device:chr_file rw_file_perms;
 allow system_server audio_device:dir r_dir_perms;
 
-# write access needed for MIDI
+# write access to ALSA interfaces (/dev/snd/*) needed for MIDI
 allow system_server audio_device:chr_file rw_file_perms;
 
 # tun device used for 3rd party vpn apps
@@ -675,6 +674,7 @@ allow system_server gpu_service:service_manager find;
 allow system_server idmap_service:service_manager find;
 allow system_server incident_service:service_manager find;
 allow system_server installd_service:service_manager find;
+allow system_server iorapd_service:service_manager find;
 allow system_server keystore_service:service_manager find;
 allow system_server mediaserver_service:service_manager find;
 allow system_server mediametrics_service:service_manager find;
@@ -764,8 +764,7 @@ userdebug_or_eng(`
 # For AppFuse.
 allow system_server vold:fd use;
 allow system_server fuse_device:chr_file { read write ioctl getattr };
-allow system_server app_fuse_file:dir rw_dir_perms;
-allow system_server app_fuse_file:file { read write open getattr append };
+allow system_server app_fuse_file:file { read write getattr };
 
 # For configuring sdcardfs
 allow system_server configfs:dir { create_dir_perms };

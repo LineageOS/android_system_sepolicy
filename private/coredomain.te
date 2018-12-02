@@ -14,6 +14,69 @@ neverallow {
 } sysfs_leds:file *;
 ')
 
+# On TREBLE devices, a limited set of files in /vendor are accessible to
+# only a few whitelisted coredomains to keep system/vendor separation.
+full_treble_only(`
+    # Limit access to /vendor/app
+    neverallow {
+        coredomain
+        -appdomain
+        -dex2oat
+        -idmap
+        -init
+        -installd
+        userdebug_or_eng(`-perfprofd')
+        userdebug_or_eng(`-heapprofd')
+        -postinstall_dexopt
+        -system_server
+    } vendor_app_file:dir { open read getattr search };
+')
+
+full_treble_only(`
+    neverallow {
+        coredomain
+        -appdomain
+        -dex2oat
+        -idmap
+        -init
+        -installd
+        userdebug_or_eng(`-perfprofd')
+        userdebug_or_eng(`-heapprofd')
+        -postinstall_dexopt
+        -system_server
+        -mediaserver
+    } vendor_app_file:file r_file_perms;
+')
+
+full_treble_only(`
+    # Limit access to /vendor/overlay
+    neverallow {
+        coredomain
+        -appdomain
+        -idmap
+        -init
+        -installd
+        -system_server
+        -webview_zygote
+        -zygote
+        userdebug_or_eng(`-heapprofd')
+    } vendor_overlay_file:dir { getattr open read search };
+')
+
+full_treble_only(`
+    neverallow {
+        coredomain
+        -appdomain
+        -idmap
+        -init
+        -installd
+        -system_server
+        -webview_zygote
+        -zygote
+        userdebug_or_eng(`-heapprofd')
+    } vendor_overlay_file:file r_file_perms;
+')
+
 # Core domains are not permitted to use kernel interfaces which are not
 # explicitly labeled.
 # TODO(b/65643247): Apply these neverallow rules to all coredomain.
@@ -106,13 +169,12 @@ full_treble_only(`
   }{ usbfs binfmt_miscfs }:file no_rw_file_perms;
 ')
 
-# Audit coredomain access to /dev nodes that might no longer be needed after
-# Treble.
-userdebug_or_eng(`
-    auditallow coredomain {
-        audio_device
-        iio_device
-        radio_device
-        tee_device
-    }:chr_file { open read append write ioctl };
-')
+# Following /dev nodes must not be directly accessed by coredomain, but should
+# instead be wrapped by HALs.
+neverallow coredomain {
+  iio_device
+  radio_device
+  # TODO(b/120243891): HAL permission to tee_device is included into coredomain
+  # on non-Treble devices.
+  full_treble_only(`tee_device')
+}:chr_file { open read append write ioctl };
