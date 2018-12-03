@@ -65,6 +65,10 @@ allow traced_probes {
   proc_stat
 }:file r_file_perms;
 
+
+# Allow access to the IHealth HAL service for tracing battery counters.
+hal_client_domain(traced_probes, hal_health)
+
 ###
 ### Neverallow rules
 ###
