@@ -30,6 +30,7 @@
     broadcastradio_service
     cgroup_bpf
     color_display_service
+    content_capture_service
     crossprofileapps_service
     ctl_interface_restart_prop
     ctl_interface_start_prop
@@ -96,7 +97,6 @@
     heapprofd_socket
     incident_helper
     incident_helper_exec
-    intelligence_service
     iorapd
     iorapd_data_file
     iorapd_exec

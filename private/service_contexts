@@ -33,6 +33,7 @@ connmetrics                               u:object_r:connmetrics_service:s0
 consumer_ir                               u:object_r:consumer_ir_service:s0
 content                                   u:object_r:content_service:s0
 content_suggestions                       u:object_r:content_suggestions_service:s0
+content_capture                           u:object_r:content_capture_service:s0
 contexthub                                u:object_r:contexthub_service:s0
 country_detector                          u:object_r:country_detector_service:s0
 coverage                                  u:object_r:coverage_service:s0
@@ -81,7 +82,6 @@ iphonesubinfo2                            u:object_r:radio_service:s0
 iphonesubinfo                             u:object_r:radio_service:s0
 ims                                       u:object_r:radio_service:s0
 imms                                      u:object_r:imms_service:s0
-intelligence                              u:object_r:intelligence_service:s0
 ipsec                                     u:object_r:ipsec_service:s0
 iris                                      u:object_r:iris_service:s0
 isms_msim                                 u:object_r:radio_service:s0
