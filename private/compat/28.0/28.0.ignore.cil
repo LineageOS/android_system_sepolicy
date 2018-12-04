@@ -18,6 +18,7 @@
     apexd_prop
     apexd_tmpfs
     biometric_service
+    content_capture_service
     cpu_variant_prop
     dev_cpu_variant
     device_config_boot_count_prop
@@ -44,7 +45,6 @@
     heapprofd_prop
     heapprofd_socket
     idmap_service
-    intelligence_service
     iris_service
     iris_vendor_data_file
     llkd
