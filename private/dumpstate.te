@@ -22,6 +22,9 @@ userdebug_or_eng(`
   allow dumpstate wm_trace_data_file:file r_file_perms;
 ')
 
+# Allow dumpstate to make binder calls to incidentd
+binder_call(dumpstate, incidentd)
+
 # Allow dumpstate to make binder calls to storaged service
 binder_call(dumpstate, storaged)
 

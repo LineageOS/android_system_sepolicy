@@ -134,9 +134,9 @@ allow incidentd {
 # Only incidentd can publish the binder service
 add_service(incidentd, incident_service)
 
-# Allow pipes from (and only from) incident
-allow incidentd incident:fd use;
-allow incidentd incident:fifo_file write;
+# Allow pipes only from dumpstate and incident
+allow incidentd { dumpstate incident }:fd use;
+allow incidentd { dumpstate incident }:fifo_file write;
 
 # Allow incident to call back to incident with status updates.
 binder_call(incidentd, incident)
@@ -145,9 +145,10 @@ binder_call(incidentd, incident)
 ### neverallow rules
 ###
 
-# only system_server, system_app and incident command can find the incident service
+# only dumpstate, system_server, system_app and incident command can find the incident service
 neverallow {
   domain
+  -dumpstate
   -incident
   -incidentd
   -statsd
