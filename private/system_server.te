@@ -846,7 +846,7 @@ with_asan(`
 # the map after snapshot is recorded
 allow system_server fs_bpf:dir search;
 allow system_server fs_bpf:file read;
-allow system_server netd:bpf map_read;
+allow system_server bpfloader:bpf map_read;
 
 # ART Profiles.
 # Allow system_server to open profile snapshots for read.
