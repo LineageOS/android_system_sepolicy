@@ -1,6 +1,5 @@
 # Device types
 type device, dev_type, fs_type;
-type alarm_device, dev_type, mlstrustedobject;
 type ashmem_device, dev_type, mlstrustedobject;
 type audio_device, dev_type;
 type binder_device, dev_type, mlstrustedobject;
