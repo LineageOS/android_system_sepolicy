@@ -3,7 +3,6 @@
 # This command line client accesses the privileged socket of the traced
 # daemon.
 
-type perfetto, domain, coredomain;
 type perfetto_exec, system_file_type, exec_type, file_type;
 
 tmpfs_domain(perfetto);
