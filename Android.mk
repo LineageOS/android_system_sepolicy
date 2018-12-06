@@ -247,11 +247,6 @@ ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 LOCAL_REQUIRED_MODULES += \
     precompiled_sepolicy \
     precompiled_sepolicy.plat_and_mapping.sha256 \
-    vendor_file_contexts \
-    vendor_mac_permissions.xml \
-    vendor_property_contexts \
-    vendor_seapp_contexts \
-    vendor_hwservice_contexts \
 
 endif # ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 
