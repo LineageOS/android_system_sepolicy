@@ -6,6 +6,7 @@ af.fast_track_multiplier u:object_r:exported3_default_prop:s0 exact int
 audio.camerasound.force u:object_r:exported_audio_prop:s0 exact bool
 audio.deep_buffer.media u:object_r:exported3_default_prop:s0 exact bool
 audio.offload.video u:object_r:exported3_default_prop:s0 exact bool
+audio.offload.min.duration.secs u:object_r:exported3_default_prop:s0 exact int
 camera.disable_zsl_mode u:object_r:exported3_default_prop:s0 exact bool
 camera.fifo.disable u:object_r:exported3_default_prop:s0 exact int
 dalvik.vm.appimageformat u:object_r:exported_dalvik_prop:s0 exact string
