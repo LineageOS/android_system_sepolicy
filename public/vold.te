@@ -31,9 +31,6 @@ allow vold file_contexts_file:file r_file_perms;
 # Allow us to jump into execution domains of above tools
 allow vold self:process setexec;
 
-# For sgdisk launched through popen()
-allow vold shell_exec:file rx_file_perms;
-
 # For formatting adoptable storage devices
 allow vold e2fs_exec:file rx_file_perms;
 
