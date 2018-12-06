@@ -8,8 +8,8 @@ domain_auto_trans(vold, sdcardd_exec, sdcardd);
 
 # For a handful of probing tools, we choose an even more restrictive
 # domain when working with untrusted block devices
-domain_trans(vold, shell_exec, blkid);
-domain_trans(vold, shell_exec, blkid_untrusted);
+domain_trans(vold, blkid_exec, blkid);
+domain_trans(vold, blkid_exec, blkid_untrusted);
 domain_trans(vold, fsck_exec, fsck);
 domain_trans(vold, fsck_exec, fsck_untrusted);
 
