@@ -10,9 +10,9 @@ r_dir_file(hal_wifi, sysfs_type)
 set_prop(hal_wifi, exported_wifi_prop)
 set_prop(hal_wifi, wifi_prop)
 
-# allow hal wifi set interfaces up and down
+# allow hal wifi set interfaces up and down and get the factory MAC
 allow hal_wifi self:udp_socket create_socket_perms;
-allowxperm hal_wifi self:udp_socket ioctl { SIOCSIFFLAGS SIOCSIFHWADDR };
+allowxperm hal_wifi self:udp_socket ioctl { SIOCSIFFLAGS SIOCSIFHWADDR SIOCETHTOOL };
 
 allow hal_wifi self:global_capability_class_set { net_admin net_raw };
 # allow hal_wifi to speak to nl80211 in the kernel
