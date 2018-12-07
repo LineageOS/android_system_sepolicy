@@ -150,11 +150,6 @@ genfscon debugfs /tracing/trace_marker                u:object_r:debugfs_trace_m
 genfscon tracefs /trace_marker                        u:object_r:debugfs_trace_marker:s0
 genfscon debugfs /wakeup_sources                      u:object_r:debugfs_wakeup_sources:s0
 
-genfscon debugfs /tracing/events/workqueue/                          u:object_r:debugfs_tracing_debug:s0
-genfscon debugfs /tracing/events/regulator/                          u:object_r:debugfs_tracing_debug:s0
-genfscon debugfs /tracing/events/pagecache/                          u:object_r:debugfs_tracing_debug:s0
-genfscon debugfs /tracing/events/irq/                                u:object_r:debugfs_tracing_debug:s0
-genfscon debugfs /tracing/events/ipi/                                u:object_r:debugfs_tracing_debug:s0
 genfscon debugfs /tracing/events/header_page                         u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/f2fs/f2fs_get_data_block/           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/f2fs/f2fs_iget/                     u:object_r:debugfs_tracing:s0
@@ -172,11 +167,6 @@ genfscon debugfs /tracing/events/ext4/ext4_sync_file_exit/           u:object_r:
 genfscon debugfs /tracing/events/block/block_rq_issue/               u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/block/block_rq_complete/            u:object_r:debugfs_tracing:s0
 
-genfscon tracefs /events/workqueue/                          u:object_r:debugfs_tracing_debug:s0
-genfscon tracefs /events/regulator/                          u:object_r:debugfs_tracing_debug:s0
-genfscon tracefs /events/pagecache/                          u:object_r:debugfs_tracing_debug:s0
-genfscon tracefs /events/irq/                                u:object_r:debugfs_tracing_debug:s0
-genfscon tracefs /events/ipi/                                u:object_r:debugfs_tracing_debug:s0
 genfscon tracefs /events/header_page                         u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/f2fs/f2fs_get_data_block/           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/f2fs/f2fs_iget/                     u:object_r:debugfs_tracing:s0
