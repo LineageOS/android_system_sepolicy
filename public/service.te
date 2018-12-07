@@ -71,6 +71,7 @@ type country_detector_service, app_api_service, ephemeral_app_api_service, syste
 type coverage_service, system_server_service, service_manager_type;
 type cpuinfo_service, system_api_service, system_server_service, service_manager_type;
 type dbinfo_service, system_api_service, system_server_service, service_manager_type;
+type device_config_service, system_server_service, service_manager_type;
 type device_policy_service, app_api_service, system_server_service, service_manager_type;
 type deviceidle_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type device_identifiers_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
