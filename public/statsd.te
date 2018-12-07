@@ -60,6 +60,7 @@ allow statsd dumpstate:fifo_file { getattr write };
 allow statsd proc_uid_cputime_showstat:file { getattr open read };
 hal_client_domain(statsd, hal_health)
 hal_client_domain(statsd, hal_power)
+hal_client_domain(statsd, hal_power_stats)
 hal_client_domain(statsd, hal_thermal)
 
 # Allow 'adb shell cmd' to upload configs and download output.
