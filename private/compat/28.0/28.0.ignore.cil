@@ -20,8 +20,9 @@
     cpu_variant_prop
     dev_cpu_variant
     device_config_boot_count_prop
-    device_config_reset_performed_prop
     device_config_flags_health_check_prop
+    device_config_reset_performed_prop
+    device_config_service
     face_service
     face_vendor_data_file
     fastbootd
