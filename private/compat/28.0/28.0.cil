@@ -1,4 +1,5 @@
 ;; types removed from current policy
+(type alarm_device)
 (type audio_seq_device)
 (type audio_timer_device)
 (type commontime_management_service)
