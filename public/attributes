@@ -275,6 +275,7 @@ hal_attribute(nfc);
 hal_attribute(oemlock);
 hal_attribute(omx);
 hal_attribute(power);
+hal_attribute(power_stats);
 hal_attribute(secure_element);
 hal_attribute(sensors);
 hal_attribute(system_suspend);

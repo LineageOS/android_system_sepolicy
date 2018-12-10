@@ -38,6 +38,7 @@ type hal_nfc_hwservice, hwservice_manager_type;
 type hal_oemlock_hwservice, hwservice_manager_type;
 type hal_omx_hwservice, hwservice_manager_type;
 type hal_power_hwservice, hwservice_manager_type;
+type hal_power_stats_hwservice, hwservice_manager_type;
 type hal_renderscript_hwservice, hwservice_manager_type, same_process_hwservice;
 type hal_secure_element_hwservice, hwservice_manager_type;
 type hal_sensors_hwservice, hwservice_manager_type;
