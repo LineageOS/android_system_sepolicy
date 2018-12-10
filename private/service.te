@@ -1,3 +1,2 @@
-type buffer_hub_service, service_manager_type;
 type stats_service, service_manager_type;
 type statscompanion_service, system_server_service, service_manager_type;
