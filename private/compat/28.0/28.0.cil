@@ -14,8 +14,6 @@
 (type thermalcallback_hwservice)
 (type untrusted_v2_app)
 (type vcs_device)
-(type thermalserviced)
-(type thermalserviced_exec)
 
 ;; Public 28.0 SEPolicy is divergent on different devices w.r.t
 ;; exported_audio_prop type. We need this typeattribute declaration so that the
@@ -740,6 +738,8 @@
 (expandtypeattribute (textservices_service_28_0) true)
 (expandtypeattribute (thermalcallback_hwservice_28_0) true)
 (expandtypeattribute (thermal_service_28_0) true)
+(expandtypeattribute (thermalserviced_28_0) true)
+(expandtypeattribute (thermalserviced_exec_28_0) true)
 (expandtypeattribute (timezone_service_28_0) true)
 (expandtypeattribute (tmpfs_28_0) true)
 (expandtypeattribute (tombstoned_28_0) true)
@@ -1603,6 +1603,8 @@
 (typeattributeset textservices_service_28_0 (textservices_service))
 (typeattributeset thermalcallback_hwservice_28_0 (thermalcallback_hwservice))
 (typeattributeset thermal_service_28_0 (thermal_service))
+(typeattributeset thermalserviced_28_0 (thermalserviced))
+(typeattributeset thermalserviced_exec_28_0 (thermalserviced_exec))
 (typeattributeset timezone_service_28_0 (timezone_service))
 (typeattributeset tmpfs_28_0 (tmpfs))
 (typeattributeset tombstoned_28_0 (tombstoned))
