@@ -43,6 +43,7 @@ android.hardware.neuralnetworks::IDevice                        u:object_r:hal_n
 android.hardware.nfc::INfc                                      u:object_r:hal_nfc_hwservice:s0
 android.hardware.oemlock::IOemLock                              u:object_r:hal_oemlock_hwservice:s0
 android.hardware.power::IPower                                  u:object_r:hal_power_hwservice:s0
+android.hardware.power.stats::IPowerStats                       u:object_r:hal_power_stats_hwservice:s0
 android.hardware.radio.config::IRadioConfig                     u:object_r:hal_telephony_hwservice:s0
 android.hardware.radio.deprecated::IOemHook                     u:object_r:hal_telephony_hwservice:s0
 android.hardware.radio::IRadio                                  u:object_r:hal_telephony_hwservice:s0
