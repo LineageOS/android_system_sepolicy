@@ -47,7 +47,7 @@ neverallow { all_untrusted_apps -untrusted_app_25 } net_dns_prop:file read;
 neverallow all_untrusted_apps rs_data_file:file
   { append create link relabelfrom relabelto rename setattr write };
 
-# Block calling execve() on files in an apps home directory.
+# Block calling execve() in app /data/data files.
 # This is a W^X violation (loading executable code from a writable
 # home directory). For compatibility, allow for targetApi <= 28.
 # b/112357170
@@ -57,6 +57,17 @@ neverallow {
   -untrusted_app_27
   -runas_app
 } { app_data_file privapp_data_file }:file execute_no_trans;
+
+# Block calling dlopen() in app /data/data files.
+# This is a W^X violation (loading executable code from a writable
+# home directory). For compatibility, allow for targetApi <= 28.
+# b/112357170
+neverallow {
+  all_untrusted_apps
+  -untrusted_app_25
+  -untrusted_app_27
+  -runas_app
+} app_data_file:file execute;
 
 # Do not allow untrusted apps to invoke dex2oat. This was historically required
 # by ART for compiling secondary dex files but has been removed in Q.
