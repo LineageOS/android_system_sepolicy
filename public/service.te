@@ -152,7 +152,7 @@ type task_service, system_server_service, service_manager_type;
 type textclassification_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type textservices_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type telecom_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
-type thermal_service, system_server_service, service_manager_type;
+type thermal_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type timedetector_service, system_server_service, service_manager_type;
 type timezone_service, system_server_service, service_manager_type;
 type timezonedetector_service, system_server_service, service_manager_type;
