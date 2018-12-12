@@ -41,6 +41,12 @@ neverallow { all_untrusted_apps -mediaprovider } property_type:property_service 
 # but otherwise disallow untrusted apps from reading this property.
 neverallow { all_untrusted_apps -untrusted_app_25 } net_dns_prop:file read;
 
+# Renderscript created files within an app home directory can be
+# dlopen()ed. To maintain the W^X property, these files
+# must never be writable to the app.
+neverallow all_untrusted_apps rs_data_file:file
+  { append create link relabelfrom relabelto rename setattr write };
+
 # Block calling execve() on files in an apps home directory.
 # This is a W^X violation (loading executable code from a writable
 # home directory). For compatibility, allow for targetApi <= 28.
@@ -121,6 +127,7 @@ neverallow { all_untrusted_apps -mediaprovider } {
   file_type
   -app_data_file            # The apps sandbox itself
   -privapp_data_file
+  -rs_data_file             # stored within the app sandbox directory
   -media_rw_data_file       # Internal storage. Known that apps can
                             # leave artfacts here after uninstall.
   -user_profile_data_file   # Access to profile files

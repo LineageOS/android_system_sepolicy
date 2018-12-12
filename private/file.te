@@ -13,3 +13,5 @@ type perfetto_traces_data_file, file_type, data_file_type, core_data_file_type;
 # /sys/kernel/debug/kcov for coverage guided kernel fuzzing in userdebug builds.
 type debugfs_kcov, fs_type, debugfs_type;
 
+# renderscript created files in /data/data directories
+type rs_data_file, file_type, data_file_type, core_data_file_type;

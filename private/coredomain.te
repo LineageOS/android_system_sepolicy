@@ -28,6 +28,7 @@ full_treble_only(`
         userdebug_or_eng(`-perfprofd')
         userdebug_or_eng(`-heapprofd')
         -postinstall_dexopt
+        -rs # spawned by appdomain, so carryover the exception above
         -system_server
     } vendor_app_file:dir { open read getattr search };
 ')
@@ -43,6 +44,7 @@ full_treble_only(`
         userdebug_or_eng(`-perfprofd')
         userdebug_or_eng(`-heapprofd')
         -postinstall_dexopt
+        -rs # spawned by appdomain, so carryover the exception above
         -system_server
         -mediaserver
     } vendor_app_file:file r_file_perms;
@@ -56,6 +58,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
+        -rs # spawned by appdomain, so carryover the exception above
         -system_server
         -webview_zygote
         -zygote
@@ -70,6 +73,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
+        -rs # spawned by appdomain, so carryover the exception above
         -system_server
         -webview_zygote
         -zygote
