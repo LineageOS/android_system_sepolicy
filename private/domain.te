@@ -25,8 +25,8 @@ userdebug_or_eng(`can_profile_heap({
 
 # Path resolution access in cgroups.
 allow domain cgroup:dir search;
-allow { domain -appdomain } cgroup:dir w_dir_perms;
-allow { domain -appdomain } cgroup:file w_file_perms;
+allow { domain -appdomain -rs } cgroup:dir w_dir_perms;
+allow { domain -appdomain -rs } cgroup:file w_file_perms;
 
 # For now, everyone can access core property files
 # Device specific properties are not granted by default
@@ -105,6 +105,7 @@ neverallow {
   -installd
   userdebug_or_eng(`-perfprofd')
   -profman
+  -rs # spawned by appdomain, so carryover the exception above
   -runas
   -system_server
 } { privapp_data_file app_data_file }:dir *;
@@ -115,6 +116,7 @@ neverallow {
   domain
   -appdomain
   -installd
+  -rs # spawned by appdomain, so carryover the exception above
 } { privapp_data_file app_data_file }:dir ~r_dir_perms;
 
 neverallow {
@@ -122,6 +124,7 @@ neverallow {
   -appdomain
   -installd
   userdebug_or_eng(`-perfprofd')
+  -rs # spawned by appdomain, so carryover the exception above
 } { privapp_data_file app_data_file }:file_class_set open;
 
 neverallow {

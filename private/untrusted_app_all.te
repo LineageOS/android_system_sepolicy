@@ -22,7 +22,12 @@
 
 # Some apps ship with shared libraries and binaries that they write out
 # to their sandbox directory and then execute.
-allow untrusted_app_all { app_data_file privapp_data_file }:file { r_file_perms execute };
+allow untrusted_app_all privapp_data_file:file { r_file_perms execute };
+allow untrusted_app_all app_data_file:file     { r_file_perms execute };
+
+# Allow loading and deleting renderscript created shared libraries
+# within an application home directory.
+allow untrusted_app_all rs_data_file:file { r_file_perms execute unlink };
 
 # ASEC
 allow untrusted_app_all asec_apk_file:file r_file_perms;
@@ -121,6 +126,9 @@ unix_socket_connect(untrusted_app_all, traced_producer, traced)
 # modify them other than to connect
 allow untrusted_app_all system_server:udp_socket {
         connect getattr read recvfrom sendto write getopt setopt };
+
+# Allow the renderscript compiler to be run.
+domain_auto_trans(untrusted_app_all, rs_exec, rs)
 
 # This is allowed for targetSdkVersion <= 25 but disallowed on newer versions.
 dontaudit untrusted_app_all net_dns_prop:file read;
