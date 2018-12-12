@@ -61,8 +61,13 @@ recovery_only(`
 
   allow fastbootd proc_cmdline:file r_file_perms;
   allow fastbootd rootfs:dir r_dir_perms;
-  allow fastbootd sysfs_dt_firmware_android:file r_file_perms;
 
+  # Needed to read fstab node from device tree.
+  allow fastbootd sysfs_dt_firmware_android:file r_file_perms;
+  allow fastbootd sysfs_dt_firmware_android:dir r_dir_perms;
+
+  # Needed for realpath() call to resolve symlinks.
+  allow fastbootd block_device:dir getattr;
   userdebug_or_eng(`
     # Refined manipulation of /mnt/scratch, without these perms resorts
     # to deleting scratch partition when partition(s) are flashed.
