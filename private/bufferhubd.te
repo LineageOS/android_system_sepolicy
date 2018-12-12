@@ -1,7 +1,3 @@
 typeattribute bufferhubd coredomain;
 
 init_daemon_domain(bufferhubd)
-
-# Permission for create binder service "bufferhubd"
-binder_use(bufferhubd);
-add_service(bufferhubd, buffer_hub_service);
