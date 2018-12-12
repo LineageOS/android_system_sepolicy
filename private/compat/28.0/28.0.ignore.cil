@@ -39,6 +39,7 @@
     hal_system_suspend_default_exec
     hal_system_suspend_default_tmpfs
     heapprofd
+    heapprofd_enabled_prop
     heapprofd_exec
     heapprofd_prop
     heapprofd_socket
