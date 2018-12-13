@@ -20,3 +20,6 @@ type_transition installd system_data_file:file install_data_file;
 # For collecting bugreports.
 allow installd dumpstate:fd use;
 allow installd dumpstate:fifo_file r_file_perms;
+
+# Delete /system/bin/bcc generated artifacts
+allow installd rs_data_file:file unlink;

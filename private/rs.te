@@ -1,0 +1,42 @@
+type rs, domain, coredomain;
+type rs_exec, system_file_type, exec_type, file_type;
+
+# Any files which would have been created as app_data_file
+# will be created as rs_data_file instead.
+allow rs app_data_file:dir ra_dir_perms;
+allow rs rs_data_file:file create_file_perms;
+type_transition rs app_data_file:file rs_data_file;
+
+# Read files from the app home directory.
+allow rs app_data_file:file r_file_perms;
+allow rs app_data_file:dir r_dir_perms;
+
+# Cleanup rs_data_file files in the app home directory.
+allow rs app_data_file:dir remove_name;
+
+# Use vendor resources
+allow rs vendor_file:dir r_dir_perms;
+r_dir_file(rs, vendor_overlay_file)
+r_dir_file(rs, vendor_app_file)
+
+# Read contents of app apks
+r_dir_file(rs, apk_data_file)
+
+allow rs gpu_device:chr_file rw_file_perms;
+allow rs ion_device:chr_file r_file_perms;
+allow rs same_process_hal_file:file { r_file_perms execute };
+
+# File descriptors passed from app to renderscript
+allow rs untrusted_app_all:fd use;
+
+# TODO: Explain why these dontaudits are needed. Most likely
+# these are file descriptors leaking across an exec() boundary
+# due to a missing O_CLOEXEC / SOCK_CLOEXEC
+dontaudit rs untrusted_app_all:unix_stream_socket { read write };
+dontaudit rs untrusted_app_all:fifo_file { read write };
+
+# TODO: Explain why this is necessary. I think this is a zygote
+# created logging socket and system server parceled file descriptor
+# which is not using the O_CLOEXEC flag.
+dontaudit rs zygote:fd use;
+dontaudit rs system_server:fd use;
