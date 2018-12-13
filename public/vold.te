@@ -252,7 +252,6 @@ neverallow {
 neverallow {
     domain
     -init
-    -vendor_init
     -vold
 } vold_metadata_file:dir *;
 
@@ -274,7 +273,6 @@ neverallow {
     domain
     -init
     -kernel
-    -vendor_init
     -vold
     -vold_prepare_subdirs
 } { vold_data_file vold_metadata_file }:notdevfile_class_set *;
