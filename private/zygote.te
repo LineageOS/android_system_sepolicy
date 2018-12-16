@@ -91,6 +91,7 @@ allow zygote sdcardfs:filesystem { unmount };
 # Allow creating user-specific storage source if started before vold.
 allow zygote mnt_user_file:dir create_dir_perms;
 allow zygote mnt_user_file:lnk_file create_file_perms;
+allow zygote mnt_user_file:file create_file_perms;
 # Allowed to mount user-specific storage into place
 allow zygote storage_file:dir { search mounton };
 # Allow mounting on sdcardfs dirs
