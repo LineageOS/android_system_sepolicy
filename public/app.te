@@ -432,7 +432,9 @@ neverallow { appdomain -shell } { domain -appdomain }:file no_rw_file_perms;
 # sigchld allowed for parent death notification.
 # signull allowed for kill(pid, 0) existence test.
 # All others prohibited.
-neverallow appdomain { domain -appdomain }:process
+# -perfetto is to allow shell (which is an appdomain) to kill perfetto
+# (see private/shell.te).
+neverallow appdomain { domain -appdomain -perfetto }:process
     { sigkill sigstop signal };
 
 # Write to rootfs.
