@@ -1354,6 +1354,7 @@ define(`dac_override_allowed', `{
   perfprofd
   postinstall_dexopt
   recovery
+  rss_hwm_reset
   sdcardd
   tee
   ueventd
