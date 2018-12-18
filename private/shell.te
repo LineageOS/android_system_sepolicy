@@ -44,6 +44,8 @@ domain_auto_trans(shell, vendor_shell_exec, vendor_shell)
 # transition into its own domain, so that it behaves consistently to
 # when exec()-d by statsd.
 domain_auto_trans(shell, perfetto_exec, perfetto)
+# Allow to send SIGINT to perfetto when daemonized.
+allow shell perfetto:process signal;
 
 # Allow shell to run adb shell cmd stats commands. Needed for CTS.
 binder_call(shell, statsd);
