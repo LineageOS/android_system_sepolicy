@@ -27,7 +27,7 @@ import file_utils
 #   - setup_build_cil()
 #     - Sets up command parsers and sets default function to do_build_cil().
 #   - do_build_cil()
-_SUPPORTED_COMMANDS = ('build_cil',)
+_SUPPORTED_COMMANDS = ('build_cil', 'filter_out')
 
 
 def run_host_command(args, **kwargs):
@@ -117,6 +117,24 @@ def setup_build_cil(subparsers):
 
     # The function that performs the actual works.
     parser.set_defaults(func=do_build_cil)
+
+
+def do_filter_out(args):
+    """Removes all lines in one file that match any line in another file.
+
+    Args:
+        args: the parsed command arguments.
+    """
+    file_utils.filter_out(args.filter_out_files, args.target_file)
+
+def setup_filter_out(subparsers):
+    """Sets up command args for 'filter_out' command."""
+    parser = subparsers.add_parser('filter_out', help='filter CIL files')
+    parser.add_argument('-f', '--filter_out_files', required=True, nargs='+',
+                        help='the pattern files to filter out the output cil')
+    parser.add_argument('-t', '--target_file', required=True,
+                        help='target file to filter')
+    parser.set_defaults(func=do_filter_out)
 
 
 def run(argv):
