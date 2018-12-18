@@ -6,3 +6,5 @@ init_daemon_domain(hal_cas_default)
 
 # Allow CAS HAL's default implementation to use vendor-binder service
 vndbinder_use(hal_cas_default);
+
+allow hal_cas_default hal_allocator:fd use;
