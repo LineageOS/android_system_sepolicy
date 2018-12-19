@@ -7,6 +7,9 @@ allow rs app_data_file:dir ra_dir_perms;
 allow rs rs_data_file:file create_file_perms;
 type_transition rs app_data_file:file rs_data_file;
 
+# Follow /data/user/0 symlink
+allow rs system_data_file:lnk_file read;
+
 # Read files from the app home directory.
 allow rs app_data_file:file r_file_perms;
 allow rs app_data_file:dir r_dir_perms;
