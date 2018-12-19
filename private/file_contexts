@@ -43,6 +43,7 @@
 /vendor_file_contexts   u:object_r:file_contexts_file:s0
 /nonplat_file_contexts  u:object_r:file_contexts_file:s0
 /plat_file_contexts     u:object_r:file_contexts_file:s0
+/product_file_contexts  u:object_r:file_contexts_file:s0
 /mapping_sepolicy\.cil   u:object_r:sepolicy_file:s0
 /nonplat_sepolicy\.cil   u:object_r:sepolicy_file:s0
 /plat_sepolicy\.cil      u:object_r:sepolicy_file:s0
@@ -371,6 +372,8 @@
 #
 /(product|system/product)(/.*)?                                 u:object_r:system_file:s0
 /(product|system/product)/overlay(/.*)?                         u:object_r:vendor_overlay_file:s0
+
+/(product|system/product)/etc/selinux/product_file_contexts     u:object_r:file_contexts_file:s0
 
 #############################
 # Product-Services files
