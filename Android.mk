@@ -285,6 +285,7 @@ endif
 ifdef HAS_PRODUCT_SEPOLICY
 LOCAL_REQUIRED_MODULES += \
     product_sepolicy.cil \
+    product_file_contexts \
 
 endif
 include $(BUILD_PHONY_PACKAGE)
@@ -1043,6 +1044,34 @@ local_fcfiles_with_nl :=
 ##################################
 include $(CLEAR_VARS)
 
+LOCAL_MODULE := product_file_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+product_fc_files := $(call build_policy, file_contexts, $(PRODUCT_PRIVATE_POLICY))
+product_fcfiles_with_nl := $(call add_nl, $(product_fc_files), $(built_nl))
+
+$(LOCAL_BUILT_MODULE): PRIVATE_FC_FILES := $(product_fcfiles_with_nl)
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(LOCAL_BUILT_MODULE): PRIVATE_FC_SORT := $(HOST_OUT_EXECUTABLES)/fc_sort
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/checkfc $(HOST_OUT_EXECUTABLES)/fc_sort \
+$(product_fcfiles_with_nl) $(built_sepolicy)
+	@mkdir -p $(dir $@)
+	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_FC_FILES) > $@.tmp
+	$(hide) $< $(PRIVATE_SEPOLICY) $@.tmp
+	$(hide) $(PRIVATE_FC_SORT) $@.tmp $@
+
+built_product_fc := $(LOCAL_BUILT_MODULE)
+product_fc_files :=
+product_fcfiles_with_nl :=
+
+##################################
+include $(CLEAR_VARS)
+
 LOCAL_MODULE := vendor_file_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
@@ -1112,6 +1141,20 @@ LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
 include $(BUILD_SYSTEM)/base_rules.mk
 
 $(LOCAL_BUILT_MODULE): $(built_plat_fc)
+	$(hide) cp -f $< $@
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := product_file_contexts.recovery
+LOCAL_MODULE_STEM := product_file_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_product_fc)
 	$(hide) cp -f $< $@
 
 ##################################
@@ -1663,6 +1706,9 @@ LOCAL_MODULE_TAGS := tests
 include $(BUILD_SYSTEM)/base_rules.mk
 
 all_fc_files := $(built_plat_fc) $(built_vendor_fc)
+ifdef HAS_PRODUCT_SEPOLICY
+all_fc_args += $(built_product_fc)
+endif
 ifdef BOARD_ODM_SEPOLICY_DIRS
 all_fc_files += $(built_odm_fc)
 endif
@@ -1737,6 +1783,9 @@ $(HOST_OUT_EXECUTABLES)/build_sepolicy $(base_plat_pub_policy.conf) $(reqd_polic
 		-f $(PRIVATE_REQD_MASK) -t $@
 
 all_fc_files := $(built_plat_fc) $(built_vendor_fc)
+ifdef HAS_PRODUCT_SEPOLICY
+all_fc_files += $(built_product_fc)
+endif
 ifdef BOARD_ODM_SEPOLICY_DIRS
 all_fc_files += $(built_odm_fc)
 endif
@@ -1802,6 +1851,7 @@ build_vendor_policy :=
 build_odm_policy :=
 build_policy :=
 built_plat_fc :=
+built_product_fc :=
 built_vendor_fc :=
 built_odm_fc :=
 built_nl :=
