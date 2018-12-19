@@ -514,7 +514,8 @@ $(HOST_OUT_EXECUTABLES)/build_sepolicy $(HOST_OUT_EXECUTABLES)/secilc $(built_pl
 		-f $(PRIVATE_PLAT_CIL) -t $@
 	# Line markers (denoted by ;;) are malformed after above cmd. They are only
 	# used for debugging, so we remove them.
-	$(hide) sed -i '/;;/d' $@
+	$(hide) grep -v ';;' $@ > $@.tmp
+	$(hide) mv $@.tmp $@
 	# Combine plat_sepolicy.cil and product_sepolicy.cil to make sure that the
 	# latter doesn't accidentally depend on vendor/odm policies.
 	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) \
