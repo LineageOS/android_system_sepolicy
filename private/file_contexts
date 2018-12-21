@@ -377,6 +377,7 @@
 /(product|system/product)/etc/selinux/product_file_contexts      u:object_r:file_contexts_file:s0
 /(product|system/product)/etc/selinux/product_hwservice_contexts u:object_r:hwservice_contexts_file:s0
 /(product|system/product)/etc/selinux/product_property_contexts  u:object_r:property_contexts_file:s0
+/(product|system/product)/etc/selinux/product_seapp_contexts     u:object_r:seapp_contexts_file:s0
 
 #############################
 # Product-Services files
