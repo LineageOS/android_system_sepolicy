@@ -6,7 +6,6 @@ untrusted_app_domain(runas_app)
 net_domain(runas_app)
 bluetooth_domain(runas_app)
 
-# The ability to call exec() or dlopen() on app /data/data
-# files when using run-as on a debuggable app.
-# Needed by simpleperf.
-allow runas_app app_data_file:file { execute_no_trans execute };
+# The ability to call exec() on files in the apps home directories
+# when using run-as on a debuggable app. Needed by simpleperf.
+allow runas_app app_data_file:file execute_no_trans;

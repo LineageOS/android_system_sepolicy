@@ -27,9 +27,9 @@ untrusted_app_domain(untrusted_app_27)
 net_domain(untrusted_app_27)
 bluetooth_domain(untrusted_app_27)
 
-# The ability to call exec() or dlopen() on files in the apps home
-# directories for targetApi 26, 27, and 28.
-allow untrusted_app_27 app_data_file:file { execute execute_no_trans };
+# The ability to call exec() on files in the apps home directories
+# for targetApi 26, 27, and 28.
+allow untrusted_app_27 app_data_file:file execute_no_trans;
 
 # The ability to invoke dex2oat. Historically required by ART, now only
 # allowed for targetApi<=28 for compat reasons.
