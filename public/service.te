@@ -117,6 +117,7 @@ type netpolicy_service, app_api_service, ephemeral_app_api_service, system_serve
 type netstats_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type network_management_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type network_score_service, system_api_service, system_server_service, service_manager_type;
+type network_stack_service, system_server_service, service_manager_type;
 type network_time_update_service, system_server_service, service_manager_type;
 type notification_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type oem_lock_service, system_api_service, system_server_service, service_manager_type;
