@@ -6,6 +6,9 @@ init_daemon_domain(heapprofd)
 set_prop(heapprofd, heapprofd_prop);
 
 userdebug_or_eng(`
+  # TODO(fmayer): We will also need this on user to read /proc/<pid>/cmdline
+  # and send signals.
+  typeattribute heapprofd mlstrustedsubject;
   # Allow to send signal to processes.
   # This excludes SIGKILL, SIGSTOP and SIGCHLD,
   # which are controlled by separate permissions.
