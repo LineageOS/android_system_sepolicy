@@ -118,6 +118,7 @@ mount                                     u:object_r:mount_service:s0
 netd                                      u:object_r:netd_service:s0
 netpolicy                                 u:object_r:netpolicy_service:s0
 netstats                                  u:object_r:netstats_service:s0
+network_stack                             u:object_r:network_stack_service:s0
 network_management                        u:object_r:network_management_service:s0
 network_score                             u:object_r:network_score_service:s0
 network_time_update_service               u:object_r:network_time_update_service:s0
