@@ -23,7 +23,7 @@
 # Some apps ship with shared libraries and binaries that they write out
 # to their sandbox directory and then execute.
 allow untrusted_app_all privapp_data_file:file { r_file_perms execute };
-allow untrusted_app_all app_data_file:file r_file_perms;
+allow untrusted_app_all app_data_file:file     { r_file_perms execute };
 
 # Allow loading and deleting renderscript created shared libraries
 # within an application home directory.
