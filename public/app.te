@@ -358,8 +358,8 @@ allow appdomain dropbox_data_file:file { getattr read };
 ###
 
 # Superuser capabilities.
-# bluetooth requires net_admin and wake_alarm.
-neverallow { appdomain -bluetooth } self:capability_class_set *;
+# bluetooth requires net_admin and wake_alarm. network stack app requires net_admin.
+neverallow { appdomain -bluetooth -network_stack } self:capability_class_set *;
 
 # Block device access.
 neverallow appdomain dev_type:blk_file { read write };
