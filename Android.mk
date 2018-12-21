@@ -287,6 +287,7 @@ LOCAL_REQUIRED_MODULES += \
     product_sepolicy.cil \
     product_file_contexts \
     product_hwservice_contexts \
+    product_property_contexts \
 
 endif
 include $(BUILD_PHONY_PACKAGE)
@@ -1288,8 +1289,7 @@ endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-# TODO(b/119305624): Move product-specific sepolicy out of plat_property_contexts.
-plat_pcfiles := $(call build_policy, property_contexts, $(PLAT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
+plat_pcfiles := $(call build_policy, property_contexts, $(PLAT_PRIVATE_POLICY))
 ifeq ($(PRODUCT_COMPATIBLE_PROPERTY),true)
 plat_pcfiles += $(LOCAL_PATH)/public/property_contexts
 endif
@@ -1309,6 +1309,34 @@ $(LOCAL_BUILT_MODULE): $(plat_property_contexts.tmp) $(built_sepolicy) $(HOST_OU
 built_plat_pc := $(LOCAL_BUILT_MODULE)
 plat_pcfiles :=
 plat_property_contexts.tmp :=
+
+##################################
+include $(CLEAR_VARS)
+LOCAL_MODULE := product_property_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+product_pcfiles := $(call build_policy, property_contexts, $(PRODUCT_PRIVATE_POLICY))
+
+product_property_contexts.tmp := $(intermediates)/product_property_contexts.tmp
+$(product_property_contexts.tmp): PRIVATE_PC_FILES := $(product_pcfiles)
+$(product_property_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(product_property_contexts.tmp): $(product_pcfiles)
+	@mkdir -p $(dir $@)
+	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(product_property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/property_info_checker
+	@mkdir -p $(dir $@)
+	$(hide) cp -f $< $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/property_info_checker $(PRIVATE_SEPOLICY) $@
+
+built_product_pc := $(LOCAL_BUILT_MODULE)
+product_pcfiles :=
+product_property_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -1387,6 +1415,19 @@ LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
 include $(BUILD_SYSTEM)/base_rules.mk
 
 $(LOCAL_BUILT_MODULE): $(built_plat_pc)
+	$(hide) cp -f $< $@
+
+##################################
+include $(CLEAR_VARS)
+LOCAL_MODULE := product_property_contexts.recovery
+LOCAL_MODULE_STEM := product_property_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_product_pc)
 	$(hide) cp -f $< $@
 
 ##################################
@@ -1887,6 +1928,7 @@ built_plat_cil :=
 built_plat_pub_vers_cil :=
 built_mapping_cil :=
 built_plat_pc :=
+built_product_pc :=
 built_vendor_cil :=
 built_vendor_pc :=
 built_vendor_sc :=
