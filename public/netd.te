@@ -130,14 +130,20 @@ neverallow netd system_file:dir_file_class_set write;
 # Write to files in /data/data or system files on /data
 neverallow netd { app_data_file privapp_data_file system_data_file }:dir_file_class_set write;
 
-# only system_server and dumpstate may find netd service
-neverallow { domain -system_server -dumpstate -netd } netd_service:service_manager find;
+# only system_server, dumpstate and network stack app may find netd service
+neverallow {
+    domain
+    -system_server
+    -dumpstate
+    -network_stack
+    -netd
+} netd_service:service_manager find;
 
 # only netd can create the bpf maps
 neverallow { domain -netd } netd:bpf { map_create };
 
 # apps may not interact with netd over binder.
-neverallow appdomain netd:binder call;
+neverallow { appdomain -network_stack } netd:binder call;
 neverallow netd { appdomain userdebug_or_eng(`-su') }:binder call;
 
 # persist.netd.stable_secret contains RFC 7217 secret key which should never be
