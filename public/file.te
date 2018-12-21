@@ -398,7 +398,7 @@ type traced_consumer_socket, file_type, coredomain_socket, mlstrustedobject;
 type uncrypt_socket, file_type, coredomain_socket;
 type wpa_socket, file_type, data_file_type, core_data_file_type;
 type zygote_socket, file_type, coredomain_socket;
-type heapprofd_socket, file_type, coredomain_socket;
+type heapprofd_socket, file_type, coredomain_socket, mlstrustedobject;
 # UART (for GPS) control proc file
 type gps_control, file_type;
 
