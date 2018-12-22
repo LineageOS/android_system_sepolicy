@@ -1,6 +1,3 @@
-type rs, domain, coredomain;
-type rs_exec, system_file_type, exec_type, file_type;
-
 # Any files which would have been created as app_data_file
 # will be created as rs_data_file instead.
 allow rs app_data_file:dir ra_dir_perms;
