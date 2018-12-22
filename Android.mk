@@ -290,6 +290,7 @@ LOCAL_REQUIRED_MODULES += \
     product_property_contexts \
     product_seapp_contexts \
     product_service_contexts \
+    product_mac_permissions.xml \
 
 endif
 include $(BUILD_PHONY_PACKAGE)
@@ -1743,8 +1744,7 @@ $(plat_mac_perms_keys.tmp): $(call build_policy, keys.conf, $(PLAT_PRIVATE_POLIC
 	@mkdir -p $(dir $@)
 	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
 
-# TODO(b/119305624): Move product-specific sepolicy out of plat_mac_permissions.
-all_plat_mac_perms_files := $(call build_policy, mac_permissions.xml, $(PLAT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
+all_plat_mac_perms_files := $(call build_policy, mac_permissions.xml, $(PLAT_PRIVATE_POLICY))
 
 # Should be synced with keys.conf.
 all_plat_keys := platform media shared testkey
@@ -1760,6 +1760,34 @@ $(all_plat_mac_perms_files) $(all_plat_keys)
 all_mac_perms_files :=
 all_plat_keys :=
 plat_mac_perms_keys.tmp :=
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := product_mac_permissions.xml
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+# Build keys.conf
+product_mac_perms_keys.tmp := $(intermediates)/product_keys.tmp
+$(product_mac_perms_keys.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(product_mac_perms_keys.tmp): $(call build_policy, keys.conf, $(PRODUCT_PRIVATE_POLICY) $(REQD_MASK_POLICY))
+	@mkdir -p $(dir $@)
+	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
+
+all_product_mac_perms_files := $(call build_policy, mac_permissions.xml, $(PRODUCT_PRIVATE_POLICY) $(REQD_MASK_POLICY))
+
+$(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_product_mac_perms_files)
+$(LOCAL_BUILT_MODULE): $(product_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
+$(all_product_mac_perms_files)
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
+
+product_mac_perms_keys.tmp :=
+all_product_mac_perms_files :=
 
 ##################################
 include $(CLEAR_VARS)
