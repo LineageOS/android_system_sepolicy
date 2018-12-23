@@ -117,6 +117,7 @@ type netpolicy_service, app_api_service, ephemeral_app_api_service, system_serve
 type netstats_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type network_management_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type network_score_service, system_api_service, system_server_service, service_manager_type;
+type network_stack_service, system_server_service, service_manager_type;
 type network_time_update_service, system_server_service, service_manager_type;
 type notification_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type oem_lock_service, system_api_service, system_server_service, service_manager_type;
@@ -125,7 +126,7 @@ type overlay_service, system_api_service, system_server_service, service_manager
 type package_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type package_native_service, system_server_service, service_manager_type;
 type permission_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
-type permissionmgr_service, system_server_service, service_manager_type;
+type permissionmgr_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type persistent_data_block_service, system_api_service, system_server_service, service_manager_type;
 type pinner_service, system_server_service, service_manager_type;
 type power_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
@@ -181,3 +182,12 @@ type wifiaware_service, app_api_service, system_server_service, service_manager_
 type window_service, system_api_service, system_server_service, service_manager_type;
 type inputflinger_service, system_api_service, system_server_service, service_manager_type;
 type wpantund_service, system_api_service, service_manager_type;
+
+###
+### Neverallow rules
+###
+
+# servicemanager handles registering or looking up named services.
+# It does not make sense to register or lookup something which is not a service.
+# Trigger a compile error if this occurs.
+neverallow domain ~{ service_manager_type vndservice_manager_type }:service_manager { add find };

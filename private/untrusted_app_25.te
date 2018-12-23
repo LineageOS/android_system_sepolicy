@@ -45,11 +45,10 @@ allow untrusted_app_25 proc_tty_drivers:file r_file_perms;
 # https://android.googlesource.com/platform/bionic/+/master/android-changes-for-ndk-developers.md#text-relocations-enforced-for-api-level-23
 allow untrusted_app_25 { apk_data_file app_data_file asec_public_file }:file execmod;
 
-# The ability to call exec() or dlopen() on files in the apps home
-# directories for targetApi<=25. This is also allowed for targetAPIs 26,
-# 27, and 28 in untrusted_app_27.te.
-allow untrusted_app_25 app_data_file:file { execute execute_no_trans };
-userdebug_or_eng(`auditallow untrusted_app_25 app_data_file:file { execute execute_no_trans };')
+# The ability to call exec() on files in the apps home directories
+# for targetApi<=25. This is also allowed for targetAPIs 26, 27,
+# and 28 in untrusted_app_27.te.
+allow untrusted_app_25 app_data_file:file execute_no_trans;
 
 # The ability to invoke dex2oat. Historically required by ART, now only
 # allowed for targetApi<=28 for compat reasons.

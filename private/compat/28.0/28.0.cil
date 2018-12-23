@@ -1538,7 +1538,9 @@
 (typeattributeset surfaceflinger_28_0 (surfaceflinger))
 (typeattributeset surfaceflinger_service_28_0 (surfaceflinger_service))
 (typeattributeset swap_block_device_28_0 (swap_block_device))
-(typeattributeset sysfs_28_0 (sysfs))
+(typeattributeset sysfs_28_0
+  ( sysfs
+    sysfs_loop))
 (typeattributeset sysfs_android_usb_28_0 (sysfs_android_usb))
 (typeattributeset sysfs_batteryinfo_28_0 (sysfs_batteryinfo))
 (typeattributeset sysfs_bluetooth_writable_28_0 (sysfs_bluetooth_writable))

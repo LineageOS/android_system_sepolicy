@@ -1,11 +1,11 @@
-type rs, domain, coredomain;
-type rs_exec, system_file_type, exec_type, file_type;
-
 # Any files which would have been created as app_data_file
 # will be created as rs_data_file instead.
 allow rs app_data_file:dir ra_dir_perms;
 allow rs rs_data_file:file create_file_perms;
 type_transition rs app_data_file:file rs_data_file;
+
+# Follow /data/user/0 symlink
+allow rs system_data_file:lnk_file read;
 
 # Read files from the app home directory.
 allow rs app_data_file:file r_file_perms;
