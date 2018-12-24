@@ -112,6 +112,9 @@ add_hwservice(netd, system_net_netd_hwservice)
 hwbinder_use(netd)
 get_prop(netd, hwservicemanager_prop)
 
+# Allow module requests
+allow netd self:capability sys_module;
+
 ###
 ### Neverallow rules
 ###
