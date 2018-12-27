@@ -111,6 +111,7 @@ allow netd self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_write n
 add_hwservice(netd, system_net_netd_hwservice)
 hwbinder_use(netd)
 get_prop(netd, hwservicemanager_prop)
+get_prop(netd, device_config_netd_native_prop)
 
 ###
 ### Neverallow rules
