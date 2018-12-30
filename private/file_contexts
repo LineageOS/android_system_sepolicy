@@ -381,6 +381,14 @@
 /(product_services|system/product_services)/overlay(/.*)?       u:object_r:vendor_overlay_file:s0
 
 #############################
+# Vendor files from /(product|system/product)/vendor_overlay
+#
+# NOTE: For additional vendor file contexts for vendor overlay files,
+# use device specific file_contexts.
+#
+/(product|system/product)/vendor_overlay/[0-9]+/.*          u:object_r:vendor_file:s0
+
+#############################
 # Data files
 #
 # NOTE: When modifying existing label rules, changes may also need to
