@@ -90,6 +90,7 @@ allow dumpstate sysfs_type:dir r_dir_perms;
 
 allow dumpstate {
   sysfs_dm
+  sysfs_loop
   sysfs_usb
   sysfs_zram
 }:file r_file_perms;
