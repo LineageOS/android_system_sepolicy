@@ -46,6 +46,10 @@ allow apexd apex_mnt_dir:lnk_file create_file_perms;
 allow apexd apk_tmp_file:file relabelfrom;
 allow apexd apex_data_file:file relabelto;
 
+# allow apexd to read files from /data/staging and hardlink them to /data/apex.
+allow apexd staging_data_file:dir r_dir_perms;
+allow apexd staging_data_file:file { r_file_perms link };
+
 # Unmount and mount filesystems
 allow apexd labeledfs:filesystem { mount unmount };
 
