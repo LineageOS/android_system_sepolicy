@@ -294,6 +294,7 @@ neverallow all_untrusted_apps {
 neverallow all_untrusted_apps {
   coredomain_hwservice
   -same_process_hwservice
+  -fwk_bufferhub_hwservice # Designed for use by any domain
   -hidl_allocator_hwservice # Designed for use by any domain
   -hidl_manager_hwservice # Designed for use by any domain
   -hidl_memory_hwservice # Designed for use by any domain
