@@ -242,7 +242,10 @@ def TestNoUnmappedNewTypes():
         ret += "policy without an entry into the compatibility mapping file(s) "
         ret += "found in private/compat/V.v/V.v[.ignore].cil, where V.v is the "
         ret += "latest API level.\n"
-        ret += " ".join(str(x) for x in sorted(violators)) + "\n"
+        ret += " ".join(str(x) for x in sorted(violators)) + "\n\n"
+        ret += "See examples of how to fix this:\n"
+        ret += "https://android-review.git.corp.google.com/c/platform/system/sepolicy/+/781036\n"
+        ret += "https://android-review.git.corp.google.com/c/platform/system/sepolicy/+/852612\n"
     return ret
 
 ###
@@ -265,7 +268,9 @@ def TestNoUnmappedRmTypes():
         ret += "policy without a declaration in the compatibility mapping "
         ret += "found in private/compat/V.v/V.v[.ignore].cil, where V.v is the "
         ret += "latest API level.\n"
-        ret += " ".join(str(x) for x in sorted(violators)) + "\n"
+        ret += " ".join(str(x) for x in sorted(violators)) + "\n\n"
+        ret += "See examples of how to fix this:\n"
+        ret += "https://android-review.git.corp.google.com/c/platform/system/sepolicy/+/822743\n"
     return ret
 
 def TestTrebleCompatMapping():
