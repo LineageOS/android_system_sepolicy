@@ -471,6 +471,10 @@ allow system_server wifi_data_file:file create_file_perms;
 allow system_server zoneinfo_data_file:dir create_dir_perms;
 allow system_server zoneinfo_data_file:file create_file_perms;
 
+# Manage /data/staging.
+allow system_server staging_data_file:dir create_dir_perms;
+allow system_server staging_data_file:file create_file_perms;
+
 # Walk /data/data subdirectories.
 # Types extracted from seapp_contexts type= fields.
 allow system_server {
