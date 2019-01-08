@@ -167,6 +167,11 @@ allow adbd rootfs:dir r_dir_perms;
 allow adbd perfetto_traces_data_file:file r_file_perms;
 allow adbd perfetto_traces_data_file:dir r_dir_perms;
 
+# Connect to shell and use a socket transferred from it.
+# Used for e.g. abb.
+allow adbd shell:unix_stream_socket { read write };
+allow adbd shell:fd use;
+
 ###
 ### Neverallow rules
 ###
