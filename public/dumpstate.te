@@ -205,6 +205,9 @@ userdebug_or_eng(`
   allow dumpstate misc_logd_file:file r_file_perms;
 ')
 
+allow dumpstate app_fuse_file:dir r_dir_perms;
+allow dumpstate overlayfs_file:dir r_dir_perms;
+
 allow dumpstate {
   service_manager_type
   -apex_service
