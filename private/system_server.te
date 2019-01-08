@@ -958,6 +958,13 @@ allow system_server system_server_startup:unix_dgram_socket write;
 allow system_server apex_service:service_manager find;
 allow system_server apexd:binder call;
 
+# Allow the system server to read files under /data/apex. The system_server
+# needs these privileges to compare file signatures while processing installs.
+#
+# Only apexd is allowed to create new entries or write to any file under /data/apex.
+allow system_server apex_data_file:dir search;
+allow system_server apex_data_file:file r_file_perms;
+
 # dexoptanalyzer is currently used only for secondary dex files which
 # system_server should never access.
 neverallow system_server dexoptanalyzer_exec:file no_x_file_perms;
