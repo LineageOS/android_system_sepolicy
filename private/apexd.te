@@ -68,5 +68,5 @@ allow apexd sysfs_loop:file rw_file_perms;
 dontaudit apexd self:global_capability_class_set { dac_override dac_read_search };
 
 neverallow { domain -apexd -init } apex_data_file:dir no_w_dir_perms;
-neverallow { domain -apexd -init -kernel } apex_data_file:file no_rw_file_perms;
+neverallow { domain -apexd -init -kernel } apex_data_file:file no_w_file_perms;
 neverallow { domain -apexd } apex_mnt_dir:lnk_file no_w_file_perms;
