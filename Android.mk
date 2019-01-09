@@ -286,6 +286,7 @@ ifdef HAS_PRODUCT_SEPOLICY
 LOCAL_REQUIRED_MODULES += \
     product_sepolicy.cil \
     product_file_contexts \
+    product_hwservice_contexts \
 
 endif
 include $(BUILD_PHONY_PACKAGE)
@@ -1018,8 +1019,7 @@ endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-# TODO(b/119305624): Move product-specific sepolicy out of plat_file_contexts
-local_fc_files := $(call build_policy, file_contexts, $(PLAT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
+local_fc_files := $(call build_policy, file_contexts, $(PLAT_PRIVATE_POLICY))
 ifneq ($(filter address,$(SANITIZE_TARGET)),)
   local_fc_files += $(wildcard $(addsuffix /file_contexts_asan, $(PLAT_PRIVATE_POLICY)))
 endif
@@ -1497,8 +1497,7 @@ endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-# TODO(b/119305624): Move product-specific sepolicy out of plat_hwservice_contexts.
-plat_hwsvcfiles := $(call build_policy, hwservice_contexts, $(PLAT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
+plat_hwsvcfiles := $(call build_policy, hwservice_contexts, $(PLAT_PRIVATE_POLICY))
 
 plat_hwservice_contexts.tmp := $(intermediates)/plat_hwservice_contexts.tmp
 $(plat_hwservice_contexts.tmp): PRIVATE_SVC_FILES := $(plat_hwsvcfiles)
@@ -1515,6 +1514,34 @@ $(LOCAL_BUILT_MODULE): $(plat_hwservice_contexts.tmp) $(built_sepolicy) $(HOST_O
 
 plat_hwsvcfiles :=
 plat_hwservice_contexts.tmp :=
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := product_hwservice_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+product_hwsvcfiles := $(call build_policy, hwservice_contexts, $(PRODUCT_PRIVATE_POLICY))
+
+product_hwservice_contexts.tmp := $(intermediates)/product_hwservice_contexts.tmp
+$(product_hwservice_contexts.tmp): PRIVATE_SVC_FILES := $(product_hwsvcfiles)
+$(product_hwservice_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(product_hwservice_contexts.tmp): $(product_hwsvcfiles)
+	@mkdir -p $(dir $@)
+	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(product_hwservice_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+	@mkdir -p $(dir $@)
+	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -e -l $(PRIVATE_SEPOLICY) $@
+
+product_hwsvcfiles :=
+product_hwservice_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
