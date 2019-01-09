@@ -77,10 +77,11 @@
     rss_hwm_reset_exec
     runtime_service
     sensor_privacy_service
+    server_configurable_flags_data_file
     super_block_device
     system_lmk_prop
     system_suspend_hwservice
-    server_configurable_flags_data_file
+    staging_data_file
     time_prop
     timedetector_service
     timezonedetector_service
