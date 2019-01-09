@@ -26,9 +26,10 @@ untrusted_app_domain(untrusted_app_25)
 net_domain(untrusted_app_25)
 bluetooth_domain(untrusted_app_25)
 
-# b/34115651 - net.dns* properties read
+# b/34115651, b/33308258 - net.dns* properties read
 # This will go away in a future Android release
 get_prop(untrusted_app_25, net_dns_prop)
+auditallow untrusted_app_25 net_dns_prop:file read;
 
 # b/35917228 - /proc/misc access
 # This will go away in a future Android release
