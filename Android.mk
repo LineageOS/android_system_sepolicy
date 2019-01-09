@@ -289,6 +289,7 @@ LOCAL_REQUIRED_MODULES += \
     product_hwservice_contexts \
     product_property_contexts \
     product_seapp_contexts \
+    product_service_contexts \
 
 endif
 include $(BUILD_PHONY_PACKAGE)
@@ -1493,8 +1494,7 @@ endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-# TODO(b/119305624): Move product-specific sepolicy out of plat_service_contexts.
-plat_svcfiles := $(call build_policy, service_contexts, $(PLAT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
+plat_svcfiles := $(call build_policy, service_contexts, $(PLAT_PRIVATE_POLICY))
 
 plat_service_contexts.tmp := $(intermediates)/plat_service_contexts.tmp
 $(plat_service_contexts.tmp): PRIVATE_SVC_FILES := $(plat_svcfiles)
@@ -1512,6 +1512,34 @@ $(LOCAL_BUILT_MODULE): $(plat_service_contexts.tmp) $(built_sepolicy) $(HOST_OUT
 built_plat_svc := $(LOCAL_BUILT_MODULE)
 plat_svcfiles :=
 plat_service_contexts.tmp :=
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := product_service_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+product_svcfiles := $(call build_policy, service_contexts, $(PRODUCT_PRIVATE_POLICY))
+
+product_service_contexts.tmp := $(intermediates)/product_service_contexts.tmp
+$(product_service_contexts.tmp): PRIVATE_SVC_FILES := $(product_svcfiles)
+$(product_service_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(product_service_contexts.tmp): $(product_svcfiles)
+	@mkdir -p $(dir $@)
+	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(product_service_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+	@mkdir -p $(dir $@)
+	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
+	$(HOST_OUT_EXECUTABLES)/checkfc -s $(PRIVATE_SEPOLICY) $@
+
+product_svcfiles :=
+product_service_contexts.tmp :=
 
 ##################################
 # nonplat_service_contexts is only allowed on non-full-treble devices
