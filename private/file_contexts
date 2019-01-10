@@ -48,6 +48,7 @@
 /nonplat_sepolicy\.cil   u:object_r:sepolicy_file:s0
 /plat_sepolicy\.cil      u:object_r:sepolicy_file:s0
 /plat_property_contexts  u:object_r:property_contexts_file:s0
+/product_property_contexts  u:object_r:property_contexts_file:s0
 /nonplat_property_contexts  u:object_r:property_contexts_file:s0
 /vendor_property_contexts   u:object_r:property_contexts_file:s0
 /seapp_contexts     u:object_r:seapp_contexts_file:s0
@@ -372,7 +373,12 @@
 /(product|system/product)(/.*)?                                 u:object_r:system_file:s0
 /(product|system/product)/overlay(/.*)?                         u:object_r:vendor_overlay_file:s0
 
-/(product|system/product)/etc/selinux/product_file_contexts     u:object_r:file_contexts_file:s0
+/(product|system/product)/etc/selinux/product_file_contexts      u:object_r:file_contexts_file:s0
+/(product|system/product)/etc/selinux/product_hwservice_contexts u:object_r:hwservice_contexts_file:s0
+/(product|system/product)/etc/selinux/product_property_contexts  u:object_r:property_contexts_file:s0
+/(product|system/product)/etc/selinux/product_seapp_contexts     u:object_r:seapp_contexts_file:s0
+/(product|system/product)/etc/selinux/product_service_contexts   u:object_r:service_contexts_file:s0
+/(product|system/product)/etc/selinux/product_mac_permissions\.xml u:object_r:mac_perms_file:s0
 
 #############################
 # Product-Services files

@@ -1,4 +1,3 @@
-type runas_app, domain;
 typeattribute runas_app coredomain;
 
 app_domain(runas_app)
@@ -7,5 +6,12 @@ net_domain(runas_app)
 bluetooth_domain(runas_app)
 
 # The ability to call exec() on files in the apps home directories
-# when using run-as on a debuggable app. Needed by simpleperf.
+# when using run-as on a debuggable app. Used to run lldb/ndk-gdb/simpleperf,
+# which are copied to the apps home directories.
 allow runas_app app_data_file:file execute_no_trans;
+
+# Allow lldb/ndk-gdb/simpleperf to read maps of debuggable app processes.
+r_dir_file(runas_app, untrusted_app_all)
+
+# Allow lldb/ndk-gdb/simpleperf to ptrace attach to debuggable app processes.
+allow runas_app untrusted_app_all:process ptrace;

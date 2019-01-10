@@ -43,6 +43,7 @@ allow init {
   misc_block_device
   recovery_block_device
   system_block_device
+  userdata_block_device
 }:{ blk_file lnk_file } relabelto;
 
 # setrlimit

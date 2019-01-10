@@ -286,6 +286,11 @@ ifdef HAS_PRODUCT_SEPOLICY
 LOCAL_REQUIRED_MODULES += \
     product_sepolicy.cil \
     product_file_contexts \
+    product_hwservice_contexts \
+    product_property_contexts \
+    product_seapp_contexts \
+    product_service_contexts \
+    product_mac_permissions.xml \
 
 endif
 include $(BUILD_PHONY_PACKAGE)
@@ -1018,8 +1023,7 @@ endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-# TODO(b/119305624): Move product-specific sepolicy out of plat_file_contexts
-local_fc_files := $(call build_policy, file_contexts, $(PLAT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
+local_fc_files := $(call build_policy, file_contexts, $(PLAT_PRIVATE_POLICY))
 ifneq ($(filter address,$(SANITIZE_TARGET)),)
   local_fc_files += $(wildcard $(addsuffix /file_contexts_asan, $(PLAT_PRIVATE_POLICY)))
 endif
@@ -1197,8 +1201,7 @@ endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-# TODO(b/119305624): Move product-specific sepolicy out of plat_seapp_contexts
-plat_sc_files := $(call build_policy, seapp_contexts, $(PLAT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
+plat_sc_files := $(call build_policy, seapp_contexts, $(PLAT_PRIVATE_POLICY))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): PRIVATE_SC_FILES := $(plat_sc_files)
@@ -1208,6 +1211,29 @@ $(LOCAL_BUILT_MODULE): $(built_sepolicy) $(plat_sc_files) $(HOST_OUT_EXECUTABLES
 
 built_plat_sc := $(LOCAL_BUILT_MODULE)
 plat_sc_files :=
+
+##################################
+include $(CLEAR_VARS)
+LOCAL_MODULE := product_seapp_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+product_sc_files := $(call build_policy, seapp_contexts, $(PRODUCT_PRIVATE_POLICY))
+plat_sc_neverallow_files := $(call build_policy, seapp_contexts, $(PLAT_PRIVATE_POLICY))
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_SC_FILES := $(product_sc_files)
+$(LOCAL_BUILT_MODULE): PRIVATE_SC_NEVERALLOW_FILES := $(plat_sc_neverallow_files)
+$(LOCAL_BUILT_MODULE): $(built_sepolicy) $(product_sc_files) $(HOST_OUT_EXECUTABLES)/checkseapp $(plat_sc_neverallow_files)
+	@mkdir -p $(dir $@)
+	$(hide) grep -ihe '^neverallow' $(PRIVATE_SC_NEVERALLOW_FILES) > $@.tmp
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkseapp -p $(PRIVATE_SEPOLICY) -o $@ $(PRIVATE_SC_FILES) $@.tmp
+
+product_sc_files :=
+plat_sc_neverallow_files :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -1288,8 +1314,7 @@ endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-# TODO(b/119305624): Move product-specific sepolicy out of plat_property_contexts.
-plat_pcfiles := $(call build_policy, property_contexts, $(PLAT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
+plat_pcfiles := $(call build_policy, property_contexts, $(PLAT_PRIVATE_POLICY))
 ifeq ($(PRODUCT_COMPATIBLE_PROPERTY),true)
 plat_pcfiles += $(LOCAL_PATH)/public/property_contexts
 endif
@@ -1309,6 +1334,34 @@ $(LOCAL_BUILT_MODULE): $(plat_property_contexts.tmp) $(built_sepolicy) $(HOST_OU
 built_plat_pc := $(LOCAL_BUILT_MODULE)
 plat_pcfiles :=
 plat_property_contexts.tmp :=
+
+##################################
+include $(CLEAR_VARS)
+LOCAL_MODULE := product_property_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+product_pcfiles := $(call build_policy, property_contexts, $(PRODUCT_PRIVATE_POLICY))
+
+product_property_contexts.tmp := $(intermediates)/product_property_contexts.tmp
+$(product_property_contexts.tmp): PRIVATE_PC_FILES := $(product_pcfiles)
+$(product_property_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(product_property_contexts.tmp): $(product_pcfiles)
+	@mkdir -p $(dir $@)
+	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_PC_FILES) > $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(product_property_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/property_info_checker
+	@mkdir -p $(dir $@)
+	$(hide) cp -f $< $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/property_info_checker $(PRIVATE_SEPOLICY) $@
+
+built_product_pc := $(LOCAL_BUILT_MODULE)
+product_pcfiles :=
+product_property_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -1391,6 +1444,19 @@ $(LOCAL_BUILT_MODULE): $(built_plat_pc)
 
 ##################################
 include $(CLEAR_VARS)
+LOCAL_MODULE := product_property_contexts.recovery
+LOCAL_MODULE_STEM := product_property_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_product_pc)
+	$(hide) cp -f $< $@
+
+##################################
+include $(CLEAR_VARS)
 LOCAL_MODULE := vendor_property_contexts.recovery
 LOCAL_MODULE_STEM := vendor_property_contexts
 LOCAL_MODULE_CLASS := ETC
@@ -1429,8 +1495,7 @@ endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-# TODO(b/119305624): Move product-specific sepolicy out of plat_service_contexts.
-plat_svcfiles := $(call build_policy, service_contexts, $(PLAT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
+plat_svcfiles := $(call build_policy, service_contexts, $(PLAT_PRIVATE_POLICY))
 
 plat_service_contexts.tmp := $(intermediates)/plat_service_contexts.tmp
 $(plat_service_contexts.tmp): PRIVATE_SVC_FILES := $(plat_svcfiles)
@@ -1448,6 +1513,34 @@ $(LOCAL_BUILT_MODULE): $(plat_service_contexts.tmp) $(built_sepolicy) $(HOST_OUT
 built_plat_svc := $(LOCAL_BUILT_MODULE)
 plat_svcfiles :=
 plat_service_contexts.tmp :=
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := product_service_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+product_svcfiles := $(call build_policy, service_contexts, $(PRODUCT_PRIVATE_POLICY))
+
+product_service_contexts.tmp := $(intermediates)/product_service_contexts.tmp
+$(product_service_contexts.tmp): PRIVATE_SVC_FILES := $(product_svcfiles)
+$(product_service_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(product_service_contexts.tmp): $(product_svcfiles)
+	@mkdir -p $(dir $@)
+	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(product_service_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+	@mkdir -p $(dir $@)
+	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
+	$(HOST_OUT_EXECUTABLES)/checkfc -s $(PRIVATE_SEPOLICY) $@
+
+product_svcfiles :=
+product_service_contexts.tmp :=
 
 ##################################
 # nonplat_service_contexts is only allowed on non-full-treble devices
@@ -1497,8 +1590,7 @@ endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-# TODO(b/119305624): Move product-specific sepolicy out of plat_hwservice_contexts.
-plat_hwsvcfiles := $(call build_policy, hwservice_contexts, $(PLAT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
+plat_hwsvcfiles := $(call build_policy, hwservice_contexts, $(PLAT_PRIVATE_POLICY))
 
 plat_hwservice_contexts.tmp := $(intermediates)/plat_hwservice_contexts.tmp
 $(plat_hwservice_contexts.tmp): PRIVATE_SVC_FILES := $(plat_hwsvcfiles)
@@ -1515,6 +1607,34 @@ $(LOCAL_BUILT_MODULE): $(plat_hwservice_contexts.tmp) $(built_sepolicy) $(HOST_O
 
 plat_hwsvcfiles :=
 plat_hwservice_contexts.tmp :=
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := product_hwservice_contexts
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+product_hwsvcfiles := $(call build_policy, hwservice_contexts, $(PRODUCT_PRIVATE_POLICY))
+
+product_hwservice_contexts.tmp := $(intermediates)/product_hwservice_contexts.tmp
+$(product_hwservice_contexts.tmp): PRIVATE_SVC_FILES := $(product_hwsvcfiles)
+$(product_hwservice_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(product_hwservice_contexts.tmp): $(product_hwsvcfiles)
+	@mkdir -p $(dir $@)
+	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(product_hwservice_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc
+	@mkdir -p $(dir $@)
+	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
+	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -e -l $(PRIVATE_SEPOLICY) $@
+
+product_hwsvcfiles :=
+product_hwservice_contexts.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -1624,8 +1744,7 @@ $(plat_mac_perms_keys.tmp): $(call build_policy, keys.conf, $(PLAT_PRIVATE_POLIC
 	@mkdir -p $(dir $@)
 	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
 
-# TODO(b/119305624): Move product-specific sepolicy out of plat_mac_permissions.
-all_plat_mac_perms_files := $(call build_policy, mac_permissions.xml, $(PLAT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
+all_plat_mac_perms_files := $(call build_policy, mac_permissions.xml, $(PLAT_PRIVATE_POLICY))
 
 # Should be synced with keys.conf.
 all_plat_keys := platform media shared testkey
@@ -1641,6 +1760,34 @@ $(all_plat_mac_perms_files) $(all_plat_keys)
 all_mac_perms_files :=
 all_plat_keys :=
 plat_mac_perms_keys.tmp :=
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := product_mac_permissions.xml
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+# Build keys.conf
+product_mac_perms_keys.tmp := $(intermediates)/product_keys.tmp
+$(product_mac_perms_keys.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(product_mac_perms_keys.tmp): $(call build_policy, keys.conf, $(PRODUCT_PRIVATE_POLICY) $(REQD_MASK_POLICY))
+	@mkdir -p $(dir $@)
+	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
+
+all_product_mac_perms_files := $(call build_policy, mac_permissions.xml, $(PRODUCT_PRIVATE_POLICY) $(REQD_MASK_POLICY))
+
+$(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_product_mac_perms_files)
+$(LOCAL_BUILT_MODULE): $(product_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
+$(all_product_mac_perms_files)
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
+
+product_mac_perms_keys.tmp :=
+all_product_mac_perms_files :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -1860,6 +2007,7 @@ built_plat_cil :=
 built_plat_pub_vers_cil :=
 built_mapping_cil :=
 built_plat_pc :=
+built_product_pc :=
 built_vendor_cil :=
 built_vendor_pc :=
 built_vendor_sc :=

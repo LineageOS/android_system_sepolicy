@@ -106,7 +106,7 @@ isSystemServer=true domain=system_server_startup
 user=_app seinfo=platform name=com.android.traceur domain=traceur_app type=app_data_file levelFrom=all
 user=system seinfo=platform domain=system_app type=system_app_data_file
 user=bluetooth seinfo=platform domain=bluetooth type=bluetooth_data_file
-user=network_stack seinfo=platform name=com.google.android.networkstack domain=network_stack levelFrom=all
+user=network_stack seinfo=platform name=com.android.mainline.networkstack domain=network_stack levelFrom=all
 user=nfc seinfo=platform domain=nfc type=nfc_data_file
 user=secure_element seinfo=platform domain=secure_element levelFrom=all
 user=radio seinfo=platform domain=radio type=radio_data_file
@@ -122,4 +122,5 @@ user=_app minTargetSdkVersion=29 domain=untrusted_app type=app_data_file levelFr
 user=_app minTargetSdkVersion=28 domain=untrusted_app_27 type=app_data_file levelFrom=all
 user=_app minTargetSdkVersion=26 domain=untrusted_app_27 type=app_data_file levelFrom=user
 user=_app domain=untrusted_app_25 type=app_data_file levelFrom=user
-user=_app fromRunAs=true domain=runas_app levelFrom=all
+user=_app minTargetSdkVersion=28 fromRunAs=true domain=runas_app levelFrom=all
+user=_app fromRunAs=true domain=runas_app levelFrom=user
