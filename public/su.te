@@ -76,6 +76,7 @@ userdebug_or_eng(`
   typeattribute su hal_graphics_allocator_client;
   typeattribute su hal_graphics_composer_client;
   typeattribute su hal_health_client;
+  typeattribute su hal_input_classifier_client;
   typeattribute su hal_ir_client;
   typeattribute su hal_keymaster_client;
   typeattribute su hal_light_client;

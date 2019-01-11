@@ -263,6 +263,7 @@ neverallow all_untrusted_apps {
   hal_gnss_hwservice
   hal_graphics_composer_hwservice
   hal_health_hwservice
+  hal_input_classifier_hwservice
   hal_ir_hwservice
   hal_keymaster_hwservice
   hal_light_hwservice
