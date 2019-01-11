@@ -135,6 +135,8 @@ type unlabeled, file_type;
 type system_file, system_file_type, file_type;
 # Default type for /system/asan.options
 type system_asan_options_file, system_file_type, file_type;
+# Type for /system/etc/event-log-tags (liblog implementation detail)
+type system_event_log_tags_file, system_file_type, file_type;
 # Default type for anything under /system/lib[64].
 type system_lib_file, system_file_type, file_type;
 # Default type for linker executable /system/bin/linker[64].
