@@ -111,6 +111,7 @@ ro.crypto.volume.filenames_mode u:object_r:exported2_vold_prop:s0 exact string
 ro.dalvik.vm.native.bridge u:object_r:exported_dalvik_prop:s0 exact string
 ro.enable_boot_charger_mode u:object_r:exported3_default_prop:s0 exact bool
 ro.gfx.driver.0 u:object_r:exported3_default_prop:s0 exact string
+ro.gfx.angle.supported u:object_r:exported3_default_prop:s0 exact bool
 ro.hdmi.device_type u:object_r:exported3_default_prop:s0 exact string
 ro.hdmi.wake_on_hotplug u:object_r:exported3_default_prop:s0 exact bool
 ro.lmk.critical_upgrade u:object_r:exported3_default_prop:s0 exact bool
