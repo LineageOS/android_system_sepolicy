@@ -74,6 +74,7 @@ allow system_app {
   -dumpstate_service
   -installd_service
   -iorapd_service
+  -ipmemorystore_service
   -netd_service
   -virtual_touchpad_service
   -vold_service
