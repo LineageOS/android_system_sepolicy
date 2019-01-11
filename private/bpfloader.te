@@ -26,3 +26,5 @@ neverallow { domain -system_server -netd -bpfloader} *:bpf { map_read map_write 
 
 # No domain should be allowed to ptrace bpfloader
 neverallow { domain userdebug_or_eng(`-llkd') } bpfloader:process ptrace;
+
+set_prop(bpfloader, bpf_progs_loaded_prop)

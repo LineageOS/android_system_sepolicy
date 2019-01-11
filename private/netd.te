@@ -11,3 +11,5 @@ domain_auto_trans(netd, clatd_exec, clatd)
 # give netd permission to setup iptables rule with xt_bpf, attach program to cgroup, and read/write
 # the map created by bpfloader
 allow netd bpfloader:bpf { prog_run map_read map_write };
+
+get_prop(netd, bpf_progs_loaded_prop)
