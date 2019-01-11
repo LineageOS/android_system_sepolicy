@@ -84,6 +84,9 @@ allow init device:dir mounton;
 # Mount tmpfs on /apex
 allow init apex_mnt_dir:dir mounton;
 
+allow init system_lib_file:file mounton;
+allow init system_linker_exec:file mounton;
+
 # Create and remove symlinks in /.
 allow init rootfs:lnk_file { create unlink };
 
