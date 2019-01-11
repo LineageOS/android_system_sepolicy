@@ -27,9 +27,9 @@ allow ephemeral_app app_data_file:file     { r_file_perms execute };
 # Allow the renderscript compiler to be run.
 domain_auto_trans(ephemeral_app, rs_exec, rs)
 
-# Allow loading and deleting renderscript created shared libraries
-# within an application home directory.
-allow ephemeral_app rs_data_file:file { r_file_perms execute unlink };
+# Allow loading and deleting shared libraries created by trusted system
+# components within an application home directory.
+allow ephemeral_app app_exec_data_file:file { r_file_perms execute unlink };
 
 # services
 allow ephemeral_app audioserver_service:service_manager find;
