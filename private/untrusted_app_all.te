@@ -25,9 +25,10 @@
 allow untrusted_app_all privapp_data_file:file { r_file_perms execute };
 allow untrusted_app_all app_data_file:file     { r_file_perms execute };
 
-# Allow loading and deleting renderscript created shared libraries
-# within an application home directory.
-allow untrusted_app_all rs_data_file:file { r_file_perms execute unlink };
+# Allow loading and deleting executable shared libraries
+# within an application home directory. Such shared libraries would be
+# created by things like renderscript or via other mechanisms.
+allow untrusted_app_all app_exec_data_file:file { r_file_perms execute unlink };
 
 # ASEC
 allow untrusted_app_all asec_apk_file:file r_file_perms;
