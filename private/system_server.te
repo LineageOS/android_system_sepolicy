@@ -784,6 +784,13 @@ allow system_server adbd:unix_stream_socket { getattr getopt ioctl read write sh
 # Allow invoking tools like "timeout"
 allow system_server toolbox_exec:file rx_file_perms;
 
+# Allow system process to setup and measure fs-verity
+allowxperm system_server apk_data_file:file ioctl {
+  FS_IOC_ENABLE_VERITY FS_IOC_MEASURE_VERITY
+};
+# Allow system process to access the keyring.
+allow system_server kernel:key search;
+
 # Postinstall
 #
 # For OTA dexopt, allow calls coming from postinstall.
