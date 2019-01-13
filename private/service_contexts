@@ -69,7 +69,7 @@ gpu                                       u:object_r:gpu_service:s0
 hardware                                  u:object_r:hardware_service:s0
 hardware_properties                       u:object_r:hardware_properties_service:s0
 hdmi_control                              u:object_r:hdmi_control_service:s0
-ians                                      u:object_r:radio_service:s0
+ions                                      u:object_r:radio_service:s0
 idmap                                     u:object_r:idmap_service:s0
 incident                                  u:object_r:incident_service:s0
 inputflinger                              u:object_r:inputflinger_service:s0
@@ -82,6 +82,7 @@ iphonesubinfo2                            u:object_r:radio_service:s0
 iphonesubinfo                             u:object_r:radio_service:s0
 ims                                       u:object_r:radio_service:s0
 imms                                      u:object_r:imms_service:s0
+ipmemorystore                             u:object_r:ipmemorystore_service:s0
 ipsec                                     u:object_r:ipsec_service:s0
 iris                                      u:object_r:iris_service:s0
 isms_msim                                 u:object_r:radio_service:s0

@@ -279,13 +279,13 @@
 /system/bin/idmap u:object_r:idmap_exec:s0
 /system/bin/idmap2(d)?           u:object_r:idmap_exec:s0
 /system/bin/update_engine        u:object_r:update_engine_exec:s0
-/system/bin/bspatch              u:object_r:update_engine_exec:s0
 /system/bin/storaged             u:object_r:storaged_exec:s0
 /system/bin/wpantund             u:object_r:wpantund_exec:s0
 /system/bin/virtual_touchpad     u:object_r:virtual_touchpad_exec:s0
 /system/bin/hw/android\.frameworks\.bufferhub@1\.0-service    u:object_r:fwk_bufferhub_exec:s0
 /system/bin/hw/android\.hidl\.allocator@1\.0-service          u:object_r:hal_allocator_default_exec:s0
 /system/bin/hw/android\.system\.suspend@1\.0-service          u:object_r:hal_system_suspend_default_exec:s0
+/system/etc/event-log-tags              u:object_r:system_event_log_tags_file:s0
 /system/etc/ld\.config.*                u:object_r:system_linker_config_file:s0
 /system/etc/seccomp_policy(/.*)?        u:object_r:system_seccomp_policy_file:s0
 /system/etc/security/cacerts(/.*)?      u:object_r:system_security_cacerts_file:s0

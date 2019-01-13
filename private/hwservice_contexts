@@ -33,6 +33,7 @@ android.hardware.graphics.composer::IComposer                   u:object_r:hal_g
 android.hardware.graphics.mapper::IMapper                       u:object_r:hal_graphics_mapper_hwservice:s0
 android.hardware.health::IHealth                                u:object_r:hal_health_hwservice:s0
 android.hardware.health.storage::IStorage                       u:object_r:hal_health_storage_hwservice:s0
+android.hardware.input.classifier::IInputClassifier             u:object_r:hal_input_classifier_hwservice:s0
 android.hardware.ir::IConsumerIr                                u:object_r:hal_ir_hwservice:s0
 android.hardware.keymaster::IKeymasterDevice                    u:object_r:hal_keymaster_hwservice:s0
 android.hardware.light::ILight                                  u:object_r:hal_light_hwservice:s0

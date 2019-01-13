@@ -27,6 +27,7 @@ allow cameraserver cameraproxy_service:service_manager find;
 allow cameraserver mediaserver_service:service_manager find;
 allow cameraserver processinfo_service:service_manager find;
 allow cameraserver scheduling_policy_service:service_manager find;
+allow cameraserver sensor_privacy_service:service_manager find;
 allow cameraserver surfaceflinger_service:service_manager find;
 
 allow cameraserver hidl_token_hwservice:hwservice_manager find;

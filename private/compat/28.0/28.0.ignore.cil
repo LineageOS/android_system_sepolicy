@@ -38,6 +38,7 @@
     hal_atrace_hwservice
     hal_face_hwservice
     hal_health_storage_hwservice
+    hal_input_classifier_hwservice
     hal_power_stats_hwservice
     hal_system_suspend_default
     hal_system_suspend_default_exec
@@ -48,6 +49,7 @@
     heapprofd_prop
     heapprofd_socket
     idmap_service
+    ipmemorystore_service
     iris_service
     iris_vendor_data_file
     llkd
@@ -80,6 +82,7 @@
     sensor_privacy_service
     server_configurable_flags_data_file
     super_block_device
+    system_event_log_tags_file
     system_lmk_prop
     system_suspend_hwservice
     staging_data_file
