@@ -6,9 +6,9 @@ init_daemon_domain(apexd)
 allow apexd apex_key_file:dir { search getattr };
 allow apexd apex_key_file:file r_file_perms;
 
-# Allow reading and writing of APEX files in the APEX data dir
-allow apexd apex_data_file:dir rw_dir_perms;
-allow apexd apex_data_file:file rw_file_perms;
+# Allow creating, reading and writing of APEX files/dirs in the APEX data dir
+allow apexd apex_data_file:dir create_dir_perms;
+allow apexd apex_data_file:file create_file_perms;
 
 # allow apexd to create loop devices with /dev/loop-control
 allow apexd loop_control_device:chr_file rw_file_perms;
