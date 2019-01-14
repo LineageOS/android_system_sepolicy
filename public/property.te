@@ -30,6 +30,7 @@ type debug_prop, property_type, core_property_type;
 type default_prop, property_type, core_property_type;
 type device_config_boot_count_prop, property_type;
 type device_config_reset_performed_prop, property_type;
+type device_config_input_native_boot_prop, property_type;
 type device_config_netd_native_prop, property_type;
 type device_logging_prop, property_type;
 type dhcp_prop, property_type, core_property_type;
@@ -400,6 +401,7 @@ compatible_property_only(`
     -firstboot_prop
     -device_config_reset_performed_prop
     -device_config_boot_count_prop
+    -device_config_input_native_boot_prop
     -device_config_netd_native_prop
     -heapprofd_enabled_prop
     -heapprofd_prop
