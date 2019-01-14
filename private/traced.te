@@ -19,7 +19,9 @@ allow traced self:global_capability_class_set { sys_nice };
 # directly into that (rather than returning the trace contents over the socket).
 allow traced perfetto:fd use;
 allow traced shell:fd use;
+allow traced traceur_app:fd use;
 allow traced perfetto_traces_data_file:file { read write };
+allow traced trace_data_file:file { read write };
 
 ###
 ### Neverallow rules
@@ -53,6 +55,7 @@ neverallow traced {
   data_file_type
   -zoneinfo_data_file
   -perfetto_traces_data_file
+  -trace_data_file
 }:file ~write;
 
 # Only init is allowed to enter the traced domain via exec()
