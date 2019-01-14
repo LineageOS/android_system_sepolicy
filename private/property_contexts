@@ -172,3 +172,4 @@ persist.device_config.attempted_boot_count        u:object_r:device_config_boot_
 persist.device_config.global_settings.native_flags_health_check_enabled u:object_r:device_config_flags_health_check_prop:s0
 
 apexd.                  u:object_r:apexd_prop:s0
+persist.apexd.          u:object_r:apexd_prop:s0
