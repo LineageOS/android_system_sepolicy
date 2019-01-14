@@ -173,3 +173,5 @@ persist.device_config.global_settings.native_flags_health_check_enabled u:object
 
 apexd.                  u:object_r:apexd_prop:s0
 persist.apexd.          u:object_r:apexd_prop:s0
+
+bpf.progs_loaded        u:object_r:bpf_progs_loaded_prop:s0
