@@ -50,3 +50,8 @@
 (typeattributeset untrusted_app_visible_hwservice_violators (untrusted_app_visible_hwservice))
 (typeattribute untrusted_app_visible_halserver)
 (typeattributeset untrusted_app_visible_halserver_violators (untrusted_app_visible_halserver))
+
+; Apps, except isolated apps, are clients of BufferHub HAL
+; Unfortunately, we can't currently express this in module policy language:
+;     typeattribute { appdomain -isolated_app } hal_cas_client;
+(typeattributeset hal_bufferhub_client ((and (appdomain) ((not (isolated_app))))))
