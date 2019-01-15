@@ -19,5 +19,6 @@ allow network_stack self:packet_socket create_socket_perms_no_ioctl;
 
 allow network_stack app_api_service:service_manager find;
 allow network_stack netd_service:service_manager find;
+allow network_stack radio_service:service_manager find;
 
 binder_call(network_stack, netd);
