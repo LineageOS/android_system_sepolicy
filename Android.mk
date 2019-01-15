@@ -1015,11 +1015,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := plat_file_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
-else
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -1080,11 +1076,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := vendor_file_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
-else
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -1193,11 +1185,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := plat_seapp_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
-else
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -1240,11 +1228,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := vendor_seapp_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
-else
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -1305,12 +1289,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := plat_property_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
-else
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -1368,12 +1347,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := vendor_property_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
-else
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -1487,11 +1461,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := plat_service_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
-else
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -1582,11 +1552,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := plat_hwservice_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
-else
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -1642,11 +1608,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := vendor_hwservice_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
-else
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -1702,11 +1664,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := vndservice_contexts
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
-else
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
