@@ -177,6 +177,7 @@ not_compatible_property(`
       -device_config_boot_count_prop
       -device_config_reset_performed_prop
       -device_config_flags_health_check_prop
+      -device_config_netd_native_prop
       -restorecon_prop
       -netd_stable_secret_prop
       -firstboot_prop
