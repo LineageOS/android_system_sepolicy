@@ -557,6 +557,11 @@
 # iorapd per-user data
 /data/misc_ce/[0-9]+/iorapd(/.*)?           u:object_r:iorapd_data_file:s0
 
+# Backup service persistent per-user bookkeeping
+/data/system_ce/[0-9]+/backup(/.*)?		u:object_r:backup_data_file:s0
+# Backup service temporary per-user data for inter-change with apps
+/data/system_ce/[0-9]+/backup_stage(/.*)?	u:object_r:backup_data_file:s0
+
 #############################
 # efs files
 #
