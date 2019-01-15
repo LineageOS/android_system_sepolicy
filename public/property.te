@@ -3,6 +3,7 @@ type audio_prop, property_type, core_property_type;
 type boottime_prop, property_type;
 type bluetooth_a2dp_offload_prop, property_type;
 type bluetooth_prop, property_type;
+type bpf_progs_loaded_prop, property_type;
 type bootloader_boot_reason_prop, property_type;
 type config_prop, property_type, core_property_type;
 type cppreopt_prop, property_type, core_property_type;
@@ -342,6 +343,7 @@ compatible_property_only(`
     -bluetooth_prop
     -bootloader_boot_reason_prop
     -boottime_prop
+    -bpf_progs_loaded_prop
     -config_prop
     -cppreopt_prop
     -ctl_adbd_prop
