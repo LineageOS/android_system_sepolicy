@@ -3,6 +3,7 @@ type audio_prop, property_type, core_property_type;
 type boottime_prop, property_type;
 type bluetooth_a2dp_offload_prop, property_type;
 type bluetooth_prop, property_type;
+type bpf_progs_loaded_prop, property_type;
 type bootloader_boot_reason_prop, property_type;
 type config_prop, property_type, core_property_type;
 type cppreopt_prop, property_type, core_property_type;
@@ -30,6 +31,7 @@ type default_prop, property_type, core_property_type;
 type device_config_boot_count_prop, property_type;
 type device_config_reset_performed_prop, property_type;
 type device_config_flags_health_check_prop, property_type;
+type device_config_netd_native_prop, property_type;
 type device_logging_prop, property_type;
 type dhcp_prop, property_type, core_property_type;
 type dumpstate_options_prop, property_type;
@@ -342,6 +344,7 @@ compatible_property_only(`
     -bluetooth_prop
     -bootloader_boot_reason_prop
     -boottime_prop
+    -bpf_progs_loaded_prop
     -config_prop
     -cppreopt_prop
     -ctl_adbd_prop
@@ -398,6 +401,7 @@ compatible_property_only(`
     -device_config_reset_performed_prop
     -device_config_boot_count_prop
     -device_config_flags_health_check_prop
+    -device_config_netd_native_prop
     -heapprofd_enabled_prop
     -heapprofd_prop
     -hwservicemanager_prop
