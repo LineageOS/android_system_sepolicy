@@ -647,31 +647,66 @@ define(`hal_attribute_hwservice', `
 
 ###################################
 # can_profile_heap(domain)
-# never_profile_heap(domain)
+# Allow processes within the domain to have their heap profiled by heapprofd.
 #
-# Opt in our out of heap profiling.
-# This will allow a heap profiling daemon to read this
-# process' address space in order to support unwinding.
-#
+# Note that profiling is performed differently between debug and user builds.
+# This macro covers both user and debug builds, but see
+# can_profile_heap_userdebug_or_eng for a variant that can be used when
+# allowing profiling for a domain only on debug builds, without granting
+# the exec permission. The exec permission is necessary for user builds, but
+# only a nice-to-have for development and testing purposes on debug builds.
 define(`can_profile_heap', `
+  # Allow central daemon to send signal for client initialization.
+  allow heapprofd $1:process signal;
+
+  # Allow executing a private heapprofd process to handle profiling on
+  # user builds (also debug builds for testing & development purposes).
+  allow $1 heapprofd_exec:file rx_file_perms;
+
+  # Allow directory & file read to the central heapprofd daemon, as it scans
+  # /proc/[pid]/cmdline for by-process-name profiling configs.
+  # Note that this excludes /proc/[pid]/mem, as it requires ptrace capabilities.
+  allow heapprofd $1:file r_file_perms;
+  allow heapprofd $1:dir r_dir_perms;
+
+  # On debug builds, central daemon can handle profiling of all processes
+  # directly.
   userdebug_or_eng(`
-    # RT signal for client initialization.
-    allow heapprofd $1:process signal;
-    # Connect to heapprofd service.
+    # Allow connecting to the daemon.
     unix_socket_connect($1, heapprofd, heapprofd)
-    # To receive file descriptor.
+    # Allow daemon to use the passed fds.
+    allow heapprofd $1:fd use;
+  ')
+')
+
+###################################
+# can_profile_heap_userdebug_or_eng(domain)
+# Allow processes within the domain to have their heap profiled by heapprofd on
+# debug builds only.
+#
+# Only necessary when can_profile_heap cannot be applied, see its description
+# for rationale.
+define(`can_profile_heap_userdebug_or_eng', `
+  userdebug_or_eng(`
+    # Allow central daemon to send signal for client initialization.
+    allow heapprofd $1:process signal;
+    # Allow connecting to the daemon.
+    unix_socket_connect($1, heapprofd, heapprofd)
+    # Allow daemon to use the passed fds.
     allow heapprofd $1:fd use;
 
     # To read from the received file descriptors.
     # /proc/[pid]/maps and /proc/[pid]/mem have the same SELinux label as the
     # process they relate to.
     allow heapprofd $1:file r_file_perms;
-    # This is needed to search the /proc/[pid] directory.
+    # Allow searching the /proc/[pid] directory for cmdline.
     allow heapprofd $1:dir r_dir_perms;
-    allow heapprofd $1:process signal;
   ')
 ')
 
+###################################
+# never_profile_heap(domain)
+# Opt out of heap profiling by heapprofd.
 define(`never_profile_heap', `
   neverallow heapprofd $1:file read;
   neverallow heapprofd $1:process signal;
