@@ -35,6 +35,9 @@
     flags_health_check_exec
     fwk_bufferhub_hwservice
     fwk_stats_hwservice
+    gsi_service
+    gsid
+    gsid_exec
     color_display_service
     hal_atrace_hwservice
     hal_face_hwservice
