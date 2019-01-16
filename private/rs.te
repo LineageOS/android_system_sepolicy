@@ -28,15 +28,3 @@ allow rs same_process_hal_file:file { r_file_perms execute };
 
 # File descriptors passed from app to renderscript
 allow rs untrusted_app_all:fd use;
-
-# TODO: Explain why these dontaudits are needed. Most likely
-# these are file descriptors leaking across an exec() boundary
-# due to a missing O_CLOEXEC / SOCK_CLOEXEC
-dontaudit rs untrusted_app_all:unix_stream_socket { read write };
-dontaudit rs untrusted_app_all:fifo_file { read write };
-
-# TODO: Explain why this is necessary. I think this is a zygote
-# created logging socket and system server parceled file descriptor
-# which is not using the O_CLOEXEC flag.
-dontaudit rs zygote:fd use;
-dontaudit rs system_server:fd use;
