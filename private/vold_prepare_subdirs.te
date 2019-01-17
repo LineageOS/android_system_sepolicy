@@ -14,6 +14,7 @@ allow vold_prepare_subdirs {
   vendor_data_file
 }:dir { open read write add_name remove_name rmdir relabelfrom };
 allow vold_prepare_subdirs {
+    backup_data_file
     face_vendor_data_file
     fingerprint_vendor_data_file
     iris_vendor_data_file
@@ -22,6 +23,7 @@ allow vold_prepare_subdirs {
     vold_data_file
 }:dir { create_dir_perms relabelto };
 allow vold_prepare_subdirs {
+    backup_data_file
     face_vendor_data_file
     fingerprint_vendor_data_file
     iris_vendor_data_file
