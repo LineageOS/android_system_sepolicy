@@ -16,3 +16,7 @@ type debugfs_kcov, fs_type, debugfs_type;
 # App executable files in /data/data directories
 type app_exec_data_file, file_type, data_file_type, core_data_file_type;
 typealias app_exec_data_file alias rs_data_file;
+
+# /data/misc_[ce|de]/rollback : Used by installd to store snapshots
+# of application data.
+type rollback_data_file, file_type, data_file_type, core_data_file_type;

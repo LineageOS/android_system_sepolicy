@@ -1,0 +1,10 @@
+# gsid - Manager for GSI Installation
+
+type gsid, domain;
+type gsid_exec, exec_type, file_type, system_file_type;
+typeattribute gsid coredomain;
+
+init_daemon_domain(gsid)
+
+binder_use(gsid)
+add_service(gsid, gsi_service)
