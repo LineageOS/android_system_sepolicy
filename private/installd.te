@@ -23,3 +23,8 @@ allow installd dumpstate:fifo_file r_file_perms;
 
 # Delete /system/bin/bcc generated artifacts
 allow installd app_exec_data_file:file unlink;
+
+# Capture userdata snapshots to /data/misc_[ce|de]/rollback and
+# subsequently restore them.
+allow installd rollback_data_file:dir create_dir_perms;
+allow installd rollback_data_file:file create_file_perms;
