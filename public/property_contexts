@@ -190,6 +190,7 @@ libc.debug.malloc.program u:object_r:exported2_default_prop:s0 exact string
 libc.debug.hooks.enable u:object_r:exported2_default_prop:s0 exact string
 persist.sys.locale u:object_r:exported_system_prop:s0 exact string
 persist.sys.timezone u:object_r:exported_system_prop:s0 exact string
+persist.sys.test_harness u:object_r:test_harness_prop:s0 exact bool
 ro.adb.secure u:object_r:exported_secure_prop:s0 exact int
 ro.arch u:object_r:exported2_default_prop:s0 exact string
 ro.audio.ignore_effects u:object_r:exported2_default_prop:s0 exact bool
