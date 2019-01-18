@@ -10,6 +10,10 @@ allow appdomain system_server_tmpfs:file read;
 # info etc.
 allow appdomain priv_app_tmpfs:file read;
 
+# Allow apps to read the Test Harness Mode property. This property is used in
+# the implementation of ActivityManager.isDeviceInTestHarnessMode()
+get_prop(appdomain, test_harness_prop)
+
 neverallow appdomain system_server:udp_socket {
         accept append bind create ioctl listen lock name_bind
         relabelfrom relabelto setattr shutdown };
