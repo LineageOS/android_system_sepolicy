@@ -76,7 +76,6 @@ REQD_MASK_POLICY := $(LOCAL_PATH)/reqd_mask
 # policy is to be based. If unspecified, this will build against the current
 # public platform policy in tree
 ifndef BOARD_SEPOLICY_VERS
-$(warning BOARD_SEPOLICY_VERS not specified, assuming current platform version)
 # The default platform policy version.
 BOARD_SEPOLICY_VERS := $(PLATFORM_SEPOLICY_VERSION)
 endif
