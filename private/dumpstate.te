@@ -8,12 +8,6 @@ domain_auto_trans(dumpstate, vdc_exec, vdc)
 # Acquire advisory lock on /system/etc/xtables.lock from ip[6]tables
 allow dumpstate system_file:file lock;
 
-# systrace support - allow atrace to run
-allow dumpstate debugfs_tracing:dir r_dir_perms;
-allow dumpstate debugfs_tracing:file rw_file_perms;
-allow dumpstate debugfs_tracing_debug:dir r_dir_perms;
-allow dumpstate debugfs_trace_marker:file getattr;
-allow dumpstate atrace_exec:file rx_file_perms;
 allow dumpstate storaged_exec:file rx_file_perms;
 
 # /data/misc/wmtrace for wm traces
