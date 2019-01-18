@@ -14,6 +14,7 @@ define(`socket_class_set', `{ socket tcp_socket udp_socket rawip_socket netlink_
 define(`dgram_socket_class_set', `{ udp_socket unix_dgram_socket }')
 define(`stream_socket_class_set', `{ tcp_socket unix_stream_socket sctp_socket }')
 define(`unpriv_socket_class_set', `{ tcp_socket udp_socket unix_stream_socket unix_dgram_socket sctp_socket }')
+define(`network_socket_class_set', `{ icmp_socket rawip_socket tcp_socket udp_socket }')
 
 define(`ipc_class_set', `{ sem msgq shm ipc }')
 
