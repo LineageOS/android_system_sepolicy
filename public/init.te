@@ -362,6 +362,17 @@ allow init {
   sysfs_zram
 }:file rw_file_perms;
 
+# allow init to create loop devices with /dev/loop-control
+allow init loop_control_device:chr_file rw_file_perms;
+allow init loop_device:blk_file rw_file_perms;
+allowxperm init loop_device:blk_file ioctl {
+  LOOP_SET_FD
+  LOOP_CLR_FD
+  LOOP_CTL_GET_FREE
+  LOOP_SET_BLOCK_SIZE
+  LOOP_SET_DIRECT_IO
+};
+
 # Allow init to write to vibrator/trigger
 allow init sysfs_vibrator:file w_file_perms;
 
@@ -375,6 +386,7 @@ allow init {
   sysfs_power
   sysfs_vibrator
   sysfs_wake_lock
+  sysfs_zram
 }:file setattr;
 
 # Set usermodehelpers.

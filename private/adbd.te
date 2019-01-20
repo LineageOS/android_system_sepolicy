@@ -85,6 +85,9 @@ get_prop(adbd, device_logging_prop)
 # Read device's serial number from system properties
 get_prop(adbd, serialno_prop)
 
+# Read whether or not Test Harness Mode is enabled
+get_prop(adbd, test_harness_prop)
+
 # Read device's overlayfs related properties and files
 userdebug_or_eng(`
   get_prop(adbd, persistent_properties_ready_prop)
