@@ -23,6 +23,7 @@ allow traced self:global_capability_class_set { sys_nice };
 # directly into that (rather than returning the trace contents over the socket).
 allow traced perfetto:fd use;
 allow traced shell:fd use;
+allow traced shell:fifo_file { read write };
 allow traced perfetto_traces_data_file:file { read write };
 
 # Allow traceur to pass open file descriptors to traced, so traced can directly
