@@ -101,6 +101,7 @@ neverallow {
   domain
   -adbd
   -appdomain
+  -app_zygote
   -dexoptanalyzer
   -installd
   userdebug_or_eng(`-perfprofd')
@@ -123,6 +124,7 @@ neverallow {
 neverallow {
   domain
   -appdomain
+  -app_zygote
   -installd
   userdebug_or_eng(`-perfprofd')
   -rs # spawned by appdomain, so carryover the exception above
@@ -171,6 +173,7 @@ neverallow {
     -shell
     userdebug_or_eng(`-su')
     -system_server_startup # for memfd backed executable regions
+    -app_zygote
     -webview_zygote
     -zygote
     userdebug_or_eng(`-mediaextractor')
