@@ -991,6 +991,9 @@ allow system_server system_server_startup:unix_dgram_socket write;
 allow system_server apex_service:service_manager find;
 allow system_server apexd:binder call;
 
+# Allow system server to communicate to system-suspend's control interface
+allow system_server system_suspend_control_service:service_manager find;
+
 # Allow the system server to read files under /data/apex. The system_server
 # needs these privileges to compare file signatures while processing installs.
 #
