@@ -60,6 +60,7 @@ full_treble_only(`
         -installd
         -rs # spawned by appdomain, so carryover the exception above
         -system_server
+        -app_zygote
         -webview_zygote
         -zygote
         userdebug_or_eng(`-heapprofd')
@@ -75,6 +76,7 @@ full_treble_only(`
         -installd
         -rs # spawned by appdomain, so carryover the exception above
         -system_server
+        -app_zygote
         -webview_zygote
         -zygote
         userdebug_or_eng(`-heapprofd')
