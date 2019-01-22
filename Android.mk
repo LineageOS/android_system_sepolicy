@@ -391,34 +391,34 @@ $(reqd_policy_mask.cil): $(reqd_policy_mask.conf) $(HOST_OUT_EXECUTABLES)/checkp
 reqd_policy_mask.conf :=
 
 ##################################
-# plat_pub_policy - policy that will be exported to be a part of non-platform
+# pub_policy - policy that will be exported to be a part of non-platform
 # policy corresponding to this platform version.  This is a limited subset of
 # policy that would not compile in checkpolicy on its own.  To get around this
 # limitation, add only the required files from private policy, which will
 # generate CIL policy that will then be filtered out by the reqd_policy_mask.
-plat_pub_policy.conf := $(intermediates)/plat_pub_policy.conf
-$(plat_pub_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
-$(plat_pub_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
-$(plat_pub_policy.conf): PRIVATE_TARGET_BUILD_VARIANT := $(TARGET_BUILD_VARIANT)
-$(plat_pub_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
-$(plat_pub_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
-$(plat_pub_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(plat_pub_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
-$(plat_pub_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
-$(plat_pub_policy.conf): $(call build_policy, $(sepolicy_build_files), \
+pub_policy.conf := $(intermediates)/pub_policy.conf
+$(pub_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(pub_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(pub_policy.conf): PRIVATE_TARGET_BUILD_VARIANT := $(TARGET_BUILD_VARIANT)
+$(pub_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(pub_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
+$(pub_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(pub_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(pub_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
+$(pub_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 $(PLAT_PUBLIC_POLICY) $(PRODUCT_PUBLIC_POLICY) $(REQD_MASK_POLICY))
 	$(transform-policy-to-conf)
-plat_pub_policy.cil := $(intermediates)/plat_pub_policy.cil
-$(plat_pub_policy.cil): PRIVATE_POL_CONF := $(plat_pub_policy.conf)
-$(plat_pub_policy.cil): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
-$(plat_pub_policy.cil): $(HOST_OUT_EXECUTABLES)/checkpolicy \
-$(HOST_OUT_EXECUTABLES)/build_sepolicy $(plat_pub_policy.conf) $(reqd_policy_mask.cil)
+pub_policy.cil := $(intermediates)/pub_policy.cil
+$(pub_policy.cil): PRIVATE_POL_CONF := $(pub_policy.conf)
+$(pub_policy.cil): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
+$(pub_policy.cil): $(HOST_OUT_EXECUTABLES)/checkpolicy \
+$(HOST_OUT_EXECUTABLES)/build_sepolicy $(pub_policy.conf) $(reqd_policy_mask.cil)
 	@mkdir -p $(dir $@)
 	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $< -C -M -c $(POLICYVERS) -o $@ $(PRIVATE_POL_CONF)
 	$(hide) $(HOST_OUT_EXECUTABLES)/build_sepolicy -a $(HOST_OUT_EXECUTABLES) filter_out \
 		-f $(PRIVATE_REQD_MASK) -t $@
 
-plat_pub_policy.conf :=
+pub_policy.conf :=
 
 ##################################
 include $(CLEAR_VARS)
@@ -560,7 +560,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 # auto-generate the mapping file for current platform policy, since it needs to
 # track platform policy development
 $(LOCAL_BUILT_MODULE) : PRIVATE_VERS := $(PLATFORM_SEPOLICY_VERSION)
-$(LOCAL_BUILT_MODULE) : $(plat_pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy
+$(LOCAL_BUILT_MODULE) : $(pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
 
@@ -593,16 +593,16 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
 include $(BUILD_SYSTEM)/base_rules.mk
 
 $(LOCAL_BUILT_MODULE) : PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
-$(LOCAL_BUILT_MODULE) : PRIVATE_TGT_POL := $(plat_pub_policy.cil)
+$(LOCAL_BUILT_MODULE) : PRIVATE_TGT_POL := $(pub_policy.cil)
 $(LOCAL_BUILT_MODULE) : PRIVATE_DEP_CIL_FILES := $(built_plat_cil) $(built_mapping_cil)
-$(LOCAL_BUILT_MODULE) : $(plat_pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy \
+$(LOCAL_BUILT_MODULE) : $(pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy \
   $(HOST_OUT_EXECUTABLES)/secilc $(built_plat_cil) $(built_mapping_cil)
 	@mkdir -p $(dir $@)
 	$(HOST_OUT_EXECUTABLES)/version_policy -b $< -t $(PRIVATE_TGT_POL) -n $(PRIVATE_VERS) -o $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -N -c $(POLICYVERS) \
 		$(PRIVATE_DEP_CIL_FILES) $@ -o /dev/null -f /dev/null
 
-built_plat_pub_vers_cil := $(LOCAL_BUILT_MODULE)
+built_pub_vers_cil := $(LOCAL_BUILT_MODULE)
 
 #################################
 include $(CLEAR_VARS)
@@ -635,13 +635,13 @@ $(BOARD_VENDOR_SEPOLICY_DIRS))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_POL_CONF := $(vendor_policy.conf)
 $(LOCAL_BUILT_MODULE): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
-$(LOCAL_BUILT_MODULE): PRIVATE_BASE_CIL := $(plat_pub_policy.cil)
+$(LOCAL_BUILT_MODULE): PRIVATE_BASE_CIL := $(pub_policy.cil)
 $(LOCAL_BUILT_MODULE): PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
-$(LOCAL_BUILT_MODULE): PRIVATE_DEP_CIL_FILES := $(built_plat_cil) $(built_plat_pub_vers_cil) $(built_mapping_cil)
-$(LOCAL_BUILT_MODULE): PRIVATE_FILTER_CIL := $(built_plat_pub_vers_cil)
+$(LOCAL_BUILT_MODULE): PRIVATE_DEP_CIL_FILES := $(built_plat_cil) $(built_pub_vers_cil) $(built_mapping_cil)
+$(LOCAL_BUILT_MODULE): PRIVATE_FILTER_CIL := $(built_pub_vers_cil)
 $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/build_sepolicy \
-  $(vendor_policy.conf) $(reqd_policy_mask.cil) $(plat_pub_policy.cil) \
-  $(built_plat_cil) $(built_plat_pub_vers_cil) $(built_mapping_cil)
+  $(vendor_policy.conf) $(reqd_policy_mask.cil) $(pub_policy.cil) \
+  $(built_plat_cil) $(built_pub_vers_cil) $(built_mapping_cil)
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/build_sepolicy -a $(HOST_OUT_EXECUTABLES) build_cil \
 		-i $(PRIVATE_POL_CONF) -m $(PRIVATE_REQD_MASK) -c $(CHECKPOLICY_ASAN_OPTIONS) \
@@ -683,14 +683,14 @@ $(odm_policy.conf): $(call build_policy, $(sepolicy_build_files), \
 
 $(LOCAL_BUILT_MODULE): PRIVATE_POL_CONF := $(odm_policy.conf)
 $(LOCAL_BUILT_MODULE): PRIVATE_REQD_MASK := $(reqd_policy_mask.cil)
-$(LOCAL_BUILT_MODULE): PRIVATE_BASE_CIL := $(plat_pub_policy.cil)
+$(LOCAL_BUILT_MODULE): PRIVATE_BASE_CIL := $(pub_policy.cil)
 $(LOCAL_BUILT_MODULE): PRIVATE_VERS := $(BOARD_SEPOLICY_VERS)
-$(LOCAL_BUILT_MODULE): PRIVATE_DEP_CIL_FILES := $(built_plat_cil) $(built_plat_pub_vers_cil) \
+$(LOCAL_BUILT_MODULE): PRIVATE_DEP_CIL_FILES := $(built_plat_cil) $(built_pub_vers_cil) \
   $(built_mapping_cil) $(built_vendor_cil)
-$(LOCAL_BUILT_MODULE) : PRIVATE_FILTER_CIL_FILES := $(built_plat_pub_vers_cil) $(built_vendor_cil)
+$(LOCAL_BUILT_MODULE) : PRIVATE_FILTER_CIL_FILES := $(built_pub_vers_cil) $(built_vendor_cil)
 $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/build_sepolicy \
-  $(odm_policy.conf) $(reqd_policy_mask.cil) $(plat_pub_policy.cil) \
-  $(built_plat_cil) $(built_plat_pub_vers_cil) $(built_mapping_cil) $(built_vendor_cil)
+  $(odm_policy.conf) $(reqd_policy_mask.cil) $(pub_policy.cil) \
+  $(built_plat_cil) $(built_pub_vers_cil) $(built_mapping_cil) $(built_vendor_cil)
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/build_sepolicy -a $(HOST_OUT_EXECUTABLES) build_cil \
 		-i $(PRIVATE_POL_CONF) -m $(PRIVATE_REQD_MASK) -c $(CHECKPOLICY_ASAN_OPTIONS) \
@@ -721,7 +721,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 all_cil_files := \
     $(built_plat_cil) \
     $(built_mapping_cil) \
-    $(built_plat_pub_vers_cil) \
+    $(built_pub_vers_cil) \
     $(built_vendor_cil)
 
 ifdef HAS_PRODUCT_SEPOLICY
@@ -777,7 +777,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 all_cil_files := \
     $(built_plat_cil) \
     $(built_mapping_cil) \
-    $(built_plat_pub_vers_cil) \
+    $(built_pub_vers_cil) \
     $(built_vendor_cil)
 
 ifdef HAS_PRODUCT_SEPOLICY
@@ -1944,7 +1944,7 @@ built_vendor_fc :=
 built_odm_fc :=
 built_nl :=
 built_plat_cil :=
-built_plat_pub_vers_cil :=
+built_pub_vers_cil :=
 built_mapping_cil :=
 built_plat_pc :=
 built_product_pc :=
@@ -1963,7 +1963,7 @@ built_vendor_svc :=
 built_plat_sepolicy :=
 mapping_policy :=
 my_target_arch :=
-plat_pub_policy.cil :=
+pub_policy.cil :=
 reqd_policy_mask.cil :=
 sepolicy_build_files :=
 sepolicy_build_cil_workaround_files :=
