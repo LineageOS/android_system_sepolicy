@@ -556,32 +556,15 @@ LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux/mapping
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-current_mapping.cil := $(intermediates)/mapping/$(PLATFORM_SEPOLICY_VERSION).cil
-ifeq ($(BOARD_SEPOLICY_VERS), $(PLATFORM_SEPOLICY_VERSION))
+# TODO(b/119305624): Move product-specific sepolicy out of mapping files.
 # auto-generate the mapping file for current platform policy, since it needs to
 # track platform policy development
-$(current_mapping.cil) : PRIVATE_VERS := $(PLATFORM_SEPOLICY_VERSION)
-$(current_mapping.cil) : $(plat_pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy
+$(LOCAL_BUILT_MODULE) : PRIVATE_VERS := $(PLATFORM_SEPOLICY_VERSION)
+$(LOCAL_BUILT_MODULE) : $(plat_pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
 
-else # ifeq ($(BOARD_SEPOLICY_VERS), $(PLATFORM_SEPOLICY_VERSION))
-# TODO(b/119305624): Move product-specific sepolicy out of mapping files.
-prebuilt_mapping_files := $(wildcard \
-  $(addsuffix /compat/$(BOARD_SEPOLICY_VERS)/$(BOARD_SEPOLICY_VERS).cil, \
-  $(PLAT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY)))
-$(current_mapping.cil) : $(prebuilt_mapping_files)
-	@mkdir -p $(dir $@)
-	cat $^ > $@
-
-prebuilt_mapping_files :=
-endif
-
-$(LOCAL_BUILT_MODULE): $(current_mapping.cil) $(ACP)
-	$(hide) $(ACP) $< $@
-
 built_mapping_cil := $(LOCAL_BUILT_MODULE)
-current_mapping.cil :=
 
 #################################
 include $(CLEAR_VARS)
