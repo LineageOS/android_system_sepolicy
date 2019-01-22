@@ -37,6 +37,7 @@ allow system_server zygote:process sigchld;
 allow system_server zygote:process sigkill;
 allow system_server crash_dump:process sigkill;
 allow system_server webview_zygote:process sigkill;
+allow system_server app_zygote:process sigkill;
 
 # Read /system/bin/app_process.
 allow system_server zygote_exec:file r_file_perms;
@@ -167,6 +168,9 @@ allow system_server gpuservice:unix_stream_socket { read write setopt };
 
 # Communicate over a socket created by webview_zygote.
 allow system_server webview_zygote:unix_stream_socket { read write connectto setopt };
+
+# Communicate over a socket created by app_zygote.
+allow system_server app_zygote:unix_stream_socket { read write connectto setopt };
 
 # Perform Binder IPC.
 binder_use(system_server)
