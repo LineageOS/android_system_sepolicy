@@ -10,7 +10,8 @@ allow domain crash_dump:process sigchld;
 # heap profiling, as initialization will fail if it does not have the
 # necessary SELinux permissions.
 get_prop(domain, heapprofd_prop);
-userdebug_or_eng(`can_profile_heap({
+# Allow heap profiling on debug builds.
+userdebug_or_eng(`can_profile_heap_userdebug_or_eng({
   domain
   -bpfloader
   -init
