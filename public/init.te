@@ -1,8 +1,7 @@
 # init is its own domain.
 type init, domain, mlstrustedsubject;
-
-# The init domain is entered by execing init.
 type init_exec, system_file_type, exec_type, file_type;
+type init_tmpfs, file_type;
 
 # /dev/__null__ node created by init.
 allow init tmpfs:chr_file { create setattr unlink rw_file_perms };

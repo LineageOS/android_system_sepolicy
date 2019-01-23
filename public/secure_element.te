@@ -1,2 +1,3 @@
 # secure_element subsystem
 type secure_element, domain;
+type secure_element_tmpfs, file_type;
