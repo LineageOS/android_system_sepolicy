@@ -1,6 +1,7 @@
 # viewcompiler
 type viewcompiler, domain, coredomain, mlstrustedsubject;
 type viewcompiler_exec, system_file_type, exec_type, file_type;
+type viewcompiler_tmpfs, file_type;
 
 # Reading an APK opens a ZipArchive, which unpack to tmpfs.
 # Use tmpfs_domain() which will give tmpfs files created by viewcompiler their

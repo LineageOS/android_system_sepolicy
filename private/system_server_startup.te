@@ -1,4 +1,5 @@
 type system_server_startup, domain, coredomain;
+type system_server_startup_tmpfs, file_type;
 
 tmpfs_domain(system_server_startup)
 
