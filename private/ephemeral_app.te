@@ -49,6 +49,10 @@ allow ephemeral_app traced:fd use;
 allow ephemeral_app traced_tmpfs:file { read write getattr map };
 unix_socket_connect(ephemeral_app, traced_producer, traced)
 
+# Allow heap profiling if the app opts in by being marked
+# profileable/debuggable.
+can_profile_heap(ephemeral_app)
+
 # allow ephemeral apps to use UDP sockets provided by the system server but not
 # modify them other than to connect
 allow ephemeral_app system_server:udp_socket {
