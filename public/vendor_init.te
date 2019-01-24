@@ -174,6 +174,7 @@ recovery_only(`
 not_compatible_property(`
     set_prop(vendor_init, {
       property_type
+      -device_config_activity_manager_native_boot_prop
       -device_config_boot_count_prop
       -device_config_reset_performed_prop
       -device_config_input_native_boot_prop
