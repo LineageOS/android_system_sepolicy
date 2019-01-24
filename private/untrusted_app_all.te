@@ -100,6 +100,12 @@ userdebug_or_eng(`
 # gdbserver for ndk-gdb ptrace attaches to app process.
 allow untrusted_app_all self:process ptrace;
 
+# Android Studio Instant Run has the application connect to a
+# runas_app socket listening in the abstract namespace.
+# https://developer.android.com/studio/run/
+# b/123297648
+allow untrusted_app_all runas_app:unix_stream_socket connectto;
+
 # Cts: HwRngTest
 allow untrusted_app_all sysfs_hwrandom:dir search;
 allow untrusted_app_all sysfs_hwrandom:file r_file_perms;
