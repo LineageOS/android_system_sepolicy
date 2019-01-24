@@ -852,11 +852,15 @@ with_asan(`
   allow system_server zygote_exec:file rx_file_perms;
 ')
 
-# allow system_server to read the eBPF maps that stores the traffic stats information amd clean up
+# allow system_server to read the eBPF maps that stores the traffic stats information and update
 # the map after snapshot is recorded
 allow system_server fs_bpf:dir search;
-allow system_server fs_bpf:file read;
-allow system_server bpfloader:bpf map_read;
+allow system_server fs_bpf:file { read write };
+allow system_server bpfloader:bpf { map_read map_write };
+# in order to invoke side effect of close() on such a socket calling synchronize_rcu()
+# TODO: Remove this permission when 4.9 kernel is deprecated.
+allow system_server self:key_socket create;
+
 
 # ART Profiles.
 # Allow system_server to open profile snapshots for read.
