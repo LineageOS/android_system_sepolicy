@@ -126,6 +126,27 @@ neverallow app_zygote domain:{
   alg_socket nfc_socket vsock_socket kcm_socket qipcrtr_socket smc_socket
 } *;
 
+# Only allow app_zygote to talk to the logd socket, and su/heapprofd on eng/userdebug
+# This is because cap_setuid/cap_setgid allow to forge uid/gid in SCM_CREDENTIALS.
+# Think twice before changing.
+neverallow app_zygote {
+  domain
+  -app_zygote
+  -logd
+  userdebug_or_eng(`-su')
+  userdebug_or_eng(`-heapprofd')
+}:unix_dgram_socket *;
+
+neverallow app_zygote {
+  domain
+  -app_zygote
+  userdebug_or_eng(`-su')
+  userdebug_or_eng(`-heapprofd')
+}:unix_stream_socket *;
+
+# Never allow ptrace
+neverallow app_zygote *:process ptrace;
+
 # Do not allow access to Bluetooth-related system properties.
 # neverallow rules for Bluetooth-related data files are listed above.
 neverallow app_zygote {
