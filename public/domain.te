@@ -389,6 +389,11 @@ neverallow {
 # Ensure that all entrypoint executables are in exec_type or postinstall_file.
 neverallow * { file_type -exec_type -postinstall_file }:file entrypoint;
 
+# The dynamic linker always calls access(2) on the path. Don't generate SElinux
+# denials since the linker does not actually access the path in case the path
+# does not exist or isn't accessible for the process.
+dontaudit domain postinstall_mnt_dir:dir audit_access;
+
 #Ensure that nothing in userspace can access /dev/port
 neverallow {
   domain
