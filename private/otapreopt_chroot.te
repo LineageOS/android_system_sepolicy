@@ -27,3 +27,8 @@ allow otapreopt_chroot tmpfs:filesystem mount;
 allow otapreopt_chroot tmpfs:dir create_dir_perms;
 # Allow otapreopt_chroot to mount APEX packages in /postinstall/apex.
 allow otapreopt_chroot tmpfs:dir mounton;
+
+# Allow otapreopt_chroot to unmount APEX packages (ext4 images) mounted in /postinstall/apex.
+allow otapreopt_chroot labeledfs:filesystem unmount;
+# Allow otapreopt_chroot to access /dev/block.
+allow otapreopt_chroot block_device:dir r_dir_perms;
