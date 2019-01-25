@@ -13,6 +13,14 @@ allow otapreopt_chroot labeledfs:filesystem mount;
 # Mounting /vendor can have this side-effect. Ignore denial.
 dontaudit otapreopt_chroot kernel:process setsched;
 
+# Allow otapreopt_chroot to read SELinux policy files.
+allow otapreopt_chroot file_contexts_file:file r_file_perms;
+
+# Allow otapreopt_chroot to open and read the contents of /postinstall/system/apex.
+allow otapreopt_chroot postinstall_file:dir r_dir_perms;
+# Allow otapreopt_chroot to read the persist.apexd.verity_on_system system property.
+get_prop(otapreopt_chroot, apexd_prop)
+
 # Allow otapreopt to use file descriptors from update-engine. It will
 # close them immediately.
 allow otapreopt_chroot postinstall:fd use;
