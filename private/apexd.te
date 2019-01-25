@@ -70,6 +70,20 @@ dontaudit apexd self:global_capability_class_set { dac_override dac_read_search 
 # Allow apexd to log to the kernel.
 allow apexd kmsg_device:chr_file w_file_perms;
 
+# Apex pre- & post-install permission.
+
+# Allow self-execute for the fork mount helper.
+allow apexd apexd_exec:file execute_no_trans;
+
+# Allow to execute shell for pre- and postinstall scripts. A transition
+# rule is required, thus restricted to execute and not execute_no_trans.
+allow apexd shell_exec:file { r_file_perms execute };
+
+# Allow transition to test APEX preinstall domain.
+userdebug_or_eng(`
+  domain_auto_trans(apexd, apex_test_prepostinstall_exec, apex_test_prepostinstall)
+')
+
 neverallow { domain -apexd -init } apex_data_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init -kernel } apex_data_file:file no_w_file_perms;
 neverallow { domain -apexd } apex_mnt_dir:lnk_file no_w_file_perms;
