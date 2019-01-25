@@ -194,7 +194,7 @@ LOCAL_REQUIRED_MODULES += \
     plat_mapping_file \
     $(addsuffix .cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
     plat_sepolicy.cil \
-    plat_and_mapping_sepolicy.cil.sha256 \
+    plat_sepolicy_and_mapping.sha256 \
     secilc \
 
 LOCAL_REQUIRED_MODULES += \
@@ -249,7 +249,8 @@ LOCAL_MODULE := selinux_policy_nonsystem
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 LOCAL_REQUIRED_MODULES += \
     precompiled_sepolicy \
-    precompiled_sepolicy.plat_and_mapping.sha256 \
+    precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 \
+    precompiled_sepolicy.product_sepolicy_and_mapping.sha256 \
 
 endif # ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 
@@ -289,6 +290,7 @@ LOCAL_REQUIRED_MODULES += \
     product_service_contexts \
     product_mac_permissions.xml \
     product_mapping_file \
+    product_sepolicy_and_mapping.sha256 \
 
 endif
 include $(BUILD_PHONY_PACKAGE)
@@ -620,21 +622,6 @@ endif # HAS_PRODUCT_SEPOLICY
 #################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := plat_and_mapping_sepolicy.cil.sha256
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH = $(TARGET_OUT)/etc/selinux
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-# TODO(b/119305624): Need one hash for system, one for product.
-$(LOCAL_BUILT_MODULE): $(built_plat_cil) $(built_product_cil) \
-$(built_plat_mapping_cil) $(built_product_mapping_cil)
-	cat $^ | sha256sum | cut -d' ' -f1 > $@
-
-#################################
-include $(CLEAR_VARS)
-
 # plat_pub_versioned.cil - the exported platform policy associated with the version
 # that non-platform policy targets.
 LOCAL_MODULE := plat_pub_versioned.cil
@@ -804,14 +791,47 @@ built_precompiled_sepolicy := $(LOCAL_BUILT_MODULE)
 all_cil_files :=
 
 #################################
-# SHA-256 digest of the plat_sepolicy.cil and mapping_sepolicy.cil files against
+# Precompiled sepolicy is loaded if and only if:
+# - plat_sepolicy_and_mapping.sha256 equals
+#   precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
+# AND
+# - product_sepolicy_and_mapping.sha256 equals
+#   precompiled_sepolicy.product_sepolicy_and_mapping.sha256
+# See system/core/init/selinux.cpp for details.
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := plat_sepolicy_and_mapping.sha256
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH = $(TARGET_OUT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_plat_cil) $(built_plat_mapping_cil)
+	cat $^ | sha256sum | cut -d' ' -f1 > $@
+
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := product_sepolicy_and_mapping.sha256
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH = $(TARGET_OUT_PRODUCT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_product_cil) $(built_product_mapping_cil)
+	cat $^ | sha256sum | cut -d' ' -f1 > $@
+
+#################################
+# SHA-256 digest of the plat_sepolicy.cil and plat_mapping_file against
 # which precompiled_policy was built.
 #################################
 include $(CLEAR_VARS)
-LOCAL_MODULE := precompiled_sepolicy.plat_and_mapping.sha256
+LOCAL_MODULE := precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
-LOCAL_PROPRIETARY_MODULE := true
 
 ifeq ($(BOARD_USES_ODMIMAGE),true)
 LOCAL_MODULE_PATH := $(TARGET_OUT_ODM)/etc/selinux
@@ -821,11 +841,29 @@ endif
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-# TODO(b/119305624): Need one hash for system, one for product.
-$(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(built_plat_cil) $(built_product_cil) \
-$(built_plat_mapping_cil) $(built_product_mapping_cil)
-$(LOCAL_BUILT_MODULE): $(built_precompiled_sepolicy) $(built_plat_cil) $(built_product_cil)\
-$(built_plat_mapping_cil) $(built_product_cil)
+$(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(built_plat_cil) $(built_plat_mapping_cil)
+$(LOCAL_BUILT_MODULE): $(built_precompiled_sepolicy) $(built_plat_cil) $(built_plat_mapping_cil)
+	cat $(PRIVATE_CIL_FILES) | sha256sum | cut -d' ' -f1 > $@
+
+#################################
+# SHA-256 digest of the product_sepolicy.cil and product_mapping_file against
+# which precompiled_policy was built.
+#################################
+include $(CLEAR_VARS)
+LOCAL_MODULE := precompiled_sepolicy.product_sepolicy_and_mapping.sha256
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+
+ifeq ($(BOARD_USES_ODMIMAGE),true)
+LOCAL_MODULE_PATH := $(TARGET_OUT_ODM)/etc/selinux
+else
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
+endif
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(built_product_cil) $(built_product_mapping_cil)
+$(LOCAL_BUILT_MODULE): $(built_precompiled_sepolicy) $(built_product_cil) $(built_product_mapping_cil)
 	cat $(PRIVATE_CIL_FILES) | sha256sum | cut -d' ' -f1 > $@
 
 #################################
