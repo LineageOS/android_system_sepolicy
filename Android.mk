@@ -217,12 +217,6 @@ LOCAL_REQUIRED_MODULES += \
 
 endif # ($(PRODUCT_SEPOLICY_SPLIT),true)
 
-ifneq ($(TARGET_BUILD_VARIANT), user)
-LOCAL_REQUIRED_MODULES += \
-    selinux_denial_metadata \
-
-endif
-
 ifneq ($(with_asan),true)
 ifneq ($(SELINUX_IGNORE_NEVERALLOWS),true)
 LOCAL_REQUIRED_MODULES += \
@@ -291,6 +285,12 @@ LOCAL_REQUIRED_MODULES += \
     product_mac_permissions.xml \
     product_mapping_file \
     product_sepolicy_and_mapping.sha256 \
+
+endif
+
+ifneq ($(TARGET_BUILD_VARIANT), user)
+LOCAL_REQUIRED_MODULES += \
+    selinux_denial_metadata \
 
 endif
 include $(BUILD_PHONY_PACKAGE)
@@ -1085,7 +1085,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := selinux_denial_metadata
 LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
+LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
