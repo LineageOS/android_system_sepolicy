@@ -25,6 +25,12 @@
 allow untrusted_app_all privapp_data_file:file { r_file_perms execute };
 allow untrusted_app_all app_data_file:file     { r_file_perms execute };
 
+# Follow priv-app symlinks. This is used for dynamite functionality.
+allow untrusted_app_all privapp_data_file:lnk_file r_file_perms;
+
+# Allow handling of less common filesystem objects
+allow untrusted_app_all app_data_file:{ lnk_file sock_file fifo_file } create_file_perms;
+
 # Allow loading and deleting executable shared libraries
 # within an application home directory. Such shared libraries would be
 # created by things like renderscript or via other mechanisms.
