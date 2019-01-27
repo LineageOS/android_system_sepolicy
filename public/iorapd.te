@@ -1,6 +1,7 @@
 # volume manager
 type iorapd, domain;
 type iorapd_exec, exec_type, file_type, system_file_type;
+type iorapd_tmpfs, file_type;
 
 r_dir_file(iorapd, rootfs)
 
