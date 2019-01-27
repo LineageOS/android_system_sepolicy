@@ -52,6 +52,7 @@ userdebug_or_eng(`
 ')
 
 # Root fs.
+allow domain tmpfs:dir { getattr search };
 allow domain rootfs:dir search;
 allow domain rootfs:lnk_file { read getattr };
 

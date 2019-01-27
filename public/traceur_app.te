@@ -1,4 +1,5 @@
 type traceur_app, domain;
+type traceur_app_tmpfs, file_type;
 
 allow traceur_app servicemanager:service_manager list;
 allow traceur_app hwservicemanager:hwservice_manager list;
