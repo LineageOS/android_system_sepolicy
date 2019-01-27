@@ -1,2 +1,3 @@
 # nfc subsystem
 type nfc, domain;
+type nfc_tmpfs, file_type;
