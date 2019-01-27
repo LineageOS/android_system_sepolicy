@@ -1,6 +1,7 @@
 # ueventd seclabel is specified in init.rc since
 # it lives in the rootfs and has no unique file type.
 type ueventd, domain;
+type ueventd_tmpfs, file_type;
 
 # Write to /dev/kmsg.
 allow ueventd kmsg_device:chr_file rw_file_perms;

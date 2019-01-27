@@ -72,13 +72,10 @@ allow $1 $2:{ file lnk_file } r_file_perms;
 
 #####################################
 # tmpfs_domain(domain)
-# Define and allow access to a unique type for
-# this domain when creating tmpfs / shmem / ashmem files.
+# Allow access to a unique type for this domain when creating tmpfs / ashmem files.
 define(`tmpfs_domain', `
-type $1_tmpfs, file_type;
 type_transition $1 tmpfs:file $1_tmpfs;
 allow $1 $1_tmpfs:file { read write getattr map };
-allow $1 tmpfs:dir { getattr search };
 ')
 
 # pdx macros for IPC. pdx is a high-level name which contains transport-specific
@@ -164,7 +161,6 @@ pdx_use($1, $2)
 # upon executing its binary.
 define(`init_daemon_domain', `
 domain_auto_trans(init, $1_exec, $1)
-tmpfs_domain($1)
 ')
 
 #####################################

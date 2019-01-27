@@ -1,6 +1,7 @@
 # mediaextractor - multimedia daemon
 type mediaextractor, domain;
 type mediaextractor_exec, system_file_type, exec_type, file_type;
+type mediaextractor_tmpfs, file_type;
 
 typeattribute mediaextractor mlstrustedsubject;
 
