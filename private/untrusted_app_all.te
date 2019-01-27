@@ -25,6 +25,12 @@
 allow untrusted_app_all privapp_data_file:file { r_file_perms execute };
 allow untrusted_app_all app_data_file:file     { r_file_perms execute };
 
+# Follow priv-app symlinks. This is used for dynamite functionality.
+allow untrusted_app_all privapp_data_file:lnk_file r_file_perms;
+
+# Allow handling of less common filesystem objects
+allow untrusted_app_all app_data_file:{ lnk_file sock_file fifo_file } create_file_perms;
+
 # Allow loading and deleting executable shared libraries
 # within an application home directory. Such shared libraries would be
 # created by things like renderscript or via other mechanisms.
@@ -99,6 +105,12 @@ userdebug_or_eng(`
 
 # gdbserver for ndk-gdb ptrace attaches to app process.
 allow untrusted_app_all self:process ptrace;
+
+# Android Studio Instant Run has the application connect to a
+# runas_app socket listening in the abstract namespace.
+# https://developer.android.com/studio/run/
+# b/123297648
+allow untrusted_app_all runas_app:unix_stream_socket connectto;
 
 # Cts: HwRngTest
 allow untrusted_app_all sysfs_hwrandom:dir search;

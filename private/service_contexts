@@ -59,6 +59,7 @@ dropbox                                   u:object_r:dropbox_service:s0
 dumpstate                                 u:object_r:dumpstate_service:s0
 econtroller                               u:object_r:radio_service:s0
 euicc_card_controller                     u:object_r:radio_service:s0
+external_vibrator_service                 u:object_r:external_vibrator_service:s0
 lowpan                                    u:object_r:lowpan_service:s0
 ethernet                                  u:object_r:ethernet_service:s0
 face                                      u:object_r:face_service:s0
@@ -86,6 +87,7 @@ ims                                       u:object_r:radio_service:s0
 imms                                      u:object_r:imms_service:s0
 ipmemorystore                             u:object_r:ipmemorystore_service:s0
 ipsec                                     u:object_r:ipsec_service:s0
+ircs                                      u:object_r:radio_service:s0
 iris                                      u:object_r:iris_service:s0
 isms_msim                                 u:object_r:radio_service:s0
 isms2                                     u:object_r:radio_service:s0

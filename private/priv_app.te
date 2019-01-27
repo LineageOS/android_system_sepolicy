@@ -28,6 +28,8 @@ allow priv_app self:process ptrace;
 # TODO: Tighten (b/112357170)
 allow priv_app privapp_data_file:file execute;
 
+allow priv_app privapp_data_file:lnk_file create_file_perms;
+
 allow priv_app app_api_service:service_manager find;
 allow priv_app audioserver_service:service_manager find;
 allow priv_app cameraserver_service:service_manager find;
@@ -231,3 +233,6 @@ neverallow priv_app cgroup:file *;
 # is dangerous and allows a full compromise of a privileged process
 # by an unprivileged process. b/112357170
 neverallow priv_app app_data_file:file no_x_file_perms;
+
+# Do not follow untrusted app provided symlinks
+neverallow priv_app app_data_file:lnk_file { open read getattr };

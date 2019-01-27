@@ -1,6 +1,7 @@
 # volume manager
 type iorapd, domain;
 type iorapd_exec, exec_type, file_type, system_file_type;
+type iorapd_tmpfs, file_type;
 
 r_dir_file(iorapd, rootfs)
 
@@ -31,6 +32,9 @@ binder_call(iorapd, healthd)
 # iorapd temporarily changes its priority when running benchmarks
 allow iorapd self:global_capability_class_set sys_nice;
 
+# Allow to access Perfetto traced's privileged consumer socket to start/stop
+# tracing sessions and read trace data.
+unix_socket_connect(iorapd, traced_consumer, traced)
 
 ###
 ### neverallow rules

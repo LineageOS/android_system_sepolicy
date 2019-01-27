@@ -1,9 +1,13 @@
 # Perfetto user-space tracing daemon (unprivileged)
-type traced, domain, coredomain, mlstrustedsubject;
+
+# type traced is defined under /public (because iorapd rules
+# under public/ need to refer to it).
 type traced_exec, system_file_type, exec_type, file_type;
+type traced_tmpfs, file_type;
 
 # Allow init to exec the daemon.
 init_daemon_domain(traced)
+tmpfs_domain(traced)
 
 # Allow apps in other MLS contexts (for multi-user) to access
 # share memory buffers created by traced.
@@ -19,9 +23,17 @@ allow traced self:global_capability_class_set { sys_nice };
 # directly into that (rather than returning the trace contents over the socket).
 allow traced perfetto:fd use;
 allow traced shell:fd use;
-allow traced traceur_app:fd use;
 allow traced perfetto_traces_data_file:file { read write };
+
+# Allow traceur to pass open file descriptors to traced, so traced can directly
+# write into the output file without doing roundtrips over IPC.
+allow traced traceur_app:fd use;
 allow traced trace_data_file:file { read write };
+
+# Allow iorapd to pass memfd descriptors to traced, so traced can directly
+# write into the shmem buffer file without doing roundtrips over IPC.
+allow traced iorapd:fd use;
+allow traced iorapd_tmpfs:file { read write };
 
 ###
 ### Neverallow rules

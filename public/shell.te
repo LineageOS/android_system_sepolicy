@@ -1,6 +1,7 @@
 # Domain for shell processes spawned by ADB or console service.
 type shell, domain, mlstrustedsubject;
 type shell_exec, system_file_type, exec_type, file_type;
+type shell_tmpfs, file_type;
 
 # Create and use network sockets.
 net_domain(shell)

@@ -56,8 +56,15 @@ mlsconstrain dir_file_class_set { create relabelfrom relabelto }
 # Subject must dominate object unless the subject is trusted.
 mlsconstrain dir { open search setattr rename add_name remove_name reparent rmdir }
 	     ( (t2 != app_data_file and t2 != privapp_data_file ) or l1 dom l2 or t1 == mlstrustedsubject);
-mlsconstrain { file lnk_file sock_file } { open setattr unlink link rename }
+mlsconstrain { file sock_file } { open setattr unlink link rename }
 	     ( (t2 != app_data_file and t2 != privapp_data_file and t2 != priv_app_tmpfs) or l1 dom l2 or t1 == mlstrustedsubject);
+# For symlinks in app_data_file, require equivalence in order to manipulate or follow (read).
+mlsconstrain { lnk_file } { open setattr unlink link rename read }
+	     ( (t2 != app_data_file) or l1 eq l2 or t1 == mlstrustedsubject);
+# For priv_app_data_file, continue to use dominance for symlinks because dynamite relies on this.
+# TODO: Migrate to equivalence when it's no longer needed.
+mlsconstrain { lnk_file } { open setattr unlink link rename read }
+	     ( (t2 != privapp_data_file and t2 != priv_app_tmpfs) or l1 dom l2 or t1 == mlstrustedsubject);
 
 #
 # Constraints for file types other than app data files.

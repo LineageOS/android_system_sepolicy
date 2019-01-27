@@ -1,3 +1,4 @@
 typeattribute mediaextractor coredomain;
 
 init_daemon_domain(mediaextractor)
+tmpfs_domain(mediaextractor)

@@ -580,6 +580,7 @@ set_prop(system_server, cppreopt_prop)
 # server configurable flags properties
 set_prop(system_server, device_config_input_native_boot_prop)
 set_prop(system_server, device_config_netd_native_prop)
+set_prop(system_server, device_config_activity_manager_native_boot_prop)
 
 # BootReceiver to read ro.boot.bootreason
 get_prop(system_server, bootloader_boot_reason_prop)
@@ -792,6 +793,9 @@ allowxperm system_server apk_data_file:file ioctl {
 };
 # Allow system process to access the keyring.
 allow system_server kernel:key search;
+userdebug_or_eng(`
+  allow system_server su:key search;
+')
 
 # Postinstall
 #
@@ -847,11 +851,15 @@ with_asan(`
   allow system_server zygote_exec:file rx_file_perms;
 ')
 
-# allow system_server to read the eBPF maps that stores the traffic stats information amd clean up
+# allow system_server to read the eBPF maps that stores the traffic stats information and update
 # the map after snapshot is recorded
 allow system_server fs_bpf:dir search;
-allow system_server fs_bpf:file read;
-allow system_server bpfloader:bpf map_read;
+allow system_server fs_bpf:file { read write };
+allow system_server bpfloader:bpf { map_read map_write };
+# in order to invoke side effect of close() on such a socket calling synchronize_rcu()
+# TODO: Remove this permission when 4.9 kernel is deprecated.
+allow system_server self:key_socket create;
+
 
 # ART Profiles.
 # Allow system_server to open profile snapshots for read.
@@ -931,6 +939,7 @@ neverallow {
   -system_server
   -flags_health_check
 } {
+  device_config_activity_manager_native_boot_prop
   device_config_input_native_boot_prop
   device_config_netd_native_prop
 }:property_service set;
