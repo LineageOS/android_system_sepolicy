@@ -1,6 +1,6 @@
 typeattribute otapreopt_chroot coredomain;
 
-# Allow to transition to postinstall_ota, to run otapreopt in its own sandbox.
+# Allow to transition to postinstall_dexopt, to run otapreopt in its own sandbox.
 domain_auto_trans(otapreopt_chroot, postinstall_file, postinstall_dexopt)
 
 # Allow otapreopt_chroot to create loop devices with /dev/loop-control.
