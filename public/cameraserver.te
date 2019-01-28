@@ -62,6 +62,11 @@ allow cameraserver mediametrics_service:service_manager find;
 hal_client_domain(cameraserver, hal_omx)
 hal_client_domain(cameraserver, hal_allocator)
 
+userdebug_or_eng(`
+  allow cameraserver cameraserver_data_file:dir { add_name write search remove_name };
+  allow cameraserver cameraserver_data_file:file { create write open read unlink };
+')
+
 # Allow shell commands from ADB for CTS testing/dumping
 userdebug_or_eng(`
   allow cameraserver su:fd use;
