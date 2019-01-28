@@ -57,6 +57,11 @@ allow cameraserver shell:fd use;
 allow cameraserver shell:unix_stream_socket { read write };
 allow cameraserver shell:fifo_file { read write };
 
+# Allow to talk with media codec
+allow cameraserver mediametrics_service:service_manager find;
+hal_client_domain(cameraserver, hal_omx)
+hal_client_domain(cameraserver, hal_allocator)
+
 # Allow shell commands from ADB for CTS testing/dumping
 userdebug_or_eng(`
   allow cameraserver su:fd use;
