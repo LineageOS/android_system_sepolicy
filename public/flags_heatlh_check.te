@@ -4,6 +4,7 @@ type flags_health_check_exec, system_file_type, exec_type, file_type;
 
 set_prop(flags_health_check, device_config_boot_count_prop)
 set_prop(flags_health_check, device_config_reset_performed_prop)
+set_prop(flags_health_check, device_config_runtime_prop)
 set_prop(flags_health_check, device_config_input_native_boot_prop)
 set_prop(flags_health_check, device_config_netd_native_prop)
 set_prop(flags_health_check, device_config_activity_manager_native_boot_prop)
