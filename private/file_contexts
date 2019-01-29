@@ -457,7 +457,6 @@
 /data/misc/bluedroid/\.a2dp_ctrl u:object_r:bluetooth_socket:s0
 /data/misc/bluedroid/\.a2dp_data u:object_r:bluetooth_socket:s0
 /data/misc/camera(/.*)?         u:object_r:camera_data_file:s0
-/data/misc/cameraserver(/.*)?   u:object_r:cameraserver_data_file:s0
 /data/misc/carrierid(/.*)?      u:object_r:radio_data_file:s0
 /data/misc/dhcp(/.*)?           u:object_r:dhcp_data_file:s0
 /data/misc/dhcp-6\.8\.2(/.*)?     u:object_r:dhcp_data_file:s0
