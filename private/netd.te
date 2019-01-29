@@ -16,3 +16,7 @@ get_prop(netd, bpf_progs_loaded_prop)
 
 # Allow netd to write to statsd.
 unix_socket_send(netd, statsdw, statsd)
+
+# Allow netd to send callbacks to network_stack
+binder_call(netd, network_stack)
+

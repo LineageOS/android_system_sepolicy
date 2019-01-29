@@ -144,7 +144,7 @@ neverallow { domain -netd } netd:bpf { map_create };
 
 # apps may not interact with netd over binder.
 neverallow { appdomain -network_stack } netd:binder call;
-neverallow netd { appdomain userdebug_or_eng(`-su') }:binder call;
+neverallow netd { appdomain -network_stack userdebug_or_eng(`-su') }:binder call;
 
 # persist.netd.stable_secret contains RFC 7217 secret key which should never be
 # leaked to other processes. Make sure it never leaks.
