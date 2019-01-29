@@ -53,7 +53,7 @@ allow dex2oat postinstall_file:file read;
 allow dex2oat postinstall_file:file { execute getattr open };
 
 # Allow dex2oat access to /postinstall/apex.
-allow dex2oat tmpfs:dir search;
+allow dex2oat postinstall_apex_mnt_dir:dir { getattr search };
 
 # Allow dex2oat access to files in /data/ota.
 allow dex2oat ota_data_file:dir ra_dir_perms;

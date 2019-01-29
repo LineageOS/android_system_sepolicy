@@ -83,6 +83,7 @@
     network_stack_tmpfs
     overlayfs_file
     permissionmgr_service
+    postinstall_apex_mnt_dir
     recovery_socket
     role_service
     rollback_service

@@ -23,10 +23,14 @@ allow otapreopt_chroot sysfs_loop:file rw_file_perms;
 
 # Allow otapreopt_chroot to mount a tmpfs filesystem in /postinstall/apex.
 allow otapreopt_chroot tmpfs:filesystem mount;
-# Allow otapreopt_chroot to manipulate the tmpfs filesystem mounted in /postinstall/apex.
-allow otapreopt_chroot tmpfs:dir create_dir_perms;
+# Allow otapreopt_chroot to restore the security context of /postinstall/apex.
+allow otapreopt_chroot tmpfs:dir relabelfrom;
+allow otapreopt_chroot postinstall_apex_mnt_dir:dir relabelto;
+
+# Allow otapreopt_chroot to manipulate directory /postinstall/apex.
+allow otapreopt_chroot postinstall_apex_mnt_dir:dir create_dir_perms;
 # Allow otapreopt_chroot to mount APEX packages in /postinstall/apex.
-allow otapreopt_chroot tmpfs:dir mounton;
+allow otapreopt_chroot postinstall_apex_mnt_dir:dir mounton;
 
 # Allow otapreopt_chroot to access /dev/block (needed to detach loop
 # devices used by ext4 images from APEX packages).
