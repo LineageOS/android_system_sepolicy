@@ -1,6 +1,5 @@
 # Process which creates/updates shared RELRO files to be used by other apps.
 type shared_relro, domain;
-type shared_relro_tmpfs, file_type;
 
 # Grant write access to the shared relro files/directory.
 allow shared_relro shared_relro_file:dir rw_dir_perms;
