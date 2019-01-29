@@ -50,7 +50,7 @@ allow untrusted_app_25 { apk_data_file app_data_file asec_public_file }:file exe
 # for targetApi<=25. This is also allowed for targetAPIs 26, 27,
 # and 28 in untrusted_app_27.te.
 allow untrusted_app_25 app_data_file:file execute_no_trans;
-userdebug_or_eng(`auditallow untrusted_app_25 app_data_file:file { execute execute_no_trans };')
+auditallow untrusted_app_25 app_data_file:file { execute execute_no_trans };
 
 # The ability to invoke dex2oat. Historically required by ART, now only
 # allowed for targetApi<=28 for compat reasons.
