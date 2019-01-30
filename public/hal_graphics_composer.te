@@ -1,6 +1,12 @@
+type hal_graphics_composer_server_tmpfs, file_type;
+attribute hal_graphics_composer_client_tmpfs;
+expandattribute hal_graphics_composer_client_tmpfs true;
+
 # HwBinder IPC from client to server, and callbacks
 binder_call(hal_graphics_composer_client, hal_graphics_composer_server)
 binder_call(hal_graphics_composer_server, hal_graphics_composer_client)
+allow hal_graphics_composer_client hal_graphics_composer_server_tmpfs:file { getattr map read write };
+allow hal_graphics_composer_server hal_graphics_composer_client_tmpfs:file { getattr map read write };
 
 hal_attribute_hwservice(hal_graphics_composer, hal_graphics_composer_hwservice)
 
