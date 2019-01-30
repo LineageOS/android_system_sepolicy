@@ -126,6 +126,9 @@ allow zygote same_process_hal_file:file { execute read open getattr map };
 get_prop(zygote, overlay_prop)
 get_prop(zygote, exported_overlay_prop)
 
+# Allow the zygote to access the runtime feature flag properties.
+get_prop(zygote, device_config_runtime_native_prop)
+
 # ingore spurious denials
 dontaudit zygote self:global_capability_class_set sys_resource;
 
