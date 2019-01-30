@@ -4,6 +4,7 @@ typeattribute surfaceflinger coredomain;
 
 type surfaceflinger_exec, system_file_type, exec_type, file_type;
 init_daemon_domain(surfaceflinger)
+tmpfs_domain(surfaceflinger)
 
 typeattribute surfaceflinger mlstrustedsubject;
 typeattribute surfaceflinger display_service_server;
@@ -13,6 +14,7 @@ read_runtime_log_tags(surfaceflinger)
 # Perform HwBinder IPC.
 hal_client_domain(surfaceflinger, hal_graphics_allocator)
 hal_client_domain(surfaceflinger, hal_graphics_composer)
+typeattribute surfaceflinger_tmpfs hal_graphics_composer_client_tmpfs;
 hal_client_domain(surfaceflinger, hal_omx)
 hal_client_domain(surfaceflinger, hal_configstore)
 hal_client_domain(surfaceflinger, hal_power)

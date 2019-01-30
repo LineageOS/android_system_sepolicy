@@ -13,6 +13,7 @@ tmpfs_domain(system_server)
 type_transition system_server system_data_file:sock_file system_ndebug_socket "ndebugsocket";
 
 allow system_server zygote_tmpfs:file read;
+allow system_server appdomain_tmpfs:file { getattr map read write };
 
 # For art.
 allow system_server dalvikcache_data_file:dir r_dir_perms;

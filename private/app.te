@@ -1,15 +1,3 @@
-# TODO: deal with tmpfs_domain pub/priv split properly
-# Read system properties managed by zygote.
-allow appdomain zygote_tmpfs:file read;
-
-# Read from (but not create) system_server buffers transferred through
-# ashmem, e.g. battery stats.
-allow appdomain system_server_tmpfs:file read;
-
-# Get info from priv_app through ashmem, such as contact
-# info etc.
-allow appdomain priv_app_tmpfs:file read;
-
 # Allow apps to read the Test Harness Mode property. This property is used in
 # the implementation of ActivityManager.isDeviceInTestHarnessMode()
 get_prop(appdomain, test_harness_prop)
