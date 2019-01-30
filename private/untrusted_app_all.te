@@ -112,6 +112,10 @@ allow untrusted_app_all self:process ptrace;
 # b/123297648
 allow untrusted_app_all runas_app:unix_stream_socket connectto;
 
+# Untrusted apps need to be able to send a SIGCHLD to runas_app
+# when running under a debugger (b/123612207)
+allow untrusted_app_all runas_app:process sigchld;
+
 # Cts: HwRngTest
 allow untrusted_app_all sysfs_hwrandom:dir search;
 allow untrusted_app_all sysfs_hwrandom:file r_file_perms;
