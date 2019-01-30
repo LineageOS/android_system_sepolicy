@@ -173,6 +173,19 @@ else
 SHAREDLIB_EXT=so
 endif
 
+# Convert a file_context file for a non-flattened APEX into a file for
+# flattened APEX. /system/apex/<apex_name> path is prepended to the original paths
+# $(1): path to the input file_contexts file for non-flattened APEX
+# $(2): name of the APEX
+# $(3): path to the generated file_contexs file for flattened APEX
+# $(4): variable where $(3) is added to
+define build_flattened_apex_file_contexts
+$(4) += $(3)
+$(3): PRIVATE_APEX_PATH := /system/apex/$(subst .,\\.,$(2))
+$(3): $(1)
+	$(hide) awk '/object_r/{printf("$$(PRIVATE_APEX_PATH)%s\n",$$$$0)}' $$< > $$@
+endef
+
 #################################
 
 include $(CLEAR_VARS)
@@ -1028,6 +1041,14 @@ ifneq ($(filter address,$(SANITIZE_TARGET)),)
 endif
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
   local_fc_files += $(wildcard $(addsuffix /file_contexts_overlayfs, $(PLAT_PRIVATE_POLICY)))
+endif
+ifeq ($(TARGET_FLATTEN_APEX),true)
+  apex_fc_files := $(wildcard $(LOCAL_PATH)/apex/*-file_contexts)
+  $(foreach _input,$(apex_fc_files),\
+    $(eval _output := $(intermediates)/$(notdir $(_input))-flattened)\
+    $(eval _apex_name := $(patsubst %-file_contexts,%,$(notdir $(_input))))\
+    $(eval $(call build_flattened_apex_file_contexts,$(_input),$(_apex_name),$(_output),local_fc_files))\
+   )
 endif
 local_fcfiles_with_nl := $(call add_nl, $(local_fc_files), $(built_nl))
 
