@@ -6,6 +6,7 @@
 ### extend from this policy. Only policies which should apply to ALL
 ### zygote spawned apps should be added here.
 ###
+type appdomain_tmpfs, file_type;
 
 # WebView and other application-specific JIT compilers
 allow appdomain self:process execmem;
@@ -350,6 +351,12 @@ with_asan(`allow appdomain asanwrapper_exec:file rx_file_perms;')
 
 # Read access to FDs from the DropboxManagerService.
 allow appdomain dropbox_data_file:file { getattr read };
+
+# Read tmpfs types from these processes.
+allow appdomain audioserver_tmpfs:file { getattr map read write };
+allow appdomain system_server_tmpfs:file { getattr map read write };
+allow appdomain zygote_tmpfs:file { map read };
+
 
 ###
 ### Neverallow rules
