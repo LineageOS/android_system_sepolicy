@@ -25,6 +25,14 @@ allow simpleperf_app_runner untrusted_app_all:process dyntransition; # setcon
 # determine which domain to transition to.
 allow simpleperf_app_runner seapp_contexts_file:file r_file_perms;
 
+# simpleperf_app_runner passes pipe fds.
+allow simpleperf_app_runner shell:fifo_file read;
+
+# simpleperf_app_runner checks shell data paths.
+# simpleperf_app_runner passes shell data fds.
+allow simpleperf_app_runner shell_data_file:dir { getattr search };
+allow simpleperf_app_runner shell_data_file:file { getattr write };
+
 ###
 ### neverallow rules
 ###

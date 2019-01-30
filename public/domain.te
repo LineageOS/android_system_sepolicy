@@ -1253,6 +1253,7 @@ neverallow {
   -dumpstate
   -init
   -installd
+  -simpleperf_app_runner
   -system_server # why?
   userdebug_or_eng(`-uncrypt')
 } shell_data_file:dir { open search };
