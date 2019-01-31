@@ -1,6 +1,5 @@
 # phone subsystem
 type radio, domain, mlstrustedsubject;
-type radio_tmpfs, file_type;
 
 net_domain(radio)
 bluetooth_domain(radio)
