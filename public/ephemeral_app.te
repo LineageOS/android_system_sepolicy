@@ -12,4 +12,3 @@
 ### PackageManager flags an app as ephemeral at install time.
 
 type ephemeral_app, domain;
-type ephemeral_app_tmpfs, file_type;
