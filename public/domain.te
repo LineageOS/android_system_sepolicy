@@ -125,6 +125,9 @@ allow domain system_security_cacerts_file:file r_file_perms;
 allow domain system_linker_exec:file { execute read open getattr map };
 allow domain system_linker_config_file:file r_file_perms;
 allow domain system_lib_file:file { execute read open getattr map };
+# To allow following symlinks at /system/bin/linker, /system/lib/libc.so, etc.
+allow domain system_linker_exec:lnk_file { read open getattr };
+allow domain system_lib_file:lnk_file { read open getattr };
 
 allow domain system_event_log_tags_file:file r_file_perms;
 
@@ -1253,6 +1256,7 @@ neverallow {
   -dumpstate
   -init
   -installd
+  -simpleperf_app_runner
   -system_server # why?
   userdebug_or_eng(`-uncrypt')
 } shell_data_file:dir { open search };

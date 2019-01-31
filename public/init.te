@@ -70,6 +70,9 @@ allow init tty_device:chr_file rw_file_perms;
 # Call mount(2).
 allow init self:global_capability_class_set sys_admin;
 
+# Call setns(2).
+allow init self:global_capability_class_set sys_chroot;
+
 # Create and mount on directories in /.
 allow init rootfs:dir create_dir_perms;
 allow init { rootfs cache_file cgroup storage_file system_data_file system_file vendor_file postinstall_mnt_dir }:dir mounton;
@@ -84,8 +87,14 @@ allow init device:dir mounton;
 # Mount tmpfs on /apex
 allow init apex_mnt_dir:dir mounton;
 
+# Mount Bionic libraries and dynamic linkers
 allow init system_lib_file:file mounton;
 allow init system_linker_exec:file mounton;
+# The mount points under /bionic are rootfs in recovery mode. Init should
+# be able to bind-mount the bootstrap Bionic to the mount points.
+recovery_only(`
+  allow init rootfs:file mounton;
+')
 
 # Create and remove symlinks in /.
 allow init rootfs:lnk_file { create unlink };
@@ -304,6 +313,7 @@ userdebug_or_eng(`
 ')
 
 allow init {
+  proc # b/67049235 processes /proc/<pid>/* files are mislabeled.
   proc_cmdline
   proc_diskstats
   proc_kmsg # Open /proc/kmsg for logd service.

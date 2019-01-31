@@ -14,4 +14,4 @@ allow runas_app app_data_file:file execute_no_trans;
 r_dir_file(runas_app, untrusted_app_all)
 
 # Allow lldb/ndk-gdb/simpleperf to ptrace attach to debuggable app processes.
-allow runas_app untrusted_app_all:process ptrace;
+allow runas_app untrusted_app_all:process { ptrace signal sigstop };
