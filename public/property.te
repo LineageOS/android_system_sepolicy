@@ -79,6 +79,7 @@ type test_boot_reason_prop, property_type;
 type test_harness_prop, property_type;
 type time_prop, property_type;
 type traced_enabled_prop, property_type;
+type use_memfd_prop, property_type;
 type vold_prop, property_type, core_property_type;
 type wifi_log_prop, property_type, log_property_type;
 type wifi_prop, property_type;
