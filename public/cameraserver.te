@@ -1,6 +1,7 @@
 # cameraserver - camera daemon
 type cameraserver, domain;
 type cameraserver_exec, system_file_type, exec_type, file_type;
+type cameraserver_tmpfs, file_type;
 
 binder_use(cameraserver)
 binder_call(cameraserver, binderservicedomain)
@@ -63,11 +64,6 @@ allow cameraserver shell:fifo_file { read write };
 allow cameraserver mediametrics_service:service_manager find;
 hal_client_domain(cameraserver, hal_omx)
 hal_client_domain(cameraserver, hal_allocator)
-
-userdebug_or_eng(`
-  allow cameraserver cameraserver_data_file:dir { add_name write search remove_name };
-  allow cameraserver cameraserver_data_file:file { create write open read unlink };
-')
 
 # Allow shell commands from ADB for CTS testing/dumping
 userdebug_or_eng(`
