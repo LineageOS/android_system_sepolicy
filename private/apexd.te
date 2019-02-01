@@ -53,6 +53,8 @@ allow apexd staging_data_file:file { r_file_perms link };
 # Unmount and mount filesystems
 allow apexd labeledfs:filesystem { mount unmount };
 
+# /sys directory tree traversal
+allow apexd sysfs_type:dir search;
 # Configure read-ahead of dm-verity and loop devices
 # for dm-X
 allow apexd sysfs_dm:dir r_dir_perms;
