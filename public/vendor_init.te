@@ -180,6 +180,7 @@ not_compatible_property(`
       -device_config_input_native_boot_prop
       -device_config_netd_native_prop
       -device_config_runtime_native_prop
+      -device_config_media_native_prop
       -restorecon_prop
       -netd_stable_secret_prop
       -firstboot_prop
