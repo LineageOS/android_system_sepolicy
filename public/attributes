@@ -203,6 +203,10 @@ expandattribute untrusted_app_visible_hwservice false;
 attribute untrusted_app_visible_halserver;
 expandattribute untrusted_app_visible_halserver false;
 
+# system domains that needs to write to sysfs_leds
+attribute coredomain_writes_leds;
+expandattribute coredomain_writes_leds false;
+
 # PDX services
 attribute pdx_endpoint_dir_type;
 attribute pdx_endpoint_socket_type;

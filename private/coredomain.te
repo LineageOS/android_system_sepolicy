@@ -11,5 +11,8 @@ neverallow {
     # generic access to sysfs_type
     -ueventd
     -vold
+
+    # for treble
+    -coredomain_writes_leds
 } sysfs_leds:file *;
 ')
