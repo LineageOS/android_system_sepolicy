@@ -1377,6 +1377,7 @@
 (typeattributeset priv_app_28_0 (priv_app))
 (typeattributeset proc_28_0
   ( proc
+    proc_keys
     proc_pressure_cpu
     proc_pressure_io
     proc_pressure_mem

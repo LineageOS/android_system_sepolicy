@@ -29,6 +29,10 @@ allow domain cgroup:dir search;
 allow { domain -appdomain -rs } cgroup:dir w_dir_perms;
 allow { domain -appdomain -rs } cgroup:file w_file_perms;
 
+allow domain cgroup_rc_file:dir search;
+allow domain cgroup_rc_file:file r_file_perms;
+allow domain task_profiles_file:file r_file_perms;
+
 # For now, everyone can access core property files
 # Device specific properties are not granted by default
 not_compatible_property(`
@@ -188,3 +192,10 @@ neverallow {
     -exec_type
     -postinstall_file
 }:file execute;
+
+# Only init is allowed to write cgroup.rc file
+neverallow {
+  domain
+  -init
+  -vendor_init
+} cgroup_rc_file:file no_w_file_perms;

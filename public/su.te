@@ -1,7 +1,6 @@
 # All types must be defined regardless of build variant to ensure
 # policy compilation succeeds with userdebug/user combination at boot
 type su, domain;
-type su_tmpfs, file_type;
 
 # File types must be defined for file_contexts.
 type su_exec, system_file_type, exec_type, file_type;
