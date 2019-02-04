@@ -232,6 +232,9 @@ dontaudit dumpstate {
   vr_hwc_service
 }:service_manager find;
 
+# Most of these are neverallowed.
+dontaudit dumpstate hwservice_manager_type:hwservice_manager find;
+
 allow dumpstate servicemanager:service_manager list;
 allow dumpstate hwservicemanager:hwservice_manager list;
 
