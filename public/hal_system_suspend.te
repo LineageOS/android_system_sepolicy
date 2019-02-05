@@ -1,3 +1,4 @@
+binder_use(hal_system_suspend_server)
 binder_call(hal_system_suspend_client, hal_system_suspend_server)
 binder_call(hal_system_suspend_server, hal_system_suspend_client)
 
@@ -5,6 +6,7 @@ binder_call(hal_system_suspend_server, hal_system_suspend_client)
 # system_suspend_hwservice have hal_system_suspend_client attribute. For that
 # reason we don't use hal_attribute_hwservice macro here.
 add_hwservice(hal_system_suspend_server, system_suspend_hwservice)
+add_service(hal_system_suspend_server, system_suspend_control_service)
 allow hal_system_suspend_client system_suspend_hwservice:hwservice_manager find;
 
 allow hal_system_suspend_server sysfs_power:file rw_file_perms;
