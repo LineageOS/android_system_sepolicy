@@ -276,6 +276,7 @@ allow system_server {
   sdcardd
   statsd
   surfaceflinger
+  vold
 
   # This list comes from HAL_INTERFACES_OF_INTEREST in
   # frameworks/base/services/core/java/com/android/server/Watchdog.java.
