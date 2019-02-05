@@ -64,7 +64,19 @@ allow domain socket_device:dir r_dir_perms;
 allow domain owntty_device:chr_file rw_file_perms;
 allow domain null_device:chr_file rw_file_perms;
 allow domain zero_device:chr_file rw_file_perms;
-allow domain ashmem_device:chr_file rw_file_perms;
+allow {
+  domain
+  # TODO(b/113362644): route coredomain to ashmemd
+  #-coredomain
+  -ephemeral_app
+  # TODO(b/113362644): remove open permission from these domains.
+  #-isolated_app
+  #-untrusted_app_all
+} ashmem_device:chr_file rw_file_perms;
+
+# Allow using fds to /dev/ashmem.
+allow domain ashmemd:fd use;
+
 # /dev/binder can be accessed by non-vendor domains and by apps
 allow {
   coredomain
