@@ -32,6 +32,13 @@ allow otapreopt_chroot postinstall_apex_mnt_dir:dir create_dir_perms;
 # Allow otapreopt_chroot to mount APEX packages in /postinstall/apex.
 allow otapreopt_chroot postinstall_apex_mnt_dir:dir mounton;
 
+# Allow otapreopt_chroot to bind-mount Bionic artifacts from the Runtime APEX
+# into /postinstall/bionic/.
+allow otapreopt_chroot postinstall_file:file mounton;
+# Allow otapreopt_chroot to read the /postinstall/system/bin/linker(64) symlink to
+# /postinstall/bionic/bin/linker(64) when executing /postinstall/system/bin/otapreopt.
+allow otapreopt_chroot postinstall_file:lnk_file read;
+
 # Allow otapreopt_chroot to access /dev/block (needed to detach loop
 # devices used by ext4 images from APEX packages).
 allow otapreopt_chroot block_device:dir r_dir_perms;
