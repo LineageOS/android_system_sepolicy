@@ -36,3 +36,7 @@ auditallow untrusted_app_27 app_data_file:file { execute execute_no_trans };
 # allowed for targetApi<=28 for compat reasons.
 allow untrusted_app_27 dex2oat_exec:file rx_file_perms;
 userdebug_or_eng(`auditallow untrusted_app_27 dex2oat_exec:file rx_file_perms;')
+
+# The ability to talk to /dev/ashmem directly. targetApi>=29 must use
+# ASharedMemory instead.
+allow untrusted_app_27 ashmem_device:chr_file rw_file_perms;
