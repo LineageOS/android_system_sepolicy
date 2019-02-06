@@ -100,7 +100,7 @@ allow zygote storage_file:dir { search mounton };
 # TODO: reduce this back to only sdcardfs once b/123533205 is root-caused
 # (Technically "sdcardfs" and "media_rw_data_file" are equivalent, since
 # sdcardfs simply wraps files stored under /data/media.)
-allow zygote { sdcardfs media_rw_data_file vfat }:dir { search mounton };
+allow zygote { sdcardfs media_rw_data_file vfat }:dir { search mounton getattr };
 
 # Handle --invoke-with command when launching Zygote with a wrapper command.
 allow zygote zygote_exec:file rx_file_perms;
