@@ -15,7 +15,7 @@ allow crash_dump {
   -vold
 }:process { ptrace signal sigchld sigstop sigkill };
 userdebug_or_eng(`
-  allow crash_dump { llkd logd }:process { ptrace signal sigchld sigstop sigkill };
+  allow crash_dump { llkd logd vold }:process { ptrace signal sigchld sigstop sigkill };
 ')
 
 ###
@@ -37,6 +37,7 @@ neverallow crash_dump {
   ueventd
   vendor_init
   vold
+  userdebug_or_eng(`-vold')
 }:process { signal sigstop sigkill };
 
 neverallow crash_dump self:process ptrace;
