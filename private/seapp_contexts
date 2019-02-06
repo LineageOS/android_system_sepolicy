@@ -1,3 +1,7 @@
+# The entries in this file define how security contexts for apps are determined.
+# Each entry lists input selectors, used to match the app, and outputs which are
+# used to determine the security contexts for matching apps.
+#
 # Input selectors:
 #       isSystemServer (boolean)
 #       isEphemeralApp (boolean)
@@ -10,57 +14,93 @@
 #       isPrivApp (boolean)
 #       minTargetSdkVersion (unsigned integer)
 #       fromRunAs (boolean)
-# isSystemServer=true can only be used once.
+#
+# All specified input selectors in an entry must match (i.e. logical AND).
+# An unspecified string or boolean selector with no default will match any
+# value.
+# A user, name, or path string selector that ends in * will perform a prefix
+# match.
+# String matching is case-insensitive.
+# See external/selinux/libselinux/src/android/android_platform.c,
+# seapp_context_lookup().
+#
+# isSystemServer=true only matches the system server.
 # An unspecified isSystemServer defaults to false.
 # isEphemeralApp=true will match apps marked by PackageManager as Ephemeral
 # isV2App=true will match apps in the v2 app sandbox.
 # isOwner=true will only match for the owner/primary user.
-# isOwner=false will only match for secondary users.
-# If unspecified, the entry can match either case.
-# An unspecified string selector will match any value.
-# A user string selector that ends in * will perform a prefix match.
-# user=_app will match any regular app UID.
-# user=_isolated will match any isolated service UID.
+# user=_app will match any regular app process.
+# user=_isolated will match any isolated service process.
+# Other values of user are matched against the name associated with the process
+# UID.
+# seinfo= matches aginst the seinfo tag for the app, determined from
+# mac_permissions.xml files.
+# The ':' character is reserved and may not be used in seinfo.
+# name= matches against the package name of the app.
+# path= matches against the directory path when labeling app directories.
 # isPrivApp=true will only match for applications preinstalled in
 #       /system/priv-app.
 # minTargetSdkVersion will match applications with a targetSdkVersion
 #       greater than or equal to the specified value. If unspecified,
 #       it has a default value of 0.
-# fromRunAs=true means the setcontext request is from run-as. Default is false.
-# All specified input selectors in an entry must match (i.e. logical AND).
-# Matching is case-insensitive.
+# fromRunAs=true means the process being labeled is started by run-as. Default
+# is false.
 #
-# Precedence rules (see external/selinux/libselinux/src/android/android.c seapp_context_cmp()):
+# Precedence: entries are compared using the following rules, in the order shown
+# (see external/selinux/libselinux/src/android/android_platform.c,
+# seapp_context_cmp()).
 #       (1) isSystemServer=true before isSystemServer=false.
-#       (2) Specified isEphemeralApp= before unspecified isEphemeralApp= boolean.
+#       (2) Specified isEphemeralApp= before unspecified isEphemeralApp=
+#             boolean.
 #       (3) Specified isV2App= before unspecified isV2App= boolean.
 #       (4) Specified isOwner= before unspecified isOwner= boolean.
-#       (5) Specified user= string before unspecified user= string.
-#       (6) Fixed user= string before user= prefix (i.e. ending in *).
-#       (7) Longer user= prefix before shorter user= prefix.
-#       (8) Specified seinfo= string before unspecified seinfo= string.
-#           ':' character is reserved and may not be used.
-#       (9) Specified name= string before unspecified name= string.
-#       (10) Specified path= string before unspecified path= string.
-#       (11) Specified isPrivApp= before unspecified isPrivApp= boolean.
-#       (12) Higher value of minTargetSdkVersion= before lower value of minTargetSdkVersion=
-#              integer. Note that minTargetSdkVersion= defaults to 0 if unspecified.
-#       (13) fromRunAs=true before fromRunAs=false.
+#       (5) Specified user= string before unspecified user= string;
+#             more specific user= string before less specific user= string.
+#       (6) Specified seinfo= string before unspecified seinfo= string.
+#       (7) Specified name= string before unspecified name= string;
+#             more specific name= string before less specific name= string.
+#       (8) Specified path= string before unspecified path= string.
+#             more specific name= string before less specific name= string.
+#       (9) Specified isPrivApp= before unspecified isPrivApp= boolean.
+#       (10) Higher value of minTargetSdkVersion= before lower value of
+#              minTargetSdkVersion= integer. Note that minTargetSdkVersion=
+#              defaults to 0 if unspecified.
+#       (11) fromRunAs=true before fromRunAs=false.
+# (A fixed selector is more specific than a prefix, i.e. ending in *, and a
+# longer prefix is more specific than a shorter prefix.)
+# Apps are checked against entries in precedence order until the first match,
+# regardless of their order in this file.
+#
+# Duplicate entries, i.e. with identical input selectors, are not allowed.
 #
 # Outputs:
 #       domain (string)
 #       type (string)
 #       levelFrom (string; one of none, all, app, or user)
 #       level (string)
-# Only entries that specify domain= will be used for app process labeling.
-# Only entries that specify type= will be used for app directory labeling.
+#
+# domain= determines the label to be used for the app process; entries
+# without domain= are ignored for this purpose.
+# type= specifies the label to be used for the app data directory; entries
+# without type= are ignored for this purpose.
+# levelFrom and level are used to determine the level (sensitivity + categories)
+# for MLS/MCS.
+# levelFrom=none omits the level.
+# levelFrom=app determines the level from the process UID.
+# levelFrom=user determines the level from the user ID.
+# levelFrom=all determines the level from both UID and user ID.
+# 
 # levelFrom=user is only supported for _app or _isolated UIDs.
 # levelFrom=app or levelFrom=all is only supported for _app UIDs.
 # level may be used to specify a fixed level for any UID.
 #
+# For backwards compatibility levelFromUid=true is equivalent to levelFrom=app
+# and levelFromUid=false is equivalent to levelFrom=none.
+#
 #
 # Neverallow Assertions
-# Additional compile time assertion checks can be added as well. The assertion
+# Additional compile time assertion checks for the rules in this file can be
+# added as well. The assertion
 # rules are lines beginning with the keyword neverallow. Full support for PCRE
 # regular expressions exists on all input and output selectors. Neverallow
 # rules are never output to the built seapp_contexts file. Like all keywords,
