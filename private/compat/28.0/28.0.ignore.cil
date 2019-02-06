@@ -20,6 +20,8 @@
     app_prediction_service
     app_zygote
     app_zygote_tmpfs
+    ashmemd
+    ashmem_device_service
     biometric_service
     bpf_progs_loaded_prop
     bugreport_service
@@ -109,6 +111,7 @@
     system_event_log_tags_file
     system_lmk_prop
     system_suspend_hwservice
+    system_suspend_control_service
     staging_data_file
     task_profiles_file
     testharness_service

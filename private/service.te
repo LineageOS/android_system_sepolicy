@@ -1,3 +1,4 @@
+type ashmem_device_service,         app_api_service, service_manager_type;
 type dynamic_android_service,       system_api_service, system_server_service, service_manager_type;
 type gsi_service,                   service_manager_type;
 type incidentcompanion_service,     system_api_service, system_server_service, service_manager_type;

@@ -20,7 +20,7 @@ neverallow all_untrusted_apps domain:netlink_socket *;
 # Too much leaky information in debugfs. It's a security
 # best practice to ensure these files aren't readable.
 neverallow all_untrusted_apps { debugfs_type -debugfs_kcov }:file read;
-neverallow {all_untrusted_apps userdebug_or_eng(`-domain')} debugfs_type:file read;
+neverallow {all_untrusted_apps userdebug_or_eng(`-domain')} debugfs_type:{ file lnk_file } read;
 
 # Do not allow untrusted apps to register services.
 # Only trusted components of Android should be registering
@@ -334,3 +334,13 @@ neverallow all_untrusted_apps proc_tty_drivers:file ~r_file_perms;
 
 # Untrusted apps are not allowed to use cgroups.
 neverallow all_untrusted_apps cgroup:file *;
+
+# TODO(b/113362644): remove open permission from these domains.
+# Untrusted apps targetting >= Q are not allowed to open /dev/ashmem directly.
+#neverallow {
+#  all_untrusted_apps
+# TODO(b/113362644): route mediaprovider to ashmemd
+#  -mediaprovider
+#  -untrusted_app_25
+#  -untrusted_app_27
+#} ashmem_device:chr_file open;
