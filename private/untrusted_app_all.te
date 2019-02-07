@@ -25,6 +25,10 @@
 allow untrusted_app_all privapp_data_file:file { r_file_perms execute };
 allow untrusted_app_all app_data_file:file     { r_file_perms execute };
 
+# Chrome Crashpad uses the the dynamic linker to load native executables
+# from an APK (b/112050209, crbug.com/928422)
+allow untrusted_app_all system_linker_exec:file execute_no_trans;
+
 # Follow priv-app symlinks. This is used for dynamite functionality.
 allow untrusted_app_all privapp_data_file:lnk_file r_file_perms;
 
