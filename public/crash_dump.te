@@ -50,13 +50,14 @@ allow crash_dump tombstone_data_file:file { append getattr };
 # which is super useful in some cases.
 unix_socket_connect(crash_dump, logdr, logd)
 
-# Crash dump is not intended to access the following data types. Since these
+# Crash dump is not intended to access the following files. Since these
 # are WAI, suppress the denials to clean up the logs.
 dontaudit crash_dump {
   core_data_file_type
   vendor_file_type
 }:dir search;
 dontaudit crash_dump system_data_file:file read;
+dontaudit crash_dump property_type:file read;
 
 ###
 ### neverallow assertions
