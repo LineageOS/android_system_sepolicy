@@ -238,6 +238,8 @@ allow vold misc_block_device:blk_file w_file_perms;
 # vold might need to search or mount /mnt/vendor/*
 allow vold mnt_vendor_file:dir search;
 
+dontaudit vold self:global_capability_class_set sys_resource;
+
 neverallow {
     domain
     -vold
