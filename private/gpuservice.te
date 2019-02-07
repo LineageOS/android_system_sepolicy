@@ -1,5 +1,5 @@
-# gpu service
-type gpuservice, domain, coredomain;
+# gpuservice - server for gpu stats and other gpu related services
+typeattribute gpuservice coredomain;
 type gpuservice_exec, system_file_type, exec_type, file_type;
 
 init_daemon_domain(gpuservice)

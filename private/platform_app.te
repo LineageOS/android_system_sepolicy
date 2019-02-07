@@ -67,6 +67,10 @@ allow platform_app timezone_service:service_manager find;
 allow platform_app app_api_service:service_manager find;
 allow platform_app system_api_service:service_manager find;
 allow platform_app vr_manager_service:service_manager find;
+allow platform_app gpu_service:service_manager find;
+
+# Allow platform apps to interact with gpuservice
+binder_call(platform_app, gpuservice)
 
 # Access to /data/preloads
 allow platform_app preloads_data_file:file r_file_perms;
