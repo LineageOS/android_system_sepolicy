@@ -264,6 +264,7 @@ LOCAL_REQUIRED_MODULES += \
     precompiled_sepolicy \
     precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 \
     precompiled_sepolicy.product_sepolicy_and_mapping.sha256 \
+    product_sepolicy_and_mapping.sha256 \
 
 endif # ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 
@@ -303,7 +304,6 @@ LOCAL_REQUIRED_MODULES += \
     product_service_contexts \
     product_mac_permissions.xml \
     product_mapping_file \
-    product_sepolicy_and_mapping.sha256 \
 
 endif
 
