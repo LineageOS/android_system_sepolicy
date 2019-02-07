@@ -53,6 +53,12 @@ net_domain(system_server)
 allowxperm system_server self:udp_socket ioctl priv_sock_ioctls;
 bluetooth_domain(system_server)
 
+# Allow setup of tcp keepalive offload. This gives system_server the permission to
+# call ioctl on app domains' tcp sockets. Additional ioctl commands still need to
+# be granted individually, except for a small set of safe values whitelisted in
+# public/domain.te.
+allow system_server appdomain:tcp_socket ioctl;
+
 # These are the capabilities assigned by the zygote to the
 # system server.
 allow system_server self:global_capability_class_set {
@@ -185,6 +191,7 @@ binder_call(system_server, installd)
 binder_call(system_server, incidentd)
 binder_call(system_server, iorapd)
 binder_call(system_server, netd)
+binder_call(system_server, notify_traceur)
 binder_call(system_server, statsd)
 binder_call(system_server, storaged)
 binder_call(system_server, update_engine)
@@ -266,6 +273,7 @@ allow system_server {
   sdcardd
   statsd
   surfaceflinger
+  vold
 
   # This list comes from HAL_INTERFACES_OF_INTEREST in
   # frameworks/base/services/core/java/com/android/server/Watchdog.java.

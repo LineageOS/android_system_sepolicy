@@ -36,6 +36,10 @@ allow traced trace_data_file:file { read write };
 allow traced iorapd:fd use;
 allow traced iorapd_tmpfs:file { read write };
 
+# Allow traced to notify Traceur when a trace ends by setting the
+# sys.trace.trace_end_signal property.
+set_prop(traced, system_trace_prop)
+
 ###
 ### Neverallow rules
 ###
