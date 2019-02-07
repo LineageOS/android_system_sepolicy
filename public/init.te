@@ -308,6 +308,7 @@ allow init self:global_capability2_class_set syslog;
 
 # init access to /proc.
 r_dir_file(init, proc_net_type)
+allow init proc_filesystems:file r_file_perms;
 
 userdebug_or_eng(`
   # Overlayfs workdir write access check during mount to permit remount,rw
