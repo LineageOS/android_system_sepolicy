@@ -33,6 +33,10 @@ allow domain cgroup_rc_file:dir search;
 allow domain cgroup_rc_file:file r_file_perms;
 allow domain task_profiles_file:file r_file_perms;
 
+# Allow all domains to read sys.use_memfd to determine
+# if memfd support can be used if device supports it
+get_prop(domain, use_memfd_prop);
+
 # For now, everyone can access core property files
 # Device specific properties are not granted by default
 not_compatible_property(`
