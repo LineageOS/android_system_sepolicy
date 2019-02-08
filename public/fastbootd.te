@@ -47,6 +47,13 @@ recovery_only(`
     userdata_block_device
   }:blk_file { w_file_perms getattr ioctl };
 
+  # For disabling/wiping GSI.
+  allow fastbootd metadata_block_device:blk_file r_file_perms;
+  allow fastbootd {rootfs tmpfs}:dir mounton;
+  allow fastbootd metadata_file:dir search;
+  allow fastbootd gsi_metadata_file:dir r_dir_perms;
+  allow fastbootd gsi_metadata_file:file rw_file_perms;
+
   allowxperm fastbootd {
     system_block_device
     super_block_device
