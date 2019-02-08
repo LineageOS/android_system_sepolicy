@@ -29,3 +29,8 @@ set_prop(update_verifier, powerctl_prop)
 
 # Use Boot Control HAL
 hal_client_domain(update_verifier, hal_bootctl)
+
+# Access Checkpoint commands over binder
+allow update_verifier vold_service:service_manager find;
+binder_call(update_verifier, servicemanager)
+binder_call(update_verifier, vold)
