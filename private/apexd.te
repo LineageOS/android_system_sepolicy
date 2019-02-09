@@ -81,6 +81,10 @@ allow apexd kmsg_device:chr_file w_file_perms;
 # Allow self-execute for the fork mount helper.
 allow apexd apexd_exec:file execute_no_trans;
 
+# Unshare and make / private so that hooks cannot influence the
+# running system.
+allow apexd rootfs:dir mounton;
+
 # Allow to execute shell for pre- and postinstall scripts. A transition
 # rule is required, thus restricted to execute and not execute_no_trans.
 allow apexd shell_exec:file { r_file_perms execute };
