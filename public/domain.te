@@ -68,8 +68,8 @@ allow {
   domain
   # TODO(b/113362644): route coredomain to ashmemd
   #-coredomain
-  -ephemeral_app
-  # TODO(b/113362644): remove open permission from these domains.
+  # TODO(b/113362644): remove open permission from apps.
+  #-ephemeral_app
   #-isolated_app
   #-untrusted_app_all
 } ashmem_device:chr_file rw_file_perms;
