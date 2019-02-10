@@ -49,6 +49,8 @@
     fwk_bufferhub_hwservice
     fwk_camera_hwservice
     fwk_stats_hwservice
+    gsi_data_file
+    gsi_metadata_file
     gsi_service
     gsid
     gsid_exec
@@ -121,6 +123,7 @@
     timedetector_service
     timezonedetector_service
     uri_grants_service
+    use_memfd_prop
     vendor_idc_file
     vendor_keychars_file
     vendor_keylayout_file
