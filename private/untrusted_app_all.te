@@ -98,6 +98,10 @@ allow untrusted_app_all nfc_service:service_manager find;
 allow untrusted_app_all radio_service:service_manager find;
 allow untrusted_app_all app_api_service:service_manager find;
 allow untrusted_app_all vr_manager_service:service_manager find;
+allow untrusted_app_all gpu_service:service_manager find;
+
+# Allow untrusted apps to interact with gpuservice
+binder_call(untrusted_app_all, gpuservice)
 
 # Allow GMS core to access perfprofd output, which is stored
 # in /data/misc/perfprofd/. GMS core will need to list all
