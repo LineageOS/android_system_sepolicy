@@ -18,6 +18,9 @@ allow fsck block_device:dir search;
 allow fsck userdata_block_device:blk_file rw_file_perms;
 allow fsck cache_block_device:blk_file rw_file_perms;
 allow fsck dm_device:blk_file rw_file_perms;
+userdebug_or_eng(`
+allow fsck system_block_device:blk_file rw_file_perms;
+')
 
 # For the block devices where we have ioctl access,
 # allow at a minimum the following common fsck ioctls.
@@ -55,6 +58,7 @@ neverallow fsck {
   root_block_device
   swap_block_device
   system_block_device
+  userdebug_or_eng(`-system_block_device')
   vold_device
 }:blk_file no_rw_file_perms;
 
