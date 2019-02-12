@@ -248,7 +248,7 @@ neverallow {
     domain
     -vold
     -vold_prepare_subdirs
-} vold_data_file:dir ~{ open create read getattr setattr search relabelto ioctl };
+} vold_data_file:dir ~{ open create read getattr setattr search relabelfrom relabelto ioctl };
 
 neverallow {
     domain
