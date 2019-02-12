@@ -24,3 +24,16 @@ allow art_apex_preinstall art_apex_preinstall_exec:file execute_no_trans;
 
 # Run dex2oat.
 domain_auto_trans(art_apex_preinstall, dex2oat_exec, dex2oat)
+
+# Fsverity in the same domain.
+allow art_apex_preinstall system_file:file execute_no_trans;
+# Fsverity work.
+allowxperm art_apex_preinstall ota_data_file:file ioctl {
+  FS_IOC_ENABLE_VERITY FS_IOC_MEASURE_VERITY
+};
+
+allow art_apex_preinstall kernel:key search;
+# For testing purposes, allow keys installed with su.
+userdebug_or_eng(`
+  allow art_apex_preinstall su:key search;
+')
