@@ -47,6 +47,10 @@ allow priv_app radio_service:service_manager find;
 allow priv_app recovery_service:service_manager find;
 allow priv_app stats_service:service_manager find;
 allow priv_app system_api_service:service_manager find;
+allow priv_app gpu_service:service_manager find;
+
+# Allow privileged apps to interact with gpuservice
+binder_call(priv_app, gpuservice)
 
 # Write to /cache.
 allow priv_app { cache_file cache_recovery_file }:dir create_dir_perms;
