@@ -41,6 +41,7 @@ neverallow {
   domain
   -dumpstate
   -incidentd
+  -platform_app
   -priv_app
   -shell
   -stats
