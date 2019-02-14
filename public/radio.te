@@ -39,3 +39,6 @@ allow radio timedetector_service:service_manager find;
 # Perform HwBinder IPC.
 hwbinder_use(radio)
 hal_client_domain(radio, hal_telephony)
+
+# Used by TelephonyManager
+allow radio proc_cmdline:file r_file_perms;
