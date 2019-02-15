@@ -1,5 +1,8 @@
 typeattribute crash_dump coredomain;
 
+# Crash dump does not need to access the GPU.
+dontaudit crash_dump gpu_device:chr_file *;
+
 allow crash_dump {
   domain
   -apexd
@@ -41,3 +44,4 @@ neverallow crash_dump {
 }:process { signal sigstop sigkill };
 
 neverallow crash_dump self:process ptrace;
+neverallow crash_dump gpu_device:chr_file *;
