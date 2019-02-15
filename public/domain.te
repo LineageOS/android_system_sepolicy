@@ -608,6 +608,8 @@ neverallow {
 neverallow {
   domain
   -fastbootd
+  userdebug_or_eng(`-fsck')
+  userdebug_or_eng(`-init')
   -recovery
   -update_engine
 } system_block_device:blk_file { write append };
