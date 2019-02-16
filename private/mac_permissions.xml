@@ -56,4 +56,7 @@
       <seinfo value="media" />
     </signer>
 
+    <signer signature="@NETWORK_STACK" >
+      <seinfo value="network_stack" />
+    </signer>
 </policy>
