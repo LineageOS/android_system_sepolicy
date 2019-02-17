@@ -317,6 +317,8 @@ allow init proc_filesystems:file r_file_perms;
 userdebug_or_eng(`
   # Overlayfs workdir write access check during mount to permit remount,rw
   allow init overlayfs_file:dir { relabelfrom mounton write };
+  allow init overlayfs_file:file { append };
+  allow init system_block_device:blk_file { write };
 ')
 
 allow init {

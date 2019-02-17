@@ -355,6 +355,7 @@ neverallow {
   -healthd
   -uncrypt
   -tee
+  -hal_bootctl
 } self:global_capability_class_set sys_rawio;
 
 # No process can map low memory (< CONFIG_LSM_MMAP_MIN_ADDR).
@@ -607,6 +608,8 @@ neverallow {
 neverallow {
   domain
   -fastbootd
+  userdebug_or_eng(`-fsck')
+  userdebug_or_eng(`-init')
   -recovery
   -update_engine
 } system_block_device:blk_file { write append };
