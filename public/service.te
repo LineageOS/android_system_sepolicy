@@ -66,8 +66,8 @@ type companion_device_service, app_api_service, ephemeral_app_api_service, syste
 type connectivity_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type connmetrics_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type consumer_ir_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
-type content_capture_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type content_suggestions_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type content_capture_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type content_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type country_detector_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 # Note: The coverage_service should only be enabled for userdebug / eng builds that were compiled
