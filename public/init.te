@@ -322,6 +322,7 @@ allow init {
 }:file w_file_perms;
 
 allow init {
+  proc_dt_firmware_android
   sysfs_dt_firmware_android
 }:file r_file_perms;
 
