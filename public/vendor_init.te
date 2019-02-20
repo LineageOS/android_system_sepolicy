@@ -195,6 +195,7 @@ not_compatible_property(`
       -bootloader_boot_reason_prop
       -last_boot_reason_prop
       -apexd_prop
+      -gsid_prop
     })
 ')
 
