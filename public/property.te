@@ -44,6 +44,7 @@ type exported_secure_prop, property_type;
 type ffs_prop, property_type, core_property_type;
 type fingerprint_prop, property_type, core_property_type;
 type firstboot_prop, property_type;
+type gsid_prop, property_type;
 type heapprofd_enabled_prop, property_type;
 type heapprofd_prop, property_type;
 type hwservicemanager_prop, property_type;
@@ -413,6 +414,7 @@ compatible_property_only(`
     -device_config_runtime_native_boot_prop
     -device_config_runtime_native_prop
     -device_config_media_native_prop
+    -gsid_prop
     -heapprofd_enabled_prop
     -heapprofd_prop
     -hwservicemanager_prop
