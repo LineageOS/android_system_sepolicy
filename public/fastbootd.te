@@ -29,6 +29,12 @@ recovery_only(`
   # Read serial number of the device from system properties
   get_prop(fastbootd, serialno_prop)
 
+  # For dev/block/by-name dir
+  allow fastbootd block_device:dir r_dir_perms;
+
+  # Needed for DM_DEV_CREATE ioctl call
+  allow fastbootd self:capability sys_admin;
+
   # Set sys.usb.ffs.ready.
   set_prop(fastbootd, ffs_prop)
   set_prop(fastbootd, exported_ffs_prop)
