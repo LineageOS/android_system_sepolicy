@@ -7,6 +7,7 @@ genfscon proc /buddyinfo u:object_r:proc_buddyinfo:s0
 genfscon proc /cmdline u:object_r:proc_cmdline:s0
 genfscon proc /config.gz u:object_r:config_gz:s0
 genfscon proc /diskstats u:object_r:proc_diskstats:s0
+genfscon proc /device-tree/firmware/android u:object_r:proc_dt_firmware_android:s0
 genfscon proc /filesystems u:object_r:proc_filesystems:s0
 genfscon proc /interrupts u:object_r:proc_interrupts:s0
 genfscon proc /iomem u:object_r:proc_iomem:s0

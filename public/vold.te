@@ -19,6 +19,9 @@ allow vold {
   sysfs_fs_f2fs
 }:file w_file_perms;
 
+# Read the legacy DT fstab
+r_dir_file(vold, proc_dt_firmware_android)
+
 r_dir_file(vold, rootfs)
 r_dir_file(vold, metadata_file)
 allow vold {

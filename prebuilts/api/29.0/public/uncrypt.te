@@ -40,3 +40,6 @@ allow uncrypt proc_cmdline:file r_file_perms;
 
 # Read files in /sys
 r_dir_file(uncrypt, sysfs_dt_firmware_android)
+
+# Read files in /proc
+r_dir_file(uncrypt, proc_dt_firmware_android)
