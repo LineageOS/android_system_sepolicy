@@ -267,7 +267,7 @@ type preloads_media_file, file_type, data_file_type, core_data_file_type;
 type dhcp_data_file, file_type, data_file_type, core_data_file_type;
 # /data/server_configurable_flags
 type server_configurable_flags_data_file, file_type, data_file_type, core_data_file_type;
-# /data/staging
+# /data/pkg_staging
 type staging_data_file, file_type, data_file_type, core_data_file_type;
 
 # Mount locations managed by vold
