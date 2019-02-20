@@ -16,6 +16,9 @@ allow vold sysfs_dm:file w_file_perms;
 allow vold sysfs_usb:file w_file_perms;
 allow vold sysfs_zram_uevent:file w_file_perms;
 
+# Read the legacy DT fstab
+r_dir_file(vold, proc_dt_firmware_android)
+
 r_dir_file(vold, rootfs)
 r_dir_file(vold, metadata_file)
 allow vold {
