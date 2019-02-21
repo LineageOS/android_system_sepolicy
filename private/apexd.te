@@ -95,6 +95,8 @@ allow apexd shell_exec:file { r_file_perms execute };
 
 # Allow transition to ART APEX preinstall domain.
 domain_auto_trans(apexd, art_apex_preinstall_exec, art_apex_preinstall)
+# Allow transition to ART APEX postinstall domain.
+domain_auto_trans(apexd, art_apex_postinstall_exec, art_apex_postinstall)
 
 # Allow transition to test APEX preinstall domain.
 userdebug_or_eng(`
