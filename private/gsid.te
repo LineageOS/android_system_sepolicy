@@ -9,6 +9,7 @@ init_daemon_domain(gsid)
 binder_use(gsid)
 binder_service(gsid)
 add_service(gsid, gsi_service)
+set_prop(gsid, gsid_prop)
 
 # Needed to create/delete device-mapper nodes, and read/write to them.
 allow gsid dm_device:chr_file rw_file_perms;
@@ -32,6 +33,8 @@ allowxperm gsid userdata_block_device:blk_file ioctl {
 
 # gsi_tool passes the system image over the adb connection, via stdin.
 allow gsid adbd:fd use;
+
+neverallow { domain -gsid -init } gsid_prop:property_service set;
 
 # gsid needs to store images on /data, but cannot use file I/O. If it did, the
 # underlying blocks would be encrypted, and we couldn't mount the GSI image in

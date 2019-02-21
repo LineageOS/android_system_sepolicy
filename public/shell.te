@@ -131,6 +131,7 @@ allow shell {
   proc_asound
   proc_filesystems
   proc_interrupts
+  proc_loadavg # b/124024827
   proc_meminfo
   proc_modules
   proc_pid_max
