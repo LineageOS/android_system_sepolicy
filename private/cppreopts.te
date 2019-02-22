@@ -4,10 +4,8 @@
 # partition. This domain ensures that we are only copying into specific
 # directories.
 
-type cppreopts, domain, mlstrustedsubject;
+type cppreopts, domain, mlstrustedsubject, coredomain;
 type cppreopts_exec, system_file_type, exec_type, file_type;
-
-typeattribute cppreopts coredomain;
 
 # Technically not a daemon but we do want the transition from init domain to
 # cppreopts to occur.
