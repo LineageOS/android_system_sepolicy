@@ -160,8 +160,8 @@
 /dev/socket/wpa_wlan[0-9] u:object_r:wpa_socket:s0
 /dev/socket/zygote	u:object_r:zygote_socket:s0
 /dev/socket/zygote_secondary	u:object_r:zygote_socket:s0
-/dev/socket/blastula_pool	u:object_r:zygote_socket:s0
-/dev/socket/blastula_pool_secondary	u:object_r:zygote_socket:s0
+/dev/socket/usap_pool_primary	u:object_r:zygote_socket:s0
+/dev/socket/usap_pool_secondary	u:object_r:zygote_socket:s0
 /dev/spdif_out.*	u:object_r:audio_device:s0
 /dev/tty		u:object_r:owntty_device:s0
 /dev/tty[0-9]*		u:object_r:tty_device:s0
