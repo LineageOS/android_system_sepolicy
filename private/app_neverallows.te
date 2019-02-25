@@ -344,3 +344,6 @@ neverallow all_untrusted_apps cgroup:file *;
 #  -untrusted_app_25
 #  -untrusted_app_27
 #} ashmem_device:chr_file open;
+# In preparation to remove open permission, we audit open operations on
+# /dev/ashmem.
+auditallow all_untrusted_apps ashmem_device:chr_file open;
