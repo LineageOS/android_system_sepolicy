@@ -8,6 +8,7 @@ set_prop(traceur_app, debug_prop)
 allow traceur_app {
   service_manager_type
   -apex_service
+  -dnsresolver_service
   -gatekeeper_service
   -incident_service
   -installd_service
