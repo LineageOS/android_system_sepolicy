@@ -1,10 +1,8 @@
 # This command set moves the artifact corresponding to the current slot
 # from /data/ota to /data/dalvik-cache.
 
-type otapreopt_slot, domain, mlstrustedsubject;
+type otapreopt_slot, domain, mlstrustedsubject, coredomain;
 type otapreopt_slot_exec, system_file_type, exec_type, file_type;
-
-typeattribute otapreopt_slot coredomain;
 
 # Technically not a daemon but we do want the transition from init domain to
 # cppreopts to occur.
