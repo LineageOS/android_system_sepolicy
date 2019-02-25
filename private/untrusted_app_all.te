@@ -187,6 +187,3 @@ userdebug_or_eng(`
 
 # Allow access to ashmemd to request /dev/ashmem fds.
 binder_call(untrusted_app_all, ashmemd)
-
-# TODO(b/113362644): audit apps directly using /dev/ashmem and emit error
-# message with info on how to fix that.
