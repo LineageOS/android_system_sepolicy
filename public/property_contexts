@@ -370,3 +370,7 @@ ro.surface_flinger.vsync_event_phase_offset_ns u:object_r:exported_default_prop:
 ro.surface_flinger.vsync_sf_event_phase_offset_ns u:object_r:exported_default_prop:s0 int
 ro.surface_flinger.wcg_composition_dataspace u:object_r:exported_default_prop:s0 int
 ro.surface_flinger.wcg_composition_pixel_format u:object_r:exported_default_prop:s0 int
+ro.surface_flinger.display_primary_red u:object_r:exported_default_prop:s0 string
+ro.surface_flinger.display_primary_green u:object_r:exported_default_prop:s0 string
+ro.surface_flinger.display_primary_blue u:object_r:exported_default_prop:s0 string
+ro.surface_flinger.display_primary_white u:object_r:exported_default_prop:s0 string
