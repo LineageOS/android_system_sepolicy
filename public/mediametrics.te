@@ -20,6 +20,9 @@ allow mediametrics { app_data_file privapp_data_file }:file write;
 # allow access to package manager for uid->apk mapping
 allow mediametrics package_native_service:service_manager find;
 
+# Allow metrics service to send information to statsd socket.
+unix_socket_send(mediametrics, statsdw, statsd)
+
 ###
 ### neverallow rules
 ###
