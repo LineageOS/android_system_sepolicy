@@ -310,6 +310,8 @@ allow system_server sysfs_type:dir search;
 r_dir_file(system_server, sysfs_android_usb)
 allow system_server sysfs_android_usb:file w_file_perms;
 
+allow system_server sysfs_extcon:dir r_dir_perms;
+
 r_dir_file(system_server, sysfs_ipv4)
 allow system_server sysfs_ipv4:file w_file_perms;
 

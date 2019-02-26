@@ -1071,29 +1071,6 @@ full_treble_only(`
   }:file *;
 ')
 
-# Only authorized processes should be writing to files in /data/dalvik-cache
-neverallow {
-  domain
-  -init # TODO: limit init to relabelfrom for files
-  -zygote
-  -installd
-  -postinstall_dexopt
-  -cppreopts
-  -dex2oat
-  -otapreopt_slot
-} dalvikcache_data_file:file no_w_file_perms;
-
-neverallow {
-  domain
-  -init
-  -installd
-  -postinstall_dexopt
-  -cppreopts
-  -dex2oat
-  -zygote
-  -otapreopt_slot
-} dalvikcache_data_file:dir no_w_dir_perms;
-
 # Only system_server should be able to send commands via the zygote socket
 neverallow { domain -zygote -system_server } zygote:unix_stream_socket connectto;
 neverallow { domain -system_server } zygote_socket:sock_file write;
