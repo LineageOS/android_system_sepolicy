@@ -36,6 +36,10 @@ allow adbd self:global_capability_class_set setpcap;
 # ignore spurious denials for adbd when disk space is low.
 dontaudit adbd self:global_capability_class_set sys_resource;
 
+# adbd probes for vsock support. Do not generate denials when
+# this occurs. (b/123569840)
+dontaudit adbd self:{ socket vsock_socket } create;
+
 # Create and use network sockets.
 net_domain(adbd)
 
