@@ -34,3 +34,8 @@ allow installd rollback_data_file:file create_file_perms;
 
 # Allow installd to access the runtime feature flag properties.
 get_prop(installd, device_config_runtime_native_prop)
+get_prop(installd, device_config_runtime_native_boot_prop)
+
+# Allow installd to delete files in /data/staging
+allow installd staging_data_file:file unlink;
+allow installd staging_data_file:dir { open read remove_name rmdir search write };

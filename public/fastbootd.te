@@ -68,6 +68,7 @@ recovery_only(`
   allowxperm fastbootd {
     metadata_block_device
     userdata_block_device
+    dm_device
   }:blk_file ioctl { BLKSECDISCARD BLKDISCARD };
 
   allow fastbootd misc_block_device:blk_file rw_file_perms;
