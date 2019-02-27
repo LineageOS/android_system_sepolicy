@@ -75,8 +75,6 @@ allow system_server self:global_capability_class_set {
     sys_tty_config
 };
 
-wakelock_use(system_server)
-
 # Trigger module auto-load.
 allow system_server kernel:system module_request;
 
@@ -224,7 +222,6 @@ hal_client_domain(system_server, hal_omx)
 hal_client_domain(system_server, hal_power)
 hal_client_domain(system_server, hal_power_stats)
 hal_client_domain(system_server, hal_sensors)
-hal_client_domain(system_server, hal_system_suspend)
 hal_client_domain(system_server, hal_tetheroffload)
 hal_client_domain(system_server, hal_thermal)
 hal_client_domain(system_server, hal_tv_cec)
@@ -1001,6 +998,11 @@ allow system_server apexd:binder call;
 
 # Allow system server to communicate to system-suspend's control interface
 allow system_server system_suspend_control_service:service_manager find;
+binder_call(system_server, system_suspend)
+binder_call(system_suspend, system_server)
+
+# Allow system server to communicate to system-suspend's wakelock interface
+wakelock_use(system_server)
 
 # Allow the system server to read files under /data/apex. The system_server
 # needs these privileges to compare file signatures while processing installs.
