@@ -5,11 +5,24 @@ userdebug_or_eng(`
 
 neverallow {
   domain
-  -hal_system_suspend_server
-  userdebug_or_eng(`-statsd -system_server -hal_health_server -hwservicemanager')
+  userdebug_or_eng(`
+    -statsd
+    -system_server
+    -system_suspend_server
+    -hal_health_server
+    -hwservicemanager
+  ')
 } perfprofd:binder call;
+
 neverallow perfprofd {
   domain
-  -hal_system_suspend_server
-  userdebug_or_eng(`-servicemanager -statsd -su -system_server -hal_health_server -hwservicemanager')
+  userdebug_or_eng(`
+    -servicemanager
+    -statsd
+    -su
+    -system_server
+    -system_suspend_server
+    -hal_health_server
+    -hwservicemanager
+  ')
 }:binder call;
