@@ -46,11 +46,11 @@ allow apexd apex_mnt_dir:dir mounton;
 # allow apexd to create symlinks in /apex
 allow apexd apex_mnt_dir:lnk_file create_file_perms;
 # allow apexd to unlink apex files in /data/apex/active
-# note that apexd won't be able to unlink files in /data/pkg_staging/session_XXXX,
+# note that apexd won't be able to unlink files in /data/app-staging/session_XXXX,
 # because it doesn't have write permission for staging_data_file object.
 allow apexd staging_data_file:file unlink;
 
-# allow apexd to read files from /data/pkg_staging and hardlink them to /data/apex.
+# allow apexd to read files from /data/app-staging and hardlink them to /data/apex.
 allow apexd staging_data_file:dir r_dir_perms;
 allow apexd staging_data_file:file { r_file_perms link };
 
