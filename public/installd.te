@@ -35,6 +35,8 @@ r_dir_file(installd, rootfs)
 r_dir_file(installd, system_file)
 # Scan through APKs in /vendor/app
 r_dir_file(installd, vendor_app_file)
+# Scan through JARs in /vendor/framework
+r_dir_file(installd, vendor_framework_file)
 # Scan through Runtime Resource Overlay APKs in /vendor/overlay
 r_dir_file(installd, vendor_overlay_file)
 # Get file context
