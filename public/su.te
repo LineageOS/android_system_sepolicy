@@ -87,7 +87,6 @@ userdebug_or_eng(`
   typeattribute su hal_power_client;
   typeattribute su hal_secure_element_client;
   typeattribute su hal_sensors_client;
-  typeattribute su hal_system_suspend_client;
   typeattribute su hal_telephony_client;
   typeattribute su hal_tetheroffload_client;
   typeattribute su hal_thermal_client;
