@@ -335,15 +335,10 @@ neverallow all_untrusted_apps proc_tty_drivers:file ~r_file_perms;
 # Untrusted apps are not allowed to use cgroups.
 neverallow all_untrusted_apps cgroup:file *;
 
-# TODO(b/113362644): remove open permission from these domains.
 # Untrusted apps targetting >= Q are not allowed to open /dev/ashmem directly.
-#neverallow {
-#  all_untrusted_apps
-# TODO(b/113362644): route mediaprovider to ashmemd
-#  -mediaprovider
-#  -untrusted_app_25
-#  -untrusted_app_27
-#} ashmem_device:chr_file open;
-# In preparation to remove open permission, we audit open operations on
-# /dev/ashmem.
-auditallow all_untrusted_apps ashmem_device:chr_file open;
+# They must use ASharedMemory NDK API instead.
+neverallow {
+  all_untrusted_apps
+  -untrusted_app_25
+  -untrusted_app_27
+} ashmem_device:chr_file open;
