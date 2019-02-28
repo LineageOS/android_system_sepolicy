@@ -215,6 +215,7 @@ neverallow {
   -cppreopts
   -dex2oat
   -otapreopt_slot
+  -art_apex_postinstall
 } dalvikcache_data_file:file no_w_file_perms;
 
 neverallow {
@@ -226,6 +227,7 @@ neverallow {
   -dex2oat
   -zygote
   -otapreopt_slot
+  -art_apex_postinstall
 } dalvikcache_data_file:dir no_w_dir_perms;
 
 # Minimize dac_override and dac_read_search.
