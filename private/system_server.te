@@ -873,10 +873,6 @@ with_asan(`
 allow system_server fs_bpf:dir search;
 allow system_server fs_bpf:file { read write };
 allow system_server bpfloader:bpf { map_read map_write };
-# in order to invoke side effect of close() on such a socket calling synchronize_rcu()
-# TODO: Remove this permission when 4.9 kernel is deprecated.
-allow system_server self:key_socket create;
-
 
 # ART Profiles.
 # Allow system_server to open profile snapshots for read.
