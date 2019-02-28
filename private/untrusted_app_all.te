@@ -188,4 +188,4 @@ userdebug_or_eng(`
 
 # Allow access to ashmemd to request /dev/ashmem fds.
 binder_call(untrusted_app_all, ashmemd)
-allow untrusted_app_all ashmem_device:chr_file { getattr read write ioctl };
+allow untrusted_app_all ashmem_device:chr_file { getattr read ioctl lock map append write };
