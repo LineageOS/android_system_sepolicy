@@ -65,7 +65,7 @@ can_profile_heap(ephemeral_app)
 allow ephemeral_app system_server:udp_socket {
         connect getattr read recvfrom sendto write getopt setopt };
 
-allow ephemeral_app ashmem_device:chr_file { getattr read write ioctl };
+allow ephemeral_app ashmem_device:chr_file { getattr read ioctl lock map append write };
 
 ###
 ### neverallow rules
