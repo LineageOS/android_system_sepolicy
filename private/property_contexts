@@ -127,6 +127,11 @@ ctl.start$adbd             u:object_r:ctl_adbd_prop:s0
 ctl.stop$adbd              u:object_r:ctl_adbd_prop:s0
 ctl.restart$adbd           u:object_r:ctl_adbd_prop:s0
 
+# Restrict access to starting/stopping gsid.
+ctl.start$gsid          u:object_r:ctl_gsid_prop:s0
+ctl.stop$gsid           u:object_r:ctl_gsid_prop:s0
+ctl.restart$gsid        u:object_r:ctl_gsid_prop:s0
+
 # NFC properties
 nfc.                    u:object_r:nfc_prop:s0
 
