@@ -399,19 +399,16 @@ typeattribute $1 binderservicedomain;
 # wakelock_use(domain)
 # Allow domain to manage wake locks
 define(`wakelock_use', `
+# TODO(b/115946999): Remove /sys/power/* permissions once CONFIG_PM_WAKELOCKS is
+# deprecated.
 # Access /sys/power/wake_lock and /sys/power/wake_unlock
 allow $1 sysfs_wake_lock:file rw_file_perms;
 # Accessing these files requires CAP_BLOCK_SUSPEND
 allow $1 self:global_capability2_class_set block_suspend;
-# TODO(b/36375663): wake lock clients should be tagged with
-# hal_system_suspend_client and halclientdomain attributes. However,
-# typeattribute statements do not allow applying attributes to other attributes,
-# so instead we grant appropriate permissions directly within this macro.
-# hal_system_suspend_client permissions
-binder_call($1, hal_system_suspend_server)
-binder_call(hal_system_suspend_server, $1)
+# system_suspend permissions
+binder_call($1, system_suspend_server)
 allow $1 system_suspend_hwservice:hwservice_manager find;
-# halclientdomain perimssions
+# halclientdomain permissions
 hwbinder_use($1)
 get_prop($1, hwservicemanager_prop)
 allow $1 hidl_manager_hwservice:hwservice_manager find;

@@ -24,6 +24,7 @@
 # to their sandbox directory and then execute.
 allow untrusted_app_all privapp_data_file:file { r_file_perms execute };
 allow untrusted_app_all app_data_file:file     { r_file_perms execute };
+auditallow untrusted_app_all app_data_file:file execute;
 
 # Chrome Crashpad uses the the dynamic linker to load native executables
 # from an APK (b/112050209, crbug.com/928422)
@@ -187,3 +188,4 @@ userdebug_or_eng(`
 
 # Allow access to ashmemd to request /dev/ashmem fds.
 binder_call(untrusted_app_all, ashmemd)
+allow untrusted_app_all ashmem_device:chr_file { getattr read write ioctl };

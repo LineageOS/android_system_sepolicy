@@ -78,9 +78,6 @@
     hal_health_storage_hwservice
     hal_lowpan_hwservice
     hal_secure_element_hwservice
-    hal_system_suspend_default
-    hal_system_suspend_default_exec
-    hal_system_suspend_default_tmpfs
     hal_usb_gadget_hwservice
     hal_vehicle_hwservice
     hal_wifi_hostapd_hwservice
@@ -149,7 +146,6 @@
     staging_data_file
     system_boot_reason_prop
     system_lmk_prop
-    system_suspend_hwservice
     system_update_service
     test_boot_reason_prop
     time_prop

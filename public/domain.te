@@ -68,10 +68,10 @@ allow {
   domain
   # TODO(b/113362644): route coredomain to ashmemd
   #-coredomain
-  # TODO(b/113362644): remove open permission from apps.
-  #-ephemeral_app
-  #-isolated_app
-  #-untrusted_app_all
+  -mediaprovider
+  -ephemeral_app
+  -isolated_app
+  -untrusted_app_all
 } ashmem_device:chr_file rw_file_perms;
 
 # Allow using fds to /dev/ashmem.
@@ -1349,41 +1349,6 @@ full_treble_only(`
     -ueventd
   } vendor_file:file { no_w_file_perms no_x_file_perms open };
 ')
-
-# Minimize dac_override and dac_read_search.
-# Instead of granting them it is usually better to add the domain to
-# a Unix group or change the permissions of a file.
-define(`dac_override_allowed', `{
-  dnsmasq
-  dumpstate
-  init
-  installd
-  install_recovery
-  userdebug_or_eng(`llkd')
-  lmkd
-  netd
-  perfprofd
-  postinstall_dexopt
-  recovery
-  rss_hwm_reset
-  sdcardd
-  tee
-  ueventd
-  uncrypt
-  vendor_init
-  vold
-  vold_prepare_subdirs
-  zygote
-}')
-neverallow ~dac_override_allowed self:global_capability_class_set dac_override;
-# Since the kernel checks dac_read_search before dac_override, domains that
-# have dac_override should also have dac_read_search to eliminate spurious
-# denials.  Some domains have dac_read_search without having dac_override, so
-# this list should be a superset of the one above.
-neverallow ~{
-  dac_override_allowed
-  traced_probes
-} self:global_capability_class_set dac_read_search;
 
 # If an already existing file is opened with O_CREAT, the kernel might generate
 # a false report of a create denial. Silence these denials and make sure that
