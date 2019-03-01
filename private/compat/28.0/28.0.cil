@@ -1541,6 +1541,7 @@
 (typeattributeset swap_block_device_28_0 (swap_block_device))
 (typeattributeset sysfs_28_0
   ( sysfs
+    sysfs_devices_block
     sysfs_extcon
     sysfs_loop))
 (typeattributeset sysfs_android_usb_28_0 (sysfs_android_usb))
