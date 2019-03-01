@@ -218,6 +218,7 @@ genfscon tracefs /events/binder/binder_transaction_alloc_buf/            u:objec
 genfscon tracefs /events/lowmemorykiller/                                u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/sync/                                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/fence/                                          u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/dma_fence/                                      u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/filemap/mm_filemap_add_to_page_cache/           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/filemap/mm_filemap_delete_from_page_cache/      u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/kmem/rss_stat/                                  u:object_r:debugfs_tracing:s0
@@ -258,6 +259,7 @@ genfscon debugfs /events/binder/binder_transaction_alloc_buf/                   
 genfscon debugfs /tracing/events/lowmemorykiller/                                u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/sync/                                           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/fence/                                          u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/dma_fence/                                      u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/filemap/mm_filemap_add_to_page_cache/           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/filemap/mm_filemap_delete_from_page_cache/      u:object_r:debugfs_tracing:s0
 genfscon debugfs /events/kmem/rss_stat/                                          u:object_r:debugfs_tracing:s0
