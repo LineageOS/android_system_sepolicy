@@ -123,8 +123,10 @@
     timezonedetector_service
     uri_grants_service
     use_memfd_prop
+    vendor_cgroup_desc_file
     vendor_idc_file
     vendor_keychars_file
     vendor_keylayout_file
+    vendor_task_profiles_file
     vrflinger_vsync_service
     watchdogd_tmpfs))
