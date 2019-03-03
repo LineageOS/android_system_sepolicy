@@ -22,7 +22,6 @@ netd untrusted_app unix_stream_socket 77870037
 netd untrusted_app_25 unix_stream_socket 77870037
 netd untrusted_app_27 unix_stream_socket 77870037
 platform_app nfc_data_file dir 74331887
-priv_app mnt_user_file dir 118185801
 system_server crash_dump process 73128755
 system_server sdcardfs file 77856826
 system_server storage_stub_file dir 112609936

@@ -32,6 +32,7 @@ allow { domain -appdomain -rs } cgroup:file w_file_perms;
 allow domain cgroup_rc_file:dir search;
 allow domain cgroup_rc_file:file r_file_perms;
 allow domain task_profiles_file:file r_file_perms;
+allow domain vendor_task_profiles_file:file r_file_perms;
 
 # Allow all domains to read sys.use_memfd to determine
 # if memfd support can be used if device supports it
@@ -215,6 +216,7 @@ neverallow {
   -cppreopts
   -dex2oat
   -otapreopt_slot
+  -art_apex_postinstall
 } dalvikcache_data_file:file no_w_file_perms;
 
 neverallow {
@@ -226,6 +228,7 @@ neverallow {
   -dex2oat
   -zygote
   -otapreopt_slot
+  -art_apex_postinstall
 } dalvikcache_data_file:dir no_w_dir_perms;
 
 # Minimize dac_override and dac_read_search.

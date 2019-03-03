@@ -355,7 +355,7 @@ neverallow {
   -healthd
   -uncrypt
   -tee
-  -hal_bootctl
+  -hal_bootctl_server
 } self:global_capability_class_set sys_rawio;
 
 # No process can map low memory (< CONFIG_LSM_MMAP_MIN_ADDR).
@@ -1037,6 +1037,7 @@ full_treble_only(`
     -vendor_keylayout_file
     -vendor_overlay_file
     -vendor_public_lib_file
+    -vendor_task_profiles_file
     -vndk_sp_file
   }:file *;
 ')

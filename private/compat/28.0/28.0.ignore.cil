@@ -30,6 +30,7 @@
     content_capture_service
     content_suggestions_service
     cpu_variant_prop
+    ctl_gsid_prop
     dev_cpu_variant
     device_config_activity_manager_native_boot_prop
     device_config_boot_count_prop
@@ -124,8 +125,10 @@
     timezonedetector_service
     uri_grants_service
     use_memfd_prop
+    vendor_cgroup_desc_file
     vendor_idc_file
     vendor_keychars_file
     vendor_keylayout_file
+    vendor_task_profiles_file
     vrflinger_vsync_service
     watchdogd_tmpfs))

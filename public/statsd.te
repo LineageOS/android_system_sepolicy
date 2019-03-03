@@ -31,6 +31,9 @@ userdebug_or_eng(`
   binder_call(statsd, perfprofd)
 ')
 binder_call(statsd, system_server)
+
+# Allow statsd to interact with gpuservice
+allow statsd gpu_service:service_manager find;
 binder_call(statsd, gpuservice)
 
 # Allow logd access.

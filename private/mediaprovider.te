@@ -43,4 +43,4 @@ allowxperm mediaprovider functionfs:file ioctl FUNCTIONFS_ENDPOINT_DESC;
 set_prop(mediaprovider, ffs_prop)
 set_prop(mediaprovider, exported_ffs_prop)
 
-allow mediaprovider ashmem_device:chr_file { getattr read write ioctl };
+allow mediaprovider ashmem_device:chr_file { getattr read ioctl lock map append write };
