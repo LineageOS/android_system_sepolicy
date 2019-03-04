@@ -19,6 +19,10 @@ userdebug_or_eng(`can_profile_heap_userdebug_or_eng({
   -keystore
   -llkd
   -logd
+  -logpersist
+  -recovery
+  -recovery_persist
+  -recovery_refresh
   -ueventd
   -vendor_init
   -vold
