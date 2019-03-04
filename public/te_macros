@@ -661,14 +661,8 @@ define(`can_profile_heap', `
   allow heapprofd $1:file r_file_perms;
   allow heapprofd $1:dir r_dir_perms;
 
-  # On debug builds, central daemon can handle profiling of all processes
-  # directly.
-  userdebug_or_eng(`
-    # Allow connecting to the daemon.
-    unix_socket_connect($1, heapprofd, heapprofd)
-    # Allow daemon to use the passed fds.
-    allow heapprofd $1:fd use;
-  ')
+  # Profilability on user implies profilability on userdebug and eng.
+  can_profile_heap_userdebug_or_eng($1)
 ')
 
 ###################################
@@ -686,6 +680,11 @@ define(`can_profile_heap_userdebug_or_eng', `
     unix_socket_connect($1, heapprofd, heapprofd)
     # Allow daemon to use the passed fds.
     allow heapprofd $1:fd use;
+    # Allow to read and write to heapprofd shmem.
+    # The client needs to read the read and write pointers in order to write.
+    allow $1 heapprofd_tmpfs:file { read write getattr map };
+    # Use shared memory received over the unix socket.
+    allow $1 heapprofd:fd use;
 
     # To read from the received file descriptors.
     # /proc/[pid]/maps and /proc/[pid]/mem have the same SELinux label as the
