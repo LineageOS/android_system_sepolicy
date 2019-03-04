@@ -16,7 +16,7 @@ init_daemon_domain(heapprofd)
 tmpfs_domain(heapprofd)
 
 # Allow apps in other MLS contexts (for multi-user) to access
-# share memory buffers created by heapprofd.
+# shared memory buffers created by heapprofd.
 typeattribute heapprofd_tmpfs mlstrustedobject;
 
 set_prop(heapprofd, heapprofd_prop);
