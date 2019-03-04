@@ -45,11 +45,6 @@ allow apexd apex_mnt_dir:lnk_file create_file_perms;
 # because it doesn't have write permission for staging_data_file object.
 allow apexd staging_data_file:file unlink;
 
-# allow apexd to relabel apk_tmp_file to apex_data_file.
-# TODO(b/112669193) remove this when APEXes are staged via file descriptor
-allow apexd apk_tmp_file:file relabelfrom;
-allow apexd apex_data_file:file relabelto;
-
 # allow apexd to read files from /data/pkg_staging and hardlink them to /data/apex.
 allow apexd staging_data_file:dir r_dir_perms;
 allow apexd staging_data_file:file { r_file_perms link };
