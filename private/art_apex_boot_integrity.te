@@ -1,0 +1,34 @@
+# This command set moves the artifact corresponding to the current slot
+# from /data/ota to /data/dalvik-cache.
+
+type art_apex_boot_integrity, domain, coredomain;
+type art_apex_boot_integrity_exec, system_file_type, exec_type, file_type;
+
+# Technically not a daemon but we do want the transition from init domain to
+# art_apex_boot_integrity to occur.
+init_daemon_domain(art_apex_boot_integrity)
+
+# Read dalvik cache directories, remove entries.
+allow art_apex_boot_integrity dalvikcache_data_file:dir  { r_dir_perms write remove_name };
+# Read and possibly delete dalvik cache files.
+allow art_apex_boot_integrity dalvikcache_data_file:file { r_file_perms unlink };
+
+# Allow art_apex_boot_integrity to execute itself using #!/system/bin/sh
+allow art_apex_boot_integrity shell_exec:file rx_file_perms;
+
+# Allow running the mv and rm/rmdir commands using art_apex_boot_integrity
+# permissions.
+allow art_apex_boot_integrity toolbox_exec:file rx_file_perms;
+
+# Fsverity in the same domain.
+allow art_apex_boot_integrity system_file:file execute_no_trans;
+# Fsverity work.
+allowxperm art_apex_boot_integrity ota_data_file:file ioctl {
+  FS_IOC_ENABLE_VERITY FS_IOC_MEASURE_VERITY
+};
+
+allow art_apex_boot_integrity kernel:key search;
+# For testing purposes, allow keys installed with su.
+userdebug_or_eng(`
+  allow art_apex_boot_integrity su:key search;
+')
