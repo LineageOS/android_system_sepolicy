@@ -92,6 +92,7 @@ unix_socket_connect(dumpstate, tombstoned_intercept, tombstoned)
 allow dumpstate sysfs_type:dir r_dir_perms;
 
 allow dumpstate {
+  sysfs_devices_block
   sysfs_dm
   sysfs_loop
   sysfs_usb
@@ -101,6 +102,8 @@ allow dumpstate {
 # Other random bits of data we want to collect
 allow dumpstate debugfs:file r_file_perms;
 auditallow dumpstate debugfs:file r_file_perms;
+
+allow dumpstate debugfs_mmc:file r_file_perms;
 
 # df for
 allow dumpstate {
