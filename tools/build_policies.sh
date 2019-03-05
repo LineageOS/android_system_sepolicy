@@ -54,7 +54,7 @@ done
 # This heuristic could probably be improved.
 cores=$(nproc --all)
 num_targets=$(echo "$targets" | sed 's/ /\n/g' | wc -l)
-parallel_jobs=$(expr $cores / 2)
+parallel_jobs=$(expr $cores / 4)
 if [[ $num_targets -lt $parallel_jobs ]]; then
   export mmma_jobs=$(expr $cores / $num_targets \* 2)
 else
