@@ -114,6 +114,7 @@ genfscon sysfs /class/rtc                         u:object_r:sysfs_rtc:s0
 genfscon sysfs /class/switch                      u:object_r:sysfs_switch:s0
 genfscon sysfs /devices/platform/nfc-power/nfc_power u:object_r:sysfs_nfc_power_writable:s0
 genfscon sysfs /devices/virtual/android_usb     u:object_r:sysfs_android_usb:s0
+genfscon sysfs /devices/virtual/block/            u:object_r:sysfs_devices_block:s0
 genfscon sysfs /devices/virtual/block/dm-       u:object_r:sysfs_dm:s0
 genfscon sysfs /devices/virtual/block/loop       u:object_r:sysfs_loop:s0
 genfscon sysfs /devices/virtual/block/zram0     u:object_r:sysfs_zram:s0

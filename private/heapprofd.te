@@ -10,8 +10,14 @@
 # On debug builds, this central daemon performs profiling for all target
 # processes (which talk directly to this daemon).
 type heapprofd_exec, exec_type, file_type, system_file_type;
+type heapprofd_tmpfs, file_type;
 
 init_daemon_domain(heapprofd)
+tmpfs_domain(heapprofd)
+
+# Allow apps in other MLS contexts (for multi-user) to access
+# shared memory buffers created by heapprofd.
+typeattribute heapprofd_tmpfs mlstrustedobject;
 
 set_prop(heapprofd, heapprofd_prop);
 
