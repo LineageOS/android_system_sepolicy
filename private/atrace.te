@@ -40,6 +40,7 @@ allow atrace {
   -incident_service
   -iorapd_service
   -netd_service
+  -dnsresolver_service
   -stats_service
   -dumpstate_service
   -installd_service
