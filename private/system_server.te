@@ -1013,6 +1013,12 @@ wakelock_use(system_server)
 allow system_server apex_data_file:dir search;
 allow system_server apex_data_file:file r_file_perms;
 
+# Allow PasswordSlotManager rw access to /metadata/password_slots, so GSIs and the host image can
+# communicate which slots are available for use.
+allow system_server metadata_file:dir search;
+allow system_server password_slot_metadata_file:dir rw_dir_perms;
+allow system_server password_slot_metadata_file:file create_file_perms;
+
 # dexoptanalyzer is currently used only for secondary dex files which
 # system_server should never access.
 neverallow system_server dexoptanalyzer_exec:file no_x_file_perms;
@@ -1023,3 +1029,12 @@ neverallow system_server { domain -system_server }:process ptrace;
 # CAP_SYS_RESOURCE was traditionally needed for sensitive /proc/PID
 # file read access. However, that is now unnecessary (b/34951864)
 neverallow system_server system_server:global_capability_class_set sys_resource;
+
+# Only system_server/init should access /metadata/password_slots.
+neverallow { domain -init -system_server } password_slot_metadata_file:dir *;
+neverallow {
+  domain
+  -init
+  -system_server
+} password_slot_metadata_file:notdevfile_class_set ~{ relabelto getattr };
+neverallow { domain -init -system_server } password_slot_metadata_file:notdevfile_class_set *;
