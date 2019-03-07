@@ -85,6 +85,7 @@ set_prop(netd, netd_stable_secret_prop)
 # Allow netd to publish a binder service and make binder calls.
 binder_use(netd)
 add_service(netd, netd_service)
+add_service(netd, dnsresolver_service)
 allow netd dumpstate:fifo_file  { getattr write };
 
 # Allow netd to call into the system server so it can check permissions.
@@ -138,6 +139,15 @@ neverallow {
     -network_stack
     -netd
 } netd_service:service_manager find;
+
+# only system_server, dumpstate and network stack app may find dnsresolver service
+neverallow {
+    domain
+    -system_server
+    -dumpstate
+    -network_stack
+    -netd
+} dnsresolver_service:service_manager find;
 
 # only netd can create the bpf maps
 neverallow { domain -netd } netd:bpf { map_create };
