@@ -80,6 +80,7 @@ allow system_app {
   -iorapd_service
   -ipmemorystore_service
   -netd_service
+  -system_suspend_control_service
   -virtual_touchpad_service
   -vold_service
   -vr_hwc_service
