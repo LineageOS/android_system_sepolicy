@@ -9,3 +9,12 @@ add_service(system_suspend, system_suspend_control_service)
 
 # Access to /sys/power/{ wakeup_count, state } suspend interface.
 allow system_suspend sysfs_power:file rw_file_perms;
+
+neverallow {
+    domain
+    -atrace # tracing
+    -dumpstate # bug reports
+    -system_suspend # implements system_suspend_control_service
+    -system_server # configures system_suspend via ISuspendControlService
+    -traceur_app # tracing
+} system_suspend_control_service:service_manager find;
