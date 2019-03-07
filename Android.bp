@@ -33,6 +33,27 @@ se_filegroup {
     ],
 }
 
+se_filegroup {
+    name: "26.0.board.ignore.map",
+    srcs: [
+        "compat/26.0/26.0.ignore.cil",
+    ],
+}
+
+se_filegroup {
+    name: "27.0.board.ignore.map",
+    srcs: [
+        "compat/27.0/27.0.ignore.cil",
+    ],
+}
+
+se_filegroup {
+    name: "28.0.board.ignore.map",
+    srcs: [
+        "compat/28.0/28.0.ignore.cil",
+    ],
+}
+
 se_cil_compat_map {
     name: "26.0.cil",
     bottom_half: [":26.0.board.compat.map"],
@@ -53,18 +74,18 @@ se_cil_compat_map {
 
 se_cil_compat_map {
     name: "26.0.ignore.cil",
-    bottom_half: ["private/compat/26.0/26.0.ignore.cil"],
+    bottom_half: [":26.0.board.ignore.map"],
     top_half: "27.0.ignore.cil",
 }
 
 se_cil_compat_map {
     name: "27.0.ignore.cil",
-    bottom_half: ["private/compat/27.0/27.0.ignore.cil"],
+    bottom_half: [":27.0.board.ignore.map"],
     top_half: "28.0.ignore.cil",
 }
 
 se_cil_compat_map {
     name: "28.0.ignore.cil",
-    bottom_half: ["private/compat/28.0/28.0.ignore.cil"],
+    bottom_half: [":28.0.board.ignore.map"],
     // top_half: "29.0.ignore.cil",
 }
