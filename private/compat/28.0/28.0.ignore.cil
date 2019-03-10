@@ -41,6 +41,7 @@
     device_config_runtime_native_prop
     device_config_media_native_prop
     device_config_service
+    dnsresolver_service
     dynamic_android_service
     face_service
     face_vendor_data_file
@@ -92,6 +93,7 @@
     network_stack_service
     network_stack_tmpfs
     overlayfs_file
+    password_slot_metadata_file
     permissionmgr_service
     postinstall_apex_mnt_dir
     recovery_socket

@@ -764,7 +764,7 @@ full_treble_only(`
     -mdnsd # netdomain needs this
     userdebug_or_eng(`-su') # communications with su are permitted only on userdebug or eng builds
     -init
-    -tombstoned # TODO(b/36604251): Remove tombstoned from this list once mediacodec (OMX HAL) no longer declares Binder services
+    -tombstoned # linker to tombstoned
     userdebug_or_eng('-heapprofd`)
   });
 ')

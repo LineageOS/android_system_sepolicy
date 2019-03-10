@@ -456,7 +456,7 @@
 /data/preloads/media(/.*)?	u:object_r:preloads_media_file:s0
 /data/preloads/demo(/.*)?	u:object_r:preloads_media_file:s0
 /data/server_configurable_flags(/.*)? u:object_r:server_configurable_flags_data_file:s0
-/data/pkg_staging(/.*)?		u:object_r:staging_data_file:s0
+/data/app-staging(/.*)?		u:object_r:staging_data_file:s0
 
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
@@ -618,6 +618,7 @@
 /metadata(/.*)?           u:object_r:metadata_file:s0
 /metadata/vold(/.*)?      u:object_r:vold_metadata_file:s0
 /metadata/gsi(/.*)?       u:object_r:gsi_metadata_file:s0
+/metadata/password_slots(/.*)?    u:object_r:password_slot_metadata_file:s0
 
 #############################
 # asec containers

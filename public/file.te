@@ -202,6 +202,8 @@ type metadata_file, file_type;
 type vold_metadata_file, file_type;
 # GSI files within /metadata
 type gsi_metadata_file, file_type;
+# system_server shares Weaver slot information in /metadata
+type password_slot_metadata_file, file_type;
 
 # Type for /dev/cpu_variant:.*.
 type dev_cpu_variant, file_type;
@@ -274,7 +276,7 @@ type preloads_media_file, file_type, data_file_type, core_data_file_type;
 type dhcp_data_file, file_type, data_file_type, core_data_file_type;
 # /data/server_configurable_flags
 type server_configurable_flags_data_file, file_type, data_file_type, core_data_file_type;
-# /data/pkg_staging
+# /data/app-staging
 type staging_data_file, file_type, data_file_type, core_data_file_type;
 
 # Mount locations managed by vold

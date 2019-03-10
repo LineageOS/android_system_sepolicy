@@ -50,6 +50,7 @@ deviceidle                                u:object_r:deviceidle_service:s0
 devicestoragemonitor                      u:object_r:devicestoragemonitor_service:s0
 diskstats                                 u:object_r:diskstats_service:s0
 display                                   u:object_r:display_service:s0
+dnsresolver                               u:object_r:dnsresolver_service:s0
 color_display                             u:object_r:color_display_service:s0
 netd_listener                             u:object_r:netd_listener_service:s0
 network_watchlist                         u:object_r:network_watchlist_service:s0
