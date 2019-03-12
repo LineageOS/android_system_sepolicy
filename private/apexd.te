@@ -10,6 +10,11 @@ allow apexd apex_key_file:file r_file_perms;
 allow apexd apex_data_file:dir create_dir_perms;
 allow apexd apex_data_file:file create_file_perms;
 
+# Allow creating, reading and writing of APEX files/dirs in the APEX metadata dir
+allow apexd metadata_file:dir search;
+allow apexd apex_metadata_file:dir create_dir_perms;
+allow apexd apex_metadata_file:file create_file_perms;
+
 # allow apexd to create loop devices with /dev/loop-control
 allow apexd loop_control_device:chr_file rw_file_perms;
 # allow apexd to access loop devices
@@ -99,5 +104,7 @@ userdebug_or_eng(`
 ')
 
 neverallow { domain -apexd -init } apex_data_file:dir no_w_dir_perms;
+neverallow { domain -apexd -init } apex_metadata_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init -kernel } apex_data_file:file no_w_file_perms;
+neverallow { domain -apexd -init -kernel } apex_metadata_file:file no_w_file_perms;
 neverallow { domain -apexd } apex_mnt_dir:lnk_file no_w_file_perms;
