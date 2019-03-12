@@ -17,6 +17,7 @@ allow art_apex_postinstall dalvikcache_data_file:file { r_file_perms unlink rela
 
 # Required for relabel.
 allow art_apex_postinstall file_contexts_file:file r_file_perms;
+allow art_apex_postinstall self:global_capability_class_set sys_admin;
 
 # Script helpers.
 allow art_apex_postinstall shell_exec:file rx_file_perms;
