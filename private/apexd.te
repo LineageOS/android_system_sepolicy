@@ -80,6 +80,10 @@ allow apexd kmsg_device:chr_file w_file_perms;
 # not covered by rollback manager.
 set_prop(apexd, powerctl_prop)
 
+# Find the vold service, and call into vold to manage FS checkpoints
+allow apexd vold_service:service_manager find;
+binder_call(apexd, vold)
+
 # Apex pre- & post-install permission.
 
 # Allow self-execute for the fork mount helper.
