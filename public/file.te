@@ -201,6 +201,8 @@ type vold_metadata_file, file_type;
 type gsi_metadata_file, file_type;
 # system_server shares Weaver slot information in /metadata
 type password_slot_metadata_file, file_type;
+# APEX files within /metadata
+type apex_metadata_file, file_type;
 
 # Type for /dev/cpu_variant:.*.
 type dev_cpu_variant, file_type;

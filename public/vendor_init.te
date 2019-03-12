@@ -55,6 +55,7 @@ allow vendor_init {
   -vendor_file_type
   -vold_metadata_file
   -gsi_metadata_file
+  -apex_metadata_file
 }:dir { create search getattr open read setattr ioctl write add_name remove_name rmdir relabelfrom };
 
 allow vendor_init unlabeled:{ dir notdevfile_class_set } { getattr relabelfrom };
@@ -70,6 +71,7 @@ allow vendor_init {
   -vendor_file_type
   -vold_metadata_file
   -gsi_metadata_file
+  -apex_metadata_file
 }:file { create getattr open read write setattr relabelfrom unlink map };
 
 allow vendor_init {
@@ -82,6 +84,7 @@ allow vendor_init {
   -vendor_file_type
   -vold_metadata_file
   -gsi_metadata_file
+  -apex_metadata_file
 }:{ sock_file fifo_file } { create getattr open read setattr relabelfrom unlink };
 
 allow vendor_init {
@@ -95,6 +98,7 @@ allow vendor_init {
   -vendor_file_type
   -vold_metadata_file
   -gsi_metadata_file
+  -apex_metadata_file
 }:lnk_file { create getattr setattr relabelfrom unlink };
 
 allow vendor_init {
@@ -107,6 +111,7 @@ allow vendor_init {
   -vendor_file_type
   -vold_metadata_file
   -gsi_metadata_file
+  -apex_metadata_file
 }:dir_file_class_set relabelto;
 
 allow vendor_init dev_type:dir create_dir_perms;
