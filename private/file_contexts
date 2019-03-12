@@ -617,6 +617,7 @@
 # Metadata files
 #
 /metadata(/.*)?           u:object_r:metadata_file:s0
+/metadata/apex(/.*)?      u:object_r:apex_metadata_file:s0
 /metadata/vold(/.*)?      u:object_r:vold_metadata_file:s0
 /metadata/gsi(/.*)?       u:object_r:gsi_metadata_file:s0
 /metadata/password_slots(/.*)?    u:object_r:password_slot_metadata_file:s0
