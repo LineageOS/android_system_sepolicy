@@ -614,14 +614,6 @@ neverallow {
   -update_engine
 } system_block_device:blk_file { write append };
 
-# No domains other than install_recovery, recovery or fastbootd can write to recovery.
-neverallow {
-  domain
-  -fastbootd
-  -install_recovery
-  -recovery
-} recovery_block_device:blk_file { write append };
-
 # No domains other than a select few can access the misc_block_device. This
 # block device is reserved for OTA use.
 # Do not assert this rule on userdebug/eng builds, due to some devices using
