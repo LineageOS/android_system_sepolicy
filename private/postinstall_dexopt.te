@@ -7,7 +7,12 @@ type postinstall_dexopt, domain, coredomain;
 
 # Run dex2oat/patchoat in its own sandbox.
 # We have to manually transition, as we don't have an entrypoint.
+# - Case where dex2oat is in a non-flattened APEX, which has retained
+#   the correct type (`dex2oat_exec`).
 domain_auto_trans(postinstall_dexopt, dex2oat_exec, dex2oat)
+# - Case where dex2oat is in a flattened APEX, which has been tagged
+#   with the `postinstall_file` type by update_engine.
+domain_auto_trans(postinstall_dexopt, postinstall_file, dex2oat)
 
 allow postinstall_dexopt self:global_capability_class_set { chown dac_override dac_read_search fowner fsetid setgid setuid };
 
