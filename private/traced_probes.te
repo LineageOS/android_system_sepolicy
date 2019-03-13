@@ -66,8 +66,9 @@ allow traced_probes {
   proc_stat
 }:file r_file_perms;
 
-# Allow access to the IHealth HAL service for tracing battery counters.
+# Allow access to the IHealth and IPowerStats HAL service for tracing battery counters.
 hal_client_domain(traced_probes, hal_health)
+hal_client_domain(traced_probes, hal_power_stats)
 
 # On debug builds allow to ingest system logs into the trace.
 userdebug_or_eng(`read_logd(traced_probes)')
