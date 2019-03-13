@@ -8,7 +8,7 @@ allow mini-keyctl proc_keys:file r_file_perms;
 # Kernel only prints the keys that can be accessed and only kernel keyring is needed here.
 dontaudit mini-keyctl init:key view;
 dontaudit mini-keyctl vold:key view;
-allow mini-keyctl kernel:key { view search write };
+allow mini-keyctl kernel:key { view search write setattr };
 allow mini-keyctl mini-keyctl:key { view search write };
 
 # When kernel requests an algorithm, the crypto API first looks for an
