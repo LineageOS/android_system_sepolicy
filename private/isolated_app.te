@@ -127,6 +127,7 @@ neverallow isolated_app webview_zygote:sock_file write;
 neverallow isolated_app {
   sysfs_type
   -sysfs_devices_system_cpu
+  -sysfs_transparent_hugepage
   -sysfs_usb # TODO: check with audio team if needed for isolated_app (b/28417852)
 }:file no_rw_file_perms;
 

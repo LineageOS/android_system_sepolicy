@@ -92,6 +92,7 @@ type sysfs_net, fs_type, sysfs_type;
 type sysfs_power, fs_type, sysfs_type;
 type sysfs_rtc, fs_type, sysfs_type;
 type sysfs_switch, fs_type, sysfs_type;
+type sysfs_transparent_hugepage, fs_type, sysfs_type;
 type sysfs_usb, fs_type, sysfs_type;
 type sysfs_wakeup_reasons, fs_type, sysfs_type;
 type sysfs_fs_ext4_features, sysfs_type, fs_type;
