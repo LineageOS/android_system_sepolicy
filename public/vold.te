@@ -9,11 +9,14 @@ allow vold cache_file:lnk_file r_file_perms;
 
 r_dir_file(vold, { sysfs_type -sysfs_batteryinfo })
 # XXX Label sysfs files with a specific type?
-allow vold sysfs:file w_file_perms; # writing to /sys/*/uevent during coldboot.
-allow vold sysfs_loop:file w_file_perms; # writing to /sys/block/loop*/uevent during coldboot.
-allow vold sysfs_dm:file w_file_perms;
-allow vold sysfs_usb:file w_file_perms;
-allow vold sysfs_zram_uevent:file w_file_perms;
+allow vold {
+  sysfs # writing to /sys/*/uevent during coldboot.
+  sysfs_devices_block
+  sysfs_dm
+  sysfs_loop # writing to /sys/block/loop*/uevent during coldboot.
+  sysfs_usb
+  sysfs_zram_uevent
+}:file w_file_perms;
 
 r_dir_file(vold, rootfs)
 r_dir_file(vold, metadata_file)
