@@ -280,8 +280,6 @@
 /system/bin/install-recovery\.sh u:object_r:install_recovery_exec:s0
 /system/bin/dex2oat(d)?     u:object_r:dex2oat_exec:s0
 /system/bin/dexoptanalyzer(d)?     u:object_r:dexoptanalyzer_exec:s0
-# patchoat executable has (essentially) the same requirements as dex2oat.
-/system/bin/patchoat(d)?    u:object_r:dex2oat_exec:s0
 /system/bin/viewcompiler     u:object_r:viewcompiler_exec:s0
 /system/bin/profman(d)?     u:object_r:profman_exec:s0
 /system/bin/iorapd          u:object_r:iorapd_exec:s0
