@@ -1543,7 +1543,8 @@
   ( sysfs
     sysfs_devices_block
     sysfs_extcon
-    sysfs_loop))
+    sysfs_loop
+    sysfs_transparent_hugepage))
 (typeattributeset sysfs_android_usb_28_0 (sysfs_android_usb))
 (typeattributeset sysfs_batteryinfo_28_0 (sysfs_batteryinfo))
 (typeattributeset sysfs_bluetooth_writable_28_0 (sysfs_bluetooth_writable))
