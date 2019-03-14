@@ -205,6 +205,11 @@ r_dir_file(domain, sysfs_devices_system_cpu)
 
 r_dir_file(domain, sysfs_usb);
 
+# If kernel CONFIG_TRANSPARENT_HUGEPAGE is enabled, libjemalloc5 (statically
+# included by libc) reads /sys/kernel/mm/transparent_hugepage/enabled.
+allow domain sysfs_transparent_hugepage:dir search;
+allow domain sysfs_transparent_hugepage:file r_file_perms;
+
 # files under /data.
 not_full_treble(`
   allow domain system_data_file:dir getattr;
@@ -613,14 +618,6 @@ neverallow {
   -recovery
   -update_engine
 } system_block_device:blk_file { write append };
-
-# No domains other than install_recovery, recovery or fastbootd can write to recovery.
-neverallow {
-  domain
-  -fastbootd
-  -install_recovery
-  -recovery
-} recovery_block_device:blk_file { write append };
 
 # No domains other than a select few can access the misc_block_device. This
 # block device is reserved for OTA use.
