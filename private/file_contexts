@@ -14,9 +14,7 @@
 /verity_key         u:object_r:rootfs:s0
 
 # Executables
-/charger            u:object_r:rootfs:s0
 /init               u:object_r:init_exec:s0
-/system/bin/init    u:object_r:init_exec:s0
 /sbin(/.*)?         u:object_r:rootfs:s0
 
 # For kernel modules
@@ -36,6 +34,7 @@
 # Symlinks
 /bin                u:object_r:rootfs:s0
 /bugreports         u:object_r:rootfs:s0
+/charger            u:object_r:rootfs:s0
 /d                  u:object_r:rootfs:s0
 /etc                u:object_r:rootfs:s0
 /sdcard             u:object_r:rootfs:s0
@@ -189,11 +188,13 @@
 /system/bin/ashmemd	u:object_r:ashmemd_exec:s0
 /system/bin/bcc                 u:object_r:rs_exec:s0
 /system/bin/blank_screen	u:object_r:blank_screen_exec:s0
+/system/bin/charger		u:object_r:charger_exec:s0
 /system/bin/e2fsdroid		u:object_r:e2fs_exec:s0
 /system/bin/mke2fs		u:object_r:e2fs_exec:s0
 /system/bin/e2fsck	--	u:object_r:fsck_exec:s0
 /system/bin/fsck\.exfat	--	u:object_r:fsck_exec:s0
 /system/bin/fsck\.f2fs	--	u:object_r:fsck_exec:s0
+/system/bin/init		u:object_r:init_exec:s0
 /system/bin/mini-keyctl	--	u:object_r:mini-keyctl_exec:s0
 /system/bin/sload_f2fs	--	u:object_r:e2fs_exec:s0
 /system/bin/make_f2fs	--	u:object_r:e2fs_exec:s0
