@@ -23,6 +23,7 @@ allow lmkd sysfs_lowmemorykiller:file w_file_perms;
 
 # setsched and send kill signals
 allow lmkd appdomain:process { setsched sigkill };
+allow lmkd kernel:process { setsched };
 
 # Clean up old cgroups
 allow lmkd cgroup:dir { remove_name rmdir };
