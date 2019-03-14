@@ -290,8 +290,15 @@ neverallow {
 
 neverallow { domain -vold -init } restorecon_prop:property_service set;
 
-# Only system_server and vdc can interact with vold over binder
-neverallow { domain -system_server -vdc -vold -update_verifier } vold_service:service_manager find;
+neverallow {
+    domain
+    -system_server
+    -vdc
+    -vold
+    -update_verifier
+    -apexd
+} vold_service:service_manager find;
+
 neverallow vold {
   domain
   -ashmemd
