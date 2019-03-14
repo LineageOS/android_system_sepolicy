@@ -73,6 +73,15 @@ compatible_property_only(`
     get_prop({domain -coredomain -appdomain}, vendor_default_prop)
 ')
 
+# Allow access to fsverity keyring.
+allow domain kernel:key search;
+# Allow access to keys in the fsverity keyring that were installed at boot.
+allow domain mini-keyctl:key search;
+# For testing purposes, allow access to keys installed with su.
+userdebug_or_eng(`
+  allow domain su:key search;
+')
+
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
 # with other UIDs to these whitelisted domains.
 neverallow {

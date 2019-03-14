@@ -29,9 +29,3 @@ allow art_apex_postinstall system_file:file execute_no_trans;
 allowxperm art_apex_postinstall ota_data_file:file ioctl {
   FS_IOC_ENABLE_VERITY FS_IOC_MEASURE_VERITY
 };
-
-allow art_apex_postinstall kernel:key search;
-# For testing purposes, allow keys installed with su.
-userdebug_or_eng(`
-  allow art_apex_postinstall su:key search;
-')
