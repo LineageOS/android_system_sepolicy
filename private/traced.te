@@ -39,6 +39,8 @@ allow traced iorapd_tmpfs:file { read write };
 # Allow traced to notify Traceur when a trace ends by setting the
 # sys.trace.trace_end_signal property.
 set_prop(traced, system_trace_prop)
+# Allow to lazily start producers.
+set_prop(traced, traced_lazy_prop)
 
 ###
 ### Neverallow rules
