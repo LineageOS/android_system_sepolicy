@@ -297,3 +297,18 @@ neverallow {
     -vold
     -zygote
 } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
+
+# Limit raw I/O to these whitelisted domains. Do not apply to debug builds.
+neverallow {
+  domain
+  userdebug_or_eng(`-domain')
+  -kernel
+  -gsid
+  -init
+  -recovery
+  -ueventd
+  -healthd
+  -uncrypt
+  -tee
+  -hal_bootctl_server
+} self:global_capability_class_set sys_rawio;
