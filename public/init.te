@@ -87,15 +87,6 @@ allow init device:dir mounton;
 # Mount tmpfs on /apex
 allow init apex_mnt_dir:dir mounton;
 
-# Mount Bionic libraries and dynamic linkers
-allow init system_lib_file:file mounton;
-allow init system_linker_exec:file mounton;
-# The mount points under /bionic are rootfs in recovery mode. Init should
-# be able to bind-mount the bootstrap Bionic to the mount points.
-recovery_only(`
-  allow init rootfs:file mounton;
-')
-
 # Create and remove symlinks in /.
 allow init rootfs:lnk_file { create unlink };
 
@@ -538,6 +529,9 @@ allowxperm init data_file_type:dir ioctl {
 
 # Allow init to write to /proc/sys/vm/overcommit_memory
 allow init proc_overcommit_memory:file { write };
+
+# Allow init to write to /proc/sys/fs/verity/require_signatures
+allow init proc_fs_verity:file w_file_perms;
 
 # Raw writes to misc block device
 allow init misc_block_device:blk_file w_file_perms;

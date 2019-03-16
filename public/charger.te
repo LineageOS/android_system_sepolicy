@@ -1,6 +1,5 @@
-# charger seclabel is specified in init.rc since
-# it lives in the rootfs and has no unique file type.
 type charger, domain;
+type charger_exec, system_file_type, exec_type, file_type;
 
 # Write to /dev/kmsg
 allow charger kmsg_device:chr_file rw_file_perms;

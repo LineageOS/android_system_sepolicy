@@ -28,6 +28,7 @@
     bugreport_service
     cgroup_desc_file
     cgroup_rc_file
+    charger_exec
     content_capture_service
     content_suggestions_service
     cpu_variant_prop
@@ -126,6 +127,7 @@
     time_prop
     timedetector_service
     timezonedetector_service
+    traced_lazy_prop
     uri_grants_service
     use_memfd_prop
     vendor_cgroup_desc_file

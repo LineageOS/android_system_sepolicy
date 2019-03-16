@@ -1,5 +1,5 @@
-# This command set moves the artifact corresponding to the current slot
-# from /data/ota to /data/dalvik-cache.
+# This command set checks the integrity of boot classpath ART
+# artifacts in /data, potentially removing them.
 
 type art_apex_boot_integrity, domain, coredomain;
 type art_apex_boot_integrity_exec, system_file_type, exec_type, file_type;
@@ -23,12 +23,6 @@ allow art_apex_boot_integrity toolbox_exec:file rx_file_perms;
 # Fsverity in the same domain.
 allow art_apex_boot_integrity system_file:file execute_no_trans;
 # Fsverity work.
-allowxperm art_apex_boot_integrity ota_data_file:file ioctl {
+allowxperm art_apex_boot_integrity dalvikcache_data_file:file ioctl {
   FS_IOC_ENABLE_VERITY FS_IOC_MEASURE_VERITY
 };
-
-allow art_apex_boot_integrity kernel:key search;
-# For testing purposes, allow keys installed with su.
-userdebug_or_eng(`
-  allow art_apex_boot_integrity su:key search;
-')
