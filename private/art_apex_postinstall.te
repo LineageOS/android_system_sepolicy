@@ -4,7 +4,7 @@
 type art_apex_postinstall, domain, coredomain;
 type art_apex_postinstall_exec, system_file_type, exec_type, file_type;
 
-# /dev/zero
+# /system/bin/sh (see b/126787589).
 allow art_apex_postinstall apexd:fd use;
 
 # Read temp dirs and files. Move directories.
