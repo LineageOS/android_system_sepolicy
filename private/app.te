@@ -15,6 +15,3 @@ neverallow { appdomain -shell userdebug_or_eng(`-su') }
     { domain -appdomain -crash_dump -rs }:process { transition };
 neverallow { appdomain -shell userdebug_or_eng(`-su') }
     { domain -appdomain }:process { dyntransition };
-
-# Disallow apps from using IP memory store
-neverallow { appdomain -shell } ipmemorystore_service:service_manager *;
