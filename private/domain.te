@@ -280,3 +280,19 @@ neverallow ~{
   dac_override_allowed
   traced_probes
 } self:global_capability_class_set dac_read_search;
+
+# Limit what domains can mount filesystems or change their mount flags.
+# sdcard_type / vfat is exempt as a larger set of domains need
+# this capability, including device-specific domains.
+neverallow {
+    domain
+    -apexd
+    recovery_only(`userdebug_or_eng(`-fastbootd')')
+    -init
+    -kernel
+    -otapreopt_chroot
+    -recovery
+    -update_engine
+    -vold
+    -zygote
+} { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
