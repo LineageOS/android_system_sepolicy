@@ -88,12 +88,6 @@ allow kernel apexd:fd use;
 allow kernel apex_data_file:file read;
 allow kernel staging_data_file:file read;
 
-# Likewise, allow the kernel to read otapreopt_chroot's file descriptors and
-# files under /postinstall, as it uses apexd logic to mount APEX packages in
-# /postinstall/apex.
-allow kernel otapreopt_chroot:fd use;
-allow kernel postinstall_file:file read;
-
 # Allow the first-stage init (which is running in the kernel domain) to execute the
 # dynamic linker when it re-executes /init to switch into the second stage.
 # Until Linux 4.8, the program interpreter (dynamic linker in this case) is executed
