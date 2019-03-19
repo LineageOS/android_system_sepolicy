@@ -1,7 +1,7 @@
 typeattribute crash_dump coredomain;
 
 # Crash dump does not need to access devices passed across exec().
-dontaudit crash_dump dev_type:chr_file { read write };
+dontaudit crash_dump { devpts dev_type }:chr_file { read write };
 
 allow crash_dump {
   domain

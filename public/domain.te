@@ -449,22 +449,6 @@ neverallow * *:{ blk_file chr_file } rename;
 # Rather force a relabel to a more specific type.
 neverallow domain device:chr_file { open read write };
 
-# Limit what domains can mount filesystems or change their mount flags.
-# sdcard_type / vfat is exempt as a larger set of domains need
-# this capability, including device-specific domains.
-neverallow {
-    domain
-    -apexd
-    recovery_only(`userdebug_or_eng(`-fastbootd')')
-    -init
-    -kernel
-    -otapreopt_chroot
-    -recovery
-    -update_engine
-    -vold
-    -zygote
-} { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
-
 # Files from cache should never be executed
 neverallow domain { cache_file cache_backup_file cache_private_backup_file cache_recovery_file }:file execute;
 
