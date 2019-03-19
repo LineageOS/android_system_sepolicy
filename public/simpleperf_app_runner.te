@@ -9,6 +9,7 @@ allow simpleperf_app_runner devpts:chr_file { read write ioctl };
 # simpleperf_app_runner reads package information.
 allow simpleperf_app_runner system_data_file:file r_file_perms;
 allow simpleperf_app_runner system_data_file:lnk_file getattr;
+allow simpleperf_app_runner packages_list_file:file r_file_perms;
 
 # The app's data dir may be accessed through a symlink.
 allow simpleperf_app_runner system_data_file:lnk_file read;

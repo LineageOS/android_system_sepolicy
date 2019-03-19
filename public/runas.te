@@ -13,6 +13,7 @@ allow runas shell_data_file:file { read write };
 # run-as reads package information.
 allow runas system_data_file:file r_file_perms;
 allow runas system_data_file:lnk_file getattr;
+allow runas packages_list_file:file r_file_perms;
 
 # The app's data dir may be accessed through a symlink.
 allow runas system_data_file:lnk_file read;

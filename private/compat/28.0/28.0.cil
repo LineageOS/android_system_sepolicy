@@ -1581,7 +1581,8 @@
 (typeattributeset system_boot_reason_prop_28_0 (system_boot_reason_prop))
 (typeattributeset system_data_file_28_0
   ( dropbox_data_file
-    system_data_file))
+    system_data_file
+    packages_list_file))
 (typeattributeset system_file_28_0
   ( system_file
     system_asan_options_file
