@@ -44,11 +44,10 @@ allow zygote dalvikcache_data_file:lnk_file create_file_perms;
 allow zygote resourcecache_data_file:dir rw_dir_perms;
 allow zygote resourcecache_data_file:file create_file_perms;
 
-# When WITH_DEXPREOPT is true, the zygote does not load executable content from
-# /data/dalvik-cache. Executable files loaded from /data is a persistence vector
-# we want to avoid. See
-# https://bugs.chromium.org/p/project-zero/issues/detail?id=955 for example.
-allow { zygote with_dexpreopt(`-zygote') } dalvikcache_data_file:file execute;
+# For updateability, the zygote may fetch the current boot
+# classpath from the dalvik cache. Integrity of the files
+# is ensured by fsverity protection (checked in art_apex_boot_integrity).
+allow zygote dalvikcache_data_file:file execute;
 
 # Allow zygote to create JIT memory.
 allow zygote self:process execmem;
