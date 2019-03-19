@@ -24,5 +24,7 @@ allow network_stack app_api_service:service_manager find;
 allow network_stack dnsresolver_service:service_manager find;
 allow network_stack netd_service:service_manager find;
 allow network_stack radio_service:service_manager find;
+allow network_stack radio_data_file:dir create_dir_perms;
+allow network_stack radio_data_file:file create_file_perms;
 
 binder_call(network_stack, netd);
