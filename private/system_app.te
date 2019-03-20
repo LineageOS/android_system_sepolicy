@@ -32,6 +32,7 @@ allow system_app icon_file:file r_file_perms;
 
 # Write to properties
 set_prop(system_app, bluetooth_a2dp_offload_prop)
+set_prop(system_app, bluetooth_audio_hal_prop)
 set_prop(system_app, bluetooth_prop)
 set_prop(system_app, debug_prop)
 set_prop(system_app, system_prop)
