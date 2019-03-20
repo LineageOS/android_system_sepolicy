@@ -103,6 +103,9 @@ allow zygote storage_file:dir { search mounton };
 allow zygote { sdcard_type media_rw_data_file }:dir { create_dir_perms mounton };
 allow zygote { sdcard_type media_rw_data_file }:file { create_file_perms };
 
+# Allow zygote to expand app files while preloading libraries
+allow zygote mnt_expand_file:dir getattr;
+
 # Handle --invoke-with command when launching Zygote with a wrapper command.
 allow zygote zygote_exec:file rx_file_perms;
 
