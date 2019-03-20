@@ -13,7 +13,7 @@ allow update_engine self:global_capability_class_set { fowner sys_admin };
 # denial.
 dontaudit update_engine self:global_capability_class_set fsetid;
 
-allow update_engine kmsg_device:chr_file w_file_perms;
+allow update_engine kmsg_device:chr_file { getattr w_file_perms };
 allow update_engine update_engine_exec:file rx_file_perms;
 wakelock_use(update_engine);
 

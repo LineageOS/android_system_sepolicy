@@ -11,7 +11,7 @@ allow logd self:global_capability_class_set { setuid setgid setpcap sys_nice aud
 allow logd self:global_capability2_class_set syslog;
 allow logd self:netlink_audit_socket { create_socket_perms_no_ioctl nlmsg_write };
 allow logd kernel:system syslog_read;
-allow logd kmsg_device:chr_file w_file_perms;
+allow logd kmsg_device:chr_file { getattr w_file_perms };
 allow logd system_data_file:{ file lnk_file } r_file_perms;
 allow logd pstorefs:dir search;
 allow logd pstorefs:file r_file_perms;
