@@ -42,11 +42,10 @@ allow dex2oat { privapp_data_file app_data_file }:file { getattr read write lock
 # Allow dex2oat to use file descriptors from otapreopt.
 allow dex2oat postinstall_dexopt:fd use;
 
-allow dex2oat postinstall_file:dir { getattr search };
+# Allow dex2oat to read files under /postinstall (e.g. APKs under /system, /system/bin/linker).
+allow dex2oat postinstall_file:dir r_dir_perms;
 allow dex2oat postinstall_file:filesystem getattr;
 allow dex2oat postinstall_file:lnk_file { getattr read };
-
-# Allow dex2oat to read files under /postinstall (e.g. APKs under /system, /system/bin/linker).
 allow dex2oat postinstall_file:file read;
 # Allow dex2oat to use libraries under /postinstall/system (e.g. /system/lib/libc.so).
 # TODO(b/120266448): Remove when Bionic libraries are part of the Runtime APEX.
