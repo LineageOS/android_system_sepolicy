@@ -380,6 +380,7 @@ static int check_neverallows(policydb_t *policydb, char *text, char *end)
     size_t keyword_size = strlen(keyword), len;
     struct avrule *neverallows = NULL, *avrule;
     char *p, *start;
+    int result;
 
     p = text;
     while (p < end) {
@@ -434,12 +435,19 @@ static int check_neverallows(policydb_t *policydb, char *text, char *end)
     if (!neverallows)
         goto err;
 
-    return check_assertions(NULL, policydb, neverallows);
+    result = check_assertions(NULL, policydb, neverallows);
+    avrule_list_destroy(neverallows);
+    return result;
 err:
     if (errno == ENOMEM) {
         fprintf(stderr, "Out of memory while parsing neverallow rules\n");
     } else
         fprintf(stderr, "Error while parsing neverallow rules\n");
+
+    avrule_list_destroy(neverallows);
+    if (avrule != neverallows)
+        avrule_destroy(avrule);
+
     return -1;
 }
 
