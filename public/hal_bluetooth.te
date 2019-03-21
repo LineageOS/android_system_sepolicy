@@ -21,6 +21,7 @@ allow hal_bluetooth self:global_capability2_class_set wake_alarm;
 
 # Allow write access to bluetooth-specific properties
 set_prop(hal_bluetooth, bluetooth_a2dp_offload_prop)
+set_prop(hal_bluetooth, bluetooth_audio_hal_prop)
 set_prop(hal_bluetooth, bluetooth_prop)
 set_prop(hal_bluetooth, exported_bluetooth_prop)
 

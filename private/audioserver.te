@@ -43,6 +43,7 @@ allow audioserver sensor_privacy_service:service_manager find;
 
 # Allow read/write access to bluetooth-specific properties
 set_prop(audioserver, bluetooth_a2dp_offload_prop)
+set_prop(audioserver, bluetooth_audio_hal_prop)
 set_prop(audioserver, bluetooth_prop)
 set_prop(audioserver, exported_bluetooth_prop)
 
