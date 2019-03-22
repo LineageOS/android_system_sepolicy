@@ -30,7 +30,10 @@ allow priv_app privapp_data_file:file execute;
 
 allow priv_app privapp_data_file:lnk_file create_file_perms;
 
+# Priv apps can find services that expose both @SystemAPI and normal APIs.
 allow priv_app app_api_service:service_manager find;
+allow priv_app system_api_service:service_manager find;
+
 allow priv_app audioserver_service:service_manager find;
 allow priv_app cameraserver_service:service_manager find;
 allow priv_app drmserver_service:service_manager find;
@@ -46,11 +49,10 @@ allow priv_app persistent_data_block_service:service_manager find;
 allow priv_app radio_service:service_manager find;
 allow priv_app recovery_service:service_manager find;
 allow priv_app stats_service:service_manager find;
-allow priv_app system_api_service:service_manager find;
-allow priv_app gpu_service:service_manager find;
 
 # Allow privileged apps to interact with gpuservice
 binder_call(priv_app, gpuservice)
+allow priv_app gpu_service:service_manager find;
 
 # Write to /cache.
 allow priv_app { cache_file cache_recovery_file }:dir create_dir_perms;
