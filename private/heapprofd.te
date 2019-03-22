@@ -46,7 +46,17 @@ userdebug_or_eng(`
   r_dir_file(heapprofd, apk_data_file)
   r_dir_file(heapprofd, dalvikcache_data_file)
   r_dir_file(heapprofd, vendor_file_type)
+  # Some dex files are not world-readable.
+  # We are still constrained by the SELinux rules above.
+  allow heapprofd self:global_capability_class_set dac_read_search;
 ')
+
+# This is going to happen on user but is benign because central heapprofd
+# does not actually need these permission.
+# If the dac_read_search capability check is rejected, the kernel then tries
+# to perform a dac_override capability check, so we need to dontaudit that
+# as well.
+dontaudit heapprofd self:global_capability_class_set { dac_read_search dac_override };
 
 never_profile_heap(`{
   bpfloader
