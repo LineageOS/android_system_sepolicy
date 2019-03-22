@@ -17,6 +17,7 @@ allow dexoptanalyzer dalvikcache_data_file:file r_file_perms;
 allow dexoptanalyzer dalvikcache_data_file:lnk_file read;
 
 allow dexoptanalyzer installd:fd use;
+allow dexoptanalyzer installd:fifo_file { getattr write };
 
 # Allow reading secondary dex files that were reported by the app to the
 # package manager.
