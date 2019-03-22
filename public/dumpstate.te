@@ -127,6 +127,7 @@ binder_call(dumpstate, binderservicedomain)
 binder_call(dumpstate, { appdomain netd wificond })
 
 hal_client_domain(dumpstate, hal_dumpstate)
+hal_client_domain(dumpstate, hal_wifi)
 hal_client_domain(dumpstate, hal_graphics_allocator)
 # Vibrate the device after we are done collecting the bugreport
 hal_client_domain(dumpstate, hal_vibrator)
