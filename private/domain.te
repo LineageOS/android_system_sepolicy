@@ -279,6 +279,7 @@ neverallow ~dac_override_allowed self:global_capability_class_set dac_override;
 neverallow ~{
   dac_override_allowed
   traced_probes
+  userdebug_or_eng(`heapprofd')
 } self:global_capability_class_set dac_read_search;
 
 # Limit what domains can mount filesystems or change their mount flags.
