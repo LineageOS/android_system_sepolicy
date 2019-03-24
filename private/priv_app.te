@@ -152,6 +152,12 @@ allow priv_app traced:fd use;
 allow priv_app traced_tmpfs:file { read write getattr map };
 unix_socket_connect(priv_app, traced_producer, traced)
 
+# Allow priv_apps to request and collect incident reports.
+# (Also requires DUMP and PACKAGE_USAGE_STATS permissions)
+allow priv_app incident_service:service_manager find;
+binder_call(priv_app, incidentd)
+allow priv_app incidentd:fifo_file { read write };
+
 # Allow heap profiling if the app opts in by being marked
 # profileable/debuggable.
 can_profile_heap(priv_app)
