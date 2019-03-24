@@ -16,6 +16,7 @@ allow vold {
   sysfs_loop # writing to /sys/block/loop*/uevent during coldboot.
   sysfs_usb
   sysfs_zram_uevent
+  sysfs_fs_f2fs
 }:file w_file_perms;
 
 r_dir_file(vold, rootfs)
