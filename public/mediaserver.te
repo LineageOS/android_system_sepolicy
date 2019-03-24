@@ -127,6 +127,9 @@ allow mediaserver hal_camera:fd use;
 
 allow mediaserver system_server:fd use;
 
+# b/120491318 allow mediaserver to access void:fd
+allow mediaserver vold:fd use;
+
 hal_client_domain(mediaserver, hal_allocator)
 
 ###
