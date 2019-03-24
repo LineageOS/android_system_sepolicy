@@ -58,6 +58,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
+        -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
         -system_server
         -app_zygote
@@ -74,6 +75,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
+        -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
         -system_server
         -app_zygote
