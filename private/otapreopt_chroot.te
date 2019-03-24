@@ -11,6 +11,9 @@ allow otapreopt_chroot self:global_capability_class_set { sys_admin sys_chroot }
 # APEX packages in /postinstall/apex.
 allow otapreopt_chroot block_device:dir search;
 allow otapreopt_chroot labeledfs:filesystem { mount unmount };
+# This is required for dynamic partitions.
+allow otapreopt_chroot dm_device:chr_file rw_file_perms;
+
 # This is required to unmount flattened APEX packages under
 # /postinstall/system/apex (which are bind-mounted in /postinstall/apex).
 allow otapreopt_chroot postinstall_file:filesystem unmount;
