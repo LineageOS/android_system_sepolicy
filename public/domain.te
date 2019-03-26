@@ -643,6 +643,11 @@ full_treble_only(`
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
   } binder_device:chr_file rw_file_perms;
 ')
+
+# libcutils can probe for /dev/binder permissions with access(). Ignore
+# generated denials. See b/129073672 for details.
+dontaudit domain binder_device:chr_file audit_access;
+
 full_treble_only(`
   neverallow {
     domain
