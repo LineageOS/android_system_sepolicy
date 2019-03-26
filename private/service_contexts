@@ -103,6 +103,7 @@ launcherapps                              u:object_r:launcherapps_service:s0
 location                                  u:object_r:location_service:s0
 lock_settings                             u:object_r:lock_settings_service:s0
 looper_stats                              u:object_r:looper_stats_service:s0
+lpdump_service                            u:object_r:lpdump_service:s0
 media.aaudio                              u:object_r:audioserver_service:s0
 media.audio_flinger                       u:object_r:audioserver_service:s0
 media.audio_policy                        u:object_r:audioserver_service:s0

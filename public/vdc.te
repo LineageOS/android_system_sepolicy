@@ -12,7 +12,7 @@ type vdc_exec, system_file_type, exec_type, file_type;
 allow vdc devpts:chr_file rw_file_perms;
 
 # vdc writes directly to kmsg during the boot process
-allow vdc kmsg_device:chr_file w_file_perms;
+allow vdc kmsg_device:chr_file { getattr w_file_perms };
 
 # vdc talks to vold over Binder
 binder_use(vdc)
