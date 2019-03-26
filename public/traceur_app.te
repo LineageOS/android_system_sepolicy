@@ -14,6 +14,7 @@ allow traceur_app {
   -installd_service
   -ipmemorystore_service
   -iorapd_service
+  -lpdump_service
   -netd_service
   -virtual_touchpad_service
   -vold_service
