@@ -104,4 +104,4 @@ type metadata_block_device, dev_type;
 type misc_block_device, dev_type;
 
 # 'super' partition to be used for logical partitioning.
-type super_block_device, dev_type;
+type super_block_device, super_block_device_type, dev_type;
