@@ -16,7 +16,7 @@ recovery_only(`
 
   allowxperm fastbootd functionfs:file ioctl { FUNCTIONFS_ENDPOINT_DESC };
   # Log to serial
-  allow fastbootd kmsg_device:chr_file { open write };
+  allow fastbootd kmsg_device:chr_file { open getattr write };
 
   # battery info
   allow fastbootd sysfs_batteryinfo:file r_file_perms;
