@@ -58,6 +58,7 @@ type logpersistd_logging_prop, property_type;
 type log_prop, property_type, log_property_type;
 type log_tag_prop, property_type, log_property_type;
 type lowpan_prop, property_type;
+type lpdumpd_prop, property_type;
 type mmc_prop, property_type;
 type net_dns_prop, property_type;
 type net_radio_prop, property_type, core_property_type;
@@ -430,6 +431,7 @@ compatible_property_only(`
     -logd_prop
     -logpersistd_logging_prop
     -lowpan_prop
+    -lpdumpd_prop
     -mmc_prop
     -net_dns_prop
     -net_radio_prop
