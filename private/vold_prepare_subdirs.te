@@ -32,6 +32,3 @@ allow vold_prepare_subdirs {
     system_data_file
     vold_data_file
 }:file { getattr unlink };
-
-# Temporarily block denials causing failing tests (b/129298168).
-dontaudit vold_prepare_subdirs domain:file read;
