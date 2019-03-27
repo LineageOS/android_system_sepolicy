@@ -76,7 +76,7 @@ compatible_property_only(`
 # Allow access to fsverity keyring.
 allow domain kernel:key search;
 # Allow access to keys in the fsverity keyring that were installed at boot.
-allow domain mini-keyctl:key search;
+allow domain fsverity_init:key search;
 # For testing purposes, allow access to keys installed with su.
 userdebug_or_eng(`
   allow domain su:key search;
