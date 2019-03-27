@@ -42,6 +42,7 @@ unix_socket_connect(heapprofd, traced_producer, traced)
 # When handling profiling for all processes, heapprofd needs to read
 # executables/libraries/etc to do stack unwinding.
 userdebug_or_eng(`
+  r_dir_file(heapprofd, nativetest_data_file)
   r_dir_file(heapprofd, system_file_type)
   r_dir_file(heapprofd, apk_data_file)
   r_dir_file(heapprofd, dalvikcache_data_file)
