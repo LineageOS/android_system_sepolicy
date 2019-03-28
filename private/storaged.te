@@ -12,6 +12,7 @@ allow storaged proc_uid_io_stats:file r_file_perms;
 
 # Read /data/system/packages.list
 allow storaged system_data_file:file r_file_perms;
+allow storaged packages_list_file:file r_file_perms;
 
 # Store storaged proto file
 allow storaged storaged_data_file:dir rw_dir_perms;
