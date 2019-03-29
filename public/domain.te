@@ -310,6 +310,7 @@ neverallow {
   -init
   -ueventd
   -vold
+  -recovery
 } self:global_capability_class_set mknod;
 
 # Limit raw I/O to these whitelisted domains. Do not apply to debug builds.
