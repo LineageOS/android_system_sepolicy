@@ -554,6 +554,9 @@ allow servicemanager init:binder transfer;
 # Allow calls from init to apexd
 allow init apexd:binder call;
 
+# Allow init to touch PSI monitors
+allow init proc_pressure_mem:file { rw_file_perms setattr };
+
 ###
 ### neverallow rules
 ###
