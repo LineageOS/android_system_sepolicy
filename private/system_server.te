@@ -408,6 +408,10 @@ userdebug_or_eng(`
   allow system_server su:fifo_file append;
 ')
 
+# Allow system_server to read pipes from incidentd (used to deliver incident reports
+# to dropbox)
+allow system_server incidentd:fifo_file read;
+
 # Read /data/misc/incidents - only read. The fd will be sent over binder,
 # with no DAC access to it, for dropbox to read.
 allow system_server incident_data_file:file read;
