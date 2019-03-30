@@ -420,6 +420,7 @@
 # propagate to the "Expanded data files" section.
 #
 /data(/.*)?		u:object_r:system_data_file:s0
+/data/system/packages\.list u:object_r:packages_list_file:s0
 /data/.layout_version		u:object_r:install_data_file:s0
 /data/unencrypted(/.*)?         u:object_r:unencrypted_data_file:s0
 /data/backup(/.*)?		u:object_r:backup_data_file:s0

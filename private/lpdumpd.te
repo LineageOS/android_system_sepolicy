@@ -10,12 +10,8 @@ add_service(lpdumpd, lpdump_service)
 # Allow lpdumpd to find the super partition block device.
 allow lpdumpd block_device:dir r_dir_perms;
 
-# Allow lpdumpd to read super partition metadata. This may live on
-# super_block_device, or system_block_device (on retrofit devices).
-allow lpdumpd {
-   super_block_device
-   system_block_device
-}:blk_file r_file_perms;
+# Allow lpdumpd to read super partition metadata.
+allow lpdumpd super_block_device_type:blk_file r_file_perms;
 
 # Allow lpdumpd to read fstab.
 allow lpdumpd sysfs_dt_firmware_android:dir r_dir_perms;

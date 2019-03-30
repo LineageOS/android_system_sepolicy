@@ -349,20 +349,6 @@ neverallow {
   -vold
 } self:global_capability_class_set mknod;
 
-# Limit raw I/O to these whitelisted domains. Do not apply to debug builds.
-neverallow {
-  domain
-  userdebug_or_eng(`-domain')
-  -kernel
-  -init
-  -recovery
-  -ueventd
-  -healthd
-  -uncrypt
-  -tee
-  -hal_bootctl_server
-} self:global_capability_class_set sys_rawio;
-
 # No process can map low memory (< CONFIG_LSM_MMAP_MIN_ADDR).
 neverallow * self:memprotect mmap_zero;
 
