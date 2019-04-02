@@ -206,6 +206,7 @@ not_compatible_property(`
       -last_boot_reason_prop
       -apexd_prop
       -gsid_prop
+      -nnapi_ext_deny_product_prop
     })
 ')
 
