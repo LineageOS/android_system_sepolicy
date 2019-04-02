@@ -105,7 +105,6 @@ type hdmi_control_service, system_api_service, system_server_service, service_ma
 type imms_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type input_method_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type input_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
-type ipmemorystore_service, system_server_service, service_manager_type;
 type ipsec_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type iris_service, app_api_service, system_server_service, service_manager_type;
 type jobscheduler_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
