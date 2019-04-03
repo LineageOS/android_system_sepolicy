@@ -2,10 +2,6 @@ typeattribute apexd coredomain;
 
 init_daemon_domain(apexd)
 
-# Read /system/etc/security/apex_debug_key
-allow apexd apex_key_file:dir { search getattr };
-allow apexd apex_key_file:file r_file_perms;
-
 # Allow creating, reading and writing of APEX files/dirs in the APEX data dir
 allow apexd apex_data_file:dir create_dir_perms;
 allow apexd apex_data_file:file create_file_perms;
