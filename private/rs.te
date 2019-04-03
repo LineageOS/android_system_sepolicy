@@ -27,7 +27,7 @@ allow rs ion_device:chr_file r_file_perms;
 allow rs same_process_hal_file:file { r_file_perms execute };
 
 # File descriptors passed from app to renderscript
-allow rs untrusted_app_all:fd use;
+allow rs { untrusted_app_all ephemeral_app }:fd use;
 
 # rs can access app data, so ensure it can only be entered via an app domain and cannot have
 # CAP_DAC_OVERRIDE.
