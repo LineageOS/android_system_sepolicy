@@ -353,6 +353,7 @@ allow system_server ota_package_file:file create_file_perms;
 # Manage system data files.
 allow system_server system_data_file:dir create_dir_perms;
 allow system_server system_data_file:notdevfile_class_set create_file_perms;
+allow system_server packages_list_file:file create_file_perms;
 allow system_server keychain_data_file:dir create_dir_perms;
 allow system_server keychain_data_file:file create_file_perms;
 allow system_server keychain_data_file:lnk_file create_file_perms;
@@ -407,6 +408,10 @@ allow system_server incidentd:fifo_file append;
 userdebug_or_eng(`
   allow system_server su:fifo_file append;
 ')
+
+# Allow system_server to read pipes from incidentd (used to deliver incident reports
+# to dropbox)
+allow system_server incidentd:fifo_file read;
 
 # Read /data/misc/incidents - only read. The fd will be sent over binder,
 # with no DAC access to it, for dropbox to read.
@@ -516,6 +521,10 @@ allow system_server media_rw_data_file:dir { search getattr open read };
 # Receive and use open /data/media files passed over binder IPC.
 # Also used for measuring disk usage.
 allow system_server media_rw_data_file:file { getattr read write append };
+
+# System server needs to setfscreate to packages_list_file when writing
+# /data/system/packages.list
+allow system_server system_server:process setfscreate;
 
 # Relabel apk files.
 allow system_server { apk_tmp_file apk_private_tmp_file }:{ dir file } { relabelfrom relabelto };
@@ -1009,6 +1018,9 @@ allow system_server apex_data_file:file r_file_perms;
 allow system_server metadata_file:dir search;
 allow system_server password_slot_metadata_file:dir rw_dir_perms;
 allow system_server password_slot_metadata_file:file create_file_perms;
+
+# Read/Write /proc/pressure/memory
+allow system_server proc_pressure_mem:file rw_file_perms;
 
 # dexoptanalyzer is currently used only for secondary dex files which
 # system_server should never access.

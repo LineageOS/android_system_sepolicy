@@ -76,7 +76,7 @@ compatible_property_only(`
 # Allow access to fsverity keyring.
 allow domain kernel:key search;
 # Allow access to keys in the fsverity keyring that were installed at boot.
-allow domain mini-keyctl:key search;
+allow domain fsverity_init:key search;
 # For testing purposes, allow access to keys installed with su.
 userdebug_or_eng(`
   allow domain su:key search;
@@ -279,6 +279,7 @@ neverallow ~dac_override_allowed self:global_capability_class_set dac_override;
 neverallow ~{
   dac_override_allowed
   traced_probes
+  userdebug_or_eng(`heapprofd')
 } self:global_capability_class_set dac_read_search;
 
 # Limit what domains can mount filesystems or change their mount flags.
@@ -296,3 +297,18 @@ neverallow {
     -vold
     -zygote
 } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
+
+# Limit raw I/O to these whitelisted domains. Do not apply to debug builds.
+neverallow {
+  domain
+  userdebug_or_eng(`-domain')
+  -kernel
+  -gsid
+  -init
+  -recovery
+  -ueventd
+  -healthd
+  -uncrypt
+  -tee
+  -hal_bootctl_server
+} self:global_capability_class_set sys_rawio;

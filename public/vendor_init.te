@@ -5,7 +5,7 @@ type vendor_init, domain, mlstrustedsubject;
 allow vendor_init init:unix_stream_socket { read write };
 
 # Logging to kmsg
-allow vendor_init kmsg_device:chr_file { open write };
+allow vendor_init kmsg_device:chr_file { open getattr write };
 
 # Mount on /dev/usb-ffs/adb.
 allow vendor_init device:dir mounton;
@@ -206,6 +206,7 @@ not_compatible_property(`
       -last_boot_reason_prop
       -apexd_prop
       -gsid_prop
+      -nnapi_ext_deny_product_prop
     })
 ')
 

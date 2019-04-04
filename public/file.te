@@ -154,8 +154,6 @@ type system_linker_exec, system_file_type, file_type;
 type system_linker_config_file, system_file_type, file_type;
 # Default type for linker config /system/etc/seccomp_policy/*.
 type system_seccomp_policy_file, system_file_type, file_type;
-# Default type for APEX keys in /system/etc/security/apex/*
-type apex_key_file, system_file_type, file_type;
 # Default type for cacerts in /system/etc/security/cacerts/*.
 type system_security_cacerts_file, system_file_type, file_type;
 # Default type for /system/bin/tcpdump.
@@ -221,6 +219,10 @@ type cgroup_rc_file, file_type;
 type coredump_file, file_type;
 # Default type for anything under /data.
 type system_data_file, file_type, data_file_type, core_data_file_type;
+# Type for /data/system/packages.list.
+# TODO(b/129332765): Narrow down permissions to this.
+# Find out users of system_data_file that should be granted only this.
+type packages_list_file, file_type, data_file_type, core_data_file_type;
 # Default type for anything under /data/vendor{_ce,_de}.
 type vendor_data_file, file_type, data_file_type;
 # Unencrypted data

@@ -16,7 +16,7 @@ recovery_only(`
 
   allowxperm fastbootd functionfs:file ioctl { FUNCTIONFS_ENDPOINT_DESC };
   # Log to serial
-  allow fastbootd kmsg_device:chr_file { open write };
+  allow fastbootd kmsg_device:chr_file { open getattr write };
 
   # battery info
   allow fastbootd sysfs_batteryinfo:file r_file_perms;
@@ -45,7 +45,7 @@ recovery_only(`
   allow fastbootd dm_device:chr_file rw_file_perms;
   allow fastbootd dm_device:blk_file rw_file_perms;
 
-  allow fastbootd super_block_device:blk_file rw_file_perms;
+  allow fastbootd super_block_device_type:blk_file rw_file_perms;
   allow fastbootd {
     boot_block_device
     metadata_block_device
@@ -60,10 +60,7 @@ recovery_only(`
   allow fastbootd gsi_metadata_file:dir r_dir_perms;
   allow fastbootd gsi_metadata_file:file rw_file_perms;
 
-  allowxperm fastbootd {
-    system_block_device
-    super_block_device
-  }:blk_file ioctl { BLKIOMIN BLKALIGNOFF };
+  allowxperm fastbootd super_block_device_type:blk_file ioctl { BLKIOMIN BLKALIGNOFF };
 
   allowxperm fastbootd {
     metadata_block_device

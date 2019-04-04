@@ -21,7 +21,7 @@ r_dir_file(hal_health_server, sysfs_batteryinfo)
 wakelock_use(hal_health_server)
 
 # Write to /dev/kmsg
-allow hal_health_server kmsg_device:chr_file w_file_perms;
+allow hal_health_server kmsg_device:chr_file { getattr w_file_perms };
 
 # Allow to use timerfd to wake itself up periodically to send health info.
 allow hal_health_server self:capability2 wake_alarm;

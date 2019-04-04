@@ -11,7 +11,7 @@ allow init tmpfs:chr_file { create setattr unlink rw_file_perms };
 #
 # /dev/kmsg
 allow init tmpfs:chr_file relabelfrom;
-allow init kmsg_device:chr_file { write relabelto };
+allow init kmsg_device:chr_file { getattr write relabelto };
 # /dev/kmsg_debug
 userdebug_or_eng(`
   allow init kmsg_debug_device:chr_file { write relabelto };
@@ -362,6 +362,7 @@ allow init {
   sysfs_android_usb
   sysfs_leds
   sysfs_power
+  sysfs_fs_f2fs
 }:file w_file_perms;
 
 allow init {
@@ -530,9 +531,6 @@ allowxperm init data_file_type:dir ioctl {
 # Allow init to write to /proc/sys/vm/overcommit_memory
 allow init proc_overcommit_memory:file { write };
 
-# Allow init to write to /proc/sys/fs/verity/require_signatures
-allow init proc_fs_verity:file w_file_perms;
-
 # Raw writes to misc block device
 allow init misc_block_device:blk_file w_file_perms;
 
@@ -556,6 +554,9 @@ allow init apex_service:service_manager find;
 allow servicemanager init:binder transfer;
 # Allow calls from init to apexd
 allow init apexd:binder call;
+
+# Allow init to touch PSI monitors
+allow init proc_pressure_mem:file { rw_file_perms setattr };
 
 ###
 ### neverallow rules

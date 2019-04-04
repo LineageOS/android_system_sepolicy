@@ -349,20 +349,6 @@ neverallow {
   -vold
 } self:global_capability_class_set mknod;
 
-# Limit raw I/O to these whitelisted domains. Do not apply to debug builds.
-neverallow {
-  domain
-  userdebug_or_eng(`-domain')
-  -kernel
-  -init
-  -recovery
-  -ueventd
-  -healthd
-  -uncrypt
-  -tee
-  -hal_bootctl_server
-} self:global_capability_class_set sys_rawio;
-
 # No process can map low memory (< CONFIG_LSM_MMAP_MIN_ADDR).
 neverallow * self:memprotect mmap_zero;
 
@@ -643,6 +629,11 @@ full_treble_only(`
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
   } binder_device:chr_file rw_file_perms;
 ')
+
+# libcutils can probe for /dev/binder permissions with access(). Ignore
+# generated denials. See b/129073672 for details.
+dontaudit domain binder_device:chr_file audit_access;
+
 full_treble_only(`
   neverallow {
     domain
@@ -1127,7 +1118,7 @@ neverallow * self:process { execstack execheap };
 
 # Do not allow the introduction of new execmod rules. Text relocations
 # and modification of executable pages are unsafe.
-neverallow { domain -untrusted_app_25 } file_type:file execmod;
+neverallow { domain -untrusted_app_25 -untrusted_app_27 } file_type:file execmod;
 
 neverallow { domain -init } proc:{ file dir } mounton;
 

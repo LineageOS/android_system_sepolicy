@@ -23,6 +23,7 @@ hw.                     u:object_r:system_prop:s0
 ro.hw.                  u:object_r:system_prop:s0
 sys.                    u:object_r:system_prop:s0
 sys.cppreopt            u:object_r:cppreopt_prop:s0
+sys.lpdumpd             u:object_r:lpdumpd_prop:s0
 sys.powerctl            u:object_r:powerctl_prop:s0
 sys.usb.ffs.            u:object_r:ffs_prop:s0
 service.                u:object_r:system_prop:s0
@@ -190,3 +191,7 @@ bpf.progs_loaded        u:object_r:bpf_progs_loaded_prop:s0
 
 gsid.                   u:object_r:gsid_prop:s0
 ro.gsid.                u:object_r:gsid_prop:s0
+
+# Property for disabling NNAPI vendor extensions on product image (used on GSI /product image,
+# which can't use NNAPI vendor extensions).
+ro.nnapi.extensions.deny_on_product                u:object_r:nnapi_ext_deny_product_prop:s0

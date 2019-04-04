@@ -70,3 +70,7 @@ allow shell system_linker_exec:file rx_file_perms;
 # Renderscript host side tests depend on being able to execute
 # /system/bin/bcc (b/126388046)
 allow shell rs_exec:file rx_file_perms;
+
+# Allow shell to start and comminicate with lpdumpd.
+set_prop(shell, lpdumpd_prop);
+binder_call(shell, lpdumpd)

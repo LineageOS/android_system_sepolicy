@@ -10,6 +10,11 @@ add_service(system_suspend, system_suspend_control_service)
 # Access to /sys/power/{ wakeup_count, state } suspend interface.
 allow system_suspend sysfs_power:file rw_file_perms;
 
+# TODO(b/128923994): remove once all debugging info moves to SystemSuspend.
+# Access to /sys/power/{ wake_lock, wake_unlock } suspend blocker interface.
+allow system_suspend self:global_capability2_class_set block_suspend;
+allow system_suspend sysfs_wake_lock:file rw_file_perms;
+
 neverallow {
     domain
     -atrace # tracing

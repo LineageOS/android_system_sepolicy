@@ -32,6 +32,8 @@ allow postinstall_dexopt postinstall_apex_mnt_dir:dir { getattr search };
 r_dir_file(postinstall_dexopt, apk_data_file)
 # Read vendor app data (APKs) as input to dex2oat.
 r_dir_file(postinstall_dexopt, vendor_app_file)
+# Read vendor overlay files (APKs) as input to dex2oat.
+r_dir_file(postinstall_dexopt, vendor_overlay_file)
 # Access to app oat directory.
 r_dir_file(postinstall_dexopt, dalvikcache_data_file)
 

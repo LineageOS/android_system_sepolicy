@@ -104,4 +104,9 @@ type metadata_block_device, dev_type;
 type misc_block_device, dev_type;
 
 # 'super' partition to be used for logical partitioning.
-type super_block_device, dev_type;
+type super_block_device, super_block_device_type, dev_type;
+
+# sdcard devices; normally vold uses the vold_block_device label and creates a
+# separate device node. gsid, however, accesses the original devide node
+# created through uevents, so we use a separate label.
+type sdcard_block_device, dev_type;

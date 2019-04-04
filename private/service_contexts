@@ -60,7 +60,7 @@ dreams                                    u:object_r:dreams_service:s0
 drm.drmManager                            u:object_r:drmserver_service:s0
 dropbox                                   u:object_r:dropbox_service:s0
 dumpstate                                 u:object_r:dumpstate_service:s0
-dynamic_android                           u:object_r:dynamic_android_service:s0
+dynamic_system                            u:object_r:dynamic_system_service:s0
 econtroller                               u:object_r:radio_service:s0
 euicc_card_controller                     u:object_r:radio_service:s0
 external_vibrator_service                 u:object_r:external_vibrator_service:s0
@@ -90,7 +90,6 @@ iphonesubinfo2                            u:object_r:radio_service:s0
 iphonesubinfo                             u:object_r:radio_service:s0
 ims                                       u:object_r:radio_service:s0
 imms                                      u:object_r:imms_service:s0
-ipmemorystore                             u:object_r:ipmemorystore_service:s0
 ipsec                                     u:object_r:ipsec_service:s0
 ircs                                      u:object_r:radio_service:s0
 iris                                      u:object_r:iris_service:s0
@@ -103,6 +102,7 @@ launcherapps                              u:object_r:launcherapps_service:s0
 location                                  u:object_r:location_service:s0
 lock_settings                             u:object_r:lock_settings_service:s0
 looper_stats                              u:object_r:looper_stats_service:s0
+lpdump_service                            u:object_r:lpdump_service:s0
 media.aaudio                              u:object_r:audioserver_service:s0
 media.audio_flinger                       u:object_r:audioserver_service:s0
 media.audio_policy                        u:object_r:audioserver_service:s0
