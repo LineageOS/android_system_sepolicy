@@ -18,3 +18,6 @@ allow system_server_startup mnt_expand_file:dir getattr;
 # system_server domain
 allow system_server_startup self:process setcurrent;
 allow system_server_startup system_server:process dyntransition;
+
+# Child of the zygote.
+allow system_server_startup zygote:process sigchld;
