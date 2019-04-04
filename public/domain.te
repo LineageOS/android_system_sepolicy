@@ -1118,7 +1118,7 @@ neverallow * self:process { execstack execheap };
 
 # Do not allow the introduction of new execmod rules. Text relocations
 # and modification of executable pages are unsafe.
-neverallow { domain -untrusted_app_25 } file_type:file execmod;
+neverallow { domain -untrusted_app_25 -untrusted_app_27 } file_type:file execmod;
 
 neverallow { domain -init } proc:{ file dir } mounton;
 

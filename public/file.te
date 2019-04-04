@@ -154,8 +154,6 @@ type system_linker_exec, system_file_type, file_type;
 type system_linker_config_file, system_file_type, file_type;
 # Default type for linker config /system/etc/seccomp_policy/*.
 type system_seccomp_policy_file, system_file_type, file_type;
-# Default type for APEX keys in /system/etc/security/apex/*
-type apex_key_file, system_file_type, file_type;
 # Default type for cacerts in /system/etc/security/cacerts/*.
 type system_security_cacerts_file, system_file_type, file_type;
 # Default type for /system/bin/tcpdump.

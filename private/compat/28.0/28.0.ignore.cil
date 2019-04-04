@@ -10,7 +10,6 @@
     apex_data_file
     apex_metadata_file
     apex_mnt_dir
-    apex_key_file
     apex_service
     apexd
     apexd_exec
@@ -99,6 +98,7 @@
     network_stack
     network_stack_service
     network_stack_tmpfs
+    nnapi_ext_deny_product_prop
     overlayfs_file
     password_slot_metadata_file
     permissionmgr_service
