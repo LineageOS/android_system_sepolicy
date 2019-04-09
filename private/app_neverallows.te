@@ -339,6 +339,7 @@ neverallow all_untrusted_apps cgroup:file *;
 # They must use ASharedMemory NDK API instead.
 neverallow {
   all_untrusted_apps
+  -ephemeral_app
   -untrusted_app_25
   -untrusted_app_27
 } ashmem_device:chr_file open;
