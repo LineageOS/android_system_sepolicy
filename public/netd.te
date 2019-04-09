@@ -19,6 +19,11 @@ allow netd self:global_capability_class_set { net_admin net_raw kill };
 # for netd to operate.
 dontaudit netd self:global_capability_class_set fsetid;
 
+# Allow netd to open /dev/tun, set it up and pass it to clatd
+allow netd tun_device:chr_file rw_file_perms;
+allowxperm netd tun_device:chr_file ioctl { TUNGETIFF TUNSETIFF };
+allow netd self:tun_socket create;
+
 allow netd self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 allow netd self:netlink_route_socket nlmsg_write;
 allow netd self:netlink_nflog_socket create_socket_perms_no_ioctl;
