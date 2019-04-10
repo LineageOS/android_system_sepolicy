@@ -451,6 +451,8 @@
 /data/mediadrm(/.*)?	u:object_r:media_data_file:s0
 /data/nativetest(/.*)?	u:object_r:nativetest_data_file:s0
 /data/nativetest64(/.*)?	u:object_r:nativetest_data_file:s0
+# This directory was removed after Q Beta 2, but we need to preserve labels for upgrading devices.
+/data/pkg_staging(/.*)?		u:object_r:staging_data_file:s0
 /data/property(/.*)?	u:object_r:property_data_file:s0
 /data/preloads(/.*)?	u:object_r:preloads_data_file:s0
 /data/preloads/media(/.*)?	u:object_r:preloads_media_file:s0
