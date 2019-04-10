@@ -32,7 +32,7 @@ $(local_fcfiles_with_nl) $(built_sepolicy)
 	@mkdir -p $(dir $@)
 	$(hide) m4 --fatal-warnings -s $(PRIVATE_FC_FILES) > $@.tmp
 	$(hide) $< $(PRIVATE_SEPOLICY) $@.tmp
-	$(hide) $(PRIVATE_FC_SORT) $@.tmp $@
+	$(hide) $(PRIVATE_FC_SORT) -i $@.tmp -o $@
 
 built_plat_fc := $(LOCAL_BUILT_MODULE)
 local_fc_files :=
@@ -60,7 +60,7 @@ $(product_fcfiles_with_nl) $(built_sepolicy)
 	@mkdir -p $(dir $@)
 	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_FC_FILES) > $@.tmp
 	$(hide) $< $(PRIVATE_SEPOLICY) $@.tmp
-	$(hide) $(PRIVATE_FC_SORT) $@.tmp $@
+	$(hide) $(PRIVATE_FC_SORT) -i $@.tmp -o $@
 
 built_product_fc := $(LOCAL_BUILT_MODULE)
 product_fc_files :=
@@ -88,7 +88,7 @@ $(vendor_fcfiles_with_nl) $(built_sepolicy)
 	@mkdir -p $(dir $@)
 	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_FC_FILES) > $@.tmp
 	$(hide) $< $(PRIVATE_SEPOLICY) $@.tmp
-	$(hide) $(PRIVATE_FC_SORT) $@.tmp $@
+	$(hide) $(PRIVATE_FC_SORT) -i $@.tmp -o $@
 
 built_vendor_fc := $(LOCAL_BUILT_MODULE)
 vendor_fc_files :=
@@ -116,7 +116,7 @@ $(odm_fcfiles_with_nl) $(built_sepolicy)
 	@mkdir -p $(dir $@)
 	$(hide) m4 --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_FC_FILES) > $@.tmp
 	$(hide) $< $(PRIVATE_SEPOLICY) $@.tmp
-	$(hide) $(PRIVATE_FC_SORT) $@.tmp $@
+	$(hide) $(PRIVATE_FC_SORT) -i $@.tmp -o $@
 
 built_odm_fc := $(LOCAL_BUILT_MODULE)
 odm_fc_files :=
