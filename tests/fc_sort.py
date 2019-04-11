@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import sys
 import os
+import argparse
 
 class FileContextsNode:
     path = None
@@ -11,7 +12,8 @@ class FileContextsNode:
     stemLen = None
     strLen = None
     Type = None
-    def __init__(self, path, fileType, context, meta, stemLen, strLen):
+    line = None
+    def __init__(self, path, fileType, context, meta, stemLen, strLen, line):
         self.path = path
         self.fileType = fileType
         self.context = context
@@ -19,6 +21,7 @@ class FileContextsNode:
         self.stemLen = stemLen
         self.strlen = strLen
         self.Type = context.split(":")[2]
+        self.line = line
 
 metaChars = frozenset(['.', '^', '$', '?', '*', '+', '|', '[', '(', '{'])
 escapedMetaChars = frozenset(['\.', '\^', '\$', '\?', '\*', '\+', '\|', '\[', '\(', '\{'])
@@ -65,7 +68,7 @@ def CreateNode(line):
     stemLen = getStemLen(path)
     strLen = len(path.replace("\\", ""))
 
-    return FileContextsNode(path, fileType, context, meta, stemLen, strLen)
+    return FileContextsNode(path, fileType, context, meta, stemLen, strLen, line)
 
 def ReadFileContexts(files):
     fc = []
@@ -118,8 +121,22 @@ def FcSort(files):
 
     return Fc
 
-if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        sys.exit("Usage: fc_sort.py <file_contexts 1> <file_contexts 2> <file_contexts 3>")
+def PrintFc(Fc, out):
+    if not out:
+        f = sys.stdout
+    else:
+        f = open(out, "w")
+    for node in Fc:
+        f.write(node.line + "\n")
 
-    FcSorted = FcSort(sys.argv[1:])
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="SELinux file_contexts sorting tool.")
+    parser.add_argument("-i", dest="input", help="Path to the file_contexts file(s).", nargs="?", action='append')
+    parser.add_argument("-o", dest="output", help="Path to the output file", nargs=1)
+    args = parser.parse_args()
+    if not args.input:
+        parser.error("Must include path to policy")
+    if not not args.output:
+        args.output = args.output[0]
+
+    PrintFc(FcSort(args.input),args.output)
