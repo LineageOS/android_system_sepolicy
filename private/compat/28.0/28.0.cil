@@ -1617,7 +1617,9 @@
 (typeattributeset thermalserviced_28_0 (thermalserviced))
 (typeattributeset thermalserviced_exec_28_0 (thermalserviced_exec))
 (typeattributeset timezone_service_28_0 (timezone_service))
-(typeattributeset tmpfs_28_0 (tmpfs))
+(typeattributeset tmpfs_28_0
+  ( mnt_sdcard_file
+    tmpfs))
 (typeattributeset tombstoned_28_0 (tombstoned))
 (typeattributeset tombstone_data_file_28_0 (tombstone_data_file))
 (typeattributeset tombstoned_crash_socket_28_0 (tombstoned_crash_socket))
