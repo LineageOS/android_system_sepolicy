@@ -15,7 +15,6 @@
  * the regular expressions in a deterministic and stable way.
  */
 
-#define BUF_SIZE 4096;
 #define _GNU_SOURCE
 
 #include <stdio.h>
@@ -75,7 +74,6 @@ typedef struct file_context_bucket {
 /* fc_compare
  * Compares two file contexts' regular expressions and returns:
  *    -1 if a is less specific than b
- *     0 if a and be are equally specific
  *     1 if a is more specific than b
  * The comparison is based on the following statements,
  *  in order from most important to least important, given a and b:
@@ -87,6 +85,9 @@ typedef struct file_context_bucket {
  *      -> a is less specific than b.
  *     If a does not have a specified type and b does,
  *      -> a is less specific than b.
+ *     If none of above are satified,
+ *      -> a and b are equally specific. In this case,
+ *       lexicographically compares a and b.
  */
 int fc_compare(file_context_node_t *a, file_context_node_t *b)
 {
@@ -119,8 +120,10 @@ int fc_compare(file_context_node_t *a, file_context_node_t *b)
 		return 1;
 
 	/* If none of the above conditions were satisfied,
-	 * then a and b are equally specific. */
-	return 0;
+	 * then a and b are equally specific. In this case,
+	 * performs lexicographical comparison to sort
+	 * deterministically and stably. */
+	return strcmp(a->path, b->path);
 }
 
 
@@ -128,64 +131,33 @@ int fc_compare(file_context_node_t *a, file_context_node_t *b)
 /* fc_merge
  * Merges two sorted file context linked lists into one
  *  sorted one.
- * Pass two lists a and b, and after the completion of fc_merge,
- *  the final list is contained in a, and b is empty.
  */
 file_context_node_t *fc_merge(file_context_node_t *a,
 				   file_context_node_t *b)
 {
-	file_context_node_t *a_current;
-	file_context_node_t *b_current;
-	file_context_node_t *temp;
-	file_context_node_t *jumpto;
+	file_context_node_t head = {};
+	file_context_node_t *next = &head;
 
-	/* If a is a empty list, and b is not,
-	 *  set a as b and proceed to the end. */
-	if (!a && b)
-		a = b;
-	/* If b is an empty list, leave a as it is. */
-	else if (!b) {
-	} else {
-		/* Make it so the list a has the lesser
-		 *  first element always. */
-		if (fc_compare(a, b) == 1) {
-			temp = a;
-			a = b;
-			b = temp;
+	while (a && b) {
+		if (fc_compare(a, b) <= 0) {
+			next->next = a;
+			a = a->next;
+			next->next->next = NULL;
+		} else {
+			next->next = b;
+			b = b->next;
+			next->next->next = NULL;
 		}
-		a_current = a;
-		b_current = b;
-
-		/* Merge by inserting b's nodes in between a's nodes. */
-		while (a_current->next && b_current) {
-			jumpto = a_current->next;
-
-			/* Insert b's nodes in between the current a node
-			 *  and the next a node.*/
-			while (b_current && a_current->next &&
-			       fc_compare(a_current->next,
-					  b_current) != -1) {
-
-				temp = a_current->next;
-				a_current->next = b_current;
-				b_current = b_current->next;
-				a_current->next->next = temp;
-				a_current = a_current->next;
-			}
-
-			/* Skip all the inserted node from b to the
-			 *  next node in the original a. */
-			a_current = jumpto;
-		}
-
-		/* if there is anything left in b to be inserted,
-		   put it on the end */
-		if (b_current) {
-			a_current->next = b_current;
-		}
+		next = next->next;
 	}
 
-	return a;
+	if (a) {
+		next->next = a;
+	} else if (b) {
+		next->next = b;
+	}
+
+	return head.next;
 }
 
 
