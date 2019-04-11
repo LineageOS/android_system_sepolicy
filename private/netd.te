@@ -20,3 +20,6 @@ unix_socket_send(netd, statsdw, statsd)
 # Allow netd to send callbacks to network_stack
 binder_call(netd, network_stack)
 
+# Allow netd to send dump info to dumpstate
+allow netd dumpstate:fd use;
+allow netd dumpstate:fifo_file { getattr write };
