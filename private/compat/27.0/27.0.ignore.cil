@@ -146,6 +146,7 @@
     super_block_device
     staging_data_file
     system_boot_reason_prop
+    system_bootstrap_lib_file
     system_lmk_prop
     system_update_service
     test_boot_reason_prop

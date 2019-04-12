@@ -582,3 +582,13 @@ neverallow appdomain proc_uid_cpupower:file *;
 # application boundary. VPN apps may use the ConnectivityManager.getConnectionOwnerUid() API to
 # perform UID lookups.
 neverallow { appdomain -shell } proc_net_tcp_udp:file *;
+
+# Apps cannot access bootstrap files. The bootstrap files are only for
+# extremely early processes (like init, etc.) which are started before
+# the runtime APEX is activated and Bionic libs are provided from there.
+# If app process accesses (or even load/execute) the bootstrap files,
+# it might cause problems such as ODR violation, etc.
+neverallow appdomain system_bootstrap_lib_file:file
+    { open read write append execute execute_no_trans map };
+neverallow appdomain system_bootstrap_lib_file:dir
+    { open read getattr search };
