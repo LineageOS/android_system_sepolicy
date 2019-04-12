@@ -60,3 +60,6 @@ userdebug_or_eng(`auditallow untrusted_app_25 dex2oat_exec:file rx_file_perms;')
 # ASharedMemory instead.
 allow untrusted_app_25 ashmem_device:chr_file rw_file_perms;
 auditallow untrusted_app_25 ashmem_device:chr_file open;
+
+# Read /mnt/sdcard symlink.
+allow untrusted_app_25 mnt_sdcard_file:lnk_file r_file_perms;
