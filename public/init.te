@@ -46,6 +46,9 @@ allow init {
   userdata_block_device
 }:{ blk_file lnk_file } relabelto;
 
+# Create /mnt/sdcard -> /storage/self/primary symlink.
+allow init mnt_sdcard_file:lnk_file create;
+
 # setrlimit
 allow init self:global_capability_class_set sys_resource;
 
