@@ -343,3 +343,11 @@ neverallow {
   -untrusted_app_25
   -untrusted_app_27
 } ashmem_device:chr_file open;
+
+# /mnt/sdcard symlink was supposed to have been removed in Gingerbread. Apps
+# must not use it.
+neverallow {
+  all_untrusted_apps
+  -untrusted_app_25
+  -untrusted_app_27
+} mnt_sdcard_file:lnk_file *;
