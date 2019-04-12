@@ -22,32 +22,32 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/google/blueprint/proptools"
 	"github.com/google/blueprint"
+	"github.com/google/blueprint/proptools"
 )
 
 var (
 	pctx = android.NewPackageContext("android/soong/selinux")
 
-	combine_maps = pctx.HostBinToolVariable("combine_maps", "combine_maps")
-	combineMapsCmd = "${combine_maps} -t ${topHalf} -b ${bottomHalf} -o $out"
+	combine_maps    = pctx.HostBinToolVariable("combine_maps", "combine_maps")
+	combineMapsCmd  = "${combine_maps} -t ${topHalf} -b ${bottomHalf} -o $out"
 	combineMapsRule = pctx.StaticRule(
 		"combineMapsRule",
 		blueprint.RuleParams{
-			Command: combineMapsCmd,
+			Command:     combineMapsCmd,
 			CommandDeps: []string{"${combine_maps}"},
 		},
 		"topHalf",
 		"bottomHalf",
 	)
 
-	String = proptools.String
+	String        = proptools.String
 	TopHalfDepTag = dependencyTag{name: "top"}
 )
 
 func init() {
 	android.RegisterModuleType("se_cil_compat_map", cilCompatMapFactory)
-	pctx.Import("android/soong/common")
+	pctx.Import("android/soong/android")
 }
 
 func cilCompatMapFactory() android.Module {
@@ -140,17 +140,17 @@ func (c *cilCompatMap) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	})
 
 	topHalf := expandTopHalf(ctx)
-	if (topHalf.Valid()) {
+	if topHalf.Valid() {
 		out := android.PathForModuleGen(ctx, c.Name())
 		ctx.ModuleBuild(pctx, android.ModuleBuildParams{
-			Rule: combineMapsRule,
+			Rule:   combineMapsRule,
 			Output: out,
 			Implicits: []android.Path{
 				topHalf.Path(),
 				bottomHalf,
 			},
 			Args: map[string]string{
-				"topHalf": topHalf.String(),
+				"topHalf":    topHalf.String(),
 				"bottomHalf": bottomHalf.String(),
 			},
 		})
@@ -162,7 +162,7 @@ func (c *cilCompatMap) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 
 func (c *cilCompatMap) DepsMutator(ctx android.BottomUpMutatorContext) {
 	android.ExtractSourcesDeps(ctx, c.properties.Bottom_half)
-	if (c.properties.Top_half != nil) {
+	if c.properties.Top_half != nil {
 		ctx.AddDependency(c, TopHalfDepTag, String(c.properties.Top_half))
 	}
 }
