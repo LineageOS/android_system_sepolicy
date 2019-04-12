@@ -33,7 +33,7 @@ python_defaults {
 python_binary_host {
     name: "treble_sepolicy_tests",
     srcs: [
-        "FcSort.py",
+        "fc_sort.py",
         "mini_parser.py",
         "policy.py",
         "treble_sepolicy_tests.py",
@@ -45,7 +45,7 @@ python_binary_host {
 python_binary_host {
     name: "sepolicy_tests",
     srcs: [
-        "FcSort.py",
+        "fc_sort.py",
         "policy.py",
         "sepolicy_tests.py",
     ],
@@ -56,7 +56,7 @@ python_binary_host {
 python_binary_host {
     name: "searchpolicy",
     srcs: [
-        "FcSort.py",
+        "fc_sort.py",
         "policy.py",
         "searchpolicy.py",
     ],
@@ -69,6 +69,14 @@ python_binary_host {
     srcs: [
         "combine_maps.py",
         "mini_parser.py",
+    ],
+    defaults: ["py2_only"],
+}
+
+python_binary_host {
+    name: "fc_sort",
+    srcs: [
+        "fc_sort.py",
     ],
     defaults: ["py2_only"],
 }
