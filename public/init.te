@@ -46,6 +46,9 @@ allow init {
   userdata_block_device
 }:{ blk_file lnk_file } relabelto;
 
+# Create /mnt/sdcard -> /storage/self/primary symlink.
+allow init mnt_sdcard_file:lnk_file create;
+
 # setrlimit
 allow init self:global_capability_class_set sys_resource;
 
@@ -557,6 +560,10 @@ allow init apexd:binder call;
 
 # Allow init to touch PSI monitors
 allow init proc_pressure_mem:file { rw_file_perms setattr };
+
+# init is using bootstrap bionic
+allow init system_bootstrap_lib_file:dir r_dir_perms;
+allow init system_bootstrap_lib_file:file { execute read open getattr map };
 
 ###
 ### neverallow rules

@@ -37,6 +37,7 @@ get_prop(dumpstate, boottime_prop)
 # Signal native processes to dump their stack.
 allow dumpstate {
   statsd
+  netd
 }:process signal;
 
 # For collecting bugreports.

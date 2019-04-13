@@ -180,6 +180,7 @@
 #
 /system(/.*)?		u:object_r:system_file:s0
 /system/lib(64)?(/.*)?		u:object_r:system_lib_file:s0
+/system/lib(64)?/bootstrap(/.*)? u:object_r:system_bootstrap_lib_file:s0
 /system/bin/atrace	u:object_r:atrace_exec:s0
 /system/bin/ashmemd	u:object_r:ashmemd_exec:s0
 /system/bin/auditctl	u:object_r:auditctl_exec:s0
@@ -635,6 +636,7 @@
 # external storage
 /mnt/media_rw(/.*)?         u:object_r:mnt_media_rw_file:s0
 /mnt/user(/.*)?             u:object_r:mnt_user_file:s0
+/mnt/sdcard                 u:object_r:mnt_sdcard_file:s0
 /mnt/runtime(/.*)?          u:object_r:storage_file:s0
 /storage(/.*)?              u:object_r:storage_file:s0
 
