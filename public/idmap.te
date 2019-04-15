@@ -2,7 +2,7 @@
 type idmap, domain;
 type idmap_exec, system_file_type, exec_type, file_type;
 
-# STOPSHIP remove /system/bin/idmap and the link between idmap and installd (b/118711077)
+# TODO remove /system/bin/idmap and the link between idmap and installd (b/118711077)
 # Use open file to /data/resource-cache file inherited from installd.
 allow idmap installd:fd use;
 allow idmap resourcecache_data_file:file create_file_perms;
@@ -14,6 +14,10 @@ dontaudit idmap installd:file read;
 # Open and read from target and overlay apk files passed by argument.
 allow idmap apk_data_file:file r_file_perms;
 allow idmap apk_data_file:dir search;
+
+# Allow /data/app/vmdl*.tmp, /data/app-private/vmdl*.tmp files
+allow idmap { apk_tmp_file apk_private_tmp_file }:file r_file_perms;
+allow idmap { apk_tmp_file apk_private_tmp_file }:dir search;
 
 # Allow apps access to /vendor/app
 r_dir_file(idmap, vendor_app_file)
