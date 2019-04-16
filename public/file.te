@@ -148,6 +148,8 @@ type system_asan_options_file, system_file_type, file_type;
 type system_event_log_tags_file, system_file_type, file_type;
 # Default type for anything under /system/lib[64].
 type system_lib_file, system_file_type, file_type;
+# system libraries that are available only to bootstrap processes
+type system_bootstrap_lib_file, system_file_type, file_type;
 # Default type for linker executable /system/bin/linker[64].
 type system_linker_exec, system_file_type, file_type;
 # Default type for linker config /system/etc/ld.config.*.
