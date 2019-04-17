@@ -5,7 +5,6 @@
 # Input selectors:
 #       isSystemServer (boolean)
 #       isEphemeralApp (boolean)
-#       isV2App (boolean)
 #       isOwner (boolean)
 #       user (string)
 #       seinfo (string)
@@ -27,7 +26,6 @@
 # isSystemServer=true only matches the system server.
 # An unspecified isSystemServer defaults to false.
 # isEphemeralApp=true will match apps marked by PackageManager as Ephemeral
-# isV2App=true will match apps in the v2 app sandbox.
 # isOwner=true will only match for the owner/primary user.
 # user=_app will match any regular app process.
 # user=_isolated will match any isolated service process.
@@ -52,20 +50,19 @@
 #       (1) isSystemServer=true before isSystemServer=false.
 #       (2) Specified isEphemeralApp= before unspecified isEphemeralApp=
 #             boolean.
-#       (3) Specified isV2App= before unspecified isV2App= boolean.
-#       (4) Specified isOwner= before unspecified isOwner= boolean.
-#       (5) Specified user= string before unspecified user= string;
+#       (3) Specified isOwner= before unspecified isOwner= boolean.
+#       (4) Specified user= string before unspecified user= string;
 #             more specific user= string before less specific user= string.
-#       (6) Specified seinfo= string before unspecified seinfo= string.
-#       (7) Specified name= string before unspecified name= string;
+#       (5) Specified seinfo= string before unspecified seinfo= string.
+#       (6) Specified name= string before unspecified name= string;
 #             more specific name= string before less specific name= string.
-#       (8) Specified path= string before unspecified path= string.
+#       (7) Specified path= string before unspecified path= string.
 #             more specific name= string before less specific name= string.
-#       (9) Specified isPrivApp= before unspecified isPrivApp= boolean.
-#       (10) Higher value of minTargetSdkVersion= before lower value of
+#       (8) Specified isPrivApp= before unspecified isPrivApp= boolean.
+#       (9) Higher value of minTargetSdkVersion= before lower value of
 #              minTargetSdkVersion= integer. Note that minTargetSdkVersion=
 #              defaults to 0 if unspecified.
-#       (11) fromRunAs=true before fromRunAs=false.
+#       (10) fromRunAs=true before fromRunAs=false.
 # (A fixed selector is more specific than a prefix, i.e. ending in *, and a
 # longer prefix is more specific than a shorter prefix.)
 # Apps are checked against entries in precedence order until the first match,
@@ -89,7 +86,7 @@
 # levelFrom=app determines the level from the process UID.
 # levelFrom=user determines the level from the user ID.
 # levelFrom=all determines the level from both UID and user ID.
-# 
+#
 # levelFrom=user is only supported for _app or _isolated UIDs.
 # levelFrom=app or levelFrom=all is only supported for _app UIDs.
 # level may be used to specify a fixed level for any UID.
@@ -157,7 +154,7 @@ user=_isolated domain=isolated_app levelFrom=all
 user=_app seinfo=app_zygote domain=app_zygote levelFrom=all
 user=_app seinfo=media domain=mediaprovider name=android.process.media type=app_data_file levelFrom=user
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
-user=_app isV2App=true isEphemeralApp=true domain=ephemeral_app type=app_data_file levelFrom=all
+user=_app isEphemeralApp=true domain=ephemeral_app type=app_data_file levelFrom=all
 user=_app isPrivApp=true domain=priv_app type=privapp_data_file levelFrom=user
 user=_app minTargetSdkVersion=29 domain=untrusted_app type=app_data_file levelFrom=all
 user=_app minTargetSdkVersion=28 domain=untrusted_app_27 type=app_data_file levelFrom=all
