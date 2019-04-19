@@ -309,6 +309,11 @@ LOCAL_REQUIRED_MODULES += \
     selinux_denial_metadata \
 
 endif
+
+# Builds an addtional userdebug sepolicy into the debug ramdisk.
+LOCAL_REQUIRED_MODULES += \
+    userdebug_plat_sepolicy.cil \
+
 include $(BUILD_PHONY_PACKAGE)
 
 #################################
@@ -521,6 +526,47 @@ $(LOCAL_BUILT_MODULE): $(plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
 
 built_plat_cil := $(LOCAL_BUILT_MODULE)
 plat_policy.conf :=
+
+#################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := userdebug_plat_sepolicy.cil
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_DEBUG_RAMDISK_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+# userdebug_plat_policy.conf - the userdebug version plat_sepolicy.cil
+userdebug_plat_policy.conf := $(intermediates)/userdebug_plat_policy.conf
+$(userdebug_plat_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(userdebug_plat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(userdebug_plat_policy.conf): PRIVATE_TARGET_BUILD_VARIANT := userdebug
+$(userdebug_plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(userdebug_plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
+$(userdebug_plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(userdebug_plat_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(userdebug_plat_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
+$(userdebug_plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
+$(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
+	$(transform-policy-to-conf)
+	$(hide) sed '/^\s*dontaudit.*;/d' $@ | sed '/^\s*dontaudit/,/;/d' > $@.dontaudit
+
+$(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_CIL_FILES := \
+  $(call build_policy, $(sepolicy_build_cil_workaround_files), $(PLAT_PRIVATE_POLICY))
+$(LOCAL_BUILT_MODULE): PRIVATE_NEVERALLOW_ARG := $(NEVERALLOW_ARG)
+$(LOCAL_BUILT_MODULE): $(userdebug_plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
+  $(HOST_OUT_EXECUTABLES)/secilc \
+  $(call build_policy, $(sepolicy_build_cil_workaround_files), $(PLAT_PRIVATE_POLICY)) \
+  $(built_sepolicy_neverallows)
+	@mkdir -p $(dir $@)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
+		$(POLICYVERS) -o $@.tmp $<
+	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@.tmp
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) $(PRIVATE_NEVERALLOW_ARG) $@.tmp -o /dev/null -f /dev/null
+	$(hide) mv $@.tmp $@
+
+userdebug_plat_policy.conf :=
 
 #################################
 include $(CLEAR_VARS)
