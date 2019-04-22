@@ -262,8 +262,9 @@ allow system_server {
   inputflinger
   mediadrmserver
   mediaextractor
-  mediaserver
   mediametrics
+  mediaserver
+  mediaswcodec
   sdcardd
   statsd
   surfaceflinger
