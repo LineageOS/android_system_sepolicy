@@ -68,6 +68,7 @@ unix_socket_connect(mediaserver, bluetooth, bluetooth)
 add_service(mediaserver, mediaserver_service)
 allow mediaserver activity_service:service_manager find;
 allow mediaserver appops_service:service_manager find;
+allow mediaserver audio_service:service_manager find;
 allow mediaserver audioserver_service:service_manager find;
 allow mediaserver cameraserver_service:service_manager find;
 allow mediaserver batterystats_service:service_manager find;
