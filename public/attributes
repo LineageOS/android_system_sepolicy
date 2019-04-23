@@ -303,11 +303,14 @@ hal_attribute(wifi_supplicant);
 # from one core domain to another, without having to update the vendor image
 # which contains clients of this service.
 
-attribute display_service_server;
-attribute wifi_keystore_service_server;
-attribute mediaswcodec_server;
-attribute system_suspend_server;
 attribute camera_service_server;
+attribute display_service_server;
+attribute mediaswcodec_server;
+attribute scheduler_service_server;
+attribute sensor_service_server;
+attribute stats_service_server;
+attribute system_suspend_server;
+attribute wifi_keystore_service_server;
 
 # All types used for super partition block devices.
 attribute super_block_device_type;
