@@ -50,9 +50,6 @@ allow statsd {
   system_api_service
 }:service_manager find;
 
-# Allow statsd to add as HIDL service.
-add_hwservice(statsd, fwk_stats_hwservice)
-
 # Grant statsd to access health hal to access battery metrics.
 allow statsd hal_health_hwservice:hwservice_manager find;
 
