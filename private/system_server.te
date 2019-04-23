@@ -5,6 +5,8 @@
 
 typeattribute system_server coredomain;
 typeattribute system_server mlstrustedsubject;
+typeattribute system_server scheduler_service_server;
+typeattribute system_server sensor_service_server;
 
 # Define a type for tmpfs-backed ashmem regions.
 tmpfs_domain(system_server)
@@ -239,10 +241,6 @@ allow system_server hal_graphics_composer:fd use;
 # Use RenderScript always-passthrough HAL
 allow system_server hal_renderscript_hwservice:hwservice_manager find;
 allow system_server same_process_hal_file:file { execute read open getattr map };
-
-# Offer HwBinder services
-add_hwservice(system_server, fwk_scheduler_hwservice)
-add_hwservice(system_server, fwk_sensor_hwservice)
 
 # Talk to tombstoned to get ANR traces.
 unix_socket_connect(system_server, tombstoned_intercept, tombstoned)
