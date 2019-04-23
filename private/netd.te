@@ -12,6 +12,10 @@ domain_auto_trans(netd, clatd_exec, clatd)
 # the map created by bpfloader
 allow netd bpfloader:bpf { prog_run map_read map_write };
 
+# in order to invoke side effect of close() on such a socket calling synchronize_rcu()
+# TODO: Remove this permission when 4.9 kernel is deprecated.
+allow netd self:key_socket create;
+
 get_prop(netd, bpf_progs_loaded_prop)
 
 # Allow netd to write to statsd.
