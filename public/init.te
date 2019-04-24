@@ -49,8 +49,8 @@ allow init {
 # setrlimit
 allow init self:global_capability_class_set sys_resource;
 
-# Remove /dev/.booting, created before initial policy load or restorecon /dev.
-allow init tmpfs:file unlink;
+# Remove /dev/.booting and load /debug_ramdisk/* files
+allow init tmpfs:file { getattr unlink };
 
 # Access pty created for fsck.
 allow init devpts:chr_file { read write open };
