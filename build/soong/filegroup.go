@@ -52,6 +52,9 @@ type fileGroup struct {
 	systemExtPublicSrcs  android.Paths
 	systemExtPrivateSrcs android.Paths
 
+	productPublicSrcs  android.Paths
+	productPrivateSrcs android.Paths
+
 	vendorSrcs android.Paths
 	odmSrcs    android.Paths
 }
@@ -86,7 +89,17 @@ func (fg *fileGroup) SystemExtPrivateSrcs() android.Paths {
 	return fg.systemExtPrivateSrcs
 }
 
-// Source files from BOARD_SEPOLICY_DIRS
+// Source files from PRODUCT_PUBLIC_SEPOLICY_DIRS
+func (fg *fileGroup) ProductPublicSrcs() android.Paths {
+	return fg.productPublicSrcs
+}
+
+// Source files from PRODUCT_PRIVATE_SEPOLICY_DIRS
+func (fg *fileGroup) ProductPrivateSrcs() android.Paths {
+	return fg.productPrivateSrcs
+}
+
+// Source files from BOARD_VENDOR_SEPOLICY_DIRS
 func (fg *fileGroup) VendorSrcs() android.Paths {
 	return fg.vendorSrcs
 }
@@ -124,6 +137,9 @@ func (fg *fileGroup) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 
 	fg.systemExtPublicSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().PlatPublicSepolicyDirs())
 	fg.systemExtPrivateSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().PlatPrivateSepolicyDirs())
+
+	fg.productPublicSrcs = fg.findSrcsInDirs(ctx, ctx.Config().ProductPublicSepolicyDirs())
+	fg.productPrivateSrcs = fg.findSrcsInDirs(ctx, ctx.Config().ProductPrivateSepolicyDirs())
 
 	fg.vendorSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().VendorSepolicyDirs())
 	fg.odmSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().OdmSepolicyDirs())

@@ -1,4 +1,4 @@
-// Copyright (C) 2018 The Android Open Source Project
+// Copyright (C) 2019 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,20 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-bootstrap_go_package {
-    name: "soong-selinux",
-    pkgPath: "android/soong/selinux",
-    deps: [
-        "blueprint",
-        "soong",
-        "soong-android",
-        "soong-genrule",
-    ],
-    srcs: [
-        "cil_compat_map.go",
-        "filegroup.go",
-        "selinux.go",
-        "selinux_contexts.go",
-    ],
-    pluginFor: ["soong_build"],
+package selinux
+
+import (
+	"github.com/google/blueprint"
+
+	"android/soong/android"
+)
+
+type dependencyTag struct {
+	blueprint.BaseDependencyTag
+	name string
 }
+
+var (
+	pctx = android.NewPackageContext("android/soong/selinux")
+)
