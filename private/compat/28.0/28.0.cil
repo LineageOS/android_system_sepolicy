@@ -1,3 +1,8 @@
+;; attributes removed from current policy
+(typeattribute hal_wifi_offload)
+(typeattribute hal_wifi_offload_client)
+(typeattribute hal_wifi_offload_server)
+
 ;; types removed from current policy
 (type alarm_device)
 (type audio_seq_device)
@@ -5,6 +10,7 @@
 (type commontime_management_service)
 (type cpuctl_device)
 (type full_device)
+(type hal_wifi_offload_hwservice)
 (type i2c_device)
 (type kmem_device)
 (type mediacodec)

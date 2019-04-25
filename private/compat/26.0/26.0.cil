@@ -2,11 +2,15 @@
 (typeattribute hal_wifi_keystore)
 (typeattribute hal_wifi_keystore_client)
 (typeattribute hal_wifi_keystore_server)
+(typeattribute hal_wifi_offload)
+(typeattribute hal_wifi_offload_client)
+(typeattribute hal_wifi_offload_server)
 
 ;; types removed from current policy
 (type untrusted_v2_app)
 (type asan_reboot_prop)
 (type commontime_management_service)
+(type hal_wifi_offload_hwservice)
 (type log_device)
 (type mediacasserver_service)
 (type mediacodec)

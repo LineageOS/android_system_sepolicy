@@ -74,7 +74,6 @@ android.hardware.vr::IVr                                        u:object_r:hal_v
 android.hardware.weaver::IWeaver                                u:object_r:hal_weaver_hwservice:s0
 android.hardware.wifi::IWifi                                    u:object_r:hal_wifi_hwservice:s0
 android.hardware.wifi.hostapd::IHostapd                         u:object_r:hal_wifi_hostapd_hwservice:s0
-android.hardware.wifi.offload::IOffload                         u:object_r:hal_wifi_offload_hwservice:s0
 android.hardware.wifi.supplicant::ISupplicant                   u:object_r:hal_wifi_supplicant_hwservice:s0
 android.hidl.allocator::IAllocator                              u:object_r:hidl_allocator_hwservice:s0
 android.hidl.base::IBase                                        u:object_r:hidl_base_hwservice:s0
