@@ -91,3 +91,143 @@ se_cil_compat_map {
     bottom_half: [":28.0.board.ignore.map"],
     // top_half: "29.0.ignore.cil",
 }
+
+se_filegroup {
+    name: "file_contexts_files",
+    srcs: ["file_contexts"],
+}
+
+se_filegroup {
+    name: "file_contexts_asan_files",
+    srcs: ["file_contexts_asan"],
+}
+
+se_filegroup {
+    name: "file_contexts_overlayfs_files",
+    srcs: ["file_contexts_overlayfs"],
+}
+
+se_filegroup {
+    name: "hwservice_contexts_files",
+    srcs: ["hwservice_contexts"],
+}
+
+se_filegroup {
+    name: "property_contexts_files",
+    srcs: ["property_contexts"],
+}
+
+se_filegroup {
+    name: "service_contexts_files",
+    srcs: ["service_contexts"],
+}
+
+file_contexts {
+    name: "plat_file_contexts",
+    srcs: [":file_contexts_files"],
+    product_variables: {
+        address_sanitize: {
+            srcs: [":file_contexts_asan_files"],
+        },
+        debuggable: {
+            srcs: [":file_contexts_overlayfs_files"],
+        },
+    },
+
+    flatten_apex: {
+        srcs: ["apex/*-file_contexts"],
+    },
+
+    recovery_available: true,
+}
+
+file_contexts {
+    name: "vendor_file_contexts",
+    srcs: [":file_contexts_files"],
+    soc_specific: true,
+    recovery_available: true,
+}
+
+file_contexts {
+    name: "product_file_contexts",
+    srcs: [":file_contexts_files"],
+    product_specific: true,
+    recovery_available: true,
+}
+
+file_contexts {
+    name: "odm_file_contexts",
+    srcs: [":file_contexts_files"],
+    device_specific: true,
+    recovery_available: true,
+}
+
+hwservice_contexts {
+    name: "plat_hwservice_contexts",
+    srcs: [":hwservice_contexts_files"],
+}
+
+hwservice_contexts {
+    name: "product_hwservice_contexts",
+    srcs: [":hwservice_contexts_files"],
+    product_specific: true,
+}
+
+hwservice_contexts {
+    name: "vendor_hwservice_contexts",
+    srcs: [":hwservice_contexts_files"],
+    reqd_mask: true,
+    soc_specific: true,
+}
+
+hwservice_contexts {
+    name: "odm_hwservice_contexts",
+    srcs: [":hwservice_contexts_files"],
+    device_specific: true,
+}
+
+property_contexts {
+    name: "plat_property_contexts",
+    srcs: [":property_contexts_files"],
+    recovery_available: true,
+}
+
+property_contexts {
+    name: "product_property_contexts",
+    srcs: [":property_contexts_files"],
+    product_specific: true,
+    recovery_available: true,
+}
+
+property_contexts {
+    name: "vendor_property_contexts",
+    srcs: [":property_contexts_files"],
+    reqd_mask: true,
+    soc_specific: true,
+    recovery_available: true,
+}
+
+property_contexts {
+    name: "odm_property_contexts",
+    srcs: [":property_contexts_files"],
+    device_specific: true,
+    recovery_available: true,
+}
+
+service_contexts {
+    name: "plat_service_contexts",
+    srcs: [":service_contexts_files"],
+}
+
+service_contexts {
+    name: "product_service_contexts",
+    srcs: [":service_contexts_files"],
+    product_specific: true,
+}
+
+service_contexts {
+    name: "vendor_service_contexts",
+    srcs: [":service_contexts_files"],
+    reqd_mask: true,
+    soc_specific: true,
+}
