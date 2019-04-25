@@ -58,7 +58,6 @@ type hal_vr_hwservice, hwservice_manager_type;
 type hal_weaver_hwservice, hwservice_manager_type;
 type hal_wifi_hwservice, hwservice_manager_type;
 type hal_wifi_hostapd_hwservice, hwservice_manager_type;
-type hal_wifi_offload_hwservice, hwservice_manager_type;
 type hal_wifi_supplicant_hwservice, hwservice_manager_type;
 type hidl_allocator_hwservice, hwservice_manager_type, coredomain_hwservice;
 type hidl_base_hwservice, hwservice_manager_type;
