@@ -138,6 +138,7 @@ neverallow {
     -dumpstate
     -network_stack
     -netd
+    -netutils_wrapper
 } netd_service:service_manager find;
 
 # only system_server, dumpstate and network stack app may find dnsresolver service
@@ -147,6 +148,7 @@ neverallow {
     -dumpstate
     -network_stack
     -netd
+    -netutils_wrapper
 } dnsresolver_service:service_manager find;
 
 # only netd can create the bpf maps
