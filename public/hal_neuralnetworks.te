@@ -8,6 +8,7 @@ allow hal_neuralnetworks hal_allocator:fd use;
 
 # Allow NN HAL service to use a client-provided fd residing in /data/data/.
 allow hal_neuralnetworks_server app_data_file:file { read write getattr map };
+allow hal_neuralnetworks_server privapp_data_file:file { read write getattr map };
 
 # Allow NN HAL service to use a client-provided fd residing in /data/local/tmp/.
 allow hal_neuralnetworks_server shell_data_file:file { read write getattr map };
