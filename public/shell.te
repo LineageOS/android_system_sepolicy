@@ -80,6 +80,8 @@ userdebug_or_eng(`set_prop(shell, logpersistd_logging_prop)')
 set_prop(shell, heapprofd_enabled_prop)
 # Allow shell to start/stop gsid via ctl.start|stop|restart gsid.
 set_prop(shell, ctl_gsid_prop)
+# Allow shell to enable Dynamic System Update
+set_prop(shell, dynamic_system_prop)
 
 userdebug_or_eng(`
   # "systrace --boot" support - allow boottrace service to run
