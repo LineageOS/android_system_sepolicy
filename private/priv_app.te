@@ -162,6 +162,9 @@ allow priv_app incidentd:fifo_file { read write };
 # profileable/debuggable.
 can_profile_heap(priv_app)
 
+# Allow priv_apps to check whether Dynamic System Update is enabled
+get_prop(priv_app, dynamic_system_prop)
+
 # suppress denials for non-API accesses.
 dontaudit priv_app exec_type:file getattr;
 dontaudit priv_app device:dir read;

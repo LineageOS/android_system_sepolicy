@@ -42,6 +42,7 @@ type device_logging_prop, property_type;
 type dhcp_prop, property_type, core_property_type;
 type dumpstate_options_prop, property_type;
 type dumpstate_prop, property_type, core_property_type;
+type dynamic_system_prop, property_type;
 type exported_secure_prop, property_type;
 type ffs_prop, property_type, core_property_type;
 type fingerprint_prop, property_type, core_property_type;
@@ -421,6 +422,7 @@ compatible_property_only(`
     -device_config_runtime_native_boot_prop
     -device_config_runtime_native_prop
     -device_config_media_native_prop
+    -dynamic_system_prop
     -gsid_prop
     -heapprofd_enabled_prop
     -heapprofd_prop
