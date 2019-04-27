@@ -27,8 +27,6 @@ import (
 )
 
 var (
-	pctx = android.NewPackageContext("android/soong/selinux")
-
 	combine_maps    = pctx.HostBinToolVariable("combine_maps", "combine_maps")
 	combineMapsCmd  = "${combine_maps} -t ${topHalf} -b ${bottomHalf} -o $out"
 	combineMapsRule = pctx.StaticRule(
@@ -78,11 +76,6 @@ type cilCompatMap struct {
 
 type CilCompatMapGenerator interface {
 	GeneratedMapFile() android.Path
-}
-
-type dependencyTag struct {
-	blueprint.BaseDependencyTag
-	name string
 }
 
 func expandTopHalf(ctx android.ModuleContext) android.OptionalPath {
