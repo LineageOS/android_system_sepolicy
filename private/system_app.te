@@ -49,6 +49,8 @@ userdebug_or_eng(`set_prop(system_app, logpersistd_logging_prop)')
 auditallow system_app net_radio_prop:property_service set;
 auditallow system_app system_radio_prop:property_service set;
 auditallow system_app exported_system_radio_prop:property_service set;
+# Allow Settings to enable Dynamic System Update
+set_prop(system_app, dynamic_system_prop)
 
 # ctl interface
 set_prop(system_app, ctl_default_prop)
