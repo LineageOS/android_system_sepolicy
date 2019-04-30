@@ -1379,6 +1379,7 @@
   ( proc
     proc_fs_verity
     proc_keys
+    proc_lowmemorykiller
     proc_pressure_cpu
     proc_pressure_io
     proc_pressure_mem
