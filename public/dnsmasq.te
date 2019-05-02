@@ -15,7 +15,7 @@ allow dnsmasq dhcp_data_file:file create_file_perms;
 
 # Inherit and use open files from netd.
 allow dnsmasq netd:fd use;
-allow dnsmasq netd:fifo_file { read write };
+allow dnsmasq netd:fifo_file { getattr read write };
 # TODO: Investigate whether these inherited sockets should be closed on exec.
 allow dnsmasq netd:netlink_kobject_uevent_socket { read write };
 allow dnsmasq netd:netlink_nflog_socket { read write };
