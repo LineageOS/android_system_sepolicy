@@ -124,6 +124,7 @@ allow system_server mediaserver:process { getsched setsched };
 allow system_server bootanim:process { getsched setsched };
 
 # Set scheduling info for psi monitor thread.
+# TODO: delete this line b/131761776
 allow system_server kernel:process { getsched setsched };
 
 # Allow system_server to write to /proc/<pid>/*
