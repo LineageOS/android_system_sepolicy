@@ -481,9 +481,8 @@ allow init self:udp_socket { create ioctl };
 allowxperm init self:udp_socket ioctl SIOCSIFFLAGS;
 allow init self:global_capability_class_set net_raw;
 
-# This line seems suspect, as it should not really need to
-# set scheduling parameters for a kernel domain task.
-allow init kernel:process setsched;
+# Set scheduling info for psi monitor thread.
+allow init kernel:process { getsched setsched };
 
 # swapon() needs write access to swap device
 # system/core/fs_mgr/fs_mgr.c - fs_mgr_swapon_all

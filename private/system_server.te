@@ -123,6 +123,9 @@ allow system_server hal_camera:process { getsched setsched };
 allow system_server mediaserver:process { getsched setsched };
 allow system_server bootanim:process { getsched setsched };
 
+# Set scheduling info for psi monitor thread.
+allow system_server kernel:process { getsched setsched };
+
 # Allow system_server to write to /proc/<pid>/*
 allow system_server domain:file w_file_perms;
 
