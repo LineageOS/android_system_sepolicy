@@ -214,9 +214,6 @@ ro.boot.mode u:object_r:exported2_default_prop:s0 exact string
 ro.boot.vbmeta.avb_version u:object_r:exported2_default_prop:s0 exact string
 ro.boot.verifiedbootstate u:object_r:exported2_default_prop:s0 exact string
 ro.boot.veritymode u:object_r:exported2_default_prop:s0 exact string
-ro.bootimage.build.date u:object_r:exported2_default_prop:s0 exact string
-ro.bootimage.build.date.utc u:object_r:exported2_default_prop:s0 exact int
-ro.bootimage.build.fingerprint u:object_r:exported2_default_prop:s0 exact string
 ro.bootloader u:object_r:exported2_default_prop:s0 exact string
 ro.build.date u:object_r:exported2_default_prop:s0 exact string
 ro.build.date.utc u:object_r:exported2_default_prop:s0 exact int
@@ -275,7 +272,12 @@ ro.boot.fake_battery u:object_r:exported_default_prop:s0 exact int
 ro.boot.hardware.revision u:object_r:exported_default_prop:s0 exact string
 ro.boot.product.hardware.sku u:object_r:exported_default_prop:s0 exact string
 ro.boot.slot_suffix u:object_r:exported_default_prop:s0 exact string
+ro.bootimage.build.date u:object_r:exported_default_prop:s0 exact string
+ro.bootimage.build.date.utc u:object_r:exported_default_prop:s0 exact int
+ro.bootimage.build.fingerprint u:object_r:exported_default_prop:s0 exact string
 ro.build.ab_update u:object_r:exported_default_prop:s0 exact string
+ro.build.expect.baseband u:object_r:exported_default_prop:s0 exact string
+ro.build.expect.bootloader u:object_r:exported_default_prop:s0 exact string
 ro.carrier u:object_r:exported_default_prop:s0 exact string
 ro.config.low_ram u:object_r:exported_config_prop:s0 exact bool
 ro.config.vc_call_vol_steps u:object_r:exported_config_prop:s0 exact int
