@@ -57,8 +57,8 @@ allow netd sysfs_usb:file write;
 
 r_dir_file(netd, cgroup_bpf)
 
-allow netd fs_bpf:dir  create_dir_perms;
-allow netd fs_bpf:file create_file_perms;
+allow netd fs_bpf:dir search;
+allow netd fs_bpf:file { read write setattr };
 
 # TODO: netd previously thought it needed these permissions to do WiFi related
 #       work.  However, after all the WiFi stuff is gone, we still need them.
@@ -150,9 +150,6 @@ neverallow {
     -netd
     -netutils_wrapper
 } dnsresolver_service:service_manager find;
-
-# only netd can create the bpf maps
-neverallow { domain -netd } netd:bpf { map_create };
 
 # apps may not interact with netd over binder.
 neverallow { appdomain -network_stack } netd:binder call;
