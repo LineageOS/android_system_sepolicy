@@ -92,6 +92,24 @@ se_cil_compat_map {
     // top_half: "29.0.ignore.cil",
 }
 
+prebuilt_etc {
+    name: "28.0.compat.cil",
+    src: "private/compat/28.0/28.0.compat.cil",
+    sub_dir: "selinux/mapping",
+}
+
+prebuilt_etc {
+    name: "27.0.compat.cil",
+    src: "private/compat/27.0/27.0.compat.cil",
+    sub_dir: "selinux/mapping",
+}
+
+prebuilt_etc {
+    name: "26.0.compat.cil",
+    src: "private/compat/26.0/26.0.compat.cil",
+    sub_dir: "selinux/mapping",
+}
+
 se_filegroup {
     name: "file_contexts_files",
     srcs: ["file_contexts"],

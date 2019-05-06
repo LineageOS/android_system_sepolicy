@@ -202,6 +202,7 @@ LOCAL_MODULE := selinux_policy_system
 LOCAL_REQUIRED_MODULES += \
     plat_mapping_file \
     $(addsuffix .cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
+    $(addsuffix .compat.cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
     plat_sepolicy.cil \
     plat_sepolicy_and_mapping.sha256 \
     secilc \
@@ -235,6 +236,7 @@ ifneq ($(SELINUX_IGNORE_NEVERALLOWS),true)
 LOCAL_REQUIRED_MODULES += \
     sepolicy_tests \
     $(addprefix treble_sepolicy_tests_,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
+    $(addsuffix _compat_test,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
 
 endif
 endif
@@ -1284,12 +1286,17 @@ $(HOST_OUT_EXECUTABLES)/build_sepolicy $(base_plat_pub_policy.conf) $(reqd_polic
 # given release version.
 version_under_treble_tests := 26.0
 include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
-
 version_under_treble_tests := 27.0
 include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
-
 version_under_treble_tests := 28.0
 include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
+
+version_under_treble_tests := 26.0
+include $(LOCAL_PATH)/compat.mk
+version_under_treble_tests := 27.0
+include $(LOCAL_PATH)/compat.mk
+version_under_treble_tests := 28.0
+include $(LOCAL_PATH)/compat.mk
 
 BASE_PLAT_PUBLIC_POLICY :=
 BASE_PLAT_PRIVATE_POLICY :=
