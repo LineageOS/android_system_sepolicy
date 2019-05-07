@@ -209,6 +209,8 @@ ro.boot.mode u:object_r:exported2_default_prop:s0 exact string
 ro.boot.vbmeta.avb_version u:object_r:exported2_default_prop:s0 exact string
 ro.boot.verifiedbootstate u:object_r:exported2_default_prop:s0 exact string
 ro.boot.veritymode u:object_r:exported2_default_prop:s0 exact string
+ro.boot.dynamic_partitions u:object_r:exported_default_prop:s0 exact string
+ro.boot.dynamic_partitions_retrofit u:object_r:exported_default_prop:s0 exact string
 ro.bootloader u:object_r:exported2_default_prop:s0 exact string
 ro.build.date u:object_r:exported2_default_prop:s0 exact string
 ro.build.date.utc u:object_r:exported2_default_prop:s0 exact int
