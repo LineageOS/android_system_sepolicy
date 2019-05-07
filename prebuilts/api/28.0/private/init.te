@@ -20,3 +20,6 @@ domain_trans(init, { rootfs toolbox_exec }, modprobe)
 userdebug_or_eng(`
   domain_auto_trans(init, logcat_exec, logpersist)
 ')
+
+# Allow the BoringSSL self test to request a reboot upon failure
+set_prop(init, powerctl_prop)

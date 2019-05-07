@@ -21,8 +21,8 @@ allow lmkd system_server:file write;
 r_dir_file(lmkd, sysfs_lowmemorykiller)
 allow lmkd sysfs_lowmemorykiller:file w_file_perms;
 
-# Send kill signals
-allow lmkd appdomain:process sigkill;
+# setsched and send kill signals
+allow lmkd appdomain:process { setsched sigkill };
 
 # Clean up old cgroups
 allow lmkd cgroup:dir { remove_name rmdir };
