@@ -7,11 +7,11 @@ net_domain(ppp)
 
 r_dir_file(ppp, proc_net_type)
 
-allow ppp mtp:socket rw_socket_perms;
+allow ppp mtp:{ socket pppox_socket } rw_socket_perms;
 
 # ioctls needed for VPN.
 allowxperm ppp self:udp_socket ioctl priv_sock_ioctls;
-allowxperm ppp mtp:socket ioctl ppp_ioctls;
+allowxperm ppp mtp:{ socket pppox_socket } ioctl ppp_ioctls;
 
 allow ppp mtp:unix_dgram_socket rw_socket_perms;
 allow ppp ppp_device:chr_file rw_file_perms;
