@@ -895,11 +895,6 @@ userdebug_or_eng(`
   allow system_server user_profile_data_file:file create_file_perms;
 ')
 
-userdebug_or_eng(`
-  # Allow system server to notify mediaextractor of the plugin update.
-  allow system_server mediaextractor_update_service:service_manager find;
-')
-
 # UsbDeviceManager uses /dev/usb-ffs
 allow system_server functionfs:dir search;
 allow system_server functionfs:file rw_file_perms;
