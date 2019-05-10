@@ -39,15 +39,6 @@ allow mediaextractor system_file:dir { read open };
 
 get_prop(mediaextractor, device_config_media_native_prop)
 
-userdebug_or_eng(`
-  # Allow extractor to add update service.
-  allow mediaextractor mediaextractor_update_service:service_manager { find add };
-
-  # Allow extractor to load media extractor plugins from update apk.
-  allow mediaextractor apk_data_file:dir search;
-  allow mediaextractor apk_data_file:file { execute open };
-')
-
 ###
 ### neverallow rules
 ###

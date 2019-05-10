@@ -8,13 +8,3 @@ hal_client_domain(mediaswcodec, hal_allocator)
 hal_client_domain(mediaswcodec, hal_graphics_allocator)
 
 get_prop(mediaswcodec, device_config_media_native_prop)
-
-userdebug_or_eng(`
-  binder_use(mediaswcodec)
-  # Add mediaextractor_update_service service
-  allow mediaswcodec mediaextractor_update_service:service_manager { find add };
-
-  # Allow mediaswcodec to load libs from update apk.
-  allow mediaswcodec apk_data_file:file { open read execute getattr map };
-  allow mediaswcodec apk_data_file:dir { search getattr };
-')
