@@ -1398,9 +1398,3 @@ neverallow {
   -hal_omx_server
 } hal_codec2_hwservice:hwservice_manager add;
 
-neverallow {
-  domain
-  userdebug_or_eng(`-mediaextractor')
-  userdebug_or_eng(`-mediaswcodec')
-} mediaextractor_update_service:service_manager add;
-
