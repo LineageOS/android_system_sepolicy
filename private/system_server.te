@@ -160,7 +160,6 @@ allow system_server self:tun_socket create_socket_perms_no_ioctl;
 # Talk to init and various daemons via sockets.
 unix_socket_connect(system_server, lmkd, lmkd)
 unix_socket_connect(system_server, mtpd, mtp)
-unix_socket_connect(system_server, netd, netd)
 unix_socket_connect(system_server, zygote, zygote)
 unix_socket_connect(system_server, racoon, racoon)
 unix_socket_connect(system_server, uncrypt, uncrypt)
@@ -642,6 +641,9 @@ allow system_server { cache_file cache_recovery_file }:fifo_file create_file_per
 allow system_server system_file:dir r_dir_perms;
 allow system_server system_file:lnk_file r_file_perms;
 
+# ART locks profile files.
+allow system_server system_file:file lock;
+
 # LocationManager(e.g, GPS) needs to read and write
 # to uart driver and ctrl proc entry
 allow system_server gps_control:file rw_file_perms;
@@ -892,11 +894,6 @@ allow system_server profman_dump_data_file:dir w_dir_perms;
 # On userdebug build we may profile system server. Allow it to write and create its own profile.
 userdebug_or_eng(`
   allow system_server user_profile_data_file:file create_file_perms;
-')
-
-userdebug_or_eng(`
-  # Allow system server to notify mediaextractor of the plugin update.
-  allow system_server mediaextractor_update_service:service_manager find;
 ')
 
 # UsbDeviceManager uses /dev/usb-ffs
