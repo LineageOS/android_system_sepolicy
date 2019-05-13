@@ -92,6 +92,9 @@ allow init device:dir mounton;
 # Mount tmpfs on /apex
 allow init apex_mnt_dir:dir mounton;
 
+# Bind-mount on /system/apex/com.android.runtime
+allow init runtime_apex_dir:dir mounton;
+
 # Create and remove symlinks in /.
 allow init rootfs:lnk_file { create unlink };
 
