@@ -32,3 +32,5 @@ allow vold_prepare_subdirs {
     system_data_file
     vold_data_file
 }:file { getattr unlink };
+
+dontaudit vold_prepare_subdirs { proc unlabeled }:file r_file_perms;
