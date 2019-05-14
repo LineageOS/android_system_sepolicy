@@ -742,16 +742,6 @@ full_treble_only(`
   });
 ')
 
-  # Vendor domains (except netdomain) are not permitted to initiate communications to netd sockets
-full_treble_only(`
-  neverallow_establish_socket_comms({
-    domain
-    -coredomain
-    -netdomain
-    -socket_between_core_and_vendor_violators
-  }, netd);
-')
-
   # Vendor domains are not permitted to initiate create/open sockets owned by core domains
 full_treble_only(`
   neverallow {
