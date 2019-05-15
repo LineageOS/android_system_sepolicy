@@ -1,0 +1,10 @@
+type mediaswcodec, domain;
+type mediaswcodec_exec, system_file_type, exec_type, file_type;
+
+typeattribute mediaswcodec halserverdomain;
+typeattribute mediaswcodec mediaswcodec_server;
+
+hal_client_domain(mediaswcodec, hal_allocator)
+hal_client_domain(mediaswcodec, hal_graphics_allocator)
+
+get_prop(mediaswcodec, device_config_media_native_prop)
