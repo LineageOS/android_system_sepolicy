@@ -28,6 +28,7 @@ binder_use(atrace)
 allow atrace healthd:binder call;
 allow atrace surfaceflinger:binder call;
 allow atrace system_server:binder call;
+allow atrace cameraserver:binder call;
 
 get_prop(atrace, hwservicemanager_prop)
 
