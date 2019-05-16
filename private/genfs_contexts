@@ -33,6 +33,7 @@ genfscon proc /softirqs u:object_r:proc_timer:s0
 genfscon proc /stat u:object_r:proc_stat:s0
 genfscon proc /swaps u:object_r:proc_swaps:s0
 genfscon proc /sysrq-trigger u:object_r:proc_sysrq:s0
+genfscon proc /kpageflags u:object_r:proc_kpageflags:s0
 genfscon proc /sys/abi/swp u:object_r:proc_abi:s0
 genfscon proc /sys/fs/pipe-max-size u:object_r:proc_pipe_conf:s0
 genfscon proc /sys/fs/protected_hardlinks u:object_r:proc_security:s0
