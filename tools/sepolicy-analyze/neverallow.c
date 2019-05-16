@@ -378,7 +378,7 @@ static int check_neverallows(policydb_t *policydb, char *text, char *end)
 {
     const char *keyword = "neverallow";
     size_t keyword_size = strlen(keyword), len;
-    struct avrule *neverallows = NULL, *avrule;
+    struct avrule *neverallows = NULL, *avrule = NULL;
     char *p, *start;
     int result;
 
