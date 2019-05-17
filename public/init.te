@@ -177,7 +177,7 @@ allow init {
   -system_file
   -vendor_file_type
   -vold_data_file
-}:file { create getattr open read write setattr relabelfrom unlink };
+}:file { create getattr open read write setattr relabelfrom unlink map };
 
 allow init {
   file_type

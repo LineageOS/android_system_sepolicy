@@ -345,7 +345,7 @@ allow $1 hwservicemanager:binder { call transfer };
 allow hwservicemanager $1:binder { call transfer };
 # hwservicemanager performs getpidcon on clients.
 allow hwservicemanager $1:dir search;
-allow hwservicemanager $1:file { read open };
+allow hwservicemanager $1:file { read open map };
 allow hwservicemanager $1:process getattr;
 # rw access to /dev/hwbinder and /dev/ashmem is presently granted to
 # all domains in domain.te.
@@ -361,7 +361,7 @@ allow $1 vndbinder_device:chr_file rw_file_perms;
 allow $1 vndservicemanager:binder { call transfer };
 # vndservicemanager performs getpidcon on clients.
 allow vndservicemanager $1:dir search;
-allow vndservicemanager $1:file { read open };
+allow vndservicemanager $1:file { read open map };
 allow vndservicemanager $1:process getattr;
 ')
 
