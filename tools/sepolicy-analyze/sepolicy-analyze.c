@@ -50,7 +50,7 @@ int main(int argc, char **argv)
     if (argc < 3)
         usage(argv[0]);
     policy = argv[1];
-    if(load_policy(policy, &policydb, &pf))
+    if(!load_policy(policy, &policydb, &pf))
         exit(1);
     for(i = 0; i < NUM_COMPONENTS; i++) {
         if (!strcmp(analyze_components[i].key, argv[2])) {

@@ -22,28 +22,26 @@ void display_allow(policydb_t *policydb, avtab_key_t *key, int idx, uint32_t per
            (policydb, key->target_class, perms));
 }
 
-int load_policy(char *filename, policydb_t * policydb, struct policy_file *pf)
+bool load_policy(char *filename, policydb_t * policydb, struct policy_file *pf)
 {
-    int fd;
+    int fd = -1;
     struct stat sb;
-    void *map;
-    int ret;
+    void *map = MAP_FAILED;
+    bool ret = false;
 
     fd = open(filename, O_RDONLY);
     if (fd < 0) {
         fprintf(stderr, "Can't open '%s':  %s\n", filename, strerror(errno));
-        return 1;
+        goto cleanup;
     }
     if (fstat(fd, &sb) < 0) {
         fprintf(stderr, "Can't stat '%s':  %s\n", filename, strerror(errno));
-        close(fd);
-        return 1;
+        goto cleanup;
     }
     map = mmap(NULL, sb.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
     if (map == MAP_FAILED) {
         fprintf(stderr, "Can't mmap '%s':  %s\n", filename, strerror(errno));
-        close(fd);
-        return 1;
+        goto cleanup;
     }
 
     policy_file_init(pf);
@@ -52,17 +50,21 @@ int load_policy(char *filename, policydb_t * policydb, struct policy_file *pf)
     pf->len = sb.st_size;
     if (policydb_init(policydb)) {
         fprintf(stderr, "Could not initialize policydb!\n");
-        close(fd);
-        munmap(map, sb.st_size);
-        return 1;
+        goto cleanup;
     }
-    ret = policydb_read(policydb, pf, 0);
-    if (ret) {
+    if (policydb_read(policydb, pf, 0)) {
         fprintf(stderr, "error(s) encountered while parsing configuration\n");
-        close(fd);
-        munmap(map, sb.st_size);
-        return 1;
+        goto cleanup;
     }
 
-    return 0;
+    ret = true;
+
+cleanup:
+    if (map != MAP_FAILED) {
+        munmap(map, sb.st_size);
+    }
+    if (fd >= 0) {
+        close(fd);
+    }
+    return ret;
 }
