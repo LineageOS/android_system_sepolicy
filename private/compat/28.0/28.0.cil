@@ -1381,6 +1381,7 @@
   ( proc
     proc_fs_verity
     proc_keys
+    proc_kpageflags
     proc_lowmemorykiller
     proc_pressure_cpu
     proc_pressure_io
