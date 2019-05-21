@@ -603,6 +603,7 @@ neverallow {
   -uncrypt
   -update_engine
   -vendor_init
+  -vendor_misc_writer
   -vold
   -recovery
   -ueventd
