@@ -6,10 +6,7 @@ include $(CLEAR_VARS)
 #
 LOCAL_MODULE := $(version)_compat_test
 LOCAL_REQUIRED_MODULES := $(version).compat.cil
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := tests
-
-include $(BUILD_SYSTEM)/base_rules.mk
+intermediates := $(TARGET_OUT_INTERMEDIATES)/ETC/sepolicy_intermediates
 
 all_cil_files := \
     $(built_plat_cil) \
@@ -29,12 +26,16 @@ ifdef BOARD_ODM_SEPOLICY_DIRS
 all_cil_files += $(built_odm_cil)
 endif
 
-$(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(all_cil_files)
-$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $(all_cil_files)
+compat_test := $(intermediates)/$(LOCAL_MODULE)
+droidcore: $(compat_test)
+$(version)_compat_test: $(compat_test)
+.PHONY: $(version)_compat_test
+$(compat_test): PRIVATE_CIL_FILES := $(all_cil_files)
+$(compat_test): $(HOST_OUT_EXECUTABLES)/secilc $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $(all_cil_files)
 	@mkdir -p $(dir $@)
-	$(hide) $< -m -N -M true -G -c $(POLICYVERS) $(PRIVATE_CIL_FILES) -o $@.tmp -f /dev/null
-	$(hide) mv $@.tmp $@
+	$(hide) $< -m -N -M true -G -c $(POLICYVERS) $(PRIVATE_CIL_FILES) -o $@ -f /dev/null
 
+compat_test :=
 all_cil_files :=
 version :=
 version_under_treble_tests :=
