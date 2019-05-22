@@ -72,6 +72,7 @@ allow dumpstate {
   mediaswcodec
   sdcardd
   surfaceflinger
+  vold
 
   # This list comes from hal_interfaces_to_dump in dumputils/dump_utils.c
   hal_audio_server
