@@ -46,6 +46,8 @@ allow init {
   userdata_block_device
 }:{ blk_file lnk_file } relabelto;
 
+allow init super_block_device:lnk_file relabelto;
+
 # setrlimit
 allow init self:global_capability_class_set sys_resource;
 
