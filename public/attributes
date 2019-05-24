@@ -252,6 +252,7 @@ hal_attribute(bufferhub);
 hal_attribute(broadcastradio);
 hal_attribute(camera);
 hal_attribute(cas);
+hal_attribute(codec2);
 hal_attribute(configstore);
 hal_attribute(confirmationui);
 hal_attribute(contexthub);
@@ -305,7 +306,6 @@ hal_attribute(wifi_supplicant);
 
 attribute camera_service_server;
 attribute display_service_server;
-attribute mediaswcodec_server;
 attribute scheduler_service_server;
 attribute sensor_service_server;
 attribute stats_service_server;
