@@ -311,9 +311,10 @@ full_treble_only(`
   neverallow all_untrusted_apps {
     halserverdomain
     -coredomain
+    -hal_cas_server
+    -hal_codec2_server
     -hal_configstore_server
     -hal_graphics_allocator_server
-    -hal_cas_server
     -hal_neuralnetworks_server
     -hal_omx_server
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
