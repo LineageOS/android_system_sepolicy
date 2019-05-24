@@ -1063,8 +1063,8 @@ neverallow {
   -system_server
 
   # Processes that can't exec crash_dump
+  -hal_codec2_server
   -hal_omx_server
-  -mediaswcodec_server
   -mediaextractor
 } tombstoned_crash_socket:unix_stream_socket connectto;
 
@@ -1394,7 +1394,7 @@ full_treble_only(`
 
 neverallow {
   domain
-  -mediaswcodec_server
+  -hal_codec2_server
   -hal_omx_server
 } hal_codec2_hwservice:hwservice_manager add;
 
