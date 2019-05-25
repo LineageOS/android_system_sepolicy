@@ -116,6 +116,7 @@ allow system_server appdomain:process { getsched setsched };
 allow system_server audioserver:process { getsched setsched };
 allow system_server hal_audio:process { getsched setsched };
 allow system_server hal_bluetooth:process { getsched setsched };
+allow system_server hal_codec2_server:process { getsched setsched };
 allow system_server hal_omx_server:process { getsched setsched };
 allow system_server mediaswcodec:process { getsched setsched };
 allow system_server cameraserver:process { getsched setsched };
@@ -206,6 +207,7 @@ binder_service(system_server)
 hal_client_domain(system_server, hal_allocator)
 hal_client_domain(system_server, hal_authsecret)
 hal_client_domain(system_server, hal_broadcastradio)
+hal_client_domain(system_server, hal_codec2)
 hal_client_domain(system_server, hal_configstore)
 hal_client_domain(system_server, hal_contexthub)
 hal_client_domain(system_server, hal_face)
@@ -275,6 +277,7 @@ allow system_server {
   hal_audio_server
   hal_bluetooth_server
   hal_camera_server
+  hal_codec2_server
   hal_graphics_allocator_server
   hal_graphics_composer_server
   hal_health_server
