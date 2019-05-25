@@ -62,6 +62,7 @@ allow cameraserver shell:fifo_file { read write };
 
 # Allow to talk with media codec
 allow cameraserver mediametrics_service:service_manager find;
+hal_client_domain(cameraserver, hal_codec2)
 hal_client_domain(cameraserver, hal_omx)
 hal_client_domain(cameraserver, hal_allocator)
 
