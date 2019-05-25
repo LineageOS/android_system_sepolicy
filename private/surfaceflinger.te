@@ -15,6 +15,7 @@ read_runtime_log_tags(surfaceflinger)
 hal_client_domain(surfaceflinger, hal_graphics_allocator)
 hal_client_domain(surfaceflinger, hal_graphics_composer)
 typeattribute surfaceflinger_tmpfs hal_graphics_composer_client_tmpfs;
+hal_client_domain(surfaceflinger, hal_codec2)
 hal_client_domain(surfaceflinger, hal_omx)
 hal_client_domain(surfaceflinger, hal_configstore)
 hal_client_domain(surfaceflinger, hal_power)
