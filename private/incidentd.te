@@ -49,6 +49,13 @@ userdebug_or_eng(`allow incidentd pstorefs:file r_file_perms');
 allow incidentd stats_service:service_manager find;
 binder_call(incidentd, statsd)
 
+# section id 3026, allow reading /data/misc/perfetto-traces.
+# TODO(b/134706389): remove when no longer used.
+userdebug_or_eng(`
+  allow incidentd perfetto_traces_data_file:dir r_dir_perms;
+  allow incidentd perfetto_traces_data_file:file r_file_perms;
+');
+
 # Create and write into /data/misc/incidents
 allow incidentd incident_data_file:dir rw_dir_perms;
 allow incidentd incident_data_file:file create_file_perms;
@@ -146,12 +153,14 @@ binder_call(incidentd, incident)
 ### neverallow rules
 ###
 
-# only dumpstate, system_server, system_app and incident command can find the incident service
+# only specific domains can find the incident service
+# TODO(b/134706389): remove "perfetto" when no longer used.
 neverallow {
   domain
   -dumpstate
   -incident
   -incidentd
+  userdebug_or_eng(`-perfetto')
   -priv_app
   -statsd
   -system_app
