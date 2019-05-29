@@ -1,3 +1,0 @@
-typeattribute simpleperf_app_runner coredomain;
-
-domain_auto_trans(shell, simpleperf_app_runner_exec, simpleperf_app_runner)
