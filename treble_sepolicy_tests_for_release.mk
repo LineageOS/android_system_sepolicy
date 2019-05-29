@@ -5,8 +5,8 @@ include $(CLEAR_VARS)
 # permissions granted do not violate the treble model.  Also ensure that treble
 # compatibility guarantees are upheld between SELinux version bumps.
 LOCAL_MODULE := treble_sepolicy_tests_$(version)
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -80,14 +80,13 @@ $($(version)_mapping.combined.cil): $($(version)_mapping.cil) $($(version)_mappi
 	mkdir -p $(dir $@)
 	cat $^ > $@
 
-treble_sepolicy_tests_$(version) := $(intermediates)/treble_sepolicy_tests_$(version)
-$(treble_sepolicy_tests_$(version)): ALL_FC_ARGS := $(all_fc_args)
-$(treble_sepolicy_tests_$(version)): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(treble_sepolicy_tests_$(version)): PRIVATE_SEPOLICY_OLD := $(built_$(version)_plat_sepolicy)
-$(treble_sepolicy_tests_$(version)): PRIVATE_COMBINED_MAPPING := $($(version)_mapping.combined.cil)
-$(treble_sepolicy_tests_$(version)): PRIVATE_PLAT_SEPOLICY := $(built_plat_sepolicy)
-$(treble_sepolicy_tests_$(version)): PRIVATE_PLAT_PUB_SEPOLICY := $(base_plat_pub_policy.cil)
-$(treble_sepolicy_tests_$(version)): PRIVATE_FAKE_TREBLE :=
+$(LOCAL_BUILT_MODULE): ALL_FC_ARGS := $(all_fc_args)
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY_OLD := $(built_$(version)_plat_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_COMBINED_MAPPING := $($(version)_mapping.combined.cil)
+$(LOCAL_BUILT_MODULE): PRIVATE_PLAT_SEPOLICY := $(built_plat_sepolicy)
+$(LOCAL_BUILT_MODULE): PRIVATE_PLAT_PUB_SEPOLICY := $(base_plat_pub_policy.cil)
+$(LOCAL_BUILT_MODULE): PRIVATE_FAKE_TREBLE :=
 ifeq ($(PRODUCT_FULL_TREBLE_OVERRIDE),true)
 # TODO(b/113124961): account for PRODUCT_SHIPPING_API_LEVEL when determining
 # fake treble status once emulator is no longer fake treble.
@@ -98,11 +97,11 @@ ifeq ($(PRODUCT_FULL_TREBLE_OVERRIDE),true)
 # lead to release problems where they think they pass this test but
 # fail it when it actually gets runned for compliance.
 #ifeq ($(call math_gt_or_eq,$(PRODUCT_SHIPPING_API_LEVEL),26),)
-$(treble_sepolicy_tests_$(version)): PRIVATE_FAKE_TREBLE := --fake-treble
+$(LOCAL_BUILT_MODULE): PRIVATE_FAKE_TREBLE := --fake-treble
 #endif # if PRODUCT_SHIPPING_API_LEVEL < 26 (Android Oreo)
 #endif # PRODUCT_SHIPPING_API_LEVEL defined
 endif # PRODUCT_FULL_TREBLE_OVERRIDE = true
-$(treble_sepolicy_tests_$(version)): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests \
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests \
   $(all_fc_files) $(built_sepolicy) $(built_plat_sepolicy) \
   $(base_plat_pub_policy.cil) \
   $(built_$(version)_plat_sepolicy) $($(version)_compat) $($(version)_mapping.combined.cil)
