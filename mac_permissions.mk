@@ -18,7 +18,7 @@ all_plat_mac_perms_files := $(call build_policy, mac_permissions.xml, $(PLAT_PRI
 
 # Should be synced with keys.conf.
 all_plat_keys := platform media shared testkey
-all_plat_keys := $(all_keys:%=$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))/%.x509.pem)
+all_plat_keys := $(all_plat_keys:%=$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))/%.x509.pem)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_plat_mac_perms_files)
 $(LOCAL_BUILT_MODULE): $(plat_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
