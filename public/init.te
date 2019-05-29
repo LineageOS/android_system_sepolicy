@@ -92,6 +92,9 @@ allow init device:dir mounton;
 # Mount tmpfs on /apex
 allow init apex_mnt_dir:dir mounton;
 
+# Bind-mount on /system/apex/com.android.runtime
+allow init runtime_apex_dir:dir mounton;
+
 # Create and remove symlinks in /.
 allow init rootfs:lnk_file { create unlink };
 
@@ -170,7 +173,6 @@ allow init {
   file_type
   -app_data_file
   -exec_type
-  -gsi_data_file
   -iorapd_data_file
   -keystore_data_file
   -misc_logd_file
