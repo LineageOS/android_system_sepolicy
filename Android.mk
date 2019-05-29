@@ -1290,16 +1290,12 @@ version_under_treble_tests := 27.0
 include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
 version_under_treble_tests := 28.0
 include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
-version_under_treble_tests := 29.0
-include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
 
 version_under_treble_tests := 26.0
 include $(LOCAL_PATH)/compat.mk
 version_under_treble_tests := 27.0
 include $(LOCAL_PATH)/compat.mk
 version_under_treble_tests := 28.0
-include $(LOCAL_PATH)/compat.mk
-version_under_treble_tests := 29.0
 include $(LOCAL_PATH)/compat.mk
 
 BASE_PLAT_PUBLIC_POLICY :=
