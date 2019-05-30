@@ -75,7 +75,7 @@ allow {
 } ashmem_device:chr_file rw_file_perms;
 
 # Allow using fds to /dev/ashmem.
-allow domain ashmemd:fd use;
+allow domain ashmem_server:fd use;
 
 # /dev/binder can be accessed by non-vendor domains and by apps
 allow {

@@ -1,0 +1,3 @@
+hwbinder_use(ashmem_server)
+get_prop(ashmem_server, hwservicemanager_prop)
+add_hwservice(ashmem_server, system_ashmem_hwservice)
