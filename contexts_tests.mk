@@ -21,14 +21,12 @@ include $(CLEAR_VARS)
 # $(2): path to the host tool
 # $(3): additional argument to be passed to the tool
 define run_contexts_test
-test_out := $$(intermediates)/$$(LOCAL_MODULE)
-$$(test_out): PRIVATE_CONTEXTS := $(1)
-$$(test_out): PRIVATE_SEPOLICY := $$(built_sepolicy)
-$$(test_out): $(2) $(1) $$(built_sepolicy)
+$$(LOCAL_BUILT_MODULE): PRIVATE_CONTEXTS := $(1)
+$$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $$(built_sepolicy)
+$$(LOCAL_BUILT_MODULE): $(2) $(1) $$(built_sepolicy)
 	$$(hide) $$< $(3) $$(PRIVATE_SEPOLICY) $$(PRIVATE_CONTEXTS)
 	$$(hide) mkdir -p $$(dir $$@)
 	$$(hide) touch $$@
-test_out :=
 endef
 
 system_out := $(TARGET_OUT)/etc/selinux
@@ -41,8 +39,8 @@ property_info_checker := $(HOST_OUT_EXECUTABLES)/property_info_checker
 
 ##################################
 LOCAL_MODULE := plat_file_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -52,9 +50,8 @@ $(eval $(call run_contexts_test, $(system_out)/plat_file_contexts, $(checkfc),))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := product_file_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_PRODUCT_MODULE := true
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -64,9 +61,8 @@ $(eval $(call run_contexts_test, $(product_out)/product_file_contexts, $(checkfc
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := vendor_file_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -76,9 +72,8 @@ $(eval $(call run_contexts_test, $(vendor_out)/vendor_file_contexts, $(checkfc),
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := odm_file_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_ODM_MODULE := true
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -89,8 +84,8 @@ $(eval $(call run_contexts_test, $(odm_out)/odm_file_contexts, $(checkfc),))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := plat_hwservice_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -100,9 +95,8 @@ $(eval $(call run_contexts_test, $(system_out)/plat_hwservice_contexts, $(checkf
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := product_hwservice_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_PRODUCT_MODULE := true
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -112,9 +106,8 @@ $(eval $(call run_contexts_test, $(product_out)/product_hwservice_contexts, $(ch
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := vendor_hwservice_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -124,9 +117,8 @@ $(eval $(call run_contexts_test, $(vendor_out)/vendor_hwservice_contexts, $(chec
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := odm_hwservice_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_ODM_MODULE := true
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -139,8 +131,8 @@ pc_files := $(system_out)/plat_property_contexts
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := plat_property_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -153,9 +145,8 @@ pc_files += $(vendor_out)/vendor_property_contexts
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := vendor_property_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -170,9 +161,8 @@ pc_files += $(odm_out)/odm_property_contexts
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := odm_property_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_ODM_MODULE := true
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -189,9 +179,8 @@ pc_files += $(product_out)/product_property_contexts
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := product_property_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_PRODUCT_MODULE := true
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -205,8 +194,8 @@ pc_files :=
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := plat_service_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -216,9 +205,8 @@ $(eval $(call run_contexts_test, $(system_out)/plat_service_contexts, $(checkfc)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := product_service_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_PRODUCT_MODULE := true
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -231,9 +219,8 @@ ifneq ($(PRODUCT_SEPOLICY_SPLIT),true)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := vendor_service_contexts_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_VENDOR_MODULE := true
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 

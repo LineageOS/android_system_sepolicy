@@ -194,6 +194,10 @@ LOCAL_REQUIRED_MODULES += \
 
 include $(BUILD_PHONY_PACKAGE)
 
+# selinux_policy is a main goal and triggers lots of tests.
+# Most tests are FAKE modules, so aren'triggered on normal builds. (e.g. 'm')
+# By setting as droidcore's dependency, tests will run on normal builds.
+droidcore: selinux_policy
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := selinux_policy_system
@@ -329,9 +333,8 @@ include $(BUILD_PHONY_PACKAGE)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := sepolicy_neverallows
-LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -1199,8 +1202,8 @@ include $(LOCAL_PATH)/mac_permissions.mk
 #################################
 include $(CLEAR_VARS)
 LOCAL_MODULE := sepolicy_tests
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
@@ -1214,10 +1217,9 @@ all_fc_files += $(TARGET_OUT_ODM)/etc/selinux/odm_file_contexts
 endif
 all_fc_args := $(foreach file, $(all_fc_files), -f $(file))
 
-sepolicy_tests := $(intermediates)/sepolicy_tests
-$(sepolicy_tests): ALL_FC_ARGS := $(all_fc_args)
-$(sepolicy_tests): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(sepolicy_tests): $(HOST_OUT_EXECUTABLES)/sepolicy_tests $(all_fc_files) $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): ALL_FC_ARGS := $(all_fc_args)
+$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
+$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/sepolicy_tests $(all_fc_files) $(built_sepolicy)
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy_tests -l $(HOST_OUT)/lib64/libsepolwrap.$(SHAREDLIB_EXT) \
 		$(ALL_FC_ARGS)  -p $(PRIVATE_SEPOLICY)
@@ -1309,8 +1311,8 @@ all_fc_args :=
 #################################
 include $(CLEAR_VARS)
 LOCAL_MODULE := sepolicy_freeze_test
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := tests
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
