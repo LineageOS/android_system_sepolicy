@@ -1,1 +1,3 @@
-type ashmemd, domain;
+# TODO(b/133869224): Make private once ashmemd
+# is cleaned up from vendor sepolicy.
+type ashmemd, domain, ashmem_server;
