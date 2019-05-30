@@ -118,6 +118,7 @@ neverallow {
 neverallow {
     domain
     -gsid
+    -init
 } gsi_data_file:dir ~{ open create read getattr setattr search relabelto ioctl };
 
 neverallow {
