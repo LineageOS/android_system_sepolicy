@@ -170,7 +170,7 @@ neverallow { domain -system_server -dumpstate -installd } installd_service:servi
 neverallow { domain -system_server -dumpstate } installd:binder call;
 neverallow installd {
     domain
-    -ashmemd
+    -ashmem_server
     -system_server
     -servicemanager
     userdebug_or_eng(`-su')
