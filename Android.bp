@@ -36,6 +36,13 @@ se_filegroup {
 }
 
 se_filegroup {
+    name: "29.0.board.compat.map",
+    srcs: [
+        "compat/29.0/29.0.cil",
+    ],
+}
+
+se_filegroup {
     name: "26.0.board.ignore.map",
     srcs: [
         "compat/26.0/26.0.ignore.cil",
@@ -56,6 +63,13 @@ se_filegroup {
     ],
 }
 
+se_filegroup {
+    name: "29.0.board.ignore.map",
+    srcs: [
+        "compat/29.0/29.0.ignore.cil",
+    ],
+}
+
 se_cil_compat_map {
     name: "26.0.cil",
     bottom_half: [":26.0.board.compat.map"],
@@ -71,7 +85,13 @@ se_cil_compat_map {
 se_cil_compat_map {
     name: "28.0.cil",
     bottom_half: [":28.0.board.compat.map"],
-    // top_half: "29.0.cil",
+    top_half: "29.0.cil",
+}
+
+se_cil_compat_map {
+    name: "29.0.cil",
+    bottom_half: [":29.0.board.compat.map"],
+    // top_half: "30.0.cil",
 }
 
 se_cil_compat_map {
@@ -92,9 +112,15 @@ se_cil_compat_map {
     // top_half: "29.0.ignore.cil",
 }
 
+se_cil_compat_map {
+    name: "29.0.ignore.cil",
+    bottom_half: [":29.0.board.ignore.map"],
+    // top_half: "30.0.ignore.cil",
+}
+
 prebuilt_etc {
-    name: "28.0.compat.cil",
-    src: "private/compat/28.0/28.0.compat.cil",
+    name: "26.0.compat.cil",
+    src: "private/compat/26.0/26.0.compat.cil",
     sub_dir: "selinux/mapping",
 }
 
@@ -105,8 +131,14 @@ prebuilt_etc {
 }
 
 prebuilt_etc {
-    name: "26.0.compat.cil",
-    src: "private/compat/26.0/26.0.compat.cil",
+    name: "28.0.compat.cil",
+    src: "private/compat/28.0/28.0.compat.cil",
+    sub_dir: "selinux/mapping",
+}
+
+prebuilt_etc {
+    name: "29.0.compat.cil",
+    src: "private/compat/29.0/29.0.compat.cil",
     sub_dir: "selinux/mapping",
 }
 
