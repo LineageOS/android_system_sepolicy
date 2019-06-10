@@ -31,6 +31,8 @@ allow hal_drm sysfs:file r_file_perms;
 
 allow hal_drm tee_device:chr_file rw_file_perms;
 
+allow hal_drm_server { appdomain -isolated_app }:fd use;
+
 # only allow unprivileged socket ioctl commands
 allowxperm hal_drm self:{ rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
