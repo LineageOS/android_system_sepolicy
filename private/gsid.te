@@ -20,7 +20,7 @@ dontaudit gsid self:global_capability_class_set dac_override;
 # libfiemap_writer uses sysfs to derive the bottom of a device-mapper stacking.
 # This requires traversing /sys/block/dm-N/slaves/* and reading the list of
 # file names.
-allow gsid sysfs_dm:dir r_dir_perms;
+r_dir_file(gsid, sysfs_dm)
 
 # Needed to read fstab, which is used to validate that system verity does not
 # use check_once_at_most for sdcard installs. (Note: proc_cmdline is needed
