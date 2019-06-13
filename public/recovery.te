@@ -162,9 +162,11 @@ neverallow recovery {
    data_file_type
    -cache_file
    -cache_recovery_file
+  with_native_coverage(`-method_trace_data_file')
 }:file { no_w_file_perms no_x_file_perms };
 neverallow recovery {
    data_file_type
    -cache_file
    -cache_recovery_file
+  with_native_coverage(`-method_trace_data_file')
 }:dir no_w_dir_perms;
