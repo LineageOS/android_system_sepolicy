@@ -74,8 +74,14 @@ neverallow perfetto {
   -vendor_data_file
   -zoneinfo_data_file
   -perfetto_traces_data_file
+  with_native_coverage(`-method_trace_data_file')
 }:dir *;
 neverallow perfetto { system_data_file -perfetto_traces_data_file }:dir ~{ getattr search };
 neverallow perfetto zoneinfo_data_file:dir ~r_dir_perms;
 neverallow perfetto { data_file_type -zoneinfo_data_file -perfetto_traces_data_file }:lnk_file *;
-neverallow perfetto { data_file_type -zoneinfo_data_file -perfetto_traces_data_file }:file ~write;
+neverallow perfetto {
+  data_file_type
+  -zoneinfo_data_file
+  -perfetto_traces_data_file
+  with_native_coverage(`-method_trace_data_file')
+}:file ~write;
