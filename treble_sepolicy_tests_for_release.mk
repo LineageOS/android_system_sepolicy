@@ -22,6 +22,7 @@ $($(version)_plat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
 $($(version)_plat_policy.conf): PRIVATE_TARGET_BUILD_VARIANT := user
 $($(version)_plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
 $($(version)_plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
+$($(version)_plat_policy.conf): PRIVATE_TGT_WITH_NATIVE_COVERAGE := $(with_native_coverage)
 $($(version)_plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $($(version)_plat_policy.conf): PRIVATE_SEPOLICY_SPLIT := true
 $($(version)_plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
