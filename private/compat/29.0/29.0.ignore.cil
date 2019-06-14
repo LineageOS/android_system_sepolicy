@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    ctl_apexd_prop
     device_config_sys_traced_prop
     runtime_apex_dir
     system_ashmem_hwservice

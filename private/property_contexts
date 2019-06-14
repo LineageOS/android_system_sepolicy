@@ -135,6 +135,9 @@ ctl.start$gsid          u:object_r:ctl_gsid_prop:s0
 ctl.stop$gsid           u:object_r:ctl_gsid_prop:s0
 ctl.restart$gsid        u:object_r:ctl_gsid_prop:s0
 
+# Restrict access to stopping apexd.
+ctl.stop$apexd          u:object_r:ctl_apexd_prop:s0
+
 # NFC properties
 nfc.                    u:object_r:nfc_prop:s0
 
