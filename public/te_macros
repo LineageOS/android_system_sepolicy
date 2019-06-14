@@ -510,6 +510,12 @@ define(`userdebug_or_eng', ifelse(target_build_variant, `eng', $1, ifelse(target
 define(`with_asan', ifelse(target_with_asan, `true', userdebug_or_eng(`$1'), ))
 
 #####################################
+# native coverage builds
+# SELinux rules which apply only to builds with native coverage
+#
+define(`with_native_coverage', ifelse(target_with_native_coverage, `true', userdebug_or_eng(`$1'), ))
+
+#####################################
 # Build-time-only test
 # SELinux rules which are verified during build, but not as part of *TS testing.
 #
