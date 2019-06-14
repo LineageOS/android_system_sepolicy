@@ -702,3 +702,13 @@ define(`never_profile_heap', `
   neverallow heapprofd $1:file read;
   neverallow heapprofd $1:process signal;
 ')
+
+###########################################
+# dump_hal(hal_type)
+# Ability to dump the hal debug info
+#
+define(`dump_hal', `
+  hal_client_domain(dumpstate, $1);
+  allow $1_server dumpstate:fifo_file write;
+  allow $1_server dumpstate:fd use;
+')
