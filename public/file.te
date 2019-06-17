@@ -406,6 +406,8 @@ type app_fuse_file, file_type, data_file_type, core_data_file_type, mlstrustedob
 type face_vendor_data_file, file_type, data_file_type;
 # Type for iris template file
 type iris_vendor_data_file, file_type, data_file_type;
+# Type for calibration template file
+type camera_calibration_vendor_data_file, file_type, data_file_type;
 
 # Socket types
 type adbd_socket, file_type, coredomain_socket;
