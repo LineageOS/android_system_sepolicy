@@ -103,6 +103,9 @@ recovery_only(`
   allow kernel rootfs:file execute;
 ')
 
+# required by VTS lidbm unit test
+allow kernel appdomain_tmpfs:file read;
+
 ###
 ### neverallow rules
 ###
