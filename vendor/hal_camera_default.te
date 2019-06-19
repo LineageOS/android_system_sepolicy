@@ -9,7 +9,3 @@ allow hal_camera_default fwk_sensor_hwservice:hwservice_manager find;
 # For collecting bugreports.
 allow hal_camera_default dumpstate:fd use;
 allow hal_camera_default dumpstate:fifo_file write;
-
-# Allow reading camera calibrations
-allow hal_camera_default camera_calibration_vendor_data_file:dir search;
-allow hal_camera_default camera_calibration_vendor_data_file:file r_file_perms;
