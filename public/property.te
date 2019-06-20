@@ -83,6 +83,7 @@ type system_radio_prop, property_type, core_property_type;
 type system_trace_prop, property_type;
 type test_boot_reason_prop, property_type;
 type test_harness_prop, property_type;
+type theme_prop, property_type;
 type time_prop, property_type;
 type traced_enabled_prop, property_type;
 type traced_lazy_prop, property_type;
@@ -457,6 +458,7 @@ compatible_property_only(`
     -system_trace_prop
     -test_boot_reason_prop
     -test_harness_prop
+    -theme_prop
     -time_prop
     -traced_enabled_prop
     -traced_lazy_prop
