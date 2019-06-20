@@ -51,6 +51,12 @@ userdebug_or_eng(`
   allow domain coredump_file:dir ra_dir_perms;
 ')
 
+with_native_coverage(`
+  # Allow writing coverage information to /data/misc/trace
+  allow domain method_trace_data_file:dir create_dir_perms;
+  allow domain method_trace_data_file:file create_file_perms;
+')
+
 # Root fs.
 allow domain tmpfs:dir { getattr search };
 allow domain rootfs:dir search;
@@ -852,6 +858,7 @@ full_treble_only(`
     # These functions are considered vndk-stable and thus must be allowed for
     # all processes.
     -zoneinfo_data_file
+    with_native_coverage(`-method_trace_data_file')
   }:file_class_set ~{ append getattr ioctl read write map };
   neverallow {
     vendor_init
@@ -860,6 +867,7 @@ full_treble_only(`
     core_data_file_type
     -unencrypted_data_file
     -zoneinfo_data_file
+    with_native_coverage(`-method_trace_data_file')
   }:file_class_set ~{ append getattr ioctl read write map };
   # vendor init needs to be able to read unencrypted_data_file to create directories with FBE.
   # The vendor init binary lives on the system partition so there is not a concern with stability.
@@ -878,6 +886,7 @@ full_treble_only(`
     -system_data_file # default label for files on /data. Covered below...
     -vendor_data_file
     -zoneinfo_data_file
+    with_native_coverage(`-method_trace_data_file')
   }:dir *;
   neverallow {
     vendor_init
@@ -888,6 +897,7 @@ full_treble_only(`
     -system_data_file
     -vendor_data_file
     -zoneinfo_data_file
+    with_native_coverage(`-method_trace_data_file')
   }:dir *;
   # vendor init needs to be able to read unencrypted_data_file to create directories with FBE.
   # The vendor init binary lives on the system partition so there is not a concern with stability.
