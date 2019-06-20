@@ -282,6 +282,7 @@ allow system_server {
   hal_graphics_composer_server
   hal_health_server
   hal_omx_server
+  hal_power_stats_server
   hal_sensors_server
   hal_vr_server
 }:process { signal };
@@ -571,6 +572,7 @@ set_prop(system_server, exported_system_prop)
 set_prop(system_server, exported2_system_prop)
 set_prop(system_server, exported3_system_prop)
 set_prop(system_server, safemode_prop)
+set_prop(system_server, theme_prop)
 set_prop(system_server, dhcp_prop)
 set_prop(system_server, net_radio_prop)
 set_prop(system_server, net_dns_prop)

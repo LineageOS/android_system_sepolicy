@@ -162,6 +162,7 @@ wlan.driver.status u:object_r:exported_wifi_prop:s0 exact enum ok unloaded
 apexd.status u:object_r:apexd_prop:s0 exact enum starting ready
 dev.bootcomplete u:object_r:exported3_system_prop:s0 exact bool
 persist.sys.device_provisioned u:object_r:exported3_system_prop:s0 exact string
+persist.sys.theme u:object_r:theme_prop:s0 exact string
 persist.sys.usb.usbradio.config u:object_r:exported3_system_prop:s0 exact string
 sys.boot_completed u:object_r:exported3_system_prop:s0 exact bool
 sys.retaildemo.enabled u:object_r:exported3_system_prop:s0 exact int
