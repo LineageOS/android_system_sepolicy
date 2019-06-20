@@ -8,6 +8,7 @@ neverallow logd {
   file_type
   -runtime_event_log_tags_file
   userdebug_or_eng(`-coredump_file -misc_logd_file')
+  with_native_coverage(`-method_trace_data_file')
 }:file { create write append };
 
 # protect the event-log-tags file
