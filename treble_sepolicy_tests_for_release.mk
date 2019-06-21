@@ -16,6 +16,7 @@ include $(BUILD_SYSTEM)/base_rules.mk
 # been maintained by our mapping files.
 $(version)_PLAT_PUBLIC_POLICY := $(LOCAL_PATH)/prebuilts/api/$(version)/public
 $(version)_PLAT_PRIVATE_POLICY := $(LOCAL_PATH)/prebuilts/api/$(version)/private
+policy_files := $(call build_policy, $(sepolicy_build_files), $($(version)_PLAT_PUBLIC_POLICY) $($(version)_PLAT_PRIVATE_POLICY))
 $(version)_plat_policy.conf := $(intermediates)/$(version)_plat_policy.conf
 $($(version)_plat_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
 $($(version)_plat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
@@ -25,11 +26,12 @@ $($(version)_plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $($(version)_plat_policy.conf): PRIVATE_TGT_WITH_NATIVE_COVERAGE := $(with_native_coverage)
 $($(version)_plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $($(version)_plat_policy.conf): PRIVATE_SEPOLICY_SPLIT := true
-$($(version)_plat_policy.conf): $(call build_policy, $(sepolicy_build_files), \
-$($(version)_PLAT_PUBLIC_POLICY) $($(version)_PLAT_PRIVATE_POLICY))
+$($(version)_plat_policy.conf): PRIVATE_POLICY_FILES := $(policy_files)
+$($(version)_plat_policy.conf): $(policy_files) $(M4)
 	$(transform-policy-to-conf)
 	$(hide) sed '/dontaudit/d' $@ > $@.dontaudit
 
+policy_files :=
 
 built_$(version)_plat_sepolicy := $(intermediates)/built_$(version)_plat_sepolicy
 $(built_$(version)_plat_sepolicy): PRIVATE_ADDITIONAL_CIL_FILES := \
