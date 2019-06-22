@@ -263,7 +263,8 @@ func (m *selinuxContextsModule) buildGeneralContexts(ctx android.ModuleContext, 
 	rule := android.NewRuleBuilder()
 
 	rule.Command().
-		Text("m4 --fatal-warnings -s").
+		Tool(ctx.Config().PrebuiltBuildTool(ctx, "m4")).
+		Text("--fatal-warnings -s").
 		FlagForEachArg("-D", ctx.DeviceConfig().SepolicyM4Defs()).
 		Inputs(inputs).
 		FlagWithOutput("> ", m.outputPath)

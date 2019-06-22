@@ -66,4 +66,5 @@ neverallow mediaextractor {
   data_file_type
   -zoneinfo_data_file # time zone data from /data/misc/zoneinfo
   userdebug_or_eng(`-apk_data_file') # for loading media extractor plugins
+  with_native_coverage(`-method_trace_data_file')
 }:file open;
