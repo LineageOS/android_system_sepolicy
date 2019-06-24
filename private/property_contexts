@@ -203,3 +203,6 @@ ro.gsid.                u:object_r:gsid_prop:s0
 # Property for disabling NNAPI vendor extensions on product image (used on GSI /product image,
 # which can't use NNAPI vendor extensions).
 ro.nnapi.extensions.deny_on_product                u:object_r:nnapi_ext_deny_product_prop:s0
+
+# Property that is set once ueventd finishes cold boot.
+ro.cold_boot_done       u:object_r:cold_boot_done_prop:s0
