@@ -55,6 +55,7 @@ userdebug_or_eng(`
   allow atrace hwservicemanager:hwservice_manager list;
   # Notify the camera HAL.
   hal_client_domain(atrace, hal_camera)
+  hal_client_domain(atrace, hal_vibrator)
 ')
 
 # Remove logspam from notification attempts to non-whitelisted services.
