@@ -1011,7 +1011,7 @@ wakelock_use(system_server)
 # needs these privileges to compare file signatures while processing installs.
 #
 # Only apexd is allowed to create new entries or write to any file under /data/apex.
-allow system_server apex_data_file:dir search;
+allow system_server apex_data_file:dir { getattr search };
 allow system_server apex_data_file:file r_file_perms;
 
 # Allow PasswordSlotManager rw access to /metadata/password_slots, so GSIs and the host image can
