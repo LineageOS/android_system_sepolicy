@@ -90,6 +90,7 @@ allow dumpstate {
   hal_sensors_server
   hal_thermal_server
   hal_vr_server
+  system_suspend_server
 }:process signal;
 
 # Connect to tombstoned to intercept dumps.
