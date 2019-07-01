@@ -19,3 +19,7 @@ allow bufferhubd ion_device:chr_file r_file_perms;
 # those two: it talks to hal_omx_server via Binder and talks to bufferhubd via PDX.
 # Thus, there is no need to use pdx_client macro.
 allow bufferhubd hal_omx_server:fd use;
+
+# Codec2 is similar to OMX
+allow bufferhubd hal_codec2_server:fd use;
+

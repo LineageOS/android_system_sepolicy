@@ -50,7 +50,6 @@ userdebug_or_eng(`
   # Some dex files are not world-readable.
   # We are still constrained by the SELinux rules above.
   allow heapprofd self:global_capability_class_set dac_read_search;
-
 ')
 
 # This is going to happen on user but is benign because central heapprofd

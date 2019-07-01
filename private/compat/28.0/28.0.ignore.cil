@@ -47,7 +47,7 @@
     device_config_service
     device_config_sys_traced_prop
     dnsresolver_service
-    dynamic_android_service
+    dynamic_system_service
     dynamic_system_prop
     face_service
     face_vendor_data_file
@@ -108,6 +108,7 @@
     postinstall_apex_mnt_dir
     recovery_socket
     role_service
+    rollback_service
     rs
     rs_exec
     rss_hwm_reset

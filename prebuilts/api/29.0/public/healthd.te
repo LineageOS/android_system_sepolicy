@@ -46,6 +46,7 @@ allow healthd input_device:dir r_dir_perms;
 allow healthd input_device:chr_file r_file_perms;
 allow healthd tty_device:chr_file rw_file_perms;
 allow healthd ashmem_device:chr_file execute;
+allow healthd self:process execmem;
 allow healthd proc_sysrq:file rw_file_perms;
 
 # Healthd needs to tell init to continue the boot

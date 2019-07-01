@@ -186,8 +186,6 @@ persist.device_config.runtime_native.        u:object_r:device_config_runtime_na
 persist.device_config.runtime_native_boot.   u:object_r:device_config_runtime_native_boot_prop:s0
 persist.device_config.media_native.          u:object_r:device_config_media_native_prop:s0
 
-# Properties that relate to legacy server configurable flags
-
 apexd.                  u:object_r:apexd_prop:s0
 persist.apexd.          u:object_r:apexd_prop:s0
 

@@ -26,9 +26,10 @@ untrusted_app_domain(untrusted_app_25)
 net_domain(untrusted_app_25)
 bluetooth_domain(untrusted_app_25)
 
-# b/34115651 - net.dns* properties read
+# b/34115651, b/33308258 - net.dns* properties read
 # This will go away in a future Android release
 get_prop(untrusted_app_25, net_dns_prop)
+auditallow untrusted_app_25 net_dns_prop:file read;
 
 # b/35917228 - /proc/misc access
 # This will go away in a future Android release
@@ -60,5 +61,3 @@ userdebug_or_eng(`auditallow untrusted_app_25 dex2oat_exec:file rx_file_perms;')
 # ASharedMemory instead.
 allow untrusted_app_25 ashmem_device:chr_file rw_file_perms;
 auditallow untrusted_app_25 ashmem_device:chr_file open;
-
-# Read /mnt/sdcard symlink.
