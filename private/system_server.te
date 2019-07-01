@@ -286,6 +286,7 @@ allow system_server {
   hal_power_stats_server
   hal_sensors_server
   hal_vr_server
+  system_suspend_server
 }:process { signal };
 
 # Use sockets received over binder from various services.
