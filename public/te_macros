@@ -692,10 +692,15 @@ define(`can_profile_heap_userdebug_or_eng', `
     # Use shared memory received over the unix socket.
     allow $1 heapprofd:fd use;
 
-    # To read from the received file descriptors.
+    # To read and write from the received file descriptors.
     # /proc/[pid]/maps and /proc/[pid]/mem have the same SELinux label as the
     # process they relate to.
-    allow heapprofd $1:file r_file_perms;
+    # We need to write to /proc/$PID/page_idle to find idle allocations.
+    # The client only opens /proc/self/page_idle with RDWR, everything else
+    # with RDONLY.
+    # heapprofd cannot open /proc/$PID/mem itself, as it does not have
+    # sys_ptrace.
+    allow heapprofd $1:file rw_file_perms;
     # Allow searching the /proc/[pid] directory for cmdline.
     allow heapprofd $1:dir r_dir_perms;
   ')
