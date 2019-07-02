@@ -5,10 +5,10 @@
 (type netd_socket)
 (type qtaguid_proc)
 (type reboot_data_file)
-(type vold_socket)
 (type rild)
 (type untrusted_v2_app)
 (type webview_zygote_socket)
+(type vold_socket)
 
 (expandtypeattribute (accessibility_service_27_0) true)
 (expandtypeattribute (account_service_27_0) true)

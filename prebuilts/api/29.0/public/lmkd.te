@@ -23,7 +23,6 @@ allow lmkd sysfs_lowmemorykiller:file w_file_perms;
 
 # setsched and send kill signals
 allow lmkd appdomain:process { setsched sigkill };
-# TODO: delete this line b/131761776
 allow lmkd kernel:process { setsched };
 
 # Clean up old cgroups
@@ -47,8 +46,6 @@ allow lmkd domain:file { open read };
 # live lock watchdog process allowed to dump process trace and
 # reboot because orderly shutdown may not be possible.
 allow lmkd proc_sysrq:file rw_file_perms;
-
-# Read /proc/lowmemorykiller
 
 # Read /proc/meminfo
 allow lmkd proc_meminfo:file r_file_perms;

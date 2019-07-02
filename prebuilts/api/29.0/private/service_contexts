@@ -36,8 +36,8 @@ connectivity                              u:object_r:connectivity_service:s0
 connmetrics                               u:object_r:connmetrics_service:s0
 consumer_ir                               u:object_r:consumer_ir_service:s0
 content                                   u:object_r:content_service:s0
-content_suggestions                       u:object_r:content_suggestions_service:s0
 content_capture                           u:object_r:content_capture_service:s0
+content_suggestions                       u:object_r:content_suggestions_service:s0
 contexthub                                u:object_r:contexthub_service:s0
 country_detector                          u:object_r:country_detector_service:s0
 coverage                                  u:object_r:coverage_service:s0
@@ -60,7 +60,7 @@ dreams                                    u:object_r:dreams_service:s0
 drm.drmManager                            u:object_r:drmserver_service:s0
 dropbox                                   u:object_r:dropbox_service:s0
 dumpstate                                 u:object_r:dumpstate_service:s0
-dynamic_android                           u:object_r:dynamic_android_service:s0
+dynamic_system                            u:object_r:dynamic_system_service:s0
 econtroller                               u:object_r:radio_service:s0
 euicc_card_controller                     u:object_r:radio_service:s0
 external_vibrator_service                 u:object_r:external_vibrator_service:s0
@@ -157,6 +157,7 @@ rcs                                       u:object_r:radio_service:s0
 recovery                                  u:object_r:recovery_service:s0
 restrictions                              u:object_r:restrictions_service:s0
 role                                      u:object_r:role_service:s0
+rollback                                  u:object_r:rollback_service:s0
 rttmanager                                u:object_r:rttmanager_service:s0
 runtime                                   u:object_r:runtime_service:s0
 samplingprofiler                          u:object_r:samplingprofiler_service:s0

@@ -9,7 +9,7 @@ net_domain(hal_wifi_supplicant_default)
 type_transition hal_wifi_supplicant_default wifi_data_file:dir wpa_socket "sockets";
 
 # Allow wpa_supplicant to configure nl80211
-allow hal_wifi_supplicant_default proc_net:file write;
+allow hal_wifi_supplicant_default proc_net_type:file write;
 
 # Allow wpa_supplicant to talk to Wifi Keystore HwBinder service.
 hwbinder_use(hal_wifi_supplicant_default)
