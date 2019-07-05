@@ -127,6 +127,7 @@ allow shell {
   proc_meminfo
   proc_modules
   proc_pid_max
+  proc_slabinfo
   proc_stat
   proc_timer
   proc_uptime

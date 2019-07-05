@@ -120,16 +120,16 @@ r_dir_file(appdomain, vendor_framework_file)
 allow appdomain dex2oat_exec:file rx_file_perms;
 
 # Read/write wallpaper file (opened by system).
-allow appdomain wallpaper_file:file { getattr read write };
+allow appdomain wallpaper_file:file { getattr read write map };
 
 # Read/write cached ringtones (opened by system).
-allow appdomain ringtone_file:file { getattr read write };
+allow appdomain ringtone_file:file { getattr read write map };
 
 # Read ShortcutManager icon files (opened by system).
-allow appdomain shortcut_manager_icons:file { getattr read };
+allow appdomain shortcut_manager_icons:file { getattr read map };
 
 # Read icon file (opened by system).
-allow appdomain icon_file:file { getattr read };
+allow appdomain icon_file:file { getattr read map };
 
 # Old stack dumping scheme : append to a global trace file (/data/anr/traces.txt).
 #
@@ -236,12 +236,12 @@ allow appdomain appdomain:unix_stream_socket { getopt getattr read write shutdow
 
 # Backup ability for every app. BMS opens and passes the fd
 # to any app that has backup ability. Hence, no open permissions here.
-allow appdomain backup_data_file:file { read write getattr };
-allow appdomain cache_backup_file:file { read write getattr };
+allow appdomain backup_data_file:file { read write getattr map };
+allow appdomain cache_backup_file:file { read write getattr map };
 allow appdomain cache_backup_file:dir getattr;
 # Backup ability using 'adb backup'
 allow appdomain system_data_file:lnk_file r_file_perms;
-allow appdomain system_data_file:file { getattr read };
+allow appdomain system_data_file:file { getattr read map };
 
 # Allow read/stat of /data/media files passed by Binder or local socket IPC.
 allow { appdomain -isolated_app } media_rw_data_file:file { read getattr };

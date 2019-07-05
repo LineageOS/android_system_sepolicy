@@ -105,7 +105,7 @@ allow init metadata_file:dir mounton;
 allow init tmpfs:dir relabelfrom;
 
 # Create directories under /dev/cpuctl after chowning it to system.
-allow init self:global_capability_class_set dac_override;
+allow init self:global_capability_class_set { dac_override dac_read_search };
 
 # Set system clock.
 allow init self:global_capability_class_set sys_time;
@@ -177,7 +177,7 @@ allow init {
   -system_file
   -vendor_file_type
   -vold_data_file
-}:file { create getattr open read write setattr relabelfrom unlink };
+}:file { create getattr open read write setattr relabelfrom unlink map };
 
 allow init {
   file_type
@@ -310,6 +310,17 @@ allow init {
 allow init {
   proc_security
 }:file rw_file_perms;
+
+# init chmod/chown access to /proc files.
+allow init {
+  proc_cmdline
+  proc_kmsg
+  proc_net
+  proc_qtaguid_stat
+  proc_slabinfo
+  proc_sysrq
+  proc_vmallocinfo
+}:file setattr;
 
 # init access to /sys files.
 allow init {

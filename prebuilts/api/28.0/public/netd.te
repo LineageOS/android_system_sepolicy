@@ -61,7 +61,7 @@ allow netd fs_bpf:file create_file_perms;
 # TODO: netd previously thought it needed these permissions to do WiFi related
 #       work.  However, after all the WiFi stuff is gone, we still need them.
 #       Why?
-allow netd self:global_capability_class_set { dac_override chown };
+allow netd self:global_capability_class_set { dac_override dac_read_search chown };
 
 # Needed to update /data/misc/net/rt_tables
 allow netd net_data_file:file create_file_perms;
