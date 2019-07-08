@@ -206,3 +206,6 @@ ro.nnapi.extensions.deny_on_product                u:object_r:nnapi_ext_deny_pro
 
 # Property that is set once ueventd finishes cold boot.
 ro.cold_boot_done       u:object_r:cold_boot_done_prop:s0
+
+# Charger properties
+ro.charger.             u:object_r:charger_prop:s0
