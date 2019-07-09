@@ -67,6 +67,11 @@ userdebug_or_eng(`
   allow surfaceflinger wm_trace_data_file:file { getattr setattr create w_file_perms };
 ')
 
+# Needed to register as a Perfetto producer.
+allow surfaceflinger traced:fd use;
+allow surfaceflinger traced_tmpfs:file { read write getattr map };
+unix_socket_connect(surfaceflinger, traced_producer, traced)
+
 # Use socket supplied by adbd, for cmd gpu vkjson etc.
 allow surfaceflinger adbd:unix_stream_socket { read write getattr };
 
