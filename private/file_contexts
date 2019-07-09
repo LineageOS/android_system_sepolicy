@@ -406,10 +406,10 @@
 /(product|system/product)/etc/selinux/product_mac_permissions\.xml u:object_r:mac_perms_file:s0
 
 #############################
-# Product-Services files
+# SystemExt files
 #
-/(product_services|system/product_services)(/.*)?               u:object_r:system_file:s0
-/(product_services|system/product_services)/overlay(/.*)?       u:object_r:vendor_overlay_file:s0
+/(system_ext|system/system_ext)(/.*)?               u:object_r:system_file:s0
+/(system_ext|system/system_ext)/overlay(/.*)?       u:object_r:vendor_overlay_file:s0
 
 #############################
 # Vendor files from /(product|system/product)/vendor_overlay
