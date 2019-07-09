@@ -629,6 +629,7 @@
 /metadata/vold(/.*)?      u:object_r:vold_metadata_file:s0
 /metadata/gsi(/.*)?       u:object_r:gsi_metadata_file:s0
 /metadata/password_slots(/.*)?    u:object_r:password_slot_metadata_file:s0
+/metadata/ota(/.*)?       u:object_r:ota_metadata_file:s0
 
 #############################
 # asec containers

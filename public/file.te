@@ -212,6 +212,8 @@ type gsi_metadata_file, file_type;
 type password_slot_metadata_file, file_type;
 # APEX files within /metadata
 type apex_metadata_file, file_type;
+# libsnapshot files within /metadata
+type ota_metadata_file, file_type;
 
 # Type for /dev/cpu_variant:.*.
 type dev_cpu_variant, file_type;
