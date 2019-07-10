@@ -553,14 +553,6 @@ allow init vendor_shell_exec:file execute;
 allow init vold_metadata_file:dir create_dir_perms;
 allow init vold_metadata_file:file getattr;
 
-# Allow init to use binder
-binder_use(init);
-allow init apex_service:service_manager find;
-# Allow servicemanager to pass it
-allow servicemanager init:binder transfer;
-# Allow calls from init to apexd
-allow init apexd:binder call;
-
 # Allow init to touch PSI monitors
 allow init proc_pressure_mem:file { rw_file_perms setattr };
 
@@ -585,10 +577,8 @@ neverallow init { app_data_file privapp_data_file }:lnk_file read;
 # init should never execute a program without changing to another domain.
 neverallow init { file_type fs_type }:file execute_no_trans;
 
-# init can only find the APEX service
-neverallow init { service_manager_type -apex_service }:service_manager { find };
 # init can never add binder services
-neverallow init service_manager_type:service_manager { add };
+neverallow init service_manager_type:service_manager { add find };
 # init can never list binder services
 neverallow init servicemanager:service_manager list;
 
