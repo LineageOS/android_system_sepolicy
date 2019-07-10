@@ -11,7 +11,7 @@ typeattribute isolated_app coredomain;
 app_domain(isolated_app)
 
 # Access already open app data files received over Binder or local socket IPC.
-allow isolated_app app_data_file:file { append read write getattr lock };
+allow isolated_app app_data_file:file { append read write getattr lock map };
 
 allow isolated_app activity_service:service_manager find;
 allow isolated_app display_service:service_manager find;
@@ -29,7 +29,7 @@ allow isolated_app self:process ptrace;
 # neverallow rules below.
 # media_rw_data_file is included for sdcardfs, and can be removed if sdcardfs
 # is modified to change the secontext when accessing the lower filesystem.
-allow isolated_app { sdcard_type media_rw_data_file }:file { read write append getattr lock };
+allow isolated_app { sdcard_type media_rw_data_file }:file { read write append getattr lock map };
 
 # For webviews, isolated_app processes can be forked from the webview_zygote
 # in addition to the zygote. Allow access to resources inherited from the
@@ -102,7 +102,7 @@ neverallow isolated_app cache_file:file ~{ read getattr };
 neverallow isolated_app { storage_file mnt_user_file sdcard_type }:dir ~getattr;
 neverallow isolated_app { storage_file mnt_user_file }:file_class_set *;
 neverallow isolated_app sdcard_type:{ devfile_class_set lnk_file sock_file fifo_file } *;
-neverallow isolated_app sdcard_type:file ~{ read write append getattr lock };
+neverallow isolated_app sdcard_type:file ~{ read write append getattr lock map };
 
 # Do not allow USB access
 neverallow isolated_app { usb_device usbaccessory_device }:chr_file *;
