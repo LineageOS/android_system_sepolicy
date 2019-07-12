@@ -426,11 +426,9 @@ neverallow { domain -init } usermodehelper:file { append write };
 neverallow { domain -init -ueventd } sysfs_usermodehelper:file { append write };
 neverallow { domain -init -vendor_init } proc_security:file { append open read write };
 
-# Nobody is allowed to make binder calls into init.
-# Only servicemanager may transfer binder references to init
-# vendor_init shouldn't use binder at all.
-neverallow * init:binder ~{ transfer };
-neverallow { domain -servicemanager } init:binder { transfer };
+# Init can't do anything with binder calls. If this neverallow rule is being
+# triggered, it's probably due to a service with no SELinux domain.
+neverallow * init:binder *;
 neverallow * vendor_init:binder *;
 
 # Don't allow raw read/write/open access to block_device
