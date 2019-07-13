@@ -49,7 +49,7 @@ allow storaged package_native_service:service_manager find;
 
 # Kernel does extra check on CAP_DAC_OVERRIDE for libbinder when storaged is
 # running as root. See b/35323867 #3.
-dontaudit storaged self:global_capability_class_set dac_override;
+dontaudit storaged self:global_capability_class_set { dac_override dac_read_search };
 
 # For collecting bugreports.
 allow storaged dumpstate:fifo_file write;

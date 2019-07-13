@@ -18,7 +18,7 @@ allow runas system_data_file:lnk_file getattr;
 allow runas system_data_file:lnk_file read;
 
 # run-as checks and changes to the app data dir.
-dontaudit runas self:global_capability_class_set dac_override;
+dontaudit runas self:global_capability_class_set { dac_override dac_read_search };
 allow runas app_data_file:dir { getattr search };
 
 # run-as switches to the app UID/GID.

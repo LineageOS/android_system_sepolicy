@@ -75,7 +75,7 @@ allow vold shell_data_file:dir { create getattr setattr };
 allow vold tmpfs:filesystem { mount unmount };
 allow vold tmpfs:dir create_dir_perms;
 allow vold tmpfs:dir mounton;
-allow vold self:global_capability_class_set { net_admin dac_override mknod sys_admin chown fowner fsetid };
+allow vold self:global_capability_class_set { net_admin dac_override dac_read_search mknod sys_admin chown fowner fsetid };
 allow vold self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 allow vold app_data_file:dir search;
 allow vold app_data_file:file rw_file_perms;
