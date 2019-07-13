@@ -77,6 +77,9 @@ recovery_only(`
   allow fastbootd sysfs_dt_firmware_android:file r_file_perms;
   allow fastbootd sysfs_dt_firmware_android:dir r_dir_perms;
 
+  # Needed because libdm reads sysfs to validate when a dm path is ready.
+  r_dir_file(fastbootd, sysfs_dm)
+
   # Needed for realpath() call to resolve symlinks.
   allow fastbootd block_device:dir getattr;
   userdebug_or_eng(`
