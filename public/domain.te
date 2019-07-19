@@ -998,7 +998,6 @@ full_treble_only(`
     -crash_dump
     -init # starts vendor executables
     -kernel # loads /vendor/firmware
-    userdebug_or_eng(`-perfprofd')
     userdebug_or_eng(`-heapprofd')
     -shell
     -system_executes_vendor_violators
@@ -1323,7 +1322,6 @@ full_treble_only(`
     -crash_dump
     -init
     -kernel
-    -perfprofd
     -heapprofd
     -ueventd
   } vendor_file:file { no_w_file_perms no_x_file_perms open };
