@@ -152,10 +152,14 @@ type system_event_log_tags_file, system_file_type, file_type;
 type system_lib_file, system_file_type, file_type;
 # system libraries that are available only to bootstrap processes
 type system_bootstrap_lib_file, system_file_type, file_type;
+# Default type for the group file /system/etc/group.
+type system_group_file, system_file_type, file_type;
 # Default type for linker executable /system/bin/linker[64].
 type system_linker_exec, system_file_type, file_type;
 # Default type for linker config /system/etc/ld.config.*.
 type system_linker_config_file, system_file_type, file_type;
+# Default type for the passwd file /system/etc/passwd.
+type system_passwd_file, system_file_type, file_type;
 # Default type for linker config /system/etc/seccomp_policy/*.
 type system_seccomp_policy_file, system_file_type, file_type;
 # Default type for cacerts in /system/etc/security/cacerts/*.
@@ -212,6 +216,8 @@ type gsi_metadata_file, file_type;
 type password_slot_metadata_file, file_type;
 # APEX files within /metadata
 type apex_metadata_file, file_type;
+# libsnapshot files within /metadata
+type ota_metadata_file, file_type;
 
 # Type for /dev/cpu_variant:.*.
 type dev_cpu_variant, file_type;
