@@ -27,9 +27,6 @@ allow statsd stats_data_file:file create_file_perms;
 binder_call(statsd, appdomain)
 binder_call(statsd, healthd)
 binder_call(statsd, incidentd)
-userdebug_or_eng(`
-  binder_call(statsd, perfprofd)
-')
 binder_call(statsd, system_server)
 
 # Allow statsd to interact with gpuservice
@@ -44,9 +41,6 @@ control_logd(statsd)
 allow statsd {
   app_api_service
   incident_service
-  userdebug_or_eng(`
-    perfprofd_service
-  ')
   system_api_service
 }:service_manager find;
 
