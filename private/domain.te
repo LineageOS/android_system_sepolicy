@@ -95,7 +95,6 @@ neverallow {
   userdebug_or_eng(`-incidentd')
   -storaged
   -system_server
-  userdebug_or_eng(`-perfprofd')
 } self:global_capability_class_set sys_ptrace;
 
 # Limit ability to generate hardware unique device ID attestations to priv_apps
@@ -130,7 +129,6 @@ neverallow {
   -app_zygote
   -dexoptanalyzer
   -installd
-  userdebug_or_eng(`-perfprofd')
   -profman
   -rs # spawned by appdomain, so carryover the exception above
   -runas
@@ -152,7 +150,6 @@ neverallow {
   -appdomain
   -app_zygote
   -installd
-  userdebug_or_eng(`-perfprofd')
   -rs # spawned by appdomain, so carryover the exception above
 } { privapp_data_file app_data_file }:file_class_set open;
 
@@ -262,7 +259,6 @@ define(`dac_override_allowed', `{
   lmkd
   migrate_legacy_obb_data
   netd
-  perfprofd
   postinstall_dexopt
   recovery
   rss_hwm_reset
