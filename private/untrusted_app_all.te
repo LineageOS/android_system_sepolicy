@@ -104,14 +104,6 @@ allow untrusted_app_all gpu_service:service_manager find;
 # Allow untrusted apps to interact with gpuservice
 binder_call(untrusted_app_all, gpuservice)
 
-# Allow GMS core to access perfprofd output, which is stored
-# in /data/misc/perfprofd/. GMS core will need to list all
-# data stored in that directory to process them one by one.
-userdebug_or_eng(`
-  allow untrusted_app_all perfprofd_data_file:file r_file_perms;
-  allow untrusted_app_all perfprofd_data_file:dir r_dir_perms;
-')
-
 # gdbserver for ndk-gdb ptrace attaches to app process.
 allow untrusted_app_all self:process ptrace;
 
