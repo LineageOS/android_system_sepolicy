@@ -7,4 +7,7 @@ init_daemon_domain(linkerconfig)
 allow linkerconfig linkerconfig_file:dir rw_dir_perms;
 allow linkerconfig linkerconfig_file:file create_file_perms;
 
+# Allow linkerconfig to log to the kernel.
+allow linkerconfig kmsg_device:chr_file w_file_perms;
+
 neverallow { domain -init -linkerconfig } linkerconfig_exec:file no_x_file_perms;
