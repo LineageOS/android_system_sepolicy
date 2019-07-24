@@ -199,9 +199,6 @@ binder_call(system_server, update_engine)
 binder_call(system_server, vold)
 binder_call(system_server, wificond)
 binder_call(system_server, wpantund)
-userdebug_or_eng(`
-  binder_call(system_server, perfprofd)
-')
 binder_service(system_server)
 
 # Use HALs
@@ -430,12 +427,6 @@ allow system_server incident_data_file:file read;
 # binder.
 allow system_server perfetto_traces_data_file:file read;
 allow system_server perfetto:fd use;
-
-# Allow dropbox to read /data/misc/perfprofd. Only the fd is sent over binder.
-userdebug_or_eng(`
-  allow system_server perfprofd_data_file:file { getattr read };
-  allow system_server perfprofd:fd use;
-')
 
 # Manage /data/backup.
 allow system_server backup_data_file:dir create_dir_perms;
@@ -734,9 +725,6 @@ allow system_server surfaceflinger_service:service_manager find;
 allow system_server update_engine_service:service_manager find;
 allow system_server vold_service:service_manager find;
 allow system_server wificond_service:service_manager find;
-userdebug_or_eng(`
-  allow system_server perfprofd_service:service_manager find;
-')
 
 add_service(system_server, batteryproperties_service)
 
