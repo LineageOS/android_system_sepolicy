@@ -107,6 +107,7 @@ ro.com.android.prov_mobiledata u:object_r:exported3_default_prop:s0 exact bool
 ro.config.alarm_alert u:object_r:exported2_config_prop:s0 exact string
 ro.config.media_vol_steps u:object_r:exported2_config_prop:s0 exact int
 ro.config.notification_sound u:object_r:exported2_config_prop:s0 exact string
+ro.config.per_app_memcg u:object_r:exported3_default_prop:s0 exact bool
 ro.config.ringtone u:object_r:exported2_config_prop:s0 exact string
 ro.control_privapp_permissions u:object_r:exported3_default_prop:s0 exact string
 ro.cp_system_other_odex u:object_r:exported3_default_prop:s0 exact int
@@ -122,9 +123,16 @@ ro.gfx.driver.0 u:object_r:exported3_default_prop:s0 exact string
 ro.gfx.angle.supported u:object_r:exported3_default_prop:s0 exact bool
 ro.hdmi.device_type u:object_r:exported3_default_prop:s0 exact string
 ro.hdmi.wake_on_hotplug u:object_r:exported3_default_prop:s0 exact bool
+ro.lmk.critical u:object_r:exported3_default_prop:s0 exact int
 ro.lmk.critical_upgrade u:object_r:exported3_default_prop:s0 exact bool
+ro.lmk.debug u:object_r:exported3_default_prop:s0 exact bool
 ro.lmk.downgrade_pressure u:object_r:exported3_default_prop:s0 exact int
 ro.lmk.kill_heaviest_task u:object_r:exported3_default_prop:s0 exact bool
+ro.lmk.kill_timeout_ms u:object_r:exported3_default_prop:s0 exact int
+ro.lmk.low u:object_r:exported3_default_prop:s0 exact int
+ro.lmk.medium u:object_r:exported3_default_prop:s0 exact int
+ro.lmk.swap_free_low_percentage u:object_r:exported3_default_prop:s0 exact int
+ro.lmk.use_minfree_levels u:object_r:exported3_default_prop:s0 exact bool
 ro.lmk.upgrade_pressure u:object_r:exported3_default_prop:s0 exact int
 ro.minui.default_rotation u:object_r:exported3_default_prop:s0 exact string
 ro.minui.overscan_percent u:object_r:exported3_default_prop:s0 exact int
