@@ -25,7 +25,6 @@ full_treble_only(`
         -idmap
         -init
         -installd
-        userdebug_or_eng(`-perfprofd')
         userdebug_or_eng(`-heapprofd')
         -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
@@ -41,7 +40,6 @@ full_treble_only(`
         -idmap
         -init
         -installd
-        userdebug_or_eng(`-perfprofd')
         userdebug_or_eng(`-heapprofd')
         -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
@@ -126,7 +124,6 @@ full_treble_only(`
     -atrace
     -dumpstate
     -init
-    userdebug_or_eng(`-perfprofd')
     -traced_probes
     -shell
     -traceur_app
@@ -196,12 +193,10 @@ allow {
   coredomain
   -init
   -iorapd
-  -perfprofd
 } ashmem_device_service:service_manager find;
 
 binder_call({
   coredomain
   -init
   -iorapd
-  -perfprofd
 }, ashmemd)
