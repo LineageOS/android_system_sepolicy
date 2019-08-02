@@ -9,6 +9,8 @@ android.hardware.audio.effect::IEffectsFactory                  u:object_r:hal_a
 android.hardware.audio::IDevicesFactory                         u:object_r:hal_audio_hwservice:s0
 android.hardware.authsecret::IAuthSecret                        u:object_r:hal_authsecret_hwservice:s0
 android.hardware.automotive.audiocontrol::IAudioControl         u:object_r:hal_audiocontrol_hwservice:s0
+android.hardware.automotive.can::ICanController                 u:object_r:hal_can_controller_hwservice:s0
+android.hardware.automotive.can::ICanBus                        u:object_r:hal_can_bus_hwservice:s0
 android.hardware.automotive.evs::IEvsEnumerator                 u:object_r:hal_evs_hwservice:s0
 android.hardware.automotive.vehicle::IVehicle                   u:object_r:hal_vehicle_hwservice:s0
 android.hardware.biometrics.face::IBiometricsFace               u:object_r:hal_face_hwservice:s0
