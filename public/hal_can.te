@@ -1,0 +1,9 @@
+# CAN controller
+binder_call(hal_can_controller_client, hal_can_controller_server)
+add_hwservice(hal_can_controller_server, hal_can_controller_hwservice)
+allow hal_can_controller_client hal_can_controller_hwservice:hwservice_manager find;
+
+# CAN bus
+binder_call(hal_can_bus_client, hal_can_bus_server)
+add_hwservice(hal_can_bus_server, hal_can_bus_hwservice)
+allow hal_can_bus_client hal_can_bus_hwservice:hwservice_manager find;
