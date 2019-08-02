@@ -410,6 +410,8 @@
 /(product|system/product)/etc/selinux/product_service_contexts   u:object_r:service_contexts_file:s0
 /(product|system/product)/etc/selinux/product_mac_permissions\.xml u:object_r:mac_perms_file:s0
 
+/(product|system/product)/lib(64)?(/.*)?                         u:object_r:system_lib_file:s0
+
 #############################
 # SystemExt files
 #
