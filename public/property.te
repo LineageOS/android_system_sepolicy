@@ -55,6 +55,7 @@ type gsid_prop, property_type;
 type heapprofd_enabled_prop, property_type;
 type heapprofd_prop, property_type;
 type hwservicemanager_prop, property_type;
+type init_svc_debug_prop, property_type;
 type last_boot_reason_prop, property_type;
 type system_lmk_prop, property_type;
 type llkd_prop, property_type;
@@ -189,6 +190,18 @@ dontaudit domain {
   ctl_mdnsd_prop
   ctl_rildaemon_prop
 }:property_service set;
+
+neverallow {
+  domain
+  -init
+} init_svc_debug_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+  -dumpstate
+  userdebug_or_eng(`-su')
+} init_svc_debug_prop:file no_rw_file_perms;
 
 compatible_property_only(`
 # Prevent properties from being set
