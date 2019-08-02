@@ -217,6 +217,7 @@ not_compatible_property(`
       -apexd_prop
       -gsid_prop
       -nnapi_ext_deny_product_prop
+      -init_svc_debug_prop
     })
 ')
 
