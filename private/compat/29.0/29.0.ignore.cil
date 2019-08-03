@@ -10,6 +10,9 @@
     platform_compat_service
     ctl_apexd_prop
     device_config_sys_traced_prop
+    hal_can_bus_hwservice
+    hal_can_controller_hwservice
+    init_svc_debug_prop
     ota_metadata_file
     runtime_apex_dir
     system_ashmem_hwservice

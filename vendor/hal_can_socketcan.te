@@ -1,0 +1,26 @@
+type hal_can_socketcan, domain;
+hal_server_domain(hal_can_socketcan, hal_can_controller)
+hal_server_domain(hal_can_socketcan, hal_can_bus)
+
+type hal_can_socketcan_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_can_socketcan)
+
+# Managing SocketCAN interfaces
+allow hal_can_socketcan self:capability net_admin;
+allow hal_can_socketcan self:netlink_route_socket { create bind write nlmsg_write read };
+
+# Calling if_nametoindex(3) to open CAN sockets
+allow hal_can_socketcan self:udp_socket { create ioctl };
+allowxperm hal_can_socketcan self:udp_socket ioctl {
+    SIOCGIFINDEX
+};
+
+# Communicating with SocketCAN interfaces and bringing them up/down
+allow hal_can_socketcan self:can_socket { bind create read write ioctl };
+allowxperm hal_can_socketcan self:can_socket ioctl {
+    SIOCGIFFLAGS
+    SIOCSIFFLAGS
+};
+
+# Un-publishing ICanBus interfaces
+allow hal_can_socketcan hidl_manager_hwservice:hwservice_manager find;
