@@ -54,3 +54,6 @@ allow update_engine proc_misc:file r_file_perms;
 
 # read directories on /system and /vendor
 allow update_engine system_file:dir r_dir_perms;
+
+# Allow to start gsid service.
+set_prop(update_engine, ctl_gsid_prop)
