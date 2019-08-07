@@ -212,3 +212,7 @@ ro.cold_boot_done       u:object_r:cold_boot_done_prop:s0
 
 # Charger properties
 ro.charger.             u:object_r:charger_prop:s0
+
+# Virtual A/B properties
+ro.virtual_ab.enabled   u:object_r:virtual_ab_prop:s0
+ro.virtual_ab.retrofit  u:object_r:virtual_ab_prop:s0
