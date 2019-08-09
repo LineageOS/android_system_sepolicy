@@ -244,8 +244,8 @@ def TestNoUnmappedNewTypes():
         ret += "latest API level.\n"
         ret += " ".join(str(x) for x in sorted(violators)) + "\n\n"
         ret += "See examples of how to fix this:\n"
-        ret += "https://android-review.git.corp.google.com/c/platform/system/sepolicy/+/781036\n"
-        ret += "https://android-review.git.corp.google.com/c/platform/system/sepolicy/+/852612\n"
+        ret += "https://android-review.googlesource.com/c/platform/system/sepolicy/+/781036\n"
+        ret += "https://android-review.googlesource.com/c/platform/system/sepolicy/+/852612\n"
     return ret
 
 ###
@@ -270,7 +270,7 @@ def TestNoUnmappedRmTypes():
         ret += "latest API level.\n"
         ret += " ".join(str(x) for x in sorted(violators)) + "\n\n"
         ret += "See examples of how to fix this:\n"
-        ret += "https://android-review.git.corp.google.com/c/platform/system/sepolicy/+/822743\n"
+        ret += "https://android-review.googlesource.com/c/platform/system/sepolicy/+/822743\n"
     return ret
 
 def TestTrebleCompatMapping():
