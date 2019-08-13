@@ -941,6 +941,7 @@ full_treble_only(`
         coredomain
         -init
         -shell
+        -ueventd
     } vendor_shell_exec:file { execute execute_no_trans };
 ')
 
@@ -971,6 +972,7 @@ full_treble_only(`
       -init
       -shell
       -system_executes_vendor_violators
+      -ueventd
     } {
       vendor_file_type
       -same_process_hal_file
