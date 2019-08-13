@@ -213,6 +213,7 @@ genfscon tracefs /events/power/cpu_idle/                                 u:objec
 genfscon tracefs /events/power/clock_set_rate/                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/power/cpu_frequency_limits/                     u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/power/gpu_frequency/                            u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/power/suspend_resume/                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/cpufreq_interactive/                            u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/vmscan/mm_vmscan_direct_reclaim_begin/          u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/vmscan/mm_vmscan_direct_reclaim_end/            u:object_r:debugfs_tracing:s0
@@ -255,6 +256,7 @@ genfscon debugfs /tracing/events/power/cpu_idle/                                
 genfscon debugfs /tracing/events/power/clock_set_rate/                           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/power/cpu_frequency_limits/                     u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/power/gpu_frequency/                            u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/power/suspend_resume/                           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/cpufreq_interactive/                            u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/vmscan/mm_vmscan_direct_reclaim_begin/          u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/vmscan/mm_vmscan_direct_reclaim_end/            u:object_r:debugfs_tracing:s0
