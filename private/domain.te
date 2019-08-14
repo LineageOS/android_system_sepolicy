@@ -83,6 +83,7 @@ userdebug_or_eng(`
 ')
 
 # Allow access to linkerconfig file
+allow domain linkerconfig_file:dir search;
 allow domain linkerconfig_file:file r_file_perms;
 
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
