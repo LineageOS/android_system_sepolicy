@@ -74,3 +74,8 @@ allow shell rs_exec:file rx_file_perms;
 # Allow shell to start and comminicate with lpdumpd.
 set_prop(shell, lpdumpd_prop);
 binder_call(shell, lpdumpd)
+
+# Allow shell to set linker property
+userdebug_or_eng(`
+  set_prop(shell, linker_prop)
+')
