@@ -1,0 +1,4 @@
+binder_call(hal_tv_tuner_client, hal_tv_tuner_server)
+binder_call(hal_tv_tuner_server, hal_tv_tuner_client)
+
+hal_attribute_hwservice(hal_tv_tuner, hal_tv_tuner_hwservice)
