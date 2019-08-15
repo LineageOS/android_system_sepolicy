@@ -17,7 +17,7 @@ allow viewcompiler installd:fd use;
 allow viewcompiler app_data_file:file { getattr write };
 
 # Allow the view compiler to read resources from the apps APK.
-allow viewcompiler apk_data_file:file read;
+allow viewcompiler apk_data_file:file { read map };
 
 # priv-apps are moving to a world where they can only execute
 # signed code. Make sure viewcompiler never can write to privapp
