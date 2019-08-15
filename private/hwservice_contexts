@@ -64,6 +64,7 @@ android.hardware.thermal::IThermal                              u:object_r:hal_t
 android.hardware.thermal::IThermalCallback                      u:object_r:thermalcallback_hwservice:s0
 android.hardware.tv.cec::IHdmiCec                               u:object_r:hal_tv_cec_hwservice:s0
 android.hardware.tv.input::ITvInput                             u:object_r:hal_tv_input_hwservice:s0
+android.hardware.tv.tuner::ITuner                             	u:object_r:hal_tv_tuner_hwservice:s0
 android.hardware.usb::IUsb                                      u:object_r:hal_usb_hwservice:s0
 android.hardware.usb.gadget::IUsbGadget                         u:object_r:hal_usb_gadget_hwservice:s0
 android.hardware.vibrator::IVibrator                            u:object_r:hal_vibrator_hwservice:s0
