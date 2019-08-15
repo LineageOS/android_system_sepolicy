@@ -1,0 +1,2 @@
+(/.*)?                   u:object_r:system_file:s0
+/bin/adbd                u:object_r:adbd_exec:s0
