@@ -93,6 +93,7 @@ userdebug_or_eng(`
   typeattribute su hal_thermal_client;
   typeattribute su hal_tv_cec_client;
   typeattribute su hal_tv_input_client;
+  typeattribute su hal_tv_tuner_client;
   typeattribute su hal_usb_client;
   typeattribute su hal_vibrator_client;
   typeattribute su hal_vr_client;
