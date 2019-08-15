@@ -218,6 +218,7 @@ not_compatible_property(`
       -gsid_prop
       -nnapi_ext_deny_product_prop
       -init_svc_debug_prop
+      -linker_prop
     })
 ')
 
