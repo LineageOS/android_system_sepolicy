@@ -27,6 +27,7 @@ $(LOCAL_BUILT_MODULE): $(plat_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insert
 $(all_plat_mac_perms_files) $(all_plat_keys)
 	@mkdir -p $(dir $@)
 	$(hide) DEFAULT_SYSTEM_DEV_CERTIFICATE="$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))" \
+		MAINLINE_SEPOLICY_DEV_CERTIFICATES="$(MAINLINE_SEPOLICY_DEV_CERTIFICATES)" \
 		$(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
 
 all_plat_keys :=
