@@ -239,8 +239,7 @@ type packages_list_file, file_type, data_file_type, core_data_file_type;
 type vendor_data_file, file_type, data_file_type;
 # Unencrypted data
 type unencrypted_data_file, file_type, data_file_type, core_data_file_type;
-# /data/.layout_version or other installd-created files that
-# are created in a system_data_file directory.
+# installd-create files in /data/misc/installd such as layout_version
 type install_data_file, file_type, data_file_type, core_data_file_type;
 # /data/drm - DRM plugin data
 type drm_data_file, file_type, data_file_type, core_data_file_type;
