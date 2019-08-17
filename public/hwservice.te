@@ -52,6 +52,7 @@ type hal_tetheroffload_hwservice, hwservice_manager_type;
 type hal_thermal_hwservice, hwservice_manager_type;
 type hal_tv_cec_hwservice, hwservice_manager_type;
 type hal_tv_input_hwservice, hwservice_manager_type;
+type hal_tv_tuner_hwservice, hwservice_manager_type;
 type hal_usb_hwservice, hwservice_manager_type;
 type hal_usb_gadget_hwservice, hwservice_manager_type;
 type hal_vehicle_hwservice, hwservice_manager_type;
