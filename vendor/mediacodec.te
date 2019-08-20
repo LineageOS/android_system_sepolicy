@@ -3,15 +3,6 @@ type mediacodec_exec, exec_type, vendor_file_type, file_type;
 
 init_daemon_domain(mediacodec)
 
-not_full_treble(`
-    # on legacy devices, continue to allow /dev/binder traffic
-    binder_use(mediacodec)
-    binder_service(mediacodec)
-    add_service(mediacodec, mediacodec_service)
-    allow mediacodec mediametrics_service:service_manager find;
-    allow mediacodec surfaceflinger_service:service_manager find;
-')
-
 # can route /dev/binder traffic to /dev/vndbinder
 vndbinder_use(mediacodec)
 
