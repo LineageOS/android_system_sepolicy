@@ -250,11 +250,6 @@ neverallow all_untrusted_apps {
   -untrusted_app_visible_hwservice_violators
 }:hwservice_manager find;
 
-neverallow all_untrusted_apps {
-  vendor_service
-  vintf_service
-}:service_manager find;
-
 # SELinux is not an API for untrusted apps to use
 neverallow all_untrusted_apps selinuxfs:file no_rw_file_perms;
 

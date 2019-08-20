@@ -88,9 +88,15 @@ allow domain ashmem_server:fd use;
 allow { domain -coredomain -appdomain } system_ashmem_hwservice:hwservice_manager find;
 allow { domain -coredomain -appdomain } ashmem_server: binder call;
 
-# /dev/binder can be accessed by ... everyone! :)
-allow { domain -hwservicemanager -vndservicemanager } binder_device:chr_file rw_file_perms;
-
+# /dev/binder can be accessed by non-vendor domains and by apps
+allow {
+  coredomain
+  appdomain
+  binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
+  -hwservicemanager
+} binder_device:chr_file rw_file_perms;
+# Devices which are not full TREBLE have fewer restrictions on access to /dev/binder
+not_full_treble(`allow { domain -hwservicemanager -vndservicemanager } binder_device:chr_file rw_file_perms;')
 allow { domain -servicemanager -vndservicemanager -isolated_app } hwbinder_device:chr_file rw_file_perms;
 allow domain ptmx_device:chr_file rw_file_perms;
 allow domain random_device:chr_file rw_file_perms;
@@ -624,21 +630,30 @@ neverallow hwservicemanager vndbinder_device:chr_file no_rw_file_perms;
 neverallow vndservicemanager binder_device:chr_file no_rw_file_perms;
 neverallow vndservicemanager hwbinder_device:chr_file no_rw_file_perms;
 
-# system services cant add vendor services
-neverallow {
-  coredomain
-} vendor_service:service_manager add;
+# On full TREBLE devices, only core components and apps can use Binder and servicemanager. Non-core
+# domain apps need this because Android framework offers many of its services to apps as Binder
+# services.
+full_treble_only(`
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
+  } binder_device:chr_file rw_file_perms;
+')
 
-# vendor services cant add system services
-neverallow {
-  domain
-  -coredomain
-} {
-  service_manager_type
-  -vendor_service
-  -vintf_service
-}:service_manager add;
+# libcutils can probe for /dev/binder permissions with access(). Ignore
+# generated denials. See b/129073672 for details.
+dontaudit domain binder_device:chr_file audit_access;
 
+full_treble_only(`
+  neverallow {
+    domain
+    -coredomain
+    -appdomain # restrictions for vendor apps are declared lower down
+    -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
+  } service_manager_type:service_manager find;
+')
 full_treble_only(`
   # Vendor apps are permited to use only stable public services. If they were to use arbitrary
   # services which can change any time framework/core is updated, breakage is likely.
@@ -663,6 +678,14 @@ full_treble_only(`
     -vr_hwc_service
     -vr_manager_service
   }:service_manager find;
+')
+full_treble_only(`
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
+  } servicemanager:binder { call transfer };
 ')
 
 # On full TREBLE devices, only vendor components, shell, and su can use VendorBinder.
