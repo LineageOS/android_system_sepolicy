@@ -1,5 +1,6 @@
 ;; types removed from current policy
 (type hal_wifi_offload_hwservice)
+(type mediacodec_service)
 (type perfprofd_data_file)
 (type perfprofd_service)
 
