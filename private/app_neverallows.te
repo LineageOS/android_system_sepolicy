@@ -205,11 +205,11 @@ neverallow all_untrusted_apps system_file:file lock;
 # other than find actions for services listed below
 neverallow all_untrusted_apps *:hwservice_manager ~find;
 
-# Do not permit access from apps which host arbitrary code to HwBinder services,
-# except those considered sufficiently safe for access from such apps.
+# Do not permit access from apps which host arbitrary code to the protected HwBinder
+# services.
 # The two main reasons for this are:
-# 1. HwBinder servers do not perform client authentication because HIDL
-#    currently does not expose caller UID information and, even if it did, many
+# 1. Protected HwBinder servers do not perform client authentication because HIDL
+#    currently does not expose caller UID information and, even if it did, those
 #    HwBinder services either operate at a level below that of apps (e.g., HALs)
 #    or must not rely on app identity for authorization. Thus, to be safe, the
 #    default assumption is that every HwBinder service treats all its clients as
@@ -218,37 +218,7 @@ neverallow all_untrusted_apps *:hwservice_manager ~find;
 #    incidence rate of security issues than system/core components and have
 #    access to lower layes of the stack (all the way down to hardware) thus
 #    increasing opportunities for bypassing the Android security model.
-#
-# Safe services include:
-# - same process services: because they by definition run in the process
-#   of the client and thus have the same access as the client domain in which
-#   the process runs
-# - coredomain_hwservice: are considered safe because they do not pose risks
-#   associated with reason #2 above.
-# - hal_configstore_ISurfaceFlingerConfigs:  becuase it has specifically been
-#   designed for use by any domain.
-# - hal_graphics_allocator_hwservice: because these operations are also offered
-#   by surfaceflinger Binder service, which apps are permitted to access
-# - hal_omx_hwservice: because this is a HwBinder version of the mediacodec
-#   Binder service which apps were permitted to access.
-# - hal_codec2_hwservice: because this is a newer version of hal_omx_hwservice.
-neverallow all_untrusted_apps {
-  hwservice_manager_type
-  -fwk_bufferhub_hwservice
-  -hal_cas_hwservice
-  -hal_codec2_hwservice
-  -hal_configstore_ISurfaceFlingerConfigs
-  -hal_graphics_allocator_hwservice
-  -hal_graphics_mapper_hwservice
-  -hal_neuralnetworks_hwservice
-  -hal_omx_hwservice
-  -hal_renderscript_hwservice
-  -hidl_allocator_hwservice
-  -hidl_manager_hwservice
-  -hidl_memory_hwservice
-  -hidl_token_hwservice
-  -untrusted_app_visible_hwservice_violators
-}:hwservice_manager find;
+neverallow all_untrusted_apps protected_hwservice:hwservice_manager find;
 
 neverallow all_untrusted_apps {
   vendor_service
@@ -256,24 +226,6 @@ neverallow all_untrusted_apps {
 
 # SELinux is not an API for untrusted apps to use
 neverallow all_untrusted_apps selinuxfs:file no_rw_file_perms;
-
-# Restrict *Binder access from apps to HAL domains. We can only do this on full
-# Treble devices where *Binder communications between apps and HALs are tightly
-# restricted.
-full_treble_only(`
-  neverallow all_untrusted_apps {
-    halserverdomain
-    -coredomain
-    -hal_cas_server
-    -hal_codec2_server
-    -hal_configstore_server
-    -hal_graphics_allocator_server
-    -hal_neuralnetworks_server
-    -hal_omx_server
-    -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
-    -untrusted_app_visible_halserver_violators
-  }:binder { call transfer };
-')
 
 # Access to /proc/tty/drivers, to allow apps to determine if they
 # are running in an emulated environment.
