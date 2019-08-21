@@ -98,12 +98,6 @@ attribute ephemeral_app_api_service;
 # services which export only system_api
 attribute system_api_service;
 
-# services which should only be available to vendor
-attribute vendor_service;
-
-# services which should be available system<->vendor
-attribute vintf_service;
-
 # All types used for services managed by servicemanager.
 # On change, update CHECK_SC_ASSERT_ATTRS
 # definition in tools/checkfc.c.
