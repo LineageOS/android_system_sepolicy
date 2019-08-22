@@ -319,7 +319,6 @@ r_dir_file(system_server, sysfs_switch)
 r_dir_file(system_server, sysfs_wakeup_reasons)
 
 allow system_server sysfs_nfc_power_writable:file rw_file_perms;
-allow system_server sysfs_mac_address:file r_file_perms;
 allow system_server sysfs_power:dir search;
 allow system_server sysfs_power:file rw_file_perms;
 allow system_server sysfs_thermal:dir search;
@@ -776,9 +775,6 @@ allow system_server mnt_expand_file:dir r_dir_perms;
 # and delete the directory and files when no longer needed
 allow system_server fingerprintd_data_file:dir { r_dir_perms remove_name rmdir relabelto write };
 allow system_server fingerprintd_data_file:file { getattr unlink };
-
-# Allow system process to read network MAC address
-allow system_server sysfs_mac_address:file r_file_perms;
 
 userdebug_or_eng(`
   # Allow system server to create and write method traces in /data/misc/trace.
