@@ -18,7 +18,8 @@ Say, x, y, z are platform SEPolicy versions such that x > y > z. Then given two
 mapping files from x to y (top) and y to z (bottom), it's possible to construct
 a mapping file from x to z. We do the following to combine two maps.
 1. Add all new types declarations from top to bottom.
-2. Say, a new type "bar" in top is mapped like this "foo_V_v<-bar", then we map
+2. Add all new typeattribute declarations from top to bottom.
+3. Say, a new type "bar" in top is mapped like this "foo_V_v<-bar", then we map
 "bar" to whatever "foo" is mapped to in the bottom map. We do this for all new
 types in the top map.
 
@@ -33,6 +34,7 @@ from mini_parser import MiniCilParser
 
 def Combine(top, bottom):
     bottom.types.update(top.types)
+    bottom.typeattributes.update(top.typeattributes)
 
     for top_ta in top.typeattributesets:
         top_type_set = top.typeattributesets[top_ta]
