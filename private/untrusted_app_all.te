@@ -92,7 +92,6 @@ allow untrusted_app_all cameraserver_service:service_manager find;
 allow untrusted_app_all drmserver_service:service_manager find;
 allow untrusted_app_all mediaserver_service:service_manager find;
 allow untrusted_app_all mediaextractor_service:service_manager find;
-allow untrusted_app_all mediacodec_service:service_manager find;
 allow untrusted_app_all mediametrics_service:service_manager find;
 allow untrusted_app_all mediadrmserver_service:service_manager find;
 allow untrusted_app_all nfc_service:service_manager find;
