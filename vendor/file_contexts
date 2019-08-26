@@ -29,6 +29,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.gnss@[0-9]\.[0-9]-service   u:object_r:hal_gnss_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.allocator@2\.0-service   u:object_r:hal_graphics_allocator_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.allocator@3\.0-service   u:object_r:hal_graphics_allocator_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.allocator@4\.0-service   u:object_r:hal_graphics_allocator_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.composer@[0-9]\.[0-9]-service    u:object_r:hal_graphics_composer_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.health@1\.0-service         u:object_r:hal_health_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.health@2\.0-service         u:object_r:hal_health_default_exec:s0
@@ -72,6 +73,7 @@
 /(vendor|system/vendor)/lib(64)?/hw/android\.hardware\.graphics\.mapper@2\.0-impl\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/hw/android\.hardware\.graphics\.mapper@2\.0-impl-2\.1\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/hw/android\.hardware\.graphics\.mapper@3\.0-impl\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/hw/android\.hardware\.graphics\.mapper@4\.0-impl\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/hw/android\.hardware\.renderscript@1\.0-impl\.so     u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/hw/gralloc\.default\.so                              u:object_r:same_process_hal_file:s0
 
