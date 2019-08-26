@@ -39,7 +39,6 @@ allow ephemeral_app audioserver_service:service_manager find;
 allow ephemeral_app cameraserver_service:service_manager find;
 allow ephemeral_app mediaserver_service:service_manager find;
 allow ephemeral_app mediaextractor_service:service_manager find;
-allow ephemeral_app mediacodec_service:service_manager find;
 allow ephemeral_app mediametrics_service:service_manager find;
 allow ephemeral_app mediadrmserver_service:service_manager find;
 allow ephemeral_app drmserver_service:service_manager find;
