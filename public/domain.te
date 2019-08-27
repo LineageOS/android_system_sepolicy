@@ -629,16 +629,18 @@ neverallow {
   coredomain
 } vendor_service:service_manager add;
 
-# vendor services cant add system services
-neverallow {
-  domain
-  -coredomain
-  -binder_in_vendor_violators # TODO(b/131617943) remove once all violators are gone
-} {
-  service_manager_type
-  -vendor_service
-  -vintf_service
-}:service_manager add;
+full_treble_only(`
+  # vendor services cant add system services
+  neverallow {
+    domain
+    -coredomain
+    -binder_in_vendor_violators # TODO(b/131617943) remove once all violators are gone
+  } {
+    service_manager_type
+    -vendor_service
+    -vintf_service
+  }:service_manager add;
+')
 
 full_treble_only(`
   # Vendor apps are permited to use only stable public services. If they were to use arbitrary
