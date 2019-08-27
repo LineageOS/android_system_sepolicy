@@ -10,6 +10,7 @@ net_domain(drmserver)
 binder_use(drmserver)
 binder_call(drmserver, system_server)
 binder_call(drmserver, appdomain)
+binder_call(drmserver, mediametrics)
 binder_service(drmserver)
 # Inherit or receive open files from system_server.
 allow drmserver system_server:fd use;
@@ -50,6 +51,7 @@ allow drmserver oemfs:file r_file_perms;
 
 add_service(drmserver, drmserver_service)
 allow drmserver permission_service:service_manager find;
+allow drmserver mediametrics_service:service_manager find;
 
 selinux_check_access(drmserver)
 

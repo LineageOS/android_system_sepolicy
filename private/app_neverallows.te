@@ -86,7 +86,6 @@ neverallow all_untrusted_apps mlstrustedsubject:process fork;
 neverallow all_untrusted_apps file_type:file link;
 
 # Do not allow untrusted apps to access network MAC address file
-neverallow all_untrusted_apps sysfs_mac_address:file no_rw_file_perms;
 neverallow all_untrusted_apps sysfs_net:file no_rw_file_perms;
 
 # Do not allow any write access to files in /sys
@@ -250,6 +249,11 @@ neverallow all_untrusted_apps {
   -hidl_token_hwservice
   -untrusted_app_visible_hwservice_violators
 }:hwservice_manager find;
+
+neverallow all_untrusted_apps {
+  vendor_service
+  vintf_service
+}:service_manager find;
 
 # SELinux is not an API for untrusted apps to use
 neverallow all_untrusted_apps selinuxfs:file no_rw_file_perms;

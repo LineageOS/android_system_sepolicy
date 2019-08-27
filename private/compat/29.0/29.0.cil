@@ -1,7 +1,9 @@
 ;; types removed from current policy
 (type hal_wifi_offload_hwservice)
+(type mediacodec_service)
 (type perfprofd_data_file)
 (type perfprofd_service)
+(type sysfs_mac_address)
 
 (expandtypeattribute (accessibility_service_29_0) true)
 (expandtypeattribute (account_service_29_0) true)
