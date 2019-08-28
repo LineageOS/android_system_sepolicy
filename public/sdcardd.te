@@ -22,8 +22,9 @@ allow sdcardd media_rw_data_file:file create_file_perms;
 allow sdcardd system_data_file:file r_file_perms;
 allow sdcardd packages_list_file:file r_file_perms;
 
-# Read /data/.layout_version
+# Read /data/misc/installd/layout_version
 allow sdcardd install_data_file:file r_file_perms;
+allow sdcardd install_data_file:dir search;
 
 # Allow stdin/out back to vold
 allow sdcardd vold:fd use;
