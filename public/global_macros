@@ -22,7 +22,7 @@ define(`ipc_class_set', `{ sem msgq shm ipc }')
 # Common groupings of permissions.
 #
 define(`x_file_perms', `{ getattr execute execute_no_trans map }')
-define(`r_file_perms', `{ getattr open read ioctl lock map }')
+define(`r_file_perms', `{ getattr open read ioctl lock map watch watch_mount watch_sb watch_with_perm watch_reads }')
 define(`w_file_perms', `{ open append write lock map }')
 define(`rx_file_perms', `{ r_file_perms x_file_perms }')
 define(`ra_file_perms', `{ r_file_perms append }')
@@ -30,7 +30,7 @@ define(`rw_file_perms', `{ r_file_perms w_file_perms }')
 define(`rwx_file_perms', `{ rw_file_perms x_file_perms }')
 define(`create_file_perms', `{ create rename setattr unlink rw_file_perms }')
 
-define(`r_dir_perms', `{ open getattr read search ioctl lock }')
+define(`r_dir_perms', `{ open getattr read search ioctl lock watch watch_mount watch_sb watch_with_perm watch_reads }')
 define(`w_dir_perms', `{ open search write add_name remove_name lock }')
 define(`ra_dir_perms', `{ r_dir_perms add_name write }')
 define(`rw_dir_perms', `{ r_dir_perms w_dir_perms }')
