@@ -98,15 +98,11 @@ attribute ephemeral_app_api_service;
 # services which export only system_api
 attribute system_api_service;
 
-# services which should only be available to vendor and also using the copy of
-# libbinder on system (for instance via libbinder_ndk). services using a
-# different copy of libbinder currently need their own context manager (e.g.
+# services which served by vendor and also using the copy of libbinder on
+# system (for instance via libbinder_ndk). services using a different copy
+# of libbinder currently need their own context manager (e.g.
 # vndservicemanager)
 attribute vendor_service;
-
-# services which should be available system<->vendor and also using the copy of
-# libbinder on system
-attribute vintf_service;
 
 # All types used for services managed by servicemanager.
 # On change, update CHECK_SC_ASSERT_ATTRS
