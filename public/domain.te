@@ -638,7 +638,6 @@ full_treble_only(`
   } {
     service_manager_type
     -vendor_service
-    -vintf_service
   }:service_manager add;
 ')
 
