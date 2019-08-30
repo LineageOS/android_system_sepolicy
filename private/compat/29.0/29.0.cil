@@ -1780,7 +1780,7 @@
 (typeattributeset system_block_device_29_0 (system_block_device))
 (typeattributeset system_boot_reason_prop_29_0 (system_boot_reason_prop))
 (typeattributeset system_bootstrap_lib_file_29_0 (system_bootstrap_lib_file))
-(typeattributeset system_data_file_29_0 (system_data_file))
+(typeattributeset system_data_file_29_0 (system_data_file system_data_root_file))
 (typeattributeset system_event_log_tags_file_29_0 (system_event_log_tags_file))
 (typeattributeset system_file_29_0 (system_file))
 (typeattributeset systemkeys_data_file_29_0 (systemkeys_data_file))
