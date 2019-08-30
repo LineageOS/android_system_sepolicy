@@ -434,7 +434,8 @@
 # NOTE: When modifying existing label rules, changes may also need to
 # propagate to the "Expanded data files" section.
 #
-/data(/.*)?		u:object_r:system_data_file:s0
+/data		u:object_r:system_data_root_file:s0
+/data/(.*)?		u:object_r:system_data_file:s0
 /data/system/packages\.list u:object_r:packages_list_file:s0
 /data/unencrypted(/.*)?         u:object_r:unencrypted_data_file:s0
 /data/backup(/.*)?		u:object_r:backup_data_file:s0
