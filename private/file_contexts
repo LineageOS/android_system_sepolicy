@@ -180,7 +180,7 @@
 # System files
 #
 /system(/.*)?		u:object_r:system_file:s0
-/system/apex/com.android.runtime	u:object_r:runtime_apex_dir:s0
+/system/apex/com.android.art	u:object_r:runtime_apex_dir:s0
 /system/lib(64)?(/.*)?		u:object_r:system_lib_file:s0
 /system/lib(64)?/bootstrap(/.*)? u:object_r:system_bootstrap_lib_file:s0
 /system/bin/atrace	u:object_r:atrace_exec:s0
