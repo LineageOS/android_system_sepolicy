@@ -46,10 +46,6 @@ allow init {
   userdata_block_device
 }:{ blk_file lnk_file } relabelto;
 
-allow init super_block_device:lnk_file relabelto;
-
-# Create /mnt/sdcard -> /storage/self/primary symlink.
-
 # setrlimit
 allow init self:global_capability_class_set sys_resource;
 
@@ -402,6 +398,7 @@ allow init {
   sysfs_power
   sysfs_vibrator
   sysfs_wake_lock
+  sysfs_zram
 }:file setattr;
 
 # Set usermodehelpers.
@@ -485,7 +482,6 @@ allowxperm init self:udp_socket ioctl SIOCSIFFLAGS;
 allow init self:global_capability_class_set net_raw;
 
 # Set scheduling info for psi monitor thread.
-# TODO: delete or revise this line b/131761776
 allow init kernel:process { getsched setsched };
 
 # swapon() needs write access to swap device

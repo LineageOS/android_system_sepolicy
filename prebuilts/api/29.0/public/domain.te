@@ -51,6 +51,12 @@ userdebug_or_eng(`
   allow domain coredump_file:dir ra_dir_perms;
 ')
 
+with_native_coverage(`
+  # Allow writing coverage information to /data/misc/trace
+  allow domain method_trace_data_file:dir create_dir_perms;
+  allow domain method_trace_data_file:file create_file_perms;
+')
+
 # Root fs.
 allow domain tmpfs:dir { getattr search };
 allow domain rootfs:dir search;
@@ -743,6 +749,16 @@ full_treble_only(`
   });
 ')
 
+  # Vendor domains (except netdomain) are not permitted to initiate communications to netd sockets
+full_treble_only(`
+  neverallow_establish_socket_comms({
+    domain
+    -coredomain
+    -netdomain
+    -socket_between_core_and_vendor_violators
+  }, netd);
+')
+
   # Vendor domains are not permitted to initiate create/open sockets owned by core domains
 full_treble_only(`
   neverallow {
@@ -842,6 +858,7 @@ full_treble_only(`
     # These functions are considered vndk-stable and thus must be allowed for
     # all processes.
     -zoneinfo_data_file
+    with_native_coverage(`-method_trace_data_file')
   }:file_class_set ~{ append getattr ioctl read write map };
   neverallow {
     vendor_init
@@ -850,6 +867,7 @@ full_treble_only(`
     core_data_file_type
     -unencrypted_data_file
     -zoneinfo_data_file
+    with_native_coverage(`-method_trace_data_file')
   }:file_class_set ~{ append getattr ioctl read write map };
   # vendor init needs to be able to read unencrypted_data_file to create directories with FBE.
   # The vendor init binary lives on the system partition so there is not a concern with stability.
@@ -868,6 +886,7 @@ full_treble_only(`
     -system_data_file # default label for files on /data. Covered below...
     -vendor_data_file
     -zoneinfo_data_file
+    with_native_coverage(`-method_trace_data_file')
   }:dir *;
   neverallow {
     vendor_init
@@ -878,6 +897,7 @@ full_treble_only(`
     -system_data_file
     -vendor_data_file
     -zoneinfo_data_file
+    with_native_coverage(`-method_trace_data_file')
   }:dir *;
   # vendor init needs to be able to read unencrypted_data_file to create directories with FBE.
   # The vendor init binary lives on the system partition so there is not a concern with stability.
@@ -1053,8 +1073,8 @@ neverallow {
   -system_server
 
   # Processes that can't exec crash_dump
+  -hal_codec2_server
   -hal_omx_server
-  -mediaswcodec_server
   -mediaextractor
 } tombstoned_crash_socket:unix_stream_socket connectto;
 
@@ -1384,6 +1404,7 @@ full_treble_only(`
 
 neverallow {
   domain
-  -mediaswcodec_server
+  -hal_codec2_server
   -hal_omx_server
 } hal_codec2_hwservice:hwservice_manager add;
+

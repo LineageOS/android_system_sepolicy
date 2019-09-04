@@ -234,20 +234,71 @@ neverallow all_untrusted_apps *:hwservice_manager ~find;
 # - hal_codec2_hwservice: because this is a newer version of hal_omx_hwservice.
 neverallow all_untrusted_apps {
   hwservice_manager_type
-  -fwk_bufferhub_hwservice
-  -hal_cas_hwservice
+  -same_process_hwservice
+  -coredomain_hwservice
   -hal_codec2_hwservice
   -hal_configstore_ISurfaceFlingerConfigs
   -hal_graphics_allocator_hwservice
-  -hal_graphics_mapper_hwservice
-  -hal_neuralnetworks_hwservice
   -hal_omx_hwservice
-  -hal_renderscript_hwservice
-  -hidl_allocator_hwservice
-  -hidl_manager_hwservice
-  -hidl_memory_hwservice
-  -hidl_token_hwservice
+  -hal_cas_hwservice
+  -hal_neuralnetworks_hwservice
   -untrusted_app_visible_hwservice_violators
+}:hwservice_manager find;
+
+# Make sure that the following services are never accessible by untrusted_apps
+neverallow all_untrusted_apps {
+  default_android_hwservice
+  hal_atrace_hwservice
+  hal_audio_hwservice
+  hal_authsecret_hwservice
+  hal_bluetooth_hwservice
+  hal_bootctl_hwservice
+  hal_camera_hwservice
+  hal_confirmationui_hwservice
+  hal_contexthub_hwservice
+  hal_drm_hwservice
+  hal_dumpstate_hwservice
+  hal_fingerprint_hwservice
+  hal_gatekeeper_hwservice
+  hal_gnss_hwservice
+  hal_graphics_composer_hwservice
+  hal_health_hwservice
+  hal_input_classifier_hwservice
+  hal_ir_hwservice
+  hal_keymaster_hwservice
+  hal_light_hwservice
+  hal_memtrack_hwservice
+  hal_nfc_hwservice
+  hal_oemlock_hwservice
+  hal_power_hwservice
+  hal_power_stats_hwservice
+  hal_secure_element_hwservice
+  hal_sensors_hwservice
+  hal_telephony_hwservice
+  hal_thermal_hwservice
+  hal_tv_cec_hwservice
+  hal_tv_input_hwservice
+  hal_usb_hwservice
+  hal_vibrator_hwservice
+  hal_vr_hwservice
+  hal_weaver_hwservice
+  hal_wifi_hwservice
+  hal_wifi_offload_hwservice
+  hal_wifi_supplicant_hwservice
+  hidl_base_hwservice
+  system_net_netd_hwservice
+  thermalcallback_hwservice
+}:hwservice_manager find;
+# HwBinder services offered by core components (as opposed to vendor components)
+# are considered somewhat safer due to point #2 above.
+neverallow all_untrusted_apps {
+  coredomain_hwservice
+  -same_process_hwservice
+  -fwk_bufferhub_hwservice # Designed for use by any domain
+  -hidl_allocator_hwservice # Designed for use by any domain
+  -hidl_manager_hwservice # Designed for use by any domain
+  -hidl_memory_hwservice # Designed for use by any domain
+  -hidl_token_hwservice # Designed for use by any domain
 }:hwservice_manager find;
 
 # SELinux is not an API for untrusted apps to use
@@ -260,17 +311,16 @@ full_treble_only(`
   neverallow all_untrusted_apps {
     halserverdomain
     -coredomain
+    -hal_cas_server
+    -hal_codec2_server
     -hal_configstore_server
     -hal_graphics_allocator_server
-    -hal_cas_server
     -hal_neuralnetworks_server
     -hal_omx_server
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
     -untrusted_app_visible_halserver_violators
   }:binder { call transfer };
 ')
-
-# Untrusted apps are not allowed to find mediaextractor update service.
 
 # Access to /proc/tty/drivers, to allow apps to determine if they
 # are running in an emulated environment.

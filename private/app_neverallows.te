@@ -264,18 +264,16 @@ full_treble_only(`
   neverallow all_untrusted_apps {
     halserverdomain
     -coredomain
+    -hal_cas_server
+    -hal_codec2_server
     -hal_configstore_server
     -hal_graphics_allocator_server
-    -hal_cas_server
     -hal_neuralnetworks_server
     -hal_omx_server
     -binder_in_vendor_violators # TODO(b/35870313): Remove once all violations are gone
     -untrusted_app_visible_halserver_violators
   }:binder { call transfer };
 ')
-
-# Untrusted apps are not allowed to find mediaextractor update service.
-neverallow all_untrusted_apps mediaextractor_update_service:service_manager find;
 
 # Access to /proc/tty/drivers, to allow apps to determine if they
 # are running in an emulated environment.

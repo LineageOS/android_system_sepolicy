@@ -86,7 +86,7 @@ allow mediaserver surfaceflinger_service:service_manager find;
 # for ModDrm/MediaPlayer
 allow mediaserver mediadrmserver_service:service_manager find;
 
-# For interfacing with OMX HAL
+# For hybrid interfaces
 allow mediaserver hidl_token_hwservice:hwservice_manager find;
 
 # /oem access

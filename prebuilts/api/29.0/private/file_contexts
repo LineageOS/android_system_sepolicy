@@ -130,7 +130,6 @@
 /dev/socket/mdns	u:object_r:mdns_socket:s0
 /dev/socket/mdnsd	u:object_r:mdnsd_socket:s0
 /dev/socket/mtpd	u:object_r:mtpd_socket:s0
-/dev/socket/netd	u:object_r:netd_socket:s0
 /dev/socket/pdx/system/buffer_hub	u:object_r:pdx_bufferhub_dir:s0
 /dev/socket/pdx/system/buffer_hub/client	u:object_r:pdx_bufferhub_client_endpoint_socket:s0
 /dev/socket/pdx/system/performance	u:object_r:pdx_performance_dir:s0
@@ -156,8 +155,8 @@
 /dev/socket/wpa_wlan[0-9] u:object_r:wpa_socket:s0
 /dev/socket/zygote	u:object_r:zygote_socket:s0
 /dev/socket/zygote_secondary	u:object_r:zygote_socket:s0
-/dev/socket/blastula_pool	u:object_r:zygote_socket:s0
-/dev/socket/blastula_pool_secondary	u:object_r:zygote_socket:s0
+/dev/socket/usap_pool_primary	u:object_r:zygote_socket:s0
+/dev/socket/usap_pool_secondary	u:object_r:zygote_socket:s0
 /dev/spdif_out.*	u:object_r:audio_device:s0
 /dev/tty		u:object_r:owntty_device:s0
 /dev/tty[0-9]*		u:object_r:tty_device:s0
@@ -294,7 +293,6 @@
 /system/bin/idmap2(d)?           u:object_r:idmap_exec:s0
 /system/bin/update_engine        u:object_r:update_engine_exec:s0
 /system/bin/storaged             u:object_r:storaged_exec:s0
-/system/bin/thermalserviced      u:object_r:thermalserviced_exec:s0
 /system/bin/wpantund             u:object_r:wpantund_exec:s0
 /system/bin/virtual_touchpad     u:object_r:virtual_touchpad_exec:s0
 /system/bin/hw/android\.frameworks\.bufferhub@1\.0-service    u:object_r:fwk_bufferhub_exec:s0
@@ -328,6 +326,7 @@
 /system/bin/gsid                 u:object_r:gsid_exec:s0
 /system/bin/simpleperf_app_runner    u:object_r:simpleperf_app_runner_exec:s0
 /system/bin/notify_traceur\.sh       u:object_r:notify_traceur_exec:s0
+/system/bin/migrate_legacy_obb_data\.sh u:object_r:migrate_legacy_obb_data_exec:s0
 
 #############################
 # Vendor files
@@ -537,6 +536,7 @@
 
 # Face vendor data file
 /data/vendor_de/[0-9]+/facedata(/.*)? u:object_r:face_vendor_data_file:s0
+/data/vendor_ce/[0-9]+/facedata(/.*)? u:object_r:face_vendor_data_file:s0
 
 # Iris vendor data file
 /data/vendor_de/[0-9]+/irisdata(/.*)? u:object_r:iris_vendor_data_file:s0

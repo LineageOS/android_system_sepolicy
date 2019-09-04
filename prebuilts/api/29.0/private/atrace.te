@@ -24,7 +24,16 @@ set_prop(atrace, debug_prop)
 # atrace pokes all the binder-enabled processes at startup with a
 # SYSPROPS_TRANSACTION, to tell them to reload the debug.atrace.* properties.
 
-# Allow discovery of binder services.
+binder_use(atrace)
+allow atrace healthd:binder call;
+allow atrace surfaceflinger:binder call;
+allow atrace system_server:binder call;
+
+get_prop(atrace, hwservicemanager_prop)
+
+# atrace can call atrace HAL
+hal_client_domain(atrace, hal_atrace)
+
 allow atrace {
   service_manager_type
   -apex_service
@@ -39,33 +48,6 @@ allow atrace {
   -lpdump_service
 }:service_manager { find };
 allow atrace servicemanager:service_manager list;
-
-# Allow notifying the processes hosting specific binder services that
-# trace-related system properties have changed.
-binder_use(atrace)
-allow atrace healthd:binder call;
-allow atrace surfaceflinger:binder call;
-allow atrace system_server:binder call;
-allow atrace cameraserver:binder call;
-
-# Similarly, on debug builds, allow specific HALs to be notified that
-# trace-related system properties have changed.
-userdebug_or_eng(`
-  # List HAL interfaces.
-  allow atrace hwservicemanager:hwservice_manager list;
-  # Notify the camera HAL.
-  hal_client_domain(atrace, hal_camera)
-')
-
-# Remove logspam from notification attempts to non-whitelisted services.
-dontaudit atrace hwservice_manager_type:hwservice_manager find;
-dontaudit atrace service_manager_type:service_manager find;
-dontaudit atrace domain:binder call;
-
-# atrace can call atrace HAL
-hal_client_domain(atrace, hal_atrace)
-
-get_prop(atrace, hwservicemanager_prop)
 
 userdebug_or_eng(`
   # atrace is generally invoked as a standalone binary from shell or perf
