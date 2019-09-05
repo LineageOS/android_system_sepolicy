@@ -120,6 +120,9 @@ attribute same_process_hwservice;
 # All HwBinder services guaranteed to be offered only by core domain components
 attribute coredomain_hwservice;
 
+# All HwBinder services that untrusted apps can't directly access
+attribute protected_hwservice;
+
 # All types used for services managed by vndservicemanager
 attribute vndservice_manager_type;
 
