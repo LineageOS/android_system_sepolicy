@@ -286,7 +286,6 @@ type dhcp_data_file, file_type, data_file_type, core_data_file_type;
 type server_configurable_flags_data_file, file_type, data_file_type, core_data_file_type;
 # /data/app-staging
 type staging_data_file, file_type, data_file_type, core_data_file_type;
-# /vendor/apex
 
 # Mount locations managed by vold
 type mnt_media_rw_file, file_type;
@@ -415,7 +414,6 @@ type mdns_socket, file_type, coredomain_socket;
 type mdnsd_socket, file_type, coredomain_socket, mlstrustedobject;
 type misc_logd_file, coredomain_socket, file_type, data_file_type, core_data_file_type;
 type mtpd_socket, file_type, coredomain_socket;
-type netd_socket, file_type, coredomain_socket;
 type property_socket, file_type, coredomain_socket, mlstrustedobject;
 type racoon_socket, file_type, coredomain_socket;
 type recovery_socket, file_type, coredomain_socket;

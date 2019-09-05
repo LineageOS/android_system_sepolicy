@@ -416,6 +416,7 @@ allow init {
   sysfs_power
   sysfs_vibrator
   sysfs_wake_lock
+  sysfs_zram
 }:file setattr;
 
 # Set usermodehelpers.

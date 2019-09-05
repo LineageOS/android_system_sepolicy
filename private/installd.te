@@ -2,6 +2,10 @@ typeattribute installd coredomain;
 
 init_daemon_domain(installd)
 
+# Run migrate_legacy_obb_data.sh in its own sandbox.
+domain_auto_trans(installd, migrate_legacy_obb_data_exec, migrate_legacy_obb_data)
+allow installd shell_exec:file rx_file_perms;
+
 # Run dex2oat in its own sandbox.
 domain_auto_trans(installd, dex2oat_exec, dex2oat)
 

@@ -81,6 +81,9 @@ allow netd system_file:file lock;
 # Allow netd to spawn dnsmasq in it's own domain
 allow netd dnsmasq:process signal;
 
+# Allow netd to start clatd in its own domain
+allow netd clatd:process signal;
+
 set_prop(netd, ctl_mdnsd_prop)
 set_prop(netd, netd_stable_secret_prop)
 

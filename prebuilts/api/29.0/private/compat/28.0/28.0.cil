@@ -9,9 +9,13 @@
 (type kmem_device)
 (type mediacodec)
 (type mediacodec_exec)
+(type mediaextractor_update_service)
 (type mtd_device)
+(type netd_socket)
 (type qtaguid_proc)
 (type thermalcallback_hwservice)
+(type thermalserviced)
+(type thermalserviced_exec)
 (type untrusted_v2_app)
 (type vcs_device)
 
@@ -738,8 +742,6 @@
 (expandtypeattribute (textservices_service_28_0) true)
 (expandtypeattribute (thermalcallback_hwservice_28_0) true)
 (expandtypeattribute (thermal_service_28_0) true)
-(expandtypeattribute (thermalserviced_28_0) true)
-(expandtypeattribute (thermalserviced_exec_28_0) true)
 (expandtypeattribute (timezone_service_28_0) true)
 (expandtypeattribute (tmpfs_28_0) true)
 (expandtypeattribute (tombstoned_28_0) true)
@@ -1379,8 +1381,6 @@
   ( proc
     proc_fs_verity
     proc_keys
-    proc_kpageflags
-    proc_lowmemorykiller
     proc_pressure_cpu
     proc_pressure_io
     proc_pressure_mem
@@ -1616,12 +1616,8 @@
 (typeattributeset textservices_service_28_0 (textservices_service))
 (typeattributeset thermalcallback_hwservice_28_0 (thermalcallback_hwservice))
 (typeattributeset thermal_service_28_0 (thermal_service))
-(typeattributeset thermalserviced_28_0 (thermalserviced))
-(typeattributeset thermalserviced_exec_28_0 (thermalserviced_exec))
 (typeattributeset timezone_service_28_0 (timezone_service))
-(typeattributeset tmpfs_28_0
-  ( mnt_sdcard_file
-    tmpfs))
+(typeattributeset tmpfs_28_0 (tmpfs))
 (typeattributeset tombstoned_28_0 (tombstoned))
 (typeattributeset tombstone_data_file_28_0 (tombstone_data_file))
 (typeattributeset tombstoned_crash_socket_28_0 (tombstoned_crash_socket))

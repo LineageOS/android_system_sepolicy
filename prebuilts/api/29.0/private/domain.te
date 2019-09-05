@@ -257,6 +257,7 @@ define(`dac_override_allowed', `{
   install_recovery
   userdebug_or_eng(`llkd')
   lmkd
+  migrate_legacy_obb_data
   netd
   perfprofd
   postinstall_dexopt

@@ -50,8 +50,6 @@ allow apexd staging_data_file:file unlink;
 allow apexd staging_data_file:dir r_dir_perms;
 allow apexd staging_data_file:file { r_file_perms link };
 
-# allow apexd to read files from /vendor/apex
-
 # Unmount and mount filesystems
 allow apexd labeledfs:filesystem { mount unmount };
 

@@ -74,9 +74,6 @@ allow traced_probes {
 hal_client_domain(traced_probes, hal_health)
 hal_client_domain(traced_probes, hal_power_stats)
 
-# Allow access to Atrace HAL for enabling vendor/device specific tracing categories.
-hal_client_domain(traced_probes, hal_atrace)
-
 # On debug builds allow to ingest system logs into the trace.
 userdebug_or_eng(`read_logd(traced_probes)')
 
@@ -111,11 +108,17 @@ neverallow traced_probes {
   # subsequent neverallow. Currently only getattr and search are allowed.
   -vendor_data_file
   -zoneinfo_data_file
+  with_native_coverage(`-method_trace_data_file')
 }:dir *;
 neverallow traced_probes system_data_file:dir ~{ getattr userdebug_or_eng(`open read') search };
 neverallow traced_probes zoneinfo_data_file:dir ~r_dir_perms;
 neverallow traced_probes { data_file_type -zoneinfo_data_file }:lnk_file *;
-neverallow traced_probes { data_file_type -zoneinfo_data_file -packages_list_file }:file *;
+neverallow traced_probes {
+  data_file_type
+  -zoneinfo_data_file
+  -packages_list_file
+  with_native_coverage(`-method_trace_data_file')
+}:file *;
 
 # Only init is allowed to enter the traced_probes domain via exec()
 neverallow { domain -init } traced_probes:process transition;

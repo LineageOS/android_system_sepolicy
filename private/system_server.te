@@ -116,6 +116,7 @@ allow system_server appdomain:process { getsched setsched };
 allow system_server audioserver:process { getsched setsched };
 allow system_server hal_audio:process { getsched setsched };
 allow system_server hal_bluetooth:process { getsched setsched };
+allow system_server hal_codec2_server:process { getsched setsched };
 allow system_server hal_omx_server:process { getsched setsched };
 allow system_server mediaswcodec:process { getsched setsched };
 allow system_server cameraserver:process { getsched setsched };
@@ -151,10 +152,6 @@ allow system_server stats_data_file:file unlink;
 
 # Read /sys/kernel/debug/wakeup_sources.
 allow system_server debugfs_wakeup_sources:file r_file_perms;
-
-# Delete /data/misc/stats-data/ and /data/misc/stats-service/ directories.
-allow system_server stats_data_file:dir { open read remove_name search write };
-allow system_server stats_data_file:file unlink;
 
 # The DhcpClient and WifiWatchdog use packet_sockets
 allow system_server self:packet_socket create_socket_perms_no_ioctl;
@@ -208,6 +205,7 @@ binder_service(system_server)
 hal_client_domain(system_server, hal_allocator)
 hal_client_domain(system_server, hal_authsecret)
 hal_client_domain(system_server, hal_broadcastradio)
+hal_client_domain(system_server, hal_codec2)
 hal_client_domain(system_server, hal_configstore)
 hal_client_domain(system_server, hal_contexthub)
 hal_client_domain(system_server, hal_face)
@@ -277,6 +275,7 @@ allow system_server {
   hal_audio_server
   hal_bluetooth_server
   hal_camera_server
+  hal_codec2_server
   hal_face_server
   hal_graphics_allocator_server
   hal_graphics_composer_server
@@ -692,7 +691,7 @@ allow system_server pstorefs:file r_file_perms;
 
 # /sys access
 allow system_server sysfs_zram:dir search;
-allow system_server sysfs_zram:file r_file_perms;
+allow system_server sysfs_zram:file rw_file_perms;
 
 add_service(system_server, system_server_service);
 allow system_server audioserver_service:service_manager find;
@@ -719,7 +718,6 @@ allow system_server netd_service:service_manager find;
 allow system_server nfc_service:service_manager find;
 allow system_server radio_service:service_manager find;
 allow system_server stats_service:service_manager find;
-allow system_server thermal_service:service_manager find;
 allow system_server storaged_service:service_manager find;
 allow system_server surfaceflinger_service:service_manager find;
 allow system_server update_engine_service:service_manager find;
@@ -888,11 +886,6 @@ allow system_server profman_dump_data_file:dir w_dir_perms;
 # On userdebug build we may profile system server. Allow it to write and create its own profile.
 userdebug_or_eng(`
   allow system_server user_profile_data_file:file create_file_perms;
-')
-
-userdebug_or_eng(`
-  # Allow system server to notify mediaextractor of the plugin update.
-  allow system_server mediaextractor_update_service:service_manager find;
 ')
 
 # UsbDeviceManager uses /dev/usb-ffs

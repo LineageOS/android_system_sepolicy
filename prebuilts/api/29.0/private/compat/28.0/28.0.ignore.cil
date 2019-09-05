@@ -45,7 +45,7 @@
     device_config_media_native_prop
     device_config_service
     dnsresolver_service
-    dynamic_android_service
+    dynamic_system_service
     dynamic_system_prop
     face_service
     face_vendor_data_file
@@ -106,6 +106,7 @@
     postinstall_apex_mnt_dir
     recovery_socket
     role_service
+    rollback_service
     rs
     rs_exec
     rss_hwm_reset
@@ -138,7 +139,6 @@
     traced_lazy_prop
     uri_grants_service
     use_memfd_prop
-    vendor_apex_file
     vendor_cgroup_desc_file
     vendor_idc_file
     vendor_keychars_file
