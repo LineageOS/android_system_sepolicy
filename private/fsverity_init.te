@@ -3,9 +3,10 @@ type fsverity_init_exec, exec_type, file_type, system_file_type;
 
 init_daemon_domain(fsverity_init)
 
-# Allow this shell script to run and execute toybox
-allow fsverity_init shell_exec:file rx_file_perms;
-allow fsverity_init toolbox_exec:file rx_file_perms;
+# Allow to retrieve keys from keystore.
+binder_use(fsverity_init)
+use_keystore(fsverity_init)
+allow fsverity_init keystore:keystore_key { list get };
 
 # Allow to read /proc/keys for searching key id.
 allow fsverity_init proc_keys:file r_file_perms;
