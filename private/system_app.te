@@ -149,3 +149,10 @@ allow system_app system_server:udp_socket {
 
 # app domains which access /dev/fuse should not run as system_app
 neverallow system_app fuse_device:chr_file *;
+
+# Apps which run as UID=system should not rely on any attacker controlled
+# filesystem locations, such as /data/local/tmp. For /data/local/tmp, we
+# allow writes to files passed by file descriptor to support dumpstate and
+# bug reports, but not reads.
+neverallow system_app shell_data_file:dir { no_w_dir_perms open search read };
+neverallow system_app shell_data_file:file { open read ioctl lock };
