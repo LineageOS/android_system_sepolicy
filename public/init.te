@@ -80,18 +80,7 @@ allow init self:global_capability_class_set sys_chroot;
 
 # Create and mount on directories in /.
 allow init rootfs:dir create_dir_perms;
-allow init {
-    rootfs
-    cache_file
-    cgroup
-    storage_file
-    mnt_user_file
-    system_data_file
-    system_data_root_file
-    system_file
-    vendor_file
-    postinstall_mnt_dir
-}:dir mounton;
+allow init { rootfs cache_file cgroup storage_file mnt_user_file system_data_file system_file vendor_file postinstall_mnt_dir }:dir mounton;
 allow init cgroup_bpf:dir { create mounton };
 
 # Mount bpf fs on sys/fs/bpf
@@ -601,7 +590,3 @@ neverallow init sysfs:file { open read write };
 
 # No domain should be allowed to ptrace init.
 neverallow * init:process ptrace;
-
-# init owns the root of /data
-# TODO(b/140259336) We want to remove vendor_init in the long term but allow for now
-neverallow { domain -init -vendor_init -vold } system_data_root_file:dir { write add_name remove_name };
