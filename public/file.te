@@ -175,8 +175,8 @@ type vendor_cgroup_desc_file, vendor_file_type, file_type;
 type task_profiles_file, system_file_type, file_type;
 # Vendor task profiles file under /vendor/etc/task_profiles.json
 type vendor_task_profiles_file, vendor_file_type, file_type;
-# Type for /system/apex/com.android.runtime
-type runtime_apex_dir, system_file_type, file_type;
+# Type for /system/apex/com.android.art
+type art_apex_dir, system_file_type, file_type;
 
 # Default type for directories search for
 # HAL implementations
