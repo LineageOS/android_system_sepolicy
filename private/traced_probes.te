@@ -101,7 +101,6 @@ neverallow traced_probes {
   -apk_data_file
   -dalvikcache_data_file
   -system_data_file
-  -system_data_root_file
   -system_app_data_file
   -backup_data_file
   -bootstat_data_file
