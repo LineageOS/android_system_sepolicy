@@ -222,9 +222,8 @@ not_full_treble(`
   allow domain system_data_file:dir getattr;
 ')
 allow { coredomain appdomain } system_data_file:dir getattr;
-# /data has the label system_data_root_file. Vendor components need the search
-# permission on system_data_root_file for path traversal to /data/vendor.
-allow domain system_data_root_file:dir { search getattr } ;
+# /data has the label system_data_file. Vendor components need the search
+# permission on system_data_file for path traversal to /data/vendor.
 allow domain system_data_file:dir search;
 # TODO restrict this to non-coredomain
 allow domain vendor_data_file:dir { getattr search };
@@ -859,7 +858,6 @@ full_treble_only(`
   } {
     core_data_file_type
     -system_data_file # default label for files on /data. Covered below...
-    -system_data_root_file
     -vendor_data_file
     -zoneinfo_data_file
     with_native_coverage(`-method_trace_data_file')
@@ -871,7 +869,6 @@ full_treble_only(`
     core_data_file_type
     -unencrypted_data_file
     -system_data_file
-    -system_data_root_file
     -vendor_data_file
     -zoneinfo_data_file
     with_native_coverage(`-method_trace_data_file')
