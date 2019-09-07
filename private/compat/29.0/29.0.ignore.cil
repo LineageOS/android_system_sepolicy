@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    boringssl_self_test
     charger_prop
     cold_boot_done_prop
     platform_compat_service
