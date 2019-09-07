@@ -135,10 +135,7 @@ allow vold labeledfs:filesystem { mount unmount remount };
 allow vold efs_file:file rw_file_perms;
 
 # Create and mount on /data/tmp_mnt and management of expansion mounts
-allow vold {
-    system_data_file
-    system_data_root_file
-}:dir { create rw_dir_perms mounton setattr rmdir };
+allow vold system_data_file:dir { create rw_dir_perms mounton setattr rmdir };
 allow vold system_data_file:lnk_file getattr;
 
 # Vold create users in /data/vendor_{ce,de}/[0-9]+
