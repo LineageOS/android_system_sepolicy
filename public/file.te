@@ -175,8 +175,8 @@ type vendor_cgroup_desc_file, vendor_file_type, file_type;
 type task_profiles_file, system_file_type, file_type;
 # Vendor task profiles file under /vendor/etc/task_profiles.json
 type vendor_task_profiles_file, vendor_file_type, file_type;
-# Type for /system/apex/com.android.runtime
-type runtime_apex_dir, system_file_type, file_type;
+# Type for /system/apex/com.android.art
+type art_apex_dir, system_file_type, file_type;
 
 # Default type for directories search for
 # HAL implementations
@@ -228,8 +228,6 @@ type logcat_exec, system_file_type, exec_type, file_type;
 type cgroup_rc_file, file_type;
 # /cores for coredumps on userdebug / eng builds
 type coredump_file, file_type;
-# Type of /data itself
-type system_data_root_file, file_type, data_file_type, core_data_file_type;
 # Default type for anything under /data.
 type system_data_file, file_type, data_file_type, core_data_file_type;
 # Type for /data/system/packages.list.
