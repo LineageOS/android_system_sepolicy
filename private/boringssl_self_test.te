@@ -1,0 +1,22 @@
+type boringssl_self_test, domain;
+type boringssl_self_test_exec, system_file_type, exec_type, file_type;
+type boringssl_self_test_marker, file_type;
+
+typeattribute boringssl_self_test coredomain;
+
+# switch to boringssl_self_test security domain when running boringssl_self_test_exec from init.
+init_daemon_domain(boringssl_self_test)
+
+# Allow boringssl_self_test binaries to create/check for the existence of boringssl_self_test_marker
+# files.
+allow boringssl_self_test boringssl_self_test_marker:file create_file_perms;
+allow boringssl_self_test boringssl_self_test_marker:dir ra_dir_perms;
+
+# No other process should be able to create these files because their existence causes the
+# boringssl self test to be skipped.
+neverallow {
+  domain
+  -boringssl_self_test
+  -init
+  -vendor_init
+} boringssl_self_test_marker:file no_rw_file_perms;
