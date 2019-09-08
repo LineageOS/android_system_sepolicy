@@ -89,6 +89,9 @@ userdebug_or_eng(`
 allow domain linkerconfig_file:dir search;
 allow domain linkerconfig_file:file r_file_perms;
 
+# Allow all processes to check for the existence of the boringssl_self_test_marker files.
+allow domain boringssl_self_test_marker:dir search;
+
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
 # with other UIDs to these whitelisted domains.
 neverallow {
