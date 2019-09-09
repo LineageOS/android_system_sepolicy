@@ -86,6 +86,41 @@ attribute log_property_type;
 # These properties are not accessible from device-specific domains
 attribute extended_core_property_type;
 
+# Properties used for representing ownership. All properties should have one
+# of: system_property_type, product_property_type, or vendor_property_type.
+
+# All properties defined by /system.
+attribute system_property_type;
+
+# All /system-defined properties used only in /system.
+attribute system_internal_property_type;
+
+# All /system-defined properties which can't be written outside /system.
+attribute system_restricted_property_type;
+
+# All /system-defined properties with no restrictions.
+attribute system_public_property_type;
+
+# All properties defined by /product.
+# Currently there are no enforcements between /system and /product, so for now
+# /product attributes are just replaced to /system attributes.
+define(`product_property_type',   `system_property_type')
+define(`product_internal_type',   `system_internal_property_type')
+define(`product_restricted_type', `system_restricted_property_type')
+define(`product_public_type',     `system_public_property_type')
+
+# All properties defined by /vendor.
+attribute vendor_property_type;
+
+# All /vendor-defined properties used only in /vendor.
+attribute vendor_internal_property_type;
+
+# All /vendor-defined properties which can't be written outside /vendor.
+attribute vendor_restricted_property_type;
+
+# All /vendor-defined properties with no restrictions.
+attribute vendor_public_property_type;
+
 # All service_manager types created by system_server
 attribute system_server_service;
 
