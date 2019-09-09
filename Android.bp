@@ -199,6 +199,13 @@ file_contexts {
 }
 
 file_contexts {
+    name: "system_ext_file_contexts",
+    srcs: [":file_contexts_files"],
+    system_ext_specific: true,
+    recovery_available: true,
+}
+
+file_contexts {
     name: "product_file_contexts",
     srcs: [":file_contexts_files"],
     product_specific: true,
