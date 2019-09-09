@@ -424,6 +424,7 @@
 
 /(system_ext|system/system_ext)/etc/selinux/system_ext_file_contexts      u:object_r:file_contexts_file:s0
 /(system_ext|system/system_ext)/etc/selinux/system_ext_hwservice_contexts u:object_r:hwservice_contexts_file:s0
+/(system_ext|system/system_ext)/etc/selinux/system_ext_property_contexts  u:object_r:property_contexts_file:s0
 /(system_ext|system/system_ext)/etc/selinux/system_ext_seapp_contexts     u:object_r:seapp_contexts_file:s0
 
 #############################

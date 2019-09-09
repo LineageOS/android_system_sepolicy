@@ -256,6 +256,13 @@ property_contexts {
 }
 
 property_contexts {
+    name: "system_ext_property_contexts",
+    srcs: [":property_contexts_files"],
+    system_ext_specific: true,
+    recovery_available: true,
+}
+
+property_contexts {
     name: "product_property_contexts",
     srcs: [":property_contexts_files"],
     product_specific: true,
