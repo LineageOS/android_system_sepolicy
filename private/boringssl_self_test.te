@@ -1,8 +1,6 @@
-type boringssl_self_test, domain;
+type boringssl_self_test, domain, coredomain;
 type boringssl_self_test_exec, system_file_type, exec_type, file_type;
 type boringssl_self_test_marker, file_type;
-
-typeattribute boringssl_self_test coredomain;
 
 # switch to boringssl_self_test security domain when running boringssl_self_test_exec from init.
 init_daemon_domain(boringssl_self_test)
