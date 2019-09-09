@@ -237,9 +237,6 @@ allow domain proc_cpuinfo:file r_file_perms;
 # /dev/cpu_variant:.*
 allow domain dev_cpu_variant:file r_file_perms;
 
-# jemalloc needs to read /proc/sys/vm/overcommit_memory
-allow domain proc_overcommit_memory:file r_file_perms;
-
 # profiling needs to read /proc/sys/kernel/perf_event_max_sample_rate
 allow domain proc_perf:file r_file_perms;
 
