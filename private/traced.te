@@ -62,6 +62,7 @@ neverallow traced domain:process ptrace;
 neverallow traced {
   data_file_type
   -system_data_file
+  -system_data_root_file
   # TODO(b/72998741) Remove vendor_data_file exemption. Further restricted in a
   # subsequent neverallow. Currently only getattr and search are allowed.
   -vendor_data_file
