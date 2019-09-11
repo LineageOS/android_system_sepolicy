@@ -61,6 +61,9 @@ allow app_zygote dalvikcache_data_file:file execute;
 allow app_zygote apk_data_file:dir r_dir_perms;
 allow app_zygote apk_data_file:file { r_file_perms execute };
 
+# /oem accesses.
+allow app_zygote oemfs:dir search;
+
 # Allow app_zygote access to /vendor/overlay
 r_dir_file(app_zygote, vendor_overlay_file)
 
