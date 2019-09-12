@@ -6,7 +6,7 @@ type ueventd_tmpfs, file_type;
 # Write to /dev/kmsg.
 allow ueventd kmsg_device:chr_file rw_file_perms;
 
-allow ueventd self:global_capability_class_set { chown mknod net_admin setgid fsetid sys_rawio dac_override dac_read_search fowner };
+allow ueventd self:global_capability_class_set { chown mknod net_admin setgid fsetid sys_rawio dac_override dac_read_search fowner setuid };
 allow ueventd device:file create_file_perms;
 
 r_dir_file(ueventd, rootfs)
@@ -63,6 +63,9 @@ allow ueventd system_bootstrap_lib_file:file { execute read open getattr map };
 # to init that cold boot has completed.
 set_prop(ueventd, cold_boot_done_prop)
 
+# Allow ueventd to run shell scripts from vendor
+allow ueventd vendor_shell_exec:file execute;
+
 #####
 ##### neverallow rules
 #####
@@ -75,3 +78,6 @@ neverallow ueventd port_device:chr_file ~{ getattr create setattr unlink relabel
 
 # Nobody should be able to ptrace ueventd
 neverallow * ueventd:process ptrace;
+
+# ueventd should never execute a program without changing to another domain.
+neverallow ueventd { file_type fs_type }:file execute_no_trans;
