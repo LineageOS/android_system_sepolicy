@@ -586,6 +586,15 @@ neverallow init { app_data_file privapp_data_file }:lnk_file read;
 # init should never execute a program without changing to another domain.
 neverallow init { file_type fs_type }:file execute_no_trans;
 
+# The use of sensitive environment variables, such as LD_PRELOAD, is disallowed
+# when init is executing other binaries. The use of LD_PRELOAD for init spawned
+# services is generally considered a no-no, as it injects libraries which the
+# binary was not expecting. This is especially problematic for APEXes. The use
+# of LD_PRELOAD via APEXes is a layering violation, and inappropriately loads
+# code into a process which wasn't expecting that code, with potentially
+# unexpected side effects. (b/140789528)
+neverallow init *:process noatsecure;
+
 # init can never add binder services
 neverallow init service_manager_type:service_manager { add find };
 # init can never list binder services
