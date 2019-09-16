@@ -22,3 +22,7 @@ allow toolbox swap_block_device:blk_file rw_file_perms;
 neverallow { domain -init } toolbox:process transition;
 neverallow * toolbox:process dyntransition;
 neverallow toolbox { file_type fs_type -toolbox_exec}:file entrypoint;
+
+# rm -rf directories in /data
+allow toolbox system_data_file:dir { rmdir rw_dir_perms };
+allow toolbox system_data_file:file { getattr unlink };
