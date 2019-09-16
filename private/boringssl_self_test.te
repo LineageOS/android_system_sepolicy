@@ -25,14 +25,3 @@ neverallow {
   -init
   -vendor_init
 } boringssl_self_test_marker:dir write;
-
-# If those other processes attempt to create the marker files
-# (which starts with :dir write), that's not a big deal.
-# Don't log about it.
-dontaudit {
-  domain
-  -boringssl_self_test
-  -init
-  -vendor_init
-} boringssl_self_test_marker:dir write;
-
