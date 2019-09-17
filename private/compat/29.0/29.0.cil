@@ -1,6 +1,8 @@
 ;; types removed from current policy
 (type ashmemd)
 (type hal_wifi_offload_hwservice)
+(type install_recovery)
+(type install_recovery_exec)
 (type mediacodec_service)
 (type perfprofd_data_file)
 (type perfprofd_service)
