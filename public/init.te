@@ -601,5 +601,6 @@ neverallow init sysfs:file { open read write };
 neverallow * init:process ptrace;
 
 # init owns the root of /data
-# TODO(b/140259336) We want to remove vendor_init in the long term but allow for now
-neverallow { domain -init -vendor_init -vold } system_data_root_file:dir { write add_name remove_name };
+# TODO(b/140259336) We want to remove vendor_init
+# TODO(b/141108496) We want to remove toolbox
+neverallow { domain -init -toolbox -vendor_init -vold } system_data_root_file:dir { write add_name remove_name };
