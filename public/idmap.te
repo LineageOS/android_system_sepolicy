@@ -27,4 +27,5 @@ r_dir_file(idmap, vendor_overlay_file)
 
 # Allow the idmap2d binary to register as a service and communicate via AIDL
 binder_use(idmap)
+binder_service(idmap)
 add_service(idmap, idmap_service)
