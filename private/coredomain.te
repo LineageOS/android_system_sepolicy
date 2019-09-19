@@ -56,6 +56,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
+        -iorap_prefetcherd
         -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
         -system_server
@@ -73,6 +74,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
+        -iorap_prefetcherd
         -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
         -system_server
