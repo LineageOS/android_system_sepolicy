@@ -723,3 +723,65 @@ define(`dump_hal', `
   allow $1_server dumpstate:fifo_file write;
   allow $1_server dumpstate:fd use;
 ')
+
+###########################################
+# define_prop(name, owner, scope)
+# Define a property with given owner and scope
+#
+define(`define_prop', `
+  type $1, property_type, $2_property_type, $2_$3_property_type;
+')
+
+###########################################
+# system_internal_prop(name)
+# Define a /system-owned property used only in /system
+#
+define(`system_internal_prop', `define_prop($1, system, internal)')
+
+###########################################
+# system_restricted_prop(name)
+# Define a /system-owned property which can't be written outside /system
+#
+define(`system_restricted_prop', `define_prop($1, system, restricted)')
+
+###########################################
+# system_public_prop(name)
+# Define a /system-owned property with no restrictions
+#
+define(`system_public_prop', `define_prop($1, system, public)')
+
+###########################################
+# product_internal_prop(name)
+# Define a /product-owned property used only in /product
+#
+define(`product_internal_prop', `define_prop($1, product, internal)')
+
+###########################################
+# product_restricted_prop(name)
+# Define a /product-owned property which can't be written outside /product
+#
+define(`product_restricted_prop', `define_prop($1, product, restricted)')
+
+###########################################
+# product_public_prop(name)
+# Define a /product-owned property with no restrictions
+#
+define(`product_public_prop', `define_prop($1, product, public)')
+
+###########################################
+# vendor_internal_prop(name)
+# Define a /vendor-owned property used only in /vendor
+#
+define(`vendor_internal_prop', `define_prop($1, vendor, internal)')
+
+###########################################
+# vendor_restricted_prop(name)
+# Define a /vendor-owned property which can't be written outside /vendor
+#
+define(`vendor_restricted_prop', `define_prop($1, vendor, restricted)')
+
+###########################################
+# vendor_public_prop(name)
+# Define a /vendor-owned property with no restrictions
+#
+define(`vendor_public_prop', `define_prop($1, vendor, public)')
