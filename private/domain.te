@@ -261,7 +261,6 @@ define(`dac_override_allowed', `{
   dumpstate
   init
   installd
-  install_recovery
   userdebug_or_eng(`llkd')
   lmkd
   migrate_legacy_obb_data
