@@ -187,6 +187,7 @@ slice                                     u:object_r:slice_service:s0
 stats                                     u:object_r:stats_service:s0
 statscompanion                            u:object_r:statscompanion_service:s0
 soundtrigger                              u:object_r:voiceinteraction_service:s0
+soundtrigger_middleware                   u:object_r:soundtrigger_middleware_service:s0
 statusbar                                 u:object_r:statusbar_service:s0
 storaged                                  u:object_r:storaged_service:s0
 storaged_pri                              u:object_r:storaged_service:s0
