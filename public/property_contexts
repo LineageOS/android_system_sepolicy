@@ -111,7 +111,10 @@ ro.config.ringtone u:object_r:exported2_config_prop:s0 exact string
 ro.control_privapp_permissions u:object_r:exported3_default_prop:s0 exact string
 ro.cp_system_other_odex u:object_r:exported3_default_prop:s0 exact int
 ro.crypto.allow_encrypt_override u:object_r:exported2_vold_prop:s0 exact bool
+ro.crypto.fde_algorithm u:object_r:exported2_vold_prop:s0 exact string
+ro.crypto.fde_sector_size u:object_r:exported2_vold_prop:s0 exact int
 ro.crypto.scrypt_params u:object_r:exported2_vold_prop:s0 exact string
+ro.crypto.volume.contents_mode u:object_r:exported2_vold_prop:s0 exact string
 ro.crypto.volume.filenames_mode u:object_r:exported2_vold_prop:s0 exact string
 ro.dalvik.vm.native.bridge u:object_r:exported_dalvik_prop:s0 exact string
 ro.enable_boot_charger_mode u:object_r:exported3_default_prop:s0 exact bool
