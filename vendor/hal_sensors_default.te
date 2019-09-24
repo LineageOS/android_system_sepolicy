@@ -17,3 +17,6 @@ allow hal_sensors_default ion_device:chr_file r_file_perms;
 # allow sensor hal to use lock for keeping system awake for wake up
 # events delivery.
 wakelock_use(hal_sensors_default);
+
+# allow sensor hal to use ashmem fd from system_server.
+allow hal_sensors_default system_server:fd use;
