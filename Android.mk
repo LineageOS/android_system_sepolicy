@@ -244,11 +244,15 @@ ifneq ($(with_asan),true)
 ifneq ($(SELINUX_IGNORE_NEVERALLOWS),true)
 LOCAL_REQUIRED_MODULES += \
     sepolicy_tests \
-    $(addprefix treble_sepolicy_tests_,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
     $(addsuffix _compat_test,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
 
-endif
-endif
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
+LOCAL_REQUIRED_MODULES += \
+    $(addprefix treble_sepolicy_tests_,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
+
+endif  # PRODUCT_SEPOLICY_SPLIT
+endif  # SELINUX_IGNORE_NEVERALLOWS
+endif  # with_asan
 
 ifneq ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
 LOCAL_REQUIRED_MODULES += \
@@ -1331,6 +1335,7 @@ $(HOST_OUT_EXECUTABLES)/build_sepolicy $(base_plat_pub_policy.conf) $(reqd_polic
 	$(hide) $(HOST_OUT_EXECUTABLES)/build_sepolicy -a $(HOST_OUT_EXECUTABLES) filter_out \
 		-f $(PRIVATE_REQD_MASK) -t $@
 
+ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 # Tests for Treble compatibility of current platform policy and vendor policy of
 # given release version.
 version_under_treble_tests := 26.0
@@ -1341,6 +1346,7 @@ version_under_treble_tests := 28.0
 include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
 version_under_treble_tests := 29.0
 include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
+endif  # PRODUCT_SEPOLICY_SPLIT
 
 version_under_treble_tests := 26.0
 include $(LOCAL_PATH)/compat.mk
