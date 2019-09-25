@@ -357,9 +357,6 @@ allow appdomain audioserver_tmpfs:file { getattr map read write };
 allow appdomain system_server_tmpfs:file { getattr map read write };
 allow appdomain zygote_tmpfs:file { map read };
 
-# Allow vendor apps access to ashmem_server to request /dev/ashmem fds.
-binder_call({ appdomain -coredomain }, ashmem_server)
-
 ###
 ### Neverallow rules
 ###
