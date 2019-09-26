@@ -75,6 +75,7 @@
 /dev/adf-interface[0-9]*\.[0-9]*	u:object_r:graphics_device:s0
 /dev/adf-overlay-engine[0-9]*\.[0-9]*	u:object_r:graphics_device:s0
 /dev/ashmem		u:object_r:ashmem_device:s0
+/dev/ashmem(.*)?	u:object_r:ashmem_libcutils_device:s0
 /dev/audio.*		u:object_r:audio_device:s0
 /dev/binder		u:object_r:binder_device:s0
 /dev/block(/.*)?	u:object_r:block_device:s0

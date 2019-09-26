@@ -80,6 +80,9 @@ allow {
   -untrusted_app_all
 } ashmem_device:chr_file rw_file_perms;
 
+# This device is used by libcutils.
+allow domain ashmem_libcutils_device:chr_file rw_file_perms;
+
 # Allow using fds to /dev/ashmem.
 allow domain ashmem_server:fd use;
 

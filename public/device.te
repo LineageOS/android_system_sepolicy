@@ -1,6 +1,7 @@
 # Device types
 type device, dev_type, fs_type;
 type ashmem_device, dev_type, mlstrustedobject;
+type ashmem_libcutils_device, dev_type, mlstrustedobject;
 type audio_device, dev_type;
 type binder_device, dev_type, mlstrustedobject;
 type hwbinder_device, dev_type, mlstrustedobject;
