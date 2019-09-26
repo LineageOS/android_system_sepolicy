@@ -10,6 +10,9 @@ init_daemon_domain(boringssl_self_test)
 allow boringssl_self_test boringssl_self_test_marker:file create_file_perms;
 allow boringssl_self_test boringssl_self_test_marker:dir ra_dir_perms;
 
+# Allow boringsself_self_test to write its stdout/stderr messages to kmsg_debug.
+allow boringssl_self_test kmsg_debug_device:chr_file { w_file_perms getattr ioctl };
+
 # No other process should be able to create these files because their existence causes the
 # boringssl self test to be skipped.
 neverallow {
