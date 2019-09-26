@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    ashmem_libcutils_device
     boringssl_self_test
     charger_prop
     cold_boot_done_prop
