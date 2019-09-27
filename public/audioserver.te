@@ -1,3 +1,6 @@
 # audioserver - audio services daemon
 type audioserver, domain;
 type audioserver_tmpfs, file_type;
+
+# Allow audioserver to signal audio HAL processes and dump their stacks.
+allow audioserver hal_audio_server:process signal;
