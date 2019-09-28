@@ -317,6 +317,7 @@ LOCAL_REQUIRED_MODULES += \
     system_ext_file_contexts \
     system_ext_file_contexts_test \
     system_ext_mapping_file \
+    system_ext_seapp_contexts \
 
 endif
 
