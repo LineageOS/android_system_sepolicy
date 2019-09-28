@@ -316,8 +316,10 @@ LOCAL_REQUIRED_MODULES += \
     system_ext_sepolicy.cil \
     system_ext_file_contexts \
     system_ext_file_contexts_test \
-    system_ext_mapping_file \
+    system_ext_hwservice_contexts \
+    system_ext_hwservice_contexts_test \
     system_ext_seapp_contexts \
+    system_ext_mapping_file \
 
 endif
 
