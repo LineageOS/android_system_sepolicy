@@ -225,6 +225,12 @@ hwservice_contexts {
 }
 
 hwservice_contexts {
+    name: "system_ext_hwservice_contexts",
+    srcs: [":hwservice_contexts_files"],
+    system_ext_specific: true,
+}
+
+hwservice_contexts {
     name: "product_hwservice_contexts",
     srcs: [":hwservice_contexts_files"],
     product_specific: true,

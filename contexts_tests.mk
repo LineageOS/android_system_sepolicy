@@ -106,6 +106,17 @@ $(eval $(call run_contexts_test, $(system_out)/plat_hwservice_contexts, $(checkf
 ##################################
 include $(CLEAR_VARS)
 
+LOCAL_MODULE := system_ext_hwservice_contexts_test
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(eval $(call run_contexts_test, $(system_ext_out)/system_ext_hwservice_contexts, $(checkfc), -e -l))
+
+##################################
+include $(CLEAR_VARS)
+
 LOCAL_MODULE := product_hwservice_contexts_test
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
