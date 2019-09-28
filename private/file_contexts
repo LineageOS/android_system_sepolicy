@@ -75,6 +75,7 @@
 /dev/adf-interface[0-9]*\.[0-9]*	u:object_r:graphics_device:s0
 /dev/adf-overlay-engine[0-9]*\.[0-9]*	u:object_r:graphics_device:s0
 /dev/ashmem		u:object_r:ashmem_device:s0
+/dev/ashmem(.*)?	u:object_r:ashmem_libcutils_device:s0
 /dev/audio.*		u:object_r:audio_device:s0
 /dev/binder		u:object_r:binder_device:s0
 /dev/block(/.*)?	u:object_r:block_device:s0
@@ -421,6 +422,13 @@
 /(system_ext|system/system_ext)/etc/group           u:object_r:system_group_file:s0
 /(system_ext|system/system_ext)/etc/passwd          u:object_r:system_passwd_file:s0
 /(system_ext|system/system_ext)/overlay(/.*)?       u:object_r:vendor_overlay_file:s0
+
+/(system_ext|system/system_ext)/etc/selinux/system_ext_file_contexts        u:object_r:file_contexts_file:s0
+/(system_ext|system/system_ext)/etc/selinux/system_ext_hwservice_contexts   u:object_r:hwservice_contexts_file:s0
+/(system_ext|system/system_ext)/etc/selinux/system_ext_property_contexts    u:object_r:property_contexts_file:s0
+/(system_ext|system/system_ext)/etc/selinux/system_ext_seapp_contexts       u:object_r:seapp_contexts_file:s0
+/(system_ext|system/system_ext)/etc/selinux/system_ext_service_contexts     u:object_r:service_contexts_file:s0
+/(system_ext|system/system_ext)/etc/selinux/system_ext_mac_permissions\.xml u:object_r:mac_perms_file:s0
 
 #############################
 # Vendor files from /(product|system/product)/vendor_overlay
