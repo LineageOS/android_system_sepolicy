@@ -290,6 +290,12 @@ service_contexts {
 }
 
 service_contexts {
+    name: "system_ext_service_contexts",
+    srcs: [":service_contexts_files"],
+    system_ext_specific: true,
+}
+
+service_contexts {
     name: "product_service_contexts",
     srcs: [":service_contexts_files"],
     product_specific: true,
