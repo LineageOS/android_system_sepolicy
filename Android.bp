@@ -199,6 +199,13 @@ file_contexts {
 }
 
 file_contexts {
+    name: "system_ext_file_contexts",
+    srcs: [":file_contexts_files"],
+    system_ext_specific: true,
+    recovery_available: true,
+}
+
+file_contexts {
     name: "product_file_contexts",
     srcs: [":file_contexts_files"],
     product_specific: true,
@@ -215,6 +222,12 @@ file_contexts {
 hwservice_contexts {
     name: "plat_hwservice_contexts",
     srcs: [":hwservice_contexts_files"],
+}
+
+hwservice_contexts {
+    name: "system_ext_hwservice_contexts",
+    srcs: [":hwservice_contexts_files"],
+    system_ext_specific: true,
 }
 
 hwservice_contexts {
@@ -243,6 +256,13 @@ property_contexts {
 }
 
 property_contexts {
+    name: "system_ext_property_contexts",
+    srcs: [":property_contexts_files"],
+    system_ext_specific: true,
+    recovery_available: true,
+}
+
+property_contexts {
     name: "product_property_contexts",
     srcs: [":property_contexts_files"],
     product_specific: true,
@@ -267,6 +287,12 @@ property_contexts {
 service_contexts {
     name: "plat_service_contexts",
     srcs: [":service_contexts_files"],
+}
+
+service_contexts {
+    name: "system_ext_service_contexts",
+    srcs: [":service_contexts_files"],
+    system_ext_specific: true,
 }
 
 service_contexts {

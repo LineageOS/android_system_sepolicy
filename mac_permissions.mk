@@ -7,7 +7,7 @@ LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-all_plat_mac_perms_keys := $(call build_policy, keys.conf, $(PLAT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
+all_plat_mac_perms_keys := $(call build_policy, keys.conf, $(PLAT_PRIVATE_POLICY) $(SYSTEM_EXT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
 all_plat_mac_perms_files := $(call build_policy, mac_permissions.xml, $(PLAT_PRIVATE_POLICY))
 
 # Build keys.conf
@@ -34,6 +34,37 @@ all_plat_keys :=
 all_plat_mac_perms_files :=
 all_plat_mac_perms_keys :=
 plat_mac_perms_keys.tmp :=
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := system_ext_mac_permissions.xml
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_OUT_SYSTEM_EXT)/etc/selinux
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+all_system_ext_mac_perms_keys := $(call build_policy, keys.conf, $(SYSTEM_EXT_PRIVATE_POLICY) $(REQD_MASK_POLICY))
+all_system_ext_mac_perms_files := $(call build_policy, mac_permissions.xml, $(SYSTEM_EXT_PRIVATE_POLICY) $(REQD_MASK_POLICY))
+
+# Build keys.conf
+system_ext_mac_perms_keys.tmp := $(intermediates)/system_ext_keys.tmp
+$(system_ext_mac_perms_keys.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(system_ext_mac_perms_keys.tmp): PRIVATE_KEYS := $(all_system_ext_mac_perms_keys)
+$(system_ext_mac_perms_keys.tmp): $(all_system_ext_mac_perms_keys)
+	@mkdir -p $(dir $@)
+	$(hide) $(M4) --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
+
+$(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_system_ext_mac_perms_files)
+$(LOCAL_BUILT_MODULE): $(system_ext_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
+$(all_system_ext_mac_perms_files)
+	@mkdir -p $(dir $@)
+	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
+
+system_ext_mac_perms_keys.tmp :=
+all_system_ext_mac_perms_files :=
+all_system_ext_mac_perms_keys :=
 
 ##################################
 include $(CLEAR_VARS)
