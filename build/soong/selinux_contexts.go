@@ -142,9 +142,10 @@ func (m *selinuxContextsModule) GenerateAndroidBuildActions(ctx android.ModuleCo
 			inputs = append(inputs, segroup.VendorSrcs()...)
 		} else if ctx.DeviceSpecific() {
 			inputs = append(inputs, segroup.OdmSrcs()...)
+		} else if ctx.SystemExtSpecific() {
+			inputs = append(inputs, segroup.SystemExtPrivateSrcs()...)
 		} else {
 			inputs = append(inputs, segroup.SystemPrivateSrcs()...)
-			inputs = append(inputs, segroup.SystemExtPrivateSrcs()...)
 
 			if ctx.Config().ProductCompatibleProperty() {
 				inputs = append(inputs, segroup.SystemPublicSrcs()...)
