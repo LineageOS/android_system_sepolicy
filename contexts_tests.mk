@@ -163,6 +163,24 @@ $(eval $(call run_contexts_test, $(pc_files), $(property_info_checker),))
 
 ##################################
 
+ifdef HAS_SYSTEM_EXT_SEPOLICY
+
+pc_files += $(system_ext_out)/system_ext_property_contexts
+
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := system_ext_property_contexts_test
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(eval $(call run_contexts_test, $(pc_files), $(property_info_checker),))
+
+endif
+
+##################################
+
 pc_files += $(vendor_out)/vendor_property_contexts
 
 include $(CLEAR_VARS)
