@@ -30,6 +30,7 @@ $$(LOCAL_BUILT_MODULE): $(2) $(1) $$(built_sepolicy)
 endef
 
 system_out := $(TARGET_OUT)/etc/selinux
+system_ext_out := $(TARGET_OUT_SYSTEM_EXT)/etc/selinux
 product_out := $(TARGET_OUT_PRODUCT)/etc/selinux
 vendor_out := $(TARGET_OUT_VENDOR)/etc/selinux
 odm_out := $(TARGET_OUT_ODM)/etc/selinux
@@ -45,6 +46,17 @@ LOCAL_MODULE_TAGS := optional
 include $(BUILD_SYSTEM)/base_rules.mk
 
 $(eval $(call run_contexts_test, $(system_out)/plat_file_contexts, $(checkfc),))
+
+##################################
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := system_ext_file_contexts_test
+LOCAL_MODULE_CLASS := FAKE
+LOCAL_MODULE_TAGS := optional
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(eval $(call run_contexts_test, $(system_ext_out)/system_ext_file_contexts, $(checkfc),))
 
 ##################################
 include $(CLEAR_VARS)
