@@ -18,7 +18,6 @@ type hal_can_bus_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_can_controller_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_confirmationui_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_contexthub_hwservice, hwservice_manager_type, protected_hwservice;
-type hal_drm_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_dumpstate_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_evs_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_face_hwservice, hwservice_manager_type, protected_hwservice;
@@ -76,10 +75,13 @@ type thermalcallback_hwservice, hwservice_manager_type, protected_hwservice;
 # - hal_omx_hwservice: because this is a HwBinder version of the mediacodec
 #   Binder service which apps were permitted to access.
 # - hal_codec2_hwservice: because this is a newer version of hal_omx_hwservice.
+# - hal_drm_hwservice: versions > API 29 are designed specifically with
+#   untrusted app access in mind.
 type fwk_bufferhub_hwservice, hwservice_manager_type, coredomain_hwservice;
 type hal_cas_hwservice, hwservice_manager_type;
 type hal_codec2_hwservice, hwservice_manager_type;
 type hal_configstore_ISurfaceFlingerConfigs, hwservice_manager_type;
+type hal_drm_hwservice, hwservice_manager_type;
 type hal_graphics_allocator_hwservice, hwservice_manager_type;
 type hal_graphics_mapper_hwservice, hwservice_manager_type, same_process_hwservice;
 type hal_neuralnetworks_hwservice, hwservice_manager_type;
