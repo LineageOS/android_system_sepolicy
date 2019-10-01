@@ -3,6 +3,3 @@ hal_server_domain(hal_allocator_default, hal_allocator)
 
 type hal_allocator_default_exec, system_file_type, exec_type, file_type;
 init_daemon_domain(hal_allocator_default)
-
-# To talk to ashmemd
-binder_use(hal_allocator_default)
