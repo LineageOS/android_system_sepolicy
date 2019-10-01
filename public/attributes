@@ -350,7 +350,6 @@ hal_attribute(wifi_supplicant);
 # from one core domain to another, without having to update the vendor image
 # which contains clients of this service.
 
-attribute ashmem_server;
 attribute camera_service_server;
 attribute display_service_server;
 attribute scheduler_service_server;
