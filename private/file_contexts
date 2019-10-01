@@ -186,7 +186,6 @@
 /system/lib(64)?(/.*)?		u:object_r:system_lib_file:s0
 /system/lib(64)?/bootstrap(/.*)? u:object_r:system_bootstrap_lib_file:s0
 /system/bin/atrace	u:object_r:atrace_exec:s0
-/system/bin/ashmemd	u:object_r:ashmemd_exec:s0
 /system/bin/auditctl	u:object_r:auditctl_exec:s0
 /system/bin/bcc                 u:object_r:rs_exec:s0
 /system/bin/blank_screen	u:object_r:blank_screen_exec:s0
