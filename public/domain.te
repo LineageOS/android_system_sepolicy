@@ -72,7 +72,7 @@ allow domain null_device:chr_file rw_file_perms;
 allow domain zero_device:chr_file rw_file_perms;
 allow {
   domain
-  # TODO(b/113362644): route coredomain to ashmemd
+  # TODO(b/113362644): route coredomain to libcutils.
   #-coredomain
   -mediaprovider
   -ephemeral_app
@@ -82,14 +82,6 @@ allow {
 
 # This device is used by libcutils.
 allow domain ashmem_libcutils_device:chr_file rw_file_perms;
-
-# Allow using fds to /dev/ashmem.
-allow domain ashmem_server:fd use;
-
-# Allow vendor hals to access IAshmem
-# TODO(b/134783601): Change to a whitelist.
-allow { domain -coredomain -appdomain } system_ashmem_hwservice:hwservice_manager find;
-allow { domain -coredomain -appdomain } ashmem_server: binder call;
 
 # /dev/binder can be accessed by ... everyone! :)
 allow { domain -hwservicemanager -vndservicemanager } binder_device:chr_file rw_file_perms;

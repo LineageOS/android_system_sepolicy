@@ -54,7 +54,6 @@ type hal_weaver_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_wifi_hostapd_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_wifi_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_wifi_supplicant_hwservice, hwservice_manager_type, protected_hwservice;
-type system_ashmem_hwservice, hwservice_manager_type, coredomain_hwservice, protected_hwservice;
 type system_net_netd_hwservice, hwservice_manager_type, coredomain_hwservice, protected_hwservice;
 type system_suspend_hwservice, hwservice_manager_type, coredomain_hwservice, protected_hwservice;
 type system_wifi_keystore_hwservice, hwservice_manager_type, coredomain_hwservice, protected_hwservice;

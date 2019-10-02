@@ -92,12 +92,10 @@ neverallow isolated_app *:service_manager ~find;
 
 # b/17487348
 # Isolated apps can only access three services,
-# activity_service, display_service, webviewupdate_service, and
-# ashmem_device_service.
+# activity_service, display_service, webviewupdate_service.
 neverallow isolated_app {
     service_manager_type
     -activity_service
-    -ashmem_device_service
     -display_service
     -webviewupdate_service
 }:service_manager find;

@@ -103,7 +103,6 @@ neverallow app_zygote {
 neverallow app_zygote {
     service_manager_type
     -activity_service
-    -ashmem_device_service
     -webviewupdate_service
 }:service_manager find;
 
