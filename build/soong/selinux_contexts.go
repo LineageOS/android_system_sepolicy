@@ -74,7 +74,7 @@ type selinuxContextsModule struct {
 	fileContextsProperties fileContextsProperties
 	build                  func(ctx android.ModuleContext, inputs android.Paths)
 	outputPath             android.ModuleGenPath
-	installPath            android.OutputPath
+	installPath            android.InstallPath
 }
 
 var (
@@ -106,11 +106,14 @@ func (m *selinuxContextsModule) InstallInRecovery() bool {
 	return m.inRecovery()
 }
 
+func (m *selinuxContextsModule) InstallInRoot() bool {
+	return m.inRecovery()
+}
+
 func (m *selinuxContextsModule) GenerateAndroidBuildActions(ctx android.ModuleContext) {
-	if m.InstallInRecovery() {
-		// Workaround for installing context files at the root of the recovery partition
-		m.installPath = android.PathForOutput(ctx,
-			"target", "product", ctx.Config().DeviceName(), "recovery", "root")
+	if m.inRecovery() {
+		// Installing context files at the root of the recovery partition
+		m.installPath = android.PathForModuleInstall(ctx)
 	} else {
 		m.installPath = android.PathForModuleInstall(ctx, "etc", "selinux")
 	}
@@ -213,7 +216,7 @@ func (m *selinuxContextsModule) AndroidMk() android.AndroidMkData {
 			}
 			fmt.Fprintln(w, "LOCAL_MODULE_TAGS := optional")
 			fmt.Fprintln(w, "LOCAL_PREBUILT_MODULE_FILE :=", m.outputPath.String())
-			fmt.Fprintln(w, "LOCAL_MODULE_PATH :=", "$(OUT_DIR)/"+m.installPath.RelPathString())
+			fmt.Fprintln(w, "LOCAL_MODULE_PATH :=", m.installPath.ToMakePath().String())
 			fmt.Fprintln(w, "LOCAL_INSTALLED_MODULE_STEM :=", name)
 			fmt.Fprintln(w, "include $(BUILD_PREBUILT)")
 		},
