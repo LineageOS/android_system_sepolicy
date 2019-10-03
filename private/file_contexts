@@ -351,7 +351,7 @@
 /(vendor|system/vendor)/overlay(/.*)?          u:object_r:vendor_overlay_file:s0
 /(vendor|system/vendor)/framework(/.*)?        u:object_r:vendor_framework_file:s0
 
-/vendor/bin/misc_writer                        u:object_r:vendor_misc_writer_exec:s0
+/(vendor|system/vendor)/bin/misc_writer        u:object_r:vendor_misc_writer_exec:s0
 
 # HAL location
 /(vendor|system/vendor)/lib(64)?/hw            u:object_r:vendor_hal_file:s0
@@ -371,9 +371,9 @@
 /(odm|vendor/odm)/framework(/.*)?             u:object_r:vendor_framework_file:s0
 
 # Input configuration
-/(odm|vendor|vendor/odm)/usr/keylayout(/.*)?\.kl            u:object_r:vendor_keylayout_file:s0
-/(odm|vendor|vendor/odm)/usr/keychars(/.*)?\.kcm            u:object_r:vendor_keychars_file:s0
-/(odm|vendor|vendor/odm)/usr/idc(/.*)?\.idc                 u:object_r:vendor_idc_file:s0
+/(odm|vendor/odm|vendor|system/vendor)/usr/keylayout(/.*)?\.kl        u:object_r:vendor_keylayout_file:s0
+/(odm|vendor/odm|vendor|system/vendor)/usr/keychars(/.*)?\.kcm        u:object_r:vendor_keychars_file:s0
+/(odm|vendor/odm|vendor|system/vendor)/usr/idc(/.*)?\.idc             u:object_r:vendor_idc_file:s0
 
 /oem(/.*)?              u:object_r:oemfs:s0
 /oem/overlay(/.*)?      u:object_r:vendor_overlay_file:s0
