@@ -477,7 +477,7 @@ type sepolicy_file, system_file_type, file_type;
 type service_contexts_file, system_file_type, file_type;
 
 # nonplat service_contexts file (only accessible on non full-treble devices)
-type nonplat_service_contexts_file, file_type;
+type nonplat_service_contexts_file, vendor_file_type, file_type;
 
 # hwservice_contexts file
 type hwservice_contexts_file, system_file_type, file_type;
