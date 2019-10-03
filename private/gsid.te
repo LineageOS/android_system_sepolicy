@@ -70,7 +70,12 @@ allow gsid adbd:fd use;
 # Needed when running gsi_tool through "su root" rather than adb root.
 allow gsid adbd:unix_stream_socket rw_socket_perms;
 
-neverallow { domain -gsid -init } gsid_prop:property_service set;
+neverallow {
+  domain
+  -gsid
+  -init
+  -update_engine_common
+} gsid_prop:property_service set;
 
 # gsid needs to store images on /data, but cannot use file I/O. If it did, the
 # underlying blocks would be encrypted, and we couldn't mount the GSI image in
@@ -98,12 +103,27 @@ allow gsid userdata_block_device:blk_file r_file_perms;
 #                    currently running.
 #
 allow gsid metadata_file:dir { search getattr };
-allow gsid gsi_metadata_file:dir rw_dir_perms;
-allow gsid gsi_metadata_file:file create_file_perms;
+allow gsid {
+    gsi_metadata_file
+    ota_metadata_file
+}:dir rw_dir_perms;
+allow gsid {
+    gsi_metadata_file
+    ota_metadata_file
+}:file create_file_perms;
 
-allow gsid gsi_data_file:dir rw_dir_perms;
-allow gsid gsi_data_file:file create_file_perms;
-allowxperm gsid gsi_data_file:file ioctl FS_IOC_FIEMAP;
+allow gsid {
+      gsi_data_file
+      ota_image_data_file
+}:dir rw_dir_perms;
+allow gsid {
+      gsi_data_file
+      ota_image_data_file
+}:file create_file_perms;
+allowxperm gsid {
+      gsi_data_file
+      ota_image_data_file
+}:file ioctl FS_IOC_FIEMAP;
 
 neverallow {
     domain

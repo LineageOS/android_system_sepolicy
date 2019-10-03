@@ -253,6 +253,7 @@
 /system/bin/recovery-persist     u:object_r:recovery_persist_exec:s0
 /system/bin/recovery-refresh     u:object_r:recovery_refresh_exec:s0
 /system/bin/sdcard      u:object_r:sdcardd_exec:s0
+/system/bin/snapshotctl      u:object_r:snapshotctl_exec:s0
 /system/bin/dhcpcd      u:object_r:dhcp_exec:s0
 /system/bin/dhcpcd-6\.8\.2	u:object_r:dhcp_exec:s0
 /system/bin/mtpd	u:object_r:mtp_exec:s0
@@ -468,6 +469,7 @@
 /data/app-private(/.*)?               u:object_r:apk_private_data_file:s0
 /data/app-private/vmdl.*\.tmp(/.*)?   u:object_r:apk_private_tmp_file:s0
 /data/gsi(/.*)?        u:object_r:gsi_data_file:s0
+/data/gsi/ota(/.*)?    u:object_r:ota_image_data_file:s0
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
 /data/vendor/tombstones/wifi(/.*)? u:object_r:tombstone_wifi_data_file:s0
 /data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
@@ -649,6 +651,7 @@
 /metadata/apex(/.*)?      u:object_r:apex_metadata_file:s0
 /metadata/vold(/.*)?      u:object_r:vold_metadata_file:s0
 /metadata/gsi(/.*)?       u:object_r:gsi_metadata_file:s0
+/metadata/gsi/ota(/.*)?   u:object_r:ota_metadata_file:s0
 /metadata/password_slots(/.*)?    u:object_r:password_slot_metadata_file:s0
 /metadata/ota(/.*)?       u:object_r:ota_metadata_file:s0
 

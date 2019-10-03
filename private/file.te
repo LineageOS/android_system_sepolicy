@@ -23,3 +23,6 @@ type rollback_data_file, file_type, data_file_type, core_data_file_type;
 
 # /dev/linkerconfig(/.*)?
 type linkerconfig_file, file_type;
+
+# /data/gsi/ota
+type ota_image_data_file, file_type, data_file_type, core_data_file_type;
