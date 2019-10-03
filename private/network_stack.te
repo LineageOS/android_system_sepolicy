@@ -45,6 +45,7 @@ userdebug_or_eng(`
 ')
 
 # Binder IPC.
+allow network_stack audioserver_service:service_manager find;
 allow network_stack network_score_service:service_manager find;
 allow network_stack network_stack_service:service_manager find;
 allow network_stack radio_service:service_manager find;
