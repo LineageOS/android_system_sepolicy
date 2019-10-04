@@ -163,7 +163,7 @@ $(eval $(call run_contexts_test, $(pc_files), $(property_info_checker),))
 
 ##################################
 
-ifdef HAS_SYSTEM_EXT_SEPOLICY
+ifdef HAS_SYSTEM_EXT_SEPOLICY_DIR
 
 pc_files += $(system_ext_out)/system_ext_property_contexts
 
