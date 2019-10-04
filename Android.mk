@@ -345,11 +345,8 @@ LOCAL_REQUIRED_MODULES += \
 
 endif
 
-ifneq ($(TARGET_BUILD_VARIANT), user)
 LOCAL_REQUIRED_MODULES += \
     selinux_denial_metadata \
-
-endif
 
 # Builds an addtional userdebug sepolicy into the debug ramdisk.
 LOCAL_REQUIRED_MODULES += \
@@ -1396,7 +1393,6 @@ file_contexts.device.tmp :=
 file_contexts.local.tmp :=
 
 ##################################
-ifneq ($(TARGET_BUILD_VARIANT), user)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := selinux_denial_metadata
@@ -1412,7 +1408,6 @@ $(LOCAL_BUILT_MODULE) : $(bug_files)
 	cat $^ > $@
 
 bug_files :=
-endif
 
 ##################################
 include $(LOCAL_PATH)/seapp_contexts.mk
