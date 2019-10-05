@@ -1,0 +1,24 @@
+init_daemon_domain(vendor_install_recovery)
+
+# service vendor_flash_recovery in
+# bootable/recovery/applypatch/vendor_flash_recovery.rc
+type vendor_install_recovery, domain;
+type vendor_install_recovery_exec, vendor_file_type, exec_type, file_type;
+
+# /vendor/bin/install-recovery.sh is a shell script.
+# Needs to execute /vendor/bin/sh
+allow vendor_install_recovery vendor_shell_exec:file rx_file_perms;
+
+# Execute /vendor/bin/applypatch
+allow vendor_install_recovery vendor_file:file rx_file_perms;
+not_full_treble(`allow vendor_install_recovery vendor_file:file rx_file_perms;')
+
+allow vendor_install_recovery vendor_toolbox_exec:file rx_file_perms;
+
+# Update the recovery block device based off a diff of the boot block device
+allow vendor_install_recovery block_device:dir search;
+allow vendor_install_recovery boot_block_device:blk_file r_file_perms;
+allow vendor_install_recovery recovery_block_device:blk_file rw_file_perms;
+
+# Write to /proc/sys/vm/drop_caches
+allow vendor_install_recovery proc_drop_caches:file w_file_perms;

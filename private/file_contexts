@@ -284,7 +284,6 @@
 /system/bin/cppreopts\.sh   u:object_r:cppreopts_exec:s0
 /system/bin/preloads_copy\.sh u:object_r:preloads_copy_exec:s0
 /system/bin/preopt2cachename u:object_r:preopt2cachename_exec:s0
-/system/bin/install-recovery\.sh u:object_r:install_recovery_exec:s0
 /system/bin/dex2oat(d)?     u:object_r:dex2oat_exec:s0
 /system/bin/dexoptanalyzer(d)?     u:object_r:dexoptanalyzer_exec:s0
 /system/bin/viewcompiler     u:object_r:viewcompiler_exec:s0
@@ -366,6 +365,8 @@
 /(vendor|system/vendor)/lib(64)?/hw            u:object_r:vendor_hal_file:s0
 
 /(vendor|system/vendor)/etc/selinux/(vendor|nonplat)_service_contexts u:object_r:nonplat_service_contexts_file:s0
+
+/(vendor|system/vendor)/bin/install-recovery\.sh u:object_r:vendor_install_recovery_exec:s0
 
 #############################
 # OEM and ODM files
