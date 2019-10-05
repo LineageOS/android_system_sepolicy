@@ -23,7 +23,7 @@
     system_passwd_file
     vendor_apex_file
     vendor_boringssl_self_test
+    vendor_install_recovery
+    vendor_install_recovery_exec
     virtual_ab_prop
-    wifi_stack
-    wifi_stack_service
-    wifi_stack_tmpfs))
+    wifi_stack_service))

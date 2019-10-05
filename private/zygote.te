@@ -146,6 +146,9 @@ get_prop(zygote, device_config_runtime_native_boot_prop)
 # ingore spurious denials
 dontaudit zygote self:global_capability_class_set sys_resource;
 
+# Allow zygote to use ashmem fds from system_server.
+allow zygote system_server:fd use;
+
 ###
 ### neverallow rules
 ###
