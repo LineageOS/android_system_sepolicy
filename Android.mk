@@ -68,7 +68,7 @@ endif
 # it so that if no product partition is present, product sepolicy artifacts are
 # not built and installed at all.
 ifneq (,$(PRODUCT_PUBLIC_POLICY)$(PRODUCT_PRIVATE_POLICY))
-HAS_PRODUCT_SEPOLICY := true
+HAS_PRODUCT_SEPOLICY_DIR := true
 endif
 
 # TODO: move to README when doing the README update and finalizing versioning.
@@ -157,6 +157,19 @@ ifdef HAS_SYSTEM_EXT_SEPOLICY_DIR
     HAS_SYSTEM_EXT_SEPOLICY := true
   endif
 endif # ifdef HAS_SYSTEM_EXT_SEPOLICY_DIR
+
+ifdef HAS_PRODUCT_SEPOLICY_DIR
+  # Checks if there are public product policy files.
+  policy_files := $(call build_policy, $(sepolicy_build_files), $(PRODUCT_PUBLIC_POLICY))
+  ifneq (,$(strip $(policy_files)))
+    HAS_PRODUCT_PUBLIC_SEPOLICY := true
+  endif
+  # Checks if there are public/private product policy files.
+  policy_files := $(call build_policy, $(sepolicy_build_files), $(PRODUCT_PUBLIC_POLICY) $(PRODUCT_PRIVATE_POLICY))
+  ifneq (,$(strip $(policy_files)))
+    HAS_PRODUCT_SEPOLICY := true
+  endif
+endif # ifdef HAS_PRODUCT_SEPOLICY_DIR
 
 # CIL files which contain workarounds for current limitation of human-readable
 # module policy language. These files are appended to the CIL files produced
@@ -348,8 +361,15 @@ LOCAL_REQUIRED_MODULES += \
 endif
 
 ifdef HAS_PRODUCT_SEPOLICY
+LOCAL_REQUIRED_MODULES += product_sepolicy.cil
+endif
+
+ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
+LOCAL_REQUIRED_MODULES += product_mapping_file
+endif
+
+ifdef HAS_PRODUCT_SEPOLICY_DIR
 LOCAL_REQUIRED_MODULES += \
-    product_sepolicy.cil \
     product_file_contexts \
     product_file_contexts_test \
     product_hwservice_contexts \
@@ -360,7 +380,6 @@ LOCAL_REQUIRED_MODULES += \
     product_service_contexts \
     product_service_contexts_test \
     product_mac_permissions.xml \
-    product_mapping_file \
 
 endif
 
@@ -852,7 +871,7 @@ endif # ifdef HAS_SYSTEM_EXT_PUBLIC_SEPOLICY
 #################################
 include $(CLEAR_VARS)
 
-ifdef HAS_PRODUCT_SEPOLICY
+ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
 LOCAL_MODULE := product_mapping_file
 LOCAL_MODULE_STEM := $(PLATFORM_SEPOLICY_VERSION).cil
 LOCAL_MODULE_CLASS := ETC
@@ -873,7 +892,7 @@ $(built_plat_mapping_cil) $(built_system_ext_mapping_cil)
 		-f $(PRIVATE_FILTER_CIL_FILES) -t $@
 
 built_product_mapping_cil := $(LOCAL_BUILT_MODULE)
-endif # HAS_PRODUCT_SEPOLICY
+endif # ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
 
 #################################
 include $(CLEAR_VARS)
@@ -1045,10 +1064,11 @@ all_cil_files += $(built_system_ext_mapping_cil)
 endif
 
 ifdef HAS_PRODUCT_SEPOLICY
-all_cil_files += \
-    $(built_product_cil) \
-    $(built_product_mapping_cil) \
+all_cil_files += $(built_product_cil)
+endif
 
+ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
+all_cil_files += $(built_product_mapping_cil)
 endif
 
 ifdef BOARD_ODM_SEPOLICY_DIRS
@@ -1203,10 +1223,11 @@ all_cil_files += $(built_system_ext_mapping_cil)
 endif
 
 ifdef HAS_PRODUCT_SEPOLICY
-all_cil_files += \
-    $(built_product_cil) \
-    $(built_product_mapping_cil) \
+all_cil_files += $(built_product_cil)
+endif
 
+ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
+all_cil_files += $(built_product_mapping_cil)
 endif
 
 ifdef BOARD_ODM_SEPOLICY_DIRS
@@ -1348,7 +1369,7 @@ ifdef HAS_SYSTEM_EXT_SEPOLICY_DIR
 local_fc_files += $(call build_policy, file_contexts, $(SYSTEM_EXT_PRIVATE_POLICY))
 endif
 
-ifdef HAS_PRODUCT_SEPOLICY
+ifdef HAS_PRODUCT_SEPOLICY_DIR
 local_fc_files += $(call build_policy, file_contexts, $(PRODUCT_PRIVATE_POLICY))
 endif
 
@@ -1485,7 +1506,7 @@ all_fc_files += $(TARGET_OUT_VENDOR)/etc/selinux/vendor_file_contexts
 ifdef HAS_SYSTEM_EXT_SEPOLICY_DIR
 all_fc_files += $(TARGET_OUT_SYSTEM_EXT)/etc/selinux/system_ext_file_contexts
 endif
-ifdef HAS_PRODUCT_SEPOLICY
+ifdef HAS_PRODUCT_SEPOLICY_DIR
 all_fc_files += $(TARGET_OUT_PRODUCT)/etc/selinux/product_file_contexts
 endif
 ifdef BOARD_ODM_SEPOLICY_DIRS

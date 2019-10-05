@@ -213,7 +213,7 @@ endif
 
 ##################################
 
-ifdef HAS_PRODUCT_SEPOLICY
+ifdef HAS_PRODUCT_SEPOLICY_DIR
 
 pc_files += $(product_out)/product_property_contexts
 

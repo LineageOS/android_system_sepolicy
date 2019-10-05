@@ -27,10 +27,11 @@ all_cil_files += $(built_system_ext_mapping_cil)
 endif
 
 ifdef HAS_PRODUCT_SEPOLICY
-all_cil_files += \
-    $(built_product_cil) \
-    $(built_product_mapping_cil) \
+all_cil_files += $(built_product_cil)
+endif
 
+ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
+all_cil_files += $(built_product_mapping_cil)
 endif
 
 ifdef BOARD_ODM_SEPOLICY_DIRS
