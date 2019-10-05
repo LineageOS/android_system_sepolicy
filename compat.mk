@@ -19,10 +19,11 @@ all_cil_files := \
     $(ALL_MODULES.$(version).compat.cil.BUILT) \
 
 ifdef HAS_SYSTEM_EXT_SEPOLICY
-all_cil_files += \
-    $(built_system_ext_cil) \
-    $(built_system_ext_mapping_cil) \
+all_cil_files += $(built_system_ext_cil)
+endif
 
+ifdef HAS_SYSTEM_EXT_PUBLIC_SEPOLICY
+all_cil_files += $(built_system_ext_mapping_cil)
 endif
 
 ifdef HAS_PRODUCT_SEPOLICY
