@@ -145,6 +145,16 @@ sepolicy_build_files := security_classes \
                         genfs_contexts \
                         port_contexts
 
+# Security classes and permissions defined outside of system/sepolicy.
+security_class_extension_files := $(call build_policy, security_classes access_vectors, \
+  $(SYSTEM_EXT_PUBLIC_POLICY) $(SYSTEM_EXT_PRIVATE_POLICY) \
+  $(PRODUCT_PUBLIC_POLICY) $(PRODUCT_PRIVATE_POLICY) \
+  $(BOARD_VENDOR_SEPOLICY_DIRS) $(BOARD_ODM_SEPOLICY_DIRS))
+
+ifneq (,$(strip $(security_class_extension_files)))
+  $(error Only platform SELinux policy may define classes and permissions: $(strip $(security_class_extension_files)))
+endif
+
 ifdef HAS_SYSTEM_EXT_SEPOLICY_DIR
   # Checks if there are public system_ext policy files.
   policy_files := $(call build_policy, $(sepolicy_build_files), $(SYSTEM_EXT_PUBLIC_POLICY))
