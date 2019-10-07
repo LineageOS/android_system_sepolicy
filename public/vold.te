@@ -43,11 +43,28 @@ allow vold e2fs_exec:file rx_file_perms;
 # allowxperm still requires the ioctl permission for the individual type
 allowxperm vold { fs_type file_type }:dir ioctl FITRIM;
 
-# Get encryption policy for dirs in /data
+# Get/set file-based encryption policies on dirs in /data and adoptable storage,
+# and add/remove file-based encryption keys.
 allowxperm vold data_file_type:dir ioctl {
   FS_IOC_GET_ENCRYPTION_POLICY
   FS_IOC_SET_ENCRYPTION_POLICY
+  FS_IOC_ADD_ENCRYPTION_KEY
+  FS_IOC_REMOVE_ENCRYPTION_KEY
 };
+
+# Only vold and init should ever set file-based encryption policies.
+neverallowxperm {
+  domain
+  -vold
+  -init
+  -vendor_init
+} data_file_type:dir ioctl { FS_IOC_SET_ENCRYPTION_POLICY };
+
+# Only vold should ever add/remove file-based encryption keys.
+neverallowxperm {
+  domain
+  -vold
+} data_file_type:dir ioctl { FS_IOC_ADD_ENCRYPTION_KEY FS_IOC_REMOVE_ENCRYPTION_KEY };
 
 # Find the location on the raw block device where the
 # crypto key is stored so it can be destroyed
