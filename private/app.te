@@ -2,6 +2,8 @@
 # the implementation of ActivityManager.isDeviceInTestHarnessMode()
 get_prop(appdomain, test_harness_prop)
 
+userdebug_or_eng(`perfetto_producer({ appdomain })')
+
 neverallow appdomain system_server:udp_socket {
         accept append bind create ioctl listen lock name_bind
         relabelfrom relabelto setattr shutdown };
