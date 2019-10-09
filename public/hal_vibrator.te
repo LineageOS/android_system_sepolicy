@@ -1,5 +1,6 @@
-# HwBinder IPC from client to server
+# HwBinder IPC client/server
 binder_call(hal_vibrator_client, hal_vibrator_server)
+binder_call(hal_vibrator_server, hal_vibrator_client);
 
 hal_attribute_hwservice(hal_vibrator, hal_vibrator_hwservice)
 
