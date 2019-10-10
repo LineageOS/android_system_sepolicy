@@ -4,3 +4,15 @@ hal_server_domain(hal_bootctl_default, hal_bootctl)
 
 type hal_bootctl_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_bootctl_default)
+
+# Needed for ReadDefaultFstab.
+allow hal_bootctl_default proc_cmdline:file r_file_perms;
+allow hal_bootctl_default sysfs_dt_firmware_android:dir search;
+
+# ReadDefaultFstab looks for /metadata/gsi/booted. We don't care about getting
+# a GSI-corrected fstab.
+dontaudit hal_bootctl_default metadata_file:dir search;
+
+# Needed for reading/writing misc partition.
+allow hal_bootctl_default block_device:dir search;
+allow hal_bootctl_default misc_block_device:blk_file rw_file_perms;
