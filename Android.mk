@@ -1377,10 +1377,11 @@ ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
   local_fc_files += $(wildcard $(addsuffix /file_contexts_overlayfs, $(PLAT_PRIVATE_POLICY)))
 endif
 ifeq ($(TARGET_FLATTEN_APEX),true)
-  apex_fc_files := $(wildcard $(LOCAL_PATH)/apex/*-file_contexts)
-  $(foreach _input,$(apex_fc_files),\
-    $(eval _output := $(intermediates)/$(notdir $(_input))-flattened)\
-    $(eval _apex_name := $(patsubst %-file_contexts,%,$(notdir $(_input))))\
+  $(foreach _pair,$(APEX_FILE_CONTEXTS_INFOS),\
+    $(eval _apex_name := $(call word-colon,1,$(_pair)))\
+    $(eval _fc_name := $(call word-colon,2,$(_pair)))\
+    $(eval _input := $(LOCAL_PATH)/apex/$(_fc_name)-file_contexts)\
+    $(eval _output := $(intermediates)/$(_apex_name)-flattened)\
     $(eval $(call build_flattened_apex_file_contexts,$(_input),$(_apex_name),$(_output),local_fc_files))\
    )
 endif
