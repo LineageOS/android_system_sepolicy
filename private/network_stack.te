@@ -67,3 +67,6 @@ allow network_stack debugfs_wifi_tracing:file rw_file_perms;
 # dumpstate support
 allow network_stack dumpstate:fd use;
 allow network_stack dumpstate:fifo_file write;
+
+# Create/use netlink_tcpdiag_socket to get tcp info
+allow network_stack self:netlink_tcpdiag_socket { create_socket_perms_no_ioctl nlmsg_read nlmsg_write };
