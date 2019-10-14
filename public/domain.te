@@ -70,17 +70,11 @@ allow domain socket_device:dir r_dir_perms;
 allow domain owntty_device:chr_file rw_file_perms;
 allow domain null_device:chr_file rw_file_perms;
 allow domain zero_device:chr_file rw_file_perms;
-allow {
-  domain
-  # TODO(b/113362644): route coredomain to libcutils.
-  #-coredomain
-  -mediaprovider
-  -ephemeral_app
-  -isolated_app
-  -untrusted_app_all
-} ashmem_device:chr_file rw_file_perms;
 
-# This device is used by libcutils.
+# /dev/ashmem is being deprecated by means of constraining and eventually
+# removing all "open" permissions. We preserve the other permissions.
+allow domain ashmem_device:chr_file { getattr read ioctl lock map append write };
+# This device is used by libcutils, which is accessible to everyone.
 allow domain ashmem_libcutils_device:chr_file rw_file_perms;
 
 # /dev/binder can be accessed by ... everyone! :)
@@ -1380,3 +1374,12 @@ neverallow {
   -hal_codec2_server
   -hal_omx_server
 } hal_codec2_hwservice:hwservice_manager add;
+
+# Only apps targetting < Q are allowed to open /dev/ashmem directly.
+# Apps must use ASharedMemory NDK API. Native code must use libcutils API.
+neverallow {
+  domain
+  -ephemeral_app # We don't distinguish ephemeral apps based on target API.
+  -untrusted_app_25
+  -untrusted_app_27
+} ashmem_device:chr_file open;
