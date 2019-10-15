@@ -64,6 +64,8 @@ unix_socket_connect(isolated_app, traced_producer, traced)
 # debuggable.
 can_profile_heap(isolated_app)
 
+allow isolated_app ashmem_device:chr_file { getattr read ioctl lock map append write };
+
 #####
 ##### Neverallow
 #####
