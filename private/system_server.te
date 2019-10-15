@@ -1002,6 +1002,12 @@ wakelock_use(system_server)
 allow system_server apex_data_file:dir { getattr search };
 allow system_server apex_data_file:file r_file_perms;
 
+# Allow the system server to read files under /vendor/apex. This is where
+# vendor APEX packages might be installed and system_server needs to parse
+# these packages to inspect the signatures and other metadata.
+allow system_server vendor_apex_file:dir { getattr search };
+allow system_server vendor_apex_file:file r_file_perms;
+
 # Allow PasswordSlotManager rw access to /metadata/password_slots, so GSIs and the host image can
 # communicate which slots are available for use.
 allow system_server metadata_file:dir search;
