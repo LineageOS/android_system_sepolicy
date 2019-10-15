@@ -238,6 +238,15 @@ neverallow all_untrusted_apps proc_tty_drivers:file ~r_file_perms;
 # Untrusted apps are not allowed to use cgroups.
 neverallow all_untrusted_apps cgroup:file *;
 
+# Untrusted apps targetting >= Q are not allowed to open /dev/ashmem directly.
+# They must use ASharedMemory NDK API instead.
+neverallow {
+  all_untrusted_apps
+  -ephemeral_app
+  -untrusted_app_25
+  -untrusted_app_27
+} ashmem_device:chr_file open;
+
 # /mnt/sdcard symlink was supposed to have been removed in Gingerbread. Apps
 # must not use it.
 neverallow {
