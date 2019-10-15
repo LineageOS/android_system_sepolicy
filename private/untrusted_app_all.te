@@ -176,6 +176,3 @@ userdebug_or_eng(`
   allow untrusted_app_all debugfs_kcov:file rw_file_perms;
   allowxperm untrusted_app_all debugfs_kcov:file ioctl { KCOV_INIT_TRACE KCOV_ENABLE KCOV_DISABLE };
 ')
-
-# Allow (rw_file_perms - open) access to /dev/ashmem.
-allow untrusted_app_all ashmem_device:chr_file { getattr read ioctl lock map append write };
