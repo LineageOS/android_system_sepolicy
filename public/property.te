@@ -140,10 +140,10 @@ allow property_type tmpfs:filesystem associate;
 ### Neverallow rules
 ###
 
-compatible_property_only(`
+treble_sysprop_neverallow(`
 
 # TODO(b/131162102): uncomment these after assigning ownership attributes to all properties
-# neverallow * {
+# neverallow domain {
 #   property_type
 #   -system_property_type
 #   -product_property_type
