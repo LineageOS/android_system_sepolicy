@@ -724,6 +724,28 @@ define(`dump_hal', `
   allow $1_server dumpstate:fd use;
 ')
 
+#####################################
+# treble_sysprop_neverallow(rules)
+# SELinux neverallow rules which enforces the owner of each property and accessibility
+# outside the owner.
+#
+# For devices launching with R or later, all properties must be explicitly marked as one of:
+# system_property_type, vendor_property_type, or product_property_type.
+# Also, exported properties must be explicitly marked as "restricted" or "public",
+# depending on the accessibility outside the owner.
+# For devices launching with Q or eariler, this neverallow rules can be relaxed with defining
+# BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW := true on device.mk.
+# See {partition}_{accessibility}_prop macros below.
+#
+# CTS uses these rules only for devices launching with R or later.
+#
+define(`treble_sysprop_neverallow', ifelse(target_treble_sysprop_neverallow, `true', $1,
+ifelse(target_treble_sysprop_neverallow, `cts',
+# BEGIN_LAUNCHING_WITH_R_ONLY -- this marker is used by CTS -- do not modify
+$1
+# END_LAUNCHING_WITH_R_ONLY -- this marker is used by CTS -- do not modify
+, )))
+
 ###########################################
 # define_prop(name, owner, scope)
 # Define a property with given owner and scope
@@ -735,14 +757,28 @@ define(`define_prop', `
 ###########################################
 # system_internal_prop(name)
 # Define a /system-owned property used only in /system
+# For devices launching with Q or eariler, this restriction can be relaxed with
+# BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW := true
 #
-define(`system_internal_prop', `define_prop($1, system, internal)')
+define(`system_internal_prop', `
+  define_prop($1, system, internal)
+  treble_sysprop_neverallow(`
+    neverallow {domain -coredomain} $1:file no_rw_file_perms;
+  ')
+')
 
 ###########################################
 # system_restricted_prop(name)
 # Define a /system-owned property which can't be written outside /system
+# For devices launching with Q or eariler, this restriction can be relaxed with
+# BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW := true
 #
-define(`system_restricted_prop', `define_prop($1, system, restricted)')
+define(`system_restricted_prop', `
+  define_prop($1, system, restricted)
+  treble_sysprop_neverallow(`
+    neverallow {domain -coredomain} $1:property_service set;
+  ')
+')
 
 ###########################################
 # system_public_prop(name)
@@ -753,14 +789,28 @@ define(`system_public_prop', `define_prop($1, system, public)')
 ###########################################
 # product_internal_prop(name)
 # Define a /product-owned property used only in /product
+# For devices launching with Q or eariler, this restriction can be relaxed with
+# BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW := true
 #
-define(`product_internal_prop', `define_prop($1, product, internal)')
+define(`product_internal_prop', `
+  define_prop($1, product, internal)
+  treble_sysprop_neverallow(`
+    neverallow {domain -coredomain} $1:file no_rw_file_perms;
+  ')
+')
 
 ###########################################
 # product_restricted_prop(name)
 # Define a /product-owned property which can't be written outside /product
+# For devices launching with Q or eariler, this restriction can be relaxed with
+# BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW := true
 #
-define(`product_restricted_prop', `define_prop($1, product, restricted)')
+define(`product_restricted_prop', `
+  define_prop($1, product, restricted)
+  treble_sysprop_neverallow(`
+    neverallow {domain -coredomain} $1:property_service set;
+  ')
+')
 
 ###########################################
 # product_public_prop(name)
@@ -771,14 +821,28 @@ define(`product_public_prop', `define_prop($1, product, public)')
 ###########################################
 # vendor_internal_prop(name)
 # Define a /vendor-owned property used only in /vendor
+# For devices launching with Q or eariler, this restriction can be relaxed with
+# BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW := true
 #
-define(`vendor_internal_prop', `define_prop($1, vendor, internal)')
+define(`vendor_internal_prop', `
+  define_prop($1, vendor, internal)
+  treble_sysprop_neverallow(`
+    neverallow coredomain $1:file no_rw_file_perms;
+  ')
+')
 
 ###########################################
 # vendor_restricted_prop(name)
 # Define a /vendor-owned property which can't be written outside /vendor
+# For devices launching with Q or eariler, this restriction can be relaxed with
+# BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW := true
 #
-define(`vendor_restricted_prop', `define_prop($1, vendor, restricted)')
+define(`vendor_restricted_prop', `
+  define_prop($1, vendor, restricted)
+  treble_sysprop_neverallow(`
+    neverallow coredomain $1:property_service set;
+  ')
+')
 
 ###########################################
 # vendor_public_prop(name)
