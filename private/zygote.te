@@ -53,7 +53,7 @@ allow zygote dalvikcache_data_file:file execute;
 # Allow zygote to create JIT memory.
 allow zygote self:process execmem;
 allow zygote zygote_tmpfs:file execute;
-allow zygote ashmem_libcutils_device:chr_file execute;
+allow zygote ashmem_device:chr_file execute;
 
 # Execute idmap and dex2oat within zygote's own domain.
 # TODO:  Should either of these be transitioned to the same domain
