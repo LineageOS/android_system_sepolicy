@@ -62,8 +62,6 @@ perfetto_producer(isolated_app)
 # debuggable.
 can_profile_heap(isolated_app)
 
-allow isolated_app ashmem_device:chr_file { getattr read ioctl lock map append write };
-
 #####
 ##### Neverallow
 #####
