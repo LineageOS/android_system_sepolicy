@@ -34,9 +34,7 @@ unix_socket_connect(shell, traced_consumer, traced)
 
 # Allow shell binaries to write trace data to Perfetto. Used for testing and
 # cmdline utils.
-allow shell traced:fd use;
-allow shell traced_tmpfs:file { read write getattr map };
-unix_socket_connect(shell, traced_producer, traced)
+perfetto_producer(shell)
 
 domain_auto_trans(shell, vendor_shell_exec, vendor_shell)
 
