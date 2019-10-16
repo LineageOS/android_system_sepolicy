@@ -139,9 +139,7 @@ read_runtime_log_tags(priv_app)
 
 # Write app-specific trace data to the Perfetto traced damon. This requires
 # connecting to its producer socket and obtaining a (per-process) tmpfs fd.
-allow priv_app traced:fd use;
-allow priv_app traced_tmpfs:file { read write getattr map };
-unix_socket_connect(priv_app, traced_producer, traced)
+perfetto_producer(priv_app)
 
 # Allow priv_apps to request and collect incident reports.
 # (Also requires DUMP and PACKAGE_USAGE_STATS permissions)
