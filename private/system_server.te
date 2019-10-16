@@ -627,6 +627,9 @@ set_prop(system_server, test_harness_prop)
 # Read gsid.image_running.
 get_prop(system_server, gsid_prop)
 
+# Read the property that mocks an OTA
+get_prop(system_server, mock_ota_prop)
+
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
 
