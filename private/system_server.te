@@ -979,7 +979,12 @@ neverallow system_server { dev_type -frp_block_device }:blk_file no_rw_file_perm
 # system_server should never use JIT functionality
 # See https://googleprojectzero.blogspot.com/2016/12/bitunmap-attacking-android-ashmem.html
 # in the section titled "A Short ROP Chain" for why.
-neverallow system_server self:process execmem;
+# However, in emulator builds without OpenGL passthrough, we use software
+# rendering via SwiftShader, which requires JIT support. These builds are
+# never shipped to users.
+ifelse(target_requires_insecure_execmem_for_swiftshader, `true',
+  `allow system_server self:process execmem;',
+  `neverallow system_server self:process execmem;')
 neverallow system_server ashmem_device:chr_file execute;
 
 # TODO: deal with tmpfs_domain pub/priv split properly
