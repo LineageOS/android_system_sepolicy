@@ -297,6 +297,8 @@ allow system_server mediaserver:udp_socket rw_socket_perms;
 allow system_server mediadrmserver:tcp_socket rw_socket_perms;
 allow system_server mediadrmserver:udp_socket rw_socket_perms;
 
+userdebug_or_eng(`perfetto_producer({ system_server })')
+
 # Get file context
 allow system_server file_contexts_file:file r_file_perms;
 # access for mac_permissions

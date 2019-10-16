@@ -714,6 +714,15 @@ define(`never_profile_heap', `
   neverallow heapprofd $1:process signal;
 ')
 
+###################################
+# perfetto_producer(domain)
+# Allow processes within the domain to write data to Perfetto.
+define(`perfetto_producer', `
+  allow $1 traced:fd use;
+  allow $1 traced_tmpfs:file { read write getattr map };
+  unix_socket_connect($1, traced_producer, traced)
+')
+
 ###########################################
 # dump_hal(hal_type)
 # Ability to dump the hal debug info
