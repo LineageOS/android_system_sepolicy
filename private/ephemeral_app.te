@@ -51,9 +51,7 @@ binder_call(ephemeral_app, gpuservice)
 
 # Write app-specific trace data to the Perfetto traced damon. This requires
 # connecting to its producer socket and obtaining a (per-process) tmpfs fd.
-allow ephemeral_app traced:fd use;
-allow ephemeral_app traced_tmpfs:file { read write getattr map };
-unix_socket_connect(ephemeral_app, traced_producer, traced)
+perfetto_producer(ephemeral_app)
 
 # Allow heap profiling if the app opts in by being marked
 # profileable/debuggable.

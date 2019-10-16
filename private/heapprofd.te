@@ -35,9 +35,7 @@ dontaudit heapprofd domain:dir { search open };
 
 # Write trace data to the Perfetto traced daemon. This requires connecting to
 # its producer socket and obtaining a (per-process) tmpfs fd.
-allow heapprofd traced:fd use;
-allow heapprofd traced_tmpfs:file { read write getattr map };
-unix_socket_connect(heapprofd, traced_producer, traced)
+perfetto_producer(heapprofd)
 
 # When handling profiling for all processes, heapprofd needs to read
 # executables/libraries/etc to do stack unwinding.
