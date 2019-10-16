@@ -51,7 +51,7 @@ func init() {
 func cilCompatMapFactory() android.Module {
 	c := &cilCompatMap{}
 	c.AddProperties(&c.properties)
-	android.InitAndroidModule(c)
+	android.InitAndroidArchModule(c, android.DeviceSupported, android.MultilibCommon)
 	return c
 }
 
@@ -65,6 +65,8 @@ type cilCompatMapProperties struct {
 	// other modules that produce source files like genrule or filegroup using
 	// the syntax ":module". srcs has to be non-empty.
 	Bottom_half []string
+	// name of the output
+	Stem *string
 }
 
 type cilCompatMap struct {
@@ -72,6 +74,7 @@ type cilCompatMap struct {
 	properties cilCompatMapProperties
 	// (.intermediate) module output path as installation source.
 	installSource android.Path
+	installPath   android.InstallPath
 }
 
 type CilCompatMapGenerator interface {
@@ -100,11 +103,13 @@ func expandSeSources(ctx android.ModuleContext, srcFiles []string) android.Paths
 				continue
 			}
 			if fg, ok := module.(*fileGroup); ok {
-				// Core compatibility mapping files are under system/sepolicy/private.
-				expandedSrcFiles = append(expandedSrcFiles, fg.SystemPrivateSrcs()...)
-				// Partner extensions to the compatibility mapping in must be located in
-				// BOARD_PLAT_PRIVATE_SEPOLICY_DIR
-				expandedSrcFiles = append(expandedSrcFiles, fg.SystemExtPrivateSrcs()...)
+				if ctx.ProductSpecific() {
+					expandedSrcFiles = append(expandedSrcFiles, fg.ProductPrivateSrcs()...)
+				} else if ctx.SystemExtSpecific() {
+					expandedSrcFiles = append(expandedSrcFiles, fg.SystemExtPrivateSrcs()...)
+				} else {
+					expandedSrcFiles = append(expandedSrcFiles, fg.SystemPrivateSrcs()...)
+				}
 			} else {
 				ctx.ModuleErrorf("srcs dependency %q is not an selinux filegroup", m)
 			}
@@ -117,6 +122,8 @@ func expandSeSources(ctx android.ModuleContext, srcFiles []string) android.Paths
 }
 
 func (c *cilCompatMap) GenerateAndroidBuildActions(ctx android.ModuleContext) {
+	c.installPath = android.PathForModuleInstall(ctx, "etc", "selinux", "mapping")
+
 	srcFiles := expandSeSources(ctx, c.properties.Bottom_half)
 
 	for _, src := range srcFiles {
@@ -166,7 +173,10 @@ func (c *cilCompatMap) AndroidMk() android.AndroidMkData {
 		Class:      "ETC",
 	}
 	ret.Extra = append(ret.Extra, func(w io.Writer, outputFile android.Path) {
-		fmt.Fprintln(w, "LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux/mapping")
+		fmt.Fprintln(w, "LOCAL_MODULE_PATH :=", c.installPath.ToMakePath().String())
+		if c.properties.Stem != nil {
+			fmt.Fprintln(w, "LOCAL_INSTALLED_MODULE_STEM :=", String(c.properties.Stem))
+		}
 	})
 	return ret
 }
