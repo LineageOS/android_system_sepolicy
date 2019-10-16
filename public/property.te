@@ -37,6 +37,7 @@ system_internal_prop(last_boot_reason_prop)
 system_internal_prop(llkd_prop)
 system_internal_prop(lpdumpd_prop)
 system_internal_prop(mmc_prop)
+system_internal_prop(mock_ota_prop)
 system_internal_prop(net_dns_prop)
 system_internal_prop(netd_stable_secret_prop)
 system_internal_prop(overlay_prop)
@@ -541,6 +542,7 @@ compatible_property_only(`
     -lowpan_prop
     -lpdumpd_prop
     -mmc_prop
+    -mock_ota_prop
     -net_dns_prop
     -net_radio_prop
     -netd_stable_secret_prop
