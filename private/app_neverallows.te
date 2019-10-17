@@ -37,9 +37,8 @@ neverallow { all_untrusted_apps -mediaprovider } property_socket:sock_file write
 neverallow { all_untrusted_apps -mediaprovider } init:unix_stream_socket connectto;
 neverallow { all_untrusted_apps -mediaprovider } property_type:property_service set;
 
-# net.dns properties are not a public API. Temporarily exempt pre-Oreo apps,
-# but otherwise disallow untrusted apps from reading this property.
-neverallow { all_untrusted_apps -untrusted_app_25 } net_dns_prop:file read;
+# net.dns properties are not a public API. Disallow untrusted apps from reading this property.
+neverallow { all_untrusted_apps } net_dns_prop:file read;
 
 # Shared libraries created by trusted components within an app home
 # directory can be dlopen()ed. To maintain the W^X property, these files
@@ -237,15 +236,6 @@ neverallow all_untrusted_apps proc_tty_drivers:file ~r_file_perms;
 
 # Untrusted apps are not allowed to use cgroups.
 neverallow all_untrusted_apps cgroup:file *;
-
-# Untrusted apps targetting >= Q are not allowed to open /dev/ashmem directly.
-# They must use ASharedMemory NDK API instead.
-neverallow {
-  all_untrusted_apps
-  -ephemeral_app
-  -untrusted_app_25
-  -untrusted_app_27
-} ashmem_device:chr_file open;
 
 # /mnt/sdcard symlink was supposed to have been removed in Gingerbread. Apps
 # must not use it.

@@ -249,7 +249,7 @@ LOCAL_MODULE := selinux_policy_system
 # divergence between Treble and non-Treble devices.
 LOCAL_REQUIRED_MODULES += \
     plat_mapping_file \
-    $(addsuffix .cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
+    $(addprefix plat_,$(addsuffix .cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS))) \
     $(addsuffix .compat.cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
     plat_sepolicy.cil \
     plat_sepolicy_and_mapping.sha256 \
@@ -355,7 +355,10 @@ LOCAL_REQUIRED_MODULES += system_ext_sepolicy.cil
 endif
 
 ifdef HAS_SYSTEM_EXT_PUBLIC_SEPOLICY
-LOCAL_REQUIRED_MODULES += system_ext_mapping_file
+LOCAL_REQUIRED_MODULES += \
+    system_ext_mapping_file \
+    $(addprefix system_ext_,$(addsuffix .cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS))) \
+
 endif
 
 ifdef HAS_SYSTEM_EXT_SEPOLICY_DIR
@@ -378,7 +381,10 @@ LOCAL_REQUIRED_MODULES += product_sepolicy.cil
 endif
 
 ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
-LOCAL_REQUIRED_MODULES += product_mapping_file
+LOCAL_REQUIRED_MODULES += \
+    product_mapping_file \
+    $(addprefix product_,$(addsuffix .cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS))) \
+
 endif
 
 ifdef HAS_PRODUCT_SEPOLICY_DIR
@@ -572,6 +578,7 @@ $(system_ext_pub_policy.conf): PRIVATE_TGT_WITH_NATIVE_COVERAGE := $(with_native
 $(system_ext_pub_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(system_ext_pub_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
 $(system_ext_pub_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
+$(system_ext_pub_policy.conf): PRIVATE_TREBLE_SYSPROP_NEVERALLOW := $(treble_sysprop_neverallow)
 $(system_ext_pub_policy.conf): PRIVATE_POLICY_FILES := $(policy_files)
 $(system_ext_pub_policy.conf): $(policy_files) $(M4)
 	$(transform-policy-to-conf)
@@ -737,6 +744,7 @@ $(system_ext_policy.conf): PRIVATE_TGT_WITH_NATIVE_COVERAGE := $(with_native_cov
 $(system_ext_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(system_ext_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
 $(system_ext_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
+$(system_ext_policy.conf): PRIVATE_TREBLE_SYSPROP_NEVERALLOW := $(treble_sysprop_neverallow)
 $(system_ext_policy.conf): PRIVATE_POLICY_FILES := $(policy_files)
 $(system_ext_policy.conf): $(policy_files) $(M4)
 	$(transform-policy-to-conf)

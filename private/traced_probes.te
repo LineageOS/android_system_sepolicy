@@ -6,9 +6,7 @@ init_daemon_domain(traced_probes)
 
 # Write trace data to the Perfetto traced damon. This requires connecting to its
 # producer socket and obtaining a (per-process) tmpfs fd.
-allow traced_probes traced:fd use;
-allow traced_probes traced_tmpfs:file { read write getattr map };
-unix_socket_connect(traced_probes, traced_producer, traced)
+perfetto_producer(traced_probes)
 
 # Allow traced_probes to access tracefs.
 allow traced_probes debugfs_tracing:dir r_dir_perms;

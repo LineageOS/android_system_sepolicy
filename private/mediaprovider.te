@@ -45,5 +45,3 @@ allowxperm mediaprovider functionfs:file ioctl FUNCTIONFS_ENDPOINT_DESC;
 # MtpServer sets sys.usb.ffs.mtp.ready
 set_prop(mediaprovider, ffs_prop)
 set_prop(mediaprovider, exported_ffs_prop)
-
-allow mediaprovider ashmem_device:chr_file { getattr read ioctl lock map append write };

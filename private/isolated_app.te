@@ -56,15 +56,11 @@ dontaudit isolated_app shell_data_file:dir search;
 
 # Write app-specific trace data to the Perfetto traced damon. This requires
 # connecting to its producer socket and obtaining a (per-process) tmpfs fd.
-allow isolated_app traced:fd use;
-allow isolated_app traced_tmpfs:file { read write getattr map };
-unix_socket_connect(isolated_app, traced_producer, traced)
+perfetto_producer(isolated_app)
 
 # Allow heap profiling if the main app has been marked as profileable or
 # debuggable.
 can_profile_heap(isolated_app)
-
-allow isolated_app ashmem_device:chr_file { getattr read ioctl lock map append write };
 
 #####
 ##### Neverallow

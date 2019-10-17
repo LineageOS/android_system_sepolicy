@@ -135,9 +135,7 @@ allow untrusted_app_all vendor_app_file:lnk_file { open getattr read };
 
 # Write app-specific trace data to the Perfetto traced damon. This requires
 # connecting to its producer socket and obtaining a (per-process) tmpfs fd.
-allow untrusted_app_all traced:fd use;
-allow untrusted_app_all traced_tmpfs:file { read write getattr map };
-unix_socket_connect(untrusted_app_all, traced_producer, traced)
+perfetto_producer(untrusted_app_all)
 
 # Allow heap profiling if the app opts in by being marked
 # profileable/debuggable.
@@ -176,6 +174,3 @@ userdebug_or_eng(`
   allow untrusted_app_all debugfs_kcov:file rw_file_perms;
   allowxperm untrusted_app_all debugfs_kcov:file ioctl { KCOV_INIT_TRACE KCOV_ENABLE KCOV_DISABLE };
 ')
-
-# Allow (rw_file_perms - open) access to /dev/ashmem.
-allow untrusted_app_all ashmem_device:chr_file { getattr read ioctl lock map append write };
