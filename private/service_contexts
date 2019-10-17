@@ -32,6 +32,7 @@ clipboard                                 u:object_r:clipboard_service:s0
 com.android.net.IProxyService             u:object_r:IProxyService_service:s0
 companiondevice                           u:object_r:companion_device_service:s0
 platform_compat                           u:object_r:platform_compat_service:s0
+platform_compat_native                    u:object_r:platform_compat_service:s0
 connectivity                              u:object_r:connectivity_service:s0
 connmetrics                               u:object_r:connmetrics_service:s0
 consumer_ir                               u:object_r:consumer_ir_service:s0
