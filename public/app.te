@@ -390,7 +390,7 @@ neverallow { appdomain -bluetooth } hci_attach_dev:chr_file
 neverallow appdomain tee_device:chr_file { read write };
 
 # Privileged netlink socket interfaces.
-neverallow appdomain
+neverallow { appdomain -network_stack }
     domain:{
         netlink_tcpdiag_socket
         netlink_nflog_socket
