@@ -2,3 +2,4 @@
 (typeattributeset vendordomain ((and (domain) ((not (coredomain))))))
 (allowx vendordomain dev_type (ioctl blk_file ((range 0x0000 0xffff))))
 (allowx vendordomain file_type (ioctl file ((range 0x0000 0xffff))))
+(allow vendordomain self (netlink_route_socket (nlmsg_readpriv)))
