@@ -600,6 +600,7 @@ set_prop(system_server, device_config_activity_manager_native_boot_prop)
 set_prop(system_server, device_config_runtime_native_boot_prop)
 set_prop(system_server, device_config_runtime_native_prop)
 set_prop(system_server, device_config_media_native_prop)
+set_prop(system_server, device_config_storage_native_boot_prop)
 set_prop(system_server, device_config_sys_traced_prop)
 
 # BootReceiver to read ro.boot.bootreason
@@ -955,6 +956,7 @@ neverallow {
   device_config_runtime_native_boot_prop
   device_config_runtime_native_prop
   device_config_media_native_prop
+  device_config_storage_native_boot_prop
   device_config_sys_traced_prop
 }:property_service set;
 
