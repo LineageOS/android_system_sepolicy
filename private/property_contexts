@@ -193,6 +193,7 @@ persist.device_config.netd_native.           u:object_r:device_config_netd_nativ
 persist.device_config.runtime_native.        u:object_r:device_config_runtime_native_prop:s0
 persist.device_config.runtime_native_boot.   u:object_r:device_config_runtime_native_boot_prop:s0
 persist.device_config.media_native.          u:object_r:device_config_media_native_prop:s0
+persist.device_config.storage_native_boot.   u:object_r:device_config_storage_native_boot_prop:s0
 
 # Properties that relate to legacy server configurable flags
 persist.device_config.global_settings.sys_traced u:object_r:device_config_sys_traced_prop:s0
