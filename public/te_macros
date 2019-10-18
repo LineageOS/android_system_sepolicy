@@ -743,7 +743,7 @@ define(`dump_hal', `
 # Also, exported properties must be explicitly marked as "restricted" or "public",
 # depending on the accessibility outside the owner.
 # For devices launching with Q or eariler, this neverallow rules can be relaxed with defining
-# BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW := true on device.mk.
+# BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW := true on BoardConfig.mk.
 # See {partition}_{accessibility}_prop macros below.
 #
 # CTS uses these rules only for devices launching with R or later.
