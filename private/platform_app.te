@@ -76,7 +76,7 @@ userdebug_or_eng(`
 binder_call(platform_app, gpuservice)
 
 # Allow platform apps to log via statsd.
-allow platform_app statsd:binder call;
+binder_call(platform_app statsd)
 
 # Access to /data/preloads
 allow platform_app preloads_data_file:file r_file_perms;
