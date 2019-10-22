@@ -175,6 +175,7 @@ tombstoned.max_tombstone_count u:object_r:exported3_default_prop:s0 exact int
 vold.post_fs_data_done u:object_r:exported2_vold_prop:s0 exact int
 vts.native_server.on u:object_r:exported3_default_prop:s0 exact bool
 wlan.driver.status u:object_r:exported_wifi_prop:s0 exact enum ok unloaded
+zram.force_writeback u:object_r:exported3_default_prop:s0 exact bool
 
 # vendor-init-readable
 apexd.status u:object_r:apexd_prop:s0 exact enum starting ready
