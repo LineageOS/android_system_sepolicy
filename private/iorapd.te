@@ -2,3 +2,5 @@ typeattribute iorapd coredomain;
 
 init_daemon_domain(iorapd)
 tmpfs_domain(iorapd)
+
+domain_auto_trans(iorapd, iorap_prefetcherd_exec, iorap_prefetcherd)
