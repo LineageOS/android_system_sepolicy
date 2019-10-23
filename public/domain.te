@@ -927,6 +927,7 @@ full_treble_only(`
         -system_lib_file
         -system_linker_exec
         -crash_dump_exec
+        -iorap_prefetcherd_exec
         -netutils_wrapper_exec
         userdebug_or_eng(`-tcpdump_exec')
     }:file { entrypoint execute execute_no_trans };
@@ -969,6 +970,7 @@ full_treble_only(`
     # TODO(b/37168747): clean up fwk access to /vendor
     -crash_dump
     -init # starts vendor executables
+    -iorap_prefetcherd
     -kernel # loads /vendor/firmware
     userdebug_or_eng(`-heapprofd')
     -shell
@@ -1296,6 +1298,7 @@ full_treble_only(`
     -bootanim
     -crash_dump
     -init
+    -iorap_prefetcherd
     -kernel
     -heapprofd
     -ueventd
