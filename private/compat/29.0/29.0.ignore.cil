@@ -17,10 +17,15 @@
     hal_can_controller_hwservice
     hal_tv_tuner_hwservice
     init_svc_debug_prop
+    iorap_prefetcherd
+    iorap_prefetcherd_data_file
+    iorap_prefetcherd_exec
+    iorap_prefetcherd_tmpfs
     linker_prop
     mock_ota_prop
     ota_metadata_file
     art_apex_dir
+    service_manager_service
     system_group_file
     system_passwd_file
     vendor_apex_file

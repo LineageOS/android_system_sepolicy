@@ -168,6 +168,7 @@ sensorservice                             u:object_r:sensorservice_service:s0
 sensor_privacy                            u:object_r:sensor_privacy_service:s0
 serial                                    u:object_r:serial_service:s0
 servicediscovery                          u:object_r:servicediscovery_service:s0
+manager                                   u:object_r:service_manager_service:s0
 settings                                  u:object_r:settings_service:s0
 shortcut                                  u:object_r:shortcut_service:s0
 simphonebook_msim                         u:object_r:radio_service:s0
