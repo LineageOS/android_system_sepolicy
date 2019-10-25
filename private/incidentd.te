@@ -150,6 +150,12 @@ allow incidentd { dumpstate incident }:fifo_file write;
 # Allow incident to call back to incident with status updates.
 binder_call(incidentd, incident)
 
+# Read device serial number from system properties
+# This is used to track reports from lab testing devices
+userdebug_or_eng(`
+  get_prop(incidentd, serialno_prop)
+')
+
 ###
 ### neverallow rules
 ###

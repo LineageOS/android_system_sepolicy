@@ -539,6 +539,7 @@ neverallow {
   -hal_camera_server
   -hal_cas_server
   -hal_drm_server
+  userdebug_or_eng(`-incidentd')
   -init
   -mediadrmserver
   -recovery
