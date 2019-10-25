@@ -419,6 +419,8 @@ ro.surface_flinger.display_primary_white u:object_r:exported_default_prop:s0 exa
 ro.surface_flinger.protected_contents u:object_r:exported_default_prop:s0 exact bool
 ro.surface_flinger.set_idle_timer_ms u:object_r:exported_default_prop:s0 exact int
 ro.surface_flinger.set_touch_timer_ms u:object_r:exported_default_prop:s0 exact int
+ro.surface_flinger.set_display_power_timer_ms u:object_r:exported_default_prop:s0 exact int
 ro.surface_flinger.support_kernel_idle_timer u:object_r:exported_default_prop:s0 exact bool
 ro.surface_flinger.use_smart_90_for_video u:object_r:exported_default_prop:s0 exact bool
+ro.surface_flinger.color_space_agnostic_dataspace u:object_r:exported_default_prop:s0 exact int
 ro.surface_flinger.refresh_rate_switching u:object_r:exported_default_prop:s0 exact bool
