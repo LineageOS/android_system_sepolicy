@@ -190,6 +190,12 @@ type inputflinger_service, system_api_service, system_server_service, service_ma
 type wpantund_service, system_api_service, service_manager_type;
 
 ###
+### HAL Services
+###
+
+type hal_vibrator_service, vendor_service, service_manager_type;
+
+###
 ### Neverallow rules
 ###
 
