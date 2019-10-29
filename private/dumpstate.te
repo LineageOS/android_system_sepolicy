@@ -58,3 +58,5 @@ binder_call(dumpstate, lpdumpd)
 allow dumpstate gsid_exec:file rx_file_perms;
 set_prop(dumpstate, ctl_gsid_prop)
 binder_call(dumpstate, gsid)
+
+r_dir_file(dumpstate, ota_metadata_file)
