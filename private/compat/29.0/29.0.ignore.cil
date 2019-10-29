@@ -6,6 +6,7 @@
 (typeattributeset new_objects
   ( new_objects
     ashmem_libcutils_device
+    blob_store_service
     boringssl_self_test
     charger_prop
     cold_boot_done_prop
