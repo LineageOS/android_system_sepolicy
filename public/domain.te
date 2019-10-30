@@ -1271,7 +1271,7 @@ neverallow {
 # Enforce restrictions on kernel module origin.
 # Do not allow kernel module loading except from system,
 # vendor, and boot partitions.
-neverallow * ~{ system_file vendor_file rootfs }:system module_load;
+neverallow * ~{ system_file_type vendor_file_type rootfs }:system module_load;
 
 # Only allow filesystem caps to be set at build time. Runtime changes
 # to filesystem capabilities are not permitted.
