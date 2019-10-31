@@ -321,4 +321,5 @@ neverallow {
   -uncrypt
   -tee
   -hal_bootctl_server
+  -fastbootd
 } self:global_capability_class_set sys_rawio;
