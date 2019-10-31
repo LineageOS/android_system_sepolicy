@@ -1,6 +1,10 @@
 # android debug logging, logpersist domains
 type logpersist, domain;
 
+# logcatd is a shell script that execs logcat with various parameters.
+allow logpersist shell_exec:file rx_file_perms;
+allow logpersist logcat_exec:file rx_file_perms;
+
 ###
 ### Neverallow rules
 ###
