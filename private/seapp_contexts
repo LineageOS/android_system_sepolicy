@@ -113,9 +113,10 @@ neverallow isSystemServer="" domain=system_server
 neverallow user=((?!system).)* domain=system_app
 neverallow user=((?!system).)* type=system_app_data_file
 
-# anything with a non-known uid with a specified name should have a specified seinfo
-neverallow user=_app name=.* seinfo=""
-neverallow user=_app name=.* seinfo=default
+# any non priv-app with a non-known uid with a specified name should have a specified
+# seinfo
+neverallow user=_app isPrivApp=false name=.* seinfo=""
+neverallow user=_app isPrivApp=false name=.* seinfo=default
 
 # neverallow shared relro to any other domain
 # and neverallow any other uid into shared_relro
