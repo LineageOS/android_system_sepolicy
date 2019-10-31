@@ -156,6 +156,7 @@ user=_app seinfo=media domain=mediaprovider name=android.process.media type=app_
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
 user=_app isEphemeralApp=true domain=ephemeral_app type=app_data_file levelFrom=all
 user=_app isPrivApp=true domain=priv_app type=privapp_data_file levelFrom=user
+user=_app seinfo=permission_controller isPrivApp=true name=com.google.android.permissioncontroller domain=permissioncontroller_app type=privapp_data_file levelFrom=all
 user=_app minTargetSdkVersion=29 domain=untrusted_app type=app_data_file levelFrom=all
 user=_app minTargetSdkVersion=28 domain=untrusted_app_27 type=app_data_file levelFrom=all
 user=_app minTargetSdkVersion=26 domain=untrusted_app_27 type=app_data_file levelFrom=user
