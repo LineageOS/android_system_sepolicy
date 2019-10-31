@@ -59,4 +59,10 @@
     <signer signature="@NETWORK_STACK" >
       <seinfo value="network_stack" />
     </signer>
+
+    <signer signature="@PERMISSION_CONTROLLER" >
+        <package name="com.google.android.permissioncontroller">
+            <seinfo value="permission_controller" />
+        </package>
+    </signer>
 </policy>
