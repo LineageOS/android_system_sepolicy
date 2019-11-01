@@ -12,10 +12,10 @@ binder_use(snapshotctl)
 allow snapshotctl gsi_service:service_manager find;
 binder_call(snapshotctl, gsid)
 
-# Allow to read/write/delete OTA metadata files for snapshot status and COW file status.
+# Allow to create/read/write/delete OTA metadata files for snapshot status and COW file status.
 allow snapshotctl metadata_file:dir search;
 allow snapshotctl ota_metadata_file:dir rw_dir_perms;
-allow snapshotctl ota_metadata_file:file { rw_file_perms unlink };
+allow snapshotctl ota_metadata_file:file create_file_perms;
 
 # Allow to get A/B slot suffix from device tree or kernel cmdline.
 r_dir_file(snapshotctl, sysfs_dt_firmware_android);
