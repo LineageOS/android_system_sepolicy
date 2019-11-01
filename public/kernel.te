@@ -107,7 +107,7 @@ recovery_only(`
 ')
 
 # required by VTS lidbm unit test
-allow kernel appdomain_tmpfs:file read;
+allow kernel appdomain_tmpfs:file { read write };
 
 ###
 ### neverallow rules
