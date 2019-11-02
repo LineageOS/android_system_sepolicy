@@ -901,6 +901,10 @@ allow system_server functionfs:file rw_file_perms;
 # system_server contains time / time zone detection logic so reads the associated properties.
 get_prop(system_server, time_prop)
 
+# system_server reads this property to know it should expect the lmkd sends notification to it
+# on low memory kills.
+get_prop(system_server, system_lmk_prop)
+
 ###
 ### Neverallow rules
 ###
