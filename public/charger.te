@@ -44,3 +44,5 @@ set_prop(charger, exported2_system_prop)
 set_prop(charger, exported3_system_prop)
 
 get_prop(charger, charger_prop)
+
+hal_client_domain(charger, hal_health)
