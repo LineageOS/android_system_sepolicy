@@ -34,8 +34,11 @@ allow perfetto { statsd shell su }:fifo_file { getattr read write };
 allow perfetto adbd:fd use;
 allow perfetto adbd:unix_stream_socket { read write };
 
-# Allow adbd to reap perfetto
+# Allow adbd to reap perfetto.
 allow perfetto adbd:process { sigchld };
+
+# Allow perfetto to write to statsd.
+unix_socket_send(perfetto, statsdw, statsd)
 
 # Allow to access /dev/pts when launched in an adb shell.
 allow perfetto devpts:chr_file rw_file_perms;
