@@ -25,3 +25,11 @@ allow permissioncontroller_app usagestats_service:service_manager find;
 
 # Allow interaction with activity_service
 allow permissioncontroller_app activity_service:service_manager find;
+
+allow permissioncontroller_app activity_task_service:service_manager find;
+allow permissioncontroller_app audio_service:service_manager find;
+allow permissioncontroller_app autofill_service:service_manager find;
+allow permissioncontroller_app device_policy_service:service_manager find;
+allow permissioncontroller_app location_service:service_manager find;
+allow permissioncontroller_app surfaceflinger_service:service_manager find;
+allow permissioncontroller_app trust_service:service_manager find;
