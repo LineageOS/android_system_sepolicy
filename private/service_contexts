@@ -191,6 +191,7 @@ system_update                             u:object_r:system_update_service:s0
 task                                      u:object_r:task_service:s0
 telecom                                   u:object_r:telecom_service:s0
 telephony.registry                        u:object_r:registry_service:s0
+telephony_ims                             u:object_r:radio_service:s0
 testharness                               u:object_r:testharness_service:s0
 textclassification                        u:object_r:textclassification_service:s0
 textservices                              u:object_r:textservices_service:s0
