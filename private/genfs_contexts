@@ -115,6 +115,7 @@ genfscon sysfs /class/rfkill/rfkill2/state        u:object_r:sysfs_bluetooth_wri
 genfscon sysfs /class/rfkill/rfkill3/state        u:object_r:sysfs_bluetooth_writable:s0
 genfscon sysfs /class/rtc                         u:object_r:sysfs_rtc:s0
 genfscon sysfs /class/switch                      u:object_r:sysfs_switch:s0
+genfscon sysfs /class/wakeup                      u:object_r:sysfs_wakeup:s0
 genfscon sysfs /devices/platform/nfc-power/nfc_power u:object_r:sysfs_nfc_power_writable:s0
 genfscon sysfs /devices/virtual/android_usb     u:object_r:sysfs_android_usb:s0
 genfscon sysfs /devices/virtual/block/            u:object_r:sysfs_devices_block:s0
@@ -127,11 +128,13 @@ genfscon sysfs /devices/virtual/block/zram1/uevent    u:object_r:sysfs_zram_ueve
 genfscon sysfs /devices/virtual/misc/hw_random    u:object_r:sysfs_hwrandom:s0
 genfscon sysfs /devices/virtual/net             u:object_r:sysfs_net:s0
 genfscon sysfs /devices/virtual/switch          u:object_r:sysfs_switch:s0
+genfscon sysfs /devices/virtual/wakeup          u:object_r:sysfs_wakeup:s0
 genfscon sysfs /firmware/devicetree/base/firmware/android u:object_r:sysfs_dt_firmware_android:s0
 genfscon sysfs /fs/ext4/features                  u:object_r:sysfs_fs_ext4_features:s0
 genfscon sysfs /fs/f2fs                           u:object_r:sysfs_fs_f2fs:s0
 genfscon sysfs /power/autosleep u:object_r:sysfs_power:s0
 genfscon sysfs /power/state u:object_r:sysfs_power:s0
+genfscon sysfs /power/suspend_stats u:object_r:sysfs_suspend_stats:s0
 genfscon sysfs /power/wakeup_count u:object_r:sysfs_power:s0
 genfscon sysfs /power/wake_lock u:object_r:sysfs_wake_lock:s0
 genfscon sysfs /power/wake_unlock u:object_r:sysfs_wake_lock:s0
