@@ -28,6 +28,8 @@ allow init device:file relabelfrom;
 allow init runtime_event_log_tags_file:file { open write setattr relabelto create };
 # /dev/socket
 allow init { device socket_device }:dir relabelto;
+# allow init to establish connection and communicate with lmkd
+unix_socket_connect(init, lmkd, lmkd)
 # Relabel /dev nodes created in first stage init, /dev/null, /dev/ptmx, /dev/random, /dev/urandom
 allow init { null_device ptmx_device random_device } : chr_file relabelto;
 # /dev/device-mapper, /dev/block(/.*)?

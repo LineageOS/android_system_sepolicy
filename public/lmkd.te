@@ -10,19 +10,17 @@ allow lmkd self:global_capability_class_set { dac_override dac_read_search sys_r
 # b/16236289
 allow lmkd self:global_capability_class_set ipc_lock;
 
-## Open and write to /proc/PID/oom_score_adj
+## Open and write to /proc/PID/oom_score_adj and /proc/PID/timerslack_ns
 ## TODO: maybe scope this down?
-r_dir_file(lmkd, appdomain)
-allow lmkd appdomain:file write;
-r_dir_file(lmkd, system_server)
-allow lmkd system_server:file write;
+r_dir_file(lmkd, domain)
+allow lmkd domain:file write;
 
 ## Writes to /sys/module/lowmemorykiller/parameters/minfree
 r_dir_file(lmkd, sysfs_lowmemorykiller)
 allow lmkd sysfs_lowmemorykiller:file w_file_perms;
 
-# setsched and send kill signals
-allow lmkd appdomain:process { setsched sigkill };
+# setsched and send kill signals to any registered process
+allow lmkd domain:process { setsched sigkill };
 # TODO: delete this line b/131761776
 allow lmkd kernel:process { setsched };
 
@@ -69,3 +67,4 @@ unix_socket_send(lmkd, statsdw, statsd)
 
 # never honor LD_PRELOAD
 neverallow * lmkd:process noatsecure;
+neverallow lmkd self:global_capability_class_set sys_ptrace;
