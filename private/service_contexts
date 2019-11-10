@@ -12,6 +12,7 @@ android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s
 app_binding                               u:object_r:app_binding_service:s0
 app_prediction                            u:object_r:app_prediction_service:s0
 apexservice                               u:object_r:apex_service:s0
+blob_store                                u:object_r:blob_store_service:s0
 gsiservice                                u:object_r:gsi_service:s0
 appops                                    u:object_r:appops_service:s0
 appwidget                                 u:object_r:appwidget_service:s0
@@ -191,6 +192,7 @@ system_update                             u:object_r:system_update_service:s0
 task                                      u:object_r:task_service:s0
 telecom                                   u:object_r:telecom_service:s0
 telephony.registry                        u:object_r:registry_service:s0
+telephony_ims                             u:object_r:radio_service:s0
 testharness                               u:object_r:testharness_service:s0
 textclassification                        u:object_r:textclassification_service:s0
 textservices                              u:object_r:textservices_service:s0

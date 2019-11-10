@@ -10,6 +10,10 @@ add_service(system_suspend, system_suspend_control_service)
 # Access to /sys/power/{ wakeup_count, state } suspend interface.
 allow system_suspend sysfs_power:file rw_file_perms;
 
+# Access to wakeup and suspend stats.
+r_dir_file(system_suspend, sysfs_suspend_stats)
+r_dir_file(system_suspend, sysfs_wakeup)
+
 neverallow {
     domain
     -atrace # tracing
