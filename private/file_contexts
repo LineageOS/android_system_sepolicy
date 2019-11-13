@@ -343,6 +343,7 @@
 /system/bin/notify_traceur\.sh       u:object_r:notify_traceur_exec:s0
 /system/bin/migrate_legacy_obb_data\.sh u:object_r:migrate_legacy_obb_data_exec:s0
 /system/bin/aidl_lazy_test_server    u:object_r:aidl_lazy_test_server_exec:s0
+/system/bin/android\.frameworks\.automotive\.display@1\.0-service u:object_r:automotive_display_exec:s0
 
 #############################
 # Vendor files
