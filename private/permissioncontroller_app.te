@@ -3,14 +3,6 @@
 ###
 type permissioncontroller_app, domain;
 
-# Allow everything.
-# TODO(b/142672293): remove when no selinux denials are triggered for this
-# domain
-# STOPSHIP(b/142672293): monitor http://go/sedenials for any denials around
-# `permissioncontroller_app` and remove this line once we are confident about
-# this having the right set of permissions.
-userdebug_or_eng(`permissive permissioncontroller_app;')
-
 app_domain(permissioncontroller_app)
 
 # Allow interaction with gpuservice
