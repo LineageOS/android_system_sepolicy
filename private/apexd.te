@@ -114,6 +114,9 @@ userdebug_or_eng(`
   domain_auto_trans(apexd, apex_test_prepostinstall_exec, apex_test_prepostinstall)
 ')
 
+# Allow apexd to be invoked with logwrapper from init during userspace reboot.
+allow apexd devpts:chr_file { read write };
+
 neverallow { domain -apexd -init } apex_data_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init } apex_metadata_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init -kernel } apex_data_file:file no_w_file_perms;
