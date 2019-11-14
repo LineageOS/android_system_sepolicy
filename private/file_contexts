@@ -164,6 +164,8 @@
 /dev/tty		u:object_r:owntty_device:s0
 /dev/tty[0-9]*		u:object_r:tty_device:s0
 /dev/ttyS[0-9]*		u:object_r:serial_device:s0
+/dev/ttyUSB[0-9]*	u:object_r:usb_serial_device:s0
+/dev/ttyACM[0-9]*	u:object_r:usb_serial_device:s0
 /dev/tun		u:object_r:tun_device:s0
 /dev/uhid		u:object_r:uhid_device:s0
 /dev/uinput		u:object_r:uhid_device:s0
