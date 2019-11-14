@@ -22,6 +22,7 @@ ro.runtime.firstboot    u:object_r:firstboot_prop:s0
 hw.                     u:object_r:system_prop:s0
 ro.hw.                  u:object_r:system_prop:s0
 sys.                    u:object_r:system_prop:s0
+sys.init.userspace_reboot   u:object_r:userspace_reboot_prop:s0
 sys.cppreopt            u:object_r:cppreopt_prop:s0
 sys.linker.             u:object_r:linker_prop:s0
 sys.lpdumpd             u:object_r:lpdumpd_prop:s0

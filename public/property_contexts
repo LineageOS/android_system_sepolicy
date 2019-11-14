@@ -266,6 +266,7 @@ ro.revision u:object_r:exported2_default_prop:s0 exact string
 ro.secure u:object_r:exported_secure_prop:s0 exact int
 service.bootanim.exit u:object_r:exported_system_prop:s0 exact int
 sys.boot_from_charger_mode u:object_r:exported_system_prop:s0 exact int
+sys.init.userspace_reboot.in_progress u:object_r:userspace_reboot_exported_prop:s0 exact bool
 sys.use_memfd u:object_r:use_memfd_prop:s0 exact bool
 vold.decrypt u:object_r:exported_vold_prop:s0 exact string
 

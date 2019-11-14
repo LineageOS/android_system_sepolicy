@@ -31,6 +31,8 @@
     system_group_file
     system_passwd_file
     timezonedetector_service
+    userspace_reboot_prop
+    userspace_reboot_exported_prop
     vendor_apex_file
     vendor_boringssl_self_test
     vendor_install_recovery
