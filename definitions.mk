@@ -13,6 +13,7 @@ $(hide) $(M4) --fatal-warnings $(PRIVATE_ADDITIONAL_M4DEFS) \
 	-D target_compatible_property=$(PRIVATE_COMPATIBLE_PROPERTY) \
 	-D target_treble_sysprop_neverallow=$(PRIVATE_TREBLE_SYSPROP_NEVERALLOW) \
 	-D target_exclude_build_test=$(PRIVATE_EXCLUDE_BUILD_TEST) \
+	-D target_requires_insecure_execmem_for_swiftshader=$(PRODUCT_REQUIRES_INSECURE_EXECMEM_FOR_SWIFTSHADER) \
 	$(PRIVATE_TGT_RECOVERY) \
 	-s $(PRIVATE_POLICY_FILES) > $@
 endef
