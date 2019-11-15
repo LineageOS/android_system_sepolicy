@@ -75,6 +75,8 @@ neverallow {
   -gsid
   -init
   -update_engine_common
+  -recovery
+  -fastbootd
 } gsid_prop:property_service set;
 
 # gsid needs to store images on /data, but cannot use file I/O. If it did, the
@@ -130,6 +132,7 @@ neverallow {
     -init
     -gsid
     -fastbootd
+    -recovery
     -vold
 } gsi_metadata_file:dir *;
 
