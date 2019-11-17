@@ -1,0 +1,14 @@
+###
+### A domain for further sandboxing the VzwOmaTrigger app.
+###
+type vzwomatrigger_app, domain;
+
+# Allow everything.
+# TODO(b/142672293): remove when no selinux denials are triggered for this
+# domain
+# STOPSHIP(b/142672293): monitor http://go/sedenials for any denials around
+# `vzwomatrigger_app` and remove this line once we are confident about
+# this having the right set of permissions.
+userdebug_or_eng(`permissive vzwomatrigger_app;')
+
+app_domain(vzwomatrigger_app)

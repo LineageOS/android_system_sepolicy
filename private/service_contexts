@@ -197,6 +197,7 @@ testharness                               u:object_r:testharness_service:s0
 textclassification                        u:object_r:textclassification_service:s0
 textservices                              u:object_r:textservices_service:s0
 time_detector                             u:object_r:timedetector_service:s0
+time_zone_detector                        u:object_r:timezonedetector_service:s0
 timezone                                  u:object_r:timezone_service:s0
 thermalservice                            u:object_r:thermal_service:s0
 trust                                     u:object_r:trust_service:s0
