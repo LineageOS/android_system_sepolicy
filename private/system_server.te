@@ -157,6 +157,9 @@ allow system_server stats_data_file:file unlink;
 # Read /sys/kernel/debug/wakeup_sources.
 allow system_server debugfs_wakeup_sources:file r_file_perms;
 
+# Read /sys/kernel/ion/*.
+allow system_server sysfs_ion:file r_file_perms;
+
 # The DhcpClient and WifiWatchdog use packet_sockets
 allow system_server self:packet_socket create_socket_perms_no_ioctl;
 
