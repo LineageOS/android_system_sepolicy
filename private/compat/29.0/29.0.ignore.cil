@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    auth_service
     ashmem_libcutils_device
     blob_store_service
     boringssl_self_test
