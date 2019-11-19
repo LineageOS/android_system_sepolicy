@@ -258,6 +258,8 @@ get_prop(vendor_init, exported2_radio_prop)
 get_prop(vendor_init, exported3_system_prop)
 get_prop(vendor_init, theme_prop)
 
+get_prop(vendor_init, ota_prop)
+
 ###
 ### neverallow rules
 ###

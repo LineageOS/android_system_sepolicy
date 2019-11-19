@@ -130,6 +130,7 @@ system_public_prop(log_prop)
 system_public_prop(log_tag_prop)
 system_public_prop(lowpan_prop)
 system_public_prop(nfc_prop)
+system_public_prop(ota_prop)
 system_public_prop(powerctl_prop)
 system_public_prop(radio_prop)
 system_public_prop(serialno_prop)
@@ -287,6 +288,7 @@ typeattribute fingerprint_prop   core_property_type;
 typeattribute logd_prop          core_property_type;
 typeattribute net_radio_prop     core_property_type;
 typeattribute nfc_prop           core_property_type;
+typeattribute ota_prop           core_property_type;
 typeattribute pan_result_prop    core_property_type;
 typeattribute persist_debug_prop core_property_type;
 typeattribute powerctl_prop      core_property_type;
@@ -313,6 +315,7 @@ neverallow * {
   -logd_prop
   -net_radio_prop
   -nfc_prop
+  -ota_prop
   -pan_result_prop
   -persist_debug_prop
   -powerctl_prop
@@ -625,6 +628,7 @@ compatible_property_only(`
     -net_radio_prop
     -netd_stable_secret_prop
     -nfc_prop
+    -ota_prop
     -overlay_prop
     -pan_result_prop
     -persist_debug_prop
