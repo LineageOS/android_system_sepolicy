@@ -265,6 +265,7 @@ allow system_server {
   mediametrics
   mediaserver
   mediaswcodec
+  netd
   sdcardd
   statsd
   surfaceflinger
