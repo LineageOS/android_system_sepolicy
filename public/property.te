@@ -17,6 +17,7 @@ system_internal_prop(init_svc_debug_prop)
 system_internal_prop(last_boot_reason_prop)
 system_internal_prop(netd_stable_secret_prop)
 system_internal_prop(pm_prop)
+system_internal_prop(userspace_reboot_prop)
 
 compatible_property_only(`
     # DO NOT ADD ANY PROPERTIES HERE
@@ -62,6 +63,7 @@ system_restricted_prop(linker_prop)
 system_restricted_prop(nnapi_ext_deny_product_prop)
 system_restricted_prop(restorecon_prop)
 system_restricted_prop(system_boot_reason_prop)
+system_restricted_prop(userspace_reboot_exported_prop)
 
 compatible_property_only(`
     # DO NOT ADD ANY PROPERTIES HERE
