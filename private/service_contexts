@@ -11,6 +11,7 @@ android.security.keystore                 u:object_r:keystore_service:s0
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
 app_binding                               u:object_r:app_binding_service:s0
 app_prediction                            u:object_r:app_prediction_service:s0
+app_search                                u:object_r:app_search_service:s0
 apexservice                               u:object_r:apex_service:s0
 blob_store                                u:object_r:blob_store_service:s0
 gsiservice                                u:object_r:gsi_service:s0

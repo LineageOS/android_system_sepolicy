@@ -45,6 +45,7 @@ type adb_service, system_api_service, system_server_service, service_manager_typ
 type alarm_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type app_binding_service, system_server_service, service_manager_type;
 type app_prediction_service, app_api_service, system_server_service, service_manager_type;
+type app_search_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type appops_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type appwidget_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type assetatlas_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
