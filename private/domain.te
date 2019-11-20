@@ -73,6 +73,8 @@ compatible_property_only(`
     get_prop({coredomain appdomain shell}, exported3_default_prop)
     get_prop({coredomain appdomain shell}, exported3_radio_prop)
     get_prop({coredomain appdomain shell}, exported3_system_prop)
+    get_prop({coredomain shell}, userspace_reboot_exported_prop)
+    get_prop({coredomain shell}, userspace_reboot_prop)
     get_prop({domain -coredomain -appdomain}, vendor_default_prop)
 ')
 

@@ -220,6 +220,8 @@ not_compatible_property(`
       -nnapi_ext_deny_product_prop
       -init_svc_debug_prop
       -linker_prop
+      -userspace_reboot_exported_prop
+      -userspace_reboot_prop
     })
 ')
 
