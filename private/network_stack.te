@@ -70,3 +70,7 @@ allow network_stack dumpstate:fifo_file write;
 
 # Create/use netlink_tcpdiag_socket to get tcp info
 allow network_stack self:netlink_tcpdiag_socket { create_socket_perms_no_ioctl nlmsg_read nlmsg_write };
+############### Tethering Service app - Tethering.apk ##############
+hal_client_domain(network_stack, hal_tetheroffload)
+# Create and share netlink_netfilter_sockets for tetheroffload.
+allow network_stack self:netlink_netfilter_socket create_socket_perms_no_ioctl;
