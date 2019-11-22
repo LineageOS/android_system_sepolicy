@@ -179,6 +179,8 @@ type task_profiles_file, system_file_type, file_type;
 type vendor_task_profiles_file, vendor_file_type, file_type;
 # Type for /system/apex/com.android.art
 type art_apex_dir, system_file_type, file_type;
+# /linkerconfig(/.*)?
+type linkerconfig_file, file_type;
 
 # Default type for directories search for
 # HAL implementations
