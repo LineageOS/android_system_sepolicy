@@ -141,6 +141,7 @@ neverallow {
     -network_stack
     -netd
     -netutils_wrapper
+    -wifi_stack
 } netd_service:service_manager find;
 
 # only system_server, dumpstate and network stack app may find dnsresolver service
@@ -151,11 +152,12 @@ neverallow {
     -network_stack
     -netd
     -netutils_wrapper
+    -wifi_stack
 } dnsresolver_service:service_manager find;
 
 # apps may not interact with netd over binder.
-neverallow { appdomain -network_stack } netd:binder call;
-neverallow netd { appdomain -network_stack userdebug_or_eng(`-su') }:binder call;
+neverallow { appdomain -network_stack -wifi_stack } netd:binder call;
+neverallow netd { appdomain -network_stack -wifi_stack userdebug_or_eng(`-su') }:binder call;
 
 # persist.netd.stable_secret contains RFC 7217 secret key which should never be
 # leaked to other processes. Make sure it never leaks.

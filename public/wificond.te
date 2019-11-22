@@ -4,7 +4,7 @@ type wificond_exec, system_file_type, exec_type, file_type;
 
 binder_use(wificond)
 binder_call(wificond, system_server)
-binder_call(wificond, network_stack)
+binder_call(wificond, wifi_stack)
 
 add_service(wificond, wificond_service)
 

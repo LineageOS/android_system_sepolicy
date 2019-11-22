@@ -365,7 +365,7 @@ allow appdomain zygote_tmpfs:file { map read };
 
 # Superuser capabilities.
 # bluetooth/wifi requires net_admin and wake_alarm. network stack app requires net_admin.
-neverallow { appdomain -bluetooth -network_stack } self:capability_class_set *;
+neverallow { appdomain -bluetooth -network_stack -wifi_stack } self:capability_class_set *;
 
 # Block device access.
 neverallow appdomain dev_type:blk_file { read write };
@@ -488,7 +488,7 @@ neverallow appdomain
 neverallow appdomain
     systemkeys_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -network_stack }
+neverallow { appdomain -wifi_stack }
     wifi_data_file:dir_file_class_set *;
 neverallow appdomain
     dhcp_data_file:dir_file_class_set
@@ -512,7 +512,7 @@ neverallow appdomain
     proc:dir_file_class_set write;
 
 # Access to syslog(2) or /proc/kmsg.
-neverallow { appdomain userdebug_or_eng(`-network_stack') } kernel:system { syslog_read syslog_mod syslog_console };
+neverallow { appdomain userdebug_or_eng(`-wifi_stack') } kernel:system { syslog_read syslog_mod syslog_console };
 
 # SELinux is not an API for apps to use
 neverallow { appdomain -shell } *:security { compute_av check_context };

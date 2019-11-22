@@ -1,0 +1,56 @@
+# Wifi Stack Mandatory
+typeattribute wifi_stack coredomain;
+
+app_domain(wifi_stack)
+net_domain(wifi_stack)
+
+# Data file accesses.
+# Manage /data/misc/wifi.
+allow wifi_stack wifi_data_file:dir create_dir_perms;
+allow wifi_stack wifi_data_file:file create_file_perms;
+allow wifi_stack radio_data_file:dir search;
+
+# Property accesses
+userdebug_or_eng(`
+  set_prop(wifi_stack, wifi_log_prop)
+
+  # Allow wifi_stack to read dmesg
+  # TODO(b/137085509): Remove this.
+  allow wifi_stack kernel:system syslog_read;
+')
+
+# ctl interface
+
+# Perform Binder IPC.
+binder_use(wifi_stack)
+allow wifi_stack app_api_service:service_manager find;
+allow wifi_stack network_score_service:service_manager find;
+allow wifi_stack netd_service:service_manager find;
+allow wifi_stack network_stack_service:service_manager find;
+allow wifi_stack radio_service:service_manager find;
+allow wifi_stack wificond_service:service_manager find;
+allow wifi_stack wifiscanner_service:service_manager find;
+binder_call(wifi_stack, system_server)
+binder_call(wifi_stack, wificond)
+binder_call(wifi_stack, network_stack)
+
+# Perform HwBinder IPC.
+hwbinder_use(wifi_stack)
+hal_client_domain(wifi_stack, hal_wifi)
+hal_client_domain(wifi_stack, hal_wifi_hostapd)
+hal_client_domain(wifi_stack, hal_wifi_supplicant)
+
+# Allow WifiService to start, stop, and read wifi-specific trace events.
+allow wifi_stack debugfs_tracing_instances:dir search;
+allow wifi_stack debugfs_wifi_tracing:dir search;
+allow wifi_stack debugfs_wifi_tracing:file rw_file_perms;
+
+# Connectivity
+allow wifi_stack self:capability { net_bind_service net_admin net_raw };
+allow wifi_stack self:packet_socket create_socket_perms_no_ioctl;
+allow wifi_stack self:netlink_route_socket nlmsg_write;
+allowxperm wifi_stack self:udp_socket ioctl priv_sock_ioctls;
+
+# dumpstate support
+allow wifi_stack dumpstate:fd use;
+allow wifi_stack dumpstate:fifo_file write;
