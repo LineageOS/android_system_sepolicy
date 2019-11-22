@@ -1,7 +1,7 @@
 ###
 ### A domain for further sandboxing the GooglePermissionController app.
 ###
-type permissioncontroller_app, domain;
+type permissioncontroller_app, domain, coredomain;
 
 # Allow everything.
 # TODO(b/142672293): remove when no selinux denials are triggered for this
@@ -29,7 +29,11 @@ allow permissioncontroller_app activity_service:service_manager find;
 allow permissioncontroller_app activity_task_service:service_manager find;
 allow permissioncontroller_app audio_service:service_manager find;
 allow permissioncontroller_app autofill_service:service_manager find;
+allow permissioncontroller_app content_capture_service:service_manager find;
 allow permissioncontroller_app device_policy_service:service_manager find;
+allow permissioncontroller_app incidentcompanion_service:service_manager find;
 allow permissioncontroller_app location_service:service_manager find;
+allow permissioncontroller_app media_session_service:service_manager find;
 allow permissioncontroller_app surfaceflinger_service:service_manager find;
+allow permissioncontroller_app telecom_service:service_manager find;
 allow permissioncontroller_app trust_service:service_manager find;
