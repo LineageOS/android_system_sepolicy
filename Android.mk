@@ -226,12 +226,12 @@ endif
 # Convert a file_context file for a non-flattened APEX into a file for
 # flattened APEX. /system/apex/<apex_name> path is prepended to the original paths
 # $(1): path to the input file_contexts file for non-flattened APEX
-# $(2): name of the APEX
-# $(3): path to the generated file_contexs file for flattened APEX
+# $(2): path to the flattened APEX
+# $(3): path to the generated file_contexts file for flattened APEX
 # $(4): variable where $(3) is added to
 define build_flattened_apex_file_contexts
 $(4) += $(3)
-$(3): PRIVATE_APEX_PATH := /system/apex/$(subst .,\\.,$(2))
+$(3): PRIVATE_APEX_PATH := $(subst .,\\.,$(2))
 $(3): $(1)
 	$(hide) awk '/object_r/{printf("$$(PRIVATE_APEX_PATH)%s\n",$$$$0)}' $$< > $$@
 endef
@@ -1416,15 +1416,16 @@ endif
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
   local_fc_files += $(wildcard $(addsuffix /file_contexts_overlayfs, $(PLAT_PRIVATE_POLICY)))
 endif
-ifeq ($(TARGET_FLATTEN_APEX),true)
-  $(foreach _pair,$(APEX_FILE_CONTEXTS_INFOS),\
-    $(eval _apex_name := $(call word-colon,1,$(_pair)))\
-    $(eval _fc_name := $(call word-colon,2,$(_pair)))\
-    $(eval _input := $(LOCAL_PATH)/apex/$(_fc_name)-file_contexts)\
-    $(eval _output := $(intermediates)/$(_apex_name)-flattened)\
-    $(eval $(call build_flattened_apex_file_contexts,$(_input),$(_apex_name),$(_output),local_fc_files))\
-   )
-endif
+
+# Even if TARGET_FLATTEN_APEX is not turned on, "flattened" APEXes are installed
+$(foreach _tuple,$(APEX_FILE_CONTEXTS_INFOS),\
+  $(eval _apex_name := $(call word-colon,1,$(_tuple)))\
+  $(eval _apex_path := $(call word-colon,2,$(_tuple)))\
+  $(eval _fc_path := $(call word-colon,3,$(_tuple)))\
+  $(eval _input := $(_fc_path))\
+  $(eval _output := $(intermediates)/$(_apex_name)-flattened)\
+  $(eval $(call build_flattened_apex_file_contexts,$(_input),$(_apex_path),$(_output),local_fc_files))\
+  )
 
 file_contexts.local.tmp := $(intermediates)/file_contexts.local.tmp
 $(file_contexts.local.tmp): PRIVATE_FC_FILES := $(local_fc_files)
