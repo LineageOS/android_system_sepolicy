@@ -6,7 +6,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.audiocontrol@1\.0-service  u:object_r:hal_audiocontrol_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.can@1\.0-service  u:object_r:hal_can_socketcan_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.evs@1\.[0-9]-service  u:object_r:hal_evs_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@2\.0-service  u:object_r:hal_vehicle_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@2\.0-(service|protocan-service)  u:object_r:hal_vehicle_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.0-service      u:object_r:hal_bluetooth_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.0-service\.btlinux    u:object_r:hal_bluetooth_btlinux_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service u:object_r:hal_fingerprint_default_exec:s0
@@ -39,6 +39,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.ir@1\.0-service             u:object_r:hal_ir_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.keymaster@3\.0-service      u:object_r:hal_keymaster_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.keymaster@4\.0-service      u:object_r:hal_keymaster_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.keymaster@4\.1-service      u:object_r:hal_keymaster_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service          u:object_r:hal_light_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service-lazy     u:object_r:hal_light_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.lowpan@1\.0-service         u:object_r:hal_lowpan_default_exec:s0
