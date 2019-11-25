@@ -107,7 +107,7 @@ neverallow {
 } self:global_capability_class_set sys_ptrace;
 
 # Limit ability to generate hardware unique device ID attestations to priv_apps
-neverallow { domain -priv_app } *:keystore_key gen_unique_id;
+neverallow { domain -priv_app -gmscore_app } *:keystore_key gen_unique_id;
 
 neverallow {
   domain

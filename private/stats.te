@@ -40,6 +40,7 @@ binder_call(statsd, stats)
 neverallow {
   domain
   -dumpstate
+  -gmscore_app
   -incidentd
   -platform_app
   -priv_app
