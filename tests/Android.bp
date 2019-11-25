@@ -11,7 +11,6 @@ cc_library_host_shared {
         "libbase",
         "libsepol",
     ],
-    stl: "libc++_static",
     sanitize: {
         never: true,
     },
