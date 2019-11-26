@@ -542,6 +542,7 @@ neverallow {
   userdebug_or_eng(`-incidentd')
   -init
   -mediadrmserver
+  -mediaserver
   -recovery
   -shell
   -system_server
