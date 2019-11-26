@@ -63,6 +63,7 @@ system_restricted_prop(linker_prop)
 system_restricted_prop(nnapi_ext_deny_product_prop)
 system_restricted_prop(restorecon_prop)
 system_restricted_prop(system_boot_reason_prop)
+system_restricted_prop(system_jvmti_agent_prop)
 system_restricted_prop(userspace_reboot_exported_prop)
 
 compatible_property_only(`

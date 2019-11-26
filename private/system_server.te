@@ -893,6 +893,8 @@ allow system_server profman_dump_data_file:dir w_dir_perms;
 userdebug_or_eng(`
   allow system_server user_profile_data_file:file create_file_perms;
 ')
+# Allow system server to load JVMTI agents under control of a property.
+get_prop(system_server,system_jvmti_agent_prop)
 
 # UsbDeviceManager uses /dev/usb-ffs
 allow system_server functionfs:dir search;
@@ -1029,6 +1031,17 @@ allow system_server vendor_apex_file:file r_file_perms;
 allow system_server metadata_file:dir search;
 allow system_server password_slot_metadata_file:dir rw_dir_perms;
 allow system_server password_slot_metadata_file:file create_file_perms;
+
+# JVMTI agent settings are only readable from the system server.
+neverallow {
+  domain
+  -system_server
+  -dumpstate
+  -init
+  -vendor_init
+} {
+  system_jvmti_agent_prop
+}:file no_rw_file_perms;
 
 # Read/Write /proc/pressure/memory
 allow system_server proc_pressure_mem:file rw_file_perms;
