@@ -27,6 +27,10 @@ allow priv_app self:process ptrace;
 # * /data/user_de/0/com.google.android.gms/app_chimera
 # TODO: Tighten (b/112357170)
 allow priv_app privapp_data_file:file execute;
+# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
+userdebug_or_eng(`
+  auditallow priv_app privapp_data_file:file execute;
+')
 
 allow priv_app privapp_data_file:lnk_file create_file_perms;
 
@@ -101,6 +105,10 @@ r_dir_file(priv_app, rootfs)
 
 # Allow GMS core to open kernel config for OTA matching through libvintf
 allow priv_app config_gz:file { open read getattr };
+# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
+userdebug_or_eng(`
+  auditallow priv_app config_gz:file { open read getattr };
+')
 
 # access the mac address
 allowxperm priv_app self:udp_socket ioctl SIOCGIFHWADDR;
@@ -108,17 +116,42 @@ allowxperm priv_app self:udp_socket ioctl SIOCGIFHWADDR;
 # Allow GMS core to communicate with update_engine for A/B update.
 binder_call(priv_app, update_engine)
 allow priv_app update_engine_service:service_manager find;
+# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
+userdebug_or_eng(`
+  auditallow priv_app update_engine:binder { call transfer };
+  auditallow update_engine priv_app:binder transfer;
+  auditallow priv_app update_engine:fd use;
+  auditallow priv_app update_engine_service:service_manager find;
+')
 
 # Allow GMS core to communicate with dumpsys storaged.
 binder_call(priv_app, storaged)
 allow priv_app storaged_service:service_manager find;
+# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
+userdebug_or_eng(`
+  auditallow priv_app storaged:binder { call transfer };
+  auditallow storaged priv_app:binder transfer;
+  auditallow priv_app storaged:fd use;
+  auditallow priv_app storaged_service:service_manager find;
+')
+
 
 # Allow GMS core to access system_update_service (e.g. to publish pending
 # system update info).
 allow priv_app system_update_service:service_manager find;
+# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
+userdebug_or_eng(`
+  auditallow priv_app system_update_service:service_manager find;
+')
 
 # Allow GMS core to communicate with statsd.
 binder_call(priv_app, statsd)
+# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
+userdebug_or_eng(`
+  auditallow priv_app statsd:binder { call transfer };
+  auditallow statsd priv_app:binder transfer;
+  auditallow priv_app statsd:fd use;
+')
 
 # Allow Phone to read/write cached ringtones (opened by system).
 allow priv_app ringtone_file:file { getattr read write };
@@ -131,9 +164,17 @@ allow priv_app preloads_media_file:dir r_dir_perms;
 
 # Allow privileged apps (e.g. GMS core) to generate unique hardware IDs
 allow priv_app keystore:keystore_key gen_unique_id;
+# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
+userdebug_or_eng(`
+  auditallow priv_app keystore:keystore_key gen_unique_id;
+')
 
 # Allow GMS core to access /sys/fs/selinux/policyvers for compatibility check
 allow priv_app selinuxfs:file r_file_perms;
+# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
+userdebug_or_eng(`
+  auditallow priv_app selinuxfs:file r_file_perms;
+')
 
 read_runtime_log_tags(priv_app)
 
