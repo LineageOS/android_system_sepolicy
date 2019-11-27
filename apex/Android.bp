@@ -63,6 +63,13 @@ filegroup {
 }
 
 filegroup {
+  name: "com.android.ipsec-file_contexts",
+  srcs: [
+    "com.android.ipsec-file_contexts",
+  ],
+}
+
+filegroup {
   name: "com.android.i18n-file_contexts",
   srcs: [
     "com.android.i18n-file_contexts",
