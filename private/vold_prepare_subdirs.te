@@ -21,7 +21,6 @@ allow vold_prepare_subdirs {
     rollback_data_file
     storaged_data_file
     vold_data_file
-    wifi_data_file
 }:dir { create_dir_perms relabelto };
 allow vold_prepare_subdirs {
     backup_data_file
@@ -32,7 +31,6 @@ allow vold_prepare_subdirs {
     storaged_data_file
     system_data_file
     vold_data_file
-    wifi_data_file
 }:file { getattr unlink };
 
 dontaudit vold_prepare_subdirs { proc unlabeled }:file r_file_perms;
