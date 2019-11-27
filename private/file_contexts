@@ -509,6 +509,7 @@
 /data/misc/carrierid(/.*)?      u:object_r:radio_data_file:s0
 /data/misc/dhcp(/.*)?           u:object_r:dhcp_data_file:s0
 /data/misc/dhcp-6\.8\.2(/.*)?     u:object_r:dhcp_data_file:s0
+/data/misc/emergencynumberdb(/.*)?     u:object_r:emergency_data_file:s0
 /data/misc/gatekeeper(/.*)?     u:object_r:gatekeeper_data_file:s0
 /data/misc/incidents(/.*)?	    u:object_r:incident_data_file:s0
 /data/misc/installd(/.*)?		u:object_r:install_data_file:s0
