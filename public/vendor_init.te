@@ -213,6 +213,7 @@ not_compatible_property(`
       -firstboot_prop
       -pm_prop
       -system_boot_reason_prop
+      -system_jvmti_agent_prop
       -bootloader_boot_reason_prop
       -last_boot_reason_prop
       -apexd_prop

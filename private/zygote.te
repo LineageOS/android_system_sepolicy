@@ -100,11 +100,8 @@ allow zygote mnt_user_file:file create_file_perms;
 allow zygote storage_file:dir { search mounton };
 
 # Allow mounting and creating files, dirs on sdcardfs.
-# TODO: reduce this back to only sdcardfs once b/123533205 is root-caused
-# (Technically "sdcardfs" and "media_rw_data_file" are equivalent, since
-# sdcardfs simply wraps files stored under /data/media.)
-allow zygote { sdcard_type media_rw_data_file }:dir { create_dir_perms mounton };
-allow zygote { sdcard_type media_rw_data_file }:file { create_file_perms };
+allow zygote { sdcard_type }:dir { create_dir_perms mounton };
+allow zygote { sdcard_type }:file { create_file_perms };
 
 # Allow zygote to expand app files while preloading libraries
 allow zygote mnt_expand_file:dir getattr;
