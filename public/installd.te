@@ -166,9 +166,9 @@ allow installd preloads_media_file:dir { r_dir_perms write remove_name rmdir };
 ### Neverallow rules
 ###
 
-# only system_server, installd and dumpstate may interact with installd over binder
+# only system_server, installd, dumpstate, and servicemanager may interact with installd over binder
 neverallow { domain -system_server -dumpstate -installd } installd_service:service_manager find;
-neverallow { domain -system_server -dumpstate } installd:binder call;
+neverallow { domain -system_server -dumpstate -servicemanager } installd:binder call;
 neverallow installd {
     domain
     -system_server
