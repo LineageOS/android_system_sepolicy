@@ -1,4 +1,4 @@
-############### Networking service app - NetworkStack.apk ##############
+# Networking service app
 typeattribute network_stack coredomain;
 
 app_domain(network_stack);
@@ -28,45 +28,6 @@ allow network_stack radio_data_file:dir create_dir_perms;
 allow network_stack radio_data_file:file create_file_perms;
 
 binder_call(network_stack, netd);
-
-############### Wifi Service app - WifiStack.apk ##############
-# Data file accesses.
-# Manage /data/misc/wifi & /data/misc_ce/<user_id>/wifi.
-allow network_stack wifi_data_file:dir create_dir_perms;
-allow network_stack wifi_data_file:file create_file_perms;
-
-# Property accesses
-userdebug_or_eng(`
-  set_prop(network_stack, wifi_log_prop)
-
-  # Allow network_stack to read dmesg
-  # TODO(b/137085509): Remove this.
-  allow network_stack kernel:system syslog_read;
-')
-
-# Binder IPC.
-allow network_stack audioserver_service:service_manager find;
-allow network_stack network_score_service:service_manager find;
-allow network_stack network_stack_service:service_manager find;
-allow network_stack radio_service:service_manager find;
-allow network_stack wificond_service:service_manager find;
-allow network_stack wifiscanner_service:service_manager find;
-binder_call(network_stack, system_server)
-binder_call(network_stack, wificond)
-
-# HwBinder IPC.
-hal_client_domain(network_stack, hal_wifi)
-hal_client_domain(network_stack, hal_wifi_hostapd)
-hal_client_domain(network_stack, hal_wifi_supplicant)
-
-# Allow WifiService to start, stop, and read wifi-specific trace events.
-allow network_stack debugfs_tracing_instances:dir search;
-allow network_stack debugfs_wifi_tracing:dir search;
-allow network_stack debugfs_wifi_tracing:file rw_file_perms;
-
-# dumpstate support
-allow network_stack dumpstate:fd use;
-allow network_stack dumpstate:fifo_file write;
 
 # Create/use netlink_tcpdiag_socket to get tcp info
 allow network_stack self:netlink_tcpdiag_socket { create_socket_perms_no_ioctl nlmsg_read nlmsg_write };
