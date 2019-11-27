@@ -8,3 +8,7 @@ read_runtime_log_tags(radio)
 get_prop(radio, time_prop)
 
 allow radio uce_service:service_manager find;
+
+# Manage /data/misc/emergencynumberdb
+allow radio emergency_data_file:dir r_dir_perms;
+allow radio emergency_data_file:file r_file_perms;
