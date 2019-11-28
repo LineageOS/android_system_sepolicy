@@ -343,6 +343,7 @@ ro.kernel.android.bootanim u:object_r:exported_default_prop:s0 exact int
 ro.odm.build.date u:object_r:exported_default_prop:s0 exact string
 ro.odm.build.date.utc u:object_r:exported_default_prop:s0 exact int
 ro.odm.build.fingerprint u:object_r:exported_default_prop:s0 exact string
+ro.odm.build.version.incremental u:object_r:exported_default_prop:s0 exact string
 ro.oem.key1 u:object_r:exported_default_prop:s0 exact string
 ro.product.board u:object_r:exported_default_prop:s0 exact string
 ro.product.cpu.abilist32 u:object_r:exported_default_prop:s0 exact string
@@ -362,6 +363,7 @@ ro.telephony.iwlan_operation_mode u:object_r:exported_radio_prop:s0 exact enum d
 ro.vendor.build.date u:object_r:exported_default_prop:s0 exact string
 ro.vendor.build.date.utc u:object_r:exported_default_prop:s0 exact int
 ro.vendor.build.fingerprint u:object_r:exported_default_prop:s0 exact string
+ro.vendor.build.version.incremental u:object_r:exported_default_prop:s0 exact string
 ro.vndk.lite u:object_r:exported_default_prop:s0 exact bool
 ro.vndk.version u:object_r:exported_default_prop:s0 exact string
 ro.vts.coverage u:object_r:exported_default_prop:s0 exact int
