@@ -38,6 +38,7 @@ add_service(update_engine, update_engine_service)
 
 # Allow update_engine to call the callback function provided by priv_app.
 binder_call(update_engine, priv_app)
+binder_call(update_engine, gmscore_app)
 
 # Allow update_engine to call the callback function provided by system_server.
 binder_call(update_engine, system_server)
