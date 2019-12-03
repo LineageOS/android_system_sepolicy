@@ -77,6 +77,13 @@ filegroup {
 }
 
 filegroup {
+  name: "com.android.mediaprovider-file_contexts",
+  srcs: [
+    "com.android.mediaprovider-file_contexts",
+  ],
+}
+
+filegroup {
   name: "com.android.media.swcodec-file_contexts",
   srcs: [
     "com.android.media.swcodec-file_contexts",
