@@ -21,6 +21,7 @@ type mediaserver_service,       service_manager_type;
 type mediametrics_service,      service_manager_type;
 type mediaextractor_service,    service_manager_type;
 type mediadrmserver_service,    service_manager_type;
+type mediatranscoding_service,  app_api_service, service_manager_type;
 type netd_service,              service_manager_type;
 type nfc_service,               service_manager_type;
 type radio_service,             service_manager_type;

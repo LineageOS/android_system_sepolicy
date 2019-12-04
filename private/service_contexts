@@ -118,6 +118,7 @@ media.log                                 u:object_r:audioserver_service:s0
 media.player                              u:object_r:mediaserver_service:s0
 media.metrics                             u:object_r:mediametrics_service:s0
 media.extractor                           u:object_r:mediaextractor_service:s0
+media.transcoding                         u:object_r:mediatranscoding_service:s0
 media.resource_manager                    u:object_r:mediaserver_service:s0
 media.sound_trigger_hw                    u:object_r:audioserver_service:s0
 media.drm                                 u:object_r:mediadrmserver_service:s0
