@@ -234,6 +234,7 @@ treble_sysprop_neverallow(`
 
 neverallow { domain -coredomain } {
   system_property_type
+  system_internal_property_type
   -system_restricted_property_type
   -system_public_property_type
 }:file no_rw_file_perms;
@@ -243,24 +244,19 @@ neverallow { domain -coredomain } {
   -system_public_property_type
 }:property_service set;
 
-neverallow { domain -coredomain } {
-  system_internal_property_type
-}:file no_rw_file_perms;
-
-neverallow coredomain {
+# init is in coredomain, but should be able to read/write all props.
+# dumpstate is also in coredomain, but should be able to read all props.
+neverallow { coredomain -init -dumpstate } {
   vendor_property_type
+  vendor_internal_property_type
   -vendor_restricted_property_type
   -vendor_public_property_type
 }:file no_rw_file_perms;
 
-neverallow coredomain {
+neverallow { coredomain -init } {
   vendor_property_type
   -vendor_public_property_type
 }:property_service set;
-
-neverallow coredomain {
-  vendor_internal_property_type
-}:file no_rw_file_perms;
 
 ')
 
