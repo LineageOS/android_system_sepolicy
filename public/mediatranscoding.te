@@ -1,0 +1,26 @@
+# mediatranscoding - daemon for transcoding video and image.
+type mediatranscoding, domain;
+type mediatranscoding_exec, system_file_type, exec_type, file_type;
+
+binder_use(mediatranscoding)
+binder_service(mediatranscoding)
+
+add_service(mediatranscoding, mediatranscoding_service)
+
+allow mediatranscoding system_server:fd use;
+
+# mediatranscoding should never execute any executable without a
+# domain transition
+neverallow mediatranscoding { file_type fs_type }:file execute_no_trans;
+
+# The goal of the mediaserver split is to place media processing code into
+# restrictive sandboxes with limited responsibilities and thus limited
+# permissions. Example: Audioserver is only responsible for controlling audio
+# hardware and processing audio content. Cameraserver does the same for camera
+# hardware/content. Etc.
+#
+# Media processing code is inherently risky and thus should have limited
+# permissions and be isolated from the rest of the system and network.
+# Lengthier explanation here:
+# https://android-developers.googleblog.com/2016/05/hardening-media-stack.html
+neverallow mediatranscoding domain:{ tcp_socket udp_socket rawip_socket } *;
