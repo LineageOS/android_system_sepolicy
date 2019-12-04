@@ -197,6 +197,7 @@ type wpantund_service, system_api_service, service_manager_type;
 ### HAL Services
 ###
 
+type hal_rebootescrow_service, vendor_service, service_manager_type;
 type hal_vibrator_service, vendor_service, service_manager_type;
 
 ###
