@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    app_integrity_service
     app_search_service
     auth_service
     ashmem_libcutils_device
