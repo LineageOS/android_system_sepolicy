@@ -110,6 +110,8 @@ allow system_server self:netlink_route_socket nlmsg_write;
 
 # Kill apps.
 allow system_server appdomain:process { getpgid sigkill signal };
+# signull allowed for kill(pid, 0) existence test.
+allow system_server appdomain:process { signull };
 
 # Set scheduling info for apps.
 allow system_server appdomain:process { getsched setsched };
