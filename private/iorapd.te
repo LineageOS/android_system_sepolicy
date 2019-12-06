@@ -4,3 +4,6 @@ init_daemon_domain(iorapd)
 tmpfs_domain(iorapd)
 
 domain_auto_trans(iorapd, iorap_prefetcherd_exec, iorap_prefetcherd)
+
+# Allow iorapd to access the runtime native boot feature flag properties.
+get_prop(iorapd, device_config_runtime_native_boot_prop)
