@@ -60,6 +60,7 @@ compatible_property_only(`
 
 # Properties which can't be written outside system
 system_restricted_prop(linker_prop)
+system_restricted_prop(module_sdkext_prop)
 system_restricted_prop(nnapi_ext_deny_product_prop)
 system_restricted_prop(restorecon_prop)
 system_restricted_prop(system_boot_reason_prop)
@@ -614,6 +615,7 @@ compatible_property_only(`
     -heapprofd_prop
     -hwservicemanager_prop
     -last_boot_reason_prop
+    -module_sdkext_prop
     -system_lmk_prop
     -linker_prop
     -log_prop
