@@ -638,6 +638,9 @@ get_prop(system_server, gsid_prop)
 # Read the property that mocks an OTA
 get_prop(system_server, mock_ota_prop)
 
+# Read the property as feature flag for protecting apks with fs-verity.
+get_prop(system_server, apk_verity_prop)
+
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
 
