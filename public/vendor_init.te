@@ -221,6 +221,7 @@ not_compatible_property(`
       -nnapi_ext_deny_product_prop
       -init_svc_debug_prop
       -linker_prop
+      -module_sdkext_prop
       -userspace_reboot_exported_prop
       -userspace_reboot_prop
     })
@@ -229,6 +230,7 @@ not_compatible_property(`
 # Get file context
 allow vendor_init file_contexts_file:file r_file_perms;
 
+set_prop(vendor_init, apk_verity_prop)
 set_prop(vendor_init, bluetooth_a2dp_offload_prop)
 set_prop(vendor_init, bluetooth_audio_hal_prop)
 set_prop(vendor_init, cpu_variant_prop)
@@ -253,6 +255,7 @@ set_prop(vendor_init, logd_prop)
 set_prop(vendor_init, log_tag_prop)
 set_prop(vendor_init, log_prop)
 set_prop(vendor_init, serialno_prop)
+set_prop(vendor_init, vehicle_hal_prop)
 set_prop(vendor_init, vendor_default_prop)
 set_prop(vendor_init, vendor_security_patch_level_prop)
 set_prop(vendor_init, wifi_log_prop)

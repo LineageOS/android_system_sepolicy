@@ -224,3 +224,7 @@ ro.virtual_ab.retrofit  u:object_r:virtual_ab_prop:s0
 
 # Property to set/clear the warm reset flag after an OTA update.
 ota.warm_reset  u:object_r:ota_prop:s0
+
+# Module properties
+com.android.sdkext.                  u:object_r:module_sdkext_prop:s0
+persist.com.android.sdkext.          u:object_r:module_sdkext_prop:s0

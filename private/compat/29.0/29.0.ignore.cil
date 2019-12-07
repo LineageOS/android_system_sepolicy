@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    app_integrity_service
     app_search_service
     auth_service
     ashmem_libcutils_device
@@ -32,6 +33,7 @@
     mediatranscoding_tmpfs
     linker_prop
     mock_ota_prop
+    module_sdkext_prop
     ota_metadata_file
     ota_prop
     art_apex_dir
@@ -39,9 +41,11 @@
     system_group_file
     system_jvmti_agent_prop
     system_passwd_file
+    tethering_service
     timezonedetector_service
     userspace_reboot_prop
     userspace_reboot_exported_prop
+    vehicle_hal_prop
     vendor_apex_file
     vendor_boringssl_self_test
     vendor_install_recovery
