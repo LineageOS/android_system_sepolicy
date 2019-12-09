@@ -30,6 +30,12 @@ userdebug_or_eng(`
   allow init su:process { siginh rlimitinh };
 ')
 
+# Allow init to figure out name of dm-device from it's /dev/block/dm-XX path.
+# This is useful in case of remounting ext4 userdata into checkpointing mode,
+# since it potentially requires tearing down dm-devices (e.g. dm-bow, dm-crypto)
+# that userdata is mounted onto.
+allow init sysfs_dm:file read;
+
 # Allow the BoringSSL self test to request a reboot upon failure
 set_prop(init, powerctl_prop)
 
