@@ -122,3 +122,6 @@ neverallow { domain -apexd -init } apex_metadata_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init -kernel } apex_data_file:file no_w_file_perms;
 neverallow { domain -apexd -init -kernel } apex_metadata_file:file no_w_file_perms;
 neverallow { domain -apexd } apex_mnt_dir:lnk_file no_w_file_perms;
+
+neverallow { domain -apexd -init -vold_prepare_subdirs } apex_module_data_file:dir no_w_dir_perms;
+neverallow { domain -apexd -init -vold_prepare_subdirs } apex_module_data_file:file no_w_file_perms;
