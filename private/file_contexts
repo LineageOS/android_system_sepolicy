@@ -496,6 +496,7 @@
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
 /data/misc/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
+/data/misc/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
 /data/misc/apns(/.*)?           u:object_r:radio_data_file:s0
 /data/misc/audio(/.*)?          u:object_r:audio_data_file:s0
 /data/misc/audioserver(/.*)?    u:object_r:audioserver_data_file:s0
@@ -582,6 +583,10 @@
 # Apex data directories
 /data/misc_de/[0-9]+/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
 /data/misc_ce/[0-9]+/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
+
+# Apex rollback directories
+/data/misc_de/[0-9]+/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
+/data/misc_ce/[0-9]+/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
 
 #############################
 # Expanded data files
