@@ -1,0 +1,7 @@
+# HwBinder IPC from client to server
+binder_call(hal_rebootescrow_client, hal_rebootescrow_server)
+
+add_service(hal_rebootescrow_server, hal_rebootescrow_service)
+binder_use(hal_rebootescrow_server)
+
+allow hal_rebootescrow_client hal_rebootescrow_service:service_manager find;
