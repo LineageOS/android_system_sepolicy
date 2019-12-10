@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    apex_module_data_file
     app_integrity_service
     app_search_service
     auth_service
