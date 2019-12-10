@@ -168,6 +168,7 @@ neverallow {
   -incident
   -incidentd
   userdebug_or_eng(`-perfetto')
+  -permissioncontroller_app
   -priv_app
   -statsd
   -system_app
