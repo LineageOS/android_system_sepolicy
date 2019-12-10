@@ -37,10 +37,12 @@ allow system_server zygote:fd use;
 allow system_server zygote:process sigchld;
 
 # May kill zygote on crashes.
-allow system_server zygote:process sigkill;
-allow system_server crash_dump:process sigkill;
-allow system_server webview_zygote:process sigkill;
-allow system_server app_zygote:process sigkill;
+allow system_server {
+  app_zygote
+  crash_dump
+  webview_zygote
+  zygote
+}:process { sigkill signull };
 
 # Read /system/bin/app_process.
 allow system_server zygote_exec:file r_file_perms;
