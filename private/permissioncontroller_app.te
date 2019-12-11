@@ -37,3 +37,9 @@ allow permissioncontroller_app media_session_service:service_manager find;
 allow permissioncontroller_app surfaceflinger_service:service_manager find;
 allow permissioncontroller_app telecom_service:service_manager find;
 allow permissioncontroller_app trust_service:service_manager find;
+
+# Allow the app to request and collect incident reports.
+# (Also requires DUMP and PACKAGE_USAGE_STATS permissions)
+allow permissioncontroller_app incident_service:service_manager find;
+binder_call(permissioncontroller_app, incidentd)
+allow permissioncontroller_app incidentd:fifo_file { read write };

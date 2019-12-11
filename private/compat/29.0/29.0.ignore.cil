@@ -5,6 +5,8 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    apex_module_data_file
+    apex_rollback_data_file
     app_integrity_service
     app_search_service
     auth_service
@@ -20,6 +22,7 @@
     gmscore_app
     hal_can_bus_hwservice
     hal_can_controller_hwservice
+    hal_rebootescrow_service
     hal_tv_tuner_hwservice
     hal_vibrator_service
     init_svc_debug_prop
