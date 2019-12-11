@@ -89,6 +89,7 @@ persist.sys.sf.native_mode u:object_r:exported2_system_prop:s0 exact int
 pm.dexopt.ab-ota u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.bg-dexopt u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.boot u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.disable_bg_dexopt u:object_r:exported_pm_prop:s0 exact bool
 pm.dexopt.downgrade_after_inactive_days u:object_r:exported_pm_prop:s0 exact int
 pm.dexopt.first-boot u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.inactive u:object_r:exported_pm_prop:s0 exact string
