@@ -16,7 +16,7 @@ allowxperm hal_can_socketcan self:udp_socket ioctl {
 };
 
 # Communicating with SocketCAN interfaces and bringing them up/down
-allow hal_can_socketcan self:can_socket { bind create read write ioctl };
+allow hal_can_socketcan self:can_socket { bind create read write ioctl setopt };
 allowxperm hal_can_socketcan self:can_socket ioctl {
     SIOCGIFFLAGS
     SIOCSIFFLAGS
@@ -24,3 +24,13 @@ allowxperm hal_can_socketcan self:can_socket ioctl {
 
 # Un-publishing ICanBus interfaces
 allow hal_can_socketcan hidl_manager_hwservice:hwservice_manager find;
+
+allow hal_can_socketcan usb_serial_device:chr_file { ioctl read write open };
+allowxperm hal_can_socketcan usb_serial_device:chr_file ioctl {
+    TCGETS
+    TCSETSW
+    TIOCGSERIAL
+    TIOCSSERIAL
+    TIOCSETD
+    SIOCGIFNAME
+};
