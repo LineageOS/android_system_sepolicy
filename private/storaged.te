@@ -30,6 +30,12 @@ allow storaged shell:fifo_file write;
 
 # Needed for GMScore to call dumpsys storaged
 allow storaged priv_app:fd use;
+# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
+# Remove after no logs are seen for this rule.
+userdebug_or_eng(`
+  auditallow storaged priv_app:fd use;
+')
+allow storaged gmscore_app:fd use;
 allow storaged { privapp_data_file app_data_file }:file write;
 allow storaged permission_service:service_manager find;
 
