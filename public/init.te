@@ -86,6 +86,7 @@ allow init {
     rootfs
     cache_file
     cgroup
+    linkerconfig_file
     storage_file
     mnt_user_file
     system_data_file
