@@ -35,3 +35,4 @@ allow network_stack self:netlink_tcpdiag_socket { create_socket_perms_no_ioctl n
 hal_client_domain(network_stack, hal_tetheroffload)
 # Create and share netlink_netfilter_sockets for tetheroffload.
 allow network_stack self:netlink_netfilter_socket create_socket_perms_no_ioctl;
+allow network_stack network_stack_service:service_manager find;
