@@ -51,6 +51,7 @@ country_detector                          u:object_r:country_detector_service:s0
 coverage                                  u:object_r:coverage_service:s0
 cpuinfo                                   u:object_r:cpuinfo_service:s0
 crossprofileapps                          u:object_r:crossprofileapps_service:s0
+dataloader_manager                        u:object_r:dataloader_manager_service:s0
 dbinfo                                    u:object_r:dbinfo_service:s0
 device_config                             u:object_r:device_config_service:s0
 device_policy                             u:object_r:device_policy_service:s0
