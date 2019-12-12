@@ -67,6 +67,9 @@ dontaudit gmscore_app { wifi_prop exported_wifi_prop }:file r_file_perms;
 # Access the network
 net_domain(gmscore_app)
 
+# webview crash handling depends on self ptrace (b/27697529, b/20150694, b/19277529#comment7)
+allow gmscore_app self:process ptrace;
+
 # Allow loading executable code from writable priv-app home
 # directories. This is a W^X violation, however, it needs
 # to be supported for now for the following reasons.
