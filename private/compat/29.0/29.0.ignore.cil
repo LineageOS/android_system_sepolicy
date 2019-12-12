@@ -35,6 +35,7 @@
     mediatranscoding_exec
     mediatranscoding_tmpfs
     linker_prop
+    linkerconfig_file
     mock_ota_prop
     module_sdkext_prop
     ota_metadata_file
@@ -46,6 +47,7 @@
     system_passwd_file
     tethering_service
     timezonedetector_service
+    usb_serial_device
     userspace_reboot_prop
     userspace_reboot_exported_prop
     vehicle_hal_prop

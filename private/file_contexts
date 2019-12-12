@@ -101,7 +101,6 @@
 /dev/iio:device[0-9]+   u:object_r:iio_device:s0
 /dev/ion		u:object_r:ion_device:s0
 /dev/keychord   u:object_r:keychord_device:s0
-/dev/linkerconfig(/.*)? u:object_r:linkerconfig_file:s0
 /dev/loop-control	u:object_r:loop_control_device:s0
 /dev/modem.*		u:object_r:radio_device:s0
 /dev/mtp_usb		u:object_r:mtp_device:s0
@@ -164,6 +163,8 @@
 /dev/tty		u:object_r:owntty_device:s0
 /dev/tty[0-9]*		u:object_r:tty_device:s0
 /dev/ttyS[0-9]*		u:object_r:serial_device:s0
+/dev/ttyUSB[0-9]*	u:object_r:usb_serial_device:s0
+/dev/ttyACM[0-9]*	u:object_r:usb_serial_device:s0
 /dev/tun		u:object_r:tun_device:s0
 /dev/uhid		u:object_r:uhid_device:s0
 /dev/uinput		u:object_r:uhid_device:s0
@@ -178,6 +179,10 @@
 /dev/zero		u:object_r:zero_device:s0
 /dev/__properties__ u:object_r:properties_device:s0
 /dev/__properties__/property_info   u:object_r:property_info:s0
+#############################
+# Linker configuration
+#
+/linkerconfig(/.*)?          u:object_r:linkerconfig_file:s0
 #############################
 # System files
 #

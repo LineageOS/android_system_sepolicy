@@ -92,6 +92,7 @@ persist.sys.sf.native_mode u:object_r:exported2_system_prop:s0 exact int
 pm.dexopt.ab-ota u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.bg-dexopt u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.boot u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.disable_bg_dexopt u:object_r:exported_pm_prop:s0 exact bool
 pm.dexopt.downgrade_after_inactive_days u:object_r:exported_pm_prop:s0 exact int
 pm.dexopt.first-boot u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.inactive u:object_r:exported_pm_prop:s0 exact string
@@ -256,6 +257,7 @@ ro.build.version.codename u:object_r:exported2_default_prop:s0 exact string
 ro.build.version.incremental u:object_r:exported2_default_prop:s0 exact string
 ro.build.version.preview_sdk u:object_r:exported2_default_prop:s0 exact int
 ro.build.version.release u:object_r:exported2_default_prop:s0 exact string
+ro.build.version.extensions. u:object_r:module_sdkext_prop:s0 prefix int
 ro.build.version.sdk u:object_r:exported2_default_prop:s0 exact int
 ro.build.version.security_patch u:object_r:exported2_default_prop:s0 exact string
 ro.crypto.state u:object_r:exported_vold_prop:s0 exact string
@@ -356,6 +358,7 @@ ro.kernel.android.bootanim u:object_r:exported_default_prop:s0 exact int
 ro.odm.build.date u:object_r:exported_default_prop:s0 exact string
 ro.odm.build.date.utc u:object_r:exported_default_prop:s0 exact int
 ro.odm.build.fingerprint u:object_r:exported_default_prop:s0 exact string
+ro.odm.build.version.incremental u:object_r:exported_default_prop:s0 exact string
 ro.oem.key1 u:object_r:exported_default_prop:s0 exact string
 ro.product.board u:object_r:exported_default_prop:s0 exact string
 ro.product.cpu.abilist32 u:object_r:exported_default_prop:s0 exact string
@@ -375,6 +378,7 @@ ro.telephony.iwlan_operation_mode u:object_r:exported_radio_prop:s0 exact enum d
 ro.vendor.build.date u:object_r:exported_default_prop:s0 exact string
 ro.vendor.build.date.utc u:object_r:exported_default_prop:s0 exact int
 ro.vendor.build.fingerprint u:object_r:exported_default_prop:s0 exact string
+ro.vendor.build.version.incremental u:object_r:exported_default_prop:s0 exact string
 ro.vndk.lite u:object_r:exported_default_prop:s0 exact bool
 ro.vndk.version u:object_r:exported_default_prop:s0 exact string
 ro.vts.coverage u:object_r:exported_default_prop:s0 exact int
