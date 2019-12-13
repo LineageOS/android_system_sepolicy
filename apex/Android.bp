@@ -145,3 +145,10 @@ filegroup {
     "com.android.vndk-file_contexts",
   ],
 }
+
+filegroup {
+  name: "com.android.wifi-file_contexts",
+  srcs: [
+    "com.android.wifi-file_contexts",
+  ],
+}
