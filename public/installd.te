@@ -70,6 +70,9 @@ allow installd storage_file:dir search;
 allow installd sdcard_type:dir { search open read write remove_name getattr rmdir };
 allow installd sdcard_type:file { getattr unlink };
 
+# Create app's mirror data directory in /data_mirror, and bind mount the real directory to it
+allow installd mirror_data_file:dir { create_dir_perms mounton };
+
 # Upgrade /data/misc/keychain for multi-user if necessary.
 allow installd misc_user_data_file:dir create_dir_perms;
 allow installd misc_user_data_file:file create_file_perms;
@@ -105,6 +108,7 @@ allow installd system_data_file:notdevfile_class_set { getattr relabelfrom unlin
 # upon creation via setfilecon or running restorecon_recursive,
 # setting owner/mode, creating symlinks within them, and deleting them
 # upon package uninstall.
+
 # Types extracted from seapp_contexts type= fields.
 allow installd {
     system_app_data_file
@@ -125,6 +129,9 @@ allow installd {
     app_data_file
     privapp_data_file
 }:notdevfile_class_set { create_file_perms relabelfrom relabelto };
+
+# Allow zygote to unmount mirror directories
+allow installd labeledfs:filesystem unmount;
 
 # Similar for the files under /data/misc/profiles/
 allow installd user_profile_data_file:dir create_dir_perms;

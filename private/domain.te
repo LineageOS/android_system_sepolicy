@@ -147,6 +147,7 @@ neverallow {
   -runas
   -system_server
   -viewcompiler
+  -zygote
 } { privapp_data_file app_data_file }:dir *;
 
 # Only apps should be modifying app data. installd is exempted for
@@ -328,3 +329,11 @@ neverallow {
   -hal_bootctl_server
   -fastbootd
 } self:global_capability_class_set sys_rawio;
+
+# Limit directory operations that doesn't need to do app data isolation.
+neverallow {
+  domain
+  -init
+  -installd
+  -zygote
+} mirror_data_file:dir *;
