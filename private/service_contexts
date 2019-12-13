@@ -51,6 +51,7 @@ country_detector                          u:object_r:country_detector_service:s0
 coverage                                  u:object_r:coverage_service:s0
 cpuinfo                                   u:object_r:cpuinfo_service:s0
 crossprofileapps                          u:object_r:crossprofileapps_service:s0
+dataloader_manager                        u:object_r:dataloader_manager_service:s0
 dbinfo                                    u:object_r:dbinfo_service:s0
 device_config                             u:object_r:device_config_service:s0
 device_policy                             u:object_r:device_policy_service:s0
@@ -187,6 +188,7 @@ slice                                     u:object_r:slice_service:s0
 stats                                     u:object_r:stats_service:s0
 statscompanion                            u:object_r:statscompanion_service:s0
 soundtrigger                              u:object_r:voiceinteraction_service:s0
+soundtrigger_middleware                   u:object_r:soundtrigger_middleware_service:s0
 statusbar                                 u:object_r:statusbar_service:s0
 storaged                                  u:object_r:storaged_service:s0
 storaged_pri                              u:object_r:storaged_service:s0

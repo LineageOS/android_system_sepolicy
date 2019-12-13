@@ -16,6 +16,10 @@ create_pty(priv_app)
 
 # webview crash handling depends on self ptrace (b/27697529, b/20150694, b/19277529#comment7)
 allow priv_app self:process ptrace;
+# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
+userdebug_or_eng(`
+  auditallow priv_app self:process ptrace;
+')
 
 # Allow loading executable code from writable priv-app home
 # directories. This is a W^X violation, however, it needs
