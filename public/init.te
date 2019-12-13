@@ -94,6 +94,7 @@ allow init {
     system_file
     vendor_file
     postinstall_mnt_dir
+    mirror_data_file
 }:dir mounton;
 allow init cgroup_bpf:dir { create mounton };
 

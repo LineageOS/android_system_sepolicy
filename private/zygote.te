@@ -50,6 +50,29 @@ allow zygote resourcecache_data_file:file create_file_perms;
 # is ensured by fsverity protection (checked in art_apex_boot_integrity).
 allow zygote dalvikcache_data_file:file execute;
 
+# Bind mount on /data/data and mounted volumes
+allow zygote { system_data_file mnt_expand_file }:dir mounton;
+
+# Create and bind dirs on /data/data
+allow zygote tmpfs:dir { create_dir_perms mounton };
+
+# Create symlink for /data/user/0
+allow zygote tmpfs:lnk_file create;
+
+allow zygote mirror_data_file:dir r_dir_perms;
+
+# Get and set data directories
+allow zygote {
+  system_data_file
+  radio_data_file
+  app_data_file
+  shell_data_file
+  bluetooth_data_file
+  privapp_data_file
+  nfc_data_file
+  mnt_expand_file
+}:dir getattr;
+
 # Allow zygote to create JIT memory.
 allow zygote self:process execmem;
 allow zygote zygote_tmpfs:file execute;
@@ -177,3 +200,9 @@ neverallow zygote {
   bluetooth_prop
   exported_bluetooth_prop
 }:file create_file_perms;
+
+# Do not allow zygote to access app data except getting attributes and relabeling to.
+neverallow zygote {
+  privapp_data_file
+  app_data_file
+}:dir ~getattr;
