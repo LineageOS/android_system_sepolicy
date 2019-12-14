@@ -330,6 +330,9 @@ type postinstall_file, file_type;
 # /postinstall/apex: Mount point used for APEX images within /postinstall.
 type postinstall_apex_mnt_dir, file_type;
 
+# /data_mirror: Contains mirror directory for storing all apps data.
+type mirror_data_file, file_type, core_data_file_type;
+
 # /data/misc subdirectories
 type adb_keys_file, file_type, data_file_type, core_data_file_type;
 type apex_module_data_file, file_type, data_file_type, core_data_file_type;

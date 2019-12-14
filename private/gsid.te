@@ -36,6 +36,10 @@ allowxperm gsid loop_device:blk_file ioctl {
 # file names.
 r_dir_file(gsid, sysfs_dm)
 
+# libfiemap_writer needs to read /sys/fs/f2fs/<dev>/features to determine
+# whether pin_file support is enabled.
+r_dir_file(gsid, sysfs_fs_f2fs)
+
 # Needed to read fstab, which is used to validate that system verity does not
 # use check_once_at_most for sdcard installs. (Note: proc_cmdline is needed
 # to get the A/B slot suffix).

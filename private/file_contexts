@@ -24,6 +24,7 @@
 /lost\+found        u:object_r:rootfs:s0
 /acct               u:object_r:cgroup:s0
 /config             u:object_r:rootfs:s0
+/data_mirror        u:object_r:mirror_data_file:s0
 /debug_ramdisk      u:object_r:tmpfs:s0
 /mnt                u:object_r:tmpfs:s0
 /postinstall        u:object_r:postinstall_mnt_dir:s0

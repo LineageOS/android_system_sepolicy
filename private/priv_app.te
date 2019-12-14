@@ -31,10 +31,6 @@ userdebug_or_eng(`
 # * /data/user_de/0/com.google.android.gms/app_chimera
 # TODO: Tighten (b/112357170)
 allow priv_app privapp_data_file:file execute;
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app privapp_data_file:file execute;
-')
 
 allow priv_app privapp_data_file:lnk_file create_file_perms;
 
@@ -149,14 +145,8 @@ userdebug_or_eng(`
   auditallow priv_app system_update_service:service_manager find;
 ')
 
-# Allow GMS core to communicate with statsd.
+# Allow com.android.vending to communicate with statsd.
 binder_call(priv_app, statsd)
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app statsd:binder { call transfer };
-  auditallow statsd priv_app:binder transfer;
-  auditallow priv_app statsd:fd use;
-')
 
 # Allow Phone to read/write cached ringtones (opened by system).
 allow priv_app ringtone_file:file { getattr read write };

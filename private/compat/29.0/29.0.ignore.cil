@@ -26,6 +26,7 @@
     hal_rebootescrow_service
     hal_tv_tuner_hwservice
     hal_vibrator_service
+    incremental_service
     init_svc_debug_prop
     iorap_prefetcherd
     iorap_prefetcherd_data_file
@@ -35,6 +36,7 @@
     mediatranscoding
     mediatranscoding_exec
     mediatranscoding_tmpfs
+    mirror_data_file
     linker_prop
     linkerconfig_file
     mock_ota_prop
