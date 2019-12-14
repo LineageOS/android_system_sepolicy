@@ -149,14 +149,8 @@ userdebug_or_eng(`
   auditallow priv_app system_update_service:service_manager find;
 ')
 
-# Allow GMS core to communicate with statsd.
+# Allow com.android.vending to communicate with statsd.
 binder_call(priv_app, statsd)
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app statsd:binder { call transfer };
-  auditallow statsd priv_app:binder transfer;
-  auditallow priv_app statsd:fd use;
-')
 
 # Allow Phone to read/write cached ringtones (opened by system).
 allow priv_app ringtone_file:file { getattr read write };
