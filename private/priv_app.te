@@ -31,10 +31,6 @@ userdebug_or_eng(`
 # * /data/user_de/0/com.google.android.gms/app_chimera
 # TODO: Tighten (b/112357170)
 allow priv_app privapp_data_file:file execute;
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app privapp_data_file:file execute;
-')
 
 allow priv_app privapp_data_file:lnk_file create_file_perms;
 
