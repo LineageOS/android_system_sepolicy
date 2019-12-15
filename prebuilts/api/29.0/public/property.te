@@ -44,6 +44,7 @@ type dumpstate_options_prop, property_type;
 type dumpstate_prop, property_type, core_property_type;
 type dynamic_system_prop, property_type;
 type exported_secure_prop, property_type;
+type sota_prop, property_type;
 type ffs_prop, property_type, core_property_type;
 type fingerprint_prop, property_type, core_property_type;
 type firstboot_prop, property_type;
@@ -412,6 +413,7 @@ compatible_property_only(`
     -exported_vold_prop
     -exported_wifi_prop
     -extended_core_property_type
+    -sota_prop
     -ffs_prop
     -fingerprint_prop
     -firstboot_prop
