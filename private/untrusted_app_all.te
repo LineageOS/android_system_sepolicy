@@ -173,12 +173,6 @@ dontaudit untrusted_app_all proc_uptime:file read;
 # Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
 create_pty(untrusted_app_all)
 
-# Attempts to write to system_data_file is generally a sign
-# that apps are attempting to access encrypted storage before
-# the ACTION_USER_UNLOCKED intent is delivered. Suppress this
-# denial to prevent third party apps from spamming the logs.
-dontaudit untrusted_app_all system_data_file:dir write;
-
 # Allow access to kcov via its ioctl interface for coverage
 # guided kernel fuzzing.
 userdebug_or_eng(`

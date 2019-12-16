@@ -2,6 +2,22 @@
 # the implementation of ActivityManager.isDeviceInTestHarnessMode()
 get_prop(appdomain, test_harness_prop)
 
+# Prevent apps from causing presubmit failures.
+# Apps can cause selinux denials by accessing CE storage
+# and/or external storage. In either case, the selinux denial is
+# not the cause of the failure, but just a symptom that
+# storage isn't ready. Many apps handle the failure appropriately.
+#
+# Apps cannot access external storage before it becomes available.
+dontaudit appdomain storage_stub_file:dir getattr;
+# Attempts to write to system_data_file is generally a sign
+# that apps are attempting to access encrypted storage before
+# the ACTION_USER_UNLOCKED intent is delivered. Apps are not
+# allowed to write to CE storage before it's available.
+# Attempting to do so will be blocked by both selinux and unix
+# permissions.
+dontaudit appdomain system_data_file:dir write;
+
 neverallow appdomain system_server:udp_socket {
         accept append bind create ioctl listen lock name_bind
         relabelfrom relabelto setattr shutdown };
