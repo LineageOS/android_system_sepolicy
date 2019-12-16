@@ -381,6 +381,7 @@ allow init {
 # init access to /sys files.
 allow init {
   sysfs_android_usb
+  sysfs_dm_verity
   sysfs_leds
   sysfs_power
   sysfs_fs_f2fs
