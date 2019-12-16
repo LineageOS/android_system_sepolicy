@@ -113,3 +113,8 @@ allow gmscore_app stats_service:service_manager find;
 # running "adb install foo.apk".
 allow gmscore_app shell_data_file:file r_file_perms;
 allow gmscore_app shell_data_file:dir r_dir_perms;
+
+# Write to /data/ota_package for OTA packages.
+allow gmscore_app ota_package_file:dir rw_dir_perms;
+allow gmscore_app ota_package_file:file create_file_perms;
+
