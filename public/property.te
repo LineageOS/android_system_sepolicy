@@ -128,6 +128,7 @@ system_public_prop(exported_pm_prop)
 system_public_prop(exported_radio_prop)
 system_public_prop(exported_system_radio_prop)
 system_public_prop(exported_wifi_prop)
+system_public_prop(sota_prop)
 system_public_prop(hwservicemanager_prop)
 system_public_prop(logd_prop)
 system_public_prop(logpersistd_logging_prop)
@@ -597,6 +598,7 @@ compatible_property_only(`
     -exported_vold_prop
     -exported_wifi_prop
     -extended_core_property_type
+    -sota_prop
     -ffs_prop
     -fingerprint_prop
     -firstboot_prop
