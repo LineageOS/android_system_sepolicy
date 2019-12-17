@@ -67,6 +67,11 @@ allow priv_app cache_file:lnk_file r_file_perms;
 # Write to /data/ota_package for OTA packages.
 allow priv_app ota_package_file:dir rw_dir_perms;
 allow priv_app ota_package_file:file create_file_perms;
+# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
+userdebug_or_eng(`
+  auditallow priv_app ota_package_file:dir rw_dir_perms;
+  auditallow priv_app ota_package_file:file create_file_perms;
+')
 
 # Access to /data/media.
 allow priv_app media_rw_data_file:dir create_dir_perms;
@@ -212,12 +217,6 @@ dontaudit priv_app { wifi_prop exported_wifi_prop }:file read;
 # modify them other than to connect
 allow priv_app system_server:udp_socket {
         connect getattr read recvfrom sendto write getopt setopt };
-
-# Attempts to write to system_data_file is generally a sign
-# that apps are attempting to access encrypted storage before
-# the ACTION_USER_UNLOCKED intent is delivered. Suppress this
-# denial to prevent apps from spamming the logs.
-dontaudit priv_app system_data_file:dir write;
 
 ###
 ### neverallow rules
