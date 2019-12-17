@@ -1744,6 +1744,7 @@
 (typeattributeset swap_block_device_29_0 (swap_block_device))
 (typeattributeset sysfs_29_0
   ( sysfs
+    sysfs_ion
     sysfs_suspend_stats
     sysfs_wakeup))
 (typeattributeset sysfs_android_usb_29_0 (sysfs_android_usb))
