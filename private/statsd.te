@@ -3,8 +3,6 @@ typeattribute statsd stats_service_server;
 
 init_daemon_domain(statsd)
 
-binder_call(statsd, statscompanion_service)
-
 # Allow to exec the perfetto cmdline client and pass it the trace config on
 # stdint through a pipe. It allows statsd to  capture traces and hand them
 # to Android dropbox.
