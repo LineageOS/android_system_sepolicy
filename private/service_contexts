@@ -100,6 +100,7 @@ iphonesubinfo                             u:object_r:radio_service:s0
 ims                                       u:object_r:radio_service:s0
 imms                                      u:object_r:imms_service:s0
 incremental                               u:object_r:incremental_service:s0
+incremental_service                       u:object_r:incremental_service:s0
 ipsec                                     u:object_r:ipsec_service:s0
 ircsmessage                               u:object_r:radio_service:s0
 iris                                      u:object_r:iris_service:s0
