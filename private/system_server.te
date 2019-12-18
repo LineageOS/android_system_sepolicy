@@ -17,6 +17,9 @@ type_transition system_server system_data_file:sock_file system_ndebug_socket "n
 allow system_server zygote_tmpfs:file read;
 allow system_server appdomain_tmpfs:file { getattr map read write };
 
+# For Incremental Service to check if incfs is available
+allow system_server proc_filesystems:file r_file_perms;
+
 # For art.
 allow system_server dalvikcache_data_file:dir r_dir_perms;
 allow system_server dalvikcache_data_file:file r_file_perms;
@@ -156,6 +159,9 @@ allow system_server stats_data_file:file unlink;
 
 # Read /sys/kernel/debug/wakeup_sources.
 allow system_server debugfs_wakeup_sources:file r_file_perms;
+
+# Read /sys/kernel/ion/*.
+allow system_server sysfs_ion:file r_file_perms;
 
 # The DhcpClient and WifiWatchdog use packet_sockets
 allow system_server self:packet_socket create_socket_perms_no_ioctl;

@@ -52,7 +52,6 @@ allow priv_app persistent_data_block_service:service_manager find;
 allow priv_app radio_service:service_manager find;
 allow priv_app recovery_service:service_manager find;
 allow priv_app stats_service:service_manager find;
-allow priv_app tethering_service:service_manager find;
 
 # Allow privileged apps to interact with gpuservice
 binder_call(priv_app, gpuservice)
