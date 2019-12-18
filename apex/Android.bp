@@ -133,6 +133,13 @@ filegroup {
 }
 
 filegroup {
+  name: "com.android.telephony-file_contexts",
+  srcs: [
+    "com.android.telephony-file_contexts",
+  ],
+}
+
+filegroup {
   name: "com.android.tzdata-file_contexts",
   srcs: [
     "com.android.tzdata-file_contexts",
