@@ -152,3 +152,10 @@ filegroup {
     "com.android.wifi-file_contexts",
   ],
 }
+
+filegroup {
+  name: "com.android.tethering-file_contexts",
+  srcs: [
+    "com.android.tethering-file_contexts",
+  ],
+}
