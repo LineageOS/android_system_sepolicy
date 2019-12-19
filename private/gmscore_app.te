@@ -129,3 +129,5 @@ allow gmscore_app ota_package_file:file create_file_perms;
 allow gmscore_app shell_data_file:file r_file_perms;
 allow gmscore_app shell_data_file:dir r_dir_perms;
 
+# b/18504118: Allow reads from /data/anr/traces.txt
+allow gmscore_app anr_data_file:file r_file_perms;
