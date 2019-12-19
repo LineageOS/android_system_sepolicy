@@ -114,7 +114,18 @@ allow gmscore_app stats_service:service_manager find;
 allow gmscore_app shell_data_file:file r_file_perms;
 allow gmscore_app shell_data_file:dir r_dir_perms;
 
+# Write to /cache.
+allow gmscore_app { cache_file cache_recovery_file }:dir create_dir_perms;
+allow gmscore_app { cache_file cache_recovery_file }:file create_file_perms;
+# /cache is a symlink to /data/cache on some devices. Allow reading the link.
+allow gmscore_app cache_file:lnk_file r_file_perms;
+
 # Write to /data/ota_package for OTA packages.
 allow gmscore_app ota_package_file:dir rw_dir_perms;
 allow gmscore_app ota_package_file:file create_file_perms;
+
+# Used by Finsky / Android "Verify Apps" functionality when
+# running "adb install foo.apk".
+allow gmscore_app shell_data_file:file r_file_perms;
+allow gmscore_app shell_data_file:dir r_dir_perms;
 
