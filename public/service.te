@@ -89,6 +89,7 @@ type diskstats_service, system_api_service, system_server_service, service_manag
 type display_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type color_display_service, system_api_service, system_server_service, service_manager_type;
 type external_vibrator_service, system_server_service, service_manager_type;
+type file_integrity_service, app_api_service, system_server_service, service_manager_type;
 type font_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type netd_listener_service, system_server_service, service_manager_type;
 type network_watchlist_service, system_server_service, service_manager_type;
