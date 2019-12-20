@@ -3,3 +3,6 @@ hal_server_domain(hal_rebootescrow_default, hal_rebootescrow)
 
 type hal_rebootescrow_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_rebootescrow_default)
+
+type rebootescrow_device, dev_type;
+allow hal_rebootescrow_default rebootescrow_device:chr_file rw_file_perms;
