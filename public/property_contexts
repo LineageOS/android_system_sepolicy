@@ -387,6 +387,7 @@ wifi.concurrent.interface u:object_r:exported_default_prop:s0 exact string
 wifi.direct.interface u:object_r:exported_default_prop:s0 exact string
 wifi.interface u:object_r:exported_default_prop:s0 exact string
 ro.apex.updatable u:object_r:exported_default_prop:s0 exact bool
+ro.init.userspace_reboot.is_supported u:object_r:userspace_reboot_prop:s0 exact bool
 
 # public-readable
 ro.boot.revision u:object_r:exported2_default_prop:s0 exact string
