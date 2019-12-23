@@ -18,7 +18,6 @@ system_internal_prop(last_boot_reason_prop)
 system_internal_prop(netd_stable_secret_prop)
 system_internal_prop(pm_prop)
 system_internal_prop(userspace_reboot_prop)
-system_internal_prop(userspace_reboot_config_prop)
 
 compatible_property_only(`
     # DO NOT ADD ANY PROPERTIES HERE
