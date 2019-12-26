@@ -17,6 +17,9 @@ system_internal_prop(init_svc_debug_prop)
 system_internal_prop(last_boot_reason_prop)
 system_internal_prop(netd_stable_secret_prop)
 system_internal_prop(pm_prop)
+# Read-write properties internal to userspace reboot properties, e.g.:
+#   sys.init.userspace_reboot.last_started
+#   sys.init.userspace_reboot.last_finished
 system_internal_prop(userspace_reboot_prop)
 
 compatible_property_only(`
@@ -65,6 +68,13 @@ system_restricted_prop(nnapi_ext_deny_product_prop)
 system_restricted_prop(restorecon_prop)
 system_restricted_prop(system_boot_reason_prop)
 system_restricted_prop(system_jvmti_agent_prop)
+# Read-only properties that configure behaviour of userspace reboot, e.g:
+#   ro.init.userspace_reboot.is_supported
+#   ro.init.userspace_reboot.watchdog_timeout
+system_restricted_prop(userspace_reboot_config_prop)
+# Read-write properties that can be accessed by other native processes to check
+# if userspace reboot is happening, e.g.:
+#   sys.init.userspace_reboot.in_progress
 system_restricted_prop(userspace_reboot_exported_prop)
 
 compatible_property_only(`
