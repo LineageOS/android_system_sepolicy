@@ -32,6 +32,7 @@ allow permissioncontroller_app autofill_service:service_manager find;
 allow permissioncontroller_app content_capture_service:service_manager find;
 allow permissioncontroller_app device_policy_service:service_manager find;
 allow permissioncontroller_app incidentcompanion_service:service_manager find;
+allow permissioncontroller_app IProxyService_service:service_manager find;
 allow permissioncontroller_app location_service:service_manager find;
 allow permissioncontroller_app media_session_service:service_manager find;
 allow permissioncontroller_app surfaceflinger_service:service_manager find;
