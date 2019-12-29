@@ -1,0 +1,44 @@
+From bf52f194873840546c996c232eb44c8427ddcd5c Mon Sep 17 00:00:00 2001
+From: dianlujitao <dianlujitao@lineageos.org>
+Date: Sun, 29 Dec 2019 23:17:07 +0800
+Subject: [PATCH] sepolicy: Relabel wifi. properties as wifi_prop
+
+ * These properties are used by the wifi hal and it works as expected on
+   devices with compatible property. However, on devices without
+   compatible property, these prperties are labeled as "default_prop"
+   because public/property_contexts is not used. Thus they can't be set
+   by the hal.
+ * To tackle the problem, label them as "wifi_prop" in
+   private/property_contexts which also works on devices without compatible
+   property. The label will be overridden later by
+   public/property_contexts rules if exist.
+
+Change-Id: If8b8bd5bea64f2ea08864cc62f6dc405cb394e00
+---
+
+diff --git a/private/property_contexts b/private/property_contexts
+index b2b6abc..6511668 100644
+--- a/private/property_contexts
++++ b/private/property_contexts
+@@ -158,6 +158,7 @@
+ ro.dalvik.              u:object_r:dalvik_prop:s0
+ 
+ # Shared between system server and wificond
++wifi.                   u:object_r:wifi_prop:s0
+ wlan.                   u:object_r:wifi_prop:s0
+ 
+ # Lowpan properties
+diff --git a/private/system_server.te b/private/system_server.te
+index c1342d8..190b85f 100644
+--- a/private/system_server.te
++++ b/private/system_server.te
+@@ -654,6 +654,9 @@
+ # Read the property as feature flag for protecting apks with fs-verity.
+ get_prop(system_server, apk_verity_prop)
+ 
++# Read wifi.interface
++get_prop(system_server, wifi_prop)
++
+ # Create a socket for connections from debuggerd.
+ allow system_server system_ndebug_socket:sock_file create_file_perms;
+ 
