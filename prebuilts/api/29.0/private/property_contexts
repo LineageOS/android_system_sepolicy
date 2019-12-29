@@ -148,6 +148,7 @@ dalvik.                 u:object_r:dalvik_prop:s0
 ro.dalvik.              u:object_r:dalvik_prop:s0
 
 # Shared between system server and wificond
+wifi.                   u:object_r:wifi_prop:s0
 wlan.                   u:object_r:wifi_prop:s0
 
 # Lowpan properties
