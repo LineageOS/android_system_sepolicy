@@ -70,6 +70,9 @@ r_dir_file(app_zygote, vendor_overlay_file)
 allow app_zygote system_data_file:lnk_file r_file_perms;
 allow app_zygote system_data_file:file { getattr read map };
 
+# Send unsolicited message to system_server
+unix_socket_send(app_zygote, system_unsolzygote, system_server)
+
 #####
 ##### Neverallow
 #####
@@ -136,6 +139,7 @@ neverallow app_zygote {
   domain
   -app_zygote
   -logd
+  -system_server
   userdebug_or_eng(`-su')
   userdebug_or_eng(`-heapprofd')
 }:unix_dgram_socket *;
