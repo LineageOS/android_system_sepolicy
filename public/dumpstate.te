@@ -218,6 +218,10 @@ userdebug_or_eng(`
 allow dumpstate misc_logd_file:dir r_dir_perms;
 allow dumpstate misc_logd_file:file r_file_perms;
 
+# Access /data/misc/prereboot
+allow dumpstate prereboot_data_file:dir r_dir_perms;
+allow dumpstate prereboot_data_file:file r_file_perms;
+
 allow dumpstate app_fuse_file:dir r_dir_perms;
 allow dumpstate overlayfs_file:dir r_dir_perms;
 
