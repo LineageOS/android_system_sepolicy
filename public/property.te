@@ -66,6 +66,7 @@ system_restricted_prop(restorecon_prop)
 system_restricted_prop(system_boot_reason_prop)
 system_restricted_prop(system_jvmti_agent_prop)
 system_restricted_prop(userspace_reboot_exported_prop)
+system_restricted_prop(vndk_prop)
 
 compatible_property_only(`
     # DO NOT ADD ANY PROPERTIES HERE
