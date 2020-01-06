@@ -12,6 +12,9 @@
     auth_service
     ashmem_libcutils_device
     blob_store_service
+    binderfs
+    binderfs_logs
+    binderfs_logs_proc
     boringssl_self_test
     charger_prop
     cold_boot_done_prop
