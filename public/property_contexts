@@ -374,6 +374,7 @@ ro.product.vendor.device u:object_r:exported_default_prop:s0 exact string
 ro.product.vendor.manufacturer u:object_r:exported_default_prop:s0 exact string
 ro.product.vendor.model u:object_r:exported_default_prop:s0 exact string
 ro.product.vendor.name u:object_r:exported_default_prop:s0 exact string
+ro.product.vndk.version u:object_r:vndk_prop:s0 exact string
 ro.telephony.iwlan_operation_mode u:object_r:exported_radio_prop:s0 exact enum default legacy AP-assisted
 ro.vendor.build.date u:object_r:exported_default_prop:s0 exact string
 ro.vendor.build.date.utc u:object_r:exported_default_prop:s0 exact int
