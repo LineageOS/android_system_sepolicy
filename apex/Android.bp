@@ -28,6 +28,13 @@ filegroup {
 }
 
 filegroup {
+  name: "com.android.sdkext-file_contexts",
+  srcs: [
+    "com.android.sdkext-file_contexts",
+  ],
+}
+
+filegroup {
   name: "com.android.art.debug-file_contexts",
   srcs: [
     "com.android.art.debug-file_contexts",
@@ -129,13 +136,6 @@ filegroup {
   name: "com.android.runtime-file_contexts",
   srcs: [
     "com.android.runtime-file_contexts",
-  ],
-}
-
-filegroup {
-  name: "com.android.sdkext-file_contexts",
-  srcs: [
-    "com.android.sdkext-file_contexts",
   ],
 }
 

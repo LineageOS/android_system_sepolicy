@@ -45,8 +45,8 @@ get_prop(domain, use_memfd_prop);
 # Allow to read properties for linker
 get_prop(domain, linker_prop);
 
-# Read access to sdkext props
-get_prop(domain, module_sdkext_prop)
+# Read access to sdkextensions props
+get_prop(domain, module_sdkextensions_prop)
 
 # For now, everyone can access core property files
 # Device specific properties are not granted by default
