@@ -224,6 +224,7 @@ not_compatible_property(`
       -module_sdkext_prop
       -userspace_reboot_exported_prop
       -userspace_reboot_prop
+      -vndk_prop
     })
 ')
 
