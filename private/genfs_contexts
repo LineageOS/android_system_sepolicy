@@ -290,9 +290,15 @@ genfscon debugfs /tracing/events/ftrace/print/                                  
 
 genfscon debugfs /kcov								 u:object_r:debugfs_kcov:s0
 
+genfscon binder /binder u:object_r:binder_device:s0
+genfscon binder /hwbinder u:object_r:hwbinder_device:s0
+genfscon binder /vndbinder u:object_r:vndbinder_device:s0
+genfscon binder /binder_logs u:object_r:binderfs_logs:s0
+genfscon binder /binder_logs/proc u:object_r:binderfs_logs_proc:s0
 
 genfscon inotifyfs / u:object_r:inotify:s0
 genfscon vfat / u:object_r:vfat:s0
+genfscon binder / u:object_r:binderfs:s0
 genfscon exfat / u:object_r:exfat:s0
 genfscon debugfs / u:object_r:debugfs:s0
 genfscon fuse / u:object_r:fuse:s0

@@ -80,6 +80,10 @@ allow domain ashmem_libcutils_device:chr_file rw_file_perms;
 # /dev/binder can be accessed by ... everyone! :)
 allow { domain -hwservicemanager -vndservicemanager } binder_device:chr_file rw_file_perms;
 
+# /dev/binderfs needs to be accessed by everyone too!
+allow domain binderfs:dir { getattr search };
+allow domain binderfs_logs_proc:dir search;
+
 allow { domain -servicemanager -vndservicemanager -isolated_app } hwbinder_device:chr_file rw_file_perms;
 allow domain ptmx_device:chr_file rw_file_perms;
 allow domain random_device:chr_file rw_file_perms;
@@ -101,6 +105,7 @@ get_prop(domain, exported_system_prop)
 get_prop(domain, exported_vold_prop)
 get_prop(domain, exported2_default_prop)
 get_prop(domain, logd_prop)
+get_prop(domain, vndk_prop)
 
 # Let everyone read log properties, so that liblog can avoid sending unloggable
 # messages to logd.
@@ -509,6 +514,7 @@ neverallow * hidl_base_hwservice:hwservice_manager find;
 # anyone but init to modify unknown properties.
 neverallow { domain -init -vendor_init } default_prop:property_service set;
 neverallow { domain -init -vendor_init } mmc_prop:property_service set;
+neverallow { domain -init -vendor_init } vndk_prop:property_service set;
 
 compatible_property_only(`
     neverallow { domain -init } default_prop:property_service set;
