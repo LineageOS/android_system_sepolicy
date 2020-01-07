@@ -50,6 +50,9 @@ allow appdomain adbd:process sigchld;
 # child shell or gdbserver pty access for runas.
 allow appdomain devpts:chr_file { getattr read write ioctl };
 
+# Allow appdomain to access app_api_service
+allow { appdomain -isolated_app } app_api_service:service_manager find;
+
 # Use pipes and sockets provided by system_server via binder or local socket.
 allow appdomain system_server:fd use;
 allow appdomain system_server:fifo_file rw_file_perms;
