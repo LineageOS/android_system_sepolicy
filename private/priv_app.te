@@ -127,17 +127,6 @@ userdebug_or_eng(`
 # access the mac address
 allowxperm priv_app self:udp_socket ioctl SIOCGIFHWADDR;
 
-# Allow GMS core to communicate with update_engine for A/B update.
-binder_call(priv_app, update_engine)
-allow priv_app update_engine_service:service_manager find;
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app update_engine:binder { call transfer };
-  auditallow update_engine priv_app:binder transfer;
-  auditallow priv_app update_engine:fd use;
-  auditallow priv_app update_engine_service:service_manager find;
-')
-
 # Allow GMS core to communicate with dumpsys storaged.
 binder_call(priv_app, storaged)
 allow priv_app storaged_service:service_manager find;
