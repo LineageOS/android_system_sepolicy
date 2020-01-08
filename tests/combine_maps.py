@@ -45,6 +45,11 @@ def Combine(top, bottom):
         # Typeattributes in V.v.cil have _V_v suffix, but not in V.v.ignore.cil
         bottom_type = m.group(1) if m else top_ta
 
+        # If type doesn't exist in bottom map, no need to maintain mappings to
+        # that type.
+        if bottom_type not in bottom.rTypeattributesets.keys():
+            continue
+
         for bottom_ta in bottom.rTypeattributesets[bottom_type]:
             bottom.typeattributesets[bottom_ta].update(top_type_set)
 
