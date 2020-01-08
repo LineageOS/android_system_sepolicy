@@ -1,3 +1,4 @@
+type aidl_lazy_test_service,    service_manager_type;
 type apex_service,              service_manager_type;
 type audioserver_service,       service_manager_type;
 type batteryproperties_service, app_api_service, ephemeral_app_api_service, service_manager_type;

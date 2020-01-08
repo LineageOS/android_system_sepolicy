@@ -5,6 +5,9 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    aidl_lazy_test_server
+    aidl_lazy_test_server_exec
+    aidl_lazy_test_service
     apex_module_data_file
     apex_rollback_data_file
     app_integrity_service
