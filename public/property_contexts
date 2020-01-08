@@ -298,6 +298,7 @@ aaudio.mixer_bursts u:object_r:exported_default_prop:s0 exact int
 aaudio.mmap_exclusive_policy u:object_r:exported_default_prop:s0 exact int
 aaudio.mmap_policy u:object_r:exported_default_prop:s0 exact int
 aaudio.wakeup_delay_usec u:object_r:exported_default_prop:s0 exact int
+config.disable_cameraservice u:object_r:exported_camera_prop:s0 exact bool
 gsm.sim.operator.numeric u:object_r:exported_radio_prop:s0 exact string
 media.mediadrmservice.enable u:object_r:exported_default_prop:s0 exact bool
 persist.rcs.supported u:object_r:exported_default_prop:s0 exact int
