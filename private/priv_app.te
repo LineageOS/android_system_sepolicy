@@ -80,11 +80,6 @@ allow priv_app media_rw_data_file:file create_file_perms;
 # running "adb install foo.apk".
 allow priv_app shell_data_file:file r_file_perms;
 allow priv_app shell_data_file:dir r_dir_perms;
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app shell_data_file:file r_file_perms;
-  auditallow priv_app shell_data_file:dir r_dir_perms;
-')
 
 # Allow traceur to pass file descriptors through a content provider to betterbug
 allow priv_app trace_data_file:file { getattr read };
