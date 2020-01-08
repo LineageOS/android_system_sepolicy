@@ -34,9 +34,6 @@ allow mediaprovider ringtone_file:file { getattr read write };
 # MtpServer uses /dev/mtp_usb
 allow mediaprovider mtp_device:chr_file rw_file_perms;
 
-# Fuse daemon
-allow mediaprovider fuse_device:chr_file { read write ioctl getattr };
-
 # MtpServer uses /dev/usb-ffs/mtp
 allow mediaprovider functionfs:dir search;
 allow mediaprovider functionfs:file rw_file_perms;
