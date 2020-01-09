@@ -221,7 +221,7 @@ not_compatible_property(`
       -nnapi_ext_deny_product_prop
       -init_svc_debug_prop
       -linker_prop
-      -module_sdkext_prop
+      -module_sdkextensions_prop
       -userspace_reboot_exported_prop
       -userspace_reboot_prop
       -vndk_prop
@@ -238,6 +238,7 @@ set_prop(vendor_init, cpu_variant_prop)
 set_prop(vendor_init, debug_prop)
 set_prop(vendor_init, exported_audio_prop)
 set_prop(vendor_init, exported_bluetooth_prop)
+set_prop(vendor_init, exported_camera_prop)
 set_prop(vendor_init, exported_config_prop)
 set_prop(vendor_init, exported_dalvik_prop)
 set_prop(vendor_init, exported_default_prop)
