@@ -122,14 +122,6 @@ userdebug_or_eng(`
 # access the mac address
 allowxperm priv_app self:udp_socket ioctl SIOCGIFHWADDR;
 
-# Allow GMS core to access system_update_service (e.g. to publish pending
-# system update info).
-allow priv_app system_update_service:service_manager find;
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app system_update_service:service_manager find;
-')
-
 # Allow com.android.vending to communicate with statsd.
 binder_call(priv_app, statsd)
 
