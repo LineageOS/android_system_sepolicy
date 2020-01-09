@@ -53,6 +53,13 @@ allow zygote dalvikcache_data_file:file execute;
 # Bind mount on /data/data and mounted volumes
 allow zygote { system_data_file mnt_expand_file }:dir mounton;
 
+# Relabel /data/user /data/user_de and /data/data
+allow zygote tmpfs:{ dir lnk_file } relabelfrom;
+allow zygote system_data_file:{ dir lnk_file } relabelto;
+
+# Zygote opens /mnt/expand to mount CE DE storage on each vol
+allow zygote mnt_expand_file:dir { open read search relabelto };
+
 # Create and bind dirs on /data/data
 allow zygote tmpfs:dir { create_dir_perms mounton };
 
@@ -61,7 +68,7 @@ allow zygote tmpfs:lnk_file create;
 
 allow zygote mirror_data_file:dir r_dir_perms;
 
-# Get and set data directories
+# Get inode of data directories
 allow zygote {
   system_data_file
   radio_data_file
@@ -125,9 +132,6 @@ allow zygote storage_file:dir { search mounton };
 # Allow mounting and creating files, dirs on sdcardfs.
 allow zygote { sdcard_type }:dir { create_dir_perms mounton };
 allow zygote { sdcard_type }:file { create_file_perms };
-
-# Allow zygote to expand app files while preloading libraries
-allow zygote mnt_expand_file:dir getattr;
 
 # Handle --invoke-with command when launching Zygote with a wrapper command.
 allow zygote zygote_exec:file rx_file_perms;
@@ -201,7 +205,7 @@ neverallow zygote {
   exported_bluetooth_prop
 }:file create_file_perms;
 
-# Do not allow zygote to access app data except getting attributes and relabeling to.
+# Zygote should not be able to access app private data.
 neverallow zygote {
   privapp_data_file
   app_data_file
