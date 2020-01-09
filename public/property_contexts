@@ -254,10 +254,10 @@ ro.build.tags u:object_r:exported2_default_prop:s0 exact string
 ro.build.user u:object_r:exported2_default_prop:s0 exact string
 ro.build.version.base_os u:object_r:exported2_default_prop:s0 exact string
 ro.build.version.codename u:object_r:exported2_default_prop:s0 exact string
+ro.build.version.extensions. u:object_r:module_sdkextensions_prop:s0 prefix int
 ro.build.version.incremental u:object_r:exported2_default_prop:s0 exact string
 ro.build.version.preview_sdk u:object_r:exported2_default_prop:s0 exact int
 ro.build.version.release u:object_r:exported2_default_prop:s0 exact string
-ro.build.version.extensions. u:object_r:module_sdkext_prop:s0 prefix int
 ro.build.version.sdk u:object_r:exported2_default_prop:s0 exact int
 ro.build.version.security_patch u:object_r:exported2_default_prop:s0 exact string
 ro.crypto.state u:object_r:exported_vold_prop:s0 exact string
