@@ -52,6 +52,7 @@ userdebug_or_eng(`
   dontaudit su postinstall_file:filesystem *;
   dontaudit su domain:bpf *;
   dontaudit su unlabeled:vsock_socket *;
+  dontaudit su self:perf_event *;
 
   # VTS tests run in the permissive su domain on debug builds, but the HALs
   # being tested run in enforcing mode. Because hal_foo_server is enforcing
