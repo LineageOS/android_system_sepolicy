@@ -50,6 +50,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.nfc@1\.2-service            u:object_r:hal_nfc_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.media\.omx@1\.0-service            u:object_r:mediacodec_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.power@1\.0-service          u:object_r:hal_power_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.power-service.example       u:object_r:hal_power_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.power\.stats@1\.0-service   u:object_r:hal_power_stats_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.radio\.config@1\.0-service  u:object_r:hal_radio_config_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.radio@1\.2-radio-service    u:object_r:hal_radio_default_exec:s0
