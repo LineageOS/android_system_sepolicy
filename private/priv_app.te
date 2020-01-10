@@ -154,13 +154,6 @@ allow priv_app preloads_data_file:dir r_dir_perms;
 allow priv_app preloads_media_file:file r_file_perms;
 allow priv_app preloads_media_file:dir r_dir_perms;
 
-# Allow privileged apps (e.g. GMS core) to generate unique hardware IDs
-allow priv_app keystore:keystore_key gen_unique_id;
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app keystore:keystore_key gen_unique_id;
-')
-
 # Allow GMS core to access /sys/fs/selinux/policyvers for compatibility check
 allow priv_app selinuxfs:file r_file_perms;
 # b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
