@@ -70,6 +70,13 @@ filegroup {
 }
 
 filegroup {
+  name: "com.android.cronet-file_contexts",
+  srcs: [
+    "com.android.cronet-file_contexts",
+  ],
+}
+
+filegroup {
   name: "com.android.ipsec-file_contexts",
   srcs: [
     "com.android.ipsec-file_contexts",
