@@ -136,8 +136,8 @@ neverallow { all_untrusted_apps -mediaprovider } {
   ')
 }:dir_file_class_set { create unlink };
 
-# No untrusted component except mediaprovider should be touching /dev/fuse
-neverallow { all_untrusted_apps -mediaprovider } fuse_device:chr_file *;
+# No untrusted component should be touching /dev/fuse
+neverallow all_untrusted_apps fuse_device:chr_file *;
 
 # Do not allow untrusted apps to directly open the tun_device
 neverallow all_untrusted_apps tun_device:chr_file open;
