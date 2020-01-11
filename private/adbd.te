@@ -23,6 +23,10 @@ recovery_only(`
   unix_socket_connect(adbd, recovery, recovery)
 ')
 
+# Control Perfetto traced and obtain traces from it.
+# Needed to allow port forwarding directly to traced.
+unix_socket_connect(adbd, traced_consumer, traced)
+
 # Do not sanitize the environment or open fds of the shell. Allow signaling
 # created processes.
 allow adbd shell:process { noatsecure signal };
