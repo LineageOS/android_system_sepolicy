@@ -36,6 +36,9 @@ allow iorapd self:global_capability_class_set sys_nice;
 # tracing sessions and read trace data.
 unix_socket_connect(iorapd, traced_consumer, traced)
 
+# Allow iorapd to execute compilation (iorap.cmd.compiler) in idle time.
+allow iorapd system_file:file rx_file_perms;
+
 ###
 ### neverallow rules
 ###

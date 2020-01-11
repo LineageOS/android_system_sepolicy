@@ -14,13 +14,6 @@ bluetooth_domain(priv_app)
 # Used by: https://play.privileged.com/store/apps/details?id=jackpal.androidterm
 create_pty(priv_app)
 
-# webview crash handling depends on self ptrace (b/27697529, b/20150694, b/19277529#comment7)
-allow priv_app self:process ptrace;
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app self:process ptrace;
-')
-
 # Allow loading executable code from writable priv-app home
 # directories. This is a W^X violation, however, it needs
 # to be supported for now for the following reasons.
@@ -122,26 +115,6 @@ userdebug_or_eng(`
 # access the mac address
 allowxperm priv_app self:udp_socket ioctl SIOCGIFHWADDR;
 
-# Allow GMS core to communicate with dumpsys storaged.
-binder_call(priv_app, storaged)
-allow priv_app storaged_service:service_manager find;
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app storaged:binder { call transfer };
-  auditallow storaged priv_app:binder transfer;
-  auditallow priv_app storaged:fd use;
-  auditallow priv_app storaged_service:service_manager find;
-')
-
-
-# Allow GMS core to access system_update_service (e.g. to publish pending
-# system update info).
-allow priv_app system_update_service:service_manager find;
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app system_update_service:service_manager find;
-')
-
 # Allow com.android.vending to communicate with statsd.
 binder_call(priv_app, statsd)
 
@@ -153,13 +126,6 @@ allow priv_app preloads_data_file:file r_file_perms;
 allow priv_app preloads_data_file:dir r_dir_perms;
 allow priv_app preloads_media_file:file r_file_perms;
 allow priv_app preloads_media_file:dir r_dir_perms;
-
-# Allow privileged apps (e.g. GMS core) to generate unique hardware IDs
-allow priv_app keystore:keystore_key gen_unique_id;
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app keystore:keystore_key gen_unique_id;
-')
 
 # Allow GMS core to access /sys/fs/selinux/policyvers for compatibility check
 allow priv_app selinuxfs:file r_file_perms;
