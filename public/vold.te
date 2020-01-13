@@ -103,6 +103,10 @@ allow vold mnt_user_file:dir { create_dir_perms mounton };
 allow vold mnt_user_file:lnk_file create_file_perms;
 allow vold mnt_user_file:file create_file_perms;
 
+# Manage per-user pass_through primary symlinks
+allow vold mnt_pass_through_file:dir { create_dir_perms mounton };
+allow vold mnt_pass_through_file:lnk_file create_file_perms;
+
 # Allow to create and mount expanded storage
 allow vold mnt_expand_file:dir { create_dir_perms mounton };
 allow vold apk_data_file:dir { create getattr setattr };
