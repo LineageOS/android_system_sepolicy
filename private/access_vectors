@@ -27,6 +27,14 @@ common file
 	execute
 	quotaon
 	mounton
+	audit_access
+	open
+	execmod
+	watch
+	watch_mount
+	watch_sb
+	watch_with_perm
+	watch_reads
 }
 
 
@@ -164,14 +172,6 @@ inherits file
 	reparent
 	search
 	rmdir
-	open
-	audit_access
-	execmod
-	watch
-	watch_mount
-	watch_sb
-	watch_with_perm
-	watch_reads
 }
 
 class file
@@ -179,82 +179,26 @@ inherits file
 {
 	execute_no_trans
 	entrypoint
-	execmod
-	open
-	audit_access
-	watch
-	watch_mount
-	watch_sb
-	watch_with_perm
-	watch_reads
 }
 
 class lnk_file
 inherits file
-{
-	open
-	audit_access
-	execmod
-	watch
-	watch_mount
-	watch_sb
-	watch_with_perm
-	watch_reads
-}
 
 class chr_file
 inherits file
 {
 	execute_no_trans
 	entrypoint
-	execmod
-	open
-	audit_access
-	watch
-	watch_mount
-	watch_sb
-	watch_with_perm
-	watch_reads
 }
 
 class blk_file
 inherits file
-{
-	open
-	audit_access
-	execmod
-	watch
-	watch_mount
-	watch_sb
-	watch_with_perm
-	watch_reads
-}
 
 class sock_file
 inherits file
-{
-	open
-	audit_access
-	execmod
-	watch
-	watch_mount
-	watch_sb
-	watch_with_perm
-	watch_reads
-}
 
 class fifo_file
 inherits file
-{
-	open
-	audit_access
-	execmod
-	watch
-	watch_mount
-	watch_sb
-	watch_with_perm
-	watch_reads
-}
 
 class fd
 {
