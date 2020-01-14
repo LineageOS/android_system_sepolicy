@@ -1089,3 +1089,8 @@ neverallow {
   -system_server
 } password_slot_metadata_file:notdevfile_class_set ~{ relabelto getattr };
 neverallow { domain -init -system_server } password_slot_metadata_file:notdevfile_class_set *;
+
+# Allow systemserver to read/write the invalidation property
+set_prop(system_server, binder_cache_system_server_prop)
+neverallow { domain -system_server -init }
+    binder_cache_system_server_prop:property_service set;

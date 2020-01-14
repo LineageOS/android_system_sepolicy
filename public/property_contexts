@@ -428,3 +428,6 @@ ro.surface_flinger.support_kernel_idle_timer u:object_r:exported_default_prop:s0
 ro.surface_flinger.use_smart_90_for_video u:object_r:exported_default_prop:s0 exact bool
 ro.surface_flinger.color_space_agnostic_dataspace u:object_r:exported_default_prop:s0 exact int
 ro.surface_flinger.refresh_rate_switching u:object_r:exported_default_prop:s0 exact bool
+
+# Binder cache properties.  These are world-readable
+binder.cache_key.has_system_feature      u:object_r:binder_cache_system_server_prop:s0
