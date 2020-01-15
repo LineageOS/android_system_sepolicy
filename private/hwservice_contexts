@@ -24,6 +24,7 @@ android.hardware.broadcastradio::IBroadcastRadioFactory         u:object_r:hal_b
 android.hardware.camera.provider::ICameraProvider               u:object_r:hal_camera_hwservice:s0
 android.hardware.configstore::ISurfaceFlingerConfigs            u:object_r:hal_configstore_ISurfaceFlingerConfigs:s0
 android.hardware.confirmationui::IConfirmationUI                u:object_r:hal_confirmationui_hwservice:s0
+android.hardware.identity::IIdentityCredentialStore             u:object_r:hal_identity_hwservice:s0
 android.hardware.contexthub::IContexthub                        u:object_r:hal_contexthub_hwservice:s0
 android.hardware.cas::IMediaCasService                          u:object_r:hal_cas_hwservice:s0
 android.hardware.drm::ICryptoFactory                            u:object_r:hal_drm_hwservice:s0
