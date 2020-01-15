@@ -1173,10 +1173,11 @@ neverallow {
   -zygote
 } shell:process { transition dyntransition };
 
-# Only domains spawned from zygote, runas and simpleperf_app_runner may have the appdomain
-# attribute.
+# Only domains spawned from zygote, runas and simpleperf_app_runner may have
+# the appdomain attribute. simpleperf is excluded as a domain transitioned to
+# when running an app-scoped profiling session.
 neverallow { domain -simpleperf_app_runner -runas -app_zygote -webview_zygote -zygote } {
-  appdomain -shell userdebug_or_eng(`-su')
+  appdomain -shell -simpleperf userdebug_or_eng(`-su')
 }:process { transition dyntransition };
 
 # Minimize read access to shell- or app-writable symlinks.
