@@ -114,6 +114,10 @@ pdx_server(surfaceflinger, display_vsync)
 pdx_client(surfaceflinger, bufferhub_client)
 pdx_client(surfaceflinger, performance_client)
 
+# Allow supplying timestats statistics to statsd
+allow surfaceflinger stats_service:service_manager find;
+binder_call(surfaceflinger, statsd);
+
 ###
 ### Neverallow rules
 ###
