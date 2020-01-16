@@ -56,15 +56,6 @@ allow priv_app { cache_file cache_recovery_file }:file create_file_perms;
 # /cache is a symlink to /data/cache on some devices. Allow reading the link.
 allow priv_app cache_file:lnk_file r_file_perms;
 
-# Write to /data/ota_package for OTA packages.
-allow priv_app ota_package_file:dir rw_dir_perms;
-allow priv_app ota_package_file:file create_file_perms;
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app ota_package_file:dir rw_dir_perms;
-  auditallow priv_app ota_package_file:file create_file_perms;
-')
-
 # Access to /data/media.
 allow priv_app media_rw_data_file:dir create_dir_perms;
 allow priv_app media_rw_data_file:file create_file_perms;
