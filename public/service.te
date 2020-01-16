@@ -204,6 +204,7 @@ type tethering_service, app_api_service, ephemeral_app_api_service, system_serve
 ### HAL Services
 ###
 
+type hal_power_service, vendor_service, service_manager_type;
 type hal_rebootescrow_service, vendor_service, service_manager_type;
 type hal_vibrator_service, vendor_service, service_manager_type;
 
