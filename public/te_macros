@@ -171,16 +171,17 @@ typeattribute $1 appdomain;
 # Label tmpfs objects for all apps.
 type_transition $1 tmpfs:file appdomain_tmpfs;
 allow $1 appdomain_tmpfs:file { execute getattr map read write };
-neverallow { $1 -runas_app -shell } { domain -$1 }:file no_rw_file_perms;
-neverallow { appdomain -runas_app -shell -$1 } $1:file no_rw_file_perms;
+neverallow { $1 -runas_app -shell -simpleperf } { domain -$1 }:file no_rw_file_perms;
+neverallow { appdomain -runas_app -shell -simpleperf -$1 } $1:file no_rw_file_perms;
 # The Android security model guarantees the confidentiality and integrity
 # of application data and execution state. Ptrace bypasses those
-# confidentiality guarantees. Disallow ptrace access from system components
-# to apps. Crash_dump is excluded, as it needs ptrace access to
-# produce stack traces.  llkd is excluded, as it needs to inspect
-# the kernel stack for live lock conditions. runas_app is excluded, as it can
-# only access debuggable apps.
-neverallow { domain -$1 -crash_dump userdebug_or_eng(`-llkd') -runas_app } $1:process ptrace;
+# confidentiality guarantees. Disallow ptrace access from system components to
+# apps. crash_dump is excluded, as it needs ptrace access to produce stack
+# traces. runas_app is excluded, as it operates only on debuggable apps.
+# simpleperf is excluded, as it operates only on debuggable or profileable
+# apps. llkd is excluded, as it needs ptrace access to inspect stack traces for
+# live lock conditions.
+neverallow { domain -$1 -crash_dump userdebug_or_eng(`-llkd') -runas_app -simpleperf } $1:process ptrace;
 ')
 
 #####################################

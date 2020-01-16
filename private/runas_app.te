@@ -16,3 +16,17 @@ r_dir_file(runas_app, untrusted_app_all)
 # Allow lldb/ndk-gdb/simpleperf to ptrace attach to debuggable app processes.
 allow runas_app untrusted_app_all:process { ptrace signal sigstop };
 allow runas_app untrusted_app_all:unix_stream_socket connectto;
+
+# Allow executing system image simpleperf without a domain transition.
+allow runas_app simpleperf_exec:file rx_file_perms;
+
+# Suppress denial logspam when simpleperf is trying to find a matching process
+# by scanning /proc/<pid>/cmdline files. The /proc/<pid> directories are within
+# the same domain as their respective process, most of which this domain is not
+# allowed to see.
+dontaudit runas_app domain:dir search;
+
+# Allow runas_app to call perf_event_open for profiling debuggable app
+# processes, but not the whole system.
+allow runas_app self:perf_event { open read write kernel };
+neverallow runas_app self:perf_event ~{ open read write kernel };

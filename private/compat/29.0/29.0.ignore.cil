@@ -32,6 +32,7 @@
     gmscore_app
     hal_can_bus_hwservice
     hal_can_controller_hwservice
+    hal_identity_hwservice
     hal_rebootescrow_service
     hal_tv_tuner_hwservice
     hal_vibrator_service
@@ -56,7 +57,9 @@
     ota_prop
     art_apex_dir
     service_manager_service
+    simpleperf
     soundtrigger_middleware_service
+    sysfs_dm_verity
     system_group_file
     system_jvmti_agent_prop
     system_passwd_file
