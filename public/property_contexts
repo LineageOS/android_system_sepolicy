@@ -92,6 +92,7 @@ persist.sys.sf.native_mode u:object_r:exported2_system_prop:s0 exact int
 pm.dexopt.ab-ota u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.bg-dexopt u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.boot u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.disable_bg_dexopt u:object_r:exported_pm_prop:s0 exact bool
 pm.dexopt.downgrade_after_inactive_days u:object_r:exported_pm_prop:s0 exact int
 pm.dexopt.first-boot u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.inactive u:object_r:exported_pm_prop:s0 exact string
@@ -278,18 +279,6 @@ sys.boot_from_charger_mode u:object_r:exported_system_prop:s0 exact int
 sys.init.userspace_reboot.in_progress u:object_r:userspace_reboot_exported_prop:s0 exact bool
 sys.use_memfd u:object_r:use_memfd_prop:s0 exact bool
 vold.decrypt u:object_r:exported_vold_prop:s0 exact string
-
-# r/o sanitizer properties, public-readable
-ro.sanitize.address u:object_r:exported2_default_prop:s0 exact bool
-ro.sanitize.cfi u:object_r:exported2_default_prop:s0 exact bool
-ro.sanitize.default-ub u:object_r:exported2_default_prop:s0 exact bool
-ro.sanitize.fuzzer u:object_r:exported2_default_prop:s0 exact bool
-ro.sanitize.hwaddress u:object_r:exported2_default_prop:s0 exact bool
-ro.sanitize.integer_overflow u:object_r:exported2_default_prop:s0 exact bool
-ro.sanitize.safe-stack u:object_r:exported2_default_prop:s0 exact bool
-ro.sanitize.scudo u:object_r:exported2_default_prop:s0 exact bool
-ro.sanitize.thread u:object_r:exported2_default_prop:s0 exact bool
-ro.sanitize.undefined u:object_r:exported2_default_prop:s0 exact bool
 
 # vendor-init-settable|public-readable
 aaudio.hw_burst_min_usec u:object_r:exported_default_prop:s0 exact int
