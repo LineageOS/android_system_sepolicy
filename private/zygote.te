@@ -170,6 +170,10 @@ get_prop(zygote, exported_overlay_prop)
 get_prop(zygote, device_config_runtime_native_prop)
 get_prop(zygote, device_config_runtime_native_boot_prop)
 
+# Allow the zygote to access window manager native boot feature flags
+# to initialize WindowManager static properties.
+get_prop(zygote, device_config_window_manager_native_boot_prop)
+
 # ingore spurious denials
 dontaudit zygote self:global_capability_class_set sys_resource;
 
