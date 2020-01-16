@@ -126,6 +126,7 @@ allow gsid {
       gsi_data_file
       ota_image_data_file
 }:file create_file_perms;
+allow gsid gsi_metadata_file:dir create;
 allowxperm gsid {
       gsi_data_file
       ota_image_data_file
