@@ -7,7 +7,7 @@ get_prop(llkd, llkd_prop)
 
 allow llkd self:global_capability_class_set kill;
 userdebug_or_eng(`
-  allow llkd self:global_capability_class_set sys_ptrace;
+  allow llkd self:global_capability_class_set { sys_ptrace sys_admin };
   allow llkd self:global_capability_class_set { dac_override dac_read_search };
 ')
 
