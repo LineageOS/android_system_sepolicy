@@ -48,6 +48,7 @@ log.tag.WifiHAL         u:object_r:wifi_log_prop:s0
 security.perf_harden    u:object_r:shell_prop:s0
 service.adb.root        u:object_r:shell_prop:s0
 service.adb.tcp.port    u:object_r:shell_prop:s0
+persist.adb.wifi.       u:object_r:shell_prop:s0
 
 persist.audio.          u:object_r:audio_prop:s0
 persist.bluetooth.      u:object_r:bluetooth_prop:s0
