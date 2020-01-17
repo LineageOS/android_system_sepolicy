@@ -14,6 +14,9 @@ tmpfs_domain(system_server)
 # Create a socket for connections from crash_dump.
 type_transition system_server system_data_file:sock_file system_ndebug_socket "ndebugsocket";
 
+# Create a socket for connections from zygotes.
+type_transition system_server system_data_file:sock_file system_unsolzygote_socket "unsolzygotesocket";
+
 allow system_server zygote_tmpfs:file read;
 allow system_server appdomain_tmpfs:file { getattr map read write };
 
@@ -656,6 +659,9 @@ get_prop(system_server, apk_verity_prop)
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
 
+# Create a socket for connections from zygotes.
+allow system_server system_unsolzygote_socket:sock_file create_file_perms;
+
 # Manage cache files.
 allow system_server cache_file:lnk_file r_file_perms;
 allow system_server { cache_file cache_recovery_file }:dir { relabelfrom create_dir_perms };
@@ -973,6 +979,16 @@ neverallow system_server *:process dyntransition;
 
 # Only allow crash_dump to connect to system_ndebug_socket.
 neverallow { domain -init -system_server -crash_dump } system_ndebug_socket:sock_file { open write };
+
+# Only allow zygotes to connect to system_unsolzygote_socket.
+neverallow {
+  domain
+  -init
+  -system_server
+  -zygote
+  -app_zygote
+  -webview_zygote
+} system_unsolzygote_socket:sock_file { open write };
 
 # Only allow init, system_server, flags_health_check to set properties for server configurable flags
 neverallow {
