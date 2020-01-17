@@ -654,6 +654,7 @@ full_treble_only(`
     -cameraserver_service
     -drmserver_service
     -hal_light_service # TODO(b/148154485) remove once all violators are gone
+    -credstore_service
     -keystore_service
     -mediadrmserver_service
     -mediaextractor_service

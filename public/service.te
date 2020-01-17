@@ -16,6 +16,7 @@ type idmap_service,             service_manager_type;
 type iorapd_service,            service_manager_type;
 type incident_service,          service_manager_type;
 type installd_service,          service_manager_type;
+type credstore_service,         app_api_service, service_manager_type;
 type keystore_service,          service_manager_type;
 type lpdump_service,            service_manager_type;
 type mediaserver_service,       service_manager_type;
@@ -206,6 +207,7 @@ type tethering_service, app_api_service, ephemeral_app_api_service, system_serve
 ### HAL Services
 ###
 
+type hal_identity_service, vendor_service, service_manager_type;
 type hal_light_service, vendor_service, service_manager_type;
 type hal_power_service, vendor_service, service_manager_type;
 type hal_rebootescrow_service, vendor_service, service_manager_type;

@@ -357,6 +357,7 @@ type bluetooth_logs_data_file, file_type, data_file_type, core_data_file_type;
 type bootstat_data_file, file_type, data_file_type, core_data_file_type;
 type boottrace_data_file, file_type, data_file_type, core_data_file_type;
 type camera_data_file, file_type, data_file_type, core_data_file_type;
+type credstore_data_file, file_type, data_file_type, core_data_file_type;
 type gatekeeper_data_file, file_type, data_file_type, core_data_file_type;
 type incident_data_file, file_type, data_file_type, core_data_file_type;
 type keychain_data_file, file_type, data_file_type, core_data_file_type;
