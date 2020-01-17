@@ -1206,7 +1206,9 @@
 (typeattributeset exported_bluetooth_prop_29_0 (exported_bluetooth_prop))
 (typeattributeset exported_config_prop_29_0 (exported_config_prop))
 (typeattributeset exported_dalvik_prop_29_0 (exported_dalvik_prop))
-(typeattributeset exported_default_prop_29_0 (exported_default_prop))
+(typeattributeset exported_default_prop_29_0
+  ( exported_default_prop
+    vndk_prop))
 (typeattributeset exported_dumpstate_prop_29_0 (exported_dumpstate_prop))
 (typeattributeset exported_ffs_prop_29_0 (exported_ffs_prop))
 (typeattributeset exported_fingerprint_prop_29_0 (exported_fingerprint_prop))

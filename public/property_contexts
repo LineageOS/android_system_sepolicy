@@ -381,8 +381,8 @@ ro.vendor.build.date u:object_r:exported_default_prop:s0 exact string
 ro.vendor.build.date.utc u:object_r:exported_default_prop:s0 exact int
 ro.vendor.build.fingerprint u:object_r:exported_default_prop:s0 exact string
 ro.vendor.build.version.incremental u:object_r:exported_default_prop:s0 exact string
-ro.vndk.lite u:object_r:exported_default_prop:s0 exact bool
-ro.vndk.version u:object_r:exported_default_prop:s0 exact string
+ro.vndk.lite u:object_r:vndk_prop:s0 exact bool
+ro.vndk.version u:object_r:vndk_prop:s0 exact string
 ro.vts.coverage u:object_r:exported_default_prop:s0 exact int
 wifi.active.interface u:object_r:exported_wifi_prop:s0 exact string
 wifi.concurrent.interface u:object_r:exported_default_prop:s0 exact string
