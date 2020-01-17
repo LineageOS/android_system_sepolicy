@@ -12,6 +12,8 @@ allow apexd apex_metadata_file:dir create_dir_perms;
 allow apexd apex_metadata_file:file create_file_perms;
 
 # Allow apexd to create directories for snapshots of apex data
+allow apexd apex_permission_data_file:dir create_dir_perms;
+allow apexd apex_permission_data_file:file create_file_perms;
 allow apexd apex_rollback_data_file:dir create_dir_perms;
 allow apexd apex_rollback_data_file:file create_file_perms;
 
