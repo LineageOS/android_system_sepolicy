@@ -72,13 +72,6 @@ allow priv_app trace_data_file:file { getattr read };
 allow priv_app { apk_tmp_file apk_private_tmp_file }:dir r_dir_perms;
 allow priv_app { apk_tmp_file apk_private_tmp_file }:file r_file_perms;
 
-# b/18504118: Allow reads from /data/anr/traces.txt
-allow priv_app anr_data_file:file r_file_perms;
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app anr_data_file:file r_file_perms;
-')
-
 # For AppFuse.
 allow priv_app vold:fd use;
 allow priv_app fuse_device:chr_file { read write };
