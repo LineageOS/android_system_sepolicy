@@ -225,7 +225,6 @@ not_compatible_property(`
       -module_sdkextensions_prop
       -userspace_reboot_exported_prop
       -userspace_reboot_prop
-      -vndk_prop
     })
 ')
 
@@ -262,6 +261,7 @@ set_prop(vendor_init, userspace_reboot_config_prop)
 set_prop(vendor_init, vehicle_hal_prop)
 set_prop(vendor_init, vendor_default_prop)
 set_prop(vendor_init, vendor_security_patch_level_prop)
+set_prop(vendor_init, vndk_prop)
 set_prop(vendor_init, wifi_log_prop)
 
 get_prop(vendor_init, exported2_radio_prop)
