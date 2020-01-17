@@ -150,6 +150,7 @@ system_public_prop(wifi_log_prop)
 system_public_prop(wifi_prop)
 
 # Properties used by binder caches
+system_public_prop(binder_cache_bluetooth_server_prop)
 system_public_prop(binder_cache_system_server_prop)
 
 # Properties which are public for devices launching with Android O or earlier
@@ -555,10 +556,11 @@ compatible_property_only(`
     property_type
     -apexd_prop
     -audio_prop
+    -binder_cache_bluetooth_server_prop
+    -binder_cache_system_server_prop
     -bluetooth_a2dp_offload_prop
     -bluetooth_audio_hal_prop
     -bluetooth_prop
-    -binder_cache_system_server_prop
     -bootloader_boot_reason_prop
     -boottime_prop
     -bpf_progs_loaded_prop
