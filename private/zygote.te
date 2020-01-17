@@ -176,6 +176,9 @@ dontaudit zygote self:global_capability_class_set sys_resource;
 # Allow zygote to use ashmem fds from system_server.
 allow zygote system_server:fd use;
 
+# Send unsolicited message to system_server
+unix_socket_send(zygote, system_unsolzygote, system_server)
+
 ###
 ### neverallow rules
 ###
