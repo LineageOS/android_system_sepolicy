@@ -1070,6 +1070,11 @@ allow system_server apex_data_file:file r_file_perms;
 allow system_server vendor_apex_file:dir { getattr search };
 allow system_server vendor_apex_file:file r_file_perms;
 
+# Allow the system server to manage relevant apex module data files.
+allow system_server apex_module_data_file:dir { getattr search };
+allow system_server apex_permission_data_file:dir create_dir_perms;
+allow system_server apex_permission_data_file:file create_file_perms;
+
 # Allow PasswordSlotManager rw access to /metadata/password_slots, so GSIs and the host image can
 # communicate which slots are available for use.
 allow system_server metadata_file:dir search;
