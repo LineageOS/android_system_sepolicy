@@ -4,6 +4,7 @@ type wificond_exec, system_file_type, exec_type, file_type;
 
 binder_use(wificond)
 binder_call(wificond, system_server)
+binder_call(wificond, keystore)
 
 add_service(wificond, wificond_service)
 
@@ -38,5 +39,4 @@ add_hwservice(wificond, system_wifi_keystore_hwservice)
 
 # Allow keystore binder access to serve the HwBinder service.
 allow wificond keystore_service:service_manager find;
-allow wificond keystore:binder call;
 allow wificond keystore:keystore_key get;
