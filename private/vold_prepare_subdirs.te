@@ -15,6 +15,7 @@ allow vold_prepare_subdirs {
 }:dir { open read write add_name remove_name rmdir relabelfrom };
 allow vold_prepare_subdirs {
     apex_module_data_file
+    apex_permission_data_file
     apex_rollback_data_file
     backup_data_file
     face_vendor_data_file
@@ -26,6 +27,7 @@ allow vold_prepare_subdirs {
 }:dir { create_dir_perms relabelto };
 allow vold_prepare_subdirs {
     apex_module_data_file
+    apex_permission_data_file
     apex_rollback_data_file
     backup_data_file
     face_vendor_data_file

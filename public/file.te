@@ -345,6 +345,7 @@ type mirror_data_file, file_type, core_data_file_type;
 # /data/misc subdirectories
 type adb_keys_file, file_type, data_file_type, core_data_file_type;
 type apex_module_data_file, file_type, data_file_type, core_data_file_type;
+type apex_permission_data_file, file_type, data_file_type, core_data_file_type;
 type apex_rollback_data_file, file_type, data_file_type, core_data_file_type;
 type audio_data_file, file_type, data_file_type, core_data_file_type;
 type audioserver_data_file, file_type, data_file_type, core_data_file_type;
@@ -452,6 +453,7 @@ type rild_debug_socket, file_type;
 type statsdw_socket, file_type, coredomain_socket, mlstrustedobject;
 type system_wpa_socket, file_type, data_file_type, core_data_file_type, coredomain_socket;
 type system_ndebug_socket, file_type, data_file_type, core_data_file_type, coredomain_socket, mlstrustedobject;
+type system_unsolzygote_socket, file_type, data_file_type, core_data_file_type, coredomain_socket, mlstrustedobject;
 type tombstoned_crash_socket, file_type, coredomain_socket, mlstrustedobject;
 type tombstoned_java_trace_socket, file_type, mlstrustedobject;
 type tombstoned_intercept_socket, file_type, coredomain_socket;

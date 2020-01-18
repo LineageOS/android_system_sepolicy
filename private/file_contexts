@@ -465,6 +465,7 @@
 /data/backup(/.*)?		u:object_r:backup_data_file:s0
 /data/secure/backup(/.*)?	u:object_r:backup_data_file:s0
 /data/system/ndebugsocket	u:object_r:system_ndebug_socket:s0
+/data/system/unsolzygotesocket  u:object_r:system_unsolzygote_socket:s0
 /data/drm(/.*)?		u:object_r:drm_data_file:s0
 /data/resource-cache(/.*)? u:object_r:resourcecache_data_file:s0
 /data/dalvik-cache(/.*)? u:object_r:dalvikcache_data_file:s0
@@ -505,6 +506,7 @@
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
 /data/misc/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
+/data/misc/apexdata/com.android.permission(/.*)?    u:object_r:apex_permission_data_file:s0
 /data/misc/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
 /data/misc/apns(/.*)?           u:object_r:radio_data_file:s0
 /data/misc/audio(/.*)?          u:object_r:audio_data_file:s0
@@ -592,6 +594,8 @@
 # Apex data directories
 /data/misc_de/[0-9]+/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
 /data/misc_ce/[0-9]+/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
+/data/misc_de/[0-9]+/apexdata/com.android.permission(/.*)?  u:object_r:apex_permission_data_file:s0
+/data/misc_ce/[0-9]+/apexdata/com.android.permission(/.*)?  u:object_r:apex_permission_data_file:s0
 
 # Apex rollback directories
 /data/misc_de/[0-9]+/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0

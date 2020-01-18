@@ -381,8 +381,8 @@ ro.vendor.build.date u:object_r:exported_default_prop:s0 exact string
 ro.vendor.build.date.utc u:object_r:exported_default_prop:s0 exact int
 ro.vendor.build.fingerprint u:object_r:exported_default_prop:s0 exact string
 ro.vendor.build.version.incremental u:object_r:exported_default_prop:s0 exact string
-ro.vndk.lite u:object_r:exported_default_prop:s0 exact bool
-ro.vndk.version u:object_r:exported_default_prop:s0 exact string
+ro.vndk.lite u:object_r:vndk_prop:s0 exact bool
+ro.vndk.version u:object_r:vndk_prop:s0 exact string
 ro.vts.coverage u:object_r:exported_default_prop:s0 exact int
 wifi.active.interface u:object_r:exported_wifi_prop:s0 exact string
 wifi.concurrent.interface u:object_r:exported_default_prop:s0 exact string
@@ -430,6 +430,6 @@ ro.surface_flinger.color_space_agnostic_dataspace u:object_r:exported_default_pr
 ro.surface_flinger.refresh_rate_switching u:object_r:exported_default_prop:s0 exact bool
 
 # Binder cache properties.  These are world-readable
-binder.cache_key.has_system_feature      u:object_r:binder_cache_system_server_prop:s0
+cache_key.has_system_feature             u:object_r:binder_cache_system_server_prop:s0
 cache_key.is_interactive                 u:object_r:binder_cache_system_server_prop:s0
 cache_key.is_power_save_mode             u:object_r:binder_cache_system_server_prop:s0
