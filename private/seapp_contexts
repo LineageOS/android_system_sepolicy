@@ -163,7 +163,8 @@ user=_app isPrivApp=true name=com.android.vzwomatrigger domain=vzwomatrigger_app
 user=_app isPrivApp=true name=com.google.android.gms domain=gmscore_app type=privapp_data_file levelFrom=user
 user=_app isPrivApp=true name=com.google.android.gms.* domain=gmscore_app type=privapp_data_file levelFrom=user
 user=_app isPrivApp=true name=com.google.android.gms:* domain=gmscore_app type=privapp_data_file levelFrom=user
-user=_app minTargetSdkVersion=29 domain=untrusted_app type=app_data_file levelFrom=all
+user=_app minTargetSdkVersion=30 domain=untrusted_app type=app_data_file levelFrom=all
+user=_app minTargetSdkVersion=29 domain=untrusted_app_29 type=app_data_file levelFrom=all
 user=_app minTargetSdkVersion=28 domain=untrusted_app_27 type=app_data_file levelFrom=all
 user=_app minTargetSdkVersion=26 domain=untrusted_app_27 type=app_data_file levelFrom=user
 user=_app domain=untrusted_app_25 type=app_data_file levelFrom=user
