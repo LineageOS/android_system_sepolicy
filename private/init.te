@@ -45,3 +45,18 @@ set_prop(init, userspace_reboot_prop)
 set_prop(init, userspace_reboot_exported_prop)
 neverallow { domain -init } userspace_reboot_prop:property_service set;
 neverallow { domain -init } userspace_reboot_exported_prop:property_service set;
+
+# Second-stage init performs a test for whether the kernel has SELinux hooks
+# for the perf_event_open() syscall. This is done by testing for the syscall
+# outcomes corresponding to this policy.
+# TODO(b/137092007): this can be removed once the platform stops supporting
+# kernels that precede the perf_event_open hooks (Android common kernels 4.4
+# and 4.9).
+allow init self:perf_event { open cpu };
+neverallow init self:perf_event { kernel tracepoint read write };
+dontaudit init self:perf_event { kernel tracepoint read write };
+
+# Only init is allowed to set the sysprop indicating whether perf_event_open()
+# SELinux hooks were detected.
+set_prop(init, init_perf_lsm_hooks_prop)
+neverallow { domain -init } init_perf_lsm_hooks_prop:property_service set;
