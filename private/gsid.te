@@ -111,8 +111,12 @@ allow gsid userdata_block_device:blk_file r_file_perms;
 allow gsid metadata_file:dir { search getattr };
 allow gsid {
     gsi_metadata_file
+}:dir create_dir_perms;
+
+allow gsid {
     ota_metadata_file
 }:dir rw_dir_perms;
+
 allow gsid {
     gsi_metadata_file
     ota_metadata_file
@@ -126,7 +130,6 @@ allow gsid {
       gsi_data_file
       ota_image_data_file
 }:file create_file_perms;
-allow gsid gsi_metadata_file:dir create;
 allowxperm gsid {
       gsi_data_file
       ota_image_data_file
