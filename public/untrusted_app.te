@@ -16,15 +16,6 @@
 ### seapp_contexts.
 ###
 
-# This file defines the rules for untrusted apps running with
-# targetSdkVersion >= 30.
 type untrusted_app, domain;
-# This file defines the rules for untrusted apps running with
-# targetSdkVersion = 29.
-type untrusted_app_29, domain;
-# This file defines the rules for untrusted apps running with
-# 25 < targetSdkVersion <= 28.
 type untrusted_app_27, domain;
-# This file defines the rules for untrusted apps running with
-# targetSdkVersion <= 25.
 type untrusted_app_25, domain;
