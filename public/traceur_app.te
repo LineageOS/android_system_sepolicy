@@ -21,6 +21,7 @@ allow traceur_app {
   -virtual_touchpad_service
   -vold_service
   -vr_hwc_service
+  -default_android_service
 }:service_manager find;
 
 # Allow traceur_app to use atrace HAL

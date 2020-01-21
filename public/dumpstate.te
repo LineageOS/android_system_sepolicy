@@ -230,6 +230,7 @@ allow dumpstate {
   -virtual_touchpad_service
   -vold_service
   -vr_hwc_service
+  -default_android_service
 }:service_manager find;
 # suppress denials for services dumpstate should not be accessing.
 dontaudit dumpstate {
