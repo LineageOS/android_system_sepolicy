@@ -4,6 +4,7 @@ android.frameworks.displayservice::IDisplayService              u:object_r:fwk_d
 android.frameworks.schedulerservice::ISchedulingPolicyService   u:object_r:fwk_scheduler_hwservice:s0
 android.frameworks.sensorservice::ISensorManager                u:object_r:fwk_sensor_hwservice:s0
 android.frameworks.stats::IStats                                u:object_r:fwk_stats_hwservice:s0
+android.frameworks.automotive.display::ICarWindowService        u:object_r:fwk_automotive_display_hwservice:s0
 android.hardware.atrace::IAtraceDevice                          u:object_r:hal_atrace_hwservice:s0
 android.hardware.audio.effect::IEffectsFactory                  u:object_r:hal_audio_hwservice:s0
 android.hardware.audio::IDevicesFactory                         u:object_r:hal_audio_hwservice:s0
