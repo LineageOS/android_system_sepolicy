@@ -127,6 +127,7 @@ allow shell {
   -virtual_touchpad_service
   -vold_service
   -vr_hwc_service
+  -default_android_service
 }:service_manager find;
 allow shell dumpstate:binder call;
 
