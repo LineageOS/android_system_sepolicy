@@ -34,6 +34,7 @@
     hal_can_bus_hwservice
     hal_can_controller_hwservice
     hal_identity_hwservice
+    hal_light_service
     hal_power_service
     hal_rebootescrow_service
     hal_tv_tuner_hwservice
@@ -51,6 +52,7 @@
     mediatranscoding_exec
     mediatranscoding_tmpfs
     mirror_data_file
+    light_service
     linker_prop
     linkerconfig_file
     mock_ota_prop

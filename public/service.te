@@ -117,6 +117,7 @@ type ipsec_service, app_api_service, ephemeral_app_api_service, system_server_se
 type iris_service, app_api_service, system_server_service, service_manager_type;
 type jobscheduler_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type launcherapps_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type light_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type location_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type lock_settings_service, system_api_service, system_server_service, service_manager_type;
 type looper_stats_service, system_server_service, service_manager_type;
@@ -205,6 +206,7 @@ type tethering_service, app_api_service, ephemeral_app_api_service, system_serve
 ### HAL Services
 ###
 
+type hal_light_service, vendor_service, service_manager_type;
 type hal_power_service, vendor_service, service_manager_type;
 type hal_rebootescrow_service, vendor_service, service_manager_type;
 type hal_vibrator_service, vendor_service, service_manager_type;
