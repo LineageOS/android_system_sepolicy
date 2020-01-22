@@ -728,7 +728,8 @@ full_treble_only(`
     userdebug_or_eng(`-su') # communications with su are permitted only on userdebug or eng builds
     -init
     -tombstoned # linker to tombstoned
-    userdebug_or_eng('-heapprofd`)
+    userdebug_or_eng(`-heapprofd')
+    userdebug_or_eng(`-traced_perf')
   });
 ')
 
