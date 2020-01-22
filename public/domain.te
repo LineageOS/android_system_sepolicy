@@ -652,6 +652,7 @@ full_treble_only(`
     -audioserver_service # TODO(b/36783122) remove exemptions below once app_api_service is fixed
     -cameraserver_service
     -drmserver_service
+    -hal_light_service # TODO(b/148154485) remove once all violators are gone
     -keystore_service
     -mediadrmserver_service
     -mediaextractor_service
