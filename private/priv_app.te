@@ -111,13 +111,6 @@ allow priv_app preloads_data_file:dir r_dir_perms;
 allow priv_app preloads_media_file:file r_file_perms;
 allow priv_app preloads_media_file:dir r_dir_perms;
 
-# Allow GMS core to access /sys/fs/selinux/policyvers for compatibility check
-allow priv_app selinuxfs:file r_file_perms;
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app selinuxfs:file r_file_perms;
-')
-
 read_runtime_log_tags(priv_app)
 
 # Write app-specific trace data to the Perfetto traced damon. This requires
