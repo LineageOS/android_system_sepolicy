@@ -296,6 +296,7 @@ neverallow ~dac_override_allowed self:global_capability_class_set dac_override;
 neverallow ~{
   dac_override_allowed
   iorap_prefetcherd
+  traced_perf
   traced_probes
   userdebug_or_eng(`heapprofd')
 } self:global_capability_class_set dac_read_search;

@@ -987,6 +987,7 @@ full_treble_only(`
     userdebug_or_eng(`-heapprofd')
     -shell
     -system_executes_vendor_violators
+    -traced_perf # library/binary access for symbolization
     -ueventd # reads /vendor/ueventd.rc
   } {
     vendor_file_type
@@ -1310,10 +1311,11 @@ full_treble_only(`
     -appdomain
     -bootanim
     -crash_dump
+    -heapprofd
     -init
     -iorap_prefetcherd
     -kernel
-    -heapprofd
+    -traced_perf
     -ueventd
   } vendor_file:file { no_w_file_perms no_x_file_perms open };
 ')
