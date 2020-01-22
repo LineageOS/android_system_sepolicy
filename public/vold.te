@@ -95,6 +95,12 @@ allow vold media_rw_data_file:file create_file_perms;
 # Allow mounting (lower filesystem) on parts of media for performance
 allow vold media_rw_data_file:dir mounton;
 
+# Allow setting extended attributes (for project quota IDs) on files and dirs
+allowxperm vold media_rw_data_file:{ dir file } ioctl {
+  FS_IOC_FSGETXATTR
+  FS_IOC_FSSETXATTR
+};
+
 # Allow mounting of storage devices
 allow vold { mnt_media_rw_stub_file storage_stub_file }:dir { mounton create rmdir getattr setattr };
 
