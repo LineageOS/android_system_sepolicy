@@ -1,0 +1,20 @@
+# Display service for Automotive
+type automotive_display, domain, coredomain;
+type automotive_display_exec, system_file_type, exec_type, file_type;
+
+init_daemon_domain(automotive_display)
+
+# Allow to use Binder IPC for SurfaceFlinger.
+binder_use(automotive_display)
+
+# Allow to use HwBinder IPC for HAL implementations.
+hwbinder_use(automotive_display)
+
+# Allow to read the target property.
+get_prop(automotive_display, hwservicemanager_prop)
+
+# Allow to find SurfaceFlinger.
+allow automotive_display surfaceflinger_service:service_manager find;
+
+# Allow client domain to do binder IPC to serverdomain.
+binder_call(automotive_display, surfaceflinger)

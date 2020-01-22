@@ -106,6 +106,9 @@ get_prop(shell, bootloader_boot_reason_prop)
 get_prop(shell, last_boot_reason_prop)
 get_prop(shell, system_boot_reason_prop)
 
+# Allow reading the outcome of perf_event_open LSM support test for CTS.
+get_prop(shell, init_perf_lsm_hooks_prop)
+
 # allow shell access to services
 allow shell servicemanager:service_manager list;
 # don't allow shell to access GateKeeper service
@@ -124,6 +127,7 @@ allow shell {
   -virtual_touchpad_service
   -vold_service
   -vr_hwc_service
+  -default_android_service
 }:service_manager find;
 allow shell dumpstate:binder call;
 

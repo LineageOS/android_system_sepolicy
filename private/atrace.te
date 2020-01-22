@@ -37,6 +37,7 @@ allow atrace {
   -installd_service
   -vold_service
   -lpdump_service
+  -default_android_service
 }:service_manager { find };
 allow atrace servicemanager:service_manager list;
 

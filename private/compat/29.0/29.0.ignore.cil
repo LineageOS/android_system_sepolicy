@@ -14,6 +14,8 @@
     app_integrity_service
     app_search_service
     auth_service
+    automotive_display
+    automotive_display_exec
     ashmem_libcutils_device
     blob_store_service
     binder_cache_system_server_prop
@@ -30,6 +32,7 @@
     device_config_sys_traced_prop
     exported_camera_prop
     file_integrity_service
+    fwk_automotive_display_hwservice
     gmscore_app
     hal_can_bus_hwservice
     hal_can_controller_hwservice
@@ -41,6 +44,7 @@
     incfs
     incremental_service
     incremental_root_file
+    init_perf_lsm_hooks_prop
     init_svc_debug_prop
     iorap_prefetcherd
     iorap_prefetcherd_data_file
@@ -69,7 +73,6 @@
     system_unsolzygote_socket
     tethering_service
     timezonedetector_service
-    untrusted_app_29
     usb_serial_device
     userspace_reboot_prop
     userspace_reboot_config_prop
