@@ -1,3 +1,4 @@
+android.hardware.light.ILights/default                               u:object_r:hal_light_service:s0
 android.hardware.power.IPower/default                                u:object_r:hal_power_service:s0
 android.hardware.rebootescrow.IRebootEscrow/default                  u:object_r:hal_rebootescrow_service:s0
 android.hardware.vibrator.IVibrator/default                          u:object_r:hal_vibrator_service:s0
@@ -114,6 +115,7 @@ isms                                      u:object_r:radio_service:s0
 isub                                      u:object_r:radio_service:s0
 jobscheduler                              u:object_r:jobscheduler_service:s0
 launcherapps                              u:object_r:launcherapps_service:s0
+lights                                    u:object_r:light_service:s0
 location                                  u:object_r:location_service:s0
 lock_settings                             u:object_r:lock_settings_service:s0
 looper_stats                              u:object_r:looper_stats_service:s0
