@@ -4,6 +4,13 @@ binder_call(hal_light_server, hal_light_client)
 
 hal_attribute_hwservice(hal_light, hal_light_hwservice)
 
+add_service(hal_light_server, hal_light_service)
+binder_call(hal_light_server, servicemanager)
+
+allow hal_light_client hal_light_service:service_manager find;
+
+allow hal_light_server dumpstate:fifo_file write;
+
 allow hal_light sysfs_leds:lnk_file read;
 allow hal_light sysfs_leds:file rw_file_perms;
 allow hal_light sysfs_leds:dir r_dir_perms;
