@@ -53,9 +53,9 @@ binder_call(ephemeral_app, gpuservice)
 # connecting to its producer socket and obtaining a (per-process) tmpfs fd.
 perfetto_producer(ephemeral_app)
 
-# Allow heap profiling if the app opts in by being marked
-# profileable/debuggable.
+# Allow profiling if the app opts in by being marked profileable/debuggable.
 can_profile_heap(ephemeral_app)
+can_profile_perf(ephemeral_app)
 
 # allow ephemeral apps to use UDP sockets provided by the system server but not
 # modify them other than to connect

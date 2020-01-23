@@ -29,6 +29,7 @@ full_treble_only(`
         -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
         -system_server
+        -traced_perf
     } vendor_app_file:dir { open read getattr search };
 ')
 
@@ -44,6 +45,7 @@ full_treble_only(`
         -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
         -system_server
+        -traced_perf
         -mediaserver
     } vendor_app_file:file r_file_perms;
 ')
@@ -60,6 +62,7 @@ full_treble_only(`
         -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
         -system_server
+        -traced_perf
         -app_zygote
         -webview_zygote
         -zygote
@@ -78,6 +81,7 @@ full_treble_only(`
         -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
         -system_server
+        -traced_perf
         -app_zygote
         -webview_zygote
         -zygote

@@ -457,8 +457,9 @@ type system_unsolzygote_socket, file_type, data_file_type, core_data_file_type, 
 type tombstoned_crash_socket, file_type, coredomain_socket, mlstrustedobject;
 type tombstoned_java_trace_socket, file_type, mlstrustedobject;
 type tombstoned_intercept_socket, file_type, coredomain_socket;
-type traced_producer_socket, file_type, coredomain_socket, mlstrustedobject;
 type traced_consumer_socket, file_type, coredomain_socket, mlstrustedobject;
+type traced_perf_socket, file_type, coredomain_socket, mlstrustedobject;
+type traced_producer_socket, file_type, coredomain_socket, mlstrustedobject;
 type uncrypt_socket, file_type, coredomain_socket;
 type wpa_socket, file_type, data_file_type, core_data_file_type;
 type zygote_socket, file_type, coredomain_socket;
