@@ -107,7 +107,8 @@ get_prop(domain, exported2_default_prop)
 get_prop(domain, logd_prop)
 get_prop(domain, vndk_prop)
 
-# Allow every to read binder cache properties
+# Binder cache properties are world-readable
+get_prop(domain, binder_cache_bluetooth_server_prop)
 get_prop(domain, binder_cache_system_server_prop)
 
 # Let everyone read log properties, so that liblog can avoid sending unloggable
