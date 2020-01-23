@@ -40,6 +40,9 @@ allow bluetooth uhid_device:chr_file rw_file_perms;
 allow bluetooth proc_bluetooth_writable:file rw_file_perms;
 
 # Allow write access to bluetooth specific properties
+set_prop(bluetooth, binder_cache_bluetooth_server_prop);
+neverallow { domain -bluetooth -init }
+    binder_cache_bluetooth_server_prop:property_service set;
 set_prop(bluetooth, bluetooth_a2dp_offload_prop)
 set_prop(bluetooth, bluetooth_audio_hal_prop)
 set_prop(bluetooth, bluetooth_prop)

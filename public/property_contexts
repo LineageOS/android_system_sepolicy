@@ -430,6 +430,13 @@ ro.surface_flinger.color_space_agnostic_dataspace u:object_r:exported_default_pr
 ro.surface_flinger.refresh_rate_switching u:object_r:exported_default_prop:s0 exact bool
 
 # Binder cache properties.  These are world-readable
+cache_key.bluetooth.get_bond_state       u:object_r:binder_cache_bluetooth_server_prop:s0
+cache_key.bluetooth.get_profile_connection_state     u:object_r:binder_cache_bluetooth_server_prop:s0
+cache_key.bluetooth.get_state            u:object_r:binder_cache_bluetooth_server_prop:s0
+cache_key.bluetooth.is_offloaded_filtering_supported u:object_r:binder_cache_bluetooth_server_prop:s0
+cache_key.get_packages_for_uid           u:object_r:binder_cache_system_server_prop:s0
 cache_key.has_system_feature             u:object_r:binder_cache_system_server_prop:s0
 cache_key.is_interactive                 u:object_r:binder_cache_system_server_prop:s0
 cache_key.is_power_save_mode             u:object_r:binder_cache_system_server_prop:s0
+cache_key.is_user_unlocked               u:object_r:binder_cache_system_server_prop:s0
+
