@@ -62,9 +62,10 @@ dontaudit isolated_app shell_data_file:dir search;
 # connecting to its producer socket and obtaining a (per-process) tmpfs fd.
 perfetto_producer(isolated_app)
 
-# Allow heap profiling if the main app has been marked as profileable or
+# Allow profiling if the main app has been marked as profileable or
 # debuggable.
 can_profile_heap(isolated_app)
+can_profile_perf(isolated_app)
 
 #####
 ##### Neverallow
