@@ -12,6 +12,7 @@ set_prop(flags_health_check, device_config_activity_manager_native_boot_prop)
 set_prop(flags_health_check, device_config_media_native_prop)
 set_prop(flags_health_check, device_config_storage_native_boot_prop)
 set_prop(flags_health_check, device_config_sys_traced_prop)
+set_prop(flags_health_check, device_config_window_manager_native_boot_prop)
 
 allow flags_health_check server_configurable_flags_data_file:dir rw_dir_perms;
 allow flags_health_check server_configurable_flags_data_file:file create_file_perms;
