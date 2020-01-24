@@ -24,6 +24,6 @@ neverallow logpersist {
   userdebug_or_eng(`-misc_logd_file -coredump_file')
   with_native_coverage(`-method_trace_data_file')
 }:file { create write append };
-neverallow { domain -init -dumpstate userdebug_or_eng(`-logpersist -logd') } misc_logd_file:file no_rw_file_perms;
+neverallow { domain -init -dumpstate -incidentd userdebug_or_eng(`-logpersist -logd') } misc_logd_file:file no_rw_file_perms;
 neverallow { domain -init userdebug_or_eng(`-logpersist -logd') } misc_logd_file:file no_w_file_perms;
 neverallow { domain -init userdebug_or_eng(`-logpersist -logd') } misc_logd_file:dir { add_name link relabelfrom remove_name rename reparent rmdir write };
