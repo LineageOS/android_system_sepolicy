@@ -18,6 +18,7 @@
     automotive_display_exec
     ashmem_libcutils_device
     blob_store_service
+    binder_cache_bluetooth_server_prop
     binder_cache_system_server_prop
     binderfs
     binderfs_logs
@@ -37,6 +38,7 @@
     hal_can_bus_hwservice
     hal_can_controller_hwservice
     hal_identity_hwservice
+    hal_light_service
     hal_power_service
     hal_rebootescrow_service
     hal_tv_tuner_hwservice
@@ -55,6 +57,7 @@
     mediatranscoding_exec
     mediatranscoding_tmpfs
     mirror_data_file
+    light_service
     linker_prop
     linkerconfig_file
     mock_ota_prop
@@ -72,6 +75,8 @@
     system_passwd_file
     system_unsolzygote_socket
     tethering_service
+    traced_perf
+    traced_perf_socket
     timezonedetector_service
     untrusted_app_29
     usb_serial_device

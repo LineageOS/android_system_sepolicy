@@ -107,7 +107,8 @@ get_prop(domain, exported2_default_prop)
 get_prop(domain, logd_prop)
 get_prop(domain, vndk_prop)
 
-# Allow every to read binder cache properties
+# Binder cache properties are world-readable
+get_prop(domain, binder_cache_bluetooth_server_prop)
 get_prop(domain, binder_cache_system_server_prop)
 
 # Let everyone read log properties, so that liblog can avoid sending unloggable
@@ -652,6 +653,7 @@ full_treble_only(`
     -audioserver_service # TODO(b/36783122) remove exemptions below once app_api_service is fixed
     -cameraserver_service
     -drmserver_service
+    -hal_light_service # TODO(b/148154485) remove once all violators are gone
     -keystore_service
     -mediadrmserver_service
     -mediaextractor_service
@@ -727,7 +729,8 @@ full_treble_only(`
     userdebug_or_eng(`-su') # communications with su are permitted only on userdebug or eng builds
     -init
     -tombstoned # linker to tombstoned
-    userdebug_or_eng('-heapprofd`)
+    userdebug_or_eng(`-heapprofd')
+    userdebug_or_eng(`-traced_perf')
   });
 ')
 
@@ -986,6 +989,7 @@ full_treble_only(`
     userdebug_or_eng(`-heapprofd')
     -shell
     -system_executes_vendor_violators
+    -traced_perf # library/binary access for symbolization
     -ueventd # reads /vendor/ueventd.rc
   } {
     vendor_file_type
@@ -1309,10 +1313,11 @@ full_treble_only(`
     -appdomain
     -bootanim
     -crash_dump
+    -heapprofd
     -init
     -iorap_prefetcherd
     -kernel
-    -heapprofd
+    -traced_perf
     -ueventd
   } vendor_file:file { no_w_file_perms no_x_file_perms open };
 ')

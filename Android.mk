@@ -202,6 +202,9 @@ with_native_coverage := false
 ifeq ($(NATIVE_COVERAGE),true)
   with_native_coverage := true
 endif
+ifeq ($(CLANG_COVERAGE),true)
+  with_native_coverage := true
+endif
 
 treble_sysprop_neverallow := true
 ifeq ($(BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW),true)

@@ -718,6 +718,34 @@ define(`never_profile_heap', `
 ')
 
 ###################################
+# can_profile_perf(domain)
+# Allow processes within the domain to be profiled, and have their stacks
+# sampled, by traced_perf.
+define(`can_profile_perf', `
+  # Allow directory & file read to traced_perf, as it stat(2)s /proc/[pid], and
+  # reads /proc/[pid]/cmdline.
+  allow traced_perf $1:file r_file_perms;
+  allow traced_perf $1:dir r_dir_perms;
+
+  # Allow central daemon to send signal to request /proc/[pid]/maps and
+  # /proc/[pid]/mem fds from this process.
+  allow traced_perf $1:process signal;
+
+  # Allow connecting to the daemon.
+  unix_socket_connect($1, traced_perf, traced_perf)
+  # Allow daemon to use the passed fds.
+  allow traced_perf $1:fd use;
+')
+
+###################################
+# never_profile_perf(domain)
+# Opt out of profiling by traced_perf.
+define(`never_profile_perf', `
+  neverallow traced_perf $1:file read;
+  neverallow traced_perf $1:process signal;
+')
+
+###################################
 # perfetto_producer(domain)
 # Allow processes within the domain to write data to Perfetto.
 define(`perfetto_producer', `
