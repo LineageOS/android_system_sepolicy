@@ -11,6 +11,7 @@ system_internal_prop(device_config_runtime_native_boot_prop)
 system_internal_prop(device_config_runtime_native_prop)
 system_internal_prop(device_config_storage_native_boot_prop)
 system_internal_prop(device_config_sys_traced_prop)
+system_internal_prop(device_config_window_manager_native_boot_prop)
 system_internal_prop(firstboot_prop)
 system_internal_prop(gsid_prop)
 system_internal_prop(init_perf_lsm_hooks_prop)
@@ -632,6 +633,7 @@ compatible_property_only(`
     -device_config_media_native_prop
     -device_config_storage_native_boot_prop
     -device_config_sys_traced_prop
+    -device_config_window_manager_native_boot_prop
     -dynamic_system_prop
     -gsid_prop
     -heapprofd_enabled_prop

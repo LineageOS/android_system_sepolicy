@@ -210,6 +210,7 @@ not_compatible_property(`
       -device_config_media_native_prop
       -device_config_storage_native_boot_prop
       -device_config_sys_traced_prop
+      -device_config_window_manager_native_boot_prop
       -restorecon_prop
       -netd_stable_secret_prop
       -firstboot_prop
