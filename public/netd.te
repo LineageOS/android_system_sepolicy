@@ -173,3 +173,15 @@ dontaudit netd proc_net:dir write;
 
 neverallow netd sysfs_net:dir no_w_dir_perms;
 dontaudit netd sysfs_net:dir write;
+
+# Netd should not have SYS_ADMIN privs.
+neverallow netd self:capability sys_admin;
+dontaudit netd self:capability sys_admin;
+
+# Netd should not have SYS_MODULE privs, nor should it be requesting module loads
+# (things it requires should be built directly into the kernel)
+neverallow netd self:capability sys_module;
+dontaudit netd self:capability sys_module;
+
+neverallow netd kernel:system module_request;
+dontaudit netd kernel:system module_request;

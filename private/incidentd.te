@@ -128,9 +128,17 @@ unix_socket_connect(incidentd, tombstoned_intercept, tombstoned)
 # Run a shell.
 allow incidentd shell_exec:file rx_file_perms;
 
+# For running am, incident-helper-cmd and similar framework commands.
+# Run /system/bin/app_process.
+allow incidentd zygote_exec:file { rx_file_perms };
+
 # logd access - work to be done is a PII safe log (possibly an event log?)
 userdebug_or_eng(`read_logd(incidentd)')
 # TODO control_logd(incidentd)
+
+# Access /data/misc/logd
+allow incidentd misc_logd_file:dir r_dir_perms;
+allow incidentd misc_logd_file:file r_file_perms;
 
 # Allow incidentd to find these standard groups of services.
 # Others can be whitelisted individually.
