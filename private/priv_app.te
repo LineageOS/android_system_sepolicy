@@ -89,13 +89,6 @@ r_dir_file(priv_app, sysfs_zram)
 
 r_dir_file(priv_app, rootfs)
 
-# Allow GMS core to open kernel config for OTA matching through libvintf
-allow priv_app config_gz:file { open read getattr };
-# b/142672293: No other priv-app should need this allow rule now that GMS core runs in its own domain.
-userdebug_or_eng(`
-  auditallow priv_app config_gz:file { open read getattr };
-')
-
 # access the mac address
 allowxperm priv_app self:udp_socket ioctl SIOCGIFHWADDR;
 
