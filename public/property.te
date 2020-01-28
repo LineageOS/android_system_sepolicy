@@ -61,6 +61,10 @@ compatible_property_only(`
 ')
 
 # Properties which can't be written outside system
+
+# Properties used by binder caches
+system_restricted_prop(binder_cache_bluetooth_server_prop)
+system_restricted_prop(binder_cache_system_server_prop)
 system_restricted_prop(linker_prop)
 system_restricted_prop(module_sdkextensions_prop)
 system_restricted_prop(nnapi_ext_deny_product_prop)
@@ -150,10 +154,6 @@ system_public_prop(vendor_security_patch_level_prop)
 system_public_prop(vndk_prop)
 system_public_prop(wifi_log_prop)
 system_public_prop(wifi_prop)
-
-# Properties used by binder caches
-system_public_prop(binder_cache_bluetooth_server_prop)
-system_public_prop(binder_cache_system_server_prop)
 
 # Properties used in default HAL implementations
 vendor_internal_prop(rebootescrow_hal_prop)
@@ -559,131 +559,7 @@ compatible_property_only(`
     -system_writes_vendor_properties_violators
   } {
     property_type
-    -apexd_prop
-    -audio_prop
-    -binder_cache_bluetooth_server_prop
-    -binder_cache_system_server_prop
-    -bluetooth_a2dp_offload_prop
-    -bluetooth_audio_hal_prop
-    -bluetooth_prop
-    -bootloader_boot_reason_prop
-    -boottime_prop
-    -bpf_progs_loaded_prop
-    -cold_boot_done_prop
-    -config_prop
-    -cppreopt_prop
-    -ctl_adbd_prop
-    -ctl_apexd_prop
-    -ctl_bootanim_prop
-    -ctl_bugreport_prop
-    -ctl_console_prop
-    -ctl_default_prop
-    -ctl_dumpstate_prop
-    -ctl_fuse_prop
-    -ctl_gsid_prop
-    -ctl_interface_restart_prop
-    -ctl_interface_start_prop
-    -ctl_interface_stop_prop
-    -ctl_mdnsd_prop
-    -ctl_restart_prop
-    -ctl_rildaemon_prop
-    -ctl_sigstop_prop
-    -ctl_start_prop
-    -ctl_stop_prop
-    -dalvik_prop
-    -debug_prop
-    -debuggerd_prop
-    -default_prop
-    -device_logging_prop
-    -dhcp_prop
-    -dumpstate_options_prop
-    -dumpstate_prop
-    -exported2_config_prop
-    -exported2_default_prop
-    -exported2_radio_prop
-    -exported2_system_prop
-    -exported2_vold_prop
-    -exported3_default_prop
-    -exported3_radio_prop
-    -exported3_system_prop
-    -exported_bluetooth_prop
-    -exported_config_prop
-    -exported_dalvik_prop
-    -exported_default_prop
-    -exported_dumpstate_prop
-    -exported_ffs_prop
-    -exported_fingerprint_prop
-    -exported_overlay_prop
-    -exported_pm_prop
-    -exported_radio_prop
-    -exported_secure_prop
-    -exported_system_prop
-    -exported_system_radio_prop
-    -exported_vold_prop
-    -exported_wifi_prop
+    -system_property_type
     -extended_core_property_type
-    -sota_prop
-    -ffs_prop
-    -fingerprint_prop
-    -firstboot_prop
-    -device_config_activity_manager_native_boot_prop
-    -device_config_reset_performed_prop
-    -device_config_boot_count_prop
-    -device_config_input_native_boot_prop
-    -device_config_netd_native_prop
-    -device_config_runtime_native_boot_prop
-    -device_config_runtime_native_prop
-    -device_config_media_native_prop
-    -device_config_storage_native_boot_prop
-    -device_config_sys_traced_prop
-    -device_config_window_manager_native_boot_prop
-    -dynamic_system_prop
-    -gsid_prop
-    -heapprofd_enabled_prop
-    -heapprofd_prop
-    -hwservicemanager_prop
-    -last_boot_reason_prop
-    -module_sdkextensions_prop
-    -system_lmk_prop
-    -linker_prop
-    -log_prop
-    -log_tag_prop
-    -logd_prop
-    -logpersistd_logging_prop
-    -lowpan_prop
-    -lpdumpd_prop
-    -mmc_prop
-    -mock_ota_prop
-    -net_dns_prop
-    -net_radio_prop
-    -netd_stable_secret_prop
-    -nfc_prop
-    -ota_prop
-    -overlay_prop
-    -pan_result_prop
-    -persist_debug_prop
-    -persistent_properties_ready_prop
-    -pm_prop
-    -powerctl_prop
-    -radio_prop
-    -restorecon_prop
-    -safemode_prop
-    -serialno_prop
-    -shell_prop
-    -system_boot_reason_prop
-    -system_prop
-    -system_radio_prop
-    -system_trace_prop
-    -test_boot_reason_prop
-    -test_harness_prop
-    -theme_prop
-    -time_prop
-    -traced_enabled_prop
-    -traced_lazy_prop
-    -vendor_default_prop
-    -vendor_security_patch_level_prop
-    -vold_prop
-    -wifi_log_prop
-    -wifi_prop
   }:property_service set;
 ')
