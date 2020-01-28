@@ -315,6 +315,7 @@ type incremental_root_file, file_type, data_file_type, core_data_file_type;
 # Mount locations managed by vold
 type mnt_media_rw_file, file_type;
 type mnt_user_file, file_type;
+type mnt_pass_through_file, file_type;
 type mnt_expand_file, file_type;
 type mnt_sdcard_file, file_type;
 type storage_file, file_type;

@@ -701,6 +701,7 @@
 # external storage
 /mnt/media_rw(/.*)?         u:object_r:mnt_media_rw_file:s0
 /mnt/user(/.*)?             u:object_r:mnt_user_file:s0
+/mnt/pass_through(/.*)?     u:object_r:mnt_pass_through_file:s0
 /mnt/sdcard                 u:object_r:mnt_sdcard_file:s0
 /mnt/runtime(/.*)?          u:object_r:storage_file:s0
 /storage(/.*)?              u:object_r:storage_file:s0
