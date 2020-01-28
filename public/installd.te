@@ -57,6 +57,9 @@ allow installd system_data_file:dir create_dir_perms;
 # optimizing application code.
 allow installd system_data_file:lnk_file { create getattr read setattr unlink };
 
+# Manage lower filesystem via pass_through mounts
+allow installd mnt_pass_through_file:dir r_dir_perms;
+
 # Upgrade /data/media for multi-user if necessary.
 allow installd media_rw_data_file:dir create_dir_perms;
 allow installd media_rw_data_file:file { getattr unlink };
