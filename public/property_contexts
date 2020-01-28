@@ -150,6 +150,7 @@ ro.minui.pixel_format u:object_r:exported3_default_prop:s0 exact string
 ro.oem_unlock_supported u:object_r:exported3_default_prop:s0 exact int
 ro.opengles.version u:object_r:exported3_default_prop:s0 exact int
 ro.radio.noril u:object_r:exported3_default_prop:s0 exact string
+ro.rebootescrow.device u:object_r:rebootescrow_hal_prop:s0 exact string
 ro.retaildemo.video_path u:object_r:exported3_default_prop:s0 exact string
 ro.statsd.enable u:object_r:exported3_default_prop:s0 exact bool
 ro.sf.disable_triple_buffer u:object_r:exported3_default_prop:s0 exact bool
