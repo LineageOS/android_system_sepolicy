@@ -11,11 +11,17 @@ allow apexd metadata_file:dir search;
 allow apexd apex_metadata_file:dir create_dir_perms;
 allow apexd apex_metadata_file:file create_file_perms;
 
-# Allow apexd to create directories for snapshots of apex data
-allow apexd apex_permission_data_file:dir create_dir_perms;
-allow apexd apex_permission_data_file:file create_file_perms;
+# Allow apexd to create files and directories for snapshots of apex data
+allow apexd apex_permission_data_file:dir { create_dir_perms relabelto };
+allow apexd apex_permission_data_file:file { create_file_perms relabelto };
+allow apexd apex_module_data_file:dir { create_dir_perms relabelfrom };
+allow apexd apex_module_data_file:file { create_file_perms relabelfrom };
 allow apexd apex_rollback_data_file:dir create_dir_perms;
 allow apexd apex_rollback_data_file:file create_file_perms;
+
+# Allow apexd to read directories under /data/misc_de in order to snapshot and
+# restore apex data for all users.
+allow apexd system_data_file:dir r_dir_perms;
 
 # allow apexd to create loop devices with /dev/loop-control
 allow apexd loop_control_device:chr_file rw_file_perms;
@@ -38,7 +44,16 @@ allow apexd dm_device:chr_file rw_file_perms;
 allow apexd dm_device:blk_file rw_file_perms;
 
 # sys_admin is required to access the device-mapper and mount
-allow apexd self:global_capability_class_set sys_admin;
+# dac_override, chown, and fowner are needed for snapshot and restore
+allow apexd self:global_capability_class_set { sys_admin chown dac_override fowner };
+
+# Note: fsetid is deliberately not included above. fsetid checks are
+# triggered by chmod on a directory or file owned by a group other
+# than one of the groups assigned to the current process to see if
+# the setgid bit should be cleared, regardless of whether the setgid
+# bit was even set.  We do not appear to truly need this capability
+# for apexd to operate.
+dontaudit apexd self:global_capability_class_set fsetid;
 
 # allow apexd to create a mount point in /apex
 allow apexd apex_mnt_dir:dir create_dir_perms;
@@ -72,12 +87,6 @@ allow apexd sysfs_dm:file rw_file_perms;
 # for loopX
 allow apexd sysfs_loop:dir r_dir_perms;
 allow apexd sysfs_loop:file rw_file_perms;
-
-# Spawning a libbinder thread results in a dac_override deny,
-# /dev/cpuset/tasks is owned by system.
-#
-# See b/35323867#comment3
-dontaudit apexd self:global_capability_class_set { dac_override dac_read_search };
 
 # Allow apexd to log to the kernel.
 allow apexd kmsg_device:chr_file w_file_perms;
@@ -122,6 +131,13 @@ userdebug_or_eng(`
 
 # Allow apexd to be invoked with logwrapper from init during userspace reboot.
 allow apexd devpts:chr_file { read write };
+
+# Allow apexd to create pts files via logwrap_fork_exec for its own use, to pass to
+# other processes
+create_pty(apexd)
+
+# Allow apexd to read file contexts when performing restorecon of snapshots.
+allow apexd file_contexts_file:file r_file_perms;
 
 neverallow { domain -apexd -init } apex_data_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init } apex_metadata_file:dir no_w_dir_perms;
