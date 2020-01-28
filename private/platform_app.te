@@ -68,7 +68,6 @@ allow platform_app system_api_service:service_manager find;
 allow platform_app vr_manager_service:service_manager find;
 allow platform_app gpu_service:service_manager find;
 allow platform_app stats_service:service_manager find;
-allow platform_app platform_compat_service:service_manager find;
 
 # Allow platform apps to interact with gpuservice
 binder_call(platform_app, gpuservice)
