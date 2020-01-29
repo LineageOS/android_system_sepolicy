@@ -198,36 +198,8 @@ recovery_only(`
 not_compatible_property(`
     set_prop(vendor_init, {
       property_type
-      -binder_cache_bluetooth_server_prop
-      -binder_cache_system_server_prop
-      -device_config_activity_manager_native_boot_prop
-      -device_config_boot_count_prop
-      -device_config_reset_performed_prop
-      -device_config_input_native_boot_prop
-      -device_config_netd_native_prop
-      -device_config_runtime_native_boot_prop
-      -device_config_runtime_native_prop
-      -device_config_media_native_prop
-      -device_config_storage_native_boot_prop
-      -device_config_sys_traced_prop
-      -device_config_window_manager_native_boot_prop
-      -restorecon_prop
-      -netd_stable_secret_prop
-      -firstboot_prop
-      -pm_prop
-      -system_boot_reason_prop
-      -system_jvmti_agent_prop
-      -bootloader_boot_reason_prop
-      -last_boot_reason_prop
-      -apexd_prop
-      -gsid_prop
-      -nnapi_ext_deny_product_prop
-      -init_perf_lsm_hooks_prop
-      -init_svc_debug_prop
-      -linker_prop
-      -module_sdkextensions_prop
-      -userspace_reboot_exported_prop
-      -userspace_reboot_prop
+      -system_internal_property_type
+      -system_restricted_property_type
     })
 ')
 
