@@ -480,7 +480,10 @@
 /data/apex/active/(.*)?		u:object_r:staging_data_file:s0
 /data/apex/backup/(.*)?		u:object_r:staging_data_file:s0
 /data/app(/.*)?                       u:object_r:apk_data_file:s0
+# Traditional /data/app/[packageName]-[randomString]/base.apk location
 /data/app/[^/]+/oat(/.*)?                u:object_r:dalvikcache_data_file:s0
+# /data/app/[randomStringA]/[packageName]-[randomStringB]/base.apk layout
+/data/app/[^/]+/[^/]+/oat(/.*)?                u:object_r:dalvikcache_data_file:s0
 /data/app/vmdl[^/]+\.tmp(/.*)?           u:object_r:apk_tmp_file:s0
 /data/app/vmdl[^/]+\.tmp/oat(/.*)?           u:object_r:dalvikcache_data_file:s0
 /data/app-private(/.*)?               u:object_r:apk_private_data_file:s0
@@ -698,6 +701,7 @@
 # external storage
 /mnt/media_rw(/.*)?         u:object_r:mnt_media_rw_file:s0
 /mnt/user(/.*)?             u:object_r:mnt_user_file:s0
+/mnt/pass_through(/.*)?     u:object_r:mnt_pass_through_file:s0
 /mnt/sdcard                 u:object_r:mnt_sdcard_file:s0
 /mnt/runtime(/.*)?          u:object_r:storage_file:s0
 /storage(/.*)?              u:object_r:storage_file:s0

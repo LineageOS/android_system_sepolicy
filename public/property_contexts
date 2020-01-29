@@ -151,6 +151,7 @@ ro.minui.pixel_format u:object_r:exported3_default_prop:s0 exact string
 ro.oem_unlock_supported u:object_r:exported3_default_prop:s0 exact int
 ro.opengles.version u:object_r:exported3_default_prop:s0 exact int
 ro.radio.noril u:object_r:exported3_default_prop:s0 exact string
+ro.rebootescrow.device u:object_r:rebootescrow_hal_prop:s0 exact string
 ro.retaildemo.video_path u:object_r:exported3_default_prop:s0 exact string
 ro.statsd.enable u:object_r:exported3_default_prop:s0 exact bool
 ro.sf.disable_triple_buffer u:object_r:exported3_default_prop:s0 exact bool
@@ -430,6 +431,7 @@ ro.surface_flinger.color_space_agnostic_dataspace u:object_r:exported_default_pr
 ro.surface_flinger.refresh_rate_switching u:object_r:exported_default_prop:s0 exact bool
 
 # Binder cache properties.  These are world-readable
+cache_key.app_inactive                   u:object_r:binder_cache_system_server_prop:s0
 cache_key.bluetooth.get_bond_state       u:object_r:binder_cache_bluetooth_server_prop:s0
 cache_key.bluetooth.get_profile_connection_state     u:object_r:binder_cache_bluetooth_server_prop:s0
 cache_key.bluetooth.get_state            u:object_r:binder_cache_bluetooth_server_prop:s0
@@ -439,4 +441,4 @@ cache_key.has_system_feature             u:object_r:binder_cache_system_server_p
 cache_key.is_interactive                 u:object_r:binder_cache_system_server_prop:s0
 cache_key.is_power_save_mode             u:object_r:binder_cache_system_server_prop:s0
 cache_key.is_user_unlocked               u:object_r:binder_cache_system_server_prop:s0
-
+cache_key.volume_list                    u:object_r:binder_cache_system_server_prop:s0

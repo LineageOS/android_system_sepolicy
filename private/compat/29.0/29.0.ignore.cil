@@ -61,11 +61,13 @@
     light_service
     linker_prop
     linkerconfig_file
+    mnt_pass_through_file
     mock_ota_prop
     module_sdkextensions_prop
     ota_metadata_file
     ota_prop
     art_apex_dir
+    rebootescrow_hal_prop
     service_manager_service
     simpleperf
     soundtrigger_middleware_service
