@@ -139,6 +139,9 @@ create_pty(apexd)
 # Allow apexd to read file contexts when performing restorecon of snapshots.
 allow apexd file_contexts_file:file r_file_perms;
 
+# Allow apexd to execute toybox for snapshot & restore
+allow apexd toolbox_exec:file rx_file_perms;
+
 neverallow { domain -apexd -init } apex_data_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init } apex_metadata_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init -kernel } apex_data_file:file no_w_file_perms;
