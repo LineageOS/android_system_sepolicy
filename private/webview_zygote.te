@@ -64,8 +64,8 @@ selinux_check_access(webview_zygote)
 # Directory listing in /system.
 allow webview_zygote system_file:dir r_dir_perms;
 
-# Read system properties managed by zygote.
-allow webview_zygote zygote_tmpfs:file read;
+# Read and inspect temporary files (like system properties) managed by zygote.
+allow webview_zygote zygote_tmpfs:file { read getattr };
 # Child of zygote.
 allow webview_zygote zygote:fd use;
 allow webview_zygote zygote:process sigchld;
