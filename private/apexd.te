@@ -45,7 +45,7 @@ allow apexd dm_device:blk_file rw_file_perms;
 
 # sys_admin is required to access the device-mapper and mount
 # dac_override, chown, and fowner are needed for snapshot and restore
-allow apexd self:global_capability_class_set { sys_admin chown dac_override fowner };
+allow apexd self:global_capability_class_set { sys_admin chown dac_override dac_read_search fowner };
 
 # Note: fsetid is deliberately not included above. fsetid checks are
 # triggered by chmod on a directory or file owned by a group other
@@ -138,6 +138,9 @@ create_pty(apexd)
 
 # Allow apexd to read file contexts when performing restorecon of snapshots.
 allow apexd file_contexts_file:file r_file_perms;
+
+# Allow apexd to execute toybox for snapshot & restore
+allow apexd toolbox_exec:file rx_file_perms;
 
 neverallow { domain -apexd -init } apex_data_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init } apex_metadata_file:dir no_w_dir_perms;
