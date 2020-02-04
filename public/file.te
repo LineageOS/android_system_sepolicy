@@ -366,6 +366,7 @@ type nfc_data_file, file_type, data_file_type, core_data_file_type;
 type radio_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 type recovery_data_file, file_type, data_file_type, core_data_file_type;
 type shared_relro_file, file_type, data_file_type, core_data_file_type;
+type snapshotctl_log_data_file, file_type, data_file_type, core_data_file_type;
 type stats_data_file, file_type, data_file_type, core_data_file_type;
 type systemkeys_data_file, file_type, data_file_type, core_data_file_type;
 type textclassifier_data_file, file_type, data_file_type, core_data_file_type;
