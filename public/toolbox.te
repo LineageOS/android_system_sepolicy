@@ -28,6 +28,11 @@ allow toolbox system_data_root_file:dir { remove_name write };
 allow toolbox system_data_file:dir { rmdir rw_dir_perms };
 allow toolbox system_data_file:file { getattr unlink };
 
-# chattr +F /data/media in init
+# chattr +F and chattr +P /data/media in init
 allow toolbox media_rw_data_file:dir { r_dir_perms };
-allowxperm toolbox media_rw_data_file:dir ioctl { FS_IOC_SETFLAGS FS_IOC_GETFLAGS };
+allowxperm toolbox media_rw_data_file:dir ioctl {
+  FS_IOC_FSGETXATTR
+  FS_IOC_FSSETXATTR
+  FS_IOC_GETFLAGS
+  FS_IOC_SETFLAGS
+};
