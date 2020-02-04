@@ -18,7 +18,7 @@ allow bpfloader self:global_capability_class_set sys_admin;
 ### Neverallow rules
 ###
 neverallow { domain -bpfloader } *:bpf { map_create prog_load };
-neverallow { domain -bpfloader -netd -netutils_wrapper } *:bpf prog_run;
+neverallow { domain -bpfloader -netd -netutils_wrapper -system_server } *:bpf prog_run;
 neverallow { domain -bpfloader -init } bpfloader_exec:file { execute execute_no_trans };
 neverallow bpfloader domain:{ tcp_socket udp_socket rawip_socket } *;
 # only system_server, netd and bpfloader can read/write the bpf maps
