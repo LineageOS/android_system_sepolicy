@@ -34,3 +34,7 @@ allow snapshotctl self:global_capability_class_set sys_admin;
 # Snapshotctl talk to boot control HAL to set merge status.
 hwbinder_use(snapshotctl)
 hal_client_domain(snapshotctl, hal_bootctl)
+
+# Logging
+allow snapshotctl snapshotctl_log_data_file:dir rw_dir_perms;
+allow snapshotctl snapshotctl_log_data_file:file create_file_perms;
