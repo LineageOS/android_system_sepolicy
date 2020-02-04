@@ -543,6 +543,7 @@
 /data/misc/recovery(/.*)?       u:object_r:recovery_data_file:s0
 /data/misc/shared_relro(/.*)?   u:object_r:shared_relro_file:s0
 /data/misc/sms(/.*)?            u:object_r:radio_data_file:s0
+/data/misc/snapshotctl_log(/.*)?      u:object_r:snapshotctl_log_data_file:s0
 /data/misc/stats-active-metric(/.*)? u:object_r:stats_data_file:s0
 /data/misc/stats-data(/.*)?     u:object_r:stats_data_file:s0
 /data/misc/stats-service(/.*)?  u:object_r:stats_data_file:s0
