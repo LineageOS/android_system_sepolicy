@@ -896,6 +896,9 @@ allow system_server debugfs_tracing_instances:dir search;
 allow system_server debugfs_wifi_tracing:dir search;
 allow system_server debugfs_wifi_tracing:file rw_file_perms;
 
+# Allow system_server to read tracepoint ids in order to attach BPF programs to them.
+allow system_server debugfs_tracing:file r_file_perms;
+
 # allow system_server to exec shell, asanwrapper & zygote(app_process) on ASAN builds. Needed to run
 # asanwrapper.
 with_asan(`
@@ -905,10 +908,11 @@ with_asan(`
 ')
 
 # allow system_server to read the eBPF maps that stores the traffic stats information and update
-# the map after snapshot is recorded
+# the map after snapshot is recorded, and to read, update and run the maps and programs used for
+# time in state accounting
 allow system_server fs_bpf:dir search;
 allow system_server fs_bpf:file { read write };
-allow system_server bpfloader:bpf { map_read map_write };
+allow system_server bpfloader:bpf { map_read map_write prog_run };
 
 # ART Profiles.
 # Allow system_server to open profile snapshots for read.
@@ -1122,3 +1126,8 @@ neverallow { domain -init -system_server } password_slot_metadata_file:notdevfil
 set_prop(system_server, binder_cache_system_server_prop)
 neverallow { domain -system_server -init }
     binder_cache_system_server_prop:property_service set;
+
+# Allow system server to attach BPF programs to tracepoints. Deny read permission so that
+# system_server cannot use this access to read perf event data like process stacks.
+allow system_server self:perf_event { open write cpu kernel };
+neverallow system_server self:perf_event ~{ open write cpu kernel };

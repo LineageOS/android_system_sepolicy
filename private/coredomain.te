@@ -132,6 +132,7 @@ full_treble_only(`
     -init
     -traced_probes
     -shell
+    -system_server
     -traceur_app
   } debugfs_tracing:file no_rw_file_perms;
 
