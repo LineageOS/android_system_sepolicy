@@ -302,6 +302,7 @@ dontaudit dumpstate {
 }:dir search;
 dontaudit dumpstate {
   apex_mnt_dir
+  linkerconfig_file
   mirror_data_file
 }:dir getattr;
 
