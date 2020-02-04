@@ -29,7 +29,7 @@ allow toolbox system_data_file:dir { rmdir rw_dir_perms };
 allow toolbox system_data_file:file { getattr unlink };
 
 # chattr +F and chattr +P /data/media in init
-allow toolbox media_rw_data_file:dir { r_dir_perms };
+allow toolbox media_rw_data_file:dir { r_dir_perms setattr };
 allowxperm toolbox media_rw_data_file:dir ioctl {
   FS_IOC_FSGETXATTR
   FS_IOC_FSSETXATTR
