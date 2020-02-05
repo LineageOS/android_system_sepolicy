@@ -75,3 +75,10 @@ set_prop(update_engine, ota_prop)
 # gsi_metadata_file. We never apply OTAs when GSI is running, so just deny
 # the access.
 dontaudit update_engine gsi_metadata_file:dir search;
+
+# Allow to write to snapshotctl_log logs.
+# TODO(b/148818798) revert when parent bug is fixed.
+userdebug_or_eng(`
+allow update_engine snapshotctl_log_data_file:dir rw_dir_perms;
+allow update_engine snapshotctl_log_data_file:file create_file_perms;
+')
