@@ -455,3 +455,4 @@ cache_key.is_power_save_mode             u:object_r:binder_cache_system_server_p
 cache_key.is_user_unlocked               u:object_r:binder_cache_system_server_prop:s0
 cache_key.volume_list                    u:object_r:binder_cache_system_server_prop:s0
 cache_key.display_info                   u:object_r:binder_cache_system_server_prop:s0
+cache_key.location_enabled               u:object_r:binder_cache_system_server_prop:s0
