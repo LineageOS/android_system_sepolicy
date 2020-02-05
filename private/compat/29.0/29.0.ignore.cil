@@ -46,7 +46,6 @@
     hal_vibrator_service
     incfs
     incremental_service
-    incremental_root_file
     init_perf_lsm_hooks_prop
     init_svc_debug_prop
     iorap_prefetcherd
@@ -70,6 +69,7 @@
     rebootescrow_hal_prop
     service_manager_service
     simpleperf
+    snapshotctl_log_data_file
     soundtrigger_middleware_service
     sysfs_dm_verity
     system_config_service

@@ -302,6 +302,7 @@ dontaudit dumpstate {
 }:dir search;
 dontaudit dumpstate {
   apex_mnt_dir
+  linkerconfig_file
   mirror_data_file
 }:dir getattr;
 
@@ -313,6 +314,10 @@ binder_call(dumpstate, mediaswcodec);
 
 # Allow dumpstate to kill vendor dumpstate service by init
 set_prop(dumpstate, ctl_dumpstate_prop)
+
+#Access /data/misc/snapshotctl_log
+allow dumpstate snapshotctl_log_data_file:dir r_dir_perms;
+allow dumpstate snapshotctl_log_data_file:file r_file_perms;
 
 ###
 ### neverallow rules

@@ -491,7 +491,6 @@
 /data/app-private/vmdl.*\.tmp(/.*)?   u:object_r:apk_private_tmp_file:s0
 /data/gsi(/.*)?        u:object_r:gsi_data_file:s0
 /data/gsi/ota(/.*)?    u:object_r:ota_image_data_file:s0
-/data/incremental(/.*)?   u:object_r:incremental_root_file:s0
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
 /data/vendor/tombstones/wifi(/.*)? u:object_r:tombstone_wifi_data_file:s0
 /data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
@@ -544,6 +543,7 @@
 /data/misc/recovery(/.*)?       u:object_r:recovery_data_file:s0
 /data/misc/shared_relro(/.*)?   u:object_r:shared_relro_file:s0
 /data/misc/sms(/.*)?            u:object_r:radio_data_file:s0
+/data/misc/snapshotctl_log(/.*)?      u:object_r:snapshotctl_log_data_file:s0
 /data/misc/stats-active-metric(/.*)? u:object_r:stats_data_file:s0
 /data/misc/stats-data(/.*)?     u:object_r:stats_data_file:s0
 /data/misc/stats-service(/.*)?  u:object_r:stats_data_file:s0
@@ -607,6 +607,9 @@
 # Apex rollback directories
 /data/misc_de/[0-9]+/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
 /data/misc_ce/[0-9]+/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
+
+# Incremental directories
+/data/incremental(/.*)?                        u:object_r:apk_data_file:s0
 
 #############################
 # Expanded data files
