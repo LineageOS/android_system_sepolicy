@@ -36,5 +36,7 @@ hwbinder_use(snapshotctl)
 hal_client_domain(snapshotctl, hal_bootctl)
 
 # Logging
-allow snapshotctl snapshotctl_log_data_file:dir rw_dir_perms;
-allow snapshotctl snapshotctl_log_data_file:file create_file_perms;
+userdebug_or_eng(`
+  allow snapshotctl snapshotctl_log_data_file:dir rw_dir_perms;
+  allow snapshotctl snapshotctl_log_data_file:file create_file_perms;
+')
