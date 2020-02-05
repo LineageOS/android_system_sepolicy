@@ -7,6 +7,7 @@ typeattribute system_server coredomain;
 typeattribute system_server mlstrustedsubject;
 typeattribute system_server scheduler_service_server;
 typeattribute system_server sensor_service_server;
+typeattribute system_server stats_service_server;
 
 # Define a type for tmpfs-backed ashmem regions.
 tmpfs_domain(system_server)
