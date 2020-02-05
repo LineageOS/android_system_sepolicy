@@ -27,6 +27,7 @@ binder_use(surfaceflinger)
 binder_call(surfaceflinger, binderservicedomain)
 binder_call(surfaceflinger, appdomain)
 binder_call(surfaceflinger, bootanim)
+binder_call(surfaceflinger, system_server);
 binder_service(surfaceflinger)
 
 # Binder IPC to bu, presently runs in adbd domain.
@@ -116,6 +117,8 @@ pdx_client(surfaceflinger, performance_client)
 
 # Allow supplying timestats statistics to statsd
 allow surfaceflinger stats_service:service_manager find;
+allow surfaceflinger statsmanager_service:service_manager find;
+# TODO(146461633): remove this once native pullers talk to StatsManagerService
 binder_call(surfaceflinger, statsd);
 
 ###
