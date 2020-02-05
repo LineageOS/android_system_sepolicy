@@ -57,7 +57,6 @@ compatible_property_only(`
     system_internal_prop(time_prop)
     system_internal_prop(traced_enabled_prop)
     system_internal_prop(traced_lazy_prop)
-    system_internal_prop(virtual_ab_prop)
 ')
 
 # Properties which can't be written outside system
@@ -151,6 +150,7 @@ system_public_prop(system_prop)
 system_public_prop(userspace_reboot_config_prop)
 system_public_prop(vehicle_hal_prop)
 system_public_prop(vendor_security_patch_level_prop)
+system_public_prop(virtual_ab_prop)
 system_public_prop(vndk_prop)
 system_public_prop(wifi_log_prop)
 system_public_prop(wifi_prop)
@@ -196,7 +196,6 @@ not_compatible_property(`
     system_public_prop(time_prop)
     system_public_prop(traced_enabled_prop)
     system_public_prop(traced_lazy_prop)
-    system_public_prop(virtual_ab_prop)
 
     system_public_prop(config_prop)
     system_public_prop(cppreopt_prop)
