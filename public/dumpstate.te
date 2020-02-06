@@ -295,6 +295,9 @@ allow dumpstate self:netlink_generic_socket create_socket_perms_no_ioctl;
 # Allow dumpstate to run ss
 allow dumpstate { domain pdx_channel_socket_type pdx_endpoint_socket_type }:socket_class_set getattr;
 
+# Allow dumpstate to read linkerconfig directory
+allow dumpstate linkerconfig_file:dir { read open };
+
 # For when dumpstate runs df
 dontaudit dumpstate {
   mnt_vendor_file

@@ -238,6 +238,7 @@ set_prop(vendor_init, vehicle_hal_prop)
 set_prop(vendor_init, vendor_default_prop)
 set_prop(vendor_init, vendor_security_patch_level_prop)
 set_prop(vendor_init, vndk_prop)
+set_prop(vendor_init, virtual_ab_prop)
 set_prop(vendor_init, wifi_log_prop)
 
 get_prop(vendor_init, exported2_radio_prop)

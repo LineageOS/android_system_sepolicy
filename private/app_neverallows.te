@@ -6,6 +6,7 @@ define(`all_untrusted_apps',`{
   ephemeral_app
   isolated_app
   mediaprovider
+  mediaprovider_app
   untrusted_app
   untrusted_app_25
   untrusted_app_27
@@ -145,8 +146,8 @@ neverallow { all_untrusted_apps -mediaprovider } {
   ')
 }:dir_file_class_set { create unlink };
 
-# No untrusted component should be touching /dev/fuse
-neverallow all_untrusted_apps fuse_device:chr_file *;
+# No untrusted component except mediaprovider_app should be touching /dev/fuse
+neverallow { all_untrusted_apps -mediaprovider_app } fuse_device:chr_file *;
 
 # Do not allow untrusted apps to directly open the tun_device
 neverallow all_untrusted_apps tun_device:chr_file open;
