@@ -546,7 +546,7 @@ allow init init:key { write search setattr };
 allow init unencrypted_data_file:dir create_dir_perms;
 
 # Set encryption policy on dirs in /data
-allowxperm init data_file_type:dir ioctl {
+allowxperm init { data_file_type unlabeled }:dir ioctl {
   FS_IOC_GET_ENCRYPTION_POLICY
   FS_IOC_SET_ENCRYPTION_POLICY
 };
