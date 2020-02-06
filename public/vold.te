@@ -96,9 +96,12 @@ allow vold media_rw_data_file:file create_file_perms;
 allow vold media_rw_data_file:dir mounton;
 
 # Allow setting extended attributes (for project quota IDs) on files and dirs
+# and to enable project ID inheritance through FS_IOC_SETFLAGS
 allowxperm vold media_rw_data_file:{ dir file } ioctl {
   FS_IOC_FSGETXATTR
   FS_IOC_FSSETXATTR
+  FS_IOC_GETFLAGS
+  FS_IOC_SETFLAGS
 };
 
 # Allow mounting of storage devices
