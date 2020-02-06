@@ -302,11 +302,13 @@ allow dumpstate linkerconfig_file:dir { read open };
 dontaudit dumpstate {
   mnt_vendor_file
   mirror_data_file
+  mnt_user_file
 }:dir search;
 dontaudit dumpstate {
   apex_mnt_dir
   linkerconfig_file
   mirror_data_file
+  mnt_user_file
 }:dir getattr;
 
 # Allow dumpstate to talk to bufferhubd over binder
