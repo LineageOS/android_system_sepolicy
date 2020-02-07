@@ -6,6 +6,7 @@ init_daemon_domain(gpuservice)
 
 binder_call(gpuservice, adbd)
 binder_call(gpuservice, shell)
+binder_call(gpuservice, system_server)
 binder_use(gpuservice)
 
 # Access the GPU.
@@ -37,6 +38,8 @@ allow gpuservice dumpstate:fifo_file write;
 
 # Needed for stats callback registration to statsd.
 allow gpuservice stats_service:service_manager find;
+allow gpuservice statsmanager_service:service_manager find;
+# TODO(b/146461633): remove this once native pullers talk to StatsManagerService
 binder_call(gpuservice, statsd);
 
 add_service(gpuservice, gpu_service)
