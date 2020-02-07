@@ -19,7 +19,7 @@ system_internal_prop(init_svc_debug_prop)
 system_internal_prop(last_boot_reason_prop)
 system_internal_prop(netd_stable_secret_prop)
 system_internal_prop(pm_prop)
-system_internal_prop(userspace_reboot_prop)
+system_internal_prop(userspace_reboot_log_prop)
 
 compatible_property_only(`
     # DO NOT ADD ANY PROPERTIES HERE
@@ -562,3 +562,10 @@ compatible_property_only(`
     -extended_core_property_type
   }:property_service set;
 ')
+
+neverallow {
+  -init
+  -system_server
+} {
+  userspace_reboot_log_prop
+}:property_service set;
