@@ -1,5 +1,4 @@
 typeattribute statsd coredomain;
-typeattribute statsd stats_service_server;
 
 init_daemon_domain(statsd)
 
