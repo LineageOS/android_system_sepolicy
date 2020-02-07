@@ -827,6 +827,18 @@ define(`system_restricted_prop', `
 define(`system_public_prop', `define_prop($1, system, public)')
 
 ###########################################
+# system_vendor_config_prop(name)
+# Define a /system-owned property which can only be written by vendor_init
+# This is a macro for vendor-specific configuration properties which is meant
+# to be set once from vendor_init.
+#
+define(`system_vendor_config_prop', `
+  system_public_prop($1)
+  set_prop(vendor_init, $1)
+  neverallow { domain -init -vendor_init } $1:property_service set;
+')
+
+###########################################
 # product_internal_prop(name)
 # Define a /product-owned property used only in /product
 # For devices launching with Q or eariler, this restriction can be relaxed with
