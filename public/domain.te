@@ -1004,6 +1004,7 @@ full_treble_only(`
     -vendor_overlay_file
     -vendor_public_lib_file
     -vendor_task_profiles_file
+    -vendor_incremental_module
     -vndk_sp_file
   }:file *;
 ')
