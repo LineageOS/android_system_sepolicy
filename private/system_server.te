@@ -7,6 +7,7 @@ typeattribute system_server coredomain;
 typeattribute system_server mlstrustedsubject;
 typeattribute system_server scheduler_service_server;
 typeattribute system_server sensor_service_server;
+typeattribute system_server stats_service_server;
 
 # Define a type for tmpfs-backed ashmem regions.
 tmpfs_domain(system_server)
@@ -656,6 +657,9 @@ get_prop(system_server, mock_ota_prop)
 
 # Read the property as feature flag for protecting apks with fs-verity.
 get_prop(system_server, apk_verity_prop)
+
+# Read wifi.interface
+get_prop(system_server, wifi_prop)
 
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
