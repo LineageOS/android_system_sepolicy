@@ -1,0 +1,19 @@
+{
+    "presubmit": [
+        {
+            "name": "CtsSecurityHostTestCases",
+            "options": [
+                {
+                    "include-filter": "android.security.cts.SELinuxHostTest#testPermissionControllerDomain"
+                },
+                {
+                    "include-filter": "android.security.cts.SELinuxHostTest#testVzwOmaTriggerDomain"
+                },
+                {
+                    "include-filter": "android.security.cts.SELinuxHostTest#testGMSCoreDomain"
+                }
+
+            ]
+        }
+    ]
+}

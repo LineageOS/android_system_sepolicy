@@ -52,6 +52,11 @@ allowxperm vold data_file_type:dir ioctl {
   FS_IOC_REMOVE_ENCRYPTION_KEY
 };
 
+# Allow to load incremental file system driver
+allow vold self:capability sys_module;
+allow vold vendor_incremental_module:file r_file_perms;
+allow vold vendor_incremental_module:system module_load;
+
 # Only vold and init should ever set file-based encryption policies.
 neverallowxperm {
   domain
@@ -96,9 +101,12 @@ allow vold media_rw_data_file:file create_file_perms;
 allow vold media_rw_data_file:dir mounton;
 
 # Allow setting extended attributes (for project quota IDs) on files and dirs
+# and to enable project ID inheritance through FS_IOC_SETFLAGS
 allowxperm vold media_rw_data_file:{ dir file } ioctl {
   FS_IOC_FSGETXATTR
   FS_IOC_FSSETXATTR
+  FS_IOC_GETFLAGS
+  FS_IOC_SETFLAGS
 };
 
 # Allow mounting of storage devices
