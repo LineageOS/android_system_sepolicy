@@ -203,6 +203,7 @@ aac_drc_cut u:object_r:exported2_default_prop:s0 exact int
 aac_drc_enc_target_level u:object_r:exported2_default_prop:s0 exact int
 aac_drc_heavy u:object_r:exported2_default_prop:s0 exact int
 aac_drc_reference_level u:object_r:exported2_default_prop:s0 exact int
+build.version.extensions. u:object_r:module_sdkextensions_prop:s0 prefix int
 ro.aac_drc_effect_type u:object_r:exported2_default_prop:s0 exact int
 drm.64bit.enabled u:object_r:exported2_default_prop:s0 exact bool
 dumpstate.dry_run u:object_r:exported_dumpstate_prop:s0 exact bool
@@ -255,7 +256,6 @@ ro.build.tags u:object_r:exported2_default_prop:s0 exact string
 ro.build.user u:object_r:exported2_default_prop:s0 exact string
 ro.build.version.base_os u:object_r:exported2_default_prop:s0 exact string
 ro.build.version.codename u:object_r:exported2_default_prop:s0 exact string
-ro.build.version.extensions. u:object_r:module_sdkextensions_prop:s0 prefix int
 ro.build.version.incremental u:object_r:exported2_default_prop:s0 exact string
 ro.build.version.preview_sdk u:object_r:exported2_default_prop:s0 exact int
 ro.build.version.release u:object_r:exported2_default_prop:s0 exact string
