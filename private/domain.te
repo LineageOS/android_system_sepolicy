@@ -98,7 +98,7 @@ compatible_property_only(`
     get_prop({coredomain appdomain shell}, exported_camera_prop)
     get_prop({coredomain appdomain shell}, userspace_reboot_config_prop)
     get_prop({coredomain shell}, userspace_reboot_exported_prop)
-    get_prop({coredomain shell}, userspace_reboot_prop)
+    get_prop({coredomain shell}, userspace_reboot_log_prop)
     get_prop({domain -coredomain -appdomain}, vendor_default_prop)
 ')
 
