@@ -258,6 +258,7 @@ ro.build.version.codename u:object_r:exported2_default_prop:s0 exact string
 ro.build.version.incremental u:object_r:exported2_default_prop:s0 exact string
 ro.build.version.preview_sdk u:object_r:exported2_default_prop:s0 exact int
 ro.build.version.release u:object_r:exported2_default_prop:s0 exact string
+ro.build.version.release_or_codename u:object_r:exported2_default_prop:s0 exact string
 ro.build.version.sdk u:object_r:exported2_default_prop:s0 exact int
 ro.build.version.security_patch u:object_r:exported2_default_prop:s0 exact string
 ro.crypto.state u:object_r:exported_vold_prop:s0 exact string
