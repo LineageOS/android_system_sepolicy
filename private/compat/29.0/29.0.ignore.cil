@@ -70,6 +70,7 @@
     service_manager_service
     simpleperf
     snapshotctl_log_data_file
+    socket_hook_prop
     soundtrigger_middleware_service
     sysfs_dm_verity
     system_config_service
@@ -92,4 +93,5 @@
     vendor_incremental_module
     vendor_install_recovery
     vendor_install_recovery_exec
+    vendor_socket_hook_prop
     virtual_ab_prop))

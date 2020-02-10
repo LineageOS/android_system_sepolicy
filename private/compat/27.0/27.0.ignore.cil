@@ -133,6 +133,7 @@
     simpleperf_app_runner
     simpleperf_app_runner_exec
     slice_service
+    socket_hook_prop
     stats
     stats_data_file
     stats_exec
@@ -177,6 +178,7 @@
     vendor_init
     vendor_security_patch_level_prop
     vendor_shell
+    vendor_socket_hook_prop
     vndk_prop
     vold_metadata_file
     vold_prepare_subdirs
