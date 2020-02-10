@@ -41,9 +41,7 @@ allow init sysfs_dm:file read;
 set_prop(init, powerctl_prop)
 
 # Only init is allowed to set userspace reboot related properties.
-set_prop(init, userspace_reboot_prop)
 set_prop(init, userspace_reboot_exported_prop)
-neverallow { domain -init } userspace_reboot_prop:property_service set;
 neverallow { domain -init } userspace_reboot_exported_prop:property_service set;
 
 # Second-stage init performs a test for whether the kernel has SELinux hooks
