@@ -1,5 +1,7 @@
 domain_auto_trans(vold, vold_prepare_subdirs_exec, vold_prepare_subdirs)
 
+typeattribute vold_prepare_subdirs mlstrustedsubject;
+
 allow vold_prepare_subdirs system_file:file execute_no_trans;
 allow vold_prepare_subdirs shell_exec:file rx_file_perms;
 allow vold_prepare_subdirs toolbox_exec:file rx_file_perms;
@@ -24,6 +26,7 @@ allow vold_prepare_subdirs {
     iris_vendor_data_file
     rollback_data_file
     storaged_data_file
+    system_data_file
     vold_data_file
 }:dir { create_dir_perms relabelto };
 allow vold_prepare_subdirs {
@@ -41,5 +44,9 @@ allow vold_prepare_subdirs {
     vold_data_file
 }:file { getattr unlink };
 allow vold_prepare_subdirs apex_mnt_dir:dir { open read };
+allow vold_prepare_subdirs mnt_expand_file:dir search;
+allow vold_prepare_subdirs user_profile_data_file:dir { search getattr relabelfrom relabelto };
+# /data/misc is unlabeled during early boot.
+allow vold_prepare_subdirs unlabeled:dir search;
 
 dontaudit vold_prepare_subdirs { proc unlabeled }:file r_file_perms;
