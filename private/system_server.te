@@ -1091,6 +1091,9 @@ allow system_server metadata_file:dir search;
 allow system_server password_slot_metadata_file:dir rw_dir_perms;
 allow system_server password_slot_metadata_file:file create_file_perms;
 
+# Allow init to set sysprop used to compute stats about userspace reboot.
+set_prop(system_server, userspace_reboot_log_prop)
+
 # JVMTI agent settings are only readable from the system server.
 neverallow {
   domain

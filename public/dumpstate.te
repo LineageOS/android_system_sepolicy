@@ -324,6 +324,10 @@ set_prop(dumpstate, ctl_dumpstate_prop)
 allow dumpstate snapshotctl_log_data_file:dir r_dir_perms;
 allow dumpstate snapshotctl_log_data_file:file r_file_perms;
 
+#Allow access to /dev/binderfs/binder_logs
+allow dumpstate binderfs_logs:dir r_dir_perms;
+allow dumpstate binderfs_logs:file r_file_perms;
+
 ###
 ### neverallow rules
 ###
