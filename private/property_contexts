@@ -52,7 +52,6 @@ persist.adb.wifi.       u:object_r:shell_prop:s0
 
 persist.audio.          u:object_r:audio_prop:s0
 persist.bluetooth.      u:object_r:bluetooth_prop:s0
-persist.nfc.            u:object_r:nfc_prop:s0
 persist.debug.          u:object_r:persist_debug_prop:s0
 persist.logd.           u:object_r:logd_prop:s0
 ro.logd.                u:object_r:logd_prop:s0
