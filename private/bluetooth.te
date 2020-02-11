@@ -1,6 +1,6 @@
 # bluetooth app
 
-typeattribute bluetooth coredomain;
+typeattribute bluetooth coredomain, mlstrustedsubject;
 
 app_domain(bluetooth)
 net_domain(bluetooth)

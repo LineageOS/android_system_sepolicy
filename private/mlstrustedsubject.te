@@ -1,0 +1,32 @@
+# MLS override can't be used to access private app data.
+
+# Apps should not normally be mlstrustedsubject, but if they must be
+# they cannot use this to access app private data files; their own app
+# data files must use a different label.
+
+neverallow {
+  mlstrustedsubject
+  -installd
+  -iorap_prefetcherd
+  -iorap_inode2filename
+} { app_data_file privapp_data_file }:file ~{ read write map getattr ioctl lock append };
+
+neverallow {
+  mlstrustedsubject
+  -installd
+  -iorap_prefetcherd
+  -iorap_inode2filename
+} { app_data_file privapp_data_file }:dir ~{ read getattr search };
+
+# TODO(b/141677108): See if we can remove any of these.
+neverallow {
+  mlstrustedsubject
+  -installd
+  -iorap_prefetcherd
+  -iorap_inode2filename
+  -system_server
+  -adbd
+  -runas
+  -dexoptanalyzer
+  -zygote
+} { app_data_file privapp_data_file }:dir { read getattr search };
