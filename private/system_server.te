@@ -441,6 +441,10 @@ allow system_server incidentd:fifo_file read;
 # with no DAC access to it, for dropbox to read.
 allow system_server incident_data_file:file read;
 
+# Manage /data/misc/prereboot.
+allow system_server prereboot_data_file:dir rw_dir_perms;
+allow system_server prereboot_data_file:file create_file_perms;
+
 # Allow dropbox to read /data/misc/perfetto-traces. Only the fd is sent over
 # binder.
 allow system_server perfetto_traces_data_file:file read;
