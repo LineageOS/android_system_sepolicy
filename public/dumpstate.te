@@ -321,6 +321,11 @@ binder_call(dumpstate, bufferhubd);
 # Allow dumpstate to talk to mediaswcodec over binder
 binder_call(dumpstate, mediaswcodec);
 
+# Allow dumpstate to talk to these stable AIDL services over binder
+binder_call(dumpstate, hal_rebootescrow_server)
+allow hal_rebootescrow_server dumpstate:fifo_file write;
+allow hal_rebootescrow_server dumpstate:fd use;
+
 # Allow dumpstate to kill vendor dumpstate service by init
 set_prop(dumpstate, ctl_dumpstate_prop)
 
