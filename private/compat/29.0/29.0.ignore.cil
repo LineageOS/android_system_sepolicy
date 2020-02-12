@@ -8,6 +8,7 @@
     aidl_lazy_test_server
     aidl_lazy_test_server_exec
     aidl_lazy_test_service
+    adbd_prop
     apex_module_data_file
     apex_permission_data_file
     apex_rollback_data_file
@@ -74,6 +75,7 @@
     snapshotctl_log_data_file
     soundtrigger_middleware_service
     sysfs_dm_verity
+    system_adbd_prop
     system_config_service
     system_group_file
     system_jvmti_agent_prop
