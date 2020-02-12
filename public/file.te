@@ -283,6 +283,8 @@ type ota_package_file, file_type, data_file_type, core_data_file_type, mlstruste
 type user_profile_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/misc/profman
 type profman_dump_data_file, file_type, data_file_type, core_data_file_type;
+# /data/misc/prereboot
+type prereboot_data_file, file_type, data_file_type, core_data_file_type;
 # /data/resource-cache
 type resourcecache_data_file, file_type, data_file_type, core_data_file_type;
 # /data/local - writable by shell

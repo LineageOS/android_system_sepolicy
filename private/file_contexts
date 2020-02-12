@@ -541,6 +541,7 @@
 /data/misc/net(/.*)?            u:object_r:net_data_file:s0
 /data/misc/network_watchlist(/.*)? u:object_r:network_watchlist_data_file:s0
 /data/misc/perfetto-traces(/.*)? u:object_r:perfetto_traces_data_file:s0
+/data/misc/prereboot(/.*)?      u:object_r:prereboot_data_file:s0
 /data/misc/recovery(/.*)?       u:object_r:recovery_data_file:s0
 /data/misc/shared_relro(/.*)?   u:object_r:shared_relro_file:s0
 /data/misc/sms(/.*)?            u:object_r:radio_data_file:s0

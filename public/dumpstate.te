@@ -218,6 +218,10 @@ userdebug_or_eng(`
 allow dumpstate misc_logd_file:dir r_dir_perms;
 allow dumpstate misc_logd_file:file r_file_perms;
 
+# Access /data/misc/prereboot
+allow dumpstate prereboot_data_file:dir r_dir_perms;
+allow dumpstate prereboot_data_file:file r_file_perms;
+
 allow dumpstate app_fuse_file:dir r_dir_perms;
 allow dumpstate overlayfs_file:dir r_dir_perms;
 
@@ -316,6 +320,11 @@ binder_call(dumpstate, bufferhubd);
 
 # Allow dumpstate to talk to mediaswcodec over binder
 binder_call(dumpstate, mediaswcodec);
+
+# Allow dumpstate to talk to these stable AIDL services over binder
+binder_call(dumpstate, hal_rebootescrow_server)
+allow hal_rebootescrow_server dumpstate:fifo_file write;
+allow hal_rebootescrow_server dumpstate:fd use;
 
 # Allow dumpstate to kill vendor dumpstate service by init
 set_prop(dumpstate, ctl_dumpstate_prop)
