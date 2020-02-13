@@ -7,6 +7,7 @@
 (type perfprofd_data_file)
 (type perfprofd_service)
 (type sysfs_mac_address)
+(type wificond_service)
 
 (expandtypeattribute (accessibility_service_29_0) true)
 (expandtypeattribute (account_service_29_0) true)
@@ -1949,7 +1950,7 @@
 (typeattributeset wifiaware_service_29_0 (wifiaware_service))
 (typeattributeset wificond_29_0 (wificond))
 (typeattributeset wificond_exec_29_0 (wificond_exec))
-(typeattributeset wificond_service_29_0 (wificond_service))
+(typeattributeset wificond_service_29_0 (wificond_service wifinl80211_service))
 (typeattributeset wifi_data_file_29_0 (wifi_data_file))
 (typeattributeset wifi_log_prop_29_0 (wifi_log_prop))
 (typeattributeset wifip2p_service_29_0 (wifip2p_service))

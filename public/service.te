@@ -195,7 +195,7 @@ type webviewupdate_service, app_api_service, ephemeral_app_api_service, system_s
 type wifip2p_service, app_api_service, system_server_service, service_manager_type;
 type wifiscanner_service, system_api_service, system_server_service, service_manager_type;
 type wifi_service, app_api_service, system_server_service, service_manager_type;
-type wificond_service, service_manager_type;
+type wifinl80211_service, service_manager_type;
 type wifiaware_service, app_api_service, system_server_service, service_manager_type;
 type window_service, system_api_service, system_server_service, service_manager_type;
 type inputflinger_service, system_api_service, system_server_service, service_manager_type;
