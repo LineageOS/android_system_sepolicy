@@ -141,6 +141,9 @@ class xdp_socket
 
 class perf_event
 
+# Introduced in https://github.com/torvalds/linux/commit/59438b46471ae6cdfb761afc8c9beaf1e428a331
+class lockdown
+
 # Property service
 class property_service          # userspace
 
