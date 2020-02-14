@@ -574,6 +574,9 @@ allow init proc_pressure_mem:file { rw_file_perms setattr };
 allow init system_bootstrap_lib_file:dir r_dir_perms;
 allow init system_bootstrap_lib_file:file { execute read open getattr map };
 
+# stat the root dir of fuse filesystems (for the mount handler)
+allow init fuse:dir { search getattr };
+
 ###
 ### neverallow rules
 ###
