@@ -611,7 +611,9 @@
 /data/misc_ce/[0-9]+/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
 
 # Incremental directories
-/data/incremental(/.*)?                        u:object_r:apk_data_file:s0
+/data/incremental(/.*)?                                 u:object_r:apk_data_file:s0
+/data/incremental/MT_[^/]+/mount/.pending_reads         u:object_r:incremental_control_file:s0
+/data/incremental/MT_[^/]+/mount/.log                   u:object_r:incremental_control_file:s0
 
 #############################
 # Expanded data files
