@@ -15,6 +15,9 @@ get_prop(bootstat, boottime_prop)
 set_prop(bootstat, bootloader_boot_reason_prop)
 set_prop(bootstat, system_boot_reason_prop)
 set_prop(bootstat, last_boot_reason_prop)
+allow bootstat metadata_file:dir search;
+allow bootstat metadata_bootstat_file:dir rw_dir_perms;
+allow bootstat metadata_bootstat_file:file create_file_perms;
 
 # ToDo: TBI move access for the following to a system health HAL
 
