@@ -36,6 +36,23 @@ allow traced trace_data_file:file { read write };
 allow traced iorapd:fd use;
 allow traced iorapd_tmpfs:file { read write };
 
+# Allow traced to use shared memory supplied by producers. Typically, traced
+# (i.e. the tracing service) creates the shared memory used for data transfer
+# from the producer. This rule allows an alternative scheme, where the producer
+# creates the shared memory, that is then adopted by traced (after validating
+# that it is appropriately sealed).
+# This list has to replicate the tmpfs domains of all applicable domains that
+# have perfetto_producer() macro applied to them.
+# perfetto_tmpfs excluded as it should never need to use the producer-supplied
+# shared memory scheme.
+allow traced  {
+  appdomain_tmpfs
+  heapprofd_tmpfs
+  surfaceflinger_tmpfs
+  traced_probes_tmpfs
+  userdebug_or_eng(`system_server_tmpfs')
+}:file { getattr map read write };
+
 # Allow traced to notify Traceur when a trace ends by setting the
 # sys.trace.trace_end_signal property.
 set_prop(traced, system_trace_prop)
