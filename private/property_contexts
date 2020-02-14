@@ -235,3 +235,9 @@ persist.com.android.sdkext.          u:object_r:module_sdkextensions_prop:s0
 # Userspace reboot properties
 sys.userspace_reboot.log.         u:object_r:userspace_reboot_log_prop:s0
 persist.sys.userspace_reboot.log. u:object_r:userspace_reboot_log_prop:s0
+
+# Integer property which is used in libgui to configure the number of frames
+# tracked by buffer queue's frame event timing history. The property is set
+# by devices with video decoding pipelines long enough to overflow the default
+# history size.
+ro.lib_gui.frame_event_history_size u:object_r:bq_config_prop:s0
