@@ -92,8 +92,9 @@ sys.lmk.                u:object_r:system_lmk_prop:s0
 sys.trace.              u:object_r:system_trace_prop:s0
 
 # Boolean property set by system server upon boot indicating
-# if device owner is provisioned.
-ro.device_owner         u:object_r:device_logging_prop:s0
+# if device is fully owned by organization instead of being
+# a personal device.
+ro.organization_owned   u:object_r:device_logging_prop:s0
 
 # selinux non-persistent properties
 selinux.restorecon_recursive   u:object_r:restorecon_prop:s0
