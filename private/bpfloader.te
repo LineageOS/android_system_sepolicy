@@ -12,7 +12,7 @@ allow bpfloader devpts:chr_file { read write };
 # for retrieving a pinned map when bpfloader do a run time restart.
 allow bpfloader self:bpf { prog_load prog_run map_read map_write map_create };
 
-allow bpfloader self:global_capability_class_set sys_admin;
+allow bpfloader self:capability { chown sys_admin };
 
 ###
 ### Neverallow rules
