@@ -620,6 +620,8 @@
 /mnt/expand/[^/]+(/.*)?                             u:object_r:system_data_file:s0
 /mnt/expand/[^/]+/app(/.*)?                         u:object_r:apk_data_file:s0
 /mnt/expand/[^/]+/app/[^/]+/oat(/.*)?               u:object_r:dalvikcache_data_file:s0
+# /mnt/expand/..../app/[randomStringA]/[packageName]-[randomStringB]/base.apk layout
+/mnt/expand/[^/]+/app/[^/]+/[^/]+/oat(/.*)?        u:object_r:dalvikcache_data_file:s0
 /mnt/expand/[^/]+/app/vmdl[^/]+\.tmp(/.*)?          u:object_r:apk_tmp_file:s0
 /mnt/expand/[^/]+/app/vmdl[^/]+\.tmp/oat(/.*)?      u:object_r:dalvikcache_data_file:s0
 /mnt/expand/[^/]+/local/tmp(/.*)?                   u:object_r:shell_data_file:s0
