@@ -52,6 +52,7 @@ persist.adb.wifi.       u:object_r:shell_prop:s0
 
 persist.audio.          u:object_r:audio_prop:s0
 persist.bluetooth.      u:object_r:bluetooth_prop:s0
+persist.nfc_cfg.        u:object_r:nfc_prop:s0
 persist.debug.          u:object_r:persist_debug_prop:s0
 persist.logd.           u:object_r:logd_prop:s0
 ro.logd.                u:object_r:logd_prop:s0
@@ -235,3 +236,9 @@ persist.com.android.sdkext.          u:object_r:module_sdkextensions_prop:s0
 # Userspace reboot properties
 sys.userspace_reboot.log.         u:object_r:userspace_reboot_log_prop:s0
 persist.sys.userspace_reboot.log. u:object_r:userspace_reboot_log_prop:s0
+
+# Integer property which is used in libgui to configure the number of frames
+# tracked by buffer queue's frame event timing history. The property is set
+# by devices with video decoding pipelines long enough to overflow the default
+# history size.
+ro.lib_gui.frame_event_history_size u:object_r:bq_config_prop:s0

@@ -24,6 +24,13 @@ allow system_server appdomain_tmpfs:file { getattr map read write };
 # For Incremental Service to check if incfs is available
 allow system_server proc_filesystems:file r_file_perms;
 
+# To create files on Incremental File System
+allow system_server incremental_control_file:file { ioctl r_file_perms };
+allowxperm system_server incremental_control_file:file ioctl INCFS_IOCTL_CREATE_FILE;
+
+# To get signature of an APK installed on Incremental File System
+allowxperm system_server apk_data_file:file ioctl INCFS_IOCTL_READ_SIGNATURE;
+
 # For art.
 allow system_server dalvikcache_data_file:dir r_dir_perms;
 allow system_server dalvikcache_data_file:file r_file_perms;

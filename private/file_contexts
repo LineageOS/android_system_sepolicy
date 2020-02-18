@@ -611,7 +611,9 @@
 /data/misc_ce/[0-9]+/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
 
 # Incremental directories
-/data/incremental(/.*)?                        u:object_r:apk_data_file:s0
+/data/incremental(/.*)?                                 u:object_r:apk_data_file:s0
+/data/incremental/MT_[^/]+/mount/.pending_reads         u:object_r:incremental_control_file:s0
+/data/incremental/MT_[^/]+/mount/.log                   u:object_r:incremental_control_file:s0
 
 #############################
 # Expanded data files
@@ -620,6 +622,8 @@
 /mnt/expand/[^/]+(/.*)?                             u:object_r:system_data_file:s0
 /mnt/expand/[^/]+/app(/.*)?                         u:object_r:apk_data_file:s0
 /mnt/expand/[^/]+/app/[^/]+/oat(/.*)?               u:object_r:dalvikcache_data_file:s0
+# /mnt/expand/..../app/[randomStringA]/[packageName]-[randomStringB]/base.apk layout
+/mnt/expand/[^/]+/app/[^/]+/[^/]+/oat(/.*)?        u:object_r:dalvikcache_data_file:s0
 /mnt/expand/[^/]+/app/vmdl[^/]+\.tmp(/.*)?          u:object_r:apk_tmp_file:s0
 /mnt/expand/[^/]+/app/vmdl[^/]+\.tmp/oat(/.*)?      u:object_r:dalvikcache_data_file:s0
 /mnt/expand/[^/]+/local/tmp(/.*)?                   u:object_r:shell_data_file:s0
@@ -695,6 +699,7 @@
 /metadata/gsi/ota(/.*)?   u:object_r:ota_metadata_file:s0
 /metadata/password_slots(/.*)?    u:object_r:password_slot_metadata_file:s0
 /metadata/ota(/.*)?       u:object_r:ota_metadata_file:s0
+/metadata/bootstat(/.*)?  u:object_r:metadata_bootstat_file:s0
 
 #############################
 # asec containers

@@ -146,6 +146,10 @@ dontaudit priv_app { wifi_prop exported_wifi_prop }:file read;
 allow priv_app system_server:udp_socket {
         connect getattr read recvfrom sendto write getopt setopt };
 
+# allow apps like Phonesky to check the file signature of an apk installed on
+# the Incremental File System
+allowxperm priv_app apk_data_file:file ioctl INCFS_IOCTL_READ_SIGNATURE;
+
 ###
 ### neverallow rules
 ###

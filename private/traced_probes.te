@@ -1,8 +1,10 @@
 # Perfetto tracing probes, has tracefs access.
 type traced_probes_exec, system_file_type, exec_type, file_type;
+type traced_probes_tmpfs, file_type;
 
 # Allow init to exec the daemon.
 init_daemon_domain(traced_probes)
+tmpfs_domain(traced_probes)
 
 # Write trace data to the Perfetto traced damon. This requires connecting to its
 # producer socket and obtaining a (per-process) tmpfs fd.

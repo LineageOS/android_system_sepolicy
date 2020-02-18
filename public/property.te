@@ -64,6 +64,7 @@ compatible_property_only(`
 # Properties used by binder caches
 system_restricted_prop(binder_cache_bluetooth_server_prop)
 system_restricted_prop(binder_cache_system_server_prop)
+system_restricted_prop(bq_config_prop)
 system_restricted_prop(linker_prop)
 system_restricted_prop(module_sdkextensions_prop)
 system_restricted_prop(nnapi_ext_deny_product_prop)

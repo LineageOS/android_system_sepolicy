@@ -186,6 +186,8 @@ type vendor_task_profiles_file, vendor_file_type, file_type;
 type art_apex_dir, system_file_type, file_type;
 # /linkerconfig(/.*)?
 type linkerconfig_file, file_type;
+# Control files under /data/incremental
+type incremental_control_file, file_type, data_file_type, core_data_file_type;
 
 # Default type for directories search for
 # HAL implementations
@@ -228,6 +230,8 @@ type password_slot_metadata_file, file_type;
 type apex_metadata_file, file_type;
 # libsnapshot files within /metadata
 type ota_metadata_file, file_type;
+# property files within /metadata/bootstat
+type metadata_bootstat_file, file_type;
 
 # Type for /dev/cpu_variant:.*.
 type dev_cpu_variant, file_type;
