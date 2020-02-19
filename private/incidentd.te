@@ -131,14 +131,21 @@ allow incidentd shell_exec:file rx_file_perms;
 # For running am, incident-helper-cmd and similar framework commands.
 # Run /system/bin/app_process.
 allow incidentd zygote_exec:file { rx_file_perms };
+# Access the runtime feature flag properties.
+get_prop(incidentd, device_config_runtime_native_prop)
+get_prop(incidentd, device_config_runtime_native_boot_prop)
+# ART locks profile files.
+allow incidentd system_file:file lock;
+# Incidentd should never exec from the memory (e.g. JIT cache). These denials are expected.
+dontaudit incidentd dalvikcache_data_file:dir r_dir_perms;
+dontaudit incidentd tmpfs:file rwx_file_perms;
 
 # logd access - work to be done is a PII safe log (possibly an event log?)
 userdebug_or_eng(`read_logd(incidentd)')
 # TODO control_logd(incidentd)
 
 # Access /data/misc/logd
-allow incidentd misc_logd_file:dir r_dir_perms;
-allow incidentd misc_logd_file:file r_file_perms;
+r_dir_file(incidentd, misc_logd_file)
 
 # Allow incidentd to find these standard groups of services.
 # Others can be whitelisted individually.
