@@ -61,9 +61,6 @@ allow domain vendor_task_profiles_file:file r_file_perms;
 # if memfd support can be used if device supports it
 get_prop(domain, use_memfd_prop);
 
-# Allow to read properties for linker
-get_prop(domain, linker_prop);
-
 # Read access to sdkextensions props
 get_prop(domain, module_sdkextensions_prop)
 
