@@ -27,8 +27,8 @@ neverallow { domain -bpfloader } fs_bpf:file create;
 neverallow domain fs_bpf:file { rename unlink };
 
 neverallow { domain -bpfloader } *:bpf { map_create prog_load };
-neverallow { domain -bpfloader -netd -netutils_wrapper -system_server } *:bpf prog_run;
-neverallow { domain -bpfloader -netd -system_server } *:bpf { map_read map_write };
+neverallow { domain -bpfloader -gpuservice -netd -netutils_wrapper -system_server } *:bpf prog_run;
+neverallow { domain -bpfloader -gpuservice -netd -system_server } *:bpf { map_read map_write };
 
 neverallow { domain -bpfloader -init } bpfloader_exec:file { execute execute_no_trans };
 
