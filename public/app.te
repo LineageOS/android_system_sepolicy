@@ -293,6 +293,8 @@ allow { appdomain -isolated_app -ephemeral_app } keystore:keystore_key { get_sta
 
 use_keystore({ appdomain -isolated_app -ephemeral_app })
 
+use_credstore({ appdomain -isolated_app -ephemeral_app })
+
 allow appdomain console_device:chr_file { read write };
 
 # only allow unprivileged socket ioctl commands
@@ -482,6 +484,7 @@ neverallow { appdomain -shell }
 neverallow { appdomain -bluetooth }
     bluetooth_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { domain -credstore -init } credstore_data_file:dir_file_class_set *;
 neverallow appdomain
     keystore_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };

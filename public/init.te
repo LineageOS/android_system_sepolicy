@@ -189,6 +189,7 @@ allow init {
   -app_data_file
   -exec_type
   -iorapd_data_file
+  -credstore_data_file
   -keystore_data_file
   -misc_logd_file
   -nativetest_data_file
@@ -206,6 +207,7 @@ allow init {
   -exec_type
   -gsi_data_file
   -iorapd_data_file
+  -credstore_data_file
   -keystore_data_file
   -misc_logd_file
   -nativetest_data_file
@@ -224,6 +226,7 @@ allow init {
   -exec_type
   -gsi_data_file
   -iorapd_data_file
+  -credstore_data_file
   -keystore_data_file
   -misc_logd_file
   -nativetest_data_file
@@ -242,6 +245,7 @@ allow init {
   -exec_type
   -gsi_data_file
   -iorapd_data_file
+  -credstore_data_file
   -keystore_data_file
   -misc_logd_file
   -nativetest_data_file
@@ -440,6 +444,11 @@ allow init misc_logd_file:file { open create getattr setattr write };
 # Support "adb shell stop"
 allow init self:global_capability_class_set kill;
 allow init domain:process { getpgid sigkill signal };
+
+# Init creates credstore's directory on boot, and walks through
+# the directory as part of a recursive restorecon.
+allow init credstore_data_file:dir { open create read getattr setattr search };
+allow init credstore_data_file:file { getattr };
 
 # Init creates keystore's directory on boot, and walks through
 # the directory as part of a recursive restorecon.
