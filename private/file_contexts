@@ -199,6 +199,7 @@
 /system/bin/blank_screen	u:object_r:blank_screen_exec:s0
 /system/bin/boringssl_self_test(32|64) u:object_r:boringssl_self_test_exec:s0
 /system/bin/charger		u:object_r:charger_exec:s0
+/system/bin/canhalconfigurator  u:object_r:canhalconfigurator_exec:s0
 /system/bin/e2fsdroid		u:object_r:e2fs_exec:s0
 /system/bin/mke2fs		u:object_r:e2fs_exec:s0
 /system/bin/e2fsck	--	u:object_r:fsck_exec:s0
