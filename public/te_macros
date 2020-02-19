@@ -599,6 +599,18 @@ define(`use_keystore', `
   binder_call(keystore, $1)
 ')
 
+#####################################
+# use_credstore(domain)
+# Ability to use credstore.
+define(`use_credstore', `
+  allow credstore $1:dir search;
+  allow credstore $1:file { read open };
+  allow credstore $1:process getattr;
+  allow $1 credstore_service:service_manager find;
+  binder_call($1, credstore)
+  binder_call(credstore, $1)
+')
+
 ###########################################
 # use_drmservice(domain)
 # Ability to use DrmService which requires
