@@ -65,7 +65,6 @@ compatible_property_only(`
 system_restricted_prop(binder_cache_bluetooth_server_prop)
 system_restricted_prop(binder_cache_system_server_prop)
 system_restricted_prop(bq_config_prop)
-system_restricted_prop(linker_prop)
 system_restricted_prop(module_sdkextensions_prop)
 system_restricted_prop(nnapi_ext_deny_product_prop)
 system_restricted_prop(restorecon_prop)
@@ -364,13 +363,6 @@ dontaudit domain {
   ctl_mdnsd_prop
   ctl_rildaemon_prop
 }:property_service set;
-
-# Do now allow to modify linker properties except shell and init
-neverallow {
-  domain
-  -init
-  userdebug_or_eng(`-shell')
-} linker_prop:property_service set;
 
 neverallow {
   domain
