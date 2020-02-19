@@ -20,7 +20,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider@2\.[0-9]+-external-service          u:object_r:hal_camera_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.configstore@1\.[0-9]+-service    u:object_r:hal_configstore_default_exec:s0
 /(vendor|sustem/vendor)/bin/hw/android\.hardware\.confirmationui@1\.0-service u:object_r:hal_confirmationui_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.contexthub@1\.0-service     u:object_r:hal_contexthub_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.contexthub@1\.[0-9]+-service     u:object_r:hal_contexthub_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.0-service            u:object_r:hal_drm_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.0-service-lazy       u:object_r:hal_drm_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.cas@1\.[0-2]-service            u:object_r:hal_cas_default_exec:s0
