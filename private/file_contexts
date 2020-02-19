@@ -252,6 +252,7 @@
 /system/bin/otapreopt_chroot   u:object_r:otapreopt_chroot_exec:s0
 /system/bin/otapreopt_slot   u:object_r:otapreopt_slot_exec:s0
 /system/bin/art_apex_boot_integrity   u:object_r:art_apex_boot_integrity_exec:s0
+/system/bin/credstore	u:object_r:credstore_exec:s0
 /system/bin/keystore	u:object_r:keystore_exec:s0
 /system/bin/fingerprintd u:object_r:fingerprintd_exec:s0
 /system/bin/gatekeeperd u:object_r:gatekeeperd_exec:s0
@@ -535,6 +536,7 @@
 /data/misc/incidents(/.*)?	    u:object_r:incident_data_file:s0
 /data/misc/installd(/.*)?		u:object_r:install_data_file:s0
 /data/misc/keychain(/.*)?       u:object_r:keychain_data_file:s0
+/data/misc/credstore(/.*)?       u:object_r:credstore_data_file:s0
 /data/misc/keystore(/.*)?       u:object_r:keystore_data_file:s0
 /data/misc/logd(/.*)?           u:object_r:misc_logd_file:s0
 /data/misc/media(/.*)?          u:object_r:media_data_file:s0

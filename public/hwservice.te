@@ -28,7 +28,6 @@ type hal_gnss_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_graphics_composer_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_health_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_health_storage_hwservice, hwservice_manager_type, protected_hwservice;
-type hal_identity_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_input_classifier_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_ir_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_keymaster_hwservice, hwservice_manager_type, protected_hwservice;

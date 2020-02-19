@@ -27,6 +27,10 @@
     bq_config_prop
     charger_prop
     cold_boot_done_prop
+    credstore
+    credstore_data_file
+    credstore_exec
+    credstore_service
     platform_compat_service
     ctl_apexd_prop
     dataloader_manager_service
@@ -39,7 +43,7 @@
     gmscore_app
     hal_can_bus_hwservice
     hal_can_controller_hwservice
-    hal_identity_hwservice
+    hal_identity_service
     hal_light_service
     hal_power_service
     hal_rebootescrow_service
