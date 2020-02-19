@@ -186,7 +186,6 @@ neverallow all_untrusted_apps anr_data_file:dir ~search;
 neverallow all_untrusted_apps {
   proc
   proc_asound
-  proc_filesystems
   proc_kmsg
   proc_loadavg
   proc_mounts
@@ -199,6 +198,10 @@ neverallow all_untrusted_apps {
   proc_vmallocinfo
   proc_vmstat
 }:file { no_rw_file_perms no_x_file_perms };
+
+# /proc/filesystems is accessible to mediaprovider_app only since it handles
+# external storage
+neverallow { all_untrusted_apps - mediaprovider_app } proc_filesystems:file { no_rw_file_perms no_x_file_perms };
 
 # Avoid all access to kernel configuration
 neverallow all_untrusted_apps config_gz:file { no_rw_file_perms no_x_file_perms };
