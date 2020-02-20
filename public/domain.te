@@ -105,6 +105,8 @@ get_prop(domain, exported_system_prop)
 get_prop(domain, exported_vold_prop)
 get_prop(domain, exported2_default_prop)
 get_prop(domain, logd_prop)
+get_prop(domain, socket_hook_prop)
+get_prop(domain, vendor_socket_hook_prop)
 get_prop(domain, vndk_prop)
 
 # Binder cache properties are world-readable
