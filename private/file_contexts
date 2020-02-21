@@ -299,6 +299,7 @@
 /system/bin/viewcompiler     u:object_r:viewcompiler_exec:s0
 /system/bin/profman(d)?     u:object_r:profman_exec:s0
 /system/bin/iorapd          u:object_r:iorapd_exec:s0
+/system/bin/iorap\.inode2filename u:object_r:iorap_inode2filename_exec:s0
 /system/bin/iorap\.prefetcherd u:object_r:iorap_prefetcherd_exec:s0
 /system/bin/sgdisk      u:object_r:sgdisk_exec:s0
 /system/bin/blkid       u:object_r:blkid_exec:s0
