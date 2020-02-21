@@ -123,6 +123,8 @@ ro.crypto.scrypt_params u:object_r:exported2_vold_prop:s0 exact string
 ro.crypto.set_dun u:object_r:exported2_vold_prop:s0 exact bool
 ro.crypto.volume.contents_mode u:object_r:exported2_vold_prop:s0 exact string
 ro.crypto.volume.filenames_mode u:object_r:exported2_vold_prop:s0 exact string
+ro.crypto.volume.metadata.encryption u:object_r:exported2_vold_prop:s0 exact string
+ro.crypto.volume.metadata.method u:object_r:exported2_vold_prop:s0 exact string
 ro.crypto.volume.options u:object_r:exported2_vold_prop:s0 exact string
 ro.dalvik.vm.native.bridge u:object_r:exported_dalvik_prop:s0 exact string
 ro.enable_boot_charger_mode u:object_r:exported3_default_prop:s0 exact bool
@@ -219,6 +221,7 @@ init.svc.zygote u:object_r:exported2_default_prop:s0 exact string
 libc.debug.malloc.options u:object_r:exported2_default_prop:s0 exact string
 libc.debug.malloc.program u:object_r:exported2_default_prop:s0 exact string
 libc.debug.hooks.enable u:object_r:exported2_default_prop:s0 exact string
+net.redirect_socket_calls.hooked u:object_r:socket_hook_prop:s0 exact bool
 persist.sys.locale u:object_r:exported_system_prop:s0 exact string
 persist.sys.timezone u:object_r:exported_system_prop:s0 exact string
 persist.sys.test_harness u:object_r:test_harness_prop:s0 exact bool
@@ -276,6 +279,7 @@ ro.product.name u:object_r:exported2_default_prop:s0 exact string
 ro.property_service.version u:object_r:exported2_default_prop:s0 exact int
 ro.revision u:object_r:exported2_default_prop:s0 exact string
 ro.secure u:object_r:exported_secure_prop:s0 exact int
+ro.vendor.redirect_socket_calls u:object_r:vendor_socket_hook_prop:s0 exact bool
 service.bootanim.exit u:object_r:exported_system_prop:s0 exact int
 sys.boot_from_charger_mode u:object_r:exported_system_prop:s0 exact int
 sys.init.userspace_reboot.in_progress u:object_r:userspace_reboot_exported_prop:s0 exact bool

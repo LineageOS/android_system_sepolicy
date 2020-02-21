@@ -27,6 +27,10 @@
     bq_config_prop
     charger_prop
     cold_boot_done_prop
+    credstore
+    credstore_data_file
+    credstore_exec
+    credstore_service
     platform_compat_service
     ctl_apexd_prop
     dataloader_manager_service
@@ -39,7 +43,7 @@
     gmscore_app
     hal_can_bus_hwservice
     hal_can_controller_hwservice
-    hal_identity_hwservice
+    hal_identity_service
     hal_light_service
     hal_power_service
     hal_rebootescrow_service
@@ -72,6 +76,7 @@
     service_manager_service
     simpleperf
     snapshotctl_log_data_file
+    socket_hook_prop
     soundtrigger_middleware_service
     sysfs_dm_verity
     system_config_service
@@ -94,4 +99,5 @@
     vendor_incremental_module
     vendor_install_recovery
     vendor_install_recovery_exec
+    vendor_socket_hook_prop
     virtual_ab_prop))

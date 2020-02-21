@@ -105,6 +105,8 @@ get_prop(domain, exported_system_prop)
 get_prop(domain, exported_vold_prop)
 get_prop(domain, exported2_default_prop)
 get_prop(domain, logd_prop)
+get_prop(domain, socket_hook_prop)
+get_prop(domain, vendor_socket_hook_prop)
 get_prop(domain, vndk_prop)
 
 # Binder cache properties are world-readable
@@ -654,6 +656,7 @@ full_treble_only(`
     -cameraserver_service
     -drmserver_service
     -hal_light_service # TODO(b/148154485) remove once all violators are gone
+    -credstore_service
     -keystore_service
     -mediadrmserver_service
     -mediaextractor_service

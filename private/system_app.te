@@ -84,6 +84,9 @@ binder_call(system_app, incidentd)
 # Allow system apps to interact with gpuservice
 binder_call(system_app, gpuservice)
 
+# Allow system app to interact with Dumpstate HAL
+hal_client_domain(system_app, hal_dumpstate)
+
 allow system_app servicemanager:service_manager list;
 # TODO: scope this down? Too broad?
 allow system_app {
