@@ -945,6 +945,7 @@ full_treble_only(`
         -system_linker_exec
         -crash_dump_exec
         -iorap_prefetcherd_exec
+        -iorap_inode2filename_exec
         -netutils_wrapper_exec
         userdebug_or_eng(`-tcpdump_exec')
     }:file { entrypoint execute execute_no_trans };
@@ -987,6 +988,7 @@ full_treble_only(`
     # TODO(b/37168747): clean up fwk access to /vendor
     -crash_dump
     -init # starts vendor executables
+    -iorap_inode2filename
     -iorap_prefetcherd
     -kernel # loads /vendor/firmware
     userdebug_or_eng(`-heapprofd')
@@ -1027,6 +1029,7 @@ full_treble_only(`
     system_file_type
     -crash_dump_exec
     -file_contexts_file
+    -iorap_inode2filename_exec
     -netutils_wrapper_exec
     -property_contexts_file
     -system_event_log_tags_file
@@ -1157,6 +1160,7 @@ neverallow {
   -appdomain # finer-grained rules for appdomain are listed below
   -system_server #populate com.android.providers.settings/databases/settings.db.
   -installd # creation of app sandbox
+  -iorap_inode2filename
   -traced_probes # resolve inodes for i/o tracing.
                  # only needs open and read, the rest is neverallow in
                  # traced_probes.te.
@@ -1319,6 +1323,7 @@ full_treble_only(`
     -crash_dump
     -heapprofd
     -init
+    -iorap_inode2filename
     -iorap_prefetcherd
     -kernel
     -traced_perf

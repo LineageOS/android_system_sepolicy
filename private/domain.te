@@ -162,6 +162,7 @@ neverallow {
   -app_zygote
   -dexoptanalyzer
   -installd
+  -iorap_inode2filename
   -iorap_prefetcherd
   -profman
   -rs # spawned by appdomain, so carryover the exception above
@@ -204,8 +205,8 @@ neverallow {
 # that these files cannot be accessed by other domains to ensure that the files
 # do not change between system_server staging the files and apexd processing
 # the files.
-neverallow { domain -init -system_server -apexd -installd} staging_data_file:dir *;
-neverallow { domain -init -system_app -system_server -apexd -kernel -installd } staging_data_file:file *;
+neverallow { domain -init -system_server -apexd -installd -iorap_inode2filename } staging_data_file:dir *;
+neverallow { domain -init -system_app -system_server -apexd -kernel -installd -iorap_inode2filename } staging_data_file:file *;
 neverallow { domain -init -system_server -installd} staging_data_file:dir no_w_dir_perms;
 # apexd needs the link and unlink permissions, so list every `no_w_file_perms`
 # except for `link` and `unlink`.
@@ -315,6 +316,7 @@ neverallow ~dac_override_allowed self:global_capability_class_set dac_override;
 # this list should be a superset of the one above.
 neverallow ~{
   dac_override_allowed
+  iorap_inode2filename
   iorap_prefetcherd
   traced_perf
   traced_probes
