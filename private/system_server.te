@@ -853,8 +853,11 @@ allow system_server adbd:unix_stream_socket connectto;
 allow system_server adbd:fd use;
 allow system_server adbd:unix_stream_socket { getattr getopt ioctl read write shutdown };
 
-# Read persist.adb.wifi. properties
-get_prop(system_server, shell_prop)
+# Read service.adb.tls.port, persist.adb.wifi. properties
+get_prop(system_server, adbd_prop)
+
+# Set persist.adb.tls_server.enable property
+set_prop(system_server, system_adbd_prop)
 
 # Allow invoking tools like "timeout"
 allow system_server toolbox_exec:file rx_file_perms;
