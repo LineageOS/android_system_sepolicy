@@ -182,6 +182,7 @@ type timezone_service, system_server_service, service_manager_type;
 type timezonedetector_service, system_server_service, service_manager_type;
 type trust_service, app_api_service, system_server_service, service_manager_type;
 type tv_input_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type tv_tuner_resource_mgr_service, system_server_service, service_manager_type;
 type uimode_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type updatelock_service, system_api_service, system_server_service, service_manager_type;
 type uri_grants_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;

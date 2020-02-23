@@ -222,6 +222,7 @@ timezone                                  u:object_r:timezone_service:s0
 thermalservice                            u:object_r:thermal_service:s0
 trust                                     u:object_r:trust_service:s0
 tv_input                                  u:object_r:tv_input_service:s0
+tv_tuner_resource_mgr                     u:object_r:tv_tuner_resource_mgr_service:s0
 uce                                       u:object_r:uce_service:s0
 uimode                                    u:object_r:uimode_service:s0
 updatelock                                u:object_r:updatelock_service:s0
