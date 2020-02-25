@@ -317,6 +317,7 @@ ro.board.platform u:object_r:exported_default_prop:s0 exact string
 ro.boot.fake_battery u:object_r:exported_default_prop:s0 exact int
 ro.boot.hardware.revision u:object_r:exported_default_prop:s0 exact string
 ro.boot.product.hardware.sku u:object_r:exported_default_prop:s0 exact string
+ro.boot.product.vendor.sku u:object_r:exported_default_prop:s0 exact string
 ro.boot.slot_suffix u:object_r:exported_default_prop:s0 exact string
 ro.bootimage.build.date u:object_r:exported_default_prop:s0 exact string
 ro.bootimage.build.date.utc u:object_r:exported_default_prop:s0 exact int
