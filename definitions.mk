@@ -12,6 +12,7 @@ $(hide) m4 --fatal-warnings $(PRIVATE_ADDITIONAL_M4DEFS) \
 	-D target_full_treble=$(PRIVATE_SEPOLICY_SPLIT) \
 	-D target_compatible_property=$(PRIVATE_COMPATIBLE_PROPERTY) \
 	-D target_exclude_build_test=$(PRIVATE_EXCLUDE_BUILD_TEST) \
+	-D target_has_legacy_camera_hal1=$(TARGET_HAS_LEGACY_CAMERA_HAL1) \
 	$(PRIVATE_TGT_RECOVERY) \
 	-s $^ > $@
 endef
