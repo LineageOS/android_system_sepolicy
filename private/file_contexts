@@ -212,6 +212,7 @@
 /system/bin/fsck_msdos	--	u:object_r:fsck_exec:s0
 /system/bin/tcpdump	--	u:object_r:tcpdump_exec:s0
 /system/bin/tune2fs	--	u:object_r:fsck_exec:s0
+/system/bin/resize2fs	--	u:object_r:fsck_exec:s0
 /system/bin/toolbox	--	u:object_r:toolbox_exec:s0
 /system/bin/toybox	--	u:object_r:toolbox_exec:s0
 /system/bin/ld\.mc              u:object_r:rs_exec:s0
