@@ -1058,7 +1058,7 @@ neverallow system_server { dev_type -frp_block_device }:blk_file no_rw_file_perm
 ifelse(target_requires_insecure_execmem_for_swiftshader, `true',
   `allow system_server self:process execmem;',
   `neverallow system_server self:process execmem;')
-neverallow system_server ashmem_device:chr_file execute;
+neverallow system_server { ashmem_device ashmem_libcutils_device }:chr_file execute;
 
 # TODO: deal with tmpfs_domain pub/priv split properly
 neverallow system_server system_server_tmpfs:file execute;
