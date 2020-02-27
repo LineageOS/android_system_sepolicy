@@ -38,3 +38,5 @@ allowxperm mediaprovider_app media_rw_data_file:{ dir file } ioctl {
   FS_IOC_GETFLAGS
   FS_IOC_SETFLAGS
 };
+
+allow mediaprovider_app proc_filesystems:file r_file_perms;

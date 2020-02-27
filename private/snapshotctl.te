@@ -35,6 +35,9 @@ allow snapshotctl self:global_capability_class_set sys_admin;
 hwbinder_use(snapshotctl)
 hal_client_domain(snapshotctl, hal_bootctl)
 
+# Allow snapshotctl to write to statsd socket.
+unix_socket_send(snapshotctl, statsdw, statsd)
+
 # Logging
 userdebug_or_eng(`
   allow snapshotctl snapshotctl_log_data_file:dir rw_dir_perms;

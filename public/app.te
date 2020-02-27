@@ -11,7 +11,7 @@ type appdomain_tmpfs, file_type;
 # WebView and other application-specific JIT compilers
 allow appdomain self:process execmem;
 
-allow appdomain ashmem_device:chr_file execute;
+allow appdomain { ashmem_device ashmem_libcutils_device }:chr_file execute;
 
 # Receive and use open file descriptors inherited from zygote.
 allow appdomain zygote:fd use;
@@ -293,6 +293,8 @@ allow { appdomain -isolated_app -ephemeral_app } keystore:keystore_key { get_sta
 
 use_keystore({ appdomain -isolated_app -ephemeral_app })
 
+use_credstore({ appdomain -isolated_app -ephemeral_app })
+
 allow appdomain console_device:chr_file { read write };
 
 # only allow unprivileged socket ioctl commands
@@ -464,10 +466,10 @@ neverallow appdomain system_data_file:dir_file_class_set
 # Write to various other parts of /data.
 neverallow appdomain drm_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -platform_app }
+neverallow { appdomain -platform_app -system_app }
     apk_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -platform_app }
+neverallow { appdomain -platform_app -system_app }
     apk_tmp_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 neverallow { appdomain -platform_app }
@@ -482,6 +484,7 @@ neverallow { appdomain -shell }
 neverallow { appdomain -bluetooth }
     bluetooth_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { domain -credstore -init } credstore_data_file:dir_file_class_set *;
 neverallow appdomain
     keystore_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };

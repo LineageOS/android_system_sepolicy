@@ -1,3 +1,4 @@
+android.hardware.identity.IIdentityCredentialStore/default           u:object_r:hal_identity_service:s0
 android.hardware.light.ILights/default                               u:object_r:hal_light_service:s0
 android.hardware.power.IPower/default                                u:object_r:hal_power_service:s0
 android.hardware.rebootescrow.IRebootEscrow/default                  u:object_r:hal_rebootescrow_service:s0
@@ -12,6 +13,7 @@ aidl_lazy_test_1                          u:object_r:aidl_lazy_test_service:s0
 aidl_lazy_test_2                          u:object_r:aidl_lazy_test_service:s0
 alarm                                     u:object_r:alarm_service:s0
 android.os.UpdateEngineService            u:object_r:update_engine_service:s0
+android.security.identity                 u:object_r:credstore_service:s0
 android.security.keystore                 u:object_r:keystore_service:s0
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
 app_binding                               u:object_r:app_binding_service:s0
@@ -220,6 +222,7 @@ timezone                                  u:object_r:timezone_service:s0
 thermalservice                            u:object_r:thermal_service:s0
 trust                                     u:object_r:trust_service:s0
 tv_input                                  u:object_r:tv_input_service:s0
+tv_tuner_resource_mgr                     u:object_r:tv_tuner_resource_mgr_service:s0
 uce                                       u:object_r:uce_service:s0
 uimode                                    u:object_r:uimode_service:s0
 updatelock                                u:object_r:updatelock_service:s0
@@ -239,7 +242,7 @@ webviewupdate                             u:object_r:webviewupdate_service:s0
 wifip2p                                   u:object_r:wifip2p_service:s0
 wifiscanner                               u:object_r:wifiscanner_service:s0
 wifi                                      u:object_r:wifi_service:s0
-wificond                                  u:object_r:wificond_service:s0
+wifinl80211                               u:object_r:wifinl80211_service:s0
 wifiaware                                 u:object_r:wifiaware_service:s0
 wifirtt                                   u:object_r:rttmanager_service:s0
 window                                    u:object_r:window_service:s0

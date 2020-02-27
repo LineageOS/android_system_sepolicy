@@ -1,0 +1,6 @@
+typeattribute credstore coredomain;
+
+init_daemon_domain(credstore)
+
+# talk to Identity Credential
+hal_client_domain(credstore, hal_identity)

@@ -84,6 +84,7 @@ allow dumpstate {
   hal_graphics_allocator_server
   hal_graphics_composer_server
   hal_health_server
+  hal_neuralnetworks_server
   hal_omx_server
   hal_power_server
   hal_power_stats_server
@@ -134,9 +135,10 @@ r_dir_file(dumpstate, cgroup)
 binder_call(dumpstate, binderservicedomain)
 binder_call(dumpstate, { appdomain netd wificond })
 
-hal_client_domain(dumpstate, hal_dumpstate)
-hal_client_domain(dumpstate, hal_wifi)
-hal_client_domain(dumpstate, hal_graphics_allocator)
+dump_hal(hal_dumpstate)
+dump_hal(hal_wifi)
+dump_hal(hal_graphics_allocator)
+dump_hal(hal_neuralnetworks)
 # Vibrate the device after we are done collecting the bugreport
 hal_client_domain(dumpstate, hal_vibrator)
 
@@ -217,6 +219,10 @@ userdebug_or_eng(`
 # Access /data/misc/logd
 allow dumpstate misc_logd_file:dir r_dir_perms;
 allow dumpstate misc_logd_file:file r_file_perms;
+
+# Access /data/misc/prereboot
+allow dumpstate prereboot_data_file:dir r_dir_perms;
+allow dumpstate prereboot_data_file:file r_file_perms;
 
 allow dumpstate app_fuse_file:dir r_dir_perms;
 allow dumpstate overlayfs_file:dir r_dir_perms;
@@ -317,12 +323,21 @@ binder_call(dumpstate, bufferhubd);
 # Allow dumpstate to talk to mediaswcodec over binder
 binder_call(dumpstate, mediaswcodec);
 
+# Allow dumpstate to talk to these stable AIDL services over binder
+binder_call(dumpstate, hal_rebootescrow_server)
+allow hal_rebootescrow_server dumpstate:fifo_file write;
+allow hal_rebootescrow_server dumpstate:fd use;
+
 # Allow dumpstate to kill vendor dumpstate service by init
 set_prop(dumpstate, ctl_dumpstate_prop)
 
 #Access /data/misc/snapshotctl_log
 allow dumpstate snapshotctl_log_data_file:dir r_dir_perms;
 allow dumpstate snapshotctl_log_data_file:file r_file_perms;
+
+#Allow access to /dev/binderfs/binder_logs
+allow dumpstate binderfs_logs:dir r_dir_perms;
+allow dumpstate binderfs_logs:file r_file_perms;
 
 ###
 ### neverallow rules

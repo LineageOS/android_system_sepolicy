@@ -52,6 +52,11 @@ allowxperm vold data_file_type:dir ioctl {
   FS_IOC_REMOVE_ENCRYPTION_KEY
 };
 
+# Allow to load incremental file system driver
+allow vold self:capability sys_module;
+allow vold vendor_incremental_module:file r_file_perms;
+allow vold vendor_incremental_module:system module_load;
+
 # Only vold and init should ever set file-based encryption policies.
 neverallowxperm {
   domain
@@ -96,9 +101,12 @@ allow vold media_rw_data_file:file create_file_perms;
 allow vold media_rw_data_file:dir mounton;
 
 # Allow setting extended attributes (for project quota IDs) on files and dirs
+# and to enable project ID inheritance through FS_IOC_SETFLAGS
 allowxperm vold media_rw_data_file:{ dir file } ioctl {
   FS_IOC_FSGETXATTR
   FS_IOC_FSSETXATTR
+  FS_IOC_GETFLAGS
+  FS_IOC_SETFLAGS
 };
 
 # Allow mounting of storage devices
@@ -117,6 +125,15 @@ allow vold mnt_pass_through_file:lnk_file create_file_perms;
 allow vold mnt_expand_file:dir { create_dir_perms mounton };
 allow vold apk_data_file:dir { create getattr setattr };
 allow vold shell_data_file:dir { create getattr setattr };
+
+# Allow to mount incremental file system on /data/incremental and create files
+allow vold apk_data_file:dir { mounton rw_dir_perms };
+# Allow to create and write files in /data/incremental
+allow vold apk_data_file:file rw_file_perms;
+# Allow to bind-mount incremental file system on /data/app/vmdl*.tmp and read files
+allow vold apk_tmp_file:dir { mounton r_dir_perms };
+# Allow to read incremental control file and call selinux restorecon on it
+allow vold incremental_control_file:file { r_file_perms relabelto };
 
 allow vold tmpfs:filesystem { mount unmount };
 allow vold tmpfs:dir create_dir_perms;

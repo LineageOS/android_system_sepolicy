@@ -24,6 +24,13 @@ allow system_server appdomain_tmpfs:file { getattr map read write };
 # For Incremental Service to check if incfs is available
 allow system_server proc_filesystems:file r_file_perms;
 
+# To create files on Incremental File System
+allow system_server incremental_control_file:file { ioctl r_file_perms };
+allowxperm system_server incremental_control_file:file ioctl INCFS_IOCTL_CREATE_FILE;
+
+# To get signature of an APK installed on Incremental File System
+allowxperm system_server apk_data_file:file ioctl INCFS_IOCTL_READ_SIGNATURE;
+
 # For art.
 allow system_server dalvikcache_data_file:dir r_dir_perms;
 allow system_server dalvikcache_data_file:file r_file_perms;
@@ -440,6 +447,10 @@ allow system_server incidentd:fifo_file read;
 # with no DAC access to it, for dropbox to read.
 allow system_server incident_data_file:file read;
 
+# Manage /data/misc/prereboot.
+allow system_server prereboot_data_file:dir rw_dir_perms;
+allow system_server prereboot_data_file:file create_file_perms;
+
 # Allow dropbox to read /data/misc/perfetto-traces. Only the fd is sent over
 # binder.
 allow system_server perfetto_traces_data_file:file read;
@@ -603,6 +614,7 @@ set_prop(system_server, overlay_prop)
 set_prop(system_server, exported_overlay_prop)
 set_prop(system_server, pm_prop)
 set_prop(system_server, exported_pm_prop)
+set_prop(system_server, socket_hook_prop)
 userdebug_or_eng(`set_prop(system_server, wifi_log_prop)')
 
 # ctl interface
@@ -760,7 +772,7 @@ allow system_server storaged_service:service_manager find;
 allow system_server surfaceflinger_service:service_manager find;
 allow system_server update_engine_service:service_manager find;
 allow system_server vold_service:service_manager find;
-allow system_server wificond_service:service_manager find;
+allow system_server wifinl80211_service:service_manager find;
 
 add_service(system_server, batteryproperties_service)
 
@@ -841,8 +853,11 @@ allow system_server adbd:unix_stream_socket connectto;
 allow system_server adbd:fd use;
 allow system_server adbd:unix_stream_socket { getattr getopt ioctl read write shutdown };
 
-# Read persist.adb.wifi. properties
-get_prop(system_server, shell_prop)
+# Read service.adb.tls.port, persist.adb.wifi. properties
+get_prop(system_server, adbd_prop)
+
+# Set persist.adb.tls_server.enable property
+set_prop(system_server, system_adbd_prop)
 
 # Allow invoking tools like "timeout"
 allow system_server toolbox_exec:file rx_file_perms;
@@ -1042,7 +1057,7 @@ neverallow system_server { dev_type -frp_block_device }:blk_file no_rw_file_perm
 ifelse(target_requires_insecure_execmem_for_swiftshader, `true',
   `allow system_server self:process execmem;',
   `neverallow system_server self:process execmem;')
-neverallow system_server ashmem_device:chr_file execute;
+neverallow system_server { ashmem_device ashmem_libcutils_device }:chr_file execute;
 
 # TODO: deal with tmpfs_domain pub/priv split properly
 neverallow system_server system_server_tmpfs:file execute;
@@ -1084,12 +1099,17 @@ allow system_server vendor_apex_file:file r_file_perms;
 allow system_server apex_module_data_file:dir { getattr search };
 allow system_server apex_permission_data_file:dir create_dir_perms;
 allow system_server apex_permission_data_file:file create_file_perms;
+allow system_server apex_wifi_data_file:dir create_dir_perms;
+allow system_server apex_wifi_data_file:file create_file_perms;
 
 # Allow PasswordSlotManager rw access to /metadata/password_slots, so GSIs and the host image can
 # communicate which slots are available for use.
 allow system_server metadata_file:dir search;
 allow system_server password_slot_metadata_file:dir rw_dir_perms;
 allow system_server password_slot_metadata_file:file create_file_perms;
+
+# Allow init to set sysprop used to compute stats about userspace reboot.
+set_prop(system_server, userspace_reboot_log_prop)
 
 # JVMTI agent settings are only readable from the system server.
 neverallow {
@@ -1134,3 +1154,6 @@ neverallow { domain -system_server -init }
 # system_server cannot use this access to read perf event data like process stacks.
 allow system_server self:perf_event { open write cpu kernel };
 neverallow system_server self:perf_event ~{ open write cpu kernel };
+
+# Do not allow any domain other than init or system server to set the property
+neverallow { domain -init -system_server } socket_hook_prop:property_service set;

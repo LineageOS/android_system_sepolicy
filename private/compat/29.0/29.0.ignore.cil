@@ -8,24 +8,32 @@
     aidl_lazy_test_server
     aidl_lazy_test_server_exec
     aidl_lazy_test_service
+    adbd_prop
     apex_module_data_file
     apex_permission_data_file
     apex_rollback_data_file
+    apex_wifi_data_file
     app_integrity_service
     app_search_service
     auth_service
-    automotive_display
-    automotive_display_exec
+    automotive_display_service
+    automotive_display_service_exec
     ashmem_libcutils_device
     blob_store_service
     binder_cache_bluetooth_server_prop
     binder_cache_system_server_prop
+    binder_cache_telephony_server_prop
     binderfs
     binderfs_logs
     binderfs_logs_proc
     boringssl_self_test
+    bq_config_prop
     charger_prop
     cold_boot_done_prop
+    credstore
+    credstore_data_file
+    credstore_exec
+    credstore_service
     platform_compat_service
     ctl_apexd_prop
     dataloader_manager_service
@@ -38,16 +46,20 @@
     gmscore_app
     hal_can_bus_hwservice
     hal_can_controller_hwservice
-    hal_identity_hwservice
+    hal_identity_service
     hal_light_service
     hal_power_service
     hal_rebootescrow_service
     hal_tv_tuner_hwservice
     hal_vibrator_service
-    incfs
+    incremental_control_file
     incremental_service
     init_perf_lsm_hooks_prop
     init_svc_debug_prop
+    iorap_inode2filename
+    iorap_inode2filename_data_file
+    iorap_inode2filename_exec
+    iorap_inode2filename_tmpfs
     iorap_prefetcherd
     iorap_prefetcherd_data_file
     iorap_prefetcherd_exec
@@ -58,20 +70,23 @@
     mediatranscoding_tmpfs
     mirror_data_file
     light_service
-    linker_prop
     linkerconfig_file
+    metadata_bootstat_file
     mnt_pass_through_file
     mock_ota_prop
     module_sdkextensions_prop
     ota_metadata_file
     ota_prop
+    prereboot_data_file
     art_apex_dir
     rebootescrow_hal_prop
     service_manager_service
     simpleperf
     snapshotctl_log_data_file
+    socket_hook_prop
     soundtrigger_middleware_service
     sysfs_dm_verity
+    system_adbd_prop
     system_config_service
     system_group_file
     system_jvmti_agent_prop
@@ -79,16 +94,20 @@
     system_unsolzygote_socket
     tethering_service
     traced_perf
+    traced_perf_enabled_prop
     traced_perf_socket
     timezonedetector_service
     untrusted_app_29
     usb_serial_device
-    userspace_reboot_prop
     userspace_reboot_config_prop
     userspace_reboot_exported_prop
+    userspace_reboot_log_prop
     vehicle_hal_prop
+    tv_tuner_resource_mgr_service
     vendor_apex_file
     vendor_boringssl_self_test
+    vendor_incremental_module
     vendor_install_recovery
     vendor_install_recovery_exec
+    vendor_socket_hook_prop
     virtual_ab_prop))

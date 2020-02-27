@@ -599,6 +599,18 @@ define(`use_keystore', `
   binder_call(keystore, $1)
 ')
 
+#####################################
+# use_credstore(domain)
+# Ability to use credstore.
+define(`use_credstore', `
+  allow credstore $1:dir search;
+  allow credstore $1:file { read open };
+  allow credstore $1:process getattr;
+  allow $1 credstore_service:service_manager find;
+  binder_call($1, credstore)
+  binder_call(credstore, $1)
+')
+
 ###########################################
 # use_drmservice(domain)
 # Ability to use DrmService which requires
@@ -748,6 +760,9 @@ define(`never_profile_perf', `
 ###################################
 # perfetto_producer(domain)
 # Allow processes within the domain to write data to Perfetto.
+# When applying this macro, you might need to also allow traced to use the
+# producer tmpfs domain, if the producer will be the one creating the shared
+# memory.
 define(`perfetto_producer', `
   allow $1 traced:fd use;
   allow $1 traced_tmpfs:file { read write getattr map };
@@ -825,6 +840,18 @@ define(`system_restricted_prop', `
 # Define a /system-owned property with no restrictions
 #
 define(`system_public_prop', `define_prop($1, system, public)')
+
+###########################################
+# system_vendor_config_prop(name)
+# Define a /system-owned property which can only be written by vendor_init
+# This is a macro for vendor-specific configuration properties which is meant
+# to be set once from vendor_init.
+#
+define(`system_vendor_config_prop', `
+  system_public_prop($1)
+  set_prop(vendor_init, $1)
+  neverallow { domain -init -vendor_init } $1:property_service set;
+')
 
 ###########################################
 # product_internal_prop(name)

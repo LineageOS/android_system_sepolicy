@@ -189,6 +189,7 @@ allow init {
   -app_data_file
   -exec_type
   -iorapd_data_file
+  -credstore_data_file
   -keystore_data_file
   -misc_logd_file
   -nativetest_data_file
@@ -206,6 +207,7 @@ allow init {
   -exec_type
   -gsi_data_file
   -iorapd_data_file
+  -credstore_data_file
   -keystore_data_file
   -misc_logd_file
   -nativetest_data_file
@@ -224,6 +226,7 @@ allow init {
   -exec_type
   -gsi_data_file
   -iorapd_data_file
+  -credstore_data_file
   -keystore_data_file
   -misc_logd_file
   -nativetest_data_file
@@ -242,6 +245,7 @@ allow init {
   -exec_type
   -gsi_data_file
   -iorapd_data_file
+  -credstore_data_file
   -keystore_data_file
   -misc_logd_file
   -nativetest_data_file
@@ -441,6 +445,11 @@ allow init misc_logd_file:file { open create getattr setattr write };
 allow init self:global_capability_class_set kill;
 allow init domain:process { getpgid sigkill signal };
 
+# Init creates credstore's directory on boot, and walks through
+# the directory as part of a recursive restorecon.
+allow init credstore_data_file:dir { open create read getattr setattr search };
+allow init credstore_data_file:file { getattr };
+
 # Init creates keystore's directory on boot, and walks through
 # the directory as part of a recursive restorecon.
 allow init keystore_data_file:dir { open create read getattr setattr search };
@@ -566,6 +575,8 @@ allow init vendor_shell_exec:file execute;
 # Metadata setup
 allow init vold_metadata_file:dir create_dir_perms;
 allow init vold_metadata_file:file getattr;
+allow init metadata_bootstat_file:dir create_dir_perms;
+allow init metadata_bootstat_file:file w_file_perms;
 
 # Allow init to touch PSI monitors
 allow init proc_pressure_mem:file { rw_file_perms setattr };
@@ -573,6 +584,9 @@ allow init proc_pressure_mem:file { rw_file_perms setattr };
 # init is using bootstrap bionic
 allow init system_bootstrap_lib_file:dir r_dir_perms;
 allow init system_bootstrap_lib_file:file { execute read open getattr map };
+
+# stat the root dir of fuse filesystems (for the mount handler)
+allow init fuse:dir { search getattr };
 
 ###
 ### neverallow rules

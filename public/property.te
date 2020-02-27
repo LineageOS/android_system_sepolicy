@@ -19,7 +19,10 @@ system_internal_prop(init_svc_debug_prop)
 system_internal_prop(last_boot_reason_prop)
 system_internal_prop(netd_stable_secret_prop)
 system_internal_prop(pm_prop)
-system_internal_prop(userspace_reboot_prop)
+system_internal_prop(userspace_reboot_log_prop)
+system_internal_prop(system_adbd_prop)
+system_internal_prop(adbd_prop)
+system_internal_prop(traced_perf_enabled_prop)
 
 compatible_property_only(`
     # DO NOT ADD ANY PROPERTIES HERE
@@ -64,10 +67,12 @@ compatible_property_only(`
 # Properties used by binder caches
 system_restricted_prop(binder_cache_bluetooth_server_prop)
 system_restricted_prop(binder_cache_system_server_prop)
-system_restricted_prop(linker_prop)
+system_restricted_prop(binder_cache_telephony_server_prop)
+system_restricted_prop(bq_config_prop)
 system_restricted_prop(module_sdkextensions_prop)
 system_restricted_prop(nnapi_ext_deny_product_prop)
 system_restricted_prop(restorecon_prop)
+system_restricted_prop(socket_hook_prop)
 system_restricted_prop(system_boot_reason_prop)
 system_restricted_prop(system_jvmti_agent_prop)
 system_restricted_prop(userspace_reboot_exported_prop)
@@ -102,13 +107,26 @@ compatible_property_only(`
     system_restricted_prop(vold_prop)
 ')
 
+# Properties which can be written only by vendor_init
+system_vendor_config_prop(apk_verity_prop)
+system_vendor_config_prop(cpu_variant_prop)
+system_vendor_config_prop(exported_audio_prop)
+system_vendor_config_prop(exported_camera_prop)
+system_vendor_config_prop(exported_config_prop)
+system_vendor_config_prop(exported_default_prop)
+system_vendor_config_prop(exported3_default_prop)
+system_vendor_config_prop(userspace_reboot_config_prop)
+system_vendor_config_prop(vehicle_hal_prop)
+system_vendor_config_prop(vendor_security_patch_level_prop)
+system_vendor_config_prop(vendor_socket_hook_prop)
+system_vendor_config_prop(vndk_prop)
+system_vendor_config_prop(virtual_ab_prop)
+
 # Properties with no restrictions
 system_public_prop(audio_prop)
-system_public_prop(apk_verity_prop)
 system_public_prop(bluetooth_a2dp_offload_prop)
 system_public_prop(bluetooth_audio_hal_prop)
 system_public_prop(bluetooth_prop)
-system_public_prop(cpu_variant_prop)
 system_public_prop(ctl_default_prop)
 system_public_prop(ctl_interface_start_prop)
 system_public_prop(ctl_start_prop)
@@ -120,14 +138,9 @@ system_public_prop(exported2_config_prop)
 system_public_prop(exported2_radio_prop)
 system_public_prop(exported2_system_prop)
 system_public_prop(exported2_vold_prop)
-system_public_prop(exported3_default_prop)
 system_public_prop(exported3_radio_prop)
-system_public_prop(exported_audio_prop)
 system_public_prop(exported_bluetooth_prop)
-system_public_prop(exported_camera_prop)
-system_public_prop(exported_config_prop)
 system_public_prop(exported_dalvik_prop)
-system_public_prop(exported_default_prop)
 system_public_prop(exported_ffs_prop)
 system_public_prop(exported_overlay_prop)
 system_public_prop(exported_pm_prop)
@@ -147,11 +160,6 @@ system_public_prop(powerctl_prop)
 system_public_prop(radio_prop)
 system_public_prop(serialno_prop)
 system_public_prop(system_prop)
-system_public_prop(userspace_reboot_config_prop)
-system_public_prop(vehicle_hal_prop)
-system_public_prop(vendor_security_patch_level_prop)
-system_public_prop(virtual_ab_prop)
-system_public_prop(vndk_prop)
 system_public_prop(wifi_log_prop)
 system_public_prop(wifi_prop)
 
@@ -362,13 +370,6 @@ dontaudit domain {
   ctl_rildaemon_prop
 }:property_service set;
 
-# Do now allow to modify linker properties except shell and init
-neverallow {
-  domain
-  -init
-  userdebug_or_eng(`-shell')
-} linker_prop:property_service set;
-
 neverallow {
   domain
   -init
@@ -562,3 +563,26 @@ compatible_property_only(`
     -extended_core_property_type
   }:property_service set;
 ')
+
+neverallow {
+  -init
+  -system_server
+} {
+  userspace_reboot_log_prop
+}:property_service set;
+
+neverallow {
+  # Only allow init and system_server to set system_adbd_prop
+  -init
+  -system_server
+} {
+  system_adbd_prop
+}:property_service set;
+
+neverallow {
+  # Only allow init and adbd to set adbd_prop
+  -init
+  -adbd
+} {
+  adbd_prop
+}:property_service set;

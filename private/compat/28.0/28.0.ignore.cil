@@ -98,6 +98,7 @@
     mediaswcodec
     mediaswcodec_exec
     mediaswcodec_tmpfs
+    metadata_bootstat_file
     mnt_product_file
     network_stack
     network_stack_service
@@ -123,6 +124,7 @@
     server_configurable_flags_data_file
     simpleperf_app_runner
     simpleperf_app_runner_exec
+    socket_hook_prop
     su_tmpfs
     super_block_device
     sysfs_fs_f2fs
@@ -150,6 +152,7 @@
     vendor_keylayout_file
     vendor_misc_writer
     vendor_misc_writer_exec
+    vendor_socket_hook_prop
     vendor_task_profiles_file
     vndk_prop
     vrflinger_vsync_service

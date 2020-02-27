@@ -1,10 +1,10 @@
+android.frameworks.automotive.display::IAutomotiveDisplayProxyService u:object_r:fwk_automotive_display_hwservice:s0
 android.frameworks.bufferhub::IBufferHub                        u:object_r:fwk_bufferhub_hwservice:s0
 android.frameworks.cameraservice.service::ICameraService        u:object_r:fwk_camera_hwservice:s0
 android.frameworks.displayservice::IDisplayService              u:object_r:fwk_display_hwservice:s0
 android.frameworks.schedulerservice::ISchedulingPolicyService   u:object_r:fwk_scheduler_hwservice:s0
 android.frameworks.sensorservice::ISensorManager                u:object_r:fwk_sensor_hwservice:s0
 android.frameworks.stats::IStats                                u:object_r:fwk_stats_hwservice:s0
-android.frameworks.automotive.display::ICarWindowService        u:object_r:fwk_automotive_display_hwservice:s0
 android.hardware.atrace::IAtraceDevice                          u:object_r:hal_atrace_hwservice:s0
 android.hardware.audio.effect::IEffectsFactory                  u:object_r:hal_audio_hwservice:s0
 android.hardware.audio::IDevicesFactory                         u:object_r:hal_audio_hwservice:s0
@@ -25,7 +25,6 @@ android.hardware.broadcastradio::IBroadcastRadioFactory         u:object_r:hal_b
 android.hardware.camera.provider::ICameraProvider               u:object_r:hal_camera_hwservice:s0
 android.hardware.configstore::ISurfaceFlingerConfigs            u:object_r:hal_configstore_ISurfaceFlingerConfigs:s0
 android.hardware.confirmationui::IConfirmationUI                u:object_r:hal_confirmationui_hwservice:s0
-android.hardware.identity::IIdentityCredentialStore             u:object_r:hal_identity_hwservice:s0
 android.hardware.contexthub::IContexthub                        u:object_r:hal_contexthub_hwservice:s0
 android.hardware.cas::IMediaCasService                          u:object_r:hal_cas_hwservice:s0
 android.hardware.drm::ICryptoFactory                            u:object_r:hal_drm_hwservice:s0

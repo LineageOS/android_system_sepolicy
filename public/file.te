@@ -145,8 +145,6 @@ type usbfs, fs_type;
 type binfmt_miscfs, fs_type;
 type app_fusefs, fs_type, contextmount_type;
 
-type incfs, fs_type;
-
 # File types
 type unlabeled, file_type;
 
@@ -188,6 +186,8 @@ type vendor_task_profiles_file, vendor_file_type, file_type;
 type art_apex_dir, system_file_type, file_type;
 # /linkerconfig(/.*)?
 type linkerconfig_file, file_type;
+# Control files under /data/incremental
+type incremental_control_file, file_type, data_file_type, core_data_file_type;
 
 # Default type for directories search for
 # HAL implementations
@@ -210,6 +210,8 @@ type vendor_overlay_file, vendor_file_type, file_type;
 # Type for all vendor public libraries. These libs should only be exposed to
 # apps. ABI stability of these libs is vendor's responsibility.
 type vendor_public_lib_file, vendor_file_type, file_type;
+# Default type for incremental file system driver
+type vendor_incremental_module, vendor_file_type, file_type;
 
 # Input configuration
 type vendor_keylayout_file, vendor_file_type, file_type;
@@ -228,6 +230,8 @@ type password_slot_metadata_file, file_type;
 type apex_metadata_file, file_type;
 # libsnapshot files within /metadata
 type ota_metadata_file, file_type;
+# property files within /metadata/bootstat
+type metadata_bootstat_file, file_type;
 
 # Type for /dev/cpu_variant:.*.
 type dev_cpu_variant, file_type;
@@ -281,6 +285,8 @@ type ota_package_file, file_type, data_file_type, core_data_file_type, mlstruste
 type user_profile_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/misc/profman
 type profman_dump_data_file, file_type, data_file_type, core_data_file_type;
+# /data/misc/prereboot
+type prereboot_data_file, file_type, data_file_type, core_data_file_type;
 # /data/resource-cache
 type resourcecache_data_file, file_type, data_file_type, core_data_file_type;
 # /data/local - writable by shell
@@ -346,6 +352,7 @@ type adb_keys_file, file_type, data_file_type, core_data_file_type;
 type apex_module_data_file, file_type, data_file_type, core_data_file_type;
 type apex_permission_data_file, file_type, data_file_type, core_data_file_type;
 type apex_rollback_data_file, file_type, data_file_type, core_data_file_type;
+type apex_wifi_data_file, file_type, data_file_type, core_data_file_type;
 type audio_data_file, file_type, data_file_type, core_data_file_type;
 type audioserver_data_file, file_type, data_file_type, core_data_file_type;
 type bluetooth_data_file, file_type, data_file_type, core_data_file_type;
@@ -353,6 +360,7 @@ type bluetooth_logs_data_file, file_type, data_file_type, core_data_file_type;
 type bootstat_data_file, file_type, data_file_type, core_data_file_type;
 type boottrace_data_file, file_type, data_file_type, core_data_file_type;
 type camera_data_file, file_type, data_file_type, core_data_file_type;
+type credstore_data_file, file_type, data_file_type, core_data_file_type;
 type gatekeeper_data_file, file_type, data_file_type, core_data_file_type;
 type incident_data_file, file_type, data_file_type, core_data_file_type;
 type keychain_data_file, file_type, data_file_type, core_data_file_type;

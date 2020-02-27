@@ -29,7 +29,8 @@ userdebug_or_eng(`can_profile_heap_userdebug_or_eng({
 })')
 
 # As above, allow perf profiling most processes on debug builds.
-# Do not diverge the two lists without a really good reason.
+# zygote is excluded as system-wide profiling could end up with it
+# (unexpectedly) holding an open fd across a fork.
 userdebug_or_eng(`can_profile_perf({
   domain
   -bpfloader
@@ -45,6 +46,7 @@ userdebug_or_eng(`can_profile_perf({
   -ueventd
   -vendor_init
   -vold
+  -zygote
 })')
 
 # Path resolution access in cgroups.
@@ -61,11 +63,11 @@ allow domain vendor_task_profiles_file:file r_file_perms;
 # if memfd support can be used if device supports it
 get_prop(domain, use_memfd_prop);
 
-# Allow to read properties for linker
-get_prop(domain, linker_prop);
-
 # Read access to sdkextensions props
 get_prop(domain, module_sdkextensions_prop)
+
+# Read access to bq configuration values
+get_prop(domain, bq_config_prop);
 
 # For now, everyone can access core property files
 # Device specific properties are not granted by default
@@ -98,7 +100,7 @@ compatible_property_only(`
     get_prop({coredomain appdomain shell}, exported_camera_prop)
     get_prop({coredomain appdomain shell}, userspace_reboot_config_prop)
     get_prop({coredomain shell}, userspace_reboot_exported_prop)
-    get_prop({coredomain shell}, userspace_reboot_prop)
+    get_prop({coredomain shell}, userspace_reboot_log_prop)
     get_prop({domain -coredomain -appdomain}, vendor_default_prop)
 ')
 
@@ -162,6 +164,7 @@ neverallow {
   -app_zygote
   -dexoptanalyzer
   -installd
+  -iorap_inode2filename
   -iorap_prefetcherd
   -profman
   -rs # spawned by appdomain, so carryover the exception above
@@ -204,8 +207,8 @@ neverallow {
 # that these files cannot be accessed by other domains to ensure that the files
 # do not change between system_server staging the files and apexd processing
 # the files.
-neverallow { domain -init -system_server -apexd -installd} staging_data_file:dir *;
-neverallow { domain -init -system_app -system_server -apexd -kernel -installd } staging_data_file:file *;
+neverallow { domain -init -system_server -apexd -installd -iorap_inode2filename } staging_data_file:dir *;
+neverallow { domain -init -system_app -system_server -apexd -kernel -installd -iorap_inode2filename } staging_data_file:file *;
 neverallow { domain -init -system_server -installd} staging_data_file:dir no_w_dir_perms;
 # apexd needs the link and unlink permissions, so list every `no_w_file_perms`
 # except for `link` and `unlink`.
@@ -315,6 +318,7 @@ neverallow ~dac_override_allowed self:global_capability_class_set dac_override;
 # this list should be a superset of the one above.
 neverallow ~{
   dac_override_allowed
+  iorap_inode2filename
   iorap_prefetcherd
   traced_perf
   traced_probes

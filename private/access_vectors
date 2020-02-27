@@ -733,3 +733,9 @@ class perf_event
 	read
 	write
 }
+
+class lockdown
+{
+	integrity
+	confidentiality
+}

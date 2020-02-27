@@ -105,11 +105,14 @@ get_prop(domain, exported_system_prop)
 get_prop(domain, exported_vold_prop)
 get_prop(domain, exported2_default_prop)
 get_prop(domain, logd_prop)
+get_prop(domain, socket_hook_prop)
+get_prop(domain, vendor_socket_hook_prop)
 get_prop(domain, vndk_prop)
 
 # Binder cache properties are world-readable
 get_prop(domain, binder_cache_bluetooth_server_prop)
 get_prop(domain, binder_cache_system_server_prop)
+get_prop(domain, binder_cache_telephony_server_prop)
 
 # Let everyone read log properties, so that liblog can avoid sending unloggable
 # messages to logd.
@@ -654,6 +657,7 @@ full_treble_only(`
     -cameraserver_service
     -drmserver_service
     -hal_light_service # TODO(b/148154485) remove once all violators are gone
+    -credstore_service
     -keystore_service
     -mediadrmserver_service
     -mediaextractor_service
@@ -942,6 +946,7 @@ full_treble_only(`
         -system_linker_exec
         -crash_dump_exec
         -iorap_prefetcherd_exec
+        -iorap_inode2filename_exec
         -netutils_wrapper_exec
         userdebug_or_eng(`-tcpdump_exec')
     }:file { entrypoint execute execute_no_trans };
@@ -984,6 +989,7 @@ full_treble_only(`
     # TODO(b/37168747): clean up fwk access to /vendor
     -crash_dump
     -init # starts vendor executables
+    -iorap_inode2filename
     -iorap_prefetcherd
     -kernel # loads /vendor/firmware
     userdebug_or_eng(`-heapprofd')
@@ -1004,6 +1010,7 @@ full_treble_only(`
     -vendor_overlay_file
     -vendor_public_lib_file
     -vendor_task_profiles_file
+    -vendor_incremental_module
     -vndk_sp_file
   }:file *;
 ')
@@ -1023,6 +1030,7 @@ full_treble_only(`
     system_file_type
     -crash_dump_exec
     -file_contexts_file
+    -iorap_inode2filename_exec
     -netutils_wrapper_exec
     -property_contexts_file
     -system_event_log_tags_file
@@ -1153,6 +1161,7 @@ neverallow {
   -appdomain # finer-grained rules for appdomain are listed below
   -system_server #populate com.android.providers.settings/databases/settings.db.
   -installd # creation of app sandbox
+  -iorap_inode2filename
   -traced_probes # resolve inodes for i/o tracing.
                  # only needs open and read, the rest is neverallow in
                  # traced_probes.te.
@@ -1315,6 +1324,7 @@ full_treble_only(`
     -crash_dump
     -heapprofd
     -init
+    -iorap_inode2filename
     -iorap_prefetcherd
     -kernel
     -traced_perf

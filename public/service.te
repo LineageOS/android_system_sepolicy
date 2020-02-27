@@ -16,6 +16,7 @@ type idmap_service,             service_manager_type;
 type iorapd_service,            service_manager_type;
 type incident_service,          service_manager_type;
 type installd_service,          service_manager_type;
+type credstore_service,         app_api_service, service_manager_type;
 type keystore_service,          service_manager_type;
 type lpdump_service,            service_manager_type;
 type mediaserver_service,       service_manager_type;
@@ -181,6 +182,7 @@ type timezone_service, system_server_service, service_manager_type;
 type timezonedetector_service, system_server_service, service_manager_type;
 type trust_service, app_api_service, system_server_service, service_manager_type;
 type tv_input_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type tv_tuner_resource_mgr_service, system_server_service, service_manager_type;
 type uimode_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type updatelock_service, system_api_service, system_server_service, service_manager_type;
 type uri_grants_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
@@ -195,7 +197,7 @@ type webviewupdate_service, app_api_service, ephemeral_app_api_service, system_s
 type wifip2p_service, app_api_service, system_server_service, service_manager_type;
 type wifiscanner_service, system_api_service, system_server_service, service_manager_type;
 type wifi_service, app_api_service, system_server_service, service_manager_type;
-type wificond_service, service_manager_type;
+type wifinl80211_service, service_manager_type;
 type wifiaware_service, app_api_service, system_server_service, service_manager_type;
 type window_service, system_api_service, system_server_service, service_manager_type;
 type inputflinger_service, system_api_service, system_server_service, service_manager_type;
@@ -206,6 +208,7 @@ type tethering_service, app_api_service, ephemeral_app_api_service, system_serve
 ### HAL Services
 ###
 
+type hal_identity_service, vendor_service, service_manager_type;
 type hal_light_service, vendor_service, service_manager_type;
 type hal_power_service, vendor_service, service_manager_type;
 type hal_rebootescrow_service, vendor_service, service_manager_type;
