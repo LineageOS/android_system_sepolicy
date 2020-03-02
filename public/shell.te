@@ -78,6 +78,9 @@ userdebug_or_eng(`set_prop(shell, logpersistd_logging_prop)')
 # Allow shell to start/stop heapprofd via the persist.heapprofd.enable
 # property.
 set_prop(shell, heapprofd_enabled_prop)
+# Allow shell to start/stop traced_perf via the persist.traced_perf.enable
+# property.
+set_prop(shell, traced_perf_enabled_prop)
 # Allow shell to start/stop gsid via ctl.start|stop|restart gsid.
 set_prop(shell, ctl_gsid_prop)
 # Allow shell to enable Dynamic System Update
