@@ -36,6 +36,11 @@ r_dir_file(traced_perf, vendor_file_type)
 # domains that it cannot read.
 dontaudit traced_perf domain:dir { search getattr open };
 
+# Do not audit failures to signal a process, as there are cases when this is
+# expected (native processes on debug builds use the policy for enforcing which
+# processes are profileable).
+dontaudit traced_perf domain:process signal;
+
 # Never allow access to app data files
 neverallow traced_perf { app_data_file privapp_data_file system_app_data_file }:file *;
 
