@@ -8,9 +8,7 @@ LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
 include $(BUILD_SYSTEM)/base_rules.mk
 
 plat_pcfiles := $(call build_policy, property_contexts, $(PLAT_PRIVATE_POLICY))
-ifeq ($(PRODUCT_COMPATIBLE_PROPERTY),true)
 plat_pcfiles += $(LOCAL_PATH)/public/property_contexts
-endif
 
 plat_property_contexts.tmp := $(intermediates)/plat_property_contexts.tmp
 $(plat_property_contexts.tmp): PRIVATE_PC_FILES := $(plat_pcfiles)
