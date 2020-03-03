@@ -29,7 +29,8 @@ userdebug_or_eng(`can_profile_heap_userdebug_or_eng({
 })')
 
 # As above, allow perf profiling most processes on debug builds.
-# Do not diverge the two lists without a really good reason.
+# zygote is excluded as system-wide profiling could end up with it
+# (unexpectedly) holding an open fd across a fork.
 userdebug_or_eng(`can_profile_perf({
   domain
   -bpfloader
@@ -45,6 +46,7 @@ userdebug_or_eng(`can_profile_perf({
   -ueventd
   -vendor_init
   -vold
+  -zygote
 })')
 
 # Path resolution access in cgroups.
