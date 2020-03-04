@@ -69,6 +69,7 @@ compatible_property_only(`
 system_restricted_prop(binder_cache_bluetooth_server_prop)
 system_restricted_prop(binder_cache_system_server_prop)
 system_restricted_prop(binder_cache_telephony_server_prop)
+system_restricted_prop(boottime_public_prop)
 system_restricted_prop(bq_config_prop)
 system_restricted_prop(module_sdkextensions_prop)
 system_restricted_prop(nnapi_ext_deny_product_prop)
