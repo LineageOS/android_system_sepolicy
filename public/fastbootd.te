@@ -23,21 +23,11 @@ recovery_only(`
 
   allow fastbootd device:dir r_dir_perms;
 
-  # Reboot the device
-  set_prop(fastbootd, powerctl_prop)
-
-  # Read serial number of the device from system properties
-  get_prop(fastbootd, serialno_prop)
-
   # For dev/block/by-name dir
   allow fastbootd block_device:dir r_dir_perms;
 
   # Needed for DM_DEV_CREATE ioctl call
   allow fastbootd self:capability sys_admin;
-
-  # Set sys.usb.ffs.ready.
-  set_prop(fastbootd, ffs_prop)
-  set_prop(fastbootd, exported_ffs_prop)
 
   unix_socket_connect(fastbootd, recovery, recovery)
 
@@ -106,18 +96,12 @@ recovery_only(`
     }:{ file lnk_file } unlink;
     allow fastbootd tmpfs:dir rw_dir_perms;
     allow fastbootd labeledfs:filesystem { mount unmount };
-    get_prop(fastbootd, persistent_properties_ready_prop)
   ')
 
   # Allow using libfiemap/gsid directly (no binder in recovery).
-  set_prop(fastbootd, gsid_prop)
   allow fastbootd gsi_metadata_file:dir search;
   allow fastbootd ota_metadata_file:dir rw_dir_perms;
   allow fastbootd ota_metadata_file:file create_file_perms;
-
-  # Determine allocation scheme (whether B partitions needs to be
-  # at the second half of super.
-  get_prop(fastbootd, virtual_ab_prop)
 ')
 
 ###

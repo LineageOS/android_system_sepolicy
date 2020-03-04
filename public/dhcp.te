@@ -17,9 +17,6 @@ allow dhcp toolbox_exec:file rx_file_perms;
 # For /proc/sys/net/ipv4/conf/*/promote_secondaries
 allow dhcp proc_net_type:file write;
 
-set_prop(dhcp, dhcp_prop)
-set_prop(dhcp, pan_result_prop)
-
 allow dhcp dhcp_data_file:dir create_dir_perms;
 allow dhcp dhcp_data_file:file create_file_perms;
 

@@ -3,6 +3,9 @@
 # Technically not a daemon but we do want the transition from init domain to
 # asan_extract to occur.
 with_asan(`
-typeattribute asan_extract coredomain;
-init_daemon_domain(asan_extract)
+  typeattribute asan_extract coredomain;
+  init_daemon_domain(asan_extract)
+
+  # We need to signal a reboot when done.
+  set_prop(asan_extract, powerctl_prop)
 ')

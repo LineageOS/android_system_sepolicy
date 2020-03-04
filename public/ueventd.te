@@ -59,10 +59,6 @@ allow ueventd kernel:key search;
 allow ueventd system_bootstrap_lib_file:dir r_dir_perms;
 allow ueventd system_bootstrap_lib_file:file { execute read open getattr map };
 
-# ueventd can set properties, particularly it sets ro.cold_boot_done to signal
-# to init that cold boot has completed.
-set_prop(ueventd, cold_boot_done_prop)
-
 # Allow ueventd to run shell scripts from vendor
 allow ueventd vendor_shell_exec:file execute;
 
