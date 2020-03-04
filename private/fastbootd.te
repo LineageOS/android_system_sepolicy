@@ -1,1 +1,25 @@
 typeattribute fastbootd coredomain;
+
+# The allow rules are only included in the recovery policy.
+# Otherwise fastbootd is only allowed the domain rules.
+recovery_only(`
+  # Reboot the device
+  set_prop(fastbootd, powerctl_prop)
+
+  # Read serial number of the device from system properties
+  get_prop(fastbootd, serialno_prop)
+
+  # Set sys.usb.ffs.ready.
+  set_prop(fastbootd, ffs_prop)
+  set_prop(fastbootd, exported_ffs_prop)
+
+  userdebug_or_eng(`
+    get_prop(fastbootd, persistent_properties_ready_prop)
+  ')
+
+  set_prop(fastbootd, gsid_prop)
+
+  # Determine allocation scheme (whether B partitions needs to be
+  # at the second half of super.
+  get_prop(fastbootd, virtual_ab_prop)
+')

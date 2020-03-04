@@ -20,3 +20,8 @@ allow traceur_app perfetto_exec:file rx_file_perms;
 unix_socket_connect(traceur_app, traced_consumer, traced)
 
 dontaudit traceur_app debugfs_tracing_debug:file audit_access;
+
+# Allow Traceur to enable traced if necessary.
+set_prop(traceur_app, traced_enabled_prop)
+
+set_prop(traceur_app, debug_prop)

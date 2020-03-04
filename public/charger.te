@@ -36,13 +36,4 @@ allow charger input_device:chr_file r_file_perms;
 allow charger tty_device:chr_file rw_file_perms;
 allow charger proc_sysrq:file rw_file_perms;
 
-# charger needs to tell init to continue the boot
-# process when running in charger mode.
-set_prop(charger, system_prop)
-set_prop(charger, exported_system_prop)
-set_prop(charger, exported2_system_prop)
-set_prop(charger, exported3_system_prop)
-
-get_prop(charger, charger_prop)
-
 hal_client_domain(charger, hal_health)
