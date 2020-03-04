@@ -135,6 +135,8 @@ allowxperm gsid {
       ota_image_data_file
 }:file ioctl FS_IOC_FIEMAP;
 
+allow gsid system_server:binder call;
+
 neverallow {
     domain
     -init
