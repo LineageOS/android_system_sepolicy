@@ -16,8 +16,8 @@
     app_integrity_service
     app_search_service
     auth_service
-    automotive_display
-    automotive_display_exec
+    automotive_display_service
+    automotive_display_service_exec
     ashmem_libcutils_device
     blob_store_service
     binder_cache_bluetooth_server_prop
@@ -102,6 +102,7 @@
     userspace_reboot_exported_prop
     userspace_reboot_log_prop
     vehicle_hal_prop
+    tv_tuner_resource_mgr_service
     vendor_apex_file
     vendor_boringssl_self_test
     vendor_incremental_module
