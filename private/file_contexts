@@ -346,7 +346,7 @@
 /system/bin/simpleperf_app_runner    u:object_r:simpleperf_app_runner_exec:s0
 /system/bin/notify_traceur\.sh       u:object_r:notify_traceur_exec:s0
 /system/bin/migrate_legacy_obb_data\.sh u:object_r:migrate_legacy_obb_data_exec:s0
-/system/bin/android\.frameworks\.automotive\.display@1\.0-service u:object_r:automotive_display_exec:s0
+/system/bin/android\.frameworks\.automotive\.display@1\.0-service u:object_r:automotive_display_service_exec:s0
 
 #############################
 # Vendor files
