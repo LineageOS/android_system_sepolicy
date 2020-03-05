@@ -317,7 +317,7 @@ allow appdomain same_process_hal_file:file { execute read open getattr map };
 allow appdomain proc_meminfo:file r_file_perms;
 
 # For app fuse.
-allow appdomain app_fuse_file:file { getattr read append write };
+allow appdomain app_fuse_file:file { getattr read append write map };
 
 pdx_client({ appdomain -isolated_app -ephemeral_app }, display_client)
 pdx_client({ appdomain -isolated_app -ephemeral_app }, display_manager)
