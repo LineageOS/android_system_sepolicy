@@ -13,6 +13,8 @@ allow vndservicemanager vndbinder_device:chr_file rw_file_perms;
 # Read vndservice_contexts
 allow vndservicemanager vndservice_contexts_file:file r_file_perms;
 
+add_service(vndservicemanager, service_manager_vndservice)
+
 # Start lazy services
 set_prop(vndservicemanager, ctl_interface_start_prop)
 
