@@ -215,6 +215,8 @@ ro.boot.baseband u:object_r:exported2_default_prop:s0 exact string
 ro.boot.bootdevice u:object_r:exported2_default_prop:s0 exact string
 ro.boot.bootloader u:object_r:exported2_default_prop:s0 exact string
 ro.boot.boottime u:object_r:exported2_default_prop:s0 exact string
+ro.boottime.init.mount.data u:object_r:boottime_public_prop:s0 exact string
+ro.boottime.init.fsck.data u:object_r:boottime_public_prop:s0 exact string
 ro.boot.console u:object_r:exported2_default_prop:s0 exact string
 ro.boot.hardware u:object_r:exported2_default_prop:s0 exact string
 ro.boot.hardware.color u:object_r:exported2_default_prop:s0 exact string
