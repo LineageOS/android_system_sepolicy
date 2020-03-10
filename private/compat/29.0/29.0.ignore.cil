@@ -80,6 +80,7 @@
     art_apex_dir
     rebootescrow_hal_prop
     service_manager_service
+    service_manager_vndservice
     simpleperf
     snapshotctl_log_data_file
     socket_hook_prop
@@ -105,8 +106,8 @@
     tv_tuner_resource_mgr_service
     vendor_apex_file
     vendor_boringssl_self_test
-    vendor_incremental_module
     vendor_install_recovery
     vendor_install_recovery_exec
+    vendor_socket_hook_prop
     vendor_socket_hook_prop
     virtual_ab_prop))

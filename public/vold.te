@@ -52,11 +52,6 @@ allowxperm vold data_file_type:dir ioctl {
   FS_IOC_REMOVE_ENCRYPTION_KEY
 };
 
-# Allow to load incremental file system driver
-allow vold self:capability sys_module;
-allow vold vendor_incremental_module:file r_file_perms;
-allow vold vendor_incremental_module:system module_load;
-
 # Only vold and init should ever set file-based encryption policies.
 neverallowxperm {
   domain
@@ -205,6 +200,7 @@ set_prop(vold, ctl_fuse_prop)
 set_prop(vold, restorecon_prop)
 set_prop(vold, ota_prop)
 set_prop(vold, boottime_prop)
+set_prop(vold, boottime_public_prop)
 
 # ASEC
 allow vold asec_image_file:file create_file_perms;
