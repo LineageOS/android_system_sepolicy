@@ -997,6 +997,7 @@ full_treble_only(`
     -system_executes_vendor_violators
     -traced_perf # library/binary access for symbolization
     -ueventd # reads /vendor/ueventd.rc
+    -vold # loads incremental fs driver
   } {
     vendor_file_type
     -same_process_hal_file
@@ -1010,7 +1011,6 @@ full_treble_only(`
     -vendor_overlay_file
     -vendor_public_lib_file
     -vendor_task_profiles_file
-    -vendor_incremental_module
     -vndk_sp_file
   }:file *;
 ')
