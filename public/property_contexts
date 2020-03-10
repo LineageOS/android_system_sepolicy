@@ -108,11 +108,17 @@ ro.camera.notify_nfc u:object_r:exported3_default_prop:s0 exact int
 ro.camera.enableLazyHal u:object_r:exported3_default_prop:s0 exact bool
 ro.com.android.dataroaming u:object_r:exported3_default_prop:s0 exact bool
 ro.com.android.prov_mobiledata u:object_r:exported3_default_prop:s0 exact bool
+ro.config.alarm_vol_default u:object_r:exported2_config_prop:s0 exact int
+ro.config.alarm_vol_steps u:object_r:exported2_config_prop:s0 exact int
 ro.config.alarm_alert u:object_r:exported2_config_prop:s0 exact string
+ro.config.media_vol_default u:object_r:exported2_config_prop:s0 exact int
 ro.config.media_vol_steps u:object_r:exported2_config_prop:s0 exact int
 ro.config.notification_sound u:object_r:exported2_config_prop:s0 exact string
 ro.config.per_app_memcg u:object_r:exported3_default_prop:s0 exact bool
 ro.config.ringtone u:object_r:exported2_config_prop:s0 exact string
+ro.config.system_vol_default u:object_r:exported2_config_prop:s0 exact int
+ro.config.system_vol_steps u:object_r:exported2_config_prop:s0 exact int
+ro.config.vc_call_vol_default u:object_r:exported2_config_prop:s0 exact int
 ro.control_privapp_permissions u:object_r:exported3_default_prop:s0 exact string
 ro.cp_system_other_odex u:object_r:exported3_default_prop:s0 exact int
 ro.crypto.allow_encrypt_override u:object_r:exported2_vold_prop:s0 exact bool
