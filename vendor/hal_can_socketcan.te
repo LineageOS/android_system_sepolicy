@@ -25,6 +25,8 @@ allowxperm hal_can_socketcan self:can_socket ioctl {
 # Un-publishing ICanBus interfaces
 allow hal_can_socketcan hidl_manager_hwservice:hwservice_manager find;
 
+allow hal_can_socketcan sysfs:dir r_dir_perms;
+
 allow hal_can_socketcan usb_serial_device:chr_file { ioctl read write open };
 allowxperm hal_can_socketcan usb_serial_device:chr_file ioctl {
     TCGETS
