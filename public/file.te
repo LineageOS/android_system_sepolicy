@@ -137,6 +137,7 @@ type debugfs_tracing_debug, fs_type, debugfs_type, mlstrustedobject;
 type debugfs_tracing_instances, fs_type, debugfs_type;
 type debugfs_wakeup_sources, fs_type, debugfs_type;
 type debugfs_wifi_tracing, fs_type, debugfs_type;
+type securityfs, fs_type;
 
 type pstorefs, fs_type;
 type functionfs, fs_type, mlstrustedobject;
