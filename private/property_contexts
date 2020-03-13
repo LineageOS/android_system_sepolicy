@@ -773,6 +773,8 @@ ro.surface_flinger.force_hwc_copy_for_virtual_displays    u:object_r:exported_de
 ro.surface_flinger.has_HDR_display                        u:object_r:exported_default_prop:s0 exact bool
 ro.surface_flinger.has_wide_color_display                 u:object_r:exported_default_prop:s0 exact bool
 ro.surface_flinger.max_frame_buffer_acquired_buffers      u:object_r:exported_default_prop:s0 exact int
+ro.surface_flinger.max_graphics_height                    u:object_r:exported_default_prop:s0 exact int
+ro.surface_flinger.max_graphics_width                     u:object_r:exported_default_prop:s0 exact int
 ro.surface_flinger.max_virtual_display_dimension          u:object_r:exported_default_prop:s0 exact int
 ro.surface_flinger.primary_display_orientation            u:object_r:exported_default_prop:s0 exact string
 ro.surface_flinger.present_time_offset_from_vsync_ns      u:object_r:exported_default_prop:s0 exact int
