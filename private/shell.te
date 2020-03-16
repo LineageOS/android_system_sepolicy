@@ -73,6 +73,10 @@ allow shell rs_exec:file rx_file_perms;
 set_prop(shell, lpdumpd_prop);
 binder_call(shell, lpdumpd)
 
+# Allow shell to set and read value of properties used for CTS tests of
+# userspace reboot
+set_prop(shell, userspace_reboot_test_prop)
+
 # Allow shell to get encryption policy of /data/local/tmp/, for CTS
 allowxperm shell shell_data_file:dir ioctl {
   FS_IOC_GET_ENCRYPTION_POLICY
