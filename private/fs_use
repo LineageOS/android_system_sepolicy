@@ -11,6 +11,7 @@ fs_use_xattr squashfs u:object_r:labeledfs:s0;
 fs_use_xattr overlay u:object_r:labeledfs:s0;
 fs_use_xattr erofs u:object_r:labeledfs:s0;
 fs_use_xattr incremental-fs u:object_r:labeledfs:s0;
+fs_use_xattr virtiofs u:object_r:labeledfs:s0;
 
 # Label inodes from task label.
 fs_use_task pipefs u:object_r:pipefs:s0;
