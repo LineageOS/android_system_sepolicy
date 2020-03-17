@@ -21,6 +21,7 @@ system_internal_prop(last_boot_reason_prop)
 system_internal_prop(netd_stable_secret_prop)
 system_internal_prop(pm_prop)
 system_internal_prop(userspace_reboot_log_prop)
+system_internal_prop(userspace_reboot_test_prop)
 system_internal_prop(system_adbd_prop)
 system_internal_prop(adbd_prop)
 system_internal_prop(traced_perf_enabled_prop)
@@ -587,4 +588,12 @@ neverallow {
   -adbd
 } {
   adbd_prop
+}:property_service set;
+
+neverallow {
+  # Only allow init and shell to set userspace_reboot_test_prop
+  -init
+  -shell
+} {
+  userspace_reboot_test_prop
 }:property_service set;
