@@ -16,16 +16,6 @@ allow radio radio_data_file:notdevfile_class_set create_file_perms;
 allow radio net_data_file:dir search;
 allow radio net_data_file:file r_file_perms;
 
-# Property service
-set_prop(radio, radio_prop)
-set_prop(radio, exported_radio_prop)
-set_prop(radio, exported2_radio_prop)
-set_prop(radio, exported3_radio_prop)
-set_prop(radio, net_radio_prop)
-
-# ctl interface
-set_prop(radio, ctl_rildaemon_prop)
-
 add_service(radio, radio_service)
 allow radio audioserver_service:service_manager find;
 allow radio cameraserver_service:service_manager find;

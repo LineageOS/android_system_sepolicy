@@ -1,3 +1,6 @@
 typeattribute gatekeeperd coredomain;
 
 init_daemon_domain(gatekeeperd)
+
+# For checking whether GSI is running
+get_prop(gatekeeperd, gsid_prop)

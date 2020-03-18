@@ -10,8 +10,6 @@ type hwservicemanager_exec, system_file_type, exec_type, file_type;
 # to do this is granted in the hwbinder_use macro.
 allow hwservicemanager self:binder set_context_mgr;
 
-set_prop(hwservicemanager, hwservicemanager_prop)
-
 # Scan through /system/lib64/hw looking for installed HALs
 allow hwservicemanager system_file:dir r_dir_perms;
 
