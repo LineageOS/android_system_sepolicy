@@ -1,3 +1,6 @@
 typeattribute lmkd coredomain;
 
 init_daemon_domain(lmkd)
+
+# Set sys.lmk.* properties.
+set_prop(lmkd, system_lmk_prop)

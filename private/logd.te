@@ -2,6 +2,9 @@ typeattribute logd coredomain;
 
 init_daemon_domain(logd)
 
+# Access device logging gating property
+get_prop(logd, device_logging_prop)
+
 # logd is not allowed to write anywhere other than /data/misc/logd, and then
 # only on userdebug or eng builds
 neverallow logd {

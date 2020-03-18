@@ -3,11 +3,6 @@ type traceur_app, domain;
 allow traceur_app servicemanager:service_manager list;
 allow traceur_app hwservicemanager:hwservice_manager list;
 
-# Allow Traceur to enable traced if necessary.
-set_prop(traceur_app, traced_enabled_prop)
-
-set_prop(traceur_app, debug_prop)
-
 allow traceur_app {
   service_manager_type
   -apex_service

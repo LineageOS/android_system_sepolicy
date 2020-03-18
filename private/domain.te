@@ -369,3 +369,10 @@ neverallow {
 # This property is being removed. Remove remaining access.
 neverallow { domain -init -system_server -vendor_init } net_dns_prop:property_service set;
 neverallow { domain -dumpstate -init -system_server -vendor_init } net_dns_prop:file read;
+
+# Only core domains are allowed to access package_manager properties
+neverallow { domain -init -system_server } pm_prop:property_service set;
+neverallow { domain -coredomain } pm_prop:file no_rw_file_perms;
+
+# Do not allow reading the last boot timestamp from system properties
+neverallow { domain -init -system_server -dumpstate } firstboot_prop:file r_file_perms;
