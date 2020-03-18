@@ -2,3 +2,4 @@ typeattribute mediaswcodec coredomain;
 
 init_daemon_domain(mediaswcodec)
 
+get_prop(mediaswcodec, device_config_media_native_prop)

@@ -35,7 +35,4 @@ allow gatekeeperd gatekeeper_data_file:file create_file_perms;
 # For hardware properties retrieval
 allow gatekeeperd hardware_properties_service:service_manager find;
 
-# For checking whether GSI is running
-get_prop(gatekeeperd, gsid_prop)
-
 r_dir_file(gatekeeperd, cgroup)

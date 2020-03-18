@@ -4,3 +4,6 @@ init_daemon_domain(bootanim)
 
 # b/68864350
 dontaudit bootanim unlabeled:dir search;
+
+# Read ro.boot.bootreason b/30654343
+get_prop(bootanim, bootloader_boot_reason_prop)

@@ -90,6 +90,9 @@ set_prop(adbd, exported_ffs_prop)
 # Set service.adb.tls.port, persist.adb.wifi. properties
 set_prop(adbd, adbd_prop)
 
+# Allow adbd start/stop mdnsd via ctl.start
+set_prop(adbd, ctl_mdnsd_prop)
+
 # Access device logging gating property
 get_prop(adbd, device_logging_prop)
 
