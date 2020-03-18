@@ -1,3 +1,6 @@
+get_prop(hal_codec2_client, media_variant_prop)
+get_prop(hal_codec2_server, media_variant_prop)
+
 binder_call(hal_codec2_client, hal_codec2_server)
 binder_call(hal_codec2_server, hal_codec2_client)
 
