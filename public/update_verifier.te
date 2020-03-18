@@ -24,12 +24,6 @@ allow update_verifier dm_device:blk_file r_file_perms;
 # Write to kernel message.
 allow update_verifier kmsg_device:chr_file { getattr w_file_perms };
 
-# Allow update_verifier to reboot the device.
-set_prop(update_verifier, powerctl_prop)
-
-# Allow to set the OTA related properties e.g. ota.warm_reset.
-set_prop(update_verifier, ota_prop)
-
 # Use Boot Control HAL
 hal_client_domain(update_verifier, hal_bootctl)
 

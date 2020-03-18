@@ -12,3 +12,5 @@ hal_client_domain(mediaserver, hal_omx)
 hal_client_domain(mediaserver, hal_codec2)
 
 allow mediaserver mediatranscoding_service:service_manager find;
+
+set_prop(mediaserver, audio_prop)
