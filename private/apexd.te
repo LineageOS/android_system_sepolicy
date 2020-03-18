@@ -155,3 +155,7 @@ neverallow { domain -apexd -init -vold_prepare_subdirs } apex_module_data_file:f
 
 neverallow { domain -apexd -init -vold_prepare_subdirs } apex_rollback_data_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init -vold_prepare_subdirs } apex_rollback_data_file:file no_w_file_perms;
+
+# only apexd can set apexd sysprop
+set_prop(apexd, apexd_prop)
+neverallow { domain -apexd -init } apexd_prop:property_service set;

@@ -8,10 +8,6 @@ binder_call(wificond, keystore)
 
 add_service(wificond, wifinl80211_service)
 
-set_prop(wificond, exported_wifi_prop)
-set_prop(wificond, wifi_prop)
-set_prop(wificond, ctl_default_prop)
-
 # create sockets to set interfaces up and down
 allow wificond self:udp_socket create_socket_perms;
 # setting interface state up/down is a privileged ioctl
@@ -33,7 +29,6 @@ allow wificond dumpstate:fifo_file write;
 
 #### Offer the Wifi Keystore HwBinder service ###
 hwbinder_use(wificond)
-get_prop(wificond, hwservicemanager_prop)
 typeattribute wificond wifi_keystore_service_server;
 add_hwservice(wificond, system_wifi_keystore_hwservice)
 

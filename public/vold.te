@@ -191,17 +191,6 @@ allow vold system_data_file:file read;
 # Set scheduling policy of kernel processes
 allow vold kernel:process setsched;
 
-# Property Service
-set_prop(vold, vold_prop)
-set_prop(vold, exported_vold_prop)
-set_prop(vold, exported2_vold_prop)
-set_prop(vold, powerctl_prop)
-set_prop(vold, ctl_fuse_prop)
-set_prop(vold, restorecon_prop)
-set_prop(vold, ota_prop)
-set_prop(vold, boottime_prop)
-set_prop(vold, boottime_public_prop)
-
 # ASEC
 allow vold asec_image_file:file create_file_perms;
 allow vold asec_image_file:dir rw_dir_perms;
