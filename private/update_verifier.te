@@ -1,3 +1,9 @@
 typeattribute update_verifier coredomain;
 
 init_daemon_domain(update_verifier)
+
+# Allow update_verifier to reboot the device.
+set_prop(update_verifier, powerctl_prop)
+
+# Allow to set the OTA related properties e.g. ota.warm_reset.
+set_prop(update_verifier, ota_prop)

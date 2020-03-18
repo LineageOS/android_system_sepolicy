@@ -22,9 +22,6 @@ allow uncrypt ota_package_file:file r_file_perms;
 # Write to /dev/socket/uncrypt
 unix_socket_connect(uncrypt, uncrypt, uncrypt)
 
-# Set a property to reboot the device.
-set_prop(uncrypt, powerctl_prop)
-
 # Raw writes to block device
 allow uncrypt self:global_capability_class_set sys_rawio;
 allow uncrypt misc_block_device:blk_file w_file_perms;

@@ -1,1 +1,24 @@
 typeattribute recovery coredomain;
+
+# The allow rules are only included in the recovery policy.
+# Otherwise recovery is only allowed the domain rules.
+recovery_only(`
+  # Reboot the device
+  set_prop(recovery, powerctl_prop)
+
+  # Read serial number of the device from system properties
+  get_prop(recovery, serialno_prop)
+
+  # Set sys.usb.ffs.ready when starting minadbd for sideload.
+  set_prop(recovery, ffs_prop)
+  set_prop(recovery, exported_ffs_prop)
+
+  # Set sys.usb.config when switching into fastboot.
+  set_prop(recovery, system_radio_prop)
+  set_prop(recovery, exported_system_radio_prop)
+
+  # Read ro.boot.bootreason
+  get_prop(recovery, bootloader_boot_reason_prop)
+
+  set_prop(recovery, gsid_prop)
+')
