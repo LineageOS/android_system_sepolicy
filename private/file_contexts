@@ -257,8 +257,6 @@
 /system/bin/keystore	u:object_r:keystore_exec:s0
 /system/bin/fingerprintd u:object_r:fingerprintd_exec:s0
 /system/bin/gatekeeperd u:object_r:gatekeeperd_exec:s0
-/system/bin/crash_dump32 u:object_r:crash_dump_exec:s0
-/system/bin/crash_dump64 u:object_r:crash_dump_exec:s0
 /system/bin/tombstoned u:object_r:tombstoned_exec:s0
 /system/bin/recovery-persist     u:object_r:recovery_persist_exec:s0
 /system/bin/recovery-refresh     u:object_r:recovery_refresh_exec:s0
@@ -553,6 +551,7 @@
 /data/misc/stats-active-metric(/.*)? u:object_r:stats_data_file:s0
 /data/misc/stats-data(/.*)?     u:object_r:stats_data_file:s0
 /data/misc/stats-service(/.*)?  u:object_r:stats_data_file:s0
+/data/misc/stats-metadata(/.*)? u:object_r:stats_data_file:s0
 /data/misc/systemkeys(/.*)?     u:object_r:systemkeys_data_file:s0
 /data/misc/textclassifier(/.*)?       u:object_r:textclassifier_data_file:s0
 /data/misc/train-info(/.*)?     u:object_r:stats_data_file:s0

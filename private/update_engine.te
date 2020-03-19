@@ -5,3 +5,9 @@ init_daemon_domain(update_engine);
 # Allow to talk to gsid.
 allow update_engine gsi_service:service_manager find;
 binder_call(update_engine, gsid)
+
+# Allow to start gsid service.
+set_prop(update_engine, ctl_gsid_prop)
+
+# Allow to set the OTA related properties, e.g. ota.warm_reset.
+set_prop(update_engine, ota_prop)

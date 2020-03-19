@@ -34,8 +34,6 @@ allow mediaserver gpu_device:chr_file rw_file_perms;
 allow mediaserver video_device:dir r_dir_perms;
 allow mediaserver video_device:chr_file rw_file_perms;
 
-set_prop(mediaserver, audio_prop)
-
 # Read resources from open apk files passed over Binder.
 allow mediaserver apk_data_file:file { read getattr };
 allow mediaserver asec_apk_file:file { read getattr };

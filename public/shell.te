@@ -58,59 +58,11 @@ allow shell zygote_exec:file rx_file_perms;
 
 r_dir_file(shell, apk_data_file)
 
-# Set properties.
-set_prop(shell, shell_prop)
-set_prop(shell, ctl_bugreport_prop)
-set_prop(shell, ctl_dumpstate_prop)
-set_prop(shell, dumpstate_prop)
-set_prop(shell, exported_dumpstate_prop)
-set_prop(shell, debug_prop)
-set_prop(shell, powerctl_prop)
-set_prop(shell, log_tag_prop)
-set_prop(shell, wifi_log_prop)
-# Allow shell to start/stop traced via the persist.traced.enable
-# property (which also takes care of /data/misc initialization).
-set_prop(shell, traced_enabled_prop)
-# adjust is_loggable properties
-userdebug_or_eng(`set_prop(shell, log_prop)')
-# logpersist script
-userdebug_or_eng(`set_prop(shell, logpersistd_logging_prop)')
-# Allow shell to start/stop heapprofd via the persist.heapprofd.enable
-# property.
-set_prop(shell, heapprofd_enabled_prop)
-# Allow shell to start/stop traced_perf via the persist.traced_perf.enable
-# property.
-set_prop(shell, traced_perf_enabled_prop)
-# Allow shell to start/stop gsid via ctl.start|stop|restart gsid.
-set_prop(shell, ctl_gsid_prop)
-# Allow shell to enable Dynamic System Update
-set_prop(shell, dynamic_system_prop)
-# Allow shell to mock an OTA using persist.pm.mock-upgrade
-set_prop(shell, mock_ota_prop)
-
 userdebug_or_eng(`
   # "systrace --boot" support - allow boottrace service to run
   allow shell boottrace_data_file:dir rw_dir_perms;
   allow shell boottrace_data_file:file create_file_perms;
-  set_prop(shell, persist_debug_prop)
 ')
-
-# Read device's serial number from system properties
-get_prop(shell, serialno_prop)
-
-# Allow shell to read the vendor security patch level for CTS
-get_prop(shell, vendor_security_patch_level_prop)
-
-# Read state of logging-related properties
-get_prop(shell, device_logging_prop)
-
-# Read state of boot reason properties
-get_prop(shell, bootloader_boot_reason_prop)
-get_prop(shell, last_boot_reason_prop)
-get_prop(shell, system_boot_reason_prop)
-
-# Allow reading the outcome of perf_event_open LSM support test for CTS.
-get_prop(shell, init_perf_lsm_hooks_prop)
 
 # allow shell access to services
 allow shell servicemanager:service_manager list;
