@@ -36,9 +36,6 @@ allow lmkd self:global_capability_class_set sys_nice;
 allow lmkd proc_zoneinfo:file r_file_perms;
 allow lmkd proc_vmstat:file r_file_perms;
 
-# Set sys.lmk.* properties.
-set_prop(lmkd, system_lmk_prop)
-
 # live lock watchdog process allowed to look through /proc/
 allow lmkd domain:dir { search open read };
 allow lmkd domain:file { open read };

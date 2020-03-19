@@ -17,3 +17,13 @@ domain_trans(vold, fsck_exec, fsck_untrusted);
 # from accidentally writing when the mount point isn't present.
 type_transition vold storage_file:dir storage_stub_file;
 type_transition vold mnt_media_rw_file:dir mnt_media_rw_stub_file;
+
+# Property Service
+set_prop(vold, vold_prop)
+set_prop(vold, exported_vold_prop)
+set_prop(vold, exported2_vold_prop)
+set_prop(vold, powerctl_prop)
+set_prop(vold, ctl_fuse_prop)
+set_prop(vold, restorecon_prop)
+set_prop(vold, ota_prop)
+set_prop(vold, boottime_prop)

@@ -50,6 +50,17 @@ allow dumpstate proc_net_tcp_udp:file r_file_perms;
 # For comminucating with the system process to do confirmation ui.
 binder_call(dumpstate, incidentcompanion_service)
 
+# Set properties.
+# dumpstate_prop is used to share state with the Shell app.
+set_prop(dumpstate, dumpstate_prop)
+set_prop(dumpstate, exported_dumpstate_prop)
+
+# dumpstate_options_prop is used to pass extra command-line args.
+set_prop(dumpstate, dumpstate_options_prop)
+
+# Allow dumpstate to kill vendor dumpstate service by init
+set_prop(dumpstate, ctl_dumpstate_prop)
+
 # For dumping dynamic partition information.
 set_prop(dumpstate, lpdumpd_prop)
 binder_call(dumpstate, lpdumpd)

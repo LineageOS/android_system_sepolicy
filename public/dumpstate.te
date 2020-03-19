@@ -258,13 +258,6 @@ allow dumpstate hwservicemanager:hwservice_manager list;
 
 allow dumpstate devpts:chr_file rw_file_perms;
 
-# Set properties.
-# dumpstate_prop is used to share state with the Shell app.
-set_prop(dumpstate, dumpstate_prop)
-set_prop(dumpstate, exported_dumpstate_prop)
-# dumpstate_options_prop is used to pass extra command-line args.
-set_prop(dumpstate, dumpstate_options_prop)
-
 # Read any system properties
 get_prop(dumpstate, property_type)
 
@@ -328,9 +321,6 @@ binder_call(dumpstate, mediaswcodec);
 binder_call(dumpstate, hal_rebootescrow_server)
 allow hal_rebootescrow_server dumpstate:fifo_file write;
 allow hal_rebootescrow_server dumpstate:fd use;
-
-# Allow dumpstate to kill vendor dumpstate service by init
-set_prop(dumpstate, ctl_dumpstate_prop)
 
 #Access /data/misc/snapshotctl_log
 allow dumpstate snapshotctl_log_data_file:dir r_dir_perms;
