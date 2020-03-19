@@ -164,6 +164,9 @@ ro.telephony.default_cdma_sub u:object_r:exported3_default_prop:s0 exact int
 ro.telephony.default_network u:object_r:exported3_default_prop:s0 exact string
 ro.vehicle.hal u:object_r:vehicle_hal_prop:s0 exact string
 ro.vendor.build.security_patch u:object_r:vendor_security_patch_level_prop:s0 exact string
+ro.media.xml_variant.codecs u:object_r:media_variant_prop:s0 exact string
+ro.media.xml_variant.codecs_performance u:object_r:media_variant_prop:s0 exact string
+ro.media.xml_variant.profiles u:object_r:media_variant_prop:s0 exact string
 ro.zram.mark_idle_delay_mins u:object_r:exported3_default_prop:s0 exact int
 ro.zram.first_wb_delay_mins u:object_r:exported3_default_prop:s0 exact int
 ro.zram.periodic_wb_delay_hours u:object_r:exported3_default_prop:s0 exact int
