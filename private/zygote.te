@@ -193,6 +193,9 @@ allow zygote system_server:fd use;
 # Send unsolicited message to system_server
 unix_socket_send(zygote, system_unsolzygote, system_server)
 
+# Allow zygote to access media_variant_prop for static initialization
+get_prop(zygote, media_variant_prop)
+
 ###
 ### neverallow rules
 ###
