@@ -211,8 +211,6 @@ type vendor_overlay_file, vendor_file_type, file_type;
 # Type for all vendor public libraries. These libs should only be exposed to
 # apps. ABI stability of these libs is vendor's responsibility.
 type vendor_public_lib_file, vendor_file_type, file_type;
-# Default type for incremental file system driver
-type vendor_incremental_module, vendor_file_type, file_type;
 
 # Input configuration
 type vendor_keylayout_file, vendor_file_type, file_type;
