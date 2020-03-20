@@ -1,3 +1,20 @@
+# Properties used only in /system
+system_internal_prop(adbd_prop)
+system_internal_prop(device_config_storage_native_boot_prop)
+system_internal_prop(device_config_sys_traced_prop)
+system_internal_prop(device_config_window_manager_native_boot_prop)
+system_internal_prop(device_config_configuration_prop)
+system_internal_prop(gsid_prop)
+system_internal_prop(init_perf_lsm_hooks_prop)
+system_internal_prop(init_svc_debug_prop)
+system_internal_prop(last_boot_reason_prop)
+system_internal_prop(netd_stable_secret_prop)
+system_internal_prop(pm_prop)
+system_internal_prop(system_adbd_prop)
+system_internal_prop(traced_perf_enabled_prop)
+system_internal_prop(userspace_reboot_log_prop)
+system_internal_prop(userspace_reboot_test_prop)
+
 ###
 ### Neverallow rules
 ###
