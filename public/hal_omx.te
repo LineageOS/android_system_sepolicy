@@ -22,6 +22,9 @@ hal_attribute_hwservice(hal_omx, hal_omx_hwservice)
 
 allow hal_omx_client hidl_token_hwservice:hwservice_manager find;
 
+get_prop(hal_omx_client, media_variant_prop)
+get_prop(hal_omx_server, media_variant_prop)
+
 binder_call(hal_omx_client, hal_omx_server)
 binder_call(hal_omx_server, hal_omx_client)
 

@@ -148,9 +148,6 @@ recovery_only(`
   allow recovery gsi_metadata_file:dir search;
   allow recovery ota_metadata_file:dir rw_dir_perms;
   allow recovery ota_metadata_file:file create_file_perms;
-
-  # Allow mounting /metadata for writing update states
-  allow recovery metadata_file:dir { getattr mounton };
 ')
 
 ###
