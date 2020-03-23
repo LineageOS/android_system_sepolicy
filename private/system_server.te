@@ -301,6 +301,7 @@ allow system_server {
   hal_codec2_server
   hal_face_server
   hal_fingerprint_server
+  hal_gnss_server
   hal_graphics_allocator_server
   hal_graphics_composer_server
   hal_health_server
