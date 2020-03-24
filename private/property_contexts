@@ -249,7 +249,7 @@ persist.sys.userspace_reboot.log. u:object_r:userspace_reboot_log_prop:s0
 ro.lib_gui.frame_event_history_size u:object_r:bq_config_prop:s0
 
 # vendor-init-readable
-persist.radio.airplane_mode_on u:object_r:exported2_radio_prop:s0 exact int
+persist.radio.airplane_mode_on u:object_r:exported2_radio_prop:s0 exact bool
 
 # vendor-init-settable
 af.fast_track_multiplier u:object_r:exported3_default_prop:s0 exact int
@@ -545,7 +545,7 @@ persist.sys.locale       u:object_r:exported_system_prop:s0 exact string
 persist.sys.timezone     u:object_r:exported_system_prop:s0 exact string
 persist.sys.test_harness u:object_r:test_harness_prop:s0 exact bool
 
-ro.adb.secure u:object_r:exported_secure_prop:s0 exact int
+ro.adb.secure u:object_r:exported_secure_prop:s0 exact bool
 
 ro.arch u:object_r:exported2_default_prop:s0 exact string
 
@@ -592,8 +592,8 @@ ro.build.version.release_or_codename u:object_r:exported2_default_prop:s0 exact 
 ro.build.version.sdk                 u:object_r:exported2_default_prop:s0 exact int
 ro.build.version.security_patch      u:object_r:exported2_default_prop:s0 exact string
 
-ro.crypto.state u:object_r:exported_vold_prop:s0 exact string
-ro.crypto.type  u:object_r:exported_vold_prop:s0 exact string
+ro.crypto.state u:object_r:exported_vold_prop:s0 exact enum encrypted unencrypted unsupported
+ro.crypto.type  u:object_r:exported_vold_prop:s0 exact enum block file none
 
 ro.debuggable u:object_r:exported2_default_prop:s0 exact int
 
@@ -781,7 +781,7 @@ ro.surface_flinger.max_frame_buffer_acquired_buffers      u:object_r:exported_de
 ro.surface_flinger.max_graphics_height                    u:object_r:exported_default_prop:s0 exact int
 ro.surface_flinger.max_graphics_width                     u:object_r:exported_default_prop:s0 exact int
 ro.surface_flinger.max_virtual_display_dimension          u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.primary_display_orientation            u:object_r:exported_default_prop:s0 exact string
+ro.surface_flinger.primary_display_orientation            u:object_r:exported_default_prop:s0 exact enum ORIENTATION_0 ORIENTATION_180 ORIENTATION_270 ORIENTATION_90
 ro.surface_flinger.present_time_offset_from_vsync_ns      u:object_r:exported_default_prop:s0 exact int
 ro.surface_flinger.running_without_sync_framework         u:object_r:exported_default_prop:s0 exact bool
 ro.surface_flinger.start_graphics_allocator_service       u:object_r:exported_default_prop:s0 exact bool
