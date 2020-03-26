@@ -20,6 +20,7 @@ bootstrap_go_package {
         "soong",
         "soong-android",
         "soong-genrule",
+        "soong-sysprop",
     ],
     srcs: [
         "cil_compat_map.go",
