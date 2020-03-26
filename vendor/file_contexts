@@ -10,7 +10,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.[0-9]+-service      u:object_r:hal_bluetooth_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.[0-9]+-service\.btlinux    u:object_r:hal_bluetooth_btlinux_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service u:object_r:hal_fingerprint_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.face@1\.1-service\.example u:object_r:hal_face_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.face@1\.[0-9]+-service\.example u:object_r:hal_face_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.boot@1\.[0-9]+-service      u:object_r:hal_bootctl_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.broadcastradio@\d+\.\d+-service u:object_r:hal_broadcastradio_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider@2\.[0-9]+-service_64       u:object_r:hal_camera_default_exec:s0
@@ -25,7 +25,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.0-service-lazy       u:object_r:hal_drm_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.cas@1\.[0-2]-service            u:object_r:hal_cas_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.cas@1\.[0-2]-service-lazy       u:object_r:hal_cas_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.dumpstate@1\.0-service\.example      u:object_r:hal_dumpstate_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.dumpstate@1\.[0-1]-service\.example      u:object_r:hal_dumpstate_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.gatekeeper@1\.0-service     u:object_r:hal_gatekeeper_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.gnss@[0-9]\.[0-9]-service   u:object_r:hal_gnss_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.graphics\.allocator@2\.0-service   u:object_r:hal_graphics_allocator_default_exec:s0
