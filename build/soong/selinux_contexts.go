@@ -19,9 +19,11 @@ import (
 	"io"
 	"strings"
 
+	"github.com/google/blueprint"
 	"github.com/google/blueprint/proptools"
 
 	"android/soong/android"
+	"android/soong/sysprop"
 )
 
 const (
@@ -72,13 +74,15 @@ type selinuxContextsModule struct {
 
 	properties             selinuxContextsProperties
 	fileContextsProperties fileContextsProperties
-	build                  func(ctx android.ModuleContext, inputs android.Paths)
-	outputPath             android.ModuleGenPath
+	build                  func(ctx android.ModuleContext, inputs android.Paths) android.Path
+	deps                   func(ctx android.BottomUpMutatorContext)
+	outputPath             android.Path
 	installPath            android.InstallPath
 }
 
 var (
-	reuseContextsDepTag = dependencyTag{name: "reuseContexts"}
+	reuseContextsDepTag  = dependencyTag{name: "reuseContexts"}
+	syspropLibraryDepTag = dependencyTag{name: "sysprop_library"}
 )
 
 func init() {
@@ -108,6 +112,18 @@ func (m *selinuxContextsModule) InstallInRecovery() bool {
 
 func (m *selinuxContextsModule) InstallInRoot() bool {
 	return m.inRecovery()
+}
+
+func (m *selinuxContextsModule) DepsMutator(ctx android.BottomUpMutatorContext) {
+	if m.deps != nil {
+		m.deps(ctx)
+	}
+}
+
+func (m *selinuxContextsModule) propertyContextsDeps(ctx android.BottomUpMutatorContext) {
+	for _, lib := range sysprop.SyspropLibraries(ctx.Config()) {
+		ctx.AddFarVariationDependencies([]blueprint.Variation{}, syspropLibraryDepTag, lib)
+	}
 }
 
 func (m *selinuxContextsModule) GenerateAndroidBuildActions(ctx android.ModuleContext) {
@@ -164,7 +180,8 @@ func (m *selinuxContextsModule) GenerateAndroidBuildActions(ctx android.ModuleCo
 		}
 	}
 
-	m.build(ctx, inputs)
+	m.outputPath = m.build(ctx, inputs)
+	ctx.InstallFile(m.installPath, ctx.ModuleName(), m.outputPath)
 }
 
 func newModule() *selinuxContextsModule {
@@ -258,8 +275,8 @@ func selinuxContextsMutator(ctx android.BottomUpMutatorContext) {
 	}
 }
 
-func (m *selinuxContextsModule) buildGeneralContexts(ctx android.ModuleContext, inputs android.Paths) {
-	m.outputPath = android.PathForModuleGen(ctx, ctx.ModuleName()+"_m4out")
+func (m *selinuxContextsModule) buildGeneralContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
+	ret := android.PathForModuleGen(ctx, ctx.ModuleName()+"_m4out")
 
 	rule := android.NewRuleBuilder()
 
@@ -268,42 +285,42 @@ func (m *selinuxContextsModule) buildGeneralContexts(ctx android.ModuleContext, 
 		Text("--fatal-warnings -s").
 		FlagForEachArg("-D", ctx.DeviceConfig().SepolicyM4Defs()).
 		Inputs(inputs).
-		FlagWithOutput("> ", m.outputPath)
+		FlagWithOutput("> ", ret)
 
 	if proptools.Bool(m.properties.Remove_comment) {
-		rule.Temporary(m.outputPath)
+		rule.Temporary(ret)
 
 		remove_comment_output := android.PathForModuleGen(ctx, ctx.ModuleName()+"_remove_comment")
 
 		rule.Command().
 			Text("sed -e 's/#.*$//' -e '/^$/d'").
-			Input(m.outputPath).
+			Input(ret).
 			FlagWithOutput("> ", remove_comment_output)
 
-		m.outputPath = remove_comment_output
+		ret = remove_comment_output
 	}
 
 	if proptools.Bool(m.properties.Fc_sort) {
-		rule.Temporary(m.outputPath)
+		rule.Temporary(ret)
 
 		sorted_output := android.PathForModuleGen(ctx, ctx.ModuleName()+"_sorted")
 
 		rule.Command().
 			Tool(ctx.Config().HostToolPath(ctx, "fc_sort")).
-			FlagWithInput("-i ", m.outputPath).
+			FlagWithInput("-i ", ret).
 			FlagWithOutput("-o ", sorted_output)
 
-		m.outputPath = sorted_output
+		ret = sorted_output
 	}
 
-	rule.Build(pctx, ctx, "selinux_contexts", m.Name())
+	rule.Build(pctx, ctx, "selinux_contexts", "building contexts: "+m.Name())
 
 	rule.DeleteTemporaryFiles()
 
-	ctx.InstallFile(m.installPath, ctx.ModuleName(), m.outputPath)
+	return ret
 }
 
-func (m *selinuxContextsModule) buildFileContexts(ctx android.ModuleContext, inputs android.Paths) {
+func (m *selinuxContextsModule) buildFileContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
 	if m.properties.Fc_sort == nil {
 		m.properties.Fc_sort = proptools.BoolPtr(true)
 	}
@@ -315,7 +332,7 @@ func (m *selinuxContextsModule) buildFileContexts(ctx android.ModuleContext, inp
 			if m := android.SrcIsModule(src); m != "" {
 				ctx.ModuleErrorf(
 					"Module srcs dependency %q is not supported for flatten_apex.srcs", m)
-				return
+				return nil
 			}
 			for _, path := range android.PathsForModuleSrcExcludes(ctx, []string{src}, nil) {
 				out := android.PathForModuleGen(ctx, "flattened_apex", path.Rel())
@@ -334,7 +351,7 @@ func (m *selinuxContextsModule) buildFileContexts(ctx android.ModuleContext, inp
 	}
 
 	rule.Build(pctx, ctx, m.Name(), "flattened_apex_file_contexts")
-	m.buildGeneralContexts(ctx, inputs)
+	return m.buildGeneralContexts(ctx, inputs)
 }
 
 func fileFactory() android.Module {
@@ -344,12 +361,51 @@ func fileFactory() android.Module {
 	return m
 }
 
-func (m *selinuxContextsModule) buildHwServiceContexts(ctx android.ModuleContext, inputs android.Paths) {
+func (m *selinuxContextsModule) buildHwServiceContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
 	if m.properties.Remove_comment == nil {
 		m.properties.Remove_comment = proptools.BoolPtr(true)
 	}
 
-	m.buildGeneralContexts(ctx, inputs)
+	return m.buildGeneralContexts(ctx, inputs)
+}
+
+func (m *selinuxContextsModule) buildPropertyContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
+	builtCtxFile := m.buildGeneralContexts(ctx, inputs)
+
+	var apiFiles android.Paths
+	ctx.VisitDirectDepsWithTag(syspropLibraryDepTag, func(c android.Module) {
+		i, ok := c.(interface{ CurrentSyspropApiFile() android.Path })
+		if !ok {
+			panic(fmt.Errorf("unknown dependency %q for %q", ctx.OtherModuleName(c), ctx.ModuleName()))
+		}
+		apiFiles = append(apiFiles, i.CurrentSyspropApiFile())
+	})
+
+	// check compatibility with sysprop_library
+	if len(apiFiles) > 0 {
+		out := android.PathForModuleGen(ctx, ctx.ModuleName()+"_api_checked")
+		rule := android.NewRuleBuilder()
+
+		msg := `\n******************************\n` +
+			`API of sysprop_library doesn't match with property_contexts\n` +
+			`Please fix the breakage and rebuild.\n` +
+			`******************************\n`
+
+		rule.Command().
+			Text("( ").
+			BuiltTool(ctx, "sysprop_type_checker").
+			FlagForEachInput("--api ", apiFiles).
+			FlagWithInput("--context ", builtCtxFile).
+			Text(" || ( echo").Flag("-e").
+			Flag(`"` + msg + `"`).
+			Text("; exit 38) )")
+
+		rule.Command().Text("cp -f").Input(builtCtxFile).Output(out)
+		rule.Build(pctx, ctx, "property_contexts_check_api", "checking API: "+m.Name())
+		builtCtxFile = out
+	}
+
+	return builtCtxFile
 }
 
 func hwServiceFactory() android.Module {
@@ -360,7 +416,8 @@ func hwServiceFactory() android.Module {
 
 func propertyFactory() android.Module {
 	m := newModule()
-	m.build = m.buildGeneralContexts
+	m.build = m.buildPropertyContexts
+	m.deps = m.propertyContextsDeps
 	return m
 }
 
