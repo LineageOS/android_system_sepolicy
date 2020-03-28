@@ -231,7 +231,6 @@ allow dumpstate {
   -apex_service
   -dumpstate_service
   -gatekeeper_service
-  -iorapd_service
   -virtual_touchpad_service
   -vold_service
   -vr_hwc_service
@@ -242,7 +241,6 @@ dontaudit dumpstate {
   apex_service
   dumpstate_service
   gatekeeper_service
-  iorapd_service
   virtual_touchpad_service
   vold_service
   vr_hwc_service
@@ -288,6 +286,9 @@ allow dumpstate proc_pressure_io:file r_file_perms;
 
 # Allow dumpstate to talk to installd over binder
 binder_call(dumpstate, installd);
+
+# Allow dumpstate to talk to iorapd over binder.
+binder_call(dumpstate, iorapd)
 
 # Allow dumpstate to run ip xfrm policy
 allow dumpstate self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_read };
