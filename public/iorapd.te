@@ -23,6 +23,9 @@ allow iorapd permission_service:service_manager find;
 allow iorapd user_service:service_manager find;
 # IPackageManagerNative
 allow iorapd package_native_service:service_manager find;
+# Allow dumpstate (bugreport) to call into iorapd.
+allow iorapd dumpstate:fd use;
+allow iorapd dumpstate:fifo_file write;
 
 # talk to batteryservice
 binder_call(iorapd, healthd)
@@ -68,8 +71,8 @@ neverallow {
     -iorapd
 } { iorapd_data_file }:notdevfile_class_set *;
 
-# Only system_server can interact with iorapd over binder
-neverallow { domain -system_server -iorapd } iorapd_service:service_manager find;
+# Only system_server and shell (for dumpsys) can interact with iorapd over binder
+neverallow { domain -dumpstate -system_server -iorapd } iorapd_service:service_manager find;
 neverallow iorapd {
   domain
   -healthd
