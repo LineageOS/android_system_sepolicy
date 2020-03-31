@@ -17,6 +17,9 @@ allow hal_audio shell:fifo_file write;
 allow hal_audio dumpstate:fd use;
 allow hal_audio dumpstate:fifo_file write;
 
+# Needed to allow sound trigger hal to access shared memory from apps.
+allow hal_audio_server appdomain:fd use;
+
 # allow hal audio to use vnbinder
 vndbinder_use(hal_audio)
 
