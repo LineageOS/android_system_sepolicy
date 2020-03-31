@@ -43,6 +43,9 @@ def filter_out(pattern_files, input_file):
     with open(input_file, 'r') as in_file:
         tmp_output.writelines(line for line in in_file.readlines()
                               if line not in patterns)
+        # Append empty line because a completely empty file
+        # will trip up secilc later on:
+        tmp_output.write("\n")
         tmp_output.flush()
 
     # Replaces the input_file.
