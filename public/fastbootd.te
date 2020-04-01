@@ -45,6 +45,7 @@ recovery_only(`
   allow fastbootd dm_device:chr_file rw_file_perms;
   allow fastbootd dm_device:blk_file rw_file_perms;
 
+  allow fastbootd cache_block_device:blk_file rw_file_perms;
   allow fastbootd super_block_device_type:blk_file rw_file_perms;
   allow fastbootd {
     boot_block_device
@@ -67,6 +68,7 @@ recovery_only(`
     metadata_block_device
     userdata_block_device
     dm_device
+    cache_block_device
   }:blk_file ioctl { BLKSECDISCARD BLKDISCARD };
 
   allow fastbootd misc_block_device:blk_file rw_file_perms;
