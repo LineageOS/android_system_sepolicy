@@ -25,3 +25,7 @@ allow cppreopts system_file:dir { open read };
 # Allow running the cp command using cppreopts permissions. Needed so we can
 # write into dalvik-cache
 allow cppreopts toolbox_exec:file rx_file_perms;
+
+# Silence the denial when /postinstall cannot be mounted, e.g., system_other
+# is wiped, but cppreopts.sh still runs.
+dontaudit cppreopts postinstall_mnt_dir:dir search;
