@@ -14,32 +14,10 @@ Use file_contexts and policy to verify Treble requirements
 are not violated.
 '''
 ###
-# Differentiate between domains that are part of the core Android platform and
-# domains introduced by vendors
-coreAppdomain = {
-        'bluetooth',
-        'ephemeral_app',
-        'isolated_app',
-        'nfc',
-        'platform_app',
-        'priv_app',
-        'radio',
-        'shared_relro',
-        'shell',
-        'system_app',
-        'untrusted_app',
-        'untrusted_app_25',
-        }
+# TODO: how do we make sure vendor_init doesn't have bad coupling with /vendor?
 coredomainWhitelist = {
-        'adbd',
-        'kernel',
-        'postinstall',
-        'postinstall_dexopt',
-        'recovery',
-        'system_server',
         'vendor_init',
         }
-coredomainWhitelist |= coreAppdomain
 
 class scontext:
     def __init__(self):
