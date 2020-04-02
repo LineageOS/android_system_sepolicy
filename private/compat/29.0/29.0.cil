@@ -1,5 +1,6 @@
 ;; types removed from current policy
 (type ashmemd)
+(type exported2_config_prop)
 (type hal_wifi_offload_hwservice)
 (type install_recovery)
 (type install_recovery_exec)
@@ -1194,7 +1195,7 @@
 (typeattributeset ephemeral_app_29_0 (ephemeral_app))
 (typeattributeset ethernet_service_29_0 (ethernet_service))
 (typeattributeset exfat_29_0 (exfat))
-(typeattributeset exported2_config_prop_29_0 (exported2_config_prop))
+(typeattributeset exported2_config_prop_29_0 (exported2_config_prop systemsound_config_prop))
 (typeattributeset exported2_default_prop_29_0 (exported2_default_prop))
 (typeattributeset exported2_radio_prop_29_0 (exported2_radio_prop))
 (typeattributeset exported2_system_prop_29_0 (exported2_system_prop))
