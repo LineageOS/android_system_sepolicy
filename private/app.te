@@ -19,6 +19,8 @@ dontaudit appdomain storage_stub_file:dir getattr;
 # Attempting to do so will be blocked by both selinux and unix
 # permissions.
 dontaudit appdomain system_data_file:dir write;
+# Apps should not be reading vendor-defined properties.
+dontaudit appdomain vendor_default_prop:file read;
 
 neverallow appdomain system_server:udp_socket {
         accept append bind create ioctl listen lock name_bind
