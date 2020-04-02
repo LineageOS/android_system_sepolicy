@@ -126,6 +126,9 @@ userdebug_or_eng(`
     unix_socket_send(surfaceflinger, statsdw, statsd)
 ')
 
+# Surfaceflinger should not be reading default vendor-defined properties.
+dontaudit surfaceflinger vendor_default_prop:file read;
+
 ###
 ### Neverallow rules
 ###
