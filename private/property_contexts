@@ -782,39 +782,39 @@ ro.build.type u:object_r:exported2_default_prop:s0 exact string
 sys.shutdown.requested u:object_r:exported_system_prop:s0 exact string
 
 # Using Sysprop as API. So the ro.surface_flinger.* are guaranteed to be API-stable
-ro.surface_flinger.default_composition_dataspace          u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.default_composition_pixel_format       u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.force_hwc_copy_for_virtual_displays    u:object_r:exported_default_prop:s0 exact bool
-ro.surface_flinger.has_HDR_display                        u:object_r:exported_default_prop:s0 exact bool
-ro.surface_flinger.has_wide_color_display                 u:object_r:exported_default_prop:s0 exact bool
-ro.surface_flinger.max_frame_buffer_acquired_buffers      u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.max_graphics_height                    u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.max_graphics_width                     u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.max_virtual_display_dimension          u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.primary_display_orientation            u:object_r:exported_default_prop:s0 exact enum ORIENTATION_0 ORIENTATION_180 ORIENTATION_270 ORIENTATION_90
-ro.surface_flinger.present_time_offset_from_vsync_ns      u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.running_without_sync_framework         u:object_r:exported_default_prop:s0 exact bool
-ro.surface_flinger.start_graphics_allocator_service       u:object_r:exported_default_prop:s0 exact bool
-ro.surface_flinger.use_color_management                   u:object_r:exported_default_prop:s0 exact bool
-ro.surface_flinger.use_context_priority                   u:object_r:exported_default_prop:s0 exact bool
-ro.surface_flinger.use_vr_flinger                         u:object_r:exported_default_prop:s0 exact bool
-ro.surface_flinger.vsync_event_phase_offset_ns            u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.vsync_sf_event_phase_offset_ns         u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.wcg_composition_dataspace              u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.wcg_composition_pixel_format           u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.display_primary_red                    u:object_r:exported_default_prop:s0 exact string
-ro.surface_flinger.display_primary_green                  u:object_r:exported_default_prop:s0 exact string
-ro.surface_flinger.display_primary_blue                   u:object_r:exported_default_prop:s0 exact string
-ro.surface_flinger.display_primary_white                  u:object_r:exported_default_prop:s0 exact string
-ro.surface_flinger.protected_contents                     u:object_r:exported_default_prop:s0 exact bool
-ro.surface_flinger.set_idle_timer_ms                      u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.set_touch_timer_ms                     u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.set_display_power_timer_ms             u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.support_kernel_idle_timer              u:object_r:exported_default_prop:s0 exact bool
-ro.surface_flinger.use_smart_90_for_video                 u:object_r:exported_default_prop:s0 exact bool
-ro.surface_flinger.use_content_detection_for_refresh_rate u:object_r:exported_default_prop:s0 exact bool
-ro.surface_flinger.color_space_agnostic_dataspace         u:object_r:exported_default_prop:s0 exact int
-ro.surface_flinger.refresh_rate_switching                 u:object_r:exported_default_prop:s0 exact bool
+ro.surface_flinger.default_composition_dataspace          u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.default_composition_pixel_format       u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.force_hwc_copy_for_virtual_displays    u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.has_HDR_display                        u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.has_wide_color_display                 u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.max_frame_buffer_acquired_buffers      u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.max_graphics_height                    u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.max_graphics_width                     u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.max_virtual_display_dimension          u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.primary_display_orientation            u:object_r:surfaceflinger_prop:s0 exact enum ORIENTATION_0 ORIENTATION_180 ORIENTATION_270 ORIENTATION_90
+ro.surface_flinger.present_time_offset_from_vsync_ns      u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.running_without_sync_framework         u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.start_graphics_allocator_service       u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.use_color_management                   u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.use_context_priority                   u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.use_vr_flinger                         u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.vsync_event_phase_offset_ns            u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.vsync_sf_event_phase_offset_ns         u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.wcg_composition_dataspace              u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.wcg_composition_pixel_format           u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.display_primary_red                    u:object_r:surfaceflinger_prop:s0 exact string
+ro.surface_flinger.display_primary_green                  u:object_r:surfaceflinger_prop:s0 exact string
+ro.surface_flinger.display_primary_blue                   u:object_r:surfaceflinger_prop:s0 exact string
+ro.surface_flinger.display_primary_white                  u:object_r:surfaceflinger_prop:s0 exact string
+ro.surface_flinger.protected_contents                     u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.set_idle_timer_ms                      u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.set_touch_timer_ms                     u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.set_display_power_timer_ms             u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.support_kernel_idle_timer              u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.use_smart_90_for_video                 u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.use_content_detection_for_refresh_rate u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.color_space_agnostic_dataspace         u:object_r:surfaceflinger_prop:s0 exact int
+ro.surface_flinger.refresh_rate_switching                 u:object_r:surfaceflinger_prop:s0 exact bool
 
 # Binder cache properties.  These are world-readable
 cache_key.app_inactive                   u:object_r:binder_cache_system_server_prop:s0
