@@ -663,11 +663,12 @@ define(`hal_attribute_hwservice', `
 # Allow processes within the domain to have their heap profiled by heapprofd.
 #
 # Note that profiling is performed differently between debug and user builds.
-# This macro covers both user and debug builds, but see
-# can_profile_heap_userdebug_or_eng for a variant that can be used when
-# allowing profiling for a domain only on debug builds, without granting
-# the exec permission. The exec permission is necessary for user builds, but
-# only a nice-to-have for development and testing purposes on debug builds.
+# There are two modes for profiling:
+# * forked
+# * central.
+# On user builds, the default is to allow only forked mode. If it is desired
+# to allow central mode as well for a domain, use can_profile_heap_central.
+# On userdebug, this macro allows both forked and central.
 define(`can_profile_heap', `
   # Allow central daemon to send signal for client initialization.
   allow heapprofd $1:process signal;
@@ -683,42 +684,39 @@ define(`can_profile_heap', `
   allow heapprofd $1:dir r_dir_perms;
 
   # Profilability on user implies profilability on userdebug and eng.
-  can_profile_heap_userdebug_or_eng($1)
+  userdebug_or_eng(`
+    can_profile_heap_central($1)
+  ')
 ')
 
 ###################################
-# can_profile_heap_userdebug_or_eng(domain)
-# Allow processes within the domain to have their heap profiled by heapprofd on
-# debug builds only.
-#
-# Only necessary when can_profile_heap cannot be applied, see its description
-# for rationale.
-define(`can_profile_heap_userdebug_or_eng', `
-  userdebug_or_eng(`
-    # Allow central daemon to send signal for client initialization.
-    allow heapprofd $1:process signal;
-    # Allow connecting to the daemon.
-    unix_socket_connect($1, heapprofd, heapprofd)
-    # Allow daemon to use the passed fds.
-    allow heapprofd $1:fd use;
-    # Allow to read and write to heapprofd shmem.
-    # The client needs to read the read and write pointers in order to write.
-    allow $1 heapprofd_tmpfs:file { read write getattr map };
-    # Use shared memory received over the unix socket.
-    allow $1 heapprofd:fd use;
+# can_profile_heap_central(domain)
+# Allow processes within the domain to have their heap profiled by central
+# heapprofd.
+define(`can_profile_heap_central', `
+  # Allow central daemon to send signal for client initialization.
+  allow heapprofd $1:process signal;
+  # Allow connecting to the daemon.
+  unix_socket_connect($1, heapprofd, heapprofd)
+  # Allow daemon to use the passed fds.
+  allow heapprofd $1:fd use;
+  # Allow to read and write to heapprofd shmem.
+  # The client needs to read the read and write pointers in order to write.
+  allow $1 heapprofd_tmpfs:file { read write getattr map };
+  # Use shared memory received over the unix socket.
+  allow $1 heapprofd:fd use;
 
-    # To read and write from the received file descriptors.
-    # /proc/[pid]/maps and /proc/[pid]/mem have the same SELinux label as the
-    # process they relate to.
-    # We need to write to /proc/$PID/page_idle to find idle allocations.
-    # The client only opens /proc/self/page_idle with RDWR, everything else
-    # with RDONLY.
-    # heapprofd cannot open /proc/$PID/mem itself, as it does not have
-    # sys_ptrace.
-    allow heapprofd $1:file rw_file_perms;
-    # Allow searching the /proc/[pid] directory for cmdline.
-    allow heapprofd $1:dir r_dir_perms;
-  ')
+  # To read and write from the received file descriptors.
+  # /proc/[pid]/maps and /proc/[pid]/mem have the same SELinux label as the
+  # process they relate to.
+  # We need to write to /proc/$PID/page_idle to find idle allocations.
+  # The client only opens /proc/self/page_idle with RDWR, everything else
+  # with RDONLY.
+  # heapprofd cannot open /proc/$PID/mem itself, as it does not have
+  # sys_ptrace.
+  allow heapprofd $1:file rw_file_perms;
+  # Allow searching the /proc/[pid] directory for cmdline.
+  allow heapprofd $1:dir r_dir_perms;
 ')
 
 ###################################
