@@ -392,17 +392,17 @@ ro.control_privapp_permissions u:object_r:exported3_default_prop:s0 exact string
 
 ro.cp_system_other_odex u:object_r:exported3_default_prop:s0 exact int
 
-ro.crypto.allow_encrypt_override     u:object_r:exported2_vold_prop:s0 exact bool
-ro.crypto.fde_algorithm              u:object_r:exported2_vold_prop:s0 exact string
-ro.crypto.fde_sector_size            u:object_r:exported2_vold_prop:s0 exact int
-ro.crypto.dm_default_key.options_format.version u:object_r:exported2_vold_prop:s0 exact int
-ro.crypto.scrypt_params              u:object_r:exported2_vold_prop:s0 exact string
-ro.crypto.set_dun                    u:object_r:exported2_vold_prop:s0 exact bool
-ro.crypto.volume.contents_mode       u:object_r:exported2_vold_prop:s0 exact string
-ro.crypto.volume.filenames_mode      u:object_r:exported2_vold_prop:s0 exact string
-ro.crypto.volume.metadata.encryption u:object_r:exported2_vold_prop:s0 exact string
-ro.crypto.volume.metadata.method     u:object_r:exported2_vold_prop:s0 exact string
-ro.crypto.volume.options             u:object_r:exported2_vold_prop:s0 exact string
+ro.crypto.allow_encrypt_override                u:object_r:vold_config_prop:s0 exact bool
+ro.crypto.dm_default_key.options_format.version u:object_r:vold_config_prop:s0 exact int
+ro.crypto.fde_algorithm                         u:object_r:vold_config_prop:s0 exact string
+ro.crypto.fde_sector_size                       u:object_r:vold_config_prop:s0 exact int
+ro.crypto.scrypt_params                         u:object_r:vold_config_prop:s0 exact string
+ro.crypto.set_dun                               u:object_r:vold_config_prop:s0 exact bool
+ro.crypto.volume.contents_mode                  u:object_r:vold_config_prop:s0 exact string
+ro.crypto.volume.filenames_mode                 u:object_r:vold_config_prop:s0 exact string
+ro.crypto.volume.metadata.encryption            u:object_r:vold_config_prop:s0 exact string
+ro.crypto.volume.metadata.method                u:object_r:vold_config_prop:s0 exact string
+ro.crypto.volume.options                        u:object_r:vold_config_prop:s0 exact string
 
 ro.dalvik.vm.native.bridge u:object_r:exported_dalvik_prop:s0 exact string
 
@@ -483,7 +483,7 @@ telephony.lteOnCdmaDevice u:object_r:exported3_default_prop:s0 exact int
 
 tombstoned.max_tombstone_count u:object_r:exported3_default_prop:s0 exact int
 
-vold.post_fs_data_done u:object_r:exported2_vold_prop:s0 exact int
+vold.post_fs_data_done u:object_r:vold_config_prop:s0 exact int
 
 vts.native_server.on u:object_r:exported3_default_prop:s0 exact bool
 
@@ -594,8 +594,8 @@ ro.build.version.release_or_codename u:object_r:exported2_default_prop:s0 exact 
 ro.build.version.sdk                 u:object_r:exported2_default_prop:s0 exact int
 ro.build.version.security_patch      u:object_r:exported2_default_prop:s0 exact string
 
-ro.crypto.state u:object_r:exported_vold_prop:s0 exact enum encrypted unencrypted unsupported
-ro.crypto.type  u:object_r:exported_vold_prop:s0 exact enum block file none
+ro.crypto.state u:object_r:vold_status_prop:s0 exact enum encrypted unencrypted unsupported
+ro.crypto.type  u:object_r:vold_status_prop:s0 exact enum block file none
 
 ro.debuggable u:object_r:exported2_default_prop:s0 exact int
 
@@ -623,7 +623,7 @@ sys.boot_from_charger_mode            u:object_r:exported_system_prop:s0 exact i
 sys.init.userspace_reboot.in_progress u:object_r:userspace_reboot_exported_prop:s0 exact bool
 sys.use_memfd                         u:object_r:use_memfd_prop:s0 exact bool
 
-vold.decrypt u:object_r:exported_vold_prop:s0 exact string
+vold.decrypt u:object_r:vold_status_prop:s0 exact string
 
 # vendor-init-settable|public-readable
 aaudio.hw_burst_min_usec     u:object_r:exported_default_prop:s0 exact int
