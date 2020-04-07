@@ -15,3 +15,6 @@ expandattribute system_and_vendor_property_type false;
 attribute sdk_sandbox_all;
 # The SDK sandbox domains for the current SDK level.
 attribute sdk_sandbox_current;
+
+# All types used for sdcard_posix context= mounts.
+attribute sdcard_posix_contextmount_type;
