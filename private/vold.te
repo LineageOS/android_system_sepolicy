@@ -19,9 +19,10 @@ type_transition vold storage_file:dir storage_stub_file;
 type_transition vold mnt_media_rw_file:dir mnt_media_rw_stub_file;
 
 # Property Service
+get_prop(vold, vold_config_prop)
+
 set_prop(vold, vold_prop)
-set_prop(vold, exported_vold_prop)
-set_prop(vold, exported2_vold_prop)
+set_prop(vold, vold_status_prop)
 set_prop(vold, powerctl_prop)
 set_prop(vold, ctl_fuse_prop)
 set_prop(vold, restorecon_prop)
