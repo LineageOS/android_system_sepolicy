@@ -30,6 +30,9 @@ attribute contextmount_type;
 # example.
 attribute fusefs_type;
 
+# All types used for sdcard_posix context= mounts.
+attribute sdcard_posix_contextmount_type;
+
 # All types used for files that can exist on a labeled fs.
 # Do not use for pseudo file types.
 # On change, update CHECK_FC_ASSERT_ATTRS
