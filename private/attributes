@@ -44,3 +44,6 @@ until_board_api(202504, `
 until_board_api(202504, `
     hal_attribute(hwcrypto);
 ')
+
+# All types used for sdcard_posix context= mounts.
+attribute sdcard_posix_contextmount_type;
