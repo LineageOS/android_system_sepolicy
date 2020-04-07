@@ -395,6 +395,7 @@ ro.cp_system_other_odex u:object_r:exported3_default_prop:s0 exact int
 ro.crypto.allow_encrypt_override     u:object_r:exported2_vold_prop:s0 exact bool
 ro.crypto.fde_algorithm              u:object_r:exported2_vold_prop:s0 exact string
 ro.crypto.fde_sector_size            u:object_r:exported2_vold_prop:s0 exact int
+ro.crypto.dm_default_key.options_format.version u:object_r:exported2_vold_prop:s0 exact int
 ro.crypto.scrypt_params              u:object_r:exported2_vold_prop:s0 exact string
 ro.crypto.set_dun                    u:object_r:exported2_vold_prop:s0 exact bool
 ro.crypto.volume.contents_mode       u:object_r:exported2_vold_prop:s0 exact string
