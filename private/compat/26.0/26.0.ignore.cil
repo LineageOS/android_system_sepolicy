@@ -205,10 +205,12 @@
     vendor_shell
     vendor_socket_hook_prop
     vndk_prop
+    vold_config_prop
     vold_metadata_file
     vold_prepare_subdirs
     vold_prepare_subdirs_exec
     vold_service
+    vold_status_prop
     vrflinger_vsync_service
     wait_for_keymaster
     wait_for_keymaster_exec
