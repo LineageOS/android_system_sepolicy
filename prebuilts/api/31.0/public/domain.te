@@ -509,7 +509,7 @@ neverallow * rootfs:file { create write setattr relabelto append unlink link ren
 
 # Restrict context mounts to specific types marked with
 # the contextmount_type attribute.
-neverallow * {fs_type -contextmount_type}:filesystem relabelto;
+neverallow * {fs_type -contextmount_type -sdcard_posix_contextmount_type}:filesystem relabelto;
 
 # Ensure that context mount types are not writable, to ensure that
 # the write to /system restriction above is not bypassed via context=
