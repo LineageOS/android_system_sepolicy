@@ -28,6 +28,9 @@ attribute sdk_sandbox_current;
 # Common to adbd and adbd_tradeinmode.
 attribute adbd_common;
 
+# All types used for sdcard_posix context= mounts.
+attribute sdcard_posix_contextmount_type;
+
 # Provides access to platform update services.
 # WARNING: USING THE update_provider ATTRIBUTE WILL CAUSE CTS TO FAIL!
 attribute update_provider;
@@ -44,3 +47,4 @@ until_board_api(202504, `
 until_board_api(202504, `
     hal_attribute(hwcrypto);
 ')
+
