@@ -142,10 +142,8 @@ compatible_property_only(`
     exported_fingerprint_prop
     exported_system_prop
     exported_system_radio_prop
-    exported_vold_prop
     exported2_default_prop
     exported2_system_prop
-    exported2_vold_prop
     exported3_default_prop
     exported3_system_prop
     -nfc_prop
@@ -244,7 +242,6 @@ compatible_property_only(`
     exported_ffs_prop
     exported_system_radio_prop
     exported2_system_prop
-    exported2_vold_prop
     exported3_default_prop
     exported3_system_prop
     systemsound_config_prop
