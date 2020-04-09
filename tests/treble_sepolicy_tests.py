@@ -13,10 +13,14 @@ DEBUG=False
 Use file_contexts and policy to verify Treble requirements
 are not violated.
 '''
-###
-# TODO: how do we make sure vendor_init doesn't have bad coupling with /vendor?
 coredomainWhitelist = {
+        # TODO: how do we make sure vendor_init doesn't have bad coupling with
+        # /vendor? It is the only system process which is not coredomain.
         'vendor_init',
+        # TODO(b/152813275): need to avoid whitelist for rootdir
+        "modprobe",
+        "slideshow",
+        "healthd",
         }
 
 class scontext:
@@ -28,6 +32,7 @@ class scontext:
         self.attributes = set()
         self.entrypoints = []
         self.entrypointpaths = []
+        self.error = ""
 
 def PrintScontexts():
     for d in sorted(alldomains.keys()):
@@ -80,32 +85,42 @@ def GetCoreDomains():
     global alldomains
     global coredomains
     for d in alldomains:
+        domain = alldomains[d]
         # TestCoredomainViolations will verify if coredomain was incorrectly
         # applied.
-        if "coredomain" in alldomains[d].attributes:
-            alldomains[d].coredomain = True
+        if "coredomain" in domain.attributes:
+            domain.coredomain = True
             coredomains.add(d)
         # check whether domains are executed off of /system or /vendor
         if d in coredomainWhitelist:
             continue
-        # TODO, add checks to prevent app domains from being incorrectly
-        # labeled as coredomain. Apps don't have entrypoints as they're always
-        # dynamically transitioned to by zygote.
+        # TODO(b/153112003): add checks to prevent app domains from being
+        # incorrectly labeled as coredomain. Apps don't have entrypoints as
+        # they're always dynamically transitioned to by zygote.
         if d in appdomains:
             continue
-        if not alldomains[d].entrypointpaths:
+        # TODO(b/153112747): need to handle cases where there is a dynamic
+        # transition OR there happens to be no context in AOSP files.
+        if not domain.entrypointpaths:
             continue
-        for path in alldomains[d].entrypointpaths:
-            # Processes with entrypoint on /system
-            if ((MatchPathPrefix(path, "/system") and not
-                    MatchPathPrefix(path, "/system/vendor")) or
-                    MatchPathPrefix(path, "/init") or
-                    MatchPathPrefix(path, "/charger")):
-                alldomains[d].fromSystem = True
-            # Processes with entrypoint on /vendor or /system/vendor
-            if (MatchPathPrefix(path, "/vendor") or
-                    MatchPathPrefix(path, "/system/vendor")):
-                alldomains[d].fromVendor = True
+
+        for path in domain.entrypointpaths:
+            vendor = any(MatchPathPrefix(path, prefix) for prefix in
+                         ["/vendor", "/odm"])
+            system = any(MatchPathPrefix(path, prefix) for prefix in
+                         ["/init", "/system_ext", "/product" ])
+
+            # only mark entrypoint as system if it is not in legacy /system/vendor
+            if MatchPathPrefix(path, "/system/vendor"):
+                vendor = True
+            elif MatchPathPrefix(path, "/system"):
+                system = True
+
+            if not vendor and not system:
+                domain.error += "Unrecognized entrypoint for " + d + " at " + path + "\n"
+
+            domain.fromSystem = domain.fromSystem or system
+            domain.fromVendor = domain.fromVendor or vendor
 
 ###
 # Add the entrypoint type and path(s) to each domain.
@@ -173,6 +188,15 @@ def TestCoredomainViolations():
     # verify that all domains launched from /system have the coredomain
     # attribute
     ret = ""
+
+    for d in alldomains:
+        domain = alldomains[d]
+        if domain.fromSystem and domain.fromVendor:
+            ret += "The following domain is system and vendor: " + d + "\n"
+
+    for domain in alldomains.values():
+        ret += domain.error
+
     violators = []
     for d in alldomains:
         domain = alldomains[d]
