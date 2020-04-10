@@ -20,6 +20,7 @@ type_transition vold mnt_media_rw_file:dir mnt_media_rw_stub_file;
 
 # Property Service
 get_prop(vold, vold_config_prop)
+get_prop(vold, storage_config_prop);
 
 set_prop(vold, vold_prop)
 set_prop(vold, vold_status_prop)
