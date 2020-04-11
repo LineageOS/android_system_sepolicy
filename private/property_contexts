@@ -766,6 +766,7 @@ ro.apex.updatable u:object_r:exported_default_prop:s0 exact bool
 init.userspace_reboot.is_supported u:object_r:userspace_reboot_config_prop:s0 exact bool
 init.userspace_reboot.sigkill.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
 init.userspace_reboot.sigterm.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
+init.userspace_reboot.started.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
 init.userspace_reboot.userdata_remount.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
 init.userspace_reboot.watchdog.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
 
