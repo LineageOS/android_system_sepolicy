@@ -22,6 +22,30 @@
       "revId": "a4f1b32524647e8734c61d9d58626f53d061da4c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcadf494_4f24365b",
+        "filename": "Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 18205
+      },
+      "writtenOn": "2020-04-13T14:17:40Z",
+      "side": 0,
+      "message": "oops, git add .",
+      "parentUuid": "83368d44_710b82d7",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 73
+      },
+      "revId": "a4f1b32524647e8734c61d9d58626f53d061da4c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
