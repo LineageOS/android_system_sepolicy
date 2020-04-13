@@ -618,6 +618,7 @@ set_prop(system_server, exported_overlay_prop)
 set_prop(system_server, pm_prop)
 set_prop(system_server, exported_pm_prop)
 set_prop(system_server, socket_hook_prop)
+set_prop(system_server, audio_prop)
 userdebug_or_eng(`set_prop(system_server, wifi_log_prop)')
 
 # ctl interface
