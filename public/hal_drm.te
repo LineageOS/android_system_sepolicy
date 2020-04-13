@@ -24,6 +24,9 @@ allow hal_drm cgroup:file w_file_perms;
 allow hal_drm ion_device:chr_file rw_file_perms;
 allow hal_drm hal_graphics_allocator:fd use;
 
+# Allow access to hidl_memory allocation service
+allow hal_drm hal_allocator_server:fd use;
+
 # Allow access to fds allocated by mediaserver
 allow hal_drm mediaserver:fd use;
 
