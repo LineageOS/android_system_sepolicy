@@ -24,7 +24,10 @@ allow traced self:global_capability_class_set { sys_nice };
 allow traced perfetto:fd use;
 allow traced shell:fd use;
 allow traced shell:fifo_file { read write };
-allow traced perfetto_traces_data_file:file { read write };
+
+# Allow the service to create new files within /data/misc/perfetto-traces.
+allow traced perfetto_traces_data_file:file create_file_perms;
+allow traced perfetto_traces_data_file:dir rw_dir_perms;
 
 # Allow traceur to pass open file descriptors to traced, so traced can directly
 # write into the output file without doing roundtrips over IPC.
@@ -78,6 +81,7 @@ neverallow traced domain:process ptrace;
 # passed through the socket.
 neverallow traced {
   data_file_type
+  -perfetto_traces_data_file
   -system_data_file
   -system_data_root_file
   # TODO(b/72998741) Remove vendor_data_file exemption. Further restricted in a
