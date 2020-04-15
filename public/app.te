@@ -219,6 +219,8 @@ binder_call(appdomain, binderservicedomain)
 binder_call(appdomain, appdomain)
 # Perform binder IPC to ephemeral apps.
 binder_call(appdomain, ephemeral_app)
+# Perform binder IPC to gpuservice.
+binder_call({ appdomain -isolated_app }, gpuservice)
 
 # Talk with graphics composer fences
 allow appdomain hal_graphics_composer:fd use;
