@@ -44,10 +44,6 @@ allow ephemeral_app mediadrmserver_service:service_manager find;
 allow ephemeral_app drmserver_service:service_manager find;
 allow ephemeral_app radio_service:service_manager find;
 allow ephemeral_app ephemeral_app_api_service:service_manager find;
-allow ephemeral_app gpu_service:service_manager find;
-
-# Allow ephemeral apps to interact with gpuservice
-binder_call(ephemeral_app, gpuservice)
 
 # Write app-specific trace data to the Perfetto traced damon. This requires
 # connecting to its producer socket and obtaining a (per-process) tmpfs fd.
