@@ -757,6 +757,7 @@ ro.vndk.version u:object_r:vndk_prop:s0 exact string
 ro.vts.coverage u:object_r:exported_default_prop:s0 exact int
 
 wifi.active.interface     u:object_r:exported_wifi_prop:s0 exact string
+wifi.aware.interface      u:object_r:exported_wifi_prop:s0 exact string
 wifi.concurrent.interface u:object_r:exported_default_prop:s0 exact string
 wifi.direct.interface     u:object_r:exported_default_prop:s0 exact string
 wifi.interface            u:object_r:exported_default_prop:s0 exact string
