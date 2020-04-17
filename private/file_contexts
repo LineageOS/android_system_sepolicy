@@ -515,7 +515,7 @@
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
 /data/misc/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
-/data/misc/apexdata/com.android.permission(/.*)?    u:object_r:apex_permission_data_file:s0
+/data/misc/apexdata/com\.android\.permission(/.*)?    u:object_r:apex_permission_data_file:s0
 /data/misc/apexdata/com\.android\.wifi(/.*)?    u:object_r:apex_wifi_data_file:s0
 /data/misc/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
 /data/misc/apns(/.*)?           u:object_r:radio_data_file:s0
@@ -608,8 +608,8 @@
 # Apex data directories
 /data/misc_de/[0-9]+/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
 /data/misc_ce/[0-9]+/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
-/data/misc_de/[0-9]+/apexdata/com.android.permission(/.*)?  u:object_r:apex_permission_data_file:s0
-/data/misc_ce/[0-9]+/apexdata/com.android.permission(/.*)?  u:object_r:apex_permission_data_file:s0
+/data/misc_de/[0-9]+/apexdata/com\.android\.permission(/.*)?  u:object_r:apex_permission_data_file:s0
+/data/misc_ce/[0-9]+/apexdata/com\.android\.permission(/.*)?  u:object_r:apex_permission_data_file:s0
 /data/misc_de/[0-9]+/apexdata/com\.android\.wifi(/.*)?  u:object_r:apex_wifi_data_file:s0
 /data/misc_ce/[0-9]+/apexdata/com\.android\.wifi(/.*)?  u:object_r:apex_wifi_data_file:s0
 
