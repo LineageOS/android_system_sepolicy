@@ -70,6 +70,8 @@ dalvik.vm.usejit u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.usejitprofiles u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.zygote.max-boot-retry u:object_r:exported_dalvik_prop:s0 exact int
 drm.service.enabled u:object_r:exported3_default_prop:s0 exact bool
+external_storage.projid.enabled u:object_r:storage_config_prop:s0 exact bool
+external_storage.casefold.enabled u:object_r:storage_config_prop:s0 exact bool
 keyguard.no_require_sim u:object_r:exported3_default_prop:s0 exact bool
 media.recorder.show_manufacturer_and_model u:object_r:exported3_default_prop:s0 exact bool
 media.stagefright.cache-params u:object_r:exported3_default_prop:s0 exact string
