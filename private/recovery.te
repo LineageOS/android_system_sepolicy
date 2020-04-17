@@ -20,5 +20,8 @@ recovery_only(`
   # Read ro.boot.bootreason
   get_prop(recovery, bootloader_boot_reason_prop)
 
+  # Read storage properties (for correctly formatting filesystems)
+  get_prop(recovery, storage_config_prop)
+
   set_prop(recovery, gsid_prop)
 ')
