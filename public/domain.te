@@ -530,6 +530,7 @@ compatible_property_only(`
     neverallow { domain -init } exported2_default_prop:property_service set;
     neverallow { domain -init -vendor_init } exported3_default_prop:property_service set;
     neverallow { domain -init -vendor_init } vendor_default_prop:property_service set;
+    neverallow { domain -init -vendor_init } storage_config_prop:property_service set;
 ')
 
 # Only core domains are allowed to access package_manager properties
