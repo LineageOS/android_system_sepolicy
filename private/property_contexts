@@ -275,6 +275,7 @@ dalvik.vm.dex2oat-cpu-set                   u:object_r:exported_dalvik_prop:s0 e
 dalvik.vm.dex2oat-filter                    u:object_r:exported_dalvik_prop:s0 exact string
 dalvik.vm.dex2oat-flags                     u:object_r:exported_dalvik_prop:s0 exact string
 dalvik.vm.dex2oat-threads                   u:object_r:exported_dalvik_prop:s0 exact int
+dalvik.vm.dex2oat64.enabled                 u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.dexopt.secondary                  u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.execution-mode                    u:object_r:exported_dalvik_prop:s0 exact string
 dalvik.vm.extra-opts                        u:object_r:exported_dalvik_prop:s0 exact string
