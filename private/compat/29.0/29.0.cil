@@ -1,5 +1,6 @@
 ;; types removed from current policy
 (type ashmemd)
+(type exported_dalvik_prop)
 (type exported_vold_prop)
 (type exported2_config_prop)
 (type exported2_vold_prop)
@@ -1209,7 +1210,7 @@
 (typeattributeset exported_audio_prop_29_0 (exported_audio_prop))
 (typeattributeset exported_bluetooth_prop_29_0 (exported_bluetooth_prop))
 (typeattributeset exported_config_prop_29_0 (exported_config_prop))
-(typeattributeset exported_dalvik_prop_29_0 (exported_dalvik_prop))
+(typeattributeset exported_dalvik_prop_29_0 (exported_dalvik_prop dalvik_config_prop))
 (typeattributeset exported_default_prop_29_0
   ( exported_default_prop
     surfaceflinger_prop
