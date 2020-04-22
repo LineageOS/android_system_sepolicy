@@ -39,6 +39,7 @@ neverallow {
   -bootanim
   -bootstat
   -dumpstate
+  userdebug_or_eng(`-incidentd')
   -init
   -recovery
   -shell
