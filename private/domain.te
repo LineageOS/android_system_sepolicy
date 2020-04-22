@@ -73,7 +73,7 @@ get_prop(domain, bq_config_prop);
 # Device specific properties are not granted by default
 not_compatible_property(`
     get_prop(domain, core_property_type)
-    get_prop(domain, exported_dalvik_prop)
+    get_prop(domain, dalvik_config_prop)
     get_prop(domain, exported_ffs_prop)
     get_prop(domain, exported_system_radio_prop)
     get_prop(domain, exported2_radio_prop)
@@ -87,7 +87,7 @@ not_compatible_property(`
 ')
 compatible_property_only(`
     get_prop({coredomain appdomain shell}, core_property_type)
-    get_prop({coredomain appdomain shell}, exported_dalvik_prop)
+    get_prop({coredomain appdomain shell}, dalvik_config_prop)
     get_prop({coredomain appdomain shell}, exported_ffs_prop)
     get_prop({coredomain appdomain shell}, exported_system_radio_prop)
     get_prop({coredomain appdomain shell}, exported2_radio_prop)
