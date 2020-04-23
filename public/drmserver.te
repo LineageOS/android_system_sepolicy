@@ -48,6 +48,9 @@ allow drmserver radio_data_file:file { read getattr map };
 allow drmserver oemfs:dir search;
 allow drmserver oemfs:file r_file_perms;
 
+# overlay package access
+allow drmserver vendor_overlay_file:file { read map };
+
 add_service(drmserver, drmserver_service)
 allow drmserver permission_service:service_manager find;
 

@@ -131,6 +131,9 @@ allow mediaserver system_server:fd use;
 # b/120491318 allow mediaserver to access void:fd
 allow mediaserver vold:fd use;
 
+# overlay package access
+allow mediaserver vendor_overlay_file:file { read getattr map };
+
 hal_client_domain(mediaserver, hal_allocator)
 
 ###

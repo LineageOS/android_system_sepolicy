@@ -82,7 +82,7 @@ full_treble_only(`
         -webview_zygote
         -zygote
         userdebug_or_eng(`-heapprofd')
-    } vendor_overlay_file:file r_file_perms;
+    } vendor_overlay_file:file open;
 ')
 
 # Core domains are not permitted to use kernel interfaces which are not
