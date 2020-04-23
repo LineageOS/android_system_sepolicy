@@ -91,7 +91,7 @@ allow shell dumpstate:binder call;
 hwbinder_use(shell)
 allow shell hwservicemanager:hwservice_manager list;
 
-# allow shell to look through /proc/ for lsmod, ps, top, netstat.
+# allow shell to look through /proc/ for lsmod, ps, top, netstat, vmstat.
 r_dir_file(shell, proc_net_type)
 
 allow shell {
@@ -107,6 +107,7 @@ allow shell {
   proc_timer
   proc_uptime
   proc_version
+  proc_vmstat
   proc_zoneinfo
 }:file r_file_perms;
 
