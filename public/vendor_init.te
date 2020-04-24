@@ -238,6 +238,7 @@ set_prop(vendor_init, vndk_prop)
 set_prop(vendor_init, virtual_ab_prop)
 set_prop(vendor_init, wifi_log_prop)
 
+get_prop(vendor_init, boot_status_prop)
 get_prop(vendor_init, exported2_radio_prop)
 get_prop(vendor_init, exported3_system_prop)
 get_prop(vendor_init, theme_prop)
