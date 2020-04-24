@@ -499,13 +499,13 @@ zram.force_writeback u:object_r:exported3_default_prop:s0 exact bool
 # vendor-init-readable
 apexd.status u:object_r:apexd_prop:s0 exact enum starting activated ready
 
-dev.bootcomplete u:object_r:exported3_system_prop:s0 exact bool
+dev.bootcomplete   u:object_r:boot_status_prop:s0 exact bool
+sys.boot_completed u:object_r:boot_status_prop:s0 exact bool
 
 persist.sys.device_provisioned  u:object_r:exported3_system_prop:s0 exact string
 persist.sys.theme               u:object_r:theme_prop:s0 exact string
 persist.sys.usb.usbradio.config u:object_r:exported3_system_prop:s0 exact string
 
-sys.boot_completed      u:object_r:exported3_system_prop:s0 exact bool
 sys.retaildemo.enabled  u:object_r:exported3_system_prop:s0 exact int
 sys.user.0.ce_available u:object_r:exported3_system_prop:s0 exact bool
 sys.vdso                u:object_r:exported3_system_prop:s0 exact string

@@ -72,6 +72,7 @@ get_prop(domain, bq_config_prop);
 # For now, everyone can access core property files
 # Device specific properties are not granted by default
 not_compatible_property(`
+    get_prop(domain, boot_status_prop)
     get_prop(domain, core_property_type)
     get_prop(domain, dalvik_config_prop)
     get_prop(domain, exported_ffs_prop)
@@ -86,6 +87,7 @@ not_compatible_property(`
     get_prop(domain, vold_config_prop)
 ')
 compatible_property_only(`
+    get_prop({coredomain appdomain shell}, boot_status_prop)
     get_prop({coredomain appdomain shell}, core_property_type)
     get_prop({coredomain appdomain shell}, dalvik_config_prop)
     get_prop({coredomain appdomain shell}, exported_ffs_prop)
