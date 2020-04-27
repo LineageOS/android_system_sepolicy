@@ -9,7 +9,6 @@ net.qmi                 u:object_r:net_radio_prop:s0
 net.lte                 u:object_r:net_radio_prop:s0
 net.cdma                u:object_r:net_radio_prop:s0
 net.dns                 u:object_r:net_dns_prop:s0
-sys.usb.config          u:object_r:system_radio_prop:s0
 ril.                    u:object_r:radio_prop:s0
 ro.ril.                 u:object_r:radio_prop:s0
 gsm.                    u:object_r:radio_prop:s0
@@ -481,9 +480,16 @@ ro.zygote u:object_r:exported3_default_prop:s0 exact string
 
 sendbug.preferred.domain u:object_r:exported3_default_prop:s0 exact string
 
-sys.usb.controller      u:object_r:exported2_system_prop:s0 exact string
-sys.usb.mtp.device_type u:object_r:exported2_system_prop:s0 exact int
-sys.usb.state           u:object_r:exported2_system_prop:s0 exact string
+persist.sys.usb.usbradio.config u:object_r:usb_control_prop:s0 exact string
+
+sys.usb.config     u:object_r:usb_control_prop:s0 exact string
+sys.usb.configfs   u:object_r:usb_control_prop:s0 exact int
+sys.usb.controller u:object_r:usb_control_prop:s0 exact string
+sys.usb.state      u:object_r:usb_control_prop:s0 exact string
+
+sys.usb.mtp.device_type u:object_r:usb_config_prop:s0 exact int
+
+sys.usb.config. u:object_r:usb_prop:s0
 
 sys.usb.ffs.aio_compat u:object_r:ffs_config_prop:s0 exact bool
 sys.usb.ffs.max_read   u:object_r:ffs_config_prop:s0 exact int
@@ -510,13 +516,9 @@ sys.boot_completed u:object_r:boot_status_prop:s0 exact bool
 
 persist.sys.device_provisioned  u:object_r:exported3_system_prop:s0 exact string
 persist.sys.theme               u:object_r:theme_prop:s0 exact string
-persist.sys.usb.usbradio.config u:object_r:exported3_system_prop:s0 exact string
 
 sys.retaildemo.enabled  u:object_r:exported3_system_prop:s0 exact int
 sys.user.0.ce_available u:object_r:exported3_system_prop:s0 exact bool
-
-sys.usb.config   u:object_r:exported_system_radio_prop:s0 exact string
-sys.usb.configfs u:object_r:exported_system_radio_prop:s0 exact int
 
 aac_drc_boost            u:object_r:aac_drc_prop:s0 exact int
 aac_drc_cut              u:object_r:aac_drc_prop:s0 exact int
