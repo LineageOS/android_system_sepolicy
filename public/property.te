@@ -83,7 +83,6 @@ compatible_property_only(`
     system_restricted_prop(exported_dumpstate_prop)
     system_restricted_prop(exported_fingerprint_prop)
     system_restricted_prop(exported_secure_prop)
-    system_restricted_prop(ffs_prop)
     system_restricted_prop(fingerprint_prop)
     system_restricted_prop(heapprofd_prop)
     system_restricted_prop(net_radio_prop)
@@ -106,6 +105,7 @@ system_vendor_config_prop(exported_camera_prop)
 system_vendor_config_prop(exported_config_prop)
 system_vendor_config_prop(exported_default_prop)
 system_vendor_config_prop(exported3_default_prop)
+system_vendor_config_prop(ffs_config_prop)
 system_vendor_config_prop(incremental_prop)
 system_vendor_config_prop(lmkd_config_prop)
 system_vendor_config_prop(media_variant_prop)
@@ -136,12 +136,12 @@ system_public_prop(exported2_radio_prop)
 system_public_prop(exported2_system_prop)
 system_public_prop(exported3_radio_prop)
 system_public_prop(exported_bluetooth_prop)
-system_public_prop(exported_ffs_prop)
 system_public_prop(exported_overlay_prop)
 system_public_prop(exported_pm_prop)
 system_public_prop(exported_radio_prop)
 system_public_prop(exported_system_radio_prop)
 system_public_prop(exported_wifi_prop)
+system_public_prop(ffs_control_prop)
 system_public_prop(sota_prop)
 system_public_prop(hwservicemanager_prop)
 system_public_prop(lmkd_prop)
@@ -215,7 +215,6 @@ not_compatible_property(`
     system_public_prop(exported_dumpstate_prop)
     system_public_prop(exported_fingerprint_prop)
     system_public_prop(exported_secure_prop)
-    system_public_prop(ffs_prop)
     system_public_prop(fingerprint_prop)
     system_public_prop(heapprofd_prop)
     system_public_prop(net_radio_prop)
@@ -253,7 +252,6 @@ typeattribute debug_prop         core_property_type;
 typeattribute default_prop       core_property_type;
 typeattribute dhcp_prop          core_property_type;
 typeattribute dumpstate_prop     core_property_type;
-typeattribute ffs_prop           core_property_type;
 typeattribute fingerprint_prop   core_property_type;
 typeattribute logd_prop          core_property_type;
 typeattribute net_radio_prop     core_property_type;

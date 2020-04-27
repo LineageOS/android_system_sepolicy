@@ -1,9 +1,11 @@
 ;; types removed from current policy
 (type exported_audio_prop)
 (type exported_dalvik_prop)
+(type exported_ffs_prop)
 (type exported_vold_prop)
 (type exported2_config_prop)
 (type exported2_vold_prop)
+(type ffs_prop)
 
 (expandtypeattribute (DockObserver_service_30_0) true)
 (expandtypeattribute (IProxyService_service_30_0) true)
@@ -1355,7 +1357,10 @@
   ( exported_default_prop
     surfaceflinger_prop))
 (typeattributeset exported_dumpstate_prop_30_0 (exported_dumpstate_prop))
-(typeattributeset exported_ffs_prop_30_0 (exported_ffs_prop))
+(typeattributeset exported_ffs_prop_30_0
+  ( exported_ffs_prop
+    ffs_config_prop
+    ffs_control_prop))
 (typeattributeset exported_fingerprint_prop_30_0 (exported_fingerprint_prop))
 (typeattributeset exported_overlay_prop_30_0 (exported_overlay_prop))
 (typeattributeset exported_pm_prop_30_0 (exported_pm_prop))
