@@ -619,6 +619,7 @@ set_prop(system_server, pm_prop)
 set_prop(system_server, exported_pm_prop)
 set_prop(system_server, socket_hook_prop)
 set_prop(system_server, audio_prop)
+set_prop(system_server, boot_status_prop)
 userdebug_or_eng(`set_prop(system_server, wifi_log_prop)')
 
 # ctl interface
@@ -1162,3 +1163,5 @@ neverallow system_server self:perf_event ~{ open write cpu kernel };
 
 # Do not allow any domain other than init or system server to set the property
 neverallow { domain -init -system_server } socket_hook_prop:property_service set;
+
+neverallow { domain -init -system_server } boot_status_prop:property_service set;
