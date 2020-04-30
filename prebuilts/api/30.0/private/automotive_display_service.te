@@ -1,0 +1,33 @@
+# Display proxy service for Automotive
+type automotive_display_service, domain, coredomain;
+type automotive_display_service_exec, system_file_type, exec_type, file_type;
+
+typeattribute automotive_display_service automotive_display_service_server;
+
+# Allow to add a display service to the manager
+add_hwservice(automotive_display_service, fwk_automotive_display_hwservice);
+
+# Allow init to launch automotive display service
+init_daemon_domain(automotive_display_service)
+
+# Allow to use Binder IPC for SurfaceFlinger.
+binder_use(automotive_display_service)
+
+# Allow to use HwBinder IPC for HAL implementations.
+hwbinder_use(automotive_display_service)
+hal_client_domain(automotive_display_service, hal_graphics_composer)
+
+# Allow to read the target property.
+get_prop(automotive_display_service, hwservicemanager_prop)
+
+# Allow to find SurfaceFlinger.
+allow automotive_display_service surfaceflinger_service:service_manager find;
+
+# Allow client domain to do binder IPC to serverdomain.
+binder_call(automotive_display_service, surfaceflinger)
+
+# Allow to use a graphics mapper
+allow automotive_display_service hal_graphics_mapper_hwservice:hwservice_manager find;
+
+# Allow to use hidl token service
+allow automotive_display_service hidl_token_hwservice:hwservice_manager find;
