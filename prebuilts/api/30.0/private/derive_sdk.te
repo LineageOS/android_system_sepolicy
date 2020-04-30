@@ -1,0 +1,12 @@
+
+# Domain for derive_sdk
+type derive_sdk, domain, coredomain;
+type derive_sdk_exec, system_file_type, exec_type, file_type;
+init_daemon_domain(derive_sdk)
+
+# Read /apex
+allow derive_sdk apex_mnt_dir:dir r_dir_perms;
+
+# Prop rules: writable by derive_sdk, readable by bootclasspath (apps)
+set_prop(derive_sdk, module_sdkextensions_prop)
+neverallow { domain -init -derive_sdk } module_sdkextensions_prop:property_service set;

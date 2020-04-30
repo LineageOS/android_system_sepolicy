@@ -1,0 +1,60 @@
+typeattribute init coredomain;
+
+tmpfs_domain(init)
+
+# Transitions to seclabel processes in init.rc
+domain_trans(init, rootfs, healthd)
+domain_trans(init, rootfs, slideshow)
+domain_auto_trans(init, charger_exec, charger)
+domain_auto_trans(init, e2fs_exec, e2fs)
+domain_auto_trans(init, bpfloader_exec, bpfloader)
+
+recovery_only(`
+  # Files in recovery image are labeled as rootfs.
+  domain_trans(init, rootfs, adbd)
+  domain_trans(init, rootfs, charger)
+  domain_trans(init, rootfs, fastbootd)
+  domain_trans(init, rootfs, recovery)
+  domain_trans(init, rootfs, linkerconfig)
+')
+domain_trans(init, shell_exec, shell)
+domain_trans(init, init_exec, ueventd)
+domain_trans(init, init_exec, vendor_init)
+domain_trans(init, { rootfs toolbox_exec }, modprobe)
+userdebug_or_eng(`
+  # case where logpersistd is actually logcat -f in logd context (nee: logcatd)
+  domain_auto_trans(init, logcat_exec, logpersist)
+
+  # allow init to execute services marked with seclabel u:r:su:s0 in userdebug/eng
+  allow init su:process transition;
+  dontaudit init su:process noatsecure;
+  allow init su:process { siginh rlimitinh };
+')
+
+# Allow init to figure out name of dm-device from it's /dev/block/dm-XX path.
+# This is useful in case of remounting ext4 userdata into checkpointing mode,
+# since it potentially requires tearing down dm-devices (e.g. dm-bow, dm-crypto)
+# that userdata is mounted onto.
+allow init sysfs_dm:file read;
+
+# Allow the BoringSSL self test to request a reboot upon failure
+set_prop(init, powerctl_prop)
+
+# Only init is allowed to set userspace reboot related properties.
+set_prop(init, userspace_reboot_exported_prop)
+neverallow { domain -init } userspace_reboot_exported_prop:property_service set;
+
+# Second-stage init performs a test for whether the kernel has SELinux hooks
+# for the perf_event_open() syscall. This is done by testing for the syscall
+# outcomes corresponding to this policy.
+# TODO(b/137092007): this can be removed once the platform stops supporting
+# kernels that precede the perf_event_open hooks (Android common kernels 4.4
+# and 4.9).
+allow init self:perf_event { open cpu };
+neverallow init self:perf_event { kernel tracepoint read write };
+dontaudit init self:perf_event { kernel tracepoint read write };
+
+# Only init is allowed to set the sysprop indicating whether perf_event_open()
+# SELinux hooks were detected.
+set_prop(init, init_perf_lsm_hooks_prop)
+neverallow { domain -init } init_perf_lsm_hooks_prop:property_service set;
