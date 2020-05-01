@@ -3,11 +3,13 @@ type mediatranscoding, domain;
 type mediatranscoding_exec, system_file_type, exec_type, file_type;
 
 binder_use(mediatranscoding)
+binder_call(mediatranscoding, binderservicedomain)
 binder_service(mediatranscoding)
 
 add_service(mediatranscoding, mediatranscoding_service)
 
 allow mediatranscoding system_server:fd use;
+allow mediatranscoding activity_service:service_manager find;
 
 # mediatranscoding should never execute any executable without a
 # domain transition
