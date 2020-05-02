@@ -1,0 +1,54 @@
+# volume manager
+type iorap_prefetcherd, domain;
+type iorap_prefetcherd_exec, exec_type, file_type, system_file_type;
+type iorap_prefetcherd_tmpfs, file_type;
+
+r_dir_file(iorap_prefetcherd, rootfs)
+
+# Allow read/write /proc/sys/vm/drop/caches
+allow iorap_prefetcherd proc_drop_caches:file rw_file_perms;
+
+# iorap_prefetcherd temporarily changes its priority when running benchmarks
+allow iorap_prefetcherd self:global_capability_class_set sys_nice;
+
+# Allow usage of pipes (--input-fd=# and --output-fd=# command line parameters).
+allow iorap_prefetcherd iorapd:fd use;
+allow iorap_prefetcherd iorapd:fifo_file { read write };
+
+# Allow reading most files under / ignoring usual access controls.
+allow iorap_prefetcherd self:capability dac_read_search;
+
+typeattribute iorap_prefetcherd mlstrustedsubject;
+
+# Grant logcat access
+allow iorap_prefetcherd logcat_exec:file { open read };
+
+# Grant access to open most of the files under /
+allow iorap_prefetcherd apk_data_file:dir { open read search };
+allow iorap_prefetcherd apk_data_file:file { open read };
+allow iorap_prefetcherd app_data_file:dir { open read search };
+allow iorap_prefetcherd app_data_file:file { open read };
+allow iorap_prefetcherd dalvikcache_data_file:dir { open read search };
+allow iorap_prefetcherd dalvikcache_data_file:file{ open read };
+allow iorap_prefetcherd packages_list_file:dir { open read search };
+allow iorap_prefetcherd packages_list_file:file { open read };
+allow iorap_prefetcherd privapp_data_file:dir { open read search };
+allow iorap_prefetcherd privapp_data_file:file { open read };
+allow iorap_prefetcherd same_process_hal_file:dir{ open read search };
+allow iorap_prefetcherd same_process_hal_file:file { open read };
+allow iorap_prefetcherd system_data_file:dir { open read search };
+allow iorap_prefetcherd system_data_file:file { open read };
+allow iorap_prefetcherd system_data_file:lnk_file { open read };
+allow iorap_prefetcherd user_profile_data_file:dir { open read search };
+allow iorap_prefetcherd user_profile_data_file:file { open read };
+allow iorap_prefetcherd vendor_overlay_file:dir { open read search };
+allow iorap_prefetcherd vendor_overlay_file:file { open read };
+# Note: Do not add any /vendor labels because they can be customized
+# by the vendor and we won't know about them beforehand.
+
+###
+### neverallow rules
+###
+
+neverallow { domain -init -iorapd } iorap_prefetcherd:process { transition dyntransition };
+neverallow iorap_prefetcherd domain:{ tcp_socket udp_socket rawip_socket } *;
