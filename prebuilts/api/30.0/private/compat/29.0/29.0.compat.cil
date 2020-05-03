@@ -1,0 +1,3 @@
+(typeattribute vendordomain)
+(typeattributeset vendordomain ((and (domain) ((not (coredomain))))))
+(allow vendordomain self (netlink_route_socket (nlmsg_readpriv)))

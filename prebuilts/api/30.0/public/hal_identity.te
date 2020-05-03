@@ -1,0 +1,7 @@
+# HwBinder IPC from client to server
+binder_call(hal_identity_client, hal_identity_server)
+
+add_service(hal_identity_server, hal_identity_service)
+binder_call(hal_identity_server, servicemanager)
+
+allow hal_identity_client hal_identity_service:service_manager find;
