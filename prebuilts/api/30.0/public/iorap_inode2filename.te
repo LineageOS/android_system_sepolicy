@@ -1,0 +1,77 @@
+# iorap.inode2filename -> look up file paths from an inode
+type iorap_inode2filename, domain;
+type iorap_inode2filename_exec, exec_type, file_type, system_file_type;
+type iorap_inode2filename_tmpfs, file_type;
+
+r_dir_file(iorap_inode2filename, rootfs)
+
+# Allow usage of pipes (child stdout -> parent pipe).
+allow iorap_inode2filename iorapd:fd use;
+allow iorap_inode2filename iorapd:fifo_file { read write getattr };
+
+# Allow reading most files under / ignoring usual access controls.
+allow iorap_inode2filename self:capability dac_read_search;
+
+typeattribute iorap_inode2filename mlstrustedsubject;
+
+# Grant access to open most of the files under /
+allow iorap_inode2filename apex_data_file:dir { getattr open read search };
+allow iorap_inode2filename apex_data_file:file { getattr };
+allow iorap_inode2filename apex_mnt_dir:dir { getattr open read search };
+allow iorap_inode2filename apex_mnt_dir:file { getattr };
+allow iorap_inode2filename apk_data_file:dir { getattr open read search };
+allow iorap_inode2filename apk_data_file:file { getattr };
+allow iorap_inode2filename app_data_file:dir { getattr open read search };
+allow iorap_inode2filename app_data_file:file { getattr };
+allow iorap_inode2filename backup_data_file:dir  { getattr open read search };
+allow iorap_inode2filename backup_data_file:file  { getattr };
+allow iorap_inode2filename bluetooth_data_file:dir { getattr open read search };
+allow iorap_inode2filename bluetooth_data_file:file { getattr };
+allow iorap_inode2filename bootchart_data_file:dir { getattr open read search };
+allow iorap_inode2filename bootchart_data_file:file { getattr };
+allow iorap_inode2filename metadata_file:dir { getattr open read search search };
+allow iorap_inode2filename metadata_file:file { getattr };
+allow iorap_inode2filename packages_list_file:dir { getattr open read search };
+allow iorap_inode2filename packages_list_file:file { getattr };
+allow iorap_inode2filename privapp_data_file:dir { getattr open read search };
+allow iorap_inode2filename privapp_data_file:file { getattr };
+allow iorap_inode2filename property_data_file:dir { getattr open read search };
+allow iorap_inode2filename property_data_file:file { getattr };
+allow iorap_inode2filename radio_data_file:dir { getattr open read search };
+allow iorap_inode2filename radio_data_file:file { getattr };
+allow iorap_inode2filename resourcecache_data_file:dir { getattr open read search };
+allow iorap_inode2filename resourcecache_data_file:file { getattr };
+allow iorap_inode2filename recovery_data_file:dir { getattr open read search };
+allow iorap_inode2filename ringtone_file:dir { getattr open read search };
+allow iorap_inode2filename ringtone_file:file { getattr };
+allow iorap_inode2filename same_process_hal_file:dir { getattr open read search };
+allow iorap_inode2filename same_process_hal_file:file { getattr };
+allow iorap_inode2filename sepolicy_file:file { getattr };
+allow iorap_inode2filename staging_data_file:dir { getattr open read search };
+allow iorap_inode2filename staging_data_file:file { getattr };
+allow iorap_inode2filename system_bootstrap_lib_file:dir { getattr open read search };
+allow iorap_inode2filename system_bootstrap_lib_file:file { getattr };
+allow iorap_inode2filename system_app_data_file:dir { getattr open read search };
+allow iorap_inode2filename system_app_data_file:file { getattr };
+allow iorap_inode2filename system_data_file:dir { getattr open read search };
+allow iorap_inode2filename system_data_file:file { getattr };
+allow iorap_inode2filename system_data_file:lnk_file { getattr open read };
+allow iorap_inode2filename system_data_root_file:dir { getattr open read search };
+allow iorap_inode2filename textclassifier_data_file:dir { getattr open read search };
+allow iorap_inode2filename textclassifier_data_file:file { getattr };
+allow iorap_inode2filename toolbox_exec:file getattr;
+allow iorap_inode2filename user_profile_data_file:dir { getattr open read search };
+allow iorap_inode2filename user_profile_data_file:file { getattr };
+allow iorap_inode2filename unencrypted_data_file:dir { getattr open read search };
+allow iorap_inode2filename unlabeled:file { getattr };
+allow iorap_inode2filename vendor_file:dir { getattr open read search };
+allow iorap_inode2filename vendor_file:file { getattr };
+allow iorap_inode2filename vendor_overlay_file:file { getattr };
+allow iorap_inode2filename zygote_exec:file { getattr };
+
+###
+### neverallow rules
+###
+
+neverallow { domain -init -iorapd } iorap_inode2filename:process { transition dyntransition };
+neverallow iorap_inode2filename domain:{ tcp_socket udp_socket rawip_socket } *;
