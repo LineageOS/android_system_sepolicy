@@ -1,0 +1,7 @@
+typeattribute update_engine coredomain;
+
+init_daemon_domain(update_engine);
+
+# Allow to talk to gsid.
+allow update_engine gsi_service:service_manager find;
+binder_call(update_engine, gsid)

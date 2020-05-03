@@ -1,0 +1,6 @@
+###
+### A domain for further sandboxing the VzwOmaTrigger app.
+###
+type vzwomatrigger_app, domain;
+
+app_domain(vzwomatrigger_app)
