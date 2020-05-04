@@ -331,3 +331,11 @@ neverallow {
 } {
   userspace_reboot_test_prop
 }:property_service set;
+
+neverallow {
+  -init
+  -system_server
+  -vendor_init
+} {
+  surfaceflinger_color_prop
+}:property_service set;
