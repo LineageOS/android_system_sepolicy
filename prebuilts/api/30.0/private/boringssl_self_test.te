@@ -1,0 +1,74 @@
+# System and vendor domains for BoringSSL self test binaries.
+#
+# For FIPS compliance, all processes linked against libcrypto perform a startup
+# self test which computes a hash of the BoringSSL Crypto Module (BCM) and, at least once
+# per device boot, also run a series of Known Answer Tests (KAT) to verify functionality.
+#
+# The KATs are expensive, and to ensure they are run as few times as possible, they
+# are skipped if a marker file exists in /dev/boringssl/selftest whose name is
+# the hash of the BCM that was computed earlier.  The files are zero length and their contents
+# should never be read or written.  To avoid giving arbitrary processes access to /dev/boringssl
+# to create these marker files, there are dedicated self test binaries which this policy
+# gives access to and which are run during early-init.
+#
+# Due to build skew, the version of libcrypto in /vendor may have a different hash than
+# the system one.  To cater for this there are vendor variants of the self test binaries
+# which also have permission to write to the same files in /dev/boringssl.  In the case where
+# vendor and system libcrypto have the same hash, there will be a race to create the file,
+# but this is harmless.
+#
+# If the self tests fail, then the device should reboot into firmware and for this reason
+# the system boringssl_self_test domain needs to be in coredomain.  As vendor domains
+# are not allowed in coredomain, this means that the vendor self tests cannot trigger a
+# reboot.  However every binary linked against the vendor libcrypto will abort on startup,
+# so in practice the device will crash anyway in this unlikely scenario.
+
+# System boringssl_self_test domain
+type boringssl_self_test, domain, coredomain;
+type boringssl_self_test_exec, system_file_type, exec_type, file_type;
+
+# Vendor boringssl_self_test domain
+type vendor_boringssl_self_test, domain;
+type vendor_boringssl_self_test_exec, vendor_file_type, exec_type, file_type;
+
+# Switch to boringssl_self_test security domain when running boringssl_self_test_exec
+init_daemon_domain(boringssl_self_test)
+
+# Switch to vendor_boringssl_self_test security domain when running vendor_boringssl_self_test_exec
+init_daemon_domain(vendor_boringssl_self_test)
+
+# Marker files, common to both domains, indicating KAT have been performed on a particular libcrypto
+#
+# The files are zero length so there is no issue if both vendor and system code
+# try to create the same file simultaneously. One will succeed and the other will fail
+# silently, i.e. still indicate success.  Similar harmless naming collisions will happen in the
+# system domain e.g. when system and APEX copies of libcrypto are identical.
+type boringssl_self_test_marker, file_type;
+
+# Allow self test binaries to create/check for the existence of boringssl_self_test_marker files
+allow { boringssl_self_test vendor_boringssl_self_test }
+  boringssl_self_test_marker:file create_file_perms;
+allow { boringssl_self_test vendor_boringssl_self_test }
+  boringssl_self_test_marker:dir ra_dir_perms;
+
+# Allow self test binaries to write their stdout/stderr messages to kmsg_debug
+allow { boringssl_self_test vendor_boringssl_self_test }
+  kmsg_debug_device:chr_file { w_file_perms getattr ioctl };
+
+# No other process should be able to create marker files because their existence causes the
+# boringssl KAT to be skipped.
+neverallow {
+  domain
+  -vendor_boringssl_self_test
+  -boringssl_self_test
+  -init
+  -vendor_init
+} boringssl_self_test_marker:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -vendor_boringssl_self_test
+  -boringssl_self_test
+  -init
+  -vendor_init
+} boringssl_self_test_marker:dir write;

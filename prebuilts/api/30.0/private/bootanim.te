@@ -1,0 +1,9 @@
+typeattribute bootanim coredomain;
+
+init_daemon_domain(bootanim)
+
+# b/68864350
+dontaudit bootanim unlabeled:dir search;
+
+# Bootanim should not be reading default vendor-defined properties.
+dontaudit bootanim vendor_default_prop:file read;
