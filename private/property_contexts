@@ -360,9 +360,6 @@ persist.radio.multisim.config u:object_r:exported3_radio_prop:s0 exact string
 persist.sys.dalvik.vm.lib.2     u:object_r:exported2_system_prop:s0 exact string
 persist.sys.media.avsync        u:object_r:exported2_system_prop:s0 exact bool
 persist.sys.hdmi.keep_awake     u:object_r:exported2_system_prop:s0 exact bool
-persist.sys.sf.color_mode       u:object_r:exported2_system_prop:s0 exact int
-persist.sys.sf.color_saturation u:object_r:exported2_system_prop:s0 exact string
-persist.sys.sf.native_mode      u:object_r:exported2_system_prop:s0 exact int
 
 pm.dexopt.ab-ota                        u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.bg-dexopt                     u:object_r:exported_pm_prop:s0 exact string
@@ -464,9 +461,6 @@ ro.rebootescrow.device u:object_r:rebootescrow_hal_prop:s0 exact string
 ro.retaildemo.video_path u:object_r:exported3_default_prop:s0 exact string
 
 ro.statsd.enable u:object_r:exported3_default_prop:s0 exact bool
-
-ro.sf.disable_triple_buffer u:object_r:exported3_default_prop:s0 exact bool
-ro.sf.lcd_density           u:object_r:exported3_default_prop:s0 exact int
 
 ro.storage_manager.enabled u:object_r:exported3_default_prop:s0 exact bool
 
@@ -800,7 +794,7 @@ ro.build.type u:object_r:exported2_default_prop:s0 exact string
 
 sys.shutdown.requested u:object_r:exported_system_prop:s0 exact string
 
-# Using Sysprop as API. So the ro.surface_flinger.* are guaranteed to be API-stable
+# surfaceflinger properties
 ro.surface_flinger.default_composition_dataspace          u:object_r:surfaceflinger_prop:s0 exact int
 ro.surface_flinger.default_composition_pixel_format       u:object_r:surfaceflinger_prop:s0 exact int
 ro.surface_flinger.force_hwc_copy_for_virtual_displays    u:object_r:surfaceflinger_prop:s0 exact bool
@@ -834,6 +828,13 @@ ro.surface_flinger.use_smart_90_for_video                 u:object_r:surfaceflin
 ro.surface_flinger.use_content_detection_for_refresh_rate u:object_r:surfaceflinger_prop:s0 exact bool
 ro.surface_flinger.color_space_agnostic_dataspace         u:object_r:surfaceflinger_prop:s0 exact int
 ro.surface_flinger.refresh_rate_switching                 u:object_r:surfaceflinger_prop:s0 exact bool
+
+ro.sf.disable_triple_buffer u:object_r:surfaceflinger_prop:s0 exact bool
+ro.sf.lcd_density           u:object_r:surfaceflinger_prop:s0 exact int
+
+persist.sys.sf.color_mode       u:object_r:surfaceflinger_color_prop:s0 exact int
+persist.sys.sf.color_saturation u:object_r:surfaceflinger_color_prop:s0 exact string
+persist.sys.sf.native_mode      u:object_r:surfaceflinger_color_prop:s0 exact int
 
 # Binder cache properties.  These are world-readable
 cache_key.app_inactive                   u:object_r:binder_cache_system_server_prop:s0
