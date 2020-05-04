@@ -27,6 +27,7 @@ allow permissioncontroller_app incidentcompanion_service:service_manager find;
 allow permissioncontroller_app IProxyService_service:service_manager find;
 allow permissioncontroller_app location_service:service_manager find;
 allow permissioncontroller_app media_session_service:service_manager find;
+allow permissioncontroller_app radio_service:service_manager find;
 allow permissioncontroller_app surfaceflinger_service:service_manager find;
 allow permissioncontroller_app telecom_service:service_manager find;
 allow permissioncontroller_app trust_service:service_manager find;
