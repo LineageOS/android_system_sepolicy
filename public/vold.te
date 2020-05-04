@@ -202,7 +202,6 @@ set_prop(vold, ota_prop)
 set_prop(vold, boottime_prop)
 set_prop(vold, boottime_public_prop)
 get_prop(vold, storage_config_prop)
-get_prop(vold, incremental_prop)
 
 # ASEC
 allow vold asec_image_file:file create_file_perms;
