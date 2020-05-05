@@ -42,6 +42,7 @@ llk.                    u:object_r:llkd_prop:s0
 khungtask.              u:object_r:llkd_prop:s0
 ro.llk.                 u:object_r:llkd_prop:s0
 ro.khungtask.           u:object_r:llkd_prop:s0
+lmkd.reinit             u:object_r:lmkd_prop:s0 exact int
 log.                    u:object_r:log_prop:s0
 log.tag                 u:object_r:log_tag_prop:s0
 log.tag.WifiHAL         u:object_r:wifi_log_prop:s0
