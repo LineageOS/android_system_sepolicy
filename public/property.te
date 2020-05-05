@@ -168,6 +168,7 @@ system_public_prop(ota_prop)
 system_public_prop(powerctl_prop)
 system_public_prop(radio_prop)
 system_public_prop(serialno_prop)
+system_public_prop(surfaceflinger_display_prop)
 system_public_prop(system_prop)
 system_public_prop(wifi_log_prop)
 system_public_prop(wifi_prop)
@@ -609,4 +610,12 @@ neverallow {
   -vendor_init
 } {
   graphics_config_prop
+}:property_service set;
+
+neverallow {
+  -init
+  -vendor_init
+  -system_app
+} {
+  surfaceflinger_display_prop
 }:property_service set;
