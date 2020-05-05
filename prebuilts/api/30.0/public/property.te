@@ -1,0 +1,601 @@
+# Properties used only in /system
+system_internal_prop(apexd_prop)
+system_internal_prop(bootloader_boot_reason_prop)
+system_internal_prop(device_config_activity_manager_native_boot_prop)
+system_internal_prop(device_config_boot_count_prop)
+system_internal_prop(device_config_input_native_boot_prop)
+system_internal_prop(device_config_media_native_prop)
+system_internal_prop(device_config_netd_native_prop)
+system_internal_prop(device_config_reset_performed_prop)
+system_internal_prop(device_config_runtime_native_boot_prop)
+system_internal_prop(device_config_runtime_native_prop)
+system_internal_prop(device_config_storage_native_boot_prop)
+system_internal_prop(device_config_sys_traced_prop)
+system_internal_prop(device_config_window_manager_native_boot_prop)
+system_internal_prop(device_config_configuration_prop)
+system_internal_prop(firstboot_prop)
+system_internal_prop(gsid_prop)
+system_internal_prop(init_perf_lsm_hooks_prop)
+system_internal_prop(init_svc_debug_prop)
+system_internal_prop(last_boot_reason_prop)
+system_internal_prop(netd_stable_secret_prop)
+system_internal_prop(pm_prop)
+system_internal_prop(userspace_reboot_log_prop)
+system_internal_prop(userspace_reboot_test_prop)
+system_internal_prop(system_adbd_prop)
+system_internal_prop(adbd_prop)
+system_internal_prop(traced_perf_enabled_prop)
+
+compatible_property_only(`
+    # DO NOT ADD ANY PROPERTIES HERE
+    system_internal_prop(boottime_prop)
+    system_internal_prop(bpf_progs_loaded_prop)
+    system_internal_prop(charger_prop)
+    system_internal_prop(cold_boot_done_prop)
+    system_internal_prop(ctl_adbd_prop)
+    system_internal_prop(ctl_apexd_prop)
+    system_internal_prop(ctl_bootanim_prop)
+    system_internal_prop(ctl_bugreport_prop)
+    system_internal_prop(ctl_console_prop)
+    system_internal_prop(ctl_dumpstate_prop)
+    system_internal_prop(ctl_fuse_prop)
+    system_internal_prop(ctl_gsid_prop)
+    system_internal_prop(ctl_interface_restart_prop)
+    system_internal_prop(ctl_interface_stop_prop)
+    system_internal_prop(ctl_mdnsd_prop)
+    system_internal_prop(ctl_restart_prop)
+    system_internal_prop(ctl_rildaemon_prop)
+    system_internal_prop(ctl_sigstop_prop)
+    system_internal_prop(dynamic_system_prop)
+    system_internal_prop(heapprofd_enabled_prop)
+    system_internal_prop(llkd_prop)
+    system_internal_prop(lpdumpd_prop)
+    system_internal_prop(mmc_prop)
+    system_internal_prop(mock_ota_prop)
+    system_internal_prop(net_dns_prop)
+    system_internal_prop(overlay_prop)
+    system_internal_prop(persistent_properties_ready_prop)
+    system_internal_prop(safemode_prop)
+    system_internal_prop(system_lmk_prop)
+    system_internal_prop(system_trace_prop)
+    system_internal_prop(test_boot_reason_prop)
+    system_internal_prop(time_prop)
+    system_internal_prop(traced_enabled_prop)
+    system_internal_prop(traced_lazy_prop)
+')
+
+# Properties which can't be written outside system
+
+# Properties used by binder caches
+system_restricted_prop(binder_cache_bluetooth_server_prop)
+system_restricted_prop(binder_cache_system_server_prop)
+system_restricted_prop(binder_cache_telephony_server_prop)
+system_restricted_prop(boottime_public_prop)
+system_restricted_prop(bq_config_prop)
+system_restricted_prop(module_sdkextensions_prop)
+system_restricted_prop(nnapi_ext_deny_product_prop)
+system_restricted_prop(restorecon_prop)
+system_restricted_prop(socket_hook_prop)
+system_restricted_prop(system_boot_reason_prop)
+system_restricted_prop(system_jvmti_agent_prop)
+system_restricted_prop(userspace_reboot_exported_prop)
+
+compatible_property_only(`
+    # DO NOT ADD ANY PROPERTIES HERE
+    system_restricted_prop(config_prop)
+    system_restricted_prop(cppreopt_prop)
+    system_restricted_prop(dalvik_prop)
+    system_restricted_prop(debuggerd_prop)
+    system_restricted_prop(default_prop)
+    system_restricted_prop(device_logging_prop)
+    system_restricted_prop(dhcp_prop)
+    system_restricted_prop(dumpstate_prop)
+    system_restricted_prop(exported2_default_prop)
+    system_restricted_prop(exported3_system_prop)
+    system_restricted_prop(exported_dumpstate_prop)
+    system_restricted_prop(exported_fingerprint_prop)
+    system_restricted_prop(exported_secure_prop)
+    system_restricted_prop(exported_vold_prop)
+    system_restricted_prop(ffs_prop)
+    system_restricted_prop(fingerprint_prop)
+    system_restricted_prop(heapprofd_prop)
+    system_restricted_prop(net_radio_prop)
+    system_restricted_prop(pan_result_prop)
+    system_restricted_prop(persist_debug_prop)
+    system_restricted_prop(shell_prop)
+    system_restricted_prop(system_radio_prop)
+    system_restricted_prop(test_harness_prop)
+    system_restricted_prop(theme_prop)
+    system_restricted_prop(use_memfd_prop)
+    system_restricted_prop(vold_prop)
+')
+
+# Properties which can be written only by vendor_init
+system_vendor_config_prop(apk_verity_prop)
+system_vendor_config_prop(cpu_variant_prop)
+system_vendor_config_prop(exported_audio_prop)
+system_vendor_config_prop(exported_camera_prop)
+system_vendor_config_prop(exported_config_prop)
+system_vendor_config_prop(exported_default_prop)
+system_vendor_config_prop(exported3_default_prop)
+system_vendor_config_prop(media_variant_prop)
+system_vendor_config_prop(storage_config_prop)
+system_vendor_config_prop(userspace_reboot_config_prop)
+system_vendor_config_prop(vehicle_hal_prop)
+system_vendor_config_prop(vendor_security_patch_level_prop)
+system_vendor_config_prop(vendor_socket_hook_prop)
+system_vendor_config_prop(vndk_prop)
+system_vendor_config_prop(virtual_ab_prop)
+
+# Properties with no restrictions
+system_public_prop(audio_prop)
+system_public_prop(bluetooth_a2dp_offload_prop)
+system_public_prop(bluetooth_audio_hal_prop)
+system_public_prop(bluetooth_prop)
+system_public_prop(ctl_default_prop)
+system_public_prop(ctl_interface_start_prop)
+system_public_prop(ctl_start_prop)
+system_public_prop(ctl_stop_prop)
+system_public_prop(debug_prop)
+system_public_prop(dumpstate_options_prop)
+system_public_prop(exported_system_prop)
+system_public_prop(exported2_config_prop)
+system_public_prop(exported2_radio_prop)
+system_public_prop(exported2_system_prop)
+system_public_prop(exported2_vold_prop)
+system_public_prop(exported3_radio_prop)
+system_public_prop(exported_bluetooth_prop)
+system_public_prop(exported_dalvik_prop)
+system_public_prop(exported_ffs_prop)
+system_public_prop(exported_overlay_prop)
+system_public_prop(exported_pm_prop)
+system_public_prop(exported_radio_prop)
+system_public_prop(exported_system_radio_prop)
+system_public_prop(exported_wifi_prop)
+system_public_prop(sota_prop)
+system_public_prop(hwservicemanager_prop)
+system_public_prop(logd_prop)
+system_public_prop(logpersistd_logging_prop)
+system_public_prop(log_prop)
+system_public_prop(log_tag_prop)
+system_public_prop(lowpan_prop)
+system_public_prop(nfc_prop)
+system_public_prop(ota_prop)
+system_public_prop(powerctl_prop)
+system_public_prop(radio_prop)
+system_public_prop(serialno_prop)
+system_public_prop(system_prop)
+system_public_prop(wifi_log_prop)
+system_public_prop(wifi_prop)
+
+# Properties used in default HAL implementations
+vendor_internal_prop(rebootescrow_hal_prop)
+
+# Properties which are public for devices launching with Android O or earlier
+# This should not be used for any new properties.
+not_compatible_property(`
+    # DO NOT ADD ANY PROPERTIES HERE
+    system_public_prop(boottime_prop)
+    system_public_prop(bpf_progs_loaded_prop)
+    system_public_prop(charger_prop)
+    system_public_prop(cold_boot_done_prop)
+    system_public_prop(ctl_adbd_prop)
+    system_public_prop(ctl_apexd_prop)
+    system_public_prop(ctl_bootanim_prop)
+    system_public_prop(ctl_bugreport_prop)
+    system_public_prop(ctl_console_prop)
+    system_public_prop(ctl_dumpstate_prop)
+    system_public_prop(ctl_fuse_prop)
+    system_public_prop(ctl_gsid_prop)
+    system_public_prop(ctl_interface_restart_prop)
+    system_public_prop(ctl_interface_stop_prop)
+    system_public_prop(ctl_mdnsd_prop)
+    system_public_prop(ctl_restart_prop)
+    system_public_prop(ctl_rildaemon_prop)
+    system_public_prop(ctl_sigstop_prop)
+    system_public_prop(dynamic_system_prop)
+    system_public_prop(heapprofd_enabled_prop)
+    system_public_prop(llkd_prop)
+    system_public_prop(lpdumpd_prop)
+    system_public_prop(mmc_prop)
+    system_public_prop(mock_ota_prop)
+    system_public_prop(net_dns_prop)
+    system_public_prop(overlay_prop)
+    system_public_prop(persistent_properties_ready_prop)
+    system_public_prop(safemode_prop)
+    system_public_prop(system_lmk_prop)
+    system_public_prop(system_trace_prop)
+    system_public_prop(test_boot_reason_prop)
+    system_public_prop(time_prop)
+    system_public_prop(traced_enabled_prop)
+    system_public_prop(traced_lazy_prop)
+
+    system_public_prop(config_prop)
+    system_public_prop(cppreopt_prop)
+    system_public_prop(dalvik_prop)
+    system_public_prop(debuggerd_prop)
+    system_public_prop(default_prop)
+    system_public_prop(device_logging_prop)
+    system_public_prop(dhcp_prop)
+    system_public_prop(dumpstate_prop)
+    system_public_prop(exported2_default_prop)
+    system_public_prop(exported3_system_prop)
+    system_public_prop(exported_dumpstate_prop)
+    system_public_prop(exported_fingerprint_prop)
+    system_public_prop(exported_secure_prop)
+    system_public_prop(exported_vold_prop)
+    system_public_prop(ffs_prop)
+    system_public_prop(fingerprint_prop)
+    system_public_prop(heapprofd_prop)
+    system_public_prop(net_radio_prop)
+    system_public_prop(pan_result_prop)
+    system_public_prop(persist_debug_prop)
+    system_public_prop(shell_prop)
+    system_public_prop(system_radio_prop)
+    system_public_prop(test_harness_prop)
+    system_public_prop(theme_prop)
+    system_public_prop(use_memfd_prop)
+    system_public_prop(vold_prop)
+')
+
+type vendor_default_prop, property_type;
+
+typeattribute log_prop log_property_type;
+typeattribute log_tag_prop log_property_type;
+typeattribute wifi_log_prop log_property_type;
+
+allow property_type tmpfs:filesystem associate;
+
+###
+### Neverallow rules
+###
+
+treble_sysprop_neverallow(`
+
+# TODO(b/131162102): uncomment these after assigning ownership attributes to all properties
+# neverallow domain {
+#   property_type
+#   -system_property_type
+#   -product_property_type
+#   -vendor_property_type
+# }:file no_rw_file_perms;
+
+neverallow { domain -coredomain } {
+  system_property_type
+  system_internal_property_type
+  -system_restricted_property_type
+  -system_public_property_type
+}:file no_rw_file_perms;
+
+neverallow { domain -coredomain } {
+  system_property_type
+  -system_public_property_type
+}:property_service set;
+
+# init is in coredomain, but should be able to read/write all props.
+# dumpstate is also in coredomain, but should be able to read all props.
+neverallow { coredomain -init -dumpstate } {
+  vendor_property_type
+  vendor_internal_property_type
+  -vendor_restricted_property_type
+  -vendor_public_property_type
+}:file no_rw_file_perms;
+
+neverallow { coredomain -init } {
+  vendor_property_type
+  -vendor_public_property_type
+}:property_service set;
+
+')
+
+# There is no need to perform ioctl or advisory locking operations on
+# property files. If this neverallow is being triggered, it is
+# likely that the policy is using r_file_perms directly instead of
+# the get_prop() macro.
+neverallow domain property_type:file { ioctl lock };
+
+# core_property_type should not be used for new properties or
+# device specific properties. Properties with this attribute
+# are readable to everyone, which is overly broad and should
+# be avoided.
+# New properties should have appropriate read / write access
+# control rules written.
+
+typeattribute audio_prop         core_property_type;
+typeattribute config_prop        core_property_type;
+typeattribute cppreopt_prop      core_property_type;
+typeattribute dalvik_prop        core_property_type;
+typeattribute debuggerd_prop     core_property_type;
+typeattribute debug_prop         core_property_type;
+typeattribute default_prop       core_property_type;
+typeattribute dhcp_prop          core_property_type;
+typeattribute dumpstate_prop     core_property_type;
+typeattribute ffs_prop           core_property_type;
+typeattribute fingerprint_prop   core_property_type;
+typeattribute logd_prop          core_property_type;
+typeattribute net_radio_prop     core_property_type;
+typeattribute nfc_prop           core_property_type;
+typeattribute ota_prop           core_property_type;
+typeattribute pan_result_prop    core_property_type;
+typeattribute persist_debug_prop core_property_type;
+typeattribute powerctl_prop      core_property_type;
+typeattribute radio_prop         core_property_type;
+typeattribute restorecon_prop    core_property_type;
+typeattribute shell_prop         core_property_type;
+typeattribute system_prop        core_property_type;
+typeattribute system_radio_prop  core_property_type;
+typeattribute vold_prop          core_property_type;
+
+neverallow * {
+  core_property_type
+  -audio_prop
+  -config_prop
+  -cppreopt_prop
+  -dalvik_prop
+  -debuggerd_prop
+  -debug_prop
+  -default_prop
+  -dhcp_prop
+  -dumpstate_prop
+  -ffs_prop
+  -fingerprint_prop
+  -logd_prop
+  -net_radio_prop
+  -nfc_prop
+  -ota_prop
+  -pan_result_prop
+  -persist_debug_prop
+  -powerctl_prop
+  -radio_prop
+  -restorecon_prop
+  -shell_prop
+  -system_prop
+  -system_radio_prop
+  -vold_prop
+}:file no_rw_file_perms;
+
+# sigstop property is only used for debugging; should only be set by su which is permissive
+# for userdebug/eng
+neverallow {
+  domain
+  -init
+  -vendor_init
+} ctl_sigstop_prop:property_service set;
+
+# Don't audit legacy ctl. property handling.  We only want the newer permission check to appear
+# in the audit log
+dontaudit domain {
+  ctl_bootanim_prop
+  ctl_bugreport_prop
+  ctl_console_prop
+  ctl_default_prop
+  ctl_dumpstate_prop
+  ctl_fuse_prop
+  ctl_mdnsd_prop
+  ctl_rildaemon_prop
+}:property_service set;
+
+neverallow {
+  domain
+  -init
+} init_svc_debug_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+  -dumpstate
+  userdebug_or_eng(`-su')
+} init_svc_debug_prop:file no_rw_file_perms;
+
+compatible_property_only(`
+# Prevent properties from being set
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -vendor_init
+  } {
+    core_property_type
+    extended_core_property_type
+    exported_config_prop
+    exported_dalvik_prop
+    exported_default_prop
+    exported_dumpstate_prop
+    exported_ffs_prop
+    exported_fingerprint_prop
+    exported_system_prop
+    exported_system_radio_prop
+    exported_vold_prop
+    exported2_config_prop
+    exported2_default_prop
+    exported2_system_prop
+    exported2_vold_prop
+    exported3_default_prop
+    exported3_system_prop
+    -nfc_prop
+    -powerctl_prop
+    -radio_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -hal_nfc_server
+  } {
+    nfc_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -hal_telephony_server
+    -vendor_init
+  } {
+    exported_radio_prop
+    exported3_radio_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -hal_telephony_server
+  } {
+    exported2_radio_prop
+    radio_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -bluetooth
+    -hal_bluetooth_server
+  } {
+    bluetooth_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -bluetooth
+    -hal_bluetooth_server
+    -vendor_init
+  } {
+    exported_bluetooth_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -hal_camera_server
+    -cameraserver
+    -vendor_init
+  } {
+    exported_camera_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -hal_wifi_server
+    -wificond
+  } {
+    wifi_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -hal_wifi_server
+    -wificond
+    -vendor_init
+  } {
+    exported_wifi_prop
+  }:property_service set;
+
+# Prevent properties from being read
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -vendor_init
+  } {
+    core_property_type
+    extended_core_property_type
+    exported_dalvik_prop
+    exported_ffs_prop
+    exported_system_radio_prop
+    exported2_config_prop
+    exported2_system_prop
+    exported2_vold_prop
+    exported3_default_prop
+    exported3_system_prop
+    -debug_prop
+    -logd_prop
+    -nfc_prop
+    -powerctl_prop
+    -radio_prop
+  }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -hal_nfc_server
+  } {
+    nfc_prop
+  }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -hal_telephony_server
+  } {
+    radio_prop
+  }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -coredomain
+    -bluetooth
+    -hal_bluetooth_server
+  } {
+    bluetooth_prop
+  }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -coredomain
+    -hal_wifi_server
+    -wificond
+  } {
+    wifi_prop
+  }:file no_rw_file_perms;
+')
+
+compatible_property_only(`
+  # Neverallow coredomain to set vendor properties
+  neverallow {
+    coredomain
+    -init
+    -system_writes_vendor_properties_violators
+  } {
+    property_type
+    -system_property_type
+    -extended_core_property_type
+  }:property_service set;
+')
+
+neverallow {
+  -init
+  -system_server
+} {
+  userspace_reboot_log_prop
+}:property_service set;
+
+neverallow {
+  # Only allow init and system_server to set system_adbd_prop
+  -init
+  -system_server
+} {
+  system_adbd_prop
+}:property_service set;
+
+neverallow {
+  # Only allow init and adbd to set adbd_prop
+  -init
+  -adbd
+} {
+  adbd_prop
+}:property_service set;
+
+neverallow {
+  # Only allow init and shell to set userspace_reboot_test_prop
+  -init
+  -shell
+} {
+  userspace_reboot_test_prop
+}:property_service set;
