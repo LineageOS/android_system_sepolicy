@@ -249,10 +249,8 @@ persist.sys.userspace_reboot.log. u:object_r:userspace_reboot_log_prop:s0
 # history size.
 ro.lib_gui.frame_event_history_size u:object_r:bq_config_prop:s0
 
-# vendor-init-readable
 persist.radio.airplane_mode_on u:object_r:exported2_radio_prop:s0 exact bool
 
-# vendor-init-settable
 af.fast_track_multiplier u:object_r:exported3_default_prop:s0 exact int
 
 audio.camerasound.force         u:object_r:exported_audio_prop:s0 exact bool
@@ -501,7 +499,6 @@ wlan.driver.status u:object_r:exported_wifi_prop:s0 exact enum ok unloaded
 
 zram.force_writeback u:object_r:exported3_default_prop:s0 exact bool
 
-# vendor-init-readable
 apexd.status u:object_r:apexd_prop:s0 exact enum starting activated ready
 
 dev.bootcomplete   u:object_r:boot_status_prop:s0 exact bool
@@ -515,13 +512,11 @@ sys.retaildemo.enabled  u:object_r:exported3_system_prop:s0 exact int
 sys.user.0.ce_available u:object_r:exported3_system_prop:s0 exact bool
 sys.vdso                u:object_r:exported3_system_prop:s0 exact string
 
-# vendor-init-settable
 persist.sys.zram_enabled u:object_r:exported2_system_prop:s0 exact bool
 
 sys.usb.config   u:object_r:exported_system_radio_prop:s0 exact string
 sys.usb.configfs u:object_r:exported_system_radio_prop:s0 exact int
 
-# public-readable
 aac_drc_boost            u:object_r:exported2_default_prop:s0 exact int
 aac_drc_cut              u:object_r:exported2_default_prop:s0 exact int
 aac_drc_enc_target_level u:object_r:exported2_default_prop:s0 exact int
@@ -638,7 +633,6 @@ sys.use_memfd                         u:object_r:use_memfd_prop:s0 exact bool
 
 vold.decrypt u:object_r:vold_status_prop:s0 exact string
 
-# vendor-init-settable|public-readable
 aaudio.hw_burst_min_usec     u:object_r:exported_default_prop:s0 exact int
 aaudio.minimum_sleep_usec    u:object_r:exported_default_prop:s0 exact int
 aaudio.mixer_bursts          u:object_r:exported_default_prop:s0 exact int
@@ -788,8 +782,6 @@ init.userspace_reboot.started.timeoutmillis u:object_r:userspace_reboot_config_p
 init.userspace_reboot.userdata_remount.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
 init.userspace_reboot.watchdog.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
 
-#
-# public-readable
 ro.boot.revision u:object_r:exported2_default_prop:s0 exact string
 
 ro.bootmode u:object_r:exported2_default_prop:s0 exact string
