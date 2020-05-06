@@ -2,6 +2,7 @@
 (type exported_audio_prop)
 (type exported_dalvik_prop)
 (type exported_ffs_prop)
+(type exported_fingerprint_prop)
 (type exported_vold_prop)
 (type exported2_config_prop)
 (type exported2_vold_prop)
@@ -285,7 +286,6 @@
 (expandtypeattribute (ffs_prop_30_0) true)
 (expandtypeattribute (file_contexts_file_30_0) true)
 (expandtypeattribute (file_integrity_service_30_0) true)
-(expandtypeattribute (fingerprint_prop_30_0) true)
 (expandtypeattribute (fingerprint_service_30_0) true)
 (expandtypeattribute (fingerprint_vendor_data_file_30_0) true)
 (expandtypeattribute (fingerprintd_30_0) true)
@@ -1342,6 +1342,7 @@
 (typeattributeset exported2_default_prop_30_0
   ( exported2_default_prop
     aac_drc_prop
+    build_prop
     libc_debug_prop))
 (typeattributeset exported2_radio_prop_30_0 (exported2_radio_prop))
 (typeattributeset exported2_system_prop_30_0
@@ -1367,7 +1368,7 @@
   ( exported_ffs_prop
     ffs_config_prop
     ffs_control_prop))
-(typeattributeset exported_fingerprint_prop_30_0 (exported_fingerprint_prop))
+(typeattributeset exported_fingerprint_prop_30_0 (exported_fingerprint_prop fingerprint_prop))
 (typeattributeset exported_overlay_prop_30_0 (exported_overlay_prop))
 (typeattributeset exported_pm_prop_30_0 (exported_pm_prop))
 (typeattributeset exported_radio_prop_30_0 (exported_radio_prop))
@@ -1383,7 +1384,6 @@
 (typeattributeset ffs_prop_30_0 (ffs_prop))
 (typeattributeset file_contexts_file_30_0 (file_contexts_file))
 (typeattributeset file_integrity_service_30_0 (file_integrity_service))
-(typeattributeset fingerprint_prop_30_0 (fingerprint_prop))
 (typeattributeset fingerprint_service_30_0 (fingerprint_service))
 (typeattributeset fingerprint_vendor_data_file_30_0 (fingerprint_vendor_data_file))
 (typeattributeset fingerprintd_30_0 (fingerprintd))
