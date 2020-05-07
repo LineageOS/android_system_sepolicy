@@ -1,0 +1,7 @@
+typeattribute ueventd coredomain;
+
+tmpfs_domain(ueventd)
+
+# ueventd can set properties, particularly it sets ro.cold_boot_done to signal
+# to init that cold boot has completed.
+set_prop(ueventd, cold_boot_done_prop)

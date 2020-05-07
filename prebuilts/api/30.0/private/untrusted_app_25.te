@@ -1,0 +1,53 @@
+###
+### Untrusted_app_25
+###
+### This file defines the rules for untrusted apps running with
+### targetSdkVersion <= 25.
+###
+### See public/untrusted_app.te for more information about which apps are
+### placed in this selinux domain.
+###
+
+typeattribute untrusted_app_25 coredomain;
+
+app_domain(untrusted_app_25)
+untrusted_app_domain(untrusted_app_25)
+net_domain(untrusted_app_25)
+bluetooth_domain(untrusted_app_25)
+
+# b/35917228 - /proc/misc access
+# This will go away in a future Android release
+allow untrusted_app_25 proc_misc:file r_file_perms;
+
+# Access to /proc/tty/drivers, to allow apps to determine if they
+# are running in an emulated environment.
+# b/33214085 b/33814662 b/33791054 b/33211769
+# https://github.com/strazzere/anti-emulator/blob/master/AntiEmulator/src/diff/strazzere/anti/emulator/FindEmulator.java
+# This will go away in a future Android release
+allow untrusted_app_25 proc_tty_drivers:file r_file_perms;
+
+# Text relocation support for API < 23. This is now disallowed for targetSdkVersion>=Q.
+# https://android.googlesource.com/platform/bionic/+/master/android-changes-for-ndk-developers.md#text-relocations-enforced-for-api-level-23
+allow untrusted_app_25 { apk_data_file app_data_file asec_public_file }:file execmod;
+
+# The ability to call exec() on files in the apps home directories
+# for targetApi<=25. This is also allowed for targetAPIs 26, 27,
+# and 28 in untrusted_app_27.te.
+allow untrusted_app_25 app_data_file:file execute_no_trans;
+auditallow untrusted_app_25 app_data_file:file { execute execute_no_trans };
+
+# The ability to invoke dex2oat. Historically required by ART, now only
+# allowed for targetApi<=28 for compat reasons.
+allow untrusted_app_25 dex2oat_exec:file rx_file_perms;
+userdebug_or_eng(`auditallow untrusted_app_25 dex2oat_exec:file rx_file_perms;')
+
+# The ability to talk to /dev/ashmem directly. targetApi>=29 must use
+# ASharedMemory instead.
+allow untrusted_app_25 ashmem_device:chr_file rw_file_perms;
+auditallow untrusted_app_25 ashmem_device:chr_file open;
+
+# Read /mnt/sdcard symlink.
+allow untrusted_app_25 mnt_sdcard_file:lnk_file r_file_perms;
+
+# allow binding to netlink route sockets and sending RTM_GETLINK messages.
+allow untrusted_app_25 self:netlink_route_socket { bind nlmsg_readpriv };

@@ -1,0 +1,7 @@
+typeattribute dhcp coredomain;
+
+init_daemon_domain(dhcp)
+type_transition dhcp system_data_file:{ dir file } dhcp_data_file;
+
+set_prop(dhcp, dhcp_prop)
+set_prop(dhcp, pan_result_prop)

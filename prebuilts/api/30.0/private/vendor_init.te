@@ -1,0 +1,7 @@
+# Creating files on sysfs is impossible so this isn't a threat
+# Sometimes we have to write to non-existent files to avoid conditional
+# init behavior. See b/35303861 for an example.
+dontaudit vendor_init sysfs:dir write;
+
+# TODO(b/140259336) We want to remove vendor_init in the long term but allow for now
+allow vendor_init system_data_root_file:dir rw_dir_perms;
