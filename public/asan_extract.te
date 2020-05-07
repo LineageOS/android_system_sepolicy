@@ -5,7 +5,7 @@
 
 with_asan(`
   type asan_extract, domain, coredomain;
-  type asan_extract_exec, exec_type, file_type;
+  type asan_extract_exec, exec_type, file_type, system_file_type;
 
   # Allow asan_extract to execute itself using #!/system/bin/sh
   allow asan_extract shell_exec:file rx_file_perms;
