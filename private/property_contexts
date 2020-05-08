@@ -489,6 +489,7 @@ sys.usb.ffs.mtp.ready   u:object_r:exported_ffs_prop:s0 exact bool
 sys.usb.state           u:object_r:exported2_system_prop:s0 exact string
 
 telephony.lteOnCdmaDevice u:object_r:exported3_default_prop:s0 exact int
+telephony.active_modems.max_count u:object_r:exported3_default_prop:s0 exact int
 
 tombstoned.max_tombstone_count u:object_r:exported3_default_prop:s0 exact int
 
