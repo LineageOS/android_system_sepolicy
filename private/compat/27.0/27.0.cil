@@ -1,5 +1,11 @@
+;; attributes removed from current policy
+(typeattribute hal_wifi_offload)
+(typeattribute hal_wifi_offload_client)
+(typeattribute hal_wifi_offload_server)
+
 ;; types removed from current policy
 (type commontime_management_service)
+(type hal_wifi_offload_hwservice)
 (type mediacodec)
 (type mediacodec_exec)
 (type netd_socket)
