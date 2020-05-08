@@ -69,6 +69,9 @@ set_prop(update_engine, ctl_gsid_prop)
 # Allow to set the OTA related properties, e.g. ota.warm_reset.
 set_prop(update_engine, ota_prop)
 
+# Allow to get the DSU status
+get_prop(update_engine, gsid_prop)
+
 # update_engine tries to determine the parent path for all devices (e.g.
 # /dev/block/by-name) by reading the default fstab and looking for the misc
 # device. ReadDefaultFstab() checks whether a GSI is running by checking
