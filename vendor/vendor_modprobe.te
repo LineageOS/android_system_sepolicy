@@ -4,6 +4,7 @@ type vendor_modprobe, domain;
 domain_trans(init, vendor_toolbox_exec, vendor_modprobe)
 
 allow vendor_modprobe proc_modules:file r_file_perms;
+allow vendor_modprobe proc_cmdline:file r_file_perms;
 allow vendor_modprobe self:global_capability_class_set sys_module;
 allow vendor_modprobe kernel:key search;
 
