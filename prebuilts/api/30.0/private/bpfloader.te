@@ -1,0 +1,40 @@
+# bpf program loader
+type bpfloader, domain;
+type bpfloader_exec, system_file_type, exec_type, file_type;
+typeattribute bpfloader coredomain;
+
+# These permissions are required to pin ebpf maps & programs.
+allow bpfloader fs_bpf:dir { search write add_name };
+allow bpfloader fs_bpf:file { create setattr };
+
+# Allow bpfloader to create bpf maps and programs.
+allow bpfloader self:bpf { map_create map_read map_write prog_load prog_run };
+
+allow bpfloader self:capability { chown sys_admin };
+
+###
+### Neverallow rules
+###
+
+# TODO: get rid of init & vendor_init
+neverallow { domain -init -vendor_init } fs_bpf:dir setattr;
+neverallow { domain -bpfloader } fs_bpf:dir { write add_name };
+neverallow domain fs_bpf:dir { reparent rename rmdir };
+
+# TODO: get rid of init & vendor_init
+neverallow { domain -bpfloader -init -vendor_init } fs_bpf:file setattr;
+neverallow { domain -bpfloader } fs_bpf:file create;
+neverallow domain fs_bpf:file { rename unlink };
+
+neverallow { domain -bpfloader } *:bpf { map_create prog_load };
+neverallow { domain -bpfloader -netd -netutils_wrapper -system_server } *:bpf prog_run;
+neverallow { domain -bpfloader -netd -system_server } *:bpf { map_read map_write };
+
+neverallow { domain -bpfloader -init } bpfloader_exec:file { execute execute_no_trans };
+
+neverallow bpfloader domain:{ tcp_socket udp_socket rawip_socket } *;
+
+# No domain should be allowed to ptrace bpfloader
+neverallow { domain userdebug_or_eng(`-llkd') } bpfloader:process ptrace;
+
+set_prop(bpfloader, bpf_progs_loaded_prop)

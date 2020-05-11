@@ -1,0 +1,38 @@
+# Networking service app
+typeattribute network_stack coredomain;
+
+app_domain(network_stack);
+net_domain(network_stack);
+
+allow network_stack self:global_capability_class_set {
+    net_admin
+    net_bind_service
+    net_broadcast
+    net_raw
+};
+
+# Allow access to net_admin ioctl, DHCP server uses SIOCSARP
+allowxperm network_stack self:udp_socket ioctl priv_sock_ioctls;
+
+# The DhcpClient uses packet_sockets
+allow network_stack self:packet_socket create_socket_perms_no_ioctl;
+
+# Monitor neighbors via netlink.
+allow network_stack self:netlink_route_socket nlmsg_write;
+
+allow network_stack app_api_service:service_manager find;
+allow network_stack dnsresolver_service:service_manager find;
+allow network_stack netd_service:service_manager find;
+allow network_stack radio_service:service_manager find;
+allow network_stack radio_data_file:dir create_dir_perms;
+allow network_stack radio_data_file:file create_file_perms;
+
+binder_call(network_stack, netd);
+
+# Create/use netlink_tcpdiag_socket to get tcp info
+allow network_stack self:netlink_tcpdiag_socket { create_socket_perms_no_ioctl nlmsg_read nlmsg_write };
+############### Tethering Service app - Tethering.apk ##############
+hal_client_domain(network_stack, hal_tetheroffload)
+# Create and share netlink_netfilter_sockets for tetheroffload.
+allow network_stack self:netlink_netfilter_socket create_socket_perms_no_ioctl;
+allow network_stack network_stack_service:service_manager find;
