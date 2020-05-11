@@ -98,3 +98,6 @@ neverallow audioserver domain:{ tcp_socket udp_socket rawip_socket } *;
 
 # Allow using wake locks
 wakelock_use(audioserver)
+
+# Allow reading audio config props, e.g. af.fast_track_multiplier
+get_prop(audioserver, audio_config_prop)
