@@ -1,5 +1,6 @@
 ;; types removed from current policy
 (type ashmemd)
+(type exported_audio_prop)
 (type exported_dalvik_prop)
 (type exported_vold_prop)
 (type exported2_config_prop)
@@ -1208,7 +1209,7 @@
 (typeattributeset exported3_default_prop_29_0 (exported3_default_prop lmkd_config_prop))
 (typeattributeset exported3_radio_prop_29_0 (exported3_radio_prop))
 (typeattributeset exported3_system_prop_29_0 (exported3_system_prop boot_status_prop))
-(typeattributeset exported_audio_prop_29_0 (exported_audio_prop))
+(typeattributeset exported_audio_prop_29_0 (exported_audio_prop audio_config_prop))
 (typeattributeset exported_bluetooth_prop_29_0 (exported_bluetooth_prop))
 (typeattributeset exported_config_prop_29_0 (exported_config_prop))
 (typeattributeset exported_dalvik_prop_29_0 (exported_dalvik_prop dalvik_config_prop))
