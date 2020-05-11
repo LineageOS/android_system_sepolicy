@@ -543,9 +543,9 @@ init.svc.surfaceflinger u:object_r:exported2_default_prop:s0 exact string
 init.svc.tombstoned     u:object_r:exported2_default_prop:s0 exact string
 init.svc.zygote         u:object_r:exported2_default_prop:s0 exact string
 
-libc.debug.malloc.options u:object_r:exported2_default_prop:s0 exact string
-libc.debug.malloc.program u:object_r:exported2_default_prop:s0 exact string
-libc.debug.hooks.enable   u:object_r:exported2_default_prop:s0 exact string
+libc.debug.malloc.options u:object_r:libc_debug_prop:s0 exact string
+libc.debug.malloc.program u:object_r:libc_debug_prop:s0 exact string
+libc.debug.hooks.enable   u:object_r:libc_debug_prop:s0 exact string
 
 net.redirect_socket_calls.hooked u:object_r:socket_hook_prop:s0 exact bool
 
