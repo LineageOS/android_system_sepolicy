@@ -74,6 +74,7 @@ allow vendor_init {
   -vold_metadata_file
   -gsi_metadata_file
   -apex_metadata_file
+  -apex_info_file
 }:file { create getattr open read write setattr relabelfrom unlink map };
 
 allow vendor_init {
