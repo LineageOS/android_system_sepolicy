@@ -33,6 +33,8 @@
 /sys                u:object_r:sysfs:s0
 /apex               u:object_r:apex_mnt_dir:s0
 
+/apex/apex-info-list.xml u:object_r:apex_info_file:s0
+
 # Symlinks
 /bin                u:object_r:rootfs:s0
 /bugreports         u:object_r:rootfs:s0
