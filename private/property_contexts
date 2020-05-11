@@ -514,7 +514,6 @@ persist.sys.usb.usbradio.config u:object_r:exported3_system_prop:s0 exact string
 
 sys.retaildemo.enabled  u:object_r:exported3_system_prop:s0 exact int
 sys.user.0.ce_available u:object_r:exported3_system_prop:s0 exact bool
-sys.vdso                u:object_r:exported3_system_prop:s0 exact string
 
 sys.usb.config   u:object_r:exported_system_radio_prop:s0 exact string
 sys.usb.configfs u:object_r:exported_system_radio_prop:s0 exact int
