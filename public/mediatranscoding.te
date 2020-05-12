@@ -10,6 +10,7 @@ add_service(mediatranscoding, mediatranscoding_service)
 
 allow mediatranscoding system_server:fd use;
 allow mediatranscoding activity_service:service_manager find;
+allow mediatranscoding untrusted_app:binder call;
 
 # mediatranscoding should never execute any executable without a
 # domain transition
