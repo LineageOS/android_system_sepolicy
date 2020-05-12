@@ -43,6 +43,13 @@ se_filegroup {
 }
 
 se_filegroup {
+    name: "30.0.board.compat.map",
+    srcs: [
+        "compat/30.0/30.0.cil",
+    ],
+}
+
+se_filegroup {
     name: "26.0.board.ignore.map",
     srcs: [
         "compat/26.0/26.0.ignore.cil",
@@ -67,6 +74,13 @@ se_filegroup {
     name: "29.0.board.ignore.map",
     srcs: [
         "compat/29.0/29.0.ignore.cil",
+    ],
+}
+
+se_filegroup {
+    name: "30.0.board.ignore.map",
+    srcs: [
+        "compat/30.0/30.0.ignore.cil",
     ],
 }
 
@@ -95,7 +109,14 @@ se_cil_compat_map {
     name: "plat_29.0.cil",
     stem: "29.0.cil",
     bottom_half: [":29.0.board.compat.map"],
-    // top_half: "plat_30.0.cil",
+    top_half: "plat_30.0.cil",
+}
+
+se_cil_compat_map {
+    name: "plat_30.0.cil",
+    stem: "30.0.cil",
+    bottom_half: [":30.0.board.compat.map"],
+    // top_half: "plat_31.0.cil",
 }
 
 se_cil_compat_map {
@@ -126,7 +147,15 @@ se_cil_compat_map {
     name: "system_ext_29.0.cil",
     stem: "29.0.cil",
     bottom_half: [":29.0.board.compat.map"],
-    // top_half: "system_ext_30.0.cil",
+    top_half: "system_ext_30.0.cil",
+    system_ext_specific: true,
+}
+
+se_cil_compat_map {
+    name: "system_ext_30.0.cil",
+    stem: "30.0.cil",
+    bottom_half: [":30.0.board.compat.map"],
+    // top_half: "system_ext_31.0.cil",
     system_ext_specific: true,
 }
 
@@ -158,7 +187,15 @@ se_cil_compat_map {
     name: "product_29.0.cil",
     stem: "29.0.cil",
     bottom_half: [":29.0.board.compat.map"],
-    // top_half: "product_30.0.cil",
+    top_half: "product_30.0.cil",
+    product_specific: true,
+}
+
+se_cil_compat_map {
+    name: "product_30.0.cil",
+    stem: "30.0.cil",
+    bottom_half: [":30.0.board.compat.map"],
+    // top_half: "product_31.0.cil",
     product_specific: true,
 }
 
@@ -183,7 +220,13 @@ se_cil_compat_map {
 se_cil_compat_map {
     name: "29.0.ignore.cil",
     bottom_half: [":29.0.board.ignore.map"],
-    // top_half: "30.0.ignore.cil",
+    top_half: "30.0.ignore.cil",
+}
+
+se_cil_compat_map {
+    name: "30.0.ignore.cil",
+    bottom_half: [":30.0.board.ignore.map"],
+    // top_half: "31.0.ignore.cil",
 }
 
 prebuilt_etc {
@@ -207,6 +250,12 @@ prebuilt_etc {
 prebuilt_etc {
     name: "29.0.compat.cil",
     src: "private/compat/29.0/29.0.compat.cil",
+    sub_dir: "selinux/mapping",
+}
+
+prebuilt_etc {
+    name: "30.0.compat.cil",
+    src: "private/compat/30.0/30.0.compat.cil",
     sub_dir: "selinux/mapping",
 }
 

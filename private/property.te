@@ -339,3 +339,9 @@ neverallow {
 } {
   surfaceflinger_color_prop
 }:property_service set;
+
+neverallow {
+  -init
+} {
+  libc_debug_prop
+}:property_service set;
