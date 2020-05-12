@@ -61,6 +61,8 @@ system_restricted_prop(binder_cache_telephony_server_prop)
 system_restricted_prop(boot_status_prop)
 system_restricted_prop(boottime_public_prop)
 system_restricted_prop(bq_config_prop)
+system_restricted_prop(build_prop)
+system_restricted_prop(fingerprint_prop)
 system_restricted_prop(libc_debug_prop)
 system_restricted_prop(module_sdkextensions_prop)
 system_restricted_prop(nnapi_ext_deny_product_prop)
@@ -84,9 +86,7 @@ compatible_property_only(`
     system_restricted_prop(exported2_default_prop)
     system_restricted_prop(exported3_system_prop)
     system_restricted_prop(exported_dumpstate_prop)
-    system_restricted_prop(exported_fingerprint_prop)
     system_restricted_prop(exported_secure_prop)
-    system_restricted_prop(fingerprint_prop)
     system_restricted_prop(heapprofd_prop)
     system_restricted_prop(net_radio_prop)
     system_restricted_prop(pan_result_prop)
@@ -219,9 +219,7 @@ not_compatible_property(`
     system_public_prop(exported2_default_prop)
     system_public_prop(exported3_system_prop)
     system_public_prop(exported_dumpstate_prop)
-    system_public_prop(exported_fingerprint_prop)
     system_public_prop(exported_secure_prop)
-    system_public_prop(fingerprint_prop)
     system_public_prop(heapprofd_prop)
     system_public_prop(net_radio_prop)
     system_public_prop(pan_result_prop)
@@ -258,7 +256,6 @@ typeattribute debug_prop         core_property_type;
 typeattribute default_prop       core_property_type;
 typeattribute dhcp_prop          core_property_type;
 typeattribute dumpstate_prop     core_property_type;
-typeattribute fingerprint_prop   core_property_type;
 typeattribute logd_prop          core_property_type;
 typeattribute net_radio_prop     core_property_type;
 typeattribute nfc_prop           core_property_type;
