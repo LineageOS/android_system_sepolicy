@@ -916,3 +916,6 @@ graphics.display.kernel_idle_timer.enabled u:object_r:surfaceflinger_display_pro
 
 # Disable/enable charger input
 power.battery_input.suspended u:object_r:power_debug_prop:s0 exact bool
+
+# zygote config property
+zygote.critical_window.minute u:object_r:zygote_config_prop:s0 exact int
