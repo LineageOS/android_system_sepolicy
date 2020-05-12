@@ -1346,12 +1346,14 @@
 (typeattributeset exported2_radio_prop_30_0 (exported2_radio_prop))
 (typeattributeset exported2_system_prop_30_0
   ( exported2_system_prop
-    surfaceflinger_color_prop))
+    surfaceflinger_color_prop
+    zram_control_prop))
 (typeattributeset exported2_vold_prop_30_0 (exported2_vold_prop vold_config_prop))
 (typeattributeset exported3_default_prop_30_0
   ( exported3_default_prop
     camera_config_prop
-    lmkd_config_prop))
+    lmkd_config_prop
+    zram_config_prop))
 (typeattributeset exported3_radio_prop_30_0 (exported3_radio_prop))
 (typeattributeset exported3_system_prop_30_0 (exported3_system_prop boot_status_prop))
 (typeattributeset exported_audio_prop_30_0 (exported_audio_prop audio_config_prop))
