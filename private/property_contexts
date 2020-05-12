@@ -521,15 +521,14 @@ persist.sys.zram_enabled u:object_r:exported2_system_prop:s0 exact bool
 sys.usb.config   u:object_r:exported_system_radio_prop:s0 exact string
 sys.usb.configfs u:object_r:exported_system_radio_prop:s0 exact int
 
-aac_drc_boost            u:object_r:exported2_default_prop:s0 exact int
-aac_drc_cut              u:object_r:exported2_default_prop:s0 exact int
-aac_drc_enc_target_level u:object_r:exported2_default_prop:s0 exact int
-aac_drc_heavy            u:object_r:exported2_default_prop:s0 exact int
-aac_drc_reference_level  u:object_r:exported2_default_prop:s0 exact int
+aac_drc_boost            u:object_r:aac_drc_prop:s0 exact int
+aac_drc_cut              u:object_r:aac_drc_prop:s0 exact int
+aac_drc_enc_target_level u:object_r:aac_drc_prop:s0 exact int
+aac_drc_heavy            u:object_r:aac_drc_prop:s0 exact int
+aac_drc_reference_level  u:object_r:aac_drc_prop:s0 exact int
+ro.aac_drc_effect_type   u:object_r:aac_drc_prop:s0 exact int
 
 build.version.extensions. u:object_r:module_sdkextensions_prop:s0 prefix int
-
-ro.aac_drc_effect_type u:object_r:exported2_default_prop:s0 exact int
 
 drm.64bit.enabled u:object_r:exported2_default_prop:s0 exact bool
 

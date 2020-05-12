@@ -54,6 +54,7 @@ compatible_property_only(`
 ')
 
 # Properties which can't be written outside system
+system_restricted_prop(aac_drc_prop)
 system_restricted_prop(binder_cache_bluetooth_server_prop)
 system_restricted_prop(binder_cache_system_server_prop)
 system_restricted_prop(binder_cache_telephony_server_prop)

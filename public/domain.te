@@ -541,6 +541,8 @@ compatible_property_only(`
     neverallow { domain -coredomain -vendor_init } exported_pm_prop:file no_rw_file_perms;
 ')
 
+neverallow { domain -init } aac_drc_prop:property_service set;
+
 # Do not allow reading device's serial number from system properties except form
 # a few whitelisted domains.
 neverallow {
