@@ -471,9 +471,11 @@ ro.vehicle.hal u:object_r:vehicle_hal_prop:s0 exact string
 
 ro.vendor.build.security_patch u:object_r:vendor_security_patch_level_prop:s0 exact string
 
-ro.zram.mark_idle_delay_mins    u:object_r:exported3_default_prop:s0 exact int
-ro.zram.first_wb_delay_mins     u:object_r:exported3_default_prop:s0 exact int
-ro.zram.periodic_wb_delay_hours u:object_r:exported3_default_prop:s0 exact int
+ro.zram.mark_idle_delay_mins    u:object_r:zram_config_prop:s0 exact int
+ro.zram.first_wb_delay_mins     u:object_r:zram_config_prop:s0 exact int
+ro.zram.periodic_wb_delay_hours u:object_r:zram_config_prop:s0 exact int
+zram.force_writeback            u:object_r:zram_config_prop:s0 exact bool
+persist.sys.zram_enabled        u:object_r:zram_control_prop:s0 exact bool
 
 ro.zygote u:object_r:exported3_default_prop:s0 exact string
 
@@ -501,8 +503,6 @@ vts.native_server.on u:object_r:exported3_default_prop:s0 exact bool
 
 wlan.driver.status u:object_r:exported_wifi_prop:s0 exact enum ok unloaded
 
-zram.force_writeback u:object_r:exported3_default_prop:s0 exact bool
-
 apexd.status u:object_r:apexd_prop:s0 exact enum starting activated ready
 
 dev.bootcomplete   u:object_r:boot_status_prop:s0 exact bool
@@ -515,8 +515,6 @@ persist.sys.usb.usbradio.config u:object_r:exported3_system_prop:s0 exact string
 sys.retaildemo.enabled  u:object_r:exported3_system_prop:s0 exact int
 sys.user.0.ce_available u:object_r:exported3_system_prop:s0 exact bool
 sys.vdso                u:object_r:exported3_system_prop:s0 exact string
-
-persist.sys.zram_enabled u:object_r:exported2_system_prop:s0 exact bool
 
 sys.usb.config   u:object_r:exported_system_radio_prop:s0 exact string
 sys.usb.configfs u:object_r:exported_system_radio_prop:s0 exact int
