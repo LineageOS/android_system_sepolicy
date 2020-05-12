@@ -85,6 +85,7 @@ allow dumpstate {
   hal_graphics_allocator_server
   hal_graphics_composer_server
   hal_health_server
+  hal_neuralnetworks_server
   hal_omx_server
   hal_power_server
   hal_power_stats_server
@@ -135,9 +136,10 @@ r_dir_file(dumpstate, cgroup)
 binder_call(dumpstate, binderservicedomain)
 binder_call(dumpstate, { appdomain netd wificond })
 
-hal_client_domain(dumpstate, hal_dumpstate)
-hal_client_domain(dumpstate, hal_wifi)
-hal_client_domain(dumpstate, hal_graphics_allocator)
+dump_hal(hal_dumpstate)
+dump_hal(hal_wifi)
+dump_hal(hal_graphics_allocator)
+dump_hal(hal_neuralnetworks)
 # Vibrate the device after we are done collecting the bugreport
 hal_client_domain(dumpstate, hal_vibrator)
 
