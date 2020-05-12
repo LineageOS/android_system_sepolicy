@@ -259,8 +259,12 @@ audio.deep_buffer.media         u:object_r:audio_config_prop:s0 exact bool
 audio.offload.video             u:object_r:audio_config_prop:s0 exact bool
 audio.offload.min.duration.secs u:object_r:audio_config_prop:s0 exact int
 
-camera.disable_zsl_mode u:object_r:exported3_default_prop:s0 exact bool
-camera.fifo.disable     u:object_r:exported3_default_prop:s0 exact int
+config.disable_cameraservice u:object_r:camera_config_prop:s0 exact bool
+
+camera.disable_zsl_mode u:object_r:camera_config_prop:s0 exact bool
+camera.fifo.disable     u:object_r:camera_config_prop:s0 exact bool
+ro.camera.notify_nfc    u:object_r:camera_config_prop:s0 exact bool
+ro.camera.enableLazyHal u:object_r:camera_config_prop:s0 exact bool
 
 # Should always_debuggable be bool? It's checked against the string "1".
 dalvik.vm.always_debuggable                   u:object_r:dalvik_config_prop:s0 exact int
@@ -380,9 +384,6 @@ ro.boot.vendor.overlay.theme u:object_r:exported_overlay_prop:s0 exact string
 ro.boot.wificountrycode      u:object_r:exported3_default_prop:s0 exact string
 
 ro.bt.bdaddr_path u:object_r:exported_bluetooth_prop:s0 exact string
-
-ro.camera.notify_nfc    u:object_r:exported3_default_prop:s0 exact int
-ro.camera.enableLazyHal u:object_r:exported3_default_prop:s0 exact bool
 
 ro.com.android.dataroaming     u:object_r:exported3_default_prop:s0 exact bool
 ro.com.android.prov_mobiledata u:object_r:exported3_default_prop:s0 exact bool
@@ -640,8 +641,6 @@ aaudio.mixer_bursts          u:object_r:exported_default_prop:s0 exact int
 aaudio.mmap_exclusive_policy u:object_r:exported_default_prop:s0 exact int
 aaudio.mmap_policy           u:object_r:exported_default_prop:s0 exact int
 aaudio.wakeup_delay_usec     u:object_r:exported_default_prop:s0 exact int
-
-config.disable_cameraservice u:object_r:exported_camera_prop:s0 exact bool
 
 gsm.sim.operator.numeric u:object_r:exported_radio_prop:s0 exact string
 
