@@ -688,6 +688,9 @@ get_prop(system_server, zram_config_prop)
 # Read/write persist.sys.zram_enabled
 set_prop(system_server, zram_control_prop)
 
+# Read/write persist.sys.dalvik.vm.lib.2
+set_prop(system_server, dalvik_runtime_prop)
+
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
 
