@@ -1339,7 +1339,10 @@
 (typeattributeset ethernet_service_30_0 (ethernet_service))
 (typeattributeset exfat_30_0 (exfat))
 (typeattributeset exported2_config_prop_30_0 (exported2_config_prop systemsound_config_prop))
-(typeattributeset exported2_default_prop_30_0 (exported2_default_prop libc_debug_prop))
+(typeattributeset exported2_default_prop_30_0
+  ( exported2_default_prop
+    aac_drc_prop
+    libc_debug_prop))
 (typeattributeset exported2_radio_prop_30_0 (exported2_radio_prop))
 (typeattributeset exported2_system_prop_30_0
   ( exported2_system_prop
