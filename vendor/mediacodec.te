@@ -23,6 +23,9 @@ allow mediacodec video_device:dir search;
 
 crash_dump_fallback(mediacodec)
 
+# get aac_drc_* properties
+get_prop(mediacodec, aac_drc_prop)
+
 # mediacodec should never execute any executable without a domain transition
 neverallow mediacodec { file_type fs_type }:file execute_no_trans;
 
