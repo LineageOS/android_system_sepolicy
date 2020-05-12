@@ -123,6 +123,7 @@ system_vendor_config_prop(vendor_socket_hook_prop)
 system_vendor_config_prop(virtual_ab_prop)
 system_vendor_config_prop(vndk_prop)
 system_vendor_config_prop(vold_config_prop)
+system_vendor_config_prop(zram_config_prop)
 
 # Properties with no restrictions
 system_public_prop(audio_prop)
@@ -163,6 +164,7 @@ system_public_prop(surfaceflinger_color_prop)
 system_public_prop(system_prop)
 system_public_prop(wifi_log_prop)
 system_public_prop(wifi_prop)
+system_public_prop(zram_control_prop)
 
 # Properties used in default HAL implementations
 vendor_internal_prop(rebootescrow_hal_prop)
