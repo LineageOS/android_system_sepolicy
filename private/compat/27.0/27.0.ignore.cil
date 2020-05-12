@@ -208,7 +208,9 @@
     wpantund
     wpantund_exec
     wpantund_service
-    wpantund_tmpfs))
+    wpantund_tmpfs
+    zram_config_prop
+    zram_control_prop))
 
 ;; private_objects - a collection of types that were labeled differently in
 ;;     older policy, but that should not remain accessible to vendor policy.
