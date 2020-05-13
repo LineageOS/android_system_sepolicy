@@ -1347,6 +1347,7 @@
 (typeattributeset exported2_radio_prop_30_0 (exported2_radio_prop))
 (typeattributeset exported2_system_prop_30_0
   ( exported2_system_prop
+    dalvik_runtime_prop
     surfaceflinger_color_prop
     zram_control_prop))
 (typeattributeset exported2_vold_prop_30_0 (exported2_vold_prop vold_config_prop))
