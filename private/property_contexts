@@ -343,8 +343,9 @@ keyguard.no_require_sim u:object_r:exported3_default_prop:s0 exact bool
 
 media.recorder.show_manufacturer_and_model u:object_r:exported3_default_prop:s0 exact bool
 
-media.stagefright.cache-params               u:object_r:exported3_default_prop:s0 exact string
-media.stagefright.thumbnail.prefer_hw_codecs u:object_r:exported3_default_prop:s0 exact bool
+media.stagefright.cache-params               u:object_r:media_config_prop:s0 exact string
+media.stagefright.thumbnail.prefer_hw_codecs u:object_r:media_config_prop:s0 exact bool
+persist.sys.media.avsync                     u:object_r:media_config_prop:s0 exact bool
 
 persist.bluetooth.a2dp_offload.cap             u:object_r:bluetooth_a2dp_offload_prop:s0 exact string
 persist.bluetooth.a2dp_offload.disabled        u:object_r:bluetooth_a2dp_offload_prop:s0 exact bool
@@ -360,7 +361,6 @@ persist.dbg.wfc_avail_ovr   u:object_r:exported3_default_prop:s0 exact int
 persist.radio.multisim.config u:object_r:exported3_radio_prop:s0 exact string
 
 persist.sys.dalvik.vm.lib.2     u:object_r:exported2_system_prop:s0 exact string
-persist.sys.media.avsync        u:object_r:exported2_system_prop:s0 exact bool
 
 persist.sys.hdmi.keep_awake u:object_r:hdmi_config_prop:s0 exact bool
 ro.hdmi.device_type         u:object_r:hdmi_config_prop:s0 exact string
