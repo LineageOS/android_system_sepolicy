@@ -355,3 +355,9 @@ neverallow {
   -system_server
   -vendor_init
 } zram_control_prop:property_service set;
+
+neverallow {
+  -init
+  -system_server
+  -vendor_init
+} dalvik_runtime_prop:property_service set;
