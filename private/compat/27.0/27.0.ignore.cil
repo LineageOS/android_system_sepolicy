@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    aac_drc_prop
     activity_task_service
     adb_service
     app_binding_service
@@ -29,6 +30,7 @@
     bluetooth_a2dp_offload_prop
     bpfloader
     bpfloader_exec
+    camera_config_prop
     cgroup_bpf
     charger_exec
     color_display_service
@@ -70,6 +72,8 @@
     exported_vold_prop
     exported_wifi_prop
     fastbootd
+    ffs_config_prop
+    ffs_control_prop
     flags_health_check
     flags_health_check_exec
     fingerprint_vendor_data_file
@@ -204,7 +208,9 @@
     wpantund
     wpantund_exec
     wpantund_service
-    wpantund_tmpfs))
+    wpantund_tmpfs
+    zram_config_prop
+    zram_control_prop))
 
 ;; private_objects - a collection of types that were labeled differently in
 ;;     older policy, but that should not remain accessible to vendor policy.

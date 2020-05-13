@@ -40,5 +40,5 @@ allow mediaprovider functionfs:file rw_file_perms;
 allowxperm mediaprovider functionfs:file ioctl FUNCTIONFS_ENDPOINT_DESC;
 
 # MtpServer sets sys.usb.ffs.mtp.ready
-set_prop(mediaprovider, ffs_prop)
-set_prop(mediaprovider, exported_ffs_prop)
+get_prop(mediaprovider, ffs_config_prop)
+set_prop(mediaprovider, ffs_control_prop)

@@ -27,7 +27,6 @@ sys.init.perf_lsm_hooks u:object_r:init_perf_lsm_hooks_prop:s0
 sys.cppreopt            u:object_r:cppreopt_prop:s0
 sys.lpdumpd             u:object_r:lpdumpd_prop:s0
 sys.powerctl            u:object_r:powerctl_prop:s0
-sys.usb.ffs.            u:object_r:ffs_prop:s0
 service.                u:object_r:system_prop:s0
 dhcp.                   u:object_r:dhcp_prop:s0
 dhcp.bt-pan.result      u:object_r:pan_result_prop:s0
@@ -259,8 +258,12 @@ audio.deep_buffer.media         u:object_r:audio_config_prop:s0 exact bool
 audio.offload.video             u:object_r:audio_config_prop:s0 exact bool
 audio.offload.min.duration.secs u:object_r:audio_config_prop:s0 exact int
 
-camera.disable_zsl_mode u:object_r:exported3_default_prop:s0 exact bool
-camera.fifo.disable     u:object_r:exported3_default_prop:s0 exact int
+config.disable_cameraservice u:object_r:camera_config_prop:s0 exact bool
+
+camera.disable_zsl_mode u:object_r:camera_config_prop:s0 exact bool
+camera.fifo.disable     u:object_r:camera_config_prop:s0 exact bool
+ro.camera.notify_nfc    u:object_r:camera_config_prop:s0 exact bool
+ro.camera.enableLazyHal u:object_r:camera_config_prop:s0 exact bool
 
 # Should always_debuggable be bool? It's checked against the string "1".
 dalvik.vm.always_debuggable                   u:object_r:dalvik_config_prop:s0 exact int
@@ -381,9 +384,6 @@ ro.boot.wificountrycode      u:object_r:exported3_default_prop:s0 exact string
 
 ro.bt.bdaddr_path u:object_r:exported_bluetooth_prop:s0 exact string
 
-ro.camera.notify_nfc    u:object_r:exported3_default_prop:s0 exact int
-ro.camera.enableLazyHal u:object_r:exported3_default_prop:s0 exact bool
-
 ro.com.android.dataroaming     u:object_r:exported3_default_prop:s0 exact bool
 ro.com.android.prov_mobiledata u:object_r:exported3_default_prop:s0 exact bool
 
@@ -471,21 +471,26 @@ ro.vehicle.hal u:object_r:vehicle_hal_prop:s0 exact string
 
 ro.vendor.build.security_patch u:object_r:vendor_security_patch_level_prop:s0 exact string
 
-ro.zram.mark_idle_delay_mins    u:object_r:exported3_default_prop:s0 exact int
-ro.zram.first_wb_delay_mins     u:object_r:exported3_default_prop:s0 exact int
-ro.zram.periodic_wb_delay_hours u:object_r:exported3_default_prop:s0 exact int
+ro.zram.mark_idle_delay_mins    u:object_r:zram_config_prop:s0 exact int
+ro.zram.first_wb_delay_mins     u:object_r:zram_config_prop:s0 exact int
+ro.zram.periodic_wb_delay_hours u:object_r:zram_config_prop:s0 exact int
+zram.force_writeback            u:object_r:zram_config_prop:s0 exact bool
+persist.sys.zram_enabled        u:object_r:zram_control_prop:s0 exact bool
 
 ro.zygote u:object_r:exported3_default_prop:s0 exact string
 
 sendbug.preferred.domain u:object_r:exported3_default_prop:s0 exact string
 
 sys.usb.controller      u:object_r:exported2_system_prop:s0 exact string
-sys.usb.ffs.max_read    u:object_r:exported_ffs_prop:s0 exact int
-sys.usb.ffs.max_write   u:object_r:exported_ffs_prop:s0 exact int
-sys.usb.ffs.ready       u:object_r:exported_ffs_prop:s0 exact bool
 sys.usb.mtp.device_type u:object_r:exported2_system_prop:s0 exact int
-sys.usb.ffs.mtp.ready   u:object_r:exported_ffs_prop:s0 exact bool
 sys.usb.state           u:object_r:exported2_system_prop:s0 exact string
+
+sys.usb.ffs.aio_compat u:object_r:ffs_config_prop:s0 exact bool
+sys.usb.ffs.max_read   u:object_r:ffs_config_prop:s0 exact int
+sys.usb.ffs.max_write  u:object_r:ffs_config_prop:s0 exact int
+
+sys.usb.ffs.ready     u:object_r:ffs_control_prop:s0 exact bool
+sys.usb.ffs.mtp.ready u:object_r:ffs_control_prop:s0 exact bool
 
 telephony.lteOnCdmaDevice u:object_r:exported3_default_prop:s0 exact int
 telephony.active_modems.max_count u:object_r:exported3_default_prop:s0 exact int
@@ -497,8 +502,6 @@ vold.post_fs_data_done u:object_r:vold_config_prop:s0 exact int
 vts.native_server.on u:object_r:exported3_default_prop:s0 exact bool
 
 wlan.driver.status u:object_r:exported_wifi_prop:s0 exact enum ok unloaded
-
-zram.force_writeback u:object_r:exported3_default_prop:s0 exact bool
 
 apexd.status u:object_r:apexd_prop:s0 exact enum starting activated ready
 
@@ -513,20 +516,17 @@ sys.retaildemo.enabled  u:object_r:exported3_system_prop:s0 exact int
 sys.user.0.ce_available u:object_r:exported3_system_prop:s0 exact bool
 sys.vdso                u:object_r:exported3_system_prop:s0 exact string
 
-persist.sys.zram_enabled u:object_r:exported2_system_prop:s0 exact bool
-
 sys.usb.config   u:object_r:exported_system_radio_prop:s0 exact string
 sys.usb.configfs u:object_r:exported_system_radio_prop:s0 exact int
 
-aac_drc_boost            u:object_r:exported2_default_prop:s0 exact int
-aac_drc_cut              u:object_r:exported2_default_prop:s0 exact int
-aac_drc_enc_target_level u:object_r:exported2_default_prop:s0 exact int
-aac_drc_heavy            u:object_r:exported2_default_prop:s0 exact int
-aac_drc_reference_level  u:object_r:exported2_default_prop:s0 exact int
+aac_drc_boost            u:object_r:aac_drc_prop:s0 exact int
+aac_drc_cut              u:object_r:aac_drc_prop:s0 exact int
+aac_drc_enc_target_level u:object_r:aac_drc_prop:s0 exact int
+aac_drc_heavy            u:object_r:aac_drc_prop:s0 exact int
+aac_drc_reference_level  u:object_r:aac_drc_prop:s0 exact int
+ro.aac_drc_effect_type   u:object_r:aac_drc_prop:s0 exact int
 
 build.version.extensions. u:object_r:module_sdkextensions_prop:s0 prefix int
-
-ro.aac_drc_effect_type u:object_r:exported2_default_prop:s0 exact int
 
 drm.64bit.enabled u:object_r:exported2_default_prop:s0 exact bool
 
@@ -640,8 +640,6 @@ aaudio.mixer_bursts          u:object_r:exported_default_prop:s0 exact int
 aaudio.mmap_exclusive_policy u:object_r:exported_default_prop:s0 exact int
 aaudio.mmap_policy           u:object_r:exported_default_prop:s0 exact int
 aaudio.wakeup_delay_usec     u:object_r:exported_default_prop:s0 exact int
-
-config.disable_cameraservice u:object_r:exported_camera_prop:s0 exact bool
 
 gsm.sim.operator.numeric u:object_r:exported_radio_prop:s0 exact string
 

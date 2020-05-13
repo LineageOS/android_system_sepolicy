@@ -10,8 +10,8 @@ recovery_only(`
   get_prop(fastbootd, serialno_prop)
 
   # Set sys.usb.ffs.ready.
-  set_prop(fastbootd, ffs_prop)
-  set_prop(fastbootd, exported_ffs_prop)
+  get_prop(fastbootd, ffs_config_prop)
+  set_prop(fastbootd, ffs_control_prop)
 
   userdebug_or_eng(`
     get_prop(fastbootd, persistent_properties_ready_prop)
