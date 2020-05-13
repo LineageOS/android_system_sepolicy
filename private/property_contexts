@@ -361,7 +361,10 @@ persist.radio.multisim.config u:object_r:exported3_radio_prop:s0 exact string
 
 persist.sys.dalvik.vm.lib.2     u:object_r:exported2_system_prop:s0 exact string
 persist.sys.media.avsync        u:object_r:exported2_system_prop:s0 exact bool
-persist.sys.hdmi.keep_awake     u:object_r:exported2_system_prop:s0 exact bool
+
+persist.sys.hdmi.keep_awake u:object_r:hdmi_config_prop:s0 exact bool
+ro.hdmi.device_type         u:object_r:hdmi_config_prop:s0 exact string
+ro.hdmi.wake_on_hotplug     u:object_r:hdmi_config_prop:s0 exact bool
 
 pm.dexopt.ab-ota                        u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.bg-dexopt                     u:object_r:exported_pm_prop:s0 exact string
@@ -419,9 +422,6 @@ ro.enable_boot_charger_mode u:object_r:exported3_default_prop:s0 exact bool
 
 ro.gfx.driver.0        u:object_r:exported3_default_prop:s0 exact string
 ro.gfx.angle.supported u:object_r:exported3_default_prop:s0 exact bool
-
-ro.hdmi.device_type     u:object_r:exported3_default_prop:s0 exact string
-ro.hdmi.wake_on_hotplug u:object_r:exported3_default_prop:s0 exact bool
 
 ro.lmk.critical                 u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.critical_upgrade         u:object_r:lmkd_config_prop:s0 exact bool
