@@ -112,7 +112,7 @@ ro.crypto.              u:object_r:vold_prop:s0
 
 # ro.build.fingerprint is either set in /system/build.prop, or is
 # set at runtime by system_server.
-ro.build.fingerprint    u:object_r:fingerprint_prop:s0
+ro.build.fingerprint    u:object_r:fingerprint_prop:s0 exact string
 
 ro.persistent_properties.ready  u:object_r:persistent_properties_ready_prop:s0
 
@@ -583,30 +583,29 @@ ro.bootloader u:object_r:exported2_default_prop:s0 exact string
 ro.boottime.init.mount.data u:object_r:boottime_public_prop:s0 exact string
 ro.boottime.init.fsck.data  u:object_r:boottime_public_prop:s0 exact string
 
-ro.build.date                        u:object_r:exported2_default_prop:s0 exact string
-ro.build.date.utc                    u:object_r:exported2_default_prop:s0 exact int
-ro.build.description                 u:object_r:exported2_default_prop:s0 exact string
-ro.build.display.id                  u:object_r:exported2_default_prop:s0 exact string
-ro.build.fingerprint                 u:object_r:exported_fingerprint_prop:s0 exact string
-ro.build.host                        u:object_r:exported2_default_prop:s0 exact string
-ro.build.id                          u:object_r:exported2_default_prop:s0 exact string
-ro.build.product                     u:object_r:exported2_default_prop:s0 exact string
-ro.build.system_root_image           u:object_r:exported2_default_prop:s0 exact bool
-ro.build.tags                        u:object_r:exported2_default_prop:s0 exact string
-ro.build.user                        u:object_r:exported2_default_prop:s0 exact string
-ro.build.version.base_os             u:object_r:exported2_default_prop:s0 exact string
-ro.build.version.codename            u:object_r:exported2_default_prop:s0 exact string
-ro.build.version.incremental         u:object_r:exported2_default_prop:s0 exact string
-ro.build.version.preview_sdk         u:object_r:exported2_default_prop:s0 exact int
-ro.build.version.release             u:object_r:exported2_default_prop:s0 exact string
-ro.build.version.release_or_codename u:object_r:exported2_default_prop:s0 exact string
-ro.build.version.sdk                 u:object_r:exported2_default_prop:s0 exact int
-ro.build.version.security_patch      u:object_r:exported2_default_prop:s0 exact string
+ro.build.date                        u:object_r:build_prop:s0 exact string
+ro.build.date.utc                    u:object_r:build_prop:s0 exact int
+ro.build.description                 u:object_r:build_prop:s0 exact string
+ro.build.display.id                  u:object_r:build_prop:s0 exact string
+ro.build.host                        u:object_r:build_prop:s0 exact string
+ro.build.id                          u:object_r:build_prop:s0 exact string
+ro.build.product                     u:object_r:build_prop:s0 exact string
+ro.build.system_root_image           u:object_r:build_prop:s0 exact bool
+ro.build.tags                        u:object_r:build_prop:s0 exact string
+ro.build.user                        u:object_r:build_prop:s0 exact string
+ro.build.version.base_os             u:object_r:build_prop:s0 exact string
+ro.build.version.codename            u:object_r:build_prop:s0 exact string
+ro.build.version.incremental         u:object_r:build_prop:s0 exact string
+ro.build.version.preview_sdk         u:object_r:build_prop:s0 exact int
+ro.build.version.release             u:object_r:build_prop:s0 exact string
+ro.build.version.release_or_codename u:object_r:build_prop:s0 exact string
+ro.build.version.sdk                 u:object_r:build_prop:s0 exact int
+ro.build.version.security_patch      u:object_r:build_prop:s0 exact string
+
+ro.debuggable u:object_r:build_prop:s0 exact bool
 
 ro.crypto.state u:object_r:vold_status_prop:s0 exact enum encrypted unencrypted unsupported
 ro.crypto.type  u:object_r:vold_status_prop:s0 exact enum block file none
-
-ro.debuggable u:object_r:exported2_default_prop:s0 exact int
 
 ro.hardware u:object_r:exported2_default_prop:s0 exact string
 
