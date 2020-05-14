@@ -246,6 +246,7 @@ set_prop(vendor_init, wifi_log_prop)
 
 get_prop(vendor_init, exported2_radio_prop)
 get_prop(vendor_init, exported3_system_prop)
+get_prop(vendor_init, init_service_status_prop)
 get_prop(vendor_init, surfaceflinger_display_prop)
 get_prop(vendor_init, theme_prop)
 
