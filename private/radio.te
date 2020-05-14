@@ -6,10 +6,9 @@ read_runtime_log_tags(radio)
 
 # Property service
 set_prop(radio, radio_prop)
-set_prop(radio, exported_radio_prop)
-set_prop(radio, exported2_radio_prop)
 set_prop(radio, exported3_radio_prop)
 set_prop(radio, net_radio_prop)
+set_prop(radio, telephony_status_prop)
 
 # ctl interface
 set_prop(radio, ctl_rildaemon_prop)

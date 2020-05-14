@@ -4,8 +4,10 @@
 (type exported_ffs_prop)
 (type exported_fingerprint_prop)
 (type exported_system_radio_prop)
+(type exported_radio_prop)
 (type exported_vold_prop)
 (type exported2_config_prop)
+(type exported2_radio_prop)
 (type exported2_vold_prop)
 (type ffs_prop)
 (type system_radio_prop)
@@ -1360,6 +1362,7 @@
     hdmi_config_prop
     lmkd_config_prop
     media_config_prop
+    telephony_config_prop
     zram_config_prop))
 (typeattributeset exported3_radio_prop_30_0 (exported3_radio_prop))
 (typeattributeset exported3_system_prop_30_0
@@ -1385,7 +1388,7 @@
 (typeattributeset exported_fingerprint_prop_30_0 (exported_fingerprint_prop fingerprint_prop))
 (typeattributeset exported_overlay_prop_30_0 (exported_overlay_prop))
 (typeattributeset exported_pm_prop_30_0 (exported_pm_prop))
-(typeattributeset exported_radio_prop_30_0 (exported_radio_prop))
+(typeattributeset exported_radio_prop_30_0 (exported_radio_prop telephony_status_prop))
 (typeattributeset exported_secure_prop_30_0 (exported_secure_prop))
 (typeattributeset exported_system_prop_30_0 (exported_system_prop))
 (typeattributeset exported_system_radio_prop_30_0

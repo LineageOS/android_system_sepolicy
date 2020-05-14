@@ -250,8 +250,6 @@ persist.sys.userspace_reboot.log. u:object_r:userspace_reboot_log_prop:s0
 # history size.
 ro.lib_gui.frame_event_history_size u:object_r:bq_config_prop:s0
 
-persist.radio.airplane_mode_on u:object_r:exported2_radio_prop:s0 exact bool
-
 af.fast_track_multiplier     u:object_r:audio_config_prop:s0 exact int
 ro.af.client_heap_size_kbyte u:object_r:audio_config_prop:s0 exact int
 
@@ -358,10 +356,6 @@ persist.bluetooth.btsnoopenable                u:object_r:exported_bluetooth_pro
 
 persist.config.calibration_fac u:object_r:exported3_default_prop:s0 exact string
 
-persist.dbg.volte_avail_ovr u:object_r:exported3_default_prop:s0 exact int
-persist.dbg.vt_avail_ovr    u:object_r:exported3_default_prop:s0 exact int
-persist.dbg.wfc_avail_ovr   u:object_r:exported3_default_prop:s0 exact int
-
 persist.radio.multisim.config u:object_r:exported3_radio_prop:s0 exact string
 
 persist.sys.hdmi.keep_awake u:object_r:hdmi_config_prop:s0 exact bool
@@ -388,9 +382,6 @@ ro.boot.vendor.overlay.theme u:object_r:exported_overlay_prop:s0 exact string
 ro.boot.wificountrycode      u:object_r:exported3_default_prop:s0 exact string
 
 ro.bt.bdaddr_path u:object_r:exported_bluetooth_prop:s0 exact string
-
-ro.com.android.dataroaming     u:object_r:exported3_default_prop:s0 exact bool
-ro.com.android.prov_mobiledata u:object_r:exported3_default_prop:s0 exact bool
 
 ro.config.alarm_alert         u:object_r:systemsound_config_prop:s0 exact string
 ro.config.alarm_vol_default   u:object_r:systemsound_config_prop:s0 exact int
@@ -462,17 +453,11 @@ ro.oem_unlock_supported u:object_r:exported3_default_prop:s0 exact int
 
 ro.opengles.version u:object_r:exported3_default_prop:s0 exact int
 
-ro.radio.noril u:object_r:exported3_default_prop:s0 exact string
-
 ro.rebootescrow.device u:object_r:rebootescrow_hal_prop:s0 exact string
 
 ro.statsd.enable u:object_r:exported3_default_prop:s0 exact bool
 
 ro.storage_manager.enabled u:object_r:exported3_default_prop:s0 exact bool
-
-ro.telephony.call_ring.multiple u:object_r:exported3_default_prop:s0 exact bool
-ro.telephony.default_cdma_sub   u:object_r:exported3_default_prop:s0 exact int
-ro.telephony.default_network    u:object_r:exported3_default_prop:s0 exact string
 
 ro.vehicle.hal u:object_r:vehicle_hal_prop:s0 exact string
 
@@ -505,9 +490,6 @@ sys.usb.ffs.max_write  u:object_r:ffs_config_prop:s0 exact int
 
 sys.usb.ffs.ready     u:object_r:ffs_control_prop:s0 exact bool
 sys.usb.ffs.mtp.ready u:object_r:ffs_control_prop:s0 exact bool
-
-telephony.lteOnCdmaDevice u:object_r:exported3_default_prop:s0 exact int
-telephony.active_modems.max_count u:object_r:exported3_default_prop:s0 exact int
 
 tombstoned.max_tombstone_count u:object_r:exported3_default_prop:s0 exact int
 
@@ -682,8 +664,6 @@ aaudio.mmap_exclusive_policy u:object_r:exported_default_prop:s0 exact int
 aaudio.mmap_policy           u:object_r:exported_default_prop:s0 exact int
 aaudio.wakeup_delay_usec     u:object_r:exported_default_prop:s0 exact int
 
-gsm.sim.operator.numeric u:object_r:exported_radio_prop:s0 exact string
-
 media.mediadrmservice.enable u:object_r:exported_default_prop:s0 exact bool
 
 persist.rcs.supported u:object_r:exported_default_prop:s0 exact int
@@ -766,8 +746,6 @@ ro.kernel.ebpf.supported   u:object_r:exported_default_prop:s0 exact bool
 ro.oem.key1 u:object_r:exported_default_prop:s0 exact string
 
 ro.product.vndk.version u:object_r:vndk_prop:s0 exact string
-
-ro.telephony.iwlan_operation_mode u:object_r:exported_radio_prop:s0 exact enum default legacy AP-assisted
 
 ro.vndk.lite    u:object_r:vndk_prop:s0 exact bool
 ro.vndk.version u:object_r:vndk_prop:s0 exact string
@@ -857,3 +835,19 @@ cache_key.package_info                   u:object_r:binder_cache_system_server_p
 cache_key.bluetooth.                     u:object_r:binder_cache_bluetooth_server_prop:s0 prefix string
 cache_key.system_server.                 u:object_r:binder_cache_system_server_prop:s0 prefix string
 cache_key.telephony.                     u:object_r:binder_cache_telephony_server_prop:s0 prefix string
+
+gsm.sim.operator.numeric       u:object_r:telephony_status_prop:s0 exact string
+persist.radio.airplane_mode_on u:object_r:telephony_status_prop:s0 exact bool
+
+ro.com.android.dataroaming        u:object_r:telephony_config_prop:s0 exact bool
+ro.com.android.prov_mobiledata    u:object_r:telephony_config_prop:s0 exact bool
+ro.radio.noril                    u:object_r:telephony_config_prop:s0 exact string
+ro.telephony.call_ring.multiple   u:object_r:telephony_config_prop:s0 exact bool
+ro.telephony.default_cdma_sub     u:object_r:telephony_config_prop:s0 exact int
+ro.telephony.default_network      u:object_r:telephony_config_prop:s0 exact string
+ro.telephony.iwlan_operation_mode u:object_r:telephony_config_prop:s0 exact enum default legacy AP-assisted
+telephony.active_modems.max_count u:object_r:telephony_config_prop:s0 exact int
+telephony.lteOnCdmaDevice         u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.volte_avail_ovr       u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.vt_avail_ovr          u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.wfc_avail_ovr         u:object_r:telephony_config_prop:s0 exact int
