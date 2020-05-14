@@ -136,7 +136,6 @@ compatible_property_only(`
     exported_config_prop
     exported_default_prop
     exported_dumpstate_prop
-    exported_fingerprint_prop
     exported_system_prop
     exported_system_radio_prop
     exported2_default_prop
@@ -356,3 +355,9 @@ neverallow {
   -system_server
   -vendor_init
 } zram_control_prop:property_service set;
+
+neverallow {
+  -init
+  -system_server
+  -vendor_init
+} dalvik_runtime_prop:property_service set;

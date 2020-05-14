@@ -30,6 +30,7 @@
     bluetooth_a2dp_offload_prop
     bpfloader
     bpfloader_exec
+    build_prop
     camera_config_prop
     cgroup_bpf
     charger_exec
@@ -42,6 +43,7 @@
     ctl_interface_stop_prop
     ctl_sigstop_prop
     dalvik_config_prop
+    dalvik_runtime_prop
     device_config_boot_count_prop
     device_config_reset_performed_prop
     device_config_netd_native_prop
@@ -91,6 +93,7 @@
     hal_usb_gadget_hwservice
     hal_vehicle_hwservice
     hal_wifi_hostapd_hwservice
+    hdmi_config_prop
     heapprofd
     heapprofd_exec
     heapprofd_socket
@@ -112,6 +115,7 @@
     lowpan_device
     lowpan_prop
     lowpan_service
+    media_config_prop
     mediaextractor_update_service
     mediaswcodec
     mediaswcodec_exec
