@@ -542,13 +542,17 @@ dumpstate.unroot  u:object_r:exported_dumpstate_prop:s0 exact bool
 
 hal.instrumentation.enable u:object_r:exported2_default_prop:s0 exact bool
 
-init.svc.bugreport      u:object_r:exported2_default_prop:s0 exact string
-init.svc.console        u:object_r:exported2_default_prop:s0 exact string
-init.svc.dumpstatez     u:object_r:exported2_default_prop:s0 exact string
-init.svc.mediadrm       u:object_r:exported2_default_prop:s0 exact string
-init.svc.surfaceflinger u:object_r:exported2_default_prop:s0 exact string
-init.svc.tombstoned     u:object_r:exported2_default_prop:s0 exact string
-init.svc.zygote         u:object_r:exported2_default_prop:s0 exact string
+# default contexts only accessible by coredomain
+init.svc. u:object_r:init_service_status_private_prop:s0 exact string
+
+# vendor-init-readable init service props
+init.svc.bugreport      u:object_r:init_service_status_prop:s0 exact string
+init.svc.console        u:object_r:init_service_status_prop:s0 exact string
+init.svc.dumpstatez     u:object_r:init_service_status_prop:s0 exact string
+init.svc.mediadrm       u:object_r:init_service_status_prop:s0 exact string
+init.svc.surfaceflinger u:object_r:init_service_status_prop:s0 exact string
+init.svc.tombstoned     u:object_r:init_service_status_prop:s0 exact string
+init.svc.zygote         u:object_r:init_service_status_prop:s0 exact string
 
 libc.debug.malloc.options u:object_r:libc_debug_prop:s0 exact string
 libc.debug.malloc.program u:object_r:libc_debug_prop:s0 exact string
