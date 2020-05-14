@@ -1,3 +1,4 @@
+get_prop(coredomain, init_service_status_prop)
 get_prop(coredomain, pm_prop)
 get_prop(coredomain, exported_pm_prop)
 
