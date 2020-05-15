@@ -6,6 +6,9 @@ get_prop(coredomain, camera_config_prop)
 get_prop(coredomain, hdmi_config_prop)
 get_prop(coredomain, dalvik_runtime_prop)
 
+get_prop(coredomain, usb_config_prop)
+get_prop(coredomain, usb_control_prop)
+
 full_treble_only(`
 neverallow {
     coredomain
