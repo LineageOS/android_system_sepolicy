@@ -3,10 +3,12 @@
 (type exported_dalvik_prop)
 (type exported_ffs_prop)
 (type exported_fingerprint_prop)
+(type exported_system_radio_prop)
 (type exported_vold_prop)
 (type exported2_config_prop)
 (type exported2_vold_prop)
 (type ffs_prop)
+(type system_radio_prop)
 
 (expandtypeattribute (DockObserver_service_30_0) true)
 (expandtypeattribute (IProxyService_service_30_0) true)
@@ -1379,7 +1381,10 @@
 (typeattributeset exported_radio_prop_30_0 (exported_radio_prop))
 (typeattributeset exported_secure_prop_30_0 (exported_secure_prop))
 (typeattributeset exported_system_prop_30_0 (exported_system_prop))
-(typeattributeset exported_system_radio_prop_30_0 (exported_system_radio_prop))
+(typeattributeset exported_system_radio_prop_30_0
+  ( exported_system_radio_prop
+    usb_config_prop
+    usb_control_prop))
 (typeattributeset exported_vold_prop_30_0 (exported_vold_prop vold_status_prop))
 (typeattributeset exported_wifi_prop_30_0 (exported_wifi_prop))
 (typeattributeset external_vibrator_service_30_0 (external_vibrator_service))
@@ -2008,7 +2013,7 @@
 (typeattributeset system_net_netd_hwservice_30_0 (system_net_netd_hwservice))
 (typeattributeset system_passwd_file_30_0 (system_passwd_file))
 (typeattributeset system_prop_30_0 (system_prop))
-(typeattributeset system_radio_prop_30_0 (system_radio_prop))
+(typeattributeset system_radio_prop_30_0 (system_radio_prop usb_prop))
 (typeattributeset system_seccomp_policy_file_30_0 (system_seccomp_policy_file))
 (typeattributeset system_security_cacerts_file_30_0 (system_security_cacerts_file))
 (typeattributeset system_server_30_0 (system_server))
