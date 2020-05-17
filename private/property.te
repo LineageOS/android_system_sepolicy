@@ -86,7 +86,7 @@ neverallow * {
   -restorecon_prop
   -shell_prop
   -system_prop
-  -system_radio_prop
+  -usb_prop
   -vold_prop
 }:file no_rw_file_perms;
 
@@ -137,11 +137,11 @@ compatible_property_only(`
     exported_default_prop
     exported_dumpstate_prop
     exported_system_prop
-    exported_system_radio_prop
     exported2_default_prop
     exported2_system_prop
     exported3_default_prop
     exported3_system_prop
+    usb_control_prop
     -nfc_prop
     -powerctl_prop
     -radio_prop
@@ -235,7 +235,6 @@ compatible_property_only(`
     core_property_type
     dalvik_config_prop
     extended_core_property_type
-    exported_system_radio_prop
     exported2_system_prop
     exported3_default_prop
     exported3_system_prop
@@ -361,3 +360,11 @@ neverallow {
   -system_server
   -vendor_init
 } dalvik_runtime_prop:property_service set;
+
+neverallow {
+  -coredomain
+  -vendor_init
+} {
+  usb_config_prop
+  usb_control_prop
+}:property_service set;
