@@ -179,21 +179,6 @@ userdebug_or_eng(`
 ###
 ### neverallow rules
 ###
-
-# only specific domains can find the incident service
-neverallow {
-  domain
-  -dumpstate
-  -incident
-  -incidentd
-  -perfetto
-  -permissioncontroller_app
-  -priv_app
-  -statsd
-  -system_app
-  -system_server
-} incident_service:service_manager find;
-
 # only incidentd and the other root services in limited circumstances
 # can get to the files in /data/misc/incidents
 #
