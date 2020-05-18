@@ -40,6 +40,7 @@ bluetooth_manager                         u:object_r:bluetooth_manager_service:s
 bluetooth                                 u:object_r:bluetooth_service:s0
 broadcastradio                            u:object_r:broadcastradio_service:s0
 bugreport                                 u:object_r:bugreport_service:s0
+cacheinfo                                 u:object_r:cacheinfo_service:s0
 carrier_config                            u:object_r:radio_service:s0
 clipboard                                 u:object_r:clipboard_service:s0
 com.android.net.IProxyService             u:object_r:IProxyService_service:s0
