@@ -560,8 +560,6 @@ persist.sys.locale       u:object_r:exported_system_prop:s0 exact string
 persist.sys.timezone     u:object_r:exported_system_prop:s0 exact string
 persist.sys.test_harness u:object_r:test_harness_prop:s0 exact bool
 
-ro.adb.secure u:object_r:exported_secure_prop:s0 exact bool
-
 ro.arch u:object_r:exported2_default_prop:s0 exact string
 
 ro.audio.ignore_effects u:object_r:exported2_default_prop:s0 exact bool
@@ -596,6 +594,7 @@ ro.build.id                          u:object_r:build_prop:s0 exact string
 ro.build.product                     u:object_r:build_prop:s0 exact string
 ro.build.system_root_image           u:object_r:build_prop:s0 exact bool
 ro.build.tags                        u:object_r:build_prop:s0 exact string
+ro.build.type                        u:object_r:build_prop:s0 exact string
 ro.build.user                        u:object_r:build_prop:s0 exact string
 ro.build.version.base_os             u:object_r:build_prop:s0 exact string
 ro.build.version.codename            u:object_r:build_prop:s0 exact string
@@ -608,24 +607,60 @@ ro.build.version.security_patch      u:object_r:build_prop:s0 exact string
 
 ro.debuggable u:object_r:build_prop:s0 exact bool
 
+ro.product.cpu.abi       u:object_r:build_prop:s0 exact string
+ro.product.cpu.abilist   u:object_r:build_prop:s0 exact string
+ro.product.cpu.abilist32 u:object_r:build_prop:s0 exact string
+ro.product.cpu.abilist64 u:object_r:build_prop:s0 exact string
+
+ro.adb.secure u:object_r:build_prop:s0 exact bool
+ro.secure     u:object_r:build_prop:s0 exact int
+
+# These 5 properties are set by property_service
+ro.product.brand         u:object_r:build_prop:s0 exact string
+ro.product.device        u:object_r:build_prop:s0 exact string
+ro.product.manufacturer  u:object_r:build_prop:s0 exact string
+ro.product.model         u:object_r:build_prop:s0 exact string
+ro.product.name          u:object_r:build_prop:s0 exact string
+
+# All odm build props are set by /odm/build.prop
+ro.odm.build.date                u:object_r:build_odm_prop:s0 exact string
+ro.odm.build.date.utc            u:object_r:build_odm_prop:s0 exact int
+ro.odm.build.fingerprint         u:object_r:build_odm_prop:s0 exact string
+ro.odm.build.version.incremental u:object_r:build_odm_prop:s0 exact string
+
+ro.product.odm.brand        u:object_r:build_odm_prop:s0 exact string
+ro.product.odm.device       u:object_r:build_odm_prop:s0 exact string
+ro.product.odm.manufacturer u:object_r:build_odm_prop:s0 exact string
+ro.product.odm.model        u:object_r:build_odm_prop:s0 exact string
+ro.product.odm.name         u:object_r:build_odm_prop:s0 exact string
+
+# All vendor build props are set by /vendor/build.prop
+ro.vendor.build.date                u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.build.date.utc            u:object_r:build_vendor_prop:s0 exact int
+ro.vendor.build.fingerprint         u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.build.version.incremental u:object_r:build_vendor_prop:s0 exact string
+
+ro.product.board               u:object_r:build_vendor_prop:s0 exact string
+ro.product.first_api_level     u:object_r:build_vendor_prop:s0 exact int
+ro.product.vendor.brand        u:object_r:build_vendor_prop:s0 exact string
+ro.product.vendor.device       u:object_r:build_vendor_prop:s0 exact string
+ro.product.vendor.manufacturer u:object_r:build_vendor_prop:s0 exact string
+ro.product.vendor.model        u:object_r:build_vendor_prop:s0 exact string
+ro.product.vendor.name         u:object_r:build_vendor_prop:s0 exact string
+
+# These are also set by /vendor/build.prop
+ro.bootimage.build.date        u:object_r:build_vendor_prop:s0 exact string
+ro.bootimage.build.date.utc    u:object_r:build_vendor_prop:s0 exact int
+ro.bootimage.build.fingerprint u:object_r:build_vendor_prop:s0 exact string
+
 ro.crypto.state u:object_r:vold_status_prop:s0 exact enum encrypted unencrypted unsupported
 ro.crypto.type  u:object_r:vold_status_prop:s0 exact enum block file none
 
 ro.hardware u:object_r:exported2_default_prop:s0 exact string
 
-ro.product.brand        u:object_r:exported2_default_prop:s0 exact string
-ro.product.cpu.abi      u:object_r:exported2_default_prop:s0 exact string
-ro.product.cpu.abilist  u:object_r:exported2_default_prop:s0 exact string
-ro.product.device       u:object_r:exported2_default_prop:s0 exact string
-ro.product.manufacturer u:object_r:exported2_default_prop:s0 exact string
-ro.product.model        u:object_r:exported2_default_prop:s0 exact string
-ro.product.name         u:object_r:exported2_default_prop:s0 exact string
-
 ro.property_service.version u:object_r:exported2_default_prop:s0 exact int
 
 ro.revision u:object_r:exported2_default_prop:s0 exact string
-
-ro.secure u:object_r:exported_secure_prop:s0 exact int
 
 ro.vendor.redirect_socket_calls u:object_r:vendor_socket_hook_prop:s0 exact bool
 
@@ -662,10 +697,6 @@ ro.boot.hardware.revision    u:object_r:exported_default_prop:s0 exact string
 ro.boot.product.hardware.sku u:object_r:exported_default_prop:s0 exact string
 ro.boot.product.vendor.sku   u:object_r:exported_default_prop:s0 exact string
 ro.boot.slot_suffix          u:object_r:exported_default_prop:s0 exact string
-
-ro.bootimage.build.date        u:object_r:exported_default_prop:s0 exact string
-ro.bootimage.build.date.utc    u:object_r:exported_default_prop:s0 exact int
-ro.bootimage.build.fingerprint u:object_r:exported_default_prop:s0 exact string
 
 ro.boringcrypto.hwrand u:object_r:exported_default_prop:s0 exact bool
 
@@ -728,35 +759,11 @@ ro.kernel.qemu.            u:object_r:exported_default_prop:s0
 ro.kernel.android.bootanim u:object_r:exported_default_prop:s0 exact int
 ro.kernel.ebpf.supported   u:object_r:exported_default_prop:s0 exact bool
 
-ro.odm.build.date                u:object_r:exported_default_prop:s0 exact string
-ro.odm.build.date.utc            u:object_r:exported_default_prop:s0 exact int
-ro.odm.build.fingerprint         u:object_r:exported_default_prop:s0 exact string
-ro.odm.build.version.incremental u:object_r:exported_default_prop:s0 exact string
-
 ro.oem.key1 u:object_r:exported_default_prop:s0 exact string
 
-ro.product.board               u:object_r:exported_default_prop:s0 exact string
-ro.product.cpu.abilist32       u:object_r:exported_default_prop:s0 exact string
-ro.product.cpu.abilist64       u:object_r:exported_default_prop:s0 exact string
-ro.product.first_api_level     u:object_r:exported_default_prop:s0 exact int
-ro.product.odm.brand           u:object_r:exported_default_prop:s0 exact string
-ro.product.odm.device          u:object_r:exported_default_prop:s0 exact string
-ro.product.odm.manufacturer    u:object_r:exported_default_prop:s0 exact string
-ro.product.odm.model           u:object_r:exported_default_prop:s0 exact string
-ro.product.odm.name            u:object_r:exported_default_prop:s0 exact string
-ro.product.vendor.brand        u:object_r:exported_default_prop:s0 exact string
-ro.product.vendor.device       u:object_r:exported_default_prop:s0 exact string
-ro.product.vendor.manufacturer u:object_r:exported_default_prop:s0 exact string
-ro.product.vendor.model        u:object_r:exported_default_prop:s0 exact string
-ro.product.vendor.name         u:object_r:exported_default_prop:s0 exact string
-ro.product.vndk.version        u:object_r:vndk_prop:s0 exact string
+ro.product.vndk.version u:object_r:vndk_prop:s0 exact string
 
 ro.telephony.iwlan_operation_mode u:object_r:exported_radio_prop:s0 exact enum default legacy AP-assisted
-
-ro.vendor.build.date                u:object_r:exported_default_prop:s0 exact string
-ro.vendor.build.date.utc            u:object_r:exported_default_prop:s0 exact int
-ro.vendor.build.fingerprint         u:object_r:exported_default_prop:s0 exact string
-ro.vendor.build.version.incremental u:object_r:exported_default_prop:s0 exact string
 
 ro.vndk.lite    u:object_r:vndk_prop:s0 exact bool
 ro.vndk.version u:object_r:vndk_prop:s0 exact string
@@ -785,8 +792,6 @@ init.userspace_reboot.watchdog.timeoutmillis u:object_r:userspace_reboot_config_
 ro.boot.revision u:object_r:exported2_default_prop:s0 exact string
 
 ro.bootmode u:object_r:exported2_default_prop:s0 exact string
-
-ro.build.type u:object_r:exported2_default_prop:s0 exact string
 
 sys.shutdown.requested u:object_r:exported_system_prop:s0 exact string
 
