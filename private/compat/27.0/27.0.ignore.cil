@@ -18,8 +18,9 @@
     apexd_prop
     apexd_tmpfs
     app_zygote
-    audio_config_prop
+    art_apex_dir
     atrace
+    audio_config_prop
     binder_calls_stats_service
     biometric_service
     blank_screen
@@ -134,10 +135,11 @@
     perfetto_tmpfs
     perfetto_traces_data_file
     property_info
+    provisioned_prop
     recovery_socket
+    retaildemo_prop
     role_service
     runas_app
-    art_apex_dir
     runtime_service
     secure_element
     secure_element_device
