@@ -257,3 +257,6 @@ neverallow {
   -untrusted_app_25
   -untrusted_app_27
 } mnt_sdcard_file:lnk_file *;
+
+# Only privileged apps may find the incident service
+neverallow all_untrusted_apps incident_service:service_manager find;
