@@ -369,3 +369,19 @@ neverallow {
   usb_config_prop
   usb_control_prop
 }:property_service set;
+
+neverallow {
+  -init
+  -system_server
+} {
+  provisioned_prop
+  retaildemo_prop
+}:property_service set;
+
+neverallow {
+  -coredomain
+  -vendor_init
+} {
+  provisioned_prop
+  retaildemo_prop
+}:file no_rw_file_perms;
