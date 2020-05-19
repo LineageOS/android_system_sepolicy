@@ -1361,7 +1361,11 @@
     media_config_prop
     zram_config_prop))
 (typeattributeset exported3_radio_prop_30_0 (exported3_radio_prop))
-(typeattributeset exported3_system_prop_30_0 (exported3_system_prop boot_status_prop))
+(typeattributeset exported3_system_prop_30_0
+  ( exported3_system_prop
+    boot_status_prop
+    provisioned_prop
+    retaildemo_prop))
 (typeattributeset exported_audio_prop_30_0 (exported_audio_prop audio_config_prop))
 (typeattributeset exported_bluetooth_prop_30_0 (exported_bluetooth_prop))
 (typeattributeset exported_camera_prop_30_0 (exported_camera_prop))
