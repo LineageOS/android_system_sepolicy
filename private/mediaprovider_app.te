@@ -43,3 +43,6 @@ allowxperm mediaprovider_app media_rw_data_file:{ dir file } ioctl {
 allow mediaprovider_app { mnt_media_rw_file }:dir search;
 
 allow mediaprovider_app proc_filesystems:file r_file_perms;
+
+#Allow MediaProvider to see if sdcardfs is in use
+get_prop(mediaprovider_app, storage_config_prop)
