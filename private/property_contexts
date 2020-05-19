@@ -517,10 +517,12 @@ apexd.status u:object_r:apexd_prop:s0 exact enum starting activated ready
 dev.bootcomplete   u:object_r:boot_status_prop:s0 exact bool
 sys.boot_completed u:object_r:boot_status_prop:s0 exact bool
 
-persist.sys.device_provisioned  u:object_r:exported3_system_prop:s0 exact string
+persist.sys.device_provisioned u:object_r:provisioned_prop:s0 exact string
+
 persist.sys.theme               u:object_r:theme_prop:s0 exact string
 
-sys.retaildemo.enabled  u:object_r:exported3_system_prop:s0 exact int
+sys.retaildemo.enabled u:object_r:retaildemo_prop:s0 exact int
+
 sys.user.0.ce_available u:object_r:exported3_system_prop:s0 exact bool
 
 aac_drc_boost            u:object_r:aac_drc_prop:s0 exact int
