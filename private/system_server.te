@@ -620,6 +620,8 @@ set_prop(system_server, socket_hook_prop)
 set_prop(system_server, audio_prop)
 set_prop(system_server, boot_status_prop)
 set_prop(system_server, surfaceflinger_color_prop)
+set_prop(system_server, provisioned_prop)
+set_prop(system_server, retaildemo_prop)
 userdebug_or_eng(`set_prop(system_server, wifi_log_prop)')
 
 # ctl interface
