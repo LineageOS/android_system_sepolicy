@@ -94,7 +94,9 @@ allow domain properties_serial:file r_file_perms;
 allow domain property_info:file r_file_perms;
 
 # Public readable properties
+get_prop(domain, build_odm_prop)
 get_prop(domain, build_prop)
+get_prop(domain, build_vendor_prop)
 get_prop(domain, debug_prop)
 get_prop(domain, exported_config_prop)
 get_prop(domain, exported_default_prop)
