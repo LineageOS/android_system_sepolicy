@@ -1285,7 +1285,7 @@
 (typeattributeset default_android_hwservice_30_0 (default_android_hwservice))
 (typeattributeset default_android_service_30_0 (default_android_service))
 (typeattributeset default_android_vndservice_30_0 (default_android_vndservice))
-(typeattributeset default_prop_30_0 (default_prop))
+(typeattributeset default_prop_30_0 (default_prop init_service_status_private_prop))
 (typeattributeset dev_cpu_variant_30_0 (dev_cpu_variant))
 (typeattributeset device_30_0 (device))
 (typeattributeset device_config_activity_manager_native_boot_prop_30_0 (device_config_activity_manager_native_boot_prop))
@@ -1345,6 +1345,7 @@
   ( exported2_default_prop
     aac_drc_prop
     build_prop
+    init_service_status_prop
     libc_debug_prop))
 (typeattributeset exported2_radio_prop_30_0 (exported2_radio_prop))
 (typeattributeset exported2_system_prop_30_0
