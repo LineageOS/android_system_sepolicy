@@ -7,6 +7,7 @@ system_internal_prop(device_config_configuration_prop)
 system_internal_prop(fastbootd_protocol_prop)
 system_internal_prop(gsid_prop)
 system_internal_prop(init_perf_lsm_hooks_prop)
+system_internal_prop(init_service_status_private_prop)
 system_internal_prop(init_svc_debug_prop)
 system_internal_prop(last_boot_reason_prop)
 system_internal_prop(netd_stable_secret_prop)
@@ -385,3 +386,10 @@ neverallow {
   provisioned_prop
   retaildemo_prop
 }:file no_rw_file_perms;
+
+neverallow {
+  -init
+} {
+  init_service_status_private_prop
+  init_service_status_prop
+}:property_service set;
