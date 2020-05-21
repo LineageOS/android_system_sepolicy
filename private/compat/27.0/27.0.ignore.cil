@@ -31,7 +31,9 @@
     bluetooth_a2dp_offload_prop
     bpfloader
     bpfloader_exec
+    build_odm_prop
     build_prop
+    build_vendor_prop
     camera_config_prop
     cgroup_bpf
     charger_exec
@@ -100,6 +102,8 @@
     heapprofd_socket
     incident_helper
     incident_helper_exec
+    init_service_status_private_prop
+    init_service_status_prop
     iorapd
     iorapd_data_file
     iorapd_exec
