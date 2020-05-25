@@ -378,8 +378,8 @@ service_contexts {
 
 // For vts_treble_sys_prop_test
 filegroup {
-    name: "private_property_contexts",
-    srcs: ["private/property_contexts"],
+    name: "public_property_contexts",
+    srcs: ["public/property_contexts"],
     visibility: [
         "//test/vts-testcase/security/system_property",
     ],
