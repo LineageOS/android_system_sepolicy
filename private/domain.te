@@ -72,33 +72,24 @@ get_prop(domain, bq_config_prop);
 # For now, everyone can access core property files
 # Device specific properties are not granted by default
 not_compatible_property(`
-    get_prop(domain, boot_status_prop)
+    # DO NOT ADD ANY PROPERTIES HERE
     get_prop(domain, core_property_type)
-    get_prop(domain, dalvik_config_prop)
     get_prop(domain, exported2_radio_prop)
     get_prop(domain, exported2_system_prop)
     get_prop(domain, exported3_default_prop)
     get_prop(domain, exported3_radio_prop)
     get_prop(domain, exported3_system_prop)
-    get_prop(domain, surfaceflinger_color_prop)
-    get_prop(domain, systemsound_config_prop)
     get_prop(domain, vendor_default_prop)
-    get_prop(domain, vold_config_prop)
 ')
 compatible_property_only(`
-    get_prop({coredomain appdomain shell}, boot_status_prop)
+    # DO NOT ADD ANY PROPERTIES HERE
     get_prop({coredomain appdomain shell}, core_property_type)
-    get_prop({coredomain appdomain shell}, dalvik_config_prop)
     get_prop({coredomain appdomain shell}, exported2_radio_prop)
     get_prop({coredomain appdomain shell}, exported2_system_prop)
     get_prop({coredomain appdomain shell}, exported3_default_prop)
     get_prop({coredomain appdomain shell}, exported3_radio_prop)
     get_prop({coredomain appdomain shell}, exported3_system_prop)
     get_prop({coredomain appdomain shell}, exported_camera_prop)
-    get_prop({coredomain appdomain shell}, surfaceflinger_color_prop)
-    get_prop({coredomain appdomain shell}, systemsound_config_prop)
-    get_prop({coredomain appdomain shell}, userspace_reboot_config_prop)
-    get_prop({coredomain appdomain shell}, vold_config_prop)
     get_prop({coredomain shell}, userspace_reboot_exported_prop)
     get_prop({coredomain shell}, userspace_reboot_log_prop)
     get_prop({coredomain shell}, userspace_reboot_test_prop)
