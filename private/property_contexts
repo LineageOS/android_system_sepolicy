@@ -868,6 +868,10 @@ cache_key.bluetooth.                     u:object_r:binder_cache_bluetooth_serve
 cache_key.system_server.                 u:object_r:binder_cache_system_server_prop:s0 prefix string
 cache_key.telephony.                     u:object_r:binder_cache_telephony_server_prop:s0 prefix string
 
+# Framework watchdog configuration properties.
+framework_watchdog.fatal_count                u:object_r:framework_watchdog_config_prop:s0 exact int
+framework_watchdog.fatal_window.second        u:object_r:framework_watchdog_config_prop:s0 exact int
+
 gsm.sim.operator.numeric       u:object_r:telephony_status_prop:s0 exact string
 persist.radio.airplane_mode_on u:object_r:telephony_status_prop:s0 exact bool
 

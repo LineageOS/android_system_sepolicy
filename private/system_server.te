@@ -1020,6 +1020,13 @@ get_prop(system_server, wifi_config_prop)
 # Only system server can access BINDER_FREEZE and BINDER_GET_FROZEN_INFO
 allowxperm system_server binder_device:chr_file ioctl { BINDER_FREEZE BINDER_GET_FROZEN_INFO };
 
+# Watchdog prints debugging log to /dev/kmsg_debug.
+userdebug_or_eng(`
+  allow system_server kmsg_debug_device:chr_file { open append getattr };
+')
+# Watchdog reads sysprops framework_watchdog.fatal_* to handle watchdog timeout loop.
+get_prop(system_server, framework_watchdog_config_prop)
+
 ###
 ### Neverallow rules
 ###
