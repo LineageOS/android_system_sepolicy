@@ -339,8 +339,6 @@ dalvik.vm.zygote.max-boot-retry               u:object_r:dalvik_config_prop:s0 e
 
 persist.sys.dalvik.vm.lib.2 u:object_r:dalvik_runtime_prop:s0 exact string
 
-drm.service.enabled u:object_r:exported3_default_prop:s0 exact bool
-
 keyguard.no_require_sim u:object_r:exported3_default_prop:s0 exact bool
 
 media.recorder.show_manufacturer_and_model u:object_r:exported3_default_prop:s0 exact bool
@@ -521,7 +519,10 @@ ro.aac_drc_effect_type   u:object_r:aac_drc_prop:s0 exact int
 
 build.version.extensions. u:object_r:module_sdkextensions_prop:s0 prefix int
 
-drm.64bit.enabled u:object_r:exported2_default_prop:s0 exact bool
+drm.64bit.enabled            u:object_r:mediadrm_config_prop:s0 exact bool
+media.mediadrmservice.enable u:object_r:mediadrm_config_prop:s0 exact bool
+
+drm.service.enabled u:object_r:drm_service_config_prop:s0 exact bool
 
 dumpstate.dry_run u:object_r:exported_dumpstate_prop:s0 exact bool
 dumpstate.unroot  u:object_r:exported_dumpstate_prop:s0 exact bool
@@ -663,8 +664,6 @@ aaudio.mixer_bursts          u:object_r:exported_default_prop:s0 exact int
 aaudio.mmap_exclusive_policy u:object_r:exported_default_prop:s0 exact int
 aaudio.mmap_policy           u:object_r:exported_default_prop:s0 exact int
 aaudio.wakeup_delay_usec     u:object_r:exported_default_prop:s0 exact int
-
-media.mediadrmservice.enable u:object_r:exported_default_prop:s0 exact bool
 
 persist.rcs.supported u:object_r:exported_default_prop:s0 exact int
 
