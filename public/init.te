@@ -203,6 +203,7 @@ allow init {
 
 allow init {
   file_type
+  -apex_info_file
   -app_data_file
   -exec_type
   -gsi_data_file

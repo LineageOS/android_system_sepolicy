@@ -336,6 +336,9 @@ type mnt_product_file, file_type;
 # Mount point used for APEX images
 type apex_mnt_dir, file_type;
 
+# /apex/apex-info-list.xml created by apexd
+type apex_info_file, file_type;
+
 # /postinstall: Mount point used by update_engine to run postinstall.
 type postinstall_mnt_dir, file_type;
 # Files inside the /postinstall mountpoint are all labeled as postinstall_file.
