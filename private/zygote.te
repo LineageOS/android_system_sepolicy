@@ -200,6 +200,9 @@ unix_socket_send(zygote, system_unsolzygote, system_server)
 # Allow zygote to access media_variant_prop for static initialization
 get_prop(zygote, media_variant_prop)
 
+# Allow zygote to read /apex/apex-info-list.xml
+allow zygote apex_info_file:file r_file_perms;
+
 ###
 ### neverallow rules
 ###
