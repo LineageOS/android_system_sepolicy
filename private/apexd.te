@@ -64,6 +64,9 @@ allow apexd apex_mnt_dir:filesystem { mount unmount };
 allow apexd apex_mnt_dir:dir mounton;
 # allow apexd to create symlinks in /apex
 allow apexd apex_mnt_dir:lnk_file create_file_perms;
+# allow apexd to create /apex/apex-info-list.xml and relabel to apex_info_file
+allow apexd apex_mnt_dir:file { create_file_perms relabelfrom };
+allow apexd apex_info_file:file relabelto;
 # allow apexd to unlink apex files in /data/apex/active
 # note that apexd won't be able to unlink files in /data/app-staging/session_XXXX,
 # because it doesn't have write permission for staging_data_file object.
@@ -159,3 +162,6 @@ neverallow { domain -apexd -init -vold_prepare_subdirs } apex_rollback_data_file
 # only apexd can set apexd sysprop
 set_prop(apexd, apexd_prop)
 neverallow { domain -apexd -init } apexd_prop:property_service set;
+
+# only apexd can write apex-info-list.xml
+neverallow { domain -apexd } apex_info_file:file no_w_file_perms;

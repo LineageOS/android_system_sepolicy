@@ -1094,6 +1094,9 @@ allow system_server apexd:binder call;
 # Allow system server to scan /apex for flattened APEXes
 allow system_server apex_mnt_dir:dir r_dir_perms;
 
+# Allow system server to read /apex/apex-info-list.xml
+allow system_server apex_info_file:file r_file_perms;
+
 # Allow system server to communicate to system-suspend's control interface
 allow system_server system_suspend_control_service:service_manager find;
 binder_call(system_server, system_suspend)
