@@ -60,7 +60,7 @@ allow netd sysfs_net:file w_file_perms;
 # TODO: added to match above sysfs rule. Remove me?
 allow netd sysfs_usb:file write;
 
-r_dir_file(netd, cgroup_bpf)
+r_dir_file(netd, cgroup_v2)
 
 allow netd fs_bpf:dir search;
 allow netd fs_bpf:file { read write };
