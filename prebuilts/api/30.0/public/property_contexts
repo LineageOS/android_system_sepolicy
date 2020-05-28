@@ -315,6 +315,7 @@ ro.bionic.arch u:object_r:cpu_variant_prop:s0 exact string
 ro.bionic.cpu_variant u:object_r:cpu_variant_prop:s0 exact string
 ro.board.platform u:object_r:exported_default_prop:s0 exact string
 ro.boot.fake_battery u:object_r:exported_default_prop:s0 exact int
+ro.boot.fstab_suffix u:object_r:exported_default_prop:s0 exact string
 ro.boot.hardware.revision u:object_r:exported_default_prop:s0 exact string
 ro.boot.product.hardware.sku u:object_r:exported_default_prop:s0 exact string
 ro.boot.product.vendor.sku u:object_r:exported_default_prop:s0 exact string
