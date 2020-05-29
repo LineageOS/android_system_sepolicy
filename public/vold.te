@@ -202,6 +202,10 @@ allow vold asec_public_file:file { relabelto setattr };
 allow vold unlabeled:dir { r_dir_perms setattr relabelfrom };
 allow vold unlabeled:file { r_file_perms setattr relabelfrom };
 
+# Access to FUSE control filesystem to hard-abort FUSE mounts
+allow vold fusectlfs:file rw_file_perms;
+allow vold fusectlfs:dir rw_dir_perms;
+
 # Handle wake locks (used for device encryption)
 wakelock_use(vold)
 
