@@ -650,11 +650,6 @@ ro.product.vendor.manufacturer u:object_r:build_vendor_prop:s0 exact string
 ro.product.vendor.model        u:object_r:build_vendor_prop:s0 exact string
 ro.product.vendor.name         u:object_r:build_vendor_prop:s0 exact string
 
-# These are also set by /vendor/build.prop
-ro.bootimage.build.date        u:object_r:build_vendor_prop:s0 exact string
-ro.bootimage.build.date.utc    u:object_r:build_vendor_prop:s0 exact int
-ro.bootimage.build.fingerprint u:object_r:build_vendor_prop:s0 exact string
-
 ro.crypto.state u:object_r:vold_status_prop:s0 exact enum encrypted unencrypted unsupported
 ro.crypto.type  u:object_r:vold_status_prop:s0 exact enum block file none
 
