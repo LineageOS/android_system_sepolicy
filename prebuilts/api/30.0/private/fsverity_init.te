@@ -3,11 +3,6 @@ type fsverity_init_exec, exec_type, file_type, system_file_type;
 
 init_daemon_domain(fsverity_init)
 
-# Allow to retrieve keys from keystore.
-binder_use(fsverity_init)
-use_keystore(fsverity_init)
-allow fsverity_init keystore:keystore_key { list get };
-
 # Allow to read /proc/keys for searching key id.
 allow fsverity_init proc_keys:file r_file_perms;
 
