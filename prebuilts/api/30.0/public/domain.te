@@ -1286,6 +1286,9 @@ neverallow { domain -init -vendor_init -dumpstate } debugfs:{ file lnk_file } no
 # Do not allow executable files in debugfs.
 neverallow domain debugfs_type:file { execute execute_no_trans };
 
+# Don't allow access to the FUSE control filesystem, except to vold and init's
+neverallow { domain -vold -init -vendor_init } fusectlfs:file no_rw_file_perms;
+
 # Profiles contain untrusted data and profman parses that. We should only run
 # in from installd forked processes.
 neverallow {
