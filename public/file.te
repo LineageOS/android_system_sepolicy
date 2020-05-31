@@ -75,6 +75,7 @@ type proc_vmallocinfo, fs_type, proc_type;
 type proc_vmstat, fs_type, proc_type;
 type proc_zoneinfo, fs_type, proc_type;
 type selinuxfs, fs_type, mlstrustedobject;
+type fusectlfs, fs_type;
 type cgroup, fs_type, mlstrustedobject;
 type cgroup_bpf, fs_type;
 type sysfs, fs_type, sysfs_type, mlstrustedobject;
