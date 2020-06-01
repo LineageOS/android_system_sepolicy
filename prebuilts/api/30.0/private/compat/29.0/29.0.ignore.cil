@@ -43,6 +43,7 @@
     device_config_configuration_prop
     emergency_affordance_service
     exported_camera_prop
+    fastbootd_protocol_prop
     file_integrity_service
     fwk_automotive_display_hwservice
     fusectlfs
@@ -57,6 +58,7 @@
     hal_tv_tuner_hwservice
     hal_vibrator_service
     incremental_control_file
+    incremental_prop
     incremental_service
     init_perf_lsm_hooks_prop
     init_svc_debug_prop
@@ -75,6 +77,7 @@
     mirror_data_file
     light_service
     linkerconfig_file
+    lmkd_prop
     media_variant_prop
     metadata_bootstat_file
     mnt_pass_through_file

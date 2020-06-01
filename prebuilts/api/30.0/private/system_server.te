@@ -678,6 +678,9 @@ get_prop(system_server, apk_verity_prop)
 # Read wifi.interface
 get_prop(system_server, wifi_prop)
 
+# Read the vendor property that indicates if Incremental features is enabled
+get_prop(system_server, incremental_prop)
+
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
 
@@ -777,6 +780,7 @@ allow system_server storaged_service:service_manager find;
 allow system_server surfaceflinger_service:service_manager find;
 allow system_server update_engine_service:service_manager find;
 allow system_server vold_service:service_manager find;
+allow system_server wifinl80211_service:service_manager find;
 
 add_service(system_server, batteryproperties_service)
 
