@@ -460,8 +460,6 @@ ro.radio.noril u:object_r:exported3_default_prop:s0 exact string
 
 ro.rebootescrow.device u:object_r:rebootescrow_hal_prop:s0 exact string
 
-ro.statsd.enable u:object_r:exported3_default_prop:s0 exact bool
-
 ro.storage_manager.enabled u:object_r:exported3_default_prop:s0 exact bool
 
 ro.telephony.call_ring.multiple u:object_r:exported3_default_prop:s0 exact bool
