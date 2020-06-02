@@ -367,6 +367,7 @@ allow init {
   sysfs_leds
   sysfs_power
   sysfs_fs_f2fs
+  sysfs_dm
 }:file w_file_perms;
 
 allow init {
