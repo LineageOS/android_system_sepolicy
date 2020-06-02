@@ -82,7 +82,8 @@ $(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_vendor_mac_perms_files)
 $(LOCAL_BUILT_MODULE): $(vendor_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
 $(all_vendor_mac_perms_files)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
+	$(hide) DEFAULT_SYSTEM_DEV_CERTIFICATE="$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))" \
+		$(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
 
 vendor_mac_perms_keys.tmp :=
 all_vendor_mac_perms_files :=
