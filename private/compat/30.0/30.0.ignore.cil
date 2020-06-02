@@ -17,4 +17,5 @@
     profcollectd_exec
     profcollectd_service
     update_engine_stable_service
-    cgroup_v2))
+    cgroup_v2
+    userspace_reboot_metadata_file))
