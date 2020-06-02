@@ -107,7 +107,6 @@ ro.persistent_properties.ready  u:object_r:persistent_properties_ready_prop:s0
 
 # ctl properties
 ctl.bootanim            u:object_r:ctl_bootanim_prop:s0
-ctl.android.hardware.dumpstate u:object_r:ctl_dumpstate_prop:s0
 ctl.dumpstate           u:object_r:ctl_dumpstate_prop:s0
 ctl.fuse_               u:object_r:ctl_fuse_prop:s0
 ctl.mdnsd               u:object_r:ctl_mdnsd_prop:s0
@@ -135,6 +134,9 @@ ctl.restart$adbd           u:object_r:ctl_adbd_prop:s0
 ctl.start$gsid          u:object_r:ctl_gsid_prop:s0
 ctl.stop$gsid           u:object_r:ctl_gsid_prop:s0
 ctl.restart$gsid        u:object_r:ctl_gsid_prop:s0
+
+# Restrict access to restart dumpstate
+ctl.interface_restart$android.hardware.dumpstate u:object_r:ctl_dumpstate_prop:s0
 
 # NFC properties
 nfc.                    u:object_r:nfc_prop:s0
