@@ -1112,6 +1112,10 @@ allow system_server metadata_file:dir search;
 allow system_server password_slot_metadata_file:dir rw_dir_perms;
 allow system_server password_slot_metadata_file:file create_file_perms;
 
+# Allow system server rw access to files in /metadata/staged-install folder
+allow system_server staged_install_file:dir rw_dir_perms;
+allow system_server staged_install_file:file create_file_perms;
+
 # Allow init to set sysprop used to compute stats about userspace reboot.
 set_prop(system_server, userspace_reboot_log_prop)
 
