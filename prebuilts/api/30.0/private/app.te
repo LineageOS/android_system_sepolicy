@@ -35,3 +35,6 @@ neverallow { appdomain -shell userdebug_or_eng(`-su') }
     { domain -appdomain -crash_dump -rs }:process { transition };
 neverallow { appdomain -shell userdebug_or_eng(`-su') }
     { domain -appdomain }:process { dyntransition };
+
+# Allow to read graphics related properties.
+get_prop(appdomain, graphics_config_prop)

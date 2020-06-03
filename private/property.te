@@ -399,3 +399,10 @@ neverallow {
   -hal_telephony_server
   not_compatible_property(`-vendor_init')
 } telephony_status_prop:property_service set;
+
+neverallow {
+  -init
+  -vendor_init
+} {
+  graphics_config_prop
+}:property_service set;

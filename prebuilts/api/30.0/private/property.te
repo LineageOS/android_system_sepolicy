@@ -329,3 +329,10 @@ neverallow {
 } {
   userspace_reboot_test_prop
 }:property_service set;
+
+neverallow {
+  -init
+  -vendor_init
+} {
+  graphics_config_prop
+}:property_service set;
