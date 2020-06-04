@@ -74,7 +74,6 @@ get_prop(domain, bq_config_prop);
 not_compatible_property(`
     # DO NOT ADD ANY PROPERTIES HERE
     get_prop(domain, core_property_type)
-    get_prop(domain, exported2_radio_prop)
     get_prop(domain, exported2_system_prop)
     get_prop(domain, exported3_default_prop)
     get_prop(domain, exported3_radio_prop)
@@ -84,7 +83,6 @@ not_compatible_property(`
 compatible_property_only(`
     # DO NOT ADD ANY PROPERTIES HERE
     get_prop({coredomain appdomain shell}, core_property_type)
-    get_prop({coredomain appdomain shell}, exported2_radio_prop)
     get_prop({coredomain appdomain shell}, exported2_system_prop)
     get_prop({coredomain appdomain shell}, exported3_default_prop)
     get_prop({coredomain appdomain shell}, exported3_radio_prop)
