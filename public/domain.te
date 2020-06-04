@@ -229,10 +229,12 @@ not_full_treble(`
   allow domain system_data_file:dir getattr;
 ')
 allow { coredomain appdomain } system_data_file:dir getattr;
-# /data has the label system_data_root_file. Vendor components need the search
-# permission on system_data_root_file for path traversal to /data/vendor.
+# /data has the label system_data_root_file. Many components need search
+# permission on system_data_root_file for path traversal.
 allow domain system_data_root_file:dir { search getattr } ;
-allow domain system_data_file:dir search;
+# Isolated apps have no need to traverse system_data_file dirs
+allow { domain -isolated_app } system_data_file:dir search;
+# Vendor components need access to /dara/vendor
 # TODO restrict this to non-coredomain
 allow domain vendor_data_file:dir { getattr search };
 
