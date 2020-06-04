@@ -397,4 +397,5 @@ neverallow {
   -radio
   -appdomain
   -hal_telephony_server
+  not_compatible_property(`-vendor_init')
 } telephony_status_prop:property_service set;
