@@ -165,7 +165,6 @@ compatible_property_only(`
     -hal_telephony_server
     -vendor_init
   } {
-    exported_radio_prop
     exported3_radio_prop
   }:property_service set;
 
@@ -175,7 +174,6 @@ compatible_property_only(`
     -appdomain
     -hal_telephony_server
   } {
-    exported2_radio_prop
     radio_prop
   }:property_service set;
 
@@ -393,3 +391,10 @@ neverallow {
   init_service_status_private_prop
   init_service_status_prop
 }:property_service set;
+
+neverallow {
+  -init
+  -radio
+  -appdomain
+  -hal_telephony_server
+} telephony_status_prop:property_service set;
