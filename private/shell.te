@@ -140,3 +140,6 @@ get_prop(shell, system_boot_reason_prop)
 get_prop(shell, init_perf_lsm_hooks_prop)
 
 userdebug_or_eng(`set_prop(shell, persist_debug_prop)')
+
+# Allow to read graphics related properties.
+get_prop(shell, graphics_config_prop)
