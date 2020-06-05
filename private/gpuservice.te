@@ -42,6 +42,21 @@ allow gpuservice statsmanager_service:service_manager find;
 # TODO(b/146461633): remove this once native pullers talk to StatsManagerService
 binder_call(gpuservice, statsd);
 
+# Needed for reading tracepoint ids in order to attach bpf programs.
+allow gpuservice debugfs_tracing:file r_file_perms;
+allow gpuservice self:perf_event { cpu kernel open write };
+neverallow gpuservice self:perf_event ~{ cpu kernel open write };
+
+# Needed for interact with bpf fs.
+allow gpuservice fs_bpf:dir search;
+allow gpuservice fs_bpf:file read;
+
+# Needed for enable the bpf program and read the map.
+allow gpuservice bpfloader:bpf { map_read prog_run };
+
+# Needed for getting a prop to ensure bpf programs loaded.
+get_prop(gpuservice, bpf_progs_loaded_prop)
+
 add_service(gpuservice, gpu_service)
 
 # Only uncomment below line when in development
