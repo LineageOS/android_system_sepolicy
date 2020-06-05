@@ -147,6 +147,7 @@ full_treble_only(`
     coredomain
     -atrace
     -dumpstate
+    -gpuservice
     -init
     -traced_probes
     -shell
