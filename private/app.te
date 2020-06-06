@@ -6,6 +6,7 @@ get_prop(appdomain, boot_status_prop)
 get_prop(appdomain, dalvik_config_prop)
 get_prop(appdomain, surfaceflinger_color_prop)
 get_prop(appdomain, systemsound_config_prop)
+get_prop(appdomain, telephony_config_prop)
 get_prop(appdomain, userspace_reboot_config_prop)
 get_prop(appdomain, vold_config_prop)
 
@@ -45,3 +46,6 @@ neverallow { appdomain -shell userdebug_or_eng(`-su') }
 
 # Don't allow regular apps access to storage configuration properties.
 neverallow { appdomain -mediaprovider_app } storage_config_prop:file no_rw_file_perms;
+
+# Allow to read graphics related properties.
+get_prop(appdomain, graphics_config_prop)

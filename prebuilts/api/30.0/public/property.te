@@ -118,6 +118,7 @@ system_vendor_config_prop(exported_camera_prop)
 system_vendor_config_prop(exported_config_prop)
 system_vendor_config_prop(exported_default_prop)
 system_vendor_config_prop(exported3_default_prop)
+system_vendor_config_prop(graphics_config_prop)
 system_vendor_config_prop(media_variant_prop)
 system_vendor_config_prop(storage_config_prop)
 system_vendor_config_prop(userspace_reboot_config_prop)
@@ -598,4 +599,11 @@ neverallow {
   -shell
 } {
   userspace_reboot_test_prop
+}:property_service set;
+
+neverallow {
+  -init
+  -vendor_init
+} {
+  graphics_config_prop
 }:property_service set;
