@@ -150,8 +150,8 @@ user=radio seinfo=platform domain=radio type=radio_data_file
 user=shared_relro domain=shared_relro
 user=shell seinfo=platform domain=shell name=com.android.shell type=shell_data_file
 user=webview_zygote seinfo=webview_zygote domain=webview_zygote
-user=_isolated domain=isolated_app levelFrom=all
-user=_app seinfo=app_zygote domain=app_zygote levelFrom=all
+user=_isolated domain=isolated_app levelFrom=user
+user=_app seinfo=app_zygote domain=app_zygote levelFrom=user
 user=_app seinfo=media domain=mediaprovider name=android.process.media type=app_data_file levelFrom=user
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
 user=_app isEphemeralApp=true domain=ephemeral_app type=app_data_file levelFrom=all
