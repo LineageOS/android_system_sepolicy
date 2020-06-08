@@ -51,6 +51,7 @@ neverallow { domain -init } userspace_reboot_exported_prop:property_service set;
 # kernels that precede the perf_event_open hooks (Android common kernels 4.4
 # and 4.9).
 allow init self:perf_event { open cpu };
+allow init self:global_capability2_class_set perfmon;
 neverallow init self:perf_event { kernel tracepoint read write };
 dontaudit init self:perf_event { kernel tracepoint read write };
 
