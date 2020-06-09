@@ -851,3 +851,7 @@ telephony.lteOnCdmaDevice         u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.volte_avail_ovr       u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.vt_avail_ovr          u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.wfc_avail_ovr         u:object_r:telephony_config_prop:s0 exact int
+
+# Graphics related properties
+graphics.gpu.profiler.support          u:object_r:graphics_config_prop:s0 exact bool
+graphics.gpu.profiler.vulkan_layer_apk u:object_r:graphics_config_prop:s0 exact string

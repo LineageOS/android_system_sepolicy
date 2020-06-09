@@ -699,3 +699,7 @@ cache_key.package_info                   u:object_r:binder_cache_system_server_p
 cache_key.bluetooth.                     u:object_r:binder_cache_bluetooth_server_prop:s0 prefix string
 cache_key.system_server.                 u:object_r:binder_cache_system_server_prop:s0 prefix string
 cache_key.telephony.                     u:object_r:binder_cache_telephony_server_prop:s0 prefix string
+
+# Graphics related properties
+graphics.gpu.profiler.support          u:object_r:graphics_config_prop:s0 exact bool
+graphics.gpu.profiler.vulkan_layer_apk u:object_r:graphics_config_prop:s0 exact string
