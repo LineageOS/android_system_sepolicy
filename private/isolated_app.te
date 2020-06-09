@@ -74,6 +74,9 @@ can_profile_perf(isolated_app)
 # Isolated apps should not directly open app data files themselves.
 neverallow isolated_app { app_data_file privapp_data_file }:file open;
 
+# Isolated aps should not be directly accessing system directories
+neverallow isolated_app system_data_file:dir search;
+
 # Only allow appending to /data/anr/traces.txt (b/27853304, b/18340553)
 # TODO: are there situations where isolated_apps write to this file?
 # TODO: should we tighten these restrictions further?
