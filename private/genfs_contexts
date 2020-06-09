@@ -98,6 +98,8 @@ genfscon proc /vmallocinfo u:object_r:proc_vmallocinfo:s0
 genfscon proc /vmstat u:object_r:proc_vmstat:s0
 genfscon proc /zoneinfo u:object_r:proc_zoneinfo:s0
 
+genfscon fusectl / u:object_r:fusectlfs:s0
+
 # selinuxfs booleans can be individually labeled.
 genfscon selinuxfs / u:object_r:selinuxfs:s0
 genfscon cgroup / u:object_r:cgroup:s0
