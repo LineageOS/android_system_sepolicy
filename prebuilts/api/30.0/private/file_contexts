@@ -212,7 +212,6 @@
 /system/bin/fsck_msdos	--	u:object_r:fsck_exec:s0
 /system/bin/tcpdump	--	u:object_r:tcpdump_exec:s0
 /system/bin/tune2fs	--	u:object_r:fsck_exec:s0
-/system/bin/resize2fs	--	u:object_r:fsck_exec:s0
 /system/bin/toolbox	--	u:object_r:toolbox_exec:s0
 /system/bin/toybox	--	u:object_r:toolbox_exec:s0
 /system/bin/ld\.mc              u:object_r:rs_exec:s0
@@ -257,6 +256,8 @@
 /system/bin/keystore	u:object_r:keystore_exec:s0
 /system/bin/fingerprintd u:object_r:fingerprintd_exec:s0
 /system/bin/gatekeeperd u:object_r:gatekeeperd_exec:s0
+/system/bin/crash_dump32 u:object_r:crash_dump_exec:s0
+/system/bin/crash_dump64 u:object_r:crash_dump_exec:s0
 /system/bin/tombstoned u:object_r:tombstoned_exec:s0
 /system/bin/recovery-persist     u:object_r:recovery_persist_exec:s0
 /system/bin/recovery-refresh     u:object_r:recovery_refresh_exec:s0
@@ -514,7 +515,7 @@
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
 /data/misc/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
-/data/misc/apexdata/com\.android\.permission(/.*)?    u:object_r:apex_permission_data_file:s0
+/data/misc/apexdata/com.android.permission(/.*)?    u:object_r:apex_permission_data_file:s0
 /data/misc/apexdata/com\.android\.wifi(/.*)?    u:object_r:apex_wifi_data_file:s0
 /data/misc/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
 /data/misc/apns(/.*)?           u:object_r:radio_data_file:s0
@@ -607,8 +608,8 @@
 # Apex data directories
 /data/misc_de/[0-9]+/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
 /data/misc_ce/[0-9]+/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
-/data/misc_de/[0-9]+/apexdata/com\.android\.permission(/.*)?  u:object_r:apex_permission_data_file:s0
-/data/misc_ce/[0-9]+/apexdata/com\.android\.permission(/.*)?  u:object_r:apex_permission_data_file:s0
+/data/misc_de/[0-9]+/apexdata/com.android.permission(/.*)?  u:object_r:apex_permission_data_file:s0
+/data/misc_ce/[0-9]+/apexdata/com.android.permission(/.*)?  u:object_r:apex_permission_data_file:s0
 /data/misc_de/[0-9]+/apexdata/com\.android\.wifi(/.*)?  u:object_r:apex_wifi_data_file:s0
 /data/misc_ce/[0-9]+/apexdata/com\.android\.wifi(/.*)?  u:object_r:apex_wifi_data_file:s0
 

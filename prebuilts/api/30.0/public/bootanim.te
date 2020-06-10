@@ -23,6 +23,7 @@ allow bootanim audio_device:chr_file rw_file_perms;
 
 allow bootanim audioserver_service:service_manager find;
 allow bootanim surfaceflinger_service:service_manager find;
+allow bootanim surfaceflinger:unix_stream_socket { read write };
 
 # Allow access to ion memory allocation device
 allow bootanim ion_device:chr_file rw_file_perms;
@@ -36,3 +37,7 @@ allow bootanim proc_meminfo:file r_file_perms;
 
 # System file accesses.
 allow bootanim system_file:dir r_dir_perms;
+
+# Read ro.boot.bootreason b/30654343
+get_prop(bootanim, bootloader_boot_reason_prop)
+

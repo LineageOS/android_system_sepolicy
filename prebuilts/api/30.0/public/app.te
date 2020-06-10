@@ -219,8 +219,6 @@ binder_call(appdomain, binderservicedomain)
 binder_call(appdomain, appdomain)
 # Perform binder IPC to ephemeral apps.
 binder_call(appdomain, ephemeral_app)
-# Perform binder IPC to gpuservice.
-binder_call({ appdomain -isolated_app }, gpuservice)
 
 # Talk with graphics composer fences
 allow appdomain hal_graphics_composer:fd use;
@@ -567,9 +565,6 @@ neverallow {
   -bluetooth
   -system_app
 } { bluetooth_audio_hal_prop bluetooth_a2dp_offload_prop bluetooth_prop exported_bluetooth_prop }:file create_file_perms;
-
-# Don't allow apps access to storage configuration properties.
-neverallow appdomain storage_config_prop:file no_rw_file_perms;
 
 # Apps cannot access proc_uid_time_in_state
 neverallow appdomain proc_uid_time_in_state:file *;

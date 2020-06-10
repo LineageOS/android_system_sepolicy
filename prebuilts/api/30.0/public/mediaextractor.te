@@ -40,6 +40,8 @@ allow mediaextractor vendor_overlay_file:file { read map };
 # scan extractor library directory to dynamically load extractors
 allow mediaextractor system_file:dir { read open };
 
+get_prop(mediaextractor, device_config_media_native_prop)
+
 ###
 ### neverallow rules
 ###

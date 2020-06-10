@@ -108,6 +108,26 @@ recovery_only(`
   # Read files on /oem.
   r_dir_file(recovery, oemfs);
 
+  # Reboot the device
+  set_prop(recovery, powerctl_prop)
+
+  # Read serial number of the device from system properties
+  get_prop(recovery, serialno_prop)
+
+  # Set sys.usb.ffs.ready when starting minadbd for sideload.
+  set_prop(recovery, ffs_prop)
+  set_prop(recovery, exported_ffs_prop)
+
+  # Set sys.usb.config when switching into fastboot.
+  set_prop(recovery, system_radio_prop)
+  set_prop(recovery, exported_system_radio_prop)
+
+  # Read ro.boot.bootreason
+  get_prop(recovery, bootloader_boot_reason_prop)
+
+  # Read storage properties (for correctly formatting filesystems)
+  get_prop(recovery, storage_config_prop)
+
   # Use setfscreatecon() to label files for OTA updates.
   allow recovery self:process setfscreate;
 
@@ -127,12 +147,22 @@ recovery_only(`
   allowxperm recovery super_block_device_type:blk_file ioctl { BLKIOMIN BLKALIGNOFF };
 
   # Allow using libfiemap/gsid directly (no binder in recovery).
+  set_prop(recovery, gsid_prop)
   allow recovery gsi_metadata_file:dir search;
   allow recovery ota_metadata_file:dir rw_dir_perms;
   allow recovery ota_metadata_file:file create_file_perms;
 
   # Allow mounting /metadata for writing update states
   allow recovery metadata_file:dir { getattr mounton };
+
+  # These are needed to allow recovery to manage network
+  allow recovery self:netlink_route_socket { create write read nlmsg_readpriv nlmsg_read };
+  allow recovery self:global_capability_class_set net_admin;
+  allow recovery self:tcp_socket { create ioctl };
+  allowxperm recovery self:tcp_socket ioctl { SIOCGIFFLAGS SIOCSIFFLAGS };
+
+  # Set fastbootd protocol property
+  set_prop(recovery, fastbootd_protocol_prop)
 ')
 
 ###
