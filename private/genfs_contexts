@@ -151,6 +151,7 @@ genfscon sysfs /module/tcp_cubic/parameters u:object_r:sysfs_net:s0
 genfscon sysfs /module/wlan/parameters/fwpath u:object_r:sysfs_wlan_fwpath:s0
 genfscon sysfs /devices/virtual/timed_output/vibrator/enable u:object_r:sysfs_vibrator:s0
 
+genfscon debugfs /kprobes                             u:object_r:debugfs_kprobes:s0
 genfscon debugfs /mmc0                                u:object_r:debugfs_mmc:s0
 genfscon debugfs /tracing                             u:object_r:debugfs_tracing_debug:s0
 genfscon tracefs /                                    u:object_r:debugfs_tracing_debug:s0
