@@ -18,6 +18,9 @@ allow servicemanager {
 }:binder transfer;
 
 allow servicemanager service_contexts_file:file r_file_perms;
+
+allow servicemanager vendor_service_contexts_file:file r_file_perms;
+
 # nonplat_service_contexts only accessible on non full-treble devices
 not_full_treble(`allow servicemanager nonplat_service_contexts_file:file r_file_perms;')
 
