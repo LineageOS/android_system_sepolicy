@@ -406,3 +406,12 @@ neverallow {
 } {
   graphics_config_prop
 }:property_service set;
+
+neverallow {
+  -init
+  -vendor_init
+  -system_app
+} {
+  surfaceflinger_display_prop
+}:property_service set;
+
