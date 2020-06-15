@@ -169,6 +169,7 @@ system_public_prop(powerctl_prop)
 system_public_prop(radio_prop)
 system_public_prop(serialno_prop)
 system_public_prop(surfaceflinger_color_prop)
+system_public_prop(surfaceflinger_display_prop)
 system_public_prop(system_prop)
 system_public_prop(telephony_status_prop)
 system_public_prop(usb_control_prop)
@@ -278,3 +279,4 @@ typeattribute shell_prop         core_property_type;
 typeattribute system_prop        core_property_type;
 typeattribute usb_prop           core_property_type;
 typeattribute vold_prop          core_property_type;
+
