@@ -57,6 +57,8 @@ auditallow system_app system_radio_prop:property_service set;
 auditallow system_app exported_system_radio_prop:property_service set;
 # Allow Settings to enable Dynamic System Update
 set_prop(system_app, dynamic_system_prop)
+# Allow Settings to config display kernel idle timer
+set_prop(system_app, surfaceflinger_display_prop)
 
 # ctl interface
 set_prop(system_app, ctl_default_prop)
