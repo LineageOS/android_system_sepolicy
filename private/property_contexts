@@ -394,9 +394,8 @@ ro.config.vc_call_vol_default u:object_r:systemsound_config_prop:s0 exact int
 
 ro.config.per_app_memcg u:object_r:exported3_default_prop:s0 exact bool
 
-ro.control_privapp_permissions u:object_r:exported3_default_prop:s0 exact string
-
-ro.cp_system_other_odex u:object_r:exported3_default_prop:s0 exact int
+ro.control_privapp_permissions u:object_r:packagemanager_config_prop:s0 exact enum disable enforce log
+ro.cp_system_other_odex        u:object_r:packagemanager_config_prop:s0 exact bool
 
 ro.crypto.allow_encrypt_override                u:object_r:vold_config_prop:s0 exact bool
 ro.crypto.dm_default_key.options_format.version u:object_r:vold_config_prop:s0 exact int
