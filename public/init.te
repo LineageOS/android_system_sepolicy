@@ -376,6 +376,7 @@ allow init {
   proc_cmdline
   proc_kmsg
   proc_net
+  proc_pagetypeinfo
   proc_qtaguid_stat
   proc_slabinfo
   proc_sysrq
