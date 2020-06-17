@@ -77,6 +77,7 @@ system_restricted_prop(module_sdkextensions_prop)
 system_restricted_prop(nnapi_ext_deny_product_prop)
 system_restricted_prop(restorecon_prop)
 system_restricted_prop(socket_hook_prop)
+system_restricted_prop(surfaceflinger_display_prop)
 system_restricted_prop(system_boot_reason_prop)
 system_restricted_prop(system_jvmti_agent_prop)
 system_restricted_prop(userspace_reboot_exported_prop)
@@ -168,7 +169,6 @@ system_public_prop(ota_prop)
 system_public_prop(powerctl_prop)
 system_public_prop(radio_prop)
 system_public_prop(serialno_prop)
-system_public_prop(surfaceflinger_display_prop)
 system_public_prop(system_prop)
 system_public_prop(wifi_log_prop)
 system_public_prop(wifi_prop)
@@ -614,8 +614,7 @@ neverallow {
 
 neverallow {
   -init
-  -vendor_init
-  -system_app
+  -surfaceflinger
 } {
   surfaceflinger_display_prop
 }:property_service set;

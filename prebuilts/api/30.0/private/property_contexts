@@ -264,5 +264,5 @@ init.userspace_reboot.started.timeoutmillis u:object_r:userspace_reboot_config_p
 init.userspace_reboot.userdata_remount.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
 init.userspace_reboot.watchdog.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
 
-# vendor-init-settable
+# surfaceflinger-settable
 graphics.display.kernel_idle_timer.enabled u:object_r:surfaceflinger_display_prop:s0 exact bool
