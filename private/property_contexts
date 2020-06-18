@@ -859,6 +859,6 @@ persist.dbg.wfc_avail_ovr         u:object_r:telephony_config_prop:s0 exact int
 graphics.gpu.profiler.support          u:object_r:graphics_config_prop:s0 exact bool
 graphics.gpu.profiler.vulkan_layer_apk u:object_r:graphics_config_prop:s0 exact string
 
-# vendor-init-settable
+# surfaceflinger-settable
 graphics.display.kernel_idle_timer.enabled u:object_r:surfaceflinger_display_prop:s0 exact bool
 
