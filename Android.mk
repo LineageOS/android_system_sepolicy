@@ -346,6 +346,7 @@ LOCAL_REQUIRED_MODULES += \
     vendor_property_contexts \
     vendor_property_contexts_test \
     vendor_seapp_contexts \
+    vendor_service_contexts \
     vendor_hwservice_contexts \
     vendor_hwservice_contexts_test \
     vndservice_contexts \
