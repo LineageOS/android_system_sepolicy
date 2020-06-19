@@ -13,4 +13,5 @@ hal_client_domain(mediaserver, hal_codec2)
 
 set_prop(mediaserver, audio_prop)
 
+get_prop(mediaserver, drm_service_config_prop)
 get_prop(mediaserver, media_config_prop)
