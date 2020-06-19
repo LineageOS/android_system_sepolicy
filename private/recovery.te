@@ -33,4 +33,6 @@ recovery_only(`
 
   # Set fastbootd protocol property
   set_prop(recovery, fastbootd_protocol_prop)
+
+  get_prop(recovery, recovery_config_prop)
 ')
