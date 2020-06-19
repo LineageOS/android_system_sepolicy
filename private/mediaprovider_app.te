@@ -50,3 +50,5 @@ allow mediaprovider_app proc_filesystems:file r_file_perms;
 
 #Allow MediaProvider to see if sdcardfs is in use
 get_prop(mediaprovider_app, storage_config_prop)
+
+get_prop(mediaprovider_app, drm_service_config_prop)
