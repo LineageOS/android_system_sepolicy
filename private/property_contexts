@@ -339,8 +339,6 @@ dalvik.vm.zygote.max-boot-retry               u:object_r:dalvik_config_prop:s0 e
 
 persist.sys.dalvik.vm.lib.2 u:object_r:dalvik_runtime_prop:s0 exact string
 
-drm.service.enabled u:object_r:exported3_default_prop:s0 exact bool
-
 keyguard.no_require_sim u:object_r:exported3_default_prop:s0 exact bool
 
 media.recorder.show_manufacturer_and_model u:object_r:exported3_default_prop:s0 exact bool
@@ -396,9 +394,8 @@ ro.config.vc_call_vol_default u:object_r:systemsound_config_prop:s0 exact int
 
 ro.config.per_app_memcg u:object_r:exported3_default_prop:s0 exact bool
 
-ro.control_privapp_permissions u:object_r:exported3_default_prop:s0 exact string
-
-ro.cp_system_other_odex u:object_r:exported3_default_prop:s0 exact int
+ro.control_privapp_permissions u:object_r:packagemanager_config_prop:s0 exact enum disable enforce log
+ro.cp_system_other_odex        u:object_r:packagemanager_config_prop:s0 exact bool
 
 ro.crypto.allow_encrypt_override                u:object_r:vold_config_prop:s0 exact bool
 ro.crypto.dm_default_key.options_format.version u:object_r:vold_config_prop:s0 exact int
@@ -445,9 +442,9 @@ ro.media.xml_variant.codecs             u:object_r:media_variant_prop:s0 exact s
 ro.media.xml_variant.codecs_performance u:object_r:media_variant_prop:s0 exact string
 ro.media.xml_variant.profiles           u:object_r:media_variant_prop:s0 exact string
 
-ro.minui.default_rotation u:object_r:exported3_default_prop:s0 exact string
-ro.minui.overscan_percent u:object_r:exported3_default_prop:s0 exact int
-ro.minui.pixel_format     u:object_r:exported3_default_prop:s0 exact string
+ro.minui.default_rotation u:object_r:recovery_config_prop:s0 exact string
+ro.minui.overscan_percent u:object_r:recovery_config_prop:s0 exact int
+ro.minui.pixel_format     u:object_r:recovery_config_prop:s0 exact string
 
 ro.oem_unlock_supported u:object_r:exported3_default_prop:s0 exact int
 
@@ -521,7 +518,10 @@ ro.aac_drc_effect_type   u:object_r:aac_drc_prop:s0 exact int
 
 build.version.extensions. u:object_r:module_sdkextensions_prop:s0 prefix int
 
-drm.64bit.enabled u:object_r:exported2_default_prop:s0 exact bool
+drm.64bit.enabled            u:object_r:mediadrm_config_prop:s0 exact bool
+media.mediadrmservice.enable u:object_r:mediadrm_config_prop:s0 exact bool
+
+drm.service.enabled u:object_r:drm_service_config_prop:s0 exact bool
 
 dumpstate.dry_run u:object_r:exported_dumpstate_prop:s0 exact bool
 dumpstate.unroot  u:object_r:exported_dumpstate_prop:s0 exact bool
@@ -666,8 +666,6 @@ aaudio.mixer_bursts          u:object_r:exported_default_prop:s0 exact int
 aaudio.mmap_exclusive_policy u:object_r:exported_default_prop:s0 exact int
 aaudio.mmap_policy           u:object_r:exported_default_prop:s0 exact int
 aaudio.wakeup_delay_usec     u:object_r:exported_default_prop:s0 exact int
-
-media.mediadrmservice.enable u:object_r:exported_default_prop:s0 exact bool
 
 persist.rcs.supported u:object_r:exported_default_prop:s0 exact int
 

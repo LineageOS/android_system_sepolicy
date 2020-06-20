@@ -1,4 +1,5 @@
 # mediatranscoding - daemon for transcoding video and image.
+type mediatranscoding, domain;
 type mediatranscoding_exec, system_file_type, exec_type, file_type;
 type mediatranscoding_tmpfs, file_type;
 typeattribute mediatranscoding coredomain;
@@ -30,6 +31,7 @@ allow mediatranscoding activity_service:service_manager find;
 allow mediatranscoding sdcardfs:file { getattr read write };
 allow mediatranscoding media_rw_data_file:file { getattr read write };
 allow mediatranscoding apk_data_file:file { getattr read };
+allow mediatranscoding app_data_file:file { getattr read write };
 allow mediatranscoding shell_data_file:file { getattr read write };
 
 # mediatranscoding should never execute any executable without a
