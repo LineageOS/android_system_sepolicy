@@ -13,9 +13,6 @@ allow dex2oat tmpfs:file { read getattr map };
 
 r_dir_file(dex2oat, dalvikcache_data_file)
 allow dex2oat dalvikcache_data_file:file write;
-# Read symlinks in /data/dalvik-cache. This is required for PIC mode boot images, where
-# the oat file is symlinked to the original file in /system.
-allow dex2oat dalvikcache_data_file:lnk_file read;
 allow dex2oat installd:fd use;
 
 # Acquire advisory lock on /system/framework/arm/*
