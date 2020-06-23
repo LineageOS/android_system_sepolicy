@@ -417,9 +417,6 @@ external_storage.sdcardfs.enabled u:object_r:storage_config_prop:s0 exact bool
 
 ro.enable_boot_charger_mode u:object_r:exported3_default_prop:s0 exact bool
 
-ro.gfx.driver.0        u:object_r:exported3_default_prop:s0 exact string
-ro.gfx.angle.supported u:object_r:exported3_default_prop:s0 exact bool
-
 ro.lmk.critical                 u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.critical_upgrade         u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.debug                    u:object_r:lmkd_config_prop:s0 exact bool
@@ -852,6 +849,10 @@ persist.dbg.vt_avail_ovr          u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.wfc_avail_ovr         u:object_r:telephony_config_prop:s0 exact int
 
 # Graphics related properties
+ro.gfx.driver.0        u:object_r:graphics_config_prop:s0 exact string
+ro.gfx.driver.1        u:object_r:graphics_config_prop:s0 exact string
+ro.gfx.angle.supported u:object_r:graphics_config_prop:s0 exact bool
+
 graphics.gpu.profiler.support          u:object_r:graphics_config_prop:s0 exact bool
 graphics.gpu.profiler.vulkan_layer_apk u:object_r:graphics_config_prop:s0 exact string
 
