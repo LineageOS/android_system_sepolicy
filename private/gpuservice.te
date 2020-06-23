@@ -61,3 +61,5 @@ add_service(gpuservice, gpu_service)
 
 # Only uncomment below line when in development
 # userdebug_or_eng(`permissive gpuservice;')
+
+get_prop(gpuservice, graphics_config_prop)
