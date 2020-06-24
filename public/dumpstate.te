@@ -136,6 +136,7 @@ r_dir_file(dumpstate, cgroup)
 binder_call(dumpstate, binderservicedomain)
 binder_call(dumpstate, { appdomain netd wificond })
 
+dump_hal(hal_identity)
 dump_hal(hal_dumpstate)
 dump_hal(hal_wifi)
 dump_hal(hal_graphics_allocator)
