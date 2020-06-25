@@ -490,8 +490,6 @@ tombstoned.max_tombstone_count u:object_r:tombstone_config_prop:s0 exact int
 
 vold.post_fs_data_done u:object_r:vold_config_prop:s0 exact int
 
-wlan.driver.status u:object_r:exported_wifi_prop:s0 exact enum ok unloaded
-
 apexd.status u:object_r:apexd_prop:s0 exact enum starting activated ready
 
 dev.bootcomplete   u:object_r:boot_status_prop:s0 exact bool
@@ -754,11 +752,12 @@ ro.vts.coverage u:object_r:vts_config_prop:s0 exact int
 
 vts.native_server.on u:object_r:vts_status_prop:s0 exact bool
 
-wifi.active.interface     u:object_r:exported_wifi_prop:s0 exact string
-wifi.aware.interface      u:object_r:exported_wifi_prop:s0 exact string
-wifi.concurrent.interface u:object_r:exported_default_prop:s0 exact string
-wifi.direct.interface     u:object_r:exported_default_prop:s0 exact string
-wifi.interface            u:object_r:exported_default_prop:s0 exact string
+wifi.active.interface     u:object_r:wifi_hal_prop:s0 exact string
+wifi.aware.interface      u:object_r:wifi_hal_prop:s0 exact string
+wifi.concurrent.interface u:object_r:wifi_hal_prop:s0 exact string
+wifi.direct.interface     u:object_r:wifi_hal_prop:s0 exact string
+wifi.interface            u:object_r:wifi_hal_prop:s0 exact string
+wlan.driver.status        u:object_r:wifi_hal_prop:s0 exact enum ok unloaded
 
 ro.apex.updatable u:object_r:exported_default_prop:s0 exact bool
 
