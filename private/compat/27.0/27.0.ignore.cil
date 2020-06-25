@@ -229,6 +229,7 @@
     wait_for_keymaster_exec
     wait_for_keymaster_tmpfs
     watchdogd_tmpfs
+    wifi_hal_prop
     wm_trace_data_file
     wpantund
     wpantund_exec
