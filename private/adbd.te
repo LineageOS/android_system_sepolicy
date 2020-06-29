@@ -180,6 +180,11 @@ r_dir_file(adbd, apk_data_file)
 
 allow adbd rootfs:dir r_dir_perms;
 
+# Allow killing child "perfetto" binary processes, which auto-transition to
+# their own domain. Allows propagating termination of "adb shell perfetto ..."
+# invocations.
+allow adbd perfetto:process signal;
+
 # Allow to pull Perfetto traces.
 allow adbd perfetto_traces_data_file:file r_file_perms;
 allow adbd perfetto_traces_data_file:dir r_dir_perms;
