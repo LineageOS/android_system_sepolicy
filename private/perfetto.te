@@ -54,6 +54,8 @@ dontauditxperm perfetto adbd:unix_stream_socket ioctl unpriv_tty_ioctls;
 # As above, when adbd is running in "su" domain (only the ioctl is denied in
 # practice).
 dontauditxperm perfetto su:unix_stream_socket ioctl unpriv_tty_ioctls;
+# Similarly, CTS tests end up hitting a denial on shell pipes.
+dontauditxperm perfetto shell:fifo_file ioctl unpriv_tty_ioctls;
 
 ###
 ### Neverallow rules
