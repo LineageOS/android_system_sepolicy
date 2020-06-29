@@ -33,5 +33,6 @@ neverallow hal_audio_server { file_type fs_type }:file execute_no_trans;
 # Only audio HAL may directly access the audio hardware
 neverallow { halserverdomain -hal_audio_server -hal_omx_server } audio_device:chr_file *;
 
+get_prop(hal_audio, audio_config_prop)
 get_prop(hal_audio, bluetooth_a2dp_offload_prop)
 get_prop(hal_audio, bluetooth_audio_hal_prop)
