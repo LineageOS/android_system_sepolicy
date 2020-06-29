@@ -258,6 +258,9 @@ audio.deep_buffer.media         u:object_r:audio_config_prop:s0 exact bool
 audio.offload.video             u:object_r:audio_config_prop:s0 exact bool
 audio.offload.min.duration.secs u:object_r:audio_config_prop:s0 exact int
 
+ro.audio.ignore_effects  u:object_r:audio_config_prop:s0 exact bool
+ro.audio.monitorRotation u:object_r:audio_config_prop:s0 exact bool
+
 config.disable_cameraservice u:object_r:camera_config_prop:s0 exact bool
 
 camera.disable_zsl_mode u:object_r:camera_config_prop:s0 exact bool
@@ -371,8 +374,6 @@ pm.dexopt.install                       u:object_r:exported_pm_prop:s0 exact str
 pm.dexopt.shared                        u:object_r:exported_pm_prop:s0 exact string
 
 ro.apk_verity.mode u:object_r:apk_verity_prop:s0 exact int
-
-ro.audio.monitorRotation u:object_r:exported3_default_prop:s0 exact bool
 
 ro.bluetooth.a2dp_offload.supported u:object_r:bluetooth_a2dp_offload_prop:s0 exact bool
 
@@ -546,8 +547,6 @@ persist.sys.timezone     u:object_r:exported_system_prop:s0 exact string
 persist.sys.test_harness u:object_r:test_harness_prop:s0 exact bool
 
 ro.arch u:object_r:exported2_default_prop:s0 exact string
-
-ro.audio.ignore_effects u:object_r:exported2_default_prop:s0 exact bool
 
 ro.baseband u:object_r:exported2_default_prop:s0 exact string
 
