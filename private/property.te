@@ -408,9 +408,7 @@ neverallow {
 }:property_service set;
 
 neverallow {
-  -init
-  -dumpstate
-  -system_server
+  -coredomain
+  -appdomain
   -vendor_init
-  -zygote
 } packagemanager_config_prop:file no_rw_file_perms;
