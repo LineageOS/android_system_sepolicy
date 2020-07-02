@@ -8,5 +8,9 @@
     apex_info_file
     debugfs_kprobes
     gnss_device
-    mediatranscoding_tmpfs))
+    mediatranscoding_tmpfs
+    profcollectd
+    profcollectd_data_file
+    profcollectd_exec
+    profcollectd_service))
 
