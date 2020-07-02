@@ -38,6 +38,7 @@
     platform_compat_service
     ctl_apexd_prop
     dataloader_manager_service
+    debugfs_kprobes
     device_config_storage_native_boot_prop
     device_config_sys_traced_prop
     device_config_window_manager_native_boot_prop
