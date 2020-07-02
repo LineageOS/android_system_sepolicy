@@ -1,0 +1,15 @@
+# profcollectd - hardware profile collection daemon
+type profcollectd, domain, coredomain;
+type profcollectd_exec, system_file_type, exec_type, file_type;
+
+userdebug_or_eng(`
+  init_daemon_domain(profcollectd)
+
+  # profcollectd opens a file for writing in /data/misc/profcollectd
+  allow profcollectd profcollectd_data_file:file create_file_perms;
+  allow profcollectd profcollectd_data_file:dir rw_dir_perms;
+
+  # Allow profcollectd to publish a binder service and make binder calls.
+  binder_use(profcollectd)
+  add_service(profcollectd, profcollectd_service)
+')
