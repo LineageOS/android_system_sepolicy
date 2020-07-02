@@ -169,6 +169,7 @@ power                                     u:object_r:power_service:s0
 print                                     u:object_r:print_service:s0
 processinfo                               u:object_r:processinfo_service:s0
 procstats                                 u:object_r:procstats_service:s0
+profcollectd                              u:object_r:profcollectd_service:s0
 radio.phonesubinfo                        u:object_r:radio_service:s0
 radio.phone                               u:object_r:radio_service:s0
 radio.sms                                 u:object_r:radio_service:s0

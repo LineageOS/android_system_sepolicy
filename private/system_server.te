@@ -797,6 +797,9 @@ allow system_server surfaceflinger_service:service_manager find;
 allow system_server update_engine_service:service_manager find;
 allow system_server vold_service:service_manager find;
 allow system_server wifinl80211_service:service_manager find;
+userdebug_or_eng(`
+  allow system_server profcollectd_service:service_manager find;
+')
 
 add_service(system_server, batteryproperties_service)
 
