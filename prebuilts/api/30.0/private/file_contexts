@@ -453,6 +453,8 @@
 /(system_ext|system/system_ext)/bin/aidl_lazy_test_server   u:object_r:aidl_lazy_test_server_exec:s0
 /(system_ext|system/system_ext)/bin/hidl_lazy_test_server   u:object_r:hidl_lazy_test_server_exec:s0
 
+/(system_ext|system/system_ext)/lib(64)?(/.*)?      u:object_r:system_lib_file:s0
+
 #############################
 # Vendor files from /(product|system/product)/vendor_overlay
 #

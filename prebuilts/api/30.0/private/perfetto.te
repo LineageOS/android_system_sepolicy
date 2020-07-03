@@ -47,6 +47,16 @@ allow perfetto devpts:chr_file rw_file_perms;
 allow perfetto incident_service:service_manager find;
 binder_call(perfetto, incidentd)
 
+# perfetto log formatter calls isatty() on its stderr. Denial when running
+# under adbd is harmless. Avoid generating denial logs.
+dontaudit perfetto adbd:unix_stream_socket getattr;
+dontauditxperm perfetto adbd:unix_stream_socket ioctl unpriv_tty_ioctls;
+# As above, when adbd is running in "su" domain (only the ioctl is denied in
+# practice).
+dontauditxperm perfetto su:unix_stream_socket ioctl unpriv_tty_ioctls;
+# Similarly, CTS tests end up hitting a denial on shell pipes.
+dontauditxperm perfetto shell:fifo_file ioctl unpriv_tty_ioctls;
+
 ###
 ### Neverallow rules
 ###
