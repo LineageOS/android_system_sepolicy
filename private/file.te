@@ -26,3 +26,6 @@ type ota_image_data_file, file_type, data_file_type, core_data_file_type;
 
 # /data/misc/emergencynumberdb
 type emergency_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/profcollectd
+type profcollectd_data_file, file_type, data_file_type, core_data_file_type;
