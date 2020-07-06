@@ -344,8 +344,7 @@ persist.sys.dalvik.vm.lib.2 u:object_r:dalvik_runtime_prop:s0 exact string
 
 keyguard.no_require_sim u:object_r:exported3_default_prop:s0 exact bool
 
-media.recorder.show_manufacturer_and_model u:object_r:exported3_default_prop:s0 exact bool
-
+media.recorder.show_manufacturer_and_model   u:object_r:media_config_prop:s0 exact bool
 media.stagefright.cache-params               u:object_r:media_config_prop:s0 exact string
 media.stagefright.thumbnail.prefer_hw_codecs u:object_r:media_config_prop:s0 exact bool
 persist.sys.media.avsync                     u:object_r:media_config_prop:s0 exact bool
