@@ -634,6 +634,7 @@ ro.vendor.build.date                u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.build.date.utc            u:object_r:build_vendor_prop:s0 exact int
 ro.vendor.build.fingerprint         u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.build.version.incremental u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.build.version.sdk         u:object_r:build_vendor_prop:s0 exact int
 
 ro.product.board               u:object_r:build_vendor_prop:s0 exact string
 ro.product.first_api_level     u:object_r:build_vendor_prop:s0 exact int
