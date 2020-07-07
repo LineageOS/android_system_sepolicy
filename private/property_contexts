@@ -360,6 +360,7 @@ persist.config.calibration_fac u:object_r:exported3_default_prop:s0 exact string
 persist.radio.multisim.config u:object_r:exported3_radio_prop:s0 exact string
 
 persist.sys.hdmi.keep_awake u:object_r:hdmi_config_prop:s0 exact bool
+ro.hdmi.cec_device_types    u:object_r:hdmi_config_prop:s0 exact string
 ro.hdmi.device_type         u:object_r:hdmi_config_prop:s0 exact string
 ro.hdmi.wake_on_hotplug     u:object_r:hdmi_config_prop:s0 exact bool
 
