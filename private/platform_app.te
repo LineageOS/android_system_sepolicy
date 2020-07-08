@@ -87,6 +87,9 @@ allow platform_app system_server:udp_socket {
 # allow platform apps to connect to the property service
 set_prop(platform_app, test_boot_reason_prop)
 
+# allow platform apps to read keyguard.no_require_sim
+get_prop(platform_app, keyguard_config_prop)
+
 # allow platform apps to create symbolic link
 allow platform_app app_data_file:lnk_file create_file_perms;
 
