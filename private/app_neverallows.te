@@ -154,28 +154,7 @@ neverallow all_untrusted_apps tun_device:chr_file open;
 # The tun_device ioctls below are not allowed, to prove equivalence
 # to the kernel patch at
 # https://android.googlesource.com/kernel/common/+/11cee2be0c2062ba88f04eb51196506f870a3b5d%5E%21
-neverallowxperm all_untrusted_apps tun_device:chr_file ioctl {
-  SIOCGIFHWADDR
-  SIOCSIFHWADDR
-  TUNATTACHFILTER
-  TUNDETACHFILTER
-  TUNGETFEATURES
-  TUNGETFILTER
-  TUNGETSNDBUF
-  TUNGETVNETHDRSZ
-  TUNSETDEBUG
-  TUNSETGROUP
-  TUNSETIFF
-  TUNSETLINK
-  TUNSETNOCSUM
-  TUNSETOFFLOAD
-  TUNSETOWNER
-  TUNSETPERSIST
-  TUNSETQUEUE
-  TUNSETSNDBUF
-  TUNSETTXFILTER
-  TUNSETVNETHDRSZ
-};
+neverallowxperm all_untrusted_apps tun_device:chr_file ioctl ~{ FIOCLEX FIONCLEX TUNGETIFF };
 
 # Only allow appending to /data/anr/traces.txt (b/27853304, b/18340553)
 neverallow all_untrusted_apps anr_data_file:file ~{ open append };
