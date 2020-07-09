@@ -419,3 +419,8 @@ neverallow {
   -appdomain
   -vendor_init
 } packagemanager_config_prop:file no_rw_file_perms;
+
+neverallow {
+  -coredomain
+  -vendor_init
+} keyguard_config_prop:file no_rw_file_perms;
