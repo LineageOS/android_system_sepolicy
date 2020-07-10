@@ -484,7 +484,7 @@ sys.usb.ffs.max_write  u:object_r:ffs_config_prop:s0 exact int
 sys.usb.ffs.ready     u:object_r:ffs_control_prop:s0 exact bool
 sys.usb.ffs.mtp.ready u:object_r:ffs_control_prop:s0 exact bool
 
-tombstoned.max_tombstone_count u:object_r:exported3_default_prop:s0 exact int
+tombstoned.max_tombstone_count u:object_r:tombstone_config_prop:s0 exact int
 
 vold.post_fs_data_done u:object_r:vold_config_prop:s0 exact int
 
