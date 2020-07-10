@@ -1,3 +1,12 @@
 typeattribute tombstoned coredomain;
 
 init_daemon_domain(tombstoned)
+
+get_prop(tombstoned, tombstone_config_prop)
+
+neverallow {
+    -init
+    -vendor_init
+    -dumpstate
+    -tombstoned
+} tombstone_config_prop:file no_rw_file_perms;
