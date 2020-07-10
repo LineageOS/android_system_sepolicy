@@ -65,10 +65,10 @@ allow kernel vold:fd use;
 allow kernel { app_data_file privapp_data_file }:file read;
 allow kernel asec_image_file:file read;
 
-# Allow reading loop device in update_engine_unittests. (b/28319454)
+# Allow mounting loop device in update_engine_unittests. (b/28319454)
 # and for LTP kernel tests (b/73220071)
 userdebug_or_eng(`
-  allow kernel update_engine_data_file:file read;
+  allow kernel update_engine_data_file:file { read write };
   allow kernel nativetest_data_file:file { read write };
 ')
 
