@@ -847,6 +847,9 @@ persist.dbg.volte_avail_ovr       u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.vt_avail_ovr          u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.wfc_avail_ovr         u:object_r:telephony_config_prop:s0 exact int
 
+# System locale list filter configuration
+ro.localization.locale_filter u:object_r:localization_prop:s0 exact string
+
 # Graphics related properties
 ro.gfx.driver.0        u:object_r:graphics_config_prop:s0 exact string
 ro.gfx.driver.1        u:object_r:graphics_config_prop:s0 exact string

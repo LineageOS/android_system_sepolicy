@@ -10,6 +10,7 @@ system_internal_prop(init_perf_lsm_hooks_prop)
 system_internal_prop(init_service_status_private_prop)
 system_internal_prop(init_svc_debug_prop)
 system_internal_prop(last_boot_reason_prop)
+system_internal_prop(localization_prop)
 system_internal_prop(netd_stable_secret_prop)
 system_internal_prop(pm_prop)
 system_internal_prop(system_adbd_prop)
@@ -424,3 +425,9 @@ neverallow {
   -coredomain
   -vendor_init
 } keyguard_config_prop:file no_rw_file_perms;
+
+neverallow {
+  -init
+} {
+  localization_prop
+}:property_service set;
