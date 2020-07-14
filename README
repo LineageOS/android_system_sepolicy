@@ -34,6 +34,17 @@ From the Tuna device BoardConfig.mk, device/samsung/tuna/BoardConfig.mk
 
 BOARD_VENDOR_SEPOLICY_DIRS += device/samsung/tuna/sepolicy
 
+Alongside vendor sepolicy dirs, OEMs can also amend the public and private
+policy of the product and system_ext partitions:
+
+SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += device/acme/roadrunner-sepolicy/systemext/public
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += device/acme/roadrunner-sepolicy/systemext/private
+PRODUCT_PUBLIC_SEPOLICY_DIRS += device/acme/roadrunner-sepolicy/product/public
+PRODUCT_PRIVATE_SEPOLICY_DIRS += device/acme/roadrunner-sepolicy/product/private
+
+The old BOARD_PLAT_PUBLIC_SEPOLICY_DIR and BOARD_PLAT_PRIVATE_SEPOLICY_DIR
+variables have been deprecated in favour of SYSTEM_EXT_*.
+
 Additionally, OEMs can specify BOARD_SEPOLICY_M4DEFS to pass arbitrary m4
 definitions during the build. A definition consists of a string in the form
 of macro-name=value. Spaces must NOT be present. This is useful for building modular
