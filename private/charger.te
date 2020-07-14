@@ -10,6 +10,9 @@ set_prop(charger, charger_status_prop)
 get_prop(charger, charger_prop)
 get_prop(charger, charger_config_prop)
 
+# get minui properties
+get_prop(charger, recovery_config_prop)
+
 compatible_property_only(`
     neverallow {
         -init
