@@ -1370,6 +1370,7 @@
     recovery_config_prop
     telephony_config_prop
     tombstone_config_prop
+    vts_status_prop
     zram_config_prop))
 (typeattributeset exported3_radio_prop_30_0 (exported3_radio_prop))
 (typeattributeset exported3_system_prop_30_0
@@ -1387,7 +1388,8 @@
     aaudio_config_prop
     build_odm_prop
     build_vendor_prop
-    surfaceflinger_prop))
+    surfaceflinger_prop
+    vts_config_prop))
 (typeattributeset exported_dumpstate_prop_30_0 (exported_dumpstate_prop))
 (typeattributeset exported_ffs_prop_30_0
   ( exported_ffs_prop
