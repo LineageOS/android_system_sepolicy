@@ -490,8 +490,6 @@ tombstoned.max_tombstone_count u:object_r:tombstone_config_prop:s0 exact int
 
 vold.post_fs_data_done u:object_r:vold_config_prop:s0 exact int
 
-vts.native_server.on u:object_r:exported3_default_prop:s0 exact bool
-
 wlan.driver.status u:object_r:exported_wifi_prop:s0 exact enum ok unloaded
 
 apexd.status u:object_r:apexd_prop:s0 exact enum starting activated ready
@@ -749,7 +747,9 @@ ro.product.vndk.version u:object_r:vndk_prop:s0 exact string
 ro.vndk.lite    u:object_r:vndk_prop:s0 exact bool
 ro.vndk.version u:object_r:vndk_prop:s0 exact string
 
-ro.vts.coverage u:object_r:exported_default_prop:s0 exact int
+ro.vts.coverage u:object_r:vts_config_prop:s0 exact int
+
+vts.native_server.on u:object_r:vts_status_prop:s0 exact bool
 
 wifi.active.interface     u:object_r:exported_wifi_prop:s0 exact string
 wifi.aware.interface      u:object_r:exported_wifi_prop:s0 exact string

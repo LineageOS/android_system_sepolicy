@@ -59,3 +59,7 @@ dontaudit init self:perf_event { kernel tracepoint read write };
 # SELinux hooks were detected.
 set_prop(init, init_perf_lsm_hooks_prop)
 neverallow { domain -init } init_perf_lsm_hooks_prop:property_service set;
+
+# Only init can write vts.native_server.on
+set_prop(init, vts_status_prop)
+neverallow { -init } vts_status_prop:property_service set;
