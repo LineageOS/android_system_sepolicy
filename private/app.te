@@ -51,6 +51,3 @@ neverallow { appdomain -mediaprovider_app } storage_config_prop:file no_rw_file_
 
 # Allow to read graphics related properties.
 get_prop(appdomain, graphics_config_prop)
-
-# Allow to read vts related properties.
-get_prop(coredomain, vts_status_prop)
