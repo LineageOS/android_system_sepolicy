@@ -180,13 +180,14 @@ heapprofd.              u:object_r:heapprofd_prop:s0
 # hwservicemanager properties
 hwservicemanager.       u:object_r:hwservicemanager_prop:s0
 
-# Common default properties for vendor, odm, and vendor_dlkm.
+# Common default properties for vendor, odm, vendor_dlkm, and odm_dlkm.
 init.svc.odm.           u:object_r:vendor_default_prop:s0
 init.svc.vendor.        u:object_r:vendor_default_prop:s0
 ro.hardware.            u:object_r:vendor_default_prop:s0
 ro.odm.                 u:object_r:vendor_default_prop:s0
 ro.vendor.              u:object_r:vendor_default_prop:s0
 ro.vendor_dlkm.         u:object_r:vendor_default_prop:s0
+ro.odm_dlkm.            u:object_r:vendor_default_prop:s0
 odm.                    u:object_r:vendor_default_prop:s0
 persist.odm.            u:object_r:vendor_default_prop:s0
 persist.vendor.         u:object_r:vendor_default_prop:s0
@@ -623,6 +624,12 @@ ro.vendor_dlkm.build.date                u:object_r:build_vendor_prop:s0 exact s
 ro.vendor_dlkm.build.date.utc            u:object_r:build_vendor_prop:s0 exact int
 ro.vendor_dlkm.build.fingerprint         u:object_r:build_vendor_prop:s0 exact string
 ro.vendor_dlkm.build.version.incremental u:object_r:build_vendor_prop:s0 exact string
+
+# All odm_dlkm build props are set by /odm_dlkm/etc/build.prop
+ro.odm_dlkm.build.date                u:object_r:build_vendor_prop:s0 exact string
+ro.odm_dlkm.build.date.utc            u:object_r:build_vendor_prop:s0 exact int
+ro.odm_dlkm.build.fingerprint         u:object_r:build_vendor_prop:s0 exact string
+ro.odm_dlkm.build.version.incremental u:object_r:build_vendor_prop:s0 exact string
 
 # All vendor build props are set by /vendor/build.prop
 ro.vendor.build.date                u:object_r:build_vendor_prop:s0 exact string
