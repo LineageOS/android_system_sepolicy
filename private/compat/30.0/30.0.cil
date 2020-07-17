@@ -6,6 +6,7 @@
 (type exported_system_radio_prop)
 (type exported_radio_prop)
 (type exported_vold_prop)
+(type exported_wifi_prop)
 (type exported2_config_prop)
 (type exported2_radio_prop)
 (type exported2_vold_prop)
@@ -1406,7 +1407,7 @@
     usb_config_prop
     usb_control_prop))
 (typeattributeset exported_vold_prop_30_0 (exported_vold_prop vold_status_prop))
-(typeattributeset exported_wifi_prop_30_0 (exported_wifi_prop))
+(typeattributeset exported_wifi_prop_30_0 (exported_wifi_prop wifi_hal_prop))
 (typeattributeset external_vibrator_service_30_0 (external_vibrator_service))
 (typeattributeset face_service_30_0 (face_service))
 (typeattributeset face_vendor_data_file_30_0 (face_vendor_data_file))
