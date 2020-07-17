@@ -618,7 +618,7 @@ ro.product.odm.manufacturer u:object_r:build_odm_prop:s0 exact string
 ro.product.odm.model        u:object_r:build_odm_prop:s0 exact string
 ro.product.odm.name         u:object_r:build_odm_prop:s0 exact string
 
-# All vendor_dlkm build props are set by /vendor_dlkm/build.prop
+# All vendor_dlkm build props are set by /vendor_dlkm/etc/build.prop
 ro.vendor_dlkm.build.date                u:object_r:build_vendor_prop:s0 exact string
 ro.vendor_dlkm.build.date.utc            u:object_r:build_vendor_prop:s0 exact int
 ro.vendor_dlkm.build.fingerprint         u:object_r:build_vendor_prop:s0 exact string
