@@ -53,8 +53,7 @@ dontaudit gmscore_app sysfs:file r_file_perms;
 dontaudit gmscore_app sysfs_android_usb:file r_file_perms;
 dontaudit gmscore_app sysfs_dm:file r_file_perms;
 dontaudit gmscore_app sysfs_loop:file r_file_perms;
-dontaudit gmscore_app wifi_prop:file r_file_perms;
-dontaudit gmscore_app { wifi_prop exported_wifi_prop }:file r_file_perms;
+dontaudit gmscore_app { wifi_prop wifi_hal_prop }:file r_file_perms;
 dontaudit gmscore_app mirror_data_file:dir search;
 dontaudit gmscore_app mnt_vendor_file:dir search;
 

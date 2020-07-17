@@ -7,7 +7,7 @@ hal_attribute_hwservice(hal_wifi, hal_wifi_hwservice)
 r_dir_file(hal_wifi, proc_net_type)
 r_dir_file(hal_wifi, sysfs_type)
 
-set_prop(hal_wifi, exported_wifi_prop)
+set_prop(hal_wifi, wifi_hal_prop)
 set_prop(hal_wifi, wifi_prop)
 
 # allow hal wifi set interfaces up and down and get the factory MAC
