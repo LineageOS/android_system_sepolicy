@@ -218,12 +218,13 @@ compatible_property_only(`
 
   neverallow {
     domain
-    -coredomain
+    -init
+    -dumpstate
     -hal_wifi_server
     -wificond
     -vendor_init
   } {
-    exported_wifi_prop
+    wifi_hal_prop
   }:property_service set;
 
 # Prevent properties from being read
