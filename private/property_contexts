@@ -266,6 +266,8 @@ audio.offload.min.duration.secs u:object_r:audio_config_prop:s0 exact int
 ro.audio.ignore_effects  u:object_r:audio_config_prop:s0 exact bool
 ro.audio.monitorRotation u:object_r:audio_config_prop:s0 exact bool
 
+persist.config.calibration_fac u:object_r:camera_calibration_prop:s0 exact string
+
 config.disable_cameraservice u:object_r:camera_config_prop:s0 exact bool
 
 camera.disable_zsl_mode u:object_r:camera_config_prop:s0 exact bool
@@ -360,8 +362,6 @@ persist.bluetooth.a2dp_offload.disabled        u:object_r:bluetooth_a2dp_offload
 persist.bluetooth.bluetooth_audio_hal.disabled u:object_r:bluetooth_audio_hal_prop:s0 exact bool
 persist.bluetooth.btsnoopenable                u:object_r:exported_bluetooth_prop:s0 exact bool
 
-persist.config.calibration_fac u:object_r:exported3_default_prop:s0 exact string
-
 persist.radio.multisim.config u:object_r:exported3_radio_prop:s0 exact string
 
 persist.sys.hdmi.keep_awake u:object_r:hdmi_config_prop:s0 exact bool
@@ -384,7 +384,6 @@ ro.apk_verity.mode u:object_r:apk_verity_prop:s0 exact int
 ro.bluetooth.a2dp_offload.supported u:object_r:bluetooth_a2dp_offload_prop:s0 exact bool
 
 ro.boot.vendor.overlay.theme u:object_r:exported_overlay_prop:s0 exact string
-ro.boot.wificountrycode      u:object_r:exported3_default_prop:s0 exact string
 
 ro.bt.bdaddr_path u:object_r:exported_bluetooth_prop:s0 exact string
 
@@ -448,8 +447,6 @@ ro.minui.overscan_percent u:object_r:recovery_config_prop:s0 exact int
 ro.minui.pixel_format     u:object_r:recovery_config_prop:s0 exact string
 
 ro.oem_unlock_supported u:object_r:oem_unlock_prop:s0 exact int
-
-ro.opengles.version u:object_r:exported3_default_prop:s0 exact int
 
 ro.rebootescrow.device u:object_r:rebootescrow_hal_prop:s0 exact string
 
@@ -761,6 +758,8 @@ wifi.direct.interface     u:object_r:wifi_hal_prop:s0 exact string
 wifi.interface            u:object_r:wifi_hal_prop:s0 exact string
 wlan.driver.status        u:object_r:wifi_hal_prop:s0 exact enum ok unloaded
 
+ro.boot.wificountrycode u:object_r:wifi_config_prop:s0 exact string
+
 ro.apex.updatable u:object_r:exported_default_prop:s0 exact bool
 
 # Property to enable incremental feature
@@ -859,6 +858,8 @@ persist.dbg.wfc_avail_ovr         u:object_r:telephony_config_prop:s0 exact int
 ro.localization.locale_filter u:object_r:localization_prop:s0 exact string
 
 # Graphics related properties
+ro.opengles.version u:object_r:graphics_config_prop:s0 exact int
+
 ro.gfx.driver.0        u:object_r:graphics_config_prop:s0 exact string
 ro.gfx.driver.1        u:object_r:graphics_config_prop:s0 exact string
 ro.gfx.angle.supported u:object_r:graphics_config_prop:s0 exact bool

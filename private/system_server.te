@@ -886,9 +886,6 @@ get_prop(system_server, adbd_prop)
 # Set persist.adb.tls_server.enable property
 set_prop(system_server, system_adbd_prop)
 
-# Read ro.gfx.* properties
-get_prop(system_server, graphics_config_prop)
-
 # Allow invoking tools like "timeout"
 allow system_server toolbox_exec:file rx_file_perms;
 
@@ -991,6 +988,8 @@ get_prop(system_server, time_prop)
 # system_server reads this property to know it should expect the lmkd sends notification to it
 # on low memory kills.
 get_prop(system_server, system_lmk_prop)
+
+get_prop(system_server, wifi_config_prop)
 
 ###
 ### Neverallow rules
@@ -1196,3 +1195,10 @@ neverallow system_server self:perf_event ~{ open write cpu kernel };
 neverallow { domain -init -system_server } socket_hook_prop:property_service set;
 
 neverallow { domain -init -system_server } boot_status_prop:property_service set;
+
+neverallow {
+  -init
+  -vendor_init
+  -dumpstate
+  -system_server
+} wifi_config_prop:file no_rw_file_perms;
