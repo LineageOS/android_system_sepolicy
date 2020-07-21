@@ -35,6 +35,7 @@
     build_odm_prop
     build_prop
     build_vendor_prop
+    camera_calibration_prop
     camera_config_prop
     cgroup_bpf
     charger_config_prop
@@ -232,6 +233,7 @@
     wait_for_keymaster_exec
     wait_for_keymaster_tmpfs
     watchdogd_tmpfs
+    wifi_config_prop
     wifi_hal_prop
     wm_trace_data_file
     wpantund
