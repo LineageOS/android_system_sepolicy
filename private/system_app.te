@@ -153,6 +153,9 @@ get_prop(system_app, device_logging_prop)
 allow system_app system_server:udp_socket {
         connect getattr read recvfrom sendto write getopt setopt };
 
+# Settings app reads ro.oem_unlock_supported
+get_prop(system_app, oem_unlock_prop)
+
 ###
 ### Neverallow rules
 ###

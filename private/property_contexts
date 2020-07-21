@@ -344,6 +344,7 @@ dalvik.vm.restore-dex2oat-threads             u:object_r:dalvik_config_prop:s0 e
 dalvik.vm.usejit                              u:object_r:dalvik_config_prop:s0 exact bool
 dalvik.vm.usejitprofiles                      u:object_r:dalvik_config_prop:s0 exact bool
 dalvik.vm.zygote.max-boot-retry               u:object_r:dalvik_config_prop:s0 exact int
+ro.zygote                                     u:object_r:dalvik_config_prop:s0 exact string
 
 persist.sys.dalvik.vm.lib.2 u:object_r:dalvik_runtime_prop:s0 exact string
 
@@ -398,8 +399,6 @@ ro.config.system_vol_default  u:object_r:systemsound_config_prop:s0 exact int
 ro.config.system_vol_steps    u:object_r:systemsound_config_prop:s0 exact int
 ro.config.vc_call_vol_default u:object_r:systemsound_config_prop:s0 exact int
 
-ro.config.per_app_memcg u:object_r:exported3_default_prop:s0 exact bool
-
 ro.control_privapp_permissions u:object_r:packagemanager_config_prop:s0 exact enum disable enforce log
 ro.cp_system_other_odex        u:object_r:packagemanager_config_prop:s0 exact bool
 
@@ -421,6 +420,7 @@ external_storage.projid.enabled   u:object_r:storage_config_prop:s0 exact bool
 external_storage.casefold.enabled u:object_r:storage_config_prop:s0 exact bool
 external_storage.sdcardfs.enabled u:object_r:storage_config_prop:s0 exact bool
 
+ro.config.per_app_memcg         u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.critical                 u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.critical_upgrade         u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.debug                    u:object_r:lmkd_config_prop:s0 exact bool
@@ -447,13 +447,13 @@ ro.minui.default_rotation u:object_r:recovery_config_prop:s0 exact string
 ro.minui.overscan_percent u:object_r:recovery_config_prop:s0 exact int
 ro.minui.pixel_format     u:object_r:recovery_config_prop:s0 exact string
 
-ro.oem_unlock_supported u:object_r:exported3_default_prop:s0 exact int
+ro.oem_unlock_supported u:object_r:oem_unlock_prop:s0 exact int
 
 ro.opengles.version u:object_r:exported3_default_prop:s0 exact int
 
 ro.rebootescrow.device u:object_r:rebootescrow_hal_prop:s0 exact string
 
-ro.storage_manager.enabled u:object_r:exported3_default_prop:s0 exact bool
+ro.storage_manager.enabled u:object_r:storagemanager_config_prop:s0 exact bool
 
 ro.vehicle.hal u:object_r:vehicle_hal_prop:s0 exact string
 
@@ -465,9 +465,7 @@ ro.zram.periodic_wb_delay_hours u:object_r:zram_config_prop:s0 exact int
 zram.force_writeback            u:object_r:zram_config_prop:s0 exact bool
 persist.sys.zram_enabled        u:object_r:zram_control_prop:s0 exact bool
 
-ro.zygote u:object_r:exported3_default_prop:s0 exact string
-
-sendbug.preferred.domain u:object_r:exported3_default_prop:s0 exact string
+sendbug.preferred.domain u:object_r:sendbug_config_prop:s0 exact string
 
 persist.sys.usb.usbradio.config u:object_r:usb_control_prop:s0 exact string
 
