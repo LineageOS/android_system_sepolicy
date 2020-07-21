@@ -142,7 +142,6 @@ compatible_property_only(`
     exported_system_prop
     exported2_default_prop
     exported2_system_prop
-    exported3_default_prop
     exported3_system_prop
     usb_control_prop
     -nfc_prop
@@ -238,7 +237,6 @@ compatible_property_only(`
     dalvik_config_prop
     extended_core_property_type
     exported2_system_prop
-    exported3_default_prop
     exported3_system_prop
     systemsound_config_prop
     -debug_prop
