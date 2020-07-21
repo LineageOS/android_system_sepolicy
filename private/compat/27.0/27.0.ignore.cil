@@ -139,6 +139,7 @@
     network_stack_service
     network_watchlist_data_file
     network_watchlist_service
+    oem_unlock_prop
     overlayfs_file
     packagemanager_config_prop
     perfetto
@@ -157,6 +158,7 @@
     secure_element_device
     secure_element_service
     secure_element_tmpfs
+    sendbug_config_prop
     server_configurable_flags_data_file
     simpleperf_app_runner
     simpleperf_app_runner_exec
@@ -177,6 +179,7 @@
     surfaceflinger_color_prop
     surfaceflinger_prop
     staging_data_file
+    storagemanager_config_prop
     system_boot_reason_prop
     system_bootstrap_lib_file
     system_lmk_prop
