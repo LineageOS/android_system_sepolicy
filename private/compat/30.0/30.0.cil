@@ -1359,6 +1359,7 @@
 (typeattributeset exported2_vold_prop_30_0 (exported2_vold_prop vold_config_prop))
 (typeattributeset exported3_default_prop_30_0
   ( exported3_default_prop
+    camera_calibration_prop
     camera_config_prop
     charger_config_prop
     drm_service_config_prop
@@ -1375,6 +1376,7 @@
     telephony_config_prop
     tombstone_config_prop
     vts_status_prop
+    wifi_config_prop
     zram_config_prop))
 (typeattributeset exported3_radio_prop_30_0 (exported3_radio_prop))
 (typeattributeset exported3_system_prop_30_0
