@@ -425,3 +425,22 @@ neverallow {
 } {
   localization_prop
 }:property_service set;
+
+neverallow {
+  -init
+  -vendor_init
+  -dumpstate
+  -system_app
+} oem_unlock_prop:file no_rw_file_perms;
+
+neverallow {
+  -coredomain
+  -vendor_init
+} storagemanager_config_prop:file no_rw_file_perms;
+
+neverallow {
+  -init
+  -vendor_init
+  -dumpstate
+  -appdomain
+} sendbug_config_prop:file no_rw_file_perms;
