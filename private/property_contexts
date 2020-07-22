@@ -519,7 +519,7 @@ dumpstate.unroot  u:object_r:exported_dumpstate_prop:s0 exact bool
 hal.instrumentation.enable u:object_r:exported2_default_prop:s0 exact bool
 
 # default contexts only accessible by coredomain
-init.svc. u:object_r:init_service_status_private_prop:s0 exact string
+init.svc. u:object_r:init_service_status_private_prop:s0 prefix string
 
 # vendor-init-readable init service props
 init.svc.bugreport      u:object_r:init_service_status_prop:s0 exact string
