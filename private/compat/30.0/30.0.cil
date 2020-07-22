@@ -10,6 +10,7 @@
 (type exported2_config_prop)
 (type exported2_radio_prop)
 (type exported2_vold_prop)
+(type exported3_default_prop)
 (type ffs_prop)
 (type system_radio_prop)
 
@@ -1359,6 +1360,7 @@
 (typeattributeset exported2_vold_prop_30_0 (exported2_vold_prop vold_config_prop))
 (typeattributeset exported3_default_prop_30_0
   ( exported3_default_prop
+    camera_calibration_prop
     camera_config_prop
     charger_config_prop
     drm_service_config_prop
@@ -1367,11 +1369,15 @@
     lmkd_config_prop
     media_config_prop
     mediadrm_config_prop
+    oem_unlock_prop
     packagemanager_config_prop
     recovery_config_prop
+    sendbug_config_prop
+    storagemanager_config_prop
     telephony_config_prop
     tombstone_config_prop
     vts_status_prop
+    wifi_config_prop
     zram_config_prop))
 (typeattributeset exported3_radio_prop_30_0 (exported3_radio_prop))
 (typeattributeset exported3_system_prop_30_0
