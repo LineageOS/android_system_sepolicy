@@ -66,8 +66,11 @@ allow appdomain appdomain:fifo_file rw_file_perms;
 allow appdomain surfaceflinger:unix_stream_socket { read write setopt getattr getopt shutdown };
 
 # App sandbox file accesses.
-allow { appdomain -isolated_app } { app_data_file privapp_data_file }:dir create_dir_perms;
-allow { appdomain -isolated_app } { app_data_file privapp_data_file }:file create_file_perms;
+allow { appdomain -isolated_app -mlstrustedsubject } { app_data_file privapp_data_file }:dir create_dir_perms;
+allow { appdomain -isolated_app -mlstrustedsubject } { app_data_file privapp_data_file }:file create_file_perms;
+
+# Access via already open fds is ok even for mlstrustedsubject.
+allow { appdomain -isolated_app } { app_data_file privapp_data_file }:file { getattr map read write };
 
 # Traverse into expanded storage
 allow appdomain mnt_expand_file:dir r_dir_perms;
