@@ -526,6 +526,7 @@ init.svc.bugreport      u:object_r:init_service_status_prop:s0 exact string
 init.svc.console        u:object_r:init_service_status_prop:s0 exact string
 init.svc.dumpstatez     u:object_r:init_service_status_prop:s0 exact string
 init.svc.mediadrm       u:object_r:init_service_status_prop:s0 exact string
+init.svc.statsd         u:object_r:init_service_status_prop:s0 exact string
 init.svc.surfaceflinger u:object_r:init_service_status_prop:s0 exact string
 init.svc.tombstoned     u:object_r:init_service_status_prop:s0 exact string
 init.svc.zygote         u:object_r:init_service_status_prop:s0 exact string
