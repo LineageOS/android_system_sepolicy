@@ -1,5 +1,5 @@
 # nfc subsystem
-typeattribute nfc coredomain;
+typeattribute nfc coredomain, mlstrustedsubject;
 app_domain(nfc)
 net_domain(nfc)
 
