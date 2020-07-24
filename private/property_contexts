@@ -541,8 +541,6 @@ persist.sys.test_harness u:object_r:test_harness_prop:s0 exact bool
 
 ro.arch u:object_r:exported2_default_prop:s0 exact string
 
-ro.baseband u:object_r:exported2_default_prop:s0 exact string
-
 # ro.boot. properties are set based on kernel commandline arguments, which are vendor owned.
 ro.boot.                   u:object_r:bootloader_prop:s0
 ro.boot.avb_version        u:object_r:bootloader_prop:s0 exact string
@@ -561,10 +559,15 @@ ro.boot.vbmeta.avb_version u:object_r:bootloader_prop:s0 exact string
 ro.boot.verifiedbootstate  u:object_r:bootloader_prop:s0 exact string
 ro.boot.veritymode         u:object_r:bootloader_prop:s0 exact string
 
+# These ro.X properties are set to values of ro.boot.X by property_service.
+ro.baseband   u:object_r:bootloader_prop:s0 exact string
+ro.bootloader u:object_r:bootloader_prop:s0 exact string
+ro.bootmode   u:object_r:bootloader_prop:s0 exact string
+ro.hardware   u:object_r:bootloader_prop:s0 exact string
+ro.revision   u:object_r:bootloader_prop:s0 exact string
+
 ro.boot.dynamic_partitions          u:object_r:exported_default_prop:s0 exact string
 ro.boot.dynamic_partitions_retrofit u:object_r:exported_default_prop:s0 exact string
-
-ro.bootloader u:object_r:exported2_default_prop:s0 exact string
 
 ro.boottime.init.mount.data u:object_r:boottime_public_prop:s0 exact string
 ro.boottime.init.fsck.data  u:object_r:boottime_public_prop:s0 exact string
@@ -648,11 +651,7 @@ ro.product.vendor.name         u:object_r:build_vendor_prop:s0 exact string
 ro.crypto.state u:object_r:vold_status_prop:s0 exact enum encrypted unencrypted unsupported
 ro.crypto.type  u:object_r:vold_status_prop:s0 exact enum block file none
 
-ro.hardware u:object_r:exported2_default_prop:s0 exact string
-
 ro.property_service.version u:object_r:exported2_default_prop:s0 exact int
-
-ro.revision u:object_r:exported2_default_prop:s0 exact string
 
 ro.vendor.redirect_socket_calls u:object_r:vendor_socket_hook_prop:s0 exact bool
 
@@ -779,8 +778,6 @@ init.userspace_reboot.sigterm.timeoutmillis u:object_r:userspace_reboot_config_p
 init.userspace_reboot.started.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
 init.userspace_reboot.userdata_remount.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
 init.userspace_reboot.watchdog.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
-
-ro.bootmode u:object_r:exported2_default_prop:s0 exact string
 
 sys.shutdown.requested u:object_r:exported_system_prop:s0 exact string
 
