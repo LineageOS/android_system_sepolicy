@@ -52,9 +52,9 @@ all_system_ext_mac_perms_files := $(call build_policy, mac_permissions.xml, $(SY
 system_ext_mac_perms_keys.tmp := $(intermediates)/system_ext_keys.tmp
 $(system_ext_mac_perms_keys.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(system_ext_mac_perms_keys.tmp): PRIVATE_KEYS := $(all_system_ext_mac_perms_keys)
-$(system_ext_mac_perms_keys.tmp): $(all_system_ext_mac_perms_keys)
+$(system_ext_mac_perms_keys.tmp): $(all_system_ext_mac_perms_keys) $(M4)
 	@mkdir -p $(dir $@)
-	$(hide) $(M4) --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
+	$(hide) $(M4) --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_KEYS) > $@
 
 $(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_system_ext_mac_perms_files)
 $(LOCAL_BUILT_MODULE): $(system_ext_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
@@ -83,9 +83,9 @@ all_product_mac_perms_files := $(call build_policy, mac_permissions.xml, $(PRODU
 product_mac_perms_keys.tmp := $(intermediates)/product_keys.tmp
 $(product_mac_perms_keys.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(product_mac_perms_keys.tmp): PRIVATE_KEYS := $(all_product_mac_perms_keys)
-$(product_mac_perms_keys.tmp): $(all_product_mac_perms_keys)
+$(product_mac_perms_keys.tmp): $(all_product_mac_perms_keys) $(M4)
 	@mkdir -p $(dir $@)
-	$(hide) $(M4) --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $^ > $@
+	$(hide) $(M4) --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_KEYS) > $@
 
 $(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_product_mac_perms_files)
 $(LOCAL_BUILT_MODULE): $(product_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
