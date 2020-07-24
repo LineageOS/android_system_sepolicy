@@ -63,3 +63,6 @@ neverallow { domain -init } init_perf_lsm_hooks_prop:property_service set;
 # Only init can write vts.native_server.on
 set_prop(init, vts_status_prop)
 neverallow { -init } vts_status_prop:property_service set;
+
+# Only init can write normal ro.boot. properties
+neverallow { -init } bootloader_prop:property_service set;
