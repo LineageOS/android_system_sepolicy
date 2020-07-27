@@ -47,6 +47,7 @@ userdebug_or_eng(`
   dontaudit su hwservicemanager:hwservice_manager list;
   dontaudit su vndservicemanager:service_manager list;
   dontaudit su keystore:keystore_key *;
+  dontaudit su keystore:keystore2 *;
   dontaudit su domain:drmservice *;
   dontaudit su unlabeled:filesystem *;
   dontaudit su postinstall_file:filesystem *;
