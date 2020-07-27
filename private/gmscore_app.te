@@ -33,6 +33,7 @@ binder_call(gmscore_app, statsd)
 
 # Allow GMS core to generate unique hardware IDs
 allow gmscore_app keystore:keystore_key gen_unique_id;
+allow gmscore_app keystore:keystore2_key gen_unique_id;
 
 # Allow GMS core to access /sys/fs/selinux/policyvers for compatibility check
 allow gmscore_app selinuxfs:file r_file_perms;

@@ -18,6 +18,7 @@ allow fingerprintd fingerprintd_data_file:dir rw_dir_perms;
 # Need to add auth tokens to KeyStore
 use_keystore(fingerprintd)
 allow fingerprintd keystore:keystore_key { add_auth };
+allow fingerprintd keystore:keystore2 { add_auth };
 
 # For permissions checking
 binder_call(fingerprintd, system_server);
