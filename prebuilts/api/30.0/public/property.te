@@ -113,6 +113,7 @@ compatible_property_only(`
 ')
 
 # Properties which can be written only by vendor_init
+system_vendor_config_prop(adbd_config_prop)
 system_vendor_config_prop(apk_verity_prop)
 system_vendor_config_prop(cpu_variant_prop)
 system_vendor_config_prop(exported_audio_prop)
