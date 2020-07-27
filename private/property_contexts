@@ -514,7 +514,7 @@ drm.service.enabled u:object_r:drm_service_config_prop:s0 exact bool
 dumpstate.dry_run u:object_r:exported_dumpstate_prop:s0 exact bool
 dumpstate.unroot  u:object_r:exported_dumpstate_prop:s0 exact bool
 
-hal.instrumentation.enable u:object_r:exported2_default_prop:s0 exact bool
+hal.instrumentation.enable u:object_r:hal_instrumentation_prop:s0 exact bool
 
 # default contexts only accessible by coredomain
 init.svc. u:object_r:init_service_status_private_prop:s0 prefix string
@@ -540,7 +540,7 @@ persist.sys.locale       u:object_r:exported_system_prop:s0 exact string
 persist.sys.timezone     u:object_r:exported_system_prop:s0 exact string
 persist.sys.test_harness u:object_r:test_harness_prop:s0 exact bool
 
-ro.arch u:object_r:exported2_default_prop:s0 exact string
+ro.arch u:object_r:build_prop:s0 exact string
 
 # ro.boot. properties are set based on kernel commandline arguments, which are vendor owned.
 ro.boot.                   u:object_r:bootloader_prop:s0
@@ -648,7 +648,7 @@ ro.product.vendor.name         u:object_r:build_vendor_prop:s0 exact string
 ro.crypto.state u:object_r:vold_status_prop:s0 exact enum encrypted unencrypted unsupported
 ro.crypto.type  u:object_r:vold_status_prop:s0 exact enum block file none
 
-ro.property_service.version u:object_r:exported2_default_prop:s0 exact int
+ro.property_service.version u:object_r:property_service_version_prop:s0 exact int
 
 ro.vendor.redirect_socket_calls u:object_r:vendor_socket_hook_prop:s0 exact bool
 

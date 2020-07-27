@@ -105,12 +105,13 @@ get_prop(domain, exported_default_prop)
 get_prop(domain, exported_dumpstate_prop)
 get_prop(domain, exported_secure_prop)
 get_prop(domain, exported_system_prop)
-get_prop(domain, exported2_default_prop)
 get_prop(domain, fingerprint_prop)
+get_prop(domain, hal_instrumentation_prop)
 get_prop(domain, init_service_status_prop)
 get_prop(domain, libc_debug_prop)
 get_prop(domain, logd_prop)
 get_prop(domain, mediadrm_config_prop)
+get_prop(domain, property_service_version_prop)
 get_prop(domain, socket_hook_prop)
 get_prop(domain, surfaceflinger_prop)
 get_prop(domain, telephony_status_prop)
@@ -540,7 +541,6 @@ compatible_property_only(`
     neverallow { domain -init } mmc_prop:property_service set;
     neverallow { domain -init -vendor_init } exported_default_prop:property_service set;
     neverallow { domain -init } exported_secure_prop:property_service set;
-    neverallow { domain -init } exported2_default_prop:property_service set;
     neverallow { domain -init -vendor_init } vendor_default_prop:property_service set;
     neverallow { domain -init -vendor_init } storage_config_prop:property_service set;
 ')

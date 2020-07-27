@@ -97,6 +97,7 @@
     hal_confirmationui_hwservice
     hal_evs_hwservice
     hal_health_storage_hwservice
+    hal_instrumentation_prop
     hal_lowpan_hwservice
     hal_secure_element_hwservice
     hal_usb_gadget_hwservice
@@ -149,6 +150,7 @@
     perfetto_tmpfs
     perfetto_traces_data_file
     property_info
+    property_service_version_prop
     provisioned_prop
     recovery_config_prop
     recovery_socket
