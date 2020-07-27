@@ -66,3 +66,9 @@ neverallow { -init } vts_status_prop:property_service set;
 
 # Only init can write normal ro.boot. properties
 neverallow { -init } bootloader_prop:property_service set;
+
+# Only init can write hal.instrumentation.enable
+neverallow { -init } hal_instrumentation_prop:property_service set;
+
+# Only init can write ro.property_service.version
+neverallow { -init } property_service_version_prop:property_service set;
