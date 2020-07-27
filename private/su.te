@@ -20,4 +20,8 @@ userdebug_or_eng(`
   permissive su;
 
   app_domain(su)
+
+  # Do not audit accesses to keystore2 namespace for the su domain.
+  dontaudit su keystore2_key_type:{ keystore2 keystore2_key } *;
+
 ')
