@@ -8,6 +8,7 @@
 (type exported_vold_prop)
 (type exported_wifi_prop)
 (type exported2_config_prop)
+(type exported2_default_prop)
 (type exported2_radio_prop)
 (type exported2_vold_prop)
 (type exported3_default_prop)
@@ -1350,8 +1351,10 @@
     aac_drc_prop
     bootloader_prop
     build_prop
+    hal_instrumentation_prop
     init_service_status_prop
-    libc_debug_prop))
+    libc_debug_prop
+    property_service_version_prop))
 (typeattributeset exported2_radio_prop_30_0 (exported2_radio_prop))
 (typeattributeset exported2_system_prop_30_0
   ( exported2_system_prop
