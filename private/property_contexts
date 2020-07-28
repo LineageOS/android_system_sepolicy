@@ -129,7 +129,7 @@ ctl.bugreport           u:object_r:ctl_bugreport_prop:s0
 ctl.console             u:object_r:ctl_console_prop:s0
 ctl.                    u:object_r:ctl_default_prop:s0
 
-# Don't allow blind access to all services
+# Don't allow uncontrolled access to all services
 ctl.sigstop_on$         u:object_r:ctl_sigstop_prop:s0
 ctl.sigstop_off$        u:object_r:ctl_sigstop_prop:s0
 ctl.start$              u:object_r:ctl_start_prop:s0
