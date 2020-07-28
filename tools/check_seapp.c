@@ -459,7 +459,7 @@ static bool key_map_validate(key_map *m, const char *filename, int lineno,
 	log_info("Validating %s=%s\n", key, value);
 
 	/*
-	 * Neverallows are completely skipped from sanity checking so you can match
+	 * Neverallows are completely skipped from validity checking so you can match
 	 * un-unspecified inputs.
 	 */
 	if (is_neverallow) {
