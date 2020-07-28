@@ -339,6 +339,10 @@ with_asan(`allow domain system_asan_options_file:file r_file_perms;')
 allow domain apex_mnt_dir:dir { getattr search };
 allow domain apex_mnt_dir:lnk_file r_file_perms;
 
+# Allow to read persist.radio.multisim.config
+# TODO(b/162214733): remove this after cleaning up exported3_radio_prop
+get_prop(domain, radio_control_prop)
+
 ###
 ### neverallow rules
 ###

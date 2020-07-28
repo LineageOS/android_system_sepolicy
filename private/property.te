@@ -164,7 +164,7 @@ compatible_property_only(`
     -hal_telephony_server
     -vendor_init
   } {
-    exported3_radio_prop
+    radio_control_prop
   }:property_service set;
 
   neverallow {
