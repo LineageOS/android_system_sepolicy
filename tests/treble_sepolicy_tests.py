@@ -13,11 +13,11 @@ DEBUG=False
 Use file_contexts and policy to verify Treble requirements
 are not violated.
 '''
-coredomainWhitelist = {
+coredomainAllowlist = {
         # TODO: how do we make sure vendor_init doesn't have bad coupling with
         # /vendor? It is the only system process which is not coredomain.
         'vendor_init',
-        # TODO(b/152813275): need to avoid whitelist for rootdir
+        # TODO(b/152813275): need to avoid allowlist for rootdir
         "modprobe",
         "slideshow",
         "healthd",
@@ -92,7 +92,7 @@ def GetCoreDomains():
             domain.coredomain = True
             coredomains.add(d)
         # check whether domains are executed off of /system or /vendor
-        if d in coredomainWhitelist:
+        if d in coredomainAllowlist:
             continue
         # TODO(b/153112003): add checks to prevent app domains from being
         # incorrectly labeled as coredomain. Apps don't have entrypoints as
