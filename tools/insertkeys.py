@@ -56,7 +56,7 @@ class GenerateKeys(object):
                 # If we ended the certificate trip the flag
                 inCert = False
 
-                # Sanity check the input
+                # Check the input
                 if len(base64Key) == 0:
                     sys.exit("Empty certficate , certificate "+ str(certNo) + " found in file: "
                             + path)
