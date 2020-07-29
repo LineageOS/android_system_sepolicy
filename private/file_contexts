@@ -543,3 +543,7 @@
 #############################
 # mount point for read-write product partitions
 /mnt/product(/.*)?          u:object_r:mnt_product_file:s0
+
+#############################
+# root for updater target filesystem
+/mnt/updater(/.*)?          u:object_r:mnt_updater_file:s0

@@ -56,3 +56,17 @@ allow update_engine proc_misc:file r_file_perms;
 
 # read directories on /system and /vendor
 allow update_engine system_file:dir r_dir_perms;
+
+# file based updater: read block device dirs for slot copy
+allow update_engine block_device:dir r_dir_perms;
+
+# file based updater: mount filesystems
+allow update_engine mnt_updater_file:dir { mounton };
+allow update_engine mnt_updater_file:filesystem { relabelfrom relabelto };
+allow update_engine mnt_updater_file:filesystem { mount unmount };
+allow mnt_updater_file mnt_updater_file:filesystem { associate };
+
+# file based updater: full access to updater mounts
+allow update_engine mnt_updater_file:dir { create_dir_perms create_file_perms };
+allow update_engine mnt_updater_file:file { create_file_perms };
+allow update_engine mnt_updater_file:lnk_file { create_file_perms };
