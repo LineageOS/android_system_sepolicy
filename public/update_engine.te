@@ -56,3 +56,15 @@ allow update_engine proc_misc:file r_file_perms;
 
 # read directories on /system and /vendor
 allow update_engine system_file:dir r_dir_perms;
+
+# file based updater: read block device dirs for slot copy
+allow update_engine block_device:dir r_dir_perms;
+
+# file based updater: create/delete tmpfs links for SaR
+allow update_engine tmpfs:lnk_file { create_file_perms };
+
+# file based updater: mount on tmpfs for target fs
+allow update_engine tmpfs:dir { mounton };
+
+# file based updater: full file access on tmpfs for changes
+allow update_engine tmpfs:dir { rw_dir_perms create_file_perms };
