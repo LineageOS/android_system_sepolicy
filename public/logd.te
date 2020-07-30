@@ -38,6 +38,9 @@ allow runtime_event_log_tags_file tmpfs:filesystem associate;
 # expected to be locally cached).
 dontaudit domain runtime_event_log_tags_file:file { map open read };
 
+# Logd sets defaults if certain properties are empty.
+set_prop(logd, logd_prop)
+
 ###
 ### Neverallow rules
 ###
