@@ -1,5 +1,5 @@
 # Perfetto command-line client. Can be used only from the domains that are
-# explicitly whitelisted with a domain_auto_trans(X, perfetto_exec, perfetto).
+# explicitly allowlisted with a domain_auto_trans(X, perfetto_exec, perfetto).
 # This command line client accesses the privileged socket of the traced
 # daemon.
 

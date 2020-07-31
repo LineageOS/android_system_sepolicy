@@ -29,7 +29,7 @@ typeattribute heapprofd mlstrustedsubject;
 allow heapprofd self:capability kill;
 
 # When scanning /proc/[pid]/cmdline to find matching processes for by-name
-# profiling, only whitelisted domains will be allowed by SELinux. Avoid
+# profiling, only allowlisted domains will be allowed by SELinux. Avoid
 # spamming logs with denials for entries that we can not access.
 dontaudit heapprofd domain:dir { search open };
 
