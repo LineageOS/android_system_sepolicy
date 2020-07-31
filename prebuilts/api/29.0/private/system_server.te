@@ -50,14 +50,14 @@ allow system_server zygote:unix_stream_socket { getopt getattr };
 
 # system server gets network and bluetooth permissions.
 net_domain(system_server)
-# in addition to ioctls whitelisted for all domains, also allow system_server
+# in addition to ioctls allowlisted for all domains, also allow system_server
 # to use privileged ioctls commands. Needed to set up VPNs.
 allowxperm system_server self:udp_socket ioctl priv_sock_ioctls;
 bluetooth_domain(system_server)
 
 # Allow setup of tcp keepalive offload. This gives system_server the permission to
 # call ioctl on app domains' tcp sockets. Additional ioctl commands still need to
-# be granted individually, except for a small set of safe values whitelisted in
+# be granted individually, except for a small set of safe values allowlisted in
 # public/domain.te.
 allow system_server appdomain:tcp_socket ioctl;
 
@@ -102,7 +102,7 @@ allow system_server config_gz:file { read open };
 # Use generic "sockets" where the address family is not known
 # to the kernel. The ioctl permission is specifically omitted here, but may
 # be added to device specific policy along with the ioctl commands to be
-# whitelisted.
+# allowlisted.
 allow system_server self:socket create_socket_perms_no_ioctl;
 
 # Set and get routes directly via netlink.

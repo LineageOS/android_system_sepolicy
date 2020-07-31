@@ -126,7 +126,7 @@ userdebug_or_eng(`read_logd(incidentd)')
 # TODO control_logd(incidentd)
 
 # Allow incidentd to find these standard groups of services.
-# Others can be whitelisted individually.
+# Others can be allowlisted individually.
 allow incidentd {
   system_server_service
   app_api_service
