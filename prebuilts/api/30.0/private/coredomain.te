@@ -15,7 +15,7 @@ neverallow {
 ')
 
 # On TREBLE devices, a limited set of files in /vendor are accessible to
-# only a few whitelisted coredomains to keep system/vendor separation.
+# only a few allowlisted coredomains to keep system/vendor separation.
 full_treble_only(`
     # Limit access to /vendor/app
     neverallow {
