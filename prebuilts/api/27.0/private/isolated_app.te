@@ -74,7 +74,7 @@ neverallow isolated_app *:hwservice_manager *;
 neverallow isolated_app vndbinder_device:chr_file *;
 
 # Isolated apps must not be permitted to perform actions on Binder and VndBinder service_manager
-# except the find actions for services whitelisted below.
+# except the find actions for services allowlisted below.
 neverallow isolated_app *:service_manager ~find;
 
 # b/17487348

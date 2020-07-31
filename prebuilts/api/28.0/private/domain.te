@@ -4,7 +4,7 @@ domain_auto_trans(domain, crash_dump_exec, crash_dump);
 allow domain crash_dump:process sigchld;
 
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
-# with other UIDs to these whitelisted domains.
+# with other UIDs to these allowlisted domains.
 neverallow {
   domain
   -vold

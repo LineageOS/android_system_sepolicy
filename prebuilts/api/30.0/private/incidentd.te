@@ -145,7 +145,7 @@ userdebug_or_eng(`read_logd(incidentd)')
 r_dir_file(incidentd, misc_logd_file)
 
 # Allow incidentd to find these standard groups of services.
-# Others can be whitelisted individually.
+# Others can be allowlisted individually.
 allow incidentd {
   system_server_service
   app_api_service

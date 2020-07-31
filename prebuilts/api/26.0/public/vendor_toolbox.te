@@ -7,7 +7,7 @@ type vendor_toolbox_exec, exec_type, vendor_file_type, file_type;
 # or read, execute the vendor_toolbox file.
 full_treble_only(`
     # Do not allow non-vendor domains to transition
-    # to vendor toolbox except for the whitelisted domains.
+    # to vendor toolbox except for the allowlisted domains.
     neverallow {
         coredomain
         -init
