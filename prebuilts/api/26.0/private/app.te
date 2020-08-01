@@ -494,7 +494,7 @@ neverallow appdomain {
   tmpfs
 }:lnk_file no_w_file_perms;
 
-# Blacklist app domains not allowed to execute from /data
+# Denylist app domains not allowed to execute from /data
 neverallow {
   bluetooth
   isolated_app
@@ -515,7 +515,7 @@ neverallow {
   -shell # bugreport
 } input_device:chr_file ~getattr;
 
-# Do not allow access to Bluetooth-related system properties except for a few whitelisted domains.
+# Do not allow access to Bluetooth-related system properties except for a few allowlisted domains.
 # neverallow rules for access to Bluetooth-related data files are above.
 neverallow {
   appdomain

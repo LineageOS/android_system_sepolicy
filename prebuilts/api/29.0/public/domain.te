@@ -260,19 +260,19 @@ allow domain debugfs_trace_marker:file w_file_perms;
 allow domain fs_type:filesystem getattr;
 allow domain fs_type:dir getattr;
 
-# Restrict all domains to a whitelist for common socket types. Additional
+# Restrict all domains to a allowlist for common socket types. Additional
 # ioctl commands may be added to individual domains, but this sets safe
-# defaults for all processes. Note that granting this whitelist to domain does
+# defaults for all processes. Note that granting this allowlist to domain does
 # not grant the ioctl permission on these socket types. That must be granted
 # separately.
 allowxperm domain domain:{ icmp_socket rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
-# default whitelist for unix sockets.
+# default allowlist for unix sockets.
 allowxperm domain { domain pdx_channel_socket_type }:{ unix_dgram_socket unix_stream_socket }
   ioctl unpriv_unix_sock_ioctls;
 
-# Restrict PTYs to only whitelisted ioctls.
-# Note that granting this whitelist to domain does
+# Restrict PTYs to only allowlisted ioctls.
+# Note that granting this allowlist to domain does
 # not grant the wider ioctl permission. That must be granted
 # separately.
 allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
@@ -288,7 +288,7 @@ allowxperm domain tun_device:chr_file ioctl { FIOCLEX FIONCLEX };
 
 # Allow a process to make a determination whether a file descriptor
 # for a plain file or pipe (fifo_file) is a tty. Note that granting
-# this whitelist to domain does not grant the ioctl permission to
+# this allowlist to domain does not grant the ioctl permission to
 # these files. That must be granted separately.
 allowxperm domain { file_type fs_type }:file ioctl { TCGETS };
 allowxperm domain domain:fifo_file ioctl { TCGETS };
@@ -331,7 +331,7 @@ allow domain apex_mnt_dir:lnk_file r_file_perms;
 ###
 
 # All ioctls on file-like objects (except chr_file and blk_file) and
-# sockets must be restricted to a whitelist.
+# sockets must be restricted to a allowlist.
 neverallowxperm * *:{ dir notdevfile_class_set socket_class_set blk_file } ioctl { 0 };
 
 # b/68014825 and https://android-review.googlesource.com/516535
@@ -346,7 +346,7 @@ neverallowxperm * devpts:chr_file ioctl TIOCSTI;
 # Do not allow any domain other than init to create unlabeled files.
 neverallow { domain -init -recovery } unlabeled:dir_file_class_set create;
 
-# Limit device node creation to these whitelisted domains.
+# Limit device node creation to these allowlisted domains.
 neverallow {
   domain
   -kernel
@@ -544,7 +544,7 @@ compatible_property_only(`
 ')
 
 # Do not allow reading device's serial number from system properties except form
-# a few whitelisted domains.
+# a few allowlisted domains.
 neverallow {
   domain
   -adbd
@@ -951,7 +951,7 @@ full_treble_only(`
 
 full_treble_only(`
     # Do not allow vendor components to execute files from system
-    # except for the ones whitelist here.
+    # except for the ones allowlist here.
     neverallow {
         domain
         -coredomain
@@ -970,7 +970,7 @@ full_treble_only(`
 
 full_treble_only(`
     # Do not allow system components to execute files from vendor
-    # except for the ones whitelisted here.
+    # except for the ones allowlisted here.
     neverallow {
       coredomain
       -init
@@ -998,7 +998,7 @@ full_treble_only(`
 
 full_treble_only(`
   # Do not allow system components access to /vendor files except for the
-  # ones whitelisted here.
+  # ones allowlisted here.
   neverallow {
     coredomain
     # TODO(b/37168747): clean up fwk access to /vendor
@@ -1028,7 +1028,7 @@ full_treble_only(`
 
 full_treble_only(`
   # Do not allow vendor components access to /system files except for the
-  # ones whitelisted here.
+  # ones allowlisted here.
   neverallow {
     domain
     -appdomain
@@ -1215,7 +1215,7 @@ neverallow {
 
 # In addition to the symlink reading restrictions above, restrict
 # write access to shell owned directories. The /data/local/tmp
-# directory is untrustworthy, and non-whitelisted domains should
+# directory is untrustworthy, and non-allowlisted domains should
 # not be trusting any content in those directories.
 neverallow {
   domain
