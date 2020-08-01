@@ -21,8 +21,8 @@ allow hal_telephony_server bluetooth_efs_file:dir r_dir_perms;
 
 # property service
 get_prop(hal_telephony_server, telephony_config_prop)
+set_prop(hal_telephony_server, radio_control_prop)
 set_prop(hal_telephony_server, radio_prop)
-set_prop(hal_telephony_server, exported3_radio_prop)
 set_prop(hal_telephony_server, telephony_status_prop)
 
 allow hal_telephony_server tty_device:chr_file rw_file_perms;
