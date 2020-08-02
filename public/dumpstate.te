@@ -139,6 +139,7 @@ binder_call(dumpstate, { appdomain netd wificond })
 dump_hal(hal_dumpstate)
 dump_hal(hal_wifi)
 dump_hal(hal_graphics_allocator)
+dump_hal(hal_light)
 dump_hal(hal_neuralnetworks)
 dump_hal(hal_thermal)
 dump_hal(hal_power)
@@ -335,6 +336,8 @@ allow dumpstate snapshotctl_log_data_file:file r_file_perms;
 #Allow access to /dev/binderfs/binder_logs
 allow dumpstate binderfs_logs:dir r_dir_perms;
 allow dumpstate binderfs_logs:file r_file_perms;
+
+allow dumpstate apex_info_file:file getattr;
 
 ###
 ### neverallow rules

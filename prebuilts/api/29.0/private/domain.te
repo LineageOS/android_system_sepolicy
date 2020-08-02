@@ -83,7 +83,7 @@ userdebug_or_eng(`
 ')
 
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
-# with other UIDs to these whitelisted domains.
+# with other UIDs to these allowlisted domains.
 neverallow {
   domain
   -vold
@@ -185,7 +185,7 @@ neverallow {
 
 #
 # Assert that, to the extent possible, we're not loading executable content from
-# outside the rootfs or /system partition except for a few whitelisted domains.
+# outside the rootfs or /system partition except for a few allowlisted domains.
 # Executable files loaded from /data is a persistence vector
 # we want to avoid. See
 # https://bugs.chromium.org/p/project-zero/issues/detail?id=955 for example.
@@ -299,7 +299,7 @@ neverallow {
     -zygote
 } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
 
-# Limit raw I/O to these whitelisted domains. Do not apply to debug builds.
+# Limit raw I/O to these allowlisted domains. Do not apply to debug builds.
 neverallow {
   domain
   userdebug_or_eng(`-domain')

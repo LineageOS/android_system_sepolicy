@@ -59,7 +59,7 @@ userdebug_or_eng(`
   hal_client_domain(atrace, hal_vibrator)
 ')
 
-# Remove logspam from notification attempts to non-whitelisted services.
+# Remove logspam from notification attempts to non-allowlisted services.
 dontaudit atrace hwservice_manager_type:hwservice_manager find;
 dontaudit atrace service_manager_type:service_manager find;
 dontaudit atrace domain:binder call;

@@ -109,6 +109,7 @@ compatible_property_only(`
 
 # Properties which can be written only by vendor_init
 system_vendor_config_prop(aaudio_config_prop)
+system_vendor_config_prop(adbd_config_prop)
 system_vendor_config_prop(apk_verity_prop)
 system_vendor_config_prop(audio_config_prop)
 system_vendor_config_prop(build_odm_prop)
@@ -183,6 +184,7 @@ system_public_prop(lowpan_prop)
 system_public_prop(nfc_prop)
 system_public_prop(ota_prop)
 system_public_prop(powerctl_prop)
+system_public_prop(radio_control_prop)
 system_public_prop(radio_prop)
 system_public_prop(serialno_prop)
 system_public_prop(surfaceflinger_color_prop)

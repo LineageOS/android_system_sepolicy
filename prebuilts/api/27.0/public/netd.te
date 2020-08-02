@@ -3,7 +3,7 @@ type netd, domain, mlstrustedsubject;
 type netd_exec, exec_type, file_type;
 
 net_domain(netd)
-# in addition to ioctls whitelisted for all domains, grant netd priv_sock_ioctls.
+# in addition to ioctls allowlisted for all domains, grant netd priv_sock_ioctls.
 allowxperm netd self:udp_socket ioctl priv_sock_ioctls;
 
 r_dir_file(netd, cgroup)
