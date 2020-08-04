@@ -35,6 +35,7 @@ dontaudit update_engine kernel:system module_request;
 # Register the service to perform Binder IPC.
 binder_use(update_engine)
 add_service(update_engine, update_engine_service)
+add_service(update_engine, update_engine_stable_service)
 
 # Allow update_engine to call the callback function provided by priv_app/GMS core.
 binder_call(update_engine, priv_app)
