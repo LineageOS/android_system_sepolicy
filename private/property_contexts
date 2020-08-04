@@ -238,6 +238,7 @@ ro.enable_boot_charger_mode u:object_r:charger_config_prop:s0 exact bool
 ro.virtual_ab.enabled   u:object_r:virtual_ab_prop:s0
 ro.virtual_ab.retrofit  u:object_r:virtual_ab_prop:s0
 
+ro.product.ab_ota_partitions u:object_r:ota_prop:s0 exact string
 # Property to set/clear the warm reset flag after an OTA update.
 ota.warm_reset  u:object_r:ota_prop:s0
 
