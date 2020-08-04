@@ -5,8 +5,8 @@ app_domain(radio)
 read_runtime_log_tags(radio)
 
 # Property service
+set_prop(radio, radio_control_prop)
 set_prop(radio, radio_prop)
-set_prop(radio, exported3_radio_prop)
 set_prop(radio, net_radio_prop)
 set_prop(radio, telephony_status_prop)
 
