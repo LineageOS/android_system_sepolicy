@@ -16,4 +16,7 @@ allow linkerconfig devpts:chr_file { read write };
 # Allow linkerconfig to scan for apex modules
 allow linkerconfig apex_mnt_dir:dir r_dir_perms;
 
+# Allow linkerconfig to read apex-info-list.xml
+allow linkerconfig apex_info_file:file r_file_perms;
+
 neverallow { domain -init -linkerconfig } linkerconfig_exec:file no_x_file_perms;
