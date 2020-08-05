@@ -136,6 +136,16 @@ allow system_app keystore:keystore_key {
     user_changed
 };
 
+allow system_app keystore:keystore2_key {
+    delete
+    get_info
+    grant
+    list
+    rebind
+    update
+    use
+};
+
 # settings app reads /proc/version
 allow system_app {
   proc_version
