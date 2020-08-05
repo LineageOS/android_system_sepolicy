@@ -711,6 +711,31 @@ class keystore_key
 	gen_unique_id
 }
 
+class keystore2
+{
+	add_auth
+	clear_ns
+	get_state
+	lock
+	reset
+	unlock
+}
+
+class keystore2_key
+{
+	delete
+	gen_unique_id
+	get_info
+	grant
+	list
+	manage_blob
+	rebind
+	req_forced_op
+	update
+	use
+	use_dev_id
+}
+
 class drmservice {
 	consumeRights
 	setPlaybackStatus
