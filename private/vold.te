@@ -31,3 +31,17 @@ set_prop(vold, restorecon_prop)
 set_prop(vold, ota_prop)
 set_prop(vold, boottime_prop)
 set_prop(vold, boottime_public_prop)
+
+# Vold will use Keystore instead of using Keymint directly. But it still needs
+# to manage its Keymint blobs. This is why it needs the `manage_blob` permission.
+allow vold vold_key:keystore2_key {
+    delete
+    get_info
+    list
+    manage_blob
+    rebind
+    req_forced_op
+    update
+    use
+};
+
