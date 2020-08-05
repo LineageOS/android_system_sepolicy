@@ -13,6 +13,7 @@ aidl_lazy_test_1                          u:object_r:aidl_lazy_test_service:s0
 aidl_lazy_test_2                          u:object_r:aidl_lazy_test_service:s0
 alarm                                     u:object_r:alarm_service:s0
 android.os.UpdateEngineService            u:object_r:update_engine_service:s0
+android.os.UpdateEngineStableService      u:object_r:update_engine_stable_service:s0
 android.security.identity                 u:object_r:credstore_service:s0
 android.security.keystore                 u:object_r:keystore_service:s0
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
@@ -157,6 +158,7 @@ otadexopt                                 u:object_r:otadexopt_service:s0
 overlay                                   u:object_r:overlay_service:s0
 package                                   u:object_r:package_service:s0
 package_native                            u:object_r:package_native_service:s0
+people                                    u:object_r:people_service:s0
 permission                                u:object_r:permission_service:s0
 permissionmgr                             u:object_r:permissionmgr_service:s0
 persistent_data_block                     u:object_r:persistent_data_block_service:s0
@@ -165,6 +167,7 @@ phone1                                    u:object_r:radio_service:s0
 phone2                                    u:object_r:radio_service:s0
 phone                                     u:object_r:radio_service:s0
 pinner                                    u:object_r:pinner_service:s0
+power_stats                               u:object_r:power_stats_service:s0
 power                                     u:object_r:power_service:s0
 print                                     u:object_r:print_service:s0
 processinfo                               u:object_r:processinfo_service:s0
