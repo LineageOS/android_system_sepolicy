@@ -92,6 +92,7 @@ func init() {
 	android.RegisterModuleType("hwservice_contexts", hwServiceFactory)
 	android.RegisterModuleType("property_contexts", propertyFactory)
 	android.RegisterModuleType("service_contexts", serviceFactory)
+	android.RegisterModuleType("keystore2_key_contexts", keystoreKeyFactory)
 
 	android.PreDepsMutators(func(ctx android.RegisterMutatorsContext) {
 		ctx.BottomUp("selinux_contexts", selinuxContextsMutator).Parallel()
@@ -422,6 +423,12 @@ func propertyFactory() android.Module {
 }
 
 func serviceFactory() android.Module {
+	m := newModule()
+	m.build = m.buildGeneralContexts
+	return m
+}
+
+func keystoreKeyFactory() android.Module {
 	m := newModule()
 	m.build = m.buildGeneralContexts
 	return m

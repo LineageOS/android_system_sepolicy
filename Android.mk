@@ -272,6 +272,7 @@ LOCAL_REQUIRED_MODULES += \
     build_sepolicy \
     plat_file_contexts \
     plat_file_contexts_test \
+    plat_keystore2_key_contexts \
     plat_mac_permissions.xml \
     plat_property_contexts \
     plat_property_contexts_test \
