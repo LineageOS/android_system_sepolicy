@@ -18,5 +18,7 @@ allow binderservicedomain appdomain:fifo_file write;
 allow binderservicedomain permission_service:service_manager find;
 
 allow binderservicedomain keystore:keystore_key { get_state get insert delete exist list sign verify };
+allow binderservicedomain keystore:keystore2 { get_state };
+allow binderservicedomain keystore:keystore2_key { delete get_info list rebind use };
 
 use_keystore(binderservicedomain)
