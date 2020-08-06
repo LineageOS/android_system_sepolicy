@@ -9,5 +9,4 @@ hal_server_domain(healthd, hal_health)
 # process when running in charger mode.
 set_prop(healthd, system_prop)
 set_prop(healthd, exported_system_prop)
-set_prop(healthd, exported2_system_prop)
 set_prop(healthd, exported3_system_prop)
