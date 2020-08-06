@@ -101,6 +101,9 @@ attribute system_restricted_property_type;
 # All /system-defined properties with no restrictions.
 attribute system_public_property_type;
 
+# All keystore2_key labels.
+attribute keystore2_key_type;
+
 # All properties defined by /product.
 # Currently there are no enforcements between /system and /product, so for now
 # /product attributes are just replaced to /system attributes.

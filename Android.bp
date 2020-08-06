@@ -289,6 +289,11 @@ se_filegroup {
     srcs: ["service_contexts"],
 }
 
+se_filegroup {
+    name: "keystore2_key_contexts_files",
+    srcs: ["keystore2_key_contexts"],
+}
+
 file_contexts {
     name: "plat_file_contexts",
     srcs: [":file_contexts_files"],
@@ -421,6 +426,30 @@ service_contexts {
 service_contexts {
     name: "vendor_service_contexts",
     srcs: [":service_contexts_files"],
+    reqd_mask: true,
+    soc_specific: true,
+}
+
+keystore2_key_contexts {
+    name: "plat_keystore2_key_contexts",
+    srcs: [":keystore2_key_contexts_files"],
+}
+
+keystore2_key_contexts {
+    name: "system_keystore2_key_contexts",
+    srcs: [":keystore2_key_contexts_files"],
+    system_ext_specific: true,
+}
+
+keystore2_key_contexts {
+    name: "product_keystore2_key_contexts",
+    srcs: [":keystore2_key_contexts_files"],
+    product_specific: true,
+}
+
+keystore2_key_contexts {
+    name: "vendor_keystore2_key_contexts",
+    srcs: [":keystore2_key_contexts_files"],
     reqd_mask: true,
     soc_specific: true,
 }

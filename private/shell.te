@@ -144,3 +144,9 @@ userdebug_or_eng(`set_prop(shell, persist_debug_prop)')
 userdebug_or_eng(`
   allow shell profcollectd:binder call;
 ')
+
+# Allow shell to read the keystore key contexts files. Used by native tests to test label lookup.
+allow shell keystore2_key_contexts_file:file r_file_perms;
+
+# Allow shell to access the keystore2_key namespace shell_key. Mainly used for native tests.
+allow shell shell_key:keystore2_key { delete rebind use get_info list update };
