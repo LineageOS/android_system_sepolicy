@@ -824,6 +824,26 @@ allow system_server keystore:keystore_key {
 	user_changed
 };
 
+allow system_server keystore:keystore2 {
+	add_auth
+	clear_ns
+	get_state
+	lock
+	reset
+	unlock
+};
+
+allow system_server keystore:keystore2_key {
+	delete
+	use_dev_id
+	grant
+	get_info
+	list
+	rebind
+	update
+	use
+};
+
 # Allow system server to search and write to the persistent factory reset
 # protection partition. This block device does not get wiped in a factory reset.
 allow system_server block_device:dir search;
