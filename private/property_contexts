@@ -611,6 +611,18 @@ ro.product.manufacturer  u:object_r:build_prop:s0 exact string
 ro.product.model         u:object_r:build_prop:s0 exact string
 ro.product.name          u:object_r:build_prop:s0 exact string
 
+# Sanitizer properties
+ro.sanitize.address          u:object_r:build_prop:s0 exact bool
+ro.sanitize.cfi              u:object_r:build_prop:s0 exact bool
+ro.sanitize.default-ub       u:object_r:build_prop:s0 exact bool
+ro.sanitize.fuzzer           u:object_r:build_prop:s0 exact bool
+ro.sanitize.hwaddress        u:object_r:build_prop:s0 exact bool
+ro.sanitize.integer_overflow u:object_r:build_prop:s0 exact bool
+ro.sanitize.safe-stack       u:object_r:build_prop:s0 exact bool
+ro.sanitize.scudo            u:object_r:build_prop:s0 exact bool
+ro.sanitize.thread           u:object_r:build_prop:s0 exact bool
+ro.sanitize.undefined        u:object_r:build_prop:s0 exact bool
+
 # All odm build props are set by /odm/build.prop
 ro.odm.build.date                u:object_r:build_odm_prop:s0 exact string
 ro.odm.build.date.utc            u:object_r:build_odm_prop:s0 exact int
