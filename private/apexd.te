@@ -37,6 +37,7 @@ allowxperm apexd loop_device:blk_file ioctl {
   LOOP_SET_DIRECT_IO
   LOOP_CLR_FD
   BLKFLSBUF
+  LOOP_CONFIGURE
 };
 # allow apexd to access /dev/block
 allow apexd block_device:dir r_dir_perms;
