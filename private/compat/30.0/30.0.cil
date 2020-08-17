@@ -1,4 +1,5 @@
 ;; types removed from current policy
+(type cgroup_bpf)
 (type exported_audio_prop)
 (type exported_dalvik_prop)
 (type exported_ffs_prop)
