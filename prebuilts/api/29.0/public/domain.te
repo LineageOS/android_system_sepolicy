@@ -431,7 +431,7 @@ neverallow * vendor_init:binder *;
 
 # Don't allow raw read/write/open access to block_device
 # Rather force a relabel to a more specific type
-neverallow { domain -kernel -init -recovery } block_device:blk_file { open read write };
+neverallow { domain -kernel -init -recovery -update_engine } block_device:blk_file { open read write };
 
 # Do not allow renaming of block files or character files
 # Ability to do so can lead to possible use in an exploit chain
