@@ -517,6 +517,7 @@ drm.service.enabled u:object_r:drm_service_config_prop:s0 exact bool
 
 dumpstate.dry_run u:object_r:exported_dumpstate_prop:s0 exact bool
 dumpstate.unroot  u:object_r:exported_dumpstate_prop:s0 exact bool
+persist.dumpstate.verbose_logging.enabled u:object_r:hal_dumpstate_config_prop:s0 exact bool
 
 hal.instrumentation.enable u:object_r:hal_instrumentation_prop:s0 exact bool
 
