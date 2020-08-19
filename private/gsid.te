@@ -133,7 +133,10 @@ allow gsid {
 allowxperm gsid {
       gsi_data_file
       ota_image_data_file
-}:file ioctl FS_IOC_FIEMAP;
+}:file ioctl {
+      FS_IOC_FIEMAP
+      FS_IOC_GETFLAGS
+};
 
 allow gsid system_server:binder call;
 
