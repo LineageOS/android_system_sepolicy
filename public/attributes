@@ -108,9 +108,9 @@ attribute keystore2_key_type;
 # Currently there are no enforcements between /system and /product, so for now
 # /product attributes are just replaced to /system attributes.
 define(`product_property_type',   `system_property_type')
-define(`product_internal_type',   `system_internal_property_type')
-define(`product_restricted_type', `system_restricted_property_type')
-define(`product_public_type',     `system_public_property_type')
+define(`product_internal_property_type',   `system_internal_property_type')
+define(`product_restricted_property_type', `system_restricted_property_type')
+define(`product_public_property_type',     `system_public_property_type')
 
 # All properties defined by /vendor.
 attribute vendor_property_type;
