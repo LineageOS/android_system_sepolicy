@@ -67,6 +67,8 @@ dalvik.vm.method-trace-file-siz u:object_r:exported_dalvik_prop:s0 exact int
 dalvik.vm.method-trace-stream u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.profilesystemserver u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.profilebootclasspath u:object_r:exported_dalvik_prop:s0 exact bool
+dalvik.vm.restore-dex2oat-cpu-set u:object_r:exported_dalvik_prop:s0 exact string
+dalvik.vm.restore-dex2oat-threads u:object_r:exported_dalvik_prop:s0 exact int
 dalvik.vm.usejit u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.usejitprofiles u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.zygote.max-boot-retry u:object_r:exported_dalvik_prop:s0 exact int
