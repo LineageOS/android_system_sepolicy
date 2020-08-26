@@ -579,6 +579,7 @@ allow init vold_metadata_file:dir create_dir_perms;
 allow init vold_metadata_file:file getattr;
 allow init metadata_bootstat_file:dir create_dir_perms;
 allow init metadata_bootstat_file:file w_file_perms;
+allow init userspace_reboot_metadata_file:file w_file_perms;
 
 # Allow init to touch PSI monitors
 allow init proc_pressure_mem:file { rw_file_perms setattr };
