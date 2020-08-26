@@ -233,6 +233,8 @@ type apex_metadata_file, file_type;
 type ota_metadata_file, file_type;
 # property files within /metadata/bootstat
 type metadata_bootstat_file, file_type;
+# userspace reboot files within /metadata/userspacereboot
+type userspace_reboot_metadata_file, file_type;
 # Staged install files within /metadata/staged-install
 type staged_install_file, file_type;
 
