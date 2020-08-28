@@ -294,7 +294,7 @@ def TestViolatorAttribute(attribute):
     return ret
 
 def TestViolatorAttributes():
-    ret = TestViolatorAttribute("binder_in_vendor_violators")
+    ret = ""
     ret += TestViolatorAttribute("socket_between_core_and_vendor_violators")
     ret += TestViolatorAttribute("vendor_executes_system_violators")
     return ret

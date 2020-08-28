@@ -18,6 +18,8 @@
 (type ffs_prop)
 (type system_radio_prop)
 
+(typeattribute binder_in_vendor_violators)
+
 (expandtypeattribute (DockObserver_service_30_0) true)
 (expandtypeattribute (IProxyService_service_30_0) true)
 (expandtypeattribute (accessibility_service_30_0) true)
