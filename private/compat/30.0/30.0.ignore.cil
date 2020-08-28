@@ -8,6 +8,8 @@
     adbd_config_prop
     apex_info_file
     debugfs_kprobes
+    gki_apex_prepostinstall
+    gki_apex_prepostinstall_exec
     gnss_device
     hal_dumpstate_config_prop
     keystore2_key_contexts_file
