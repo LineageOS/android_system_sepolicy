@@ -1,0 +1,2 @@
+(/.*)?       u:object_r:system_file:s0
+/bin/(.*)?   u:object_r:gki_apex_prepostinstall_exec:s0
