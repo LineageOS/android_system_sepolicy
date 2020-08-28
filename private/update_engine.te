@@ -14,3 +14,6 @@ set_prop(update_engine, ota_prop)
 
 # Allow to get the DSU status
 get_prop(update_engine, gsid_prop)
+
+# Allow update_engine to call the callback function provided by GKI update hook.
+binder_call(update_engine, gki_apex_prepostinstall)
