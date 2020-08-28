@@ -200,11 +200,6 @@ attribute coredomain;
 attribute coredomain_socket;
 expandattribute coredomain_socket false;
 
-# All vendor domains which violate the requirement of not using Binder
-# TODO(b/35870313): Remove this once there are no violations
-attribute binder_in_vendor_violators;
-expandattribute binder_in_vendor_violators false;
-
 # All vendor domains which violate the requirement of not using sockets for
 # communicating with core components
 # TODO(b/36577153): Remove this once there are no violations
