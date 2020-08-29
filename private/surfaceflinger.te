@@ -56,6 +56,7 @@ set_prop(surfaceflinger, system_prop)
 set_prop(surfaceflinger, exported_system_prop)
 set_prop(surfaceflinger, exported3_system_prop)
 set_prop(surfaceflinger, ctl_bootanim_prop)
+set_prop(surfaceflinger, surfaceflinger_display_prop)
 
 # Use open files supplied by an app.
 allow surfaceflinger appdomain:fd use;

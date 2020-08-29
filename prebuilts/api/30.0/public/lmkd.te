@@ -60,9 +60,6 @@ allow lmkd proc_pressure_io:file r_file_perms;
 # Read/Write /proc/pressure/memory
 allow lmkd proc_pressure_mem:file rw_file_perms;
 
-# Allow lmkd to connect during reinit.
-allow lmkd lmkd_socket:sock_file write;
-
 # Allow lmkd to write to statsd.
 unix_socket_send(lmkd, statsdw, statsd)
 

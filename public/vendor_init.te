@@ -250,6 +250,7 @@ get_prop(vendor_init, exported3_system_prop)
 get_prop(vendor_init, ota_prop)
 get_prop(vendor_init, provisioned_prop)
 get_prop(vendor_init, retaildemo_prop)
+get_prop(vendor_init, surfaceflinger_display_prop)
 get_prop(vendor_init, theme_prop)
 
 
