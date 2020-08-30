@@ -644,7 +644,6 @@ full_treble_only(`
   neverallow {
     domain
     -coredomain
-    -binder_in_vendor_violators # TODO(b/131617943) remove once all violators are gone
   } {
     service_manager_type
     -vendor_service
