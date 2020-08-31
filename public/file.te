@@ -308,6 +308,8 @@ type dropbox_data_file, file_type, data_file_type, core_data_file_type;
 type heapdump_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/nativetest
 type nativetest_data_file, file_type, data_file_type, core_data_file_type;
+# /data/local/tests
+type shell_test_data_file, file_type, data_file_type, core_data_file_type;
 # /data/system_de/0/ringtones
 type ringtone_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/preloads
