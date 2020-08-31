@@ -77,6 +77,8 @@ userdebug_or_eng(`
   allow gsid adbd:unix_stream_socket rw_socket_perms;
   # gsi_tool passes a FIFO to gsid if invoked with pipe redirection.
   allow gsid { shell su }:fifo_file r_file_perms;
+  # Allow installing images from /storage/emulated/...
+  allow gsid sdcard_type:file r_file_perms;
 ')
 
 neverallow {
