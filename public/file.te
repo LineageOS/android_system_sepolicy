@@ -109,6 +109,8 @@ type sysfs_fs_ext4_features, sysfs_type, fs_type;
 type sysfs_fs_f2fs, sysfs_type, fs_type;
 type fs_bpf, fs_type;
 type configfs, fs_type;
+# /sys/devices/cs_etm
+type sysfs_devices_cs_etm, fs_type, sysfs_type;
 # /sys/devices/system/cpu
 type sysfs_devices_system_cpu, fs_type, sysfs_type;
 # /sys/module/lowmemorykiller
