@@ -724,25 +724,6 @@ full_treble_only(`
     -socket_between_core_and_vendor_violators
   });
 ')
-  # Vendor domains are not permitted to initiate communications to core domain sockets
-full_treble_only(`
-  neverallow_establish_socket_comms({
-    domain
-    -coredomain
-    -appdomain
-    -socket_between_core_and_vendor_violators
-  }, {
-    coredomain
-    -logd # Logging by writing to logd Unix domain socket is public API
-    -netd # netdomain needs this
-    -mdnsd # netdomain needs this
-    userdebug_or_eng(`-su') # communications with su are permitted only on userdebug or eng builds
-    -init
-    -tombstoned # linker to tombstoned
-    userdebug_or_eng(`-heapprofd')
-    userdebug_or_eng(`-traced_perf')
-  });
-')
 
   # Vendor domains are not permitted to initiate create/open sockets owned by core domains
 full_treble_only(`
@@ -1002,41 +983,6 @@ full_treble_only(`
       vendor_file_type
       -same_process_hal_file
     }:file execute_no_trans;
-')
-
-full_treble_only(`
-  # Do not allow system components access to /vendor files except for the
-  # ones allowed here.
-  neverallow {
-    coredomain
-    # TODO(b/37168747): clean up fwk access to /vendor
-    -crash_dump
-    -init # starts vendor executables
-    -iorap_inode2filename
-    -iorap_prefetcherd
-    -kernel # loads /vendor/firmware
-    userdebug_or_eng(`-heapprofd')
-    -shell
-    -system_executes_vendor_violators
-    -traced_perf # library/binary access for symbolization
-    -ueventd # reads /vendor/ueventd.rc
-    -vold # loads incremental fs driver
-  } {
-    vendor_file_type
-    -same_process_hal_file
-    -vendor_app_file
-    -vendor_apex_file
-    -vendor_configs_file
-    -vendor_service_contexts_file
-    -vendor_framework_file
-    -vendor_idc_file
-    -vendor_keychars_file
-    -vendor_keylayout_file
-    -vendor_overlay_file
-    -vendor_public_lib_file
-    -vendor_task_profiles_file
-    -vndk_sp_file
-  }:file *;
 ')
 
 full_treble_only(`
@@ -1340,24 +1286,6 @@ neverallow ~coredomain coredomain_hwservice:hwservice_manager add;
 # be passthrough only (i.e., run in the process of their clients instead of a
 # separate server process).
 neverallow * same_process_hwservice:hwservice_manager add;
-
-# On TREBLE devices, most coredomains should not access vendor_files.
-# TODO(b/71553434): Remove exceptions here.
-full_treble_only(`
-  neverallow {
-    coredomain
-    -appdomain
-    -bootanim
-    -crash_dump
-    -heapprofd
-    -init
-    -iorap_inode2filename
-    -iorap_prefetcherd
-    -kernel
-    -traced_perf
-    -ueventd
-  } vendor_file:file { no_w_file_perms no_x_file_perms open };
-')
 
 # If an already existing file is opened with O_CREAT, the kernel might generate
 # a false report of a create denial. Silence these denials and make sure that
