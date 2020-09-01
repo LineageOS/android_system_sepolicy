@@ -154,15 +154,6 @@ recovery_only(`
 
   # Allow mounting /metadata for writing update states
   allow recovery metadata_file:dir { getattr mounton };
-
-  # These are needed to allow recovery to manage network
-  allow recovery self:netlink_route_socket { create write read nlmsg_readpriv nlmsg_read };
-  allow recovery self:global_capability_class_set net_admin;
-  allow recovery self:tcp_socket { create ioctl };
-  allowxperm recovery self:tcp_socket ioctl { SIOCGIFFLAGS SIOCSIFFLAGS };
-
-  # Set fastbootd protocol property
-  set_prop(recovery, fastbootd_protocol_prop)
 ')
 
 ###

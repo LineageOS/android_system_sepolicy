@@ -42,7 +42,6 @@ llk.                    u:object_r:llkd_prop:s0
 khungtask.              u:object_r:llkd_prop:s0
 ro.llk.                 u:object_r:llkd_prop:s0
 ro.khungtask.           u:object_r:llkd_prop:s0
-lmkd.reinit             u:object_r:lmkd_prop:s0 exact int
 log.                    u:object_r:log_prop:s0
 log.tag                 u:object_r:log_tag_prop:s0
 log.tag.WifiHAL         u:object_r:wifi_log_prop:s0
@@ -96,9 +95,6 @@ test.sys.boot.reason    u:object_r:test_boot_reason_prop:s0
 test.userspace_reboot.requested u:object_r:userspace_reboot_test_prop:s0
 sys.lmk.                u:object_r:system_lmk_prop:s0
 sys.trace.              u:object_r:system_trace_prop:s0
-
-# Fastbootd protocol control property
-fastbootd.protocol    u:object_r:fastbootd_protocol_prop:s0 exact enum usb tcp
 
 # Boolean property set by system server upon boot indicating
 # if device is fully owned by organization instead of being
@@ -253,9 +249,6 @@ persist.sys.userspace_reboot.log. u:object_r:userspace_reboot_log_prop:s0
 # history size.
 ro.lib_gui.frame_event_history_size u:object_r:bq_config_prop:s0
 
-# Property to enable incremental feature
-ro.incremental.enable      u:object_r:incremental_prop:s0
-
 # Properties to configure userspace reboot.
 init.userspace_reboot.is_supported u:object_r:userspace_reboot_config_prop:s0 exact bool
 init.userspace_reboot.sigkill.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
@@ -263,3 +256,6 @@ init.userspace_reboot.sigterm.timeoutmillis u:object_r:userspace_reboot_config_p
 init.userspace_reboot.started.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
 init.userspace_reboot.userdata_remount.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
 init.userspace_reboot.watchdog.timeoutmillis u:object_r:userspace_reboot_config_prop:s0 exact int
+
+# surfaceflinger-settable
+graphics.display.kernel_idle_timer.enabled u:object_r:surfaceflinger_display_prop:s0 exact bool

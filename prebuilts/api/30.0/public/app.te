@@ -566,6 +566,10 @@ neverallow {
   -system_app
 } { bluetooth_audio_hal_prop bluetooth_a2dp_offload_prop bluetooth_prop exported_bluetooth_prop }:file create_file_perms;
 
+
+# Don't allow apps access to storage configuration properties.
+neverallow appdomain storage_config_prop:file no_rw_file_perms;
+
 # Apps cannot access proc_uid_time_in_state
 neverallow appdomain proc_uid_time_in_state:file *;
 

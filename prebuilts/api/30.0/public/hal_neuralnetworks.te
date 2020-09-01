@@ -18,9 +18,6 @@ allow hal_neuralnetworks_server shell_data_file:file { read write getattr map };
 # Allow NN HAL service to read a client-provided ION memory fd.
 allow hal_neuralnetworks_server ion_device:chr_file r_file_perms;
 
-# Allow NN HAL service to use a client-provided fd residing in /storage
-allow hal_neuralnetworks_server storage_file:file { getattr map read };
-
 # Allow NN HAL client to check the ro.nnapi.extensions.deny_on_product
 # property to determine whether to deny NNAPI extensions use for apps
 # on product partition (apps in GSI are not allowed to use NNAPI extensions).

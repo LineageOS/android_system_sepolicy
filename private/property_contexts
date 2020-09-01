@@ -575,6 +575,9 @@ ro.revision   u:object_r:bootloader_prop:s0 exact string
 ro.boot.dynamic_partitions          u:object_r:exported_default_prop:s0 exact string
 ro.boot.dynamic_partitions_retrofit u:object_r:exported_default_prop:s0 exact string
 
+ro.boottime.init.mount.data u:object_r:boottime_public_prop:s0 exact string
+ro.boottime.init.fsck.data  u:object_r:boottime_public_prop:s0 exact string
+
 ro.build.date                        u:object_r:build_prop:s0 exact string
 ro.build.date.utc                    u:object_r:build_prop:s0 exact int
 ro.build.description                 u:object_r:build_prop:s0 exact string
@@ -883,3 +886,7 @@ ro.gfx.angle.supported u:object_r:graphics_config_prop:s0 exact bool
 
 graphics.gpu.profiler.support          u:object_r:graphics_config_prop:s0 exact bool
 graphics.gpu.profiler.vulkan_layer_apk u:object_r:graphics_config_prop:s0 exact string
+
+# surfaceflinger-settable
+graphics.display.kernel_idle_timer.enabled u:object_r:surfaceflinger_display_prop:s0 exact bool
+

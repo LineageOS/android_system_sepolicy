@@ -36,8 +36,5 @@ neverallow { appdomain -shell userdebug_or_eng(`-su') }
 neverallow { appdomain -shell userdebug_or_eng(`-su') }
     { domain -appdomain }:process { dyntransition };
 
-# Don't allow regular apps access to storage configuration properties.
-neverallow { appdomain -mediaprovider_app } storage_config_prop:file no_rw_file_perms;
-
 # Allow to read graphics related properties.
 get_prop(appdomain, graphics_config_prop)

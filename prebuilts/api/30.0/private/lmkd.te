@@ -1,8 +1,3 @@
 typeattribute lmkd coredomain;
 
 init_daemon_domain(lmkd)
-
-# Set lmkd.* properties.
-set_prop(lmkd, lmkd_prop)
-
-neverallow { -init -lmkd -vendor_init } lmkd_prop:property_service set;
