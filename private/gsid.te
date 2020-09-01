@@ -69,10 +69,17 @@ allow gsid sdcard_block_device:blk_file r_file_perms;
 # requirement, but the kernel does not implement FIEMAP support for VFAT.
 allow gsid self:global_capability_class_set sys_rawio;
 
-# gsi_tool passes the system image over the adb connection, via stdin.
-allow gsid adbd:fd use;
-# Needed when running gsi_tool through "su root" rather than adb root.
-allow gsid adbd:unix_stream_socket rw_socket_perms;
+# Allow rules for gsi_tool.
+userdebug_or_eng(`
+  # gsi_tool passes the system image over the adb connection, via stdin.
+  allow gsid adbd:fd use;
+  # Needed when running gsi_tool through "su root" rather than adb root.
+  allow gsid adbd:unix_stream_socket rw_socket_perms;
+  # gsi_tool passes a FIFO to gsid if invoked with pipe redirection.
+  allow gsid { shell su }:fifo_file r_file_perms;
+  # Allow installing images from /storage/emulated/...
+  allow gsid sdcard_type:file r_file_perms;
+')
 
 neverallow {
   domain
