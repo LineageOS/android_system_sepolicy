@@ -471,6 +471,10 @@ neverallow { domain userdebug_or_eng(`-kernel') } nativetest_data_file:file_clas
 neverallow domain nativetest_data_file:dir no_w_dir_perms;
 neverallow { domain userdebug_or_eng(`-shell') } nativetest_data_file:file no_x_file_perms;
 
+neverallow { domain -shell -init -adbd } shell_test_data_file:file_class_set no_w_file_perms;
+neverallow { domain -shell -init -adbd } shell_test_data_file:dir no_w_dir_perms;
+neverallow { domain -shell -init -adbd } shell_test_data_file:file *;
+
 # Only the init property service should write to /data/property and /dev/__properties__
 neverallow { domain -init } property_data_file:dir no_w_dir_perms;
 neverallow { domain -init } property_data_file:file { no_w_file_perms no_x_file_perms };
