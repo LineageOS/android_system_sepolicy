@@ -3,6 +3,10 @@ type dexoptanalyzer, domain, coredomain, mlstrustedsubject;
 type dexoptanalyzer_exec, system_file_type, exec_type, file_type;
 type dexoptanalyzer_tmpfs, file_type;
 
+r_dir_file(dexoptanalyzer, apk_data_file)
+# Access to /vendor/app
+r_dir_file(dexoptanalyzer, vendor_app_file)
+
 # Reading an APK opens a ZipArchive, which unpack to tmpfs.
 # Use tmpfs_domain() which will give tmpfs files created by dexoptanalyzer their
 # own label, which differs from other labels created by other processes.
