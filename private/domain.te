@@ -112,6 +112,7 @@ neverallow {
   userdebug_or_eng(`-llkd')
   -dumpstate
   userdebug_or_eng(`-incidentd')
+  userdebug_or_eng(`-profcollectd')
   -storaged
   -system_server
 } self:global_capability_class_set sys_ptrace;
@@ -375,6 +376,7 @@ full_treble_only(`
     -bootanim
     -crash_dump
     -heapprofd
+    userdebug_or_eng(`-profcollectd')
     -init
     -iorap_inode2filename
     -iorap_prefetcherd
@@ -416,6 +418,7 @@ full_treble_only(`
     -iorap_prefetcherd
     -kernel # loads /vendor/firmware
     userdebug_or_eng(`-heapprofd')
+    userdebug_or_eng(`-profcollectd')
     -shell
     -system_executes_vendor_violators
     -traced_perf # library/binary access for symbolization
