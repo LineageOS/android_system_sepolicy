@@ -22,6 +22,7 @@ full_treble_only(`
         coredomain
         -appdomain
         -dex2oat
+        -dexoptanalyzer
         -idmap
         -init
         -installd
@@ -38,6 +39,7 @@ full_treble_only(`
         coredomain
         -appdomain
         -dex2oat
+        -dexoptanalyzer
         -idmap
         -init
         -installd
