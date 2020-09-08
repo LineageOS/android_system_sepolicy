@@ -18,3 +18,6 @@ allow gki_apex_prepostinstall gki_apex_prepostinstall_exec:file execute_no_trans
 binder_use(gki_apex_prepostinstall)
 allow gki_apex_prepostinstall update_engine_stable_service:service_manager find;
 binder_call(gki_apex_prepostinstall, update_engine)
+
+# /dev/zero is inherited although it is not used. See b/126787589.
+allow gki_apex_prepostinstall apexd:fd use;
