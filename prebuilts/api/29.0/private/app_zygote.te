@@ -4,9 +4,6 @@ typeattribute app_zygote coredomain;
 ###### Policy below is different from regular zygote-spawned apps
 ######
 
-# The app_zygote needs to be able to transition domains.
-typeattribute app_zygote mlstrustedsubject;
-
 # Allow access to temporary files, which is normally permitted through
 # a domain macro.
 tmpfs_domain(app_zygote);
@@ -92,12 +89,14 @@ neverallow { domain -zygote } app_zygote:process dyntransition;
 neverallow app_zygote property_socket:sock_file write;
 neverallow app_zygote property_type:property_service set;
 
-# Should not have any access to non-app data files.
+# Should not have any access to data files.
 neverallow app_zygote {
     bluetooth_data_file
     nfc_data_file
     radio_data_file
     shell_data_file
+    app_data_file
+    privapp_data_file
 }:file { rwx_file_perms };
 
 neverallow app_zygote {
