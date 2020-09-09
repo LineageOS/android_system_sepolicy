@@ -86,6 +86,9 @@ allowxperm shell shell_data_file:dir ioctl {
 # Allow shell to execute simpleperf without a domain transition.
 allow shell simpleperf_exec:file rx_file_perms;
 
+# Allow shell to execute profcollectctl without a domain transition.
+allow shell profcollectd_exec:file rx_file_perms;
+
 # Allow shell to call perf_event_open for profiling other shell processes, but
 # not the whole system.
 allow shell self:perf_event { open read write kernel };
