@@ -973,6 +973,9 @@ get_prop(system_server, time_prop)
 # on low memory kills.
 get_prop(system_server, system_lmk_prop)
 
+# Only system server can access BINDER_FREEZE
+allowxperm system_server binder_device:chr_file ioctl { BINDER_FREEZE };
+
 ###
 ### Neverallow rules
 ###
@@ -1172,3 +1175,7 @@ neverallow system_server self:perf_event ~{ open write cpu kernel };
 
 # Do not allow any domain other than init or system server to set the property
 neverallow { domain -init -system_server } socket_hook_prop:property_service set;
+
+# BINDER_FREEZE is used to block ipc transactions to frozen processes, so it
+# can be accessed by system_server only (b/143717177)
+neverallowxperm { domain -system_server } binder_device:chr_file ioctl { BINDER_FREEZE };
