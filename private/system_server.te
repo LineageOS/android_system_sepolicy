@@ -215,6 +215,7 @@ binder_call(system_server, incidentd)
 binder_call(system_server, iorapd)
 binder_call(system_server, netd)
 binder_call(system_server, notify_traceur)
+userdebug_or_eng(`binder_call(system_server, profcollectd)')
 binder_call(system_server, statsd)
 binder_call(system_server, storaged)
 binder_call(system_server, update_engine)
@@ -1012,6 +1013,9 @@ get_prop(system_server, system_lmk_prop)
 
 get_prop(system_server, wifi_config_prop)
 
+# Only system server can access BINDER_FREEZE
+allowxperm system_server binder_device:chr_file ioctl { BINDER_FREEZE };
+
 ###
 ### Neverallow rules
 ###
@@ -1230,3 +1234,7 @@ neverallow {
   -dumpstate
   -system_server
 } wifi_config_prop:file no_rw_file_perms;
+
+# BINDER_FREEZE is used to block ipc transactions to frozen processes, so it
+# can be accessed by system_server only (b/143717177)
+neverallowxperm { domain -system_server } binder_device:chr_file ioctl { BINDER_FREEZE };

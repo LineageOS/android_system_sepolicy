@@ -64,6 +64,7 @@ full_treble_only(`
         -init
         -installd
         userdebug_or_eng(`-heapprofd')
+        userdebug_or_eng(`-profcollectd')
         -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
         -system_server
@@ -110,6 +111,7 @@ full_treble_only(`
         -webview_zygote
         -zygote
         userdebug_or_eng(`-heapprofd')
+        userdebug_or_eng(`-profcollectd')
     } vendor_overlay_file:file open;
 ')
 
@@ -159,6 +161,7 @@ full_treble_only(`
     -shell
     -system_server
     -traceur_app
+    userdebug_or_eng(`-profcollectd')
   } debugfs_tracing:file no_rw_file_perms;
 
   # inotifyfs
