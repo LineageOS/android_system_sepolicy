@@ -7,6 +7,7 @@
   ( new_objects
     adbd_config_prop
     apex_info_file
+    cgroup_v2
     debugfs_kprobes
     gki_apex_prepostinstall
     gki_apex_prepostinstall_exec
@@ -24,5 +25,4 @@
     shell_test_data_file
     sysfs_devices_cs_etm
     update_engine_stable_service
-    cgroup_v2
     userspace_reboot_metadata_file))
