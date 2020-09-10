@@ -405,6 +405,13 @@ neverallow {
 }:property_service set;
 
 neverallow {
+  -init
+  -surfaceflinger
+} {
+  surfaceflinger_display_prop
+}:property_service set;
+
+neverallow {
   -coredomain
   -appdomain
   -vendor_init

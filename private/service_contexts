@@ -42,6 +42,7 @@ bluetooth_manager                         u:object_r:bluetooth_manager_service:s
 bluetooth                                 u:object_r:bluetooth_service:s0
 broadcastradio                            u:object_r:broadcastradio_service:s0
 bugreport                                 u:object_r:bugreport_service:s0
+cacheinfo                                 u:object_r:cacheinfo_service:s0
 carrier_config                            u:object_r:radio_service:s0
 clipboard                                 u:object_r:clipboard_service:s0
 com.android.net.IProxyService             u:object_r:IProxyService_service:s0
@@ -246,7 +247,7 @@ webviewupdate                             u:object_r:webviewupdate_service:s0
 wifip2p                                   u:object_r:wifip2p_service:s0
 wifiscanner                               u:object_r:wifiscanner_service:s0
 wifi                                      u:object_r:wifi_service:s0
-wificond                                  u:object_r:wifinl80211_service:s0
+wifinl80211                               u:object_r:wifinl80211_service:s0
 wifiaware                                 u:object_r:wifiaware_service:s0
 wifirtt                                   u:object_r:rttmanager_service:s0
 window                                    u:object_r:window_service:s0

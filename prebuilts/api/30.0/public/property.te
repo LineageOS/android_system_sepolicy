@@ -14,7 +14,6 @@ system_internal_prop(device_config_sys_traced_prop)
 system_internal_prop(device_config_window_manager_native_boot_prop)
 system_internal_prop(device_config_configuration_prop)
 system_internal_prop(firstboot_prop)
-system_internal_prop(fastbootd_protocol_prop)
 system_internal_prop(gsid_prop)
 system_internal_prop(init_perf_lsm_hooks_prop)
 system_internal_prop(init_svc_debug_prop)
@@ -71,11 +70,13 @@ compatible_property_only(`
 system_restricted_prop(binder_cache_bluetooth_server_prop)
 system_restricted_prop(binder_cache_system_server_prop)
 system_restricted_prop(binder_cache_telephony_server_prop)
+system_restricted_prop(boottime_public_prop)
 system_restricted_prop(bq_config_prop)
 system_restricted_prop(module_sdkextensions_prop)
 system_restricted_prop(nnapi_ext_deny_product_prop)
 system_restricted_prop(restorecon_prop)
 system_restricted_prop(socket_hook_prop)
+system_restricted_prop(surfaceflinger_display_prop)
 system_restricted_prop(system_boot_reason_prop)
 system_restricted_prop(system_jvmti_agent_prop)
 system_restricted_prop(userspace_reboot_exported_prop)
@@ -119,7 +120,6 @@ system_vendor_config_prop(exported_config_prop)
 system_vendor_config_prop(exported_default_prop)
 system_vendor_config_prop(exported3_default_prop)
 system_vendor_config_prop(graphics_config_prop)
-system_vendor_config_prop(incremental_prop)
 system_vendor_config_prop(media_variant_prop)
 system_vendor_config_prop(storage_config_prop)
 system_vendor_config_prop(userspace_reboot_config_prop)
@@ -156,7 +156,6 @@ system_public_prop(exported_system_radio_prop)
 system_public_prop(exported_wifi_prop)
 system_public_prop(sota_prop)
 system_public_prop(hwservicemanager_prop)
-system_public_prop(lmkd_prop)
 system_public_prop(logd_prop)
 system_public_prop(logpersistd_logging_prop)
 system_public_prop(log_prop)
@@ -601,4 +600,18 @@ neverallow {
   -shell
 } {
   userspace_reboot_test_prop
+}:property_service set;
+
+neverallow {
+  -init
+  -vendor_init
+} {
+  graphics_config_prop
+}:property_service set;
+
+neverallow {
+  -init
+  -surfaceflinger
+} {
+  surfaceflinger_display_prop
 }:property_service set;

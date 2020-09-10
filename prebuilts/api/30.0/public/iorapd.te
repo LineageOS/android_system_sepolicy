@@ -42,6 +42,16 @@ unix_socket_connect(iorapd, traced_consumer, traced)
 # Allow iorapd to execute compilation (iorap.cmd.compiler) in idle time.
 allow iorapd system_file:file rx_file_perms;
 
+# Allow iorapd to send signull to iorap_inode2filename and iorap_prefetcherd.
+allow iorapd iorap_inode2filename:process signull;
+allow iorapd iorap_prefetcherd:process signull;
+
+# Allowing system_server to check for the existence and size of files under iorapd
+# dir without collecting any sensitive app data.
+# This is used to predict if iorapd is doing prefetching or not.
+allow system_server iorapd_data_file:dir { getattr open read search };
+allow system_server iorapd_data_file:file getattr;
+
 ###
 ### neverallow rules
 ###
@@ -55,6 +65,7 @@ neverallow {
     domain
     -init
     -iorapd
+    -system_server
 } iorapd_data_file:dir *;
 
 neverallow {
@@ -69,6 +80,7 @@ neverallow {
     -kernel
     -vendor_init
     -iorapd
+    -system_server
 } { iorapd_data_file }:notdevfile_class_set *;
 
 # Only system_server and shell (for dumpsys) can interact with iorapd over binder

@@ -120,14 +120,6 @@ recovery_only(`
   # Determine allocation scheme (whether B partitions needs to be
   # at the second half of super.
   get_prop(fastbootd, virtual_ab_prop)
-
-  # Needed for TCP protocol
-  allow fastbootd node:tcp_socket node_bind;
-  allow fastbootd port:tcp_socket name_bind;
-  allow fastbootd self:tcp_socket { create_socket_perms_no_ioctl listen accept };
-
-  # Get fastbootd protocol property
-  get_prop(fastbootd, fastbootd_protocol_prop)
 ')
 
 ###

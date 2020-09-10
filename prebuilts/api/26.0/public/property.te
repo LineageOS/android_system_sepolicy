@@ -1,6 +1,7 @@
 type asan_reboot_prop, property_type;
 type audio_prop, property_type, core_property_type;
 type boottime_prop, property_type;
+type boottime_public_prop, property_type;
 type bluetooth_prop, property_type;
 type config_prop, property_type, core_property_type;
 type cppreopt_prop, property_type, core_property_type;
