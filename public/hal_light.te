@@ -3,13 +3,9 @@ binder_call(hal_light_client, hal_light_server)
 binder_call(hal_light_server, hal_light_client)
 
 hal_attribute_hwservice(hal_light, hal_light_hwservice)
+hal_attribute_service(hal_light, hal_light_service)
 
-# server adds itself via service_manager
-add_service(hal_light_server, hal_light_service)
 binder_call(hal_light_server, servicemanager)
-
-# client finds and uses server via service_manager
-allow hal_light_client hal_light_service:service_manager find;
 binder_use(hal_light_client)
 
 allow hal_light_server dumpstate:fifo_file write;
