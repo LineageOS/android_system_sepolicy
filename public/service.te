@@ -9,7 +9,6 @@ type dnsresolver_service,       service_manager_type;
 type drmserver_service,         service_manager_type;
 type dumpstate_service,         service_manager_type;
 type fingerprintd_service,      service_manager_type;
-type hal_fingerprint_service,   service_manager_type;
 type gatekeeper_service,        app_api_service, service_manager_type;
 type gpu_service,               app_api_service, ephemeral_app_api_service, service_manager_type;
 type idmap_service,             service_manager_type;
@@ -213,6 +212,7 @@ type emergency_affordance_service, system_server_service, service_manager_type;
 ### HAL Services
 ###
 
+type hal_fingerprint_service, vendor_service, service_manager_type;
 type hal_identity_service, vendor_service, service_manager_type;
 type hal_light_service, vendor_service, service_manager_type;
 type hal_power_service, vendor_service, service_manager_type;
