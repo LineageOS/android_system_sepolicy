@@ -11,6 +11,7 @@
     debugfs_kprobes
     gki_apex_prepostinstall
     gki_apex_prepostinstall_exec
+    hal_fingerprint_service
     gnss_device
     hal_dumpstate_config_prop
     hal_power_stats_service
@@ -26,4 +27,5 @@
     shell_test_data_file
     sysfs_devices_cs_etm
     update_engine_stable_service
+    updateable_module_file
     userspace_reboot_metadata_file))
