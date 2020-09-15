@@ -143,4 +143,10 @@ func (fg *fileGroup) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 
 	fg.vendorSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().VendorSepolicyDirs())
 	fg.odmSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().OdmSepolicyDirs())
+
+	fg.systemPublicSrcs = append(fg.systemPublicSrcs, fg.systemExtPublicSrcs...)
+	fg.systemPrivateSrcs = append(fg.systemPrivateSrcs, fg.systemExtPrivateSrcs...)
+
+	fg.systemExtPublicSrcs = nil
+	fg.systemExtPrivateSrcs = nil
 }
