@@ -14,10 +14,12 @@
     hal_fingerprint_service
     gnss_device
     hal_dumpstate_config_prop
+    hal_power_stats_service
     keystore2_key_contexts_file
     location_time_zone_manager_service
     mediatranscoding_tmpfs
     people_service
+    power_stats_service
     power_debug_prop
     profcollectd
     profcollectd_data_file
