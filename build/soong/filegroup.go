@@ -131,7 +131,11 @@ func (fg *fileGroup) DepsMutator(ctx android.BottomUpMutatorContext) {}
 
 func (fg *fileGroup) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	fg.systemPublicSrcs = fg.findSrcsInDir(ctx, filepath.Join(ctx.ModuleDir(), "public"))
+	fg.systemPublicSrcs = append(fg.systemPublicSrcs,
+		fg.findSrcsInDirs(ctx, ctx.DeviceConfig().PlatPublicSepolicyDirs())...)
 	fg.systemPrivateSrcs = fg.findSrcsInDir(ctx, filepath.Join(ctx.ModuleDir(), "private"))
+	fg.systemPrivateSrcs = append(fg.systemPrivateSrcs,
+		fg.findSrcsInDirs(ctx, ctx.DeviceConfig().PlatPrivateSepolicyDirs())...)
 	fg.systemVendorSrcs = fg.findSrcsInDir(ctx, filepath.Join(ctx.ModuleDir(), "vendor"))
 	fg.systemReqdMaskSrcs = fg.findSrcsInDir(ctx, filepath.Join(ctx.ModuleDir(), "reqd_mask"))
 
