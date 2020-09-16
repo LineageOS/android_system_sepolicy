@@ -3,11 +3,9 @@ binder_call(hal_vibrator_client, hal_vibrator_server)
 binder_call(hal_vibrator_server, hal_vibrator_client);
 
 hal_attribute_hwservice(hal_vibrator, hal_vibrator_hwservice)
+hal_attribute_service(hal_vibrator, hal_vibrator_service)
 
-add_service(hal_vibrator_server, hal_vibrator_service)
 binder_call(hal_vibrator_server, servicemanager)
-
-allow hal_vibrator_client hal_vibrator_service:service_manager find;
 
 allow hal_vibrator_server dumpstate:fifo_file write;
 
