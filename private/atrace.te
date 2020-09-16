@@ -1,7 +1,6 @@
 # Domain for atrace process.
 # It is spawned either by traced_probes or by init for the boottrace service.
 
-type atrace, domain, coredomain;
 type atrace_exec, exec_type, file_type, system_file_type;
 
 # boottrace services uses /data/misc/boottrace/categories

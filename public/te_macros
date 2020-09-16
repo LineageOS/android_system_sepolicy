@@ -654,7 +654,39 @@ define(`hal_attribute_hwservice', `
   add_hwservice($1_server, $2)
 
   build_test_only(`
+    # if you are hitting this neverallow, try using:
+    #     hal_client_domain(<your domain>, hal_<foo>)
+    # instead
     neverallow { domain -$1_client -$1_server } $2:hwservice_manager find;
+  ')
+')
+
+###########################################
+# hal_attribute_service(attribute, service)
+# Ability for domain to get a service to hwservice_manager
+# and find it. It also creates a neverallow preventing
+# others from adding it.
+#
+# Used to pair hal_foo_client with hal_foo_hwservice
+define(`hal_attribute_service', `
+  allow $1_client $2:service_manager find;
+  add_service($1_server, $2)
+
+  build_test_only(`
+    # if you are hitting this neverallow, try using:
+    #     hal_client_domain(<your domain>, hal_<foo>)
+    # instead
+    neverallow {
+        domain
+        -$1_client
+        -$1_server
+        # some services are allowed to find all services
+        -atrace
+        -dumpstate
+        -shell
+        -system_app
+        -traceur_app
+    } $2:service_manager find;
   ')
 ')
 
