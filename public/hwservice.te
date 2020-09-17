@@ -58,7 +58,6 @@ type hal_wifi_supplicant_hwservice, hwservice_manager_type, protected_hwservice;
 type system_net_netd_hwservice, hwservice_manager_type, coredomain_hwservice, protected_hwservice;
 type system_suspend_hwservice, hwservice_manager_type, coredomain_hwservice, protected_hwservice;
 type system_wifi_keystore_hwservice, hwservice_manager_type, coredomain_hwservice, protected_hwservice;
-type thermalcallback_hwservice, hwservice_manager_type, protected_hwservice;
 
 # Following is the hwservices that are explicitly not marked with protected_hwservice.
 # These are directly accessible from untrusted apps.
