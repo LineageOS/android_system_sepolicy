@@ -479,13 +479,6 @@
 /(odm_dlkm|vendor/odm_dlkm|system/vendor/odm_dlkm)(/.*)?                  u:object_r:vendor_file:s0
 
 #############################
-# Modules files
-# This includes updateable modules (including APEXes and APKs) that are stored
-# in the modules partition.
-#
-/modules(/.*)?      u:object_r:updateable_module_file:s0
-
-#############################
 # Vendor files from /(product|system/product)/vendor_overlay
 #
 # NOTE: For additional vendor file contexts for vendor overlay files,
