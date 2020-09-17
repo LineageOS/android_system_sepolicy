@@ -1012,8 +1012,8 @@ get_prop(system_server, system_lmk_prop)
 
 get_prop(system_server, wifi_config_prop)
 
-# Only system server can access BINDER_FREEZE
-allowxperm system_server binder_device:chr_file ioctl { BINDER_FREEZE };
+# Only system server can access BINDER_FREEZE and BINDER_GET_FROZEN_INFO
+allowxperm system_server binder_device:chr_file ioctl { BINDER_FREEZE BINDER_GET_FROZEN_INFO };
 
 ###
 ### Neverallow rules
@@ -1236,4 +1236,6 @@ neverallow {
 
 # BINDER_FREEZE is used to block ipc transactions to frozen processes, so it
 # can be accessed by system_server only (b/143717177)
-neverallowxperm { domain -system_server } binder_device:chr_file ioctl { BINDER_FREEZE };
+# BINDER_GET_FROZEN_INFO is used by system_server to determine the state of a frozen binder
+# interface
+neverallowxperm { domain -system_server } binder_device:chr_file ioctl { BINDER_FREEZE BINDER_GET_FROZEN_INFO };
