@@ -17,6 +17,7 @@
 (type exported3_radio_prop)
 (type ffs_prop)
 (type system_radio_prop)
+(type thermalcallback_hwservice)
 
 (typeattribute binder_in_vendor_violators)
 
