@@ -38,6 +38,7 @@ allow priv_app mediadrmserver_service:service_manager find;
 allow priv_app mediaextractor_service:service_manager find;
 allow priv_app mediametrics_service:service_manager find;
 allow priv_app mediaserver_service:service_manager find;
+allow priv_app music_recognition_service:service_manager find;
 allow priv_app network_watchlist_service:service_manager find;
 allow priv_app nfc_service:service_manager find;
 allow priv_app oem_lock_service:service_manager find;
