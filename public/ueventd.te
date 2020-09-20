@@ -31,6 +31,9 @@ r_dir_file(ueventd, selinuxfs)
 # Access for /vendor/ueventd.rc and /vendor/firmware
 r_dir_file(ueventd, { vendor_file_type -vendor_app_file -vendor_overlay_file })
 
+# Access for /apex/*/firmware
+allow ueventd apex_mnt_dir:dir r_dir_perms;
+
 # Get file contexts for new device nodes
 allow ueventd file_contexts_file:file r_file_perms;
 
