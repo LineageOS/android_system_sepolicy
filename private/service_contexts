@@ -1,4 +1,5 @@
 android.hardware.biometrics.fingerprint.IFingerprint/default         u:object_r:hal_fingerprint_service:s0
+android.hardware.gnss.IGnss/default                                  u:object_r:hal_gnss_service:s0
 android.hardware.identity.IIdentityCredentialStore/default           u:object_r:hal_identity_service:s0
 android.hardware.light.ILights/default                               u:object_r:hal_light_service:s0
 android.hardware.power.IPower/default                                u:object_r:hal_power_service:s0
