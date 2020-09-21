@@ -113,6 +113,8 @@ ro.boot.wificountrycode u:object_r:exported3_default_prop:s0 exact string
 ro.bt.bdaddr_path u:object_r:exported_bluetooth_prop:s0 exact string
 ro.camera.notify_nfc u:object_r:exported3_default_prop:s0 exact int
 ro.camera.enableLazyHal u:object_r:exported3_default_prop:s0 exact bool
+ro.cdma.home.operator.alpha u:object_r:exported3_default_prop:s0 exact string
+ro.cdma.home.operator.numeric u:object_r:exported3_default_prop:s0 exact string
 ro.com.android.dataroaming u:object_r:exported3_default_prop:s0 exact bool
 ro.com.android.prov_mobiledata u:object_r:exported3_default_prop:s0 exact bool
 ro.config.alarm_alert u:object_r:exported2_config_prop:s0 exact string
