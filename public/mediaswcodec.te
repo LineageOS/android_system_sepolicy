@@ -23,3 +23,4 @@ neverallow mediaswcodec { file_type fs_type }:file execute_no_trans;
 # https://android-developers.googleblog.com/2016/05/hardening-media-stack.html
 neverallow mediaswcodec domain:{ tcp_socket udp_socket rawip_socket } *;
 
+allow mediaswcodec dmabuf_system_heap_device:chr_file r_file_perms;

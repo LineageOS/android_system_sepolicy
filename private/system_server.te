@@ -933,6 +933,9 @@ allow system_server ion_device:chr_file r_file_perms;
 allow system_server cgroup_v2:dir rw_dir_perms;
 allow system_server cgroup_v2:file rw_file_perms;
 
+# Access to /dev/dma_heap/system
+allow system_server dmabuf_system_heap_device:chr_file r_file_perms;
+
 r_dir_file(system_server, proc_asound)
 r_dir_file(system_server, proc_net_type)
 r_dir_file(system_server, proc_qtaguid_stat)
