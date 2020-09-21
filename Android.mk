@@ -145,6 +145,9 @@ sepolicy_build_files := security_classes \
                         genfs_contexts \
                         port_contexts
 
+sepolicy_compat_files := $(foreach ver, $(PLATFORM_SEPOLICY_COMPAT_VERSIONS), \
+                           $(addprefix compat/$(ver)/, $(addsuffix .cil, $(ver))))
+
 # Security classes and permissions defined outside of system/sepolicy.
 security_class_extension_files := $(call build_policy, security_classes access_vectors, \
   $(SYSTEM_EXT_PUBLIC_POLICY) $(SYSTEM_EXT_PRIVATE_POLICY) \
@@ -370,8 +373,11 @@ endif
 
 ifdef HAS_SYSTEM_EXT_PUBLIC_SEPOLICY
 LOCAL_REQUIRED_MODULES += \
-    system_ext_mapping_file \
-    $(addprefix system_ext_,$(addsuffix .cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS))) \
+    system_ext_mapping_file
+
+system_ext_compat_files := $(call build_policy, $(sepolicy_compat_files), $(SYSTEM_EXT_PRIVATE_POLICY))
+
+LOCAL_REQUIRED_MODULES += $(addprefix system_ext_, $(notdir $(system_ext_compat_files)))
 
 endif
 
@@ -396,8 +402,11 @@ endif
 
 ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
 LOCAL_REQUIRED_MODULES += \
-    product_mapping_file \
-    $(addprefix product_,$(addsuffix .cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS))) \
+    product_mapping_file
+
+product_compat_files := $(call build_policy, $(sepolicy_compat_files), $(PRODUCT_PRIVATE_POLICY))
+
+LOCAL_REQUIRED_MODULES += $(addprefix product_, $(notdir $(product_compat_files)))
 
 endif
 
