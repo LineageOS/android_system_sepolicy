@@ -703,7 +703,11 @@ ro.boot.slot_suffix          u:object_r:exported_default_prop:s0 exact string
 
 ro.boringcrypto.hwrand u:object_r:exported_default_prop:s0 exact bool
 
-ro.build.ab_update         u:object_r:exported_default_prop:s0 exact string
+# Update related props
+ro.build.ab_update                                u:object_r:exported_default_prop:s0 exact string
+ro.build.ab_update.gki.prevent_downgrade_version  u:object_r:ab_update_gki_prop:s0 exact bool
+ro.build.ab_update.gki.prevent_downgrade_spl      u:object_r:ab_update_gki_prop:s0 exact bool
+
 ro.build.expect.baseband   u:object_r:exported_default_prop:s0 exact string
 ro.build.expect.bootloader u:object_r:exported_default_prop:s0 exact string
 

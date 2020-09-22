@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    ab_update_gki_prop
     adbd_config_prop
     apex_info_file
     debugfs_kprobes
