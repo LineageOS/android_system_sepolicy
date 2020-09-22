@@ -127,3 +127,7 @@ allow gmscore_app anr_data_file:file r_file_perms;
 
 # b/148974132: com.android.vending needs this
 allow gmscore_app priv_app:tcp_socket { read write };
+
+# b/168059475 Allow GMSCore to read Virtual AB properties to determine
+# if device supports VAB.
+get_prop(gmscore_app, virtual_ab_prop)
