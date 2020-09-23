@@ -1393,13 +1393,15 @@ include $(BUILD_SYSTEM)/base_rules.mk
 # The file_contexts.bin is built in the following way:
 # 1. Collect all file_contexts files in THIS repository and process them with
 #    m4 into a tmp file called file_contexts.local.tmp.
-# 2. Collect all device specific file_contexts files and process them with m4
+# 2. Collect all file_contexts files from LOCAL_FILE_CONTEXTS of installed
+#    modules with m4 with a tmp file called file_contexts.modules.tmp.
+# 3. Collect all device specific file_contexts files and process them with m4
 #    into a tmp file called file_contexts.device.tmp.
-# 3. Run checkfc -e (allow no device fc entries ie empty) and fc_sort on
+# 4. Run checkfc -e (allow no device fc entries ie empty) and fc_sort on
 #    file_contexts.device.tmp and output to file_contexts.device.sorted.tmp.
-# 4. Concatenate file_contexts.local.tmp and file_contexts.device.tmp into
-#    file_contexts.concat.tmp.
-# 5. Run checkfc and sefcontext_compile on file_contexts.concat.tmp to produce
+# 5. Concatenate file_contexts.local.tmp, file_contexts.modules.tmp and
+#    file_contexts.device.tmp into file_contexts.concat.tmp.
+# 6. Run checkfc and sefcontext_compile on file_contexts.concat.tmp to produce
 #    file_contexts.bin.
 #
 #  Note: That a newline file is placed between each file_context file found to
@@ -1422,21 +1424,12 @@ ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
   local_fc_files += $(wildcard $(addsuffix /file_contexts_overlayfs, $(PLAT_PRIVATE_POLICY)))
 endif
 
-# Even if TARGET_FLATTEN_APEX is not turned on, "flattened" APEXes are installed
-$(foreach _tuple,$(APEX_FILE_CONTEXTS_INFOS),\
-  $(eval _apex_name := $(call word-colon,1,$(_tuple)))\
-  $(eval _apex_path := $(call word-colon,2,$(_tuple)))\
-  $(eval _fc_path := $(call word-colon,3,$(_tuple)))\
-  $(eval _input := $(_fc_path))\
-  $(eval _output := $(intermediates)/$(_apex_name)-flattened)\
-  $(eval $(call build_flattened_apex_file_contexts,$(_input),$(_apex_path),$(_output),local_fc_files))\
-  )
-
 file_contexts.local.tmp := $(intermediates)/file_contexts.local.tmp
-$(file_contexts.local.tmp): PRIVATE_FC_FILES := $(local_fc_files)
-$(file_contexts.local.tmp): $(local_fc_files) $(M4)
-	@mkdir -p $(dir $@)
-	$(hide) $(M4) --fatal-warnings -s $(PRIVATE_FC_FILES) > $@
+$(call merge-fc-files,$(local_fc_files),$(file_contexts.local.tmp))
+
+# The rule for file_contexts.modules.tmp is defined in build/make/core/Makefile.
+# it gathers LOCAL_FILE_CONTEXTS from product_MODULES
+file_contexts.modules.tmp := $(intermediates)/file_contexts.modules.tmp
 
 device_fc_files := $(call build_vendor_policy, file_contexts)
 
@@ -1460,10 +1453,9 @@ $(file_contexts.device.sorted.tmp): $(file_contexts.device.tmp) $(built_sepolicy
 	$(hide) $(HOST_OUT_EXECUTABLES)/fc_sort -i $< -o $@
 
 file_contexts.concat.tmp := $(intermediates)/file_contexts.concat.tmp
-$(file_contexts.concat.tmp): PRIVATE_CONTEXTS := $(file_contexts.local.tmp) $(file_contexts.device.sorted.tmp)
-$(file_contexts.concat.tmp): $(file_contexts.local.tmp) $(file_contexts.device.sorted.tmp) $(M4)
-	@mkdir -p $(dir $@)
-	$(hide) $(M4) --fatal-warnings -s $(PRIVATE_CONTEXTS) > $@
+$(call merge-fc-files,\
+  $(file_contexts.local.tmp) $(file_contexts.modules.tmp) $(file_contexts.device.sorted.tmp),\
+  $(file_contexts.concat.tmp))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): $(file_contexts.concat.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/sefcontext_compile $(HOST_OUT_EXECUTABLES)/checkfc
@@ -1480,6 +1472,7 @@ file_contexts.concat.tmp :=
 file_contexts.device.sorted.tmp :=
 file_contexts.device.tmp :=
 file_contexts.local.tmp :=
+file_contexts.modules.tmp :=
 
 ##################################
 include $(CLEAR_VARS)
