@@ -18,7 +18,6 @@ neverallow {
   -iorap_inode2filename
 } { app_data_file privapp_data_file }:dir ~{ read getattr search };
 
-# TODO(b/141677108): See if we can remove any of these.
 neverallow {
   mlstrustedsubject
   -installd
@@ -27,6 +26,5 @@ neverallow {
   -system_server
   -adbd
   -runas
-  -dexoptanalyzer
   -zygote
 } { app_data_file privapp_data_file }:dir { read getattr search };
