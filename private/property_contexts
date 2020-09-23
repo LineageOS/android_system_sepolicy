@@ -235,8 +235,8 @@ sys.boot_from_charger_mode  u:object_r:charger_status_prop:s0 exact int
 ro.enable_boot_charger_mode u:object_r:charger_config_prop:s0 exact bool
 
 # Virtual A/B properties
-ro.virtual_ab.enabled   u:object_r:virtual_ab_prop:s0
-ro.virtual_ab.retrofit  u:object_r:virtual_ab_prop:s0
+ro.virtual_ab.enabled   u:object_r:virtual_ab_prop:s0 exact bool
+ro.virtual_ab.retrofit  u:object_r:virtual_ab_prop:s0 exact bool
 
 ro.product.ab_ota_partitions u:object_r:ota_prop:s0 exact string
 # Property to set/clear the warm reset flag after an OTA update.
@@ -862,6 +862,8 @@ cache_key.telephony.                     u:object_r:binder_cache_telephony_serve
 gsm.sim.operator.numeric       u:object_r:telephony_status_prop:s0 exact string
 persist.radio.airplane_mode_on u:object_r:telephony_status_prop:s0 exact bool
 
+ro.cdma.home.operator.alpha       u:object_r:telephony_config_prop:s0 exact string
+ro.cdma.home.operator.numeric     u:object_r:telephony_config_prop:s0 exact string
 ro.com.android.dataroaming        u:object_r:telephony_config_prop:s0 exact bool
 ro.com.android.prov_mobiledata    u:object_r:telephony_config_prop:s0 exact bool
 ro.radio.noril                    u:object_r:telephony_config_prop:s0 exact string

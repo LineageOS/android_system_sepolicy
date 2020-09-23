@@ -44,6 +44,7 @@ type zero_device, dev_type, mlstrustedobject;
 type fuse_device, dev_type, mlstrustedobject;
 type iio_device, dev_type;
 type ion_device, dev_type, mlstrustedobject;
+type dmabuf_system_heap_device, dev_type, mlstrustedobject;
 type qtaguid_device, dev_type;
 type watchdog_device, dev_type;
 type uhid_device, dev_type;

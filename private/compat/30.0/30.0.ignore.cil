@@ -9,11 +9,13 @@
     apex_info_file
     cgroup_v2
     debugfs_kprobes
+    dmabuf_system_heap_device
     gki_apex_prepostinstall
     gki_apex_prepostinstall_exec
     hal_fingerprint_service
     gnss_device
     hal_dumpstate_config_prop
+    hal_gnss_service
     hal_power_stats_service
     keystore2_key_contexts_file
     location_time_zone_manager_service
