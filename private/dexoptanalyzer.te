@@ -11,7 +11,7 @@ r_dir_file(dexoptanalyzer, vendor_app_file)
 # Use tmpfs_domain() which will give tmpfs files created by dexoptanalyzer their
 # own label, which differs from other labels created by other processes.
 # This allows to distinguish in policy files created by dexoptanalyzer vs other
-#processes.
+# processes.
 tmpfs_domain(dexoptanalyzer)
 
 # Read symlinks in /data/dalvik-cache. This is required for PIC mode boot
@@ -28,12 +28,7 @@ allow dexoptanalyzer system_file:file lock;
 
 # Allow reading secondary dex files that were reported by the app to the
 # package manager.
-allow dexoptanalyzer { privapp_data_file app_data_file }:dir { getattr search };
 allow dexoptanalyzer { privapp_data_file app_data_file }:file { getattr read map };
-# dexoptanalyzer calls access(2) with W_OK flag on app data. We can use the
-# "dontaudit...audit_access" policy line to suppress the audit access without
-# suppressing denial on actual access.
-dontaudit dexoptanalyzer { privapp_data_file app_data_file }:dir audit_access;
 
 # Allow testing /data/user/0 which symlinks to /data/data
 allow dexoptanalyzer system_data_file:lnk_file { getattr };
