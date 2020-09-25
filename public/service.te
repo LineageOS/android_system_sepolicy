@@ -214,6 +214,7 @@ type emergency_affordance_service, system_server_service, service_manager_type;
 ###
 
 type hal_fingerprint_service, vendor_service, service_manager_type;
+type hal_gnss_service, vendor_service, service_manager_type;
 type hal_identity_service, vendor_service, service_manager_type;
 type hal_light_service, vendor_service, service_manager_type;
 type hal_power_service, vendor_service, service_manager_type;
