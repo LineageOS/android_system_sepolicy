@@ -204,6 +204,9 @@ attribute update_engine_common;
 # All core domains (as opposed to vendor/device-specific domains)
 attribute coredomain;
 
+# All vendor hwservice.
+attribute vendor_hwservice_type;
+
 # All socket devices owned by core domain components
 attribute coredomain_socket;
 expandattribute coredomain_socket false;
