@@ -237,6 +237,7 @@ ro.enable_boot_charger_mode u:object_r:charger_config_prop:s0 exact bool
 # Virtual A/B properties
 ro.virtual_ab.enabled   u:object_r:virtual_ab_prop:s0 exact bool
 ro.virtual_ab.retrofit  u:object_r:virtual_ab_prop:s0 exact bool
+ro.virtual_ab.compression.enabled  u:object_r:virtual_ab_prop:s0 exact bool
 
 ro.product.ab_ota_partitions u:object_r:ota_prop:s0 exact string
 # Property to set/clear the warm reset flag after an OTA update.
@@ -706,7 +707,11 @@ ro.boot.slot_suffix          u:object_r:exported_default_prop:s0 exact string
 
 ro.boringcrypto.hwrand u:object_r:exported_default_prop:s0 exact bool
 
-ro.build.ab_update         u:object_r:exported_default_prop:s0 exact string
+# Update related props
+ro.build.ab_update                                u:object_r:exported_default_prop:s0 exact string
+ro.build.ab_update.gki.prevent_downgrade_version  u:object_r:ab_update_gki_prop:s0 exact bool
+ro.build.ab_update.gki.prevent_downgrade_spl      u:object_r:ab_update_gki_prop:s0 exact bool
+
 ro.build.expect.baseband   u:object_r:exported_default_prop:s0 exact string
 ro.build.expect.bootloader u:object_r:exported_default_prop:s0 exact string
 
