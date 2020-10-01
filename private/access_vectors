@@ -716,6 +716,7 @@ class keystore2
 	add_auth
 	clear_ns
 	get_state
+	list
 	lock
 	reset
 	unlock
@@ -727,7 +728,6 @@ class keystore2_key
 	gen_unique_id
 	get_info
 	grant
-	list
 	manage_blob
 	rebind
 	req_forced_op

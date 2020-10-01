@@ -152,4 +152,4 @@ userdebug_or_eng(`
 allow shell keystore2_key_contexts_file:file r_file_perms;
 
 # Allow shell to access the keystore2_key namespace shell_key. Mainly used for native tests.
-allow shell shell_key:keystore2_key { delete rebind use get_info list update };
+allow shell shell_key:keystore2_key { delete rebind use get_info update };
