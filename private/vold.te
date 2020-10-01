@@ -37,7 +37,6 @@ set_prop(vold, boottime_public_prop)
 allow vold vold_key:keystore2_key {
     delete
     get_info
-    list
     manage_blob
     rebind
     req_forced_op
