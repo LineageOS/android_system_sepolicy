@@ -259,8 +259,8 @@ neverallow_establish_socket_comms(vendor_init, { domain -init -logd -su -vendor_
 # The vendor_init domain is only entered via an exec based transition from the
 # init domain, never via setcon().
 neverallow domain vendor_init:process dyntransition;
-neverallow { domain -init } vendor_init:process transition;
-neverallow vendor_init { file_type fs_type -init_exec }:file entrypoint;
+neverallow { domain -init -vendor_init } vendor_init:process transition;
+neverallow vendor_init { file_type fs_type -init_exec -vendor_toolbox_exec }:file entrypoint;
 
 # Never read/follow symlinks created by shell or untrusted apps.
 neverallow vendor_init { app_data_file privapp_data_file }:lnk_file read;
