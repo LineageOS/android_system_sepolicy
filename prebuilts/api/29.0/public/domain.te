@@ -1155,6 +1155,7 @@ neverallow {
   -system_server
   -system_app
   -init
+  -vendor_init
   -toolbox # TODO(b/141108496) We want to remove toolbox
   -installd # for relabelfrom and unlink, check for this in explicit neverallow
   -vold_prepare_subdirs # For unlink
