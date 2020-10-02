@@ -837,7 +837,6 @@ allow system_server keystore:keystore2_key {
 	use_dev_id
 	grant
 	get_info
-	list
 	rebind
 	update
 	use

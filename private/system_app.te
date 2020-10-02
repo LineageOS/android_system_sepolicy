@@ -139,7 +139,6 @@ allow system_app keystore:keystore2_key {
     delete
     get_info
     grant
-    list
     rebind
     update
     use
