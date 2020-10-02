@@ -72,7 +72,6 @@ allow dex2oat ota_data_file:file { create w_file_perms setattr };
 allow dex2oat apexd:fd use;
 
 # Allow dex2oat to use file descriptors from preinstall.
-allow dex2oat art_apex_preinstall:fd use;
 
 ##############
 # Neverallow #
