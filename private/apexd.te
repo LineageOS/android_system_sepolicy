@@ -146,6 +146,10 @@ allow apexd file_contexts_file:file r_file_perms;
 # Allow apexd to execute toybox for snapshot & restore
 allow apexd toolbox_exec:file rx_file_perms;
 
+# Allow apexd to read ro.cold_boot_done prop.
+# apexd uses it to decide whether it needs to keep retrying polling for loop device.
+get_prop(apexd, cold_boot_done_prop)
+
 neverallow { domain -apexd -init } apex_data_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init } apex_metadata_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init -kernel } apex_data_file:file no_w_file_perms;
