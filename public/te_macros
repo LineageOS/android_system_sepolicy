@@ -829,6 +829,8 @@ define(`dump_hal', `
 #
 # CTS uses these rules only for devices launching with R or later.
 #
+# TODO(b/131162102): deprecate BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW
+#
 define(`treble_sysprop_neverallow', ifelse(target_treble_sysprop_neverallow, `true', $1,
 ifelse(target_treble_sysprop_neverallow, `cts',
 # BEGIN_LAUNCHING_WITH_R_ONLY -- this marker is used by CTS -- do not modify
