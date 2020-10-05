@@ -115,6 +115,9 @@ selinux.restorecon_recursive   u:object_r:restorecon_prop:s0
 vold.                   u:object_r:vold_prop:s0
 ro.crypto.              u:object_r:vold_prop:s0
 
+# TODO(b/141677108): Remove once true everywhere
+ro.vold.level_from_user          u:object_r:vold_config_prop:s0
+
 # ro.build.fingerprint is either set in /system/build.prop, or is
 # set at runtime by system_server.
 ro.build.fingerprint    u:object_r:fingerprint_prop:s0 exact string
