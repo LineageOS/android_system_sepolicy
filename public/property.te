@@ -261,7 +261,11 @@ not_compatible_property(`
     system_public_prop(vold_prop)
 ')
 
-type vendor_default_prop, property_type;
+type vendor_default_prop, property_type, vendor_property_type;
+
+treble_sysprop_neverallow(`
+    typeattribute vendor_default_prop vendor_internal_property_type;
+')
 
 typeattribute log_prop log_property_type;
 typeattribute log_tag_prop log_property_type;
