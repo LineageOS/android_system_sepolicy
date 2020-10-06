@@ -18,3 +18,20 @@ $(hide) $(M4) --fatal-warnings $(PRIVATE_ADDITIONAL_M4DEFS) \
 	-s $(PRIVATE_POLICY_FILES) > $@
 endef
 .KATI_READONLY := transform-policy-to-conf
+
+###########################################################
+## Collect file_contexts files into a single tmp file with m4
+##
+## $(1): list of file_contexts files
+## $(2): filename into which file_contexts files are merged
+###########################################################
+
+define _merge-fc-files
+$(2): $(1) $(M4)
+	$(hide) mkdir -p $$(dir $$@)
+	$(hide) $(M4) --fatal-warnings -s $(1) > $$@
+endef
+
+define merge-fc-files
+$(eval $(call _merge-fc-files,$(1),$(2)))
+endef
