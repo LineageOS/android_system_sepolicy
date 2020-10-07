@@ -333,15 +333,6 @@ neverallow {
 
 neverallow { domain -vold -init } restorecon_prop:property_service set;
 
-neverallow {
-    domain
-    -system_server
-    -vdc
-    -vold
-    -update_verifier
-    -apexd
-} vold_service:service_manager find;
-
 neverallow vold {
   domain
   -hal_health_storage_server
