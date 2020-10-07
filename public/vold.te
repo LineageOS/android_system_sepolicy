@@ -66,9 +66,11 @@ neverallowxperm {
   -vold
 } data_file_type:dir ioctl { FS_IOC_ADD_ENCRYPTION_KEY FS_IOC_REMOVE_ENCRYPTION_KEY };
 
-# Find the location on the raw block device where the
-# crypto key is stored so it can be destroyed
+# Allow securely erasing crypto key files. F2FS_IOC_SEC_TRIM_FILE is
+# tried first. Otherwise, FS_IOC_FIEMAP is needed to get the
+# location of the file's blocks on the raw block device to erase.
 allowxperm vold vold_data_file:file ioctl {
+  F2FS_IOC_SEC_TRIM_FILE
   FS_IOC_FIEMAP
 };
 
