@@ -663,6 +663,13 @@ ro.vendor.build.fingerprint         u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.build.version.incremental u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.build.version.sdk         u:object_r:build_vendor_prop:s0 exact int
 
+# Boot image build props set by /{second_stage_resources/,}boot/etc/build.prop
+ro.bootimage.build.date                u:object_r:build_bootimage_prop:s0 exact string
+ro.bootimage.build.date.utc            u:object_r:build_bootimage_prop:s0 exact int
+ro.bootimage.build.fingerprint         u:object_r:build_bootimage_prop:s0 exact string
+ro.bootimage.build.version.incremental u:object_r:build_bootimage_prop:s0 exact string
+ro.bootimage.build.version.sdk         u:object_r:build_bootimage_prop:s0 exact int
+
 ro.product.board               u:object_r:build_vendor_prop:s0 exact string
 ro.product.first_api_level     u:object_r:build_vendor_prop:s0 exact int
 ro.product.vendor.brand        u:object_r:build_vendor_prop:s0 exact string
