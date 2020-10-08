@@ -661,16 +661,20 @@ full_treble_only(`
 full_treble_only(`
   # Vendor apps are permited to use only stable public services. If they were to use arbitrary
   # services which can change any time framework/core is updated, breakage is likely.
+  #
+  # Note, this same logic applies to untrusted apps, but neverallows for these are separate.
   neverallow {
     appdomain
     -coredomain
   } {
     service_manager_type
+
     -app_api_service
+    -vendor_service # must be @VintfStability to be used by an app
     -ephemeral_app_api_service
+
     -audioserver_service # TODO(b/36783122) remove exemptions below once app_api_service is fixed
     -cameraserver_service
-    -hal_gnss_service # TODO(b/169256910) remove once all violators are gone
     -drmserver_service
     -credstore_service
     -keystore_service
