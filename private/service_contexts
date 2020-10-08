@@ -4,7 +4,7 @@ android.hardware.gnss.IGnss/default                                  u:object_r:
 android.hardware.identity.IIdentityCredentialStore/default           u:object_r:hal_identity_service:s0
 android.hardware.light.ILights/default                               u:object_r:hal_light_service:s0
 android.hardware.power.IPower/default                                u:object_r:hal_power_service:s0
-android.hardware.powerstats.IPowerStats/default                      u:object_r:hal_power_stats_service:s0
+android.hardware.power.stats.IPowerStats/default                      u:object_r:hal_power_stats_service:s0
 android.hardware.rebootescrow.IRebootEscrow/default                  u:object_r:hal_rebootescrow_service:s0
 android.hardware.vibrator.IVibrator/default                          u:object_r:hal_vibrator_service:s0
 
@@ -244,6 +244,7 @@ usagestats                                u:object_r:usagestats_service:s0
 usb                                       u:object_r:usb_service:s0
 user                                      u:object_r:user_service:s0
 vibrator                                  u:object_r:vibrator_service:s0
+vibrator_manager                          u:object_r:vibrator_manager_service:s0
 virtual_touchpad                          u:object_r:virtual_touchpad_service:s0
 voiceinteraction                          u:object_r:voiceinteraction_service:s0
 vold                                      u:object_r:vold_service:s0
