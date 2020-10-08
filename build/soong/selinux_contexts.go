@@ -225,6 +225,7 @@ func (m *selinuxContextsModule) AndroidMk() android.AndroidMkData {
 			fmt.Fprintln(w, "\ninclude $(CLEAR_VARS)")
 			fmt.Fprintln(w, "LOCAL_PATH :=", moduleDir)
 			fmt.Fprintln(w, "LOCAL_MODULE :=", name+nameSuffix)
+			data.Entries.WriteLicenseVariables(w)
 			fmt.Fprintln(w, "LOCAL_MODULE_CLASS := ETC")
 			if m.Owner() != "" {
 				fmt.Fprintln(w, "LOCAL_MODULE_OWNER :=", m.Owner())
