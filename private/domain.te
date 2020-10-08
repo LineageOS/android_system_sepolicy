@@ -437,3 +437,6 @@ full_treble_only(`
     -vndk_sp_file
   }:file *;
 ')
+
+# Only first_stage_init can read files under /boot.
+neverallow domain ramdisk_boot_file:dir_file_class_set *;

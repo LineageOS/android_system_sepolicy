@@ -52,6 +52,7 @@ allow vendor_init {
   -mnt_product_file
   -password_slot_metadata_file
   -ota_metadata_file
+  -ramdisk_boot_file
   -unlabeled
   -vendor_file_type
   -vold_metadata_file
@@ -68,6 +69,7 @@ allow vendor_init {
   -exec_type
   -password_slot_metadata_file
   -ota_metadata_file
+  -ramdisk_boot_file
   -runtime_event_log_tags_file
   -system_file_type
   -unlabeled
@@ -85,6 +87,7 @@ allow vendor_init {
   -exec_type
   -password_slot_metadata_file
   -ota_metadata_file
+  -ramdisk_boot_file
   -system_file_type
   -unlabeled
   -vendor_file_type
@@ -101,6 +104,7 @@ allow vendor_init {
   -exec_type
   -password_slot_metadata_file
   -ota_metadata_file
+  -ramdisk_boot_file
   -system_file_type
   -unlabeled
   -vendor_file_type
@@ -117,6 +121,7 @@ allow vendor_init {
   -mnt_product_file
   -password_slot_metadata_file
   -ota_metadata_file
+  -ramdisk_boot_file
   -system_file_type
   -vendor_file_type
   -vold_metadata_file
