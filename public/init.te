@@ -179,6 +179,7 @@ allow init {
   -misc_logd_file
   -nativetest_data_file
   -privapp_data_file
+  -ramdisk_boot_file
   -system_app_data_file
   -system_file_type
   -vendor_file_type
@@ -193,6 +194,7 @@ allow init {
   -keystore_data_file
   -misc_logd_file
   -nativetest_data_file
+  -ramdisk_boot_file
   -privapp_data_file
   -shell_data_file
   -system_app_data_file
@@ -213,6 +215,7 @@ allow init {
   -misc_logd_file
   -nativetest_data_file
   -privapp_data_file
+  -ramdisk_boot_file
   -runtime_event_log_tags_file
   -shell_data_file
   -system_app_data_file
@@ -232,6 +235,7 @@ allow init {
   -misc_logd_file
   -nativetest_data_file
   -privapp_data_file
+  -ramdisk_boot_file
   -shell_data_file
   -system_app_data_file
   -system_file_type
@@ -251,6 +255,7 @@ allow init {
   -misc_logd_file
   -nativetest_data_file
   -privapp_data_file
+  -ramdisk_boot_file
   -shell_data_file
   -system_app_data_file
   -system_file_type
@@ -267,6 +272,7 @@ allow init {
   -exec_type
   -app_data_file
   -privapp_data_file
+  -ramdisk_boot_file
 }:dir_file_class_set relabelto;
 
 allow init { sysfs debugfs debugfs_tracing debugfs_tracing_debug }:{ dir file lnk_file } { getattr relabelfrom };
