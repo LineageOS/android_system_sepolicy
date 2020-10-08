@@ -762,3 +762,7 @@
 #############################
 # mount point for read-write product partitions
 /mnt/product(/.*)?          u:object_r:mnt_product_file:s0
+
+#############################
+# Ramdisk files under /boot
+/boot(/.*)?                 u:object_r:ramdisk_boot_file:s0
