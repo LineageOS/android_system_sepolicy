@@ -70,6 +70,7 @@ device_config                             u:object_r:device_config_service:s0
 device_policy                             u:object_r:device_policy_service:s0
 device_identifiers                        u:object_r:device_identifiers_service:s0
 deviceidle                                u:object_r:deviceidle_service:s0
+device_state                              u:object_r:device_state_service:s0
 devicestoragemonitor                      u:object_r:devicestoragemonitor_service:s0
 diskstats                                 u:object_r:diskstats_service:s0
 display                                   u:object_r:display_service:s0
