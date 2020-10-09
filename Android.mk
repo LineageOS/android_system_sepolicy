@@ -322,6 +322,88 @@ include $(BUILD_PHONY_PACKAGE)
 
 include $(CLEAR_VARS)
 
+LOCAL_MODULE := selinux_policy_system_ext
+# Include precompiled policy, unless told otherwise.
+ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+LOCAL_REQUIRED_MODULES += system_ext_sepolicy_and_mapping.sha256
+endif
+
+ifdef HAS_SYSTEM_EXT_SEPOLICY
+LOCAL_REQUIRED_MODULES += system_ext_sepolicy.cil
+endif
+
+ifdef HAS_SYSTEM_EXT_PUBLIC_SEPOLICY
+LOCAL_REQUIRED_MODULES += \
+    system_ext_mapping_file
+
+system_ext_compat_files := $(call build_policy, $(sepolicy_compat_files), $(SYSTEM_EXT_PRIVATE_POLICY))
+
+LOCAL_REQUIRED_MODULES += $(addprefix system_ext_, $(notdir $(system_ext_compat_files)))
+
+endif
+
+ifdef HAS_SYSTEM_EXT_SEPOLICY_DIR
+LOCAL_REQUIRED_MODULES += \
+    system_ext_file_contexts \
+    system_ext_file_contexts_test \
+    system_ext_hwservice_contexts \
+    system_ext_hwservice_contexts_test \
+    system_ext_property_contexts \
+    system_ext_property_contexts_test \
+    system_ext_seapp_contexts \
+    system_ext_service_contexts \
+    system_ext_service_contexts_test \
+    system_ext_mac_permissions.xml \
+
+endif
+
+include $(BUILD_PHONY_PACKAGE)
+
+#################################
+
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := selinux_policy_product
+# Include precompiled policy, unless told otherwise.
+ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+LOCAL_REQUIRED_MODULES += product_sepolicy_and_mapping.sha256
+endif
+
+ifdef HAS_PRODUCT_SEPOLICY
+LOCAL_REQUIRED_MODULES += product_sepolicy.cil
+endif
+
+ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
+LOCAL_REQUIRED_MODULES += \
+    product_mapping_file
+
+product_compat_files := $(call build_policy, $(sepolicy_compat_files), $(PRODUCT_PRIVATE_POLICY))
+
+LOCAL_REQUIRED_MODULES += $(addprefix product_, $(notdir $(product_compat_files)))
+
+endif
+
+ifdef HAS_PRODUCT_SEPOLICY_DIR
+LOCAL_REQUIRED_MODULES += \
+    product_file_contexts \
+    product_file_contexts_test \
+    product_hwservice_contexts \
+    product_hwservice_contexts_test \
+    product_property_contexts \
+    product_property_contexts_test \
+    product_seapp_contexts \
+    product_service_contexts \
+    product_service_contexts_test \
+    product_mac_permissions.xml \
+
+endif
+
+include $(BUILD_PHONY_PACKAGE)
+
+#################################
+
+include $(CLEAR_VARS)
+
 LOCAL_MODULE := selinux_policy_nonsystem
 # Include precompiled policy, unless told otherwise.
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
@@ -329,9 +411,7 @@ LOCAL_REQUIRED_MODULES += \
     precompiled_sepolicy \
     precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 \
     precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256 \
-    system_ext_sepolicy_and_mapping.sha256 \
     precompiled_sepolicy.product_sepolicy_and_mapping.sha256 \
-    product_sepolicy_and_mapping.sha256 \
 
 endif # ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 
@@ -368,63 +448,8 @@ LOCAL_REQUIRED_MODULES += \
     odm_mac_permissions.xml
 endif
 
-ifdef HAS_SYSTEM_EXT_SEPOLICY
-LOCAL_REQUIRED_MODULES += system_ext_sepolicy.cil
-endif
-
-ifdef HAS_SYSTEM_EXT_PUBLIC_SEPOLICY
-LOCAL_REQUIRED_MODULES += \
-    system_ext_mapping_file
-
-system_ext_compat_files := $(call build_policy, $(sepolicy_compat_files), $(SYSTEM_EXT_PRIVATE_POLICY))
-
-LOCAL_REQUIRED_MODULES += $(addprefix system_ext_, $(notdir $(system_ext_compat_files)))
-
-endif
-
-ifdef HAS_SYSTEM_EXT_SEPOLICY_DIR
-LOCAL_REQUIRED_MODULES += \
-    system_ext_file_contexts \
-    system_ext_file_contexts_test \
-    system_ext_hwservice_contexts \
-    system_ext_hwservice_contexts_test \
-    system_ext_property_contexts \
-    system_ext_property_contexts_test \
-    system_ext_seapp_contexts \
-    system_ext_service_contexts \
-    system_ext_service_contexts_test \
-    system_ext_mac_permissions.xml \
-
-endif
-
-ifdef HAS_PRODUCT_SEPOLICY
-LOCAL_REQUIRED_MODULES += product_sepolicy.cil
-endif
-
-ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
-LOCAL_REQUIRED_MODULES += \
-    product_mapping_file
-
-product_compat_files := $(call build_policy, $(sepolicy_compat_files), $(PRODUCT_PRIVATE_POLICY))
-
-LOCAL_REQUIRED_MODULES += $(addprefix product_, $(notdir $(product_compat_files)))
-
-endif
-
-ifdef HAS_PRODUCT_SEPOLICY_DIR
-LOCAL_REQUIRED_MODULES += \
-    product_file_contexts \
-    product_file_contexts_test \
-    product_hwservice_contexts \
-    product_hwservice_contexts_test \
-    product_property_contexts \
-    product_property_contexts_test \
-    product_seapp_contexts \
-    product_service_contexts \
-    product_service_contexts_test \
-    product_mac_permissions.xml \
-
-endif
+LOCAL_REQUIRED_MODULES += selinux_policy_system_ext
+LOCAL_REQUIRED_MODULES += selinux_policy_product
 
 LOCAL_REQUIRED_MODULES += \
     selinux_denial_metadata \
