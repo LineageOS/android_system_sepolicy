@@ -135,8 +135,8 @@ func (fg *fileGroup) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	fg.systemVendorSrcs = fg.findSrcsInDir(ctx, filepath.Join(ctx.ModuleDir(), "vendor"))
 	fg.systemReqdMaskSrcs = fg.findSrcsInDir(ctx, filepath.Join(ctx.ModuleDir(), "reqd_mask"))
 
-	fg.systemExtPublicSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().PlatPublicSepolicyDirs())
-	fg.systemExtPrivateSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().PlatPrivateSepolicyDirs())
+	fg.systemExtPublicSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().SystemExtPublicSepolicyDirs())
+	fg.systemExtPrivateSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().SystemExtPrivateSepolicyDirs())
 
 	fg.productPublicSrcs = fg.findSrcsInDirs(ctx, ctx.Config().ProductPublicSepolicyDirs())
 	fg.productPrivateSrcs = fg.findSrcsInDirs(ctx, ctx.Config().ProductPrivateSepolicyDirs())
