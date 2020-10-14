@@ -16,6 +16,9 @@ r_dir_file(system_suspend, sysfs_wakeup)
 # To resolve arbitrary sysfs paths from /sys/class/wakeup/* symlinks.
 allow system_suspend sysfs_type:dir search;
 
+# To call BTAA registered callbacks
+allow system_suspend bluetooth:binder call;
+
 neverallow {
     domain
     -atrace # tracing
