@@ -27,6 +27,9 @@ allow netutils_wrapper fs_bpf:dir search;
 allow netutils_wrapper fs_bpf:file { read write };
 allow netutils_wrapper bpfloader:bpf prog_run;
 
+# For q vendor haxx
+allow netutils_wrapper self:capability dac_override;
+
 # For /data/misc/net access to ndc and ip
 r_dir_file(netutils_wrapper, net_data_file)
 
@@ -41,4 +44,4 @@ dontaudit netutils_wrapper self:global_capability_class_set sys_resource;
 dontaudit netutils_wrapper sysfs_type:file read;
 
 # netutils wrapper may only use the following capabilities.
-neverallow netutils_wrapper self:global_capability_class_set ~{ net_admin net_raw };
+neverallow netutils_wrapper self:global_capability_class_set ~{ net_admin net_raw dac_override};

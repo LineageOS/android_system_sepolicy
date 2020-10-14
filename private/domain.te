@@ -300,6 +300,7 @@ define(`dac_override_allowed', `{
   lmkd
   migrate_legacy_obb_data
   netd
+  netutils_wrapper
   postinstall_dexopt
   recovery
   rss_hwm_reset
