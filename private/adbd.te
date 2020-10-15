@@ -195,6 +195,10 @@ allow adbd perfetto:process signal;
 allow adbd perfetto_traces_data_file:file r_file_perms;
 allow adbd perfetto_traces_data_file:dir r_dir_perms;
 
+# Allow to push and manage configs in /data/misc/perfetto-configs.
+allow adbd perfetto_configs_data_file:dir rw_dir_perms;
+allow adbd perfetto_configs_data_file:file create_file_perms;
+
 # Connect to shell and use a socket transferred from it.
 # Used for e.g. abb.
 allow adbd shell:unix_stream_socket { read write shutdown };

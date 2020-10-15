@@ -52,6 +52,10 @@ binder_call(shell, statsd);
 allow shell perfetto_traces_data_file:dir rw_dir_perms;
 allow shell perfetto_traces_data_file:file { r_file_perms unlink };
 
+# Allow shell to create/remove configs stored in /data/misc/perfetto-configs.
+allow shell perfetto_configs_data_file:dir rw_dir_perms;
+allow shell perfetto_configs_data_file:file create_file_perms;
+
 # Allow shell to run adb shell cmd gpu commands.
 binder_call(shell, gpuservice);
 
