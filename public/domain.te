@@ -469,17 +469,6 @@ neverallow domain device:chr_file { open read write };
 # Files from cache should never be executed
 neverallow domain { cache_file cache_backup_file cache_private_backup_file cache_recovery_file }:file execute;
 
-# Protect most domains from executing arbitrary content from /data.
-neverallow {
-  domain
-  -appdomain
-} {
-  data_file_type
-  -dalvikcache_data_file
-  -system_data_file # shared libs in apks
-  -apk_data_file
-}:file no_x_file_perms;
-
 # The test files and executables MUST not be accessible to any domain
 neverallow { domain userdebug_or_eng(`-kernel') } nativetest_data_file:file_class_set no_w_file_perms;
 neverallow domain nativetest_data_file:dir no_w_dir_perms;
