@@ -36,6 +36,7 @@ get_prop(dumpstate, boottime_prop)
 
 # Signal native processes to dump their stack.
 allow dumpstate {
+  mediatranscoding
   statsd
   netd
 }:process signal;
