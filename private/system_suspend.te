@@ -10,11 +10,15 @@ add_service(system_suspend, system_suspend_control_service)
 # Access to /sys/power/{ wakeup_count, state } suspend interface.
 allow system_suspend sysfs_power:file rw_file_perms;
 
-# Access to wakeup and suspend stats.
+# Access to wakeup, suspend stats, and wakeup reasons.
 r_dir_file(system_suspend, sysfs_suspend_stats)
 r_dir_file(system_suspend, sysfs_wakeup)
+r_dir_file(system_suspend, sysfs_wakeup_reasons)
 # To resolve arbitrary sysfs paths from /sys/class/wakeup/* symlinks.
 allow system_suspend sysfs_type:dir search;
+
+# To call BTAA registered callbacks
+allow system_suspend bluetooth:binder call;
 
 neverallow {
     domain
