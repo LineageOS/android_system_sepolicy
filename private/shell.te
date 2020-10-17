@@ -145,6 +145,9 @@ get_prop(shell, system_boot_reason_prop)
 # Allow reading the outcome of perf_event_open LSM support test for CTS.
 get_prop(shell, init_perf_lsm_hooks_prop)
 
+# Allow shell to read boot image timestamps and fingerprints.
+get_prop(shell, build_bootimage_prop)
+
 userdebug_or_eng(`set_prop(shell, persist_debug_prop)')
 
 # Allow to issue control commands to profcollectd binder service.
