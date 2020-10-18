@@ -30,6 +30,7 @@
 /postinstall        u:object_r:postinstall_mnt_dir:s0
 /postinstall/apex   u:object_r:postinstall_apex_mnt_dir:s0
 /proc               u:object_r:rootfs:s0
+/second_stage_resources u:object_r:tmpfs:s0
 /sys                u:object_r:sysfs:s0
 /apex               u:object_r:apex_mnt_dir:s0
 
@@ -572,6 +573,7 @@
 /data/misc/media(/.*)?          u:object_r:media_data_file:s0
 /data/misc/net(/.*)?            u:object_r:net_data_file:s0
 /data/misc/network_watchlist(/.*)? u:object_r:network_watchlist_data_file:s0
+/data/misc/nfc/logs(/.*)?       u:object_r:nfc_logs_data_file:s0
 /data/misc/perfetto-traces(/.*)? u:object_r:perfetto_traces_data_file:s0
 /data/misc/perfetto-configs(/.*)? u:object_r:perfetto_configs_data_file:s0
 /data/misc/prereboot(/.*)?      u:object_r:prereboot_data_file:s0

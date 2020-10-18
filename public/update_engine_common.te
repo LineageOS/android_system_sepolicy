@@ -82,6 +82,7 @@ get_prop(update_engine_common, virtual_ab_prop)
 
 # Allow to read GKI related flags.
 get_prop(update_engine_common, ab_update_gki_prop)
+get_prop(update_engine_common, build_bootimage_prop)
 
 # Allow to read/write/create OTA metadata files for snapshot status and COW file status.
 allow update_engine_common metadata_file:dir search;
