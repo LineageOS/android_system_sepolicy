@@ -24,13 +24,14 @@ system_internal_prop(userspace_reboot_test_prop)
 
 treble_sysprop_neverallow(`
 
-# TODO(b/131162102): uncomment these after assigning ownership attributes to all properties
-# neverallow domain {
-#   property_type
-#   -system_property_type
-#   -product_property_type
-#   -vendor_property_type
-# }:file no_rw_file_perms;
+enforce_sysprop_owner(`
+  neverallow domain {
+    property_type
+    -system_property_type
+    -product_property_type
+    -vendor_property_type
+  }:file no_rw_file_perms;
+')
 
 neverallow { domain -coredomain } {
   system_property_type
