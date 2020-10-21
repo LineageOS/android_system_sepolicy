@@ -816,13 +816,11 @@ define(`dump_hal', `
 
 #####################################
 # treble_sysprop_neverallow(rules)
-# SELinux neverallow rules which enforces the owner of each property and accessibility
+# SELinux neverallow rules which enforces the accessibility of each property
 # outside the owner.
 #
-# For devices launching with R or later, all properties must be explicitly marked as one of:
-# system_property_type, vendor_property_type, or product_property_type.
-# Also, exported properties must be explicitly marked as "restricted" or "public",
-# depending on the accessibility outside the owner.
+# For devices launching with R or later, exported properties must be explicitly marked as
+# "restricted" or "public", depending on the accessibility outside the owner.
 # For devices launching with Q or eariler, this neverallow rules can be relaxed with defining
 # BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW := true on BoardConfig.mk.
 # See {partition}_{accessibility}_prop macros below.
@@ -836,6 +834,25 @@ ifelse(target_treble_sysprop_neverallow, `cts',
 # BEGIN_LAUNCHING_WITH_R_ONLY -- this marker is used by CTS -- do not modify
 $1
 # END_LAUNCHING_WITH_R_ONLY -- this marker is used by CTS -- do not modify
+, )))
+
+#####################################
+# enforce_sysprop_owner(rules)
+# SELinux neverallow rules which enforces the owner of each property.
+#
+# For devices launching with S or later, all properties must be explicitly marked as one of:
+# system_property_type, vendor_property_type, or product_property_type.
+# For devices launching with R or eariler, this neverallow rules can be relaxed with defining
+# BUILD_BROKEN_ENFORCE_SYSPROP_OWNER := true on BoardConfig.mk.
+# See {partition}_{accessibility}_prop macros below.
+#
+# CTS uses these ules only for devices launching with S or later.
+#
+define(`enforce_sysprop_owner', ifelse(target_enforce_sysprop_owner, `true', $1,
+ifelse(target_enforce_sysprop_owner, `cts',
+# BEGIN_LAUNCHING_WITH_S_ONLY -- this marker is used by CTS -- do not modify
+$1
+# END_LAUNCHING_WITH_S_ONLY -- this marker is used by CTS -- do not modify
 , )))
 
 ###########################################
