@@ -300,10 +300,7 @@
 /system/bin/cppreopts\.sh   u:object_r:cppreopts_exec:s0
 /system/bin/preloads_copy\.sh u:object_r:preloads_copy_exec:s0
 /system/bin/preopt2cachename u:object_r:preopt2cachename_exec:s0
-/system/bin/dex2oat(d)?     u:object_r:dex2oat_exec:s0
-/system/bin/dexoptanalyzer(d)?     u:object_r:dexoptanalyzer_exec:s0
 /system/bin/viewcompiler     u:object_r:viewcompiler_exec:s0
-/system/bin/profman(d)?     u:object_r:profman_exec:s0
 /system/bin/iorapd          u:object_r:iorapd_exec:s0
 /system/bin/iorap\.inode2filename u:object_r:iorap_inode2filename_exec:s0
 /system/bin/iorap\.prefetcherd u:object_r:iorap_prefetcherd_exec:s0
