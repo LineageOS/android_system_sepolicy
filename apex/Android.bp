@@ -35,16 +35,16 @@ filegroup {
 }
 
 filegroup {
-  name: "com.android.art.debug-file_contexts",
+  name: "com.android.art-file_contexts",
   srcs: [
-    "com.android.art.debug-file_contexts",
+    "com.android.art-file_contexts",
   ],
 }
 
 filegroup {
-  name: "com.android.art.release-file_contexts",
+  name: "com.android.art.debug-file_contexts",
   srcs: [
-    "com.android.art.release-file_contexts",
+    "com.android.art.debug-file_contexts",
   ],
 }
 
