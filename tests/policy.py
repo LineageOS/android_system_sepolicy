@@ -103,6 +103,17 @@ class Policy:
             ret += " ".join(str(x) for x in sorted(violators)) + "\n"
         return ret
 
+    def AssertPropertyOwnersAreExclusive(self):
+        systemProps = self.QueryTypeAttribute('system_property_type', True)
+        vendorProps = self.QueryTypeAttribute('vendor_property_type', True)
+        violators = systemProps.intersection(vendorProps)
+        ret = ""
+        if len(violators) > 0:
+            ret += "The following types have both system_property_type "
+            ret += "and vendor_property_type: "
+            ret += " ".join(str(x) for x in sorted(violators)) + "\n"
+        return ret
+
     # Return all file_contexts entries that map to the input Type.
     def QueryFc(self, Type):
         if Type in self.__FcDict:
