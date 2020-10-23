@@ -37,6 +37,10 @@ def TestCoreDataTypeViolations(pol):
     return pol.AssertPathTypesHaveAttr(["/data/"], ["/data/vendor",
             "/data/vendor_ce", "/data/vendor_de"], "core_data_file_type")
 
+def TestPropertyTypeViolations(pol):
+    return pol.AssertPropertyOwnersAreExclusive()
+
+
 ###
 # extend OptionParser to allow the same option flag to be used multiple times.
 # This is used to allow multiple file_contexts files and tests to be
@@ -62,6 +66,7 @@ Tests = [
     "TestDebugfsTypeViolations",
     "TestVendorTypeViolations",
     "TestCoreDataTypeViolations",
+    "TestPropertyTypeViolations"
 ]
 
 if __name__ == '__main__':
@@ -115,6 +120,8 @@ if __name__ == '__main__':
         results += TestVendorTypeViolations(pol)
     if options.test is None or "TestCoreDataTypeViolations" in options.test:
         results += TestCoreDataTypeViolations(pol)
+    if options.test is None or "TestPropertyTypeViolations" in options.test:
+        results += TestPropertyTypeViolations(pol)
 
     if len(results) > 0:
         sys.exit(results)
