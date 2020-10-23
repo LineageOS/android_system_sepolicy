@@ -196,24 +196,21 @@ neverallow all_untrusted_apps system_file:file lock;
 # other than find actions for services listed below
 neverallow all_untrusted_apps *:hwservice_manager ~find;
 
-# Do not permit access from apps which host arbitrary code to the protected HwBinder
-# services.
+# Do not permit access from apps which host arbitrary code to the protected services
 # The two main reasons for this are:
-# 1. Protected HwBinder servers do not perform client authentication because HIDL
-#    currently does not expose caller UID information and, even if it did, those
-#    HwBinder services either operate at a level below that of apps (e.g., HALs)
-#    or must not rely on app identity for authorization. Thus, to be safe, the
-#    default assumption is that every HwBinder service treats all its clients as
-#    equally authorized to perform operations offered by the service.
-# 2. HAL servers (a subset of HwBinder services) contain code with higher
-#    incidence rate of security issues than system/core components and have
-#    access to lower layes of the stack (all the way down to hardware) thus
-#    increasing opportunities for bypassing the Android security model.
+# 1. Protected HwBinder servers do not perform client authentication because
+#    vendor code does not have a way to understand apps or their relation to
+#    caller UID information and, even if it did, those services either operate
+#    at a level below that of apps (e.g., HALs) or must not rely on app identity
+#    for authorization. Thus, to be safe, the default assumption for all added
+#    vendor services is that they treat all their clients as equally authorized
+#    to perform operations offered by the service.
+# 2. HAL servers contain code with higher incidence rate of security issues
+#    than system/core components and have access to lower layes of the stack
+#    (all the way down to hardware) thus increasing opportunities for bypassing
+#    the Android security model.
 neverallow all_untrusted_apps protected_hwservice:hwservice_manager find;
-
-neverallow all_untrusted_apps {
-  vendor_service
-}:service_manager find;
+neverallow all_untrusted_apps protected_service:service_manager find;
 
 # SELinux is not an API for untrusted apps to use
 neverallow all_untrusted_apps selinuxfs:file no_rw_file_perms;
