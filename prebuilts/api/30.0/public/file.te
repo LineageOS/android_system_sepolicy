@@ -532,6 +532,7 @@ allow file_type rootfs:filesystem associate;
 allow dev_type tmpfs:filesystem associate;
 allow app_fuse_file app_fusefs:filesystem associate;
 allow postinstall_file self:filesystem associate;
+allow proc_net proc:filesystem associate;
 
 # asanwrapper (run a sanitized app_process, to be used with wrap properties)
 with_asan(`type asanwrapper_exec, exec_type, file_type;')
