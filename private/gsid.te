@@ -9,6 +9,11 @@ init_daemon_domain(gsid)
 binder_use(gsid)
 binder_service(gsid)
 add_service(gsid, gsi_service)
+
+# Manage DSU metadata encryption key through vold.
+allow gsid vold_service:service_manager find;
+binder_call(gsid, vold)
+
 set_prop(gsid, gsid_prop)
 
 # Needed to create/delete device-mapper nodes, and read/write to them.

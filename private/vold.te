@@ -44,3 +44,12 @@ allow vold vold_key:keystore2_key {
     use
 };
 
+neverallow {
+    domain
+    -system_server
+    -vdc
+    -vold
+    -update_verifier
+    -apexd
+    -gsid
+} vold_service:service_manager find;

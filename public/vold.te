@@ -69,7 +69,10 @@ neverallowxperm {
 # Allow securely erasing crypto key files. F2FS_IOC_SEC_TRIM_FILE is
 # tried first. Otherwise, FS_IOC_FIEMAP is needed to get the
 # location of the file's blocks on the raw block device to erase.
-allowxperm vold vold_data_file:file ioctl {
+allowxperm vold {
+  vold_data_file
+  vold_metadata_file
+}:file ioctl {
   F2FS_IOC_SEC_TRIM_FILE
   FS_IOC_FIEMAP
 };
@@ -237,6 +240,7 @@ allowxperm vold userdata_block_device:blk_file ioctl BLKSECDISCARD;
 
 # Access metadata block device used for encryption meta-data.
 allow vold metadata_block_device:blk_file rw_file_perms;
+allowxperm vold metadata_block_device:blk_file ioctl BLKSECDISCARD;
 
 # Allow vold to manipulate /data/unencrypted
 allow vold unencrypted_data_file:{ file } create_file_perms;
@@ -332,15 +336,6 @@ neverallow {
 } { vold_data_file vold_metadata_file }:notdevfile_class_set *;
 
 neverallow { domain -vold -init } restorecon_prop:property_service set;
-
-neverallow {
-    domain
-    -system_server
-    -vdc
-    -vold
-    -update_verifier
-    -apexd
-} vold_service:service_manager find;
 
 neverallow vold {
   domain
