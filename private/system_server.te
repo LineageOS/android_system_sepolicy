@@ -347,7 +347,6 @@ allow system_server sysfs_ipv4:file w_file_perms;
 
 r_dir_file(system_server, sysfs_rtc)
 r_dir_file(system_server, sysfs_switch)
-r_dir_file(system_server, sysfs_wakeup_reasons)
 
 allow system_server sysfs_nfc_power_writable:file rw_file_perms;
 allow system_server sysfs_power:dir search;
