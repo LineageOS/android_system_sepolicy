@@ -209,6 +209,9 @@ get_prop(zygote, packagemanager_config_prop)
 # Allow zygote to read /apex/apex-info-list.xml
 allow zygote apex_info_file:file r_file_perms;
 
+# TODO Remove this property when Keystore 2.0 migration is complete b/171563717
+get_prop(zygote, keystore2_enable_prop)
+
 ###
 ### neverallow rules
 ###
