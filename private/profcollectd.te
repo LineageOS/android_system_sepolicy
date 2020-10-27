@@ -34,6 +34,9 @@ userdebug_or_eng(`
   # Allow profcollectd to ptrace.
   allow profcollectd self:global_capability_class_set sys_ptrace;
 
+  # Allow profcollectd to read its system properties.
+  get_prop(profcollectd, device_config_profcollect_native_boot_prop)
+
   # Allow profcollectd to publish a binder service and make binder calls.
   binder_use(profcollectd)
   add_service(profcollectd, profcollectd_service)
