@@ -164,6 +164,9 @@ allow system_app system_server:udp_socket {
 # Settings app reads ro.oem_unlock_supported
 get_prop(system_app, oem_unlock_prop)
 
+# TODO Remove this property when Keystore 2.0 migration is complete b/171563717
+get_prop(system_app, keystore2_enable_prop)
+
 ###
 ### Neverallow rules
 ###
