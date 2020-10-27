@@ -1,0 +1,4 @@
+# snapuserd - Daemon for servicing dm-user requests for Virtual A/B snapshots.
+
+type snapuserd, domain;
+type snapuserd_exec, exec_type, file_type, system_file_type;
