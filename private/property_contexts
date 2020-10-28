@@ -203,17 +203,18 @@ vendor.                 u:object_r:vendor_default_prop:s0
 persist.time.           u:object_r:time_prop:s0
 
 # Properties that relate to server configurable flags
-device_config.reset_performed           u:object_r:device_config_reset_performed_prop:s0
+device_config.reset_performed                       u:object_r:device_config_reset_performed_prop:s0
 persist.device_config.activity_manager_native_boot. u:object_r:device_config_activity_manager_native_boot_prop:s0
-persist.device_config.attempted_boot_count        u:object_r:device_config_boot_count_prop:s0
-persist.device_config.input_native_boot. u:object_r:device_config_input_native_boot_prop:s0
-persist.device_config.netd_native.           u:object_r:device_config_netd_native_prop:s0
-persist.device_config.runtime_native.        u:object_r:device_config_runtime_native_prop:s0
-persist.device_config.runtime_native_boot.   u:object_r:device_config_runtime_native_boot_prop:s0
-persist.device_config.media_native.          u:object_r:device_config_media_native_prop:s0
-persist.device_config.storage_native_boot.   u:object_r:device_config_storage_native_boot_prop:s0
-persist.device_config.window_manager_native_boot. u:object_r:device_config_window_manager_native_boot_prop:s0
-persist.device_config.configuration. u:object_r:device_config_configuration_prop:s0
+persist.device_config.attempted_boot_count          u:object_r:device_config_boot_count_prop:s0
+persist.device_config.configuration.                u:object_r:device_config_configuration_prop:s0
+persist.device_config.input_native_boot.            u:object_r:device_config_input_native_boot_prop:s0
+persist.device_config.media_native.                 u:object_r:device_config_media_native_prop:s0
+persist.device_config.netd_native.                  u:object_r:device_config_netd_native_prop:s0
+persist.device_config.profcollect_native_boot.      u:object_r:device_config_profcollect_native_boot_prop:s0
+persist.device_config.runtime_native.               u:object_r:device_config_runtime_native_prop:s0
+persist.device_config.runtime_native_boot.          u:object_r:device_config_runtime_native_boot_prop:s0
+persist.device_config.storage_native_boot.          u:object_r:device_config_storage_native_boot_prop:s0
+persist.device_config.window_manager_native_boot.   u:object_r:device_config_window_manager_native_boot_prop:s0
 
 # Properties that relate to legacy server configurable flags
 persist.device_config.global_settings.sys_traced u:object_r:device_config_sys_traced_prop:s0
@@ -916,3 +917,10 @@ graphics.display.kernel_idle_timer.enabled u:object_r:surfaceflinger_display_pro
 
 # Disable/enable charger input
 power.battery_input.suspended u:object_r:power_debug_prop:s0 exact bool
+
+# zygote config property
+zygote.critical_window.minute u:object_r:zygote_config_prop:s0 exact int
+
+# Enable Keystore 2.0.
+# TODO remove this propertye when Keystore 2.0 migration is complete b/171563717
+ro.android.security.keystore2.enable    u:object_r:keystore2_enable_prop:s0 exact bool

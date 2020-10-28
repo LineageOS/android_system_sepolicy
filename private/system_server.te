@@ -347,7 +347,6 @@ allow system_server sysfs_ipv4:file w_file_perms;
 
 r_dir_file(system_server, sysfs_rtc)
 r_dir_file(system_server, sysfs_switch)
-r_dir_file(system_server, sysfs_wakeup_reasons)
 
 allow system_server sysfs_nfc_power_writable:file rw_file_perms;
 allow system_server sysfs_power:dir search;
@@ -644,6 +643,7 @@ set_prop(system_server, device_config_activity_manager_native_boot_prop)
 set_prop(system_server, device_config_runtime_native_boot_prop)
 set_prop(system_server, device_config_runtime_native_prop)
 set_prop(system_server, device_config_media_native_prop)
+set_prop(system_server, device_config_profcollect_native_boot_prop)
 set_prop(system_server, device_config_storage_native_boot_prop)
 set_prop(system_server, device_config_sys_traced_prop)
 set_prop(system_server, device_config_window_manager_native_boot_prop)
@@ -1200,6 +1200,9 @@ neverallow {
 
 # Read/Write /proc/pressure/memory
 allow system_server proc_pressure_mem:file rw_file_perms;
+
+# TODO Remove this property when Keystore 2.0 migration is complete b/171563717
+get_prop(system_server, keystore2_enable_prop)
 
 # dexoptanalyzer is currently used only for secondary dex files which
 # system_server should never access.
