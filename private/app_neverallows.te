@@ -19,6 +19,9 @@ neverallow all_untrusted_apps domain:netlink_kobject_uevent_socket *;
 # Receive or send generic netlink messages
 neverallow all_untrusted_apps domain:netlink_socket *;
 
+# Read or write kernel printk buffer
+neverallow all_untrusted_apps kmsg_device:chr_file no_rw_file_perms;
+
 # Too much leaky information in debugfs. It's a security
 # best practice to ensure these files aren't readable.
 neverallow all_untrusted_apps { debugfs_type -debugfs_kcov }:file read;
