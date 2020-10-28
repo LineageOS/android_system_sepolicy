@@ -10,7 +10,9 @@
     apex_info_file
     cgroup_v2
     debugfs_kprobes
+    device_config_profcollect_native_boot_prop
     device_state_service
+    dm_user_device
     dmabuf_system_heap_device
     framework_watchdog_config_prop
     gki_apex_prepostinstall
@@ -35,9 +37,13 @@
     profcollectd_exec
     profcollectd_service
     shell_test_data_file
+    snapuserd
+    snapuserd_exec
+    snapuserd_socket
     sysfs_devices_cs_etm
     system_server_dumper_service
     update_engine_stable_service
     userspace_reboot_metadata_file
     vcn_management_service
-    vibrator_manager_service))
+    vibrator_manager_service
+    zygote_config_prop))

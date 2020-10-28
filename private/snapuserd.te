@@ -1,0 +1,15 @@
+# snapuserd - Daemon for servicing dm-user requests for Virtual A/B snapshots.
+
+typeattribute snapuserd coredomain;
+
+init_daemon_domain(snapuserd)
+
+allow snapuserd kmsg_device:chr_file rw_file_perms;
+
+# Reading and writing to /dev/block/dm-* (device-mapper) nodes.
+allow snapuserd block_device:dir r_dir_perms;
+allow snapuserd dm_device:chr_file rw_file_perms;
+allow snapuserd dm_device:blk_file rw_file_perms;
+
+# Reading and writing to dm-user control nodes.
+allow snapuserd dm_user_device:chr_file rw_file_perms;

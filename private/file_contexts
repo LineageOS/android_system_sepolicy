@@ -94,6 +94,7 @@
 /dev/console		u:object_r:console_device:s0
 /dev/cpu_variant:.*     u:object_r:dev_cpu_variant:s0
 /dev/dma_heap/system    u:object_r:dmabuf_system_heap_device:s0
+/dev/dm-user/.+		u:object_r:dm_user_device:s0
 /dev/device-mapper	u:object_r:dm_device:s0
 /dev/eac		u:object_r:audio_device:s0
 /dev/event-log-tags     u:object_r:runtime_event_log_tags_file:s0
@@ -153,6 +154,7 @@
 /dev/socket/recovery    u:object_r:recovery_socket:s0
 /dev/socket/rild	u:object_r:rild_socket:s0
 /dev/socket/rild-debug	u:object_r:rild_debug_socket:s0
+/dev/socket/snapuserd u:object_r:snapuserd_socket:s0
 /dev/socket/tombstoned_crash u:object_r:tombstoned_crash_socket:s0
 /dev/socket/tombstoned_java_trace u:object_r:tombstoned_java_trace_socket:s0
 /dev/socket/tombstoned_intercept u:object_r:tombstoned_intercept_socket:s0
@@ -353,6 +355,7 @@
 /system/bin/notify_traceur\.sh       u:object_r:notify_traceur_exec:s0
 /system/bin/migrate_legacy_obb_data\.sh u:object_r:migrate_legacy_obb_data_exec:s0
 /system/bin/android\.frameworks\.automotive\.display@1\.0-service u:object_r:automotive_display_service_exec:s0
+/system/bin/snapuserd            u:object_r:snapuserd_exec:s0
 
 #############################
 # Vendor files
