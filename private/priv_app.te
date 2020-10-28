@@ -170,6 +170,9 @@ neverallow priv_app domain:netlink_kobject_uevent_socket *;
 # Receive or send generic netlink messages
 neverallow priv_app domain:netlink_socket *;
 
+# Read or write kernel printk buffer
+neverallow priv_app kmsg_device:chr_file no_rw_file_perms;
+
 # Too much leaky information in debugfs. It's a security
 # best practice to ensure these files aren't readable.
 neverallow priv_app debugfs:file read;
