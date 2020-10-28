@@ -55,21 +55,12 @@ REQD_MASK_POLICY := $(LOCAL_PATH)/reqd_mask
 
 SYSTEM_EXT_PUBLIC_POLICY := $(SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS)
 ifneq (,$(BOARD_PLAT_PUBLIC_SEPOLICY_DIR))
-  # Must use new variable name for devices launched on S
-  ifdef PRODUCT_SHIPPING_API_LEVEL
-    ifneq ($(call math_gt_or_eq,$(PRODUCT_SHIPPING_API_LEVEL),31),)
-      $(error Please use SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS instead of the old variable BOARD_PLAT_PUBLIC_SEPOLICY_DIR)
-    endif
-  endif
+  # TODO: Disallow BOARD_PLAT_*
   SYSTEM_EXT_PUBLIC_POLICY += $(BOARD_PLAT_PUBLIC_SEPOLICY_DIR)
 endif
 SYSTEM_EXT_PRIVATE_POLICY := $(SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS)
 ifneq (,$(BOARD_PLAT_PRIVATE_SEPOLICY_DIR))
-  ifdef PRODUCT_SHIPPING_API_LEVEL
-    ifneq ($(call math_gt_or_eq,$(PRODUCT_SHIPPING_API_LEVEL),31),)
-      $(error Please use SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS instead of the old variable BOARD_PLAT_PRIVATE_SEPOLICY_DIR)
-    endif
-  endif
+  # TODO: Disallow BOARD_PLAT_*
   SYSTEM_EXT_PRIVATE_POLICY += $(BOARD_PLAT_PRIVATE_SEPOLICY_DIR)
 endif
 
