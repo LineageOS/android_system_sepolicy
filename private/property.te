@@ -16,6 +16,7 @@ system_internal_prop(lower_kptr_restrict_prop)
 system_internal_prop(netd_stable_secret_prop)
 system_internal_prop(pm_prop)
 system_internal_prop(system_adbd_prop)
+system_internal_prop(suspend_prop)
 system_internal_prop(traced_perf_enabled_prop)
 system_internal_prop(userspace_reboot_log_prop)
 system_internal_prop(userspace_reboot_test_prop)
@@ -284,6 +285,13 @@ compatible_property_only(`
   } {
     wifi_prop
   }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -init
+  } {
+    suspend_prop
+  }:property_service set;
 ')
 
 compatible_property_only(`
