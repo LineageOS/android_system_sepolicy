@@ -204,6 +204,10 @@ allow adbd perfetto_configs_data_file:file create_file_perms;
 allow adbd shell:unix_stream_socket { read write shutdown };
 allow adbd shell:fd use;
 
+# Allow pull /vendor/apex files for CTS tests
+allow adbd vendor_apex_file:dir search;
+allow adbd vendor_apex_file:file r_file_perms;
+
 ###
 ### Neverallow rules
 ###
