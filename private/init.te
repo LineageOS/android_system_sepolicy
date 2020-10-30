@@ -55,6 +55,13 @@ allow init self:global_capability2_class_set perfmon;
 neverallow init self:perf_event { kernel tracepoint read write };
 dontaudit init self:perf_event { kernel tracepoint read write };
 
+# Allow init to communicate with snapuserd to transition Virtual A/B devices
+# from the first-stage daemon to the second-stage.
+allow init snapuserd_socket:sock_file write;
+allow init snapuserd:unix_stream_socket connectto;
+# Allow for libsnapshot's use of flock() on /metadata/ota.
+allow init ota_metadata_file:dir lock;
+
 # Only init is allowed to set the sysprop indicating whether perf_event_open()
 # SELinux hooks were detected.
 set_prop(init, init_perf_lsm_hooks_prop)
