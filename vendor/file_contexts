@@ -4,8 +4,9 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.atrace@1\.0-service         u:object_r:hal_atrace_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.audio(@2\.0-|\.)service     u:object_r:hal_audio_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.audio@7\.0-service\.example     u:object_r:hal_audio_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.audiocontrol@1\.0-service  u:object_r:hal_audiocontrol_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.audiocontrol@2\.0-service  u:object_r:hal_audiocontrol_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.audiocontrol@1\.0-service    u:object_r:hal_audiocontrol_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.audiocontrol@2\.0-service    u:object_r:hal_audiocontrol_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.audiocontrol-service.example u:object_r:hal_audiocontrol_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.can@1\.0-service  u:object_r:hal_can_socketcan_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.evs@1\.[0-9]-service  u:object_r:hal_evs_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@2\.0-(service|protocan-service)  u:object_r:hal_vehicle_default_exec:s0
