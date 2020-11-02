@@ -31,6 +31,7 @@ type service_manager_service,   service_manager_type;
 type storaged_service,          service_manager_type;
 type surfaceflinger_service,    app_api_service, ephemeral_app_api_service, service_manager_type;
 type system_app_service,        service_manager_type;
+type system_suspend_control_internal_service, service_manager_type;
 type system_suspend_control_service, service_manager_type;
 type update_engine_service,     service_manager_type;
 type update_engine_stable_service, service_manager_type;
