@@ -14,6 +14,7 @@ perfetto_producer(traced_probes)
 allow traced_probes debugfs_tracing:dir r_dir_perms;
 allow traced_probes debugfs_tracing:file rw_file_perms;
 allow traced_probes debugfs_trace_marker:file getattr;
+allow traced_probes debugfs_tracing_printk_formats:file r_file_perms;
 
 # TODO(primiano): temporarily I/O tracing categories are still
 # userdebug only until we nail down the denylist/allowlist.
