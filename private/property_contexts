@@ -585,35 +585,96 @@ ro.boot.dynamic_partitions_retrofit u:object_r:exported_default_prop:s0 exact st
 ro.boottime.init.mount.data u:object_r:boottime_public_prop:s0 exact string
 ro.boottime.init.fsck.data  u:object_r:boottime_public_prop:s0 exact string
 
-ro.build.date                        u:object_r:build_prop:s0 exact string
-ro.build.date.utc                    u:object_r:build_prop:s0 exact int
-ro.build.description                 u:object_r:build_prop:s0 exact string
-ro.build.display.id                  u:object_r:build_prop:s0 exact string
-ro.build.host                        u:object_r:build_prop:s0 exact string
-ro.build.id                          u:object_r:build_prop:s0 exact string
-ro.build.product                     u:object_r:build_prop:s0 exact string
-ro.build.system_root_image           u:object_r:build_prop:s0 exact bool
-ro.build.tags                        u:object_r:build_prop:s0 exact string
-ro.build.type                        u:object_r:build_prop:s0 exact string
-ro.build.user                        u:object_r:build_prop:s0 exact string
-ro.build.version.base_os             u:object_r:build_prop:s0 exact string
-ro.build.version.codename            u:object_r:build_prop:s0 exact string
-ro.build.version.incremental         u:object_r:build_prop:s0 exact string
-ro.build.version.preview_sdk         u:object_r:build_prop:s0 exact int
-ro.build.version.release             u:object_r:build_prop:s0 exact string
-ro.build.version.release_or_codename u:object_r:build_prop:s0 exact string
-ro.build.version.sdk                 u:object_r:build_prop:s0 exact int
-ro.build.version.security_patch      u:object_r:build_prop:s0 exact string
+ro.build.characteristics                  u:object_r:build_prop:s0 exact string
+ro.build.date                             u:object_r:build_prop:s0 exact string
+ro.build.date.utc                         u:object_r:build_prop:s0 exact int
+ro.build.description                      u:object_r:build_prop:s0 exact string
+ro.build.display.id                       u:object_r:build_prop:s0 exact string
+ro.build.flavor                           u:object_r:build_prop:s0 exact string
+ro.build.host                             u:object_r:build_prop:s0 exact string
+ro.build.id                               u:object_r:build_prop:s0 exact string
+ro.build.product                          u:object_r:build_prop:s0 exact string
+ro.build.system_root_image                u:object_r:build_prop:s0 exact bool
+ro.build.tags                             u:object_r:build_prop:s0 exact string
+ro.build.type                             u:object_r:build_prop:s0 exact string
+ro.build.user                             u:object_r:build_prop:s0 exact string
+ro.build.version.all_codenames            u:object_r:build_prop:s0 exact string
+ro.build.version.base_os                  u:object_r:build_prop:s0 exact string
+ro.build.version.codename                 u:object_r:build_prop:s0 exact string
+ro.build.version.incremental              u:object_r:build_prop:s0 exact string
+ro.build.version.min_supported_target_sdk u:object_r:build_prop:s0 exact int
+ro.build.version.preview_sdk              u:object_r:build_prop:s0 exact int
+ro.build.version.preview_sdk_fingerprint  u:object_r:build_prop:s0 exact string
+ro.build.version.release                  u:object_r:build_prop:s0 exact string
+ro.build.version.release_or_codename      u:object_r:build_prop:s0 exact string
+ro.build.version.sdk                      u:object_r:build_prop:s0 exact int
+ro.build.version.security_patch           u:object_r:build_prop:s0 exact string
+
+ro.actionable_compatible_property.enabled u:object_r:build_prop:s0 exact bool
 
 ro.debuggable u:object_r:build_prop:s0 exact bool
+
+ro.treble.enabled u:object_r:build_prop:s0 exact bool
 
 ro.product.cpu.abi       u:object_r:build_prop:s0 exact string
 ro.product.cpu.abilist   u:object_r:build_prop:s0 exact string
 ro.product.cpu.abilist32 u:object_r:build_prop:s0 exact string
 ro.product.cpu.abilist64 u:object_r:build_prop:s0 exact string
 
+ro.product.system.brand        u:object_r:build_prop:s0 exact string
+ro.product.system.device       u:object_r:build_prop:s0 exact string
+ro.product.system.manufacturer u:object_r:build_prop:s0 exact string
+ro.product.system.model        u:object_r:build_prop:s0 exact string
+ro.product.system.name         u:object_r:build_prop:s0 exact string
+
+ro.system.build.date                        u:object_r:build_prop:s0 exact string
+ro.system.build.date.utc                    u:object_r:build_prop:s0 exact int
+ro.system.build.fingerprint                 u:object_r:build_prop:s0 exact string
+ro.system.build.id                          u:object_r:build_prop:s0 exact string
+ro.system.build.tags                        u:object_r:build_prop:s0 exact string
+ro.system.build.type                        u:object_r:build_prop:s0 exact string
+ro.system.build.version.incremental         u:object_r:build_prop:s0 exact string
+ro.system.build.version.release             u:object_r:build_prop:s0 exact string
+ro.system.build.version.release_or_codename u:object_r:build_prop:s0 exact string
+ro.system.build.version.sdk                 u:object_r:build_prop:s0 exact int
+
 ro.adb.secure u:object_r:build_prop:s0 exact bool
 ro.secure     u:object_r:build_prop:s0 exact int
+
+ro.product.system_ext.brand        u:object_r:build_prop:s0 exact string
+ro.product.system_ext.device       u:object_r:build_prop:s0 exact string
+ro.product.system_ext.manufacturer u:object_r:build_prop:s0 exact string
+ro.product.system_ext.model        u:object_r:build_prop:s0 exact string
+ro.product.system_ext.name         u:object_r:build_prop:s0 exact string
+
+ro.system_ext.build.date                        u:object_r:build_prop:s0 exact string
+ro.system_ext.build.date.utc                    u:object_r:build_prop:s0 exact int
+ro.system_ext.build.fingerprint                 u:object_r:build_prop:s0 exact string
+ro.system_ext.build.id                          u:object_r:build_prop:s0 exact string
+ro.system_ext.build.tags                        u:object_r:build_prop:s0 exact string
+ro.system_ext.build.type                        u:object_r:build_prop:s0 exact string
+ro.system_ext.build.version.incremental         u:object_r:build_prop:s0 exact string
+ro.system_ext.build.version.release             u:object_r:build_prop:s0 exact string
+ro.system_ext.build.version.release_or_codename u:object_r:build_prop:s0 exact string
+ro.system_ext.build.version.sdk                 u:object_r:build_prop:s0 exact int
+
+# These ro.product.product.* and ro.product.build.* are set by /product/etc/build.prop
+ro.product.product.brand        u:object_r:build_prop:s0 exact string
+ro.product.product.device       u:object_r:build_prop:s0 exact string
+ro.product.product.manufacturer u:object_r:build_prop:s0 exact string
+ro.product.product.model        u:object_r:build_prop:s0 exact string
+ro.product.product.name         u:object_r:build_prop:s0 exact string
+
+ro.product.build.date                        u:object_r:build_prop:s0 exact string
+ro.product.build.date.utc                    u:object_r:build_prop:s0 exact int
+ro.product.build.fingerprint                 u:object_r:build_prop:s0 exact string
+ro.product.build.id                          u:object_r:build_prop:s0 exact string
+ro.product.build.tags                        u:object_r:build_prop:s0 exact string
+ro.product.build.type                        u:object_r:build_prop:s0 exact string
+ro.product.build.version.incremental         u:object_r:build_prop:s0 exact string
+ro.product.build.version.release             u:object_r:build_prop:s0 exact string
+ro.product.build.version.release_or_codename u:object_r:build_prop:s0 exact string
+ro.product.build.version.sdk                 u:object_r:build_prop:s0 exact int
 
 # These 5 properties are set by property_service
 ro.product.brand         u:object_r:build_prop:s0 exact string
@@ -647,30 +708,40 @@ ro.product.odm.model        u:object_r:build_odm_prop:s0 exact string
 ro.product.odm.name         u:object_r:build_odm_prop:s0 exact string
 
 # All vendor_dlkm build props are set by /vendor_dlkm/etc/build.prop
-ro.vendor_dlkm.build.date                u:object_r:build_vendor_prop:s0 exact string
-ro.vendor_dlkm.build.date.utc            u:object_r:build_vendor_prop:s0 exact int
-ro.vendor_dlkm.build.fingerprint         u:object_r:build_vendor_prop:s0 exact string
-ro.vendor_dlkm.build.version.incremental u:object_r:build_vendor_prop:s0 exact string
+ro.vendor_dlkm.build.date                        u:object_r:build_vendor_prop:s0 exact string
+ro.vendor_dlkm.build.date.utc                    u:object_r:build_vendor_prop:s0 exact int
+ro.vendor_dlkm.build.fingerprint                 u:object_r:build_vendor_prop:s0 exact string
+ro.vendor_dlkm.build.id                          u:object_r:build_vendor_prop:s0 exact string
+ro.vendor_dlkm.build.tags                        u:object_r:build_vendor_prop:s0 exact string
+ro.vendor_dlkm.build.type                        u:object_r:build_vendor_prop:s0 exact string
+ro.vendor_dlkm.build.version.incremental         u:object_r:build_vendor_prop:s0 exact string
+ro.vendor_dlkm.build.version.release             u:object_r:build_vendor_prop:s0 exact string
+ro.vendor_dlkm.build.version.release_or_codename u:object_r:build_vendor_prop:s0 exact string
+ro.vendor_dlkm.build.version.sdk                 u:object_r:build_vendor_prop:s0 exact int
 
 # All odm_dlkm build props are set by /odm_dlkm/etc/build.prop
-ro.odm_dlkm.build.date                u:object_r:build_vendor_prop:s0 exact string
-ro.odm_dlkm.build.date.utc            u:object_r:build_vendor_prop:s0 exact int
-ro.odm_dlkm.build.fingerprint         u:object_r:build_vendor_prop:s0 exact string
-ro.odm_dlkm.build.version.incremental u:object_r:build_vendor_prop:s0 exact string
+ro.old_dlkm.build.date                        u:object_r:build_vendor_prop:s0 exact string
+ro.old_dlkm.build.date.utc                    u:object_r:build_vendor_prop:s0 exact int
+ro.old_dlkm.build.fingerprint                 u:object_r:build_vendor_prop:s0 exact string
+ro.old_dlkm.build.id                          u:object_r:build_vendor_prop:s0 exact string
+ro.old_dlkm.build.tags                        u:object_r:build_vendor_prop:s0 exact string
+ro.old_dlkm.build.type                        u:object_r:build_vendor_prop:s0 exact string
+ro.old_dlkm.build.version.incremental         u:object_r:build_vendor_prop:s0 exact string
+ro.old_dlkm.build.version.release             u:object_r:build_vendor_prop:s0 exact string
+ro.old_dlkm.build.version.release_or_codename u:object_r:build_vendor_prop:s0 exact string
+ro.old_dlkm.build.version.sdk                 u:object_r:build_vendor_prop:s0 exact int
 
 # All vendor build props are set by /vendor/build.prop
-ro.vendor.build.date                u:object_r:build_vendor_prop:s0 exact string
-ro.vendor.build.date.utc            u:object_r:build_vendor_prop:s0 exact int
-ro.vendor.build.fingerprint         u:object_r:build_vendor_prop:s0 exact string
-ro.vendor.build.version.incremental u:object_r:build_vendor_prop:s0 exact string
-ro.vendor.build.version.sdk         u:object_r:build_vendor_prop:s0 exact int
-
-# Boot image build props set by /{second_stage_resources/,}boot/etc/build.prop
-ro.bootimage.build.date                u:object_r:build_bootimage_prop:s0 exact string
-ro.bootimage.build.date.utc            u:object_r:build_bootimage_prop:s0 exact int
-ro.bootimage.build.fingerprint         u:object_r:build_bootimage_prop:s0 exact string
-ro.bootimage.build.version.incremental u:object_r:build_bootimage_prop:s0 exact string
-ro.bootimage.build.version.sdk         u:object_r:build_bootimage_prop:s0 exact int
+ro.vendor.build.date                        u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.build.date.utc                    u:object_r:build_vendor_prop:s0 exact int
+ro.vendor.build.fingerprint                 u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.build.id                          u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.build.tags                        u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.build.type                        u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.build.version.incremental         u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.build.version.release             u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.build.version.release_or_codename u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.build.version.sdk                 u:object_r:build_vendor_prop:s0 exact int
 
 ro.product.board               u:object_r:build_vendor_prop:s0 exact string
 ro.product.first_api_level     u:object_r:build_vendor_prop:s0 exact int
@@ -679,6 +750,24 @@ ro.product.vendor.device       u:object_r:build_vendor_prop:s0 exact string
 ro.product.vendor.manufacturer u:object_r:build_vendor_prop:s0 exact string
 ro.product.vendor.model        u:object_r:build_vendor_prop:s0 exact string
 ro.product.vendor.name         u:object_r:build_vendor_prop:s0 exact string
+
+# Boot image build props set by /{second_stage_resources/,}boot/etc/build.prop
+ro.bootimage.build.date                        u:object_r:build_bootimage_prop:s0 exact string
+ro.bootimage.build.date.utc                    u:object_r:build_bootimage_prop:s0 exact int
+ro.bootimage.build.fingerprint                 u:object_r:build_bootimage_prop:s0 exact string
+ro.bootimage.build.id                          u:object_r:build_bootimage_prop:s0 exact string
+ro.bootimage.build.tags                        u:object_r:build_bootimage_prop:s0 exact string
+ro.bootimage.build.type                        u:object_r:build_bootimage_prop:s0 exact string
+ro.bootimage.build.version.incremental         u:object_r:build_bootimage_prop:s0 exact string
+ro.bootimage.build.version.release             u:object_r:build_bootimage_prop:s0 exact string
+ro.bootimage.build.version.release_or_codename u:object_r:build_bootimage_prop:s0 exact string
+ro.bootimage.build.version.sdk                 u:object_r:build_bootimage_prop:s0 exact int
+
+ro.product.bootimage.brand        u:object_r:build_bootimage_prop:s0 exact string
+ro.product.bootimage.device       u:object_r:build_bootimage_prop:s0 exact string
+ro.product.bootimage.manufacturer u:object_r:build_bootimage_prop:s0 exact string
+ro.product.bootimage.model        u:object_r:build_bootimage_prop:s0 exact string
+ro.product.bootimage.name         u:object_r:build_bootimage_prop:s0 exact string
 
 ro.crypto.state u:object_r:vold_status_prop:s0 exact enum encrypted unencrypted unsupported
 ro.crypto.type  u:object_r:vold_status_prop:s0 exact enum block file none
