@@ -173,6 +173,8 @@ genfscon tracefs /instances/wifi                      u:object_r:debugfs_wifi_tr
 genfscon debugfs /tracing/trace_marker                u:object_r:debugfs_trace_marker:s0
 genfscon tracefs /trace_marker                        u:object_r:debugfs_trace_marker:s0
 genfscon debugfs /wakeup_sources                      u:object_r:debugfs_wakeup_sources:s0
+genfscon debugfs /tracing/printk_formats              u:object_r:debugfs_tracing_printk_formats:s0
+genfscon tracefs /printk_formats                      u:object_r:debugfs_tracing_printk_formats:s0
 
 genfscon debugfs /tracing/events/header_page                         u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/f2fs/f2fs_get_data_block/           u:object_r:debugfs_tracing:s0

@@ -1288,7 +1288,8 @@
 (typeattributeset debugfs_mmc_30_0 (debugfs_mmc))
 (typeattributeset debugfs_trace_marker_30_0 (debugfs_trace_marker))
 (typeattributeset debugfs_tracing_30_0 (debugfs_tracing))
-(typeattributeset debugfs_tracing_debug_30_0 (debugfs_tracing_debug))
+(typeattributeset debugfs_tracing_debug_30_0 (debugfs_tracing_debug
+                                              debugfs_tracing_printk_formats))
 (typeattributeset debugfs_tracing_instances_30_0 (debugfs_tracing_instances))
 (typeattributeset debugfs_wakeup_sources_30_0 (debugfs_wakeup_sources))
 (typeattributeset debugfs_wifi_tracing_30_0 (debugfs_wifi_tracing))
