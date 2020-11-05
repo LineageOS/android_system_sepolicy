@@ -1387,3 +1387,5 @@ neverallow {
   -untrusted_app_25
   -untrusted_app_27
 } ashmem_device:chr_file open;
+
+neverallow { domain -traced_probes -init -vendor_init } debugfs_tracing_printk_formats:file *;
