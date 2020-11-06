@@ -268,3 +268,6 @@ init.userspace_reboot.watchdog.timeoutmillis u:object_r:userspace_reboot_config_
 
 # surfaceflinger-settable
 graphics.display.kernel_idle_timer.enabled u:object_r:surfaceflinger_display_prop:s0 exact bool
+
+# Globally-readable init service props
+init.svc.adbd           u:object_r:exported2_default_prop:s0 exact string
