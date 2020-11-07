@@ -97,6 +97,7 @@ allow system_app {
   -iorapd_service
   -lpdump_service
   -netd_service
+  -system_suspend_control_internal_service
   -system_suspend_control_service
   -virtual_touchpad_service
   -vold_service
