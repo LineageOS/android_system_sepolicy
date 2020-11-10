@@ -299,7 +299,7 @@ type prereboot_data_file, file_type, data_file_type, core_data_file_type;
 # /data/resource-cache
 type resourcecache_data_file, file_type, data_file_type, core_data_file_type;
 # /data/local - writable by shell
-type shell_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
+type shell_data_file, file_type, data_file_type, core_data_file_type, app_data_file_type, mlstrustedobject;
 # /data/property
 type property_data_file, file_type, data_file_type, core_data_file_type;
 # /data/bootchart
@@ -369,7 +369,7 @@ type apex_rollback_data_file, file_type, data_file_type, core_data_file_type;
 type apex_wifi_data_file, file_type, data_file_type, core_data_file_type;
 type audio_data_file, file_type, data_file_type, core_data_file_type;
 type audioserver_data_file, file_type, data_file_type, core_data_file_type;
-type bluetooth_data_file, file_type, data_file_type, core_data_file_type;
+type bluetooth_data_file, file_type, data_file_type, core_data_file_type, app_data_file_type;
 type bluetooth_logs_data_file, file_type, data_file_type, core_data_file_type;
 type bootstat_data_file, file_type, data_file_type, core_data_file_type;
 type boottrace_data_file, file_type, data_file_type, core_data_file_type;
@@ -384,9 +384,9 @@ type media_rw_data_file, file_type, data_file_type, core_data_file_type, mlstrus
 type misc_user_data_file, file_type, data_file_type, core_data_file_type;
 type net_data_file, file_type, data_file_type, core_data_file_type;
 type network_watchlist_data_file, file_type, data_file_type, core_data_file_type;
-type nfc_data_file, file_type, data_file_type, core_data_file_type;
+type nfc_data_file, file_type, data_file_type, core_data_file_type, app_data_file_type;
 type nfc_logs_data_file, file_type, data_file_type, core_data_file_type;
-type radio_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
+type radio_data_file, file_type, data_file_type, core_data_file_type, app_data_file_type, mlstrustedobject;
 type recovery_data_file, file_type, data_file_type, core_data_file_type;
 type shared_relro_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 type snapshotctl_log_data_file, file_type, data_file_type, core_data_file_type;
@@ -407,11 +407,11 @@ type method_trace_data_file, file_type, data_file_type, core_data_file_type, mls
 type gsi_data_file, file_type, data_file_type, core_data_file_type;
 
 # /data/data subdirectories - app sandboxes
-type app_data_file, file_type, data_file_type, core_data_file_type;
+type app_data_file, file_type, data_file_type, core_data_file_type, app_data_file_type;
 # /data/data subdirectories - priv-app sandboxes
-type privapp_data_file, file_type, data_file_type, core_data_file_type;
+type privapp_data_file, file_type, data_file_type, core_data_file_type, app_data_file_type;
 # /data/data subdirectory for system UID apps.
-type system_app_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
+type system_app_data_file, file_type, data_file_type, core_data_file_type, app_data_file_type, mlstrustedobject;
 # Compatibility with type name used in Android 4.3 and 4.4.
 # Default type for anything under /cache
 type cache_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
