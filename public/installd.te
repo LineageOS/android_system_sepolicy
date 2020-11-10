@@ -111,27 +111,8 @@ allow installd system_data_file:notdevfile_class_set { getattr relabelfrom unlin
 # upon creation via setfilecon or running restorecon_recursive,
 # setting owner/mode, creating symlinks within them, and deleting them
 # upon package uninstall.
-
-# Types extracted from seapp_contexts type= fields.
-allow installd {
-    system_app_data_file
-    bluetooth_data_file
-    nfc_data_file
-    radio_data_file
-    shell_data_file
-    app_data_file
-    privapp_data_file
-}:dir { create_dir_perms relabelfrom relabelto };
-
-allow installd {
-    system_app_data_file
-    bluetooth_data_file
-    nfc_data_file
-    radio_data_file
-    shell_data_file
-    app_data_file
-    privapp_data_file
-}:notdevfile_class_set { create_file_perms relabelfrom relabelto };
+allow installd app_data_file_type:dir { create_dir_perms relabelfrom relabelto };
+allow installd app_data_file_type:notdevfile_class_set { create_file_perms relabelfrom relabelto };
 
 # Allow zygote to unmount mirror directories
 allow installd labeledfs:filesystem unmount;
