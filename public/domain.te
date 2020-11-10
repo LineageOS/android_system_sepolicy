@@ -1216,6 +1216,7 @@ neverallow {
   -dumpstate
   -init
   -installd
+  -iorap_inode2filename
   -simpleperf_app_runner
   -system_server # why?
   userdebug_or_eng(`-uncrypt')

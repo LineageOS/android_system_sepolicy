@@ -103,15 +103,7 @@ neverallow webview_zygote property_socket:sock_file write;
 neverallow webview_zygote property_type:property_service set;
 
 # Should not have any access to app data files.
-neverallow webview_zygote {
-    app_data_file
-    privapp_data_file
-    system_app_data_file
-    bluetooth_data_file
-    nfc_data_file
-    radio_data_file
-    shell_data_file
-}:file { rwx_file_perms };
+neverallow webview_zygote app_data_file_type:file { rwx_file_perms };
 
 neverallow webview_zygote {
     service_manager_type
