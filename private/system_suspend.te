@@ -18,6 +18,9 @@ r_dir_file(system_suspend, sysfs_wakeup_reasons)
 # To resolve arbitrary sysfs paths from /sys/class/wakeup/* symlinks.
 allow system_suspend sysfs_type:dir search;
 
+# Access to suspend_hal system properties
+get_prop(system_suspend, suspend_prop)
+
 # To call BTAA registered callbacks
 allow system_suspend bluetooth:binder call;
 
