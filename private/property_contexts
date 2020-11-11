@@ -94,6 +94,16 @@ test.sys.boot.reason    u:object_r:test_boot_reason_prop:s0
 test.userspace_reboot.requested u:object_r:userspace_reboot_test_prop:s0
 sys.lmk.                u:object_r:system_lmk_prop:s0
 sys.trace.              u:object_r:system_trace_prop:s0
+wrap.                   u:object_r:zygote_wrap_prop:s0 prefix string
+
+# Suspend service properties
+suspend.max_sleep_time_millis u:object_r:suspend_prop:s0 exact uint
+suspend.base_sleep_time_millis u:object_r:suspend_prop:s0 exact uint
+suspend.backoff_threshold_count u:object_r:suspend_prop:s0 exact uint
+suspend.short_suspend_threshold_millis u:object_r:suspend_prop:s0 exact uint
+suspend.sleep_time_scale_factor u:object_r:suspend_prop:s0 exact double
+suspend.failed_suspend_backoff_enabled u:object_r:suspend_prop:s0 exact bool
+suspend.short_suspend_backoff_enabled u:object_r:suspend_prop:s0 exact bool
 
 # Fastbootd protocol control property
 fastbootd.protocol    u:object_r:fastbootd_protocol_prop:s0 exact enum usb tcp
@@ -361,6 +371,12 @@ keyguard.no_require_sim u:object_r:keyguard_config_prop:s0 exact bool
 
 media.recorder.show_manufacturer_and_model   u:object_r:media_config_prop:s0 exact bool
 media.stagefright.cache-params               u:object_r:media_config_prop:s0 exact string
+media.stagefright.enable-aac                 u:object_r:media_config_prop:s0 exact bool
+media.stagefright.enable-fma2dp              u:object_r:media_config_prop:s0 exact bool
+media.stagefright.enable-http                u:object_r:media_config_prop:s0 exact bool
+media.stagefright.enable-player              u:object_r:media_config_prop:s0 exact bool
+media.stagefright.enable-qcp                 u:object_r:media_config_prop:s0 exact bool
+media.stagefright.enable-scan                u:object_r:media_config_prop:s0 exact bool
 media.stagefright.thumbnail.prefer_hw_codecs u:object_r:media_config_prop:s0 exact bool
 persist.sys.media.avsync                     u:object_r:media_config_prop:s0 exact bool
 
@@ -435,6 +451,7 @@ ro.lmk.debug                    u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.downgrade_pressure       u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.kill_heaviest_task       u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.kill_timeout_ms          u:object_r:lmkd_config_prop:s0 exact int
+ro.lmk.log_stats                u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.low                      u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.medium                   u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.psi_partial_stall_ms     u:object_r:lmkd_config_prop:s0 exact int
@@ -459,7 +476,8 @@ ro.oem_unlock_supported u:object_r:oem_unlock_prop:s0 exact int
 
 ro.rebootescrow.device u:object_r:rebootescrow_hal_prop:s0 exact string
 
-ro.storage_manager.enabled u:object_r:storagemanager_config_prop:s0 exact bool
+ro.storage_manager.enabled     u:object_r:storagemanager_config_prop:s0 exact bool
+ro.storage_manager.show_opt_in u:object_r:storagemanager_config_prop:s0 exact bool
 
 ro.vehicle.hal u:object_r:vehicle_hal_prop:s0 exact string
 
@@ -994,9 +1012,10 @@ ro.localization.locale_filter u:object_r:localization_prop:s0 exact string
 # Graphics related properties
 ro.opengles.version u:object_r:graphics_config_prop:s0 exact int
 
-ro.gfx.driver.0        u:object_r:graphics_config_prop:s0 exact string
-ro.gfx.driver.1        u:object_r:graphics_config_prop:s0 exact string
-ro.gfx.angle.supported u:object_r:graphics_config_prop:s0 exact bool
+ro.gfx.driver.0          u:object_r:graphics_config_prop:s0 exact string
+ro.gfx.driver.1          u:object_r:graphics_config_prop:s0 exact string
+ro.gfx.angle.supported   u:object_r:graphics_config_prop:s0 exact bool
+ro.gfx.driver_build_time u:object_r:graphics_config_prop:s0 exact int
 
 graphics.gpu.profiler.support          u:object_r:graphics_config_prop:s0 exact bool
 graphics.gpu.profiler.vulkan_layer_apk u:object_r:graphics_config_prop:s0 exact string
@@ -1013,3 +1032,35 @@ zygote.critical_window.minute u:object_r:zygote_config_prop:s0 exact int
 # Enable Keystore 2.0.
 # TODO remove this propertye when Keystore 2.0 migration is complete b/171563717
 ro.android.security.keystore2.enable    u:object_r:keystore2_enable_prop:s0 exact bool
+
+partition.system.verified     u:object_r:verity_status_prop:s0 exact string
+partition.system_ext.verified u:object_r:verity_status_prop:s0 exact string
+partition.product.verified    u:object_r:verity_status_prop:s0 exact string
+partition.vendor.verified     u:object_r:verity_status_prop:s0 exact string
+
+ro.setupwizard.enterprise_mode u:object_r:setupwizard_prop:s0 exact bool
+ro.setupwizard.esim_cid_ignore u:object_r:setupwizard_prop:s0 exact string
+ro.setupwizard.rotation_locked u:object_r:setupwizard_prop:s0 exact bool
+ro.setupwizard.wifi_on_exit    u:object_r:setupwizard_prop:s0 exact bool
+
+setupwizard.enable_assist_gesture_training                         u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.avoid_duplicate_tos                            u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.baseline_setupwizard_enabled                   u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.day_night_mode_enabled                         u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.deferred_setup_low_ram_filter                  u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.deferred_setup_notification                    u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.deferred_setup_suggestion                      u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.device_default_dark_mode                       u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.esim_enabled                                   u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.google_services_deferred_setup_pretend_not_suw u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.lock_mobile_data                               u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.lock_mobile_data.carrier-1                     u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.portal_notification                            u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.predeferred_enabled                            u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.return_partner_customization_bundle            u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.show_pixel_tos                                 u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.use_biometric_lock                             u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.feature.wallpaper_suggestion_after_restore             u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.logging                                                u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.metrics_debug_mode                                     u:object_r:setupwizard_prop:s0 exact bool
+setupwizard.theme                                                  u:object_r:setupwizard_prop:s0 exact string
