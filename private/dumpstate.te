@@ -31,6 +31,11 @@ binder_call(dumpstate, gpuservice);
 # Allow dumpstate to talk to idmap over binder
 binder_call(dumpstate, idmap);
 
+# Allow dumpstate to talk to profcollectd over binder
+userdebug_or_eng(`
+  binder_call(dumpstate, profcollectd)
+')
+
 # Collect metrics on boot time created by init
 get_prop(dumpstate, boottime_prop)
 
