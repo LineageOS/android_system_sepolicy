@@ -34,6 +34,10 @@ expandattribute data_file_type false;
 attribute core_data_file_type;
 expandattribute core_data_file_type false;
 
+# All types used for app private data files under /data/data.
+attribute app_data_file_type;
+expandattribute app_data_file_type false;
+
 # All types in /system
 attribute system_file_type;
 
