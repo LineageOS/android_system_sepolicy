@@ -42,5 +42,8 @@ allow uncrypt {
 # Read files in /sys
 r_dir_file(uncrypt, sysfs_dt_firmware_android)
 
+# Read files in /proc
+r_dir_file(uncrypt, proc_dt_firmware_android)
+
 # Allow ReadDefaultFstab().
 read_fstab(uncrypt)
