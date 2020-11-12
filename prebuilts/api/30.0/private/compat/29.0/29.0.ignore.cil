@@ -88,6 +88,11 @@
     ota_metadata_file
     ota_prop
     prereboot_data_file
+<<<<<<< HEAD   (ce7225 Grant permission for mediatranscoding hal_allocator for GSI )
+=======
+    proc_cpu_alignment
+    proc_dt_firmware_android
+>>>>>>> CHANGE (faa218 Allow init to write to /proc/cpu/alignment)
     art_apex_dir
     rebootescrow_hal_prop
     securityfs

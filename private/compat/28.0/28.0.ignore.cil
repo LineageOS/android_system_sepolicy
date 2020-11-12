@@ -109,6 +109,11 @@
     password_slot_metadata_file
     permissionmgr_service
     postinstall_apex_mnt_dir
+<<<<<<< HEAD   (ce7225 Grant permission for mediatranscoding hal_allocator for GSI )
+=======
+    proc_cpu_alignment
+    proc_dt_firmware_android
+>>>>>>> CHANGE (faa218 Allow init to write to /proc/cpu/alignment)
     recovery_socket
     role_service
     rollback_service

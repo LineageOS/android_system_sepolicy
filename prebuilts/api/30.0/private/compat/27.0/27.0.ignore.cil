@@ -120,6 +120,11 @@
     perfetto_exec
     perfetto_tmpfs
     perfetto_traces_data_file
+<<<<<<< HEAD   (ce7225 Grant permission for mediatranscoding hal_allocator for GSI )
+=======
+    proc_cpu_alignment
+    proc_dt_firmware_android
+>>>>>>> CHANGE (faa218 Allow init to write to /proc/cpu/alignment)
     property_info
     recovery_socket
     role_service
