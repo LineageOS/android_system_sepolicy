@@ -48,6 +48,3 @@ auditallow untrusted_app_25 ashmem_device:chr_file open;
 
 # Read /mnt/sdcard symlink.
 allow untrusted_app_25 mnt_sdcard_file:lnk_file r_file_perms;
-
-# allow binding to netlink route sockets and sending RTM_GETLINK messages.
-allow untrusted_app_25 self:netlink_route_socket { bind nlmsg_readpriv };
