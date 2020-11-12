@@ -203,6 +203,8 @@ system_public_prop(zram_control_prop)
 # Properties used in default HAL implementations
 vendor_internal_prop(rebootescrow_hal_prop)
 
+vendor_public_prop(persist_vendor_debug_wifi_prop)
+
 # Properties which are public for devices launching with Android O or earlier
 # This should not be used for any new properties.
 not_compatible_property(`
