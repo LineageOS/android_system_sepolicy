@@ -42,5 +42,14 @@ allow uncrypt {
 # Read files in /sys
 r_dir_file(uncrypt, sysfs_dt_firmware_android)
 
+<<<<<<< HEAD   (ce7225 Grant permission for mediatranscoding hal_allocator for GSI )
 # Allow ReadDefaultFstab().
 read_fstab(uncrypt)
+=======
+# Read files in /proc
+r_dir_file(uncrypt, proc_dt_firmware_android)
+
+# Suppress the denials coming from ReadDefaultFstab call.
+dontaudit uncrypt gsi_metadata_file:dir search;
+dontaudit uncrypt metadata_file:dir search;
+>>>>>>> CHANGE (31f3ea sepolicy: Treat proc-based DT fstab the same and sys-based)
