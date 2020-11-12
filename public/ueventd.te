@@ -25,6 +25,9 @@ allow ueventd self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 allow ueventd efs_file:dir search;
 allow ueventd efs_file:file r_file_perms;
 
+# Read the legacy DT fstab
+r_dir_file(ueventd, proc_dt_firmware_android)
+
 # Get SELinux enforcing status.
 r_dir_file(ueventd, selinuxfs)
 

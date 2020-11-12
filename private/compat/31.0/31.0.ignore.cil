@@ -6,5 +6,6 @@
 (typeattributeset new_objects
   ( new_objects
     hypervisor_prop
+    proc_dt_firmware_android
     sysfs_disk_stat
   ))
