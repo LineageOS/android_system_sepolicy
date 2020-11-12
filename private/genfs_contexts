@@ -24,6 +24,7 @@ genfscon proc /net/tcp u:object_r:proc_net_tcp_udp:s0
 genfscon proc /net/udp u:object_r:proc_net_tcp_udp:s0
 genfscon proc /net/xt_qtaguid/ctrl u:object_r:proc_qtaguid_ctrl:s0
 genfscon proc /net/xt_qtaguid/ u:object_r:proc_qtaguid_stat:s0
+genfscon proc /cpu/alignment u:object_r:proc_cpu_alignment:s0
 genfscon proc /cpuinfo u:object_r:proc_cpuinfo:s0
 genfscon proc /pagetypeinfo u:object_r:proc_pagetypeinfo:s0
 genfscon proc /pressure/cpu u:object_r:proc_pressure_cpu:s0

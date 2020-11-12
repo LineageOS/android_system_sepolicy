@@ -24,6 +24,7 @@ type proc_abi, fs_type, proc_type;
 type proc_asound, fs_type, proc_type;
 type proc_buddyinfo, fs_type, proc_type;
 type proc_cmdline, fs_type, proc_type;
+type proc_cpu_alignment, fs_type, proc_type;
 type proc_cpuinfo, fs_type, proc_type;
 type proc_dirty, fs_type, proc_type;
 type proc_diskstats, fs_type, proc_type;
