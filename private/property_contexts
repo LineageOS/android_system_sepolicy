@@ -787,6 +787,9 @@ ro.product.bootimage.manufacturer u:object_r:build_bootimage_prop:s0 exact strin
 ro.product.bootimage.model        u:object_r:build_bootimage_prop:s0 exact string
 ro.product.bootimage.name         u:object_r:build_bootimage_prop:s0 exact string
 
+# ro.product.property_source_order is settable from any build.prop
+ro.product.property_source_order u:object_r:build_config_prop:s0 exact string
+
 ro.crypto.state u:object_r:vold_status_prop:s0 exact enum encrypted unencrypted unsupported
 ro.crypto.type  u:object_r:vold_status_prop:s0 exact enum block file none
 
