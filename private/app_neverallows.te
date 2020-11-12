@@ -117,12 +117,7 @@ neverallow all_untrusted_apps *:{
 } *;
 
 # Disallow sending RTM_GETLINK messages on netlink sockets.
-neverallow {
-  all_untrusted_apps
-  -untrusted_app_25
-  -untrusted_app_27
-  -untrusted_app_29
-} domain:netlink_route_socket { bind nlmsg_readpriv };
+neverallow all_untrusted_apps domain:netlink_route_socket { bind nlmsg_readpriv };
 
 # Do not allow untrusted apps access to /cache
 neverallow { all_untrusted_apps -mediaprovider } { cache_file cache_recovery_file }:dir ~{ r_dir_perms };
