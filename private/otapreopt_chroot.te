@@ -72,3 +72,8 @@ allow otapreopt_chroot block_device:dir r_dir_perms;
 
 # Allow to access the linker through the symlink.
 allow otapreopt_chroot postinstall_file:lnk_file r_file_perms;
+
+# Allow otapreopt_chroot to read ro.cold_boot_done prop.
+# This is a temporary solution to make sure that otapreopt_chroot doesn't block indefinetelly.
+# TODO(b/165948777): remove this once otapreopt_chroot is migrated to libapexmount.
+get_prop(otapreopt_chroot, cold_boot_done_prop)
