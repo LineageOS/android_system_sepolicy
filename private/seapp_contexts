@@ -79,7 +79,8 @@
 # domain= determines the label to be used for the app process; entries
 # without domain= are ignored for this purpose.
 # type= specifies the label to be used for the app data directory; entries
-# without type= are ignored for this purpose.
+# without type= are ignored for this purpose. The label specified must
+# have the app_data_file_type attribute.
 # levelFrom and level are used to determine the level (sensitivity + categories)
 # for MLS/MCS.
 # levelFrom=none omits the level.
