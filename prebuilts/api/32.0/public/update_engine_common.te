@@ -56,6 +56,9 @@ allow update_engine_common proc_cmdline:file r_file_perms;
 # Read files in /sys/firmware/devicetree/base/firmware/android/
 r_dir_file(update_engine_common, sysfs_dt_firmware_android)
 
+# Read files in /proc/device-tree/firmware/android
+r_dir_file(update_engine_common, proc_dt_firmware_android)
+
 # Needed because libdm reads sysfs to validate when a dm path is ready.
 r_dir_file(update_engine_common, sysfs_dm)
 
