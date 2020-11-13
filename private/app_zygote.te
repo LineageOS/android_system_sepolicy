@@ -93,14 +93,7 @@ neverallow app_zygote property_socket:sock_file write;
 neverallow app_zygote property_type:property_service set;
 
 # Should not have any access to data files.
-neverallow app_zygote {
-    bluetooth_data_file
-    nfc_data_file
-    radio_data_file
-    shell_data_file
-    app_data_file
-    privapp_data_file
-}:file { rwx_file_perms };
+neverallow app_zygote app_data_file_type:file { rwx_file_perms };
 
 neverallow app_zygote {
     service_manager_type
