@@ -515,3 +515,11 @@ neverallow {
 neverallow {
   -init
 } setupwizard_prop:property_service set;
+
+# ro.product.property_source_order is useless after initialization of ro.product.* props.
+# So making it accessible only from init and vendor_init.
+neverallow {
+  -init
+  -dumpstate
+  -vendor_init
+} build_config_prop:file no_rw_file_perms;
