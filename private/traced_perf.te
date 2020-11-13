@@ -32,6 +32,11 @@ r_dir_file(traced_perf, apk_data_file)
 r_dir_file(traced_perf, dalvikcache_data_file)
 r_dir_file(traced_perf, vendor_file_type)
 
+# Allow to temporarily lift the kptr_restrict setting and build a symbolization
+# map reading /proc/kallsyms.
+userdebug_or_eng(`set_prop(traced_perf, lower_kptr_restrict_prop)')
+allow traced_perf proc_kallsyms:file r_file_perms;
+
 # Do not audit the cases where traced_perf attempts to access /proc/[pid] for
 # domains that it cannot read.
 dontaudit traced_perf domain:dir { search getattr open };

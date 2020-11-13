@@ -491,6 +491,7 @@ neverallow {
 neverallow {
   -init
   userdebug_or_eng(`-traced_probes')
+  userdebug_or_eng(`-traced_perf')
 } {
   lower_kptr_restrict_prop
 }:property_service set;
