@@ -9,6 +9,7 @@ r_dir_file(hal_wifi, sysfs_type)
 
 set_prop(hal_wifi, wifi_hal_prop)
 set_prop(hal_wifi, wifi_prop)
+userdebug_or_eng(`get_prop(hal_wifi, persist_vendor_debug_wifi_prop)')
 
 # allow hal wifi set interfaces up and down and get the factory MAC
 allow hal_wifi self:udp_socket create_socket_perms;

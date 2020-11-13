@@ -17,3 +17,5 @@ allow vendor_shell tty_device:chr_file rw_file_perms;
 allow vendor_shell console_device:chr_file rw_file_perms;
 allow vendor_shell input_device:dir r_dir_perms;
 allow vendor_shell input_device:chr_file rw_file_perms;
+
+userdebug_or_eng(`set_prop(vendor_shell, persist_vendor_debug_wifi_prop)')
