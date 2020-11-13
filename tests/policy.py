@@ -52,9 +52,9 @@ class Policy:
     __policydbP = None
     __BUFSIZE = 2048
 
-    def AssertPathTypesDoNotHaveAttr(self, MatchPrefix, DoNotMatchPrefix, Attr):
+    def AssertPathTypesDoNotHaveAttr(self, MatchPrefix, DoNotMatchPrefix, Attr, ExcludedTypes = []):
         # Query policy for the types associated with Attr
-        TypesPol = self.QueryTypeAttribute(Attr, True)
+        TypesPol = self.QueryTypeAttribute(Attr, True) - set(ExcludedTypes)
         # Search file_contexts to find types associated with input paths.
         TypesFc, Files = self.__GetTypesAndFilesByFilePathPrefix(MatchPrefix, DoNotMatchPrefix)
         violators = TypesFc.intersection(TypesPol)
