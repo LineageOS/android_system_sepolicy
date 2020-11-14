@@ -14,3 +14,6 @@ app_domain(untrusted_app_29)
 untrusted_app_domain(untrusted_app_29)
 net_domain(untrusted_app_29)
 bluetooth_domain(untrusted_app_29)
+
+# allow binding to netlink route sockets and sending RTM_GETLINK messages.
+allow untrusted_app_29 self:netlink_route_socket { bind nlmsg_readpriv };
