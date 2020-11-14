@@ -61,6 +61,28 @@ def TestCoreDataTypeViolations(pol):
 def TestPropertyTypeViolations(pol):
     return pol.AssertPropertyOwnersAreExclusive()
 
+def TestAppDataTypeViolations(pol):
+    # Types with the app_data_file_type should only be used for app data files
+    # (/data/data/package.name etc) via seapp_contexts, and never applied
+    # explicitly to other files.
+    partitions = [
+        "/data/",
+        "/vendor/",
+        "/odm/",
+        "/product/",
+    ]
+    exceptions = [
+        # These are used for app data files for the corresponding user and
+        # assorted other files.
+        # TODO(b/172812577): Use different types for the different purposes
+        "shell_data_file",
+        "bluetooth_data_file",
+        "nfc_data_file",
+        "radio_data_file",
+    ]
+    return pol.AssertPathTypesDoNotHaveAttr(partitions, [], "app_data_file_type",
+                                            exceptions)
+
 
 ###
 # extend OptionParser to allow the same option flag to be used multiple times.
@@ -87,7 +109,8 @@ Tests = [
     "TestDebugfsTypeViolations",
     "TestVendorTypeViolations",
     "TestCoreDataTypeViolations",
-    "TestPropertyTypeViolations"
+    "TestPropertyTypeViolations",
+    "TestAppDataTypeViolations",
 ]
 
 if __name__ == '__main__':
@@ -143,6 +166,8 @@ if __name__ == '__main__':
         results += TestCoreDataTypeViolations(pol)
     if options.test is None or "TestPropertyTypeViolations" in options.test:
         results += TestPropertyTypeViolations(pol)
+    if options.test is None or "TestAppDataTypeViolations" in options.test:
+        results += TestAppDataTypeViolations(pol)
 
     if len(results) > 0:
         sys.exit(results)

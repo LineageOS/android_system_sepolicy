@@ -436,9 +436,16 @@ neverallow { domain -init } usermodehelper:file { append write };
 neverallow { domain -init -ueventd } sysfs_usermodehelper:file { append write };
 neverallow { domain -init -vendor_init } proc_security:file { append open read write };
 
-# Allow the tracing daemon to use kallsyms to symbolize kernel traces. Addresses are not disclosed,
-# they are repalced with symbol names (if available). Traces don't disclose KASLR.
-neverallow { domain -init -vendor_init -traced_probes } proc_kallsyms:file { open read };
+# Allow the tracing daemon and callstack sampler to use kallsyms to symbolize
+# kernel traces. Addresses are not disclosed, they are repalced with symbol
+# names (if available). Traces don't disclose KASLR.
+neverallow {
+  domain
+  -init
+  -vendor_init
+  -traced_probes
+  -traced_perf
+} proc_kallsyms:file { open read };
 
 # Init can't do anything with binder calls. If this neverallow rule is being
 # triggered, it's probably due to a service with no SELinux domain.
@@ -783,6 +790,7 @@ full_treble_only(`
     dev_type
     -coredomain_socket
     -core_data_file_type
+    -app_data_file_type
     -unlabeled
   }:sock_file ~{ append getattr ioctl read write };
 ')
@@ -807,6 +815,7 @@ full_treble_only(`
   } {
     data_file_type
     -core_data_file_type
+    -app_data_file_type
   }:file_class_set ~{ append getattr ioctl read write map };
 ')
 full_treble_only(`
@@ -819,6 +828,7 @@ full_treble_only(`
     } {
       data_file_type
       -core_data_file_type
+      -app_data_file_type
       # TODO(b/72998741) Remove exemption. Further restricted in a subsequent
       # neverallow. Currently only getattr and search are allowed.
       -vendor_data_file
