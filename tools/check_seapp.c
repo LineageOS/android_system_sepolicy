@@ -20,6 +20,8 @@
 #define log_warn(fmt, ...) log_msg(stderr, "Warning: ", fmt, ##__VA_ARGS__)
 #define log_info(fmt, ...) if (logging_verbose ) { log_msg(stdout, "Info: ", fmt, ##__VA_ARGS__); }
 
+#define APP_DATA_REQUIRED_ATTRIB "app_data_file_type"
+
 /**
  * Initializes an empty, static list.
  */
@@ -192,7 +194,8 @@ static list nallow_list = list_init(line_order_list_freefn);
 /* validation call backs */
 static bool validate_bool(char *value, char **errmsg);
 static bool validate_levelFrom(char *value, char **errmsg);
-static bool validate_selinux_type(char *value, char **errmsg);
+static bool validate_domain(char *value, char **errmsg);
+static bool validate_type(char *value, char **errmsg);
 static bool validate_selinux_level(char *value, char **errmsg);
 static bool validate_uint(char *value, char **errmsg);
 
@@ -213,8 +216,8 @@ key_map rules[] = {
                 { .name = "minTargetSdkVersion", .dir = dir_in, .fn_validate = validate_uint },
                 { .name = "fromRunAs",       .dir = dir_in, .fn_validate = validate_bool },
                 /*Outputs*/
-                { .name = "domain",         .dir = dir_out, .fn_validate = validate_selinux_type  },
-                { .name = "type",           .dir = dir_out, .fn_validate = validate_selinux_type  },
+                { .name = "domain",         .dir = dir_out, .fn_validate = validate_domain  },
+                { .name = "type",           .dir = dir_out, .fn_validate = validate_type  },
                 { .name = "levelFromUid",   .dir = dir_out, .fn_validate = validate_bool          },
                 { .name = "levelFrom",      .dir = dir_out, .fn_validate = validate_levelFrom     },
                 { .name = "level",          .dir = dir_out, .fn_validate = validate_selinux_level },
@@ -295,28 +298,39 @@ log_msg(FILE *out, const char *prefix, const char *fmt, ...) {
 }
 
 /**
- * Checks for a type in the policy.
+ * Look up a type in the policy.
  * @param db
  * 	The policy db to search
  * @param type
  * 	The type to search for
+ * @param flavor
+ * 	The expected flavor of type
  * @return
- * 	1 if the type is found, 0 otherwise.
+ * 	Pointer to the type's datum if it exists in the policy with the expected
+ * 	flavor, NULL otherwise.
  * @warning
- * 	This function always returns 1 if libsepol is not linked
- * 	statically to this executable and LINK_SEPOL_STATIC is not
- * 	defined.
+ * 	This function should not be called if libsepol is not linked statically
+ * 	to this executable and LINK_SEPOL_STATIC is not defined.
  */
-static int check_type(sepol_policydb_t *db, char *type) {
+static type_datum_t *find_type(sepol_policydb_t *db, char *type, uint32_t flavor) {
 
-	int rc = 1;
-#if defined(LINK_SEPOL_STATIC)
-	policydb_t *d = (policydb_t *)db;
-	hashtab_datum_t dat;
-	dat = hashtab_search(d->p_types.table, type);
-	rc = (dat == NULL) ? 0 : 1;
-#endif
-	return rc;
+	policydb_t *d = &db->p;
+	hashtab_datum_t dat = hashtab_search(d->p_types.table, type);
+        if (!dat) {
+            return NULL;
+        }
+        type_datum_t *type_dat = (type_datum_t *) dat;
+        if (type_dat->flavor != flavor) {
+            return NULL;
+        }
+        return type_dat;
+}
+
+static bool type_has_attribute(sepol_policydb_t *db, type_datum_t *type_dat,
+                               type_datum_t *attrib_dat) {
+    policydb_t *d = &db->p;
+    ebitmap_t *attr_bits = &d->type_attr_map[type_dat->s.value - 1];
+    return ebitmap_get_bit(attr_bits, attrib_dat->s.value - 1) != 0;
 }
 
 static bool match_regex(key_map *assert, const key_map *check) {
@@ -375,7 +389,7 @@ static bool validate_bool(char *value, char **errmsg) {
 
 static bool validate_levelFrom(char *value, char **errmsg) {
 
-	if(strcasecmp(value, "none") && strcasecmp(value, "all") &&
+	if (strcasecmp(value, "none") && strcasecmp(value, "all") &&
 		strcasecmp(value, "app") && strcasecmp(value, "user")) {
 		*errmsg = "Expecting one of: \"none\", \"all\", \"app\" or \"user\"";
 		return false;
@@ -383,8 +397,9 @@ static bool validate_levelFrom(char *value, char **errmsg) {
 	return true;
 }
 
-static bool validate_selinux_type(char *value, char **errmsg) {
+static bool validate_domain(char *value, char **errmsg) {
 
+#if defined(LINK_SEPOL_STATIC)
 	/*
 	 * No policy file present means we cannot check
 	 * SE Linux types
@@ -393,10 +408,45 @@ static bool validate_selinux_type(char *value, char **errmsg) {
 		return true;
 	}
 
-	if(!check_type(pol.db, value)) {
+	if (!find_type(pol.db, value, TYPE_TYPE)) {
 		*errmsg = "Expecting a valid SELinux type";
 		return false;
 	}
+#endif
+
+	return true;
+}
+
+static bool validate_type(char *value, char **errmsg) {
+
+#if defined(LINK_SEPOL_STATIC)
+	/*
+	 * No policy file present means we cannot check
+	 * SE Linux types
+	 */
+	if (!pol.policy_file) {
+		return true;
+	}
+
+        type_datum_t *type_dat = find_type(pol.db, value, TYPE_TYPE);
+	if (!type_dat) {
+		*errmsg = "Expecting a valid SELinux type";
+		return false;
+	}
+
+        type_datum_t *attrib_dat = find_type(pol.db, APP_DATA_REQUIRED_ATTRIB,
+                                              TYPE_ATTRIB);
+	if (!attrib_dat) {
+            /* If the policy doesn't contain the attribute, we can't check it */
+            return true;
+        }
+
+        if (!type_has_attribute(pol.db, type_dat, attrib_dat)) {
+            *errmsg = "Missing required attribute " APP_DATA_REQUIRED_ATTRIB;
+            return false;
+        }
+
+#endif
 
 	return true;
 }
@@ -807,7 +857,7 @@ static rule_map *rule_map_new(kvp keys[], size_t num_of_keys, int lineno,
 oom:
 	log_error("Out of memory!\n");
 err:
-	if(new_map) {
+	if (new_map) {
 		rule_map_free(new_map, false);
 		for (; i < num_of_keys; i++) {
 			k = &(keys[i]);
@@ -1013,7 +1063,7 @@ static void rule_add(rule_map *rm) {
 	 * when you want to override the outputs for a given input set, as well as
 	 * checking for duplicate entries.
 	 */
-	if(f) {
+	if (f) {
 		log_info("Existing entry found!\n");
 		tmp = (hash_entry *)f->data;
 		cmp = rule_map_cmp(rm, tmp->r);
@@ -1035,7 +1085,7 @@ static void rule_add(rule_map *rm) {
 		e.data = entry;
 
 		f = hsearch(e, ENTER);
-		if(f == NULL) {
+		if (f == NULL) {
 			goto oom;
 		}
 
@@ -1143,7 +1193,7 @@ static void parse_file(file_info *in_file) {
 err:
 	log_error("Reading file: \"%s\" line: %zu name: \"%s\" value: \"%s\"\n",
 		in_file->name, lineno, name, value);
-	if(found_whitespace && name && !strcasecmp(name, "neverallow")) {
+	if (found_whitespace && name && !strcasecmp(name, "neverallow")) {
 		log_error("perhaps whitespace before neverallow\n");
 	}
 	exit(EXIT_FAILURE);
