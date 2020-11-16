@@ -148,6 +148,9 @@ dump_hal(hal_thermal)
 dump_hal(hal_power)
 dump_hal(hal_power_stats)
 dump_hal(hal_identity)
+dump_hal(hal_face)
+dump_hal(hal_fingerprint)
+dump_hal(hal_gnss)
 
 # Vibrate the device after we are done collecting the bugreport
 hal_client_domain(dumpstate, hal_vibrator)
