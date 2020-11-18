@@ -122,6 +122,8 @@ allow shell {
 allow shell sysfs_net:dir r_dir_perms;
 
 r_dir_file(shell, cgroup)
+allow shell cgroup_desc_file:file r_file_perms;
+allow shell vendor_cgroup_desc_file:file r_file_perms;
 allow shell domain:dir { search open read getattr };
 allow shell domain:{ file lnk_file } { open read getattr };
 
