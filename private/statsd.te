@@ -21,3 +21,7 @@ allow statsd system_server:fifo_file { read getattr };
 
 # Allow statsd to retrieve SF statistics over binder
 binder_call(statsd, surfaceflinger);
+
+# Allow statsd to read its system properties
+get_prop(statsd, device_config_statsd_native_prop)
+get_prop(statsd, device_config_statsd_native_boot_prop)
