@@ -59,3 +59,6 @@ get_prop(appdomain, graphics_config_prop)
 
 # Allow to read persist.config.calibration_fac
 get_prop(appdomain, camera_calibration_prop)
+
+# Allow to read db.log.detailed, db.log.slow_query_threshold*
+get_prop(appdomain, sqlite_log_prop)
