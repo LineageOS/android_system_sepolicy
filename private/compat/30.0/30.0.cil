@@ -1302,6 +1302,7 @@
     build_config_prop
     init_service_status_private_prop
     setupwizard_prop
+    sqlite_log_prop
     verity_status_prop
     zygote_wrap_prop
 ))
