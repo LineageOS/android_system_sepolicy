@@ -549,9 +549,11 @@ allow system_server system_server:process setfscreate;
 # Relabel apk files.
 allow system_server { apk_tmp_file apk_private_tmp_file }:{ dir file } { relabelfrom relabelto };
 allow system_server { apk_data_file apk_private_data_file }:{ dir file } { relabelfrom relabelto };
-# Allow PackageManager to rename file from /data/app-staging folder to /data/app during
-# staged apk install.
-allow system_server { staging_data_file }:{ dir file } { relabelfrom };
+# Allow PackageManager to:
+# 1. rename file from /data/app-staging folder to /data/app
+# 2. relabel files (linked to /data/rollback) under /data/app-staging
+# during staged apk/apex install.
+allow system_server { staging_data_file }:{ dir file } { relabelfrom relabelto };
 
 # Relabel wallpaper.
 allow system_server system_data_file:file relabelfrom;
