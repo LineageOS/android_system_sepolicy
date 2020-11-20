@@ -172,6 +172,11 @@ ctl.stop$apexd          u:object_r:ctl_apexd_prop:s0
 # Restrict access to restart dumpstate
 ctl.interface_restart$android.hardware.dumpstate u:object_r:ctl_dumpstate_prop:s0
 
+# Restrict access to control snapuserd
+ctl.start$snapuserd     u:object_r:ctl_snapuserd_prop:s0
+ctl.stop$snapuserd      u:object_r:ctl_snapuserd_prop:s0
+ctl.restart$snapuserd   u:object_r:ctl_snapuserd_prop:s0
+
 # NFC properties
 nfc.                    u:object_r:nfc_prop:s0
 
@@ -1070,3 +1075,7 @@ setupwizard.feature.wallpaper_suggestion_after_restore             u:object_r:se
 setupwizard.logging                                                u:object_r:setupwizard_prop:s0 exact bool
 setupwizard.metrics_debug_mode                                     u:object_r:setupwizard_prop:s0 exact bool
 setupwizard.theme                                                  u:object_r:setupwizard_prop:s0 exact string
+
+db.log.detailed               u:object_r:sqlite_log_prop:s0 exact bool
+db.log.slow_query_threshold   u:object_r:sqlite_log_prop:s0 exact int
+db.log.slow_query_threshold.* u:object_r:sqlite_log_prop:s0 prefix int

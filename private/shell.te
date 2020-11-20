@@ -127,6 +127,7 @@ set_prop(shell, heapprofd_enabled_prop)
 set_prop(shell, traced_perf_enabled_prop)
 # Allow shell to start/stop gsid via ctl.start|stop|restart gsid.
 set_prop(shell, ctl_gsid_prop)
+set_prop(shell, ctl_snapuserd_prop)
 # Allow shell to enable Dynamic System Update
 set_prop(shell, dynamic_system_prop)
 # Allow shell to mock an OTA using persist.pm.mock-upgrade
@@ -164,3 +165,6 @@ allow shell keystore2_key_contexts_file:file r_file_perms;
 
 # Allow shell to access the keystore2_key namespace shell_key. Mainly used for native tests.
 allow shell shell_key:keystore2_key { delete rebind use get_info update };
+
+# Allow shell to write db.log.detailed, db.log.slow_query_threshold*
+set_prop(shell, sqlite_log_prop)
