@@ -9,6 +9,9 @@ binder_call(update_engine, gsid)
 # Allow to start gsid service.
 set_prop(update_engine, ctl_gsid_prop)
 
+# Allow to start snapuserd for dm-user communication.
+set_prop(update_engine, ctl_snapuserd_prop)
+
 # Allow to set the OTA related properties, e.g. ota.warm_reset.
 set_prop(update_engine, ota_prop)
 
@@ -17,3 +20,7 @@ get_prop(update_engine, gsid_prop)
 
 # Allow update_engine to call the callback function provided by GKI update hook.
 binder_call(update_engine, gki_apex_prepostinstall)
+
+# Allow to communicate with the snapuserd service, for dm-user snapshots.
+allow update_engine snapuserd:unix_stream_socket connectto;
+allow update_engine snapuserd_socket:sock_file write;
