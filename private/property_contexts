@@ -229,6 +229,8 @@ persist.device_config.netd_native.                  u:object_r:device_config_net
 persist.device_config.profcollect_native_boot.      u:object_r:device_config_profcollect_native_boot_prop:s0
 persist.device_config.runtime_native.               u:object_r:device_config_runtime_native_prop:s0
 persist.device_config.runtime_native_boot.          u:object_r:device_config_runtime_native_boot_prop:s0
+persist.device_config.statsd_native.                u:object_r:device_config_statsd_native_prop:s0
+persist.device_config.statsd_native_boot.           u:object_r:device_config_statsd_native_boot_prop:s0
 persist.device_config.storage_native_boot.          u:object_r:device_config_storage_native_boot_prop:s0
 persist.device_config.window_manager_native_boot.   u:object_r:device_config_window_manager_native_boot_prop:s0
 
