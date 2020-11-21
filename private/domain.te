@@ -57,6 +57,7 @@ allow { domain -appdomain -rs } cgroup:file w_file_perms;
 allow domain cgroup_rc_file:dir search;
 allow domain cgroup_rc_file:file r_file_perms;
 allow domain task_profiles_file:file r_file_perms;
+allow domain task_profiles_api_file:file r_file_perms;
 allow domain vendor_task_profiles_file:file r_file_perms;
 
 # Allow all domains to read sys.use_memfd to determine
