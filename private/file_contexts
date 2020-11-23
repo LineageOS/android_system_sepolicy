@@ -543,6 +543,10 @@
 /data/preloads/demo(/.*)?	u:object_r:preloads_media_file:s0
 /data/server_configurable_flags(/.*)? u:object_r:server_configurable_flags_data_file:s0
 /data/app-staging(/.*)?		u:object_r:staging_data_file:s0
+# Ensure we have the same labels as /data/app or /data/apex/active
+# to avoid restorecon conflicts
+/data/rollback/\d+/[^/]+/.*\.apk  u:object_r:apk_data_file:s0
+/data/rollback/\d+/[^/]+/.*\.apex u:object_r:staging_data_file:s0
 
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
