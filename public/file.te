@@ -183,10 +183,14 @@ type tcpdump_exec, system_file_type, exec_type, file_type;
 type system_zoneinfo_file, system_file_type, file_type;
 # Cgroups description file under /system/etc/cgroups.json
 type cgroup_desc_file, system_file_type, file_type;
+# Cgroups description file under /system/etc/task_profiles/cgroups_*.json
+type cgroup_desc_api_file, system_file_type, file_type;
 # Vendor cgroups description file under /vendor/etc/cgroups.json
 type vendor_cgroup_desc_file, vendor_file_type, file_type;
 # Task profiles file under /system/etc/task_profiles.json
 type task_profiles_file, system_file_type, file_type;
+# Task profiles file under /system/etc/task_profiles/task_profiles_*.json
+type task_profiles_api_file, system_file_type, file_type;
 # Vendor task profiles file under /vendor/etc/task_profiles.json
 type vendor_task_profiles_file, vendor_file_type, file_type;
 # Type for /system/apex/com.android.art
