@@ -123,6 +123,7 @@ allow init cgroup:dir create_dir_perms;
 allow init cgroup:file rw_file_perms;
 allow init cgroup_rc_file:file rw_file_perms;
 allow init cgroup_desc_file:file r_file_perms;
+allow init cgroup_desc_api_file:file r_file_perms;
 allow init vendor_cgroup_desc_file:file r_file_perms;
 
 # /config
