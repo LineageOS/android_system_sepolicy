@@ -24,6 +24,10 @@ get_prop(system_suspend, suspend_prop)
 # To call BTAA registered callbacks
 allow system_suspend bluetooth:binder call;
 
+# For adding `dumpsys syspend_control` output to bugreport
+allow system_suspend dumpstate:fd use;
+allow system_suspend dumpstate:fifo_file write;
+
 neverallow {
     domain
     -atrace # tracing
