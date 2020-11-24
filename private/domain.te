@@ -437,3 +437,9 @@ full_treble_only(`
     -vndk_sp_file
   }:file *;
 ')
+
+# mlsvendorcompat is only for compatibility support for older vendor
+# images, and should not be granted to any domain in current policy.
+# (Every domain is allowed self:fork, so this will trigger if the
+# intsersection of domain & mlsvendorcompat is not empty.)
+neverallow domain mlsvendorcompat:process fork;

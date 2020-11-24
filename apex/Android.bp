@@ -77,6 +77,13 @@ filegroup {
 }
 
 filegroup {
+  name: "com.android.geotz-file_contexts",
+  srcs: [
+    "com.android.geotz-file_contexts",
+  ],
+}
+
+filegroup {
   name: "com.android.gki-file_contexts",
   srcs: [
     "com.android.gki-file_contexts",
