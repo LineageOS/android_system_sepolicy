@@ -16,6 +16,10 @@ r_dir_file(system_suspend, sysfs_wakeup)
 # To resolve arbitrary sysfs paths from /sys/class/wakeup/* symlinks.
 allow system_suspend sysfs_type:dir search;
 
+# For adding `dumpsys syspend_control` output to bugreport
+allow system_suspend dumpstate:fd use;
+allow system_suspend dumpstate:fifo_file write;
+
 neverallow {
     domain
     -atrace # tracing
