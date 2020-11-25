@@ -1039,6 +1039,7 @@ full_treble_only(`
     -system_seccomp_policy_file
     -system_security_cacerts_file
     -system_zoneinfo_file
+    -task_profiles_api_file
     -task_profiles_file
     userdebug_or_eng(`-tcpdump_exec')
   }:file *;
