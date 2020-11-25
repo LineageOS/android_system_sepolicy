@@ -8,6 +8,7 @@
     ab_update_gki_prop
     adbd_config_prop
     apex_info_file
+    cgroup_desc_api_file
     cgroup_v2
     ctl_snapuserd_prop
     debugfs_kprobes
@@ -46,6 +47,7 @@
     sysfs_devices_cs_etm
     system_server_dumper_service
     system_suspend_control_internal_service
+    task_profiles_api_file
     update_engine_stable_service
     userspace_reboot_metadata_file
     vcn_management_service
