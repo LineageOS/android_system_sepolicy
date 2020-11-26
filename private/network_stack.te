@@ -1,5 +1,5 @@
 # Networking service app
-typeattribute network_stack coredomain;
+typeattribute network_stack coredomain, mlstrustedsubject;
 
 app_domain(network_stack);
 net_domain(network_stack);
@@ -36,3 +36,7 @@ hal_client_domain(network_stack, hal_tetheroffload)
 # Create and share netlink_netfilter_sockets for tetheroffload.
 allow network_stack self:netlink_netfilter_socket create_socket_perms_no_ioctl;
 allow network_stack network_stack_service:service_manager find;
+# allow Tethering(network_stack process) to run/update/read the eBPF maps to offload tethering traffic by eBPF.
+allow network_stack fs_bpf:dir search;
+allow network_stack fs_bpf:file { read write };
+allow network_stack bpfloader:bpf { map_read map_write prog_run };
