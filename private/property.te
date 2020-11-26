@@ -537,3 +537,7 @@ neverallow {
   -coredomain
   -appdomain
 } sqlite_log_prop:file no_rw_file_perms;
+
+# Only one of system_property_type and vendor_property_type can be assigned.
+# Property types having both attributes won't be accessible from anywhere.
+neverallow domain system_and_vendor_property_type:{file property_service} *;
