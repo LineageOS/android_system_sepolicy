@@ -63,3 +63,9 @@
 ; Unfortunately, we can't currently express this in module policy language:
 ;     typeattribute { appdomain -isolated_app } hal_cas_client;
 (typeattributeset hal_bufferhub_client ((and (appdomain) ((not (isolated_app))))))
+
+; Properties having both system_property_type and vendor_property_type are illegal
+; Unfortunately, we can't currently express this in module policy language:
+;     typeattribute { system_property_type && vendor_property_type } system_and_vendor_property_type;
+(typeattribute system_and_vendor_property_type)
+(typeattributeset system_and_vendor_property_type ((and (system_property_type) (vendor_property_type))))
