@@ -9,3 +9,4 @@ attribute mlsvendorcompat;
 # and vendor_property_type. Such types are ill-formed because
 # property owner attributes must be exclusive.
 attribute system_and_vendor_property_type;
+expandattribute system_and_vendor_property_type false;
