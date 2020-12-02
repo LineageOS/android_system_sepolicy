@@ -20,6 +20,10 @@ r_dir_file(hal_drm, cgroup)
 allow hal_drm cgroup:dir { search write };
 allow hal_drm cgroup:file w_file_perms;
 
+r_dir_file(hal_drm, cgroup_v2)
+allow hal_drm cgroup_v2:dir { search write };
+allow hal_drm cgroup_v2:file w_file_perms;
+
 # Allow access to ion memory allocation device
 allow hal_drm ion_device:chr_file rw_file_perms;
 allow hal_drm hal_graphics_allocator:fd use;
