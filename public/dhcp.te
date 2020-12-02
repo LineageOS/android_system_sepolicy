@@ -4,6 +4,7 @@ type dhcp_exec, system_file_type, exec_type, file_type;
 net_domain(dhcp)
 
 allow dhcp cgroup:dir { create write add_name };
+allow dhcp cgroup_v2:dir { create write add_name };
 allow dhcp self:global_capability_class_set { setgid setuid net_admin net_raw net_bind_service };
 allow dhcp self:packet_socket create_socket_perms_no_ioctl;
 allow dhcp self:netlink_route_socket nlmsg_write;
