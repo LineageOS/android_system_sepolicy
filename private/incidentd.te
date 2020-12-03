@@ -67,6 +67,7 @@ allow incidentd hidl_manager_hwservice:hwservice_manager { find };
 # Read files in /proc
 allow incidentd {
   proc_cmdline
+  proc_pid_max
   proc_pipe_conf
   proc_stat
 }:file r_file_perms;
