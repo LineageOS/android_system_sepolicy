@@ -132,7 +132,7 @@ type media_session_service, app_api_service, ephemeral_app_api_service, system_s
 type meminfo_service, system_api_service, system_server_service, service_manager_type;
 type midi_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type mount_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
-type music_recognition_service, system_server_service, service_manager_type;
+type music_recognition_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type netpolicy_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type netstats_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type network_management_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
