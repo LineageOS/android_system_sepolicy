@@ -9,7 +9,6 @@ net_domain(mediaserver)
 
 r_dir_file(mediaserver, sdcard_type)
 r_dir_file(mediaserver, cgroup)
-r_dir_file(mediaserver, cgroup_v2)
 
 # stat /proc/self
 allow mediaserver proc:lnk_file getattr;
