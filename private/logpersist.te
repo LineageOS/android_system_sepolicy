@@ -4,7 +4,6 @@ typeattribute logpersist coredomain;
 userdebug_or_eng(`
 
   r_dir_file(logpersist, cgroup)
-  r_dir_file(logpersist, cgroup_v2)
 
   allow logpersist misc_logd_file:file create_file_perms;
   allow logpersist misc_logd_file:dir rw_dir_perms;
