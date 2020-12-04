@@ -283,6 +283,7 @@
 /system/bin/linker(64)? u:object_r:system_linker_exec:s0
 /system/bin/linkerconfig u:object_r:linkerconfig_exec:s0
 /system/bin/bootstrap/linker(64)? u:object_r:system_linker_exec:s0
+/system/bin/bootstrap/linkerconfig u:object_r:linkerconfig_exec:s0
 /system/bin/llkd        u:object_r:llkd_exec:s0
 /system/bin/lmkd        u:object_r:lmkd_exec:s0
 /system/bin/usbd   u:object_r:usbd_exec:s0
