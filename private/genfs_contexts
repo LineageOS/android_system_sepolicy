@@ -221,6 +221,7 @@ genfscon tracefs /events/sched/sched_wakeup/                             u:objec
 genfscon tracefs /events/sched/sched_blocked_reason/                     u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/sched/sched_cpu_hotplug/                        u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/sched/sched_process_exit/                       u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/sched/sched_process_free/                       u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/cgroup/                                         u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/power/cpu_frequency/                            u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/power/cpu_idle/                                 u:object_r:debugfs_tracing:s0
