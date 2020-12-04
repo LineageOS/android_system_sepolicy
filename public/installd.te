@@ -114,14 +114,14 @@ allow installd system_data_file:notdevfile_class_set { getattr relabelfrom unlin
 allow installd app_data_file_type:dir { create_dir_perms relabelfrom relabelto };
 allow installd app_data_file_type:notdevfile_class_set { create_file_perms relabelfrom relabelto };
 
+# Similar for the files under /data/misc/profiles/
+allow installd user_profile_root_file:dir { create_dir_perms relabelfrom };
+allow installd user_profile_data_file:dir { create_dir_perms relabelto };
+allow installd user_profile_data_file:file create_file_perms;
+allow installd user_profile_data_file:file unlink;
+
 # Allow zygote to unmount mirror directories
 allow installd labeledfs:filesystem unmount;
-
-# Similar for the files under /data/misc/profiles/
-allow installd user_profile_data_file:dir create_dir_perms;
-allow installd user_profile_data_file:file create_file_perms;
-allow installd user_profile_data_file:dir rmdir;
-allow installd user_profile_data_file:file unlink;
 
 # Files created/updated by profman dumps.
 allow installd profman_dump_data_file:dir { search add_name write };

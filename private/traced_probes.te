@@ -58,7 +58,7 @@ allow traced_probes backup_data_file:dir { getattr open read search };
 allow traced_probes bootstat_data_file:dir { getattr open read search };
 allow traced_probes update_engine_data_file:dir { getattr open read search };
 allow traced_probes update_engine_log_data_file:dir { getattr open read search };
-allow traced_probes user_profile_data_file:dir { getattr open read search };
+allow traced_probes { user_profile_root_file user_profile_data_file}:dir { getattr open read search };
 
 # Allow traced_probes to run atrace. atrace pokes at system services to enable
 # their userspace TRACE macros.
@@ -113,6 +113,7 @@ neverallow traced_probes {
   -bootstat_data_file
   -update_engine_data_file
   -update_engine_log_data_file
+  -user_profile_root_file
   -user_profile_data_file
   # TODO(b/72998741) Remove vendor_data_file exemption. Further restricted in a
   # subsequent neverallow. Currently only getattr and search are allowed.
