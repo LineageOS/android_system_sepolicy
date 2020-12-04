@@ -11,6 +11,8 @@ allow hal_telephony_server kernel:system module_request;
 allow hal_telephony_server self:global_capability_class_set { setpcap setgid setuid net_admin net_raw };
 allow hal_telephony_server cgroup:dir create_dir_perms;
 allow hal_telephony_server cgroup:{ file lnk_file } r_file_perms;
+allow hal_telephony_server cgroup_v2:dir create_dir_perms;
+allow hal_telephony_server cgroup_v2:{ file lnk_file } r_file_perms;
 allow hal_telephony_server radio_device:chr_file rw_file_perms;
 allow hal_telephony_server radio_device:blk_file r_file_perms;
 allow hal_telephony_server efs_file:dir create_dir_perms;
