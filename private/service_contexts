@@ -127,6 +127,7 @@ isms                                      u:object_r:radio_service:s0
 isub                                      u:object_r:radio_service:s0
 jobscheduler                              u:object_r:jobscheduler_service:s0
 launcherapps                              u:object_r:launcherapps_service:s0
+legacy_permission                         u:object_r:legacy_permission_service:s0
 lights                                    u:object_r:light_service:s0
 location                                  u:object_r:location_service:s0
 location_time_zone_manager                u:object_r:location_time_zone_manager_service:s0
