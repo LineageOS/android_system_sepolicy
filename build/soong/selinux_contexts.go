@@ -279,7 +279,7 @@ func selinuxContextsMutator(ctx android.BottomUpMutatorContext) {
 func (m *selinuxContextsModule) buildGeneralContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
 	ret := android.PathForModuleGen(ctx, ctx.ModuleName()+"_m4out")
 
-	rule := android.NewRuleBuilder()
+	rule := android.NewRuleBuilder(pctx, ctx)
 
 	rule.Command().
 		Tool(ctx.Config().PrebuiltBuildTool(ctx, "m4")).
@@ -314,7 +314,7 @@ func (m *selinuxContextsModule) buildGeneralContexts(ctx android.ModuleContext, 
 		ret = sorted_output
 	}
 
-	rule.Build(pctx, ctx, "selinux_contexts", "building contexts: "+m.Name())
+	rule.Build("selinux_contexts", "building contexts: "+m.Name())
 
 	rule.DeleteTemporaryFiles()
 
@@ -326,7 +326,7 @@ func (m *selinuxContextsModule) buildFileContexts(ctx android.ModuleContext, inp
 		m.properties.Fc_sort = proptools.BoolPtr(true)
 	}
 
-	rule := android.NewRuleBuilder()
+	rule := android.NewRuleBuilder(pctx, ctx)
 
 	if ctx.Config().FlattenApex() {
 		for _, src := range m.fileContextsProperties.Flatten_apex.Srcs {
@@ -351,7 +351,7 @@ func (m *selinuxContextsModule) buildFileContexts(ctx android.ModuleContext, inp
 		}
 	}
 
-	rule.Build(pctx, ctx, m.Name(), "flattened_apex_file_contexts")
+	rule.Build(m.Name(), "flattened_apex_file_contexts")
 	return m.buildGeneralContexts(ctx, inputs)
 }
 
@@ -385,7 +385,7 @@ func (m *selinuxContextsModule) buildPropertyContexts(ctx android.ModuleContext,
 	// check compatibility with sysprop_library
 	if len(apiFiles) > 0 {
 		out := android.PathForModuleGen(ctx, ctx.ModuleName()+"_api_checked")
-		rule := android.NewRuleBuilder()
+		rule := android.NewRuleBuilder(pctx, ctx)
 
 		msg := `\n******************************\n` +
 			`API of sysprop_library doesn't match with property_contexts\n` +
@@ -394,7 +394,7 @@ func (m *selinuxContextsModule) buildPropertyContexts(ctx android.ModuleContext,
 
 		rule.Command().
 			Text("( ").
-			BuiltTool(ctx, "sysprop_type_checker").
+			BuiltTool("sysprop_type_checker").
 			FlagForEachInput("--api ", apiFiles).
 			FlagWithInput("--context ", builtCtxFile).
 			Text(" || ( echo").Flag("-e").
@@ -402,7 +402,7 @@ func (m *selinuxContextsModule) buildPropertyContexts(ctx android.ModuleContext,
 			Text("; exit 38) )")
 
 		rule.Command().Text("cp -f").Input(builtCtxFile).Output(out)
-		rule.Build(pctx, ctx, "property_contexts_check_api", "checking API: "+m.Name())
+		rule.Build("property_contexts_check_api", "checking API: "+m.Name())
 		builtCtxFile = out
 	}
 
