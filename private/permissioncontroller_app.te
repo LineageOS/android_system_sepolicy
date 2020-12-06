@@ -18,6 +18,9 @@ allow permissioncontroller_app usagestats_service:service_manager find;
 # Allow interaction with activity_service
 allow permissioncontroller_app activity_service:service_manager find;
 
+# Allow interaction with legacy_permission_service
+allow permissioncontroller_app legacy_permission_service:service_manager find;
+
 allow permissioncontroller_app activity_task_service:service_manager find;
 allow permissioncontroller_app audio_service:service_manager find;
 allow permissioncontroller_app autofill_service:service_manager find;
