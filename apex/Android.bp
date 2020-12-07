@@ -175,6 +175,13 @@ filegroup {
 }
 
 filegroup {
+  name: "com.android.virt-file_contexts",
+  srcs: [
+    "com.android.virt-file_contexts",
+  ],
+}
+
+filegroup {
   name: "com.android.vndk-file_contexts",
   srcs: [
     "com.android.vndk-file_contexts",
