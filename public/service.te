@@ -121,6 +121,7 @@ type ipsec_service, app_api_service, ephemeral_app_api_service, system_server_se
 type iris_service, app_api_service, system_server_service, service_manager_type;
 type jobscheduler_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type launcherapps_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type legacy_permission_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type light_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type location_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type location_time_zone_manager_service, system_server_service, service_manager_type;
