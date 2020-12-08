@@ -198,6 +198,7 @@ runtime                                   u:object_r:runtime_service:s0
 samplingprofiler                          u:object_r:samplingprofiler_service:s0
 scheduling_policy                         u:object_r:scheduling_policy_service:s0
 search                                    u:object_r:search_service:s0
+search_ui                                 u:object_r:search_ui_service:s0
 secure_element                            u:object_r:secure_element_service:s0
 sec_key_att_app_id_provider               u:object_r:sec_key_att_app_id_provider_service:s0
 sensorservice                             u:object_r:sensorservice_service:s0
