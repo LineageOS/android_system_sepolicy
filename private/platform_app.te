@@ -93,6 +93,9 @@ get_prop(platform_app, keyguard_config_prop)
 # allow platform apps to create symbolic link
 allow platform_app app_data_file:lnk_file create_file_perms;
 
+# suppress denials caused by debugfs_tracing
+dontaudit platform_app debugfs_tracing:file rw_file_perms;
+
 ###
 ### Neverallow rules
 ###
