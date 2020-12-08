@@ -64,6 +64,9 @@ allow untrusted_app_all trace_data_file:file { getattr read };
 neverallow untrusted_app_all trace_data_file:dir *;
 neverallow untrusted_app_all trace_data_file:file { no_w_file_perms open };
 
+# neverallow untrusted apps accessing debugfs_tracing
+neverallow untrusted_app_all debugfs_tracing:file no_rw_file_perms;
+
 # Allow to read staged apks.
 allow untrusted_app_all { apk_tmp_file apk_private_tmp_file }:file {read getattr};
 
@@ -145,6 +148,9 @@ allow untrusted_app_all system_server:udp_socket {
 
 # Allow the renderscript compiler to be run.
 domain_auto_trans(untrusted_app_all, rs_exec, rs)
+
+# suppress denials caused by debugfs_tracing
+dontaudit untrusted_app_all debugfs_tracing:file rw_file_perms;
 
 # This is allowed for targetSdkVersion <= 25 but disallowed on newer versions.
 dontaudit untrusted_app_all net_dns_prop:file read;
