@@ -76,12 +76,10 @@ allow dumpstate {
 
   # This list comes from hal_interfaces_to_dump in dumputils/dump_utils.c
   hal_audio_server
-  hal_audiocontrol_server
   hal_bluetooth_server
   hal_camera_server
   hal_codec2_server
   hal_drm_server
-  hal_evs_server
   hal_face_server
   hal_fingerprint_server
   hal_graphics_allocator_server
@@ -93,7 +91,6 @@ allow dumpstate {
   hal_power_stats_server
   hal_sensors_server
   hal_thermal_server
-  hal_vehicle_server
   hal_vr_server
   system_suspend_server
 }:process signal;
@@ -139,12 +136,11 @@ r_dir_file(dumpstate, cgroup)
 binder_call(dumpstate, binderservicedomain)
 binder_call(dumpstate, { appdomain netd wificond })
 
+dump_hal(hal_identity)
 dump_hal(hal_dumpstate)
 dump_hal(hal_wifi)
 dump_hal(hal_graphics_allocator)
 dump_hal(hal_neuralnetworks)
-dump_hal(hal_identity)
-
 # Vibrate the device after we are done collecting the bugreport
 hal_client_domain(dumpstate, hal_vibrator)
 
