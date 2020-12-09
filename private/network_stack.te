@@ -40,3 +40,7 @@ allow network_stack network_stack_service:service_manager find;
 allow network_stack fs_bpf:dir search;
 allow network_stack fs_bpf:file { read write };
 allow network_stack bpfloader:bpf { map_read map_write prog_run };
+
+# in order to invoke side effect of close() on such a socket calling synchronize_rcu()
+# TODO: Remove this permission when 4.9 kernel is deprecated.
+allow network_stack self:key_socket create;
