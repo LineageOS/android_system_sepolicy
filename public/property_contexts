@@ -67,6 +67,8 @@ dalvik.vm.method-trace-file-siz u:object_r:exported_dalvik_prop:s0 exact int
 dalvik.vm.method-trace-stream u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.profilesystemserver u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.profilebootclasspath u:object_r:exported_dalvik_prop:s0 exact bool
+dalvik.vm.restore-dex2oat-cpu-set u:object_r:exported_dalvik_prop:s0 exact string
+dalvik.vm.restore-dex2oat-threads u:object_r:exported_dalvik_prop:s0 exact int
 dalvik.vm.usejit u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.usejitprofiles u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.zygote.max-boot-retry u:object_r:exported_dalvik_prop:s0 exact int
@@ -221,6 +223,7 @@ dumpstate.dry_run u:object_r:exported_dumpstate_prop:s0 exact bool
 dumpstate.unroot u:object_r:exported_dumpstate_prop:s0 exact bool
 hal.instrumentation.enable u:object_r:exported2_default_prop:s0 exact bool
 init.svc.bugreport u:object_r:exported2_default_prop:s0 exact string
+init.svc.bugreportd u:object_r:exported2_default_prop:s0 exact string
 init.svc.console u:object_r:exported2_default_prop:s0 exact string
 init.svc.dumpstatez u:object_r:exported2_default_prop:s0 exact string
 init.svc.mediadrm u:object_r:exported2_default_prop:s0 exact string
@@ -401,6 +404,7 @@ ro.vendor.build.date u:object_r:exported_default_prop:s0 exact string
 ro.vendor.build.date.utc u:object_r:exported_default_prop:s0 exact int
 ro.vendor.build.fingerprint u:object_r:exported_default_prop:s0 exact string
 ro.vendor.build.version.incremental u:object_r:exported_default_prop:s0 exact string
+ro.vendor.build.version.sdk u:object_r:exported_default_prop:s0 exact int
 ro.vndk.lite u:object_r:vndk_prop:s0 exact bool
 ro.vndk.version u:object_r:vndk_prop:s0 exact string
 ro.vts.coverage u:object_r:exported_default_prop:s0 exact int
