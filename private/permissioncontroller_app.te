@@ -5,35 +5,13 @@ type permissioncontroller_app, domain, coredomain;
 
 app_domain(permissioncontroller_app)
 
+allow permissioncontroller_app app_api_service:service_manager find;
+allow permissioncontroller_app system_api_service:service_manager find;
+
 # Allow interaction with gpuservice
 binder_call(permissioncontroller_app, gpuservice)
-allow permissioncontroller_app gpu_service:service_manager find;
 
-# Allow interaction with role_service
-allow permissioncontroller_app role_service:service_manager find;
-
-# Allow interaction with usagestats_service
-allow permissioncontroller_app usagestats_service:service_manager find;
-
-# Allow interaction with activity_service
-allow permissioncontroller_app activity_service:service_manager find;
-
-# Allow interaction with legacy_permission_service
-allow permissioncontroller_app legacy_permission_service:service_manager find;
-
-allow permissioncontroller_app activity_task_service:service_manager find;
-allow permissioncontroller_app audio_service:service_manager find;
-allow permissioncontroller_app autofill_service:service_manager find;
-allow permissioncontroller_app content_capture_service:service_manager find;
-allow permissioncontroller_app device_policy_service:service_manager find;
-allow permissioncontroller_app incidentcompanion_service:service_manager find;
-allow permissioncontroller_app IProxyService_service:service_manager find;
-allow permissioncontroller_app location_service:service_manager find;
-allow permissioncontroller_app media_session_service:service_manager find;
 allow permissioncontroller_app radio_service:service_manager find;
-allow permissioncontroller_app surfaceflinger_service:service_manager find;
-allow permissioncontroller_app telecom_service:service_manager find;
-allow permissioncontroller_app trust_service:service_manager find;
 
 # Allow the app to request and collect incident reports.
 # (Also requires DUMP and PACKAGE_USAGE_STATS permissions)
