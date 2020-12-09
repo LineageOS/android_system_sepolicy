@@ -369,3 +369,6 @@ neverallow {
 # This property is being removed. Remove remaining access.
 neverallow { domain -init -system_server -vendor_init } net_dns_prop:property_service set;
 neverallow { domain -dumpstate -init -system_server -vendor_init } net_dns_prop:file read;
+
+# Kprobes should only be used by adb root
+neverallow { domain -init -vendor_init } debugfs_kprobes:file *;
