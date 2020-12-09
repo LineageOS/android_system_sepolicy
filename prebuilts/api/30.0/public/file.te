@@ -131,6 +131,7 @@ type sdcardfs, sdcard_type, fs_type, mlstrustedobject;
 type vfat, sdcard_type, fs_type, mlstrustedobject;
 type exfat, sdcard_type, fs_type, mlstrustedobject;
 type debugfs, fs_type, debugfs_type;
+type debugfs_kprobes, fs_type, debugfs_type;
 type debugfs_mmc, fs_type, debugfs_type;
 type debugfs_trace_marker, fs_type, debugfs_type, mlstrustedobject;
 type debugfs_tracing, fs_type, debugfs_type, mlstrustedobject;
@@ -532,7 +533,6 @@ allow file_type rootfs:filesystem associate;
 allow dev_type tmpfs:filesystem associate;
 allow app_fuse_file app_fusefs:filesystem associate;
 allow postinstall_file self:filesystem associate;
-allow proc_net proc:filesystem associate;
 
 # asanwrapper (run a sanitized app_process, to be used with wrap properties)
 with_asan(`type asanwrapper_exec, exec_type, file_type;')

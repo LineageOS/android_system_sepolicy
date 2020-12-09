@@ -27,10 +27,6 @@ allow mediaprovider_app app_api_service:service_manager find;
 # Talk to the GPU service
 binder_call(mediaprovider_app, gpuservice)
 
-# Talk to statsd
-allow mediaprovider_app statsmanager_service:service_manager find;
-binder_call(mediaprovider_app, statsd)
-
 # read pipe-max-size configuration
 allow mediaprovider_app proc_pipe_conf:file r_file_perms;
 
@@ -44,3 +40,6 @@ allowxperm mediaprovider_app media_rw_data_file:{ dir file } ioctl {
 };
 
 allow mediaprovider_app proc_filesystems:file r_file_perms;
+
+#Allow MediaProvider to see if sdcardfs is in use
+get_prop(mediaprovider_app, storage_config_prop)
