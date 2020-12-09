@@ -30,7 +30,9 @@ type drmserver_socket, file_type;
 # /data/app/tlcd_sock socket file.
 # Clearly, /data/app is the most logical place to create a socket.  Not.
 allow drmserver apk_data_file:dir rw_dir_perms;
+auditallow drmserver apk_data_file:dir { add_name write };
 allow drmserver drmserver_socket:sock_file create_file_perms;
+auditallow drmserver drmserver_socket:sock_file create;
 # Delete old socket file if present.
 allow drmserver apk_data_file:sock_file unlink;
 
