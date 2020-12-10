@@ -196,7 +196,7 @@ neverallow {
 # that these files cannot be accessed by other domains to ensure that the files
 # do not change between system_server staging the files and apexd processing
 # the files.
-neverallow { domain -init -system_server -apexd -installd -iorap_inode2filename } staging_data_file:dir *;
+neverallow { domain -init -system_server -apexd -installd -iorap_inode2filename -priv_app } staging_data_file:dir *;
 neverallow { domain -init -system_app -system_server -apexd -kernel -installd -iorap_inode2filename -priv_app } staging_data_file:file *;
 neverallow { domain -init -system_server -installd} staging_data_file:dir no_w_dir_perms;
 # apexd needs the link and unlink permissions, so list every `no_w_file_perms`
