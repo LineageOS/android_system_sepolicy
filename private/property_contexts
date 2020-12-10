@@ -776,6 +776,11 @@ ro.vendor.build.version.release             u:object_r:build_vendor_prop:s0 exac
 ro.vendor.build.version.release_or_codename u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.build.version.sdk                 u:object_r:build_vendor_prop:s0 exact int
 
+# All vendor CPU abilist props are set by /vendor/build.prop
+ro.vendor.product.cpu.abilist   u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.product.cpu.abilist32 u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.product.cpu.abilist64 u:object_r:build_vendor_prop:s0 exact string
+
 ro.product.board               u:object_r:build_vendor_prop:s0 exact string
 ro.product.first_api_level     u:object_r:build_vendor_prop:s0 exact int
 ro.product.vendor.brand        u:object_r:build_vendor_prop:s0 exact string
