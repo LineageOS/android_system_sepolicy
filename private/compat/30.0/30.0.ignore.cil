@@ -26,6 +26,7 @@
     hal_dumpstate_config_prop
     hal_gnss_service
     hal_power_stats_service
+    hal_keymint_service
     keystore2_key_contexts_file
     legacy_permission_service
     location_time_zone_manager_service

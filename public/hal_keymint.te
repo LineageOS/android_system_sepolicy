@@ -1,0 +1,6 @@
+binder_call(hal_keymint_client, hal_keymint_server)
+
+add_service(hal_keymint_server, hal_keymint_service)
+binder_call(hal_keymint_server, servicemanager)
+
+allow hal_keymint_client hal_keymint_service:service_manager find;
