@@ -29,7 +29,7 @@ allow system_server incremental_control_file:file { ioctl r_file_perms };
 allowxperm system_server incremental_control_file:file ioctl { INCFS_IOCTL_CREATE_FILE INCFS_IOCTL_PERMIT_FILL };
 
 # To get signature of an APK installed on Incremental File System and fill in data blocks
-allowxperm system_server apk_data_file:file ioctl { INCFS_IOCTL_READ_SIGNATURE INCFS_IOCTL_FILL_BLOCKS INCFS_IOCTL_GET_FILLED_BLOCKS };
+allowxperm system_server apk_data_file:file ioctl { INCFS_IOCTL_READ_SIGNATURE INCFS_IOCTL_FILL_BLOCKS };
 
 # For art.
 allow system_server dalvikcache_data_file:dir r_dir_perms;
@@ -678,6 +678,9 @@ get_prop(system_server, apk_verity_prop)
 
 # Read wifi.interface
 get_prop(system_server, wifi_prop)
+
+# Read the vendor property that indicates if Incremental features is enabled
+get_prop(system_server, incremental_prop)
 
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;

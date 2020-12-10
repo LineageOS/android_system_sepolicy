@@ -67,14 +67,13 @@ dalvik.vm.method-trace-file-siz u:object_r:exported_dalvik_prop:s0 exact int
 dalvik.vm.method-trace-stream u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.profilesystemserver u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.profilebootclasspath u:object_r:exported_dalvik_prop:s0 exact bool
-dalvik.vm.restore-dex2oat-cpu-set u:object_r:exported_dalvik_prop:s0 exact string
-dalvik.vm.restore-dex2oat-threads u:object_r:exported_dalvik_prop:s0 exact int
 dalvik.vm.usejit u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.usejitprofiles u:object_r:exported_dalvik_prop:s0 exact bool
 dalvik.vm.zygote.max-boot-retry u:object_r:exported_dalvik_prop:s0 exact int
 drm.service.enabled u:object_r:exported3_default_prop:s0 exact bool
 external_storage.projid.enabled u:object_r:storage_config_prop:s0 exact bool
 external_storage.casefold.enabled u:object_r:storage_config_prop:s0 exact bool
+external_storage.sdcardfs.enabled u:object_r:storage_config_prop:s0 exact bool
 keyguard.no_require_sim u:object_r:exported3_default_prop:s0 exact bool
 media.recorder.show_manufacturer_and_model u:object_r:exported3_default_prop:s0 exact bool
 media.stagefright.cache-params u:object_r:exported3_default_prop:s0 exact string
@@ -186,6 +185,7 @@ sys.usb.mtp.device_type u:object_r:exported2_system_prop:s0 exact int
 sys.usb.ffs.mtp.ready u:object_r:exported_ffs_prop:s0 exact bool
 sys.usb.state u:object_r:exported2_system_prop:s0 exact string
 telephony.lteOnCdmaDevice u:object_r:exported3_default_prop:s0 exact int
+telephony.active_modems.max_count u:object_r:exported3_default_prop:s0 exact int
 tombstoned.max_tombstone_count u:object_r:exported3_default_prop:s0 exact int
 vold.post_fs_data_done u:object_r:exported2_vold_prop:s0 exact int
 vts.native_server.on u:object_r:exported3_default_prop:s0 exact bool
@@ -315,6 +315,7 @@ ro.bionic.arch u:object_r:cpu_variant_prop:s0 exact string
 ro.bionic.cpu_variant u:object_r:cpu_variant_prop:s0 exact string
 ro.board.platform u:object_r:exported_default_prop:s0 exact string
 ro.boot.fake_battery u:object_r:exported_default_prop:s0 exact int
+ro.boot.fstab_suffix u:object_r:exported_default_prop:s0 exact string
 ro.boot.hardware.revision u:object_r:exported_default_prop:s0 exact string
 ro.boot.product.hardware.sku u:object_r:exported_default_prop:s0 exact string
 ro.boot.product.vendor.sku u:object_r:exported_default_prop:s0 exact string
@@ -400,6 +401,7 @@ ro.vendor.build.date u:object_r:exported_default_prop:s0 exact string
 ro.vendor.build.date.utc u:object_r:exported_default_prop:s0 exact int
 ro.vendor.build.fingerprint u:object_r:exported_default_prop:s0 exact string
 ro.vendor.build.version.incremental u:object_r:exported_default_prop:s0 exact string
+ro.vendor.build.version.sdk u:object_r:exported_default_prop:s0 exact int
 ro.vndk.lite u:object_r:vndk_prop:s0 exact bool
 ro.vndk.version u:object_r:vndk_prop:s0 exact string
 ro.vts.coverage u:object_r:exported_default_prop:s0 exact int
