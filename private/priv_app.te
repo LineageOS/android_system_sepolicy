@@ -156,6 +156,8 @@ allowxperm priv_app incremental_control_file:file ioctl INCFS_IOCTL_PERMIT_FILL;
 # Required for Phonesky to be able to read APEX files under /data/apex/active/.
 allow priv_app apex_data_file:dir search;
 allow priv_app staging_data_file:file r_file_perms;
+# Required for Phonesky to be able to read staged files under /data/app-staging.
+allow priv_app staging_data_file:dir r_dir_perms;
 
 # allow priv app to access the system app data files for ContentProvider case.
 allow priv_app system_app_data_file:file { read getattr };
