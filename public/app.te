@@ -170,6 +170,7 @@ allow appdomain incidentd:fifo_file { write getattr };
 unix_socket_send(appdomain, statsdw, statsd)
 
 # Write profiles /data/misc/profiles
+allow appdomain user_profile_root_file:dir search;
 allow appdomain user_profile_data_file:dir { search write add_name };
 allow appdomain user_profile_data_file:file create_file_perms;
 

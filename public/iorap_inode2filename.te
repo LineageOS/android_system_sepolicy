@@ -52,6 +52,7 @@ allow iorap_inode2filename system_data_root_file:dir { getattr open read search 
 allow iorap_inode2filename textclassifier_data_file:dir { getattr open read search };
 allow iorap_inode2filename textclassifier_data_file:file { getattr };
 allow iorap_inode2filename toolbox_exec:file getattr;
+allow iorap_inode2filename user_profile_root_file:dir { getattr open read search };
 allow iorap_inode2filename user_profile_data_file:dir { getattr open read search };
 allow iorap_inode2filename user_profile_data_file:file { getattr };
 allow iorap_inode2filename unencrypted_data_file:dir { getattr open read search };
