@@ -61,7 +61,7 @@ allow zygote system_data_file:{ dir lnk_file } relabelto;
 allow zygote mnt_expand_file:dir { open read search relabelto };
 
 # Bind mount subdirectories on /data/misc/profiles/cur
-allow zygote { user_profile_data_file }:dir { mounton search };
+allow zygote user_profile_root_file:dir { mounton search };
 
 # Create and bind dirs on /data/data
 allow zygote tmpfs:dir { create_dir_perms mounton };
