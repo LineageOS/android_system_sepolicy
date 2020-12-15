@@ -39,6 +39,7 @@ allow iorap_prefetcherd same_process_hal_file:file { open read };
 allow iorap_prefetcherd system_data_file:dir { open read search };
 allow iorap_prefetcherd system_data_file:file { open read };
 allow iorap_prefetcherd system_data_file:lnk_file { open read };
+allow iorap_prefetcherd user_profile_root_file:dir { open read search };
 allow iorap_prefetcherd user_profile_data_file:dir { open read search };
 allow iorap_prefetcherd user_profile_data_file:file { open read };
 allow iorap_prefetcherd vendor_overlay_file:dir { open read search };
