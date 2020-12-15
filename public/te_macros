@@ -594,6 +594,7 @@ define(`use_keystore', `
   allow keystore $1:dir search;
   allow keystore $1:file { read open };
   allow keystore $1:process getattr;
+  allow $1 apc_service:service_manager find;
   allow $1 keystore_service:service_manager find;
   binder_call($1, keystore)
   binder_call(keystore, $1)
