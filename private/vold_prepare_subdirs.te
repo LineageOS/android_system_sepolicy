@@ -45,7 +45,8 @@ allow vold_prepare_subdirs {
 }:file { getattr unlink };
 allow vold_prepare_subdirs apex_mnt_dir:dir { open read };
 allow vold_prepare_subdirs mnt_expand_file:dir search;
-allow vold_prepare_subdirs user_profile_data_file:dir { search getattr relabelfrom relabelto };
+allow vold_prepare_subdirs user_profile_data_file:dir { search getattr relabelfrom };
+allow vold_prepare_subdirs user_profile_root_file:dir { search getattr relabelfrom relabelto };
 # /data/misc is unlabeled during early boot.
 allow vold_prepare_subdirs unlabeled:dir search;
 

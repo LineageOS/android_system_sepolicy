@@ -3,7 +3,7 @@
 # Note: otapreopt is a driver for dex2oat, and reuses parts of installd. As such,
 # this is derived and adapted from installd.te.
 
-type postinstall_dexopt, domain, coredomain;
+type postinstall_dexopt, domain, coredomain, mlstrustedsubject;
 
 # Run dex2oat/patchoat in its own sandbox.
 # We have to manually transition, as we don't have an entrypoint.
@@ -38,7 +38,7 @@ r_dir_file(postinstall_dexopt, vendor_overlay_file)
 r_dir_file(postinstall_dexopt, dalvikcache_data_file)
 
 # Read profile data.
-allow postinstall_dexopt user_profile_data_file:dir { getattr search };
+allow postinstall_dexopt { user_profile_root_file user_profile_data_file }:dir { getattr search };
 allow postinstall_dexopt user_profile_data_file:file r_file_perms;
 # Suppress deletion denial (we do not want to update the profile).
 dontaudit postinstall_dexopt user_profile_data_file:file { write };

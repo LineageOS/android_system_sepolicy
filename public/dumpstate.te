@@ -229,7 +229,7 @@ allow dumpstate update_engine_log_data_file:file r_file_perms;
 
 # Access /data/misc/profiles/{cur,ref}/
 userdebug_or_eng(`
-  allow dumpstate user_profile_data_file:dir r_dir_perms;
+  allow dumpstate { user_profile_root_file user_profile_data_file}:dir r_dir_perms;
   allow dumpstate user_profile_data_file:file r_file_perms;
 ')
 

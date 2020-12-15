@@ -295,6 +295,7 @@ type ota_data_file, file_type, data_file_type, core_data_file_type;
 # /data/ota_package
 type ota_package_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/misc/profiles
+type user_profile_root_file, file_type, data_file_type, core_data_file_type;
 type user_profile_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 # /data/misc/profman
 type profman_dump_data_file, file_type, data_file_type, core_data_file_type;

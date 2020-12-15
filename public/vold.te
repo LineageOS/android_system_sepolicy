@@ -280,7 +280,7 @@ allow vold app_fuse_file:file { read write open getattr append };
 allow vold toolbox_exec:file rx_file_perms;
 
 # Prepare profile dir for users.
-allow vold user_profile_data_file:dir create_dir_perms;
+allow vold { user_profile_data_file user_profile_root_file }:dir create_dir_perms;
 
 # Raw writes to misc block device
 allow vold misc_block_device:blk_file w_file_perms;
