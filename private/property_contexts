@@ -1090,6 +1090,6 @@ setupwizard.logging                                                u:object_r:se
 setupwizard.metrics_debug_mode                                     u:object_r:setupwizard_prop:s0 exact bool
 setupwizard.theme                                                  u:object_r:setupwizard_prop:s0 exact string
 
-db.log.detailed               u:object_r:sqlite_log_prop:s0 exact bool
-db.log.slow_query_threshold   u:object_r:sqlite_log_prop:s0 exact int
-db.log.slow_query_threshold.* u:object_r:sqlite_log_prop:s0 prefix int
+db.log.detailed              u:object_r:sqlite_log_prop:s0 exact bool
+db.log.slow_query_threshold  u:object_r:sqlite_log_prop:s0 exact int
+db.log.slow_query_threshold. u:object_r:sqlite_log_prop:s0 prefix int
