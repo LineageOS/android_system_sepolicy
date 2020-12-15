@@ -166,6 +166,7 @@ type rttmanager_service, app_api_service, ephemeral_app_api_service, system_serv
 type samplingprofiler_service, system_server_service, service_manager_type;
 type scheduling_policy_service, system_server_service, service_manager_type;
 type search_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type search_ui_service, app_api_service, system_server_service, service_manager_type;
 type sec_key_att_app_id_provider_service, app_api_service, system_server_service, service_manager_type;
 type sensorservice_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type sensor_privacy_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
@@ -227,6 +228,7 @@ type hal_gnss_service, vendor_service, protected_service, service_manager_type;
 type hal_identity_service, vendor_service, protected_service, service_manager_type;
 type hal_keymint_service, vendor_service, protected_service, service_manager_type;
 type hal_light_service, vendor_service, protected_service, service_manager_type;
+type hal_memtrack_service, vendor_service, protected_service, service_manager_type;
 type hal_power_service, vendor_service, protected_service, service_manager_type;
 type hal_power_stats_service, vendor_service, protected_service, service_manager_type;
 type hal_rebootescrow_service, vendor_service, protected_service, service_manager_type;
