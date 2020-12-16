@@ -53,6 +53,9 @@ userdebug_or_eng(`
   allow heapprofd proc_kpageflags:file r_file_perms;
 ')
 
+# For checking profileability.
+allow heapprofd packages_list_file:file r_file_perms;
+
 # This is going to happen on user but is benign because central heapprofd
 # does not actually need these permission.
 # If the dac_read_search capability check is rejected, the kernel then tries
