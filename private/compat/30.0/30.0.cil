@@ -2155,7 +2155,10 @@
 (typeattributeset usbd_exec_30_0 (usbd_exec))
 (typeattributeset usbfs_30_0 (usbfs))
 (typeattributeset use_memfd_prop_30_0 (use_memfd_prop))
-(typeattributeset user_profile_data_file_30_0 (user_profile_data_file))
+(typeattributeset user_profile_data_file_30_0
+  ( user_profile_data_file
+    user_profile_root_file
+))
 (typeattributeset user_service_30_0 (user_service))
 (typeattributeset userdata_block_device_30_0 (userdata_block_device))
 (typeattributeset usermodehelper_30_0 (usermodehelper))

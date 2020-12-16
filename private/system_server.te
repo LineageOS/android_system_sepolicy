@@ -977,7 +977,7 @@ allow system_server bpfloader:bpf { map_read map_write prog_run };
 # Allow system_server to open profile snapshots for read.
 # System server never reads the actual content. It passes the descriptor to
 # to privileged apps which acquire the permissions to inspect the profiles.
-allow system_server user_profile_data_file:dir { getattr search };
+allow system_server { user_profile_root_file user_profile_data_file}:dir { getattr search };
 allow system_server user_profile_data_file:file { getattr open read };
 
 # System server may dump profile data for debuggable apps in the /data/misc/profman.

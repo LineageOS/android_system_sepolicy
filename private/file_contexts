@@ -94,6 +94,7 @@
 /dev/console		u:object_r:console_device:s0
 /dev/cpu_variant:.*     u:object_r:dev_cpu_variant:s0
 /dev/dma_heap/system    u:object_r:dmabuf_system_heap_device:s0
+/dev/dma_heap/system-uncached    u:object_r:dmabuf_system_heap_device:s0
 /dev/dm-user(/.*)?	u:object_r:dm_user_device:s0
 /dev/device-mapper	u:object_r:dm_device:s0
 /dev/eac		u:object_r:audio_device:s0
@@ -609,7 +610,8 @@
 /data/misc/wmtrace(/.*)?        u:object_r:wm_trace_data_file:s0
 # TODO(calin) label profile reference differently so that only
 # profman run as a special user can write to them
-/data/misc/profiles/cur(/.*)?       u:object_r:user_profile_data_file:s0
+/data/misc/profiles/cur(/[0-9]+)?   u:object_r:user_profile_root_file:s0
+/data/misc/profiles/cur/[0-9]+/.*   u:object_r:user_profile_data_file:s0
 /data/misc/profiles/ref(/.*)?       u:object_r:user_profile_data_file:s0
 /data/misc/profman(/.*)?        u:object_r:profman_dump_data_file:s0
 /data/vendor(/.*)?              u:object_r:vendor_data_file:s0
