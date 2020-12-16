@@ -75,7 +75,7 @@ mlsconstrain { lnk_file } { open setattr unlink link rename read }
 # or the object is trusted.
 mlsconstrain dir { read getattr search }
 	     (t2 == app_data_file_type or l1 dom l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject
-	     or (t1 == mlsvendorcompat and (t2 == system_data_file or t2 == user_profile_data_file) ) );
+	     or (t1 == mlsvendorcompat and (t2 == system_data_file or t2 == user_profile_root_file) ) );
 
 mlsconstrain { file lnk_file sock_file chr_file blk_file } { read getattr execute }
 	     (t2 == app_data_file_type or t2 == appdomain_tmpfs or l1 dom l2 or t1 == mlstrustedsubject or t2 == mlstrustedobject);
