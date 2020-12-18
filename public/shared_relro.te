@@ -9,3 +9,6 @@ allow shared_relro shared_relro_file:file create_file_perms;
 allow shared_relro activity_service:service_manager find;
 allow shared_relro webviewupdate_service:service_manager find;
 allow shared_relro package_service:service_manager find;
+
+# StrictMode may attempt to find this service, failure is harmless.
+dontaudit shared_relro network_management_service:service_manager find;
