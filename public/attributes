@@ -381,3 +381,6 @@ attribute wifi_keystore_service_server;
 
 # All types used for super partition block devices.
 attribute super_block_device_type;
+
+# All types used for DMA-BUF heaps
+attribute dmabuf_heap_device_type;

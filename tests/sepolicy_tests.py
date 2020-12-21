@@ -82,6 +82,10 @@ def TestAppDataTypeViolations(pol):
     ]
     return pol.AssertPathTypesDoNotHaveAttr(partitions, [], "app_data_file_type",
                                             exceptions)
+def TestDmaHeapDevTypeViolations(pol):
+    return pol.AssertPathTypesHaveAttr(["/dev/dma_heap/"], [],
+                                       "dmabuf_heap_device_type")
+
 
 
 ###
@@ -111,6 +115,7 @@ Tests = [
     "TestCoreDataTypeViolations",
     "TestPropertyTypeViolations",
     "TestAppDataTypeViolations",
+    "TestDmaHeapDevTypeViolations",
 ]
 
 if __name__ == '__main__':
@@ -168,6 +173,8 @@ if __name__ == '__main__':
         results += TestPropertyTypeViolations(pol)
     if options.test is None or "TestAppDataTypeViolations" in options.test:
         results += TestAppDataTypeViolations(pol)
+    if options.test is None or "TestDmaHeapDevTypeViolations" in options.test:
+        results += TestDmaHeapDevTypeViolations(pol)
 
     if len(results) > 0:
         sys.exit(results)
