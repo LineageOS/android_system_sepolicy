@@ -3,8 +3,6 @@ binder_call(hal_power_stats_client, hal_power_stats_server)
 binder_call(hal_power_stats_server, hal_power_stats_client)
 
 hal_attribute_hwservice(hal_power_stats, hal_power_stats_hwservice)
+hal_attribute_service(hal_power_stats, hal_power_stats_service)
 
-add_service(hal_power_stats_server, hal_power_stats_service)
 binder_call(hal_power_stats_server, servicemanager)
-
-allow hal_power_stats_client hal_power_stats_service:service_manager find;
