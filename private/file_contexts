@@ -582,6 +582,7 @@
 /data/misc/perfetto-configs(/.*)? u:object_r:perfetto_configs_data_file:s0
 /data/misc/prereboot(/.*)?      u:object_r:prereboot_data_file:s0
 /data/misc/profcollectd(/.*)?   u:object_r:profcollectd_data_file:s0
+/data/misc/radio(/.*)?          u:object_r:radio_core_data_file:s0
 /data/misc/recovery(/.*)?       u:object_r:recovery_data_file:s0
 /data/misc/shared_relro(/.*)?   u:object_r:shared_relro_file:s0
 /data/misc/sms(/.*)?            u:object_r:radio_data_file:s0
