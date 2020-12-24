@@ -31,6 +31,7 @@ android.security.authorization            u:object_r:authorization_service:s0
 android.security.compat                   u:object_r:keystore_compat_hal_service:s0
 android.security.identity                 u:object_r:credstore_service:s0
 android.security.keystore                 u:object_r:keystore_service:s0
+android.security.remoteprovisioning       u:object_r:remoteprovisioning_service:s0
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
 android.system.keystore2                  u:object_r:keystore_service:s0
 app_binding                               u:object_r:app_binding_service:s0
