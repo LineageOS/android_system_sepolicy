@@ -7,6 +7,4 @@ type hal_vehicle_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_vehicle_default)
 
 # communication with CAN bus HAL
-allow hal_vehicle_default hal_can_bus_hwservice:hwservice_manager find;
-allow hal_vehicle_default hal_can_socketcan:binder { call transfer };
-allow hal_can_socketcan hal_vehicle_default:binder { call transfer };
+hal_client_domain(hal_vehicle_default, hal_can_bus)
