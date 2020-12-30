@@ -410,6 +410,7 @@ type update_engine_log_data_file, file_type, data_file_type, core_data_file_type
 # /data/misc/trace for method traces on userdebug / eng builds
 type method_trace_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 type gsi_data_file, file_type, data_file_type, core_data_file_type;
+type radio_core_data_file, file_type, data_file_type, core_data_file_type;
 
 # /data/data subdirectories - app sandboxes
 type app_data_file, file_type, data_file_type, core_data_file_type, app_data_file_type;
