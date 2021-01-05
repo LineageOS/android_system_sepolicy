@@ -3,8 +3,6 @@ binder_call(hal_audiocontrol_client, hal_audiocontrol_server)
 binder_call(hal_audiocontrol_server, hal_audiocontrol_client)
 
 hal_attribute_hwservice(hal_audiocontrol, hal_audiocontrol_hwservice)
+hal_attribute_service(hal_audiocontrol, hal_audiocontrol_service)
 
-add_service(hal_audiocontrol_server, hal_audiocontrol_service)
 binder_call(hal_audiocontrol_server, servicemanager)
-
-allow hal_audiocontrol_client hal_audiocontrol_service:service_manager find;
