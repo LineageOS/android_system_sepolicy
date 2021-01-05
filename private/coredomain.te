@@ -24,9 +24,6 @@ get_prop(coredomain, vold_config_prop)
 get_prop(coredomain, vts_status_prop)
 get_prop(coredomain, zygote_wrap_prop)
 
-# TODO(b/170590987): remove this after cleaning up default_prop
-get_prop(coredomain, default_prop)
-
 full_treble_only(`
 neverallow {
     coredomain
