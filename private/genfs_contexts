@@ -13,6 +13,7 @@ genfscon proc /iomem u:object_r:proc_iomem:s0
 genfscon proc /keys u:object_r:proc_keys:s0
 genfscon proc /kmsg u:object_r:proc_kmsg:s0
 genfscon proc /loadavg u:object_r:proc_loadavg:s0
+genfscon proc /locks u:object_r:proc_locks:s0
 genfscon proc /lowmemorykiller u:object_r:proc_lowmemorykiller:s0
 genfscon proc /meminfo u:object_r:proc_meminfo:s0
 genfscon proc /misc u:object_r:proc_misc:s0
