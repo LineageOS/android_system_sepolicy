@@ -153,7 +153,7 @@ allow vold vold_device:blk_file { create setattr unlink rw_file_perms };
 allowxperm vold vold_device:blk_file ioctl { BLKDISCARD BLKGETSIZE };
 allow vold dm_device:chr_file rw_file_perms;
 allow vold dm_device:blk_file rw_file_perms;
-allowxperm vold dm_device:blk_file ioctl BLKSECDISCARD;
+allowxperm vold dm_device:blk_file ioctl { BLKDISCARD BLKSECDISCARD };
 # For vold Process::killProcessesWithOpenFiles function.
 allow vold domain:dir r_dir_perms;
 allow vold domain:{ file lnk_file } r_file_perms;
