@@ -580,8 +580,9 @@
 /data/misc/net(/.*)?            u:object_r:net_data_file:s0
 /data/misc/network_watchlist(/.*)? u:object_r:network_watchlist_data_file:s0
 /data/misc/nfc/logs(/.*)?       u:object_r:nfc_logs_data_file:s0
-/data/misc/perfetto-traces(/.*)? u:object_r:perfetto_traces_data_file:s0
-/data/misc/perfetto-configs(/.*)? u:object_r:perfetto_configs_data_file:s0
+/data/misc/perfetto-traces/bugreport(.*)? u:object_r:perfetto_traces_bugreport_data_file:s0
+/data/misc/perfetto-traces(/.*)?          u:object_r:perfetto_traces_data_file:s0
+/data/misc/perfetto-configs(/.*)?         u:object_r:perfetto_configs_data_file:s0
 /data/misc/prereboot(/.*)?      u:object_r:prereboot_data_file:s0
 /data/misc/profcollectd(/.*)?   u:object_r:profcollectd_data_file:s0
 /data/misc/radio(/.*)?          u:object_r:radio_core_data_file:s0
