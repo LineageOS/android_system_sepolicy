@@ -154,6 +154,7 @@ media.resource_observer                   u:object_r:mediaserver_service:s0
 media.sound_trigger_hw                    u:object_r:audioserver_service:s0
 media.drm                                 u:object_r:mediadrmserver_service:s0
 media.tuner                               u:object_r:mediatuner_service:s0
+media_communication                       u:object_r:media_communication_service:s0
 media_projection                          u:object_r:media_projection_service:s0
 media_resource_monitor                    u:object_r:media_session_service:s0
 media_router                              u:object_r:media_router_service:s0
