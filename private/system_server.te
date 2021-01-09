@@ -290,6 +290,7 @@ allow system_server {
   mediaserver
   mediaswcodec
   mediatranscoding
+  mediatuner
   netd
   sdcardd
   statsd
@@ -518,6 +519,9 @@ allow system_server zoneinfo_data_file:file create_file_perms;
 # Manage /data/app-staging.
 allow system_server staging_data_file:dir create_dir_perms;
 allow system_server staging_data_file:file create_file_perms;
+
+# Manage /data/rollback.
+allow system_server staging_data_file:{ file lnk_file } { create_file_perms link };
 
 # Walk /data/data subdirectories.
 allow system_server app_data_file_type:dir { getattr read search };
@@ -778,6 +782,7 @@ allow system_server mediaserver_service:service_manager find;
 allow system_server mediametrics_service:service_manager find;
 allow system_server mediaextractor_service:service_manager find;
 allow system_server mediadrmserver_service:service_manager find;
+allow system_server mediatuner_service:service_manager find;
 allow system_server netd_service:service_manager find;
 allow system_server nfc_service:service_manager find;
 allow system_server radio_service:service_manager find;
@@ -1168,6 +1173,9 @@ allow system_server userspace_reboot_metadata_file:file create_file_perms;
 # Allow system server rw access to files in /metadata/staged-install folder
 allow system_server staged_install_file:dir rw_dir_perms;
 allow system_server staged_install_file:file create_file_perms;
+
+allow system_server watchdog_metadata_file:dir rw_dir_perms;
+allow system_server watchdog_metadata_file:file create_file_perms;
 
 # Allow init to set sysprop used to compute stats about userspace reboot.
 set_prop(system_server, userspace_reboot_log_prop)
