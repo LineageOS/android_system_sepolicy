@@ -27,6 +27,7 @@
     hal_face_service
     hal_fingerprint_service
     hal_memtrack_service
+    hal_oemlock_service
     gnss_device
     hal_dumpstate_config_prop
     hal_gnss_service
@@ -36,6 +37,9 @@
     keystore2_key_contexts_file
     legacy_permission_service
     location_time_zone_manager_service
+    mediatuner_exec
+    mediatuner_service
+    mediatuner
     mediatranscoding_tmpfs
     music_recognition_service
     nfc_logs_data_file
@@ -62,4 +66,5 @@
     userspace_reboot_metadata_file
     vcn_management_service
     vibrator_manager_service
+    watchdog_metadata_file
     zygote_config_prop))
