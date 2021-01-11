@@ -4,8 +4,4 @@ init_daemon_domain(canhalconfigurator)
 
 # This allows the configurator to look up the CAN HAL controller via
 # hwservice_manager and communicate with it.
-allow canhalconfigurator hal_can_controller_hwservice:hwservice_manager find;
-binder_call(canhalconfigurator, hal_can_controller);
-allow canhalconfigurator hidl_manager_hwservice:hwservice_manager find;
-hwbinder_use(canhalconfigurator);
-get_prop(canhalconfigurator, hwservicemanager_prop);
+hal_client_domain(canhalconfigurator, hal_can_controller)
