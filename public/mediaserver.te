@@ -120,6 +120,7 @@ allow mediaserver preloads_media_file:file { getattr read ioctl };
 
 allow mediaserver ion_device:chr_file r_file_perms;
 allow mediaserver dmabuf_system_heap_device:chr_file r_file_perms;
+allow mediaserver dmabuf_system_secure_heap_device:chr_file r_file_perms;
 allow mediaserver hal_graphics_allocator:fd use;
 allow mediaserver hal_graphics_composer:fd use;
 allow mediaserver hal_camera:fd use;
