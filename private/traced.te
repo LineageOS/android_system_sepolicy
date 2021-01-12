@@ -62,6 +62,9 @@ set_prop(traced, system_trace_prop)
 # Allow to lazily start producers.
 set_prop(traced, traced_lazy_prop)
 
+# Allow traced to talk to statsd for logging metrics.
+unix_socket_send(traced, statsdw, statsd)
+
 ###
 ### Neverallow rules
 ###
