@@ -1204,7 +1204,6 @@ neverallow {
   domain
   -shell
   userdebug_or_eng(`-uncrypt')
-  userdebug_or_eng(`-heapprofd')
   -installd
 } shell_data_file:lnk_file read;
 
@@ -1233,7 +1232,6 @@ neverallow {
   -simpleperf_app_runner
   -system_server # why?
   userdebug_or_eng(`-uncrypt')
-  userdebug_or_eng(`-heapprofd')
 } shell_data_file:dir { open search };
 
 # Same as above for /data/local/tmp files. We allow shell files
@@ -1245,7 +1243,6 @@ neverallow {
   -dumpstate
   -installd
   userdebug_or_eng(`-uncrypt')
-  userdebug_or_eng(`-heapprofd')
 } shell_data_file:file open;
 
 # servicemanager and vndservicemanager are the only processes which handle the
