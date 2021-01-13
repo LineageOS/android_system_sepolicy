@@ -168,3 +168,6 @@ allow shell shell_key:keystore2_key { delete rebind use get_info update };
 
 # Allow shell to write db.log.detailed, db.log.slow_query_threshold*
 set_prop(shell, sqlite_log_prop)
+
+# Allow shell to write MTE properties even on user builds.
+set_prop(shell, arm64_memtag_prop)
