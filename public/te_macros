@@ -693,40 +693,9 @@ define(`hal_attribute_service', `
 
 ###################################
 # can_profile_heap(domain)
-# Allow processes within the domain to have their heap profiled by heapprofd.
-#
-# Note that profiling is performed differently between debug and user builds.
-# There are two modes for profiling:
-# * forked
-# * central.
-# On user builds, the default is to allow only forked mode. If it is desired
-# to allow central mode as well for a domain, use can_profile_heap_central.
-# On userdebug, this macro allows both forked and central.
-define(`can_profile_heap', `
-  # Allow central daemon to send signal for client initialization.
-  allow heapprofd $1:process signal;
-
-  # Allow executing a private heapprofd process to handle profiling on
-  # user builds (also debug builds for testing & development purposes).
-  allow $1 heapprofd_exec:file rx_file_perms;
-
-  # Allow directory & file read to the central heapprofd daemon, as it scans
-  # /proc/[pid]/cmdline for by-process-name profiling configs.
-  # Note that this excludes /proc/[pid]/mem, as it requires ptrace capabilities.
-  allow heapprofd $1:file r_file_perms;
-  allow heapprofd $1:dir r_dir_perms;
-
-  # Profilability on user implies profilability on userdebug and eng.
-  userdebug_or_eng(`
-    can_profile_heap_central($1)
-  ')
-')
-
-###################################
-# can_profile_heap_central(domain)
 # Allow processes within the domain to have their heap profiled by central
 # heapprofd.
-define(`can_profile_heap_central', `
+define(`can_profile_heap', `
   # Allow central daemon to send signal for client initialization.
   allow heapprofd $1:process signal;
   # Allow connecting to the daemon.
