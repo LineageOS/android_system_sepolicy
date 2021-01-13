@@ -24,3 +24,4 @@ neverallow mediaswcodec { file_type fs_type }:file execute_no_trans;
 neverallow mediaswcodec domain:{ tcp_socket udp_socket rawip_socket } *;
 
 allow mediaswcodec dmabuf_system_heap_device:chr_file r_file_perms;
+allow mediaswcodec dmabuf_system_secure_heap_device:chr_file r_file_perms;
