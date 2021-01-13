@@ -193,6 +193,7 @@ type thermal_service, app_api_service, ephemeral_app_api_service, system_server_
 type timedetector_service, system_server_service, service_manager_type;
 type timezone_service, system_server_service, service_manager_type;
 type timezonedetector_service, app_api_service, system_server_service, service_manager_type;
+type transformer_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type trust_service, app_api_service, system_server_service, service_manager_type;
 type tv_input_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type tv_tuner_resource_mgr_service, app_api_service, system_server_service, service_manager_type;
@@ -224,6 +225,7 @@ type emergency_affordance_service, system_server_service, service_manager_type;
 ### HAL Services
 ###
 
+type hal_authsecret_service, vendor_service, protected_service, service_manager_type;
 type hal_audiocontrol_service, vendor_service, service_manager_type;
 type hal_face_service, vendor_service, protected_service, service_manager_type;
 type hal_fingerprint_service, vendor_service, protected_service, service_manager_type;

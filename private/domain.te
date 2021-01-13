@@ -11,7 +11,7 @@ allow domain crash_dump:process sigchld;
 # necessary SELinux permissions.
 get_prop(domain, heapprofd_prop);
 # Allow heap profiling on debug builds.
-userdebug_or_eng(`can_profile_heap_central({
+userdebug_or_eng(`can_profile_heap({
   domain
   -bpfloader
   -init
@@ -307,7 +307,7 @@ neverallow ~{
   iorap_prefetcherd
   traced_perf
   traced_probes
-  userdebug_or_eng(`heapprofd')
+  heapprofd
 } self:global_capability_class_set dac_read_search;
 
 # Limit what domains can mount filesystems or change their mount flags.
@@ -414,7 +414,7 @@ full_treble_only(`
     -iorap_inode2filename
     -iorap_prefetcherd
     -kernel # loads /vendor/firmware
-    userdebug_or_eng(`-heapprofd')
+    -heapprofd
     userdebug_or_eng(`-profcollectd')
     -shell
     -system_executes_vendor_violators

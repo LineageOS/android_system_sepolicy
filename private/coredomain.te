@@ -49,7 +49,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
-        userdebug_or_eng(`-heapprofd')
+        -heapprofd
         -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
         -system_server
@@ -66,7 +66,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
-        userdebug_or_eng(`-heapprofd')
+        -heapprofd
         userdebug_or_eng(`-profcollectd')
         -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
@@ -93,7 +93,7 @@ full_treble_only(`
         -app_zygote
         -webview_zygote
         -zygote
-        userdebug_or_eng(`-heapprofd')
+        -heapprofd
     } vendor_overlay_file:dir { getattr open read search };
 ')
 
@@ -113,7 +113,7 @@ full_treble_only(`
         -app_zygote
         -webview_zygote
         -zygote
-        userdebug_or_eng(`-heapprofd')
+        -heapprofd
         userdebug_or_eng(`-profcollectd')
     } vendor_overlay_file:file open;
 ')
