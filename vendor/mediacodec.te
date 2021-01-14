@@ -18,6 +18,7 @@ hal_client_domain(mediacodec, hal_graphics_allocator)
 
 allow mediacodec gpu_device:chr_file rw_file_perms;
 allow mediacodec ion_device:chr_file rw_file_perms;
+allow mediacodec dmabuf_system_heap_device:chr_file r_file_perms;
 allow mediacodec video_device:chr_file rw_file_perms;
 allow mediacodec video_device:dir search;
 
