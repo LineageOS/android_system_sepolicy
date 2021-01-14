@@ -16,6 +16,12 @@ allow init kmsg_device:chr_file { getattr write relabelto };
 userdebug_or_eng(`
   allow init kmsg_debug_device:chr_file { open write relabelto };
 ')
+
+# allow init to mount and unmount debugfs in debug builds
+userdebug_or_eng(`
+  allow init debugfs:dir mounton;
+')
+
 # /dev/__properties__
 allow init properties_device:dir relabelto;
 allow init properties_serial:file { write relabelto };
