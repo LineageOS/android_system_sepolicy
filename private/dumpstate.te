@@ -1,4 +1,5 @@
 typeattribute dumpstate coredomain;
+type dumpstate_tmpfs, file_type;
 
 init_daemon_domain(dumpstate)
 
@@ -82,3 +83,19 @@ set_prop(dumpstate, ctl_gsid_prop)
 binder_call(dumpstate, gsid)
 
 r_dir_file(dumpstate, ota_metadata_file)
+
+# For starting (and killing) perfetto --save-for-bugreport. If a labelled trace
+# is being recorded, the command above will serialize it into
+# /data/misc/perfetto-traces/bugreport/*.pftrace .
+domain_auto_trans(dumpstate, perfetto_exec, perfetto)
+allow dumpstate perfetto:process signal;
+allow dumpstate perfetto_traces_data_file:dir { search };
+allow dumpstate perfetto_traces_bugreport_data_file:dir rw_dir_perms;
+allow dumpstate perfetto_traces_bugreport_data_file:file { r_file_perms unlink };
+
+# When exec-ing /system/bin/perfetto, dumpstates redirects stdio to /dev/null
+# (which is labelled as dumpstate_tmpfs) to avoid leaking a FD to the bugreport
+# zip file. These rules are to allow perfetto.te to inherit dumpstate's
+# /dev/null.
+allow perfetto dumpstate_tmpfs:file rw_file_perms;
+allow perfetto dumpstate:fd use;
