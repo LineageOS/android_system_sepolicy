@@ -152,9 +152,16 @@ dontaudit priv_app { wifi_prop wifi_hal_prop }:file read;
 allow priv_app system_server:udp_socket {
         connect getattr read recvfrom sendto write getopt setopt };
 
+# Access the IncFS list of features
+r_dir_file(priv_app, sysfs_fs_incfs_features)
+
 # allow apps like Phonesky to check the file signature of an apk installed on
-# the Incremental File System, and fill missing blocks in the apk
-allowxperm priv_app apk_data_file:file ioctl { INCFS_IOCTL_READ_SIGNATURE INCFS_IOCTL_FILL_BLOCKS };
+# the Incremental File System, fill missing blocks and get the app status
+allowxperm priv_app apk_data_file:file ioctl {
+  INCFS_IOCTL_READ_SIGNATURE
+  INCFS_IOCTL_FILL_BLOCKS
+  INCFS_IOCTL_GET_BLOCK_COUNT
+};
 
 # allow privileged data loader apps (e.g. com.android.vending) to read logs from Incremental File System
 allow priv_app incremental_control_file:file { read getattr ioctl };
