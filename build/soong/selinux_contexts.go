@@ -382,11 +382,13 @@ func (m *selinuxContextsModule) buildPropertyContexts(ctx android.ModuleContext,
 
 	var apiFiles android.Paths
 	ctx.VisitDirectDepsWithTag(syspropLibraryDepTag, func(c android.Module) {
-		i, ok := c.(interface{ CurrentSyspropApiFile() android.Path })
+		i, ok := c.(interface{ CurrentSyspropApiFile() android.OptionalPath })
 		if !ok {
 			panic(fmt.Errorf("unknown dependency %q for %q", ctx.OtherModuleName(c), ctx.ModuleName()))
 		}
-		apiFiles = append(apiFiles, i.CurrentSyspropApiFile())
+		if api := i.CurrentSyspropApiFile(); api.Valid() {
+			apiFiles = append(apiFiles, api.Path())
+		}
 	})
 
 	// check compatibility with sysprop_library
