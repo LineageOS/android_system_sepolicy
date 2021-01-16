@@ -10,6 +10,7 @@
     apc_service
     apex_info_file
     arm64_memtag_prop
+    authorization_service
     cgroup_desc_api_file
     cgroup_v2
     ctl_snapuserd_prop
@@ -59,6 +60,7 @@
     radio_core_data_file
     search_ui_service
     shell_test_data_file
+    smartspace_service
     snapuserd
     snapuserd_exec
     snapuserd_socket
