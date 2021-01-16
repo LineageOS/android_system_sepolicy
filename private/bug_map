@@ -32,3 +32,4 @@ system_server zygote process b/77856826
 untrusted_app untrusted_app netlink_route_socket b/155595000
 vold system_data_file file b/124108085
 zygote untrusted_app_25 process b/77925912
+zygote labeledfs filesystem b/170748799
