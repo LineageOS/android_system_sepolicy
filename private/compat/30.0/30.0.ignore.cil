@@ -9,6 +9,8 @@
     adbd_config_prop
     apc_service
     apex_info_file
+    arm64_memtag_prop
+    authorization_service
     cgroup_desc_api_file
     cgroup_v2
     ctl_snapuserd_prop
@@ -19,10 +21,12 @@
     dmabuf_heap_device
     dmabuf_system_heap_device
     dmabuf_system_secure_heap_device
+    dumpstate_tmpfs
     framework_watchdog_config_prop
     game_service
     gki_apex_prepostinstall
     gki_apex_prepostinstall_exec
+    hal_authsecret_service
     hal_audiocontrol_service
     hal_face_service
     hal_fingerprint_service
@@ -48,6 +52,7 @@
     power_debug_prop
     power_stats_service
     proc_kallsyms
+    proc_locks
     profcollectd
     profcollectd_data_file
     profcollectd_exec
@@ -55,6 +60,7 @@
     radio_core_data_file
     search_ui_service
     shell_test_data_file
+    smartspace_service
     snapuserd
     snapuserd_exec
     snapuserd_socket
@@ -62,6 +68,7 @@
     system_server_dumper_service
     system_suspend_control_internal_service
     task_profiles_api_file
+    transformer_service
     update_engine_stable_service
     userspace_reboot_metadata_file
     vcn_management_service

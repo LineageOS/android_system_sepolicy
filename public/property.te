@@ -55,6 +55,7 @@ compatible_property_only(`
 
 # Properties which can't be written outside system
 system_restricted_prop(aac_drc_prop)
+system_restricted_prop(arm64_memtag_prop)
 system_restricted_prop(binder_cache_bluetooth_server_prop)
 system_restricted_prop(binder_cache_system_server_prop)
 system_restricted_prop(binder_cache_telephony_server_prop)
@@ -93,7 +94,6 @@ compatible_property_only(`
     system_restricted_prop(cppreopt_prop)
     system_restricted_prop(dalvik_prop)
     system_restricted_prop(debuggerd_prop)
-    system_restricted_prop(default_prop)
     system_restricted_prop(device_logging_prop)
     system_restricted_prop(dhcp_prop)
     system_restricted_prop(dumpstate_prop)
@@ -202,6 +202,9 @@ system_public_prop(wifi_log_prop)
 system_public_prop(wifi_prop)
 system_public_prop(zram_control_prop)
 
+# Properties which don't have entries on property_contexts
+system_internal_prop(default_prop)
+
 # Properties used in default HAL implementations
 vendor_internal_prop(rebootescrow_hal_prop)
 
@@ -250,7 +253,6 @@ not_compatible_property(`
     system_public_prop(cppreopt_prop)
     system_public_prop(dalvik_prop)
     system_public_prop(debuggerd_prop)
-    system_public_prop(default_prop)
     system_public_prop(device_logging_prop)
     system_public_prop(dhcp_prop)
     system_public_prop(dumpstate_prop)
@@ -295,7 +297,6 @@ typeattribute cppreopt_prop      core_property_type;
 typeattribute dalvik_prop        core_property_type;
 typeattribute debuggerd_prop     core_property_type;
 typeattribute debug_prop         core_property_type;
-typeattribute default_prop       core_property_type;
 typeattribute dhcp_prop          core_property_type;
 typeattribute dumpstate_prop     core_property_type;
 typeattribute logd_prop          core_property_type;

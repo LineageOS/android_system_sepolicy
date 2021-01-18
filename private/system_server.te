@@ -762,6 +762,7 @@ allow system_server sysfs_zram:file rw_file_perms;
 
 add_service(system_server, system_server_service);
 allow system_server audioserver_service:service_manager find;
+allow system_server authorization_service:service_manager find;
 allow system_server batteryproperties_service:service_manager find;
 allow system_server cameraserver_service:service_manager find;
 allow system_server dataloader_manager_service:service_manager find;
@@ -930,6 +931,8 @@ allow system_server cgroup_v2:file rw_file_perms;
 
 # Access to /dev/dma_heap/system
 allow system_server dmabuf_system_heap_device:chr_file r_file_perms;
+# Access to /dev/dma_heap/system-secure
+allow system_server dmabuf_system_secure_heap_device:chr_file r_file_perms;
 
 r_dir_file(system_server, proc_asound)
 r_dir_file(system_server, proc_net_type)
@@ -937,6 +940,7 @@ r_dir_file(system_server, proc_qtaguid_stat)
 allow system_server {
   proc_cmdline
   proc_loadavg
+  proc_locks
   proc_meminfo
   proc_pagetypeinfo
   proc_pipe_conf

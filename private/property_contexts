@@ -127,9 +127,6 @@ selinux.restorecon_recursive   u:object_r:restorecon_prop:s0
 vold.                   u:object_r:vold_prop:s0
 ro.crypto.              u:object_r:vold_prop:s0
 
-# TODO(b/141677108): Remove once true everywhere
-ro.vold.level_from_user          u:object_r:vold_config_prop:s0
-
 # ro.build.fingerprint is either set in /system/build.prop, or is
 # set at runtime by system_server.
 ro.build.fingerprint    u:object_r:fingerprint_prop:s0 exact string
@@ -579,6 +576,9 @@ libc.debug.malloc.options u:object_r:libc_debug_prop:s0 exact string
 libc.debug.malloc.program u:object_r:libc_debug_prop:s0 exact string
 libc.debug.hooks.enable   u:object_r:libc_debug_prop:s0 exact string
 
+# shell-only props for ARM memory tagging (MTE).
+arm64.memtag. u:object_r:arm64_memtag_prop:s0 prefix string
+
 net.redirect_socket_calls.hooked u:object_r:socket_hook_prop:s0 exact bool
 
 persist.sys.locale       u:object_r:exported_system_prop:s0 exact string
@@ -911,7 +911,6 @@ ro.hwui.use_vulkan u:object_r:exported_default_prop:s0 exact bool
 ro.kernel.qemu             u:object_r:exported_default_prop:s0 exact bool
 ro.kernel.qemu.            u:object_r:exported_default_prop:s0
 ro.kernel.android.bootanim u:object_r:exported_default_prop:s0 exact int
-ro.kernel.ebpf.supported   u:object_r:exported_default_prop:s0 exact bool
 
 ro.oem.key1 u:object_r:exported_default_prop:s0 exact string
 
@@ -983,6 +982,7 @@ ro.surface_flinger.use_content_detection_for_refresh_rate u:object_r:surfaceflin
 ro.surface_flinger.color_space_agnostic_dataspace         u:object_r:surfaceflinger_prop:s0 exact int
 ro.surface_flinger.refresh_rate_switching                 u:object_r:surfaceflinger_prop:s0 exact bool
 ro.surface_flinger.update_device_product_info_on_hotplug_reconnect u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.enable_frame_rate_override             u:object_r:surfaceflinger_prop:s0 exact bool
 
 ro.sf.disable_triple_buffer u:object_r:surfaceflinger_prop:s0 exact bool
 ro.sf.lcd_density           u:object_r:surfaceflinger_prop:s0 exact int

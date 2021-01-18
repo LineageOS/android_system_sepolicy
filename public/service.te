@@ -2,6 +2,7 @@ type aidl_lazy_test_service,    service_manager_type;
 type apc_service,               service_manager_type;
 type apex_service,              service_manager_type;
 type audioserver_service,       service_manager_type;
+type authorization_service,     service_manager_type;
 type batteryproperties_service, app_api_service, ephemeral_app_api_service, service_manager_type;
 type bluetooth_service,         service_manager_type;
 type cameraserver_service,      service_manager_type;
@@ -106,7 +107,7 @@ type dropbox_service, app_api_service, ephemeral_app_api_service, system_server_
 type lowpan_service, system_api_service, system_server_service, service_manager_type;
 type ethernet_service, app_api_service, system_server_service, service_manager_type;
 type biometric_service, app_api_service, system_server_service, service_manager_type;
-type bugreport_service, system_api_service, system_server_service, service_manager_type;
+type bugreport_service, app_api_service, system_server_service, service_manager_type;
 type platform_compat_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type face_service, app_api_service, system_server_service, service_manager_type;
 type fingerprint_service, app_api_service, system_server_service, service_manager_type;
@@ -178,6 +179,7 @@ type servicediscovery_service, app_api_service, ephemeral_app_api_service, syste
 type settings_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type shortcut_service, app_api_service, system_server_service, service_manager_type;
 type slice_service, app_api_service, system_server_service, service_manager_type;
+type smartspace_service, app_api_service, system_server_service, service_manager_type;
 type statusbar_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type storagestats_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type system_config_service, system_api_service, system_server_service, service_manager_type;
@@ -193,6 +195,7 @@ type thermal_service, app_api_service, ephemeral_app_api_service, system_server_
 type timedetector_service, system_server_service, service_manager_type;
 type timezone_service, system_server_service, service_manager_type;
 type timezonedetector_service, app_api_service, system_server_service, service_manager_type;
+type transformer_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type trust_service, app_api_service, system_server_service, service_manager_type;
 type tv_input_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type tv_tuner_resource_mgr_service, app_api_service, system_server_service, service_manager_type;
@@ -224,6 +227,7 @@ type emergency_affordance_service, system_server_service, service_manager_type;
 ### HAL Services
 ###
 
+type hal_authsecret_service, vendor_service, protected_service, service_manager_type;
 type hal_audiocontrol_service, vendor_service, service_manager_type;
 type hal_face_service, vendor_service, protected_service, service_manager_type;
 type hal_fingerprint_service, vendor_service, protected_service, service_manager_type;

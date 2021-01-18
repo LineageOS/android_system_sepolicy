@@ -87,7 +87,6 @@ neverallow * {
   -dalvik_prop
   -debuggerd_prop
   -debug_prop
-  -default_prop
   -dhcp_prop
   -dumpstate_prop
   -fingerprint_prop
@@ -376,6 +375,15 @@ neverallow {
   libc_debug_prop
 }:property_service set;
 
+# Allow the shell to set MTE props, so that non-root users with adb shell
+# access can control the settings on their device.
+neverallow {
+  -init
+  -shell
+} {
+  arm64_memtag_prop
+}:property_service set;
+
 neverallow {
   -init
   -system_server
@@ -537,6 +545,10 @@ neverallow {
   -coredomain
   -appdomain
 } sqlite_log_prop:file no_rw_file_perms;
+
+neverallow {
+  -init
+} default_prop:property_service set;
 
 # Only one of system_property_type and vendor_property_type can be assigned.
 # Property types having both attributes won't be accessible from anywhere.

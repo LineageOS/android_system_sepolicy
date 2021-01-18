@@ -1,3 +1,4 @@
+android.hardware.authsecret.IAuthSecret/default                      u:object_r:hal_authsecret_service:s0
 android.hardware.automotive.audiocontrol.IAudioControl/default       u:object_r:hal_audiocontrol_service:s0
 android.hardware.biometrics.face.IFace/default                       u:object_r:hal_face_service:s0
 android.hardware.biometrics.fingerprint.IFingerprint/default         u:object_r:hal_fingerprint_service:s0
@@ -24,6 +25,7 @@ alarm                                     u:object_r:alarm_service:s0
 android.os.UpdateEngineService            u:object_r:update_engine_service:s0
 android.os.UpdateEngineStableService      u:object_r:update_engine_stable_service:s0
 android.security.apc                      u:object_r:apc_service:s0
+android.security.authorization            u:object_r:authorization_service:s0
 android.security.compat                   u:object_r:keystore_compat_hal_service:s0
 android.security.identity                 u:object_r:credstore_service:s0
 android.security.keystore                 u:object_r:keystore_service:s0
@@ -220,6 +222,7 @@ simphonebook2                             u:object_r:radio_service:s0
 simphonebook                              u:object_r:radio_service:s0
 sip                                       u:object_r:radio_service:s0
 slice                                     u:object_r:slice_service:s0
+smartspace                                u:object_r:smartspace_service:s0
 stats                                     u:object_r:stats_service:s0
 statscompanion                            u:object_r:statscompanion_service:s0
 statsmanager                              u:object_r:statsmanager_service:s0
@@ -247,6 +250,7 @@ time_detector                             u:object_r:timedetector_service:s0
 time_zone_detector                        u:object_r:timezonedetector_service:s0
 timezone                                  u:object_r:timezone_service:s0
 thermalservice                            u:object_r:thermal_service:s0
+transformer                               u:object_r:transformer_service:s0
 trust                                     u:object_r:trust_service:s0
 tv_input                                  u:object_r:tv_input_service:s0
 tv_tuner_resource_mgr                     u:object_r:tv_tuner_resource_mgr_service:s0
