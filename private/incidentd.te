@@ -136,6 +136,8 @@ get_prop(incidentd, device_config_runtime_native_boot_prop)
 allow incidentd system_file:file lock;
 # Incidentd should never exec from the memory (e.g. JIT cache). These denials are expected.
 dontaudit incidentd dalvikcache_data_file:dir r_dir_perms;
+dontaudit incidentd apex_module_data_file:dir r_dir_perms;
+dontaudit incidentd apex_art_data_file:dir r_dir_perms;
 dontaudit incidentd tmpfs:file rwx_file_perms;
 
 # logd access - work to be done is a PII safe log (possibly an event log?)

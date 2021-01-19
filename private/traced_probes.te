@@ -48,6 +48,7 @@ allow traced_probes system_file:dir { open read };
 allow traced_probes self:global_capability_class_set dac_read_search;
 
 allow traced_probes apk_data_file:dir { getattr open read search };
+allow traced_probes { apex_art_data_file apex_module_data_file }:dir { getattr open read search };
 allow traced_probes dalvikcache_data_file:dir { getattr open read search };
 userdebug_or_eng(`
 # search and getattr are granted via domain and coredomain, respectively.
@@ -104,6 +105,8 @@ neverallow traced_probes domain:process ptrace;
 # Disallows access to /data files.
 neverallow traced_probes {
   data_file_type
+  -apex_module_data_file
+  -apex_art_data_file
   -apk_data_file
   -dalvikcache_data_file
   -system_data_file
