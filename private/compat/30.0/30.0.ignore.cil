@@ -38,6 +38,7 @@
     hal_dumpstate_config_prop
     hal_gnss_service
     hal_keymint_service
+    hal_neuralnetworks_service
     hal_power_stats_service
     keystore_compat_hal_service
     keystore2_key_contexts_file
