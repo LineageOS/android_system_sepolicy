@@ -72,6 +72,8 @@ allow priv_app trace_data_file:file { getattr read };
 # in progress.
 allow priv_app perfetto_traces_bugreport_data_file:dir r_dir_perms;
 allow priv_app perfetto_traces_bugreport_data_file:file { getattr };
+# Required to traverse the parent dir (/data/misc/perfetto-traces).
+allow priv_app perfetto_traces_data_file:dir { search };
 
 # Allow verifier to access staged apks.
 allow priv_app { apk_tmp_file apk_private_tmp_file }:dir r_dir_perms;

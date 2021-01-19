@@ -911,7 +911,6 @@ ro.hwui.use_vulkan u:object_r:exported_default_prop:s0 exact bool
 ro.kernel.qemu             u:object_r:exported_default_prop:s0 exact bool
 ro.kernel.qemu.            u:object_r:exported_default_prop:s0
 ro.kernel.android.bootanim u:object_r:exported_default_prop:s0 exact int
-ro.kernel.ebpf.supported   u:object_r:exported_default_prop:s0 exact bool
 
 ro.oem.key1 u:object_r:exported_default_prop:s0 exact string
 
@@ -1055,6 +1054,8 @@ power.battery_input.suspended u:object_r:power_debug_prop:s0 exact bool
 
 # zygote config property
 zygote.critical_window.minute u:object_r:zygote_config_prop:s0 exact int
+
+ro.zygote.disable_gl_preload u:object_r:zygote_config_prop:s0 exact bool
 
 # Enable Keystore 2.0.
 # TODO remove this propertye when Keystore 2.0 migration is complete b/171563717
