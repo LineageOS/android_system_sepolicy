@@ -62,3 +62,25 @@ get_prop(appdomain, camera_calibration_prop)
 
 # Allow to read db.log.detailed, db.log.slow_query_threshold*
 get_prop(appdomain, sqlite_log_prop)
+
+# Read /data/misc/apexdata/com.android.art
+allow appdomain { apex_art_data_file apex_module_data_file }:dir search;
+allow appdomain apex_art_data_file:file r_file_perms;
+
+# Sensitive app domains are not allowed to execute from /data
+# to prevent persistence attacks and ensure all code is executed
+# from read-only locations.
+neverallow {
+  bluetooth
+  isolated_app
+  nfc
+  radio
+  shared_relro
+  system_app
+} {
+  data_file_type
+  -apex_art_data_file
+  -dalvikcache_data_file
+  -system_data_file # shared libs in apks
+  -apk_data_file
+}:file no_x_file_perms;
