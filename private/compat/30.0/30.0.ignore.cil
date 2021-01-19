@@ -8,6 +8,8 @@
     ab_update_gki_prop
     adbd_config_prop
     apc_service
+    apex_art_data_file
+    apex_art_staging_data_file
     apex_info_file
     arm64_memtag_prop
     authorization_service
@@ -47,6 +49,8 @@
     mediatranscoding_tmpfs
     music_recognition_service
     nfc_logs_data_file
+    odrefresh
+    odrefresh_exec
     people_service
     persist_vendor_debug_wifi_prop
     power_debug_prop

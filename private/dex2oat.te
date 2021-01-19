@@ -32,6 +32,21 @@ allow dex2oat user_profile_data_file:file { getattr read lock map };
 # the framework.
 allow dex2oat { privapp_data_file app_data_file }:file { getattr read write lock map };
 
+# Allow dex2oat to find files and directories under /data/misc/apexdata/com.android.runtime.
+allow dex2oat apex_module_data_file:dir search;
+
+# Allow dex2oat to use file descriptors passed from odrefresh.
+allow dex2oat odrefresh:fd use;
+
+# Allow dex2oat to write to file descriptors from odrefresh for files
+# in the staging area.
+allow dex2oat apex_art_staging_data_file:dir r_dir_perms;
+allow dex2oat apex_art_staging_data_file:file { getattr map read write unlink };
+
+# Allow dex2oat to read artifacts from odrefresh.
+allow dex2oat apex_art_data_file:dir r_dir_perms;
+allow dex2oat apex_art_data_file:file r_file_perms;
+
 ##################
 # A/B OTA Dexopt #
 ##################
