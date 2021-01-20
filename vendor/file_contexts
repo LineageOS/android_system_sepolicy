@@ -43,6 +43,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.health@2\.0-service         u:object_r:hal_health_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.health@2\.1-service         u:object_r:hal_health_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.health\.storage@1\.0-service       u:object_r:hal_health_storage_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.health\.storage-service\.default   u:object_r:hal_health_storage_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.identity-service.example u:object_r:hal_identity_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.input\.classifier@1\.0-service     u:object_r:hal_input_classifier_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.ir@1\.0-service             u:object_r:hal_ir_default_exec:s0
