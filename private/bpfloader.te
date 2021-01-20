@@ -4,7 +4,7 @@ type bpfloader_exec, system_file_type, exec_type, file_type;
 typeattribute bpfloader coredomain;
 
 # These permissions are required to pin ebpf maps & programs.
-allow bpfloader fs_bpf:dir { search write add_name };
+allow bpfloader fs_bpf:dir { create search write add_name };
 allow bpfloader fs_bpf:file { create setattr read };
 
 # Allow bpfloader to create bpf maps and programs.
@@ -18,7 +18,7 @@ allow bpfloader self:capability { chown sys_admin };
 
 # TODO: get rid of init & vendor_init
 neverallow { domain -init -vendor_init } fs_bpf:dir setattr;
-neverallow { domain -bpfloader } fs_bpf:dir { write add_name };
+neverallow { domain -bpfloader } fs_bpf:dir { create write add_name };
 neverallow domain fs_bpf:dir { reparent rename rmdir };
 
 # TODO: get rid of init & vendor_init
