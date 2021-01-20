@@ -1181,6 +1181,9 @@ allow system_server staged_install_file:file create_file_perms;
 allow system_server watchdog_metadata_file:dir rw_dir_perms;
 allow system_server watchdog_metadata_file:file create_file_perms;
 
+# Allow system server r access to /system/bin/surfaceflinger for PinnerService.
+allow system_server surfaceflinger_exec:file r_file_perms;
+
 # Allow init to set sysprop used to compute stats about userspace reboot.
 set_prop(system_server, userspace_reboot_log_prop)
 
