@@ -226,6 +226,7 @@ simphonebook                              u:object_r:radio_service:s0
 sip                                       u:object_r:radio_service:s0
 slice                                     u:object_r:slice_service:s0
 smartspace                                u:object_r:smartspace_service:s0
+speech_recognition                        u:object_r:speech_recognition_service:s0
 stats                                     u:object_r:stats_service:s0
 statscompanion                            u:object_r:statscompanion_service:s0
 statsmanager                              u:object_r:statsmanager_service:s0
