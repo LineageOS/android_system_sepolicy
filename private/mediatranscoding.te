@@ -24,6 +24,7 @@ allow mediatranscoding mediaserver_service:service_manager find;
 allow mediatranscoding mediametrics_service:service_manager find;
 allow mediatranscoding mediaextractor_service:service_manager find;
 allow mediatranscoding package_native_service:service_manager find;
+allow mediatranscoding thermal_service:service_manager find;
 
 allow mediatranscoding system_server:fd use;
 allow mediatranscoding activity_service:service_manager find;
