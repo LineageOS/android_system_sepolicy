@@ -157,6 +157,7 @@ media.resource_observer                   u:object_r:mediaserver_service:s0
 media.sound_trigger_hw                    u:object_r:audioserver_service:s0
 media.drm                                 u:object_r:mediadrmserver_service:s0
 media.tuner                               u:object_r:mediatuner_service:s0
+media_communication                       u:object_r:media_communication_service:s0
 media_projection                          u:object_r:media_projection_service:s0
 media_resource_monitor                    u:object_r:media_session_service:s0
 media_router                              u:object_r:media_router_service:s0
@@ -198,6 +199,7 @@ radio.phonesubinfo                        u:object_r:radio_service:s0
 radio.phone                               u:object_r:radio_service:s0
 radio.sms                                 u:object_r:radio_service:s0
 rcs                                       u:object_r:radio_service:s0
+reboot_readiness                          u:object_r:reboot_readiness_service:s0
 recovery                                  u:object_r:recovery_service:s0
 restrictions                              u:object_r:restrictions_service:s0
 role                                      u:object_r:role_service:s0

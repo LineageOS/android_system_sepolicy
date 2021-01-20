@@ -28,6 +28,7 @@ allow traced_perf packages_list_file:file r_file_perms;
 # Allow reading files for stack unwinding and symbolization.
 r_dir_file(traced_perf, nativetest_data_file)
 r_dir_file(traced_perf, system_file_type)
+r_dir_file(traced_perf, apex_art_data_file)
 r_dir_file(traced_perf, apk_data_file)
 r_dir_file(traced_perf, dalvikcache_data_file)
 r_dir_file(traced_perf, vendor_file_type)
