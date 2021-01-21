@@ -28,3 +28,9 @@ get_prop(hal_neuralnetworks_client, nnapi_ext_deny_product_prop);
 # This property is only expected to be found in /product/build.prop,
 # allow to be set only by init.
 neverallow { domain -init } nnapi_ext_deny_product_prop:property_service set;
+
+# Define sepolicy for NN AIDL HAL service
+hal_attribute_service(hal_neuralnetworks, hal_neuralnetworks_service)
+binder_call(hal_neuralnetworks_server, servicemanager)
+
+allow hal_neuralnetworks_server dumpstate:fifo_file write;

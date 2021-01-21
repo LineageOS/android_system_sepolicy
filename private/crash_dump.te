@@ -47,3 +47,7 @@ neverallow crash_dump {
 
 neverallow crash_dump self:process ptrace;
 neverallow crash_dump gpu_device:chr_file *;
+
+# Read ART APEX data directory
+allow crash_dump apex_art_data_file:dir { getattr search };
+allow crash_dump apex_art_data_file:file r_file_perms;

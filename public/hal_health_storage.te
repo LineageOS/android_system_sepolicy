@@ -2,4 +2,7 @@
 binder_call(hal_health_storage_client, hal_health_storage_server)
 binder_call(hal_health_storage_server, hal_health_storage_client)
 
+binder_use(hal_health_storage_server)
+
 hal_attribute_hwservice(hal_health_storage, hal_health_storage_hwservice)
+hal_attribute_service(hal_health_storage, hal_health_storage_service)
