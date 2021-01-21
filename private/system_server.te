@@ -275,6 +275,10 @@ hal_client_domain(system_server, hal_weaver)
 hal_client_domain(system_server, hal_wifi)
 hal_client_domain(system_server, hal_wifi_hostapd)
 hal_client_domain(system_server, hal_wifi_supplicant)
+# The bootctl is a pass through HAL mode under recovery mode. So we skip the
+# permission for recovery in order not to give system server the access to
+# the low level block devices.
+not_recovery(`hal_client_domain(system_server, hal_bootctl)')
 
 # Talk with graphics composer fences
 allow system_server hal_graphics_composer:fd use;
