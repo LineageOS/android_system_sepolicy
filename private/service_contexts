@@ -3,6 +3,7 @@ android.hardware.automotive.audiocontrol.IAudioControl/default       u:object_r:
 android.hardware.biometrics.face.IFace/default                       u:object_r:hal_face_service:s0
 android.hardware.biometrics.fingerprint.IFingerprint/default         u:object_r:hal_fingerprint_service:s0
 android.hardware.gnss.IGnss/default                                  u:object_r:hal_gnss_service:s0
+android.hardware.health.storage.IStorage/default                     u:object_r:hal_health_storage_service:s0
 android.hardware.identity.IIdentityCredentialStore/default           u:object_r:hal_identity_service:s0
 android.hardware.light.ILights/default                               u:object_r:hal_light_service:s0
 android.hardware.memtrack.IMemtrack/default                          u:object_r:hal_memtrack_service:s0
@@ -106,6 +107,7 @@ font                                      u:object_r:font_service:s0
 android.hardware.fingerprint.IFingerprintDaemon u:object_r:fingerprintd_service:s0
 game                                      u:object_r:game_service:s0
 gfxinfo                                   u:object_r:gfxinfo_service:s0
+gnss_time_update_service                  u:object_r:gnss_time_update_service:s0
 graphicsstats                             u:object_r:graphicsstats_service:s0
 gpu                                       u:object_r:gpu_service:s0
 hardware                                  u:object_r:hardware_service:s0
@@ -225,6 +227,7 @@ simphonebook                              u:object_r:radio_service:s0
 sip                                       u:object_r:radio_service:s0
 slice                                     u:object_r:slice_service:s0
 smartspace                                u:object_r:smartspace_service:s0
+speech_recognition                        u:object_r:speech_recognition_service:s0
 stats                                     u:object_r:stats_service:s0
 statscompanion                            u:object_r:statscompanion_service:s0
 statsmanager                              u:object_r:statsmanager_service:s0

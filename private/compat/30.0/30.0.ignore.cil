@@ -32,12 +32,15 @@
     hal_audiocontrol_service
     hal_face_service
     hal_fingerprint_service
+    hal_health_storage_service
     hal_memtrack_service
     hal_oemlock_service
     gnss_device
+    gnss_time_update_service
     hal_dumpstate_config_prop
     hal_gnss_service
     hal_keymint_service
+    hal_neuralnetworks_service
     hal_power_stats_service
     keystore_compat_hal_service
     keystore2_key_contexts_file
@@ -70,6 +73,7 @@
     snapuserd
     snapuserd_exec
     snapuserd_socket
+    speech_recognition_service
     sysfs_devices_cs_etm
     system_server_dumper_service
     system_suspend_control_internal_service
