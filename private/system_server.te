@@ -1039,6 +1039,13 @@ userdebug_or_eng(`
 # Watchdog reads sysprops framework_watchdog.fatal_* to handle watchdog timeout loop.
 get_prop(system_server, framework_watchdog_config_prop)
 
+
+# Font files are written by system server
+allow system_server font_data_file:file create_file_perms;
+allow system_server font_data_file:dir create_dir_perms;
+# Allow system process to setup fs-verity for font files
+allowxperm system_server font_data_file:file ioctl FS_IOC_ENABLE_VERITY;
+
 ###
 ### Neverallow rules
 ###
@@ -1270,3 +1277,7 @@ neverallow {
 # BINDER_GET_FROZEN_INFO is used by system_server to determine the state of a frozen binder
 # interface
 neverallowxperm { domain -system_server } binder_device:chr_file ioctl { BINDER_FREEZE BINDER_GET_FROZEN_INFO };
+
+# Only system server can write the font files.
+neverallow { domain -init -system_server } font_data_file:file no_w_file_perms;
+neverallow { domain -init -system_server } font_data_file:dir no_w_dir_perms;

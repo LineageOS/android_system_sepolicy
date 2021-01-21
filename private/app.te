@@ -63,6 +63,10 @@ get_prop(appdomain, camera_calibration_prop)
 # Allow to read db.log.detailed, db.log.slow_query_threshold*
 get_prop(appdomain, sqlite_log_prop)
 
+# Allow font file read by apps.
+allow appdomain font_data_file:file r_file_perms;
+allow appdomain font_data_file:dir r_dir_perms;
+
 # Read /data/misc/apexdata/com.android.art
 allow appdomain { apex_art_data_file apex_module_data_file }:dir search;
 allow appdomain apex_art_data_file:file r_file_perms;
