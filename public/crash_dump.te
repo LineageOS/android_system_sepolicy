@@ -21,6 +21,9 @@ allow crash_dump domain:fifo_file { read write };
 # Append to pipes given to us by processes requesting dumps (e.g. dumpstate)
 allow crash_dump domain:fifo_file { append };
 
+# Read information from /proc/$PID.
+allow crash_dump domain:process getattr;
+
 r_dir_file(crash_dump, domain)
 allow crash_dump exec_type:file r_file_perms;
 
