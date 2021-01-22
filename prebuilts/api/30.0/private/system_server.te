@@ -902,6 +902,7 @@ r_dir_file(system_server, proc_qtaguid_stat)
 allow system_server {
   proc_cmdline
   proc_loadavg
+  proc_locks
   proc_meminfo
   proc_pagetypeinfo
   proc_pipe_conf

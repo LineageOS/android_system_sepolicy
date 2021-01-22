@@ -36,6 +36,7 @@ type proc_iomem, fs_type, proc_type;
 type proc_keys, fs_type, proc_type;
 type proc_kmsg, fs_type, proc_type;
 type proc_loadavg, fs_type, proc_type;
+type proc_locks, fs_type, proc_type;
 type proc_lowmemorykiller, fs_type, proc_type;
 type proc_max_map_count, fs_type, proc_type;
 type proc_meminfo, fs_type, proc_type;
