@@ -2000,7 +2000,7 @@
 (typeattributeset surfaceflinger_service_30_0 (surfaceflinger_service))
 (typeattributeset surfaceflinger_tmpfs_30_0 (surfaceflinger_tmpfs))
 (typeattributeset swap_block_device_30_0 (swap_block_device))
-(typeattributeset sysfs_30_0 (sysfs))
+(typeattributeset sysfs_30_0 (sysfs sysfs_fs_incfs_features))
 (typeattributeset sysfs_android_usb_30_0 (sysfs_android_usb))
 (typeattributeset sysfs_batteryinfo_30_0 (sysfs_batteryinfo))
 (typeattributeset sysfs_bluetooth_writable_30_0 (sysfs_bluetooth_writable))

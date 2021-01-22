@@ -24,12 +24,27 @@ allow system_server appdomain_tmpfs:file { getattr map read write };
 # For Incremental Service to check if incfs is available
 allow system_server proc_filesystems:file r_file_perms;
 
-# To create files and get permission to fill blocks on Incremental File System
-allow system_server incremental_control_file:file { ioctl r_file_perms };
-allowxperm system_server incremental_control_file:file ioctl { INCFS_IOCTL_CREATE_FILE INCFS_IOCTL_PERMIT_FILL };
+# Access the IncFS list of features
+r_dir_file(system_server, sysfs_fs_incfs_features);
 
-# To get signature of an APK installed on Incremental File System and fill in data blocks
-allowxperm system_server apk_data_file:file ioctl { INCFS_IOCTL_READ_SIGNATURE INCFS_IOCTL_FILL_BLOCKS INCFS_IOCTL_GET_FILLED_BLOCKS };
+# To create files, get permission to fill blocks, and configure Incremental File System
+allow system_server incremental_control_file:file { ioctl r_file_perms };
+allowxperm system_server incremental_control_file:file ioctl {
+  INCFS_IOCTL_CREATE_FILE
+  INCFS_IOCTL_CREATE_MAPPED_FILE
+  INCFS_IOCTL_PERMIT_FILL
+  INCFS_IOCTL_GET_READ_TIMEOUTS
+  INCFS_IOCTL_SET_READ_TIMEOUTS
+};
+
+# To get signature of an APK installed on Incremental File System, and fill in data
+# blocks and get the filesystem state
+allowxperm system_server apk_data_file:file ioctl {
+  INCFS_IOCTL_READ_SIGNATURE
+  INCFS_IOCTL_FILL_BLOCKS
+  INCFS_IOCTL_GET_FILLED_BLOCKS
+  INCFS_IOCTL_GET_BLOCK_COUNT
+};
 
 # For art.
 allow system_server { apex_art_data_file dalvikcache_data_file }:dir r_dir_perms;
