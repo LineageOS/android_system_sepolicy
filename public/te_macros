@@ -467,6 +467,12 @@ define(`non_system_app_set', `{ appdomain -system_app }')
 define(`recovery_only', ifelse(target_recovery, `true', $1, ))
 
 #####################################
+# Not recovery
+# SELinux rules which apply only to non-recovery (normal) mode
+#
+define(`not_recovery', ifelse(target_recovery, `true', , $1))
+
+#####################################
 # Full TREBLE only
 # SELinux rules which apply only to full TREBLE devices
 #

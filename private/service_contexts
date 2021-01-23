@@ -14,6 +14,7 @@ android.hardware.rebootescrow.IRebootEscrow/default                  u:object_r:
 android.hardware.security.keymint.IKeyMintDevice/default             u:object_r:hal_keymint_service:s0
 android.hardware.vibrator.IVibrator/default                          u:object_r:hal_vibrator_service:s0
 android.hardware.vibrator.IVibratorManager/default                   u:object_r:hal_vibrator_service:s0
+android.hardware.weaver.IWeaver/default                              u:object_r:hal_weaver_service:s0
 
 accessibility                             u:object_r:accessibility_service:s0
 account                                   u:object_r:account_service:s0
@@ -203,6 +204,7 @@ radio.sms                                 u:object_r:radio_service:s0
 rcs                                       u:object_r:radio_service:s0
 reboot_readiness                          u:object_r:reboot_readiness_service:s0
 recovery                                  u:object_r:recovery_service:s0
+resolver                                  u:object_r:resolver_service:s0
 restrictions                              u:object_r:restrictions_service:s0
 role                                      u:object_r:role_service:s0
 rollback                                  u:object_r:rollback_service:s0

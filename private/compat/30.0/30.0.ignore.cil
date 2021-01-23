@@ -42,6 +42,7 @@
     hal_keymint_service
     hal_neuralnetworks_service
     hal_power_stats_service
+    hal_weaver_service
     keystore_compat_hal_service
     keystore2_key_contexts_file
     legacy_permission_service
@@ -67,6 +68,7 @@
     profcollectd_service
     radio_core_data_file
     reboot_readiness_service
+    resolver_service
     search_ui_service
     shell_test_data_file
     smartspace_service
