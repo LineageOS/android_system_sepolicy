@@ -374,6 +374,8 @@ allow system_server sysfs_power:dir search;
 allow system_server sysfs_power:file rw_file_perms;
 allow system_server sysfs_thermal:dir search;
 allow system_server sysfs_thermal:file r_file_perms;
+allow system_server sysfs_uhid:dir r_dir_perms;
+allow system_server sysfs_uhid:file rw_file_perms;
 
 # TODO: Remove when HALs are forced into separate processes
 allow system_server sysfs_vibrator:file { write append };
@@ -1268,6 +1270,15 @@ neverallow {
   -dumpstate
   -system_server
 } wifi_config_prop:file no_rw_file_perms;
+
+# Only allow system server to write uhid sysfs files
+neverallow {
+    domain
+    -init
+    -system_server
+    -ueventd
+    -vendor_init
+} sysfs_uhid:file no_w_file_perms;
 
 # BINDER_FREEZE is used to block ipc transactions to frozen processes, so it
 # can be accessed by system_server only (b/143717177)
