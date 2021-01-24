@@ -121,7 +121,7 @@ type sysfs_lowmemorykiller, fs_type, sysfs_type;
 # /sys/module/wlan/parameters/fwpath
 type sysfs_wlan_fwpath, fs_type, sysfs_type;
 type sysfs_vibrator, fs_type, sysfs_type;
-
+type sysfs_uhid, fs_type, sysfs_type;
 type sysfs_thermal, sysfs_type, fs_type;
 
 type sysfs_zram, fs_type, sysfs_type;
