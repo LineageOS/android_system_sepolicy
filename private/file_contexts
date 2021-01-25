@@ -551,6 +551,7 @@
 # to avoid restorecon conflicts
 /data/rollback/\d+/[^/]+/.*\.apk  u:object_r:apk_data_file:s0
 /data/rollback/\d+/[^/]+/.*\.apex u:object_r:staging_data_file:s0
+/data/fonts/files(/.*)?     u:object_r:font_data_file:s0
 
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
@@ -668,6 +669,7 @@
 /data/incremental(/.*)?                                 u:object_r:apk_data_file:s0
 /data/incremental/MT_[^/]+/mount/.pending_reads         u:object_r:incremental_control_file:s0
 /data/incremental/MT_[^/]+/mount/.log                   u:object_r:incremental_control_file:s0
+/data/incremental/MT_[^/]+/mount/.blocks_written        u:object_r:incremental_control_file:s0
 
 #############################
 # Expanded data files

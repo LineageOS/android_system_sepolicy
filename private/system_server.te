@@ -24,12 +24,27 @@ allow system_server appdomain_tmpfs:file { getattr map read write };
 # For Incremental Service to check if incfs is available
 allow system_server proc_filesystems:file r_file_perms;
 
-# To create files and get permission to fill blocks on Incremental File System
-allow system_server incremental_control_file:file { ioctl r_file_perms };
-allowxperm system_server incremental_control_file:file ioctl { INCFS_IOCTL_CREATE_FILE INCFS_IOCTL_PERMIT_FILL };
+# Access the IncFS list of features
+r_dir_file(system_server, sysfs_fs_incfs_features);
 
-# To get signature of an APK installed on Incremental File System and fill in data blocks
-allowxperm system_server apk_data_file:file ioctl { INCFS_IOCTL_READ_SIGNATURE INCFS_IOCTL_FILL_BLOCKS INCFS_IOCTL_GET_FILLED_BLOCKS };
+# To create files, get permission to fill blocks, and configure Incremental File System
+allow system_server incremental_control_file:file { ioctl r_file_perms };
+allowxperm system_server incremental_control_file:file ioctl {
+  INCFS_IOCTL_CREATE_FILE
+  INCFS_IOCTL_CREATE_MAPPED_FILE
+  INCFS_IOCTL_PERMIT_FILL
+  INCFS_IOCTL_GET_READ_TIMEOUTS
+  INCFS_IOCTL_SET_READ_TIMEOUTS
+};
+
+# To get signature of an APK installed on Incremental File System, and fill in data
+# blocks and get the filesystem state
+allowxperm system_server apk_data_file:file ioctl {
+  INCFS_IOCTL_READ_SIGNATURE
+  INCFS_IOCTL_FILL_BLOCKS
+  INCFS_IOCTL_GET_FILLED_BLOCKS
+  INCFS_IOCTL_GET_BLOCK_COUNT
+};
 
 # For art.
 allow system_server { apex_art_data_file dalvikcache_data_file }:dir r_dir_perms;
@@ -260,6 +275,10 @@ hal_client_domain(system_server, hal_weaver)
 hal_client_domain(system_server, hal_wifi)
 hal_client_domain(system_server, hal_wifi_hostapd)
 hal_client_domain(system_server, hal_wifi_supplicant)
+# The bootctl is a pass through HAL mode under recovery mode. So we skip the
+# permission for recovery in order not to give system server the access to
+# the low level block devices.
+not_recovery(`hal_client_domain(system_server, hal_bootctl)')
 
 # Talk with graphics composer fences
 allow system_server hal_graphics_composer:fd use;
@@ -355,6 +374,8 @@ allow system_server sysfs_power:dir search;
 allow system_server sysfs_power:file rw_file_perms;
 allow system_server sysfs_thermal:dir search;
 allow system_server sysfs_thermal:file r_file_perms;
+allow system_server sysfs_uhid:dir r_dir_perms;
+allow system_server sysfs_uhid:file rw_file_perms;
 
 # TODO: Remove when HALs are forced into separate processes
 allow system_server sysfs_vibrator:file { write append };
@@ -1024,6 +1045,13 @@ userdebug_or_eng(`
 # Watchdog reads sysprops framework_watchdog.fatal_* to handle watchdog timeout loop.
 get_prop(system_server, framework_watchdog_config_prop)
 
+
+# Font files are written by system server
+allow system_server font_data_file:file create_file_perms;
+allow system_server font_data_file:dir create_dir_perms;
+# Allow system process to setup fs-verity for font files
+allowxperm system_server font_data_file:file ioctl FS_IOC_ENABLE_VERITY;
+
 ###
 ### Neverallow rules
 ###
@@ -1250,8 +1278,21 @@ neverallow {
   -system_server
 } wifi_config_prop:file no_rw_file_perms;
 
+# Only allow system server to write uhid sysfs files
+neverallow {
+    domain
+    -init
+    -system_server
+    -ueventd
+    -vendor_init
+} sysfs_uhid:file no_w_file_perms;
+
 # BINDER_FREEZE is used to block ipc transactions to frozen processes, so it
 # can be accessed by system_server only (b/143717177)
 # BINDER_GET_FROZEN_INFO is used by system_server to determine the state of a frozen binder
 # interface
 neverallowxperm { domain -system_server } binder_device:chr_file ioctl { BINDER_FREEZE BINDER_GET_FROZEN_INFO };
+
+# Only system server can write the font files.
+neverallow { domain -init -system_server } font_data_file:file no_w_file_perms;
+neverallow { domain -init -system_server } font_data_file:dir no_w_dir_perms;

@@ -247,6 +247,7 @@ type hal_power_service, vendor_service, protected_service, service_manager_type;
 type hal_power_stats_service, vendor_service, protected_service, service_manager_type;
 type hal_rebootescrow_service, vendor_service, protected_service, service_manager_type;
 type hal_vibrator_service, vendor_service, protected_service, service_manager_type;
+type hal_weaver_service, vendor_service, protected_service, service_manager_type;
 
 ###
 ### Neverallow rules

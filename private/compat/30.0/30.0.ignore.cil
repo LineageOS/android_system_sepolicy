@@ -26,6 +26,7 @@
     dumpstate_tmpfs
     framework_watchdog_config_prop
     game_service
+    font_data_file
     gki_apex_prepostinstall
     gki_apex_prepostinstall_exec
     hal_authsecret_service
@@ -42,6 +43,7 @@
     hal_keymint_service
     hal_neuralnetworks_service
     hal_power_stats_service
+    hal_weaver_service
     keystore_compat_hal_service
     keystore2_key_contexts_file
     legacy_permission_service
@@ -67,6 +69,7 @@
     profcollectd_service
     radio_core_data_file
     reboot_readiness_service
+    resolver_service
     search_ui_service
     shell_test_data_file
     smartspace_service
@@ -75,6 +78,7 @@
     snapuserd_socket
     speech_recognition_service
     sysfs_devices_cs_etm
+    sysfs_uhid
     system_server_dumper_service
     system_suspend_control_internal_service
     task_profiles_api_file
