@@ -28,9 +28,10 @@ allow webview_zygote self:process setcurrent;
 allow webview_zygote isolated_app:process dyntransition;
 
 # For art.
-allow webview_zygote dalvikcache_data_file:dir r_dir_perms;
+allow webview_zygote { apex_art_data_file dalvikcache_data_file }:dir r_dir_perms;
 allow webview_zygote dalvikcache_data_file:lnk_file r_file_perms;
-allow webview_zygote dalvikcache_data_file:file { r_file_perms execute };
+allow webview_zygote { apex_art_data_file dalvikcache_data_file }:file { r_file_perms execute };
+allow webview_zygote apex_module_data_file:dir search;
 
 # Allow webview_zygote to create JIT memory.
 allow webview_zygote self:process execmem;

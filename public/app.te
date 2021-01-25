@@ -310,6 +310,7 @@ allowxperm { appdomain -bluetooth } self:{ rawip_socket tcp_socket udp_socket }
 
 allow { appdomain -isolated_app } ion_device:chr_file r_file_perms;
 allow { appdomain -isolated_app } dmabuf_system_heap_device:chr_file r_file_perms;
+allow { appdomain -isolated_app } dmabuf_system_secure_heap_device:chr_file r_file_perms;
 
 # Allow AAudio apps to use shared memory file descriptors from the HAL
 allow { appdomain -isolated_app } hal_audio:fd use;
@@ -544,23 +545,6 @@ neverallow appdomain {
   system_file
   tmpfs
 }:lnk_file no_w_file_perms;
-
-# Sensitive app domains are not allowed to execute from /data
-# to prevent persistence attacks and ensure all code is executed
-# from read-only locations.
-neverallow {
-  bluetooth
-  isolated_app
-  nfc
-  radio
-  shared_relro
-  system_app
-} {
-  data_file_type
-  -dalvikcache_data_file
-  -system_data_file # shared libs in apks
-  -apk_data_file
-}:file no_x_file_perms;
 
 # Applications should use the activity model for receiving events
 neverallow {

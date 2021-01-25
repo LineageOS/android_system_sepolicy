@@ -39,19 +39,15 @@ perfetto_producer(heapprofd)
 
 # When handling profiling for all processes, heapprofd needs to read
 # executables/libraries/etc to do stack unwinding.
-userdebug_or_eng(`
-  r_dir_file(heapprofd, nativetest_data_file)
-  r_dir_file(heapprofd, system_file_type)
-  r_dir_file(heapprofd, apk_data_file)
-  r_dir_file(heapprofd, dalvikcache_data_file)
-  r_dir_file(heapprofd, vendor_file_type)
-  r_dir_file(heapprofd, shell_data_file)
-  # Some dex files are not world-readable.
-  # We are still constrained by the SELinux rules above.
-  allow heapprofd self:global_capability_class_set dac_read_search;
-
-  allow heapprofd proc_kpageflags:file r_file_perms;
-')
+r_dir_file(heapprofd, nativetest_data_file)
+r_dir_file(heapprofd, system_file_type)
+r_dir_file(heapprofd, apex_art_data_file)
+r_dir_file(heapprofd, apk_data_file)
+r_dir_file(heapprofd, dalvikcache_data_file)
+r_dir_file(heapprofd, vendor_file_type)
+# Some dex files are not world-readable.
+# We are still constrained by the SELinux rules above.
+allow heapprofd self:global_capability_class_set dac_read_search;
 
 # For checking profileability.
 allow heapprofd packages_list_file:file r_file_perms;

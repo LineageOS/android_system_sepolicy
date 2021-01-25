@@ -10,6 +10,9 @@ type wm_trace_data_file, file_type, data_file_type, core_data_file_type;
 # /data/misc/perfetto-traces for perfetto traces
 type perfetto_traces_data_file, file_type, data_file_type, core_data_file_type;
 
+# /data/misc/perfetto-traces/bugreport for perfetto traces for bugreports.
+type perfetto_traces_bugreport_data_file, file_type, data_file_type, core_data_file_type;
+
 # /data/misc/perfetto-configs for perfetto configs
 type perfetto_configs_data_file, file_type, data_file_type, core_data_file_type;
 
@@ -32,3 +35,12 @@ type emergency_data_file, file_type, data_file_type, core_data_file_type;
 
 # /data/misc/profcollectd
 type profcollectd_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/apexdata/com.android.art
+type apex_art_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/apexdata/com.android.art/staging
+type apex_art_staging_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/font/files
+type font_data_file, file_type, data_file_type, core_data_file_type;

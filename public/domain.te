@@ -100,6 +100,7 @@ allow domain property_info:file r_file_perms;
 
 # Public readable properties
 get_prop(domain, aaudio_config_prop)
+get_prop(domain, arm64_memtag_prop)
 get_prop(domain, bootloader_prop)
 get_prop(domain, build_odm_prop)
 get_prop(domain, build_prop)
@@ -469,17 +470,6 @@ neverallow domain device:chr_file { open read write };
 # Files from cache should never be executed
 neverallow domain { cache_file cache_backup_file cache_private_backup_file cache_recovery_file }:file execute;
 
-# Protect most domains from executing arbitrary content from /data.
-neverallow {
-  domain
-  -appdomain
-} {
-  data_file_type
-  -dalvikcache_data_file
-  -system_data_file # shared libs in apks
-  -apk_data_file
-}:file no_x_file_perms;
-
 # The test files and executables MUST not be accessible to any domain
 neverallow { domain userdebug_or_eng(`-kernel') } nativetest_data_file:file_class_set no_w_file_perms;
 neverallow domain nativetest_data_file:dir no_w_dir_perms;
@@ -550,12 +540,10 @@ neverallow * hidl_base_hwservice:hwservice_manager find;
 
 # Require that domains explicitly label unknown properties, and do not allow
 # anyone but init to modify unknown properties.
-neverallow { domain -init -vendor_init } default_prop:property_service set;
 neverallow { domain -init -vendor_init } mmc_prop:property_service set;
 neverallow { domain -init -vendor_init } vndk_prop:property_service set;
 
 compatible_property_only(`
-    neverallow { domain -init } default_prop:property_service set;
     neverallow { domain -init } mmc_prop:property_service set;
     neverallow { domain -init -vendor_init } exported_default_prop:property_service set;
     neverallow { domain -init } exported_secure_prop:property_service set;
@@ -1204,7 +1192,6 @@ neverallow {
   domain
   -shell
   userdebug_or_eng(`-uncrypt')
-  userdebug_or_eng(`-heapprofd')
   -installd
 } shell_data_file:lnk_file read;
 
@@ -1233,7 +1220,6 @@ neverallow {
   -simpleperf_app_runner
   -system_server # why?
   userdebug_or_eng(`-uncrypt')
-  userdebug_or_eng(`-heapprofd')
 } shell_data_file:dir { open search };
 
 # Same as above for /data/local/tmp files. We allow shell files
@@ -1245,7 +1231,6 @@ neverallow {
   -dumpstate
   -installd
   userdebug_or_eng(`-uncrypt')
-  userdebug_or_eng(`-heapprofd')
 } shell_data_file:file open;
 
 # servicemanager and vndservicemanager are the only processes which handle the

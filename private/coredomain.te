@@ -22,7 +22,11 @@ get_prop(coredomain, usb_control_prop)
 get_prop(coredomain, userspace_reboot_config_prop)
 get_prop(coredomain, vold_config_prop)
 get_prop(coredomain, vts_status_prop)
+get_prop(coredomain, zygote_config_prop)
 get_prop(coredomain, zygote_wrap_prop)
+
+# TODO(b/170590987): remove this after cleaning up default_prop
+get_prop(coredomain, default_prop)
 
 full_treble_only(`
 neverallow {
@@ -49,7 +53,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
-        userdebug_or_eng(`-heapprofd')
+        -heapprofd
         -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
         -system_server
@@ -66,7 +70,7 @@ full_treble_only(`
         -idmap
         -init
         -installd
-        userdebug_or_eng(`-heapprofd')
+        -heapprofd
         userdebug_or_eng(`-profcollectd')
         -postinstall_dexopt
         -rs # spawned by appdomain, so carryover the exception above
@@ -93,7 +97,7 @@ full_treble_only(`
         -app_zygote
         -webview_zygote
         -zygote
-        userdebug_or_eng(`-heapprofd')
+        -heapprofd
     } vendor_overlay_file:dir { getattr open read search };
 ')
 
@@ -113,7 +117,7 @@ full_treble_only(`
         -app_zygote
         -webview_zygote
         -zygote
-        userdebug_or_eng(`-heapprofd')
+        -heapprofd
         userdebug_or_eng(`-profcollectd')
     } vendor_overlay_file:file open;
 ')

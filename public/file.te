@@ -37,6 +37,7 @@ type proc_kallsyms, fs_type, proc_type;
 type proc_keys, fs_type, proc_type;
 type proc_kmsg, fs_type, proc_type;
 type proc_loadavg, fs_type, proc_type;
+type proc_locks, fs_type, proc_type;
 type proc_lowmemorykiller, fs_type, proc_type;
 type proc_max_map_count, fs_type, proc_type;
 type proc_meminfo, fs_type, proc_type;
@@ -108,6 +109,7 @@ type sysfs_wakeup, fs_type, sysfs_type;
 type sysfs_wakeup_reasons, fs_type, sysfs_type;
 type sysfs_fs_ext4_features, sysfs_type, fs_type;
 type sysfs_fs_f2fs, sysfs_type, fs_type;
+type sysfs_fs_incfs_features, sysfs_type, fs_type;
 type fs_bpf, fs_type;
 type configfs, fs_type;
 # /sys/devices/cs_etm
@@ -119,7 +121,7 @@ type sysfs_lowmemorykiller, fs_type, sysfs_type;
 # /sys/module/wlan/parameters/fwpath
 type sysfs_wlan_fwpath, fs_type, sysfs_type;
 type sysfs_vibrator, fs_type, sysfs_type;
-
+type sysfs_uhid, fs_type, sysfs_type;
 type sysfs_thermal, sysfs_type, fs_type;
 
 type sysfs_zram, fs_type, sysfs_type;

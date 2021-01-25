@@ -16,6 +16,12 @@ allow init kmsg_device:chr_file { getattr write relabelto };
 userdebug_or_eng(`
   allow init kmsg_debug_device:chr_file { open write relabelto };
 ')
+
+# allow init to mount and unmount debugfs in debug builds
+userdebug_or_eng(`
+  allow init debugfs:dir mounton;
+')
+
 # /dev/__properties__
 allow init properties_device:dir relabelto;
 allow init properties_serial:file { write relabelto };
@@ -37,6 +43,7 @@ allow init tmpfs:{ chr_file blk_file } relabelfrom;
 allow init tmpfs:blk_file getattr;
 allow init block_device:{ dir blk_file lnk_file } relabelto;
 allow init dm_device:{ chr_file blk_file } relabelto;
+allow init dm_user_device:chr_file relabelto;
 allow init kernel:fd use;
 # restorecon for early mount device symlinks
 allow init tmpfs:lnk_file { getattr read relabelfrom };
@@ -542,6 +549,9 @@ allow init input_device:chr_file rw_file_perms;
 # Access device mapper for setting up dm-verity
 allow init dm_device:chr_file rw_file_perms;
 allow init dm_device:blk_file rw_file_perms;
+
+# Access dm-user for OTA boot
+allow init dm_user_device:chr_file rw_file_perms;
 
 # Access metadata block device for storing dm-verity state
 allow init metadata_block_device:blk_file rw_file_perms;

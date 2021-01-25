@@ -41,8 +41,8 @@ allow dumpstate anr_data_file:file create_file_perms;
 # TODO: scope this down.
 allow dumpstate system_data_file:file r_file_perms;
 
-# Allow dumpstate to append into privileged apps private files.
-allow dumpstate privapp_data_file:file append;
+# Allow dumpstate to append into apps' private files.
+allow dumpstate { privapp_data_file app_data_file }:file append;
 
 # Read dmesg
 allow dumpstate self:global_capability2_class_set syslog;

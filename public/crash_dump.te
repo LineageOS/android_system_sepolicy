@@ -28,6 +28,9 @@ allow crash_dump exec_type:file r_file_perms;
 allow crash_dump dalvikcache_data_file:dir { search getattr };
 allow crash_dump dalvikcache_data_file:file r_file_perms;
 
+# Read APEX data directories.
+allow crash_dump apex_module_data_file:dir { getattr search };
+
 # Read APK files.
 r_dir_file(crash_dump, apk_data_file);
 
@@ -56,7 +59,7 @@ dontaudit crash_dump {
   core_data_file_type
   vendor_file_type
 }:dir search;
-dontaudit crash_dump system_data_file:file read;
+dontaudit crash_dump system_data_file:{ lnk_file file } read;
 dontaudit crash_dump property_type:file read;
 
 ###

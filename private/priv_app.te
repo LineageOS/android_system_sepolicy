@@ -65,6 +65,16 @@ allow priv_app shell_data_file:dir r_dir_perms;
 # Allow traceur to pass file descriptors through a content provider to betterbug
 allow priv_app trace_data_file:file { getattr read };
 
+# Allow the bug reporting frontend to read the presence and timestamp of the
+# trace attached to the bugreport (but not its contents, which will go in the
+# usual bugreport .zip file). This is used by the bug reporting UI to tell if
+# the bugreport will contain a system trace or not while the bugreport is still
+# in progress.
+allow priv_app perfetto_traces_bugreport_data_file:dir r_dir_perms;
+allow priv_app perfetto_traces_bugreport_data_file:file { getattr };
+# Required to traverse the parent dir (/data/misc/perfetto-traces).
+allow priv_app perfetto_traces_data_file:dir { search };
+
 # Allow verifier to access staged apks.
 allow priv_app { apk_tmp_file apk_private_tmp_file }:dir r_dir_perms;
 allow priv_app { apk_tmp_file apk_private_tmp_file }:file r_file_perms;
@@ -142,9 +152,16 @@ dontaudit priv_app { wifi_prop wifi_hal_prop }:file read;
 allow priv_app system_server:udp_socket {
         connect getattr read recvfrom sendto write getopt setopt };
 
+# Access the IncFS list of features
+r_dir_file(priv_app, sysfs_fs_incfs_features)
+
 # allow apps like Phonesky to check the file signature of an apk installed on
-# the Incremental File System, and fill missing blocks in the apk
-allowxperm priv_app apk_data_file:file ioctl { INCFS_IOCTL_READ_SIGNATURE INCFS_IOCTL_FILL_BLOCKS };
+# the Incremental File System, fill missing blocks and get the app status
+allowxperm priv_app apk_data_file:file ioctl {
+  INCFS_IOCTL_READ_SIGNATURE
+  INCFS_IOCTL_FILL_BLOCKS
+  INCFS_IOCTL_GET_BLOCK_COUNT
+};
 
 # allow privileged data loader apps (e.g. com.android.vending) to read logs from Incremental File System
 allow priv_app incremental_control_file:file { read getattr ioctl };

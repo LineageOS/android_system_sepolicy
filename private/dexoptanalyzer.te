@@ -14,11 +14,20 @@ r_dir_file(dexoptanalyzer, vendor_app_file)
 # processes.
 tmpfs_domain(dexoptanalyzer)
 
-# Read symlinks in /data/dalvik-cache. This is required for PIC mode boot
-# app_data_file the oat file is symlinked to the original file in /system.
+# Allow dexoptanalyzer to read files in the dalvik cache.
 allow dexoptanalyzer dalvikcache_data_file:dir { getattr search };
 allow dexoptanalyzer dalvikcache_data_file:file r_file_perms;
+
+# Read symlinks in /data/dalvik-cache. This is required for PIC mode boot
+# app_data_file the oat file is symlinked to the original file in /system.
 allow dexoptanalyzer dalvikcache_data_file:lnk_file read;
+
+# Allow dexoptanalyzer to read files in the ART APEX data directory.
+allow dexoptanalyzer { apex_art_data_file apex_module_data_file }:dir { getattr search };
+allow dexoptanalyzer apex_art_data_file:file r_file_perms;
+
+# Allow dexoptanalyzer to use file descriptors from odrefresh.
+allow dexoptanalyzer odrefresh:fd use;
 
 allow dexoptanalyzer installd:fd use;
 allow dexoptanalyzer installd:fifo_file { getattr write };

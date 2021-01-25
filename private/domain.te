@@ -11,7 +11,7 @@ allow domain crash_dump:process sigchld;
 # necessary SELinux permissions.
 get_prop(domain, heapprofd_prop);
 # Allow heap profiling on debug builds.
-userdebug_or_eng(`can_profile_heap_central({
+userdebug_or_eng(`can_profile_heap({
   domain
   -bpfloader
   -init
@@ -271,6 +271,40 @@ neverallow {
   -otapreopt_slot
 } dalvikcache_data_file:dir no_w_dir_perms;
 
+# Only authorized processes should be writing to /data/misc/apexdata/com.android.art as it
+# contains boot class path and system server AOT artifacts following an ART APEX Mainline update.
+neverallow {
+  domain
+  # art processes
+  -odrefresh
+  # others
+  -apexd
+  -init
+  -vold_prepare_subdirs
+} apex_art_data_file:file no_w_file_perms;
+
+neverallow {
+  domain
+  # art processes
+  -odrefresh
+  # others
+  -apexd
+  -init
+  -vold_prepare_subdirs
+} apex_art_data_file:dir no_w_dir_perms;
+
+# Protect most domains from executing arbitrary content from /data.
+neverallow {
+  domain
+  -appdomain
+} {
+  data_file_type
+  -apex_art_data_file
+  -dalvikcache_data_file
+  -system_data_file # shared libs in apks
+  -apk_data_file
+}:file no_x_file_perms;
+
 # Minimize dac_override and dac_read_search.
 # Instead of granting them it is usually better to add the domain to
 # a Unix group or change the permissions of a file.
@@ -307,7 +341,7 @@ neverallow ~{
   iorap_prefetcherd
   traced_perf
   traced_probes
-  userdebug_or_eng(`heapprofd')
+  heapprofd
 } self:global_capability_class_set dac_read_search;
 
 # Limit what domains can mount filesystems or change their mount flags.
@@ -414,7 +448,7 @@ full_treble_only(`
     -iorap_inode2filename
     -iorap_prefetcherd
     -kernel # loads /vendor/firmware
-    userdebug_or_eng(`-heapprofd')
+    -heapprofd
     userdebug_or_eng(`-profcollectd')
     -shell
     -system_executes_vendor_violators

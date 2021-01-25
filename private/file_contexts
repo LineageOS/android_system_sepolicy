@@ -551,10 +551,12 @@
 # to avoid restorecon conflicts
 /data/rollback/\d+/[^/]+/.*\.apk  u:object_r:apk_data_file:s0
 /data/rollback/\d+/[^/]+/.*\.apex u:object_r:staging_data_file:s0
+/data/fonts/files(/.*)?     u:object_r:font_data_file:s0
 
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
 /data/misc/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
+/data/misc/apexdata/com\.android\.art(/.*)?    u:object_r:apex_art_data_file:s0
 /data/misc/apexdata/com\.android\.permission(/.*)?    u:object_r:apex_permission_data_file:s0
 /data/misc/apexdata/com\.android\.wifi(/.*)?    u:object_r:apex_wifi_data_file:s0
 /data/misc/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
@@ -585,8 +587,9 @@
 /data/misc/net(/.*)?            u:object_r:net_data_file:s0
 /data/misc/network_watchlist(/.*)? u:object_r:network_watchlist_data_file:s0
 /data/misc/nfc/logs(/.*)?       u:object_r:nfc_logs_data_file:s0
-/data/misc/perfetto-traces(/.*)? u:object_r:perfetto_traces_data_file:s0
-/data/misc/perfetto-configs(/.*)? u:object_r:perfetto_configs_data_file:s0
+/data/misc/perfetto-traces/bugreport(.*)? u:object_r:perfetto_traces_bugreport_data_file:s0
+/data/misc/perfetto-traces(/.*)?          u:object_r:perfetto_traces_data_file:s0
+/data/misc/perfetto-configs(/.*)?         u:object_r:perfetto_configs_data_file:s0
 /data/misc/prereboot(/.*)?      u:object_r:prereboot_data_file:s0
 /data/misc/profcollectd(/.*)?   u:object_r:profcollectd_data_file:s0
 /data/misc/radio(/.*)?          u:object_r:radio_core_data_file:s0
@@ -666,6 +669,7 @@
 /data/incremental(/.*)?                                 u:object_r:apk_data_file:s0
 /data/incremental/MT_[^/]+/mount/.pending_reads         u:object_r:incremental_control_file:s0
 /data/incremental/MT_[^/]+/mount/.log                   u:object_r:incremental_control_file:s0
+/data/incremental/MT_[^/]+/mount/.blocks_written        u:object_r:incremental_control_file:s0
 
 #############################
 # Expanded data files
