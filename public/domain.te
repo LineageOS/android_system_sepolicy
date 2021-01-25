@@ -986,6 +986,7 @@ full_treble_only(`
       -same_process_hal_file
       -vndk_sp_file
       -vendor_app_file
+      -vendor_public_framework_file
       -vendor_public_lib_file
     }:file execute;
 ')
@@ -1346,7 +1347,7 @@ full_treble_only(`
   neverallow {
     coredomain
     -appdomain
-  } vendor_public_lib_file:file { execute execute_no_trans };
+  } {vendor_public_framework_file vendor_public_lib_file}:file { execute execute_no_trans };
 ')
 
 # Vendor domian must not have access to /mnt/product.

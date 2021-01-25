@@ -223,6 +223,9 @@ type vendor_overlay_file, vendor_file_type, file_type;
 # Type for all vendor public libraries. These libs should only be exposed to
 # apps. ABI stability of these libs is vendor's responsibility.
 type vendor_public_lib_file, vendor_file_type, file_type;
+# Type for all vendor public libraries for system. These libs should only be exposed to
+# system. ABI stability of these libs is vendor's responsibility.
+type vendor_public_framework_file, vendor_file_type, file_type;
 
 # Input configuration
 type vendor_keylayout_file, vendor_file_type, file_type;
