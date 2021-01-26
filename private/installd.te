@@ -43,6 +43,3 @@ get_prop(installd, apk_verity_prop)
 # Allow installd to delete files in /data/staging
 allow installd staging_data_file:file unlink;
 allow installd staging_data_file:dir { open read remove_name rmdir search write };
-
-# TODO(b/177187042): Remove this when the denials are fixed.
-dontaudit installd device:file write;

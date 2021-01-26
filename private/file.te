@@ -41,3 +41,6 @@ type apex_art_data_file, file_type, data_file_type, core_data_file_type;
 
 # /data/misc/apexdata/com.android.art/staging
 type apex_art_staging_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/font/files
+type font_data_file, file_type, data_file_type, core_data_file_type;
