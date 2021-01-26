@@ -13,6 +13,8 @@ binder_service(mediatuner)
 
 add_service(mediatuner, mediatuner_service)
 allow mediatuner system_server:fd use;
+allow mediatuner tv_tuner_resource_mgr_service:service_manager find;
+binder_call(mediatuner, system_server)
 
 ###
 ### neverallow rules
