@@ -103,7 +103,6 @@ allow init {
     postinstall_mnt_dir
     mirror_data_file
 }:dir mounton;
-allow init cgroup_v2:dir { mounton create_dir_perms };
 
 # Mount bpf fs on sys/fs/bpf
 allow init fs_bpf:dir mounton;
@@ -132,6 +131,8 @@ allow init cgroup_rc_file:file rw_file_perms;
 allow init cgroup_desc_file:file r_file_perms;
 allow init cgroup_desc_api_file:file r_file_perms;
 allow init vendor_cgroup_desc_file:file r_file_perms;
+allow init cgroup_v2:dir { mounton create_dir_perms};
+allow init cgroup_v2:file rw_file_perms;
 
 # /config
 allow init configfs:dir mounton;
