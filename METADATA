@@ -1,3 +1,6 @@
 third_party {
-  license_type: UNENCUMBERED
+  # would be UNENCUMBERED save for
+  #  tests/combine_maps.py
+  #  build/soong/
+  license_type: NOTICE
 }
