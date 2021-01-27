@@ -17,12 +17,14 @@
     cgroup_v2
     ctl_snapuserd_prop
     debugfs_kprobes
+    debugfs_mm_events_tracing
     device_config_profcollect_native_boot_prop
     device_state_service
     dm_user_device
     dmabuf_heap_device
     dmabuf_system_heap_device
     dmabuf_system_secure_heap_device
+    domain_verification_service
     dumpstate_tmpfs
     framework_watchdog_config_prop
     game_service
@@ -82,6 +84,7 @@
     system_server_dumper_service
     system_suspend_control_internal_service
     task_profiles_api_file
+    texttospeech_service
     transformer_service
     update_engine_stable_service
     userspace_reboot_metadata_file
