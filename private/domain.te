@@ -54,6 +54,10 @@ allow domain cgroup:dir search;
 allow { domain -appdomain -rs } cgroup:dir w_dir_perms;
 allow { domain -appdomain -rs } cgroup:file w_file_perms;
 
+allow domain cgroup_v2:dir search;
+allow { domain -appdomain -rs } cgroup_v2:dir w_dir_perms;
+allow { domain -appdomain -rs } cgroup_v2:file w_file_perms;
+
 allow domain cgroup_rc_file:dir search;
 allow domain cgroup_rc_file:file r_file_perms;
 allow domain task_profiles_file:file r_file_perms;
