@@ -377,6 +377,7 @@ type apex_module_data_file, file_type, data_file_type, core_data_file_type;
 type apex_permission_data_file, file_type, data_file_type, core_data_file_type;
 type apex_rollback_data_file, file_type, data_file_type, core_data_file_type;
 type apex_wifi_data_file, file_type, data_file_type, core_data_file_type;
+type appcompat_data_file, file_type, data_file_type, core_data_file_type;
 type audio_data_file, file_type, data_file_type, core_data_file_type;
 type audioserver_data_file, file_type, data_file_type, core_data_file_type;
 type bluetooth_data_file, file_type, data_file_type, core_data_file_type, app_data_file_type;
