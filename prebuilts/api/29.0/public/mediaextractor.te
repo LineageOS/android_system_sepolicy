@@ -34,6 +34,9 @@ allow mediaextractor apk_data_file:file { read getattr };
 allow mediaextractor asec_apk_file:file { read getattr };
 allow mediaextractor ringtone_file:file { read getattr };
 
+# overlay package access
+allow mediaextractor vendor_overlay_file:file { read map };
+
 # scan extractor library directory to dynamically load extractors
 allow mediaextractor system_file:dir { read open };
 
