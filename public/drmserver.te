@@ -61,4 +61,5 @@ allow drmserver mediametrics_service:service_manager find;
 selinux_check_access(drmserver)
 
 r_dir_file(drmserver, cgroup)
+r_dir_file(drmserver, cgroup_v2)
 r_dir_file(drmserver, system_file)
