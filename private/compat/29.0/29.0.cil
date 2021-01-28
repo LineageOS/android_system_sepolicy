@@ -1914,7 +1914,9 @@
 (typeattributeset vendor_keychars_file_29_0 (vendor_keychars_file))
 (typeattributeset vendor_keylayout_file_29_0 (vendor_keylayout_file))
 (typeattributeset vendor_overlay_file_29_0 (vendor_overlay_file))
-(typeattributeset vendor_public_lib_file_29_0 (vendor_public_lib_file))
+(typeattributeset vendor_public_lib_file_29_0
+    ( vendor_public_framework_file
+      vendor_public_lib_file))
 (typeattributeset vendor_security_patch_level_prop_29_0 (vendor_security_patch_level_prop))
 (typeattributeset vendor_shell_29_0 (vendor_shell))
 (typeattributeset vendor_shell_exec_29_0 (vendor_shell_exec))
