@@ -120,8 +120,8 @@ r_dir_file(appdomain, vendor_overlay_file)
 r_dir_file(appdomain, vendor_framework_file)
 
 # Allow apps read / execute access to vendor public libraries.
-allow appdomain vendor_public_lib_file:dir r_dir_perms;
-allow appdomain vendor_public_lib_file:file { execute read open getattr map };
+allow appdomain {vendor_public_framework_file vendor_public_lib_file}:dir r_dir_perms;
+allow appdomain {vendor_public_framework_file vendor_public_lib_file}:file { execute read open getattr map };
 
 # Read/write wallpaper file (opened by system).
 allow appdomain wallpaper_file:file { getattr read write map };

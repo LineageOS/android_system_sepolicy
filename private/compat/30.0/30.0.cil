@@ -2185,7 +2185,9 @@
 (typeattributeset vendor_misc_writer_30_0 (vendor_misc_writer))
 (typeattributeset vendor_misc_writer_exec_30_0 (vendor_misc_writer_exec))
 (typeattributeset vendor_overlay_file_30_0 (vendor_overlay_file))
-(typeattributeset vendor_public_lib_file_30_0 (vendor_public_lib_file))
+(typeattributeset vendor_public_lib_file_30_0
+    ( vendor_public_framework_file
+      vendor_public_lib_file))
 (typeattributeset vendor_security_patch_level_prop_30_0 (vendor_security_patch_level_prop))
 (typeattributeset vendor_shell_30_0 (vendor_shell))
 (typeattributeset vendor_shell_exec_30_0 (vendor_shell_exec))
