@@ -13,3 +13,4 @@ allow inputflinger input_device:dir r_dir_perms;
 allow inputflinger input_device:chr_file rw_file_perms;
 
 r_dir_file(inputflinger, cgroup)
+r_dir_file(inputflinger, cgroup_v2)

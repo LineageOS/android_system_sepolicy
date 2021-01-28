@@ -4,6 +4,7 @@ type logd_exec, system_file_type, exec_type, file_type;
 
 # Read access to pseudo filesystems.
 r_dir_file(logd, cgroup)
+r_dir_file(logd, cgroup_v2)
 r_dir_file(logd, proc_kmsg)
 r_dir_file(logd, proc_meminfo)
 

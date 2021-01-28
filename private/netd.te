@@ -20,6 +20,7 @@ allow netd self:key_socket create;
 set_prop(netd, ctl_mdnsd_prop)
 set_prop(netd, netd_stable_secret_prop)
 
+get_prop(netd, adbd_config_prop)
 get_prop(netd, bpf_progs_loaded_prop)
 get_prop(netd, hwservicemanager_prop)
 get_prop(netd, device_config_netd_native_prop)
