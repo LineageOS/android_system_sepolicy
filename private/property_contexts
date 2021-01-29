@@ -1067,6 +1067,11 @@ partition.system_ext.verified u:object_r:verity_status_prop:s0 exact string
 partition.product.verified    u:object_r:verity_status_prop:s0 exact string
 partition.vendor.verified     u:object_r:verity_status_prop:s0 exact string
 
+partition.system.verified.hash_alg     u:object_r:verity_status_prop:s0 exact string
+partition.system_ext.verified.hash_alg u:object_r:verity_status_prop:s0 exact string
+partition.product.verified.hash_alg    u:object_r:verity_status_prop:s0 exact string
+partition.vendor.verified.hash_alg     u:object_r:verity_status_prop:s0 exact string
+
 ro.setupwizard.enterprise_mode u:object_r:setupwizard_prop:s0 exact bool
 ro.setupwizard.esim_cid_ignore u:object_r:setupwizard_prop:s0 exact string
 ro.setupwizard.rotation_locked u:object_r:setupwizard_prop:s0 exact bool
@@ -1097,3 +1102,7 @@ setupwizard.theme                                                  u:object_r:se
 db.log.detailed              u:object_r:sqlite_log_prop:s0 exact bool
 db.log.slow_query_threshold  u:object_r:sqlite_log_prop:s0 exact int
 db.log.slow_query_threshold. u:object_r:sqlite_log_prop:s0 prefix int
+
+# SOC related props
+ro.soc.manufacturer u:object_r:soc_prop:s0 exact string
+ro.soc.model        u:object_r:soc_prop:s0 exact string
