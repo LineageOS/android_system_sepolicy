@@ -54,6 +54,10 @@ allow domain cgroup:dir search;
 allow { domain -appdomain -rs } cgroup:dir w_dir_perms;
 allow { domain -appdomain -rs } cgroup:file w_file_perms;
 
+allow domain cgroup_v2:dir search;
+allow { domain -appdomain -rs } cgroup_v2:dir w_dir_perms;
+allow { domain -appdomain -rs } cgroup_v2:file w_file_perms;
+
 allow domain cgroup_rc_file:dir search;
 allow domain cgroup_rc_file:file r_file_perms;
 allow domain task_profiles_file:file r_file_perms;
@@ -467,6 +471,7 @@ full_treble_only(`
     -vendor_keychars_file
     -vendor_keylayout_file
     -vendor_overlay_file
+    -vendor_public_framework_file
     -vendor_public_lib_file
     -vendor_task_profiles_file
     -vndk_sp_file

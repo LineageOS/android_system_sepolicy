@@ -34,6 +34,7 @@ android.security.keystore                 u:object_r:keystore_service:s0
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
 android.system.keystore2                  u:object_r:keystore_service:s0
 app_binding                               u:object_r:app_binding_service:s0
+app_hibernation                           u:object_r:app_hibernation_service:s0
 app_integrity                             u:object_r:app_integrity_service:s0
 app_prediction                            u:object_r:app_prediction_service:s0
 app_search                                u:object_r:app_search_service:s0
@@ -86,6 +87,7 @@ devicestoragemonitor                      u:object_r:devicestoragemonitor_servic
 diskstats                                 u:object_r:diskstats_service:s0
 display                                   u:object_r:display_service:s0
 dnsresolver                               u:object_r:dnsresolver_service:s0
+domain_verification                       u:object_r:domain_verification_service:s0
 color_display                             u:object_r:color_display_service:s0
 netd_listener                             u:object_r:netd_listener_service:s0
 network_watchlist                         u:object_r:network_watchlist_service:s0
@@ -253,6 +255,7 @@ testharness                               u:object_r:testharness_service:s0
 tethering                                 u:object_r:tethering_service:s0
 textclassification                        u:object_r:textclassification_service:s0
 textservices                              u:object_r:textservices_service:s0
+texttospeech                              u:object_r:texttospeech_service:s0
 time_detector                             u:object_r:timedetector_service:s0
 time_zone_detector                        u:object_r:timezonedetector_service:s0
 timezone                                  u:object_r:timezone_service:s0

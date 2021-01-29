@@ -11,18 +11,22 @@
     apex_art_data_file
     apex_art_staging_data_file
     apex_info_file
+    app_hibernation_service
+    appcompat_data_file
     arm64_memtag_prop
     authorization_service
     cgroup_desc_api_file
     cgroup_v2
     ctl_snapuserd_prop
     debugfs_kprobes
+    debugfs_mm_events_tracing
     device_config_profcollect_native_boot_prop
     device_state_service
     dm_user_device
     dmabuf_heap_device
     dmabuf_system_heap_device
     dmabuf_system_secure_heap_device
+    domain_verification_service
     dumpstate_tmpfs
     framework_watchdog_config_prop
     game_service
@@ -76,12 +80,14 @@
     snapuserd
     snapuserd_exec
     snapuserd_socket
+    soc_prop
     speech_recognition_service
     sysfs_devices_cs_etm
     sysfs_uhid
     system_server_dumper_service
     system_suspend_control_internal_service
     task_profiles_api_file
+    texttospeech_service
     transformer_service
     update_engine_stable_service
     userspace_reboot_metadata_file

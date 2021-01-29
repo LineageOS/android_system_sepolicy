@@ -138,6 +138,7 @@ type exfat, sdcard_type, fs_type, mlstrustedobject;
 type debugfs, fs_type, debugfs_type;
 type debugfs_kprobes, fs_type, debugfs_type;
 type debugfs_mmc, fs_type, debugfs_type;
+type debugfs_mm_events_tracing, fs_type, debugfs_type;
 type debugfs_trace_marker, fs_type, debugfs_type, mlstrustedobject;
 type debugfs_tracing, fs_type, debugfs_type, mlstrustedobject;
 type debugfs_tracing_debug, fs_type, debugfs_type, mlstrustedobject;
@@ -223,6 +224,9 @@ type vendor_overlay_file, vendor_file_type, file_type;
 # Type for all vendor public libraries. These libs should only be exposed to
 # apps. ABI stability of these libs is vendor's responsibility.
 type vendor_public_lib_file, vendor_file_type, file_type;
+# Type for all vendor public libraries for system. These libs should only be exposed to
+# system. ABI stability of these libs is vendor's responsibility.
+type vendor_public_framework_file, vendor_file_type, file_type;
 
 # Input configuration
 type vendor_keylayout_file, vendor_file_type, file_type;
@@ -376,6 +380,7 @@ type apex_module_data_file, file_type, data_file_type, core_data_file_type;
 type apex_permission_data_file, file_type, data_file_type, core_data_file_type;
 type apex_rollback_data_file, file_type, data_file_type, core_data_file_type;
 type apex_wifi_data_file, file_type, data_file_type, core_data_file_type;
+type appcompat_data_file, file_type, data_file_type, core_data_file_type;
 type audio_data_file, file_type, data_file_type, core_data_file_type;
 type audioserver_data_file, file_type, data_file_type, core_data_file_type;
 type bluetooth_data_file, file_type, data_file_type, core_data_file_type, app_data_file_type;

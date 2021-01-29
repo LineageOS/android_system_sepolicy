@@ -118,6 +118,7 @@ get_prop(domain, libc_debug_prop)
 get_prop(domain, logd_prop)
 get_prop(domain, mediadrm_config_prop)
 get_prop(domain, property_service_version_prop)
+get_prop(domain, soc_prop)
 get_prop(domain, socket_hook_prop)
 get_prop(domain, surfaceflinger_prop)
 get_prop(domain, telephony_status_prop)
@@ -986,6 +987,7 @@ full_treble_only(`
       -same_process_hal_file
       -vndk_sp_file
       -vendor_app_file
+      -vendor_public_framework_file
       -vendor_public_lib_file
     }:file execute;
 ')
@@ -1318,10 +1320,12 @@ neverallow domain {
 
 # cgroupfs directories can be created, but not files within them.
 neverallow domain cgroup:file create;
+neverallow domain cgroup_v2:file create;
 
 dontaudit domain proc_type:dir write;
 dontaudit domain sysfs_type:dir write;
 dontaudit domain cgroup:file create;
+dontaudit domain cgroup_v2:file create;
 
 # These are only needed in permissive mode - in enforcing mode the
 # directory write check fails and so these are never attempted.
@@ -1346,7 +1350,7 @@ full_treble_only(`
   neverallow {
     coredomain
     -appdomain
-  } vendor_public_lib_file:file { execute execute_no_trans };
+  } {vendor_public_framework_file vendor_public_lib_file}:file { execute execute_no_trans };
 ')
 
 # Vendor domian must not have access to /mnt/product.
