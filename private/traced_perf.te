@@ -38,6 +38,14 @@ r_dir_file(traced_perf, vendor_file_type)
 userdebug_or_eng(`set_prop(traced_perf, lower_kptr_restrict_prop)')
 allow traced_perf proc_kallsyms:file r_file_perms;
 
+# Allow reading tracefs files to get the format and numeric ids of tracepoints.
+allow traced_perf debugfs_tracing:dir r_dir_perms;
+allow traced_perf debugfs_tracing:file r_file_perms;
+userdebug_or_eng(`
+  allow traced_perf debugfs_tracing_debug:dir r_dir_perms;
+  allow traced_perf debugfs_tracing_debug:file r_file_perms;
+')
+
 # Do not audit the cases where traced_perf attempts to access /proc/[pid] for
 # domains that it cannot read.
 dontaudit traced_perf domain:dir { search getattr open };
@@ -51,7 +59,7 @@ dontaudit traced_perf domain:process signal;
 neverallow traced_perf { app_data_file privapp_data_file system_app_data_file }:file *;
 
 # Never allow profiling highly privileged processes.
-never_profile_heap(`{
+never_profile_perf(`{
   bpfloader
   init
   kernel
