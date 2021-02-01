@@ -189,6 +189,9 @@ allow system_server debugfs_wakeup_sources:file r_file_perms;
 # Read /sys/kernel/ion/*.
 allow system_server sysfs_ion:file r_file_perms;
 
+# Read /sys/kernel/dma_heap/*.
+allow system_server sysfs_dma_heap:file r_file_perms;
+
 # The DhcpClient and WifiWatchdog use packet_sockets
 allow system_server self:packet_socket create_socket_perms_no_ioctl;
 
