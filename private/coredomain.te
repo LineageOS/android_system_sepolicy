@@ -164,6 +164,7 @@ full_treble_only(`
     -dumpstate
     -gpuservice
     -init
+    -traced_perf
     -traced_probes
     -shell
     -system_server
