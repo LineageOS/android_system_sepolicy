@@ -9,12 +9,13 @@ android.hardware.light.ILights/default                               u:object_r:
 android.hardware.memtrack.IMemtrack/default                          u:object_r:hal_memtrack_service:s0
 android.hardware.oemlock.IOemLock/default                            u:object_r:hal_oemlock_service:s0
 android.hardware.power.IPower/default                                u:object_r:hal_power_service:s0
-android.hardware.power.stats.IPowerStats/default                      u:object_r:hal_power_stats_service:s0
+android.hardware.power.stats.IPowerStats/default                     u:object_r:hal_power_stats_service:s0
 android.hardware.rebootescrow.IRebootEscrow/default                  u:object_r:hal_rebootescrow_service:s0
 android.hardware.security.keymint.IKeyMintDevice/default             u:object_r:hal_keymint_service:s0
 android.hardware.vibrator.IVibrator/default                          u:object_r:hal_vibrator_service:s0
 android.hardware.vibrator.IVibratorManager/default                   u:object_r:hal_vibrator_service:s0
 android.hardware.weaver.IWeaver/default                              u:object_r:hal_weaver_service:s0
+android.frameworks.stats.IStats/default                              u:object_r:fwk_stats_service:s0
 
 accessibility                             u:object_r:accessibility_service:s0
 account                                   u:object_r:account_service:s0
