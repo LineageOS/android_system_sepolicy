@@ -90,7 +90,7 @@ type dataloader_manager_service, system_server_service, service_manager_type;
 type dbinfo_service, system_api_service, system_server_service, service_manager_type;
 type device_config_service, system_server_service, service_manager_type;
 type device_policy_service, app_api_service, system_server_service, service_manager_type;
-type device_state_service, system_api_service, system_server_service, service_manager_type;
+type device_state_service, app_api_service, system_api_service, system_server_service, service_manager_type;
 type deviceidle_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type device_identifiers_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type devicestoragemonitor_service, system_server_service, service_manager_type;
