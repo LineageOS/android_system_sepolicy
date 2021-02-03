@@ -214,6 +214,9 @@ not_compatible_property(`
 # Get file context
 allow vendor_init file_contexts_file:file r_file_perms;
 
+# Allow vendor_init to (re)set nice
+allow vendor_init self:capability sys_nice;
+
 set_prop(vendor_init, apk_verity_prop)
 set_prop(vendor_init, bluetooth_a2dp_offload_prop)
 set_prop(vendor_init, bluetooth_audio_hal_prop)
