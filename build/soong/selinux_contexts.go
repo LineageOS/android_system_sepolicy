@@ -26,11 +26,6 @@ import (
 	"android/soong/sysprop"
 )
 
-const (
-	coreMode     = "core"
-	recoveryMode = "recovery"
-)
-
 type selinuxContextsProperties struct {
 	// Filenames under sepolicy directories, which will be used to generate contexts file.
 	Srcs []string `android:"path"`
@@ -56,8 +51,6 @@ type selinuxContextsProperties struct {
 
 	// Make this module available when building for recovery
 	Recovery_available *bool
-
-	InRecovery bool `blueprint:"mutated"`
 }
 
 type fileContextsProperties struct {
@@ -93,31 +86,31 @@ func init() {
 	android.RegisterModuleType("property_contexts", propertyFactory)
 	android.RegisterModuleType("service_contexts", serviceFactory)
 	android.RegisterModuleType("keystore2_key_contexts", keystoreKeyFactory)
-
-	android.PreDepsMutators(func(ctx android.RegisterMutatorsContext) {
-		ctx.BottomUp("selinux_contexts", selinuxContextsMutator).Parallel()
-	})
-}
-
-func (m *selinuxContextsModule) inRecovery() bool {
-	return m.properties.InRecovery || m.ModuleBase.InstallInRecovery()
-}
-
-func (m *selinuxContextsModule) onlyInRecovery() bool {
-	return m.ModuleBase.InstallInRecovery()
-}
-
-func (m *selinuxContextsModule) InstallInRecovery() bool {
-	return m.inRecovery()
 }
 
 func (m *selinuxContextsModule) InstallInRoot() bool {
-	return m.inRecovery()
+	return m.InRecovery()
+}
+
+func (m *selinuxContextsModule) InstallInRecovery() bool {
+	// ModuleBase.InRecovery() checks the image variant
+	return m.InRecovery()
+}
+
+func (m *selinuxContextsModule) onlyInRecovery() bool {
+	// ModuleBase.InstallInRecovery() checks commonProperties.Recovery property
+	return m.ModuleBase.InstallInRecovery()
 }
 
 func (m *selinuxContextsModule) DepsMutator(ctx android.BottomUpMutatorContext) {
 	if m.deps != nil {
 		m.deps(ctx)
+	}
+
+	if m.InRecovery() && !m.onlyInRecovery() {
+		ctx.AddFarVariationDependencies([]blueprint.Variation{
+			{Mutator: "image", Variation: android.CoreVariation},
+		}, reuseContextsDepTag, ctx.ModuleName())
 	}
 }
 
@@ -128,14 +121,14 @@ func (m *selinuxContextsModule) propertyContextsDeps(ctx android.BottomUpMutator
 }
 
 func (m *selinuxContextsModule) GenerateAndroidBuildActions(ctx android.ModuleContext) {
-	if m.inRecovery() {
+	if m.InRecovery() {
 		// Installing context files at the root of the recovery partition
 		m.installPath = android.PathForModuleInstall(ctx)
 	} else {
 		m.installPath = android.PathForModuleInstall(ctx, "etc", "selinux")
 	}
 
-	if m.inRecovery() && !m.onlyInRecovery() {
+	if m.InRecovery() && !m.onlyInRecovery() {
 		dep := ctx.GetDirectDepWithTag(m.Name(), reuseContextsDepTag)
 
 		if reuseDeps, ok := dep.(*selinuxContextsModule); ok {
@@ -225,7 +218,7 @@ func (m *selinuxContextsModule) AndroidMk() android.AndroidMkData {
 	return android.AndroidMkData{
 		Custom: func(w io.Writer, name, prefix, moduleDir string, data android.AndroidMkData) {
 			nameSuffix := ""
-			if m.inRecovery() && !m.onlyInRecovery() {
+			if m.InRecovery() && !m.onlyInRecovery() {
 				nameSuffix = ".recovery"
 			}
 			fmt.Fprintln(w, "\ninclude $(CLEAR_VARS)")
@@ -245,43 +238,37 @@ func (m *selinuxContextsModule) AndroidMk() android.AndroidMkData {
 	}
 }
 
-func selinuxContextsMutator(ctx android.BottomUpMutatorContext) {
-	m, ok := ctx.Module().(*selinuxContextsModule)
-	if !ok {
-		return
-	}
-
-	var coreVariantNeeded bool = true
-	var recoveryVariantNeeded bool = false
-	if proptools.Bool(m.properties.Recovery_available) {
-		recoveryVariantNeeded = true
-	}
-
-	if m.ModuleBase.InstallInRecovery() {
-		recoveryVariantNeeded = true
-		coreVariantNeeded = false
-	}
-
-	var variants []string
-	if coreVariantNeeded {
-		variants = append(variants, coreMode)
-	}
-	if recoveryVariantNeeded {
-		variants = append(variants, recoveryMode)
-	}
-	mod := ctx.CreateVariations(variants...)
-
-	for i, v := range variants {
-		if v == recoveryMode {
-			m := mod[i].(*selinuxContextsModule)
-			m.properties.InRecovery = true
-
-			if coreVariantNeeded {
-				ctx.AddInterVariantDependency(reuseContextsDepTag, m, mod[i-1])
-			}
-		}
+func (m *selinuxContextsModule) ImageMutatorBegin(ctx android.BaseModuleContext) {
+	if proptools.Bool(m.properties.Recovery_available) && m.InstallInRecovery() {
+		ctx.PropertyErrorf("recovery_available",
+			"doesn't make sense at the same time as `recovery: true`")
 	}
 }
+
+func (m *selinuxContextsModule) CoreVariantNeeded(ctx android.BaseModuleContext) bool {
+	return !m.InstallInRecovery()
+}
+
+func (m *selinuxContextsModule) RamdiskVariantNeeded(ctx android.BaseModuleContext) bool {
+	return false
+}
+
+func (m *selinuxContextsModule) VendorRamdiskVariantNeeded(ctx android.BaseModuleContext) bool {
+	return false
+}
+
+func (m *selinuxContextsModule) RecoveryVariantNeeded(ctx android.BaseModuleContext) bool {
+	return m.InstallInRecovery() || proptools.Bool(m.properties.Recovery_available)
+}
+
+func (m *selinuxContextsModule) ExtraImageVariations(ctx android.BaseModuleContext) []string {
+	return nil
+}
+
+func (m *selinuxContextsModule) SetImageVariation(ctx android.BaseModuleContext, variation string, module android.Module) {
+}
+
+var _ android.ImageInterface = (*selinuxContextsModule)(nil)
 
 func (m *selinuxContextsModule) buildGeneralContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
 	ret := android.PathForModuleGen(ctx, ctx.ModuleName()+"_m4out")
