@@ -14,4 +14,3 @@ allow credstore sec_key_att_app_id_provider_service:service_manager find;
 allow credstore dropbox_service:service_manager find;
 
 r_dir_file(credstore, cgroup)
-r_dir_file(credstore, cgroup_v2)
