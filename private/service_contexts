@@ -277,6 +277,7 @@ vibrator_manager                          u:object_r:vibrator_manager_service:s0
 virtual_touchpad                          u:object_r:virtual_touchpad_service:s0
 voiceinteraction                          u:object_r:voiceinteraction_service:s0
 vold                                      u:object_r:vold_service:s0
+vpnmanager                                u:object_r:vpnmanager_service:s0
 vr_hwc                                    u:object_r:vr_hwc_service:s0
 vrflinger_vsync                           u:object_r:vrflinger_vsync_service:s0
 vrmanager                                 u:object_r:vr_manager_service:s0
