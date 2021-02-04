@@ -51,6 +51,7 @@ allow dumpstate {
 allow dumpstate debugfs_wakeup_sources:file r_file_perms;
 allow dumpstate dev_type:blk_file getattr;
 allow dumpstate webview_zygote:process signal;
+allow dumpstate sysfs_dmabuf_stats:file r_file_perms;
 dontaudit dumpstate update_engine:binder call;
 
 # Read files in /proc

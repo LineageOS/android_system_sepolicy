@@ -154,6 +154,7 @@ genfscon sysfs /kernel/mm/transparent_hugepage u:object_r:sysfs_transparent_huge
 genfscon sysfs /kernel/notes u:object_r:sysfs_kernel_notes:s0
 genfscon sysfs /kernel/uevent_helper u:object_r:sysfs_usermodehelper:s0
 genfscon sysfs /kernel/wakeup_reasons u:object_r:sysfs_wakeup_reasons:s0
+genfscon sysfs /kernel/dmabuf/buffers u:object_r:sysfs_dmabuf_stats:s0
 genfscon sysfs /module/dm_verity/parameters/prefetch_cluster u:object_r:sysfs_dm_verity:s0
 genfscon sysfs /module/lowmemorykiller u:object_r:sysfs_lowmemorykiller:s0
 genfscon sysfs /module/tcp_cubic/parameters u:object_r:sysfs_net:s0
