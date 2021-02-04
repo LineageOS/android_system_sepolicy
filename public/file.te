@@ -88,6 +88,7 @@ type sysfs_bluetooth_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_devices_block, fs_type, sysfs_type;
 type sysfs_dm, fs_type, sysfs_type;
 type sysfs_dm_verity, fs_type, sysfs_type;
+type sysfs_dmabuf_stats, fs_type, sysfs_type;
 type sysfs_dt_firmware_android, fs_type, sysfs_type;
 type sysfs_extcon, fs_type, sysfs_type;
 type sysfs_ion, fs_type, sysfs_type;
