@@ -1,6 +1,9 @@
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := plat_mac_permissions.xml
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
@@ -39,6 +42,9 @@ plat_mac_perms_keys.tmp :=
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := system_ext_mac_permissions.xml
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT_SYSTEM_EXT)/etc/selinux
@@ -70,6 +76,9 @@ all_system_ext_mac_perms_keys :=
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := product_mac_permissions.xml
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc/selinux
@@ -101,6 +110,9 @@ all_product_mac_perms_keys :=
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := vendor_mac_permissions.xml
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
@@ -133,6 +145,9 @@ all_vendor_mac_perms_keys :=
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := odm_mac_permissions.xml
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT_ODM)/etc/selinux

@@ -36,6 +36,9 @@ property_info_checker := $(HOST_OUT_EXECUTABLES)/property_info_checker
 
 ##################################
 LOCAL_MODULE := plat_file_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -46,6 +49,9 @@ $(eval $(call run_contexts_test, plat_file_contexts, $(checkfc),))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := system_ext_file_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -57,6 +63,9 @@ $(eval $(call run_contexts_test, system_ext_file_contexts, $(checkfc),))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := product_file_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -68,6 +77,9 @@ $(eval $(call run_contexts_test, product_file_contexts, $(checkfc),))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := vendor_file_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -79,6 +91,9 @@ $(eval $(call run_contexts_test, vendor_file_contexts, $(checkfc),))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := odm_file_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -91,6 +106,9 @@ $(eval $(call run_contexts_test, odm_file_contexts, $(checkfc),))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := plat_hwservice_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -102,6 +120,9 @@ $(eval $(call run_contexts_test, plat_hwservice_contexts, $(checkfc), -e -l))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := system_ext_hwservice_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -113,6 +134,9 @@ $(eval $(call run_contexts_test, system_ext_hwservice_contexts, $(checkfc), -e -
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := product_hwservice_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -124,6 +148,9 @@ $(eval $(call run_contexts_test, product_hwservice_contexts, $(checkfc), -e -l))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := vendor_hwservice_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -135,6 +162,9 @@ $(eval $(call run_contexts_test, vendor_hwservice_contexts, $(checkfc), -e -l))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := odm_hwservice_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -149,6 +179,9 @@ pc_modules := plat_property_contexts
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := plat_property_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -165,6 +198,9 @@ pc_modules += system_ext_property_contexts
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := system_ext_property_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -181,6 +217,9 @@ pc_modules += vendor_property_contexts
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := vendor_property_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -197,6 +236,9 @@ pc_modules += odm_property_contexts
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := odm_property_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -215,6 +257,9 @@ pc_modules += product_property_contexts
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := product_property_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -230,6 +275,9 @@ pc_modules :=
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := plat_service_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -241,6 +289,9 @@ $(eval $(call run_contexts_test, plat_service_contexts, $(checkfc), -s))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := system_ext_service_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -252,6 +303,9 @@ $(eval $(call run_contexts_test, system_ext_service_contexts, $(checkfc), -s))
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := product_service_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -266,6 +320,9 @@ ifneq ($(PRODUCT_SEPOLICY_SPLIT),true)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := vendor_service_contexts_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
