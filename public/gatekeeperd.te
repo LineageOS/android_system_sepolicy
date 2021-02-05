@@ -39,4 +39,3 @@ allow gatekeeperd gatekeeper_data_file:file create_file_perms;
 allow gatekeeperd hardware_properties_service:service_manager find;
 
 r_dir_file(gatekeeperd, cgroup)
-r_dir_file(gatekeeperd, cgroup_v2)
