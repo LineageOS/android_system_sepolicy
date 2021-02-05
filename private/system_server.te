@@ -529,6 +529,9 @@ allow system_server textclassifier_data_file:file create_file_perms;
 allow system_server tombstone_data_file:dir r_dir_perms;
 allow system_server tombstone_data_file:file r_file_perms;
 
+# Allow write access to be able to truncate tombstones.
+allow system_server tombstone_data_file:file write;
+
 # Manage /data/misc/vpn.
 allow system_server vpn_data_file:dir create_dir_perms;
 allow system_server vpn_data_file:file create_file_perms;
