@@ -26,11 +26,9 @@ allow lmkd kernel:process { setsched };
 
 # Clean up old cgroups
 allow lmkd cgroup:dir { remove_name rmdir };
-allow lmkd cgroup_v2:dir { remove_name rmdir };
 
 # Allow to read memcg stats
 allow lmkd cgroup:file r_file_perms;
-allow lmkd cgroup_v2:file r_file_perms;
 
 # Set self to SCHED_FIFO
 allow lmkd self:global_capability_class_set sys_nice;

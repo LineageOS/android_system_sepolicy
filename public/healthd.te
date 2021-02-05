@@ -11,7 +11,6 @@ allow healthd sysfs_type:dir search;
 allow healthd sysfs:dir r_dir_perms;
 r_dir_file(healthd, rootfs)
 r_dir_file(healthd, cgroup)
-r_dir_file(healthd, cgroup_v2)
 
 allow healthd self:global_capability_class_set { sys_tty_config };
 allow healthd self:global_capability_class_set sys_boot;
