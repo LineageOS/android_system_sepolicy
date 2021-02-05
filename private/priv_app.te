@@ -170,6 +170,9 @@ allow priv_app incremental_control_file:file { read getattr ioctl };
 # on the Incremental File System.
 allowxperm priv_app incremental_control_file:file ioctl INCFS_IOCTL_PERMIT_FILL;
 
+# allow privileged apps to read the vendor property that indicates if Incremental File System is enabled
+get_prop(priv_app, incremental_prop)
+
 # Required for Phonesky to be able to read APEX files under /data/apex/active/.
 allow priv_app apex_data_file:dir search;
 allow priv_app staging_data_file:file r_file_perms;
