@@ -13,6 +13,14 @@
 // limitations under the License.
 
 
+package {
+    // http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // the below license kinds from "system_sepolicy_license":
+    //   legacy_unencumbered
+    default_applicable_licenses: ["system_sepolicy_license"],
+}
+
 filegroup {
   name: "apex.test-file_contexts",
   srcs: [

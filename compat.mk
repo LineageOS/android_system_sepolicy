@@ -5,6 +5,9 @@ include $(CLEAR_VARS)
 # build this target to ensure the compat permissions files all build against the current policy
 #
 LOCAL_MODULE := $(version)_compat_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_REQUIRED_MODULES := $(version).compat.cil
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
