@@ -18,6 +18,10 @@ domain_auto_trans(odrefresh, dex2oat_exec, dex2oat)
 # Run dexoptanalyzer in its own sandbox.
 domain_auto_trans(odrefresh, dexoptanalyzer_exec, dexoptanalyzer)
 
+# Use devpts and fd from odsign (which exec()'s odrefresh)
+allow odrefresh odsign_devpts:chr_file { read write };
+allow odrefresh odsign:fd use;
+
 # Do not audit unused resources from parent processes (adb, shell, su).
 # These appear to be unnecessary for odrefresh.
 dontaudit odrefresh { adbd shell }:fd use;
