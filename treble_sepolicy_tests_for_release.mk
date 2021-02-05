@@ -5,6 +5,9 @@ include $(CLEAR_VARS)
 # permissions granted do not violate the treble model.  Also ensure that treble
 # compatibility guarantees are upheld between SELinux version bumps.
 LOCAL_MODULE := treble_sepolicy_tests_$(version)
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
