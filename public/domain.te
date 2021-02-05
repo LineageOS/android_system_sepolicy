@@ -1320,12 +1320,10 @@ neverallow domain {
 
 # cgroupfs directories can be created, but not files within them.
 neverallow domain cgroup:file create;
-neverallow domain cgroup_v2:file create;
 
 dontaudit domain proc_type:dir write;
 dontaudit domain sysfs_type:dir write;
 dontaudit domain cgroup:file create;
-dontaudit domain cgroup_v2:file create;
 
 # These are only needed in permissive mode - in enforcing mode the
 # directory write check fails and so these are never attempted.
