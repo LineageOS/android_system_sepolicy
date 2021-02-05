@@ -38,6 +38,10 @@ allow dex2oat apex_module_data_file:dir search;
 # Allow dex2oat to use file descriptors passed from odrefresh.
 allow dex2oat odrefresh:fd use;
 
+# Allow dex2oat to use devpts and file descriptors passed from odsign
+allow dex2oat odsign_devpts:chr_file { read write };
+allow dex2oat odsign:fd use;
+
 # Allow dex2oat to write to file descriptors from odrefresh for files
 # in the staging area.
 allow dex2oat apex_art_staging_data_file:dir r_dir_perms;
