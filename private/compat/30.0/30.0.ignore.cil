@@ -83,6 +83,7 @@
     soc_prop
     speech_recognition_service
     sysfs_devices_cs_etm
+    sysfs_dmabuf_stats
     sysfs_uhid
     system_server_dumper_service
     system_suspend_control_internal_service
@@ -93,5 +94,6 @@
     userspace_reboot_metadata_file
     vcn_management_service
     vibrator_manager_service
+    vpnmanager_service
     watchdog_metadata_file
     zygote_config_prop))
