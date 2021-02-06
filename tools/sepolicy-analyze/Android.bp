@@ -1,3 +1,11 @@
+package {
+    // http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // the below license kinds from "system_sepolicy_license":
+    //   legacy_unencumbered
+    default_applicable_licenses: ["system_sepolicy_license"],
+}
+
 cc_binary_host {
     name: "sepolicy-analyze",
     defaults: ["sepolicy_tools_defaults"],
