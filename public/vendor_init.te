@@ -16,8 +16,6 @@ allow vendor_init rootfs:lnk_file { create unlink };
 # Create cgroups mount points in tmpfs and mount cgroups on them.
 allow vendor_init cgroup:dir create_dir_perms;
 allow vendor_init cgroup:file w_file_perms;
-allow vendor_init cgroup_v2:dir create_dir_perms;
-allow vendor_init cgroup_v2:file w_file_perms;
 
 # /config
 allow vendor_init configfs:dir mounton;

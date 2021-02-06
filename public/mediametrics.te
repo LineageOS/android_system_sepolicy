@@ -12,7 +12,6 @@ add_service(mediametrics, mediametrics_service)
 allow mediametrics system_server:fd use;
 
 r_dir_file(mediametrics, cgroup)
-r_dir_file(mediametrics, cgroup_v2)
 allow mediametrics proc_meminfo:file r_file_perms;
 
 # allows interactions with dumpsys to GMScore

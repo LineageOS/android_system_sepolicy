@@ -334,6 +334,9 @@ endef
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := selinux_policy
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_TAGS := optional
 LOCAL_REQUIRED_MODULES += \
     selinux_policy_nonsystem \
@@ -348,6 +351,9 @@ droidcore: selinux_policy
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := selinux_policy_system
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 # These build targets are not used on non-Treble devices. However, we build these to avoid
 # divergence between Treble and non-Treble devices.
 LOCAL_REQUIRED_MODULES += \
@@ -418,6 +424,9 @@ include $(BUILD_PHONY_PACKAGE)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := selinux_policy_system_ext
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 # Include precompiled policy, unless told otherwise.
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 LOCAL_REQUIRED_MODULES += system_ext_sepolicy_and_mapping.sha256
@@ -459,6 +468,9 @@ include $(BUILD_PHONY_PACKAGE)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := selinux_policy_product
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 # Include precompiled policy, unless told otherwise.
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 LOCAL_REQUIRED_MODULES += product_sepolicy_and_mapping.sha256
@@ -500,6 +512,9 @@ include $(BUILD_PHONY_PACKAGE)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := selinux_policy_nonsystem
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 # Include precompiled policy, unless told otherwise.
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 LOCAL_REQUIRED_MODULES += \
@@ -573,6 +588,9 @@ endif
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := sepolicy_neverallows
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -651,6 +669,9 @@ ifeq ($(mixed_sepolicy_build),true)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := sepolicy_neverallows_vendor
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -875,6 +896,9 @@ plat_pub_policy.conf :=
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := plat_sepolicy.cil
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux
@@ -925,6 +949,9 @@ plat_policy.conf :=
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := userdebug_plat_sepolicy.cil
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_DEBUG_RAMDISK_OUT)
@@ -972,6 +999,9 @@ include $(CLEAR_VARS)
 
 ifdef HAS_SYSTEM_EXT_SEPOLICY
 LOCAL_MODULE := system_ext_sepolicy.cil
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT_SYSTEM_EXT)/etc/selinux
@@ -1029,6 +1059,9 @@ include $(CLEAR_VARS)
 
 ifdef HAS_PRODUCT_SEPOLICY
 LOCAL_MODULE := product_sepolicy.cil
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc/selinux
@@ -1087,6 +1120,9 @@ endif # ifdef HAS_PRODUCT_SEPOLICY
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := plat_sepolicy_vers.txt
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_PROPRIETARY_MODULE := true
@@ -1103,6 +1139,9 @@ $(LOCAL_BUILT_MODULE) :
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := plat_mapping_file
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_STEM := $(PLATFORM_SEPOLICY_VERSION).cil
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
@@ -1125,6 +1164,9 @@ include $(CLEAR_VARS)
 
 ifdef HAS_SYSTEM_EXT_PUBLIC_SEPOLICY
 LOCAL_MODULE := system_ext_mapping_file
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_STEM := $(PLATFORM_SEPOLICY_VERSION).cil
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
@@ -1152,6 +1194,9 @@ include $(CLEAR_VARS)
 
 ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
 LOCAL_MODULE := product_mapping_file
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_STEM := $(PLATFORM_SEPOLICY_VERSION).cil
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
@@ -1180,6 +1225,9 @@ include $(CLEAR_VARS)
 # plat_pub_versioned.cil - the exported platform policy associated with the version
 # that non-platform policy targets.
 LOCAL_MODULE := plat_pub_versioned.cil
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_PROPRIETARY_MODULE := true
@@ -1210,6 +1258,9 @@ include $(CLEAR_VARS)
 # with the platform-provided policy.  It makes use of the reqd_policy_mask files from private
 # policy and the platform public policy files in order to use checkpolicy.
 LOCAL_MODULE := vendor_sepolicy.cil
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_PROPRIETARY_MODULE := true
@@ -1271,6 +1322,9 @@ ifdef BOARD_ODM_SEPOLICY_DIRS
 # with the platform-provided policy.  It makes use of the reqd_policy_mask files from private
 # policy and the platform public policy files in order to use checkpolicy.
 LOCAL_MODULE := odm_sepolicy.cil
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_PROPRIETARY_MODULE := true
@@ -1332,6 +1386,9 @@ endif
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := precompiled_sepolicy
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_PROPRIETARY_MODULE := true
@@ -1395,6 +1452,9 @@ all_cil_files :=
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := plat_sepolicy_and_mapping.sha256
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH = $(TARGET_OUT)/etc/selinux
@@ -1408,6 +1468,9 @@ $(LOCAL_BUILT_MODULE): $(built_plat_cil) $(built_plat_mapping_cil)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := system_ext_sepolicy_and_mapping.sha256
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH = $(TARGET_OUT_SYSTEM_EXT)/etc/selinux
@@ -1421,6 +1484,9 @@ $(LOCAL_BUILT_MODULE): $(built_system_ext_cil) $(built_system_ext_mapping_cil)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := product_sepolicy_and_mapping.sha256
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH = $(TARGET_OUT_PRODUCT)/etc/selinux
@@ -1436,6 +1502,9 @@ $(LOCAL_BUILT_MODULE): $(built_product_cil) $(built_product_mapping_cil)
 #################################
 include $(CLEAR_VARS)
 LOCAL_MODULE := precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 
@@ -1457,6 +1526,9 @@ $(LOCAL_BUILT_MODULE): $(built_precompiled_sepolicy) $(built_plat_cil) $(built_p
 #################################
 include $(CLEAR_VARS)
 LOCAL_MODULE := precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 
@@ -1478,6 +1550,9 @@ $(LOCAL_BUILT_MODULE): $(built_precompiled_sepolicy) $(built_system_ext_cil) $(b
 #################################
 include $(CLEAR_VARS)
 LOCAL_MODULE := precompiled_sepolicy.product_sepolicy_and_mapping.sha256
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 
@@ -1498,6 +1573,9 @@ include $(CLEAR_VARS)
 # build this target so that we can still perform neverallow checks
 
 LOCAL_MODULE := sepolicy
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -1557,6 +1635,9 @@ include $(CLEAR_VARS)
 # If SELINUX_IGNORE_NEVERALLOWS is set, we use sed to remove the neverallow lines before compiling.
 
 LOCAL_MODULE := sepolicy.recovery
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_STEM := sepolicy
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
@@ -1613,6 +1694,9 @@ sepolicy.recovery.conf :=
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := general_sepolicy.conf
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := tests
 
@@ -1641,6 +1725,9 @@ $(LOCAL_BUILT_MODULE): $(policy_files) $(M4)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := file_contexts.bin
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
@@ -1735,6 +1822,9 @@ file_contexts.modules.tmp :=
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := selinux_denial_metadata
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
 
@@ -1758,6 +1848,9 @@ include $(LOCAL_PATH)/contexts_tests.mk
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := vndservice_contexts
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
@@ -1788,6 +1881,9 @@ include $(LOCAL_PATH)/mac_permissions.mk
 #################################
 include $(CLEAR_VARS)
 LOCAL_MODULE := sepolicy_tests
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
@@ -1914,6 +2010,9 @@ all_fc_args :=
 #################################
 include $(CLEAR_VARS)
 LOCAL_MODULE := sepolicy_freeze_test
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_TAGS := optional
 
