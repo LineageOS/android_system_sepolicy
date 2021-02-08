@@ -37,6 +37,11 @@ allow traced perfetto_traces_bugreport_data_file:dir rw_dir_perms;
 allow traced traceur_app:fd use;
 allow traced trace_data_file:file { read write };
 
+# Allow perfetto to access the proxy service for notifying Traceur.
+allow traced tracingproxy_service:service_manager find;
+binder_use(traced);
+binder_call(traced, system_server);
+
 # Allow iorapd to pass memfd descriptors to traced, so traced can directly
 # write into the shmem buffer file without doing roundtrips over IPC.
 allow traced iorapd:fd use;
