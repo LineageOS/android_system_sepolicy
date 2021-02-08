@@ -113,6 +113,7 @@ get_prop(domain, exported_secure_prop)
 get_prop(domain, exported_system_prop)
 get_prop(domain, fingerprint_prop)
 get_prop(domain, hal_instrumentation_prop)
+get_prop(domain, hw_timeout_multiplier_prop)
 get_prop(domain, init_service_status_prop)
 get_prop(domain, libc_debug_prop)
 get_prop(domain, logd_prop)
@@ -550,6 +551,7 @@ compatible_property_only(`
     neverallow { domain -init } exported_secure_prop:property_service set;
     neverallow { domain -init -vendor_init } vendor_default_prop:property_service set;
     neverallow { domain -init -vendor_init } storage_config_prop:property_service set;
+    neverallow { domain -init -vendor_init } hw_timeout_multiplier_prop:property_service set;
 ')
 
 compatible_property_only(`
