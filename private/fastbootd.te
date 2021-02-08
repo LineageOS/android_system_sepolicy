@@ -28,6 +28,14 @@ recovery_only(`
   allow fastbootd port:tcp_socket name_bind;
   allow fastbootd self:tcp_socket { create_socket_perms_no_ioctl listen accept };
 
+  # Start snapuserd for merging VABC updates
+  set_prop(fastbootd, ctl_snapuserd_prop)
+
+  # Needed to communicate with snapuserd to complete merges.
+  allow fastbootd snapuserd_socket:sock_file write;
+  allow fastbootd snapuserd:unix_stream_socket connectto;
+  allow fastbootd dm_user_device:dir r_dir_perms;
+
   # Get fastbootd protocol property
   get_prop(fastbootd, fastbootd_protocol_prop)
 ')
