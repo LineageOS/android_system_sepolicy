@@ -403,13 +403,11 @@ neverallow * kernel:security setbool;
 # that could be set from init.rc.
 neverallow { domain -init } kernel:security setsecparam;
 
-# Only init, ueventd, shell and system_server should be able to access HW RNG
+# Only the kernel hwrng thread should be able to read from the HW RNG.
 neverallow {
   domain
-  -init
-  -shell # For CTS and is restricted to getattr in shell.te
-  -system_server
-  -ueventd
+  -shell # For CTS, restricted to just getattr in shell.te
+  -ueventd # To create the /dev/hw_random file
 } hw_random_device:chr_file *;
 # b/78174219 b/64114943
 neverallow {

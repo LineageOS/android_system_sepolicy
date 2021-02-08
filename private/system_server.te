@@ -770,9 +770,6 @@ allow system_server cache_private_backup_file:file create_file_perms;
 allow system_server usb_device:chr_file rw_file_perms;
 allow system_server usb_device:dir r_dir_perms;
 
-# Read from HW RNG (needed by EntropyMixer).
-allow system_server hw_random_device:chr_file r_file_perms;
-
 # Read and delete files under /dev/fscklogs.
 r_dir_file(system_server, fscklogs)
 allow system_server fscklogs:dir { write remove_name };
