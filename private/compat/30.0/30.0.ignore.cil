@@ -21,6 +21,7 @@
     debugfs_kprobes
     debugfs_mm_events_tracing
     device_config_profcollect_native_boot_prop
+    device_config_connectivity_prop
     device_state_service
     dm_user_device
     dmabuf_heap_device
@@ -97,6 +98,6 @@
     userspace_reboot_metadata_file
     vcn_management_service
     vibrator_manager_service
-    vpnmanager_service
+    vpn_management_service
     watchdog_metadata_file
     zygote_config_prop))
