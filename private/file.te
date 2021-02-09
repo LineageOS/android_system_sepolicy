@@ -7,6 +7,9 @@ type storaged_data_file, file_type, data_file_type, core_data_file_type;
 # /data/misc/wmtrace for wm traces
 type wm_trace_data_file, file_type, data_file_type, core_data_file_type;
 
+# /data/misc/a11ytrace for accessibility traces
+type accessibility_trace_data_file, file_type, data_file_type, core_data_file_type;
+
 # /data/misc/perfetto-traces for perfetto traces
 type perfetto_traces_data_file, file_type, data_file_type, core_data_file_type;
 
