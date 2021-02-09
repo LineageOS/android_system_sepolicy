@@ -216,7 +216,7 @@ type vcn_management_service, app_api_service, ephemeral_app_api_service, system_
 type vibrator_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type vibrator_manager_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type voiceinteraction_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
-type vpnmanager_service, app_api_service, system_server_service, service_manager_type;
+type vpn_management_service, app_api_service, system_server_service, service_manager_type;
 type vr_manager_service, system_server_service, service_manager_type;
 type wallpaper_service, app_api_service, system_server_service, service_manager_type;
 type webviewupdate_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;

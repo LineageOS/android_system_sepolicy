@@ -221,6 +221,7 @@ device_config.reset_performed                       u:object_r:device_config_res
 persist.device_config.activity_manager_native_boot. u:object_r:device_config_activity_manager_native_boot_prop:s0
 persist.device_config.attempted_boot_count          u:object_r:device_config_boot_count_prop:s0
 persist.device_config.configuration.                u:object_r:device_config_configuration_prop:s0
+persist.device_config.connectivity.                 u:object_r:device_config_connectivity_prop:s0
 persist.device_config.input_native_boot.            u:object_r:device_config_input_native_boot_prop:s0
 persist.device_config.media_native.                 u:object_r:device_config_media_native_prop:s0
 persist.device_config.netd_native.                  u:object_r:device_config_netd_native_prop:s0
@@ -1059,8 +1060,8 @@ zygote.critical_window.minute u:object_r:zygote_config_prop:s0 exact int
 ro.zygote.disable_gl_preload u:object_r:zygote_config_prop:s0 exact bool
 
 # Enable Keystore 2.0.
-# TODO remove this propertye when Keystore 2.0 migration is complete b/171563717
-ro.android.security.keystore2.enable    u:object_r:keystore2_enable_prop:s0 exact bool
+# TODO remove this property when Keystore 2.0 migration is complete b/171563717
+persist.android.security.keystore2.enable    u:object_r:keystore2_enable_prop:s0 exact bool
 
 partition.system.verified     u:object_r:verity_status_prop:s0 exact string
 partition.system_ext.verified u:object_r:verity_status_prop:s0 exact string

@@ -667,6 +667,7 @@ set_prop(system_server, device_config_storage_native_boot_prop)
 set_prop(system_server, device_config_sys_traced_prop)
 set_prop(system_server, device_config_window_manager_native_boot_prop)
 set_prop(system_server, device_config_configuration_prop)
+set_prop(system_server, device_config_connectivity_prop)
 
 # BootReceiver to read ro.boot.bootreason
 get_prop(system_server, bootloader_boot_reason_prop)
@@ -1116,6 +1117,7 @@ neverallow {
   -flags_health_check
 } {
   device_config_activity_manager_native_boot_prop
+  device_config_connectivity_prop
   device_config_input_native_boot_prop
   device_config_netd_native_prop
   device_config_runtime_native_boot_prop
