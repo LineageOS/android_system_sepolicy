@@ -21,6 +21,20 @@ allowxperm odsign apex_art_data_file:file ioctl {
   FS_IOC_ENABLE_VERITY FS_IOC_MEASURE_VERITY FS_IOC_GETFLAGS
 };
 
+# talk to binder services (for keystore)
+binder_use(odsign);
+
+# talk to keystore specifically
+use_keystore(odsign);
+
+# Use our dedicated keystore key
+allow odsign odsign_key:keystore2_key {
+    delete
+    get_info
+    rebind
+    use
+};
+
 # talk to keymaster
 hal_client_domain(odsign, hal_keymaster)
 

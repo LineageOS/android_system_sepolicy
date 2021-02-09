@@ -260,6 +260,7 @@ time_detector                             u:object_r:timedetector_service:s0
 time_zone_detector                        u:object_r:timezonedetector_service:s0
 timezone                                  u:object_r:timezone_service:s0
 thermalservice                            u:object_r:thermal_service:s0
+tracing.proxy                             u:object_r:tracingproxy_service:s0
 transformer                               u:object_r:transformer_service:s0
 trust                                     u:object_r:trust_service:s0
 tv_input                                  u:object_r:tv_input_service:s0
@@ -277,7 +278,7 @@ vibrator_manager                          u:object_r:vibrator_manager_service:s0
 virtual_touchpad                          u:object_r:virtual_touchpad_service:s0
 voiceinteraction                          u:object_r:voiceinteraction_service:s0
 vold                                      u:object_r:vold_service:s0
-vpnmanager                                u:object_r:vpnmanager_service:s0
+vpn_management                            u:object_r:vpn_management_service:s0
 vr_hwc                                    u:object_r:vr_hwc_service:s0
 vrflinger_vsync                           u:object_r:vrflinger_vsync_service:s0
 vrmanager                                 u:object_r:vr_manager_service:s0
