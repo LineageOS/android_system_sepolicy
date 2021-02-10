@@ -45,6 +45,7 @@ r_dir_file(heapprofd, apex_art_data_file)
 r_dir_file(heapprofd, apk_data_file)
 r_dir_file(heapprofd, dalvikcache_data_file)
 r_dir_file(heapprofd, vendor_file_type)
+r_dir_file(heapprofd, shell_test_data_file)
 # Some dex files are not world-readable.
 # We are still constrained by the SELinux rules above.
 allow heapprofd self:global_capability_class_set dac_read_search;
