@@ -148,6 +148,7 @@ genfscon sysfs /power/wakeup_count u:object_r:sysfs_power:s0
 genfscon sysfs /power/wake_lock u:object_r:sysfs_wake_lock:s0
 genfscon sysfs /power/wake_unlock u:object_r:sysfs_wake_lock:s0
 genfscon sysfs /kernel/memory_state_time u:object_r:sysfs_power:s0
+genfscon sysfs /kernel/dma_heap u:object_r:sysfs_dma_heap:s0
 genfscon sysfs /kernel/ion u:object_r:sysfs_ion:s0
 genfscon sysfs /kernel/ipv4 u:object_r:sysfs_ipv4:s0
 genfscon sysfs /kernel/mm/transparent_hugepage u:object_r:sysfs_transparent_hugepage:s0
