@@ -1318,3 +1318,6 @@ neverallowxperm { domain -system_server } binder_device:chr_file ioctl { BINDER_
 # Only system server can write the font files.
 neverallow { domain -init -system_server } font_data_file:file no_w_file_perms;
 neverallow { domain -init -system_server } font_data_file:dir no_w_dir_perms;
+
+# Read qemu.hw.mainkeys property
+get_prop(system_server, qemu_hw_prop)
