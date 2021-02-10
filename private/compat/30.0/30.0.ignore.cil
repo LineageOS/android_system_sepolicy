@@ -87,6 +87,7 @@
     soc_prop
     speech_recognition_service
     sysfs_devices_cs_etm
+    sysfs_dma_heap
     sysfs_dmabuf_stats
     sysfs_uhid
     system_server_dumper_service
@@ -100,4 +101,5 @@
     vibrator_manager_service
     vpn_management_service
     watchdog_metadata_file
+    wifi_key
     zygote_config_prop))
