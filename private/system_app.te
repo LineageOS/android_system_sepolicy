@@ -146,7 +146,6 @@ allow system_app keystore:keystore2_key {
 allow system_app wifi_key:keystore2_key {
     delete
     get_info
-    grant
     rebind
     update
     use
