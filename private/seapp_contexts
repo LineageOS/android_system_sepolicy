@@ -143,6 +143,7 @@ neverallow isEphemeralApp=true domain=((?!ephemeral_app).)*
 isSystemServer=true domain=system_server_startup
 
 user=_app isPrivApp=true name=com.android.traceur domain=traceur_app type=app_data_file levelFrom=all
+user=_app isPrivApp=true name=com.android.remoteprovisioner domain=remote_prov_app type=app_data_file levelFrom=all
 user=system seinfo=platform domain=system_app type=system_app_data_file
 user=bluetooth seinfo=platform domain=bluetooth type=bluetooth_data_file
 user=network_stack seinfo=network_stack domain=network_stack type=radio_data_file

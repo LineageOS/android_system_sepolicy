@@ -871,6 +871,15 @@ allow system_server keystore:keystore2_key {
 	use
 };
 
+# Allow Wifi module to manage Wi-Fi keys.
+allow system_server wifi_key:keystore2_key {
+	delete
+	get_info
+	rebind
+	update
+	use
+};
+
 # Allow system server to search and write to the persistent factory reset
 # protection partition. This block device does not get wiped in a factory reset.
 allow system_server block_device:dir search;
