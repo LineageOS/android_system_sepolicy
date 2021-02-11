@@ -1,0 +1,10 @@
+type remote_prov_app, domain;
+typeattribute remote_prov_app coredomain;
+
+app_domain(remote_prov_app)
+net_domain(remote_prov_app)
+
+allow remote_prov_app {
+    activity_service
+    remoteprovisioning_service
+}:service_manager find;
