@@ -30,6 +30,7 @@ allow shell shell_test_data_file:dir create_dir_perms;
 allow shell shell_test_data_file:file create_file_perms;
 allow shell shell_test_data_file:file rx_file_perms;
 allow shell shell_test_data_file:lnk_file create_file_perms;
+allow shell shell_test_data_file:sock_file create_file_perms;
 
 # Read and delete from /data/local/traces.
 allow shell trace_data_file:file { r_file_perms unlink };
