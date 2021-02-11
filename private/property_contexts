@@ -260,6 +260,10 @@ ro.nnapi.extensions.deny_on_product                u:object_r:nnapi_ext_deny_pro
 # Property that is set once ueventd finishes cold boot.
 ro.cold_boot_done       u:object_r:cold_boot_done_prop:s0
 
+# Properties that control performance operations.
+# Leave space to later set drop_caches to 1, 2, and 4.
+perf.drop_caches        u:object_r:perf_drop_caches_prop:s0 exact enum 0 3
+
 # Charger properties
 ro.charger.                 u:object_r:charger_prop:s0
 sys.boot_from_charger_mode  u:object_r:charger_status_prop:s0 exact int
