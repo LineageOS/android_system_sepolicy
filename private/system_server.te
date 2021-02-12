@@ -295,6 +295,7 @@ unix_socket_connect(system_server, tombstoned_intercept, tombstoned)
 
 # List HAL interfaces to get ANR traces.
 allow system_server hwservicemanager:hwservice_manager list;
+allow system_server servicemanager:service_manager list;
 
 # Send signals to trigger ANR traces.
 allow system_server {
