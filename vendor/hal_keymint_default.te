@@ -4,4 +4,7 @@ hal_server_domain(hal_keymint_default, hal_keymint)
 type hal_keymint_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_keymint_default)
 
+hal_attribute_service(hal_keymint, hal_secureclock_service)
+hal_attribute_service(hal_keymint, hal_sharedsecret_service)
+
 get_prop(hal_keymint_default, vendor_security_patch_level_prop);
