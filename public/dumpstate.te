@@ -134,6 +134,7 @@ allow dumpstate { cache_file rootfs }:lnk_file { getattr read };
 
 # Read /dev/cpuctl and /dev/cpuset
 r_dir_file(dumpstate, cgroup)
+r_dir_file(dumpstate, cgroup_v2)
 
 # Allow dumpstate to make binder calls to any binder service
 binder_call(dumpstate, binderservicedomain)

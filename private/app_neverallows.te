@@ -228,6 +228,7 @@ neverallow all_untrusted_apps proc_tty_drivers:file ~r_file_perms;
 
 # Untrusted apps are not allowed to use cgroups.
 neverallow all_untrusted_apps cgroup:file *;
+neverallow all_untrusted_apps cgroup_v2:file *;
 
 # /mnt/sdcard symlink was supposed to have been removed in Gingerbread. Apps
 # must not use it.
