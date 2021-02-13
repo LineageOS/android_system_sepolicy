@@ -12,6 +12,8 @@ android.hardware.power.IPower/default                                u:object_r:
 android.hardware.power.stats.IPowerStats/default                     u:object_r:hal_power_stats_service:s0
 android.hardware.rebootescrow.IRebootEscrow/default                  u:object_r:hal_rebootescrow_service:s0
 android.hardware.security.keymint.IKeyMintDevice/default             u:object_r:hal_keymint_service:s0
+android.hardware.security.secureclock.ISecureClock/default             u:object_r:hal_secureclock_service:s0
+android.hardware.security.sharedsecret.ISharedSecret/default             u:object_r:hal_sharedsecret_service:s0
 android.hardware.vibrator.IVibrator/default                          u:object_r:hal_vibrator_service:s0
 android.hardware.vibrator.IVibratorManager/default                   u:object_r:hal_vibrator_service:s0
 android.hardware.weaver.IWeaver/default                              u:object_r:hal_weaver_service:s0
@@ -165,6 +167,7 @@ media.sound_trigger_hw                    u:object_r:audioserver_service:s0
 media.drm                                 u:object_r:mediadrmserver_service:s0
 media.tuner                               u:object_r:mediatuner_service:s0
 media_communication                       u:object_r:media_communication_service:s0
+media_metrics                             u:object_r:media_metrics_service:s0
 media_projection                          u:object_r:media_projection_service:s0
 media_resource_monitor                    u:object_r:media_session_service:s0
 media_router                              u:object_r:media_router_service:s0

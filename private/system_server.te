@@ -192,6 +192,14 @@ allow system_server sysfs_ion:file r_file_perms;
 # Read /sys/kernel/dma_heap/*.
 allow system_server sysfs_dma_heap:file r_file_perms;
 
+# Allow reading DMA-BUF sysfs stats from /sys/kernel/dmabuf.
+allow system_server sysfs_dmabuf_stats:dir r_dir_perms;
+allow system_server sysfs_dmabuf_stats:file r_file_perms;
+
+# Allow ActivityManager to look at the list of DMA-BUF heaps from /dev/dma_heap
+# for dumpsys meminfo
+allow system_server dmabuf_heap_device:dir r_dir_perms;
+
 # The DhcpClient and WifiWatchdog use packet_sockets
 allow system_server self:packet_socket create_socket_perms_no_ioctl;
 
