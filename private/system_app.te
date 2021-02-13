@@ -158,6 +158,7 @@ allow system_app {
 
 # Settings app writes to /dev/stune/foreground/tasks.
 allow system_app cgroup:file w_file_perms;
+allow system_app cgroup_v2:file w_file_perms;
 
 control_logd(system_app)
 read_runtime_log_tags(system_app)
