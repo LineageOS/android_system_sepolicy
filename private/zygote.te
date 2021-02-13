@@ -108,6 +108,8 @@ r_dir_file(zygote, vendor_overlay_file)
 # Control cgroups.
 allow zygote cgroup:dir create_dir_perms;
 allow zygote cgroup:{ file lnk_file } r_file_perms;
+allow zygote cgroup_v2:dir create_dir_perms;
+allow zygote cgroup_v2:{ file lnk_file } { r_file_perms setattr };
 allow zygote self:global_capability_class_set sys_admin;
 
 # Allow zygote to stat the files that it opens. The zygote must
@@ -190,7 +192,10 @@ get_prop(zygote, device_config_runtime_native_boot_prop)
 get_prop(zygote, device_config_window_manager_native_boot_prop)
 
 # ingore spurious denials
-dontaudit zygote self:global_capability_class_set sys_resource;
+# fsetid can be checked as a consequence of chmod when using cgroup v2 uid/pid hierarchy. This is
+# done to determine if the file should inherit setgid. In this case, setgid on the file is
+# undesirable, so suppress the denial.
+dontaudit zygote self:global_capability_class_set { sys_resource fsetid };
 
 # Ignore spurious denials calling access() on fuse
 # TODO(b/151316657): avoid the denials
