@@ -137,6 +137,7 @@ type location_time_zone_manager_service, system_server_service, service_manager_
 type lock_settings_service, system_api_service, system_server_service, service_manager_type;
 type looper_stats_service, system_server_service, service_manager_type;
 type media_communication_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type media_metrics_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type media_projection_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type media_router_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type media_session_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
@@ -252,6 +253,8 @@ type hal_oemlock_service, vendor_service, protected_service, service_manager_typ
 type hal_power_service, vendor_service, protected_service, service_manager_type;
 type hal_power_stats_service, vendor_service, protected_service, service_manager_type;
 type hal_rebootescrow_service, vendor_service, protected_service, service_manager_type;
+type hal_secureclock_service, vendor_service, protected_service, service_manager_type;
+type hal_sharedsecret_service, vendor_service, protected_service, service_manager_type;
 type hal_vibrator_service, vendor_service, protected_service, service_manager_type;
 type hal_weaver_service, vendor_service, protected_service, service_manager_type;
 
