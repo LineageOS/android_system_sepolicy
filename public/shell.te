@@ -126,6 +126,7 @@ r_dir_file(shell, cgroup)
 allow shell cgroup_desc_file:file r_file_perms;
 allow shell cgroup_desc_api_file:file r_file_perms;
 allow shell vendor_cgroup_desc_file:file r_file_perms;
+r_dir_file(shell, cgroup_v2)
 allow shell domain:dir { search open read getattr };
 allow shell domain:{ file lnk_file } { open read getattr };
 
