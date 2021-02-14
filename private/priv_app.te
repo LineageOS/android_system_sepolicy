@@ -240,6 +240,7 @@ neverallow priv_app trace_data_file:file { no_w_file_perms open };
 
 # Do not allow priv_app access to cgroups.
 neverallow priv_app cgroup:file *;
+neverallow priv_app cgroup_v2:file *;
 
 # Do not allow loading executable code from non-privileged
 # application home directories. Code loading across a security boundary

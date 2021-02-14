@@ -895,8 +895,10 @@ allow system_server block_device:dir search;
 allow system_server frp_block_device:blk_file rw_file_perms;
 allowxperm system_server frp_block_device:blk_file ioctl { BLKSECDISCARD BLKDISCARD };
 
-# Clean up old cgroups
+# Create new process groups and clean up old cgroups
 allow system_server cgroup:dir { remove_name rmdir };
+allow system_server cgroup_v2:dir create_dir_perms;
+allow system_server cgroup_v2:file { r_file_perms setattr };
 
 # /oem access
 r_dir_file(system_server, oemfs)
@@ -975,9 +977,8 @@ allow system_server preloads_media_file:file { r_file_perms unlink };
 allow system_server preloads_media_file:dir { r_dir_perms write remove_name rmdir };
 
 r_dir_file(system_server, cgroup)
+r_dir_file(system_server, cgroup_v2)
 allow system_server ion_device:chr_file r_file_perms;
-allow system_server cgroup_v2:dir rw_dir_perms;
-allow system_server cgroup_v2:file rw_file_perms;
 
 # Access to /dev/dma_heap/system
 allow system_server dmabuf_system_heap_device:chr_file r_file_perms;
