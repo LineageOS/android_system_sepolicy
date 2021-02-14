@@ -28,3 +28,4 @@ userdebug_or_eng(`
 
 # Access /dev/cpuset/cpuset.cpus
 r_dir_file(performanced, cgroup)
+r_dir_file(performanced, cgroup_v2)
