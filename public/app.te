@@ -318,6 +318,9 @@ allow { appdomain -isolated_app } hal_audio:fd use;
 # Allow app to access shared memory created by camera HAL1
 allow { appdomain -isolated_app } hal_camera:fd use;
 
+# Allow apps to access shared memory file descriptor from the tuner HAL
+allow {appdomain -isolated_app} hal_tv_tuner_server:fd use;
+
 # RenderScript always-passthrough HAL
 allow { appdomain -isolated_app } hal_renderscript_hwservice:hwservice_manager find;
 allow appdomain same_process_hal_file:file { execute read open getattr map };
