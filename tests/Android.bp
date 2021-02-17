@@ -87,3 +87,8 @@ python_binary_host {
     ],
     defaults: ["py2_only"],
 }
+
+python_binary_host {
+    name: "check_prop_prefix",
+    srcs: ["check_prop_prefix.py"],
+}
