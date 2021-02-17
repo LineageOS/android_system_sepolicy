@@ -676,6 +676,7 @@ set_prop(system_server, device_config_profcollect_native_boot_prop)
 set_prop(system_server, device_config_statsd_native_prop)
 set_prop(system_server, device_config_statsd_native_boot_prop)
 set_prop(system_server, device_config_storage_native_boot_prop)
+set_prop(system_server, device_config_swcodec_native_prop)
 set_prop(system_server, device_config_sys_traced_prop)
 set_prop(system_server, device_config_window_manager_native_boot_prop)
 set_prop(system_server, device_config_configuration_prop)
@@ -1148,6 +1149,7 @@ neverallow {
   device_config_media_native_prop
   device_config_storage_native_boot_prop
   device_config_sys_traced_prop
+  device_config_swcodec_native_prop
   device_config_window_manager_native_boot_prop
 }:property_service set;
 
