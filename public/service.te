@@ -253,6 +253,7 @@ type hal_oemlock_service, vendor_service, protected_service, service_manager_typ
 type hal_power_service, vendor_service, protected_service, service_manager_type;
 type hal_power_stats_service, vendor_service, protected_service, service_manager_type;
 type hal_rebootescrow_service, vendor_service, protected_service, service_manager_type;
+type hal_remotelyprovisionedcomponent_service, vendor_service, protected_service, service_manager_type;
 type hal_secureclock_service, vendor_service, protected_service, service_manager_type;
 type hal_sharedsecret_service, vendor_service, protected_service, service_manager_type;
 type hal_vibrator_service, vendor_service, protected_service, service_manager_type;
