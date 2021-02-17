@@ -309,7 +309,6 @@ allow init {
   devpts
   dm_device
   hwbinder_device
-  hw_random_device
   input_device
   kmsg_device
   null_device
@@ -324,6 +323,7 @@ allow init {
 # chown/chmod on devices.
 allow init {
   dev_type
+  -hw_random_device
   -keychord_device
   -port_device
 }:chr_file setattr;
@@ -532,10 +532,6 @@ allow init kernel:process { getsched setsched };
 # swapon() needs write access to swap device
 # system/core/fs_mgr/fs_mgr.c - fs_mgr_swapon_all
 allow init swap_block_device:blk_file rw_file_perms;
-
-# Read from /dev/hw_random if present.
-# system/core/init/init.c - mix_hwrng_into_linux_rng_action
-allow init hw_random_device:chr_file r_file_perms;
 
 # Create and access /dev files without a specific type,
 # e.g. /dev/.coldboot_done, /dev/.booting
