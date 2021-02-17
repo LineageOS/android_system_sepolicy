@@ -557,6 +557,7 @@
 
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
+/data/misc/a11ytrace(/.*)?        u:object_r:accessibility_trace_data_file:s0
 /data/misc/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
 /data/misc/apexdata/com\.android\.art(/.*)?    u:object_r:apex_art_data_file:s0
 /data/misc/apexdata/com\.android\.permission(/.*)?    u:object_r:apex_permission_data_file:s0
