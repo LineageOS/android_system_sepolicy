@@ -11,6 +11,12 @@ allow dumpstate system_file:file lock;
 
 allow dumpstate storaged_exec:file rx_file_perms;
 
+# /data/misc/a11ytrace for accessibility traces
+userdebug_or_eng(`
+  allow dumpstate accessibility_trace_data_file:dir r_dir_perms;
+  allow dumpstate accessibility_trace_data_file:file r_file_perms;
+')
+
 # /data/misc/wmtrace for wm traces
 userdebug_or_eng(`
   allow dumpstate wm_trace_data_file:dir r_dir_perms;
