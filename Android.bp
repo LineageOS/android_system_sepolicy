@@ -492,3 +492,145 @@ filegroup {
         "//test/vts-testcase/security/system_property",
     ],
 }
+
+// This is a minimized cil modules to test microdroid.
+// TODO(b/178993690): migrate cil files to Android.bp and remove below
+filegroup {
+    name: "microdroid_sepolicy_build_files",
+    srcs: [
+        // This order is important. Should be identical to sepolicy_build_files in Android.mk
+        "private/security_classes",
+        "private/initial_sids",
+        "private/access_vectors",
+        "public/global_macros",
+        "public/neverallow_macros",
+        "private/mls_macros",
+        "private/mls_decl",
+        "private/mls",
+        "private/policy_capabilities",
+        "public/te_macros",
+        "public/attributes",
+        "private/attributes",
+        "public/ioctl_defines",
+        "public/ioctl_macros",
+        "public/*.te",
+        "private/*.te",
+        "private/roles_decl",
+        "public/roles",
+        "private/users",
+        "private/initial_sid_contexts",
+        "private/fs_use",
+        "private/genfs_contexts",
+        "private/port_contexts",
+    ],
+}
+
+filegroup {
+    name: "microdroid_sepolicy_public_and_reqd_mask_build_files",
+    srcs: [
+        // This order is important. Should be identical to sepolicy_build_files in Android.mk
+        "reqd_mask/security_classes",
+        "reqd_mask/initial_sids",
+        "reqd_mask/access_vectors",
+        "public/global_macros",
+        "public/neverallow_macros",
+        "reqd_mask/mls_macros",
+        "reqd_mask/mls_decl",
+        "reqd_mask/mls",
+        "public/te_macros",
+        "public/attributes",
+        "public/ioctl_defines",
+        "public/ioctl_macros",
+        "public/*.te",
+        "reqd_mask/*.te",
+        "reqd_mask/roles_decl",
+        "public/roles",
+        "reqd_mask/roles",
+        "reqd_mask/users",
+        "reqd_mask/initial_sid_contexts",
+    ],
+}
+
+filegroup {
+    name: "microdroid_sepolicy_reqd_mask_build_files",
+    srcs: [
+        // This order is important. Should be identical to sepolicy_build_files in Android.mk
+        "reqd_mask/security_classes",
+        "reqd_mask/initial_sids",
+        "reqd_mask/access_vectors",
+        "reqd_mask/mls_macros",
+        "reqd_mask/mls_decl",
+        "reqd_mask/mls",
+        "reqd_mask/*.te",
+        "reqd_mask/roles_decl",
+        "reqd_mask/roles",
+        "reqd_mask/users",
+        "reqd_mask/initial_sid_contexts",
+    ],
+}
+
+// These variables are based on aosp_cf_x86_64_only_phone-userdebug. Other than target_arch,
+// these configurations should be fine to test microdroid on normal devices with full treble.
+// The exception is target_arch. But as target_arch is meaningful only on mips, and as we are not
+// running microdroid on mips for now, we skip assigning target_arch here. After cil files are fully
+// migrated into Soong, these will have correct values.
+policy_to_conf_flags = "$(location m4) --fatal-warnings " +
+"-D mls_num_sens=1 -D mls_num_cats=1024 " +
+"-D target_build_variant=userdebug " +
+"-D target_with_asan=false " +
+"-D target_with_native_coverage=false " +
+"-D target_full_treble=true " +
+"-D target_compatible_property=true " +
+"-D target_treble_sysprop_neverallow=true " +
+"-D target_enforce_sysprop_owner=true "
+
+genrule {
+    name: "microdroid_plat_sepolicy.cil_gen",
+    srcs: [":microdroid_sepolicy_build_files"],
+    tools: ["m4", "checkpolicy"],
+    out: ["plat_sepolicy.cil"],
+    cmd: policy_to_conf_flags +
+        "-s $(locations :microdroid_sepolicy_build_files) > $(out).conf" +
+        "&& $(location checkpolicy) -M -C -c 30 -o $(out) $(out).conf",
+    visibility: ["//visibility:private"],
+}
+
+prebuilt_etc {
+    name: "microdroid_plat_sepolicy.cil",
+    src: ":microdroid_plat_sepolicy.cil_gen",
+    filename: "plat_sepolicy.cil",
+    relative_install_path: "selinux",
+    installable: false,
+}
+
+genrule {
+    name: "microdroid_reqd_policy_mask.cil_gen",
+    srcs: [":microdroid_sepolicy_reqd_mask_build_files"],
+    tools: ["m4", "checkpolicy"],
+    out: ["reqd_policy_mask.cil"],
+    cmd: policy_to_conf_flags +
+        "-s $(in) > $(out).conf" +
+        "&& $(location checkpolicy) -C -M -c 30 -o $(out) $(out).conf",
+    visibility: ["//visibility:private"],
+}
+
+genrule {
+    name: "microdroid_plat_mapping_file_gen",
+    srcs: [":microdroid_sepolicy_public_and_reqd_mask_build_files", ":microdroid_reqd_policy_mask.cil_gen"],
+    tools: ["m4", "checkpolicy", "build_sepolicy", "version_policy"],
+    out: ["10000.0.cil"],
+    cmd: policy_to_conf_flags +
+        "-s $(locations :microdroid_sepolicy_public_and_reqd_mask_build_files) > $(out).conf" +
+        "&& $(location checkpolicy) -M -C -c 30 -o $(out).pub $(out).conf" +
+        "&& $(location build_sepolicy) filter_out -f $(location :microdroid_reqd_policy_mask.cil_gen) -t $(out).pub" +
+        "&& $(location version_policy) -b $(out).pub -m -n 10000.0 -o $(out)",
+    visibility: ["//visibility:private"],
+}
+
+prebuilt_etc {
+    name: "microdroid_plat_mapping_file",
+    src: ":microdroid_plat_mapping_file_gen",
+    filename: "10000.0.cil",
+    relative_install_path: "selinux/mapping",
+    installable: false,
+}
