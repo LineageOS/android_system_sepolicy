@@ -74,6 +74,11 @@ allow appdomain apex_art_data_file:file r_file_perms;
 # Allow APFE device info to read Virtual A/B props.
 get_prop(appdomain, virtual_ab_prop)
 
+# Allow access to tombstones if an fd to one is given to you.
+# This is restricted by unix permissions, so an app must go through system_server to get one.
+allow appdomain tombstone_data_file:file { getattr read };
+neverallow appdomain tombstone_data_file:file ~{ getattr read };
+
 # Sensitive app domains are not allowed to execute from /data
 # to prevent persistence attacks and ensure all code is executed
 # from read-only locations.
