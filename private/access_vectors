@@ -714,7 +714,10 @@ class keystore_key
 class keystore2
 {
 	add_auth
+	change_password
+	change_user
 	clear_ns
+	clear_uid
 	get_state
 	list
 	lock
