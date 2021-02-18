@@ -117,3 +117,6 @@ type super_block_device, super_block_device_type, dev_type;
 # separate device node. gsid, however, accesses the original devide node
 # created through uevents, so we use a separate label.
 type sdcard_block_device, dev_type;
+
+# Userdata device file for filesystem tunables
+type userdata_sysdev, dev_type;
