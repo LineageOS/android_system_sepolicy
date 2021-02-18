@@ -364,7 +364,76 @@ func (m *selinuxContextsModule) buildHwServiceContexts(ctx android.ModuleContext
 	return m.buildGeneralContexts(ctx, inputs)
 }
 
+func (m *selinuxContextsModule) checkVendorPropertyNamespace(ctx android.ModuleContext, inputs android.Paths) android.Paths {
+	shippingApiLevel := ctx.DeviceConfig().ShippingApiLevel()
+	ApiLevelR := android.ApiLevelOrPanic(ctx, "R")
+
+	rule := android.NewRuleBuilder(pctx, ctx)
+
+	// This list is from vts_treble_sys_prop_test.
+	allowedPropertyPrefixes := []string{
+		"ctl.odm.",
+		"ctl.vendor.",
+		"ctl.start$odm.",
+		"ctl.start$vendor.",
+		"ctl.stop$odm.",
+		"ctl.stop$vendor.",
+		"init.svc.odm.",
+		"init.svc.vendor.",
+		"ro.boot.",
+		"ro.hardware.",
+		"ro.odm.",
+		"ro.vendor.",
+		"odm.",
+		"persist.odm.",
+		"persist.vendor.",
+		"vendor.",
+	}
+
+	// persist.camera is also allowed for devices launching with R or eariler
+	if shippingApiLevel.LessThanOrEqualTo(ApiLevelR) {
+		allowedPropertyPrefixes = append(allowedPropertyPrefixes, "persist.camera.")
+	}
+
+	var allowedContextPrefixes []string
+
+	if shippingApiLevel.GreaterThanOrEqualTo(ApiLevelR) {
+		// This list is from vts_treble_sys_prop_test.
+		allowedContextPrefixes = []string{
+			"vendor_",
+			"odm_",
+		}
+	}
+
+	var ret android.Paths
+	for _, input := range inputs {
+		cmd := rule.Command().
+			BuiltTool("check_prop_prefix").
+			FlagWithInput("--property-contexts ", input).
+			FlagForEachArg("--allowed-property-prefix ", proptools.ShellEscapeList(allowedPropertyPrefixes)). // contains shell special character '$'
+			FlagForEachArg("--allowed-context-prefix ", allowedContextPrefixes)
+
+		if !ctx.DeviceConfig().BuildBrokenVendorPropertyNamespace() {
+			cmd.Flag("--strict")
+		}
+
+		out := android.PathForModuleGen(ctx, "namespace_checked").Join(ctx, input.String())
+		rule.Command().Text("cp -f").Input(input).Output(out)
+		ret = append(ret, out)
+	}
+	rule.Build("check_namespace", "checking namespace of "+ctx.ModuleName())
+	return ret
+}
+
 func (m *selinuxContextsModule) buildPropertyContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
+	// vendor/odm properties are enforced for devices launching with Android Q or later. So, if
+	// vendor/odm, make sure that only vendor/odm properties exist.
+	shippingApiLevel := ctx.DeviceConfig().ShippingApiLevel()
+	ApiLevelQ := android.ApiLevelOrPanic(ctx, "Q")
+	if (ctx.SocSpecific() || ctx.DeviceSpecific()) && shippingApiLevel.GreaterThanOrEqualTo(ApiLevelQ) {
+		inputs = m.checkVendorPropertyNamespace(ctx, inputs)
+	}
+
 	builtCtxFile := m.buildGeneralContexts(ctx, inputs)
 
 	var apiFiles android.Paths
