@@ -231,6 +231,7 @@ persist.device_config.runtime_native_boot.          u:object_r:device_config_run
 persist.device_config.statsd_native.                u:object_r:device_config_statsd_native_prop:s0
 persist.device_config.statsd_native_boot.           u:object_r:device_config_statsd_native_boot_prop:s0
 persist.device_config.storage_native_boot.          u:object_r:device_config_storage_native_boot_prop:s0
+persist.device_config.swcodec_native.               u:object_r:device_config_swcodec_native_prop:s0
 persist.device_config.window_manager_native_boot.   u:object_r:device_config_window_manager_native_boot_prop:s0
 
 # Properties that relate to legacy server configurable flags
@@ -264,6 +265,9 @@ ro.virtual_ab.compression.enabled  u:object_r:virtual_ab_prop:s0 exact bool
 ro.product.ab_ota_partitions u:object_r:ota_prop:s0 exact string
 # Property to set/clear the warm reset flag after an OTA update.
 ota.warm_reset  u:object_r:ota_prop:s0
+# The vbmeta digest for the inactive slot. It can be set after installing
+# ota updates to the b partition of a/b devices.
+ota.other.vbmeta_digest  u:object_r:ota_prop:s0 exact string
 
 # Module properties
 com.android.sdkext.                  u:object_r:module_sdkextensions_prop:s0

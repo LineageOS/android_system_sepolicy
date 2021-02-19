@@ -35,3 +35,9 @@ add_hwservice(wificond, system_wifi_keystore_hwservice)
 # Allow keystore binder access to serve the HwBinder service.
 allow wificond keystore_service:service_manager find;
 allow wificond keystore:keystore_key get;
+
+# Allow keystore2 binder access to serve the HwBinder service.
+allow wificond wifi_key:keystore2_key {
+    get_info
+    use
+};
