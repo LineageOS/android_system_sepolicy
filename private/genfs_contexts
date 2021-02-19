@@ -228,13 +228,18 @@ genfscon tracefs /options/record-tgid                                    u:objec
 genfscon tracefs /saved_cmdlines_size                                    u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/sched/sched_switch/                             u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/sched/sched_wakeup/                             u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/sched/sched_wakeup_new/                         u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/sched/sched_waking/                             u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/sched/sched_blocked_reason/                     u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/sched/sched_cpu_hotplug/                        u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/sched/sched_process_exit/                       u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/sched/sched_process_free/                       u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/sched/sched_pi_setprio/                         u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/cgroup/                                         u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/power/cpu_frequency/                            u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/power/cpu_idle/                                 u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/power/clock_enable/                             u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/power/clock_disable/                            u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/power/clock_set_rate/                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/power/cpu_frequency_limits/                     u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/power/gpu_frequency/                            u:object_r:debugfs_tracing:s0
@@ -250,6 +255,7 @@ genfscon tracefs /events/binder/binder_lock/                             u:objec
 genfscon tracefs /events/binder/binder_locked/                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/binder/binder_unlock/                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/binder/binder_transaction_alloc_buf/            u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/binder/binder_set_priority/                     u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/lowmemorykiller/                                u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/sync/                                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/fence/                                          u:object_r:debugfs_tracing:s0
@@ -262,6 +268,7 @@ genfscon tracefs /events/kmem/ion_heap_shrink/                           u:objec
 genfscon tracefs /events/ion/ion_stat/                                   u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/mm_event/mm_event_record/                       u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/oom/oom_score_adj_update/                       u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/oom/mark_victim/                                u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/task/task_rename/                               u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/task/task_newtask/                              u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/ftrace/print/                                   u:object_r:debugfs_tracing:s0
@@ -272,6 +279,9 @@ genfscon tracefs /events/cpuhp/cpuhp_enter/                              u:objec
 genfscon tracefs /events/cpuhp/cpuhp_exit/                               u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/ipi/                                            u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/irq/                                            u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/clk/clk_enable/                                 u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/clk/clk_disable/                                u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/clk/clk_set_rate/                               u:object_r:debugfs_tracing:s0
 
 genfscon debugfs /tracing/trace_clock                                            u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/buffer_size_kb                                         u:object_r:debugfs_tracing:s0
@@ -281,12 +291,18 @@ genfscon debugfs /tracing/options/record-tgid                                   
 genfscon debugfs /tracing/saved_cmdlines_size                                    u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/sched/sched_switch/                             u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/sched/sched_wakeup/                             u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/sched/sched_wakeup_new/                         u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/sched/sched_waking/                             u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/sched/sched_blocked_reason/                     u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/sched/sched_cpu_hotplug/                        u:object_r:debugfs_tracing:s0
-genfscon debugfs /tracing/events/sched/sched_process_exit/                               u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/sched/sched_process_exit/                       u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/sched/sched_process_free/                       u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/sched/sched_pi_setprio/                         u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/cgroup/                                         u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/power/cpu_frequency/                            u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/power/cpu_idle/                                 u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/power/clock_enable/                             u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/power/clock_disable/                            u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/power/clock_set_rate/                           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/power/cpu_frequency_limits/                     u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/power/gpu_frequency/                            u:object_r:debugfs_tracing:s0
@@ -301,7 +317,8 @@ genfscon debugfs /tracing/events/binder/binder_transaction_received/            
 genfscon debugfs /tracing/events/binder/binder_lock/                             u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/binder/binder_locked/                           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/binder/binder_unlock/                           u:object_r:debugfs_tracing:s0
-genfscon debugfs /tracing/events/binder/binder_transaction_alloc_buf/                    u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/binder/binder_transaction_alloc_buf/            u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/binder/binder_set_priority/                     u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/lowmemorykiller/                                u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/sync/                                           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/fence/                                          u:object_r:debugfs_tracing:s0
@@ -314,6 +331,7 @@ genfscon debugfs /tracing/events/kmem/ion_heap_shrink/                          
 genfscon debugfs /tracing/events/ion/ion_stat/                                           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/mm_event/mm_event_record/                               u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/oom/oom_score_adj_update/                               u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/oom/mark_victim/                                        u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/task/task_rename/                                       u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/task/task_newtask/                                      u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/ftrace/print/                                   u:object_r:debugfs_tracing:s0
@@ -324,6 +342,9 @@ genfscon debugfs /tracing/events/cpuhp/cpuhp_enter/                             
 genfscon debugfs /tracing/events/cpuhp/cpuhp_exit/                               u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/ipi/                                            u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/irq/                                            u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/clk/clk_enable/                                 u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/clk/clk_disable/                                u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/clk/clk_set_rate/                               u:object_r:debugfs_tracing:s0
 
 genfscon debugfs /kcov								 u:object_r:debugfs_kcov:s0
 
