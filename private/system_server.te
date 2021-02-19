@@ -676,6 +676,7 @@ set_prop(system_server, device_config_profcollect_native_boot_prop)
 set_prop(system_server, device_config_statsd_native_prop)
 set_prop(system_server, device_config_statsd_native_boot_prop)
 set_prop(system_server, device_config_storage_native_boot_prop)
+set_prop(system_server, device_config_swcodec_native_prop)
 set_prop(system_server, device_config_sys_traced_prop)
 set_prop(system_server, device_config_window_manager_native_boot_prop)
 set_prop(system_server, device_config_configuration_prop)
@@ -1148,6 +1149,7 @@ neverallow {
   device_config_media_native_prop
   device_config_storage_native_boot_prop
   device_config_sys_traced_prop
+  device_config_swcodec_native_prop
   device_config_window_manager_native_boot_prop
 }:property_service set;
 
@@ -1222,6 +1224,8 @@ allow system_server vendor_apex_file:file r_file_perms;
 allow system_server apex_module_data_file:dir { getattr search };
 allow system_server apex_permission_data_file:dir create_dir_perms;
 allow system_server apex_permission_data_file:file create_file_perms;
+allow system_server apex_scheduling_data_file:dir create_dir_perms;
+allow system_server apex_scheduling_data_file:file create_file_perms;
 allow system_server apex_wifi_data_file:dir create_dir_perms;
 allow system_server apex_wifi_data_file:file create_file_perms;
 
@@ -1328,3 +1332,6 @@ neverallowxperm { domain -system_server } binder_device:chr_file ioctl { BINDER_
 # Only system server can write the font files.
 neverallow { domain -init -system_server } font_data_file:file no_w_file_perms;
 neverallow { domain -init -system_server } font_data_file:dir no_w_dir_perms;
+
+# Read qemu.hw.mainkeys property
+get_prop(system_server, qemu_hw_prop)

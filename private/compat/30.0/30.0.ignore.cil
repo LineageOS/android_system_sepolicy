@@ -11,6 +11,7 @@
     apex_art_data_file
     apex_art_staging_data_file
     apex_info_file
+    apex_scheduling_data_file
     app_hibernation_service
     appcompat_data_file
     arm64_memtag_prop
@@ -22,6 +23,7 @@
     debugfs_mm_events_tracing
     device_config_profcollect_native_boot_prop
     device_config_connectivity_prop
+    device_config_swcodec_native_prop
     device_state_service
     dm_user_device
     dmabuf_heap_device
@@ -81,6 +83,7 @@
     profcollectd_data_file
     profcollectd_exec
     profcollectd_service
+    qemu_hw_prop
     radio_core_data_file
     reboot_readiness_service
     remote_prov_app
