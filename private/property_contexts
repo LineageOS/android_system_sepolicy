@@ -186,6 +186,9 @@ ro.config.              u:object_r:config_prop:s0
 dalvik.                 u:object_r:dalvik_prop:s0
 ro.dalvik.              u:object_r:dalvik_prop:s0
 
+# qemu_hw_prop is read/written by both system and vendor.
+qemu.hw.mainkeys        u:object_r:qemu_hw_prop:s0
+
 # Shared between system server and wificond
 wifi.                   u:object_r:wifi_prop:s0
 wlan.                   u:object_r:wifi_prop:s0
@@ -990,6 +993,7 @@ ro.surface_flinger.color_space_agnostic_dataspace         u:object_r:surfaceflin
 ro.surface_flinger.refresh_rate_switching                 u:object_r:surfaceflinger_prop:s0 exact bool
 ro.surface_flinger.update_device_product_info_on_hotplug_reconnect u:object_r:surfaceflinger_prop:s0 exact bool
 ro.surface_flinger.enable_frame_rate_override             u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.enable_layer_caching                   u:object_r:surfaceflinger_prop:s0 exact bool
 
 ro.sf.disable_triple_buffer u:object_r:surfaceflinger_prop:s0 exact bool
 ro.sf.lcd_density           u:object_r:surfaceflinger_prop:s0 exact int

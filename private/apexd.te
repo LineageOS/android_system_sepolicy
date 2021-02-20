@@ -22,6 +22,8 @@ allow apexd apex_module_data_file:dir { create_dir_perms relabelfrom };
 allow apexd apex_module_data_file:file { create_file_perms relabelfrom };
 allow apexd apex_rollback_data_file:dir create_dir_perms;
 allow apexd apex_rollback_data_file:file create_file_perms;
+allow apexd apex_scheduling_data_file:dir { create_dir_perms relabelto };
+allow apexd apex_scheduling_data_file:file { create_file_perms relabelto };
 allow apexd apex_wifi_data_file:dir { create_dir_perms relabelto };
 allow apexd apex_wifi_data_file:file { create_file_perms relabelto };
 

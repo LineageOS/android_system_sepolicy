@@ -11,6 +11,7 @@
     apex_art_data_file
     apex_art_staging_data_file
     apex_info_file
+    apex_scheduling_data_file
     app_hibernation_service
     appcompat_data_file
     arm64_memtag_prop
@@ -82,6 +83,7 @@
     profcollectd_data_file
     profcollectd_exec
     profcollectd_service
+    qemu_hw_prop
     radio_core_data_file
     reboot_readiness_service
     remote_prov_app
@@ -105,6 +107,8 @@
     texttospeech_service
     transformer_service
     update_engine_stable_service
+    userdata_sysdev
+    usermanager_service
     userspace_reboot_metadata_file
     vcn_management_service
     vibrator_manager_service

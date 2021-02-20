@@ -600,6 +600,9 @@ allow init system_bootstrap_lib_file:file { execute read open getattr map };
 # stat the root dir of fuse filesystems (for the mount handler)
 allow init fuse:dir { search getattr };
 
+# allow filesystem tuning
+allow init userdata_sysdev:file create_file_perms;
+
 ###
 ### neverallow rules
 ###

@@ -173,6 +173,7 @@
 /dev/socket/usap_pool_primary	u:object_r:zygote_socket:s0
 /dev/socket/usap_pool_secondary	u:object_r:zygote_socket:s0
 /dev/spdif_out.*	u:object_r:audio_device:s0
+/dev/sys/fs/by-name/userdata(/.*)?	u:object_r:userdata_sysdev:s0
 /dev/tty		u:object_r:owntty_device:s0
 /dev/tty[0-9]*		u:object_r:tty_device:s0
 /dev/ttyS[0-9]*		u:object_r:serial_device:s0
@@ -561,6 +562,7 @@
 /data/misc/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
 /data/misc/apexdata/com\.android\.art(/.*)?    u:object_r:apex_art_data_file:s0
 /data/misc/apexdata/com\.android\.permission(/.*)?    u:object_r:apex_permission_data_file:s0
+/data/misc/apexdata/com\.android\.scheduling(/.*)?    u:object_r:apex_scheduling_data_file:s0
 /data/misc/apexdata/com\.android\.wifi(/.*)?    u:object_r:apex_wifi_data_file:s0
 /data/misc/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
 /data/misc/apns(/.*)?           u:object_r:radio_data_file:s0
