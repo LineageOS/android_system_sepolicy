@@ -20,6 +20,7 @@ allow vold_prepare_subdirs {
     apex_module_data_file
     apex_permission_data_file
     apex_rollback_data_file
+    apex_scheduling_data_file
     apex_wifi_data_file
     backup_data_file
     face_vendor_data_file
@@ -36,6 +37,7 @@ allow vold_prepare_subdirs {
     apex_module_data_file
     apex_permission_data_file
     apex_rollback_data_file
+    apex_scheduling_data_file
     apex_wifi_data_file
     backup_data_file
     face_vendor_data_file
