@@ -830,6 +830,7 @@ allow system_server stats_service:service_manager find;
 allow system_server storaged_service:service_manager find;
 allow system_server surfaceflinger_service:service_manager find;
 allow system_server update_engine_service:service_manager find;
+allow system_server usermanager_service:service_manager find;
 allow system_server vold_service:service_manager find;
 allow system_server wifinl80211_service:service_manager find;
 userdebug_or_eng(`
@@ -861,7 +862,10 @@ allow system_server keystore:keystore_key {
 
 allow system_server keystore:keystore2 {
 	add_auth
+	change_password
+	change_user
 	clear_ns
+	clear_uid
 	get_state
 	lock
 	reset
@@ -1224,6 +1228,8 @@ allow system_server vendor_apex_file:file r_file_perms;
 allow system_server apex_module_data_file:dir { getattr search };
 allow system_server apex_permission_data_file:dir create_dir_perms;
 allow system_server apex_permission_data_file:file create_file_perms;
+allow system_server apex_scheduling_data_file:dir create_dir_perms;
+allow system_server apex_scheduling_data_file:file create_file_perms;
 allow system_server apex_wifi_data_file:dir create_dir_perms;
 allow system_server apex_wifi_data_file:file create_file_perms;
 
@@ -1330,3 +1336,6 @@ neverallowxperm { domain -system_server } binder_device:chr_file ioctl { BINDER_
 # Only system server can write the font files.
 neverallow { domain -init -system_server } font_data_file:file no_w_file_perms;
 neverallow { domain -init -system_server } font_data_file:dir no_w_dir_perms;
+
+# Read qemu.hw.mainkeys property
+get_prop(system_server, qemu_hw_prop)

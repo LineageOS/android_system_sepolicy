@@ -29,6 +29,10 @@ allow dexoptanalyzer apex_art_data_file:file r_file_perms;
 # Allow dexoptanalyzer to use file descriptors from odrefresh.
 allow dexoptanalyzer odrefresh:fd use;
 
+# Use devpts and fd from odsign (which exec()'s odrefresh)
+allow dexoptanalyzer odsign:fd use;
+allow dexoptanalyzer odsign_devpts:chr_file { read write };
+
 allow dexoptanalyzer installd:fd use;
 allow dexoptanalyzer installd:fifo_file { getattr write };
 

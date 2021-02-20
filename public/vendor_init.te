@@ -197,6 +197,9 @@ allow vendor_init misc_block_device:blk_file w_file_perms;
 allow vendor_init system_bootstrap_lib_file:dir r_dir_perms;
 allow vendor_init system_bootstrap_lib_file:file { execute read open getattr map };
 
+# allow filesystem tuning
+allow vendor_init userdata_sysdev:file create_file_perms;
+
 # Everything is labeled as rootfs in recovery mode. Vendor init has to execute
 # the dynamic linker and shared libraries.
 recovery_only(`
@@ -235,6 +238,7 @@ set_prop(vendor_init, lmkd_prop)
 set_prop(vendor_init, logd_prop)
 set_prop(vendor_init, log_tag_prop)
 set_prop(vendor_init, log_prop)
+set_prop(vendor_init, qemu_hw_prop)
 set_prop(vendor_init, radio_control_prop)
 set_prop(vendor_init, rebootescrow_hal_prop)
 set_prop(vendor_init, serialno_prop)
