@@ -24,3 +24,8 @@ binder_call(update_engine, gki_apex_prepostinstall)
 # Allow to communicate with the snapuserd service, for dm-user snapshots.
 allow update_engine snapuserd:unix_stream_socket connectto;
 allow update_engine snapuserd_socket:sock_file write;
+
+# Allow to communicate with apexd for calculating and reserving space for
+# capex decompression
+allow update_engine apex_service:service_manager find;
+binder_call(update_engine, apexd)
