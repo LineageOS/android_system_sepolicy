@@ -58,6 +58,9 @@ set_prop(surfaceflinger, exported3_system_prop)
 set_prop(surfaceflinger, ctl_bootanim_prop)
 set_prop(surfaceflinger, surfaceflinger_display_prop)
 
+# Get properties.
+get_prop(surfaceflinger, qemu_sf_lcd_density_prop)
+
 # Use open files supplied by an app.
 allow surfaceflinger appdomain:fd use;
 allow surfaceflinger { app_data_file privapp_data_file }:file { read write };
