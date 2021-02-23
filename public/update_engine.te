@@ -29,6 +29,14 @@ allow update_engine update_engine_data_file:file create_file_perms;
 allow update_engine update_engine_log_data_file:dir create_dir_perms;
 allow update_engine update_engine_log_data_file:file create_file_perms;
 
+# TODO(b/172911822): remove these access when we have transferred
+# reservation responsibility to apexd
+
+# Allow reserving space on /data/apex/ota_reserved for apex decompression
+allow update_engine apex_ota_reserved_file:dir create_dir_perms;
+allow update_engine apex_ota_reserved_file:file create_file_perms;
+allow update_engine apex_data_file:dir search;
+
 # Don't allow kernel module loading, just silence the logs.
 dontaudit update_engine kernel:system module_request;
 
