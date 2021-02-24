@@ -350,6 +350,7 @@ userdebug_or_eng(`
 
 allow init {
   proc # b/67049235 processes /proc/<pid>/* files are mislabeled.
+  proc_bootconfig
   proc_cmdline
   proc_diskstats
   proc_kmsg # Open /proc/kmsg for logd service.
@@ -383,6 +384,7 @@ allow init {
 # init chmod/chown access to /proc files.
 allow init {
   proc_cmdline
+  proc_bootconfig
   proc_kmsg
   proc_net
   proc_pagetypeinfo
