@@ -189,6 +189,9 @@ ro.dalvik.              u:object_r:dalvik_prop:s0
 # qemu_hw_prop is read/written by both system and vendor.
 qemu.hw.mainkeys        u:object_r:qemu_hw_prop:s0
 
+# qemu_sf_lcd_density_prop is read/written by both system and vendor.
+qemu.sf.lcd_density     u:object_r:qemu_sf_lcd_density_prop:s0 exact int
+
 # Shared between system server and wificond
 wifi.                   u:object_r:wifi_prop:s0
 wlan.                   u:object_r:wifi_prop:s0
