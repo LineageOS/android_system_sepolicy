@@ -94,6 +94,9 @@ binder_call(shell, lpdumpd)
 # userspace reboot
 set_prop(shell, userspace_reboot_test_prop)
 
+# Allow shell to set this property used for rollback tests
+set_prop(shell, rollback_test_prop)
+
 # Allow shell to get encryption policy of /data/local/tmp/, for CTS
 allowxperm shell shell_data_file:dir ioctl {
   FS_IOC_GET_ENCRYPTION_POLICY
