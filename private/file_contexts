@@ -173,6 +173,7 @@
 /dev/socket/usap_pool_primary	u:object_r:zygote_socket:s0
 /dev/socket/usap_pool_secondary	u:object_r:zygote_socket:s0
 /dev/spdif_out.*	u:object_r:audio_device:s0
+/dev/sys/block/by-name/userdata(/.*)?	u:object_r:userdata_sysdev:s0
 /dev/sys/fs/by-name/userdata(/.*)?	u:object_r:userdata_sysdev:s0
 /dev/tty		u:object_r:owntty_device:s0
 /dev/tty[0-9]*		u:object_r:tty_device:s0
@@ -521,6 +522,7 @@
 /data/apex/active/(.*)?		u:object_r:staging_data_file:s0
 /data/apex/backup/(.*)?		u:object_r:staging_data_file:s0
 /data/apex/decompressed/(.*)?    u:object_r:staging_data_file:s0
+/data/apex/ota_reserved(/.*)?       u:object_r:apex_ota_reserved_file:s0
 /data/app(/.*)?                       u:object_r:apk_data_file:s0
 # Traditional /data/app/[packageName]-[randomString]/base.apk location
 /data/app/[^/]+/oat(/.*)?                u:object_r:dalvikcache_data_file:s0
