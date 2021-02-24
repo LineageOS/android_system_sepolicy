@@ -213,6 +213,9 @@ get_prop(zygote, media_variant_prop)
 # Allow zygote to read ro.control_privapp_permissions and ro.cp_system_other_odex
 get_prop(zygote, packagemanager_config_prop)
 
+# Allow zygote to read qemu.sf.lcd_density
+get_prop(zygote, qemu_sf_lcd_density_prop)
+
 # Allow zygote to read /apex/apex-info-list.xml
 allow zygote apex_info_file:file r_file_perms;
 
