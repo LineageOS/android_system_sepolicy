@@ -23,6 +23,7 @@ r_dir_file(vold, rootfs)
 r_dir_file(vold, metadata_file)
 allow vold {
   proc # b/67049235 processes /proc/<pid>/* files are mislabeled.
+  proc_bootconfig
   proc_cmdline
   proc_drop_caches
   proc_filesystems
