@@ -1,11 +1,10 @@
-type system_suspend, domain, coredomain, system_suspend_server;
+type system_suspend, domain, coredomain, system_suspend_server, system_suspend_internal_server;
 
 type system_suspend_exec, system_file_type, exec_type, file_type;
 init_daemon_domain(system_suspend)
 
-# To serve ISuspendControlService and ISuspendControlServiceInternal.
+# To serve ISuspendControlService.
 binder_use(system_suspend)
-add_service(system_suspend, system_suspend_control_internal_service)
 add_service(system_suspend, system_suspend_control_service)
 
 # Access to /sys/power/{ wakeup_count, state } suspend interface.
@@ -27,15 +26,6 @@ allow system_suspend bluetooth:binder call;
 # For adding `dumpsys syspend_control` output to bugreport
 allow system_suspend dumpstate:fd use;
 allow system_suspend dumpstate:fifo_file write;
-
-neverallow {
-    domain
-    -atrace # tracing
-    -dumpstate # bug reports
-    -system_suspend # implements system_suspend_control_internal_service
-    -system_server # configures system_suspend via ISuspendControlServiceInternal
-    -traceur_app # tracing
-} system_suspend_control_internal_service:service_manager find;
 
 neverallow {
     domain
