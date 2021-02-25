@@ -183,3 +183,6 @@ set_prop(shell, arm64_memtag_prop)
 
 # Allow shell to read the dm-verity props on user builds.
 get_prop(shell, verity_status_prop)
+
+# Allow shell to read Virtual A/B related properties
+get_prop(shell, virtual_ab_prop)
