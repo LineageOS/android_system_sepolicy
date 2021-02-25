@@ -3,6 +3,7 @@ genfscon rootfs / u:object_r:rootfs:s0
 # proc labeling can be further refined (longest matching prefix).
 genfscon proc / u:object_r:proc:s0
 genfscon proc /asound u:object_r:proc_asound:s0
+genfscon proc /bootconfig u:object_r:proc_bootconfig:s0
 genfscon proc /buddyinfo u:object_r:proc_buddyinfo:s0
 genfscon proc /cmdline u:object_r:proc_cmdline:s0
 genfscon proc /config.gz u:object_r:config_gz:s0
