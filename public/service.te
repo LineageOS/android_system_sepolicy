@@ -42,6 +42,7 @@ type update_engine_stable_service, service_manager_type;
 type usermanager_service,       service_manager_type;
 type virtual_touchpad_service,  service_manager_type;
 type vold_service,              service_manager_type;
+type vpnprofilestore_service,   service_manager_type;
 type vr_hwc_service,            service_manager_type;
 type vrflinger_vsync_service,   service_manager_type;
 
