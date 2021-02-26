@@ -376,6 +376,7 @@ attribute display_service_server;
 attribute scheduler_service_server;
 attribute sensor_service_server;
 attribute stats_service_server;
+attribute system_suspend_internal_server;
 attribute system_suspend_server;
 attribute wifi_keystore_service_server;
 
