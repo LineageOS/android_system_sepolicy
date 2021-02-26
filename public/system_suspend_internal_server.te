@@ -1,0 +1,11 @@
+# To serve ISuspendControlServiceInternal.
+add_service(system_suspend_internal_server, system_suspend_control_internal_service)
+
+neverallow {
+    domain
+    -atrace # tracing
+    -dumpstate # bug reports
+    -system_suspend_internal_server # implements system_suspend_control_internal_service
+    -system_server # configures system_suspend via ISuspendControlServiceInternal
+    -traceur_app # tracing
+} system_suspend_control_internal_service:service_manager find;
