@@ -58,6 +58,10 @@ dontaudit gmscore_app { wifi_prop wifi_hal_prop }:file r_file_perms;
 dontaudit gmscore_app mirror_data_file:dir search;
 dontaudit gmscore_app mnt_vendor_file:dir search;
 
+# Don't audit memtrack hal denials (b/177664629)
+dontaudit gmscore_app hal_memtrack_hwservice:hwservice_manager find;
+dontaudit gmscore_app hal_memtrack_service:service_manager find;
+
 # Access the network
 net_domain(gmscore_app)
 
