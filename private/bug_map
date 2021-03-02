@@ -23,6 +23,7 @@ netd priv_app unix_stream_socket b/77870037
 netd untrusted_app unix_stream_socket b/77870037
 netd untrusted_app_25 unix_stream_socket b/77870037
 netd untrusted_app_27 unix_stream_socket b/77870037
+netd untrusted_app_29 unix_stream_socket b/77870037
 platform_app nfc_data_file dir b/74331887
 system_server crash_dump process b/73128755
 system_server overlayfs_file file b/142390309
