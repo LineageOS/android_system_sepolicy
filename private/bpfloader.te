@@ -11,7 +11,7 @@ allow fs_bpf_tethering fs_bpf:filesystem associate;
 # Allow bpfloader to create bpf maps and programs.
 allow bpfloader self:bpf { map_create map_read map_write prog_load prog_run };
 
-allow bpfloader self:capability { chown sys_admin };
+allow bpfloader self:capability { chown sys_admin net_admin };
 
 set_prop(bpfloader, bpf_progs_loaded_prop)
 
