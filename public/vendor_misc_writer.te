@@ -12,3 +12,4 @@ dontaudit vendor_misc_writer gsi_metadata_file:dir search;
 dontaudit vendor_misc_writer proc_cmdline:file r_file_perms;
 dontaudit vendor_misc_writer metadata_file:dir search;
 dontaudit vendor_misc_writer sysfs_dt_firmware_android:dir search;
+dontaudit vendor_misc_writer proc_bootconfig:file r_file_perms;
