@@ -18,6 +18,9 @@ userdebug_or_eng(`
   # Allow profcollectd to read executable binaries.
   allow profcollectd system_file_type:file r_file_perms;
   allow profcollectd vendor_file_type:file r_file_perms;
+
+  # Allow profcollectd to read system bootstrap libs.
+  allow profcollectd system_bootstrap_lib_file:dir search;
   allow profcollectd system_bootstrap_lib_file:file r_file_perms;
 
   # Allow profcollectd to access tracefs.
