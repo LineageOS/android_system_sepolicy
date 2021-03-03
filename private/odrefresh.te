@@ -5,7 +5,7 @@ type odrefresh_exec, system_file_type, exec_type, file_type;
 # Allow odrefresh to create files and directories for on device signing.
 allow odrefresh apex_module_data_file:dir { getattr search };
 allow odrefresh apex_art_data_file:dir { create_dir_perms relabelfrom };
-allow odrefresh apex_art_data_file:file { open create write read getattr unlink };
+allow odrefresh apex_art_data_file:file create_file_perms;
 
 # Staging area labels (/data/misc/apexdata/com.android.art/staging). odrefresh
 # sets up files here and passes file descriptors for dex2oat to write to.
