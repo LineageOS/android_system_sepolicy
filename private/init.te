@@ -83,6 +83,3 @@ neverallow { -init } property_service_version_prop:property_service set;
 
 # Only init can set keystore.boot_level
 neverallow { -init } keystore_listen_prop:property_service set;
-
-# Allow accessing /sys/kernel/tracing/instances/bootreceiver to set up tracing.
-allow init debugfs_bootreceiver_tracing:file w_file_perms;
