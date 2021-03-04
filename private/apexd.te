@@ -13,6 +13,10 @@ allow apexd metadata_file:dir search;
 allow apexd apex_metadata_file:dir create_dir_perms;
 allow apexd apex_metadata_file:file create_file_perms;
 
+# Allow reserving space on /data/apex/ota_reserved for apex decompression
+allow apexd apex_ota_reserved_file:dir create_dir_perms;
+allow apexd apex_ota_reserved_file:file create_file_perms;
+
 # Allow apexd to create files and directories for snapshots of apex data
 allow apexd apex_art_data_file:dir { create_dir_perms relabelto };
 allow apexd apex_art_data_file:file { create_file_perms relabelto };
