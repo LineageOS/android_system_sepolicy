@@ -697,11 +697,17 @@ genrule {
         ":microdroid_pub_policy.cil_gen",
         ":microdroid_reqd_policy_mask.cil_gen",
     ],
-    tools: ["m4", "build_sepolicy"],
+    tools: [
+        "m4",
+        "build_sepolicy",
+        "checkpolicy",
+        "secilc",
+        "version_policy",
+    ],
     out: ["vendor_sepolicy.cil"],
     cmd: policy_to_conf_flags + " -s $(locations :microdroid_vendor_sepolicy_build_files) > $(out).conf && " +
         "$(location build_sepolicy) " +
-        "--android_host_path out/host/linux-x86/bin " +
+        "--android_host_path $$(dirname $(location build_sepolicy)) " +
         "build_cil " +
         "--input_policy_conf $(out).conf " +
         "--checkpolicy_env ASAN_OPTIONS=detect_leaks=0 " +
