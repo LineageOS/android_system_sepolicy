@@ -1021,6 +1021,10 @@ allow system_server debugfs_tracing_instances:dir search;
 allow system_server debugfs_wifi_tracing:dir search;
 allow system_server debugfs_wifi_tracing:file rw_file_perms;
 
+# Allow BootReceiver to watch trace error_report events.
+allow system_server debugfs_bootreceiver_tracing:dir search;
+allow system_server debugfs_bootreceiver_tracing:file r_file_perms;
+
 # Allow system_server to read tracepoint ids in order to attach BPF programs to them.
 allow system_server debugfs_tracing:file r_file_perms;
 
