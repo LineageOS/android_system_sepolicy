@@ -21,6 +21,7 @@ system_internal_prop(localization_prop)
 system_internal_prop(lower_kptr_restrict_prop)
 system_internal_prop(netd_stable_secret_prop)
 system_internal_prop(pm_prop)
+system_internal_prop(rollback_test_prop)
 system_internal_prop(setupwizard_prop)
 system_internal_prop(system_adbd_prop)
 system_internal_prop(suspend_prop)
@@ -556,3 +557,9 @@ neverallow {
 # Only one of system_property_type and vendor_property_type can be assigned.
 # Property types having both attributes won't be accessible from anywhere.
 neverallow domain system_and_vendor_property_type:{file property_service} *;
+
+neverallow {
+  # Only allow init and shell to set rollback_test_prop
+  -init
+  -shell
+} rollback_test_prop:property_service set;
