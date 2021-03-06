@@ -634,3 +634,104 @@ prebuilt_etc {
     relative_install_path: "selinux/mapping",
     installable: false,
 }
+
+///////////////////////////////////////////////////////////////////
+genrule {
+    name: "microdroid_pub_policy.cil_gen",
+    srcs: [
+        ":microdroid_sepolicy_public_and_reqd_mask_build_files",
+        ":microdroid_reqd_policy_mask.cil_gen",
+    ],
+    tools: ["m4", "checkpolicy", "build_sepolicy"],
+    out: ["pub_policy.cil"],
+    cmd: policy_to_conf_flags + " -s $(locations :microdroid_sepolicy_public_and_reqd_mask_build_files) > $(out).conf && " +
+        "$(location checkpolicy) -C -M -c 30 -o $(out) $(out).conf && " +
+        "$(location build_sepolicy) filter_out -f $(location :microdroid_reqd_policy_mask.cil_gen) -t $(out)",
+    visibility: ["//visibility:private"],
+}
+
+genrule {
+    name: "microdroid_plat_pub_versioned.cil_gen",
+    srcs: [":microdroid_pub_policy.cil_gen"],
+    tools: ["version_policy"],
+    out: ["plat_pub_versioned.cil"],
+    cmd: "$(location version_policy) " +
+        "-b $(location :microdroid_pub_policy.cil_gen) " +
+        "-t $(location :microdroid_pub_policy.cil_gen) " +
+        "-n 10000.0 " +
+        "-o $(out)",
+    visibility: ["//visibility:private"],
+}
+
+filegroup {
+    name: "microdroid_vendor_sepolicy_build_files",
+    srcs: [
+        "reqd_mask/security_classes",
+        "reqd_mask/initial_sids",
+        "reqd_mask/access_vectors",
+        "public/global_macros",
+        "public/neverallow_macros",
+        "reqd_mask/mls_macros",
+        "reqd_mask/mls_decl",
+        "reqd_mask/mls",
+        "public/te_macros",
+        "public/attributes",
+        "public/ioctl_defines",
+        "public/ioctl_macros",
+        "public/*.te",
+        "reqd_mask/*.te",
+        "vendor/*.te",
+        "reqd_mask/roles_decl",
+        "public/roles",
+        "reqd_mask/roles",
+        "reqd_mask/users",
+        "reqd_mask/initial_sid_contexts",
+    ],
+}
+
+genrule {
+    name: "microdroid_vendor_sepolicy.cil_gen",
+    srcs: [
+        ":microdroid_vendor_sepolicy_build_files",
+        ":microdroid_plat_pub_versioned.cil_gen",
+        ":microdroid_pub_policy.cil_gen",
+        ":microdroid_reqd_policy_mask.cil_gen",
+    ],
+    tools: [
+        "m4",
+        "build_sepolicy",
+        "checkpolicy",
+        "secilc",
+        "version_policy",
+    ],
+    out: ["vendor_sepolicy.cil"],
+    cmd: policy_to_conf_flags + " -s $(locations :microdroid_vendor_sepolicy_build_files) > $(out).conf && " +
+        "$(location build_sepolicy) " +
+        "--android_host_path $$(dirname $(location build_sepolicy)) " +
+        "build_cil " +
+        "--input_policy_conf $(out).conf " +
+        "--checkpolicy_env ASAN_OPTIONS=detect_leaks=0 " +
+        "--base_policy $(location :microdroid_pub_policy.cil_gen) " +
+        "--filter_out_files $(location :microdroid_plat_pub_versioned.cil_gen) " +
+        "--reqd_mask $(location :microdroid_reqd_policy_mask.cil_gen) " +
+        "--treble_sepolicy_vers 10000.0 " +
+        "--policy_vers 30 " +
+        "--output_cil $(out)",
+    visibility: ["//visibility:private"],
+}
+
+prebuilt_etc {
+    name: "microdroid_vendor_sepolicy.cil",
+    src: ":microdroid_vendor_sepolicy.cil_gen",
+    filename: "vendor_sepolicy.cil",
+    relative_install_path: "selinux",
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "microdroid_plat_pub_versioned.cil",
+    src: ":microdroid_plat_pub_versioned.cil_gen",
+    filename: "plat_pub_versioned.cil",
+    relative_install_path: "selinux",
+    installable: false,
+}
