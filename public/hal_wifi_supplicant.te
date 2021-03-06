@@ -21,6 +21,7 @@ allow hal_wifi_supplicant self:packet_socket create_socket_perms;
 allowxperm hal_wifi_supplicant self:packet_socket ioctl { unpriv_sock_ioctls priv_sock_ioctls unpriv_tty_ioctls };
 
 use_keystore(hal_wifi_supplicant)
+binder_use(hal_wifi_supplicant_server)
 
 # Allow the WI-FI HAL to use keys in the keystore namespace wifi_key.
 allow hal_wifi_supplicant wifi_key:keystore2_key {
