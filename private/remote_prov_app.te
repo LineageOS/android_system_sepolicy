@@ -7,4 +7,5 @@ net_domain(remote_prov_app)
 allow remote_prov_app {
     activity_service
     remoteprovisioning_service
+    tethering_service
 }:service_manager find;
