@@ -17,6 +17,7 @@ allow dex2oat installd:fd use;
 
 # Acquire advisory lock on /system/framework/arm/*
 allow dex2oat system_file:file lock;
+allow dex2oat postinstall_file:file lock;
 
 # Read already open asec_apk_file file descriptors passed by installd.
 # Also allow reading unlabeled files, to allow for upgrading forward
