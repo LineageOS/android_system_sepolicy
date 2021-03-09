@@ -4,6 +4,9 @@ typeattribute remote_prov_app coredomain;
 app_domain(remote_prov_app)
 net_domain(remote_prov_app)
 
+# The app needs access to properly build a DeviceInfo package for the verifying server
+get_prop(remote_prov_app, vendor_security_patch_level_prop)
+
 allow remote_prov_app {
     activity_service
     remoteprovisioning_service
