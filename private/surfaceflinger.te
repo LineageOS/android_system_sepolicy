@@ -109,6 +109,7 @@ allow surfaceflinger tmpfs:dir r_dir_perms;
 allow surfaceflinger system_server:fd use;
 allow surfaceflinger system_server:unix_stream_socket { read write };
 allow surfaceflinger ion_device:chr_file r_file_perms;
+allow surfaceflinger dmabuf_system_heap_device:chr_file r_file_perms;
 
 # pdx IPC
 pdx_server(surfaceflinger, display_client)
