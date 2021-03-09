@@ -197,9 +197,11 @@ get_prop(zygote, device_config_window_manager_native_boot_prop)
 # undesirable, so suppress the denial.
 dontaudit zygote self:global_capability_class_set { sys_resource fsetid };
 
-# Ignore spurious denials calling access() on fuse
+# Ignore spurious denials calling access() on fuse.
+# Also ignore read and open as sdcardfs may read and open dir when app tries to access a dir that
+# doesn't exist.
 # TODO(b/151316657): avoid the denials
-dontaudit zygote media_rw_data_file:dir setattr;
+dontaudit zygote media_rw_data_file:dir  { read open setattr };
 
 # Allow zygote to use ashmem fds from system_server.
 allow zygote system_server:fd use;

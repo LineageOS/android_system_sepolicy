@@ -40,8 +40,9 @@ allow ueventd file_contexts_file:file r_file_perms;
 # Use setfscreatecon() to label /dev directories and files.
 allow ueventd self:process setfscreate;
 
-# Allow ueventd to read androidboot.android_dt_dir from kernel cmdline.
+# Allow ueventd to read androidboot.android_dt_dir from kernel cmdline or bootconfig.
 allow ueventd proc_cmdline:file r_file_perms;
+allow ueventd proc_bootconfig:file r_file_perms;
 
 # Everything is labeled as rootfs in recovery mode. ueventd has to execute
 # the dynamic linker and shared libraries.
