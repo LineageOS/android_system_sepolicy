@@ -16,6 +16,7 @@ allow hal_graphics_composer_server hal_graphics_mapper_hwservice:hwservice_manag
 # GPU device access
 allow hal_graphics_composer gpu_device:chr_file rw_file_perms;
 allow hal_graphics_composer ion_device:chr_file r_file_perms;
+allow hal_graphics_composer dmabuf_system_heap_device:chr_file r_file_perms;
 allow hal_graphics_composer hal_graphics_allocator:fd use;
 
 # Access /dev/graphics/fb0.
