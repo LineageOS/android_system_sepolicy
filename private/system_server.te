@@ -891,6 +891,15 @@ allow system_server wifi_key:keystore2_key {
 	use
 };
 
+# Allow lock_settings service to manage RoR keys.
+allow system_server resume_on_reboot_key:keystore2_key {
+	delete
+	get_info
+	rebind
+	update
+	use
+};
+
 # Allow system server to search and write to the persistent factory reset
 # protection partition. This block device does not get wiped in a factory reset.
 allow system_server block_device:dir search;

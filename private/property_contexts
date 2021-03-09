@@ -467,6 +467,7 @@ ro.dalvik.vm.native.bridge u:object_r:dalvik_config_prop:s0 exact string
 external_storage.projid.enabled   u:object_r:storage_config_prop:s0 exact bool
 external_storage.casefold.enabled u:object_r:storage_config_prop:s0 exact bool
 external_storage.sdcardfs.enabled u:object_r:storage_config_prop:s0 exact bool
+external_storage.cross_user.enabled u:object_r:storage_config_prop:s0 exact bool
 
 ro.config.per_app_memcg         u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.critical                 u:object_r:lmkd_config_prop:s0 exact int
