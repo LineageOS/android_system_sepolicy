@@ -37,6 +37,10 @@ allow otapreopt_chroot update_engine:fifo_file write;
 # Allow to transition to postinstall_dexopt, to run otapreopt in its own sandbox.
 domain_auto_trans(otapreopt_chroot, postinstall_file, postinstall_dexopt)
 
+# Allow otapreopt_chroot to control linkerconfig
+allow otapreopt_chroot linkerconfig_file:dir { create_dir_perms relabelto };
+allow otapreopt_chroot linkerconfig_file:file create_file_perms;
+
 # Allow otapreopt_chroot to create loop devices with /dev/loop-control.
 allow otapreopt_chroot loop_control_device:chr_file rw_file_perms;
 # Allow otapreopt_chroot to access loop devices.
@@ -63,6 +67,7 @@ allow otapreopt_chroot postinstall_apex_mnt_dir:dir relabelto;
 
 # Allow otapreopt_chroot to manipulate directory /postinstall/apex.
 allow otapreopt_chroot postinstall_apex_mnt_dir:dir create_dir_perms;
+allow otapreopt_chroot postinstall_apex_mnt_dir:file create_file_perms;
 # Allow otapreopt_chroot to mount APEX packages in /postinstall/apex.
 allow otapreopt_chroot postinstall_apex_mnt_dir:dir mounton;
 
@@ -77,3 +82,6 @@ allow otapreopt_chroot postinstall_file:lnk_file r_file_perms;
 # This is a temporary solution to make sure that otapreopt_chroot doesn't block indefinetelly.
 # TODO(b/165948777): remove this once otapreopt_chroot is migrated to libapexmount.
 get_prop(otapreopt_chroot, cold_boot_done_prop)
+
+# allow otapreopt_chroot to run the linkerconfig from the new image.
+allow otapreopt_chroot linkerconfig_exec:file rx_file_perms;
