@@ -8,4 +8,4 @@ set_prop(lmkd, system_lmk_prop)
 # Set lmkd.* properties.
 set_prop(lmkd, lmkd_prop)
 
-neverallow { -init -lmkd -vendor_init } lmkd_prop:property_service set;
+neverallow { domain -init -lmkd -vendor_init } lmkd_prop:property_service set;
