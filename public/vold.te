@@ -132,7 +132,7 @@ r_dir_file(vold, sysfs_fs_incfs_features);
 # Allow to mount incremental file system on /data/incremental and create files
 allow vold apk_data_file:dir { mounton rw_dir_perms };
 # Allow to create and write files in /data/incremental
-allow vold apk_data_file:file rw_file_perms;
+allow vold apk_data_file:file { rw_file_perms unlink };
 # Allow to bind-mount incremental file system on /data/app/vmdl*.tmp and read files
 allow vold apk_tmp_file:dir { mounton r_dir_perms };
 # Allow to read incremental control file and call selinux restorecon on it
