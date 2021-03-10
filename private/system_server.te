@@ -635,6 +635,7 @@ set_prop(system_server, exported3_system_prop)
 set_prop(system_server, safemode_prop)
 set_prop(system_server, theme_prop)
 set_prop(system_server, dhcp_prop)
+set_prop(system_server, net_connectivity_prop)
 set_prop(system_server, net_radio_prop)
 set_prop(system_server, net_dns_prop)
 set_prop(system_server, usb_control_prop)
@@ -732,6 +733,9 @@ set_prop(system_server, dalvik_runtime_prop)
 
 # Read ro.control_privapp_permissions and ro.cp_system_other_odex
 get_prop(system_server, packagemanager_config_prop)
+
+# Read the net.464xlat.cellular.enabled property (written by init).
+get_prop(system_server, net_464xlat_fromvendor_prop)
 
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
