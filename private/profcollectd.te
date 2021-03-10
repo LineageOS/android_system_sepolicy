@@ -1,5 +1,5 @@
 # profcollectd - hardware profile collection daemon
-type profcollectd, domain, coredomain;
+type profcollectd, domain, coredomain, mlstrustedsubject;
 type profcollectd_exec, system_file_type, exec_type, file_type;
 
 userdebug_or_eng(`
