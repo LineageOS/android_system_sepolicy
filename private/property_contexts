@@ -279,6 +279,10 @@ ota.other.vbmeta_digest  u:object_r:ota_prop:s0 exact string
 com.android.sdkext.                  u:object_r:module_sdkextensions_prop:s0
 persist.com.android.sdkext.          u:object_r:module_sdkextensions_prop:s0
 
+# Connectivity module
+net.464xlat.cellular.enabled         u:object_r:net_464xlat_fromvendor_prop:s0 exact bool
+net.tcp_def_init_rwnd                u:object_r:net_connectivity_prop:s0 exact int
+
 # Userspace reboot properties
 sys.userspace_reboot.log.         u:object_r:userspace_reboot_log_prop:s0
 persist.sys.userspace_reboot.log. u:object_r:userspace_reboot_log_prop:s0
