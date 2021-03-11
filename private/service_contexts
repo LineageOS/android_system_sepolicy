@@ -19,6 +19,7 @@ android.hardware.vibrator.IVibrator/default                          u:object_r:
 android.hardware.vibrator.IVibratorManager/default                   u:object_r:hal_vibrator_service:s0
 android.hardware.weaver.IWeaver/default                              u:object_r:hal_weaver_service:s0
 android.frameworks.stats.IStats/default                              u:object_r:fwk_stats_service:s0
+android.system.keystore2.IKeystoreService/default                    u:object_r:keystore_service:s0
 
 accessibility                             u:object_r:accessibility_service:s0
 account                                   u:object_r:account_service:s0
