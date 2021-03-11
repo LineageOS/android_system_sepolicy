@@ -1328,6 +1328,7 @@ neverallow { domain -init -system_server } socket_hook_prop:property_service set
 neverallow { domain -init -system_server } boot_status_prop:property_service set;
 
 neverallow {
+  domain
   -init
   -vendor_init
   -dumpstate

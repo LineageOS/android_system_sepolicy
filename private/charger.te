@@ -15,6 +15,7 @@ get_prop(charger, recovery_config_prop)
 
 compatible_property_only(`
     neverallow {
+        domain
         -init
         -dumpstate
         -charger
@@ -22,6 +23,7 @@ compatible_property_only(`
 ')
 
 neverallow {
+    domain
     -init
     -dumpstate
     -vendor_init

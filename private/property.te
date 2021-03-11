@@ -319,6 +319,7 @@ compatible_property_only(`
 ')
 
 neverallow {
+  domain
   -coredomain
   -vendor_init
 } {
@@ -327,6 +328,7 @@ neverallow {
 }:file no_rw_file_perms;
 
 neverallow {
+  domain
   -init
   -system_server
 } {
@@ -335,6 +337,7 @@ neverallow {
 
 neverallow {
   # Only allow init and system_server to set system_adbd_prop
+  domain
   -init
   -system_server
 } {
@@ -343,6 +346,7 @@ neverallow {
 
 # Let (vendor_)init, adbd, and system_server set service.adb.tcp.port
 neverallow {
+  domain
   -init
   -vendor_init
   -adbd
@@ -353,6 +357,7 @@ neverallow {
 
 neverallow {
   # Only allow init and adbd to set adbd_prop
+  domain
   -init
   -adbd
 } {
@@ -361,6 +366,7 @@ neverallow {
 
 neverallow {
   # Only allow init and shell to set userspace_reboot_test_prop
+  domain
   -init
   -shell
 } {
@@ -368,6 +374,7 @@ neverallow {
 }:property_service set;
 
 neverallow {
+  domain
   -init
   -system_server
   -vendor_init
@@ -376,6 +383,7 @@ neverallow {
 }:property_service set;
 
 neverallow {
+  domain
   -init
 } {
   libc_debug_prop
@@ -384,6 +392,7 @@ neverallow {
 # Allow the shell to set MTE props, so that non-root users with adb shell
 # access can control the settings on their device.
 neverallow {
+  domain
   -init
   -shell
 } {
@@ -391,18 +400,21 @@ neverallow {
 }:property_service set;
 
 neverallow {
+  domain
   -init
   -system_server
   -vendor_init
 } zram_control_prop:property_service set;
 
 neverallow {
+  domain
   -init
   -system_server
   -vendor_init
 } dalvik_runtime_prop:property_service set;
 
 neverallow {
+  domain
   -coredomain
   -vendor_init
 } {
@@ -411,6 +423,7 @@ neverallow {
 }:property_service set;
 
 neverallow {
+  domain
   -init
   -system_server
 } {
@@ -419,6 +432,7 @@ neverallow {
 }:property_service set;
 
 neverallow {
+  domain
   -coredomain
   -vendor_init
 } {
@@ -427,6 +441,7 @@ neverallow {
 }:file no_rw_file_perms;
 
 neverallow {
+  domain
   -init
 } {
   init_service_status_private_prop
@@ -434,6 +449,7 @@ neverallow {
 }:property_service set;
 
 neverallow {
+  domain
   -init
   -radio
   -appdomain
@@ -442,6 +458,7 @@ neverallow {
 } telephony_status_prop:property_service set;
 
 neverallow {
+  domain
   -init
   -vendor_init
 } {
@@ -449,6 +466,7 @@ neverallow {
 }:property_service set;
 
 neverallow {
+  domain
   -init
   -surfaceflinger
 } {
@@ -456,23 +474,27 @@ neverallow {
 }:property_service set;
 
 neverallow {
+  domain
   -coredomain
   -appdomain
   -vendor_init
 } packagemanager_config_prop:file no_rw_file_perms;
 
 neverallow {
+  domain
   -coredomain
   -vendor_init
 } keyguard_config_prop:file no_rw_file_perms;
 
 neverallow {
+  domain
   -init
 } {
   localization_prop
 }:property_service set;
 
 neverallow {
+  domain
   -init
   -vendor_init
   -dumpstate
@@ -480,11 +502,13 @@ neverallow {
 } oem_unlock_prop:file no_rw_file_perms;
 
 neverallow {
+  domain
   -coredomain
   -vendor_init
 } storagemanager_config_prop:file no_rw_file_perms;
 
 neverallow {
+  domain
   -init
   -vendor_init
   -dumpstate
@@ -492,6 +516,7 @@ neverallow {
 } sendbug_config_prop:file no_rw_file_perms;
 
 neverallow {
+  domain
   -init
   -vendor_init
   -dumpstate
@@ -499,6 +524,7 @@ neverallow {
 } camera_calibration_prop:file no_rw_file_perms;
 
 neverallow {
+  domain
   -init
   -dumpstate
   -hal_dumpstate_server
@@ -506,6 +532,7 @@ neverallow {
 } hal_dumpstate_config_prop:file no_rw_file_perms;
 
 neverallow {
+  domain
   -init
   userdebug_or_eng(`-traced_probes')
   userdebug_or_eng(`-traced_perf')
@@ -515,6 +542,7 @@ neverallow {
 
 # TODO Remove this property when Keystore 2.0 migration is complete b/171563717
 neverallow {
+  domain
   -init
   -dumpstate
   -system_app
@@ -523,36 +551,43 @@ neverallow {
 } keystore2_enable_prop:file no_rw_file_perms;
 
 neverallow {
+  domain
   -init
 } zygote_wrap_prop:property_service set;
 
 neverallow {
+  domain
   -init
 } verity_status_prop:property_service set;
 
 neverallow {
+  domain
   -init
 } setupwizard_prop:property_service set;
 
 # ro.product.property_source_order is useless after initialization of ro.product.* props.
 # So making it accessible only from init and vendor_init.
 neverallow {
+  domain
   -init
   -dumpstate
   -vendor_init
 } build_config_prop:file no_rw_file_perms;
 
 neverallow {
+  domain
   -init
   -shell
 } sqlite_log_prop:property_service set;
 
 neverallow {
+  domain
   -coredomain
   -appdomain
 } sqlite_log_prop:file no_rw_file_perms;
 
 neverallow {
+  domain
   -init
 } default_prop:property_service set;
 
@@ -562,6 +597,7 @@ neverallow domain system_and_vendor_property_type:{file property_service} *;
 
 neverallow {
   # Only allow init and shell to set rollback_test_prop
+  domain
   -init
   -shell
 } rollback_test_prop:property_service set;
