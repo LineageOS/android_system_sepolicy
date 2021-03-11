@@ -46,6 +46,7 @@ allow otapreopt_chroot loop_control_device:chr_file rw_file_perms;
 # Allow otapreopt_chroot to access loop devices.
 allow otapreopt_chroot loop_device:blk_file rw_file_perms;
 allowxperm otapreopt_chroot loop_device:blk_file ioctl {
+  LOOP_CONFIGURE
   LOOP_GET_STATUS64
   LOOP_SET_STATUS64
   LOOP_SET_FD
