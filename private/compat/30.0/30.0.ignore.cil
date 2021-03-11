@@ -60,6 +60,7 @@
     hal_weaver_service
     hw_timeout_multiplier_prop
     keystore_compat_hal_service
+    keystore_maintenance_service
     keystore2_key_contexts_file
     legacy_permission_service
     location_time_zone_manager_service
@@ -112,7 +113,6 @@
     transformer_service
     update_engine_stable_service
     userdata_sysdev
-    usermanager_service
     userspace_reboot_metadata_file
     vcn_management_service
     vibrator_manager_service
