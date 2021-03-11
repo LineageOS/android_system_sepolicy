@@ -4,6 +4,3 @@ init_daemon_domain(credstore)
 
 # talk to Identity Credential
 hal_client_domain(credstore, hal_identity)
-
-# TODO Remove this property when Keystore 2.0 migration is complete b/171563717
-get_prop(credstore, keystore2_enable_prop)
