@@ -5,6 +5,7 @@ init_daemon_domain(tombstoned)
 get_prop(tombstoned, tombstone_config_prop)
 
 neverallow {
+    domain
     -init
     -vendor_init
     -dumpstate
