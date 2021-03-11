@@ -182,6 +182,9 @@ inherits file
 	entrypoint
 }
 
+class anon_inode
+inherits file
+
 class lnk_file
 inherits file
 

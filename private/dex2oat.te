@@ -2,6 +2,8 @@
 type dex2oat, domain, coredomain;
 type dex2oat_exec, system_file_type, exec_type, file_type;
 
+userfaultfd_use(dex2oat)
+
 r_dir_file(dex2oat, apk_data_file)
 # Access to /vendor/app
 r_dir_file(dex2oat, vendor_app_file)

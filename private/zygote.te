@@ -24,6 +24,8 @@ allow zygote app_zygote:process dyntransition;
 allow zygote appdomain:dir { getattr search };
 allow zygote appdomain:file { r_file_perms };
 
+userfaultfd_use(zygote)
+
 # Move children into the peer process group.
 allow zygote system_server:process { getpgid setpgid };
 allow zygote appdomain:process { getpgid setpgid };
