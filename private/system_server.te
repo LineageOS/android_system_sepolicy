@@ -820,6 +820,7 @@ allow system_server incident_service:service_manager find;
 allow system_server incremental_service:service_manager find;
 allow system_server installd_service:service_manager find;
 allow system_server iorapd_service:service_manager find;
+allow system_server keystore_maintenance_service:service_manager find;
 allow system_server keystore_service:service_manager find;
 allow system_server mediaserver_service:service_manager find;
 allow system_server mediametrics_service:service_manager find;
@@ -833,7 +834,6 @@ allow system_server stats_service:service_manager find;
 allow system_server storaged_service:service_manager find;
 allow system_server surfaceflinger_service:service_manager find;
 allow system_server update_engine_service:service_manager find;
-allow system_server usermanager_service:service_manager find;
 allow system_server vold_service:service_manager find;
 allow system_server wifinl80211_service:service_manager find;
 userdebug_or_eng(`
@@ -1328,6 +1328,7 @@ neverallow { domain -init -system_server } socket_hook_prop:property_service set
 neverallow { domain -init -system_server } boot_status_prop:property_service set;
 
 neverallow {
+  domain
   -init
   -vendor_init
   -dumpstate
