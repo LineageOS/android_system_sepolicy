@@ -70,19 +70,19 @@ neverallow { domain -init } init_perf_lsm_hooks_prop:property_service set;
 
 # Only init can write vts.native_server.on
 set_prop(init, vts_status_prop)
-neverallow { -init } vts_status_prop:property_service set;
+neverallow { domain -init } vts_status_prop:property_service set;
 
 # Only init can write normal ro.boot. properties
-neverallow { -init } bootloader_prop:property_service set;
+neverallow { domain -init } bootloader_prop:property_service set;
 
 # Only init can write hal.instrumentation.enable
-neverallow { -init } hal_instrumentation_prop:property_service set;
+neverallow { domain -init } hal_instrumentation_prop:property_service set;
 
 # Only init can write ro.property_service.version
-neverallow { -init } property_service_version_prop:property_service set;
+neverallow { domain -init } property_service_version_prop:property_service set;
 
 # Only init can set keystore.boot_level
-neverallow { -init } keystore_listen_prop:property_service set;
+neverallow { domain -init } keystore_listen_prop:property_service set;
 
 # Allow accessing /sys/kernel/tracing/instances/bootreceiver to set up tracing.
 allow init debugfs_bootreceiver_tracing:file w_file_perms;
