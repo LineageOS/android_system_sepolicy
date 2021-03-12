@@ -548,6 +548,7 @@ neverallow {
   -system_app
   -system_server
   -zygote
+  -credstore
 } keystore2_enable_prop:file no_rw_file_perms;
 
 neverallow {
