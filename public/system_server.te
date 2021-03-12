@@ -10,6 +10,7 @@ get_prop(system_server, power_debug_prop)
 set_prop(system_server, power_debug_prop)
 
 neverallow {
+  domain
   -init
   -vendor_init
   -system_server
