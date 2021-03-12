@@ -5,7 +5,12 @@ allow kernel self:global_capability_class_set sys_nice;
 
 # Root fs.
 r_dir_file(kernel, rootfs)
-allow kernel proc_cmdline:file r_file_perms;
+
+# Used to read androidboot.selinux property
+allow kernel {
+  proc_bootconfig
+  proc_cmdline
+}:file r_file_perms;
 
 # Get SELinux enforcing status.
 allow kernel selinuxfs:dir r_dir_perms;
