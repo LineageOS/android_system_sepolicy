@@ -750,6 +750,7 @@ ro.odm.build.date                u:object_r:build_odm_prop:s0 exact string
 ro.odm.build.date.utc            u:object_r:build_odm_prop:s0 exact int
 ro.odm.build.fingerprint         u:object_r:build_odm_prop:s0 exact string
 ro.odm.build.version.incremental u:object_r:build_odm_prop:s0 exact string
+ro.odm.build.media_performance_class   u:object_r:build_odm_prop:s0 exact int
 
 ro.product.odm.brand        u:object_r:build_odm_prop:s0 exact string
 ro.product.odm.device       u:object_r:build_odm_prop:s0 exact string

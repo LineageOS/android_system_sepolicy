@@ -117,7 +117,7 @@ type platform_compat_service, app_api_service, ephemeral_app_api_service, system
 type face_service, app_api_service, system_server_service, service_manager_type;
 type fingerprint_service, app_api_service, system_server_service, service_manager_type;
 type fwk_stats_service, system_server_service, service_manager_type;
-type game_service, app_api_service, system_server_service, service_manager_type;
+type game_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type gfxinfo_service, system_api_service, system_server_service, service_manager_type;
 type gnss_time_update_service, system_server_service, service_manager_type;
 type graphicsstats_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
