@@ -735,3 +735,30 @@ prebuilt_etc {
     relative_install_path: "selinux",
     installable: false,
 }
+
+se_build_files {
+    name: "se_build_files",
+    srcs: [
+        "security_classes",
+        "initial_sids",
+        "access_vectors",
+        "global_macros",
+        "neverallow_macros",
+        "mls_macros",
+        "mls_decl",
+        "mls",
+        "policy_capabilities",
+        "te_macros",
+        "attributes",
+        "ioctl_defines",
+        "ioctl_macros",
+        "*.te",
+        "roles_decl",
+        "roles",
+        "users",
+        "initial_sid_contexts",
+        "fs_use",
+        "genfs_contexts",
+        "port_contexts",
+    ],
+}
