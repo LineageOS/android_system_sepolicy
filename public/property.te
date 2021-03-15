@@ -112,6 +112,7 @@ compatible_property_only(`
 ')
 
 # Properties which can be written only by vendor_init
+system_vendor_config_prop(apexd_config_prop)
 system_vendor_config_prop(aaudio_config_prop)
 system_vendor_config_prop(apk_verity_prop)
 system_vendor_config_prop(audio_config_prop)
