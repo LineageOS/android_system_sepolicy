@@ -191,6 +191,7 @@ notification                              u:object_r:notification_service:s0
 oem_lock                                  u:object_r:oem_lock_service:s0
 otadexopt                                 u:object_r:otadexopt_service:s0
 overlay                                   u:object_r:overlay_service:s0
+pac_proxy                                 u:object_r:pac_proxy_service:s0
 package                                   u:object_r:package_service:s0
 package_native                            u:object_r:package_native_service:s0
 people                                    u:object_r:people_service:s0
