@@ -53,6 +53,9 @@ binder_call(incidentd, statsd)
 allow incidentd perfetto_traces_data_file:dir r_dir_perms;
 allow incidentd perfetto_traces_data_file:file r_file_perms;
 
+# section id 3052, allow accessing nfc_service
+allow incidentd nfc_service:service_manager find;
+
 # Create and write into /data/misc/incidents
 allow incidentd incident_data_file:dir rw_dir_perms;
 allow incidentd incident_data_file:file create_file_perms;
