@@ -158,6 +158,9 @@ allow apexd toolbox_exec:file rx_file_perms;
 # apexd uses it to decide whether it needs to keep retrying polling for loop device.
 get_prop(apexd, cold_boot_done_prop)
 
+# Allow apexd to read per-device configuration properties.
+get_prop(apexd, apexd_config_prop)
+
 neverallow { domain -apexd -init } apex_data_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init } apex_metadata_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init -kernel } apex_data_file:file no_w_file_perms;
