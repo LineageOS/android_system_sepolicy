@@ -718,6 +718,7 @@ class keystore2
 	change_user
 	clear_ns
 	clear_uid
+	get_auth_token
 	get_state
 	list
 	lock
