@@ -548,6 +548,7 @@ neverallow {
   -system_app
   -system_server
   -zygote
+  -credstore
 } keystore2_enable_prop:file no_rw_file_perms;
 
 neverallow {
@@ -601,3 +602,15 @@ neverallow {
   -init
   -shell
 } rollback_test_prop:property_service set;
+
+# Only init and vendor_init are allowed to set apexd_config_prop
+neverallow { domain -init -vendor_init } apexd_config_prop:property_service set;
+
+# apexd_config properties should only be read by apexd, and dumpstate (to appear in bugreports).
+neverallow {
+  domain
+  -apexd
+  -init
+  -dumpstate
+  -vendor_init
+} apexd_config_prop:file no_rw_file_perms;
