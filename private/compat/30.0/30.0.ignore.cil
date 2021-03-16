@@ -13,6 +13,7 @@
     apex_info_file
     apex_ota_reserved_file
     apex_scheduling_data_file
+    apexd_config_prop
     app_hibernation_service
     appcompat_data_file
     arm64_memtag_prop
@@ -77,6 +78,7 @@
     odsign
     odsign_data_file
     odsign_exec
+    pac_proxy_service
     people_service
     persist_vendor_debug_wifi_prop
     power_debug_prop
