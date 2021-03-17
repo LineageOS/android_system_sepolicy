@@ -15,6 +15,7 @@ class capability
 # file-related classes
 class filesystem
 class file
+class anon_inode
 class dir
 class fd
 class lnk_file
