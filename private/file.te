@@ -33,6 +33,9 @@ type rollback_data_file, file_type, data_file_type, core_data_file_type;
 # /data/gsi/ota
 type ota_image_data_file, file_type, data_file_type, core_data_file_type;
 
+# /data/gsi_persistent_data
+type gsi_persistent_data_file, file_type, data_file_type, core_data_file_type;
+
 # /data/misc/emergencynumberdb
 type emergency_data_file, file_type, data_file_type, core_data_file_type;
 
