@@ -53,3 +53,6 @@ type font_data_file, file_type, data_file_type, core_data_file_type;
 
 # /data/misc/odsign
 type odsign_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/system/environ
+type environ_system_data_file, file_type, data_file_type, core_data_file_type;
