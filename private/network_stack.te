@@ -49,10 +49,9 @@ allow network_stack { fs_bpf fs_bpf_tethering }:file { read write };
 allow network_stack bpfloader:bpf { map_read map_write prog_run };
 
 # Only the bpfloader and the network_stack should ever touch 'fs_bpf_tethering' programs/maps.
-# TODO: remove netd once netd/tethering mainline module split is complete
 # Unfortunately init/vendor_init have all sorts of extra privs
-neverallow { domain -bpfloader -init -netd -network_stack -vendor_init } fs_bpf_tethering:dir ~getattr;
-neverallow { domain -bpfloader -init -netd -network_stack -vendor_init } fs_bpf_tethering:file *;
+neverallow { domain -bpfloader -init -network_stack -vendor_init } fs_bpf_tethering:dir ~getattr;
+neverallow { domain -bpfloader -init -network_stack -vendor_init } fs_bpf_tethering:file *;
 
-neverallow { domain -bpfloader -netd -network_stack } fs_bpf_tethering:dir ~{ getattr open read search setattr };
-neverallow { domain -bpfloader -netd -network_stack } fs_bpf_tethering:file ~{ map open read setattr };
+neverallow { domain -bpfloader -network_stack } fs_bpf_tethering:dir ~{ getattr open read search setattr };
+neverallow { domain -bpfloader -network_stack } fs_bpf_tethering:file ~{ map open read setattr };
