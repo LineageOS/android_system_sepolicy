@@ -14,6 +14,8 @@ r_dir_file(dexoptanalyzer, vendor_app_file)
 # processes.
 tmpfs_domain(dexoptanalyzer)
 
+userfaultfd_use(dexoptanalyzer)
+
 # Allow dexoptanalyzer to read files in the dalvik cache.
 allow dexoptanalyzer dalvikcache_data_file:dir { getattr search };
 allow dexoptanalyzer dalvikcache_data_file:file r_file_perms;
