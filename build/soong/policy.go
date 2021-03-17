@@ -33,6 +33,7 @@ const (
 
 func init() {
 	android.RegisterModuleType("se_policy_conf", policyConfFactory)
+	android.RegisterModuleType("se_policy_cil", policyCilFactory)
 }
 
 type policyConfProperties struct {
@@ -196,3 +197,153 @@ func (c *policyConf) OutputFiles(tag string) (android.Paths, error) {
 }
 
 var _ android.OutputFileProducer = (*policyConf)(nil)
+
+type policyCilProperties struct {
+	// Name of the output. Default is {module_name}
+	Stem *string
+
+	// Policy file to be compiled to cil file.
+	Src *string `android:"path"`
+
+	// Additional cil files to be added in the end of the output. This is to support workarounds
+	// which are not supported by the policy language.
+	Additional_cil_files []string `android:"path"`
+
+	// Cil files to be filtered out by the filter_out tool of "build_sepolicy". Used to build
+	// exported policies
+	Filter_out []string `android:"path"`
+
+	// Whether to remove line markers (denoted by ;;) out of compiled cil files. Defaults to false
+	Remove_line_marker *bool
+
+	// Whether to run secilc to check compiled policy or not. Defaults to true
+	Secilc_check *bool
+
+	// Whether to ignore neverallow when running secilc check. Defaults to
+	// SELINUX_IGNORE_NEVERALLOWS.
+	Ignore_neverallow *bool
+
+	// Whether this module is directly installable to one of the partitions. Default is true
+	Installable *bool
+}
+
+type policyCil struct {
+	android.ModuleBase
+
+	properties policyCilProperties
+
+	installSource android.Path
+	installPath   android.InstallPath
+}
+
+// se_policy_cil compiles a policy.conf file to a cil file with checkpolicy, and optionally runs
+// secilc to check the output cil file. Affected by SELINUX_IGNORE_NEVERALLOWS.
+func policyCilFactory() android.Module {
+	c := &policyCil{}
+	c.AddProperties(&c.properties)
+	android.InitAndroidArchModule(c, android.DeviceSupported, android.MultilibCommon)
+	return c
+}
+
+func (c *policyCil) Installable() bool {
+	return proptools.BoolDefault(c.properties.Installable, true)
+}
+
+func (c *policyCil) stem() string {
+	return proptools.StringDefault(c.properties.Stem, c.Name())
+}
+
+func (c *policyCil) compileConfToCil(ctx android.ModuleContext, conf android.Path) android.OutputPath {
+	cil := android.PathForModuleOut(ctx, c.stem()).OutputPath
+	rule := android.NewRuleBuilder(pctx, ctx)
+	rule.Command().BuiltTool("checkpolicy").
+		Flag("-C"). // Write CIL
+		Flag("-M"). // Enable MLS
+		FlagWithArg("-c ", strconv.Itoa(PolicyVers)).
+		FlagWithOutput("-o ", cil).
+		Input(conf)
+
+	if len(c.properties.Additional_cil_files) > 0 {
+		rule.Command().Text("cat").
+			Inputs(android.PathsForModuleSrc(ctx, c.properties.Additional_cil_files)).
+			Text(">> ").Output(cil)
+	}
+
+	if len(c.properties.Filter_out) > 0 {
+		rule.Command().BuiltTool("build_sepolicy").
+			Text("filter_out").
+			Flag("-f").
+			Inputs(android.PathsForModuleSrc(ctx, c.properties.Filter_out)).
+			FlagWithOutput("-t ", cil)
+	}
+
+	if proptools.Bool(c.properties.Remove_line_marker) {
+		rule.Command().Text("grep -v").
+			Text(proptools.ShellEscape(";;")).
+			Text(cil.String()).
+			Text(">").
+			Text(cil.String() + ".tmp").
+			Text("&& mv").
+			Text(cil.String() + ".tmp").
+			Text(cil.String())
+	}
+
+	if proptools.BoolDefault(c.properties.Secilc_check, true) {
+		secilcCmd := rule.Command().BuiltTool("secilc").
+			Flag("-m").                 // Multiple decls
+			FlagWithArg("-M ", "true"). // Enable MLS
+			Flag("-G").                 // expand and remove auto generated attributes
+			FlagWithArg("-c ", strconv.Itoa(PolicyVers)).
+			Inputs(android.PathsForModuleSrc(ctx, c.properties.Filter_out)). // Also add cil files which are filtered out
+			Text(cil.String()).
+			FlagWithArg("-o ", os.DevNull).
+			FlagWithArg("-f ", os.DevNull)
+
+		if proptools.BoolDefault(c.properties.Ignore_neverallow, ctx.Config().SelinuxIgnoreNeverallows()) {
+			secilcCmd.Flag("-N")
+		}
+	}
+
+	rule.Build("cil", "Building cil for "+ctx.ModuleName())
+	return cil
+}
+
+func (c *policyCil) GenerateAndroidBuildActions(ctx android.ModuleContext) {
+	if proptools.String(c.properties.Src) == "" {
+		ctx.PropertyErrorf("src", "must be specified")
+		return
+	}
+	conf := android.PathForModuleSrc(ctx, *c.properties.Src)
+	cil := c.compileConfToCil(ctx, conf)
+
+	c.installPath = android.PathForModuleInstall(ctx, "etc", "selinux")
+	c.installSource = cil
+	ctx.InstallFile(c.installPath, c.stem(), c.installSource)
+
+	if !c.Installable() {
+		c.SkipInstall()
+	}
+}
+
+func (c *policyCil) AndroidMkEntries() []android.AndroidMkEntries {
+	return []android.AndroidMkEntries{android.AndroidMkEntries{
+		OutputFile: android.OptionalPathForPath(c.installSource),
+		Class:      "ETC",
+		ExtraEntries: []android.AndroidMkExtraEntriesFunc{
+			func(ctx android.AndroidMkExtraEntriesContext, entries *android.AndroidMkEntries) {
+				entries.SetBool("LOCAL_UNINSTALLABLE_MODULE", !c.Installable())
+				entries.SetPath("LOCAL_MODULE_PATH", c.installPath.ToMakePath())
+				entries.SetString("LOCAL_INSTALLED_MODULE_STEM", c.stem())
+			},
+		},
+	}}
+}
+
+func (c *policyCil) OutputFiles(tag string) (android.Paths, error) {
+	if tag == "" {
+		return android.Paths{c.installSource}, nil
+	}
+	return nil, fmt.Errorf("Unknown tag %q", tag)
+}
+
+var _ android.OutputFileProducer = (*policyCil)(nil)
