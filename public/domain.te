@@ -679,6 +679,7 @@ full_treble_only(`
     -cameraserver_service
     -drmserver_service
     -credstore_service
+    -keystore_maintenance_service
     -keystore_service
     -mediadrmserver_service
     -mediaextractor_service
