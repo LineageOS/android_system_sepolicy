@@ -203,7 +203,7 @@ phone1                                    u:object_r:radio_service:s0
 phone2                                    u:object_r:radio_service:s0
 phone                                     u:object_r:radio_service:s0
 pinner                                    u:object_r:pinner_service:s0
-power_stats                               u:object_r:power_stats_service:s0
+powerstats                                u:object_r:powerstats_service:s0
 power                                     u:object_r:power_service:s0
 print                                     u:object_r:print_service:s0
 processinfo                               u:object_r:processinfo_service:s0
