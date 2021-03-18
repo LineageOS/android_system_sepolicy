@@ -12,6 +12,8 @@ typeattribute system_server stats_service_server;
 # Define a type for tmpfs-backed ashmem regions.
 tmpfs_domain(system_server)
 
+userfaultfd_use(system_server)
+
 # Create a socket for connections from crash_dump.
 type_transition system_server system_data_file:sock_file system_ndebug_socket "ndebugsocket";
 
@@ -1264,6 +1266,9 @@ allow system_server staged_install_file:file create_file_perms;
 
 allow system_server watchdog_metadata_file:dir rw_dir_perms;
 allow system_server watchdog_metadata_file:file create_file_perms;
+
+allow system_server gsi_persistent_data_file:dir rw_dir_perms;
+allow system_server gsi_persistent_data_file:file create_file_perms;
 
 # Allow system server r access to /system/bin/surfaceflinger for PinnerService.
 allow system_server surfaceflinger_exec:file r_file_perms;
