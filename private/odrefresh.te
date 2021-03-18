@@ -7,6 +7,8 @@ allow odrefresh apex_module_data_file:dir { getattr search };
 allow odrefresh apex_art_data_file:dir { create_dir_perms relabelfrom };
 allow odrefresh apex_art_data_file:file create_file_perms;
 
+userfaultfd_use(odrefresh)
+
 # Staging area labels (/data/misc/apexdata/com.android.art/staging). odrefresh
 # sets up files here and passes file descriptors for dex2oat to write to.
 allow odrefresh apex_art_staging_data_file:dir { create_dir_perms relabelto };
