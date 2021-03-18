@@ -504,7 +504,6 @@
 #
 /data		u:object_r:system_data_root_file:s0
 /data/(.*)?		u:object_r:system_data_file:s0
-/data/system/environ(/.*)? u:object_r:environ_system_data_file:s0
 /data/system/packages\.list u:object_r:packages_list_file:s0
 /data/unencrypted(/.*)?         u:object_r:unencrypted_data_file:s0
 /data/backup(/.*)?		u:object_r:backup_data_file:s0
