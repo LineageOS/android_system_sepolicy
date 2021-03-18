@@ -298,6 +298,9 @@ allow appdomain zygote:unix_dgram_socket write;
 allow { appdomain -isolated_app -ephemeral_app } keystore:keystore_key { get_state get insert delete exist list sign verify };
 allow { appdomain -isolated_app -ephemeral_app } keystore:keystore2_key { delete use get_info rebind update };
 
+allow { appdomain -isolated_app -ephemeral_app } keystore_maintenance_service:service_manager find;
+allow { appdomain -isolated_app -ephemeral_app } keystore:keystore2 get_state;
+
 use_keystore({ appdomain -isolated_app -ephemeral_app })
 
 use_credstore({ appdomain -isolated_app -ephemeral_app })

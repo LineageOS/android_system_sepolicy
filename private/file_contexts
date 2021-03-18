@@ -504,6 +504,7 @@
 #
 /data		u:object_r:system_data_root_file:s0
 /data/(.*)?		u:object_r:system_data_file:s0
+/data/system/environ(/.*)? u:object_r:environ_system_data_file:s0
 /data/system/packages\.list u:object_r:packages_list_file:s0
 /data/unencrypted(/.*)?         u:object_r:unencrypted_data_file:s0
 /data/backup(/.*)?		u:object_r:backup_data_file:s0
@@ -532,6 +533,7 @@
 /data/app-private(/.*)?               u:object_r:apk_private_data_file:s0
 /data/app-private/vmdl.*\.tmp(/.*)?   u:object_r:apk_private_tmp_file:s0
 /data/gsi(/.*)?        u:object_r:gsi_data_file:s0
+/data/gsi_persistent_data    u:object_r:gsi_persistent_data_file:s0
 /data/gsi/ota(/.*)?    u:object_r:ota_image_data_file:s0
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
 /data/vendor/tombstones/wifi(/.*)? u:object_r:tombstone_wifi_data_file:s0
