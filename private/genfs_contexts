@@ -280,6 +280,7 @@ genfscon tracefs /events/thermal/thermal_temperature/                    u:objec
 genfscon tracefs /events/thermal/cdev_update/                            u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/cpuhp/cpuhp_enter/                              u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/cpuhp/cpuhp_exit/                               u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/cpuhp/cpuhp_pause/                              u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/ipi/                                            u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/irq/                                            u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/clk/clk_enable/                                 u:object_r:debugfs_tracing:s0
