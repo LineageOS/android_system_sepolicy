@@ -34,9 +34,6 @@ system_internal_prop(userspace_reboot_test_prop)
 system_internal_prop(verity_status_prop)
 system_internal_prop(zygote_wrap_prop)
 
-# TODO Remove this property when Keystore 2.0 migration is complete b/171563717
-system_internal_prop(keystore2_enable_prop)
-
 ###
 ### Neverallow rules
 ###
@@ -541,17 +538,6 @@ neverallow {
   lower_kptr_restrict_prop
 }:property_service set;
 
-# TODO Remove this property when Keystore 2.0 migration is complete b/171563717
-neverallow {
-  domain
-  -init
-  -dumpstate
-  -system_app
-  -system_server
-  -zygote
-  -credstore
-} keystore2_enable_prop:file no_rw_file_perms;
-
 neverallow {
   domain
   -init
@@ -603,15 +589,3 @@ neverallow {
   -init
   -shell
 } rollback_test_prop:property_service set;
-
-# Only init and vendor_init are allowed to set apexd_config_prop
-neverallow { domain -init -vendor_init } apexd_config_prop:property_service set;
-
-# apexd_config properties should only be read by apexd, and dumpstate (to appear in bugreports).
-neverallow {
-  domain
-  -apexd
-  -init
-  -dumpstate
-  -vendor_init
-} apexd_config_prop:file no_rw_file_perms;
