@@ -163,6 +163,21 @@ define(`init_daemon_domain', `
 domain_auto_trans(init, $1_exec, $1)
 ')
 
+####################################
+# userfaultfd_use(domain)
+# Allow domain to create/use userfaultfd.
+define(`userfaultfd_use', `
+# Set up a type_transition to "userfaultfd" named anonymous inode object.
+type $1_userfaultfd;
+type_transition $1 $1:anon_inode $1_userfaultfd "[userfaultfd]";
+# Allow domain to create/use userfaultfd anon_inode.
+allow $1 $1_userfaultfd:anon_inode { create ioctl read };
+# Other domains may not use userfaultfd anon_inodes created by this domain.
+neverallow { domain -$1 } $1_userfaultfd:anon_inode *;
+# This domain may not use userfaultfd anon_inodes created by other domains.
+neverallow $1 ~$1_userfaultfd:anon_inode *;
+')
+
 #####################################
 # app_domain(domain)
 # Allow a base set of permissions required for all apps.
@@ -170,6 +185,7 @@ define(`app_domain', `
 typeattribute $1 appdomain;
 # Label tmpfs objects for all apps.
 type_transition $1 tmpfs:file appdomain_tmpfs;
+userfaultfd_use($1)
 allow $1 appdomain_tmpfs:file { execute getattr map read write };
 neverallow { $1 -runas_app -shell -simpleperf } { domain -$1 }:file no_rw_file_perms;
 neverallow { appdomain -runas_app -shell -simpleperf -$1 } $1:file no_rw_file_perms;
