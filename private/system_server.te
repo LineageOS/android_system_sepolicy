@@ -1290,9 +1290,6 @@ neverallow {
 # Read/Write /proc/pressure/memory
 allow system_server proc_pressure_mem:file rw_file_perms;
 
-# TODO Remove this property when Keystore 2.0 migration is complete b/171563717
-get_prop(system_server, keystore2_enable_prop)
-
 # dexoptanalyzer is currently used only for secondary dex files which
 # system_server should never access.
 neverallow system_server dexoptanalyzer_exec:file no_x_file_perms;
