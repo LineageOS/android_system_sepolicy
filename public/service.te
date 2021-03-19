@@ -99,7 +99,7 @@ type device_identifiers_service, app_api_service, ephemeral_app_api_service, sys
 type devicestoragemonitor_service, system_server_service, service_manager_type;
 type diskstats_service, system_api_service, system_server_service, service_manager_type;
 type display_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
-type domain_verification_service, system_api_service, system_server_service, service_manager_type;
+type domain_verification_service, app_api_service, system_server_service, service_manager_type;
 type color_display_service, system_api_service, system_server_service, service_manager_type;
 type external_vibrator_service, system_server_service, service_manager_type;
 type file_integrity_service, app_api_service, system_server_service, service_manager_type;
