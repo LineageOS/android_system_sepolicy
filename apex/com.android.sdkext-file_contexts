@@ -1,2 +1,3 @@
-(/.*)?                u:object_r:system_file:s0
-/bin/derive_sdk       u:object_r:derive_sdk_exec:s0
+(/.*)?                       u:object_r:system_file:s0
+/bin/derive_classpath        u:object_r:derive_classpath_exec:s0
+/bin/derive_sdk              u:object_r:derive_sdk_exec:s0
