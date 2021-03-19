@@ -809,6 +809,9 @@ ro.product.vendor.manufacturer u:object_r:build_vendor_prop:s0 exact string
 ro.product.vendor.model        u:object_r:build_vendor_prop:s0 exact string
 ro.product.vendor.name         u:object_r:build_vendor_prop:s0 exact string
 
+# GRF property for the first api level of the vendor partition
+ro.board.first_api_level u:object_r:build_vendor_prop:s0 exact int
+
 # Boot image build props set by /{second_stage_resources/,}boot/etc/build.prop
 ro.bootimage.build.date                        u:object_r:build_bootimage_prop:s0 exact string
 ro.bootimage.build.date.utc                    u:object_r:build_bootimage_prop:s0 exact int
