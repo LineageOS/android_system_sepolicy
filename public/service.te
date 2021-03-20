@@ -136,7 +136,7 @@ type legacy_permission_service, app_api_service, ephemeral_app_api_service, syst
 type light_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type location_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type location_time_zone_manager_service, system_server_service, service_manager_type;
-type lock_settings_service, system_api_service, system_server_service, service_manager_type;
+type lock_settings_service, app_api_service, system_api_service, system_server_service, service_manager_type;
 type looper_stats_service, system_server_service, service_manager_type;
 type media_communication_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type media_metrics_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
