@@ -546,6 +546,10 @@ vold.post_fs_data_done u:object_r:vold_config_prop:s0 exact int
 
 apexd.status u:object_r:apexd_prop:s0 exact enum starting activated ready
 
+odsign.key.done u:object_r:odsign_prop:s0 exact bool
+odsign.verification.done u:object_r:odsign_prop:s0 exact bool
+odsign.verification.success u:object_r:odsign_prop:s0 exact bool
+
 dev.bootcomplete   u:object_r:boot_status_prop:s0 exact bool
 sys.boot_completed u:object_r:boot_status_prop:s0 exact bool
 
@@ -808,6 +812,9 @@ ro.product.vendor.device       u:object_r:build_vendor_prop:s0 exact string
 ro.product.vendor.manufacturer u:object_r:build_vendor_prop:s0 exact string
 ro.product.vendor.model        u:object_r:build_vendor_prop:s0 exact string
 ro.product.vendor.name         u:object_r:build_vendor_prop:s0 exact string
+
+# GRF property for the first api level of the vendor partition
+ro.board.first_api_level u:object_r:build_vendor_prop:s0 exact int
 
 # Boot image build props set by /{second_stage_resources/,}boot/etc/build.prop
 ro.bootimage.build.date                        u:object_r:build_bootimage_prop:s0 exact string
