@@ -168,7 +168,7 @@ neverallow {
     -gsid
     -fastbootd
     -vold
-} gsi_metadata_file:notdevfile_class_set ~{ relabelto getattr };
+} gsi_metadata_file:file_class_set ~{ relabelto getattr };
 
 neverallow {
     domain
@@ -176,7 +176,7 @@ neverallow {
     -gsid
     -fastbootd
     -vold
-} { gsi_data_file gsi_metadata_file }:notdevfile_class_set *;
+} { gsi_data_file gsi_metadata_file }:file_class_set *;
 
 neverallow {
     domain
@@ -193,4 +193,4 @@ neverallow {
 neverallow {
     domain
     -gsid
-} gsi_data_file:notdevfile_class_set ~{ relabelto getattr };
+} gsi_data_file:file_class_set ~{ relabelto getattr };
