@@ -294,6 +294,20 @@ se_cil_compat_map {
     // top_half: "31.0.ignore.cil",
 }
 
+se_cil_compat_map {
+    name: "system_ext_30.0.ignore.cil",
+    bottom_half: [":30.0.board.ignore.map"],
+    // top_half: "system_ext_31.0.ignore.cil",
+    system_ext_specific: true,
+}
+
+se_cil_compat_map {
+    name: "product_30.0.ignore.cil",
+    bottom_half: [":30.0.board.ignore.map"],
+    // top_half: "product_31.0.ignore.cil",
+    product_specific: true,
+}
+
 se_compat_cil {
     name: "26.0.compat.cil",
     srcs: [":26.0.board.compat.cil"],
