@@ -25,6 +25,7 @@ system_internal_prop(netd_stable_secret_prop)
 system_internal_prop(odsign_prop)
 system_internal_prop(perf_drop_caches_prop)
 system_internal_prop(pm_prop)
+system_internal_prop(profcollectd_node_id_prop)
 system_internal_prop(rollback_test_prop)
 system_internal_prop(setupwizard_prop)
 system_internal_prop(system_adbd_prop)
@@ -590,3 +591,12 @@ neverallow {
   -init
   -shell
 } rollback_test_prop:property_service set;
+
+neverallow {
+  # Only allow init and profcollectd to access profcollectd_node_id_prop
+  domain
+  -init
+  -dumpstate
+  -profcollectd
+} profcollectd_node_id_prop:file r_file_perms;
+
