@@ -38,6 +38,9 @@ userdebug_or_eng(`
 # that userdata is mounted onto.
 allow init sysfs_dm:file read;
 
+# Allow init to write to the drop_caches file.
+allow init proc_drop_caches:file rw_file_perms;
+
 # Allow the BoringSSL self test to request a reboot upon failure
 set_prop(init, powerctl_prop)
 
