@@ -187,7 +187,7 @@ dalvik.                 u:object_r:dalvik_prop:s0
 ro.dalvik.              u:object_r:dalvik_prop:s0
 
 # qemu_hw_prop is read/written by both system and vendor.
-qemu.hw.mainkeys        u:object_r:qemu_hw_prop:s0
+qemu.hw.mainkeys        u:object_r:qemu_hw_prop:s0 exact string
 
 # qemu_sf_lcd_density_prop is read/written by both system and vendor.
 qemu.sf.lcd_density     u:object_r:qemu_sf_lcd_density_prop:s0 exact int
