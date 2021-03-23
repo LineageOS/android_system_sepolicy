@@ -168,21 +168,7 @@ neverallow {
     -gsid
     -fastbootd
     -vold
-} gsi_metadata_file:notdevfile_class_set ~{ relabelto getattr };
-
-neverallow {
-    domain
-    -init
-    -gsid
-    -fastbootd
-    -vold
-} { gsi_data_file gsi_metadata_file }:notdevfile_class_set *;
-
-neverallow {
-    domain
-    -gsid
-    -init
-} gsi_data_file:dir ~{ open create read getattr setattr search relabelto ioctl };
+} gsi_metadata_file:file_class_set *;
 
 neverallow {
     domain
@@ -192,5 +178,13 @@ neverallow {
 
 neverallow {
     domain
+    -init
     -gsid
-} gsi_data_file:notdevfile_class_set ~{ relabelto getattr };
+    -fastbootd
+    -vold
+} gsi_data_file:file_class_set *;
+
+neverallow {
+    domain
+    -gsid
+} gsi_data_file:file_class_set ~{ relabelto getattr };
