@@ -687,11 +687,11 @@ define(`hal_attribute_hwservice', `
 
 ###########################################
 # hal_attribute_service(attribute, service)
-# Ability for domain to get a service to hwservice_manager
+# Ability for domain to get a service to service_manager
 # and find it. It also creates a neverallow preventing
 # others from adding it.
 #
-# Used to pair hal_foo_client with hal_foo_hwservice
+# Used to pair hal_foo_client with hal_foo_service
 define(`hal_attribute_service', `
   allow $1_client $2:service_manager find;
   add_service($1_server, $2)
