@@ -121,6 +121,7 @@ set_prop(shell, ctl_dumpstate_prop)
 set_prop(shell, dumpstate_prop)
 set_prop(shell, exported_dumpstate_prop)
 set_prop(shell, debug_prop)
+set_prop(shell, perf_drop_caches_prop)
 set_prop(shell, powerctl_prop)
 set_prop(shell, log_tag_prop)
 set_prop(shell, wifi_log_prop)
@@ -189,3 +190,7 @@ get_prop(shell, verity_status_prop)
 
 # Allow shell to read Virtual A/B related properties
 get_prop(shell, virtual_ab_prop)
+
+# Never allow others to set or get the perf.drop_caches property.
+neverallow { domain -shell -init } perf_drop_caches_prop:property_service set;
+neverallow { domain -shell -init -dumpstate } perf_drop_caches_prop:file read;
