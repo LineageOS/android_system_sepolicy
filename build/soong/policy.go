@@ -145,6 +145,7 @@ func (c *policyConf) transformPolicyToConf(ctx android.ModuleContext) android.Ou
 		FlagWithArg("-D mls_num_cats=", strconv.Itoa(MlsCats)).
 		FlagWithArg("-D target_arch=", ctx.DeviceConfig().DeviceArch()).
 		FlagWithArg("-D target_with_asan=", c.withAsan(ctx)).
+		FlagWithArg("-D target_with_dexpreopt=", strconv.FormatBool(ctx.DeviceConfig().WithDexpreopt())).
 		FlagWithArg("-D target_with_native_coverage=", strconv.FormatBool(ctx.DeviceConfig().ClangCoverageEnabled() || ctx.DeviceConfig().GcovCoverageEnabled())).
 		FlagWithArg("-D target_build_variant=", c.buildVariant(ctx)).
 		FlagWithArg("-D target_full_treble=", c.sepolicySplit(ctx)).
