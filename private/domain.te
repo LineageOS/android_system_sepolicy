@@ -518,3 +518,18 @@ neverallow {
   -traced_probes
   -traced_perf
 } proc_kallsyms:file { open read };
+
+# debugfs_kcov type is not included in this neverallow statement since the KCOV
+# tool uses it for kernel fuzzing.
+enforce_debugfs_restriction(`
+  neverallow {
+    domain
+    userdebug_or_eng(`
+      -init
+      -hal_dumpstate
+    ')
+  } { debugfs_type
+      userdebug_or_eng(`-debugfs_kcov')
+      -tracefs_type
+  }:file no_rw_file_perms;
+')
