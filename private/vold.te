@@ -35,6 +35,7 @@ set_prop(vold, boottime_public_prop)
 # Vold will use Keystore instead of using Keymint directly. But it still needs
 # to manage its Keymint blobs. This is why it needs the `manage_blob` permission.
 allow vold vold_key:keystore2_key {
+    convert_storage_key_to_ephemeral
     delete
     get_info
     manage_blob
