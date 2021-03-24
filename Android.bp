@@ -668,7 +668,7 @@ se_policy_conf {
 
 //////////////////////////////////
 // modules for microdroid
-// TODO(b/178993690): migrate Android.mk to Android.bp and remove workarounds
+// TODO(b/33691272): migrate Android.mk to Android.bp and remove workarounds
 //////////////////////////////////
 genrule {
     name: "microdroid_plat_mapping_file_gen",
@@ -712,7 +712,7 @@ prebuilt_etc {
 
 // policy files for microdroid vendor
 // This contains a minimal set of policy files for microdroid vendor.
-// TODO(b/178993690): update se_build_files to cover this
+// TODO(b/33691272): update se_build_files to cover this
 filegroup {
     name: "microdroid_vendor_sepolicy_build_files",
     srcs: [
