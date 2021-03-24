@@ -45,6 +45,12 @@ allow vold vold_key:keystore2_key {
     use
 };
 
+# vold needs to find keystore2 services
+allow vold keystore_maintenance_service:service_manager find;
+
+# vold needs to be able to call earlyBootEnded()
+allow vold keystore:keystore2 early_boot_ended;
+
 neverallow {
     domain
     -system_server
