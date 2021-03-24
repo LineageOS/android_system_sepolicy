@@ -364,7 +364,15 @@ neverallow {
     -update_engine
     -vold
     -zygote
-} { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
+} { fs_type
+    -sdcard_type
+}:filesystem { mount remount relabelfrom relabelto };
+
+enforce_debugfs_restriction(`
+  neverallow {
+    domain userdebug_or_eng(`-init')
+  } { debugfs_type -debugfs_tracing_debug }:filesystem { mount remount relabelfrom relabelto };
+')
 
 # Limit raw I/O to these allowlisted domains. Do not apply to debug builds.
 neverallow {

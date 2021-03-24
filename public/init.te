@@ -162,7 +162,19 @@ allowxperm init dev_type:blk_file ioctl BLKROSET;
 # which should all be assigned the contextmount_type attribute.
 # This can be done in device-specific policy via type or typeattribute
 # declarations.
-allow init fs_type:filesystem ~relabelto;
+allow init {
+  fs_type
+  enforce_debugfs_restriction(`-debugfs_type')
+}:filesystem ~relabelto;
+
+# Allow init to mount/unmount debugfs in non-user builds.
+enforce_debugfs_restriction(`
+  userdebug_or_eng(`allow init debugfs_type:filesystem { mount unmount };')
+')
+
+# Allow init to mount tracefs in /sys/kernel/tracing
+allow init debugfs_tracing_debug:filesystem mount;
+
 allow init unlabeled:filesystem ~relabelto;
 allow init contextmount_type:filesystem relabelto;
 
