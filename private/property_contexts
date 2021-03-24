@@ -399,6 +399,8 @@ persist.sys.dalvik.vm.lib.2 u:object_r:dalvik_runtime_prop:s0 exact string
 
 keyguard.no_require_sim u:object_r:keyguard_config_prop:s0 exact bool
 
+media.c2.dmabuf.padding                      u:object_r:codec2_config_prop:s0 exact int
+
 media.recorder.show_manufacturer_and_model   u:object_r:media_config_prop:s0 exact bool
 media.stagefright.cache-params               u:object_r:media_config_prop:s0 exact string
 media.stagefright.enable-aac                 u:object_r:media_config_prop:s0 exact bool
