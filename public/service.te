@@ -240,8 +240,9 @@ type emergency_affordance_service, system_server_service, service_manager_type;
 ### HAL Services
 ###
 
-type hal_authsecret_service, vendor_service, protected_service, service_manager_type;
+type hal_audio_service, vendor_service, protected_service, service_manager_type;
 type hal_audiocontrol_service, vendor_service, service_manager_type;
+type hal_authsecret_service, vendor_service, protected_service, service_manager_type;
 type hal_face_service, vendor_service, protected_service, service_manager_type;
 type hal_fingerprint_service, vendor_service, protected_service, service_manager_type;
 type hal_gnss_service, vendor_service, protected_service, service_manager_type;
