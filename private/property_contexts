@@ -64,6 +64,7 @@ persist.log.tag         u:object_r:log_tag_prop:s0
 persist.mmc.            u:object_r:mmc_prop:s0
 persist.netd.stable_secret      u:object_r:netd_stable_secret_prop:s0
 persist.pm.mock-upgrade u:object_r:mock_ota_prop:s0
+persist.profcollectd.node_id    u:object_r:profcollectd_node_id_prop:s0     exact   string
 persist.sys.            u:object_r:system_prop:s0
 persist.sys.safemode    u:object_r:safemode_prop:s0
 persist.sys.theme       u:object_r:theme_prop:s0
@@ -187,7 +188,7 @@ dalvik.                 u:object_r:dalvik_prop:s0
 ro.dalvik.              u:object_r:dalvik_prop:s0
 
 # qemu_hw_prop is read/written by both system and vendor.
-qemu.hw.mainkeys        u:object_r:qemu_hw_prop:s0
+qemu.hw.mainkeys        u:object_r:qemu_hw_prop:s0 exact string
 
 # qemu_sf_lcd_density_prop is read/written by both system and vendor.
 qemu.sf.lcd_density     u:object_r:qemu_sf_lcd_density_prop:s0 exact int
