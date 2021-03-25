@@ -87,6 +87,7 @@ system_restricted_prop(usb_prop)
 system_restricted_prop(userspace_reboot_exported_prop)
 system_restricted_prop(vold_status_prop)
 system_restricted_prop(vts_status_prop)
+system_restricted_prop(suspend_prop)
 
 compatible_property_only(`
     # DO NOT ADD ANY PROPERTIES HERE
@@ -122,6 +123,7 @@ system_vendor_config_prop(build_vendor_prop)
 system_vendor_config_prop(camera_calibration_prop)
 system_vendor_config_prop(camera_config_prop)
 system_vendor_config_prop(charger_config_prop)
+system_vendor_config_prop(codec2_config_prop)
 system_vendor_config_prop(cpu_variant_prop)
 system_vendor_config_prop(dalvik_config_prop)
 system_vendor_config_prop(drm_service_config_prop)
