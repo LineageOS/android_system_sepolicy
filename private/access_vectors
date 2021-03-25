@@ -731,6 +731,7 @@ class keystore2
 
 class keystore2_key
 {
+	convert_storage_key_to_ephemeral
 	delete
 	gen_unique_id
 	get_info

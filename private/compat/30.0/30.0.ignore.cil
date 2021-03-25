@@ -20,6 +20,7 @@
     authorization_service
     cgroup_desc_api_file
     cgroup_v2
+    codec2_config_prop
     ctl_snapuserd_prop
     debugfs_kprobes
     debugfs_mm_events_tracing
@@ -41,6 +42,7 @@
     font_data_file
     gki_apex_prepostinstall
     gki_apex_prepostinstall_exec
+    hal_audio_service
     hal_authsecret_service
     hal_audiocontrol_service
     hal_face_service
