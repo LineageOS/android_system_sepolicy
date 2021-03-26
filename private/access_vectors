@@ -721,10 +721,12 @@ class keystore2
 	change_user
 	clear_ns
 	clear_uid
+	early_boot_ended
 	get_auth_token
 	get_state
 	list
 	lock
+	report_off_body
 	reset
 	unlock
 }
