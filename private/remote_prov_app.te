@@ -8,7 +8,6 @@ net_domain(remote_prov_app)
 get_prop(remote_prov_app, vendor_security_patch_level_prop)
 
 allow remote_prov_app {
-    activity_service
+    app_api_service
     remoteprovisioning_service
-    tethering_service
 }:service_manager find;
