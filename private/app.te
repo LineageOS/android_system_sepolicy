@@ -71,9 +71,6 @@ allow appdomain font_data_file:dir r_dir_perms;
 allow appdomain { apex_art_data_file apex_module_data_file }:dir search;
 allow appdomain apex_art_data_file:file r_file_perms;
 
-# Allow APFE device info to read Virtual A/B props.
-get_prop(appdomain, virtual_ab_prop)
-
 # Allow access to tombstones if an fd to one is given to you.
 # This is restricted by unix permissions, so an app must go through system_server to get one.
 allow appdomain tombstone_data_file:file { getattr read };
@@ -96,4 +93,3 @@ neverallow {
   -system_data_file # shared libs in apks
   -apk_data_file
 }:file no_x_file_perms;
-
