@@ -1482,7 +1482,9 @@
 (typeattributeset graphics_device_30_0 (graphics_device))
 (typeattributeset graphicsstats_service_30_0 (graphicsstats_service))
 (typeattributeset gsi_data_file_30_0 (gsi_data_file))
-(typeattributeset gsi_metadata_file_30_0 (gsi_metadata_file))
+(typeattributeset gsi_metadata_file_30_0
+  ( gsi_metadata_file
+    gsi_public_metadata_file))
 (typeattributeset gsid_prop_30_0 (gsid_prop))
 (typeattributeset hal_atrace_hwservice_30_0 (hal_atrace_hwservice))
 (typeattributeset hal_audio_hwservice_30_0 (hal_audio_hwservice))
