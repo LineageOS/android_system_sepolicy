@@ -1,0 +1,8 @@
+type virtmanager, domain, coredomain;
+type virtmanager_exec, system_file_type, exec_type, file_type;
+
+init_daemon_domain(virtmanager)
+
+binder_use(virtmanager)
+
+add_service(virtmanager, virtualization_service)
