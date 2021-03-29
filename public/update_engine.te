@@ -69,7 +69,7 @@ allow update_engine system_file:dir r_dir_perms;
 # device. ReadDefaultFstab() checks whether a GSI is running by checking
 # gsi_metadata_file. We never apply OTAs when GSI is running, so just deny
 # the access.
-dontaudit update_engine gsi_metadata_file:dir search;
+dontaudit update_engine gsi_metadata_file_type:dir search;
 
 # Allow to write to snapshotctl_log logs.
 # TODO(b/148818798) revert when parent bug is fixed.

@@ -762,6 +762,10 @@
 /metadata/apex(/.*)?      u:object_r:apex_metadata_file:s0
 /metadata/vold(/.*)?      u:object_r:vold_metadata_file:s0
 /metadata/gsi(/.*)?       u:object_r:gsi_metadata_file:s0
+/metadata/gsi/dsu/active  u:object_r:gsi_public_metadata_file:s0
+/metadata/gsi/dsu/booted  u:object_r:gsi_public_metadata_file:s0
+/metadata/gsi/dsu/lp_names  u:object_r:gsi_public_metadata_file:s0
+/metadata/gsi/dsu/[^/]+/metadata_encryption_dir u:object_r:gsi_public_metadata_file:s0
 /metadata/gsi/ota(/.*)?   u:object_r:ota_metadata_file:s0
 /metadata/password_slots(/.*)?    u:object_r:password_slot_metadata_file:s0
 /metadata/ota(/.*)?       u:object_r:ota_metadata_file:s0
