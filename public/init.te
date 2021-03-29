@@ -320,14 +320,6 @@ allow init {
   zero_device
 }:chr_file { read open };
 
-# chown/chmod on devices.
-allow init {
-  dev_type
-  -hw_random_device
-  -keychord_device
-  -port_device
-}:chr_file setattr;
-
 # Unlabeled file access for upgrades from 4.2.
 allow init unlabeled:dir { create_dir_perms relabelfrom };
 allow init unlabeled:notdevfile_class_set { create_file_perms relabelfrom };
