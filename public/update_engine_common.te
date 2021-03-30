@@ -33,7 +33,7 @@ allow update_engine_common rootfs:file r_file_perms;
 # labels on the mounted filesystem to postinstall_file.
 allow update_engine_common postinstall_mnt_dir:dir { mounton getattr search };
 allow update_engine_common postinstall_file:filesystem { mount unmount relabelfrom relabelto };
-allow update_engine_common labeledfs:filesystem relabelfrom;
+allow update_engine_common labeledfs:filesystem { mount unmount relabelfrom };
 
 # Allow update_engine_common to read and execute postinstall_file.
 allow update_engine_common postinstall_file:file rx_file_perms;

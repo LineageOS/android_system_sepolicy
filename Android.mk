@@ -758,16 +758,25 @@ plat_pub_policy_$(PLATFORM_SEPOLICY_VERSION).cil := $(plat_pub_policy.cil)
 
 built_plat_cil := $(call intermediates-dir-for,ETC,plat_sepolicy.cil)/plat_sepolicy.cil
 built_plat_cil_$(PLATFORM_SEPOLICY_VERSION) := $(built_plat_cil)
+built_plat_mapping_cil := $(call intermediates-dir-for,ETC,plat_mapping_file)/plat_mapping_file
+built_plat_mapping_cil_$(PLATFORM_SEPOLICY_VERSION) := $(built_plat_mapping_cil)
 
 ifdef HAS_SYSTEM_EXT_SEPOLICY
 built_system_ext_cil := $(call intermediates-dir-for,ETC,system_ext_sepolicy.cil)/system_ext_sepolicy.cil
 built_system_ext_cil_$(PLATFORM_SEPOLICY_VERSION) := $(built_system_ext_cil)
+built_system_ext_mapping_cil := $(call intermediates-dir-for,ETC,system_ext_mapping_file)/system_ext_mapping_file
+built_system_ext_mapping_cil_$(PLATFORM_SEPOLICY_VERSION) := $(built_system_ext_mapping_cil)
 endif # ifdef HAS_SYSTEM_EXT_SEPOLICY
 
 ifdef HAS_PRODUCT_SEPOLICY
 built_product_cil := $(call intermediates-dir-for,ETC,product_sepolicy.cil)/product_sepolicy.cil
 built_product_cil_$(PLATFORM_SEPOLICY_VERSION) := $(built_product_cil)
+built_product_mapping_cil := $(call intermediates-dir-for,ETC,product_mapping_file)/product_mapping_file
+built_product_mapping_cil_$(PLATFORM_SEPOLICY_VERSION) := $(built_product_mapping_cil)
 endif # ifdef HAS_PRODUCT_SEPOLICY
+
+built_pub_vers_cil := $(call intermediates-dir-for,ETC,plat_pub_versioned.cil)/plat_pub_versioned.cil
+built_pub_vers_cil_$(PLATFORM_SEPOLICY_VERSION) := $(built_pub_vers_cil)
 
 # b/37755687
 CHECKPOLICY_ASAN_OPTIONS := ASAN_OPTIONS=detect_leaks=0
@@ -839,122 +848,6 @@ $(LOCAL_BUILT_MODULE) : PRIVATE_PLAT_SEPOL_VERS := $(BOARD_SEPOLICY_VERS)
 $(LOCAL_BUILT_MODULE) :
 	mkdir -p $(dir $@)
 	echo $(PRIVATE_PLAT_SEPOL_VERS) > $@
-
-#################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := plat_mapping_file
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_STEM := $(PLATFORM_SEPOLICY_VERSION).cil
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT)/etc/selinux/mapping
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-# auto-generate the mapping file for current platform policy, since it needs to
-# track platform policy development
-$(LOCAL_BUILT_MODULE) : PRIVATE_VERS := $(PLATFORM_SEPOLICY_VERSION)
-$(LOCAL_BUILT_MODULE) : $(plat_pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy
-	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
-
-built_plat_mapping_cil := $(LOCAL_BUILT_MODULE)
-built_plat_mapping_cil_$(PLATFORM_SEPOLICY_VERSION) := $(built_plat_mapping_cil)
-
-#################################
-include $(CLEAR_VARS)
-
-ifdef HAS_SYSTEM_EXT_PUBLIC_SEPOLICY
-LOCAL_MODULE := system_ext_mapping_file
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_STEM := $(PLATFORM_SEPOLICY_VERSION).cil
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT_SYSTEM_EXT)/etc/selinux/mapping
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE) : PRIVATE_VERS := $(PLATFORM_SEPOLICY_VERSION)
-$(LOCAL_BUILT_MODULE) : PRIVATE_PLAT_MAPPING_CIL := $(built_plat_mapping_cil)
-$(LOCAL_BUILT_MODULE) : $(system_ext_pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy \
-$(built_plat_mapping_cil)
-	@mkdir -p $(dir $@)
-	# Generate system_ext mapping file as mapping file of 'system' (plat) and 'system_ext'
-	# sepolicy minus plat_mapping_file.
-	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/build_sepolicy -a $(HOST_OUT_EXECUTABLES) filter_out \
-		-f $(PRIVATE_PLAT_MAPPING_CIL) -t $@
-
-built_system_ext_mapping_cil := $(LOCAL_BUILT_MODULE)
-built_system_ext_mapping_cil_$(PLATFORM_SEPOLICY_VERSION) := $(built_system_ext_mapping_cil)
-endif # ifdef HAS_SYSTEM_EXT_PUBLIC_SEPOLICY
-
-#################################
-include $(CLEAR_VARS)
-
-ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
-LOCAL_MODULE := product_mapping_file
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_STEM := $(PLATFORM_SEPOLICY_VERSION).cil
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/etc/selinux/mapping
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE) : PRIVATE_VERS := $(PLATFORM_SEPOLICY_VERSION)
-$(LOCAL_BUILT_MODULE) : PRIVATE_FILTER_CIL_FILES := $(built_plat_mapping_cil) $(built_system_ext_mapping_cil)
-$(LOCAL_BUILT_MODULE) : $(pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy \
-$(built_plat_mapping_cil) $(built_system_ext_mapping_cil)
-	@mkdir -p $(dir $@)
-	# Generate product mapping file as mapping file of all public sepolicy minus
-	# plat_mapping_file and system_ext_mapping_file.
-	$(hide) $(HOST_OUT_EXECUTABLES)/version_policy -b $< -m -n $(PRIVATE_VERS) -o $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/build_sepolicy -a $(HOST_OUT_EXECUTABLES) filter_out \
-		-f $(PRIVATE_FILTER_CIL_FILES) -t $@
-
-built_product_mapping_cil := $(LOCAL_BUILT_MODULE)
-built_product_mapping_cil_$(PLATFORM_SEPOLICY_VERSION) := $(built_product_mapping_cil)
-endif # ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
-
-#################################
-include $(CLEAR_VARS)
-
-# plat_pub_versioned.cil - the exported platform policy associated with the version
-# that non-platform policy targets.
-LOCAL_MODULE := plat_pub_versioned.cil
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_PROPRIETARY_MODULE := true
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE) : PRIVATE_VERS := $(PLATFORM_SEPOLICY_VERSION)
-$(LOCAL_BUILT_MODULE) : PRIVATE_TGT_POL := $(pub_policy.cil)
-$(LOCAL_BUILT_MODULE) : PRIVATE_DEP_CIL_FILES := $(built_plat_cil) $(built_system_ext_cil) \
-$(built_product_cil) $(built_plat_mapping_cil) $(built_system_ext_mapping_cil) \
-$(built_product_mapping_cil)
-$(LOCAL_BUILT_MODULE) : $(pub_policy.cil) $(HOST_OUT_EXECUTABLES)/version_policy \
-  $(HOST_OUT_EXECUTABLES)/secilc $(built_plat_cil) $(built_system_ext_cil) $(built_product_cil) \
-  $(built_plat_mapping_cil) $(built_system_ext_mapping_cil) $(built_product_mapping_cil)
-	@mkdir -p $(dir $@)
-	$(HOST_OUT_EXECUTABLES)/version_policy -b $< -t $(PRIVATE_TGT_POL) -n $(PRIVATE_VERS) -o $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -N -c $(POLICYVERS) \
-		$(PRIVATE_DEP_CIL_FILES) $@ -o /dev/null -f /dev/null
-
-built_pub_vers_cil := $(LOCAL_BUILT_MODULE)
-built_pub_vers_cil_$(PLATFORM_SEPOLICY_VERSION) := $(built_pub_vers_cil)
 
 #################################
 include $(CLEAR_VARS)
@@ -1154,52 +1047,6 @@ all_cil_files :=
 #   precompiled_sepolicy.product_sepolicy_and_mapping.sha256
 # See system/core/init/selinux.cpp for details.
 #################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := plat_sepolicy_and_mapping.sha256
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH = $(TARGET_OUT)/etc/selinux
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE): $(built_plat_cil) $(built_plat_mapping_cil)
-	cat $^ | sha256sum | cut -d' ' -f1 > $@
-
-#################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := system_ext_sepolicy_and_mapping.sha256
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH = $(TARGET_OUT_SYSTEM_EXT)/etc/selinux
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE): $(built_system_ext_cil) $(built_system_ext_mapping_cil)
-	cat $^ | sha256sum | cut -d' ' -f1 > $@
-
-#################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := product_sepolicy_and_mapping.sha256
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH = $(TARGET_OUT_PRODUCT)/etc/selinux
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE): $(built_product_cil) $(built_product_mapping_cil)
-	cat $^ | sha256sum | cut -d' ' -f1 > $@
 
 #################################
 # SHA-256 digest of the plat_sepolicy.cil and plat_mapping_file against

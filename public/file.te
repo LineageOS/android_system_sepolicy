@@ -242,7 +242,9 @@ type metadata_file, file_type;
 # Vold files within /metadata
 type vold_metadata_file, file_type;
 # GSI files within /metadata
-type gsi_metadata_file, file_type;
+type gsi_metadata_file, gsi_metadata_file_type, file_type;
+# DSU (GSI) files within /metadata that are globally readable.
+type gsi_public_metadata_file, gsi_metadata_file_type, file_type;
 # system_server shares Weaver slot information in /metadata
 type password_slot_metadata_file, file_type;
 # APEX files within /metadata

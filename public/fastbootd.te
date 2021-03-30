@@ -49,8 +49,8 @@ recovery_only(`
   allow fastbootd metadata_block_device:blk_file r_file_perms;
   allow fastbootd {rootfs tmpfs}:dir mounton;
   allow fastbootd metadata_file:dir { search getattr };
-  allow fastbootd gsi_metadata_file:dir rw_dir_perms;
-  allow fastbootd gsi_metadata_file:file create_file_perms;
+  allow fastbootd gsi_metadata_file_type:dir rw_dir_perms;
+  allow fastbootd gsi_metadata_file_type:file create_file_perms;
 
   allowxperm fastbootd super_block_device_type:blk_file ioctl { BLKIOMIN BLKALIGNOFF };
 
@@ -103,7 +103,7 @@ recovery_only(`
   ')
 
   # Allow using libfiemap/gsid directly (no binder in recovery).
-  allow fastbootd gsi_metadata_file:dir search;
+  allow fastbootd gsi_metadata_file_type:dir search;
   allow fastbootd ota_metadata_file:dir rw_dir_perms;
   allow fastbootd ota_metadata_file:file create_file_perms;
 ')
