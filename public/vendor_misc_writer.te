@@ -8,7 +8,7 @@ allow vendor_misc_writer block_device:dir r_dir_perms;
 
 # Silence the denial when calling libfstab's ReadDefaultFstab, which tries to
 # load DT fstab.
-dontaudit vendor_misc_writer gsi_metadata_file:dir search;
+dontaudit vendor_misc_writer gsi_metadata_file_type:dir search;
 dontaudit vendor_misc_writer proc_cmdline:file r_file_perms;
 dontaudit vendor_misc_writer metadata_file:dir search;
 dontaudit vendor_misc_writer sysfs_dt_firmware_android:dir search;

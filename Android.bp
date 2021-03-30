@@ -654,6 +654,111 @@ se_policy_cil {
     remove_line_marker: true,
 }
 
+// policy mapping files
+// auto-generate the mapping file for current platform policy, since it needs to
+// track platform policy development
+se_versioned_policy {
+    name: "plat_mapping_file",
+    base: ":plat_pub_policy.cil",
+    mapping: true,
+    version: "current",
+    relative_install_path: "mapping", // install to /system/etc/selinux/mapping
+}
+
+se_versioned_policy {
+    name: "system_ext_mapping_file",
+    base: ":system_ext_pub_policy.cil",
+    mapping: true,
+    version: "current",
+    filter_out: [":plat_mapping_file"],
+    relative_install_path: "mapping", // install to /system_ext/etc/selinux/mapping
+    system_ext_specific: true,
+}
+
+se_versioned_policy {
+    name: "product_mapping_file",
+    base: ":pub_policy.cil",
+    mapping: true,
+    version: "current",
+    filter_out: [":plat_mapping_file", ":system_ext_mapping_file"],
+    relative_install_path: "mapping", // install to /product/etc/selinux/mapping
+    product_specific: true,
+}
+
+// plat_pub_versioned.cil - the exported platform policy associated with the version
+// that non-platform policy targets.
+se_versioned_policy {
+    name: "plat_pub_versioned.cil",
+    base: ":pub_policy.cil",
+    target_policy: ":pub_policy.cil",
+    version: "current",
+    dependent_cils: [
+        ":plat_sepolicy.cil",
+        ":system_ext_sepolicy.cil",
+        ":product_sepolicy.cil",
+        ":plat_mapping_file",
+        ":system_ext_mapping_file",
+        ":product_mapping_file",
+    ],
+    vendor: true,
+}
+
+//////////////////////////////////
+// Precompiled sepolicy is loaded if and only if:
+// - plat_sepolicy_and_mapping.sha256 equals
+//   precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
+// AND
+// - system_ext_sepolicy_and_mapping.sha256 equals
+//   precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256
+// AND
+// - product_sepolicy_and_mapping.sha256 equals
+//   precompiled_sepolicy.product_sepolicy_and_mapping.sha256
+// See system/core/init/selinux.cpp for details.
+//////////////////////////////////
+genrule {
+    name: "plat_sepolicy_and_mapping.sha256_gen",
+    srcs: [":plat_sepolicy.cil", ":plat_mapping_file"],
+    out: ["plat_sepolicy_and_mapping.sha256"],
+    cmd: "cat $(in) | sha256sum | cut -d' ' -f1 > $(out)",
+}
+
+prebuilt_etc {
+    name: "plat_sepolicy_and_mapping.sha256",
+    filename: "plat_sepolicy_and_mapping.sha256",
+    src: ":plat_sepolicy_and_mapping.sha256_gen",
+    relative_install_path: "selinux",
+}
+
+genrule {
+    name: "system_ext_sepolicy_and_mapping.sha256_gen",
+    srcs: [":system_ext_sepolicy.cil", ":system_ext_mapping_file"],
+    out: ["system_ext_sepolicy_and_mapping.sha256"],
+    cmd: "cat $(in) | sha256sum | cut -d' ' -f1 > $(out)",
+}
+
+prebuilt_etc {
+    name: "system_ext_sepolicy_and_mapping.sha256",
+    filename: "system_ext_sepolicy_and_mapping.sha256",
+    src: ":system_ext_sepolicy_and_mapping.sha256_gen",
+    relative_install_path: "selinux",
+    system_ext_specific: true,
+}
+
+genrule {
+    name: "product_sepolicy_and_mapping.sha256_gen",
+    srcs: [":product_sepolicy.cil", ":product_mapping_file"],
+    out: ["product_sepolicy_and_mapping.sha256"],
+    cmd: "cat $(in) | sha256sum | cut -d' ' -f1 > $(out)",
+}
+
+prebuilt_etc {
+    name: "product_sepolicy_and_mapping.sha256",
+    filename: "product_sepolicy_and_mapping.sha256",
+    src: ":product_sepolicy_and_mapping.sha256_gen",
+    relative_install_path: "selinux",
+    product_specific: true,
+}
+
 //////////////////////////////////
 // SELinux policy embedded into CTS.
 // CTS checks neverallow rules of this policy against the policy of the device under test.

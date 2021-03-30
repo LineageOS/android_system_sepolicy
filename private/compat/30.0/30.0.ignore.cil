@@ -83,6 +83,10 @@
     pac_proxy_service
     people_service
     persist_vendor_debug_wifi_prop
+    postinstall_dexopt_exec
+    postinstall_device_mnt_dir
+    postinstall_product_mnt_dir
+    postinstall_vendor_mnt_dir
     power_debug_prop
     powerstats_service
     proc_kallsyms
@@ -121,6 +125,7 @@
     userspace_reboot_metadata_file
     vcn_management_service
     vibrator_manager_service
+    virtualization_service
     vpn_management_service
     vpnprofilestore_service
     watchdog_metadata_file
