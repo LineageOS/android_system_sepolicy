@@ -20,6 +20,7 @@ android.hardware.vibrator.IVibrator/default                          u:object_r:
 android.hardware.vibrator.IVibratorManager/default                   u:object_r:hal_vibrator_service:s0
 android.hardware.weaver.IWeaver/default                              u:object_r:hal_weaver_service:s0
 android.frameworks.stats.IStats/default                              u:object_r:fwk_stats_service:s0
+android.system.keystore2.IKeystoreService/default                    u:object_r:keystore_service:s0
 
 accessibility                             u:object_r:accessibility_service:s0
 account                                   u:object_r:account_service:s0
@@ -70,6 +71,7 @@ cacheinfo                                 u:object_r:cacheinfo_service:s0
 carrier_config                            u:object_r:radio_service:s0
 clipboard                                 u:object_r:clipboard_service:s0
 com.android.net.IProxyService             u:object_r:IProxyService_service:s0
+android.system.virtmanager                u:object_r:virtualization_service:s0
 companiondevice                           u:object_r:companion_device_service:s0
 platform_compat                           u:object_r:platform_compat_service:s0
 platform_compat_native                    u:object_r:platform_compat_service:s0

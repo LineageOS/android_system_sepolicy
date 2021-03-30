@@ -514,7 +514,6 @@ neverallow { domain -kernel with_asan(`-asan_extract') } { system_file_type vend
 
 # Don't allow mounting on top of /system files or directories
 neverallow * exec_type:dir_file_class_set mounton;
-neverallow { domain -init } { system_file_type vendor_file_type }:dir_file_class_set mounton;
 
 # Nothing should be writing to files in the rootfs.
 neverallow * rootfs:file { create write setattr relabelto append unlink link rename };

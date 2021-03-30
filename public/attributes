@@ -386,3 +386,6 @@ attribute super_block_device_type;
 # All types used for DMA-BUF heaps
 attribute dmabuf_heap_device_type;
 expandattribute dmabuf_heap_device_type false;
+
+# All types used for DSU metadata files.
+attribute gsi_metadata_file_type;

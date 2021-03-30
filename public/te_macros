@@ -965,3 +965,12 @@ define(`vendor_restricted_prop', `
 # Define a /vendor-owned property with no restrictions
 #
 define(`vendor_public_prop', `define_prop($1, vendor, public)')
+
+#####################################
+# read_fstab(domain)
+# Ability to call ReadDefaultFstab() and ReadFstabFromFile().
+#
+define(`read_fstab', `
+  allow $1 { metadata_file gsi_metadata_file_type }:dir search;
+  allow $1 gsi_public_metadata_file:file r_file_perms;
+')
