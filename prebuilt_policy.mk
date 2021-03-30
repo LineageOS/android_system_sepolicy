@@ -202,8 +202,10 @@ built_system_ext_cil_$(ver) := $(system_ext_policy_$(ver).cil)
 system_ext_mapping_cil_$(ver) := $(intermediates)/system_ext_mapping_$(ver).cil
 $(system_ext_mapping_cil_$(ver)) : PRIVATE_VERS := $(ver)
 $(system_ext_mapping_cil_$(ver)) : PRIVATE_PLAT_MAPPING_CIL := $(built_plat_mapping_cil_$(ver))
-$(system_ext_mapping_cil_$(ver)) : $(system_ext_pub_policy_$(ver).cil) $(HOST_OUT_EXECUTABLES)/version_policy \
-$(built_plat_mapping_cil_$(ver))
+$(system_ext_mapping_cil_$(ver)) : $(HOST_OUT_EXECUTABLES)/version_policy
+$(system_ext_mapping_cil_$(ver)) : $(HOST_OUT_EXECUTABLES)/build_sepolicy
+$(system_ext_mapping_cil_$(ver)) : $(built_plat_mapping_cil_$(ver))
+$(system_ext_mapping_cil_$(ver)) : $(system_ext_pub_policy_$(ver).cil)
 	@mkdir -p $(dir $@)
 	# Generate system_ext mapping file as mapping file of 'system' (plat) and 'system_ext'
 	# sepolicy minus plat_mapping_file.
@@ -282,8 +284,11 @@ ifdef HAS_PRODUCT_SEPOLICY_DIR
 product_mapping_cil_$(ver) := $(intermediates)/product_mapping_cil_$(ver).cil
 $(product_mapping_cil_$(ver)) : PRIVATE_VERS := $(ver)
 $(product_mapping_cil_$(ver)) : PRIVATE_FILTER_CIL_FILES := $(built_plat_mapping_cil_$(ver)) $(built_system_ext_mapping_cil_$(ver))
-$(product_mapping_cil_$(ver)) : $(pub_policy_$(ver).cil) $(HOST_OUT_EXECUTABLES)/version_policy \
-$(built_plat_mapping_cil_$(ver)) $(built_system_ext_mapping_cil_$(ver))
+$(product_mapping_cil_$(ver)) : $(pub_policy_$(ver).cil)
+$(product_mapping_cil_$(ver)) : $(HOST_OUT_EXECUTABLES)/build_sepolicy
+$(product_mapping_cil_$(ver)) : $(HOST_OUT_EXECUTABLES)/version_policy
+$(product_mapping_cil_$(ver)) : $(built_plat_mapping_cil_$(ver))
+$(product_mapping_cil_$(ver)) : $(built_system_ext_mapping_cil_$(ver))
 	@mkdir -p $(dir $@)
 	# Generate product mapping file as mapping file of all public sepolicy minus
 	# plat_mapping_file and system_ext_mapping_file.
