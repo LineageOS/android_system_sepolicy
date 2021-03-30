@@ -183,3 +183,9 @@ neverallow { domain -apexd -init } apexd_prop:property_service set;
 
 # only apexd can write apex-info-list.xml
 neverallow { domain -apexd } apex_info_file:file no_w_file_perms;
+
+# Allow for use in postinstall
+allow apexd otapreopt_chroot:fd use;
+allow apexd postinstall_apex_mnt_dir:dir { create_dir_perms mounton };
+allow apexd postinstall_apex_mnt_dir:file { create_file_perms relabelfrom };
+allow apexd proc_filesystems:file r_file_perms;

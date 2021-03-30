@@ -44,6 +44,9 @@ dontaudit adbd self:global_capability_class_set sys_resource;
 # this occurs. (b/123569840)
 dontaudit adbd self:{ socket vsock_socket } create;
 
+# Allow adbd inside vm to forward vm's vsock.
+allow adbd self:vsock_socket { create_socket_perms_no_ioctl listen accept };
+
 # Create and use network sockets.
 net_domain(adbd)
 
