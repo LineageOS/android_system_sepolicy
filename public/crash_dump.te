@@ -65,6 +65,10 @@ dontaudit crash_dump {
 dontaudit crash_dump system_data_file:{ lnk_file file } read;
 dontaudit crash_dump property_type:file read;
 
+# Suppress denials for files in /proc that are passed
+# across exec().
+dontaudit crash_dump proc_type:file rw_file_perms;
+
 ###
 ### neverallow assertions
 ###
