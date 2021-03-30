@@ -485,3 +485,7 @@ full_treble_only(`
 # (Every domain is allowed self:fork, so this will trigger if the
 # intsersection of domain & mlsvendorcompat is not empty.)
 neverallow domain mlsvendorcompat:process fork;
+
+# Only init and otapreopt_chroot should be mounting filesystems on locations
+# labeled system or vendor (/product and /vendor respectively).
+neverallow { domain -init -otapreopt_chroot } { system_file_type vendor_file_type }:dir_file_class_set mounton;
