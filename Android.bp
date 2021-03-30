@@ -773,54 +773,33 @@ se_policy_conf {
 
 //////////////////////////////////
 // modules for microdroid
-// TODO(b/33691272): migrate Android.mk to Android.bp and remove workarounds
 //////////////////////////////////
-genrule {
-    name: "microdroid_plat_mapping_file_gen",
-    srcs: [":plat_pub_policy.cil"],
-    tools: ["version_policy"],
-    out: ["10000.0.cil"],
-    cmd: "$(location version_policy) -b $(location :plat_pub_policy.cil) -m -n 10000.0 -o $(out)",
-    visibility: ["//visibility:private"],
-}
 
-prebuilt_etc {
-    name: "microdroid_plat_mapping_file",
-    src: ":microdroid_plat_mapping_file_gen",
-    filename: "10000.0.cil",
-    relative_install_path: "selinux/mapping",
-    installable: false,
-}
-
-// Normally plat_pub_versioned.cil is built from pub_policy.cil (including system_ext and product).
-// But microdroid only has system, so its plat_pub_versioned.cil uses plat_pub_policy.cil.
-genrule {
-    name: "microdroid_plat_pub_versioned.cil_gen",
-    srcs: [":plat_pub_policy.cil"],
-    tools: ["version_policy"],
-    out: ["plat_pub_versioned.cil"],
-    cmd: "$(location version_policy) " +
-        "-b $(location :plat_pub_policy.cil) " +
-        "-t $(location :plat_pub_policy.cil) " +
-        "-n 10000.0 " +
-        "-o $(out)",
-    visibility: ["//visibility:private"],
-}
-
-prebuilt_etc {
+// microdroid's system sepolicy is almost identical to host's system sepolicy, except that
+// microdroid doesn't have system_ext and product. So microdroid's plat_pub_versioned.cil is
+// generated with plat_pub_policy.cil (exported system), not pub_policy.cil (exported system +
+// system_ext + product). Other two files, plat_sepolicy.cil and plat_mapping_file, are copied from
+// host's files.
+se_versioned_policy {
     name: "microdroid_plat_pub_versioned.cil",
-    src: ":microdroid_plat_pub_versioned.cil_gen",
-    filename: "plat_pub_versioned.cil",
-    relative_install_path: "selinux",
+    stem: "plat_pub_versioned.cil",
+    base: ":plat_pub_policy.cil",
+    target_policy: ":plat_pub_policy.cil",
+    version: "current",
+    dependent_cils: [
+        ":plat_sepolicy.cil",
+        ":plat_mapping_file",
+    ],
     installable: false,
 }
 
-// policy files for microdroid vendor
-// This contains a minimal set of policy files for microdroid vendor.
-// TODO(b/33691272): update se_build_files to cover this
-filegroup {
-    name: "microdroid_vendor_sepolicy_build_files",
+// microdroid's vendor sepolicy is a minimalized sepolicy needed for microdroid to boot. It just
+// contains system/sepolicy/public and system/sepolicy/vendor.
+// TODO(b/33691272): update se_build_files to cover this hard-coded srcs
+se_policy_conf {
+    name: "microdroid_vendor_sepolicy.conf",
     srcs: [
+        // The order here is important
         "reqd_mask/security_classes",
         "reqd_mask/initial_sids",
         "reqd_mask/access_vectors",
@@ -842,47 +821,28 @@ filegroup {
         "reqd_mask/users",
         "reqd_mask/initial_sid_contexts",
     ],
-}
-
-se_policy_conf {
-    name: "microdroid_vendor_sepolicy.conf",
-    srcs: [":microdroid_vendor_sepolicy_build_files"],
     installable: false,
 }
 
-genrule {
-    name: "microdroid_vendor_sepolicy.cil_gen",
-    srcs: [
-        ":microdroid_vendor_sepolicy.conf",
-        ":microdroid_plat_pub_versioned.cil_gen",
-        ":plat_pub_policy.cil",
-        ":reqd_policy_mask.cil",
-    ],
-    tools: [
-        "build_sepolicy",
-        "checkpolicy",
-        "secilc",
-        "version_policy",
-    ],
-    out: ["vendor_sepolicy.cil"],
-    cmd: "$(location build_sepolicy) " +
-        "--android_host_path $$(dirname $(location build_sepolicy)) " +
-        "build_cil " +
-        "--input_policy_conf $(location :microdroid_vendor_sepolicy.conf) " +
-        "--checkpolicy_env ASAN_OPTIONS=detect_leaks=0 " +
-        "--base_policy $(location :plat_pub_policy.cil) " +
-        "--filter_out_files $(location :microdroid_plat_pub_versioned.cil_gen) " +
-        "--reqd_mask $(location :reqd_policy_mask.cil) " +
-        "--treble_sepolicy_vers 10000.0 " +
-        "--policy_vers 30 " +
-        "--output_cil $(out)",
-    visibility: ["//visibility:private"],
+se_policy_cil {
+    name: "microdroid_vendor_sepolicy.cil.raw",
+    src: ":microdroid_vendor_sepolicy.conf",
+    filter_out: [":reqd_policy_mask.cil"],
+    secilc_check: false, // will be done in se_versioned_policy module
+    installable: false,
 }
 
-prebuilt_etc {
+se_versioned_policy {
     name: "microdroid_vendor_sepolicy.cil",
-    src: ":microdroid_vendor_sepolicy.cil_gen",
-    filename: "vendor_sepolicy.cil",
-    relative_install_path: "selinux",
+    stem: "vendor_sepolicy.cil",
+    base: ":plat_pub_policy.cil",
+    target_policy: ":microdroid_vendor_sepolicy.cil.raw",
+    version: "current", // microdroid is bundled to system
+    dependent_cils: [
+        ":plat_sepolicy.cil",
+        ":microdroid_plat_pub_versioned.cil",
+        ":plat_mapping_file",
+    ],
+    filter_out: [":microdroid_plat_pub_versioned.cil"],
     installable: false,
 }
