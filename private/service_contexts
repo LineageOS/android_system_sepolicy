@@ -41,7 +41,6 @@ android.security.maintenance              u:object_r:keystore_maintenance_servic
 android.security.remoteprovisioning       u:object_r:remoteprovisioning_service:s0
 android.security.vpnprofilestore          u:object_r:vpnprofilestore_service:s0
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
-android.system.keystore2                  u:object_r:keystore_service:s0
 app_binding                               u:object_r:app_binding_service:s0
 app_hibernation                           u:object_r:app_hibernation_service:s0
 app_integrity                             u:object_r:app_integrity_service:s0
