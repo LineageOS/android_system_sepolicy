@@ -22,6 +22,9 @@ allow incidentd toolbox_exec:file rx_file_perms;
 # section id 1002, allow reading kernel version /proc/version
 allow incidentd proc_version:file r_file_perms;
 
+# section id 1116, allow accessing statsd socket
+unix_socket_send(incidentd, statsdw, statsd)
+
 # section id 2001, allow reading /proc/pagetypeinfo
 allow incidentd proc_pagetypeinfo:file r_file_perms;
 
