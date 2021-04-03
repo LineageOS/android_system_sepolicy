@@ -50,7 +50,7 @@ type dmabuf_system_heap_device, dmabuf_heap_device_type, dev_type, mlstrustedobj
 type dmabuf_system_secure_heap_device, dmabuf_heap_device_type, dev_type, mlstrustedobject;
 type qtaguid_device, dev_type;
 type watchdog_device, dev_type;
-type uhid_device, dev_type;
+type uhid_device, dev_type, mlstrustedobject;
 type uio_device, dev_type;
 type tun_device, dev_type, mlstrustedobject;
 type usbaccessory_device, dev_type, mlstrustedobject;
