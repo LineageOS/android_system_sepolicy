@@ -145,6 +145,7 @@ type media_projection_service, app_api_service, ephemeral_app_api_service, syste
 type media_router_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type media_session_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type meminfo_service, system_api_service, system_server_service, service_manager_type;
+type memtrackproxy_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type midi_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type mount_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type music_recognition_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
