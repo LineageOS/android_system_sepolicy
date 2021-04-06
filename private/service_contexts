@@ -178,6 +178,7 @@ media_resource_monitor                    u:object_r:media_session_service:s0
 media_router                              u:object_r:media_router_service:s0
 media_session                             u:object_r:media_session_service:s0
 meminfo                                   u:object_r:meminfo_service:s0
+memtrack.proxy                            u:object_r:memtrackproxy_service:s0
 midi                                      u:object_r:midi_service:s0
 mount                                     u:object_r:mount_service:s0
 music_recognition                         u:object_r:music_recognition_service:s0
