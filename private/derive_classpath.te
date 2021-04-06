@@ -4,6 +4,9 @@ type derive_classpath, domain, coredomain;
 type derive_classpath_exec, system_file_type, exec_type, file_type;
 init_daemon_domain(derive_classpath)
 
+# Read /apex
+allow derive_classpath apex_mnt_dir:dir r_dir_perms;
+
 # Create /data/system/environ/classpath file
 allow derive_classpath environ_system_data_file:dir rw_dir_perms;
 allow derive_classpath environ_system_data_file:file create_file_perms;
