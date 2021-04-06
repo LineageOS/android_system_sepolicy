@@ -293,9 +293,8 @@ allow vold mnt_vendor_file:dir search;
 
 dontaudit vold self:global_capability_class_set sys_resource;
 
-# vold needs to know whether we're running a GSI.
-allow vold gsi_metadata_file_type:dir r_dir_perms;
-allow vold gsi_metadata_file_type:file r_file_perms;
+# Allow ReadDefaultFstab().
+read_fstab(vold)
 
 # vold might need to search loopback apex files
 allow vold vendor_apex_file:file r_file_perms;
