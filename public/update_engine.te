@@ -64,12 +64,11 @@ allow update_engine proc_misc:file r_file_perms;
 # read directories on /system and /vendor
 allow update_engine system_file:dir r_dir_perms;
 
+# Allow ReadDefaultFstab().
 # update_engine tries to determine the parent path for all devices (e.g.
 # /dev/block/by-name) by reading the default fstab and looking for the misc
-# device. ReadDefaultFstab() checks whether a GSI is running by checking
-# gsi_metadata_file. We never apply OTAs when GSI is running, so just deny
-# the access.
-dontaudit update_engine gsi_metadata_file_type:dir search;
+# device.
+read_fstab(update_engine)
 
 # Allow to write to snapshotctl_log logs.
 # TODO(b/148818798) revert when parent bug is fixed.
