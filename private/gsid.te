@@ -166,8 +166,6 @@ neverallow {
     -init
     -gsid
     -fastbootd
-    -recovery
-    -vold
 } gsi_metadata_file_type:dir no_w_dir_perms;
 
 neverallow {
@@ -175,7 +173,6 @@ neverallow {
     -init
     -gsid
     -fastbootd
-    -vold
 } { gsi_metadata_file_type -gsi_public_metadata_file }:file_class_set *;
 
 neverallow {
@@ -183,7 +180,6 @@ neverallow {
     -init
     -gsid
     -fastbootd
-    -vold
 } gsi_public_metadata_file:file_class_set ~{ r_file_perms };
 
 # Prevent apps from accessing gsi_metadata_file_type.
@@ -193,15 +189,7 @@ neverallow {
     domain
     -init
     -gsid
-} gsi_data_file:dir *;
-
-neverallow {
-    domain
-    -init
-    -gsid
-    -fastbootd
-    -vold
-} gsi_data_file:file_class_set *;
+} gsi_data_file:dir_file_class_set *;
 
 neverallow {
     domain
