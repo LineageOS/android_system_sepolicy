@@ -795,32 +795,9 @@ se_versioned_policy {
 
 // microdroid's vendor sepolicy is a minimalized sepolicy needed for microdroid to boot. It just
 // contains system/sepolicy/public and system/sepolicy/vendor.
-// TODO(b/33691272): update se_build_files to cover this hard-coded srcs
 se_policy_conf {
     name: "microdroid_vendor_sepolicy.conf",
-    srcs: [
-        // The order here is important
-        "reqd_mask/security_classes",
-        "reqd_mask/initial_sids",
-        "reqd_mask/access_vectors",
-        "public/global_macros",
-        "public/neverallow_macros",
-        "reqd_mask/mls_macros",
-        "reqd_mask/mls_decl",
-        "reqd_mask/mls",
-        "public/te_macros",
-        "public/attributes",
-        "public/ioctl_defines",
-        "public/ioctl_macros",
-        "public/*.te",
-        "reqd_mask/*.te",
-        "vendor/*.te",
-        "reqd_mask/roles_decl",
-        "public/roles",
-        "reqd_mask/roles",
-        "reqd_mask/users",
-        "reqd_mask/initial_sid_contexts",
-    ],
+    srcs: [":se_build_files{.plat_vendor}"],
     installable: false,
 }
 
