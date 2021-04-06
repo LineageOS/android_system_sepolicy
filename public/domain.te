@@ -1075,6 +1075,9 @@ neverallow {
 neverallow { domain -dumpstate -incidentd -system_server } tombstoned_intercept_socket:sock_file write;
 neverallow { domain -dumpstate -incidentd -system_server } tombstoned_intercept_socket:unix_stream_socket connectto;
 
+# Never allow anyone but system_server to read heapdumps in /data/system/heapdump.
+neverallow { domain -init -system_server } heapdump_data_file:file read;
+
 # Android does not support System V IPCs.
 #
 # The reason for this is due to the fact that, by design, they lead to global
