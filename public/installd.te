@@ -157,6 +157,9 @@ allow installd preloads_media_file:dir { r_dir_perms write remove_name rmdir };
 # Allow installd to read /proc/filesystems
 allow installd proc_filesystems:file r_file_perms;
 
+#add for move app to sd card
+get_prop(installd, storage_config_prop)
+
 ###
 ### Neverallow rules
 ###
