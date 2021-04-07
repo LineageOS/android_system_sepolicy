@@ -497,6 +497,7 @@ ro.lmk.psi_complete_stall_ms    u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.swap_free_low_percentage u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.swap_util_max            u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.thrashing_limit          u:object_r:lmkd_config_prop:s0 exact int
+ro.lmk.thrashing_limit_critical u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.thrashing_limit_decay    u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.use_minfree_levels       u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.upgrade_pressure         u:object_r:lmkd_config_prop:s0 exact int
@@ -591,7 +592,8 @@ hal.instrumentation.enable u:object_r:hal_instrumentation_prop:s0 exact bool
 # default contexts only accessible by coredomain
 init.svc. u:object_r:init_service_status_private_prop:s0 prefix string
 
-# vendor-init-readable init service props
+# Globally-readable init service props
+init.svc.adbd           u:object_r:init_service_status_prop:s0 exact string
 init.svc.bugreport      u:object_r:init_service_status_prop:s0 exact string
 init.svc.bugreportd     u:object_r:init_service_status_prop:s0 exact string
 init.svc.console        u:object_r:init_service_status_prop:s0 exact string
