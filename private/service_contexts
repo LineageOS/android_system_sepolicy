@@ -125,6 +125,7 @@ gpu                                       u:object_r:gpu_service:s0
 hardware                                  u:object_r:hardware_service:s0
 hardware_properties                       u:object_r:hardware_properties_service:s0
 hdmi_control                              u:object_r:hdmi_control_service:s0
+hint                                      u:object_r:hint_service:s0
 ions                                      u:object_r:radio_service:s0
 idmap                                     u:object_r:idmap_service:s0
 incident                                  u:object_r:incident_service:s0

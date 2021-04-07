@@ -263,6 +263,7 @@ get_prop(vendor_init, power_debug_prop)
 get_prop(vendor_init, provisioned_prop)
 get_prop(vendor_init, retaildemo_prop)
 get_prop(vendor_init, surfaceflinger_display_prop)
+get_prop(vendor_init, test_harness_prop)
 get_prop(vendor_init, theme_prop)
 
 
