@@ -521,9 +521,12 @@ neverallow {
 
 # debugfs_kcov type is not included in this neverallow statement since the KCOV
 # tool uses it for kernel fuzzing.
+# vendor_modprobe is also exempted since the kernel modules it loads may create
+# debugfs files in its context.
 enforce_debugfs_restriction(`
   neverallow {
     domain
+    -vendor_modprobe
     userdebug_or_eng(`
       -init
       -hal_dumpstate
