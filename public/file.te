@@ -562,6 +562,9 @@ type vndservice_contexts_file, file_type;
 # /sys/kernel/tracing/instances/bootreceiver for monitoring kernel memory corruptions.
 type debugfs_bootreceiver_tracing, fs_type, debugfs_type;
 
+# kernel modules
+type vendor_kernel_modules, vendor_file_type, file_type;
+
 # Allow files to be created in their appropriate filesystems.
 allow fs_type self:filesystem associate;
 allow cgroup tmpfs:filesystem associate;
