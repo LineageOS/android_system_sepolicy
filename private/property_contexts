@@ -241,6 +241,9 @@ persist.device_config.storage_native_boot.          u:object_r:device_config_sto
 persist.device_config.swcodec_native.               u:object_r:device_config_swcodec_native_prop:s0
 persist.device_config.window_manager_native_boot.   u:object_r:device_config_window_manager_native_boot_prop:s0
 
+# MM Events config props
+persist.mm_events.enabled                           u:object_r:mm_events_config_prop:s0 exact bool
+
 # Properties that relate to legacy server configurable flags
 persist.device_config.global_settings.sys_traced u:object_r:device_config_sys_traced_prop:s0
 
