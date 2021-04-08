@@ -29,11 +29,11 @@ allow perfetto dropbox_service:service_manager find;
 allow perfetto perfetto_configs_data_file:dir r_dir_perms;
 allow perfetto perfetto_configs_data_file:file r_file_perms;
 
-# Allow perfetto to read the trace config from statsd and shell
+# Allow perfetto to read the trace config from statsd, mm_events and shell
 # (both root and non-root) on stdin and also to write the resulting trace to
 # stdout.
-allow perfetto { statsd shell su }:fd use;
-allow perfetto { statsd shell su }:fifo_file { getattr read write };
+allow perfetto { statsd mm_events shell su }:fd use;
+allow perfetto { statsd mm_events shell su }:fifo_file { getattr read write };
 
 # Allow to communicate use, read and write over the adb connection.
 allow perfetto adbd:fd use;
