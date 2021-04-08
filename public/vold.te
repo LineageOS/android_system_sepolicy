@@ -351,6 +351,7 @@ neverallow vold {
   -healthd
   -hwservicemanager
   -iorapd_service
+  -keystore
   -servicemanager
   -system_server
   userdebug_or_eng(`-su')
