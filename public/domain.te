@@ -446,17 +446,6 @@ neverallow { domain -init } usermodehelper:file { append write };
 neverallow { domain -init -ueventd } sysfs_usermodehelper:file { append write };
 neverallow { domain -init -vendor_init } proc_security:file { append open read write };
 
-# Allow the tracing daemon and callstack sampler to use kallsyms to symbolize
-# kernel traces. Addresses are not disclosed, they are repalced with symbol
-# names (if available). Traces don't disclose KASLR.
-neverallow {
-  domain
-  -init
-  -vendor_init
-  -traced_probes
-  -traced_perf
-} proc_kallsyms:file { open read };
-
 # Init can't do anything with binder calls. If this neverallow rule is being
 # triggered, it's probably due to a service with no SELinux domain.
 neverallow * init:binder *;
