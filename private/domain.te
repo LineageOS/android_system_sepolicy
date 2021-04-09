@@ -498,3 +498,15 @@ neverallow {
   -vendor_init
   -dumpstate
 } mm_events_config_prop:file no_rw_file_perms;
+
+# Allow the tracing daemon and callstack sampler to use kallsyms to symbolize
+# kernel traces. Addresses are not disclosed, they are repalced with symbol
+# names (if available). Traces don't disclose KASLR.
+neverallow {
+  domain
+  -init
+  userdebug_or_eng(`-profcollectd')
+  -vendor_init
+  -traced_probes
+  -traced_perf
+} proc_kallsyms:file { open read };
