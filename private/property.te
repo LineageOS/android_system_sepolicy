@@ -533,6 +533,7 @@ neverallow {
 neverallow {
   domain
   -init
+  userdebug_or_eng(`-profcollectd')
   userdebug_or_eng(`-traced_probes')
   userdebug_or_eng(`-traced_perf')
 } {
