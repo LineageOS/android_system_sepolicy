@@ -19,6 +19,10 @@ userdebug_or_eng(`
   allow profcollectd system_file_type:file r_file_perms;
   allow profcollectd vendor_file_type:file r_file_perms;
 
+  # Allow profcollectd to search for and read kernel modules.
+  allow profcollectd vendor_file:dir r_dir_perms;
+  allow profcollectd vendor_kernel_modules:file r_file_perms;
+
   # Allow profcollectd to read system bootstrap libs.
   allow profcollectd system_bootstrap_lib_file:dir search;
   allow profcollectd system_bootstrap_lib_file:file r_file_perms;
@@ -45,4 +49,13 @@ userdebug_or_eng(`
   # Allow profcollectd to publish a binder service and make binder calls.
   binder_use(profcollectd)
   add_service(profcollectd, profcollectd_service)
+
+  # Allow to temporarily lift the kptr_restrict setting and get kernel start address
+  # by reading /proc/kallsyms, get module start address by reading /proc/modules.
+  set_prop(profcollectd, lower_kptr_restrict_prop)
+  allow profcollectd proc_kallsyms:file r_file_perms;
+  allow profcollectd proc_modules:file r_file_perms;
+
+  # Allow profcollectd to read kernel build id.
+  allow profcollectd sysfs_kernel_notes:file r_file_perms;
 ')
