@@ -125,7 +125,6 @@ gpu                                       u:object_r:gpu_service:s0
 hardware                                  u:object_r:hardware_service:s0
 hardware_properties                       u:object_r:hardware_properties_service:s0
 hdmi_control                              u:object_r:hdmi_control_service:s0
-hint                                      u:object_r:hint_service:s0
 ions                                      u:object_r:radio_service:s0
 idmap                                     u:object_r:idmap_service:s0
 incident                                  u:object_r:incident_service:s0
@@ -199,6 +198,7 @@ pac_proxy                                 u:object_r:pac_proxy_service:s0
 package                                   u:object_r:package_service:s0
 package_native                            u:object_r:package_native_service:s0
 people                                    u:object_r:people_service:s0
+performance_hint                          u:object_r:hint_service:s0
 permission                                u:object_r:permission_service:s0
 permissionmgr                             u:object_r:permissionmgr_service:s0
 persistent_data_block                     u:object_r:persistent_data_block_service:s0
