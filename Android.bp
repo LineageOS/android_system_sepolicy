@@ -294,34 +294,29 @@ se_cil_compat_map {
     // top_half: "31.0.ignore.cil",
 }
 
-prebuilt_etc {
+se_compat_cil {
     name: "26.0.compat.cil",
-    src: "private/compat/26.0/26.0.compat.cil",
-    sub_dir: "selinux/mapping",
+    srcs: [":26.0.board.compat.cil"],
 }
 
-prebuilt_etc {
+se_compat_cil {
     name: "27.0.compat.cil",
-    src: "private/compat/27.0/27.0.compat.cil",
-    sub_dir: "selinux/mapping",
+    srcs: [":27.0.board.compat.cil"],
 }
 
-prebuilt_etc {
+se_compat_cil {
     name: "28.0.compat.cil",
-    src: "private/compat/28.0/28.0.compat.cil",
-    sub_dir: "selinux/mapping",
+    srcs: [":28.0.board.compat.cil"],
 }
 
-prebuilt_etc {
+se_compat_cil {
     name: "29.0.compat.cil",
-    src: "private/compat/29.0/29.0.compat.cil",
-    sub_dir: "selinux/mapping",
+    srcs: [":29.0.board.compat.cil"],
 }
 
-prebuilt_etc {
+se_compat_cil {
     name: "30.0.compat.cil",
-    src: "private/compat/30.0/30.0.compat.cil",
-    sub_dir: "selinux/mapping",
+    srcs: [":30.0.board.compat.cil"],
 }
 
 se_compat_cil {
