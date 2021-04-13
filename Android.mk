@@ -458,6 +458,7 @@ LOCAL_REQUIRED_MODULES += \
     system_ext_service_contexts \
     system_ext_service_contexts_test \
     system_ext_mac_permissions.xml \
+    $(addprefix system_ext_,$(addsuffix .compat.cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS))) \
 
 endif
 

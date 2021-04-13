@@ -80,6 +80,41 @@ se_filegroup {
 }
 
 se_filegroup {
+    name: "26.0.board.compat.cil",
+    srcs: [
+        "compat/26.0/26.0.compat.cil",
+    ],
+}
+
+se_filegroup {
+    name: "27.0.board.compat.cil",
+    srcs: [
+        "compat/27.0/27.0.compat.cil",
+    ],
+}
+
+se_filegroup {
+    name: "28.0.board.compat.cil",
+    srcs: [
+        "compat/28.0/28.0.compat.cil",
+    ],
+}
+
+se_filegroup {
+    name: "29.0.board.compat.cil",
+    srcs: [
+        "compat/29.0/29.0.compat.cil",
+    ],
+}
+
+se_filegroup {
+    name: "30.0.board.compat.cil",
+    srcs: [
+        "compat/30.0/30.0.compat.cil",
+    ],
+}
+
+se_filegroup {
     name: "26.0.board.ignore.map",
     srcs: [
         "compat/26.0/26.0.ignore.cil",
@@ -259,34 +294,64 @@ se_cil_compat_map {
     // top_half: "31.0.ignore.cil",
 }
 
-prebuilt_etc {
+se_compat_cil {
     name: "26.0.compat.cil",
-    src: "private/compat/26.0/26.0.compat.cil",
-    sub_dir: "selinux/mapping",
+    srcs: [":26.0.board.compat.cil"],
 }
 
-prebuilt_etc {
+se_compat_cil {
     name: "27.0.compat.cil",
-    src: "private/compat/27.0/27.0.compat.cil",
-    sub_dir: "selinux/mapping",
+    srcs: [":27.0.board.compat.cil"],
 }
 
-prebuilt_etc {
+se_compat_cil {
     name: "28.0.compat.cil",
-    src: "private/compat/28.0/28.0.compat.cil",
-    sub_dir: "selinux/mapping",
+    srcs: [":28.0.board.compat.cil"],
 }
 
-prebuilt_etc {
+se_compat_cil {
     name: "29.0.compat.cil",
-    src: "private/compat/29.0/29.0.compat.cil",
-    sub_dir: "selinux/mapping",
+    srcs: [":29.0.board.compat.cil"],
 }
 
-prebuilt_etc {
+se_compat_cil {
     name: "30.0.compat.cil",
-    src: "private/compat/30.0/30.0.compat.cil",
-    sub_dir: "selinux/mapping",
+    srcs: [":30.0.board.compat.cil"],
+}
+
+se_compat_cil {
+    name: "system_ext_26.0.compat.cil",
+    srcs: [":26.0.board.compat.cil"],
+    stem: "26.0.compat.cil",
+    system_ext_specific: true,
+}
+
+se_compat_cil {
+    name: "system_ext_27.0.compat.cil",
+    srcs: [":27.0.board.compat.cil"],
+    stem: "27.0.compat.cil",
+    system_ext_specific: true,
+}
+
+se_compat_cil {
+    name: "system_ext_28.0.compat.cil",
+    srcs: [":28.0.board.compat.cil"],
+    stem: "28.0.compat.cil",
+    system_ext_specific: true,
+}
+
+se_compat_cil {
+    name: "system_ext_29.0.compat.cil",
+    srcs: [":29.0.board.compat.cil"],
+    stem: "29.0.compat.cil",
+    system_ext_specific: true,
+}
+
+se_compat_cil {
+    name: "system_ext_30.0.compat.cil",
+    srcs: [":30.0.board.compat.cil"],
+    stem: "30.0.compat.cil",
+    system_ext_specific: true,
 }
 
 se_filegroup {
