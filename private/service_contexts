@@ -285,6 +285,7 @@ uri_grants                                u:object_r:uri_grants_service:s0
 usagestats                                u:object_r:usagestats_service:s0
 usb                                       u:object_r:usb_service:s0
 user                                      u:object_r:user_service:s0
+uwb                                       u:object_r:uwb_service:s0
 vcn_management                            u:object_r:vcn_management_service:s0
 vibrator                                  u:object_r:vibrator_service:s0
 vibrator_manager                          u:object_r:vibrator_manager_service:s0
