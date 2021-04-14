@@ -21,9 +21,6 @@ allow system_app system_app_data_file:{ file lnk_file } create_file_perms;
 allow system_app misc_user_data_file:dir create_dir_perms;
 allow system_app misc_user_data_file:file create_file_perms;
 
-# Access to vold-mounted storage for measuring free space
-allow system_app mnt_media_rw_file:dir search;
-
 # Access to apex files stored on /data (b/136063500)
 # Needed so that Settings can access NOTICE files inside apex
 # files located in the assets/ directory.
