@@ -33,6 +33,7 @@ bootstrap_go_package {
     srcs: [
         "build_files.go",
         "cil_compat_map.go",
+        "compat_cil.go",
         "filegroup.go",
         "policy.go",
         "selinux.go",
