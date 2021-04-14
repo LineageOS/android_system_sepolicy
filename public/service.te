@@ -221,6 +221,7 @@ type uri_grants_service, app_api_service, ephemeral_app_api_service, system_serv
 type usagestats_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type usb_service, app_api_service, system_server_service, service_manager_type;
 type user_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type uwb_service, app_api_service, system_server_service, service_manager_type;
 type vcn_management_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type vibrator_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type vibrator_manager_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
