@@ -323,6 +323,8 @@ camera.fifo.disable     u:object_r:camera_config_prop:s0 exact bool
 ro.camera.notify_nfc    u:object_r:camera_config_prop:s0 exact bool
 ro.camera.enableLazyHal u:object_r:camera_config_prop:s0 exact bool
 
+ro.camerax.extensions.enabled u:object_r:camerax_extensions_prop:s0 exact bool
+
 # Should always_debuggable be bool? It's checked against the string "1".
 dalvik.vm.always_debuggable                   u:object_r:dalvik_config_prop:s0 exact int
 dalvik.vm.appimageformat                      u:object_r:dalvik_config_prop:s0 exact string
