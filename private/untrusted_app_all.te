@@ -84,10 +84,6 @@ allow untrusted_app_all system_app_data_file:file { read write getattr };
 allow untrusted_app_all media_rw_data_file:dir create_dir_perms;
 allow untrusted_app_all media_rw_data_file:file create_file_perms;
 
-# Traverse into /mnt/media_rw for bypassing FUSE daemon
-# TODO: narrow this to just MediaProvider
-allow untrusted_app_all mnt_media_rw_file:dir search;
-
 # allow cts to query all services
 allow untrusted_app_all servicemanager:service_manager list;
 
