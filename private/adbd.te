@@ -209,6 +209,10 @@ allow adbd shell:fd use;
 allow adbd vendor_apex_file:dir search;
 allow adbd vendor_apex_file:file r_file_perms;
 
+# Allow adb pull of updated apex files in /data/apex/active.
+allow adbd apex_data_file:dir search;
+allow adbd staging_data_file:file r_file_perms;
+
 ###
 ### Neverallow rules
 ###
