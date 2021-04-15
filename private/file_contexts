@@ -599,6 +599,7 @@
 /data/misc/net(/.*)?            u:object_r:net_data_file:s0
 /data/misc/network_watchlist(/.*)? u:object_r:network_watchlist_data_file:s0
 /data/misc/nfc/logs(/.*)?       u:object_r:nfc_logs_data_file:s0
+/data/misc/odrefresh(/.*)?      u:object_r:odrefresh_data_file:s0
 /data/misc/odsign(/.*)?         u:object_r:odsign_data_file:s0
 /data/misc/perfetto-traces/bugreport(.*)? u:object_r:perfetto_traces_bugreport_data_file:s0
 /data/misc/perfetto-traces(/.*)?          u:object_r:perfetto_traces_data_file:s0
