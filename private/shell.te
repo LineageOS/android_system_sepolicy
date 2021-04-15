@@ -194,3 +194,6 @@ get_prop(shell, virtual_ab_prop)
 # Never allow others to set or get the perf.drop_caches property.
 neverallow { domain -shell -init } perf_drop_caches_prop:property_service set;
 neverallow { domain -shell -init -dumpstate } perf_drop_caches_prop:file read;
+
+# Allow ReadDefaultFstab() for CTS.
+read_fstab(shell)
