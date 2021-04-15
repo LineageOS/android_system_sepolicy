@@ -34,6 +34,9 @@ dontaudit appdomain system_data_file:dir write;
 # Apps should not be reading vendor-defined properties.
 dontaudit appdomain vendor_default_prop:file read;
 
+# Access to /mnt/media_rw/<vol> (limited by DAC to apps with external_storage gid)
+allow appdomain mnt_media_rw_file:dir search;
+
 neverallow appdomain system_server:udp_socket {
         accept append bind create ioctl listen lock name_bind
         relabelfrom relabelto setattr shutdown };
