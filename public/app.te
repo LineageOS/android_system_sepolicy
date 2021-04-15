@@ -592,3 +592,6 @@ neverallow appdomain system_bootstrap_lib_file:file
     { open read write append execute execute_no_trans map };
 neverallow appdomain system_bootstrap_lib_file:dir
     { open read getattr search };
+
+# Allow to ro.camerax.extensions.enabled
+get_prop(appdomain, camerax_extensions_prop)

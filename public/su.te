@@ -18,6 +18,7 @@ userdebug_or_eng(`
   vndbinder_use(su)
 
   dontaudit su self:capability_class_set *;
+  dontaudit su self:capability2 *;
   dontaudit su kernel:security *;
   dontaudit su { kernel file_type }:system *;
   dontaudit su self:memprotect *;

@@ -87,6 +87,15 @@ func (c *compatCil) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 
 	srcPaths := c.expandSeSources(ctx)
 	out := android.PathForModuleGen(ctx, c.Name())
+
+	// TODO(b/183362912): Patch secilc to handle empty cil files.
+	// Put a header so that the generated cil mustn't be empty.
+	header := android.PathForModuleGen(ctx, c.Name()+"_header")
+	rule := android.NewRuleBuilder(pctx, ctx)
+	rule.Command().Text("echo").Flag(proptools.ShellEscape(";; " + c.stem())).Text(">").Output(header)
+	rule.Build(c.Name()+"_header", "Generate cil header")
+	srcPaths = append(android.Paths{header}, srcPaths...)
+
 	ctx.Build(pctx, android.BuildParams{
 		Rule:        android.Cat,
 		Inputs:      srcPaths,

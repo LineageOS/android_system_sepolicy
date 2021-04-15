@@ -18,6 +18,7 @@
     appcompat_data_file
     arm64_memtag_prop
     authorization_service
+    camerax_extensions_prop
     cgroup_desc_api_file
     cgroup_v2
     codec2_config_prop
@@ -126,6 +127,7 @@
     update_engine_stable_service
     userdata_sysdev
     userspace_reboot_metadata_file
+    uwb_service
     vcn_management_service
     vendor_kernel_modules
     vibrator_manager_service
