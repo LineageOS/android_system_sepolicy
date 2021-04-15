@@ -7,6 +7,10 @@ allow odrefresh apex_module_data_file:dir { getattr search };
 allow odrefresh apex_art_data_file:dir { create_dir_perms relabelfrom };
 allow odrefresh apex_art_data_file:file create_file_perms;
 
+# Allow odrefresh to create data files (typically for metrics before statsd starts).
+allow odrefresh odrefresh_data_file:dir create_dir_perms;
+allow odrefresh odrefresh_data_file:file create_file_perms;
+
 userfaultfd_use(odrefresh)
 
 # Staging area labels (/data/misc/apexdata/com.android.art/staging). odrefresh
@@ -36,3 +40,8 @@ allow odrefresh apex_info_file:file r_file_perms;
 
 # No other processes should be creating files in the staging area.
 neverallow { domain -init -odrefresh } apex_art_staging_data_file:file open;
+
+# No processes other than init, odrefresh and system_server access
+# odrefresh_data_files.
+neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:dir *;
+neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:file *;
