@@ -33,4 +33,6 @@ neverallow { domain -init } nnapi_ext_deny_product_prop:property_service set;
 hal_attribute_service(hal_neuralnetworks, hal_neuralnetworks_service)
 binder_call(hal_neuralnetworks_server, servicemanager)
 
+binder_use(hal_neuralnetworks_server)
+
 allow hal_neuralnetworks_server dumpstate:fifo_file write;
