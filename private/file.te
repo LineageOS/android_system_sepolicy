@@ -51,6 +51,9 @@ type apex_art_staging_data_file, file_type, data_file_type, core_data_file_type;
 # /data/font/files
 type font_data_file, file_type, data_file_type, core_data_file_type;
 
+# /data/misc/odrefresh
+type odrefresh_data_file, file_type, data_file_type, core_data_file_type;
+
 # /data/misc/odsign
 type odsign_data_file, file_type, data_file_type, core_data_file_type;
 
