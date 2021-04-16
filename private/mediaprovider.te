@@ -24,6 +24,7 @@ allow mediaprovider { mnt_media_rw_file }:dir search;
 
 allow mediaprovider app_api_service:service_manager find;
 allow mediaprovider audioserver_service:service_manager find;
+allow mediaprovider cameraserver_service:service_manager find;
 allow mediaprovider drmserver_service:service_manager find;
 allow mediaprovider mediaextractor_service:service_manager find;
 allow mediaprovider mediaserver_service:service_manager find;
