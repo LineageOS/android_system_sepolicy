@@ -183,7 +183,10 @@ neverallow {
 } gsi_public_metadata_file:file_class_set ~{ r_file_perms };
 
 # Prevent apps from accessing gsi_metadata_file_type.
-neverallow appdomain gsi_metadata_file_type:dir_file_class_set *;
+neverallow {
+    appdomain
+    -shell
+} gsi_metadata_file_type:dir_file_class_set *;
 
 neverallow {
     domain
