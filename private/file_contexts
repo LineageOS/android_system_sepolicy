@@ -88,6 +88,7 @@
 /dev/block(/.*)?	u:object_r:block_device:s0
 /dev/block/dm-[0-9]+	u:object_r:dm_device:s0
 /dev/block/loop[0-9]*	u:object_r:loop_device:s0
+/dev/block/vd[a-z][0-9]*  u:object_r:vd_device:s0
 /dev/block/vold/.+	u:object_r:vold_device:s0
 /dev/block/ram[0-9]*	u:object_r:ram_device:s0
 /dev/block/zram[0-9]*	u:object_r:ram_device:s0
