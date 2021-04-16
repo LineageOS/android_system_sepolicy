@@ -45,3 +45,6 @@ neverallow { domain -init -odrefresh } apex_art_staging_data_file:file open;
 # odrefresh_data_files.
 neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:dir *;
 neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:file *;
+
+# Allow updating boot animation status.
+set_prop(odrefresh, exported_system_prop)
