@@ -3,7 +3,6 @@
 # type traced is defined under /public (because iorapd rules
 # under public/ need to refer to it).
 type traced_exec, system_file_type, exec_type, file_type;
-type traced_tmpfs, file_type;
 
 # Allow init to exec the daemon.
 init_daemon_domain(traced)
