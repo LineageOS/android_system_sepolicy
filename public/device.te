@@ -17,6 +17,7 @@ type pmsg_device, dev_type, mlstrustedobject;
 type radio_device, dev_type;
 type ram_device, dev_type;
 type rtc_device, dev_type;
+type vd_device, dev_type;
 type vold_device, dev_type;
 type console_device, dev_type;
 type fscklogs, dev_type;
