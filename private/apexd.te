@@ -52,6 +52,9 @@ allowxperm apexd loop_device:blk_file ioctl {
 # allow apexd to access /dev/block
 allow apexd block_device:dir r_dir_perms;
 
+#allow apexd to access virtual disks
+allow apexd vd_device:blk_file r_file_perms;
+
 # allow apexd to access /dev/block/dm-* (device-mapper entries)
 allow apexd dm_device:chr_file rw_file_perms;
 allow apexd dm_device:blk_file rw_file_perms;
