@@ -166,6 +166,7 @@ type package_native_service, app_api_service, ephemeral_app_api_service, system_
 type people_service, app_api_service, system_server_service, service_manager_type;
 type permission_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type permissionmgr_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type permission_checker_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type persistent_data_block_service, system_api_service, system_server_service, service_manager_type;
 type pinner_service, system_server_service, service_manager_type;
 type powerstats_service, app_api_service, system_server_service, service_manager_type;
