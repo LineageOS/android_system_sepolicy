@@ -23,7 +23,9 @@ allow network_stack self:netlink_route_socket nlmsg_write;
 allow network_stack app_api_service:service_manager find;
 allow network_stack dnsresolver_service:service_manager find;
 allow network_stack netd_service:service_manager find;
+allow network_stack network_watchlist_service:service_manager find;
 allow network_stack radio_service:service_manager find;
+allow network_stack system_config_service:service_manager find;
 allow network_stack radio_data_file:dir create_dir_perms;
 allow network_stack radio_data_file:file create_file_perms;
 
