@@ -201,6 +201,7 @@ people                                    u:object_r:people_service:s0
 performance_hint                          u:object_r:hint_service:s0
 permission                                u:object_r:permission_service:s0
 permissionmgr                             u:object_r:permissionmgr_service:s0
+permission_checker                        u:object_r:permission_checker_service:s0
 persistent_data_block                     u:object_r:persistent_data_block_service:s0
 phone_msim                                u:object_r:radio_service:s0
 phone1                                    u:object_r:radio_service:s0
