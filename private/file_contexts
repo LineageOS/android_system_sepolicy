@@ -404,8 +404,6 @@
 
 /(vendor|system/vendor)/etc/selinux/vendor_service_contexts u:object_r:vendor_service_contexts_file:s0
 
-/(vendor|system/vendor)/bin/install-recovery\.sh u:object_r:vendor_install_recovery_exec:s0
-
 #############################
 # OEM and ODM files
 #
