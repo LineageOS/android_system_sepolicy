@@ -298,7 +298,8 @@ compatible_property_only(`
 
   neverallow {
     domain
-    -init
+    -coredomain
+    -vendor_init
   } {
     suspend_prop
   }:property_service set;
