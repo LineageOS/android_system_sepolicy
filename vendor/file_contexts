@@ -85,6 +85,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.wifi@1\.0-service-lazy      u:object_r:hal_wifi_default_exec:s0
 /(vendor|system/vendor)/bin/hw/hostapd                                        u:object_r:hal_wifi_hostapd_default_exec:s0
 /(vendor|system/vendor)/bin/hw/wpa_supplicant                                 u:object_r:hal_wifi_supplicant_default_exec:s0
+/(vendor|system/vendor)/bin/install-recovery\.sh                              u:object_r:vendor_install_recovery_exec:s0
 /(vendor|system/vendor)/bin/vndservicemanager                                 u:object_r:vndservicemanager_exec:s0
 
 #############################
