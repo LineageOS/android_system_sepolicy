@@ -424,12 +424,16 @@ persist.bluetooth.btsnoopenable                u:object_r:exported_bluetooth_pro
 
 persist.radio.multisim.config u:object_r:radio_control_prop:s0 exact string
 
-persist.sys.hdmi.keep_awake                  u:object_r:hdmi_config_prop:s0 exact bool
-ro.hdmi.cec_device_types                     u:object_r:hdmi_config_prop:s0 exact string
-ro.hdmi.device_type                          u:object_r:hdmi_config_prop:s0 exact string
-ro.hdmi.cec.source.set_menu_language.enabled u:object_r:hdmi_config_prop:s0 exact bool
-ro.hdmi.wake_on_hotplug                      u:object_r:hdmi_config_prop:s0 exact bool
-ro.hdmi.cec.source.send_standby_on_sleep     u:object_r:hdmi_config_prop:s0 exact enum to_tv broadcast none
+persist.sys.hdmi.keep_awake                                        u:object_r:hdmi_config_prop:s0 exact bool
+ro.hdmi.cec_device_types                                           u:object_r:hdmi_config_prop:s0 exact string
+ro.hdmi.device_type                                                u:object_r:hdmi_config_prop:s0 exact string
+ro.hdmi.set_menu_language                                          u:object_r:hdmi_config_prop:s0 exact bool
+ro.hdmi.cec.source.set_menu_language.enabled                       u:object_r:hdmi_config_prop:s0 exact bool
+ro.hdmi.property_sytem_audio_device_arc_port                       u:object_r:hdmi_config_prop:s0 exact string
+ro.hdmi.cec_audio_device_forward_volume_keys_system_audio_mode_off u:object_r:hdmi_config_prop:s0 exact bool
+ro.hdmi.property_is_device_hdmi_cec_switch                         u:object_r:hdmi_config_prop:s0 exact bool
+ro.hdmi.wake_on_hotplug                                            u:object_r:hdmi_config_prop:s0 exact bool
+ro.hdmi.cec.source.send_standby_on_sleep                           u:object_r:hdmi_config_prop:s0 exact enum to_tv broadcast none
 
 pm.dexopt.ab-ota                            u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.bg-dexopt                         u:object_r:exported_pm_prop:s0 exact string
