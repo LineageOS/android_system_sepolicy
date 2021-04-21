@@ -87,7 +87,6 @@ system_restricted_prop(usb_prop)
 system_restricted_prop(userspace_reboot_exported_prop)
 system_restricted_prop(vold_status_prop)
 system_restricted_prop(vts_status_prop)
-system_restricted_prop(suspend_prop)
 
 compatible_property_only(`
     # DO NOT ADD ANY PROPERTIES HERE
@@ -152,6 +151,7 @@ system_vendor_config_prop(soc_prop)
 system_vendor_config_prop(storage_config_prop)
 system_vendor_config_prop(storagemanager_config_prop)
 system_vendor_config_prop(surfaceflinger_prop)
+system_vendor_config_prop(suspend_prop)
 system_vendor_config_prop(systemsound_config_prop)
 system_vendor_config_prop(telephony_config_prop)
 system_vendor_config_prop(tombstone_config_prop)
