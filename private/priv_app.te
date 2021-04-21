@@ -161,9 +161,6 @@ dontaudit priv_app { wifi_prop wifi_hal_prop }:file read;
 allow priv_app system_server:udp_socket {
         connect getattr read recvfrom sendto write getopt setopt };
 
-# Access the IncFS list of features
-r_dir_file(priv_app, sysfs_fs_incfs_features)
-
 # allow apps like Phonesky to check the file signature of an apk installed on
 # the Incremental File System, fill missing blocks and get the app status and loading progress
 allowxperm priv_app apk_data_file:file ioctl {
