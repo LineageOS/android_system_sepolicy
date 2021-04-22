@@ -126,6 +126,7 @@
 /dev/pvrsrvkm		u:object_r:gpu_device:s0
 /dev/kmsg		u:object_r:kmsg_device:s0
 /dev/kmsg_debug	u:object_r:kmsg_debug_device:s0
+/dev/kvm		u:object_r:kvm_device:s0
 /dev/null		u:object_r:null_device:s0
 /dev/nvhdcp1		u:object_r:video_device:s0
 /dev/random		u:object_r:random_device:s0
@@ -190,6 +191,7 @@
 /dev/urandom		u:object_r:random_device:s0
 /dev/usb_accessory	u:object_r:usbaccessory_device:s0
 /dev/v4l-touch[0-9]*	u:object_r:input_device:s0
+/dev/vhost-vsock	u:object_r:kvm_device:s0
 /dev/video[0-9]*	u:object_r:video_device:s0
 /dev/vndbinder		u:object_r:vndbinder_device:s0
 /dev/watchdog		u:object_r:watchdog_device:s0
