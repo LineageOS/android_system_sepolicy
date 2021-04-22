@@ -364,7 +364,15 @@ neverallow {
     -update_engine
     -vold
     -zygote
-} { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
+} { fs_type
+    -sdcard_type
+}:filesystem { mount remount relabelfrom relabelto };
+
+enforce_debugfs_restriction(`
+  neverallow {
+    domain userdebug_or_eng(`-init')
+  } { debugfs_type -debugfs_tracing_debug }:filesystem { mount remount relabelfrom relabelto };
+')
 
 # Limit raw I/O to these allowlisted domains. Do not apply to debug builds.
 neverallow {
@@ -510,3 +518,21 @@ neverallow {
   -traced_probes
   -traced_perf
 } proc_kallsyms:file { open read };
+
+# debugfs_kcov type is not included in this neverallow statement since the KCOV
+# tool uses it for kernel fuzzing.
+# vendor_modprobe is also exempted since the kernel modules it loads may create
+# debugfs files in its context.
+enforce_debugfs_restriction(`
+  neverallow {
+    domain
+    -vendor_modprobe
+    userdebug_or_eng(`
+      -init
+      -hal_dumpstate
+    ')
+  } { debugfs_type
+      userdebug_or_eng(`-debugfs_kcov')
+      -tracefs_type
+  }:file no_rw_file_perms;
+')
