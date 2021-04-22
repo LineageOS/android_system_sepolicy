@@ -317,12 +317,7 @@ func (c *policyCil) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	conf := android.PathForModuleSrc(ctx, *c.properties.Src)
 	cil := c.compileConfToCil(ctx, conf)
 
-	if c.InstallInDebugRamdisk() {
-		// for userdebug_plat_sepolicy.cil
-		c.installPath = android.PathForModuleInstall(ctx)
-	} else {
-		c.installPath = android.PathForModuleInstall(ctx, "etc", "selinux")
-	}
+	c.installPath = android.PathForModuleInstall(ctx, "etc", "selinux")
 	c.installSource = cil
 	ctx.InstallFile(c.installPath, c.stem(), c.installSource)
 
