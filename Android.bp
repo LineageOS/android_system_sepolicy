@@ -687,21 +687,6 @@ se_policy_cil {
     additional_cil_files: ["private/technical_debt.cil"],
 }
 
-// userdebug_plat_policy.conf - the userdebug version plat_sepolicy.cil
-se_policy_conf {
-    name: "userdebug_plat_sepolicy.conf",
-    srcs: [":se_build_files{.plat}"],
-    build_variant: "userdebug",
-    installable: false,
-}
-
-se_policy_cil {
-    name: "userdebug_plat_sepolicy.cil",
-    src: ":userdebug_plat_sepolicy.conf",
-    additional_cil_files: ["private/technical_debt.cil"],
-    debug_ramdisk: true,
-}
-
 // system_ext_policy.conf - A combination of the private and public system_ext
 // policy which will ship with the device. System_ext policy is not attributized
 se_policy_conf {

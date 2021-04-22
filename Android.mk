@@ -785,6 +785,55 @@ CHECKPOLICY_ASAN_OPTIONS := ASAN_OPTIONS=detect_leaks=0
 #################################
 include $(CLEAR_VARS)
 
+LOCAL_MODULE := userdebug_plat_sepolicy.cil
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_DEBUG_RAMDISK_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+# userdebug_plat_policy.conf - the userdebug version plat_sepolicy.cil
+policy_files := $(call build_policy, $(sepolicy_build_files), \
+  $(PLAT_PUBLIC_POLICY) $(PLAT_PRIVATE_POLICY))
+userdebug_plat_policy.conf := $(intermediates)/userdebug_plat_policy.conf
+$(userdebug_plat_policy.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
+$(userdebug_plat_policy.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
+$(userdebug_plat_policy.conf): PRIVATE_TARGET_BUILD_VARIANT := userdebug
+$(userdebug_plat_policy.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
+$(userdebug_plat_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
+$(userdebug_plat_policy.conf): PRIVATE_TGT_WITH_NATIVE_COVERAGE := $(with_native_coverage)
+$(userdebug_plat_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
+$(userdebug_plat_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(userdebug_plat_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
+$(userdebug_plat_policy.conf): PRIVATE_TREBLE_SYSPROP_NEVERALLOW := $(treble_sysprop_neverallow)
+$(userdebug_plat_policy.conf): PRIVATE_ENFORCE_SYSPROP_OWNER := $(enforce_sysprop_owner)
+$(userdebug_plat_policy.conf): PRIVATE_POLICY_FILES := $(policy_files)
+$(userdebug_plat_policy.conf): $(policy_files) $(M4)
+	$(transform-policy-to-conf)
+	$(hide) sed '/^\s*dontaudit.*;/d' $@ | sed '/^\s*dontaudit/,/;/d' > $@.dontaudit
+
+$(LOCAL_BUILT_MODULE): PRIVATE_ADDITIONAL_CIL_FILES := \
+  $(call build_policy, $(sepolicy_build_cil_workaround_files), $(PLAT_PRIVATE_POLICY))
+$(LOCAL_BUILT_MODULE): PRIVATE_NEVERALLOW_ARG := $(NEVERALLOW_ARG)
+$(LOCAL_BUILT_MODULE): $(userdebug_plat_policy.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
+  $(HOST_OUT_EXECUTABLES)/secilc \
+  $(call build_policy, $(sepolicy_build_cil_workaround_files), $(PLAT_PRIVATE_POLICY)) \
+  $(built_sepolicy_neverallows)
+	@mkdir -p $(dir $@)
+	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
+		$(POLICYVERS) -o $@.tmp $<
+	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@.tmp
+	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) $(PRIVATE_NEVERALLOW_ARG) $@.tmp -o /dev/null -f /dev/null
+	$(hide) mv $@.tmp $@
+
+userdebug_plat_policy.conf :=
+
+#################################
+include $(CLEAR_VARS)
+
 LOCAL_MODULE := plat_sepolicy_vers.txt
 LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
 LOCAL_LICENSE_CONDITIONS := notice unencumbered
