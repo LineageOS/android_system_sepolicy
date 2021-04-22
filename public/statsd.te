@@ -33,6 +33,10 @@ binder_call(statsd, system_server)
 allow statsd gpu_service:service_manager find;
 binder_call(statsd, gpuservice)
 
+# Allow statsd to interact with keystore to pull atoms
+allow statsd keystore_service:service_manager find;
+binder_call(statsd, keystore)
+
 # Allow statsd to interact with mediametrics
 allow statsd mediametrics_service:service_manager find;
 binder_call(statsd, mediametrics)
