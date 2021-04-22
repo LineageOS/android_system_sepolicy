@@ -506,6 +506,23 @@ $1
 define(`not_full_treble', ifelse(target_full_treble, `true', , $1))
 
 #####################################
+# enforce_debugfs_restriction
+# SELinux rules which apply to devices that enable debugfs restrictions.
+# The keyword "cts" is used to insert markers to only CTS test the neverallows
+# added by the macro for S-launch devices and newer.
+define(`enforce_debugfs_restriction', ifelse(target_enforce_debugfs_restriction, `true', $1,
+ifelse(target_enforce_debugfs_restriction, `cts',
+# BEGIN_LAUNCHING_WITH_S_ONLY -- this marker is used by CTS -- do not modify
+$1
+# END_LAUNCHING_WITH_S_ONLY -- this marker is used by CTS -- do not modify
+, )))
+
+#####################################
+# no_debugfs_restriction
+# SELinux rules which apply to devices that do not have debugfs restrictions in non-user builds.
+define(`no_debugfs_restriction', ifelse(target_enforce_debugfs_restriction, `true', , $1))
+
+#####################################
 # Compatible property only
 # SELinux rules which apply only to devices with compatible property
 #
