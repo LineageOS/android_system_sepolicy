@@ -82,6 +82,10 @@ allow traced_probes {
   proc_stat
 }:file r_file_perms;
 
+# Allow access to read /sys/class/devfreq/ and /$DEVICE/cur_freq files
+allow traced_probes sysfs_devfreq_dir:dir r_dir_perms;
+allow traced_probes sysfs_devfreq_cur:file r_file_perms;
+
 # Allow access to the IHealth and IPowerStats HAL service for tracing battery counters.
 hal_client_domain(traced_probes, hal_health)
 hal_client_domain(traced_probes, hal_power_stats)
