@@ -93,3 +93,12 @@ neverallow { domain -init } keystore_listen_prop:property_service set;
 
 # Allow accessing /sys/kernel/tracing/instances/bootreceiver to set up tracing.
 allow init debugfs_bootreceiver_tracing:file w_file_perms;
+
+# chown/chmod on devices.
+allow init {
+  dev_type
+  -hw_random_device
+  -keychord_device
+  -kvm_device
+  -port_device
+}:chr_file setattr;

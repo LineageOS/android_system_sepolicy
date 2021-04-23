@@ -301,6 +301,11 @@ ifeq ($(BUILD_BROKEN_ENFORCE_SYSPROP_OWNER),true)
   enforce_sysprop_owner := false
 endif
 
+enforce_debugfs_restriction := false
+ifeq ($(PRODUCT_SET_DEBUGFS_RESTRICTIONS),true)
+  enforce_debugfs_restriction := true
+endif
+
 ifeq ($(PRODUCT_SHIPPING_API_LEVEL),)
   #$(warning no product shipping level defined)
 else ifneq ($(call math_lt,30,$(PRODUCT_SHIPPING_API_LEVEL)),)
@@ -621,6 +626,7 @@ $(sepolicy_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(sepolicy_policy.conf): PRIVATE_TGT_WITH_NATIVE_COVERAGE := $(with_native_coverage)
 $(sepolicy_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(sepolicy_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(sepolicy_policy.conf): PRIVATE_ENFORCE_DEBUGFS_RESTRICTION := $(enforce_debugfs_restriction)
 $(sepolicy_policy.conf): PRIVATE_POLICY_FILES := $(policy_files)
 $(sepolicy_policy.conf): $(policy_files) $(M4)
 	$(transform-policy-to-conf)
@@ -638,6 +644,7 @@ $(sepolicy_policy_2.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(sepolicy_policy_2.conf): PRIVATE_TGT_WITH_NATIVE_COVERAGE := $(with_native_coverage)
 $(sepolicy_policy_2.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(sepolicy_policy_2.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(sepolicy_policy_2.conf): PRIVATE_ENFORCE_DEBUGFS_RESTRICTION := $(enforce_debugfs_restriction)
 $(sepolicy_policy_2.conf): PRIVATE_POLICY_FILES := $(policy_files)
 $(sepolicy_policy_2.conf): $(policy_files) $(M4)
 	$(transform-policy-to-conf)
@@ -696,6 +703,7 @@ $(sepolicy_policy.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(sepolicy_policy.conf): PRIVATE_TGT_WITH_NATIVE_COVERAGE := $(with_native_coverage)
 $(sepolicy_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(sepolicy_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(sepolicy_policy.conf): PRIVATE_ENFORCE_DEBUGFS_RESTRICTION := $(enforce_debugfs_restriction)
 $(sepolicy_policy.conf): PRIVATE_POLICY_FILES := $(policy_files)
 $(sepolicy_policy.conf): $(policy_files) $(M4)
 	$(transform-policy-to-conf)
@@ -713,6 +721,7 @@ $(sepolicy_policy_2.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(sepolicy_policy_2.conf): PRIVATE_TGT_WITH_NATIVE_COVERAGE := $(with_native_coverage)
 $(sepolicy_policy_2.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(sepolicy_policy_2.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
+$(sepolicy_policy_2.conf): PRIVATE_ENFORCE_DEBUGFS_RESTRICTION := $(enforce_debugfs_restriction)
 $(sepolicy_policy_2.conf): PRIVATE_POLICY_FILES := $(policy_files)
 $(sepolicy_policy_2.conf): $(policy_files) $(M4)
 	$(transform-policy-to-conf)
@@ -835,6 +844,7 @@ $(vendor_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
 $(vendor_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
 $(vendor_policy.conf): PRIVATE_TREBLE_SYSPROP_NEVERALLOW := $(treble_sysprop_neverallow)
 $(vendor_policy.conf): PRIVATE_ENFORCE_SYSPROP_OWNER := $(enforce_sysprop_owner)
+$(vendor_policy.conf): PRIVATE_ENFORCE_DEBUGFS_RESTRICTION := $(enforce_debugfs_restriction)
 $(vendor_policy.conf): PRIVATE_POLICY_FILES := $(policy_files)
 $(vendor_policy.conf): $(policy_files) $(M4)
 	$(transform-policy-to-conf)
@@ -898,6 +908,7 @@ $(odm_policy.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(odm_policy.conf): PRIVATE_SEPOLICY_SPLIT := $(PRODUCT_SEPOLICY_SPLIT)
 $(odm_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
 $(odm_policy.conf): PRIVATE_TREBLE_SYSPROP_NEVERALLOW := $(treble_sysprop_neverallow)
+$(odm_policy.conf): PRIVATE_ENFORCE_DEBUGFS_RESTRICTION := $(enforce_debugfs_restriction)
 $(odm_policy.conf): PRIVATE_ENFORCE_SYSPROP_OWNER := $(enforce_sysprop_owner)
 $(odm_policy.conf): PRIVATE_POLICY_FILES := $(policy_files)
 $(odm_policy.conf): $(policy_files) $(M4)
@@ -1164,6 +1175,7 @@ $(sepolicy.recovery.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
 $(sepolicy.recovery.conf): PRIVATE_TGT_WITH_NATIVE_COVERAGE := $(with_native_coverage)
 $(sepolicy.recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
 $(sepolicy.recovery.conf): PRIVATE_TGT_RECOVERY := -D target_recovery=true
+$(sepolicy.recovery.conf): PRIVATE_ENFORCE_DEBUGFS_RESTRICTION := $(enforce_debugfs_restriction)
 $(sepolicy.recovery.conf): PRIVATE_POLICY_FILES := $(policy_files)
 $(sepolicy.recovery.conf): $(policy_files) $(M4)
 	$(transform-policy-to-conf)
@@ -1401,6 +1413,7 @@ $(base_plat_policy.conf): PRIVATE_SEPOLICY_SPLIT := true
 $(base_plat_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
 $(base_plat_policy.conf): PRIVATE_TREBLE_SYSPROP_NEVERALLOW := $(treble_sysprop_neverallow)
 $(base_plat_policy.conf): PRIVATE_ENFORCE_SYSPROP_OWNER := $(enforce_sysprop_owner)
+$(base_plat_policy.conf): PRIVATE_ENFORCE_DEBUGFS_RESTRICTION := $(enforce_debugfs_restriction)
 $(base_plat_policy.conf): PRIVATE_POLICY_FILES := $(policy_files)
 $(base_plat_policy.conf): $(policy_files) $(M4)
 	$(transform-policy-to-conf)
@@ -1433,6 +1446,7 @@ $(base_plat_pub_policy.conf): PRIVATE_SEPOLICY_SPLIT := true
 $(base_plat_pub_policy.conf): PRIVATE_COMPATIBLE_PROPERTY := $(PRODUCT_COMPATIBLE_PROPERTY)
 $(base_plat_pub_policy.conf): PRIVATE_TREBLE_SYSPROP_NEVERALLOW := $(treble_sysprop_neverallow)
 $(base_plat_pub_policy.conf): PRIVATE_ENFORCE_SYSPROP_OWNER := $(enforce_sysprop_owner)
+$(base_plat_pub_policy.conf): PRIVATE_ENFORCE_DEBUGFS_RESTRICTION := $(enforce_debugfs_restriction)
 $(base_plat_pub_policy.conf): PRIVATE_POLICY_FILES := $(policy_files)
 $(base_plat_pub_policy.conf): $(policy_files) $(M4)
 	$(transform-policy-to-conf)
@@ -1551,6 +1565,7 @@ built_vendor_svc :=
 built_plat_sepolicy :=
 treble_sysprop_neverallow :=
 enforce_sysprop_owner :=
+enforce_debugfs_restriction :=
 mapping_policy :=
 my_target_arch :=
 pub_policy.cil :=
