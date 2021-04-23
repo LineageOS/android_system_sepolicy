@@ -40,16 +40,9 @@ def TestSysfsTypeViolations(pol):
 
 def TestDebugfsTypeViolations(pol):
     ret = pol.AssertGenfsFilesystemTypesHaveAttr("debugfs", "debugfs_type")
+    ret += pol.AssertGenfsFilesystemTypesHaveAttr("tracefs", "debugfs_type")
     ret += pol.AssertPathTypesHaveAttr(["/sys/kernel/debug/",
                                     "/sys/kernel/tracing"], [], "debugfs_type")
-    return ret
-
-def TestTracefsTypeViolations(pol):
-    ret = pol.AssertGenfsFilesystemTypesHaveAttr("tracefs", "tracefs_type")
-    ret += pol.AssertPathTypesHaveAttr(["/sys/kernel/tracing"], [], "tracefs_type")
-    ret += pol.AssertPathTypesDoNotHaveAttr(["/sys/kernel/debug"],
-                                            ["/sys/kernel/debug/tracing"], "tracefs_type",
-                                            [])
     return ret
 
 def TestVendorTypeViolations(pol):
@@ -118,7 +111,6 @@ Tests = [
     "TestSysfsTypeViolations",
     "TestSystemTypeViolators",
     "TestDebugfsTypeViolations",
-    "TestTracefsTypeViolations",
     "TestVendorTypeViolations",
     "TestCoreDataTypeViolations",
     "TestPropertyTypeViolations",
@@ -173,8 +165,6 @@ if __name__ == '__main__':
         results += TestSystemTypeViolations(pol)
     if options.test is None or "TestDebugfsTypeViolations" in options.test:
         results += TestDebugfsTypeViolations(pol)
-    if options.test is None or "TestTracefsTypeViolations" in options.test:
-        results += TestTracefsTypeViolations(pol)
     if options.test is None or "TestVendorTypeViolations" in options.test:
         results += TestVendorTypeViolations(pol)
     if options.test is None or "TestCoreDataTypeViolations" in options.test:

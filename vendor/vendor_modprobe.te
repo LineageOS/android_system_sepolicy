@@ -1,3 +1,5 @@
+type vendor_modprobe, domain;
+
 # For the use of /vendor/bin/modprobe from vendor init.rc fragments
 domain_trans(init, vendor_toolbox_exec, vendor_modprobe)
 
