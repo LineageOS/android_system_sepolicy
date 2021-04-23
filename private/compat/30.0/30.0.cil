@@ -1299,6 +1299,7 @@
 (typeattributeset default_android_vndservice_30_0 (default_android_vndservice))
 (typeattributeset default_prop_30_0 (
     default_prop
+    audio_config_prop
     build_config_prop
     suspend_prop
     init_service_status_private_prop
