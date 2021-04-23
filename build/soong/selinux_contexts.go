@@ -257,10 +257,6 @@ func (m *selinuxContextsModule) VendorRamdiskVariantNeeded(ctx android.BaseModul
 	return false
 }
 
-func (m *selinuxContextsModule) DebugRamdiskVariantNeeded(ctx android.BaseModuleContext) bool {
-	return false
-}
-
 func (m *selinuxContextsModule) RecoveryVariantNeeded(ctx android.BaseModuleContext) bool {
 	return m.InstallInRecovery() || proptools.Bool(m.properties.Recovery_available)
 }
