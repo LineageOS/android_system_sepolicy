@@ -1,0 +1,16 @@
+type crosvm, domain, coredomain;
+type crosvm_exec, system_file_type, exec_type, file_type;
+type crosvm_tmpfs, file_type;
+
+# Let crosvm create temporary files.
+tmpfs_domain(crosvm)
+
+# Let crosvm receive file descriptors from virtmanager.
+allow crosvm virtmanager:fd use;
+
+# Let crosvm open /dev/kvm.
+allow crosvm kvm_device:chr_file rw_file_perms;
+
+# Most other domains shouldn't access /dev/kvm.
+neverallow { domain -crosvm -ueventd -shell } kvm_device:chr_file getattr;
+neverallow { domain -crosvm -ueventd } kvm_device:chr_file ~getattr;
