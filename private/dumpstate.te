@@ -54,10 +54,7 @@ allow dumpstate {
 }:process signal;
 
 # For collecting bugreports.
-no_debugfs_restriction(`
-  allow dumpstate debugfs_wakeup_sources:file r_file_perms;
-')
-
+allow dumpstate debugfs_wakeup_sources:file r_file_perms;
 allow dumpstate dev_type:blk_file getattr;
 allow dumpstate webview_zygote:process signal;
 allow dumpstate sysfs_dmabuf_stats:file r_file_perms;
