@@ -1166,3 +1166,6 @@ ro.soc.model        u:object_r:soc_prop:s0 exact string
 # set to true when running rollback tests to disable fallback-to-copy when enabling rollbacks
 # to detect failures where hard linking should work otherwise
 persist.rollback.is_test u:object_r:rollback_test_prop:s0 exact bool
+
+# bootanimation properties
+ro.bootanim.quiescent.enabled u:object_r:bootanim_config_prop:s0 exact bool
