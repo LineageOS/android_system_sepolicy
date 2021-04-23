@@ -117,6 +117,8 @@
     snapuserd_socket
     soc_prop
     speech_recognition_service
+    sysfs_devfreq_cur
+    sysfs_devfreq_dir
     sysfs_devices_cs_etm
     sysfs_dma_heap
     sysfs_dmabuf_stats
@@ -133,6 +135,7 @@
     vcn_management_service
     vd_device
     vendor_kernel_modules
+    vendor_modprobe
     vibrator_manager_service
     virtualization_service
     vpn_management_service
