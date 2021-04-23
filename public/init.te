@@ -162,19 +162,7 @@ allowxperm init dev_type:blk_file ioctl BLKROSET;
 # which should all be assigned the contextmount_type attribute.
 # This can be done in device-specific policy via type or typeattribute
 # declarations.
-allow init {
-  fs_type
-  enforce_debugfs_restriction(`-debugfs_type')
-}:filesystem ~relabelto;
-
-# Allow init to mount/unmount debugfs in non-user builds.
-enforce_debugfs_restriction(`
-  userdebug_or_eng(`allow init debugfs_type:filesystem { mount unmount };')
-')
-
-# Allow init to mount tracefs in /sys/kernel/tracing
-allow init debugfs_tracing_debug:filesystem mount;
-
+allow init fs_type:filesystem ~relabelto;
 allow init unlabeled:filesystem ~relabelto;
 allow init contextmount_type:filesystem relabelto;
 
@@ -240,10 +228,7 @@ allow init {
   -system_file_type
   -vendor_file_type
   -vold_data_file
-  enforce_debugfs_restriction(`-debugfs_type')
 }:file { create getattr open read write setattr relabelfrom unlink map };
-
-allow init tracefs_type:file { create_file_perms relabelfrom };
 
 allow init {
   file_type
@@ -293,8 +278,8 @@ allow init {
   -privapp_data_file
 }:dir_file_class_set relabelto;
 
-allow init { sysfs no_debugfs_restriction(`debugfs') debugfs_tracing debugfs_tracing_debug }:{ dir file lnk_file } { getattr relabelfrom };
-allow init { sysfs_type no_debugfs_restriction(`debugfs_type') tracefs_type }:{ dir file lnk_file } { relabelto getattr };
+allow init { sysfs debugfs debugfs_tracing debugfs_tracing_debug }:{ dir file lnk_file } { getattr relabelfrom };
+allow init { sysfs_type debugfs_type }:{ dir file lnk_file } { relabelto getattr };
 allow init dev_type:dir create_dir_perms;
 allow init dev_type:lnk_file create;
 
@@ -315,7 +300,6 @@ allow init {
   -sdcard_type
   -sysfs_type
   -rootfs
-  enforce_debugfs_restriction(`-debugfs_type')
 }:file { open read setattr };
 allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read setattr search };
 
