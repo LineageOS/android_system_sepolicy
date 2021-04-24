@@ -186,9 +186,7 @@ allow system_server stats_data_file:dir { open read remove_name search write };
 allow system_server stats_data_file:file unlink;
 
 # Read /sys/kernel/debug/wakeup_sources.
-no_debugfs_restriction(`
-  allow system_server debugfs_wakeup_sources:file r_file_perms;
-')
+allow system_server debugfs_wakeup_sources:file r_file_perms;
 
 # Read /sys/kernel/ion/*.
 allow system_server sysfs_ion:file r_file_perms;

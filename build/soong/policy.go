@@ -135,13 +135,6 @@ func (c *policyConf) enforceSyspropOwner(ctx android.ModuleContext) string {
 	return strconv.FormatBool(!ctx.DeviceConfig().BuildBrokenEnforceSyspropOwner())
 }
 
-func (c *policyConf) enforceDebugfsRestrictions(ctx android.ModuleContext) string {
-	if c.cts() {
-		return "cts"
-	}
-	return strconv.FormatBool(ctx.DeviceConfig().BuildDebugfsRestrictionsEnabled())
-}
-
 func (c *policyConf) transformPolicyToConf(ctx android.ModuleContext) android.OutputPath {
 	conf := android.PathForModuleOut(ctx, "conf").OutputPath
 	rule := android.NewRuleBuilder(pctx, ctx)
@@ -161,7 +154,6 @@ func (c *policyConf) transformPolicyToConf(ctx android.ModuleContext) android.Ou
 		FlagWithArg("-D target_enforce_sysprop_owner=", c.enforceSyspropOwner(ctx)).
 		FlagWithArg("-D target_exclude_build_test=", strconv.FormatBool(proptools.Bool(c.properties.Exclude_build_test))).
 		FlagWithArg("-D target_requires_insecure_execmem_for_swiftshader=", strconv.FormatBool(ctx.DeviceConfig().RequiresInsecureExecmemForSwiftshader())).
-		FlagWithArg("-D target_enforce_debugfs_restriction=", c.enforceDebugfsRestrictions(ctx)).
 		Flag("-s").
 		Inputs(android.PathsForModuleSrc(ctx, c.properties.Srcs)).
 		Text("> ").Output(conf)
@@ -325,12 +317,7 @@ func (c *policyCil) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	conf := android.PathForModuleSrc(ctx, *c.properties.Src)
 	cil := c.compileConfToCil(ctx, conf)
 
-	if c.InstallInDebugRamdisk() {
-		// for userdebug_plat_sepolicy.cil
-		c.installPath = android.PathForModuleInstall(ctx)
-	} else {
-		c.installPath = android.PathForModuleInstall(ctx, "etc", "selinux")
-	}
+	c.installPath = android.PathForModuleInstall(ctx, "etc", "selinux")
 	c.installSource = cil
 	ctx.InstallFile(c.installPath, c.stem(), c.installSource)
 
