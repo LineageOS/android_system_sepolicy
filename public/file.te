@@ -144,14 +144,14 @@ type exfat, sdcard_type, fs_type, mlstrustedobject;
 type debugfs, fs_type, debugfs_type;
 type debugfs_kprobes, fs_type, debugfs_type;
 type debugfs_mmc, fs_type, debugfs_type;
-type debugfs_mm_events_tracing, fs_type, debugfs_type, tracefs_type;
-type debugfs_trace_marker, fs_type, debugfs_type, mlstrustedobject, tracefs_type;
-type debugfs_tracing, fs_type, debugfs_type, mlstrustedobject, tracefs_type;
-type debugfs_tracing_debug, fs_type, debugfs_type, mlstrustedobject, tracefs_type;
-type debugfs_tracing_instances, fs_type, debugfs_type, tracefs_type;
-type debugfs_tracing_printk_formats, fs_type, debugfs_type, tracefs_type;
+type debugfs_mm_events_tracing, fs_type, debugfs_type;
+type debugfs_trace_marker, fs_type, debugfs_type, mlstrustedobject;
+type debugfs_tracing, fs_type, debugfs_type, mlstrustedobject;
+type debugfs_tracing_debug, fs_type, debugfs_type, mlstrustedobject;
+type debugfs_tracing_instances, fs_type, debugfs_type;
+type debugfs_tracing_printk_formats, fs_type, debugfs_type;
 type debugfs_wakeup_sources, fs_type, debugfs_type;
-type debugfs_wifi_tracing, fs_type, debugfs_type, tracefs_type;
+type debugfs_wifi_tracing, fs_type, debugfs_type;
 type securityfs, fs_type;
 
 type pstorefs, fs_type;
@@ -562,7 +562,7 @@ type hwservice_contexts_file, system_file_type, file_type;
 type vndservice_contexts_file, file_type;
 
 # /sys/kernel/tracing/instances/bootreceiver for monitoring kernel memory corruptions.
-type debugfs_bootreceiver_tracing, fs_type, debugfs_type, tracefs_type;
+type debugfs_bootreceiver_tracing, fs_type, debugfs_type;
 
 # kernel modules
 type vendor_kernel_modules, vendor_file_type, file_type;
