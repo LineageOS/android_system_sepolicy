@@ -560,7 +560,7 @@ sys.usb.ffs.mtp.ready u:object_r:ffs_control_prop:s0 exact bool
 
 tombstoned.max_tombstone_count u:object_r:tombstone_config_prop:s0 exact int
 
-vold.post_fs_data_done u:object_r:vold_config_prop:s0 exact int
+vold.post_fs_data_done u:object_r:vold_post_fs_data_prop:s0 exact int
 
 apexd.status u:object_r:apexd_prop:s0 exact enum starting activated ready
 
