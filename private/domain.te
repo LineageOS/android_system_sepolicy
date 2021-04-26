@@ -49,6 +49,9 @@ userdebug_or_eng(`can_profile_perf({
   -zygote
 })')
 
+# Everyone can access the IncFS list of features.
+r_dir_file(domain, sysfs_fs_incfs_features);
+
 # Path resolution access in cgroups.
 allow domain cgroup:dir search;
 allow { domain -appdomain -rs } cgroup:dir w_dir_perms;
