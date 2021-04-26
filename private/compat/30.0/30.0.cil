@@ -1378,7 +1378,10 @@
     dalvik_runtime_prop
     surfaceflinger_color_prop
     zram_control_prop))
-(typeattributeset exported2_vold_prop_30_0 (exported2_vold_prop vold_config_prop))
+(typeattributeset exported2_vold_prop_30_0
+  ( exported2_vold_prop
+    vold_config_prop
+    vold_post_fs_data_prop))
 (typeattributeset exported3_default_prop_30_0
   ( exported3_default_prop
     camera_calibration_prop
