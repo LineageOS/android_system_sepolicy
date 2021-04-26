@@ -127,8 +127,6 @@ allow vold mnt_expand_file:dir { create_dir_perms mounton };
 allow vold apk_data_file:dir { create getattr setattr };
 allow vold shell_data_file:dir { create getattr setattr };
 
-# Access the IncFS list of features
-r_dir_file(vold, sysfs_fs_incfs_features);
 # Allow to mount incremental file system on /data/incremental and create files
 allow vold apk_data_file:dir { mounton rw_dir_perms };
 # Allow to create and write files in /data/incremental
