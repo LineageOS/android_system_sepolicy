@@ -23,6 +23,7 @@ get_prop(vold, vold_config_prop)
 get_prop(vold, storage_config_prop);
 get_prop(vold, incremental_prop);
 
+set_prop(vold, vold_post_fs_data_prop)
 set_prop(vold, vold_prop)
 set_prop(vold, vold_status_prop)
 set_prop(vold, powerctl_prop)
