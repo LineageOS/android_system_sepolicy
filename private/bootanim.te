@@ -12,3 +12,6 @@ dontaudit bootanim vendor_default_prop:file read;
 get_prop(bootanim, bootloader_boot_reason_prop)
 
 get_prop(bootanim, bootanim_config_prop)
+
+# Allow updating boot animation status.
+set_prop(bootanim, bootanim_system_prop)
