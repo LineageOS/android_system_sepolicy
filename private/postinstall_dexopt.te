@@ -5,6 +5,7 @@
 
 type postinstall_dexopt, domain, coredomain, mlstrustedsubject;
 type postinstall_dexopt_exec, system_file_type, exec_type, file_type;
+type postinstall_dexopt_tmpfs, file_type;
 
 # Run dex2oat/patchoat in its own sandbox.
 # We have to manually transition, as we don't have an entrypoint.
@@ -14,6 +15,12 @@ domain_auto_trans(postinstall_dexopt, dex2oat_exec, dex2oat)
 # - Case where dex2oat is in a flattened APEX, which has been tagged
 #   with the `postinstall_file` type by update_engine.
 domain_auto_trans(postinstall_dexopt, postinstall_file, dex2oat)
+
+# Run derive_classpath to get the current BCP.
+domain_auto_trans(postinstall_dexopt, derive_classpath_exec, derive_classpath)
+# Allow postinstall_dexopt to make a tempfile for derive_classpath to write into
+tmpfs_domain(postinstall_dexopt);
+allow postinstall_dexopt postinstall_dexopt_tmpfs:file open;
 
 allow postinstall_dexopt self:global_capability_class_set { chown dac_override dac_read_search fowner fsetid setgid setuid };
 
