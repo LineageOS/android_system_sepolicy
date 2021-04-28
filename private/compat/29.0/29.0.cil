@@ -1206,7 +1206,10 @@
 (typeattributeset exported2_system_prop_29_0
   ( exported2_system_prop
     surfaceflinger_color_prop))
-(typeattributeset exported2_vold_prop_29_0 (exported2_vold_prop vold_config_prop))
+(typeattributeset exported2_vold_prop_29_0
+  ( exported2_vold_prop
+    vold_config_prop
+    vold_post_fs_data_prop))
 (typeattributeset exported3_default_prop_29_0 (exported3_default_prop lmkd_config_prop))
 (typeattributeset exported3_radio_prop_29_0 (exported3_radio_prop))
 (typeattributeset exported3_system_prop_29_0 (exported3_system_prop boot_status_prop))
