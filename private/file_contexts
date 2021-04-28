@@ -99,7 +99,7 @@
 /dev/dma_heap(/.*)?     u:object_r:dmabuf_heap_device:s0
 /dev/dma_heap/system    u:object_r:dmabuf_system_heap_device:s0
 /dev/dma_heap/system-uncached    u:object_r:dmabuf_system_heap_device:s0
-/dev/dma_heap/system-secure	 u:object_r:dmabuf_system_secure_heap_device:s0
+/dev/dma_heap/system-secure(.*)	 u:object_r:dmabuf_system_secure_heap_device:s0
 /dev/dm-user(/.*)?	u:object_r:dm_user_device:s0
 /dev/device-mapper	u:object_r:dm_device:s0
 /dev/eac		u:object_r:audio_device:s0
