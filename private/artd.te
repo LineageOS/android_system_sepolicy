@@ -1,0 +1,12 @@
+# art service daemon
+type artd, domain;
+type artd_exec, system_file_type, exec_type, file_type;
+
+# Allow artd to publish a binder service and make binder calls.
+binder_use(artd)
+add_service(artd, artd_service)
+allow artd dumpstate:fifo_file  { getattr write };
+
+typeattribute artd coredomain;
+
+init_daemon_domain(artd)
