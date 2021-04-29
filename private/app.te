@@ -72,9 +72,9 @@ allow appdomain font_data_file:dir r_dir_perms;
 
 # Enter /data/misc/apexdata/
 allow appdomain apex_module_data_file:dir search;
-# Read /data/misc/apexdata/com.android.art
+# Read /data/misc/apexdata/com.android.art, execute signed AOT artifacts.
 allow appdomain apex_art_data_file:dir r_dir_perms;
-allow appdomain apex_art_data_file:file r_file_perms;
+allow appdomain apex_art_data_file:file rx_file_perms;
 
 # Allow access to tombstones if an fd to one is given to you.
 # This is restricted by unix permissions, so an app must go through system_server to get one.
