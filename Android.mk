@@ -834,25 +834,6 @@ userdebug_plat_policy.conf :=
 #################################
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := plat_sepolicy_vers.txt
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_PROPRIETARY_MODULE := true
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE) : PRIVATE_PLAT_SEPOL_VERS := $(BOARD_SEPOLICY_VERS)
-$(LOCAL_BUILT_MODULE) :
-	mkdir -p $(dir $@)
-	echo $(PRIVATE_PLAT_SEPOL_VERS) > $@
-
-#################################
-include $(CLEAR_VARS)
-
 # vendor_policy.cil - the vendor sepolicy. This needs attributization and to be combined
 # with the platform-provided policy.  It makes use of the reqd_policy_mask files from private
 # policy and the platform public policy files in order to use checkpolicy.
