@@ -869,8 +869,8 @@ ro.property_service.version u:object_r:property_service_version_prop:s0 exact in
 
 ro.vendor.redirect_socket_calls u:object_r:vendor_socket_hook_prop:s0 exact bool
 
-service.bootanim.exit u:object_r:exported_system_prop:s0 exact int
-service.bootanim.progress u:object_r:exported_system_prop:s0 exact int
+service.bootanim.exit u:object_r:bootanim_system_prop:s0 exact int
+service.bootanim.progress u:object_r:bootanim_system_prop:s0 exact int
 
 sys.init.userspace_reboot.in_progress u:object_r:userspace_reboot_exported_prop:s0 exact bool
 sys.use_memfd                         u:object_r:use_memfd_prop:s0 exact bool
