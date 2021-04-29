@@ -47,4 +47,4 @@ neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:dir *;
 neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:file *;
 
 # Allow updating boot animation status.
-set_prop(odrefresh, exported_system_prop)
+set_prop(odrefresh, bootanim_system_prop)
