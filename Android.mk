@@ -429,7 +429,9 @@ LOCAL_LICENSE_CONDITIONS := notice unencumbered
 LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 # Include precompiled policy, unless told otherwise.
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+ifdef HAS_SYSTEM_EXT_SEPOLICY
 LOCAL_REQUIRED_MODULES += system_ext_sepolicy_and_mapping.sha256
+endif
 endif
 
 ifdef HAS_SYSTEM_EXT_SEPOLICY
@@ -474,7 +476,9 @@ LOCAL_LICENSE_CONDITIONS := notice unencumbered
 LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 # Include precompiled policy, unless told otherwise.
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+ifdef HAS_PRODUCT_SEPOLICY
 LOCAL_REQUIRED_MODULES += product_sepolicy_and_mapping.sha256
+endif
 endif
 
 ifdef HAS_PRODUCT_SEPOLICY
@@ -520,9 +524,15 @@ LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 LOCAL_REQUIRED_MODULES += \
     precompiled_sepolicy \
-    precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 \
-    precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256 \
-    precompiled_sepolicy.product_sepolicy_and_mapping.sha256 \
+    precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
+
+ifdef HAS_SYSTEM_EXT_SEPOLICY
+LOCAL_REQUIRED_MODULES += precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256
+endif
+
+ifdef HAS_PRODUCT_SEPOLICY
+LOCAL_REQUIRED_MODULES += precompiled_sepolicy.product_sepolicy_and_mapping.sha256
+endif
 
 endif # ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 
