@@ -629,6 +629,7 @@ allow system_server server_configurable_flags_data_file:file r_file_perms;
 
 # Property Service write
 set_prop(system_server, system_prop)
+set_prop(system_server, bootanim_system_prop)
 set_prop(system_server, exported_system_prop)
 set_prop(system_server, exported3_system_prop)
 set_prop(system_server, safemode_prop)
