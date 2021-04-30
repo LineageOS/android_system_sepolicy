@@ -824,6 +824,12 @@ prebuilt_etc {
     product_specific: true,
 }
 
+sepolicy_vers {
+    name: "plat_sepolicy_vers.txt",
+    version: "vendor",
+    vendor: true,
+}
+
 //////////////////////////////////
 // SELinux policy embedded into CTS.
 // CTS checks neverallow rules of this policy against the policy of the device under test.
@@ -886,5 +892,12 @@ se_versioned_policy {
         ":plat_mapping_file",
     ],
     filter_out: [":microdroid_plat_pub_versioned.cil"],
+    installable: false,
+}
+
+sepolicy_vers {
+    name: "microdroid_plat_sepolicy_vers.txt",
+    version: "platform",
+    stem: "plat_sepolicy_vers.txt",
     installable: false,
 }
