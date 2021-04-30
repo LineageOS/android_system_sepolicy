@@ -197,3 +197,6 @@ neverallow { domain -shell -init -dumpstate } perf_drop_caches_prop:file read;
 
 # Allow ReadDefaultFstab() for CTS.
 read_fstab(shell)
+
+# Allow shell to read FUSE passthrough properties
+get_prop(shell, fuse_passthrough_prop)
