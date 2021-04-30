@@ -34,6 +34,7 @@ allowxperm system_server incremental_control_file:file ioctl {
   INCFS_IOCTL_PERMIT_FILL
   INCFS_IOCTL_GET_READ_TIMEOUTS
   INCFS_IOCTL_SET_READ_TIMEOUTS
+  INCFS_IOCTL_GET_LAST_READ_ERROR
 };
 
 # To get signature of an APK installed on Incremental File System, and fill in data
