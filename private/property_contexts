@@ -82,6 +82,7 @@ persist.heapprofd.enable u:object_r:heapprofd_enabled_prop:s0
 persist.traced_perf.enable u:object_r:traced_perf_enabled_prop:s0
 persist.vendor.debug.wifi. u:object_r:persist_vendor_debug_wifi_prop:s0
 persist.vendor.overlay.  u:object_r:overlay_prop:s0
+ril.cdma.inecmmode      u:object_r:radio_cdma_ecm_prop:s0 exact bool
 ro.boot.vendor.overlay.  u:object_r:overlay_prop:s0
 ro.boottime.             u:object_r:boottime_prop:s0
 ro.serialno             u:object_r:serialno_prop:s0
