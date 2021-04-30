@@ -1433,6 +1433,8 @@
 (typeattributeset exported_radio_prop_30_0 (exported_radio_prop telephony_status_prop))
 (typeattributeset exported_secure_prop_30_0 (exported_secure_prop))
 (typeattributeset exported_system_prop_30_0 (exported_system_prop charger_status_prop))
+(typeattributeset exported_system_prop_30_0 (exported_system_prop bootanim_system_prop))
+
 (typeattributeset exported_system_radio_prop_30_0
   ( exported_system_radio_prop
     usb_config_prop
