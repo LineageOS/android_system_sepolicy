@@ -45,6 +45,9 @@ neverallow { all_untrusted_apps -mediaprovider } property_type:property_service 
 # net.dns properties are not a public API. Disallow untrusted apps from reading this property.
 neverallow { all_untrusted_apps } net_dns_prop:file read;
 
+# radio_cdma_ecm_prop properties are not a public API. Disallow untrusted apps from reading this property.
+neverallow { all_untrusted_apps } radio_cdma_ecm_prop:file read;
+
 # Shared libraries created by trusted components within an app home
 # directory can be dlopen()ed. To maintain the W^X property, these files
 # must never be writable to the app.
