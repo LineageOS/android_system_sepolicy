@@ -829,13 +829,18 @@ ro.vendor.product.cpu.abilist   u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.product.cpu.abilist32 u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.product.cpu.abilist64 u:object_r:build_vendor_prop:s0 exact string
 
-ro.product.board               u:object_r:build_vendor_prop:s0 exact string
-ro.product.first_api_level     u:object_r:build_vendor_prop:s0 exact int
-ro.product.vendor.brand        u:object_r:build_vendor_prop:s0 exact string
-ro.product.vendor.device       u:object_r:build_vendor_prop:s0 exact string
-ro.product.vendor.manufacturer u:object_r:build_vendor_prop:s0 exact string
-ro.product.vendor.model        u:object_r:build_vendor_prop:s0 exact string
-ro.product.vendor.name         u:object_r:build_vendor_prop:s0 exact string
+ro.product.board                    u:object_r:build_vendor_prop:s0 exact string
+ro.product.first_api_level          u:object_r:build_vendor_prop:s0 exact int
+ro.product.vendor.brand             u:object_r:build_vendor_prop:s0 exact string
+ro.product.vendor.device            u:object_r:build_vendor_prop:s0 exact string
+ro.product.vendor.manufacturer      u:object_r:build_vendor_prop:s0 exact string
+ro.product.vendor.model             u:object_r:build_vendor_prop:s0 exact string
+ro.product.vendor.name              u:object_r:build_vendor_prop:s0 exact string
+ro.product.vendor_dlkm.brand        u:object_r:build_vendor_prop:s0 exact string
+ro.product.vendor_dlkm.device       u:object_r:build_vendor_prop:s0 exact string
+ro.product.vendor_dlkm.manufacturer u:object_r:build_vendor_prop:s0 exact string
+ro.product.vendor_dlkm.model        u:object_r:build_vendor_prop:s0 exact string
+ro.product.vendor_dlkm.name         u:object_r:build_vendor_prop:s0 exact string
 
 # GRF property for the first api level of the vendor partition
 ro.board.first_api_level u:object_r:build_vendor_prop:s0 exact int
@@ -869,8 +874,8 @@ ro.property_service.version u:object_r:property_service_version_prop:s0 exact in
 
 ro.vendor.redirect_socket_calls u:object_r:vendor_socket_hook_prop:s0 exact bool
 
-service.bootanim.exit u:object_r:exported_system_prop:s0 exact int
-service.bootanim.progress u:object_r:exported_system_prop:s0 exact int
+service.bootanim.exit u:object_r:bootanim_system_prop:s0 exact int
+service.bootanim.progress u:object_r:bootanim_system_prop:s0 exact int
 
 sys.init.userspace_reboot.in_progress u:object_r:userspace_reboot_exported_prop:s0 exact bool
 sys.use_memfd                         u:object_r:use_memfd_prop:s0 exact bool

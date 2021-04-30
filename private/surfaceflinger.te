@@ -53,6 +53,7 @@ allow surfaceflinger self:netlink_kobject_uevent_socket create_socket_perms_no_i
 
 # Set properties.
 set_prop(surfaceflinger, system_prop)
+set_prop(surfaceflinger, bootanim_system_prop)
 set_prop(surfaceflinger, exported_system_prop)
 set_prop(surfaceflinger, exported3_system_prop)
 set_prop(surfaceflinger, ctl_bootanim_prop)
