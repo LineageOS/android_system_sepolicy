@@ -38,6 +38,7 @@ bootstrap_go_package {
         "policy.go",
         "selinux.go",
         "selinux_contexts.go",
+        "sepolicy_vers.go",
         "versioned_policy.go",
     ],
     pluginFor: ["soong_build"],
