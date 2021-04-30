@@ -17,8 +17,16 @@ allow crash_dump {
   -vendor_init
   -vold
 }:process { ptrace signal sigchld sigstop sigkill };
+
+# TODO(b/186868271): Remove the keystore exception soon-ish (maybe by May 14, 2021?)
 userdebug_or_eng(`
-  allow crash_dump { apexd llkd logd vold }:process { ptrace signal sigchld sigstop sigkill };
+  allow crash_dump {
+    apexd
+    keystore
+    llkd
+    logd
+    vold
+  }:process { ptrace signal sigchld sigstop sigkill };
 ')
 
 ###
@@ -35,6 +43,7 @@ neverallow crash_dump {
   init
   kernel
   keystore
+  userdebug_or_eng(`-keystore')
   llkd
   userdebug_or_eng(`-llkd')
   logd
