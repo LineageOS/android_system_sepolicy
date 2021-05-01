@@ -53,6 +53,11 @@ allow app_zygote zygote:process sigchld;
 r_dir_file(app_zygote, dalvikcache_data_file);
 allow app_zygote dalvikcache_data_file:file execute;
 
+# Read /data/misc/apexdata/ to (get to com.android.art/dalvik-cache).
+allow app_zygote apex_module_data_file:dir search;
+# For ART APEX (read /data/misc/apexdata/com.android.art/dalvik-cache).
+r_dir_file(app_zygote, apex_art_data_file)
+
 # Allow reading/executing installed binaries to enable preloading
 # application data
 allow app_zygote apk_data_file:dir r_dir_perms;
