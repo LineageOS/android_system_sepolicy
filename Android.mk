@@ -429,7 +429,9 @@ LOCAL_LICENSE_CONDITIONS := notice unencumbered
 LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 # Include precompiled policy, unless told otherwise.
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+ifdef HAS_SYSTEM_EXT_SEPOLICY
 LOCAL_REQUIRED_MODULES += system_ext_sepolicy_and_mapping.sha256
+endif
 endif
 
 ifdef HAS_SYSTEM_EXT_SEPOLICY
@@ -474,7 +476,9 @@ LOCAL_LICENSE_CONDITIONS := notice unencumbered
 LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 # Include precompiled policy, unless told otherwise.
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
+ifdef HAS_PRODUCT_SEPOLICY
 LOCAL_REQUIRED_MODULES += product_sepolicy_and_mapping.sha256
+endif
 endif
 
 ifdef HAS_PRODUCT_SEPOLICY
@@ -520,9 +524,15 @@ LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 LOCAL_REQUIRED_MODULES += \
     precompiled_sepolicy \
-    precompiled_sepolicy.plat_sepolicy_and_mapping.sha256 \
-    precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256 \
-    precompiled_sepolicy.product_sepolicy_and_mapping.sha256 \
+    precompiled_sepolicy.plat_sepolicy_and_mapping.sha256
+
+ifdef HAS_SYSTEM_EXT_SEPOLICY
+LOCAL_REQUIRED_MODULES += precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256
+endif
+
+ifdef HAS_PRODUCT_SEPOLICY
+LOCAL_REQUIRED_MODULES += precompiled_sepolicy.product_sepolicy_and_mapping.sha256
+endif
 
 endif # ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 
@@ -830,25 +840,6 @@ $(LOCAL_BUILT_MODULE): $(userdebug_plat_policy.conf) $(HOST_OUT_EXECUTABLES)/che
 	$(hide) mv $@.tmp $@
 
 userdebug_plat_policy.conf :=
-
-#################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := plat_sepolicy_vers.txt
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_PROPRIETARY_MODULE := true
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE) : PRIVATE_PLAT_SEPOL_VERS := $(BOARD_SEPOLICY_VERS)
-$(LOCAL_BUILT_MODULE) :
-	mkdir -p $(dir $@)
-	echo $(PRIVATE_PLAT_SEPOL_VERS) > $@
 
 #################################
 include $(CLEAR_VARS)
