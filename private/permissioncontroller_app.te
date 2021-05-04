@@ -18,3 +18,5 @@ allow permissioncontroller_app radio_service:service_manager find;
 allow permissioncontroller_app incident_service:service_manager find;
 binder_call(permissioncontroller_app, incidentd)
 allow permissioncontroller_app incidentd:fifo_file { read write };
+
+allow permissioncontroller_app gpu_device:dir search;
