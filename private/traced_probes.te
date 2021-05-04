@@ -96,6 +96,9 @@ hal_client_domain(traced_probes, hal_atrace)
 # On debug builds allow to ingest system logs into the trace.
 userdebug_or_eng(`read_logd(traced_probes)')
 
+# Allow traced_probes to talk to statsd for logging metrics.
+unix_socket_send(traced_probes, statsdw, statsd)
+
 ###
 ### Neverallow rules
 ###
