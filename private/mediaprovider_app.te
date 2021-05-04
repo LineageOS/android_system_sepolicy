@@ -52,3 +52,5 @@ allow mediaprovider_app proc_filesystems:file r_file_perms;
 get_prop(mediaprovider_app, storage_config_prop)
 
 get_prop(mediaprovider_app, drm_service_config_prop)
+
+allow mediaprovider_app gpu_device:dir search;
