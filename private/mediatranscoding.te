@@ -39,6 +39,14 @@ allow mediatranscoding shell_data_file:file { getattr read write };
 # allow mediatranscoding service write permission to statsd socket
 unix_socket_send(mediatranscoding, statsdw, statsd)
 
+# Allow mediatranscoding to access the DMA-BUF system heap
+allow mediatranscoding dmabuf_system_heap_device:chr_file r_file_perms;
+
+allow mediatranscoding gpu_device:dir search;
+
+# Allow mediatranscoding service to access media-related system properties
+get_prop(mediatranscoding, media_config_prop)
+
 # mediatranscoding should never execute any executable without a
 # domain transition
 neverallow mediatranscoding { file_type fs_type }:file execute_no_trans;
