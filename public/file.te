@@ -115,6 +115,7 @@ type sysfs_wakeup_reasons, fs_type, sysfs_type;
 type sysfs_fs_ext4_features, sysfs_type, fs_type;
 type sysfs_fs_f2fs, sysfs_type, fs_type;
 type sysfs_fs_incfs_features, sysfs_type, fs_type;
+type sysfs_fs_incfs_metrics, sysfs_type, fs_type;
 type fs_bpf, fs_type;
 type fs_bpf_tethering, fs_type;
 type configfs, fs_type;
