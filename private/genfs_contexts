@@ -142,6 +142,7 @@ genfscon sysfs /firmware/devicetree/base/firmware/android u:object_r:sysfs_dt_fi
 genfscon sysfs /fs/ext4/features                  u:object_r:sysfs_fs_ext4_features:s0
 genfscon sysfs /fs/f2fs                           u:object_r:sysfs_fs_f2fs:s0
 genfscon sysfs /fs/incremental-fs/features        u:object_r:sysfs_fs_incfs_features:s0
+genfscon sysfs /fs/incremental-fs/instances       u:object_r:sysfs_fs_incfs_metrics:s0
 genfscon sysfs /power/autosleep u:object_r:sysfs_power:s0
 genfscon sysfs /power/state u:object_r:sysfs_power:s0
 genfscon sysfs /power/suspend_stats u:object_r:sysfs_suspend_stats:s0
