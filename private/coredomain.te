@@ -153,9 +153,11 @@ full_treble_only(`
   # debugfs
   neverallow {
     coredomain
-    -dumpstate
-    -init
-    -system_server
+    no_debugfs_restriction(`
+      -dumpstate
+      -init
+      -system_server
+    ')
   } debugfs:file no_rw_file_perms;
 
   # tracefs

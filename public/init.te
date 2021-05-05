@@ -240,7 +240,10 @@ allow init {
   -system_file_type
   -vendor_file_type
   -vold_data_file
+  enforce_debugfs_restriction(`-debugfs_type')
 }:file { create getattr open read write setattr relabelfrom unlink map };
+
+allow init tracefs_type:file { create_file_perms relabelfrom };
 
 allow init {
   file_type
@@ -290,8 +293,8 @@ allow init {
   -privapp_data_file
 }:dir_file_class_set relabelto;
 
-allow init { sysfs debugfs debugfs_tracing debugfs_tracing_debug }:{ dir file lnk_file } { getattr relabelfrom };
-allow init { sysfs_type debugfs_type }:{ dir file lnk_file } { relabelto getattr };
+allow init { sysfs no_debugfs_restriction(`debugfs') debugfs_tracing debugfs_tracing_debug }:{ dir file lnk_file } { getattr relabelfrom };
+allow init { sysfs_type no_debugfs_restriction(`debugfs_type') tracefs_type }:{ dir file lnk_file } { relabelto getattr };
 allow init dev_type:dir create_dir_perms;
 allow init dev_type:lnk_file create;
 
@@ -312,6 +315,7 @@ allow init {
   -sdcard_type
   -sysfs_type
   -rootfs
+  enforce_debugfs_restriction(`-debugfs_type')
 }:file { open read setattr };
 allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read setattr search };
 
