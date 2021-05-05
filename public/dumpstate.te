@@ -113,10 +113,12 @@ allow dumpstate {
 }:file r_file_perms;
 
 # Other random bits of data we want to collect
-allow dumpstate debugfs:file r_file_perms;
-auditallow dumpstate debugfs:file r_file_perms;
+no_debugfs_restriction(`
+  allow dumpstate debugfs:file r_file_perms;
+  auditallow dumpstate debugfs:file r_file_perms;
 
-allow dumpstate debugfs_mmc:file r_file_perms;
+  allow dumpstate debugfs_mmc:file r_file_perms;
+')
 
 # df for
 allow dumpstate {
