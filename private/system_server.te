@@ -46,6 +46,9 @@ allowxperm system_server apk_data_file:file ioctl {
   INCFS_IOCTL_GET_BLOCK_COUNT
 };
 
+# For Incremental Service to check incfs metrics
+allow system_server sysfs_fs_incfs_metrics:file r_file_perms;
+
 # For art.
 allow system_server { apex_art_data_file dalvikcache_data_file }:dir r_dir_perms;
 allow system_server { apex_art_data_file dalvikcache_data_file }:file r_file_perms;
