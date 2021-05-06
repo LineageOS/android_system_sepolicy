@@ -436,6 +436,7 @@ ro.hdmi.cec_audio_device_forward_volume_keys_system_audio_mode_off u:object_r:hd
 ro.hdmi.property_is_device_hdmi_cec_switch                         u:object_r:hdmi_config_prop:s0 exact bool
 ro.hdmi.wake_on_hotplug                                            u:object_r:hdmi_config_prop:s0 exact bool
 ro.hdmi.cec.source.send_standby_on_sleep                           u:object_r:hdmi_config_prop:s0 exact enum to_tv broadcast none
+ro.hdmi.cec.source.playback_device_action_on_routing_control       u:object_r:hdmi_config_prop:s0 exact enum none wake_up_only wake_up_and_send_active_source
 
 pm.dexopt.ab-ota                            u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.bg-dexopt                         u:object_r:exported_pm_prop:s0 exact string
