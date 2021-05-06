@@ -46,6 +46,9 @@ allowxperm system_server apk_data_file:file ioctl {
   INCFS_IOCTL_GET_BLOCK_COUNT
 };
 
+# For Incremental Service to check incfs metrics
+allow system_server sysfs_fs_incfs_metrics:file r_file_perms;
+
 # For art.
 allow system_server { apex_art_data_file dalvikcache_data_file }:dir r_dir_perms;
 allow system_server { apex_art_data_file dalvikcache_data_file }:file r_file_perms;
@@ -184,7 +187,9 @@ allow system_server stats_data_file:dir { open read remove_name search write };
 allow system_server stats_data_file:file unlink;
 
 # Read /sys/kernel/debug/wakeup_sources.
-allow system_server debugfs_wakeup_sources:file r_file_perms;
+no_debugfs_restriction(`
+  allow system_server debugfs_wakeup_sources:file r_file_perms;
+')
 
 # Read /sys/kernel/ion/*.
 allow system_server sysfs_ion:file r_file_perms;
