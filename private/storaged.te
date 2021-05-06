@@ -18,10 +18,12 @@ allow storaged packages_list_file:file r_file_perms;
 allow storaged storaged_data_file:dir rw_dir_perms;
 allow storaged storaged_data_file:file create_file_perms;
 
-userdebug_or_eng(`
-  # Read access to debugfs
-  allow storaged debugfs_mmc:dir search;
-  allow storaged debugfs_mmc:file r_file_perms;
+no_debugfs_restriction(`
+  userdebug_or_eng(`
+    # Read access to debugfs
+    allow storaged debugfs_mmc:dir search;
+    allow storaged debugfs_mmc:file r_file_perms;
+  ')
 ')
 
 # Needed to provide debug dump output via dumpsys pipes.
