@@ -62,6 +62,9 @@ attribute sysfs_type;
 # All types use for debugfs files.
 attribute debugfs_type;
 
+# All types used for tracefs files.
+attribute tracefs_type;
+
 # Attribute used for all sdcards
 attribute sdcard_type;
 
