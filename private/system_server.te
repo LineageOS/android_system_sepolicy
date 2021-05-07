@@ -313,6 +313,7 @@ allow system_server {
   drmserver
   gpuservice
   inputflinger
+  keystore
   mediadrmserver
   mediaextractor
   mediametrics
