@@ -38,4 +38,7 @@ recovery_only(`
 
   # Get fastbootd protocol property
   get_prop(fastbootd, fastbootd_protocol_prop)
+
+  # Mount /metadata to interact with Virtual A/B snapshots.
+  allow fastbootd labeledfs:filesystem { mount unmount };
 ')

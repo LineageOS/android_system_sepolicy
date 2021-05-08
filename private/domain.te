@@ -359,7 +359,7 @@ neverallow ~{
 neverallow {
     domain
     -apexd
-    recovery_only(`userdebug_or_eng(`-fastbootd')')
+    recovery_only(`-fastbootd')
     -init
     -kernel
     -otapreopt_chroot
