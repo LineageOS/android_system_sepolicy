@@ -48,7 +48,7 @@ recovery_only(`
   # libfiemap.
   allow fastbootd metadata_block_device:blk_file r_file_perms;
   allow fastbootd {rootfs tmpfs}:dir mounton;
-  allow fastbootd metadata_file:dir { search getattr };
+  allow fastbootd metadata_file:dir { search getattr mounton };
   allow fastbootd gsi_metadata_file_type:dir rw_dir_perms;
   allow fastbootd gsi_metadata_file_type:file create_file_perms;
 
@@ -97,7 +97,6 @@ recovery_only(`
       vendor_file_type
     }:{ file lnk_file } unlink;
     allow fastbootd tmpfs:dir rw_dir_perms;
-    allow fastbootd labeledfs:filesystem { mount unmount };
     # Fetch vendor_boot partition
     allow fastbootd boot_block_device:blk_file r_file_perms;
   ')
