@@ -845,6 +845,63 @@ sepolicy_vers {
     vendor: true,
 }
 
+soong_config_module_type {
+    name: "precompiled_sepolicy_defaults",
+    module_type: "prebuilt_defaults",
+    config_namespace: "ANDROID",
+    bool_variables: ["BOARD_USES_ODMIMAGE"],
+    properties: ["vendor", "device_specific"],
+}
+
+precompiled_sepolicy_defaults {
+    name: "precompiled_sepolicy",
+    soong_config_variables: {
+        BOARD_USES_ODMIMAGE: {
+            device_specific: true,
+            conditions_default: {
+                vendor: true,
+            },
+        },
+    },
+}
+
+//////////////////////////////////
+// SHA-256 digest of the plat_sepolicy.cil and plat_mapping_file against
+// which precompiled_policy was built.
+//////////////////////////////////
+prebuilt_etc {
+    defaults: ["precompiled_sepolicy"],
+    name: "precompiled_sepolicy.plat_sepolicy_and_mapping.sha256",
+    filename: "precompiled_sepolicy.plat_sepolicy_and_mapping.sha256",
+    src: ":plat_sepolicy_and_mapping.sha256_gen",
+    relative_install_path: "selinux",
+}
+
+//////////////////////////////////
+// SHA-256 digest of the system_ext_sepolicy.cil and system_ext_mapping_file against
+// which precompiled_policy was built.
+//////////////////////////////////
+prebuilt_etc {
+    defaults: ["precompiled_sepolicy"],
+    name: "precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256",
+    filename: "precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256",
+    src: ":system_ext_sepolicy_and_mapping.sha256_gen",
+    relative_install_path: "selinux",
+}
+
+//////////////////////////////////
+// SHA-256 digest of the product_sepolicy.cil and product_mapping_file against
+// which precompiled_policy was built.
+//////////////////////////////////
+prebuilt_etc {
+    defaults: ["precompiled_sepolicy"],
+    name: "precompiled_sepolicy.product_sepolicy_and_mapping.sha256",
+    filename: "precompiled_sepolicy.product_sepolicy_and_mapping.sha256",
+    src: ":product_sepolicy_and_mapping.sha256_gen",
+    relative_install_path: "selinux",
+}
+
+
 //////////////////////////////////
 // SELinux policy embedded into CTS.
 // CTS checks neverallow rules of this policy against the policy of the device under test.
