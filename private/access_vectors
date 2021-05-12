@@ -395,6 +395,7 @@ inherits socket
 	nlmsg_read
 	nlmsg_write
 	nlmsg_readpriv
+	nlmsg_getneigh
 }
 
 class netlink_tcpdiag_socket
