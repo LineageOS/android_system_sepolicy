@@ -2071,7 +2071,10 @@
 (typeattributeset system_ndebug_socket_30_0 (system_ndebug_socket))
 (typeattributeset system_net_netd_hwservice_30_0 (system_net_netd_hwservice))
 (typeattributeset system_passwd_file_30_0 (system_passwd_file))
-(typeattributeset system_prop_30_0 (system_prop))
+(typeattributeset system_prop_30_0 (
+  system_prop
+  fuse_passthrough_prop
+))
 (typeattributeset system_radio_prop_30_0 (system_radio_prop usb_prop))
 (typeattributeset system_seccomp_policy_file_30_0 (system_seccomp_policy_file))
 (typeattributeset system_security_cacerts_file_30_0 (system_security_cacerts_file))
