@@ -54,3 +54,8 @@ get_prop(mediaprovider_app, storage_config_prop)
 get_prop(mediaprovider_app, drm_service_config_prop)
 
 allow mediaprovider_app gpu_device:dir search;
+
+# Allow MediaProvider to set system properties.
+# This is required to let other services know that FUSE passthrough is enabled
+# on the device (b/186635810).
+set_prop(mediaprovider_app, fuse_passthrough_prop)
