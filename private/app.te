@@ -4,8 +4,6 @@ get_prop(appdomain, test_harness_prop)
 
 get_prop(appdomain, boot_status_prop)
 get_prop(appdomain, dalvik_config_prop)
-# TODO(b/187912701) restrict the scope of fuse_passthrough_prop
-get_prop(appdomain, fuse_passthrough_prop)
 get_prop(appdomain, media_config_prop)
 get_prop(appdomain, packagemanager_config_prop)
 get_prop(appdomain, radio_control_prop)
