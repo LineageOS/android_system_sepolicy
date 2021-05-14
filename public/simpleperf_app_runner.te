@@ -27,7 +27,8 @@ allow simpleperf_app_runner untrusted_app_all:process dyntransition; # setcon
 allow simpleperf_app_runner seapp_contexts_file:file r_file_perms;
 
 # simpleperf_app_runner passes pipe fds.
-allow simpleperf_app_runner shell:fifo_file read;
+# simpleperf_app_runner writes app type (debuggable or profileable) to pipe fds.
+allow simpleperf_app_runner shell:fifo_file { read write };
 
 # simpleperf_app_runner checks shell data paths.
 # simpleperf_app_runner passes shell data fds.
