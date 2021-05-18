@@ -10,3 +10,7 @@ allow artd dumpstate:fifo_file  { getattr write };
 typeattribute artd coredomain;
 
 init_daemon_domain(artd)
+
+# Allow query ART device config properties
+get_prop(artd, device_config_runtime_native_prop)
+get_prop(artd, device_config_runtime_native_boot_prop)
