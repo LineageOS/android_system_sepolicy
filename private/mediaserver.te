@@ -15,3 +15,6 @@ set_prop(mediaserver, audio_prop)
 
 get_prop(mediaserver, drm_service_config_prop)
 get_prop(mediaserver, media_config_prop)
+
+# Allow mediaserver to start media.transcoding service via ctl.start.
+set_prop(mediaserver, ctl_mediatranscoding_prop);
