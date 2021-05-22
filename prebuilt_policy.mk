@@ -240,7 +240,7 @@ $(built_plat_cil_$(ver)) $(built_system_ext_cil_$(ver))
 	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -C -c \
 	$(POLICYVERS) -o $@ $<
 	$(hide) $(HOST_OUT_EXECUTABLES)/build_sepolicy -a $(HOST_OUT_EXECUTABLES) filter_out \
-		-f $(PRIVATE_PLAT_CIL) -t $@
+		-f $(PRIVATE_PLAT_CIL_FILES) -t $@
 	# Line markers (denoted by ;;) are malformed after above cmd. They are only
 	# used for debugging, so we remove them.
 	$(hide) grep -v ';;' $@ > $@.tmp
