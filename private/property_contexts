@@ -447,6 +447,7 @@ ro.hdmi.cec.source.playback_device_action_on_routing_control       u:object_r:hd
 pm.dexopt.ab-ota                            u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.bg-dexopt                         u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.boot                              u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.cmdline                           u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.disable_bg_dexopt                 u:object_r:exported_pm_prop:s0 exact bool
 pm.dexopt.downgrade_after_inactive_days     u:object_r:exported_pm_prop:s0 exact int
 pm.dexopt.first-boot                        u:object_r:exported_pm_prop:s0 exact string
