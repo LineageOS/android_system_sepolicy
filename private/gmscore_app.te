@@ -135,3 +135,6 @@ allow gmscore_app priv_app:tcp_socket { read write };
 # b/168059475 Allow GMSCore to read Virtual AB properties to determine
 # if device supports VAB.
 get_prop(gmscore_app, virtual_ab_prop)
+
+# b/186488185: Allow GMSCore to read dck properties
+get_prop(gmscore_app, dck_prop)
