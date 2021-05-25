@@ -1,0 +1,31 @@
+# microdroid_launcher is a binary that loads a shared library from an apk and
+# executes it by calling an entry point in the library. This can be considered
+# as the native counterpart of app_process for Java.
+
+type microdroid_launcher, domain, coredomain;
+type microdroid_launcher_exec, exec_type, file_type, system_file_type;
+
+# allow executing files on the zipfuse fs
+# TODO(b/188400186) uncomment the below when the zipfuse is mounted with
+# fscontext=u:object_r:zipfusefs:s0
+# allow microdroid_launcher zipfusefs:dir r_dir_perms;
+# allow microdroid_launcher zipfusefs:file rx_file_perms;
+# TODO(b/188400186) remove the below two rules
+userdebug_or_eng(`
+  allow microdroid_launcher fuse:dir r_dir_perms;
+  allow microdroid_launcher fuse:file rx_file_perms;
+')
+
+# Allow to communicate use, read and write over the adb connection.
+allow microdroid_launcher adbd:fd use;
+allow microdroid_launcher adbd:unix_stream_socket { read write };
+
+# Allow to use FDs inherited from the shell. This includes the FD opened for
+# the microdroid_launcher executable itself and the FD for adb connection.
+# TODO(b/186396070) remove this when this is executed from microdroid_manager
+userdebug_or_eng(`
+  allow microdroid_launcher shell:fd use;
+')
+
+# Allow to use terminal
+allow microdroid_launcher devpts:chr_file rw_file_perms;
