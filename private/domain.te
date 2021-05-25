@@ -367,6 +367,7 @@ neverallow {
     -update_engine
     -vold
     -zygote
+    -zipfuse
 } { fs_type
     -sdcard_type
 }:filesystem { mount remount relabelfrom relabelto };
