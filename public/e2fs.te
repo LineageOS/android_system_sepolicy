@@ -12,6 +12,15 @@ allowxperm e2fs { userdata_block_device metadata_block_device dm_device }:blk_fi
   BLKSECDISCARD BLKDISCARD BLKPBSZGET BLKDISCARDZEROES BLKROGET
 };
 
+# Allow e2fs to format /dev/block/vd*
+# TODO(b/189165759) move this rule to packages/modules/Virtualization
+userdebug_or_eng(`
+allow e2fs vd_device:blk_file rw_file_perms;
+allowxperm e2fs vd_device:blk_file ioctl {
+  BLKSECDISCARD BLKDISCARD BLKPBSZGET BLKDISCARDZEROES BLKROGET
+};
+')
+
 allow e2fs {
   proc_filesystems
   proc_mounts
