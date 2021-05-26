@@ -1,3 +1,3 @@
-(/.*)?                   u:object_r:system_file:s0
-/bin/crosvm              u:object_r:crosvm_exec:s0
-/bin/virtmanager         u:object_r:virtmanager_exec:s0
+(/.*)?                     u:object_r:system_file:s0
+/bin/crosvm                u:object_r:crosvm_exec:s0
+/bin/virtualizationservice u:object_r:virtualizationservice_exec:s0
