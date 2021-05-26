@@ -1,0 +1,25 @@
+type virtualizationservice, domain, coredomain;
+type virtualizationservice_exec, system_file_type, exec_type, file_type;
+
+# When init runs a file labelled with virtualizationservice_exec, run it in the
+# virtualizationservice domain.
+init_daemon_domain(virtualizationservice)
+
+# Let the virtualizationservice domain use Binder.
+binder_use(virtualizationservice)
+
+# Let the virtualizationservice domain register the virtualization_service with ServiceManager.
+add_service(virtualizationservice, virtualization_service)
+
+# When virtualizationservice execs a file with the crosvm_exec label, run it in the crosvm domain.
+domain_auto_trans(virtualizationservice, crosvm_exec, crosvm)
+
+# Let virtualizationservice exec other files (e.g. mk_cdisk) in the same domain.
+allow virtualizationservice system_file:file execute_no_trans;
+
+# Let virtualizationservice kill crosvm.
+allow virtualizationservice crosvm:process sigkill;
+
+# Let virtualizationservice access its data directory.
+allow virtualizationservice virtualizationservice_data_file:file create_file_perms;
+allow virtualizationservice virtualizationservice_data_file:dir create_dir_perms;
