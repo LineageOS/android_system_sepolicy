@@ -1259,6 +1259,8 @@ allow system_server vendor_apex_file:file r_file_perms;
 
 # Allow the system server to manage relevant apex module data files.
 allow system_server apex_module_data_file:dir { getattr search };
+allow system_server apex_appsearch_data_file:dir create_dir_perms;
+allow system_server apex_appsearch_data_file:file create_file_perms;
 allow system_server apex_permission_data_file:dir create_dir_perms;
 allow system_server apex_permission_data_file:file create_file_perms;
 allow system_server apex_scheduling_data_file:dir create_dir_perms;
