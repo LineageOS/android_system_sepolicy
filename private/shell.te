@@ -191,6 +191,10 @@ get_prop(shell, verity_status_prop)
 # Allow shell to read Virtual A/B related properties
 get_prop(shell, virtual_ab_prop)
 
+# Allow shell to launch microdroid_launcher in its own domain
+# TODO(b/186396070) remove this when microdroid_manager can do this
+domain_auto_trans(shell, microdroid_launcher_exec, microdroid_launcher)
+
 # Never allow others to set or get the perf.drop_caches property.
 neverallow { domain -shell -init } perf_drop_caches_prop:property_service set;
 neverallow { domain -shell -init -dumpstate } perf_drop_caches_prop:file read;
