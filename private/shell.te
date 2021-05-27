@@ -194,6 +194,7 @@ get_prop(shell, virtual_ab_prop)
 # Allow shell to launch microdroid_launcher in its own domain
 # TODO(b/186396070) remove this when microdroid_manager can do this
 domain_auto_trans(shell, microdroid_launcher_exec, microdroid_launcher)
+domain_auto_trans(shell, microdroid_manager_exec, microdroid_manager)
 
 # Never allow others to set or get the perf.drop_caches property.
 neverallow { domain -shell -init } perf_drop_caches_prop:property_service set;
