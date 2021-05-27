@@ -169,6 +169,7 @@ system_vendor_config_prop(vold_config_prop)
 system_vendor_config_prop(wifi_config_prop)
 system_vendor_config_prop(zram_config_prop)
 system_vendor_config_prop(zygote_config_prop)
+system_vendor_config_prop(dck_prop)
 
 # Properties with no restrictions
 system_public_prop(adbd_config_prop)

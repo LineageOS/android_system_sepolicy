@@ -17,9 +17,6 @@
     app_hibernation_service
     appcompat_data_file
     arm64_memtag_prop
-    artd
-    artd_exec
-    artd_service
     authorization_service
     bootanim_config_prop
     camerax_extensions_prop
@@ -27,6 +24,7 @@
     cgroup_v2
     codec2_config_prop
     ctl_snapuserd_prop
+    dck_prop
     debugfs_kprobes
     debugfs_mm_events_tracing
     debugfs_bootreceiver_tracing
