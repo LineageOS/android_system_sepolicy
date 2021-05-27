@@ -1193,5 +1193,4 @@ persist.rollback.is_test u:object_r:rollback_test_prop:s0 exact bool
 ro.bootanim.quiescent.enabled u:object_r:bootanim_config_prop:s0 exact bool
 
 # dck properties
-ro.gms.dck.eligible_r2 u:object_r:dck_prop:s0 exact bool
-ro.gms.dck.eligible_r3 u:object_r:dck_prop:s0 exact bool
+ro.gms.dck.eligible_wcc u:object_r:dck_prop:s0 exact int
