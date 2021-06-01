@@ -831,6 +831,7 @@ ro.product.debugfs_restrictions.enabled u:object_r:debugfs_restriction_prop:s0 e
 ro.vendor.build.date                        u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.build.date.utc                    u:object_r:build_vendor_prop:s0 exact int
 ro.vendor.build.fingerprint                 u:object_r:build_vendor_prop:s0 exact string
+ro.vendor.build.fingerprint_has_digest      u:object_r:build_vendor_prop:s0 exact bool
 ro.vendor.build.id                          u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.build.tags                        u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.build.type                        u:object_r:build_vendor_prop:s0 exact string
