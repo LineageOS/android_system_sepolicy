@@ -1,0 +1,21 @@
+# TODO(b/189165759) for moving this to packages/modules/Virtualization
+# microdroid_manager is a daemon running in the microdroid.
+
+type microdroid_manager, domain, coredomain;
+type microdroid_manager_exec, exec_type, file_type, system_file_type;
+
+# allow domain transition from init
+init_daemon_domain(microdroid_manager)
+
+# microdroid_manager accesses /dev/block/by-name/signature which points to
+# a /dev/vd* block device file.
+allow microdroid_manager block_device:dir r_dir_perms;
+allow microdroid_manager block_device:lnk_file r_file_perms;
+allow microdroid_manager vd_device:blk_file r_file_perms;
+
+# microdroid_manager start payload task via microdroid_launcher
+domain_auto_trans(microdroid_manager, microdroid_launcher_exec, microdroid_launcher);
+
+# Let microdroid_manager exec other files (e.g. payload command) in the same domain.
+# TODO(b/189706019) we need to a domain for the app process.
+allow microdroid_manager system_file:file execute_no_trans;
