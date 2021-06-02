@@ -216,7 +216,7 @@ neverallow {
     -appdomain # for oemfs
     -bootanim # for oemfs
     -recovery # for /tmp/update_binary in tmpfs
-    userdebug_or_eng(`-microdroid_launcher') # for executing shared libs on /mnt/apk in Microdroid
+    userdebug_or_eng(`-microdroid_launcher -microdroid_manager') # for executing shared libs on /mnt/apk in Microdroid
 } { fs_type -rootfs }:file execute;
 
 #
