@@ -84,6 +84,10 @@ allow adbd sdcard_type:file create_file_perms;
 allow adbd anr_data_file:dir r_dir_perms;
 allow adbd anr_data_file:file r_file_perms;
 
+# adb pull /vendor/framework/*
+allow adbd vendor_framework_file:dir r_dir_perms;
+allow adbd vendor_framework_file:file r_file_perms;
+
 # Set service.adb.*, sys.powerctl, and sys.usb.ffs.ready properties.
 set_prop(adbd, shell_prop)
 set_prop(adbd, powerctl_prop)
