@@ -1,0 +1,100 @@
+# Allow apps to read the Test Harness Mode property. This property is used in
+# the implementation of ActivityManager.isDeviceInTestHarnessMode()
+get_prop(appdomain, test_harness_prop)
+
+get_prop(appdomain, boot_status_prop)
+get_prop(appdomain, dalvik_config_prop)
+get_prop(appdomain, media_config_prop)
+get_prop(appdomain, packagemanager_config_prop)
+get_prop(appdomain, radio_control_prop)
+get_prop(appdomain, surfaceflinger_color_prop)
+get_prop(appdomain, systemsound_config_prop)
+get_prop(appdomain, telephony_config_prop)
+get_prop(appdomain, userspace_reboot_config_prop)
+get_prop(appdomain, vold_config_prop)
+get_prop(appdomain, adbd_config_prop)
+
+userdebug_or_eng(`perfetto_producer({ appdomain })')
+
+# Prevent apps from causing presubmit failures.
+# Apps can cause selinux denials by accessing CE storage
+# and/or external storage. In either case, the selinux denial is
+# not the cause of the failure, but just a symptom that
+# storage isn't ready. Many apps handle the failure appropriately.
+#
+# Apps cannot access external storage before it becomes available.
+dontaudit appdomain storage_stub_file:dir getattr;
+# Attempts to write to system_data_file is generally a sign
+# that apps are attempting to access encrypted storage before
+# the ACTION_USER_UNLOCKED intent is delivered. Apps are not
+# allowed to write to CE storage before it's available.
+# Attempting to do so will be blocked by both selinux and unix
+# permissions.
+dontaudit appdomain system_data_file:dir write;
+# Apps should not be reading vendor-defined properties.
+dontaudit appdomain vendor_default_prop:file read;
+
+# Access to /mnt/media_rw/<vol> (limited by DAC to apps with external_storage gid)
+allow appdomain mnt_media_rw_file:dir search;
+
+neverallow appdomain system_server:udp_socket {
+        accept append bind create ioctl listen lock name_bind
+        relabelfrom relabelto setattr shutdown };
+
+# Transition to a non-app domain.
+# Exception for the shell and su domains, can transition to runas, etc.
+# Exception for crash_dump to allow for app crash reporting.
+# Exception for renderscript binaries (/system/bin/bcc, /system/bin/ld.mc)
+# to allow renderscript to create privileged executable files.
+neverallow { appdomain -shell userdebug_or_eng(`-su') }
+    { domain -appdomain -crash_dump -rs }:process { transition };
+neverallow { appdomain -shell userdebug_or_eng(`-su') }
+    { domain -appdomain }:process { dyntransition };
+
+# Don't allow regular apps access to storage configuration properties.
+neverallow { appdomain -mediaprovider_app } storage_config_prop:file no_rw_file_perms;
+
+# Allow to read sendbug.preferred.domain
+get_prop(appdomain, sendbug_config_prop)
+
+# Allow to read graphics related properties.
+get_prop(appdomain, graphics_config_prop)
+
+# Allow to read persist.config.calibration_fac
+get_prop(appdomain, camera_calibration_prop)
+
+# Allow to read db.log.detailed, db.log.slow_query_threshold*
+get_prop(appdomain, sqlite_log_prop)
+
+# Allow font file read by apps.
+allow appdomain font_data_file:file r_file_perms;
+allow appdomain font_data_file:dir r_dir_perms;
+
+# Enter /data/misc/apexdata/
+allow appdomain apex_module_data_file:dir search;
+# Read /data/misc/apexdata/com.android.art, execute signed AOT artifacts.
+allow appdomain apex_art_data_file:dir r_dir_perms;
+allow appdomain apex_art_data_file:file rx_file_perms;
+
+# Allow access to tombstones if an fd to one is given to you.
+# This is restricted by unix permissions, so an app must go through system_server to get one.
+allow appdomain tombstone_data_file:file { getattr read };
+neverallow appdomain tombstone_data_file:file ~{ getattr read };
+
+# Sensitive app domains are not allowed to execute from /data
+# to prevent persistence attacks and ensure all code is executed
+# from read-only locations.
+neverallow {
+  bluetooth
+  isolated_app
+  nfc
+  radio
+  shared_relro
+  system_app
+} {
+  data_file_type
+  -apex_art_data_file
+  -dalvikcache_data_file
+  -system_data_file # shared libs in apks
+  -apk_data_file
+}:file no_x_file_perms;
