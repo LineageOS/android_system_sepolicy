@@ -32,8 +32,12 @@ allow uncrypt userdata_block_device:blk_file w_file_perms;
 
 r_dir_file(uncrypt, rootfs)
 
-# uncrypt reads /proc/cmdline
-allow uncrypt proc_cmdline:file r_file_perms;
+# Access to bootconfig is needed when calling ReadDefaultFstab.
+allow uncrypt {
+  proc_bootconfig
+  proc_cmdline
+
+}:file r_file_perms;
 
 # Read files in /sys
 r_dir_file(uncrypt, sysfs_dt_firmware_android)

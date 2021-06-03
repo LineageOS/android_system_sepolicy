@@ -48,3 +48,7 @@ neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:file *
 
 # Allow updating boot animation status.
 set_prop(odrefresh, bootanim_system_prop)
+
+# Allow query ART device config properties
+get_prop(odrefresh, device_config_runtime_native_prop)
+get_prop(odrefresh, device_config_runtime_native_boot_prop)

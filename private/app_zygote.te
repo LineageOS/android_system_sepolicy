@@ -75,6 +75,10 @@ allow app_zygote system_data_file:file { getattr read map };
 # Send unsolicited message to system_server
 unix_socket_send(app_zygote, system_unsolzygote, system_server)
 
+# Allow the app_zygote to access the runtime feature flag properties.
+get_prop(app_zygote, device_config_runtime_native_prop)
+get_prop(app_zygote, device_config_runtime_native_boot_prop)
+
 #####
 ##### Neverallow
 #####
