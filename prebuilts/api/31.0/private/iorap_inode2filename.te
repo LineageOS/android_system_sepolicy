@@ -1,0 +1,11 @@
+typeattribute iorap_inode2filename coredomain;
+
+# Grant access to open most of the files under /
+allow iorap_inode2filename { apex_module_data_file apex_art_data_file }:dir r_dir_perms;
+allow iorap_inode2filename apex_data_file:file { getattr };
+allow iorap_inode2filename dalvikcache_data_file:dir { getattr open read search };
+allow iorap_inode2filename dalvikcache_data_file:file { getattr };
+allow iorap_inode2filename dex2oat_exec:lnk_file { getattr open read };
+allow iorap_inode2filename dexoptanalyzer_exec:file { getattr };
+allow iorap_inode2filename storaged_data_file:dir { getattr open read search };
+allow iorap_inode2filename storaged_data_file:file { getattr };
