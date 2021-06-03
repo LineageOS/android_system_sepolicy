@@ -133,6 +133,10 @@ recovery_only(`
 
   # Allow mounting /metadata for writing update states
   allow recovery metadata_file:dir { getattr mounton };
+
+  # Recovery uses liblogwrap to write fsck logs to kmsg, liblogwrap requires devpts.
+  allow recovery devpts:chr_file rw_file_perms;
+  allow recovery kmsg_device:chr_file { getattr w_file_perms };
 ')
 
 ###
