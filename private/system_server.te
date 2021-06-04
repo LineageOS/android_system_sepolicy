@@ -706,6 +706,11 @@ set_prop(system_server, device_config_window_manager_native_boot_prop)
 set_prop(system_server, device_config_configuration_prop)
 set_prop(system_server, device_config_connectivity_prop)
 
+
+# Allow query ART device config properties
+get_prop(system_server, device_config_runtime_native_boot_prop)
+get_prop(system_server, device_config_runtime_native_prop)
+
 # BootReceiver to read ro.boot.bootreason
 get_prop(system_server, bootloader_boot_reason_prop)
 # PowerManager to read sys.boot.reason
