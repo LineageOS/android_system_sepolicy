@@ -1,0 +1,7 @@
+# HwBinder IPC from client to server
+binder_call(hal_oemlock_client, hal_oemlock_server)
+
+hal_attribute_hwservice(hal_oemlock, hal_oemlock_hwservice)
+hal_attribute_service(hal_oemlock, hal_oemlock_service)
+
+binder_call(hal_oemlock_server, servicemanager)

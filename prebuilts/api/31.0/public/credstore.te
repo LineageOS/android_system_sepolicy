@@ -1,0 +1,19 @@
+type credstore, domain;
+type credstore_exec, system_file_type, exec_type, file_type;
+
+# credstore daemon
+binder_use(credstore)
+binder_service(credstore)
+binder_call(credstore, system_server)
+
+allow credstore credstore_data_file:dir create_dir_perms;
+allow credstore credstore_data_file:file create_file_perms;
+
+add_service(credstore, credstore_service)
+allow credstore sec_key_att_app_id_provider_service:service_manager find;
+allow credstore dropbox_service:service_manager find;
+allow credstore authorization_service:service_manager find;
+allow credstore keystore:keystore2 get_auth_token;
+
+r_dir_file(credstore, cgroup)
+r_dir_file(credstore, cgroup_v2)
