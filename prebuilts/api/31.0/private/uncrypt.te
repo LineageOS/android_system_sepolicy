@@ -1,0 +1,6 @@
+typeattribute uncrypt coredomain;
+
+init_daemon_domain(uncrypt)
+
+# Set a property to reboot the device.
+set_prop(uncrypt, powerctl_prop)
