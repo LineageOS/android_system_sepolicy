@@ -1,0 +1,20 @@
+# Creating files on sysfs is impossible so this isn't a threat
+# Sometimes we have to write to non-existent files to avoid conditional
+# init behavior. See b/35303861 for an example.
+dontaudit vendor_init sysfs:dir write;
+
+# TODO(b/140259336) We want to remove vendor_init in the long term but allow for now
+allow vendor_init system_data_root_file:dir rw_dir_perms;
+
+# Let vendor_init set service.adb.tcp.port.
+set_prop(vendor_init, adbd_config_prop)
+
+# chown/chmod on devices, e.g. /dev/ttyHS0
+allow vendor_init {
+  dev_type
+  -keychord_device
+  -kvm_device
+  -port_device
+  -lowpan_device
+  -hw_random_device
+}:chr_file setattr;

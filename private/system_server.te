@@ -706,6 +706,11 @@ set_prop(system_server, device_config_window_manager_native_boot_prop)
 set_prop(system_server, device_config_configuration_prop)
 set_prop(system_server, device_config_connectivity_prop)
 
+
+# Allow query ART device config properties
+get_prop(system_server, device_config_runtime_native_boot_prop)
+get_prop(system_server, device_config_runtime_native_prop)
+
 # BootReceiver to read ro.boot.bootreason
 get_prop(system_server, bootloader_boot_reason_prop)
 # PowerManager to read sys.boot.reason
@@ -1276,6 +1281,8 @@ allow system_server vendor_apex_file:file r_file_perms;
 
 # Allow the system server to manage relevant apex module data files.
 allow system_server apex_module_data_file:dir { getattr search };
+allow system_server apex_appsearch_data_file:dir create_dir_perms;
+allow system_server apex_appsearch_data_file:file create_file_perms;
 allow system_server apex_permission_data_file:dir create_dir_perms;
 allow system_server apex_permission_data_file:file create_file_perms;
 allow system_server apex_scheduling_data_file:dir create_dir_perms;

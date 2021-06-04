@@ -1,0 +1,30 @@
+# mediatuner - mediatuner daemon
+type mediatuner, domain;
+type mediatuner_exec, system_file_type, exec_type, file_type;
+
+typeattribute mediatuner coredomain;
+
+init_daemon_domain(mediatuner)
+hal_client_domain(mediatuner, hal_tv_tuner)
+
+binder_use(mediatuner)
+binder_call(mediatuner, appdomain)
+binder_service(mediatuner)
+
+add_service(mediatuner, mediatuner_service)
+allow mediatuner system_server:fd use;
+allow mediatuner tv_tuner_resource_mgr_service:service_manager find;
+allow mediatuner package_native_service:service_manager find;
+binder_call(mediatuner, system_server)
+
+###
+### neverallow rules
+###
+
+# mediatuner should never execute any executable without a
+# domain transition
+neverallow mediatuner { file_type fs_type }:file execute_no_trans;
+
+# do not allow privileged socket ioctl commands
+neverallowxperm mediatuner domain:{ rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
+
