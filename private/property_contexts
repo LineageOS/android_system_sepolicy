@@ -1070,6 +1070,7 @@ ro.surface_flinger.display_update_imminent_timeout_ms     u:object_r:surfaceflin
 
 ro.sf.disable_triple_buffer u:object_r:surfaceflinger_prop:s0 exact bool
 ro.sf.lcd_density           u:object_r:surfaceflinger_prop:s0 exact int
+ro.sf.uclamp.min            u:object_r:surfaceflinger_prop:s0 exact int
 
 persist.sys.sf.color_mode       u:object_r:surfaceflinger_color_prop:s0 exact int
 persist.sys.sf.color_saturation u:object_r:surfaceflinger_color_prop:s0 exact string
