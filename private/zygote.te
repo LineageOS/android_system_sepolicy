@@ -69,8 +69,8 @@ allow zygote system_data_file:{ dir lnk_file } relabelto;
 # Zygote opens /mnt/expand to mount CE DE storage on each vol
 allow zygote mnt_expand_file:dir { open read search relabelto };
 
-# Bind mount subdirectories on /data/misc/profiles/cur
-allow zygote user_profile_root_file:dir { mounton search };
+# Bind mount subdirectories on /data/misc/profiles/cur and /data/misc/profiles/ref
+allow zygote { user_profile_root_file user_profile_data_file }:dir { mounton search };
 
 # Create and bind dirs on /data/data
 allow zygote tmpfs:dir { create_dir_perms mounton };
