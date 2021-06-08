@@ -166,6 +166,12 @@ allow apexd file_contexts_file:file r_file_perms;
 # Allow apexd to execute toybox for snapshot & restore
 allow apexd toolbox_exec:file rx_file_perms;
 
+# Allow apexd to release compressed blocks in case /data is f2fs-compressed fs.
+allowxperm apexd staging_data_file:file ioctl {
+  FS_IOC_GETFLAGS
+  F2FS_IOC_RELEASE_COMPRESS_BLOCKS
+};
+
 # Allow apexd to read ro.cold_boot_done prop.
 # apexd uses it to decide whether it needs to keep retrying polling for loop device.
 get_prop(apexd, cold_boot_done_prop)
