@@ -151,16 +151,16 @@ func (m *versionedPolicy) GenerateAndroidBuildActions(ctx android.ModuleContext)
 
 	rule.Build("mapping", "Versioning mapping file "+ctx.ModuleName())
 
+	if !m.installable() {
+		m.SkipInstall()
+	}
+
 	m.installSource = out
 	m.installPath = android.PathForModuleInstall(ctx, "etc", "selinux")
 	if subdir := proptools.String(m.properties.Relative_install_path); subdir != "" {
 		m.installPath = m.installPath.Join(ctx, subdir)
 	}
 	ctx.InstallFile(m.installPath, m.installSource.Base(), m.installSource)
-
-	if !m.installable() {
-		m.SkipInstall()
-	}
 }
 
 func (m *versionedPolicy) AndroidMkEntries() []android.AndroidMkEntries {
