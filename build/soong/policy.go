@@ -175,13 +175,13 @@ func (c *policyConf) DepsMutator(ctx android.BottomUpMutatorContext) {
 }
 
 func (c *policyConf) GenerateAndroidBuildActions(ctx android.ModuleContext) {
-	c.installSource = c.transformPolicyToConf(ctx)
-	c.installPath = android.PathForModuleInstall(ctx, "etc")
-	ctx.InstallFile(c.installPath, c.stem(), c.installSource)
-
 	if !c.installable() {
 		c.SkipInstall()
 	}
+
+	c.installSource = c.transformPolicyToConf(ctx)
+	c.installPath = android.PathForModuleInstall(ctx, "etc")
+	ctx.InstallFile(c.installPath, c.stem(), c.installSource)
 }
 
 func (c *policyConf) AndroidMkEntries() []android.AndroidMkEntries {
@@ -325,6 +325,10 @@ func (c *policyCil) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	conf := android.PathForModuleSrc(ctx, *c.properties.Src)
 	cil := c.compileConfToCil(ctx, conf)
 
+	if !c.Installable() {
+		c.SkipInstall()
+	}
+
 	if c.InstallInDebugRamdisk() {
 		// for userdebug_plat_sepolicy.cil
 		c.installPath = android.PathForModuleInstall(ctx)
@@ -333,10 +337,6 @@ func (c *policyCil) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	}
 	c.installSource = cil
 	ctx.InstallFile(c.installPath, c.stem(), c.installSource)
-
-	if !c.Installable() {
-		c.SkipInstall()
-	}
 }
 
 func (c *policyCil) AndroidMkEntries() []android.AndroidMkEntries {
