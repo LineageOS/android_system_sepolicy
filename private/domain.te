@@ -216,7 +216,6 @@ neverallow {
     -appdomain # for oemfs
     -bootanim # for oemfs
     -recovery # for /tmp/update_binary in tmpfs
-    userdebug_or_eng(`-microdroid_launcher -microdroid_manager') # for executing shared libs on /mnt/apk in Microdroid
 } { fs_type -rootfs }:file execute;
 
 #
@@ -368,7 +367,6 @@ neverallow {
     -update_engine
     -vold
     -zygote
-    -zipfuse
 } { fs_type
     -sdcard_type
 }:filesystem { mount remount relabelfrom relabelto };
