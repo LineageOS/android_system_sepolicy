@@ -48,7 +48,6 @@ log.tag                 u:object_r:log_tag_prop:s0
 log.tag.WifiHAL         u:object_r:wifi_log_prop:s0
 security.perf_harden    u:object_r:shell_prop:s0
 service.adb.root        u:object_r:shell_prop:s0
-service.adb.tcp.port    u:object_r:shell_prop:s0
 service.adb.tls.port    u:object_r:adbd_prop:s0
 persist.adb.wifi.       u:object_r:adbd_prop:s0
 persist.adb.tls_server.enable  u:object_r:system_adbd_prop:s0
@@ -99,6 +98,9 @@ sys.trace.              u:object_r:system_trace_prop:s0
 
 # Fastbootd protocol control property
 fastbootd.protocol    u:object_r:fastbootd_protocol_prop:s0 exact enum usb tcp
+
+# adbd protoctl configuration property
+service.adb.tcp.port    u:object_r:adbd_config_prop:s0 exact int
 
 # Boolean property set by system server upon boot indicating
 # if device is fully owned by organization instead of being

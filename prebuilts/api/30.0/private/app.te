@@ -2,6 +2,8 @@
 # the implementation of ActivityManager.isDeviceInTestHarnessMode()
 get_prop(appdomain, test_harness_prop)
 
+get_prop(appdomain, adbd_config_prop)
+
 userdebug_or_eng(`perfetto_producer({ appdomain })')
 
 # Prevent apps from causing presubmit failures.

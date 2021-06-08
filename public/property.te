@@ -132,6 +132,7 @@ system_vendor_config_prop(vndk_prop)
 system_vendor_config_prop(virtual_ab_prop)
 
 # Properties with no restrictions
+system_public_prop(adbd_config_prop)
 system_public_prop(audio_prop)
 system_public_prop(bluetooth_a2dp_offload_prop)
 system_public_prop(bluetooth_audio_hal_prop)
