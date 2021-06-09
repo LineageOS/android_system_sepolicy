@@ -27,6 +27,10 @@ allow mediaprovider_app app_api_service:service_manager find;
 # Talk to the GPU service
 binder_call(mediaprovider_app, gpuservice)
 
+# Talk to statsd
+allow mediaprovider_app statsmanager_service:service_manager find;
+binder_call(mediaprovider_app, statsd)
+
 # read pipe-max-size configuration
 allow mediaprovider_app proc_pipe_conf:file r_file_perms;
 

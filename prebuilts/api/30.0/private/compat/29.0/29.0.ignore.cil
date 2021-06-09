@@ -8,6 +8,7 @@
     aidl_lazy_test_server
     aidl_lazy_test_server_exec
     aidl_lazy_test_service
+    adbd_config_prop
     adbd_prop
     apex_module_data_file
     apex_permission_data_file
@@ -90,6 +91,7 @@
     prereboot_data_file
     proc_cpu_alignment
     proc_dt_firmware_android
+    proc_locks
     art_apex_dir
     rebootescrow_hal_prop
     securityfs
