@@ -114,6 +114,9 @@ allow shell profcollectd_exec:file rx_file_perms;
 allow shell self:perf_event { open read write kernel };
 neverallow shell self:perf_event ~{ open read write kernel };
 
+# Allow shell to read /apex/apex-info-list.xml
+allow shell apex_info_file:file r_file_perms;
+
 # Set properties.
 set_prop(shell, shell_prop)
 set_prop(shell, ctl_bugreport_prop)
@@ -190,11 +193,6 @@ get_prop(shell, verity_status_prop)
 
 # Allow shell to read Virtual A/B related properties
 get_prop(shell, virtual_ab_prop)
-
-# Allow shell to launch microdroid_launcher in its own domain
-# TODO(b/186396070) remove this when microdroid_manager can do this
-domain_auto_trans(shell, microdroid_launcher_exec, microdroid_launcher)
-domain_auto_trans(shell, microdroid_manager_exec, microdroid_manager)
 
 # Never allow others to set or get the perf.drop_caches property.
 neverallow { domain -shell -init } perf_drop_caches_prop:property_service set;

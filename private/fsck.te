@@ -3,8 +3,3 @@ typeattribute fsck coredomain;
 init_daemon_domain(fsck)
 
 allow fsck metadata_block_device:blk_file rw_file_perms;
-
-# TODO(b/189165759): move this to microdroid specific sepolicy
-userdebug_or_eng(`
-    allow fsck vd_device:blk_file rw_file_perms;
-')
