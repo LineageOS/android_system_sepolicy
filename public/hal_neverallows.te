@@ -25,7 +25,21 @@ neverallow {
   -hal_wifi_hostapd_server
   -hal_wifi_supplicant_server
   -hal_telephony_server
-} domain:{ tcp_socket udp_socket rawip_socket } *;
+} domain:{ udp_socket rawip_socket } *;
+
+neverallow {
+  halserverdomain
+  -hal_automotive_socket_exemption
+  -hal_can_controller_server
+  -hal_tetheroffload_server
+  -hal_wifi_server
+  -hal_wifi_hostapd_server
+  -hal_wifi_supplicant_server
+  -hal_telephony_server
+} {
+  domain
+  userdebug_or_eng(`-su')
+}:tcp_socket *;
 
 ###
 # HALs are defined as an attribute and so a given domain could hypothetically
