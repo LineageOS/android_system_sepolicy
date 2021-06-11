@@ -222,6 +222,9 @@ allow system_server sysfs_dmabuf_stats:file r_file_perms;
 # for dumpsys meminfo
 allow system_server dmabuf_heap_device:dir r_dir_perms;
 
+# Allow reading /proc/vmstat for the oom kill count
+allow system_server proc_vmstat:file r_file_perms;
+
 # The DhcpClient and WifiWatchdog use packet_sockets
 allow system_server self:packet_socket create_socket_perms_no_ioctl;
 
@@ -1143,6 +1146,12 @@ allow system_server font_data_file:dir create_dir_perms;
 # Allow system process to setup fs-verity for font files
 allowxperm system_server font_data_file:file ioctl FS_IOC_ENABLE_VERITY;
 
+# Read qemu.hw.mainkeys property
+get_prop(system_server, qemu_hw_prop)
+
+# Allow system server to read profcollectd reports for upload.
+userdebug_or_eng(`r_dir_file(system_server, profcollectd_data_file)')
+
 ###
 ### Neverallow rules
 ###
@@ -1398,6 +1407,3 @@ neverallowxperm { domain -system_server } binder_device:chr_file ioctl { BINDER_
 # Only system server can write the font files.
 neverallow { domain -init -system_server } font_data_file:file no_w_file_perms;
 neverallow { domain -init -system_server } font_data_file:dir no_w_dir_perms;
-
-# Read qemu.hw.mainkeys property
-get_prop(system_server, qemu_hw_prop)
