@@ -114,8 +114,10 @@ allow shell profcollectd_exec:file rx_file_perms;
 allow shell self:perf_event { open read write kernel };
 neverallow shell self:perf_event ~{ open read write kernel };
 
-# Allow shell to read /apex/apex-info-list.xml
+# Allow shell to read /apex/apex-info-list.xml and the vendor apexes
 allow shell apex_info_file:file r_file_perms;
+allow shell vendor_apex_file:file r_file_perms;
+allow shell vendor_apex_file:dir r_dir_perms;
 
 # Set properties.
 set_prop(shell, shell_prop)
