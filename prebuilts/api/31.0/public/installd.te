@@ -160,6 +160,10 @@ allow installd proc_filesystems:file r_file_perms;
 #add for move app to sd card
 get_prop(installd, storage_config_prop)
 
+# Allow installd to access apps installed on the Incremental File System
+# Accessing files on the Incremental File System uses fds opened in the context of vold.
+allow installd vold:fd use;
+
 ###
 ### Neverallow rules
 ###

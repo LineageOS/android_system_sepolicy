@@ -99,6 +99,9 @@ allow platform_app app_data_file:lnk_file create_file_perms;
 # suppress denials caused by debugfs_tracing
 dontaudit platform_app debugfs_tracing:file rw_file_perms;
 
+# Allow platform apps to act as Perfetto producers.
+perfetto_producer(platform_app)
+
 ###
 ### Neverallow rules
 ###
