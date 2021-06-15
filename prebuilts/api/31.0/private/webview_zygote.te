@@ -83,6 +83,10 @@ allow webview_zygote system_data_file:lnk_file r_file_perms;
 # Send unsolicited message to system_server
 unix_socket_send(webview_zygote, system_unsolzygote, system_server)
 
+# Allow the webview_zygote to access the runtime feature flag properties.
+get_prop(webview_zygote, device_config_runtime_native_prop)
+get_prop(webview_zygote, device_config_runtime_native_boot_prop)
+
 #####
 ##### Neverallow
 #####
