@@ -75,6 +75,7 @@
     keystore_maintenance_service
     keystore2_key_contexts_file
     legacy_permission_service
+    legacykeystore_service
     location_time_zone_manager_service
     media_communication_service
     media_metrics_service
@@ -145,7 +146,6 @@
     vibrator_manager_service
     virtualization_service
     vpn_management_service
-    vpnprofilestore_service
     watchdog_metadata_file
     wifi_key
     zygote_config_prop))
