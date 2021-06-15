@@ -84,6 +84,10 @@ allow adbd sdcard_type:file create_file_perms;
 allow adbd anr_data_file:dir r_dir_perms;
 allow adbd anr_data_file:file r_file_perms;
 
+# adb pull /vendor/framework/*
+allow adbd vendor_framework_file:dir r_dir_perms;
+allow adbd vendor_framework_file:file r_file_perms;
+
 # Set service.adb.*, sys.powerctl, and sys.usb.ffs.ready properties.
 set_prop(adbd, shell_prop)
 set_prop(adbd, powerctl_prop)
@@ -212,6 +216,9 @@ allow adbd vendor_apex_file:file r_file_perms;
 # Allow adb pull of updated apex files in /data/apex/active.
 allow adbd apex_data_file:dir search;
 allow adbd staging_data_file:file r_file_perms;
+
+# Allow adbd to pull /apex/apex-info-list.xml for CTS tests.
+allow adbd apex_info_file:file r_file_perms;
 
 ###
 ### Neverallow rules
