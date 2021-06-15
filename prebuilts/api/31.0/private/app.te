@@ -14,6 +14,11 @@ get_prop(appdomain, userspace_reboot_config_prop)
 get_prop(appdomain, vold_config_prop)
 get_prop(appdomain, adbd_config_prop)
 
+# Allow ART to be configurable via device_config properties
+# (ART "runs" inside the app process)
+get_prop(appdomain, device_config_runtime_native_prop)
+get_prop(appdomain, device_config_runtime_native_boot_prop)
+
 userdebug_or_eng(`perfetto_producer({ appdomain })')
 
 # Prevent apps from causing presubmit failures.
