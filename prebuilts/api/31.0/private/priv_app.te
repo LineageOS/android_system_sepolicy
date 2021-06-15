@@ -189,6 +189,14 @@ allow priv_app staging_data_file:dir r_dir_perms;
 # allow priv app to access the system app data files for ContentProvider case.
 allow priv_app system_app_data_file:file { read getattr };
 
+# Allow the renderscript compiler to be run.
+domain_auto_trans(priv_app, rs_exec, rs)
+
+# Allow loading and deleting executable shared libraries
+# within an application home directory. Such shared libraries would be
+# created by things like renderscript or via other mechanisms.
+allow priv_app app_exec_data_file:file { r_file_perms execute unlink };
+
 ###
 ### neverallow rules
 ###
