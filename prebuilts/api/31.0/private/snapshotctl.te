@@ -1,0 +1,45 @@
+type snapshotctl, domain, coredomain;
+type snapshotctl_exec, system_file_type, exec_type, file_type;
+
+# Allow init to run snapshotctl and do auto domain transfer.
+init_daemon_domain(snapshotctl);
+
+# Allow to start gsid service.
+set_prop(snapshotctl, ctl_gsid_prop)
+
+# Allow to talk to gsid.
+binder_use(snapshotctl)
+allow snapshotctl gsi_service:service_manager find;
+binder_call(snapshotctl, gsid)
+
+# Allow to create/read/write/delete OTA metadata files for snapshot status and COW file status.
+allow snapshotctl metadata_file:dir search;
+allow snapshotctl ota_metadata_file:dir rw_dir_perms;
+allow snapshotctl ota_metadata_file:file create_file_perms;
+
+# Allow to get A/B slot suffix from device tree or kernel cmdline.
+r_dir_file(snapshotctl, sysfs_dt_firmware_android);
+allow snapshotctl proc_cmdline:file r_file_perms;
+
+# Needed to (re-)map logical partitions.
+allow snapshotctl block_device:dir r_dir_perms;
+allow snapshotctl super_block_device:blk_file r_file_perms;
+
+# Interact with device-mapper to collapse snapshots.
+allow snapshotctl dm_device:chr_file rw_file_perms;
+
+# Needed to mutate device-mapper nodes.
+allow snapshotctl self:global_capability_class_set sys_admin;
+
+# Snapshotctl talk to boot control HAL to set merge status.
+hwbinder_use(snapshotctl)
+hal_client_domain(snapshotctl, hal_bootctl)
+
+# Allow snapshotctl to write to statsd socket.
+unix_socket_send(snapshotctl, statsdw, statsd)
+
+# Logging
+userdebug_or_eng(`
+  allow snapshotctl snapshotctl_log_data_file:dir rw_dir_perms;
+  allow snapshotctl snapshotctl_log_data_file:file create_file_perms;
+')
