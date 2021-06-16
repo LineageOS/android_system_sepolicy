@@ -27,13 +27,13 @@ neverallow domain { fs_bpf fs_bpf_tethering }:dir ~{ add_name create getattr mou
 # TODO: get rid of init & vendor_init
 neverallow { domain -bpfloader -init -vendor_init } { fs_bpf fs_bpf_tethering }:file { map open setattr };
 neverallow { domain -bpfloader } { fs_bpf fs_bpf_tethering }:file create;
-neverallow { domain -bpfloader -gpuservice -init -netd -netutils_wrapper -network_stack -system_server -vendor_init } { fs_bpf fs_bpf_tethering }:file read;
+neverallow { domain -bpfloader -gpuservice -init -lmkd -netd -netutils_wrapper -network_stack -system_server -vendor_init } { fs_bpf fs_bpf_tethering }:file read;
 neverallow { domain -bpfloader -gpuservice -netd -netutils_wrapper -network_stack -system_server } { fs_bpf fs_bpf_tethering }:file write;
 neverallow domain { fs_bpf fs_bpf_tethering }:file ~{ create map open read setattr write };
 
 neverallow { domain -bpfloader } *:bpf { map_create prog_load };
 neverallow { domain -bpfloader -gpuservice -netd -netutils_wrapper -network_stack -system_server } *:bpf prog_run;
-neverallow { domain -bpfloader -gpuservice -netd -network_stack -system_server } *:bpf { map_read map_write };
+neverallow { domain -bpfloader -gpuservice -lmkd -netd -network_stack -system_server } *:bpf { map_read map_write };
 
 neverallow { domain -bpfloader -init } bpfloader_exec:file { execute execute_no_trans };
 
