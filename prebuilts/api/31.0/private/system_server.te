@@ -44,10 +44,27 @@ allowxperm system_server apk_data_file:file ioctl {
   INCFS_IOCTL_FILL_BLOCKS
   INCFS_IOCTL_GET_FILLED_BLOCKS
   INCFS_IOCTL_GET_BLOCK_COUNT
+  F2FS_IOC_GET_FEATURES
+  F2FS_IOC_GET_COMPRESS_BLOCKS
+  F2FS_IOC_COMPRESS_FILE
+  F2FS_IOC_DECOMPRESS_FILE
+  F2FS_IOC_RELEASE_COMPRESS_BLOCKS
+  F2FS_IOC_RESERVE_COMPRESS_BLOCKS
+  FS_IOC_SETFLAGS
+  FS_IOC_GETFLAGS
+};
+
+allowxperm system_server apk_tmp_file:file ioctl {
+  F2FS_IOC_RELEASE_COMPRESS_BLOCKS
+  FS_IOC_GETFLAGS
 };
 
 # For Incremental Service to check incfs metrics
 allow system_server sysfs_fs_incfs_metrics:file r_file_perms;
+
+# For f2fs-compression support
+allow system_server sysfs_fs_f2fs:dir r_dir_perms;
+allow system_server sysfs_fs_f2fs:file r_file_perms;
 
 # For art.
 allow system_server { apex_art_data_file dalvikcache_data_file }:dir r_dir_perms;
@@ -204,6 +221,9 @@ allow system_server sysfs_dmabuf_stats:file r_file_perms;
 # Allow ActivityManager to look at the list of DMA-BUF heaps from /dev/dma_heap
 # for dumpsys meminfo
 allow system_server dmabuf_heap_device:dir r_dir_perms;
+
+# Allow reading /proc/vmstat for the oom kill count
+allow system_server proc_vmstat:file r_file_perms;
 
 # The DhcpClient and WifiWatchdog use packet_sockets
 allow system_server self:packet_socket create_socket_perms_no_ioctl;
@@ -689,6 +709,11 @@ set_prop(system_server, device_config_window_manager_native_boot_prop)
 set_prop(system_server, device_config_configuration_prop)
 set_prop(system_server, device_config_connectivity_prop)
 
+
+# Allow query ART device config properties
+get_prop(system_server, device_config_runtime_native_boot_prop)
+get_prop(system_server, device_config_runtime_native_prop)
+
 # BootReceiver to read ro.boot.bootreason
 get_prop(system_server, bootloader_boot_reason_prop)
 # PowerManager to read sys.boot.reason
@@ -1121,6 +1146,12 @@ allow system_server font_data_file:dir create_dir_perms;
 # Allow system process to setup fs-verity for font files
 allowxperm system_server font_data_file:file ioctl FS_IOC_ENABLE_VERITY;
 
+# Read qemu.hw.mainkeys property
+get_prop(system_server, qemu_hw_prop)
+
+# Allow system server to read profcollectd reports for upload.
+userdebug_or_eng(`r_dir_file(system_server, profcollectd_data_file)')
+
 ###
 ### Neverallow rules
 ###
@@ -1259,6 +1290,8 @@ allow system_server vendor_apex_file:file r_file_perms;
 
 # Allow the system server to manage relevant apex module data files.
 allow system_server apex_module_data_file:dir { getattr search };
+allow system_server apex_appsearch_data_file:dir create_dir_perms;
+allow system_server apex_appsearch_data_file:file create_file_perms;
 allow system_server apex_permission_data_file:dir create_dir_perms;
 allow system_server apex_permission_data_file:file create_file_perms;
 allow system_server apex_scheduling_data_file:dir create_dir_perms;
@@ -1374,6 +1407,3 @@ neverallowxperm { domain -system_server } binder_device:chr_file ioctl { BINDER_
 # Only system server can write the font files.
 neverallow { domain -init -system_server } font_data_file:file no_w_file_perms;
 neverallow { domain -init -system_server } font_data_file:dir no_w_dir_perms;
-
-# Read qemu.hw.mainkeys property
-get_prop(system_server, qemu_hw_prop)

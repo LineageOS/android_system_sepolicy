@@ -200,3 +200,6 @@ neverallow { domain -shell -init -dumpstate } perf_drop_caches_prop:file read;
 
 # Allow ReadDefaultFstab() for CTS.
 read_fstab(shell)
+
+# Allow shell read access to /apex/apex-info-list.xml for CTS.
+allow shell apex_info_file:file r_file_perms;
