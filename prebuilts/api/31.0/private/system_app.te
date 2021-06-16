@@ -169,6 +169,9 @@ allow system_app system_server:udp_socket {
 # Settings app reads ro.oem_unlock_supported
 get_prop(system_app, oem_unlock_prop)
 
+# Allow system apps to act as Perfetto producers.
+perfetto_producer(system_app)
+
 ###
 ### Neverallow rules
 ###
