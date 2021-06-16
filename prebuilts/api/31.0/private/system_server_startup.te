@@ -14,3 +14,7 @@ allow system_server_startup system_server:process dyntransition;
 
 # Child of the zygote.
 allow system_server_startup zygote:process sigchld;
+
+# Allow query ART device config properties
+get_prop(system_server_startup, device_config_runtime_native_boot_prop)
+get_prop(system_server_startup, device_config_runtime_native_prop)
