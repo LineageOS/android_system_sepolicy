@@ -16,6 +16,9 @@ allow appdomain { ashmem_device ashmem_libcutils_device }:chr_file execute;
 # Receive and use open file descriptors inherited from zygote.
 allow appdomain zygote:fd use;
 
+# Receive and use open file descriptors inherited from app zygote.
+allow appdomain app_zygote:fd use;
+
 # gdbserver for ndk-gdb reads the zygote.
 # valgrind needs mmap exec for zygote
 allow appdomain zygote_exec:file rx_file_perms;
