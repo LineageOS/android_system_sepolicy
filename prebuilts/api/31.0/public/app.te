@@ -70,7 +70,7 @@ allow { appdomain -isolated_app -mlstrustedsubject } { app_data_file privapp_dat
 allow { appdomain -isolated_app -mlstrustedsubject } { app_data_file privapp_data_file }:file create_file_perms;
 
 # Access via already open fds is ok even for mlstrustedsubject.
-allow { appdomain -isolated_app } { app_data_file privapp_data_file }:file { getattr map read write };
+allow { appdomain -isolated_app } { app_data_file privapp_data_file system_app_data_file }:file { getattr map read write };
 
 # Traverse into expanded storage
 allow appdomain mnt_expand_file:dir r_dir_perms;
