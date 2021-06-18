@@ -160,7 +160,7 @@ type notification_service, app_api_service, ephemeral_app_api_service, system_se
 type oem_lock_service, system_api_service, system_server_service, service_manager_type;
 type otadexopt_service, system_server_service, service_manager_type;
 type overlay_service, system_api_service, system_server_service, service_manager_type;
-type pac_proxy_service, system_server_service, service_manager_type;
+type pac_proxy_service, app_api_service, system_server_service, service_manager_type;
 type package_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type package_native_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type people_service, app_api_service, system_server_service, service_manager_type;
