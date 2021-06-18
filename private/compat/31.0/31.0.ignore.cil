@@ -6,6 +6,7 @@
 (typeattributeset new_objects
   ( new_objects
     artd_service
+    camera2_extensions_prop
     power_stats_service
     transformer_service
   ))
