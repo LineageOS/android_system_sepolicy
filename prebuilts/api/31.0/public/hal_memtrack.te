@@ -1,0 +1,7 @@
+# HwBinder IPC from client to server
+binder_call(hal_memtrack_client, hal_memtrack_server)
+
+hal_attribute_hwservice(hal_memtrack, hal_memtrack_hwservice)
+
+hal_attribute_service(hal_memtrack, hal_memtrack_service)
+binder_call(hal_memtrack_server, servicemanager)

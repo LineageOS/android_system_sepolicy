@@ -1,0 +1,4 @@
+typeattribute iorap_prefetcherd coredomain;
+
+init_daemon_domain(iorap_prefetcherd)
+tmpfs_domain(iorap_prefetcherd)
