@@ -1,0 +1,27 @@
+type linkerconfig, domain, coredomain;
+type linkerconfig_exec, exec_type, file_type, system_file_type;
+
+init_daemon_domain(linkerconfig)
+
+## Read and write linkerconfig subdirectory.
+allow linkerconfig linkerconfig_file:dir create_dir_perms;
+allow linkerconfig linkerconfig_file:file create_file_perms;
+
+# Allow linkerconfig to log to the kernel.
+allow linkerconfig kmsg_device:chr_file w_file_perms;
+
+# Allow linkerconfig to be invoked with logwrapper from init.
+allow linkerconfig devpts:chr_file { read write };
+
+# Allow linkerconfig to scan for apex modules
+allow linkerconfig apex_mnt_dir:dir r_dir_perms;
+
+# Allow linkerconfig to read apex-info-list.xml
+allow linkerconfig apex_info_file:file r_file_perms;
+
+# Allow linkerconfig to be called in the otapreopt_chroot
+allow linkerconfig otapreopt_chroot:fd use;
+allow linkerconfig postinstall_apex_mnt_dir:dir r_dir_perms;
+allow linkerconfig postinstall_apex_mnt_dir:file r_file_perms;
+
+neverallow { domain -init -linkerconfig -otapreopt_chroot } linkerconfig_exec:file no_x_file_perms;
