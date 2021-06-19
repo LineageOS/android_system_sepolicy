@@ -593,5 +593,8 @@ neverallow appdomain system_bootstrap_lib_file:file
 neverallow appdomain system_bootstrap_lib_file:dir
     { open read getattr search };
 
+# Allow to read ro.vendor.camera.extensions.enabled
+get_prop(appdomain, camera2_extensions_prop)
+
 # Allow to ro.camerax.extensions.enabled
 get_prop(appdomain, camerax_extensions_prop)

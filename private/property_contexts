@@ -330,6 +330,9 @@ ro.camera.enableLazyHal u:object_r:camera_config_prop:s0 exact bool
 
 ro.camerax.extensions.enabled u:object_r:camerax_extensions_prop:s0 exact bool
 
+ro.vendor.camera.extensions.package u:object_r:camera2_extensions_prop:s0 exact string
+ro.vendor.camera.extensions.service u:object_r:camera2_extensions_prop:s0 exact string
+
 # ART properties
 dalvik.vm.                 u:object_r:dalvik_config_prop:s0
 ro.dalvik.vm.              u:object_r:dalvik_config_prop:s0
