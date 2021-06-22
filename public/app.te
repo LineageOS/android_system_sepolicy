@@ -15,6 +15,7 @@ allow appdomain { ashmem_device ashmem_libcutils_device }:chr_file execute;
 
 # Receive and use open file descriptors inherited from zygote.
 allow appdomain zygote:fd use;
+allow appdomain zygote:unix_stream_socket { getopt getattr read write shutdown };
 
 # Receive and use open file descriptors inherited from app zygote.
 allow appdomain app_zygote:fd use;
