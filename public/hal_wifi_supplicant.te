@@ -34,5 +34,5 @@ allow hal_wifi_supplicant wifi_key:keystore2_key {
 ###
 
 # wpa_supplicant should not trust any data from sdcards
-neverallow hal_wifi_supplicant_server sdcard_type:dir ~getattr;
-neverallow hal_wifi_supplicant_server sdcard_type:file *;
+neverallow hal_wifi_supplicant_server { sdcard_type fuse }:dir ~getattr;
+neverallow hal_wifi_supplicant_server { sdcard_type fuse }:file *;

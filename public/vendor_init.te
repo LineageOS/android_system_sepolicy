@@ -140,6 +140,7 @@ allow vendor_init {
   -contextmount_type
   -keychord_device
   -sdcard_type
+  -fusefs_type
   -rootfs
   -proc_uid_time_in_state
   -proc_uid_concurrent_active_time
@@ -153,6 +154,7 @@ allow vendor_init {
   fs_type
   -contextmount_type
   -sdcard_type
+  -fusefs_type
   -rootfs
   -proc_uid_time_in_state
   -proc_uid_concurrent_active_time
