@@ -16,6 +16,9 @@ allow appdomain { ashmem_device ashmem_libcutils_device }:chr_file execute;
 # Receive and use open file descriptors inherited from zygote.
 allow appdomain zygote:fd use;
 
+# Receive and use open file descriptors inherited from app zygote.
+allow appdomain app_zygote:fd use;
+
 # gdbserver for ndk-gdb reads the zygote.
 # valgrind needs mmap exec for zygote
 allow appdomain zygote_exec:file rx_file_perms;
@@ -592,6 +595,9 @@ neverallow appdomain system_bootstrap_lib_file:file
     { open read write append execute execute_no_trans map };
 neverallow appdomain system_bootstrap_lib_file:dir
     { open read getattr search };
+
+# Allow to read ro.vendor.camera.extensions.enabled
+get_prop(appdomain, camera2_extensions_prop)
 
 # Allow to ro.camerax.extensions.enabled
 get_prop(appdomain, camerax_extensions_prop)
