@@ -27,15 +27,16 @@ set_prop(atrace, debug_prop)
 allow atrace {
   service_manager_type
   -apex_service
-  -incident_service
-  -iorapd_service
-  -netd_service
   -dnsresolver_service
-  -stats_service
   -dumpstate_service
+  -incident_service
   -installd_service
-  -vold_service
+  -iorapd_service
   -lpdump_service
+  -netd_service
+  -stats_service
+  -tracingproxy_service
+  -vold_service
   -default_android_service
 }:service_manager { find };
 allow atrace servicemanager:service_manager list;
