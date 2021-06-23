@@ -71,6 +71,12 @@ allow platform_app stats_service:service_manager find;
 # Allow platform apps to log via statsd.
 binder_call(platform_app, statsd)
 
+# Allow platform applications to find and call artd for testing
+userdebug_or_eng(`
+  allow platform_app artd_service:service_manager find;
+  binder_call(platform_app, artd)
+')
+
 # Access to /data/preloads
 allow platform_app preloads_data_file:file r_file_perms;
 allow platform_app preloads_data_file:dir r_dir_perms;
