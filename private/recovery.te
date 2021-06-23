@@ -43,4 +43,7 @@ recovery_only(`
   set_prop(recovery, fastbootd_protocol_prop)
 
   get_prop(recovery, recovery_config_prop)
+
+  # Needed to read bootconfig parameters through libfs_mgr
+  allow recovery proc_bootconfig:file r_file_perms;
 ')
