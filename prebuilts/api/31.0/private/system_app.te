@@ -90,6 +90,7 @@ allow system_app {
   -netd_service
   -system_suspend_control_internal_service
   -system_suspend_control_service
+  -tracingproxy_service
   -virtual_touchpad_service
   -vold_service
   -vr_hwc_service
