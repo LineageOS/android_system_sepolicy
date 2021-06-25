@@ -209,4 +209,5 @@ neverallow { domain -apexd -init -otapreopt_chroot } apex_mnt_dir:dir { mounton 
 allow apexd otapreopt_chroot:fd use;
 allow apexd postinstall_apex_mnt_dir:dir { create_dir_perms mounton };
 allow apexd postinstall_apex_mnt_dir:file { create_file_perms relabelfrom };
+allow apexd postinstall_apex_mnt_dir:lnk_file create;
 allow apexd proc_filesystems:file r_file_perms;

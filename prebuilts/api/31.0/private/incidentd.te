@@ -161,7 +161,6 @@ allow incidentd {
   system_server_service
   app_api_service
   system_api_service
-  -tracingproxy_service
 }:service_manager find;
 
 # Only incidentd can publish the binder service
