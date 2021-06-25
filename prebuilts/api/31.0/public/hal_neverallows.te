@@ -8,6 +8,7 @@ neverallow {
   -hal_wifi_hostapd_server
   -hal_wifi_supplicant_server
   -hal_telephony_server
+  -hal_uwb_server
 } self:global_capability_class_set { net_admin net_raw };
 
 # Unless a HAL's job is to communicate over the network, or control network
@@ -25,7 +26,16 @@ neverallow {
   -hal_wifi_hostapd_server
   -hal_wifi_supplicant_server
   -hal_telephony_server
+  -hal_uwb_server
 } domain:{ tcp_socket udp_socket rawip_socket } *;
+
+# The UWB HAL is not actually a networking HAL but may need to bring up and down
+# interfaces. Restrict it to only these networking operations.
+neverallow hal_uwb_server self:global_capability_class_set { net_raw };
+
+# Subset of socket_class_set likely to be usable for communication or accessible through net_admin.
+# udp_socket is required to use interface ioctls.
+neverallow hal_uwb_server domain:{ socket tcp_socket rawip_socket netlink_socket packet_socket key_socket netlink_route_socket netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket netlink_selinux_socket netlink_audit_socket netlink_dnrt_socket netlink_kobject_uevent_socket tun_socket netlink_iscsi_socket netlink_fib_lookup_socket netlink_connector_socket netlink_netfilter_socket netlink_scsitransport_socket netlink_rdma_socket netlink_crypto_socket qipcrtr_socket xdp_socket } *;
 
 ###
 # HALs are defined as an attribute and so a given domain could hypothetically
