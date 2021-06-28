@@ -261,8 +261,8 @@ allow { appdomain -isolated_app -ephemeral_app } mnt_user_file:dir r_dir_perms;
 allow { appdomain -isolated_app -ephemeral_app } mnt_user_file:lnk_file r_file_perms;
 
 # Read/write visible storage
-allow { appdomain -isolated_app -ephemeral_app } sdcard_type:dir create_dir_perms;
-allow { appdomain -isolated_app -ephemeral_app } sdcard_type:file create_file_perms;
+allow { appdomain -isolated_app -ephemeral_app } { sdcard_type fuse }:dir create_dir_perms;
+allow { appdomain -isolated_app -ephemeral_app } { sdcard_type fuse }:file create_file_perms;
 # This should be removed if sdcardfs is modified to alter the secontext for its
 # accesses to the underlying FS.
 allow { appdomain -isolated_app -ephemeral_app } media_rw_data_file:dir create_dir_perms;

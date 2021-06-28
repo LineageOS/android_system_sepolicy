@@ -77,8 +77,8 @@ allow adbd profman_dump_data_file:file r_file_perms;
 allow adbd tmpfs:dir search;
 allow adbd rootfs:lnk_file r_file_perms;  # /sdcard symlink
 allow adbd tmpfs:lnk_file r_file_perms;   # /mnt/sdcard symlink
-allow adbd sdcard_type:dir create_dir_perms;
-allow adbd sdcard_type:file create_file_perms;
+allow adbd { sdcard_type fuse }:dir create_dir_perms;
+allow adbd { sdcard_type fuse }:file create_file_perms;
 
 # adb pull /data/anr/traces.txt
 allow adbd anr_data_file:dir r_dir_perms;
