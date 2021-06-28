@@ -23,5 +23,5 @@ allow hal_wifi_hostapd_server self:netlink_route_socket nlmsg_write;
 ###
 
 # hal_wifi_hostapd should not trust any data from sdcards
-neverallow hal_wifi_hostapd_server sdcard_type:dir ~getattr;
-neverallow hal_wifi_hostapd_server sdcard_type:file *;
+neverallow hal_wifi_hostapd_server { sdcard_type fuse }:dir ~getattr;
+neverallow hal_wifi_hostapd_server { sdcard_type fuse }:file *;
