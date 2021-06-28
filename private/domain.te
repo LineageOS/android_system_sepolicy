@@ -354,8 +354,8 @@ neverallow ~{
 } self:global_capability_class_set dac_read_search;
 
 # Limit what domains can mount filesystems or change their mount flags.
-# sdcard_type / vfat is exempt as a larger set of domains need
-# this capability, including device-specific domains.
+# sdcard_type (including vfat and exfat) and fusefs_type are exempt as a larger
+# set of domains need this capability, including device-specific domains.
 neverallow {
     domain
     -apexd
@@ -369,6 +369,7 @@ neverallow {
     -zygote
 } { fs_type
     -sdcard_type
+    -fusefs_type
 }:filesystem { mount remount relabelfrom relabelto };
 
 enforce_debugfs_restriction(`

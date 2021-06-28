@@ -86,14 +86,12 @@ allow vold block_device:dir create_dir_perms;
 allow vold device:dir write;
 allow vold devpts:chr_file rw_file_perms;
 allow vold rootfs:dir mounton;
-allow vold sdcard_type:dir mounton; # TODO: deprecated in M
-allow vold sdcard_type:filesystem { mount remount unmount }; # TODO: deprecated in M
-allow vold sdcard_type:dir create_dir_perms; # TODO: deprecated in M
-allow vold sdcard_type:file create_file_perms; # TODO: deprecated in M
+allow vold { sdcard_type fuse }:dir mounton; # TODO: deprecated in M
+allow vold { sdcard_type fuse }:filesystem { mount remount unmount }; # TODO: deprecated in M
 
 # Manage locations where storage is mounted
-allow vold { mnt_media_rw_file storage_file sdcard_type }:dir create_dir_perms;
-allow vold { mnt_media_rw_file storage_file sdcard_type }:file create_file_perms;
+allow vold { mnt_media_rw_file storage_file sdcard_type fuse }:dir create_dir_perms;
+allow vold { mnt_media_rw_file storage_file sdcard_type fuse }:file create_file_perms;
 
 # Access to storage that backs emulated FUSE daemons for migration optimization
 allow vold media_rw_data_file:dir create_dir_perms;

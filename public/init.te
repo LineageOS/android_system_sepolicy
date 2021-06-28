@@ -313,11 +313,12 @@ allow init {
   -keychord_device
   -proc_type
   -sdcard_type
+  -fusefs_type
   -sysfs_type
   -rootfs
   enforce_debugfs_restriction(`-debugfs_type')
 }:file { open read setattr };
-allow init { fs_type -contextmount_type -sdcard_type -rootfs }:dir  { open read setattr search };
+allow init { fs_type -contextmount_type -sdcard_type -fusefs_type -rootfs }:dir  { open read setattr search };
 
 allow init {
   binder_device

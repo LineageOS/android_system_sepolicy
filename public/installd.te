@@ -71,8 +71,8 @@ allow installd media_rw_data_file:dir relabelto;
 # Delete /data/media files through sdcardfs, instead of going behind its back
 allow installd tmpfs:dir r_dir_perms;
 allow installd storage_file:dir search;
-allow installd sdcard_type:dir { search open read write remove_name getattr rmdir };
-allow installd sdcard_type:file { getattr unlink };
+allow installd { sdcard_type fuse }:dir { search open read write remove_name getattr rmdir };
+allow installd { sdcard_type fuse }:file { getattr unlink };
 
 # Create app's mirror data directory in /data_mirror, and bind mount the real directory to it
 allow installd mirror_data_file:dir { create_dir_perms mounton };
