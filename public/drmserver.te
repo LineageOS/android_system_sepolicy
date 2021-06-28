@@ -18,11 +18,11 @@ allow drmserver system_server:fd use;
 # Perform Binder IPC to mediaserver
 binder_call(drmserver, mediaserver)
 
-allow drmserver sdcard_type:dir search;
+allow drmserver { sdcard_type fuse }:dir search;
 allow drmserver drm_data_file:dir create_dir_perms;
 allow drmserver drm_data_file:file create_file_perms;
 allow drmserver { app_data_file privapp_data_file }:file { read write getattr map };
-allow drmserver sdcard_type:file { read write getattr map };
+allow drmserver { sdcard_type fuse }:file { read write getattr map };
 r_dir_file(drmserver, efs_file)
 
 type drmserver_socket, file_type;

@@ -965,7 +965,7 @@ allow system_server { mnt_user_file storage_file }:lnk_file { getattr read };
 
 # Allow statfs() on storage devices, which happens fast enough that
 # we shouldn't be killed during unsafe removal
-allow system_server sdcard_type:dir { getattr search };
+allow system_server { sdcard_type fuse }:dir { getattr search };
 
 # Traverse into expanded storage
 allow system_server mnt_expand_file:dir r_dir_perms;
@@ -1159,8 +1159,8 @@ userdebug_or_eng(`r_dir_file(system_server, profcollectd_data_file)')
 
 # Do not allow opening files from external storage as unsafe ejection
 # could cause the kernel to kill the system_server.
-neverallow system_server sdcard_type:dir { open read write };
-neverallow system_server sdcard_type:file rw_file_perms;
+neverallow system_server { sdcard_type fuse }:dir { open read write };
+neverallow system_server { sdcard_type fuse }:file rw_file_perms;
 
 # system server should never be operating on zygote spawned app data
 # files directly. Rather, they should always be passed via a
