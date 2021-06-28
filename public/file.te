@@ -138,7 +138,7 @@ type devpts, fs_type, mlstrustedobject;
 type tmpfs, fs_type;
 type shm, fs_type;
 type mqueue, fs_type;
-type fuse, sdcard_type, fs_type, mlstrustedobject;
+type fuse, fusefs_type, fs_type, mlstrustedobject;
 type sdcardfs, sdcard_type, fs_type, mlstrustedobject;
 type vfat, sdcard_type, fs_type, mlstrustedobject;
 type exfat, sdcard_type, fs_type, mlstrustedobject;
@@ -160,7 +160,7 @@ type functionfs, fs_type, mlstrustedobject;
 type oemfs, fs_type, contextmount_type;
 type usbfs, fs_type;
 type binfmt_miscfs, fs_type;
-type app_fusefs, fs_type, contextmount_type;
+type app_fusefs, fs_type, fusefs_type, contextmount_type;
 
 # File types
 type unlabeled, file_type;
