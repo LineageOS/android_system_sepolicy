@@ -53,4 +53,4 @@ get_prop(dexoptanalyzer, device_config_runtime_native_prop)
 get_prop(dexoptanalyzer, device_config_runtime_native_boot_prop)
 
 # Allow dexoptanalyzer to read /apex/apex-info-list.xml
-allow dex2oat apex_info_file:file r_file_perms;
+allow dexoptanalyzer apex_info_file:file r_file_perms;
