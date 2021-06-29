@@ -56,7 +56,7 @@ allow kernel selinuxfs:file write;
 allow kernel self:security setcheckreqprot;
 
 # kernel thread "loop0", used by the loop block device, for ASECs (b/17158723)
-allow kernel sdcard_type:file { read write };
+allow kernel { sdcard_type fuse }:file { read write };
 
 # f_mtp driver accesses files from kernel context.
 allow kernel mediaprovider:fd use;

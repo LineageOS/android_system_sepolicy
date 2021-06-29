@@ -17,7 +17,7 @@ net_domain(ephemeral_app)
 app_domain(ephemeral_app)
 
 # Allow ephemeral apps to read/write files in visible storage if provided fds
-allow ephemeral_app { sdcard_type media_rw_data_file }:file {read write getattr ioctl lock append};
+allow ephemeral_app { sdcard_type fuse media_rw_data_file }:file {read write getattr ioctl lock append};
 
 # Some apps ship with shared libraries and binaries that they write out
 # to their sandbox directory and then execute.
@@ -87,8 +87,8 @@ neverallow ephemeral_app sysfs:file *;
 neverallow ephemeral_app proc:file { no_rw_file_perms no_x_file_perms };
 
 # Directly access external storage
-neverallow ephemeral_app { sdcard_type media_rw_data_file }:file {open create};
-neverallow ephemeral_app { sdcard_type media_rw_data_file }:dir search;
+neverallow ephemeral_app { sdcard_type fuse media_rw_data_file }:file {open create};
+neverallow ephemeral_app { sdcard_type fuse media_rw_data_file }:dir search;
 
 # Avoid reads to proc_net, it contains too much device wide information about
 # ongoing connections.

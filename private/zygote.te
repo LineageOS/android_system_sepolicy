@@ -152,8 +152,8 @@ allow zygote mnt_pass_through_file:dir { create_dir_perms mounton };
 allow zygote storage_file:dir { search mounton };
 
 # Allow mounting and creating files, dirs on sdcardfs.
-allow zygote { sdcard_type }:dir { create_dir_perms mounton };
-allow zygote { sdcard_type }:file { create_file_perms };
+allow zygote { sdcard_type fuse }:dir { create_dir_perms mounton };
+allow zygote { sdcard_type fuse }:file { create_file_perms };
 
 # Handle --invoke-with command when launching Zygote with a wrapper command.
 allow zygote zygote_exec:file rx_file_perms;

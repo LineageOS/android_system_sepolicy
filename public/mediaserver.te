@@ -8,6 +8,7 @@ typeattribute mediaserver mlstrustedsubject;
 net_domain(mediaserver)
 
 r_dir_file(mediaserver, sdcard_type)
+r_dir_file(mediaserver, fuse)
 r_dir_file(mediaserver, cgroup)
 r_dir_file(mediaserver, cgroup_v2)
 
@@ -30,7 +31,7 @@ binder_service(mediaserver)
 allow mediaserver media_data_file:dir create_dir_perms;
 allow mediaserver media_data_file:file create_file_perms;
 allow mediaserver { app_data_file privapp_data_file }:file { append getattr ioctl lock map read write };
-allow mediaserver sdcard_type:file write;
+allow mediaserver { sdcard_type fuse }:file write;
 allow mediaserver gpu_device:chr_file rw_file_perms;
 allow mediaserver video_device:dir r_dir_perms;
 allow mediaserver video_device:chr_file rw_file_perms;
