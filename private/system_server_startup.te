@@ -7,6 +7,10 @@ tmpfs_domain(system_server_startup)
 allow system_server_startup self:process execmem;
 allow system_server_startup system_server_startup_tmpfs:file { execute read write open map };
 
+# Allow to pick up integrity-checked artifacts from the ART APEX dalvik cache.
+allow system_server_startup apex_art_data_file:dir r_dir_perms;
+allow system_server_startup apex_art_data_file:file { r_file_perms execute };
+
 # Allow system_server_startup to run setcon() and enter the
 # system_server domain
 allow system_server_startup self:process setcurrent;
