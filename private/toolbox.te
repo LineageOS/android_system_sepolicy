@@ -3,5 +3,5 @@ typeattribute toolbox coredomain;
 init_daemon_domain(toolbox)
 
 # rm -rf /data/misc/virtualizationservice
-allow toolbox virtualizationservice_data_file:dir { remove_name rmdir };
+allow toolbox virtualizationservice_data_file:dir { getattr remove_name rmdir };
 allow toolbox virtualizationservice_data_file:file { getattr unlink };
