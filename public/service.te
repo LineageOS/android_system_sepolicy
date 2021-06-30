@@ -20,6 +20,7 @@ type installd_service,          service_manager_type;
 type credstore_service,         app_api_service, service_manager_type;
 type keystore_compat_hal_service, service_manager_type;
 type keystore_maintenance_service, service_manager_type;
+type keystore_metrics_service, service_manager_type;
 type keystore_service,          service_manager_type;
 type lpdump_service,            service_manager_type;
 type mediaserver_service,       service_manager_type;
