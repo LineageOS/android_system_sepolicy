@@ -6,4 +6,6 @@ set_prop(wificond, ctl_default_prop)
 
 get_prop(wificond, hwservicemanager_prop)
 
+allow wificond legacykeystore_service:service_manager find;
+
 init_daemon_domain(wificond)
