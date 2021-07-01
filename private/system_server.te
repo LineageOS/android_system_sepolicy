@@ -853,6 +853,7 @@ allow system_server incremental_service:service_manager find;
 allow system_server installd_service:service_manager find;
 allow system_server iorapd_service:service_manager find;
 allow system_server keystore_maintenance_service:service_manager find;
+allow system_server keystore_metrics_service:service_manager find;
 allow system_server keystore_service:service_manager find;
 allow system_server mediaserver_service:service_manager find;
 allow system_server mediametrics_service:service_manager find;
@@ -903,6 +904,7 @@ allow system_server keystore:keystore2 {
 	clear_uid
 	get_state
 	lock
+	pull_metrics
 	reset
 	unlock
 };
