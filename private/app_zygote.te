@@ -79,6 +79,9 @@ unix_socket_send(app_zygote, system_unsolzygote, system_server)
 get_prop(app_zygote, device_config_runtime_native_prop)
 get_prop(app_zygote, device_config_runtime_native_boot_prop)
 
+# Allow app_zygote to access odsign verification status
+get_prop(app_zygote, odsign_prop)
+
 #####
 ##### Neverallow
 #####
