@@ -207,11 +207,9 @@ key_map rules[] = {
                 /*Inputs*/
                 { .name = "isSystemServer", .dir = dir_in, .fn_validate = validate_bool },
                 { .name = "isEphemeralApp",  .dir = dir_in, .fn_validate = validate_bool },
-                { .name = "isOwner",        .dir = dir_in, .fn_validate = validate_bool },
                 { .name = "user",           .dir = dir_in,                              },
                 { .name = "seinfo",         .dir = dir_in,                              },
                 { .name = "name",           .dir = dir_in,                              },
-                { .name = "path",           .dir = dir_in,                              },
                 { .name = "isPrivApp",      .dir = dir_in, .fn_validate = validate_bool },
                 { .name = "minTargetSdkVersion", .dir = dir_in, .fn_validate = validate_uint },
                 { .name = "fromRunAs",       .dir = dir_in, .fn_validate = validate_bool },
