@@ -20,7 +20,9 @@ type installd_service,          service_manager_type;
 type credstore_service,         app_api_service, service_manager_type;
 type keystore_compat_hal_service, service_manager_type;
 type keystore_maintenance_service, service_manager_type;
+type keystore_metrics_service, service_manager_type;
 type keystore_service,          service_manager_type;
+type legacykeystore_service,    service_manager_type;
 type lpdump_service,            service_manager_type;
 type mediaserver_service,       service_manager_type;
 type mediametrics_service,      service_manager_type;
@@ -43,7 +45,6 @@ type update_engine_stable_service, service_manager_type;
 type virtualization_service,    service_manager_type;
 type virtual_touchpad_service,  service_manager_type;
 type vold_service,              service_manager_type;
-type vpnprofilestore_service,   service_manager_type;
 type vr_hwc_service,            service_manager_type;
 type vrflinger_vsync_service,   service_manager_type;
 
