@@ -87,6 +87,9 @@ unix_socket_send(webview_zygote, system_unsolzygote, system_server)
 get_prop(webview_zygote, device_config_runtime_native_prop)
 get_prop(webview_zygote, device_config_runtime_native_boot_prop)
 
+# Allow webview_zygote to access odsign verification status
+get_prop(zygote, odsign_prop)
+
 #####
 ##### Neverallow
 #####
