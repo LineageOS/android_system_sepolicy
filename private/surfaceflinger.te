@@ -61,7 +61,7 @@ set_prop(surfaceflinger, surfaceflinger_display_prop)
 
 # Get properties.
 get_prop(surfaceflinger, qemu_sf_lcd_density_prop)
-get_prop(network_stack, device_config_surface_flinger_native_boot_prop)
+get_prop(surfaceflinger, device_config_surface_flinger_native_boot_prop)
 
 # Use open files supplied by an app.
 allow surfaceflinger appdomain:fd use;
