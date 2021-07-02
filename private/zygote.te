@@ -217,6 +217,9 @@ unix_socket_send(zygote, system_unsolzygote, system_server)
 # Allow zygote to access media_variant_prop for static initialization
 get_prop(zygote, media_variant_prop)
 
+# Allow zygote to access odsign verification status
+get_prop(zygote, odsign_prop)
+
 # Allow zygote to read ro.control_privapp_permissions and ro.cp_system_other_odex
 get_prop(zygote, packagemanager_config_prop)
 
