@@ -95,6 +95,11 @@ allow kernel {
   staging_data_file
   vendor_apex_file
 }:file read;
+# Also allow the kernel to read /data/local/tmp files via loop device
+# for ApexTestCases
+userdebug_or_eng(`
+  allow kernel shell_data_file:file read;
+')
 
 # Allow the first-stage init (which is running in the kernel domain) to execute the
 # dynamic linker when it re-executes /init to switch into the second stage.
