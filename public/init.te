@@ -384,6 +384,7 @@ allow init {
   proc_perf
   proc_sched
   proc_sysrq
+  proc_watermark_boost_factor
 }:file w_file_perms;
 
 allow init {
