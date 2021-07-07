@@ -23,3 +23,21 @@ allow virtualizationservice crosvm:process sigkill;
 # Let virtualizationservice access its data directory.
 allow virtualizationservice virtualizationservice_data_file:file create_file_perms;
 allow virtualizationservice virtualizationservice_data_file:dir create_dir_perms;
+
+# virtualizationservice_use(client)
+define(`virtualizationservice_use', `
+# Let the client call virtualizationservice.
+binder_call($1, virtualizationservice)
+# Let the client pass file descriptors to virtualizationservice.
+allow virtualizationservice $1:fd use;
+')
+
+# Let the shell user call virtualizationservice for debugging.
+virtualizationservice_use(shell)
+
+# Let virtualizationservice read and write files from its various clients, but not open them
+# directly as they must be passed over Binder by the client.
+allow virtualizationservice apk_data_file:file { getattr read };
+allow virtualizationservice app_data_file:file { getattr read write };
+# shell_data_file is used for automated tests and manual debugging.
+allow virtualizationservice shell_data_file:file { getattr read write };
