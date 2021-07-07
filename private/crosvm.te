@@ -14,3 +14,10 @@ allow crosvm kvm_device:chr_file rw_file_perms;
 # Most other domains shouldn't access /dev/kvm.
 neverallow { domain -crosvm -ueventd -shell } kvm_device:chr_file getattr;
 neverallow { domain -crosvm -ueventd } kvm_device:chr_file ~getattr;
+
+# Let crosvm read and write files from clients of virtualizationservice, but not open them directly
+# as they must be passed via virtualizationservice.
+allow crosvm apk_data_file:file { getattr read };
+allow crosvm app_data_file:file { getattr read write };
+# shell_data_file is used for automated tests and manual debugging.
+allow crosvm shell_data_file:file { getattr read write };
