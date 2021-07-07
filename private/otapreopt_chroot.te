@@ -96,8 +96,3 @@ get_prop(otapreopt_chroot, cold_boot_done_prop)
 
 # allow otapreopt_chroot to run the linkerconfig from the new image.
 allow otapreopt_chroot linkerconfig_exec:file rx_file_perms;
-
-# allow otapreopt_chroot to talk with otadexopt binder service
-allow otapreopt_chroot otadexopt_service:service_manager find;
-binder_use(otapreopt_chroot)
-binder_call(otapreopt_chroot, system_server)
