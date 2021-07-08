@@ -2,7 +2,7 @@
 ### Untrusted apps.
 ###
 ### This file defines the rules for untrusted apps running with
-### targetSdkVersion >= 30.
+### targetSdkVersion >= 32.
 ###
 ### See public/untrusted_app.te for more information about which apps are
 ### placed in this selinux domain.
