@@ -1150,6 +1150,9 @@ ro.zygote.disable_gl_preload u:object_r:zygote_config_prop:s0 exact bool
 # Broadcast boot stages, which keystore listens to
 keystore.boot_level u:object_r:keystore_listen_prop:s0 exact int
 
+# Property that tracks keystore crash counts during a boot cycle.
+keystore.crash_count u:object_r:keystore_crash_prop:s0 exact int
+
 partition.system.verified     u:object_r:verity_status_prop:s0 exact string
 partition.system_ext.verified u:object_r:verity_status_prop:s0 exact string
 partition.product.verified    u:object_r:verity_status_prop:s0 exact string
