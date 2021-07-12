@@ -1227,17 +1227,6 @@ neverallow {
   userdebug_or_eng(`-uncrypt')
 } shell_data_file:dir { open search };
 
-# Same as above for /data/local/tmp files. We allow shell files
-# to be passed around by file descriptor, but not directly opened.
-neverallow {
-  domain
-  -adbd
-  -appdomain
-  -dumpstate
-  -installd
-  userdebug_or_eng(`-uncrypt')
-} shell_data_file:file open;
-
 # servicemanager and vndservicemanager are the only processes which handle the
 # service_manager list request
 neverallow * ~{
