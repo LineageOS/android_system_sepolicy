@@ -41,3 +41,6 @@ allow virtualizationservice apk_data_file:file { getattr read };
 allow virtualizationservice app_data_file:file { getattr read write };
 # shell_data_file is used for automated tests and manual debugging.
 allow virtualizationservice shell_data_file:file { getattr read write };
+
+# Let virtualizationservice to accept vsock connection from the guest VMs
+allow virtualizationservice self:vsock_socket { create_socket_perms_no_ioctl listen accept };
