@@ -140,6 +140,8 @@ allow incidentd zygote_exec:file { rx_file_perms };
 # Access the runtime feature flag properties.
 get_prop(incidentd, device_config_runtime_native_prop)
 get_prop(incidentd, device_config_runtime_native_boot_prop)
+# Access odsign verification status.
+get_prop(incidentd, odsign_prop)
 # ART locks profile files.
 allow incidentd system_file:file lock;
 # Incidentd should never exec from the memory (e.g. JIT cache). These denials are expected.
