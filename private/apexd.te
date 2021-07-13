@@ -18,20 +18,12 @@ allow apexd apex_ota_reserved_file:dir create_dir_perms;
 allow apexd apex_ota_reserved_file:file create_file_perms;
 
 # Allow apexd to create files and directories for snapshots of apex data
-allow apexd apex_appsearch_data_file:dir { create_dir_perms relabelto };
-allow apexd apex_appsearch_data_file:file { create_file_perms relabelto };
-allow apexd apex_art_data_file:dir { create_dir_perms relabelto };
-allow apexd apex_art_data_file:file { create_file_perms relabelto };
-allow apexd apex_permission_data_file:dir { create_dir_perms relabelto };
-allow apexd apex_permission_data_file:file { create_file_perms relabelto };
+allow apexd apex_data_file_type:dir { create_dir_perms relabelto };
+allow apexd apex_data_file_type:file { create_file_perms relabelto };
 allow apexd apex_module_data_file:dir { create_dir_perms relabelfrom };
 allow apexd apex_module_data_file:file { create_file_perms relabelfrom };
 allow apexd apex_rollback_data_file:dir create_dir_perms;
 allow apexd apex_rollback_data_file:file create_file_perms;
-allow apexd apex_scheduling_data_file:dir { create_dir_perms relabelto };
-allow apexd apex_scheduling_data_file:file { create_file_perms relabelto };
-allow apexd apex_wifi_data_file:dir { create_dir_perms relabelto };
-allow apexd apex_wifi_data_file:file { create_file_perms relabelto };
 
 # Allow apexd to read directories under /data/misc_de in order to snapshot and
 # restore apex data for all users.

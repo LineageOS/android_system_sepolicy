@@ -43,7 +43,7 @@ type emergency_data_file, file_type, data_file_type, core_data_file_type;
 type profcollectd_data_file, file_type, data_file_type, core_data_file_type;
 
 # /data/misc/apexdata/com.android.art
-type apex_art_data_file, file_type, data_file_type, core_data_file_type;
+type apex_art_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
 
 # /data/misc/apexdata/com.android.art/staging
 type apex_art_staging_data_file, file_type, data_file_type, core_data_file_type;
