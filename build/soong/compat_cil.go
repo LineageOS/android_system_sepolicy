@@ -41,7 +41,7 @@ type compatCil struct {
 
 type compatCilProperties struct {
 	// List of source files. Can reference se_filegroup type modules with the ":module" syntax.
-	Srcs []string
+	Srcs []string `android:"path"`
 
 	// Output file name. Defaults to module name if unspecified.
 	Stem *string
@@ -55,7 +55,7 @@ func (c *compatCil) expandSeSources(ctx android.ModuleContext) android.Paths {
 	srcPaths := make(android.Paths, 0, len(c.properties.Srcs))
 	for _, src := range c.properties.Srcs {
 		if m := android.SrcIsModule(src); m != "" {
-			module := ctx.GetDirectDepWithTag(m, android.SourceDepTag)
+			module := android.GetModuleFromPathDep(ctx, m, "")
 			if module == nil {
 				// Error would have been handled by ExtractSourcesDeps
 				continue
@@ -74,10 +74,6 @@ func (c *compatCil) expandSeSources(ctx android.ModuleContext) android.Paths {
 		}
 	}
 	return srcPaths
-}
-
-func (c *compatCil) DepsMutator(ctx android.BottomUpMutatorContext) {
-	android.ExtractSourcesDeps(ctx, c.properties.Srcs)
 }
 
 func (c *compatCil) GenerateAndroidBuildActions(ctx android.ModuleContext) {
