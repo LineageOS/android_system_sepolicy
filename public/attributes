@@ -399,3 +399,7 @@ expandattribute dmabuf_heap_device_type false;
 
 # All types used for DSU metadata files.
 attribute gsi_metadata_file_type;
+
+# Types used for module-specific APEX data directories under
+# /data/{misc,misc_ce,misc_de}/apexdata.
+attribute apex_data_file_type;
