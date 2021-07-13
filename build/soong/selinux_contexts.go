@@ -140,7 +140,11 @@ func (m *selinuxContextsModule) GenerateAndroidBuildActions(ctx android.ModuleCo
 
 	var inputs android.Paths
 
-	ctx.VisitDirectDepsWithTag(android.SourceDepTag, func(dep android.Module) {
+	ctx.VisitDirectDeps(func(dep android.Module) {
+		depTag := ctx.OtherModuleDependencyTag(dep)
+		if !android.IsSourceDepTagWithOutputTag(depTag, "") {
+			return
+		}
 		segroup, ok := dep.(*fileGroup)
 		if !ok {
 			ctx.ModuleErrorf("srcs dependency %q is not an selinux filegroup",
