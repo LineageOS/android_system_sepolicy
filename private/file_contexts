@@ -568,6 +568,7 @@
 /data/misc/a11ytrace(/.*)?      u:object_r:accessibility_trace_data_file:s0
 /data/misc/apexdata(/.*)?       u:object_r:apex_module_data_file:s0
 /data/misc/apexdata/com\.android\.art(/.*)?           u:object_r:apex_art_data_file:s0
+/data/misc/apexdata/com\.android\.compos(/.*)?        u:object_r:apex_compos_data_file:s0
 /data/misc/apexdata/com\.android\.permission(/.*)?    u:object_r:apex_system_server_data_file:s0
 /data/misc/apexdata/com\.android\.scheduling(/.*)?    u:object_r:apex_system_server_data_file:s0
 /data/misc/apexdata/com\.android\.wifi(/.*)?          u:object_r:apex_system_server_data_file:s0
