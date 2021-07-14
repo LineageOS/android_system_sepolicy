@@ -14,13 +14,18 @@ allow fsck vold:fd use;
 allow fsck vold:fifo_file { read write getattr };
 
 # Run fsck on certain block devices
-allow fsck block_device:dir search;
 allow fsck userdata_block_device:blk_file rw_file_perms;
 allow fsck cache_block_device:blk_file rw_file_perms;
 allow fsck dm_device:blk_file rw_file_perms;
 userdebug_or_eng(`
 allow fsck system_block_device:blk_file rw_file_perms;
 ')
+
+# e2fsck performs a comprehensive search of /proc/mounts to check whether the
+# checked filesystem is currently mounted.
+allow fsck metadata_file:dir getattr;
+allow fsck block_device:dir search;
+allow fsck mirror_data_file:dir search;
 
 # For the block devices where we have ioctl access,
 # allow at a minimum the following common fsck ioctls.

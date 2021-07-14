@@ -397,6 +397,7 @@ neverallow {
 # Limit directory operations that doesn't need to do app data isolation.
 neverallow {
   domain
+  -fsck
   -init
   -installd
   -zygote
