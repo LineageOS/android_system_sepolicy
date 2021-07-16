@@ -139,6 +139,7 @@ allow zygote rootfs:dir mounton;
 allow zygote tmpfs:filesystem { mount unmount };
 allow zygote fuse:filesystem { unmount };
 allow zygote sdcardfs:filesystem { unmount };
+allow zygote labeledfs:filesystem { unmount };
 
 # Allow creating user-specific storage source if started before vold.
 allow zygote mnt_user_file:dir { create_dir_perms mounton };
