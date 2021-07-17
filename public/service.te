@@ -203,6 +203,7 @@ type system_server_dumper_service, system_api_service, system_server_service, se
 type system_update_service, system_server_service, service_manager_type;
 type soundtrigger_middleware_service, system_server_service, service_manager_type;
 type speech_recognition_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type tare_service, app_api_service, system_server_service, service_manager_type;
 type task_service, system_server_service, service_manager_type;
 type testharness_service, system_server_service, service_manager_type;
 type textclassification_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;

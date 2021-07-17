@@ -262,6 +262,7 @@ suspend_control_internal                  u:object_r:system_suspend_control_inte
 system_config                             u:object_r:system_config_service:s0
 system_server_dumper                      u:object_r:system_server_dumper_service:s0
 system_update                             u:object_r:system_update_service:s0
+tare                                      u:object_r:tare_service:s0
 task                                      u:object_r:task_service:s0
 telecom                                   u:object_r:telecom_service:s0
 telephony.registry                        u:object_r:registry_service:s0
