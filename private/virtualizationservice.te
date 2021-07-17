@@ -42,5 +42,12 @@ allow virtualizationservice app_data_file:file { getattr read write };
 # shell_data_file is used for automated tests and manual debugging.
 allow virtualizationservice shell_data_file:file { getattr read write };
 
+# Allow virtualizationservice to access apex files in /data/apex/{active,decompressed}
+allow virtualizationservice apex_data_file:dir search;
+allow virtualizationservice staging_data_file:file r_file_perms;
+
+# Allow virtualizationservice to read apex-info-list.xml
+allow virtualizationservice apex_info_file:file r_file_perms;
+
 # Let virtualizationservice to accept vsock connection from the guest VMs
 allow virtualizationservice self:vsock_socket { create_socket_perms_no_ioctl listen accept };
