@@ -1,0 +1,43 @@
+typeattribute logd coredomain;
+
+init_daemon_domain(logd)
+
+allow logd adbd:dir search;
+allow logd adbd:file { getattr open read };
+allow logd device:dir search;
+allow logd hwservicemanager:dir search;
+allow logd hwservicemanager:file { open read };
+allow logd init:dir search;
+allow logd init:fd use;
+allow logd init:file { getattr open read };
+allow logd kernel:dir search;
+allow logd kernel:file { getattr open read };
+allow logd kernel:system { syslog_mod syslog_read };
+allow logd keystore:dir search;
+allow logd keystore:file { getattr open read };
+allow logd linkerconfig_file:dir search;
+allow logd microdroid_manager:dir search;
+allow logd microdroid_manager:file { getattr open read };
+allow logd null_device:chr_file { open read };
+#allow logd proc_kmsg:file read;
+r_dir_file(logd, cgroup)
+r_dir_file(logd, cgroup_v2)
+r_dir_file(logd, proc_kmsg)
+r_dir_file(logd, proc_meminfo)
+allow logd self:fifo_file { read write };
+allow logd self:file { getattr open read };
+allow logd self:global_capability_class_set { setuid setgid setpcap sys_nice audit_control };
+allow logd self:global_capability2_class_set syslog;
+#allow logd self:netlink_audit_socket getopt;
+allow logd self:netlink_audit_socket { create_socket_perms_no_ioctl nlmsg_write };
+allow logd kmsg_device:chr_file { getattr w_file_perms };
+r_dir_file(logd, domain)
+allow logd self:unix_stream_socket { accept getopt setopt shutdown };
+allow logd servicemanager:dir search;
+allow logd servicemanager:file { open read };
+allow logd tombstoned:dir search;
+allow logd tombstoned:file { getattr open read };
+allow logd ueventd:dir search;
+allow logd ueventd:file { getattr open read };
+control_logd(logd)
+read_runtime_log_tags(logd)

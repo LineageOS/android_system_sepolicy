@@ -1,0 +1,83 @@
+typeattribute kernel coredomain;
+
+domain_auto_trans(kernel, init_exec, init)
+
+# The following sections are for the transition period during a Virtual A/B
+# OTA. Once sepolicy is loaded, snapuserd must be re-launched in the correct
+# context, and with properly labelled devices. This must be done before
+# enabling enforcement, eg, in permissive mode while still in the kernel
+# context.
+allow kernel tmpfs:blk_file { getattr relabelfrom };
+allow kernel tmpfs:chr_file { getattr relabelfrom };
+allow kernel tmpfs:lnk_file { getattr relabelfrom };
+allow kernel tmpfs:dir { open read relabelfrom };
+
+allow kernel block_device:blk_file relabelto;
+allow kernel block_device:lnk_file relabelto;
+allow kernel dm_device:chr_file relabelto;
+allow kernel dm_device:blk_file relabelto;
+allow kernel dm_user_device:dir { read open search relabelto };
+allow kernel dm_user_device:chr_file relabelto;
+allow kernel kmsg_device:chr_file relabelto;
+allow kernel null_device:chr_file relabelto;
+allow kernel random_device:chr_file relabelto;
+allow kernel kmsg_device:chr_file write;
+allow kernel vd_device:blk_file read;
+
+allow kernel self:global_capability_class_set sys_nice;
+
+# Root fs.
+r_dir_file(kernel, rootfs)
+
+# Used to read androidboot.selinux property
+allow kernel {
+  proc_bootconfig
+  proc_cmdline
+}:file r_file_perms;
+
+# Get SELinux enforcing status.
+allow kernel selinuxfs:dir r_dir_perms;
+allow kernel selinuxfs:file r_file_perms;
+
+# Get file contexts during first stage
+allow kernel file_contexts_file:file r_file_perms;
+
+# Allow init relabel itself.
+allow kernel rootfs:file relabelfrom;
+allow kernel init_exec:file relabelto;
+# TODO: investigate why we need this.
+allow kernel init:process share;
+
+# cgroup filesystem initialization prior to setting the cgroup root directory label.
+allow kernel unlabeled:dir search;
+
+# Initial setenforce by init prior to switching to init domain.
+# We use dontaudit instead of allow to prevent a kernel spawned userspace
+# process from turning off SELinux once enabled.
+dontaudit kernel self:security setenforce;
+
+# Init reboot before switching selinux domains under certain error
+# conditions. Allow it.
+# As part of rebooting, init writes "u" to /proc/sysrq-trigger to
+# remount filesystems read-only. /data is not mounted at this point,
+# so we could ignore this. For now, we allow it.
+allow kernel self:global_capability_class_set sys_boot;
+allow kernel proc_sysrq:file w_file_perms;
+
+# Allow writing to /dev/kmsg which was created prior to loading policy.
+allow kernel tmpfs:chr_file write;
+
+# Set checkreqprot by init.rc prior to switching to init domain.
+allow kernel selinuxfs:file write;
+allow kernel self:security setcheckreqprot;
+
+# kernel thread "loop0", used by the loop block device, for ASECs (b/17158723)
+allow kernel { sdcard_type fuse }:file { read write };
+
+# Allow the kernel to read APEX file descriptors and (staged) data files;
+# Needed because APEX uses the loopback driver, which issues requests from
+# a kernel thread in earlier kernel version.
+allow kernel apexd:fd use;
+
+#-----------------------------------------
+allow kernel apkdmverity:fd use;

@@ -1,0 +1,23 @@
+# Miscellaneous types
+type adb_service, system_server_service, system_api_service, service_manager_type;
+type apex_service, service_manager_type;
+type authorization_service, service_manager_type;
+type credstore_service, app_api_service, service_manager_type;
+type default_android_hwservice, hwservice_manager_type, protected_hwservice;
+type default_android_service, service_manager_type;
+type hal_keymint_service, protected_service, vendor_service, service_manager_type;
+type hal_remotelyprovisionedcomponent_service, protected_service, vendor_service, service_manager_type;
+type hidl_allocator_hwservice, hwservice_manager_type, coredomain_hwservice;
+type hidl_base_hwservice, hwservice_manager_type;
+type hidl_manager_hwservice, hwservice_manager_type, coredomain_hwservice;
+type hidl_memory_hwservice, hwservice_manager_type, coredomain_hwservice;
+type hidl_token_hwservice, hwservice_manager_type, coredomain_hwservice;
+type hal_keymaster_hwservice, hwservice_manager_type, protected_hwservice;
+type keystore_compat_hal_service, service_manager_type;
+type keystore_maintenance_service, service_manager_type;
+type keystore_metrics_service, service_manager_type;
+type keystore_service, service_manager_type;
+type legacykeystore_service, service_manager_type;
+type remoteprovisioning_service, service_manager_type;
+type system_linker;
+type vm_payload_key;
