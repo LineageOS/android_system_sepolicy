@@ -1,0 +1,254 @@
+# Rules for all domains.
+
+# Allow reaping by init.
+allow domain init:process sigchld;
+
+# Intra-domain accesses.
+allow domain self:process {
+    fork
+    sigchld
+    sigkill
+    sigstop
+    signull
+    signal
+    getsched
+    setsched
+    getsession
+    getpgid
+    setpgid
+    getcap
+    setcap
+    getattr
+    setrlimit
+};
+allow domain self:fd use;
+allow domain proc:dir r_dir_perms;
+allow domain proc_net_type:dir search;
+r_dir_file(domain, self)
+allow domain self:{ fifo_file file } rw_file_perms;
+allow domain self:unix_dgram_socket { create_socket_perms sendto };
+allow domain self:unix_stream_socket { create_stream_socket_perms connectto };
+
+# Inherit or receive open files from others.
+allow domain init:fd use;
+
+# Root fs.
+allow domain tmpfs:dir { getattr search };
+allow domain rootfs:dir search;
+allow domain rootfs:lnk_file { read getattr };
+
+# Device accesses.
+allow domain device:dir search;
+allow domain dev_type:lnk_file r_file_perms;
+allow domain devpts:dir search;
+allow domain socket_device:dir r_dir_perms;
+allow domain owntty_device:chr_file rw_file_perms;
+allow domain null_device:chr_file rw_file_perms;
+allow domain zero_device:chr_file rw_file_perms;
+
+# /dev/binder can be accessed by ... everyone! :)
+allow { domain -hwservicemanager } binder_device:chr_file rw_file_perms;
+
+# Restrict binder ioctls to an allowlist. Additional ioctl commands may be
+# added to individual domains, but this sets safe defaults for all processes.
+allowxperm domain binder_device:chr_file ioctl { unpriv_binder_ioctls };
+
+# /dev/binderfs needs to be accessed by everyone too!
+allow domain binderfs:dir { getattr search };
+allow domain binderfs_logs_proc:dir search;
+
+allow { domain -servicemanager } hwbinder_device:chr_file rw_file_perms;
+allow domain ptmx_device:chr_file rw_file_perms;
+allow domain random_device:chr_file rw_file_perms;
+allow domain proc_random:dir r_dir_perms;
+allow domain proc_random:file r_file_perms;
+allow domain properties_device:dir { search getattr };
+allow domain properties_serial:file r_file_perms;
+allow domain property_info:file r_file_perms;
+
+allow domain property_contexts_file:file r_file_perms;
+
+dontaudit domain property_type:file audit_access;
+
+allow domain init:key search;
+
+# logd access
+unix_socket_send(domain, logdw, logd)
+
+# Directory/link file access for path resolution.
+allow domain {
+    system_file
+    system_lib_file
+    system_seccomp_policy_file
+    system_security_cacerts_file
+}:dir r_dir_perms;
+allow domain system_file:lnk_file { getattr read };
+
+# Global access to /system/etc/security/cacerts/*, /system/etc/seccomp_policy/*, /system/lib[64]/*,
+# /(system|product|system_ext)/etc/(group|passwd), linker and its config.
+allow domain system_seccomp_policy_file:file r_file_perms;
+# cacerts are accessible from public Java API.
+allow domain system_security_cacerts_file:file r_file_perms;
+allow domain system_group_file:file r_file_perms;
+allow domain system_passwd_file:file r_file_perms;
+allow domain system_linker_exec:file { execute read open getattr map };
+allow domain system_linker_config_file:file r_file_perms;
+allow domain system_lib_file:file { execute read open getattr map };
+# To allow following symlinks at /system/bin/linker, /system/lib/libc.so, etc.
+allow domain system_linker_exec:lnk_file { read open getattr };
+allow domain system_lib_file:lnk_file { read open getattr };
+
+allow domain system_event_log_tags_file:file r_file_perms;
+
+allow coredomain system_file:file { execute read open getattr map };
+
+# All domains get access to /vendor/etc
+allow domain vendor_configs_file:dir r_dir_perms;
+allow domain vendor_configs_file:file { read open getattr map };
+
+# Allow all domains to be able to follow /system/vendor and/or
+# /vendor/odm symlinks.
+allow domain vendor_file_type:lnk_file { getattr open read };
+
+# This is required to be able to search & read /vendor/lib64
+# in order to lookup vendor libraries. The execute permission
+# for coredomains is granted *only* for same process HALs
+allow domain vendor_file:dir { getattr search };
+
+# Allow reading and executing out of /vendor to all vendor domains
+allow { domain -coredomain } vendor_file_type:dir r_dir_perms;
+allow { domain -coredomain } vendor_file_type:file { read open getattr execute map };
+allow { domain -coredomain } vendor_file_type:lnk_file { getattr read };
+
+# read and stat any sysfs symlinks
+allow domain sysfs:lnk_file { getattr read };
+
+# Lots of processes access current CPU information
+r_dir_file(domain, sysfs_devices_system_cpu)
+
+# If kernel CONFIG_TRANSPARENT_HUGEPAGE is enabled, libjemalloc5 (statically
+# included by libc) reads /sys/kernel/mm/transparent_hugepage/enabled.
+allow domain sysfs_transparent_hugepage:dir search;
+allow domain sysfs_transparent_hugepage:file r_file_perms;
+
+allow coredomain system_data_file:dir getattr;
+# /data has the label system_data_root_file. Vendor components need the search
+# permission on system_data_root_file for path traversal to /data/vendor.
+allow domain system_data_root_file:dir { search getattr } ;
+allow domain system_data_file:dir search;
+# TODO restrict this to non-coredomain
+allow domain vendor_data_file:dir { getattr search };
+
+# required by the dynamic linker
+allow domain proc:lnk_file { getattr read };
+
+# /proc/cpuinfo
+allow domain proc_cpuinfo:file r_file_perms;
+
+# profiling needs to read /proc/sys/kernel/perf_event_max_sample_rate
+allow domain proc_perf:file r_file_perms;
+
+# toybox loads libselinux which stats /sys/fs/selinux/
+allow domain selinuxfs:dir search;
+allow domain selinuxfs:file getattr;
+allow domain sysfs:dir search;
+allow domain selinuxfs:filesystem getattr;
+
+# Almost all processes log tracing information to
+# /sys/kernel/debug/tracing/trace_marker
+# The reason behind this is documented in b/6513400
+allow domain debugfs:dir search;
+allow domain debugfs_tracing:dir search;
+allow domain debugfs_tracing_debug:dir search;
+allow domain debugfs_trace_marker:file w_file_perms;
+
+# Linux lockdown mode offers coarse-grained definitions for access controls.
+# The "confidentiality" level detects access to tracefs or the perf subsystem.
+# This overlaps with more precise declarations in Android's policy. The
+# debugfs_trace_marker above is an example in which all processes should have
+# some access to tracefs. Therefore, allow all domains to access this level.
+# The "integrity" level is however enforced.
+allow domain self:lockdown confidentiality;
+
+# Filesystem access.
+allow domain fs_type:filesystem getattr;
+allow domain fs_type:dir getattr;
+
+# Restrict all domains to an allowlist for common socket types. Additional
+# ioctl commands may be added to individual domains, but this sets safe
+# defaults for all processes. Note that granting this allowlist to domain does
+# not grant the ioctl permission on these socket types. That must be granted
+# separately.
+allowxperm domain domain:{ icmp_socket rawip_socket tcp_socket udp_socket }
+  ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
+# default allowlist for unix sockets.
+allowxperm domain { domain pdx_channel_socket_type }:{ unix_dgram_socket unix_stream_socket }
+  ioctl unpriv_unix_sock_ioctls;
+
+# Restrict PTYs to only allowed ioctls.
+# Note that granting this allowlist to domain does
+# not grant the wider ioctl permission. That must be granted
+# separately.
+allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
+
+# All domains must clearly enumerate what ioctls they use
+# on filesystem objects (plain files, directories, symbolic links,
+# named pipes, and named sockets). We start off with a safe set.
+allowxperm domain { file_type fs_type domain dev_type }:{ dir notdevfile_class_set blk_file } ioctl { FIOCLEX FIONCLEX };
+
+# If a domain has ioctl access to tun_device, it must clearly enumerate the
+# ioctls used. Safe defaults are listed below.
+allowxperm domain tun_device:chr_file ioctl { FIOCLEX FIONCLEX };
+
+# Allow a process to make a determination whether a file descriptor
+# for a plain file or pipe (fifo_file) is a tty. Note that granting
+# this allowlist to domain does not grant the ioctl permission to
+# these files. That must be granted separately.
+allowxperm domain { file_type fs_type }:file ioctl { TCGETS };
+allowxperm domain domain:fifo_file ioctl { TCGETS };
+
+# If a domain has access to perform an ioctl on a block device, allow these
+# very common, benign ioctls
+allowxperm domain dev_type:blk_file ioctl { BLKGETSIZE64 BLKSSZGET };
+
+# read APEX dir and stat any symlink pointing to APEXs.
+allow domain apex_mnt_dir:dir { getattr search };
+allow domain apex_mnt_dir:lnk_file r_file_perms;
+
+allow domain self:global_capability_class_set audit_control;
+allow domain self:netlink_audit_socket { create_socket_perms_no_ioctl nlmsg_write };
+
+# workaround for supressing property accesses.
+# TODO: remove these
+set_prop(domain, property_type -vmsecret_keymint_prop)
+# auditallow { domain -init } property_type:property_service set;
+# auditallow { domain -init } property_type:file rw_file_perms;
+
+allow domain linkerconfig_file:dir search;
+allow domain linkerconfig_file:file r_file_perms;
+
+#-----------------------------------------
+# Path resolution access in cgroups.
+allow domain cgroup:dir search;
+allow { domain } cgroup:dir w_dir_perms;
+allow { domain } cgroup:file w_file_perms;
+
+allow domain cgroup_v2:dir search;
+allow { domain } cgroup_v2:dir w_dir_perms;
+allow { domain } cgroup_v2:file w_file_perms;
+
+allow domain cgroup_rc_file:dir search;
+allow domain cgroup_rc_file:file r_file_perms;
+allow domain task_profiles_file:file r_file_perms;
+allow domain task_profiles_api_file:file r_file_perms;
+
+#-----------------------------------------
+# Allow access to fsverity keyring.
+allow domain kernel:key search;
+
+# Transition to crash_dump when /system/bin/crash_dump* is executed.
+# This occurs when the process crashes.
+# We do not apply this to the su domain to avoid interfering with
+# tests (b/114136122)
+domain_auto_trans(domain, crash_dump_exec, crash_dump);
+allow domain crash_dump:process sigchld;

@@ -1,0 +1,29 @@
+# apkdmverity is a program that protects a signed APK file using dm-verity.
+
+type apkdmverity, domain, coredomain;
+type apkdmverity_exec, exec_type, file_type, system_file_type;
+
+# allow domain transition from init
+init_daemon_domain(apkdmverity)
+
+# apkdmverity accesses "payload metadata disk" which points to
+# a /dev/vd* block device file.
+allow apkdmverity block_device:dir r_dir_perms;
+allow apkdmverity block_device:lnk_file r_file_perms;
+allow apkdmverity vd_device:blk_file r_file_perms;
+
+# allow apkdmverity to create dm-verity devices
+allow apkdmverity dm_device:{chr_file blk_file} rw_file_perms;
+# sys_admin is required to access the device-mapper and mount
+allow apkdmverity self:global_capability_class_set sys_admin;
+
+# allow apkdmverity to create loop devices with /dev/loop-control
+allow apkdmverity loop_control_device:chr_file rw_file_perms;
+
+# allow apkdmverity to access loop devices
+allow apkdmverity loop_device:blk_file rw_file_perms;
+allowxperm apkdmverity loop_device:blk_file ioctl {
+  LOOP_SET_STATUS64
+  LOOP_SET_FD
+  LOOP_SET_DIRECT_IO
+};

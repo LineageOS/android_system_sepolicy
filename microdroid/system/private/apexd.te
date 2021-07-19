@@ -1,0 +1,87 @@
+typeattribute apexd coredomain;
+
+init_daemon_domain(apexd)
+
+# allow apexd to create loop devices with /dev/loop-control
+allow apexd loop_control_device:chr_file rw_file_perms;
+# allow apexd to access loop devices
+allow apexd loop_device:blk_file rw_file_perms;
+allowxperm apexd loop_device:blk_file ioctl {
+  LOOP_GET_STATUS64
+  LOOP_SET_STATUS64
+  LOOP_SET_FD
+  LOOP_SET_BLOCK_SIZE
+  LOOP_SET_DIRECT_IO
+  LOOP_CLR_FD
+  BLKFLSBUF
+  LOOP_CONFIGURE
+};
+# allow apexd to access /dev/block
+allow apexd block_device:dir r_dir_perms;
+
+#allow apexd to access virtual disks
+allow apexd vd_device:blk_file r_file_perms;
+
+# allow apexd to access /dev/block/dm-* (device-mapper entries)
+allow apexd dm_device:chr_file rw_file_perms;
+allow apexd dm_device:blk_file rw_file_perms;
+
+# sys_admin is required to access the device-mapper and mount
+# dac_override, chown, and fowner are needed for snapshot and restore
+allow apexd self:global_capability_class_set { sys_admin chown dac_override dac_read_search fowner };
+
+# Note: fsetid is deliberately not included above. fsetid checks are
+# triggered by chmod on a directory or file owned by a group other
+# than one of the groups assigned to the current process to see if
+# the setgid bit should be cleared, regardless of whether the setgid
+# bit was even set.  We do not appear to truly need this capability
+# for apexd to operate.
+dontaudit apexd self:global_capability_class_set fsetid;
+
+# allow apexd to create a mount point in /apex
+allow apexd apex_mnt_dir:dir create_dir_perms;
+# allow apexd to mount in /apex
+allow apexd apex_mnt_dir:filesystem { mount unmount };
+allow apexd apex_mnt_dir:dir mounton;
+# allow apexd to create symlinks in /apex
+allow apexd apex_mnt_dir:lnk_file create_file_perms;
+# allow apexd to create /apex/apex-info-list.xml and relabel to apex_info_file
+allow apexd apex_mnt_dir:file { create_file_perms relabelfrom mounton };
+allow apexd apex_info_file:file relabelto;
+# apexd needs to update /apex/apex-info-list.xml after non-staged APEX update.
+allow apexd apex_info_file:file rw_file_perms;
+
+# Unmount and mount filesystems
+allow apexd labeledfs:filesystem { mount unmount };
+
+# /sys directory tree traversal
+allow apexd sysfs_type:dir search;
+# Configure read-ahead of dm-verity and loop devices
+# for dm-X
+allow apexd sysfs_dm:dir r_dir_perms;
+allow apexd sysfs_dm:file rw_file_perms;
+# for loopX
+allow apexd sysfs_loop:dir r_dir_perms;
+allow apexd sysfs_loop:file rw_file_perms;
+
+# Allow apexd to log to the kernel.
+allow apexd kmsg_device:chr_file w_file_perms;
+
+# Apex pre- & post-install permission.
+
+# Allow self-execute for the fork mount helper.
+allow apexd apexd_exec:file execute_no_trans;
+
+# Unshare and make / private so that hooks cannot influence the
+# running system.
+allow apexd rootfs:dir mounton;
+
+# apexd is using bootstrap bionic
+allow apexd system_bootstrap_lib_file:dir r_dir_perms;
+allow apexd system_bootstrap_lib_file:file { execute read open getattr map };
+
+# Allow apexd to read file contexts when performing restorecon
+allow apexd file_contexts_file:file r_file_perms;
+
+#-------------------------------------------
+allow apexd kmsg_device:chr_file w_file_perms;
