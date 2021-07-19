@@ -1,0 +1,18 @@
+android.hardware.security.keymint.IKeyMintDevice/default             u:object_r:hal_keymint_service:s0
+android.hardware.security.keymint.IRemotelyProvisionedComponent/default u:object_r:hal_remotelyprovisionedcomponent_service:s0
+android.hardware.security.secureclock.ISecureClock/default             u:object_r:hal_secureclock_service:s0
+android.hardware.security.sharedsecret.ISharedSecret/default             u:object_r:hal_sharedsecret_service:s0
+android.system.keystore2.IKeystoreService/default                    u:object_r:keystore_service:s0
+
+adb                                       u:object_r:adb_service:s0
+android.security.apc                      u:object_r:apc_service:s0
+android.security.authorization            u:object_r:authorization_service:s0
+android.security.compat                   u:object_r:keystore_compat_hal_service:s0
+android.security.identity                 u:object_r:credstore_service:s0
+android.security.keystore                 u:object_r:keystore_service:s0
+android.security.legacykeystore           u:object_r:legacykeystore_service:s0
+android.security.maintenance              u:object_r:keystore_maintenance_service:s0
+android.security.metrics                  u:object_r:keystore_metrics_service:s0
+android.security.remoteprovisioning       u:object_r:remoteprovisioning_service:s0
+apexservice                               u:object_r:apex_service:s0
+*                                         u:object_r:default_android_service:s0

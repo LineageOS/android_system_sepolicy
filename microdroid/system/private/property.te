@@ -1,0 +1,16 @@
+###
+### Neverallow rules
+###
+
+neverallow {
+  domain
+  -init
+  -microdroid_manager
+} vmsecret_keymint_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+  -microdroid_manager
+  -hal_keymint_server
+} vmsecret_keymint_prop:file no_rw_file_perms;
