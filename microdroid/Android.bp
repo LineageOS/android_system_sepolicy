@@ -1,0 +1,307 @@
+// Copyright (C) 2021 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package {
+    // http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // the below license kinds from "system_sepolicy_license":
+    //   SPDX-license-identifier-Apache-2.0
+    default_applicable_licenses: ["system_sepolicy_license"],
+}
+
+system_policy_files = [
+    "system/private/security_classes",
+    "system/private/initial_sids",
+    "system/private/access_vectors",
+    "system/public/global_macros",
+    "system/public/neverallow_macros",
+    "system/private/mls_macros",
+    "system/private/mls_decl",
+    "system/private/mls",
+    "system/private/policy_capabilities",
+    "system/public/te_macros",
+    "system/public/attributes",
+    "system/private/attributes",
+    "system/public/ioctl_defines",
+    "system/public/ioctl_macros",
+    "system/public/*.te",
+    "system/private/*.te",
+    "system/private/roles_decl",
+    "system/public/roles",
+    "system/private/users",
+    "system/private/initial_sid_contexts",
+    "system/private/fs_use",
+    "system/private/genfs_contexts",
+    "system/private/port_contexts",
+]
+
+reqd_mask_files = [
+    "reqd_mask/security_classes",
+    "reqd_mask/initial_sids",
+    "reqd_mask/access_vectors",
+    "reqd_mask/mls_macros",
+    "reqd_mask/mls_decl",
+    "reqd_mask/mls",
+    "reqd_mask/reqd_mask.te",
+    "reqd_mask/roles_decl",
+    "reqd_mask/roles",
+    "reqd_mask/users",
+    "reqd_mask/initial_sid_contexts",
+]
+
+system_public_policy_files = [
+    "reqd_mask/security_classes",
+    "reqd_mask/initial_sids",
+    "reqd_mask/access_vectors",
+    "system/public/global_macros",
+    "system/public/neverallow_macros",
+    "reqd_mask/mls_macros",
+    "reqd_mask/mls_decl",
+    "reqd_mask/mls",
+    "system/public/te_macros",
+    "system/public/attributes",
+    "system/public/ioctl_defines",
+    "system/public/ioctl_macros",
+    "system/public/*.te",
+    "reqd_mask/reqd_mask.te",
+    "reqd_mask/roles_decl",
+    "reqd_mask/roles",
+    "system/public/roles",
+    "reqd_mask/users",
+    "reqd_mask/initial_sid_contexts",
+]
+
+vendor_policy_files = [
+    "reqd_mask/security_classes",
+    "reqd_mask/initial_sids",
+    "reqd_mask/access_vectors",
+    "system/public/global_macros",
+    "system/public/neverallow_macros",
+    "reqd_mask/mls_macros",
+    "reqd_mask/mls_decl",
+    "reqd_mask/mls",
+    "system/public/te_macros",
+    "system/public/attributes",
+    "system/public/ioctl_defines",
+    "system/public/ioctl_macros",
+    "system/public/*.te",
+    "reqd_mask/reqd_mask.te",
+    "vendor/*.te",
+    "reqd_mask/roles_decl",
+    "reqd_mask/roles",
+    "system/public/roles",
+    "reqd_mask/users",
+    "reqd_mask/initial_sid_contexts",
+]
+
+se_policy_conf {
+    name: "microdroid_reqd_policy_mask.conf",
+    srcs: reqd_mask_files,
+    installable: false,
+}
+
+se_policy_cil {
+    name: "microdroid_reqd_policy_mask.cil",
+    src: ":microdroid_reqd_policy_mask.conf",
+    secilc_check: false,
+    installable: false,
+}
+
+se_policy_conf {
+    name: "microdroid_plat_sepolicy.conf",
+    srcs: system_policy_files,
+    installable: false,
+}
+
+se_policy_cil {
+    name: "microdroid_plat_sepolicy.cil",
+    stem: "plat_sepolicy.cil",
+    src: ":microdroid_plat_sepolicy.conf",
+    installable: false,
+}
+
+se_policy_conf {
+    name: "microdroid_plat_pub_policy.conf",
+    srcs: system_public_policy_files,
+    installable: false,
+}
+
+se_policy_cil {
+    name: "microdroid_plat_pub_policy.cil",
+    src: ":microdroid_plat_pub_policy.conf",
+    filter_out: [":microdroid_reqd_policy_mask.cil"],
+    secilc_check: false,
+    installable: false,
+}
+
+se_versioned_policy {
+    name: "microdroid_plat_mapping_file",
+    base: ":microdroid_plat_pub_policy.cil",
+    mapping: true,
+    version: "current",
+    relative_install_path: "mapping", // install to /system/etc/selinux/mapping
+    installable: false,
+}
+
+se_versioned_policy {
+    name: "microdroid_plat_pub_versioned.cil",
+    stem: "plat_pub_versioned.cil",
+    base: ":microdroid_plat_pub_policy.cil",
+    target_policy: ":microdroid_plat_pub_policy.cil",
+    version: "current",
+    dependent_cils: [
+        ":microdroid_plat_sepolicy.cil",
+        ":microdroid_plat_mapping_file",
+    ],
+    installable: false,
+}
+
+se_policy_conf {
+    name: "microdroid_vendor_sepolicy.conf",
+    srcs: vendor_policy_files,
+    installable: false,
+}
+
+se_policy_cil {
+    name: "microdroid_vendor_sepolicy.cil.raw",
+    src: ":microdroid_vendor_sepolicy.conf",
+    filter_out: [":microdroid_reqd_policy_mask.cil"],
+    secilc_check: false, // will be done in se_versioned_policy module
+    installable: false,
+}
+
+se_versioned_policy {
+    name: "microdroid_vendor_sepolicy.cil",
+    stem: "vendor_sepolicy.cil",
+    base: ":microdroid_plat_pub_policy.cil",
+    target_policy: ":microdroid_vendor_sepolicy.cil.raw",
+    version: "current", // microdroid is bundled to system
+    dependent_cils: [
+        ":microdroid_plat_sepolicy.cil",
+        ":microdroid_plat_pub_versioned.cil",
+        ":microdroid_plat_mapping_file",
+    ],
+    filter_out: [":microdroid_plat_pub_versioned.cil"],
+    installable: false,
+}
+
+sepolicy_vers {
+    name: "microdroid_plat_sepolicy_vers.txt",
+    version: "platform",
+    stem: "plat_sepolicy_vers.txt",
+    installable: false,
+}
+
+// sepolicy sha256 for vendor
+genrule {
+    name: "microdroid_plat_sepolicy_and_mapping.sha256_gen",
+    srcs: [":microdroid_plat_sepolicy.cil", ":microdroid_plat_mapping_file"],
+    out: ["microdroid_plat_sepolicy_and_mapping.sha256"],
+    cmd: "cat $(in) | sha256sum | cut -d' ' -f1 > $(out)",
+}
+
+prebuilt_etc {
+    name: "microdroid_plat_sepolicy_and_mapping.sha256",
+    src: ":microdroid_plat_sepolicy_and_mapping.sha256_gen",
+    filename: "plat_sepolicy_and_mapping.sha256",
+    relative_install_path: "selinux",
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "microdroid_precompiled_sepolicy.plat_sepolicy_and_mapping.sha256",
+    src: ":microdroid_plat_sepolicy_and_mapping.sha256_gen",
+    filename: "precompiled_sepolicy.plat_sepolicy_and_mapping.sha256",
+    relative_install_path: "selinux",
+    installable: false,
+}
+
+genrule {
+    name: "microdroid_precompiled_sepolicy_gen",
+    tools: ["secilc"],
+    srcs: [
+        ":microdroid_plat_sepolicy.cil",
+        ":microdroid_plat_mapping_file",
+        ":microdroid_plat_pub_versioned.cil",
+        ":microdroid_vendor_sepolicy.cil",
+    ],
+    out: ["precompiled_sepolicy"],
+    cmd: "$(location secilc) -m -M true -G -c 30 $(in) -o $(out) -f /dev/null",
+}
+
+prebuilt_etc {
+    name: "microdroid_precompiled_sepolicy",
+    src: ":microdroid_precompiled_sepolicy_gen",
+    filename: "precompiled_sepolicy",
+    relative_install_path: "selinux",
+    installable: false,
+}
+
+genrule {
+    name: "microdroid_file_contexts.gen",
+    srcs: ["system/private/file_contexts"],
+    tools: ["fc_sort"],
+    out: ["file_contexts"],
+    cmd: "sed -e 's/#.*$$//' -e '/^$$/d' $(in) > $(out).tmp && " +
+         "$(location fc_sort) -i $(out).tmp -o $(out)",
+}
+
+prebuilt_etc {
+    name: "microdroid_file_contexts",
+    filename: "plat_file_contexts",
+    src: ":microdroid_file_contexts.gen",
+    relative_install_path: "selinux",
+    installable: false,
+}
+
+genrule {
+    name: "microdroid_vendor_file_contexts.gen",
+    srcs: ["vendor/file_contexts"],
+    tools: ["fc_sort"],
+    out: ["file_contexts"],
+    cmd: "sed -e 's/#.*$$//' -e '/^$$/d' $(in) > $(out).tmp && " +
+         "$(location fc_sort) -i $(out).tmp -o $(out)",
+}
+
+prebuilt_etc {
+    name: "microdroid_hwservice_contexts",
+    filename: "plat_hwservice_contexts",
+    src: "system/private/hwservice_contexts",
+    relative_install_path: "selinux",
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "microdroid_property_contexts",
+    filename: "plat_property_contexts",
+    src: "system/private/property_contexts",
+    relative_install_path: "selinux",
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "microdroid_service_contexts",
+    filename: "plat_service_contexts",
+    src: "system/private/service_contexts",
+    relative_install_path: "selinux",
+    installable: false,
+}
+
+prebuilt_etc {
+    name: "microdroid_keystore2_key_contexts",
+    filename: "plat_keystore2_key_contexts",
+    src: "system/private/keystore2_key_contexts",
+    relative_install_path: "selinux",
+    installable: false,
+}

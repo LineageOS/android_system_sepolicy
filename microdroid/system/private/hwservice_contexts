@@ -1,0 +1,7 @@
+android.hardware.keymaster::IKeymasterDevice                    u:object_r:hal_keymaster_hwservice:s0
+android.hidl.allocator::IAllocator                              u:object_r:hidl_allocator_hwservice:s0
+android.hidl.base::IBase                                        u:object_r:hidl_base_hwservice:s0
+android.hidl.manager::IServiceManager                           u:object_r:hidl_manager_hwservice:s0
+android.hidl.memory::IMapper                                    u:object_r:hidl_memory_hwservice:s0
+android.hidl.token::ITokenManager                               u:object_r:hidl_token_hwservice:s0
+*                                                               u:object_r:default_android_hwservice:s0

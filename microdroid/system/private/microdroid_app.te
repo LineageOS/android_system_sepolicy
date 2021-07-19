@@ -1,0 +1,51 @@
+# microdroid_app is a domain for microdroid_launcher, which is a binary that
+# loads a shared library from an apk and executes it by calling an entry point
+# in the library. This can be considered as the native counterpart of
+# app_process for Java.
+#
+# Both microdroid_launcher and payload from the shared library run in the
+# context of microdroid_app.
+
+type microdroid_app, domain, coredomain;
+type microdroid_app_exec, exec_type, file_type, system_file_type;
+
+# Allow to communicate use, read and write over the adb connection.
+allow microdroid_app adbd:fd use;
+allow microdroid_app adbd:unix_stream_socket { read write };
+
+# microdroid_launcher is launched by microdroid_manager with fork/execvp.
+allow microdroid_app microdroid_manager:fd use;
+
+# Allow to use FDs inherited from the shell. This includes the FD opened for
+# the microdroid_launcher executable itself and the FD for adb connection.
+# TODO(b/186396070) remove this when this is executed from microdroid_manager
+userdebug_or_eng(`
+  allow microdroid_app shell:fd use;
+')
+
+# Allow to use terminal
+allow microdroid_app devpts:chr_file rw_file_perms;
+
+# Allow to set debug prop
+set_prop(microdroid_app, debug_prop)
+
+# Talk to binder services (for keystore)
+binder_use(microdroid_app);
+
+# Allow payloads to use keystore
+use_keystore(microdroid_app);
+
+# Allow payloads to use and manage their keys
+allow microdroid_app vm_payload_key:keystore2_key {
+    delete
+    get_info
+    manage_blob
+    rebind
+    use
+};
+
+# Allow microdroid_app to use vsock inherited from microdroid_manager
+allow microdroid_app microdroid_manager:vsock_socket { read write };
+
+# Write to /dev/kmsg.
+allow microdroid_app kmsg_device:chr_file rw_file_perms;

@@ -1,0 +1,37 @@
+# microdroid_manager is a daemon running in the microdroid.
+
+type microdroid_manager, domain, coredomain;
+type microdroid_manager_exec, exec_type, file_type, system_file_type;
+
+# allow domain transition from init
+init_daemon_domain(microdroid_manager)
+
+# microdroid_manager accesses a virtual disk block device to read VM payload
+allow microdroid_manager block_device:dir r_dir_perms;
+allow microdroid_manager block_device:lnk_file r_file_perms;
+allow microdroid_manager vd_device:blk_file r_file_perms;
+
+# microdroid_manager start payload task via microdroid_launcher
+domain_auto_trans(microdroid_manager, microdroid_app_exec, microdroid_app);
+
+# Let microdroid_manager exec other files (e.g. payload command) in the same domain.
+# TODO(b/189706019) we need to a domain for the app process.
+allow microdroid_manager system_file:file execute_no_trans;
+# Until then, allow microdroid_manager to execute the shell or other system executables.
+allow microdroid_manager {shell_exec toolbox_exec}:file rx_file_perms;
+
+# Let microdroid_manager kernel-log.
+allow microdroid_manager kmsg_device:chr_file w_file_perms;
+
+# Let microdroid_manager initialize the derived VM secrets.
+set_prop(microdroid_manager, vmsecret_keymint_prop);
+
+# Let microdroid_manager read a config file from /mnt/apk (fusefs)
+# TODO(b/188400186) remove the below two rules
+userdebug_or_eng(`
+  allow microdroid_manager fuse:dir r_dir_perms;
+  allow microdroid_manager fuse:file rx_file_perms;
+')
+
+# Let microdroid_manager to create a vsock connection back to the host VM
+allow microdroid_manager self:vsock_socket { create_socket_perms_no_ioctl };

@@ -1,0 +1,52 @@
+typeattribute ueventd coredomain;
+
+tmpfs_domain(ueventd)
+
+# Write to /dev/kmsg.
+allow ueventd kmsg_device:chr_file rw_file_perms;
+
+allow ueventd self:global_capability_class_set { chown mknod net_admin setgid fsetid sys_rawio dac_override dac_read_search fowner setuid };
+allow ueventd device:file create_file_perms;
+
+r_dir_file(ueventd, rootfs)
+
+# ueventd needs write access to files in /sys to regenerate uevents
+allow ueventd sysfs_type:file w_file_perms;
+r_dir_file(ueventd, sysfs_type)
+allow ueventd sysfs_type:{ file lnk_file } { relabelfrom relabelto setattr };
+allow ueventd sysfs_type:dir { relabelfrom relabelto setattr };
+allow ueventd tmpfs:chr_file rw_file_perms;
+allow ueventd dev_type:dir create_dir_perms;
+allow ueventd dev_type:lnk_file { create unlink };
+allow ueventd dev_type:chr_file { getattr create setattr unlink };
+allow ueventd dev_type:blk_file { getattr relabelfrom relabelto create setattr unlink };
+allow ueventd self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+
+# Get SELinux enforcing status.
+r_dir_file(ueventd, selinuxfs)
+
+# Access for /vendor/ueventd.rc and /vendor/firmware
+r_dir_file(ueventd, vendor_file_type)
+
+# Access for /apex/*/firmware
+allow ueventd apex_mnt_dir:dir r_dir_perms;
+
+# Get file contexts for new device nodes
+allow ueventd file_contexts_file:file r_file_perms;
+
+# Use setfscreatecon() to label /dev directories and files.
+allow ueventd self:process setfscreate;
+
+# Allow ueventd to read androidboot.android_dt_dir from kernel cmdline or bootconfig.
+allow ueventd proc_cmdline:file r_file_perms;
+allow ueventd proc_bootconfig:file r_file_perms;
+
+# ueventd loads modules in response to modalias events.
+allow ueventd self:global_capability_class_set sys_module;
+allow ueventd vendor_file:system module_load;
+allow ueventd kernel:key search;
+
+# ueventd is using bootstrap bionic
+allow ueventd system_bootstrap_lib_file:dir r_dir_perms;
+allow ueventd system_bootstrap_lib_file:file { execute read open getattr map };
+
