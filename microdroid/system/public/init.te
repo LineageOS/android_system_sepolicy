@@ -1,0 +1,8 @@
+# init is its own domain.
+type init, domain, mlstrustedsubject;
+type init_exec, system_file_type, exec_type, file_type;
+type init_tmpfs, file_type;
+
+allow init tmpfs:chr_file relabelfrom;
+allow init kmsg_device:chr_file { getattr write relabelto };
+allow init kmsg_debug_device:chr_file { open write relabelto };

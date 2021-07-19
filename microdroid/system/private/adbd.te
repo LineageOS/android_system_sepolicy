@@ -1,0 +1,44 @@
+typeattribute adbd coredomain;
+typeattribute adbd mlstrustedsubject;
+
+init_daemon_domain(adbd)
+
+domain_auto_trans(adbd, shell_exec, shell)
+
+userdebug_or_eng(`
+  allow adbd self:process setcurrent;
+  allow adbd su:process dyntransition;
+')
+
+# Do not sanitize the environment or open fds of the shell. Allow signaling
+# created processes.
+allow adbd shell:process { noatsecure signal };
+
+# Set UID and GID to shell.  Set supplementary groups.
+allow adbd self:global_capability_class_set { setuid setgid };
+
+# Drop capabilities from bounding set on user builds.
+allow adbd self:global_capability_class_set setpcap;
+
+# adbd probes for vsock support. Do not generate denials when
+# this occurs. (b/123569840)
+dontaudit adbd self:{ socket vsock_socket } create;
+
+# Allow adbd inside vm to forward vm's vsock.
+allow adbd self:vsock_socket { create_socket_perms_no_ioctl listen accept };
+
+# Use a pseudo tty.
+allow adbd devpts:chr_file rw_file_perms;
+
+# adb push/pull /data/local/tmp.
+allow adbd shell_data_file:dir create_dir_perms;
+allow adbd shell_data_file:file create_file_perms;
+
+allow adbd tmpfs:dir search;
+
+allow adbd rootfs:dir r_dir_perms;
+
+# Connect to shell and use a socket transferred from it.
+# Used for e.g. abb.
+allow adbd shell:unix_stream_socket { read write shutdown };
+allow adbd shell:fd use;

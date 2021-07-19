@@ -1,0 +1,446 @@
+typeattribute init coredomain;
+
+tmpfs_domain(init)
+
+domain_trans(init, shell_exec, shell)
+domain_trans(init, init_exec, ueventd)
+domain_trans(init, init_exec, vendor_init)
+
+# Allow init to figure out name of dm-device from it's /dev/block/dm-XX path.
+# This is useful in case of remounting ext4 userdata into checkpointing mode,
+# since it potentially requires tearing down dm-devices (e.g. dm-bow, dm-crypto)
+# that userdata is mounted onto.
+allow init sysfs_dm:file read;
+
+# Second-stage init performs a test for whether the kernel has SELinux hooks
+# for the perf_event_open() syscall. This is done by testing for the syscall
+# outcomes corresponding to this policy.
+allow init self:perf_event { open cpu };
+allow init self:global_capability2_class_set perfmon;
+dontaudit init self:perf_event { kernel tracepoint read write };
+
+# Allow init to restore contexts of vd_device(/dev/block/vd[..]) when labeling
+# /dev/block.
+allow init vd_device:blk_file relabelto;
+
+# chown/chmod on devices.
+allow init {
+  dev_type
+  -hw_random_device
+  -kvm_device
+}:chr_file setattr;
+
+# /dev/__null__ node created by init.
+allow init tmpfs:chr_file { create setattr unlink rw_file_perms };
+
+# /dev/__properties__
+allow init properties_device:dir relabelto;
+allow init properties_serial:file { write relabelto };
+allow init property_type:file { append create getattr map open read relabelto rename setattr unlink write };
+# /dev/__properties__/property_info
+allow init properties_device:file create_file_perms;
+allow init property_info:file relabelto;
+# /dev/event-log-tags
+allow init device:file relabelfrom;
+allow init runtime_event_log_tags_file:file { open write setattr relabelto create };
+# /dev/socket
+allow init { device socket_device dm_user_device }:dir relabelto;
+# Relabel /dev nodes created in first stage init, /dev/null, /dev/ptmx, /dev/random, /dev/urandom
+allow init { null_device ptmx_device random_device } : chr_file relabelto;
+# /dev/device-mapper, /dev/block(/.*)?
+allow init tmpfs:{ chr_file blk_file } relabelfrom;
+allow init tmpfs:blk_file getattr;
+allow init block_device:{ dir blk_file lnk_file } relabelto;
+allow init dm_device:{ chr_file blk_file } relabelto;
+allow init dm_user_device:chr_file relabelto;
+allow init kernel:fd use;
+# restorecon for early mount device symlinks
+allow init tmpfs:lnk_file { getattr read relabelfrom };
+
+# setrlimit
+allow init self:global_capability_class_set sys_resource;
+
+# Remove /dev/.booting and load /debug_ramdisk/* files
+allow init tmpfs:file { getattr unlink };
+
+# Access pty created for fsck.
+allow init devpts:chr_file { read write open };
+
+# Access /dev/__null__ node created prior to initial policy load.
+allow init tmpfs:chr_file write;
+
+# Access /dev/console.
+allow init console_device:chr_file rw_file_perms;
+
+# Access /dev/tty0.
+allow init tty_device:chr_file rw_file_perms;
+
+# Call mount(2).
+allow init self:global_capability_class_set sys_admin;
+
+# Call setns(2).
+allow init self:global_capability_class_set sys_chroot;
+
+# Create and mount on directories in /.
+allow init rootfs:dir create_dir_perms;
+allow init {
+    rootfs
+    cgroup
+    linkerconfig_file
+    system_data_file
+    system_data_root_file
+    system_file
+    vendor_file
+}:dir mounton;
+
+# Mount bpf fs on sys/fs/bpf
+allow init fs_bpf:dir mounton;
+
+# Mount on /dev/usb-ffs/adb.
+allow init device:dir mounton;
+
+# Mount tmpfs on /apex
+allow init apex_mnt_dir:dir mounton;
+
+# Create and remove symlinks in /.
+allow init rootfs:lnk_file { create unlink };
+
+# Mount debugfs on /sys/kernel/debug.
+allow init sysfs:dir mounton;
+
+# Create cgroups mount points in tmpfs and mount cgroups on them.
+allow init tmpfs:dir create_dir_perms;
+allow init tmpfs:dir mounton;
+allow init cgroup:dir create_dir_perms;
+allow init cgroup:file rw_file_perms;
+allow init cgroup_rc_file:file rw_file_perms;
+allow init cgroup_desc_file:file r_file_perms;
+allow init cgroup_desc_api_file:file r_file_perms;
+allow init cgroup_v2:dir { mounton create_dir_perms};
+allow init cgroup_v2:file rw_file_perms;
+
+# Use tmpfs as /data, used for booting when /data is encrypted
+allow init tmpfs:dir relabelfrom;
+
+# Create directories under /dev/cpuctl after chowning it to system.
+allow init self:global_capability_class_set { dac_override dac_read_search };
+
+allow init self:global_capability_class_set { sys_rawio mknod };
+
+# Mounting filesystems from block devices.
+allow init dev_type:blk_file r_file_perms;
+allowxperm init dev_type:blk_file ioctl BLKROSET;
+
+# Mounting filesystems.
+# Only allow relabelto for types used in context= mount options,
+# which should all be assigned the contextmount_type attribute.
+# This can be done in device-specific policy via type or typeattribute
+# declarations.
+allow init {
+  fs_type
+}:filesystem ~relabelto;
+
+# Allow init to mount tracefs in /sys/kernel/tracing
+allow init debugfs_tracing_debug:filesystem mount;
+
+allow init unlabeled:filesystem ~relabelto;
+allow init contextmount_type:filesystem relabelto;
+
+# Allow read-only access to context= mounted filesystems.
+allow init contextmount_type:dir r_dir_perms;
+allow init contextmount_type:notdevfile_class_set r_file_perms;
+
+# restorecon /adb_keys or any other rootfs files and directories to a more
+# specific type.
+allow init rootfs:{ dir file } relabelfrom;
+
+# mkdir, symlink, write, rm/rmdir, chown/chmod, restorecon/restorecon_recursive from init.rc files.
+# chown/chmod require open+read+setattr required for open()+fchown/fchmod().
+# system/core/init.rc requires at least cache_file and data_file_type.
+# init.<board>.rc files often include device-specific types, so
+# we just allow all file types except /system files here.
+allow init self:global_capability_class_set { chown fowner fsetid };
+
+allow init {
+  file_type
+  -exec_type
+  -system_file_type
+  -vendor_file_type
+}:dir { create search getattr open read setattr ioctl };
+
+allow init {
+  file_type
+  -exec_type
+  -keystore_data_file
+  -shell_data_file
+  -system_file_type
+  -vendor_file_type
+}:dir { write add_name remove_name rmdir relabelfrom };
+
+allow init {
+  file_type
+  -apex_info_file
+  -exec_type
+  -keystore_data_file
+  -runtime_event_log_tags_file
+  -shell_data_file
+  -system_file_type
+  -vendor_file_type
+}:file { create getattr open read write setattr relabelfrom unlink map };
+
+allow init tracefs_type:file { create_file_perms relabelfrom };
+
+allow init {
+  file_type
+  -exec_type
+  -keystore_data_file
+  -shell_data_file
+  -system_file_type
+  -vendor_file_type
+}:{ sock_file fifo_file } { create getattr open read setattr relabelfrom unlink };
+
+allow init {
+  file_type
+  -apex_mnt_dir
+  -exec_type
+  -keystore_data_file
+  -shell_data_file
+  -system_file_type
+  -vendor_file_type
+}:lnk_file { create getattr setattr relabelfrom unlink };
+
+allow init {
+  file_type
+  -system_file_type
+  -vendor_file_type
+  -exec_type
+}:dir_file_class_set relabelto;
+
+allow init { sysfs debugfs_tracing debugfs_tracing_debug }:{ dir file lnk_file } { getattr relabelfrom };
+allow init { sysfs_type tracefs_type }:{ dir file lnk_file } { relabelto getattr };
+allow init dev_type:dir create_dir_perms;
+allow init dev_type:lnk_file create;
+
+# chown/chmod on pseudo files.
+allow init {
+  fs_type
+  -contextmount_type
+  -proc_type
+  -fusefs_type
+  -sysfs_type
+  -rootfs
+}:file { open read setattr };
+allow init { fs_type -contextmount_type -fusefs_type -rootfs }:dir  { open read setattr search };
+
+allow init {
+  binder_device
+  console_device
+  devpts
+  dm_device
+  hwbinder_device
+  kmsg_device
+  null_device
+  owntty_device
+  ptmx_device
+  random_device
+  tty_device
+  zero_device
+}:chr_file { read open };
+
+# Any operation that can modify the kernel ring buffer, e.g. clear
+# or a read that consumes the messages that were read.
+allow init kernel:system syslog_mod;
+allow init self:global_capability2_class_set syslog;
+
+# init access to /proc.
+r_dir_file(init, proc_net_type)
+allow init proc_filesystems:file r_file_perms;
+
+allow init {
+  proc # b/67049235 processes /proc/<pid>/* files are mislabeled.
+  proc_bootconfig
+  proc_cmdline
+  proc_diskstats
+  proc_kmsg # Open /proc/kmsg for logd service.
+  proc_meminfo
+  proc_stat # Read /proc/stat for bootchart.
+  proc_uptime
+  proc_version
+}:file r_file_perms;
+
+allow init {
+  proc_abi
+  proc_dirty
+  proc_hostname
+  proc_hung_task
+  proc_extra_free_kbytes
+  proc_net_type
+  proc_max_map_count
+  proc_min_free_order_shift
+  proc_overcommit_memory      # /proc/sys/vm/overcommit_memory
+  proc_panic
+  proc_page_cluster
+  proc_perf
+  proc_sched
+  proc_sysrq
+}:file w_file_perms;
+
+allow init {
+  proc_security
+}:file rw_file_perms;
+
+# init chmod/chown access to /proc files.
+allow init {
+  proc_cmdline
+  proc_bootconfig
+  proc_kmsg
+  proc_net
+  proc_pagetypeinfo
+  proc_qtaguid_stat
+  proc_slabinfo
+  proc_sysrq
+  proc_qtaguid_ctrl
+  proc_vmallocinfo
+}:file setattr;
+
+# init access to /sys files.
+allow init {
+  sysfs_android_usb
+  sysfs_dm_verity
+  sysfs_leds
+  sysfs_power
+  sysfs_fs_f2fs
+  sysfs_dm
+}:file w_file_perms;
+
+allow init {
+  sysfs_dt_firmware_android
+  sysfs_fs_ext4_features
+}:file r_file_perms;
+
+allow init {
+  sysfs_zram
+}:file rw_file_perms;
+
+# allow init to create loop devices with /dev/loop-control
+allow init loop_control_device:chr_file rw_file_perms;
+allow init loop_device:blk_file rw_file_perms;
+allowxperm init loop_device:blk_file ioctl {
+  LOOP_SET_FD
+  LOOP_CLR_FD
+  LOOP_CTL_GET_FREE
+  LOOP_SET_BLOCK_SIZE
+  LOOP_SET_DIRECT_IO
+  LOOP_GET_STATUS
+};
+
+# init chmod/chown access to /sys files.
+allow init {
+  sysfs_android_usb
+  sysfs_devices_system_cpu
+  sysfs_ipv4
+  sysfs_leds
+  sysfs_lowmemorykiller
+  sysfs_power
+  sysfs_vibrator
+  sysfs_wake_lock
+  sysfs_zram
+}:file setattr;
+
+allow init self:global_capability_class_set net_admin;
+
+# Reboot.
+allow init self:global_capability_class_set sys_boot;
+
+# Support "adb shell stop"
+allow init self:global_capability_class_set kill;
+allow init domain:process { getpgid sigkill signal };
+
+# Init creates keystore's directory on boot, and walks through
+# the directory as part of a recursive restorecon.
+allow init keystore_data_file:dir { open create read getattr setattr search };
+allow init keystore_data_file:file { getattr };
+
+# Init creates /data/local/tmp at boot
+allow init shell_data_file:dir { open create read getattr setattr search };
+allow init shell_data_file:file { getattr };
+
+# Set UID, GID, and adjust capability bounding set for services.
+allow init self:global_capability_class_set { setuid setgid setpcap };
+
+# For bootchart to read the /proc/$pid/cmdline file of each process,
+# we need to have following line to allow init to have access
+# to different domains.
+r_dir_file(init, domain)
+
+# Use setexeccon(), setfscreatecon(), and setsockcreatecon().
+# setexec is for services with seclabel options.
+# setfscreate is for labeling directories and socket files.
+# setsockcreate is for labeling local/unix domain sockets.
+allow init self:process { setexec setfscreate setsockcreate };
+
+# Get file context
+allow init file_contexts_file:file r_file_perms;
+
+# sepolicy access
+allow init sepolicy_file:file r_file_perms;
+
+# Perform SELinux access checks on setting properties.
+selinux_check_access(init)
+
+# Ask the kernel for the new context on services to label their sockets.
+allow init kernel:security compute_create;
+
+# Create sockets for the services.
+allow init domain:unix_stream_socket { create bind setopt };
+allow init domain:unix_dgram_socket { create bind setopt };
+
+# Set any property.
+allow init property_type:property_service set;
+
+# Send an SELinux userspace denial to the kernel audit subsystem,
+# so it can be picked up and processed by logd. These denials are
+# generated when an attempt to set a property is denied by policy.
+allow init self:netlink_audit_socket { create_socket_perms_no_ioctl nlmsg_relay };
+allow init self:global_capability_class_set audit_write;
+
+# Run "ifup lo" to bring up the localhost interface
+allow init self:udp_socket { create ioctl };
+# in addition to unpriv ioctls granted to all domains, init also needs:
+allowxperm init self:udp_socket ioctl SIOCSIFFLAGS;
+allow init self:global_capability_class_set net_raw;
+
+# Set scheduling info for psi monitor thread.
+# TODO: delete or revise this line b/131761776
+allow init kernel:process { getsched setsched };
+
+# Create and access /dev files without a specific type,
+# e.g. /dev/.coldboot_done, /dev/.booting
+# TODO:  Move these files into their own type unless they are
+# only ever accessed by init.
+allow init device:file create_file_perms;
+
+# Access device mapper for setting up dm-verity
+allow init dm_device:chr_file rw_file_perms;
+allow init dm_device:blk_file rw_file_perms;
+
+# linux keyring configuration
+allow init init:key { write search setattr };
+
+r_dir_file(init, system_file)
+r_dir_file(init, vendor_file_type)
+
+allow init system_data_file:file { getattr read };
+allow init system_data_file:lnk_file r_file_perms;
+
+# Allow init to touch PSI monitors
+allow init proc_pressure_mem:file { rw_file_perms setattr };
+
+# init is using bootstrap bionic
+allow init system_bootstrap_lib_file:dir r_dir_perms;
+allow init system_bootstrap_lib_file:file { execute read open getattr map };
+
+# stat the root dir of fuse filesystems (for the mount handler)
+allow init fuse:dir { search getattr };
+
+set_prop(init, property_type)
