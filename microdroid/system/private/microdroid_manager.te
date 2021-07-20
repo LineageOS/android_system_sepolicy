@@ -11,8 +11,9 @@ allow microdroid_manager block_device:dir r_dir_perms;
 allow microdroid_manager block_device:lnk_file r_file_perms;
 allow microdroid_manager vd_device:blk_file r_file_perms;
 
-# microdroid_manager start payload task via microdroid_launcher
-domain_auto_trans(microdroid_manager, microdroid_app_exec, microdroid_app);
+# Allow microdroid_manager to start payload tasks
+domain_auto_trans(microdroid_manager, microdroid_app_exec, microdroid_app)
+domain_auto_trans(microdroid_manager, compos_exec, compos)
 
 # Let microdroid_manager exec other files (e.g. payload command) in the same domain.
 # TODO(b/189706019) we need to a domain for the app process.
