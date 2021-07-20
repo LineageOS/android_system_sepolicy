@@ -1,0 +1,34 @@
+# zipfuse is a FUSE daemon running in the microdroid. It mounts
+# /dev/block/by-name/microdroid-apk whose content is from an apk file on
+# /mnt/apk so that the entries in the apk file are seen as regular files. See
+# packages/modules/Virtualization/zipfuse.
+
+type zipfuse, domain, coredomain;
+type zipfuse_exec, exec_type, file_type, system_file_type;
+
+# allow domain transition from init
+init_daemon_domain(zipfuse)
+
+# allow basic rules to implement FUSE
+allow zipfuse fuse_device:chr_file rw_file_perms;
+allow zipfuse self:global_capability_class_set sys_admin;
+
+# allow access to /dev/vd* block device files and also access to the symlinks
+# /dev/block/by-name/*
+allow zipfuse block_device:dir r_dir_perms;
+allow zipfuse block_device:lnk_file r_file_perms;
+
+# /dev/block/by-name/microdroid-apk is mapped to /dev/block/dm-*
+allow zipfuse dm_device:blk_file r_file_perms;
+
+# allow mounting on /mnt/apk
+allow zipfuse tmpfs:dir mounton;
+
+# allow mounting with fscontext=u:object_r:zipfusefs:s0
+type zipfusefs, fs_type, contextmount_type;
+allow zipfuse fuse:filesystem relabelfrom;
+allow zipfuse zipfusefs:filesystem { mount relabelfrom relabelto };
+
+# allow mounting with context=u:object_r:system_file:s0 so that files provided
+# by zipfuse are treated the same as the other files in /system or /apex
+allow system_file zipfusefs:filesystem associate;

@@ -1,0 +1,71 @@
+# crash_dump might inherit CAP_SYS_PTRACE from a privileged process,
+# which will result in an audit log even when it's allowed to trace.
+dontaudit crash_dump self:global_capability_class_set { sys_ptrace };
+
+allow crash_dump kmsg_debug_device:chr_file { open append };
+
+# Use inherited file descriptors
+allow crash_dump domain:fd use;
+
+# Read/write IPC pipes inherited from crashing processes.
+allow crash_dump domain:fifo_file { read write };
+
+# Append to pipes given to us by processes requesting dumps (e.g. dumpstate)
+allow crash_dump domain:fifo_file { append };
+
+# Read information from /proc/$PID.
+allow crash_dump domain:process getattr;
+
+r_dir_file(crash_dump, domain)
+allow crash_dump exec_type:file r_file_perms;
+
+# Read all /vendor
+r_dir_file(crash_dump, vendor_file)
+
+# Talk to tombstoned
+unix_socket_connect(crash_dump, tombstoned_crash, tombstoned)
+
+# Append to tombstone files.
+allow crash_dump tombstone_data_file:file { append getattr };
+
+# crash_dump writes out logcat logs at the bottom of tombstones,
+# which is super useful in some cases.
+unix_socket_connect(crash_dump, logdr, logd)
+
+# Crash dump is not intended to access the following files. Since these
+# are WAI, suppress the denials to clean up the logs.
+dontaudit crash_dump {
+  core_data_file_type
+  vendor_file_type
+}:dir search;
+dontaudit crash_dump system_data_file:{ lnk_file file } read;
+dontaudit crash_dump property_type:file read;
+
+# Suppress denials for files in /proc that are passed
+# across exec().
+dontaudit crash_dump proc_type:file rw_file_perms;
+
+typeattribute crash_dump coredomain;
+
+# Crash dump does not need to access devices passed across exec().
+dontaudit crash_dump { devpts dev_type }:chr_file { read write };
+
+allow crash_dump {
+  domain
+  -apexd
+  -crash_dump
+  -init
+  -kernel
+  -keystore
+  -logd
+  -ueventd
+  -vendor_init
+}:process { ptrace signal sigchld sigstop sigkill };
+
+userdebug_or_eng(`
+  allow crash_dump {
+    apexd
+    keystore
+    logd
+  }:process { ptrace signal sigchld sigstop sigkill };
+')
