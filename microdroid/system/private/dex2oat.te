@@ -1,0 +1,5 @@
+# dex2oat
+type dex2oat, domain, coredomain;
+type dex2oat_exec, system_file_type, exec_type, file_type;
+
+allow dex2oat tmpfs:file { read getattr map };
