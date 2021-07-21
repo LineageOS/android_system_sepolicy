@@ -514,6 +514,7 @@ ro.lmk.critical                 u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.critical_upgrade         u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.debug                    u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.downgrade_pressure       u:object_r:lmkd_config_prop:s0 exact int
+ro.lmk.filecache_min_kb         u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.kill_heaviest_task       u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.kill_timeout_ms          u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.log_stats                u:object_r:lmkd_config_prop:s0 exact bool
