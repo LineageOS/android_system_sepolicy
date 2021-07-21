@@ -6,9 +6,8 @@ init_daemon_domain(fsverity_init)
 # Allow to read /proc/keys for searching key id.
 allow fsverity_init proc_keys:file r_file_perms;
 
-# Kernel only prints the keys that can be accessed and only kernel keyring is needed here.
-dontaudit fsverity_init init:key view;
-dontaudit fsverity_init vold:key view;
+# Ignore denials to access irrelevant keys, as a side effect to access /proc/keys.
+dontaudit fsverity_init domain:key view;
 allow fsverity_init kernel:key { view search write setattr };
 allow fsverity_init fsverity_init:key { view search write };
 
