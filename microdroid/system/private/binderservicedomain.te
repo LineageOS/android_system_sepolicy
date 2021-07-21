@@ -1,0 +1,5 @@
+allow binderservicedomain keystore:keystore_key { get_state get insert delete exist list sign verify };
+allow binderservicedomain keystore:keystore2 { get_state };
+allow binderservicedomain keystore:keystore2_key { delete get_info rebind use };
+
+use_keystore(binderservicedomain)

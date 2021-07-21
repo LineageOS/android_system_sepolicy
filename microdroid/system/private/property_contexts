@@ -1,0 +1,97 @@
+# property contexts for microdroid
+# microdroid only uses much fewer properties than normal Android, so every property is listed here.
+# The only exceptions are "debug.", "init.svc_debug_pid.", and "ctl." properties.
+
+debug. u:object_r:debug_prop:s0 prefix
+
+init.svc_debug_pid. u:object_r:init_svc_debug_prop:s0 prefix int
+
+ctl.sigstop_on$         u:object_r:ctl_sigstop_prop:s0
+ctl.sigstop_off$        u:object_r:ctl_sigstop_prop:s0
+ctl.start$              u:object_r:ctl_start_prop:s0
+ctl.stop$               u:object_r:ctl_stop_prop:s0
+ctl.restart$            u:object_r:ctl_restart_prop:s0
+ctl.interface_start$    u:object_r:ctl_interface_start_prop:s0
+ctl.interface_stop$     u:object_r:ctl_interface_stop_prop:s0
+ctl.interface_restart$  u:object_r:ctl_interface_restart_prop:s0
+
+ctl.start$adbd   u:object_r:ctl_adbd_prop:s0
+ctl.stop$adbd    u:object_r:ctl_adbd_prop:s0
+ctl.restart$adbd u:object_r:ctl_adbd_prop:s0
+
+ctl.stop$apexd u:object_r:ctl_apexd_prop:s0
+
+ctl.fuse_   u:object_r:ctl_fuse_prop:s0
+ctl.console u:object_r:ctl_console_prop:s0
+ctl.        u:object_r:ctl_default_prop:s0
+
+sys.init.perf_lsm_hooks u:object_r:init_perf_lsm_hooks_prop:s0 exact bool
+
+service.adb.root u:object_r:shell_prop:s0 exact bool
+
+ro.logd.kernel u:object_r:logd_prop:s0 exact bool
+
+ro.boottime.adbd                      u:object_r:boottime_prop:s0 exact int
+ro.boottime.hwservicemanager          u:object_r:boottime_prop:s0 exact int
+ro.boottime.init                      u:object_r:boottime_prop:s0 exact int
+ro.boottime.init.cold_boot_wait       u:object_r:boottime_prop:s0 exact int
+ro.boottime.init.first_stage          u:object_r:boottime_prop:s0 exact int
+ro.boottime.init.modules              u:object_r:boottime_prop:s0 exact int
+ro.boottime.init.selinux              u:object_r:boottime_prop:s0 exact int
+ro.boottime.keystore2                 u:object_r:boottime_prop:s0 exact int
+ro.boottime.logd                      u:object_r:boottime_prop:s0 exact int
+ro.boottime.logd-reinit               u:object_r:boottime_prop:s0 exact int
+ro.boottime.microdroid_manager        u:object_r:boottime_prop:s0 exact int
+ro.boottime.servicemanager            u:object_r:boottime_prop:s0 exact int
+ro.boottime.tombstoned                u:object_r:boottime_prop:s0 exact int
+ro.boottime.ueventd                   u:object_r:boottime_prop:s0 exact int
+ro.boottime.vendor.keymint-microdroid u:object_r:boottime_prop:s0 exact int
+ro.boottime.zipfuse                   u:object_r:boottime_prop:s0 exact int
+
+ro.build.fingerprint u:object_r:fingerprint_prop:s0 exact string
+
+ro.vmsecret.keymint u:object_r:vmsecret_keymint_prop:s0 exact string
+
+hwservicemanager.ready u:object_r:hwservicemanager_prop:s0 exact bool
+
+apexd.status u:object_r:apexd_prop:s0 exact enum starting activated ready
+
+ro.cold_boot_done u:object_r:cold_boot_done_prop:s0 exact bool
+
+sys.usb.controller u:object_r:usb_control_prop:s0 exact string
+
+init.svc.hwservicemanager          u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.keystore2                 u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.logd                      u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.logd-reinit               u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.microdroid_manager        u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.servicemanager            u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.ueventd                   u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.zipfuse                   u:object_r:init_service_status_private_prop:s0 exact string
+
+init.svc.adbd       u:object_r:init_service_status_prop:s0 exact string
+init.svc.tombstoned u:object_r:init_service_status_prop:s0 exact string
+
+init.svc.vendor.keymint-microdroid u:object_r:vendor_default_prop:s0 exact string
+
+ro.boot.hardware u:object_r:bootloader_prop:s0 exact string
+ro.baseband      u:object_r:bootloader_prop:s0 exact string
+ro.bootloader    u:object_r:bootloader_prop:s0 exact string
+ro.bootmode      u:object_r:bootloader_prop:s0 exact string
+ro.hardware      u:object_r:bootloader_prop:s0 exact string
+ro.revision      u:object_r:bootloader_prop:s0 exact string
+
+ro.build.id                     u:object_r:build_prop:s0 exact string
+ro.build.version.release        u:object_r:build_prop:s0 exact string
+ro.build.version.security_patch u:object_r:build_prop:s0 exact string
+ro.debuggable                   u:object_r:build_prop:s0 exact bool
+ro.product.cpu.abilist          u:object_r:build_prop:s0 exact string
+ro.adb.secure                   u:object_r:build_prop:s0 exact bool
+
+ro.property_service.version u:object_r:property_service_version_prop:s0 exact int
+
+ro.boot.slot_suffix u:object_r:exported_default_prop:s0 exact string
+
+ro.apex.updatable u:object_r:exported_default_prop:s0 exact bool
+
+keystore.boot_level u:object_r:keystore_listen_prop:s0 exact int

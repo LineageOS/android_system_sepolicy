@@ -39,6 +39,7 @@ allow mediaprovider mtp_device:chr_file rw_file_perms;
 allow mediaprovider functionfs:dir search;
 allow mediaprovider functionfs:file rw_file_perms;
 allowxperm mediaprovider functionfs:file ioctl FUNCTIONFS_ENDPOINT_DESC;
+allowxperm mediaprovider functionfs:file ioctl FUNCTIONFS_ENDPOINT_ALLOC;
 
 # MtpServer sets sys.usb.ffs.mtp.ready
 get_prop(mediaprovider, ffs_config_prop)

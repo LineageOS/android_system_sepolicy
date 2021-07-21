@@ -1,0 +1,40 @@
+type apexd_prop, property_type;
+type bootloader_prop, property_type;
+type boottime_prop, property_type;
+type build_prop, property_type;
+type cold_boot_done_prop, property_type;
+type ctl_adbd_prop, property_type;
+type ctl_apexd_prop, property_type;
+type ctl_console_prop, property_type;
+type ctl_default_prop, property_type;
+type ctl_fuse_prop, property_type;
+type ctl_interface_restart_prop, property_type;
+type ctl_interface_start_prop, property_type;
+type ctl_interface_stop_prop, property_type;
+type ctl_restart_prop, property_type;
+type ctl_sigstop_prop, property_type;
+type ctl_start_prop, property_type;
+type ctl_stop_prop, property_type;
+type debug_prop, property_type;
+type default_prop, property_type;
+type exported_default_prop, property_type;
+type fingerprint_prop, property_type;
+type hwservicemanager_prop, property_type;
+type init_perf_lsm_hooks_prop, property_type;
+type init_service_status_private_prop, property_type;
+type init_service_status_prop, property_type;
+type init_svc_debug_prop, property_type;
+type keystore_listen_prop, property_type;
+type logd_prop, property_type;
+type property_service_version_prop, property_type;
+type shell_prop, property_type;
+type usb_control_prop, property_type;
+type vendor_default_prop, property_type;
+type vmsecret_keymint_prop, property_type;
+
+allow property_type tmpfs:filesystem associate;
+
+#----------------------------------------
+type adbd_config_prop, property_type;
+
+type module_sdkextensions_prop, property_type;

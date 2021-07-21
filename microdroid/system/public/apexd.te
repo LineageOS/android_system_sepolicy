@@ -1,0 +1,5 @@
+type apexd, domain, coredomain;
+type apexd_exec, file_type, exec_type, system_file_type;
+
+binder_use(apexd)
+add_service(apexd, apex_service)
