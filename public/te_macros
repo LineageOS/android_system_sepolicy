@@ -431,6 +431,9 @@ allow $1 system_suspend_hwservice:hwservice_manager find;
 hwbinder_use($1)
 get_prop($1, hwservicemanager_prop)
 allow $1 hidl_manager_hwservice:hwservice_manager find;
+# AIDL suspend hal permissions
+allow $1 hal_system_suspend_service:service_manager find;
+binder_use($1)
 ')
 
 #####################################
