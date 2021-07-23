@@ -1,0 +1,15 @@
+# TODO(b/193504816): move this to compos APEX
+type compos, domain, coredomain;
+type compos_exec, exec_type, file_type, system_file_type;
+
+type compos_key_cmd, domain, coredomain;
+type compos_key_cmd_exec, exec_type, file_type, system_file_type;
+
+binder_use(compos)
+use_keystore(compos)
+
+allow compos self:vsock_socket { create_socket_perms_no_ioctl listen accept };
+
+allow compos microdroid_manager:fd use;
+
+allow compos kmsg_device:chr_file w_file_perms;
