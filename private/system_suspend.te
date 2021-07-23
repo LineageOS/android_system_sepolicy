@@ -7,6 +7,8 @@ init_daemon_domain(system_suspend)
 binder_use(system_suspend)
 add_service(system_suspend, system_suspend_control_service)
 
+add_service(system_suspend, hal_system_suspend_service)
+
 # Access to /sys/power/{ wakeup_count, state } suspend interface.
 allow system_suspend sysfs_power:file rw_file_perms;
 
