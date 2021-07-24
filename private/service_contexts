@@ -21,6 +21,7 @@ android.hardware.vibrator.IVibratorManager/default                   u:object_r:
 android.hardware.weaver.IWeaver/default                              u:object_r:hal_weaver_service:s0
 android.frameworks.stats.IStats/default                              u:object_r:fwk_stats_service:s0
 android.system.keystore2.IKeystoreService/default                    u:object_r:keystore_service:s0
+android.system.suspend.ISystemSuspend/default                        u:object_r:hal_system_suspend_service:s0
 
 accessibility                             u:object_r:accessibility_service:s0
 account                                   u:object_r:account_service:s0
@@ -29,6 +30,7 @@ activity_task                             u:object_r:activity_task_service:s0
 adb                                       u:object_r:adb_service:s0
 aidl_lazy_test_1                          u:object_r:aidl_lazy_test_service:s0
 aidl_lazy_test_2                          u:object_r:aidl_lazy_test_service:s0
+aidl_lazy_cb_test                         u:object_r:aidl_lazy_test_service:s0
 alarm                                     u:object_r:alarm_service:s0
 android.os.UpdateEngineService            u:object_r:update_engine_service:s0
 android.os.UpdateEngineStableService      u:object_r:update_engine_stable_service:s0
