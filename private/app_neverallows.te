@@ -114,8 +114,12 @@ neverallow all_untrusted_apps *:{
   ax25_socket ipx_socket netrom_socket atmpvc_socket x25_socket rose_socket decnet_socket
   atmsvc_socket rds_socket irda_socket pppox_socket llc_socket can_socket tipc_socket
   bluetooth_socket iucv_socket rxrpc_socket isdn_socket phonet_socket ieee802154_socket caif_socket
-  alg_socket nfc_socket vsock_socket kcm_socket qipcrtr_socket smc_socket xdp_socket
+  alg_socket nfc_socket kcm_socket qipcrtr_socket smc_socket xdp_socket
 } *;
+
+# Apps can read/write vsock created by virtualizationservice to communicate with the VM that they own,
+# but nothing more than that (e.g. creating a new vsock, etc.)
+neverallow all_untrusted_apps virtualizationservice:vsock_socket ~{ getattr read write };
 
 # Disallow sending RTM_GETLINK messages on netlink sockets.
 neverallow all_untrusted_apps domain:netlink_route_socket { bind nlmsg_readpriv };
