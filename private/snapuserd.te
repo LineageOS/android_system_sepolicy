@@ -17,10 +17,24 @@ allow snapuserd dm_device:blk_file rw_file_perms;
 allow snapuserd dm_user_device:dir r_dir_perms;
 allow snapuserd dm_user_device:chr_file rw_file_perms;
 
-# Reading and writing to /dev/socket/snapuserd.
+# Reading and writing to /dev/socket/snapuserd and snapuserd_proxy.
 allow snapuserd snapuserd_socket:unix_stream_socket { accept listen getattr read write };
+allow snapuserd snapuserd_proxy_socket:sock_file write;
 
 # This arises due to first-stage init opening /dev/null without F_CLOEXEC
 # (see SetStdioToDevNull in init). When we fork() and execveat() snapuserd
 # again, the descriptor leaks into the new process.
 allow snapuserd kernel:fd use;
+
+# snapuserd.* properties
+set_prop(snapuserd, snapuserd_prop)
+
+# For inotify watching for /dev/socket/snapuserd_proxy to appear.
+allow snapuserd tmpfs:dir read;
+
+# Forbid anything other than snapuserd and init setting snapuserd properties.
+neverallow {
+  domain
+  -snapuserd
+  -init
+} snapuserd_prop:property_service set;
