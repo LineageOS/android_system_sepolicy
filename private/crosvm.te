@@ -2,12 +2,6 @@ type crosvm, domain, coredomain;
 type crosvm_exec, system_file_type, exec_type, file_type;
 type crosvm_tmpfs, file_type;
 
-# Let crosvm create temporary files.
-tmpfs_domain(crosvm)
-
-# Let crosvm receive file descriptors from VirtualizationService.
-allow crosvm virtualizationservice:fd use;
-
 # Let crosvm open /dev/kvm.
 allow crosvm kvm_device:chr_file rw_file_perms;
 
@@ -15,9 +9,53 @@ allow crosvm kvm_device:chr_file rw_file_perms;
 neverallow { domain -crosvm -ueventd -shell } kvm_device:chr_file getattr;
 neverallow { domain -crosvm -ueventd } kvm_device:chr_file ~getattr;
 
-# Let crosvm read and write files from clients of virtualizationservice, but not open them directly
-# as they must be passed via virtualizationservice.
-allow crosvm apk_data_file:file { getattr read };
-allow crosvm app_data_file:file { getattr read write };
-# shell_data_file is used for automated tests and manual debugging.
-allow crosvm shell_data_file:file { getattr read write };
+# Let crosvm create temporary files.
+tmpfs_domain(crosvm)
+
+# Let crosvm receive file descriptors from VirtualizationService.
+allow crosvm virtualizationservice:fd use;
+
+# Let crosvm read the composite disk images (virtualizationservice_data_file), APEXes
+# (staging_data_file), APKs (apk_data_file and shell_data_file where the latter is for test apks in
+# /data/local/tmp), and instance.img (app_data_file). Note that the open permission is not given as
+# the files are passed as file descriptors.
+allow crosvm {
+  virtualizationservice_data_file
+  staging_data_file
+  apk_data_file
+  app_data_file
+  userdebug_or_eng(`shell_data_file')
+}:file { getattr read ioctl lock };
+
+# Allow searching the directory where the composite disk images are.
+allow crosvm virtualizationservice_data_file:dir search;
+
+# TODO(b/193402941) delete this. This for now is required because crosvm needs to open the files for
+# the GPT headers of the composite disks.
+allow crosvm virtualizationservice_data_file:file open;
+
+# Don't allow crosvm to open files that it doesn't own.
+neverallow crosvm {
+  #TODO(b/193402941) uncomment the following line
+  #virtualizationservice_data_file
+  staging_data_file
+  apk_data_file
+  app_data_file
+  userdebug_or_eng(`-shell_data_file')
+}:file open;
+
+# The instance image and the composite image should be writable as well because they could represent
+# mutable disks.
+allow crosvm {
+  virtualizationservice_data_file
+  app_data_file
+}:file write;
+
+# Allow crosvm to pipe console log to shell or app which could be the owner of a VM.
+allow crosvm { adbd appdomain }:fd use;
+allow crosvm adbd:unix_stream_socket { read write };
+allow crosvm appdomain:fifo_file { read write };
+
+# The console log can also be written to /data/local/tmp. This is not safe as the log then can be
+# visible to the processes which don't own the VM. Therefore, this is a debugging only feature.
+userdebug_or_eng(`allow crosvm shell_data_file:file w_file_perms;')

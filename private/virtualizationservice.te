@@ -7,6 +7,14 @@ init_daemon_domain(virtualizationservice)
 
 # Let the virtualizationservice domain use Binder.
 binder_use(virtualizationservice)
+# ... and host a binder service
+binder_service(virtualizationservice)
+# It needs to call back to app
+binder_call(virtualizationservice, appdomain)
+
+# Allow calling into the system server so that it can check permissions.
+binder_call(virtualizationservice, system_server)
+allow virtualizationservice permission_service:service_manager find;
 
 # Let the virtualizationservice domain register the virtualization_service with ServiceManager.
 add_service(virtualizationservice, virtualization_service)
@@ -32,22 +40,28 @@ binder_call($1, virtualizationservice)
 allow virtualizationservice $1:fd use;
 ')
 
-# Let the shell user call virtualizationservice for debugging.
+# Let the shell user call virtualizationservice (and virtualizationservice call back to shell) for
+# debugging.
 virtualizationservice_use(shell)
+binder_call(virtualizationservice, shell)
+
+# Allow to use fd (e.g. /dev/pts/0) inherited from adbd so that we can redirect output from
+# crosvm to the console
+allow virtualizationservice adbd:fd use;
+allow virtualizationservice adbd:unix_stream_socket { read write };
 
 # Let virtualizationservice read and write files from its various clients, but not open them
 # directly as they must be passed over Binder by the client.
 allow virtualizationservice apk_data_file:file { getattr read };
+# Write access is needed for mutable partitions like instance.img
 allow virtualizationservice app_data_file:file { getattr read write };
 # shell_data_file is used for automated tests and manual debugging.
 allow virtualizationservice shell_data_file:file { getattr read write };
 
-# Allow virtualizationservice to access apex files in /data/apex/{active,decompressed}
+# Allow virtualizationservice to read apex-info-list.xml and access the APEX files listed there.
+allow virtualizationservice apex_info_file:file r_file_perms;
 allow virtualizationservice apex_data_file:dir search;
 allow virtualizationservice staging_data_file:file r_file_perms;
-
-# Allow virtualizationservice to read apex-info-list.xml
-allow virtualizationservice apex_info_file:file r_file_perms;
 
 # Let virtualizationservice to accept vsock connection from the guest VMs
 allow virtualizationservice self:vsock_socket { create_socket_perms_no_ioctl listen accept };
