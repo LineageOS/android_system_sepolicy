@@ -393,3 +393,6 @@ expandattribute dmabuf_heap_device_type false;
 attribute gsi_metadata_file_type;
 
 attribute fusefs_type;
+
+# All types run from microdroid_manager as a payload
+attribute microdroid_payload;
