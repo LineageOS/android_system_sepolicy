@@ -1,0 +1,31 @@
+# microdroid_payload is an attribute for microdroid payload processes.
+# Domains should have microdroid_payload to be run from microdroid_manager.
+
+# Allow to communicate use, read and write over the adb connection.
+allow microdroid_payload adbd:fd use;
+allow microdroid_payload adbd:unix_stream_socket { read write };
+
+# microdroid_launcher is launched by microdroid_manager with fork/execvp.
+allow microdroid_payload microdroid_manager:fd use;
+
+# Allow to use FDs inherited from the shell. This includes the FD opened for
+# the microdroid_launcher executable itself and the FD for adb connection.
+# TODO(b/186396070) remove this when this is executed from microdroid_manager
+userdebug_or_eng(`
+  allow microdroid_payload shell:fd use;
+')
+
+# Allow to use terminal
+allow microdroid_payload devpts:chr_file rw_file_perms;
+
+# Allow to set debug prop
+set_prop(microdroid_payload, debug_prop)
+
+# Allow microdroid_payload to use vsock inherited from microdroid_manager
+allow microdroid_payload microdroid_manager:vsock_socket { read write };
+
+# Write to /dev/kmsg.
+allow microdroid_payload kmsg_device:chr_file rw_file_perms;
+
+# Only microdroid_payload can be run by microdroid_manager
+neverallow microdroid_manager { domain -crash_dump -microdroid_payload }:process transition;
