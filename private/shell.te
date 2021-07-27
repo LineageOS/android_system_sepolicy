@@ -106,8 +106,16 @@ allowxperm shell shell_data_file:dir ioctl {
 # Allow shell to execute simpleperf without a domain transition.
 allow shell simpleperf_exec:file rx_file_perms;
 
-# Allow shell to execute profcollectctl without a domain transition.
-allow shell profcollectd_exec:file rx_file_perms;
+userdebug_or_eng(`
+  # Allow shell to execute profcollectctl without a domain transition.
+  allow shell profcollectd_exec:file rx_file_perms;
+
+  # Allow shell to read profcollectd data files.
+  r_dir_file(shell, profcollectd_data_file)
+
+  # Allow to issue control commands to profcollectd binder service.
+  allow shell profcollectd:binder call;
+')
 
 # Allow shell to call perf_event_open for profiling other shell processes, but
 # not the whole system.
@@ -172,11 +180,6 @@ get_prop(shell, init_perf_lsm_hooks_prop)
 get_prop(shell, build_bootimage_prop)
 
 userdebug_or_eng(`set_prop(shell, persist_debug_prop)')
-
-# Allow to issue control commands to profcollectd binder service.
-userdebug_or_eng(`
-  allow shell profcollectd:binder call;
-')
 
 # Allow shell to read the keystore key contexts files. Used by native tests to test label lookup.
 allow shell keystore2_key_contexts_file:file r_file_perms;
