@@ -169,6 +169,9 @@ ctl.restart$gsid        u:object_r:ctl_gsid_prop:s0
 # Restrict access to stopping apexd.
 ctl.stop$apexd          u:object_r:ctl_apexd_prop:s0
 
+# Restrict access to stopping odsign
+ctl.stop$odsign         u:object_r:ctl_odsign_prop:s0
+
 # Restrict access to starting media.transcoding.
 ctl.start$media.transcoding  u:object_r:ctl_mediatranscoding_prop:s0
 
