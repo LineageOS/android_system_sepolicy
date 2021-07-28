@@ -54,6 +54,9 @@ domain_auto_trans(odsign, fsverity_init_exec, fsverity_init)
 set_prop(odsign, odsign_prop)
 neverallow { domain -odsign -init } odsign_prop:property_service set;
 
+# Allow odsign to stop itself
+set_prop(odsign, ctl_odsign_prop)
+
 # Neverallows
 neverallow { domain -odsign -init -fsverity_init } odsign_data_file:dir *;
 neverallow { domain -odsign -init -fsverity_init } odsign_data_file:file *;
