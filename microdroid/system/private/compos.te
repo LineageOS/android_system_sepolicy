@@ -2,9 +2,6 @@
 type compos, domain, coredomain, microdroid_payload;
 type compos_exec, exec_type, file_type, system_file_type;
 
-type compos_key_cmd, domain, coredomain;
-type compos_key_cmd_exec, exec_type, file_type, system_file_type;
-
 allow compos self:vsock_socket { create_socket_perms_no_ioctl listen accept };
 
 # Talk to binder services (for keystore)
