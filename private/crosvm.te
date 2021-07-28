@@ -24,6 +24,7 @@ allow crosvm {
   staging_data_file
   apk_data_file
   app_data_file
+  apex_compos_data_file
   userdebug_or_eng(`shell_data_file')
 }:file { getattr read ioctl lock };
 
@@ -49,6 +50,7 @@ neverallow crosvm {
 allow crosvm {
   virtualizationservice_data_file
   app_data_file
+  apex_compos_data_file
 }:file write;
 
 # Allow crosvm to pipe console log to shell or app which could be the owner of a VM.
