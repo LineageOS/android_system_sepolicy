@@ -1,5 +1,4 @@
 (/.*)?                   u:object_r:system_file:s0
-/bin/compos_key_cmd      u:object_r:compos_key_cmd_exec:s0
 /bin/compos_key_main     u:object_r:compos_exec:s0
 /bin/compsvc             u:object_r:compos_exec:s0
 /bin/compsvc_worker      u:object_r:compos_exec:s0
