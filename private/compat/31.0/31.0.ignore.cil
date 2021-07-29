@@ -10,6 +10,8 @@
     hal_system_suspend_service
     hal_tv_tuner_service
     power_stats_service
+    snapuserd_prop
+    snapuserd_proxy_socket
     tare_service
     transformer_service
     proc_watermark_boost_factor
