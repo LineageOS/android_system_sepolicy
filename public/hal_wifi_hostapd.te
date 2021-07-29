@@ -3,6 +3,11 @@ binder_call(hal_wifi_hostapd_client, hal_wifi_hostapd_server)
 binder_call(hal_wifi_hostapd_server, hal_wifi_hostapd_client)
 
 hal_attribute_hwservice(hal_wifi_hostapd, hal_wifi_hostapd_hwservice)
+hal_attribute_service(hal_wifi_hostapd, hal_wifi_hostapd_service)
+
+binder_call(hal_wifi_hostapd_server, servicemanager)
+
+allow hal_wifi_hostapd_server dumpstate:fifo_file write;
 
 allow hal_wifi_hostapd_server self:global_capability_class_set { net_admin net_raw };
 
