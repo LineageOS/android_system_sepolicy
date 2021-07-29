@@ -54,7 +54,11 @@ allow virtualizationservice adbd:unix_stream_socket { read write };
 # directly as they must be passed over Binder by the client.
 allow virtualizationservice apk_data_file:file { getattr read };
 # Write access is needed for mutable partitions like instance.img
-allow virtualizationservice app_data_file:file { getattr read write };
+allow virtualizationservice {
+  app_data_file
+  apex_compos_data_file
+}:file { getattr read write };
+
 # shell_data_file is used for automated tests and manual debugging.
 allow virtualizationservice shell_data_file:file { getattr read write };
 
