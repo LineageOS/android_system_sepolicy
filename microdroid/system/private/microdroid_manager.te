@@ -30,4 +30,8 @@ userdebug_or_eng(`
 # Let microdroid_manager to create a vsock connection back to the host VM
 allow microdroid_manager self:vsock_socket { create_socket_perms_no_ioctl };
 
+# microdroid_manager is using bootstrap bionic
+allow microdroid_manager system_bootstrap_lib_file:dir r_dir_perms;
+allow microdroid_manager system_bootstrap_lib_file:file { execute read open getattr map };
+
 neverallow microdroid_manager { file_type fs_type }:file execute_no_trans;
