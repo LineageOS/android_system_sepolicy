@@ -9,6 +9,7 @@
     camera2_extensions_prop
     hal_system_suspend_service
     hal_tv_tuner_service
+    hal_wifi_hostapd_service
     power_stats_service
     snapuserd_prop
     snapuserd_proxy_socket
@@ -16,4 +17,6 @@
     transformer_service
     proc_watermark_boost_factor
     untrusted_app_30
+    proc_vendor_sched
+    sysfs_vendor_sched
   ))
