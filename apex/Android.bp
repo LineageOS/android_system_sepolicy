@@ -197,6 +197,13 @@ filegroup {
 }
 
 filegroup {
+  name: "com.android.uwb-file_contexts",
+  srcs: [
+    "com.android.uwb-file_contexts",
+  ],
+}
+
+filegroup {
   name: "com.android.virt-file_contexts",
   srcs: [
     "com.android.virt-file_contexts",
