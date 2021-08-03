@@ -187,6 +187,11 @@ allow shell keystore2_key_contexts_file:file r_file_perms;
 # Allow shell to access the keystore2_key namespace shell_key. Mainly used for native tests.
 allow shell shell_key:keystore2_key { delete rebind use get_info update };
 
+# Allow shell to open and execute memfd files for minijail unit tests.
+userdebug_or_eng(`
+  allow shell appdomain_tmpfs:file { open execute_no_trans };
+')
+
 # Allow shell to write db.log.detailed, db.log.slow_query_threshold*
 set_prop(shell, sqlite_log_prop)
 
