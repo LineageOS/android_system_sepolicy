@@ -38,6 +38,7 @@ recovery_only(`
   allow recovery snapuserd_socket:sock_file write;
   allow recovery snapuserd:unix_stream_socket connectto;
   allow recovery dm_user_device:dir r_dir_perms;
+  get_prop(recovery, snapuserd_prop)
 
   # Set fastbootd protocol property
   set_prop(recovery, fastbootd_protocol_prop)
