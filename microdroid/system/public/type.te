@@ -19,5 +19,6 @@ type keystore_metrics_service, service_manager_type;
 type keystore_service, service_manager_type;
 type legacykeystore_service, service_manager_type;
 type remoteprovisioning_service, service_manager_type;
+type service_manager_service, service_manager_type;
 type system_linker;
 type vm_payload_key;
