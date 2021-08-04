@@ -237,6 +237,7 @@ persist.device_config.attempted_boot_count          u:object_r:device_config_boo
 persist.device_config.configuration.                u:object_r:device_config_configuration_prop:s0
 persist.device_config.connectivity.                 u:object_r:device_config_connectivity_prop:s0
 persist.device_config.input_native_boot.            u:object_r:device_config_input_native_boot_prop:s0
+persist.device_config.lmkd_native.                  u:object_r:device_config_lmkd_native_prop:s0
 persist.device_config.media_native.                 u:object_r:device_config_media_native_prop:s0
 persist.device_config.netd_native.                  u:object_r:device_config_netd_native_prop:s0
 persist.device_config.profcollect_native_boot.      u:object_r:device_config_profcollect_native_boot_prop:s0
