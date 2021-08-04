@@ -32,6 +32,7 @@ service.adb.root u:object_r:shell_prop:s0 exact bool
 ro.logd.kernel u:object_r:logd_prop:s0 exact bool
 
 ro.boottime.adbd                      u:object_r:boottime_prop:s0 exact int
+ro.boottime.authfs_service            u:object_r:boottime_prop:s0 exact int
 ro.boottime.hwservicemanager          u:object_r:boottime_prop:s0 exact int
 ro.boottime.init                      u:object_r:boottime_prop:s0 exact int
 ro.boottime.init.cold_boot_wait       u:object_r:boottime_prop:s0 exact int
@@ -60,6 +61,7 @@ ro.cold_boot_done u:object_r:cold_boot_done_prop:s0 exact bool
 
 sys.usb.controller u:object_r:usb_control_prop:s0 exact string
 
+init.svc.authfs_service            u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.hwservicemanager          u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.keystore2                 u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.logd                      u:object_r:init_service_status_private_prop:s0 exact string

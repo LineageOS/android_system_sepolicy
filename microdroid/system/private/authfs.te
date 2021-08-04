@@ -1,0 +1,20 @@
+# authfs is a FUSE-based filesystem to support "remote" file access normally
+# over vsock, backed by a file server backend on Android.
+
+type authfs, domain, coredomain;
+type authfs_exec, exec_type, file_type, system_file_type;
+
+allow authfs self:vsock_socket create_socket_perms_no_ioctl;
+
+# Allow basic rules to implement FUSE.
+# TODO(195554831): Move the privilege to authfs_service
+allow authfs fuse_device:chr_file rw_file_perms;
+
+# Allow mounting authfs.
+# TODO(195554831): Move the privilege to authfs_service.
+allow authfs fuse:filesystem relabelfrom;
+allow authfs authfs_fuse:filesystem { mount relabelfrom relabelto };
+allow authfs authfs_data_file:dir { mounton search };
+
+# TODO(195568812): Don't pass FD 0,1,2 unnecessarily.
+allow authfs authfs_service:fd use;
