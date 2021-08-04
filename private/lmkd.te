@@ -8,6 +8,9 @@ set_prop(lmkd, system_lmk_prop)
 # Set lmkd.* properties.
 set_prop(lmkd, lmkd_prop)
 
+# Get persist.device_config.lmk_native.* properties.
+get_prop(lmkd, device_config_lmkd_native_prop)
+
 allow lmkd fs_bpf:dir search;
 allow lmkd fs_bpf:file read;
 allow lmkd bpfloader:bpf map_read;
