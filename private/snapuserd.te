@@ -42,7 +42,7 @@ allow snapuserd kernel:fd use;
 set_prop(snapuserd, snapuserd_prop)
 
 # For inotify watching for /dev/socket/snapuserd_proxy to appear.
-allow snapuserd tmpfs:dir read;
+allow snapuserd tmpfs:dir { read watch };
 
 # Forbid anything other than snapuserd and init setting snapuserd properties.
 neverallow {
