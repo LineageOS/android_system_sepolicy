@@ -8,6 +8,18 @@ init_daemon_domain(snapuserd)
 
 allow snapuserd kmsg_device:chr_file rw_file_perms;
 
+# Allow snapuserd to reach block devices in /dev/block.
+allow snapuserd block_device:dir search;
+
+# Read /sys/block to find all the DM directories like (/sys/block/dm-X).
+allow snapuserd sysfs:dir { open read };
+
+# Read /sys/block/dm-X/dm/name (which is a symlink to
+# /sys/devices/virtual/block/dm-X/dm/name) to identify the mapping between
+# dm-X and dynamic partitions.
+allow snapuserd sysfs_dm:dir { open read search };
+allow snapuserd sysfs_dm:file r_file_perms;
+
 # Reading and writing to /dev/block/dm-* (device-mapper) nodes.
 allow snapuserd block_device:dir r_dir_perms;
 allow snapuserd dm_device:chr_file rw_file_perms;
@@ -30,7 +42,7 @@ allow snapuserd kernel:fd use;
 set_prop(snapuserd, snapuserd_prop)
 
 # For inotify watching for /dev/socket/snapuserd_proxy to appear.
-allow snapuserd tmpfs:dir read;
+allow snapuserd tmpfs:dir { read watch };
 
 # Forbid anything other than snapuserd and init setting snapuserd properties.
 neverallow {
