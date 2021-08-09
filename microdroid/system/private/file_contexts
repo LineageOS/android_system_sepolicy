@@ -117,6 +117,8 @@
 /system/bin/microdroid_launcher  u:object_r:microdroid_app_exec:s0
 /system/bin/microdroid_manager   u:object_r:microdroid_manager_exec:s0
 /system/bin/apkdmverity          u:object_r:apkdmverity_exec:s0
+/system/bin/authfs               u:object_r:authfs_exec:s0
+/system/bin/authfs_service       u:object_r:authfs_service_exec:s0
 /system/etc/cgroups\.json               u:object_r:cgroup_desc_file:s0
 /system/etc/task_profiles/cgroups_[0-9]+\.json               u:object_r:cgroup_desc_api_file:s0
 /system/etc/event-log-tags              u:object_r:system_event_log_tags_file:s0
@@ -158,6 +160,7 @@
 /data/local/tmp/ltp(/.*)?   u:object_r:nativetest_data_file:s0
 /data/local/traces(/.*)?	u:object_r:trace_data_file:s0
 /data/misc/keystore(/.*)?       u:object_r:keystore_data_file:s0
+/data/misc/authfs(/.*)?         u:object_r:authfs_data_file:s0
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
 /data/vendor(/.*)?              u:object_r:vendor_data_file:s0
 
