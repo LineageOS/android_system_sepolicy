@@ -10,3 +10,5 @@ allow file_type rootfs:filesystem associate;
 allow proc_net proc:filesystem associate;
 allow sysfs_type sysfs:filesystem associate;
 allow system_data_file tmpfs:filesystem associate;
+
+type authfs_fuse, fs_type, contextmount_type;
