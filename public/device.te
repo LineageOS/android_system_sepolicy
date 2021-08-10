@@ -6,16 +6,16 @@ type audio_device, dev_type;
 type binder_device, dev_type, mlstrustedobject;
 type hwbinder_device, dev_type, mlstrustedobject;
 type vndbinder_device, dev_type;
-type block_device, dev_type;
+type block_device, dev_type, bdev_type;
 type camera_device, dev_type;
-type dm_device, dev_type;
-type dm_user_device, dev_type;
+type dm_device, dev_type, bdev_type;
+type dm_user_device, dev_type, bdev_type;
 type keychord_device, dev_type;
 type loop_control_device, dev_type;
-type loop_device, dev_type;
+type loop_device, dev_type, bdev_type;
 type pmsg_device, dev_type, mlstrustedobject;
 type radio_device, dev_type;
-type ram_device, dev_type;
+type ram_device, dev_type, bdev_type;
 type rtc_device, dev_type;
 type vd_device, dev_type;
 type vold_device, dev_type;
@@ -73,51 +73,51 @@ type hci_attach_dev, dev_type;
 type rpmsg_device, dev_type;
 
 # Partition layout block device
-type root_block_device, dev_type;
+type root_block_device, dev_type, bdev_type;
 
 # factory reset protection block device
-type frp_block_device, dev_type;
+type frp_block_device, dev_type, bdev_type;
 
 # System block device mounted on /system.
 # Documented at https://source.android.com/devices/bootloader/partitions-images
-type system_block_device, dev_type;
+type system_block_device, dev_type, bdev_type;
 
 # Recovery block device.
 # Documented at https://source.android.com/devices/bootloader/partitions-images
-type recovery_block_device, dev_type;
+type recovery_block_device, dev_type, bdev_type;
 
 # boot block device.
 # Documented at https://source.android.com/devices/bootloader/partitions-images
-type boot_block_device, dev_type;
+type boot_block_device, dev_type, bdev_type;
 
 # Userdata block device mounted on /data.
 # Documented at https://source.android.com/devices/bootloader/partitions-images
-type userdata_block_device, dev_type;
+type userdata_block_device, dev_type, bdev_type;
 
 # Cache block device mounted on /cache.
 # Documented at https://source.android.com/devices/bootloader/partitions-images
-type cache_block_device, dev_type;
+type cache_block_device, dev_type, bdev_type;
 
 # Block device for any swap partition.
-type swap_block_device, dev_type;
+type swap_block_device, dev_type, bdev_type;
 
 # Metadata block device used for encryption metadata.
 # Assign this type to the partition specified by the encryptable=
 # mount option in your fstab file in the entry for userdata.
 # Documented at https://source.android.com/devices/bootloader/partitions-images
-type metadata_block_device, dev_type;
+type metadata_block_device, dev_type, bdev_type;
 
 # The 'misc' partition used by recovery and A/B.
 # Documented at https://source.android.com/devices/bootloader/partitions-images
-type misc_block_device, dev_type;
+type misc_block_device, dev_type, bdev_type;
 
 # 'super' partition to be used for logical partitioning.
-type super_block_device, super_block_device_type, dev_type;
+type super_block_device, super_block_device_type, dev_type, bdev_type;
 
 # sdcard devices; normally vold uses the vold_block_device label and creates a
 # separate device node. gsid, however, accesses the original devide node
 # created through uevents, so we use a separate label.
-type sdcard_block_device, dev_type;
+type sdcard_block_device, dev_type, bdev_type;
 
 # Userdata device file for filesystem tunables
 type userdata_sysdev, dev_type;
