@@ -476,6 +476,7 @@ full_treble_only(`
     coredomain
     # TODO(b/37168747): clean up fwk access to /vendor
     -crash_dump
+    -crosvm # loads vendor-specific disk images
     -init # starts vendor executables
     -iorap_inode2filename
     -iorap_prefetcherd
