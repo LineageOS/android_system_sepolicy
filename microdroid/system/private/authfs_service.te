@@ -11,6 +11,7 @@ init_daemon_domain(authfs_service)
 
 # Allow running as a binder service.
 binder_call(authfs_service, servicemanager)
+add_service(authfs_service, authfs_binder_service)
 
 # Allow domain transition into authfs.
 domain_auto_trans(authfs_service, authfs_exec, authfs)
