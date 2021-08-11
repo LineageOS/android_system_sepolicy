@@ -7,6 +7,7 @@
   ( new_objects
     artd_service
     camera2_extensions_prop
+    hal_contexthub_service
     hal_system_suspend_service
     hal_tv_tuner_service
     hal_wifi_hostapd_service
