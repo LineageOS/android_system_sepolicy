@@ -87,6 +87,7 @@ type sysfs, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_android_usb, fs_type, sysfs_type;
 type sysfs_uio, sysfs_type, fs_type;
 type sysfs_batteryinfo, fs_type, sysfs_type;
+type sysfs_block, fs_type, sysfs_type, sysfs_block_type;
 type sysfs_bluetooth_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_devfreq_cur, fs_type, sysfs_type;
 type sysfs_devfreq_dir, fs_type, sysfs_type;
@@ -245,6 +246,11 @@ type vendor_public_framework_file, vendor_file_type, file_type;
 type vendor_keylayout_file, vendor_file_type, file_type;
 type vendor_keychars_file, vendor_file_type, file_type;
 type vendor_idc_file, vendor_file_type, file_type;
+
+# SoC-specific virtual machine disk files
+type vendor_vm_file, vendor_file_type, file_type;
+# SoC-specific virtual machine disk files that are mutable
+type vendor_vm_data_file, vendor_file_type, file_type;
 
 # /metadata partition itself
 type metadata_file, file_type;
