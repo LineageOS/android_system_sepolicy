@@ -32,6 +32,9 @@ allow postinstall_dexopt rootfs:file r_file_perms;
 
 allow postinstall_dexopt tmpfs:file read;
 
+# Allow access odsign verification status
+get_prop(postinstall_dexopt, odsign_prop)
+
 # Allow access to /postinstall/apex.
 allow postinstall_dexopt postinstall_apex_mnt_dir:dir { getattr search };
 

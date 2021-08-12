@@ -677,6 +677,7 @@ full_treble_only(`
     -credstore_service
     -keystore_maintenance_service
     -keystore_service
+    -legacykeystore_service
     -mediadrmserver_service
     -mediaextractor_service
     -mediametrics_service
@@ -684,7 +685,6 @@ full_treble_only(`
     -nfc_service
     -radio_service
     -virtual_touchpad_service
-    -vpnprofilestore_service
     -vr_hwc_service
     -vr_manager_service
     userdebug_or_eng(`-hal_face_service')

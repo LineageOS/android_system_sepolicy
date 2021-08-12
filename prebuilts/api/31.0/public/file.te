@@ -77,6 +77,7 @@ type proc_version, fs_type, proc_type;
 type proc_vmallocinfo, fs_type, proc_type;
 type proc_vmstat, fs_type, proc_type;
 type proc_zoneinfo, fs_type, proc_type;
+type proc_vendor_sched, proc_type, fs_type;
 type selinuxfs, fs_type, mlstrustedobject;
 type fusectlfs, fs_type;
 type cgroup, fs_type, mlstrustedobject;
@@ -85,6 +86,7 @@ type sysfs, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_android_usb, fs_type, sysfs_type;
 type sysfs_uio, sysfs_type, fs_type;
 type sysfs_batteryinfo, fs_type, sysfs_type;
+type sysfs_block, fs_type, sysfs_type, sysfs_block_type;
 type sysfs_bluetooth_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_devfreq_cur, fs_type, sysfs_type;
 type sysfs_devfreq_dir, fs_type, sysfs_type;
@@ -116,6 +118,10 @@ type sysfs_fs_ext4_features, sysfs_type, fs_type;
 type sysfs_fs_f2fs, sysfs_type, fs_type;
 type sysfs_fs_incfs_features, sysfs_type, fs_type;
 type sysfs_fs_incfs_metrics, sysfs_type, fs_type;
+type sysfs_vendor_sched, sysfs_type, fs_type;
+userdebug_or_eng(`
+    typeattribute sysfs_vendor_sched mlstrustedobject;
+')
 type fs_bpf, fs_type;
 type fs_bpf_tethering, fs_type;
 type configfs, fs_type;

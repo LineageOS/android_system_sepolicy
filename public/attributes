@@ -7,6 +7,9 @@
 # in tools/checkfc.c
 attribute dev_type;
 
+# Attribute for block devices.
+attribute bdev_type;
+
 # All types used for processes.
 attribute domain;
 
@@ -58,6 +61,9 @@ expandattribute proc_net_type true;
 
 # All types used for sysfs files.
 attribute sysfs_type;
+
+# Attribute for /sys/class/block files.
+attribute sysfs_block_type;
 
 # All types use for debugfs files.
 attribute debugfs_type;

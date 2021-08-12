@@ -103,6 +103,7 @@ genfscon proc /version u:object_r:proc_version:s0
 genfscon proc /vmallocinfo u:object_r:proc_vmallocinfo:s0
 genfscon proc /vmstat u:object_r:proc_vmstat:s0
 genfscon proc /zoneinfo u:object_r:proc_zoneinfo:s0
+genfscon proc /vendor_sched u:object_r:proc_vendor_sched:s0
 
 genfscon fusectl / u:object_r:fusectlfs:s0
 
@@ -116,6 +117,7 @@ genfscon sysfs /devices/cs_etm                    u:object_r:sysfs_devices_cs_et
 genfscon sysfs /devices/system/cpu u:object_r:sysfs_devices_system_cpu:s0
 genfscon sysfs /class/android_usb                 u:object_r:sysfs_android_usb:s0
 genfscon sysfs /class/extcon                      u:object_r:sysfs_extcon:s0
+genfscon sysfs /class/block                       u:object_r:sysfs_block:s0
 genfscon sysfs /class/leds                        u:object_r:sysfs_leds:s0
 genfscon sysfs /class/net                         u:object_r:sysfs_net:s0
 genfscon sysfs /class/rfkill/rfkill0/state        u:object_r:sysfs_bluetooth_writable:s0
@@ -164,6 +166,7 @@ genfscon sysfs /module/tcp_cubic/parameters u:object_r:sysfs_net:s0
 genfscon sysfs /module/wlan/parameters/fwpath u:object_r:sysfs_wlan_fwpath:s0
 genfscon sysfs /devices/virtual/timed_output/vibrator/enable u:object_r:sysfs_vibrator:s0
 genfscon sysfs /devices/virtual/misc/uhid u:object_r:sysfs_uhid:s0
+genfscon sysfs /kernel/vendor_sched u:object_r:sysfs_vendor_sched:s0
 
 genfscon debugfs /kprobes                             u:object_r:debugfs_kprobes:s0
 genfscon debugfs /mmc0                                u:object_r:debugfs_mmc:s0
