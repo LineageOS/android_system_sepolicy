@@ -9,6 +9,7 @@ allow authfs self:vsock_socket create_socket_perms_no_ioctl;
 # Allow basic rules to implement FUSE.
 # TODO(195554831): Move the privilege to authfs_service
 allow authfs fuse_device:chr_file rw_file_perms;
+allow authfs self:global_capability_class_set sys_admin;
 
 # Allow mounting authfs.
 # TODO(195554831): Move the privilege to authfs_service.
