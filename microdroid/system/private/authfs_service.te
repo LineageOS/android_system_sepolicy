@@ -16,6 +16,9 @@ add_service(authfs_service, authfs_binder_service)
 # Allow domain transition into authfs.
 domain_auto_trans(authfs_service, authfs_exec, authfs)
 
+# Allow mounting the FUSE filesystem.
+allow authfs_service self:global_capability_class_set sys_admin;
+
 # Allow creating/deleting mount directories.
 allow authfs_service authfs_data_file:dir create_dir_perms;
 
