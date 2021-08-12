@@ -53,8 +53,9 @@ allow vold keystore:binder call;
 allow vold keystore_service:service_manager find;
 allow vold keystore_maintenance_service:service_manager find;
 
-# vold needs to be able to call earlyBootEnded()
+# vold needs to be able to call earlyBootEnded() and deleteAllKeys()
 allow vold keystore:keystore2 early_boot_ended;
+allow vold keystore:keystore2 delete_all_keys;
 
 neverallow {
     domain

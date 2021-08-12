@@ -507,6 +507,7 @@ ro.crypto.allow_encrypt_override                u:object_r:vold_config_prop:s0 e
 ro.crypto.dm_default_key.options_format.version u:object_r:vold_config_prop:s0 exact int
 ro.crypto.fde_algorithm                         u:object_r:vold_config_prop:s0 exact string
 ro.crypto.fde_sector_size                       u:object_r:vold_config_prop:s0 exact int
+ro.crypto.metadata_init_delete_all_keys.enabled u:object_r:vold_config_prop:s0 exact bool
 ro.crypto.scrypt_params                         u:object_r:vold_config_prop:s0 exact string
 ro.crypto.set_dun                               u:object_r:vold_config_prop:s0 exact bool
 ro.crypto.volume.contents_mode                  u:object_r:vold_config_prop:s0 exact string
@@ -1130,8 +1131,17 @@ ro.telephony.iwlan_operation_mode u:object_r:telephony_config_prop:s0 exact enum
 telephony.active_modems.max_count u:object_r:telephony_config_prop:s0 exact int
 telephony.lteOnCdmaDevice         u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.volte_avail_ovr       u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.volte_avail_ovr0      u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.volte_avail_ovr1      u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.volte_avail_ovr2      u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.vt_avail_ovr          u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.vt_avail_ovr0         u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.vt_avail_ovr1         u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.vt_avail_ovr2         u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.wfc_avail_ovr         u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.wfc_avail_ovr0        u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.wfc_avail_ovr1        u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.wfc_avail_ovr2        u:object_r:telephony_config_prop:s0 exact int
 
 # System locale list filter configuration
 ro.localization.locale_filter u:object_r:localization_prop:s0 exact string
