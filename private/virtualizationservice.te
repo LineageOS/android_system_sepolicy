@@ -9,8 +9,6 @@ init_daemon_domain(virtualizationservice)
 binder_use(virtualizationservice)
 # ... and host a binder service
 binder_service(virtualizationservice)
-# It needs to call back to app
-binder_call(virtualizationservice, appdomain)
 
 # Allow calling into the system server so that it can check permissions.
 binder_call(virtualizationservice, system_server)
@@ -36,6 +34,8 @@ allow virtualizationservice virtualizationservice_data_file:dir create_dir_perms
 define(`virtualizationservice_use', `
 # Let the client call virtualizationservice.
 binder_call($1, virtualizationservice)
+# Let virtualizationservice call back to the client.
+binder_call(virtualizationservice, $1)
 # Let the client pass file descriptors to virtualizationservice.
 allow virtualizationservice $1:fd use;
 ')
@@ -43,7 +43,9 @@ allow virtualizationservice $1:fd use;
 # Let the shell user call virtualizationservice (and virtualizationservice call back to shell) for
 # debugging.
 virtualizationservice_use(shell)
-binder_call(virtualizationservice, shell)
+
+# Let apps use virtualizationservice.
+virtualizationservice_use(appdomain)
 
 # Allow to use fd (e.g. /dev/pts/0) inherited from adbd so that we can redirect output from
 # crosvm to the console
