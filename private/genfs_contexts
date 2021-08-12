@@ -117,6 +117,7 @@ genfscon sysfs /devices/cs_etm                    u:object_r:sysfs_devices_cs_et
 genfscon sysfs /devices/system/cpu u:object_r:sysfs_devices_system_cpu:s0
 genfscon sysfs /class/android_usb                 u:object_r:sysfs_android_usb:s0
 genfscon sysfs /class/extcon                      u:object_r:sysfs_extcon:s0
+genfscon sysfs /class/block                       u:object_r:sysfs_block:s0
 genfscon sysfs /class/leds                        u:object_r:sysfs_leds:s0
 genfscon sysfs /class/net                         u:object_r:sysfs_net:s0
 genfscon sysfs /class/rfkill/rfkill0/state        u:object_r:sysfs_bluetooth_writable:s0
