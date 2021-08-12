@@ -38,6 +38,16 @@ userdebug_or_eng(`
 # that userdata is mounted onto.
 allow init sysfs_dm:file read;
 
+# Allow init to modify the properties of loop devices.
+allow init sysfs_loop:dir r_dir_perms;
+allow init sysfs_loop:file rw_file_perms;
+
+# Allow init to examine the properties of block devices.
+allow init sysfs_block_type:file { getattr read };
+# Allow init access /dev/block
+allow init bdev_type:dir r_dir_perms;
+allow init bdev_type:blk_file getattr;
+
 # Allow init to write to the drop_caches file.
 allow init proc_drop_caches:file rw_file_perms;
 
