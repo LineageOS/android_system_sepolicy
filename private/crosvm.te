@@ -31,14 +31,9 @@ allow crosvm {
 # Allow searching the directory where the composite disk images are.
 allow crosvm virtualizationservice_data_file:dir search;
 
-# TODO(b/193402941) delete this. This for now is required because crosvm needs to open the files for
-# the GPT headers of the composite disks.
-allow crosvm virtualizationservice_data_file:file open;
-
 # Don't allow crosvm to open files that it doesn't own.
 neverallow crosvm {
-  #TODO(b/193402941) uncomment the following line
-  #virtualizationservice_data_file
+  virtualizationservice_data_file
   staging_data_file
   apk_data_file
   app_data_file
