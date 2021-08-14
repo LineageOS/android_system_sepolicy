@@ -4,11 +4,11 @@ type compos_exec, exec_type, file_type, system_file_type;
 
 allow compos self:vsock_socket { create_socket_perms_no_ioctl listen accept };
 
-# Talk to binder services (for keystore)
+# Allow using keystore and authfs_service binder services
 binder_use(compos);
-
-# Allow payloads to use keystore
 use_keystore(compos);
+allow compos authfs_binder_service:service_manager find;
+binder_call(compos, authfs_service);
 
 # Allow payloads to use and manage their keys
 allow compos vm_payload_key:keystore2_key {
@@ -18,3 +18,11 @@ allow compos vm_payload_key:keystore2_key {
     rebind
     use
 };
+
+# Although the compos should not really read/write the FD on authfs_fuse, this
+# is apparently required for the binder driver to pass the FDs to compos from
+# authfs_service.
+allow compos authfs_fuse:file { read write };
+
+# Allow domain transition into dex2oat.
+domain_auto_trans(compos, dex2oat_exec, dex2oat)
