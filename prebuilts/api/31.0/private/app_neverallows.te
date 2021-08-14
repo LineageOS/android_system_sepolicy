@@ -45,6 +45,9 @@ neverallow { all_untrusted_apps -mediaprovider } property_type:property_service 
 # net.dns properties are not a public API. Disallow untrusted apps from reading this property.
 neverallow { all_untrusted_apps } net_dns_prop:file read;
 
+# radio_cdma_ecm_prop properties are not a public API. Disallow untrusted apps from reading this property.
+neverallow { all_untrusted_apps } radio_cdma_ecm_prop:file read;
+
 # Shared libraries created by trusted components within an app home
 # directory can be dlopen()ed. To maintain the W^X property, these files
 # must never be writable to the app.
@@ -117,7 +120,12 @@ neverallow all_untrusted_apps *:{
 } *;
 
 # Disallow sending RTM_GETLINK messages on netlink sockets.
-neverallow all_untrusted_apps domain:netlink_route_socket { bind nlmsg_readpriv };
+neverallow {
+  all_untrusted_apps
+  -untrusted_app_25
+  -untrusted_app_27
+  -untrusted_app_29
+} domain:netlink_route_socket { bind nlmsg_readpriv };
 
 # Do not allow untrusted apps access to /cache
 neverallow { all_untrusted_apps -mediaprovider } { cache_file cache_recovery_file }:dir ~{ r_dir_perms };

@@ -9,6 +9,7 @@ set_prop(radio, radio_control_prop)
 set_prop(radio, radio_prop)
 set_prop(radio, net_radio_prop)
 set_prop(radio, telephony_status_prop)
+set_prop(radio, radio_cdma_ecm_prop)
 
 # ctl interface
 set_prop(radio, ctl_rildaemon_prop)

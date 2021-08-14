@@ -41,6 +41,9 @@ selinux_check_context(app_zygote)
 # Check SELinux permissions.
 selinux_check_access(app_zygote)
 
+# Read and inspect temporary files managed by zygote.
+allow app_zygote zygote_tmpfs:file { read getattr };
+
 ######
 ###### Policy below is shared with regular zygote-spawned apps
 ######
@@ -78,6 +81,9 @@ unix_socket_send(app_zygote, system_unsolzygote, system_server)
 # Allow the app_zygote to access the runtime feature flag properties.
 get_prop(app_zygote, device_config_runtime_native_prop)
 get_prop(app_zygote, device_config_runtime_native_boot_prop)
+
+# Allow app_zygote to access odsign verification status
+get_prop(app_zygote, odsign_prop)
 
 #####
 ##### Neverallow
