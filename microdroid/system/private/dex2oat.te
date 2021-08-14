@@ -3,3 +3,22 @@ type dex2oat, domain, coredomain;
 type dex2oat_exec, system_file_type, exec_type, file_type;
 
 allow dex2oat tmpfs:file { read getattr map };
+
+# Allow dex2oat to use FDs from authfs_service via compos.
+allow dex2oat authfs_service:fd use;
+allow dex2oat compos:fd use;
+
+# Allow dex2oat to read/write FDs on authfs_fuse filesystem.
+allow dex2oat authfs_fuse:file rw_file_perms;
+
+# Minijail uses pipe for the parent process to signal the child (as a fallback
+# mechanism, since Android does not support minijail's preload).
+# TODO(196109647): We can probably remove this once the minijail preload is
+# supported on Android.
+allow dex2oat compos:fifo_file read;
+
+# Allow acquiring advisory lock on /system/framework/<arch>/*
+allow dex2oat system_file:file lock;
+
+# Allow dex2oat to read /apex/apex-info-list.xml
+allow dex2oat apex_info_file:file r_file_perms;
