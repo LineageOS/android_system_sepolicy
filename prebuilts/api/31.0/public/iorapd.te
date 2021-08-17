@@ -94,5 +94,4 @@ neverallow iorapd {
 }:binder call;
 
 neverallow { domain -init } iorapd:process { transition dyntransition };
-neverallow iorapd domain:{ udp_socket rawip_socket } *;
-neverallow iorapd { domain userdebug_or_eng(`-su') }:tcp_socket *;
+neverallow iorapd domain:{ tcp_socket udp_socket rawip_socket } *;

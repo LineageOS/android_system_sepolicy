@@ -95,8 +95,7 @@ neverallow audioserver { file_type fs_type }:file execute_no_trans;
 # permissions and be isolated from the rest of the system and network.
 # Lengthier explanation here:
 # https://android-developers.googleblog.com/2016/05/hardening-media-stack.html
-neverallow audioserver domain:{ udp_socket rawip_socket } *;
-neverallow audioserver { domain userdebug_or_eng(`-su') }:tcp_socket *;
+neverallow audioserver domain:{ tcp_socket udp_socket rawip_socket } *;
 
 # Allow using wake locks
 wakelock_use(audioserver)

@@ -670,12 +670,6 @@ define(`use_drmservice', `
 define(`add_service', `
   allow $1 $2:service_manager { add find };
   neverallow { domain -$1 } $2:service_manager add;
-
-  # On debug builds with root, allow binder services to use binder over TCP.
-  # Not using rw_socket_perms_no_ioctl to avoid granting too many permissions.
-  userdebug_or_eng(`
-    allow $1 su:tcp_socket { accept getopt read write };
-  ')
 ')
 
 ###########################################

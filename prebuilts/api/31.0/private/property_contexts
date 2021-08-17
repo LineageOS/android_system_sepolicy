@@ -81,6 +81,7 @@ persist.heapprofd.enable u:object_r:heapprofd_enabled_prop:s0
 persist.traced_perf.enable u:object_r:traced_perf_enabled_prop:s0
 persist.vendor.debug.wifi. u:object_r:persist_vendor_debug_wifi_prop:s0
 persist.vendor.overlay.  u:object_r:overlay_prop:s0
+ril.cdma.inecmmode      u:object_r:radio_cdma_ecm_prop:s0 exact bool
 ro.boot.vendor.overlay.  u:object_r:overlay_prop:s0
 ro.boottime.             u:object_r:boottime_prop:s0
 ro.serialno             u:object_r:serialno_prop:s0
@@ -326,10 +327,11 @@ persist.config.calibration_fac u:object_r:camera_calibration_prop:s0 exact strin
 
 config.disable_cameraservice u:object_r:camera_config_prop:s0 exact bool
 
-camera.disable_zsl_mode u:object_r:camera_config_prop:s0 exact bool
-camera.fifo.disable     u:object_r:camera_config_prop:s0 exact bool
-ro.camera.notify_nfc    u:object_r:camera_config_prop:s0 exact bool
-ro.camera.enableLazyHal u:object_r:camera_config_prop:s0 exact bool
+camera.disable_zsl_mode       u:object_r:camera_config_prop:s0 exact bool
+camera.fifo.disable           u:object_r:camera_config_prop:s0 exact bool
+ro.camera.notify_nfc          u:object_r:camera_config_prop:s0 exact bool
+ro.camera.enableLazyHal       u:object_r:camera_config_prop:s0 exact bool
+ro.camera.enableCamera1MaxZsl u:object_r:camera_config_prop:s0 exact bool
 
 ro.camerax.extensions.enabled u:object_r:camerax_extensions_prop:s0 exact bool
 
@@ -563,7 +565,6 @@ sys.usb.configfs   u:object_r:usb_control_prop:s0 exact int
 sys.usb.controller u:object_r:usb_control_prop:s0 exact string
 sys.usb.state      u:object_r:usb_control_prop:s0 exact string
 
-sys.usb.mtp.batchcancel u:object_r:usb_config_prop:s0 exact bool
 sys.usb.mtp.device_type u:object_r:usb_config_prop:s0 exact int
 
 sys.usb.config. u:object_r:usb_prop:s0
@@ -839,7 +840,6 @@ ro.product.debugfs_restrictions.enabled u:object_r:debugfs_restriction_prop:s0 e
 ro.vendor.build.date                        u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.build.date.utc                    u:object_r:build_vendor_prop:s0 exact int
 ro.vendor.build.fingerprint                 u:object_r:build_vendor_prop:s0 exact string
-ro.vendor.build.fingerprint_has_digest      u:object_r:build_vendor_prop:s0 exact bool
 ro.vendor.build.id                          u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.build.tags                        u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.build.type                        u:object_r:build_vendor_prop:s0 exact string
@@ -847,7 +847,6 @@ ro.vendor.build.version.incremental         u:object_r:build_vendor_prop:s0 exac
 ro.vendor.build.version.release             u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.build.version.release_or_codename u:object_r:build_vendor_prop:s0 exact string
 ro.vendor.build.version.sdk                 u:object_r:build_vendor_prop:s0 exact int
-ro.vendor.build.dont_use_vabc               u:object_r:build_vendor_prop:s0 exact bool
 
 # All vendor CPU abilist props are set by /vendor/build.prop
 ro.vendor.product.cpu.abilist   u:object_r:build_vendor_prop:s0 exact string

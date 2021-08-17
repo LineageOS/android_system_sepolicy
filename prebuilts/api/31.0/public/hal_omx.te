@@ -46,5 +46,4 @@ neverallow hal_omx_server { file_type fs_type }:file execute_no_trans;
 # permissions and be isolated from the rest of the system and network.
 # Lengthier explanation here:
 # https://android-developers.googleblog.com/2016/05/hardening-media-stack.html
-neverallow hal_omx_server domain:{ udp_socket rawip_socket } *;
-neverallow hal_omx_server { domain userdebug_or_eng(`-su') }:tcp_socket *;
+neverallow hal_omx_server domain:{ tcp_socket udp_socket rawip_socket } *;

@@ -121,6 +121,7 @@ type fingerprint_service, app_api_service, system_server_service, service_manage
 type fwk_stats_service, app_api_service, system_server_service, service_manager_type;
 type game_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type gfxinfo_service, system_api_service, system_server_service, service_manager_type;
+type gnss_time_update_service, system_server_service, service_manager_type;
 type graphicsstats_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type hardware_service, system_server_service, service_manager_type;
 type hardware_properties_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
@@ -160,7 +161,7 @@ type notification_service, app_api_service, ephemeral_app_api_service, system_se
 type oem_lock_service, system_api_service, system_server_service, service_manager_type;
 type otadexopt_service, system_server_service, service_manager_type;
 type overlay_service, system_api_service, system_server_service, service_manager_type;
-type pac_proxy_service, system_server_service, service_manager_type;
+type pac_proxy_service, app_api_service, system_server_service, service_manager_type;
 type package_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type package_native_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type people_service, app_api_service, system_server_service, service_manager_type;
@@ -169,6 +170,7 @@ type permissionmgr_service, app_api_service, ephemeral_app_api_service, system_s
 type permission_checker_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type persistent_data_block_service, system_api_service, system_server_service, service_manager_type;
 type pinner_service, system_server_service, service_manager_type;
+type powerstats_service, app_api_service, system_server_service, service_manager_type;
 type power_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type print_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type processinfo_service, system_server_service, service_manager_type;
@@ -211,6 +213,7 @@ type thermal_service, app_api_service, ephemeral_app_api_service, system_server_
 type timedetector_service, app_api_service, system_server_service, service_manager_type;
 type timezone_service, system_server_service, service_manager_type;
 type timezonedetector_service, app_api_service, system_server_service, service_manager_type;
+type translation_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type trust_service, app_api_service, system_server_service, service_manager_type;
 type tv_input_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type tv_tuner_resource_mgr_service, app_api_service, system_server_service, service_manager_type;

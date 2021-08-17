@@ -57,6 +57,7 @@
     hal_oemlock_service
     hint_service
     gnss_device
+    gnss_time_update_service
     hal_dumpstate_config_prop
     hal_gnss_service
     hal_keymint_service
@@ -99,6 +100,7 @@
     postinstall_product_mnt_dir
     postinstall_vendor_mnt_dir
     power_debug_prop
+    powerstats_service
     proc_kallsyms
     proc_locks
     profcollectd
@@ -132,6 +134,7 @@
     system_suspend_control_internal_service
     task_profiles_api_file
     texttospeech_service
+    translation_service
     update_engine_stable_service
     userdata_sysdev
     userspace_reboot_metadata_file
