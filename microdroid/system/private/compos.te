@@ -24,5 +24,9 @@ allow compos vm_payload_key:keystore2_key {
 # authfs_service.
 allow compos authfs_fuse:file { read write };
 
+# Allow getattr (in fact, getxattr) as a workaround to retrieve fs-verity
+# metadata. See b/196635431.
+allow compos authfs_fuse:file getattr;
+
 # Allow domain transition into dex2oat.
 domain_auto_trans(compos, dex2oat_exec, dex2oat)
