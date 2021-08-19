@@ -222,6 +222,7 @@
 /system/bin/e2fsdroid		u:object_r:e2fs_exec:s0
 /system/bin/mke2fs		u:object_r:e2fs_exec:s0
 /system/bin/e2fsck	--	u:object_r:fsck_exec:s0
+/system/bin/extra_free_kbytes\.sh u:object_r:extra_free_kbytes_exec:s0
 /system/bin/fsck\.exfat	--	u:object_r:fsck_exec:s0
 /system/bin/fsck\.f2fs	--	u:object_r:fsck_exec:s0
 /system/bin/init		u:object_r:init_exec:s0

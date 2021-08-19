@@ -7,6 +7,8 @@
   ( new_objects
     artd_service
     camera2_extensions_prop
+    extra_free_kbytes
+    extra_free_kbytes_exec
     hal_contexthub_service
     hal_system_suspend_service
     hal_tv_tuner_service
@@ -17,6 +19,7 @@
     tare_service
     transformer_service
     proc_watermark_boost_factor
+    proc_watermark_scale_factor
     untrusted_app_30
     proc_vendor_sched
     sysfs_vendor_sched
