@@ -371,6 +371,9 @@ hal_attribute(tv_tuner);
 hal_attribute(usb);
 hal_attribute(usb_gadget);
 hal_attribute(uwb);
+# TODO(b/196225233): Remove this attribute and its usages elsewhere
+# once all chip vendors integrate to the new UWB stack.
+hal_attribute(uwb_vendor);
 hal_attribute(vehicle);
 hal_attribute(vibrator);
 hal_attribute(vr);
