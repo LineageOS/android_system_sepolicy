@@ -36,4 +36,11 @@ allow microdroid_manager self:vsock_socket { create_socket_perms_no_ioctl };
 allow microdroid_manager system_bootstrap_lib_file:dir r_dir_perms;
 allow microdroid_manager system_bootstrap_lib_file:file { execute read open getattr map };
 
+# Allow microdroid_manager to ioctl /dev/vsock.
+# TODO(b/191845268): remove the below rules
+allow microdroid_manager device:chr_file r_file_perms;
+allowxperm microdroid_manager device:chr_file ioctl {
+    IOCTL_VM_SOCKETS_GET_LOCAL_CID
+};
+
 neverallow microdroid_manager { file_type fs_type }:file execute_no_trans;
