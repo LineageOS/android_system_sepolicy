@@ -48,7 +48,6 @@ type hal_tv_input_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_tv_tuner_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_usb_gadget_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_usb_hwservice, hwservice_manager_type, protected_hwservice;
-type hal_uwb_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_vehicle_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_vibrator_hwservice, hwservice_manager_type, protected_hwservice;
 type hal_vr_hwservice, hwservice_manager_type, protected_hwservice;
