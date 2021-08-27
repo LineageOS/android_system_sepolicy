@@ -137,6 +137,7 @@ type jobscheduler_service, app_api_service, ephemeral_app_api_service, system_se
 type launcherapps_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type legacy_permission_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type light_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type locale_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type location_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type location_time_zone_manager_service, system_server_service, service_manager_type;
 type lock_settings_service, app_api_service, system_api_service, system_server_service, service_manager_type;
