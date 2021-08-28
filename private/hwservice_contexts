@@ -69,7 +69,6 @@ android.hardware.tv.input::ITvInput                             u:object_r:hal_t
 android.hardware.tv.tuner::ITuner                             	u:object_r:hal_tv_tuner_hwservice:s0
 android.hardware.usb::IUsb                                      u:object_r:hal_usb_hwservice:s0
 android.hardware.usb.gadget::IUsbGadget                         u:object_r:hal_usb_gadget_hwservice:s0
-android.hardware.uwb::IUwb                                      u:object_r:hal_uwb_hwservice:s0
 android.hardware.vibrator::IVibrator                            u:object_r:hal_vibrator_hwservice:s0
 android.hardware.vr::IVr                                        u:object_r:hal_vr_hwservice:s0
 android.hardware.weaver::IWeaver                                u:object_r:hal_weaver_hwservice:s0
