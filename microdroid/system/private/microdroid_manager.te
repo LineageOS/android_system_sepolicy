@@ -7,9 +7,10 @@ type microdroid_manager_exec, exec_type, file_type, system_file_type;
 init_daemon_domain(microdroid_manager)
 
 # microdroid_manager accesses a virtual disk block device to read VM payload
+# It needs write access as it updates the instance image
 allow microdroid_manager block_device:dir r_dir_perms;
 allow microdroid_manager block_device:lnk_file r_file_perms;
-allow microdroid_manager vd_device:blk_file r_file_perms;
+allow microdroid_manager vd_device:blk_file rw_file_perms;
 # microdroid_manager verifies DM-verity mounted APK payload
 allow microdroid_manager dm_device:blk_file r_file_perms;
 
