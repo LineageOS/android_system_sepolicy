@@ -46,3 +46,5 @@ get_prop(installd, odsign_prop)
 # Allow installd to delete files in /data/staging
 allow installd staging_data_file:file unlink;
 allow installd staging_data_file:dir { open read remove_name rmdir search write };
+
+allow installd { dex2oat dexoptanalyzer }:process { sigkill signal };
