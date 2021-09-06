@@ -103,8 +103,3 @@ neverallow {
   -system_data_file # shared libs in apks
   -apk_data_file
 }:file no_x_file_perms;
-
-# Allow apps to read/write vsock created by virtualizationservice to communicate with
-# the VM that the app created. Notice that the app doesn't have permission to create
-# a vsock by itself; it can't connect to other VMs that it doesn't own.
-allow appdomain virtualizationservice:vsock_socket { getattr read write };
