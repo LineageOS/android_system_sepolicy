@@ -49,7 +49,7 @@ allow crosvm {
 }:file write;
 
 # Allow crosvm to pipe console log to shell or app which could be the owner of a VM.
-allow crosvm { adbd appdomain }:fd use;
+allow crosvm adbd:fd use;
 allow crosvm adbd:unix_stream_socket { read write };
 allow crosvm appdomain:fifo_file { read write };
 
