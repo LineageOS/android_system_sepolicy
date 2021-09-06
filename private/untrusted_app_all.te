@@ -170,3 +170,8 @@ userdebug_or_eng(`
   # according to the heuristic of lockdown.
   allow untrusted_app_all self:lockdown integrity;
 ')
+
+# Allow running a VM for test/demo purposes
+userdebug_or_eng(`
+  virtualizationservice_use(untrusted_app_all)
+')
