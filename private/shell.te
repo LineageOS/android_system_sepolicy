@@ -217,6 +217,6 @@ read_fstab(shell)
 # Allow shell read access to /apex/apex-info-list.xml for CTS.
 allow shell apex_info_file:file r_file_perms;
 
-# Allow shell (the vm tool) the access to vsock created by virtualization
-# service
-allow shell virtualizationservice:vsock_socket { read write };
+# Let the shell user call virtualizationservice (and
+# virtualizationservice call back to shell) for debugging.
+virtualizationservice_use(shell)

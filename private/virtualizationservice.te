@@ -30,23 +30,6 @@ allow virtualizationservice crosvm:process sigkill;
 allow virtualizationservice virtualizationservice_data_file:file create_file_perms;
 allow virtualizationservice virtualizationservice_data_file:dir create_dir_perms;
 
-# virtualizationservice_use(client)
-define(`virtualizationservice_use', `
-# Let the client call virtualizationservice.
-binder_call($1, virtualizationservice)
-# Let virtualizationservice call back to the client.
-binder_call(virtualizationservice, $1)
-# Let the client pass file descriptors to virtualizationservice.
-allow virtualizationservice $1:fd use;
-')
-
-# Let the shell user call virtualizationservice (and virtualizationservice call back to shell) for
-# debugging.
-virtualizationservice_use(shell)
-
-# Let apps use virtualizationservice.
-virtualizationservice_use(appdomain)
-
 # Allow to use fd (e.g. /dev/pts/0) inherited from adbd so that we can redirect output from
 # crosvm to the console
 allow virtualizationservice adbd:fd use;
