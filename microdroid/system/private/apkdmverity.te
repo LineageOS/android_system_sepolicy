@@ -6,6 +6,10 @@ type apkdmverity_exec, exec_type, file_type, system_file_type;
 # allow domain transition from init
 init_daemon_domain(apkdmverity)
 
+# apkdmverity is using bootstrap bionic
+allow apkdmverity system_bootstrap_lib_file:dir r_dir_perms;
+allow apkdmverity system_bootstrap_lib_file:file { execute read open getattr map };
+
 # apkdmverity accesses "payload metadata disk" which points to
 # a /dev/vd* block device file.
 allow apkdmverity block_device:dir r_dir_perms;
@@ -19,6 +23,9 @@ allow apkdmverity self:global_capability_class_set sys_admin;
 
 # allow apkdmverity to create loop devices with /dev/loop-control
 allow apkdmverity loop_control_device:chr_file rw_file_perms;
+
+# allow apkdmverity to read the roothash passed from microdroid_manager
+get_prop(apkdmverity, microdroid_manager_roothash_prop)
 
 # allow apkdmverity to access loop devices
 allow apkdmverity loop_device:blk_file rw_file_perms;
