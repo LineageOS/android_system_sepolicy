@@ -218,9 +218,13 @@ allow domain apex_mnt_dir:lnk_file r_file_perms;
 allow domain self:global_capability_class_set audit_control;
 allow domain self:netlink_audit_socket { create_socket_perms_no_ioctl nlmsg_write };
 
-# workaround for supressing property accesses.
-# TODO: remove these
-set_prop(domain, property_type -vmsecret_keymint_prop)
+# workaround for suppressing property accesses.
+# TODO(b/199007910): remove these
+set_prop(domain, {
+    property_type
+    -vmsecret_keymint_prop
+    -microdroid_manager_roothash_prop
+})
 # auditallow { domain -init } property_type:property_service set;
 # auditallow { domain -init } property_type:file rw_file_perms;
 
