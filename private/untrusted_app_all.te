@@ -180,3 +180,9 @@ allow untrusted_app_all simpleperf:process signal;
 userdebug_or_eng(`
   virtualizationservice_use(untrusted_app_all)
 ')
+
+with_native_coverage(`
+  # Allow writing coverage information to /data/misc/trace
+  allow domain method_trace_data_file:dir create_dir_perms;
+  allow domain method_trace_data_file:file create_file_perms;
+')
