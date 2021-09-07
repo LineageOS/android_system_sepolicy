@@ -45,14 +45,17 @@ allow odsign apex_art_data_file:dir { rw_dir_perms rmdir rename };
 allow odsign apex_art_data_file:file { rw_file_perms unlink };
 
 # For CompOS instance & key files
-allow odsign apex_compos_data_file:dir rw_dir_perms;
-allow odsign apex_compos_data_file:file { r_file_perms unlink rename };
+allow odsign apex_compos_data_file:dir { getattr search };
+allow odsign apex_compos_data_file:file r_file_perms;
 
 # Run odrefresh to refresh ART artifacts
 domain_auto_trans(odsign, odrefresh_exec, odrefresh)
 
 # Run fsverity_init to add key to fsverity keyring
 domain_auto_trans(odsign, fsverity_init_exec, fsverity_init)
+
+# Run compos_verify_key to verify CompOs instances
+domain_auto_trans(odsign, compos_verify_key_exec, compos_verify_key)
 
 # only odsign can set odsign sysprop
 set_prop(odsign, odsign_prop)
