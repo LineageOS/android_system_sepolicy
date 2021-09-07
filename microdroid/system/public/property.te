@@ -5,6 +5,7 @@ type build_prop, property_type;
 type cold_boot_done_prop, property_type;
 type ctl_adbd_prop, property_type;
 type ctl_apexd_prop, property_type;
+type ctl_apkdmverity_prop, property_type;
 type ctl_console_prop, property_type;
 type ctl_default_prop, property_type;
 type ctl_fuse_prop, property_type;
@@ -15,6 +16,7 @@ type ctl_restart_prop, property_type;
 type ctl_sigstop_prop, property_type;
 type ctl_start_prop, property_type;
 type ctl_stop_prop, property_type;
+type ctl_zipfuse_prop, property_type;
 type debug_prop, property_type;
 type default_prop, property_type;
 type exported_default_prop, property_type;
@@ -31,6 +33,8 @@ type shell_prop, property_type;
 type usb_control_prop, property_type;
 type vendor_default_prop, property_type;
 type vmsecret_keymint_prop, property_type;
+type apex_config_prop, property_type;
+type microdroid_manager_roothash_prop, property_type;
 
 allow property_type tmpfs:filesystem associate;
 
