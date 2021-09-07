@@ -171,6 +171,11 @@ userdebug_or_eng(`
   allow untrusted_app_all self:lockdown integrity;
 ')
 
+# Allow signalling simpleperf domain, which is the domain that the simpleperf
+# profiler runs as when executed by the app. The signals are used to control
+# the profiler (which would be profiling the app that is sending the signal).
+allow untrusted_app_all simpleperf:process signal;
+
 # Allow running a VM for test/demo purposes
 userdebug_or_eng(`
   virtualizationservice_use(untrusted_app_all)
