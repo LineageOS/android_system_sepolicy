@@ -178,6 +178,26 @@ neverallow { domain -$1 } $1_userfaultfd:anon_inode *;
 neverallow $1 ~$1_userfaultfd:anon_inode *;
 ')
 
+####################################
+# virtualizationservice_use(domain)
+# Allow domain to create and communicate with a virtual machine using
+# virtualizationservice.
+define(`virtualizationservice_use', `
+allow $1 virtualization_service:service_manager find;
+# Let the client call virtualizationservice.
+binder_call($1, virtualizationservice)
+# Let virtualizationservice call back to the client.
+binder_call(virtualizationservice, $1)
+# Let the client pass file descriptors to virtualizationservice and on
+# to crosvm
+allow { virtualizationservice crosvm } $1:fd use;
+# Allow client to read/write vsock created by virtualizationservice to
+# communicate with the VM that it created. Notice that we do not grant
+# permission to create a vsock; the client can only connect to VMs
+# that it owns.
+allow $1 virtualizationservice:vsock_socket { getattr read write };
+')
+
 #####################################
 # app_domain(domain)
 # Allow a base set of permissions required for all apps.
