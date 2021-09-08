@@ -474,7 +474,7 @@ neverallow { domain userdebug_or_eng(`-shell') } nativetest_data_file:file no_x_
 
 neverallow { domain -shell -init -adbd } shell_test_data_file:file_class_set no_w_file_perms;
 neverallow { domain -shell -init -adbd } shell_test_data_file:dir no_w_dir_perms;
-neverallow { domain -shell -init -adbd -heapprofd } shell_test_data_file:file *;
+neverallow { domain -shell -init -adbd -heapprofd -crash_dump } shell_test_data_file:file *;
 neverallow heapprofd shell_test_data_file:file { no_w_file_perms no_x_file_perms };
 neverallow { domain -shell -init -adbd } shell_test_data_file:sock_file *;
 
