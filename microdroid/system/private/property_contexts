@@ -21,6 +21,9 @@ ctl.restart$adbd u:object_r:ctl_adbd_prop:s0
 
 ctl.stop$apexd u:object_r:ctl_apexd_prop:s0
 
+ctl.start$apkdmverity    u:object_r:ctl_apkdmverity_prop:s0
+ctl.start$zipfuse        u:object_r:ctl_zipfuse_prop:s0
+
 ctl.fuse_   u:object_r:ctl_fuse_prop:s0
 ctl.console u:object_r:ctl_console_prop:s0
 ctl.        u:object_r:ctl_default_prop:s0
@@ -97,3 +100,7 @@ ro.boot.slot_suffix u:object_r:exported_default_prop:s0 exact string
 ro.apex.updatable u:object_r:exported_default_prop:s0 exact bool
 
 keystore.boot_level u:object_r:keystore_listen_prop:s0 exact int
+
+apex_config.done u:object_r:apex_config_prop:s0 exact bool
+
+microdroid_manager.apk_roothash u:object_r:microdroid_manager_roothash_prop:s0 exact string
