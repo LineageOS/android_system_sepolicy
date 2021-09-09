@@ -1,0 +1,15 @@
+type composd, domain, coredomain;
+type composd_exec, system_file_type, exec_type, file_type;
+
+# Host a dynamic AIDL service
+init_daemon_domain(composd)
+binder_use(composd)
+add_service(composd, compos_service)
+
+# Start a VM
+virtualizationservice_use(composd)
+
+# Access our APEX data files
+allow composd apex_module_data_file:dir search;
+allow composd apex_compos_data_file:dir create_dir_perms;
+allow composd apex_compos_data_file:file create_file_perms;

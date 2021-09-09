@@ -48,6 +48,8 @@ android.security.maintenance              u:object_r:keystore_maintenance_servic
 android.security.metrics                  u:object_r:keystore_metrics_service:s0
 android.security.remoteprovisioning       u:object_r:remoteprovisioning_service:s0
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
+android.system.composd                    u:object_r:compos_service:s0
+android.system.virtualizationservice      u:object_r:virtualization_service:s0
 app_binding                               u:object_r:app_binding_service:s0
 app_hibernation                           u:object_r:app_hibernation_service:s0
 app_integrity                             u:object_r:app_integrity_service:s0
@@ -78,7 +80,6 @@ cacheinfo                                 u:object_r:cacheinfo_service:s0
 carrier_config                            u:object_r:radio_service:s0
 clipboard                                 u:object_r:clipboard_service:s0
 com.android.net.IProxyService             u:object_r:IProxyService_service:s0
-android.system.virtualizationservice      u:object_r:virtualization_service:s0
 companiondevice                           u:object_r:companion_device_service:s0
 platform_compat                           u:object_r:platform_compat_service:s0
 platform_compat_native                    u:object_r:platform_compat_service:s0
