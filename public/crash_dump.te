@@ -43,6 +43,9 @@ r_dir_file(crash_dump, apk_data_file);
 # Read all /vendor
 r_dir_file(crash_dump, { vendor_file same_process_hal_file })
 
+# Read all /data/local/tests
+r_dir_file(crash_dump, shell_test_data_file)
+
 # Talk to tombstoned
 unix_socket_connect(crash_dump, tombstoned_crash, tombstoned)
 
