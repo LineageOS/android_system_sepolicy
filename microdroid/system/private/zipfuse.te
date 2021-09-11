@@ -9,6 +9,10 @@ type zipfuse_exec, exec_type, file_type, system_file_type;
 # allow domain transition from init
 init_daemon_domain(zipfuse)
 
+# zipfuse is using bootstrap bionic
+allow zipfuse system_bootstrap_lib_file:dir r_dir_perms;
+allow zipfuse system_bootstrap_lib_file:file { execute read open getattr map };
+
 # allow basic rules to implement FUSE
 allow zipfuse fuse_device:chr_file rw_file_perms;
 allow zipfuse self:global_capability_class_set sys_admin;
