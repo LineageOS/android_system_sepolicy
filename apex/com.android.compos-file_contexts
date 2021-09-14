@@ -1,3 +1,4 @@
 (/.*)?                   u:object_r:system_file:s0
 /bin/compsvc             u:object_r:compos_exec:s0
 /bin/compos_verify_key   u:object_r:compos_verify_key_exec:s0
+/bin/composd             u:object_r:composd_exec:s0
