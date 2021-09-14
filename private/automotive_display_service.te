@@ -32,3 +32,7 @@ allow automotive_display_service hal_graphics_mapper_hwservice:hwservice_manager
 
 # Allow to use hidl token service
 allow automotive_display_service hidl_token_hwservice:hwservice_manager find;
+
+# Allow to access EGL files
+allow automotive_display_service gpu_device:chr_file rw_file_perms;
+allow automotive_display_service gpu_device:dir search;
