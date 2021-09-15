@@ -1,3 +1,4 @@
+type adbd_prop, property_type;
 type apexd_prop, property_type;
 type bootloader_prop, property_type;
 type boottime_prop, property_type;
@@ -19,13 +20,15 @@ type ctl_stop_prop, property_type;
 type ctl_zipfuse_prop, property_type;
 type debug_prop, property_type;
 type default_prop, property_type;
-type exported_default_prop, property_type;
+type dev_mnt_prop, property_type;
 type fingerprint_prop, property_type;
+type gsid_prop, property_type;
 type hwservicemanager_prop, property_type;
 type init_perf_lsm_hooks_prop, property_type;
 type init_service_status_private_prop, property_type;
 type init_service_status_prop, property_type;
 type init_svc_debug_prop, property_type;
+type keystore_crash_prop, property_type;
 type keystore_listen_prop, property_type;
 type logd_prop, property_type;
 type property_service_version_prop, property_type;
@@ -38,7 +41,9 @@ type microdroid_manager_roothash_prop, property_type;
 
 allow property_type tmpfs:filesystem associate;
 
-#----------------------------------------
-type adbd_config_prop, property_type;
+# Properties should be explicitly labeled in property_contexts
+neverallow { domain -init } default_prop:file no_rw_file_perms;
+neverallow { domain -init } default_prop:property_service set;
 
-type module_sdkextensions_prop, property_type;
+dontaudit { domain -init } default_prop:file no_rw_file_perms;
+dontaudit { domain -init } default_prop:property_service set;
