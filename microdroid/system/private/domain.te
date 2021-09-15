@@ -222,11 +222,12 @@ allow domain self:netlink_audit_socket { create_socket_perms_no_ioctl nlmsg_writ
 # TODO(b/199007910): remove these
 set_prop(domain, {
     property_type
+    -default_prop
     -vmsecret_keymint_prop
     -microdroid_manager_roothash_prop
 })
-# auditallow { domain -init } property_type:property_service set;
-# auditallow { domain -init } property_type:file rw_file_perms;
+#auditallow { domain -default_prop -init } property_type:property_service set;
+#auditallow { domain -default_prop -init } property_type:file rw_file_perms;
 
 allow domain linkerconfig_file:dir search;
 allow domain linkerconfig_file:file r_file_perms;
