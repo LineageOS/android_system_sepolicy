@@ -15,9 +15,6 @@ allow compos_verify_key apex_compos_data_file:file create_file_perms;
 allow compos_verify_key odsign:fd use;
 allow compos_verify_key odsign_devpts:chr_file { read write };
 
-# TODO: Remove this!
-allow compos_verify_key self:vsock_socket create_socket_perms_no_ioctl;
-
 # Only odsign can enter the domain via exec
 neverallow { domain -odsign } compos_verify_key:process transition;
 neverallow * compos_verify_key:process dyntransition;
