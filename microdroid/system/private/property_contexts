@@ -34,7 +34,11 @@ service.adb.root u:object_r:shell_prop:s0 exact bool
 
 ro.logd.kernel u:object_r:logd_prop:s0 exact bool
 
+ro.config.low_ram u:object_r:build_prop:s0 exact bool
+
 ro.boottime.adbd                      u:object_r:boottime_prop:s0 exact int
+ro.boottime.apexd-vm                  u:object_r:boottime_prop:s0 exact int
+ro.boottime.apkdmverity               u:object_r:boottime_prop:s0 exact int
 ro.boottime.authfs_service            u:object_r:boottime_prop:s0 exact int
 ro.boottime.hwservicemanager          u:object_r:boottime_prop:s0 exact int
 ro.boottime.init                      u:object_r:boottime_prop:s0 exact int
@@ -58,33 +62,51 @@ ro.vmsecret.keymint u:object_r:vmsecret_keymint_prop:s0 exact string
 
 hwservicemanager.ready u:object_r:hwservicemanager_prop:s0 exact bool
 
-apexd.status u:object_r:apexd_prop:s0 exact enum starting activated ready
+apexd.status      u:object_r:apexd_prop:s0 exact enum starting activated ready
+ro.apex.updatable u:object_r:apexd_prop:s0 exact bool
 
 ro.cold_boot_done u:object_r:cold_boot_done_prop:s0 exact bool
 
-sys.usb.controller u:object_r:usb_control_prop:s0 exact string
+sys.usb.controller     u:object_r:usb_control_prop:s0 exact string
+persist.sys.usb.config u:object_r:usb_control_prop:s0 exact string
 
-init.svc.authfs_service            u:object_r:init_service_status_private_prop:s0 exact string
-init.svc.hwservicemanager          u:object_r:init_service_status_private_prop:s0 exact string
-init.svc.keystore2                 u:object_r:init_service_status_private_prop:s0 exact string
-init.svc.logd                      u:object_r:init_service_status_private_prop:s0 exact string
-init.svc.logd-reinit               u:object_r:init_service_status_private_prop:s0 exact string
-init.svc.microdroid_manager        u:object_r:init_service_status_private_prop:s0 exact string
-init.svc.servicemanager            u:object_r:init_service_status_private_prop:s0 exact string
-init.svc.ueventd                   u:object_r:init_service_status_private_prop:s0 exact string
-init.svc.zipfuse                   u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.apexd-vm           u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.apkdmverity        u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.authfs_service     u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.hwservicemanager   u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.keystore2          u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.logd               u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.logd-reinit        u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.microdroid_manager u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.servicemanager     u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.ueventd            u:object_r:init_service_status_private_prop:s0 exact string
+init.svc.zipfuse            u:object_r:init_service_status_private_prop:s0 exact string
 
 init.svc.adbd       u:object_r:init_service_status_prop:s0 exact string
 init.svc.tombstoned u:object_r:init_service_status_prop:s0 exact string
 
 init.svc.vendor.keymint-microdroid u:object_r:vendor_default_prop:s0 exact string
 
-ro.boot.hardware u:object_r:bootloader_prop:s0 exact string
-ro.baseband      u:object_r:bootloader_prop:s0 exact string
-ro.bootloader    u:object_r:bootloader_prop:s0 exact string
-ro.bootmode      u:object_r:bootloader_prop:s0 exact string
-ro.hardware      u:object_r:bootloader_prop:s0 exact string
-ro.revision      u:object_r:bootloader_prop:s0 exact string
+ro.boot.hardware                   u:object_r:bootloader_prop:s0 exact string
+ro.boot.avb_version                u:object_r:bootloader_prop:s0 exact string
+ro.boot.boot_devices               u:object_r:bootloader_prop:s0 exact string
+ro.boot.first_stage_console        u:object_r:bootloader_prop:s0 exact string
+ro.boot.force_normal_boot          u:object_r:bootloader_prop:s0 exact string
+ro.boot.slot_suffix                u:object_r:bootloader_prop:s0 exact string
+ro.boot.vbmeta.avb_version         u:object_r:bootloader_prop:s0 exact string
+ro.boot.vbmeta.device_state        u:object_r:bootloader_prop:s0 exact string
+ro.boot.vbmeta.digest              u:object_r:bootloader_prop:s0 exact string
+ro.boot.vbmeta.hash_alg            u:object_r:bootloader_prop:s0 exact string
+ro.boot.vbmeta.invalidate_on_error u:object_r:bootloader_prop:s0 exact string
+ro.boot.vbmeta.size                u:object_r:bootloader_prop:s0 exact string
+ro.boot.verifiedbootstate          u:object_r:bootloader_prop:s0 exact string
+ro.boot.veritymode                 u:object_r:bootloader_prop:s0 exact string
+
+ro.baseband   u:object_r:bootloader_prop:s0 exact string
+ro.bootloader u:object_r:bootloader_prop:s0 exact string
+ro.bootmode   u:object_r:bootloader_prop:s0 exact string
+ro.hardware   u:object_r:bootloader_prop:s0 exact string
+ro.revision   u:object_r:bootloader_prop:s0 exact string
 
 ro.build.id                     u:object_r:build_prop:s0 exact string
 ro.build.version.release        u:object_r:build_prop:s0 exact string
@@ -95,12 +117,22 @@ ro.adb.secure                   u:object_r:build_prop:s0 exact bool
 
 ro.property_service.version u:object_r:property_service_version_prop:s0 exact int
 
-ro.boot.slot_suffix u:object_r:exported_default_prop:s0 exact string
-
-ro.apex.updatable u:object_r:exported_default_prop:s0 exact bool
-
 keystore.boot_level u:object_r:keystore_listen_prop:s0 exact int
+
+keystore.crash_count u:object_r:keystore_crash_prop:s0 exact int
 
 apex_config.done u:object_r:apex_config_prop:s0 exact bool
 
 microdroid_manager.apk_root_hash u:object_r:microdroid_manager_roothash_prop:s0 exact string
+
+dev.mnt.blk.root   u:object_r:dev_mnt_prop:s0 exact string
+dev.mnt.blk.vendor u:object_r:dev_mnt_prop:s0 exact string
+dev.mnt.dev.root   u:object_r:dev_mnt_prop:s0 exact string
+dev.mnt.dev.vendor u:object_r:dev_mnt_prop:s0 exact string
+
+gsid.image_installed  u:object_r:gsid_prop:s0 exact bool
+ro.gsid.image_running u:object_r:gsid_prop:s0 exact bool
+
+service.adb.listen_addrs u:object_r:adbd_prop:s0 exact string
+
+persist.adb.wifi.guid  u:object_r:adbd_prop:s0 exact string
