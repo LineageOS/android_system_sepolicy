@@ -1233,3 +1233,6 @@ ro.bootanim.quiescent.enabled u:object_r:bootanim_config_prop:s0 exact bool
 
 # dck properties
 ro.gms.dck.eligible_wcc u:object_r:dck_prop:s0 exact int
+
+# virtualization service properties
+virtualizationservice.state.last_cid u:object_r:virtualizationservice_prop:s0 exact uint
