@@ -1019,4 +1019,5 @@ define(`vendor_public_prop', `define_prop($1, vendor, public)')
 define(`read_fstab', `
   allow $1 { metadata_file gsi_metadata_file_type }:dir search;
   allow $1 gsi_public_metadata_file:file r_file_perms;
+  allow $1 proc_bootconfig:file r_file_perms;
 ')
