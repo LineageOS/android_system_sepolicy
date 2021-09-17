@@ -34,15 +34,29 @@ allow odrefresh dexoptanalyzer:process sigkill;
 allow odrefresh odsign_devpts:chr_file { read write };
 allow odrefresh odsign:fd use;
 
+# Allow odrefresh to read /apex/apex-info-list.xml to determine
+# whether current apex is in /system or /data.
+allow odrefresh apex_info_file:file r_file_perms;
+
+# Allow updating boot animation status.
+set_prop(odrefresh, bootanim_system_prop)
+
+# Allow query ART device config properties
+get_prop(odrefresh, device_config_runtime_native_prop)
+get_prop(odrefresh, device_config_runtime_native_boot_prop)
+
+# Use inherited stdin/stdout/stderr from composd which exec()'s
+# odrefesh.
+allow odrefresh composd:fd use;
+
+# Run system binaries, e.g. pvm_exec, in the same domain
+allow odrefresh system_file:file execute_no_trans;
+
 # Do not audit unused resources from parent processes (adb, shell, su).
 # These appear to be unnecessary for odrefresh.
 dontaudit odrefresh { adbd shell }:fd use;
 dontaudit odrefresh devpts:chr_file rw_file_perms;
 dontaudit odrefresh adbd:unix_stream_socket { getattr read write };
-
-# Allow odrefresh to read /apex/apex-info-list.xml to determine
-# whether current apex is in /system or /data.
-allow odrefresh apex_info_file:file r_file_perms;
 
 # No other processes should be creating files in the staging area.
 neverallow { domain -init -odrefresh } apex_art_staging_data_file:file open;
@@ -51,10 +65,3 @@ neverallow { domain -init -odrefresh } apex_art_staging_data_file:file open;
 # odrefresh_data_files.
 neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:dir *;
 neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:file *;
-
-# Allow updating boot animation status.
-set_prop(odrefresh, bootanim_system_prop)
-
-# Allow query ART device config properties
-get_prop(odrefresh, device_config_runtime_native_prop)
-get_prop(odrefresh, device_config_runtime_native_boot_prop)
