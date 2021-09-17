@@ -13,3 +13,6 @@ virtualizationservice_use(composd)
 allow composd apex_module_data_file:dir search;
 allow composd apex_compos_data_file:dir create_dir_perms;
 allow composd apex_compos_data_file:file create_file_perms;
+
+# Run odrefresh to refresh ART artifacts
+domain_auto_trans(composd, odrefresh_exec, odrefresh)
