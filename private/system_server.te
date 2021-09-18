@@ -1156,9 +1156,6 @@ get_prop(system_server, qemu_hw_prop)
 # Allow system server to read profcollectd reports for upload.
 userdebug_or_eng(`r_dir_file(system_server, profcollectd_data_file)')
 
-# Allow use userpanic to request panic.
-allow system_server userspace_panic_device:chr_file w_file_perms;
-
 ###
 ### Neverallow rules
 ###
