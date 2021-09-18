@@ -54,3 +54,11 @@ allow virtualizationservice staging_data_file:file r_file_perms;
 
 # Let virtualizationservice to accept vsock connection from the guest VMs
 allow virtualizationservice self:vsock_socket { create_socket_perms_no_ioctl listen accept };
+
+# Allow virtualizationservice to read/write its own sysprop. Only the process can do so.
+set_prop(virtualizationservice, virtualizationservice_prop)
+neverallow {
+  domain
+  -init
+  -virtualizationservice
+} virtualizationservice_prop:property_service set;
