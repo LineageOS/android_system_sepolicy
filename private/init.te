@@ -112,6 +112,3 @@ allow init {
   -kvm_device
   -port_device
 }:chr_file setattr;
-
-# Allow use userpanic to request panic.
-allow init userspace_panic_device:chr_file w_file_perms;
