@@ -44,9 +44,6 @@ allow llkd proc_hung_task:file rw_file_perms;
 allow llkd proc_sysrq:file rw_file_perms;
 allow llkd kmsg_device:chr_file w_file_perms;
 
-# Allow use userpanic to request panic.
-allow llkd userspace_panic_device:chr_file w_file_perms;
-
 ### neverallow rules
 
 neverallow { domain -init } llkd:process { dyntransition transition };
