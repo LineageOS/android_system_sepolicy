@@ -1,0 +1,16 @@
+# Make ART inputs and outputs available to the CompOS VM
+type compos_fd_server, domain, coredomain;
+
+# Allow access to open fds inherited from odrefresh - read inputs, generate outputs
+allow compos_fd_server odrefresh:fd use;
+allow compos_fd_server apex_art_data_file:file { getattr read };
+allow compos_fd_server apex_art_staging_data_file:file { getattr read write };
+# TODO(b/196109647) - remove this when no longer needed by minijail
+allow compos_fd_server odrefresh:fifo_file read;
+
+# Create a listening vsock for the VM to connect back to
+allow compos_fd_server self:vsock_socket { create_socket_perms_no_ioctl listen accept };
+
+# Only odrefresh can enter the domain via exec
+neverallow { domain -odrefresh } compos_fd_server:process transition;
+neverallow * compos_fd_server:process dyntransition;
