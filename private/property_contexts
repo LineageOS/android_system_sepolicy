@@ -323,6 +323,9 @@ audio.offload.min.duration.secs u:object_r:audio_config_prop:s0 exact int
 ro.audio.ignore_effects   u:object_r:audio_config_prop:s0 exact bool
 ro.audio.monitorRotation  u:object_r:audio_config_prop:s0 exact bool
 ro.audio.offload_wakelock u:object_r:audio_config_prop:s0 exact bool
+# Boolean property used in AudioService to configure whether
+# spatializer functionality should be initialized
+ro.audio.spatializer_enabled u:object_r:audio_config_prop:s0 exact bool
 
 persist.config.calibration_fac u:object_r:camera_calibration_prop:s0 exact string
 
