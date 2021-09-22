@@ -22,6 +22,7 @@ type_transition vold mnt_media_rw_file:dir mnt_media_rw_stub_file;
 get_prop(vold, vold_config_prop)
 get_prop(vold, storage_config_prop);
 get_prop(vold, incremental_prop);
+get_prop(vold, gsid_prop);
 
 set_prop(vold, vold_post_fs_data_prop)
 set_prop(vold, vold_prop)
