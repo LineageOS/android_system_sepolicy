@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <cil/android.h>
 #include <cil/cil.h>
+#include <cil/cil_write_ast.h>
 
 void __attribute__ ((noreturn)) static usage(char *prog) {
 	printf("Usage: %s [OPTION]...\n", prog);
@@ -89,7 +90,6 @@ int main(int argc, char *argv[])
 	char *num = NULL;
 	char *dot;
 	char *output = NULL;
-	FILE *output_file = NULL;
 	struct cil_db *base_db = NULL;
 	struct cil_db *out_db = NULL;
 
@@ -177,21 +177,11 @@ int main(int argc, char *argv[])
 			goto exit;
 		}
 	}
-
-	output_file = fopen(output, "we");
-	if (!output_file) {
-		fprintf(stderr, "Could not open file: %s\n", output);
+	rc = cil_write_ast(out_db, output);
+	if (rc != SEPOL_OK) {
 		goto exit;
 	}
 
-	rc = cil_write_build_ast(output_file, out_db);
-	if (rc != SEPOL_OK) {
-		fprintf(stderr, "Failed to write AST\n");
-		goto build_err;
-	}
-
-build_err:
-	fclose(output_file);
 exit:
 	free(base);
 	free(tgt_policy);
