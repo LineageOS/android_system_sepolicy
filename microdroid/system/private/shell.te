@@ -33,3 +33,9 @@ allow shell dev_type:blk_file getattr;
 # Test tool automatically tries to access /sys/class/power_supply.
 # Suppressing it as we don't need power_supply in microdroid.
 dontaudit shell sysfs:dir r_dir_perms;
+
+# Test tool tries to read various service status properties.
+get_prop(shell, init_service_status_prop)
+get_prop(shell, init_service_status_private_prop)
+
+set_prop(shell, log_tag_prop)

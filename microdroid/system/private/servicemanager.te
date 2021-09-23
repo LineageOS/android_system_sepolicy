@@ -23,3 +23,5 @@ allow servicemanager service_contexts_file:file r_file_perms;
 allow servicemanager vendor_service_contexts_file:file r_file_perms;
 
 add_service(servicemanager, service_manager_service)
+
+set_prop(servicemanager, ctl_interface_start_prop)

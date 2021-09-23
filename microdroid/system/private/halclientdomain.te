@@ -8,3 +8,5 @@ hwbinder_use(halclientdomain)
 
 # Wait for HAL server to be up (used by getService)
 allow halclientdomain hidl_manager_hwservice:hwservice_manager find;
+
+get_prop(halclientdomain, hwservicemanager_prop)

@@ -52,3 +52,6 @@ allow ueventd system_bootstrap_lib_file:file { execute read open getattr map };
 
 # TODO(b/193118220): find out why this happens.
 dontaudit ueventd tmpfs:chr_file { relabelfrom setattr };
+
+# ueventd sets ro.cold_boot_done to signal to init that cold boot has completed.
+set_prop(ueventd, cold_boot_done_prop)

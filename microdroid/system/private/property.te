@@ -1,3 +1,11 @@
+# Don't audit legacy ctl. property handling.  We only want the newer permission check to appear
+# in the audit log
+dontaudit domain {
+  ctl_console_prop
+  ctl_default_prop
+  ctl_fuse_prop
+}:property_service set;
+
 ###
 ### Neverallow rules
 ###
