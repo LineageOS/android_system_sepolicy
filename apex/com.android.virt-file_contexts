@@ -1,3 +1,4 @@
 (/.*)?                     u:object_r:system_file:s0
 /bin/crosvm                u:object_r:crosvm_exec:s0
+/bin/fd_server             u:object_r:fd_server_exec:s0
 /bin/virtualizationservice u:object_r:virtualizationservice_exec:s0
