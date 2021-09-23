@@ -36,4 +36,5 @@ type uio_device, dev_type;
 type userdata_sysdev, dev_type;
 type vd_device, dev_type, bdev_type;
 type vndbinder_device, dev_type;
+type vsock_device, dev_type;
 type zero_device, dev_type, mlstrustedobject;
