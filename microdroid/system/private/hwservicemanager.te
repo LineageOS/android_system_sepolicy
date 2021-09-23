@@ -23,3 +23,5 @@ selinux_check_access(hwservicemanager)
 
 add_hwservice(hwservicemanager, hidl_manager_hwservice)
 add_hwservice(hwservicemanager, hidl_token_hwservice)
+
+set_prop(hwservicemanager, hwservicemanager_prop)
