@@ -1,8 +1,10 @@
 # property contexts for microdroid
-# microdroid only uses much fewer properties than normal Android, so every property is listed here.
-# The only exceptions are "debug.", "init.svc_debug_pid.", and "ctl." properties.
+# microdroid only uses much fewer properties than normal Android, so every property is listed as
+# an exact entry. The only wildcards are "debug.*", "init.svc_debug_pid.*", "ctl.*", and
+# process-dependent properties like "arm64.memtag.*" and "log.tag.*".
 
-debug. u:object_r:debug_prop:s0 prefix
+debug.         u:object_r:debug_prop:s0 prefix
+persist.debug. u:object_r:debug_prop:s0 prefix
 
 init.svc_debug_pid. u:object_r:init_svc_debug_prop:s0 prefix int
 
@@ -21,12 +23,13 @@ ctl.restart$adbd u:object_r:ctl_adbd_prop:s0
 
 ctl.stop$apexd u:object_r:ctl_apexd_prop:s0
 
-ctl.start$apkdmverity    u:object_r:ctl_apkdmverity_prop:s0
-ctl.start$zipfuse        u:object_r:ctl_zipfuse_prop:s0
+ctl.start$apexd-vm    u:object_r:ctl_apexd_vm_prop:s0
+ctl.start$apkdmverity u:object_r:ctl_apkdmverity_prop:s0
+ctl.start$zipfuse     u:object_r:ctl_zipfuse_prop:s0
 
-ctl.fuse_   u:object_r:ctl_fuse_prop:s0
-ctl.console u:object_r:ctl_console_prop:s0
-ctl.        u:object_r:ctl_default_prop:s0
+ctl.console     u:object_r:ctl_console_prop:s0
+ctl.fuse_       u:object_r:ctl_fuse_prop:s0
+ctl.            u:object_r:ctl_default_prop:s0
 
 sys.init.perf_lsm_hooks u:object_r:init_perf_lsm_hooks_prop:s0 exact bool
 
@@ -136,3 +139,18 @@ ro.gsid.image_running u:object_r:gsid_prop:s0 exact bool
 service.adb.listen_addrs u:object_r:adbd_prop:s0 exact string
 
 persist.adb.wifi.guid  u:object_r:adbd_prop:s0 exact string
+
+log.tag.         u:object_r:log_tag_prop:s0 prefix
+persist.log.tag. u:object_r:log_tag_prop:s0 prefix
+
+libc.debug.malloc.options u:object_r:libc_debug_prop:s0 exact string
+libc.debug.malloc.program u:object_r:libc_debug_prop:s0 exact string
+libc.debug.hooks.enable   u:object_r:libc_debug_prop:s0 exact string
+
+arm64.memtag. u:object_r:arm64_memtag_prop:s0 prefix string
+
+persist.sys.timezone u:object_r:timezone_prop:s0 exact string
+
+ro.vndk.version  u:object_r:build_prop:s0 exact string
+
+heapprofd.enable u:object_r:heapprofd_prop:s0 exact bool
