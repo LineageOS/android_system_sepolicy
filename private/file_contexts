@@ -477,6 +477,7 @@
 /(system_ext|system/system_ext)/etc/selinux/system_ext_seapp_contexts       u:object_r:seapp_contexts_file:s0
 /(system_ext|system/system_ext)/etc/selinux/system_ext_service_contexts     u:object_r:service_contexts_file:s0
 /(system_ext|system/system_ext)/etc/selinux/system_ext_mac_permissions\.xml u:object_r:mac_perms_file:s0
+/(system_ext|system/system_ext)/etc/selinux/userdebug_plat_sepolicy\.cil    u:object_r:sepolicy_file:s0
 
 /(system_ext|system/system_ext)/bin/aidl_lazy_test_server    u:object_r:aidl_lazy_test_server_exec:s0
 /(system_ext|system/system_ext)/bin/aidl_lazy_cb_test_server u:object_r:aidl_lazy_test_server_exec:s0
