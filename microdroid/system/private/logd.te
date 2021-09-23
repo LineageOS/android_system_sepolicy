@@ -41,3 +41,6 @@ allow logd ueventd:dir search;
 allow logd ueventd:file { getattr open read };
 control_logd(logd)
 read_runtime_log_tags(logd)
+
+# Logd sets defaults if certain properties are empty.
+set_prop(logd, logd_prop)

@@ -218,16 +218,17 @@ allow domain apex_mnt_dir:lnk_file r_file_perms;
 allow domain self:global_capability_class_set audit_control;
 allow domain self:netlink_audit_socket { create_socket_perms_no_ioctl nlmsg_write };
 
-# workaround for suppressing property accesses.
-# TODO(b/199007910): remove these
-set_prop(domain, {
-    property_type
-    -default_prop
-    -vmsecret_keymint_prop
-    -microdroid_manager_roothash_prop
-})
-#auditallow { domain -default_prop -init } property_type:property_service set;
-#auditallow { domain -default_prop -init } property_type:file rw_file_perms;
+# globally readable properties
+get_prop(domain, arm64_memtag_prop)
+get_prop(domain, bootloader_prop)
+get_prop(domain, build_prop)
+get_prop(domain, debug_prop)
+get_prop(domain, fingerprint_prop)
+get_prop(domain, init_service_status_prop)
+get_prop(domain, libc_debug_prop)
+get_prop(domain, log_tag_prop)
+get_prop(domain, logd_prop)
+get_prop(domain, property_service_version_prop)
 
 allow domain linkerconfig_file:dir search;
 allow domain linkerconfig_file:file r_file_perms;
@@ -266,3 +267,6 @@ allow domain kernel:key search;
 # tests (b/114136122)
 domain_auto_trans(domain, crash_dump_exec, crash_dump);
 allow domain crash_dump:process sigchld;
+
+# Properties that microdroid doesn't have but some still want to read.
+dontaudit domain { heapprofd_prop timezone_prop }:file r_file_perms;
