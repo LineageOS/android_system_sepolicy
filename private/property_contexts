@@ -367,7 +367,6 @@ dalvik.vm.dex2oat-max-image-block-size        u:object_r:dalvik_config_prop:s0 e
 dalvik.vm.dex2oat-minidebuginfo               u:object_r:dalvik_config_prop:s0 exact bool
 dalvik.vm.dex2oat-resolve-startup-strings     u:object_r:dalvik_config_prop:s0 exact bool
 dalvik.vm.dex2oat-threads                     u:object_r:dalvik_config_prop:s0 exact int
-dalvik.vm.dex2oat-updatable-bcp-packages-file u:object_r:dalvik_config_prop:s0 exact string
 dalvik.vm.dex2oat-very-large                  u:object_r:dalvik_config_prop:s0 exact int
 dalvik.vm.dex2oat-swap                        u:object_r:dalvik_config_prop:s0 exact bool
 dalvik.vm.dex2oat64.enabled                   u:object_r:dalvik_config_prop:s0 exact bool
