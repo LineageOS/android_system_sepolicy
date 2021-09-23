@@ -792,6 +792,36 @@ se_policy_cil {
     debug_ramdisk: true,
 }
 
+// A copy of the userdebug_plat_policy in GSI.
+soong_config_module_type {
+    name: "gsi_se_policy_cil",
+    module_type: "se_policy_cil",
+    config_namespace: "ANDROID",
+    bool_variables: [
+        "PRODUCT_INSTALL_DEBUG_POLICY_TO_SYSTEM_EXT",
+    ],
+    properties: [
+        "enabled",
+        "installable",
+    ],
+}
+
+gsi_se_policy_cil {
+    name: "system_ext_userdebug_plat_sepolicy.cil",
+    stem: "userdebug_plat_sepolicy.cil",
+    src: ":userdebug_plat_sepolicy.conf",
+    additional_cil_files: ["private/technical_debt.cil"],
+    system_ext_specific: true,
+    enabled: false,
+    installable: false,
+    soong_config_variables: {
+        PRODUCT_INSTALL_DEBUG_POLICY_TO_SYSTEM_EXT: {
+            enabled: true,
+            installable: true,
+        },
+    },
+}
+
 // system_ext_policy.conf - A combination of the private and public system_ext
 // policy which will ship with the device. System_ext policy is not attributized
 se_policy_conf {
