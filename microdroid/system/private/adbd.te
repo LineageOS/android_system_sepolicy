@@ -42,3 +42,12 @@ allow adbd rootfs:dir r_dir_perms;
 # Used for e.g. abb.
 allow adbd shell:unix_stream_socket { read write shutdown };
 allow adbd shell:fd use;
+
+set_prop(adbd, shell_prop)
+
+# Set service.adb.tcp.port, service.adb.tls.port, persist.adb.wifi.* properties
+set_prop(adbd, adbd_prop)
+
+# adbd tries to run mdnsd, but mdnsd doesn't exist. Just dontaudit ctl permissions.
+# TODO(b/200902288): patch adb and remove this rule
+dontaudit adbd { ctl_default_prop ctl_start_prop }:property_service set;

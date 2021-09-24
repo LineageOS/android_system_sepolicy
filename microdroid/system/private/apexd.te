@@ -85,3 +85,12 @@ allow apexd file_contexts_file:file r_file_perms;
 
 #-------------------------------------------
 allow apexd kmsg_device:chr_file w_file_perms;
+
+# apexd can set apexd sysprop
+set_prop(apexd, apexd_prop)
+
+# Allow apexd to stop itself
+set_prop(apexd, ctl_apexd_prop)
+
+# apexd uses it to decide whether it needs to keep retrying polling for loop device.
+get_prop(apexd, cold_boot_done_prop)
