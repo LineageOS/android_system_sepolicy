@@ -92,7 +92,7 @@ type sysfs_block, fs_type, sysfs_type, sysfs_block_type;
 type sysfs_bluetooth_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_devfreq_cur, fs_type, sysfs_type;
 type sysfs_devfreq_dir, fs_type, sysfs_type;
-type sysfs_devices_block, fs_type, sysfs_type;
+type sysfs_devices_block, fs_type, sysfs_type, sysfs_block_type;
 type sysfs_dm, fs_type, sysfs_type;
 type sysfs_dm_verity, fs_type, sysfs_type;
 type sysfs_dma_heap, fs_type, sysfs_type;
