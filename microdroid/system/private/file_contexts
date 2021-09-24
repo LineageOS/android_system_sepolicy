@@ -84,6 +84,7 @@
 /dev/urandom		u:object_r:random_device:s0
 /dev/vhost-vsock	u:object_r:kvm_device:s0
 /dev/vndbinder		u:object_r:vndbinder_device:s0
+/dev/vsock		u:object_r:vsock_device:s0
 /dev/zero		u:object_r:zero_device:s0
 /dev/__properties__ u:object_r:properties_device:s0
 /dev/__properties__/property_info   u:object_r:property_info:s0

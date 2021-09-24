@@ -43,9 +43,9 @@ allow microdroid_manager apex_mnt_dir:dir w_dir_perms;
 allow microdroid_manager apex_mnt_dir:file create_file_perms;
 
 # Allow microdroid_manager to ioctl /dev/vsock.
-# TODO(b/191845268): remove the below rules
-allow microdroid_manager device:chr_file r_file_perms;
-allowxperm microdroid_manager device:chr_file ioctl {
+# TODO(b/199259751): remove the below rules
+allow microdroid_manager vsock_device:chr_file r_file_perms;
+allowxperm microdroid_manager vsock_device:chr_file ioctl {
     IOCTL_VM_SOCKETS_GET_LOCAL_CID
 };
 
