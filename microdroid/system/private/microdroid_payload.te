@@ -35,7 +35,7 @@ allow microdroid_payload self:vsock_socket { create_socket_perms listen accept }
 
 # Allow microdroid_payload to ioctl /dev/vsock.
 # TODO(b/199259751): remove the below rules
-allow microdroid_payload device:chr_file r_file_perms;
-allowxperm microdroid_payload device:chr_file ioctl {
+allow microdroid_payload vsock_device:chr_file r_file_perms;
+allowxperm microdroid_payload vsock_device:chr_file ioctl {
     IOCTL_VM_SOCKETS_GET_LOCAL_CID
 };

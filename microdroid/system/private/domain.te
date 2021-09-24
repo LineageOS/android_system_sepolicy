@@ -270,3 +270,7 @@ allow domain crash_dump:process sigchld;
 
 # Properties that microdroid doesn't have but some still want to read.
 dontaudit domain { heapprofd_prop timezone_prop }:file r_file_perms;
+
+# Don't allow raw read/write/open access to generic devices.
+# Rather force a relabel to a more specific type.
+neverallow domain device:chr_file { open read write };
