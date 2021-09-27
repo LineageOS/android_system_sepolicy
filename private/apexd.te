@@ -123,30 +123,9 @@ set_prop(apexd, ctl_apexd_prop)
 allow apexd vold_service:service_manager find;
 binder_call(apexd, vold)
 
-# Apex pre- & post-install permission.
-
-# Allow self-execute for the fork mount helper.
-allow apexd apexd_exec:file execute_no_trans;
-
-# Unshare and make / private so that hooks cannot influence the
-# running system.
-allow apexd rootfs:dir mounton;
-
-# Allow to execute shell for pre- and postinstall scripts. A transition
-# rule is required, thus restricted to execute and not execute_no_trans.
-allow apexd shell_exec:file { r_file_perms execute };
-
 # apexd is using bootstrap bionic
 allow apexd system_bootstrap_lib_file:dir r_dir_perms;
 allow apexd system_bootstrap_lib_file:file { execute read open getattr map };
-
-# Allow transition to test APEX preinstall domain.
-userdebug_or_eng(`
-  domain_auto_trans(apexd, apex_test_prepostinstall_exec, apex_test_prepostinstall)
-')
-
-# Allow transition to GKI update pre/post install domain
-domain_auto_trans(apexd, gki_apex_prepostinstall_exec, gki_apex_prepostinstall)
 
 # Allow apexd to be invoked with logwrapper from init during userspace reboot.
 allow apexd devpts:chr_file { read write };
