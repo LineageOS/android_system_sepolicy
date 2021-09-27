@@ -67,10 +67,6 @@ endif
 PRODUCT_PUBLIC_POLICY := $(PRODUCT_PUBLIC_SEPOLICY_DIRS)
 PRODUCT_PRIVATE_POLICY := $(PRODUCT_PRIVATE_SEPOLICY_DIRS)
 
-# Extra sepolicy and prebuilts directories for sepolicy_freeze_test
-FREEZE_TEST_EXTRA_DIRS := $(SEPOLICY_FREEZE_TEST_EXTRA_DIRS)
-FREEZE_TEST_EXTRA_PREBUILT_DIRS := $(SEPOLICY_FREEZE_TEST_EXTRA_PREBUILT_DIRS)
-
 ifneq (,$(SYSTEM_EXT_PUBLIC_POLICY)$(SYSTEM_EXT_PRIVATE_POLICY))
 HAS_SYSTEM_EXT_SEPOLICY_DIR := true
 endif
@@ -413,13 +409,7 @@ endif  # with_asan
 
 ifneq ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
 LOCAL_REQUIRED_MODULES += \
-    sepolicy_freeze_test \
-
-else
-ifneq (,$(FREEZE_TEST_EXTRA_DIRS)$(FREEZE_TEST_EXTRA_PREBUILT_DIRS))
-$(error SEPOLICY_FREEZE_TEST_EXTRA_DIRS or SEPOLICY_FREEZE_TEST_EXTRA_PREBUILT_DIRS\
-cannot be set before system/sepolicy freezes.)
-endif #  (,$(FREEZE_TEST_EXTRA_DIRS)$(FREEZE_TEST_EXTRA_PREBUILT_DIRS))
+    sepolicy_freeze_test
 endif # ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
 
 include $(BUILD_PHONY_PACKAGE)
@@ -1539,55 +1529,6 @@ base_plat_pub_policy.conf :=
 plat_sepolicy :=
 all_fc_files :=
 all_fc_args :=
-
-#################################
-include $(CLEAR_VARS)
-LOCAL_MODULE := sepolicy_freeze_test
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_CLASS := FAKE
-LOCAL_MODULE_TAGS := optional
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-define ziplist
-$(if $(and $1,$2), "$(firstword $1) $(firstword $2)"\
-  $(call ziplist,$(wordlist 2,$(words $1),$1),$(wordlist 2,$(words $2),$2)))
-endef
-
-base_plat_public := $(LOCAL_PATH)/public
-base_plat_private := $(LOCAL_PATH)/private
-base_plat_public_prebuilt := \
-  $(LOCAL_PATH)/prebuilts/api/$(PLATFORM_SEPOLICY_VERSION)/public
-base_plat_private_prebuilt := \
-  $(LOCAL_PATH)/prebuilts/api/$(PLATFORM_SEPOLICY_VERSION)/private
-
-all_frozen_files := $(call build_policy,$(sepolicy_build_files), \
-$(base_plat_public) $(base_plat_private) $(base_plat_public_prebuilt) $(base_plat_private_prebuilt))
-
-$(LOCAL_BUILT_MODULE): PRIVATE_BASE_PLAT_PUBLIC := $(base_plat_public)
-$(LOCAL_BUILT_MODULE): PRIVATE_BASE_PLAT_PRIVATE := $(base_plat_private)
-$(LOCAL_BUILT_MODULE): PRIVATE_BASE_PLAT_PUBLIC_PREBUILT := $(base_plat_public_prebuilt)
-$(LOCAL_BUILT_MODULE): PRIVATE_BASE_PLAT_PRIVATE_PREBUILT := $(base_plat_private_prebuilt)
-$(LOCAL_BUILT_MODULE): PRIVATE_EXTRA := $(sort $(FREEZE_TEST_EXTRA_DIRS))
-$(LOCAL_BUILT_MODULE): PRIVATE_EXTRA_PREBUILT := $(sort $(FREEZE_TEST_EXTRA_PREBUILT_DIRS))
-$(LOCAL_BUILT_MODULE): $(all_frozen_files)
-ifneq ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
-	@diff -rq -x bug_map $(PRIVATE_BASE_PLAT_PUBLIC_PREBUILT) $(PRIVATE_BASE_PLAT_PUBLIC)
-	@diff -rq -x bug_map $(PRIVATE_BASE_PLAT_PRIVATE_PREBUILT) $(PRIVATE_BASE_PLAT_PRIVATE)
-ifneq (,$(FREEZE_TEST_EXTRA_DIRS)$(FREEZE_TEST_EXTRA_PREBUILT_DIRS))
-	@for pair in $(call ziplist, $(PRIVATE_EXTRA_PREBUILT), $(PRIVATE_EXTRA)); \
-		do diff -rq -x bug_map $$pair; done
-endif # (,$(FREEZE_TEST_EXTRA_DIRS)$(FREEZE_TEST_EXTRA_PREBUILT_DIRS))
-endif # ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
-	$(hide) touch $@
-
-base_plat_public :=
-base_plat_private :=
-base_plat_public_prebuilt :=
-base_plat_private_prebuilt :=
-all_frozen_files :=
 
 #################################
 
