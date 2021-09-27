@@ -1033,3 +1033,12 @@ se_policy_conf {
     cts: true,
     exclude_build_test: true,
 }
+
+//////////////////////////////////
+// se_freeze_test compares the plat sepolicy with the prebuilt sepolicy
+// Additional directories can be specified via Makefile variables:
+// SEPOLICY_FREEZE_TEST_EXTRA_DIRS and SEPOLICY_FREEZE_TEST_EXTRA_PREBUILT_DIRS.
+//////////////////////////////////
+se_freeze_test {
+    name: "sepolicy_freeze_test",
+}
