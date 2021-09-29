@@ -34,6 +34,7 @@ const (
 func init() {
 	android.RegisterModuleType("se_policy_conf", policyConfFactory)
 	android.RegisterModuleType("se_policy_cil", policyCilFactory)
+	android.RegisterModuleType("se_policy_binary", policyBinaryFactory)
 }
 
 type policyConfProperties struct {
@@ -361,3 +362,98 @@ func (c *policyCil) OutputFiles(tag string) (android.Paths, error) {
 }
 
 var _ android.OutputFileProducer = (*policyCil)(nil)
+
+type policyBinaryProperties struct {
+	// Name of the output. Default is {module_name}
+	Stem *string
+
+	// Cil files to be compiled.
+	Srcs []string `android:"path"`
+
+	// Whether to ignore neverallow when running secilc check. Defaults to
+	// SELINUX_IGNORE_NEVERALLOWS.
+	Ignore_neverallow *bool
+
+	// Whether this module is directly installable to one of the partitions. Default is true
+	Installable *bool
+}
+
+type policyBinary struct {
+	android.ModuleBase
+
+	properties policyBinaryProperties
+
+	installSource android.Path
+	installPath   android.InstallPath
+}
+
+// se_policy_binary compiles cil files to a binary sepolicy file with secilc.  Usually sources of
+// se_policy_binary come from outputs of se_policy_cil modules.
+func policyBinaryFactory() android.Module {
+	c := &policyBinary{}
+	c.AddProperties(&c.properties)
+	android.InitAndroidArchModule(c, android.DeviceSupported, android.MultilibCommon)
+	return c
+}
+
+func (c *policyBinary) Installable() bool {
+	return proptools.BoolDefault(c.properties.Installable, true)
+}
+
+func (c *policyBinary) stem() string {
+	return proptools.StringDefault(c.properties.Stem, c.Name())
+}
+
+func (c *policyBinary) GenerateAndroidBuildActions(ctx android.ModuleContext) {
+	if len(c.properties.Srcs) == 0 {
+		ctx.PropertyErrorf("srcs", "must be specified")
+		return
+	}
+	bin := android.PathForModuleOut(ctx, c.stem()).OutputPath
+	rule := android.NewRuleBuilder(pctx, ctx)
+	secilcCmd := rule.Command().BuiltTool("secilc").
+		Flag("-m").                 // Multiple decls
+		FlagWithArg("-M ", "true"). // Enable MLS
+		Flag("-G").                 // expand and remove auto generated attributes
+		FlagWithArg("-c ", strconv.Itoa(PolicyVers)).
+		Inputs(android.PathsForModuleSrc(ctx, c.properties.Srcs)).
+		FlagWithOutput("-o ", bin).
+		FlagWithArg("-f ", os.DevNull)
+
+	if proptools.BoolDefault(c.properties.Ignore_neverallow, ctx.Config().SelinuxIgnoreNeverallows()) {
+		secilcCmd.Flag("-N")
+	}
+
+	rule.Build("secilc", "Compiling cil files for "+ctx.ModuleName())
+
+	if !c.Installable() {
+		c.SkipInstall()
+	}
+
+	c.installPath = android.PathForModuleInstall(ctx, "etc", "selinux")
+	c.installSource = bin
+	ctx.InstallFile(c.installPath, c.stem(), c.installSource)
+}
+
+func (c *policyBinary) AndroidMkEntries() []android.AndroidMkEntries {
+	return []android.AndroidMkEntries{android.AndroidMkEntries{
+		OutputFile: android.OptionalPathForPath(c.installSource),
+		Class:      "ETC",
+		ExtraEntries: []android.AndroidMkExtraEntriesFunc{
+			func(ctx android.AndroidMkExtraEntriesContext, entries *android.AndroidMkEntries) {
+				entries.SetBool("LOCAL_UNINSTALLABLE_MODULE", !c.Installable())
+				entries.SetPath("LOCAL_MODULE_PATH", c.installPath.ToMakePath())
+				entries.SetString("LOCAL_INSTALLED_MODULE_STEM", c.stem())
+			},
+		},
+	}}
+}
+
+func (c *policyBinary) OutputFiles(tag string) (android.Paths, error) {
+	if tag == "" {
+		return android.Paths{c.installSource}, nil
+	}
+	return nil, fmt.Errorf("Unknown tag %q", tag)
+}
+
+var _ android.OutputFileProducer = (*policyBinary)(nil)
