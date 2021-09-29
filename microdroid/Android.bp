@@ -227,24 +227,15 @@ prebuilt_etc {
     installable: false,
 }
 
-genrule {
-    name: "microdroid_precompiled_sepolicy_gen",
-    tools: ["secilc"],
+se_policy_binary {
+    name: "microdroid_precompiled_sepolicy",
+    stem: "precompiled_sepolicy",
     srcs: [
         ":microdroid_plat_sepolicy.cil",
         ":microdroid_plat_mapping_file",
         ":microdroid_plat_pub_versioned.cil",
         ":microdroid_vendor_sepolicy.cil",
     ],
-    out: ["precompiled_sepolicy"],
-    cmd: "$(location secilc) -m -M true -G -c 30 $(in) -o $(out) -f /dev/null",
-}
-
-prebuilt_etc {
-    name: "microdroid_precompiled_sepolicy",
-    src: ":microdroid_precompiled_sepolicy_gen",
-    filename: "precompiled_sepolicy",
-    relative_install_path: "selinux",
     installable: false,
 }
 
