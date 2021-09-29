@@ -1035,6 +1035,125 @@ se_policy_conf {
 }
 
 //////////////////////////////////
+// Base system policy for treble sepolicy tests.
+// If system sepolicy is extended (e.g. by SoC vendors), their plat_pub_versioned.cil may differ
+// with system/sepolicy/prebuilts/api/{version}/plat_pub_versioned.cil. In that case,
+// BOARD_PLAT_PUB_VERSIONED_POLICY can be used to specify extended plat_pub_versioned.cil.
+// See treble_sepolicy_tests_for_release.mk for more details.
+//////////////////////////////////
+se_policy_conf {
+    name: "base_plat_sepolicy.conf",
+    srcs: [":se_build_files{.plat}"],
+    build_variant: "user",
+    installable: false,
+}
+
+se_policy_cil {
+    name: "base_plat_sepolicy.cil",
+    src: ":base_plat_sepolicy.conf",
+    additional_cil_files: ["private/technical_debt.cil"],
+    installable: false,
+    secilc_check: false, // done by se_policy_binary
+}
+
+se_policy_binary {
+    name: "base_plat_sepolicy",
+    srcs: [":base_plat_sepolicy.cil"],
+    installable: false,
+}
+
+se_policy_conf {
+    name: "base_system_ext_sepolicy.conf",
+    srcs: [":se_build_files{.system_ext}"],
+    build_variant: "user",
+    installable: false,
+}
+
+se_policy_cil {
+    name: "base_system_ext_sepolicy.cil",
+    src: ":base_system_ext_sepolicy.conf",
+    additional_cil_files: ["private/technical_debt.cil"],
+    system_ext_specific: true,
+    installable: false,
+    secilc_check: false, // done by se_policy_binary
+}
+
+se_policy_binary {
+    name: "base_system_ext_sepolicy",
+    srcs: [":base_system_ext_sepolicy.cil"],
+    system_ext_specific: true,
+    installable: false,
+}
+
+se_policy_conf {
+    name: "base_product_sepolicy.conf",
+    srcs: [":se_build_files{.product}"],
+    build_variant: "user",
+    installable: false,
+}
+
+se_policy_cil {
+    name: "base_product_sepolicy.cil",
+    src: ":base_product_sepolicy.conf",
+    additional_cil_files: ["private/technical_debt.cil"],
+    product_specific: true,
+    installable: false,
+    secilc_check: false, // done by se_policy_binary
+}
+
+se_policy_binary {
+    name: "base_product_sepolicy",
+    srcs: [":base_product_sepolicy.cil"],
+    product_specific: true,
+    installable: false,
+}
+
+se_policy_conf {
+    name: "base_plat_pub_policy.conf",
+    srcs: [":se_build_files{.plat_public}"],
+    build_variant: "user",
+    installable: false,
+}
+
+se_policy_cil {
+    name: "base_plat_pub_policy.cil",
+    src: ":base_plat_pub_policy.conf",
+    filter_out: [":reqd_policy_mask.cil"],
+    secilc_check: false,
+    installable: false,
+}
+
+se_policy_conf {
+    name: "base_system_ext_pub_policy.conf",
+    srcs: [":se_build_files{.system_ext_public}"], // system_ext_public includes system
+    build_variant: "user",
+    installable: false,
+}
+
+se_policy_cil {
+    name: "base_system_ext_pub_policy.cil",
+    src: ":base_system_ext_pub_policy.conf",
+    filter_out: [":reqd_policy_mask.cil"],
+    secilc_check: false,
+    installable: false,
+}
+
+se_policy_conf {
+    name: "base_product_pub_policy.conf",
+    srcs: [":se_build_files{.product_public}"], // product_ includes system and system_ext
+    build_variant: "user",
+    installable: false,
+}
+
+se_policy_cil {
+    name: "base_product_pub_policy.cil",
+    src: ":base_product_pub_policy.conf",
+    filter_out: [":reqd_policy_mask.cil"],
+    secilc_check: false,
+    installable: false,
+}
+
+//////////////////////////////////
 // se_freeze_test compares the plat sepolicy with the prebuilt sepolicy
 // Additional directories can be specified via Makefile variables:
 // SEPOLICY_FREEZE_TEST_EXTRA_DIRS and SEPOLICY_FREEZE_TEST_EXTRA_PREBUILT_DIRS.
