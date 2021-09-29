@@ -490,12 +490,14 @@
 # This includes VENDOR Dynamically Loadable Kernel Modules and other misc files.
 #
 /(vendor_dlkm|vendor/vendor_dlkm|system/vendor/vendor_dlkm)(/.*)?         u:object_r:vendor_file:s0
+/(vendor_dlkm|vendor/vendor_dlkm|system/vendor/vendor_dlkm)/etc(/.*)?     u:object_r:vendor_configs_file:s0
 
 #############################
 # OdmDlkm files
 # This includes ODM Dynamically Loadable Kernel Modules and other misc files.
 #
 /(odm_dlkm|vendor/odm_dlkm|system/vendor/odm_dlkm)(/.*)?                  u:object_r:vendor_file:s0
+/(odm_dlkm|vendor/odm_dlkm|system/vendor/odm_dlkm)/etc(/.*)?              u:object_r:vendor_configs_file:s0
 
 #############################
 # Vendor files from /(product|system/product)/vendor_overlay
