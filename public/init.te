@@ -432,6 +432,7 @@ allowxperm init loop_device:blk_file ioctl {
   LOOP_SET_BLOCK_SIZE
   LOOP_SET_DIRECT_IO
   LOOP_GET_STATUS
+  LOOP_SET_STATUS64
 };
 
 # Allow init to write to vibrator/trigger
