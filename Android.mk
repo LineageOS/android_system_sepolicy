@@ -183,7 +183,7 @@ endif
 ###########################################################
 
 define build_policy
-$(foreach type, $(1), $(foreach file, $(addsuffix /$(type), $(2)), $(sort $(wildcard $(file)))))
+$(strip $(foreach type, $(1), $(foreach file, $(addsuffix /$(type), $(2)), $(sort $(wildcard $(file))))))
 endef
 
 # Builds paths for all policy files found in BOARD_VENDOR_SEPOLICY_DIRS.
