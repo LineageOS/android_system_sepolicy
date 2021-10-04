@@ -8,6 +8,9 @@ type perfetto_tmpfs, file_type;
 
 tmpfs_domain(perfetto);
 
+# Allow init to start a trace (for perfetto_boottrace).
+init_daemon_domain(perfetto)
+
 # Allow to access traced's privileged consumer socket.
 unix_socket_connect(perfetto, traced_consumer, traced)
 
