@@ -5,6 +5,9 @@ type compos_fd_server, domain, coredomain;
 allow compos_fd_server odrefresh:fd use;
 allow compos_fd_server apex_art_data_file:file { getattr read };
 allow compos_fd_server apex_art_staging_data_file:file { getattr read write };
+# Use a pipe to signal readiness
+allow compos_fd_server odrefresh:fifo_file write;
+
 # TODO(b/196109647) - remove this when no longer needed by minijail
 allow compos_fd_server odrefresh:fifo_file read;
 
