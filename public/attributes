@@ -355,6 +355,7 @@ hal_attribute(lowpan);
 hal_attribute(memtrack);
 hal_attribute(neuralnetworks);
 hal_attribute(nfc);
+hal_attribute(nlinterceptor);
 hal_attribute(oemlock);
 hal_attribute(omx);
 hal_attribute(power);

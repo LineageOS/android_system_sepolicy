@@ -7,6 +7,7 @@ binder_call(wificond, system_server)
 binder_call(wificond, keystore)
 
 add_service(wificond, wifinl80211_service)
+hal_client_domain(wificond, hal_nlinterceptor)
 
 # create sockets to set interfaces up and down
 allow wificond self:udp_socket create_socket_perms;

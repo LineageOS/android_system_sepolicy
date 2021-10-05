@@ -280,6 +280,7 @@ type hal_tv_tuner_service, vendor_service, protected_service, service_manager_ty
 type hal_uwb_service, vendor_service, protected_service, service_manager_type;
 type hal_vibrator_service, vendor_service, protected_service, service_manager_type;
 type hal_weaver_service, vendor_service, protected_service, service_manager_type;
+type hal_nlinterceptor_service, vendor_service, protected_service, service_manager_type;
 
 ###
 ### Neverallow rules
