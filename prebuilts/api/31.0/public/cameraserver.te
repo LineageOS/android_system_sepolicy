@@ -28,7 +28,6 @@ allow cameraserver batterystats_service:service_manager find;
 allow cameraserver cameraproxy_service:service_manager find;
 allow cameraserver mediaserver_service:service_manager find;
 allow cameraserver package_native_service:service_manager find;
-allow cameraserver permission_checker_service:service_manager find;
 allow cameraserver processinfo_service:service_manager find;
 allow cameraserver scheduling_policy_service:service_manager find;
 allow cameraserver sensor_privacy_service:service_manager find;
@@ -54,8 +53,7 @@ neverallow cameraserver { file_type fs_type }:file execute_no_trans;
 # permissions and be isolated from the rest of the system and network.
 # Lengthier explanation here:
 # https://android-developers.googleblog.com/2016/05/hardening-media-stack.html
-neverallow cameraserver domain:{ udp_socket rawip_socket } *;
-neverallow cameraserver { domain userdebug_or_eng(`-su') }:tcp_socket *;
+neverallow cameraserver domain:{ tcp_socket udp_socket rawip_socket } *;
 
 # Allow shell commands from ADB for CTS testing/dumping
 allow cameraserver adbd:fd use;

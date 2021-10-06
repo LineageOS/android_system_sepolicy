@@ -61,6 +61,7 @@
     hal_oemlock_service
     hint_service
     gnss_device
+    gnss_time_update_service
     hal_dumpstate_config_prop
     hal_gnss_service
     hal_keymint_service
@@ -103,7 +104,7 @@
     postinstall_product_mnt_dir
     postinstall_vendor_mnt_dir
     power_debug_prop
-    power_stats_service
+    powerstats_service
     proc_kallsyms
     proc_locks
     profcollectd

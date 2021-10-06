@@ -122,6 +122,7 @@ type fingerprint_service, app_api_service, system_server_service, service_manage
 type fwk_stats_service, app_api_service, system_server_service, service_manager_type;
 type game_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type gfxinfo_service, system_api_service, system_server_service, service_manager_type;
+type gnss_time_update_service, system_server_service, service_manager_type;
 type graphicsstats_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type hardware_service, system_server_service, service_manager_type;
 type hardware_properties_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
@@ -171,7 +172,7 @@ type permissionmgr_service, app_api_service, ephemeral_app_api_service, system_s
 type permission_checker_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type persistent_data_block_service, system_api_service, system_server_service, service_manager_type;
 type pinner_service, system_server_service, service_manager_type;
-type power_stats_service, app_api_service, system_server_service, service_manager_type;
+type powerstats_service, app_api_service, system_server_service, service_manager_type;
 type power_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type print_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type processinfo_service, system_server_service, service_manager_type;

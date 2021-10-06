@@ -222,9 +222,6 @@ allow system_server sysfs_dmabuf_stats:file r_file_perms;
 # for dumpsys meminfo
 allow system_server dmabuf_heap_device:dir r_dir_perms;
 
-# Allow reading /proc/vmstat for the oom kill count
-allow system_server proc_vmstat:file r_file_perms;
-
 # The DhcpClient and WifiWatchdog use packet_sockets
 allow system_server self:packet_socket create_socket_perms_no_ioctl;
 
