@@ -91,6 +91,9 @@ set_prop(dumpstate, ctl_dumpstate_prop)
 set_prop(dumpstate, lpdumpd_prop)
 binder_call(dumpstate, lpdumpd)
 
+# For dumping hypervisor information.
+get_prop(dumpstate, hypervisor_prop)
+
 # For dumping device-mapper and snapshot information.
 allow dumpstate gsid_exec:file rx_file_perms;
 set_prop(dumpstate, ctl_gsid_prop)
