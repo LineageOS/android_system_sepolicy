@@ -71,6 +71,7 @@ cacheinfo                                 u:object_r:cacheinfo_service:s0
 carrier_config                            u:object_r:radio_service:s0
 clipboard                                 u:object_r:clipboard_service:s0
 com.android.net.IProxyService             u:object_r:IProxyService_service:s0
+android.system.virtmanager                u:object_r:virtualization_service:s0
 companiondevice                           u:object_r:companion_device_service:s0
 platform_compat                           u:object_r:platform_compat_service:s0
 platform_compat_native                    u:object_r:platform_compat_service:s0
@@ -119,6 +120,7 @@ font                                      u:object_r:font_service:s0
 android.hardware.fingerprint.IFingerprintDaemon u:object_r:fingerprintd_service:s0
 game                                      u:object_r:game_service:s0
 gfxinfo                                   u:object_r:gfxinfo_service:s0
+gnss_time_update_service                  u:object_r:gnss_time_update_service:s0
 graphicsstats                             u:object_r:graphicsstats_service:s0
 gpu                                       u:object_r:gpu_service:s0
 hardware                                  u:object_r:hardware_service:s0
@@ -207,6 +209,7 @@ phone1                                    u:object_r:radio_service:s0
 phone2                                    u:object_r:radio_service:s0
 phone                                     u:object_r:radio_service:s0
 pinner                                    u:object_r:pinner_service:s0
+powerstats                                u:object_r:powerstats_service:s0
 power                                     u:object_r:power_service:s0
 print                                     u:object_r:print_service:s0
 processinfo                               u:object_r:processinfo_service:s0
@@ -273,6 +276,7 @@ time_zone_detector                        u:object_r:timezonedetector_service:s0
 timezone                                  u:object_r:timezone_service:s0
 thermalservice                            u:object_r:thermal_service:s0
 tracing.proxy                             u:object_r:tracingproxy_service:s0
+translation                              u:object_r:translation_service:s0
 trust                                     u:object_r:trust_service:s0
 tv_input                                  u:object_r:tv_input_service:s0
 tv_tuner_resource_mgr                     u:object_r:tv_tuner_resource_mgr_service:s0
