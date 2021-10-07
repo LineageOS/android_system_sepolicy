@@ -39,6 +39,7 @@ allow platform_app sdcard_type:file create_file_perms;
 
 # com.android.systemui
 allow platform_app rootfs:dir getattr;
+get_prop(platform_app, radio_cdma_ecm_prop)
 
 # com.android.captiveportallogin reads /proc/vmstat
 allow platform_app {
