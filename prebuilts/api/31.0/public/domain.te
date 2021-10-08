@@ -1368,6 +1368,8 @@ full_treble_only(`
     coredomain
     -healthd
     -shell
+    # For access to block device information under /sys/class/block.
+    -apexd
     # Generate uevents for health info
     -ueventd
     # Recovery uses health HAL passthrough implementation.

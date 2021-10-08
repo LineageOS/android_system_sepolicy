@@ -52,8 +52,8 @@ allowxperm apexd loop_device:blk_file ioctl {
   LOOP_CONFIGURE
 };
 # Allow apexd to access /dev/block
-allow apexd bdev_type:dir r_dir_perms;
-allow apexd bdev_type:blk_file getattr;
+allow apexd dev_type:dir r_dir_perms;
+allow apexd dev_type:blk_file getattr;
 
 #allow apexd to access virtual disks
 allow apexd vd_device:blk_file r_file_perms;
@@ -107,8 +107,9 @@ allow apexd labeledfs:filesystem { mount unmount };
 
 # /sys directory tree traversal
 allow apexd sysfs_type:dir search;
-allow apexd sysfs_block_type:dir r_dir_perms;
-allow apexd sysfs_block_type:file r_file_perms;
+# Access to /sys/class/block
+allow apexd sysfs_type:dir r_dir_perms;
+allow apexd sysfs_type:file r_file_perms;
 # Configure read-ahead of dm-verity and loop devices
 # for dm-X
 allow apexd sysfs_dm:dir r_dir_perms;
