@@ -6,6 +6,7 @@
 (typeattributeset new_objects
   ( new_objects
     artd_service
+    attestation_verification_service
     camera2_extensions_prop
     extra_free_kbytes
     extra_free_kbytes_exec
