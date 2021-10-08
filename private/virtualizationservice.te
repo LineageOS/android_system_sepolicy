@@ -13,6 +13,8 @@ binder_service(virtualizationservice)
 # Allow calling into the system server so that it can check permissions.
 binder_call(virtualizationservice, system_server)
 allow virtualizationservice permission_service:service_manager find;
+# Allow virtualizationservice to access "package_native" service for staged apex info.
+allow virtualizationservice package_native_service:service_manager find;
 
 # Let the virtualizationservice domain register the virtualization_service with ServiceManager.
 add_service(virtualizationservice, virtualization_service)
@@ -51,6 +53,7 @@ allow virtualizationservice shell_data_file:file { getattr read write };
 allow virtualizationservice apex_info_file:file r_file_perms;
 allow virtualizationservice apex_data_file:dir search;
 allow virtualizationservice staging_data_file:file r_file_perms;
+allow virtualizationservice staging_data_file:dir search;
 
 # Let virtualizationservice to accept vsock connection from the guest VMs
 allow virtualizationservice self:vsock_socket { create_socket_perms_no_ioctl listen accept };
