@@ -91,15 +91,19 @@ attribute extended_core_property_type;
 
 # All properties defined by /system.
 attribute system_property_type;
+expandattribute system_property_type false;
 
 # All /system-defined properties used only in /system.
 attribute system_internal_property_type;
+expandattribute system_internal_property_type false;
 
 # All /system-defined properties which can't be written outside /system.
 attribute system_restricted_property_type;
+expandattribute system_restricted_property_type false;
 
 # All /system-defined properties with no restrictions.
 attribute system_public_property_type;
+expandattribute system_public_property_type false;
 
 # All properties defined by /product.
 # Currently there are no enforcements between /system and /product, so for now
@@ -111,15 +115,19 @@ define(`product_public_type',     `system_public_property_type')
 
 # All properties defined by /vendor.
 attribute vendor_property_type;
+expandattribute vendor_property_type false;
 
 # All /vendor-defined properties used only in /vendor.
 attribute vendor_internal_property_type;
+expandattribute vendor_internal_property_type false;
 
 # All /vendor-defined properties which can't be written outside /vendor.
 attribute vendor_restricted_property_type;
+expandattribute vendor_restricted_property_type false;
 
 # All /vendor-defined properties with no restrictions.
 attribute vendor_public_property_type;
+expandattribute vendor_public_property_type false;
 
 # All service_manager types created by system_server
 attribute system_server_service;
