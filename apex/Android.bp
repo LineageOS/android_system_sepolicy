@@ -237,3 +237,10 @@ filegroup {
     "com.android.extservices-file_contexts",
   ],
 }
+
+filegroup {
+  name: "com.android.car.framework-file_contexts",
+  srcs: [
+    "com.android.car.framework-file_contexts",
+  ],
+}
