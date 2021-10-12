@@ -37,6 +37,7 @@ neverallow {
     -init
 
     # generic access to sysfs_type
+    -apexd
     -ueventd
     -vold
 } sysfs_leds:file *;
@@ -137,6 +138,7 @@ full_treble_only(`
   # /sys
   neverallow {
     coredomain
+    -apexd
     -init
     -ueventd
     -vold
@@ -145,6 +147,7 @@ full_treble_only(`
   # /dev
   neverallow {
     coredomain
+    -apexd
     -fsck
     -init
     -ueventd
