@@ -28,6 +28,10 @@ allow hal_neuralnetworks_server apk_data_file:file { getattr map read };
 # property to determine whether to deny NNAPI extensions use for apps
 # on product partition (apps in GSI are not allowed to use NNAPI extensions).
 get_prop(hal_neuralnetworks_client, nnapi_ext_deny_product_prop);
+
+# Allow NN HAL client to read device_config_nnapi_native_prop.
+get_prop(hal_neuralnetworks_client, device_config_nnapi_native_prop)
+
 # This property is only expected to be found in /product/build.prop,
 # allow to be set only by init.
 neverallow { domain -init } nnapi_ext_deny_product_prop:property_service set;
