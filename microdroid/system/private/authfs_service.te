@@ -24,11 +24,9 @@ allow authfs_service authfs_data_file:dir create_dir_perms;
 
 # Allow opening a file from the FUSE mount.
 # Note: authfs_service doesn't really need to read and write the file, but the
-# check seems to happen on open anyway. It also doesn't need getattr, but it is
-# currently called internally by binder to estimate ashmem size.
+# check seems to happen on open anyway.
 allow authfs_service authfs_fuse:dir search;
-# TODO(195752513): Remove getattr once the binder bug is fixed.
-allow authfs_service authfs_fuse:file { getattr open read write };
+allow authfs_service authfs_fuse:file { open read write };
 
 # Allow killing the authfs process and unmount.
 allow authfs_service authfs:process sigkill;

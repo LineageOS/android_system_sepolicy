@@ -150,6 +150,9 @@ dontaudit incidentd apex_module_data_file:dir r_dir_perms;
 dontaudit incidentd apex_art_data_file:dir r_dir_perms;
 dontaudit incidentd tmpfs:file rwx_file_perms;
 
+# Allow incidentd to read /apex/apex-info-list.xml
+allow incidentd apex_info_file:file r_file_perms;
+
 # logd access - work to be done is a PII safe log (possibly an event log?)
 userdebug_or_eng(`read_logd(incidentd)')
 # TODO control_logd(incidentd)
