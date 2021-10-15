@@ -121,6 +121,10 @@ allow gmscore_app cache_file:lnk_file r_file_perms;
 allow gmscore_app ota_package_file:dir rw_dir_perms;
 allow gmscore_app ota_package_file:file create_file_perms;
 
+# Write the checkin metadata to /data/misc_ce/<userid>/checkin
+allow gmscore_app checkin_data_file:dir rw_dir_perms;
+allow gmscore_app checkin_data_file:file create_file_perms;
+
 # Used by Finsky / Android "Verify Apps" functionality when
 # running "adb install foo.apk".
 allow gmscore_app shell_data_file:file r_file_perms;

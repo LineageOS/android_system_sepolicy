@@ -30,6 +30,9 @@ typealias app_exec_data_file alias rs_data_file;
 # of application data.
 type rollback_data_file, file_type, data_file_type, core_data_file_type;
 
+# /data/misc_ce/checkin for checkin apps.
+type checkin_data_file, file_type, data_file_type, core_data_file_type;
+
 # /data/gsi/ota
 type ota_image_data_file, file_type, data_file_type, core_data_file_type;
 
