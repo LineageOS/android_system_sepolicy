@@ -244,3 +244,10 @@ filegroup {
     "com.android.car.framework-file_contexts",
   ],
 }
+
+filegroup {
+  name: "com.android.supplementalprocess-file_contexts",
+  srcs: [
+    "com.android.supplementalprocess-file_contexts",
+  ],
+}
