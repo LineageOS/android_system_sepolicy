@@ -658,6 +658,9 @@
 /data/misc_de/[0-9]+/storaged(/.*)?       u:object_r:storaged_data_file:s0
 /data/misc_ce/[0-9]+/storaged(/.*)?       u:object_r:storaged_data_file:s0
 
+# checkin data files
+/data/misc_ce/[0-9]+/checkin(/.*)? u:object_r:checkin_data_file:s0
+
 # Fingerprint data
 /data/system/users/[0-9]+/fpdata(/.*)? u:object_r:fingerprintd_data_file:s0
 
