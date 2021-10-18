@@ -230,6 +230,11 @@ get_prop(zygote, qemu_sf_lcd_density_prop)
 # Allow zygote to read /apex/apex-info-list.xml
 allow zygote apex_info_file:file r_file_perms;
 
+# Allow zygote to canonicalize vendor APEX paths. This is used when zygote is checking the
+# preinstalled path of APEXes that contain runtime resource overlays for the 'android' package.
+allow zygote vendor_apex_file:dir { getattr search };
+allow zygote vendor_apex_file:file { getattr };
+
 ###
 ### neverallow rules
 ###
