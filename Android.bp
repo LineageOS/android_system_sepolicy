@@ -790,6 +790,9 @@ se_policy_cil {
     src: ":userdebug_plat_sepolicy.conf",
     additional_cil_files: ["private/technical_debt.cil"],
     debug_ramdisk: true,
+    dist: {
+        targets: ["droidcore"],
+    },
 }
 
 // A copy of the userdebug_plat_policy in GSI.
