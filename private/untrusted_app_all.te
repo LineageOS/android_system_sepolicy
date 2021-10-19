@@ -176,6 +176,15 @@ userdebug_or_eng(`
 # the profiler (which would be profiling the app that is sending the signal).
 allow untrusted_app_all simpleperf:process signal;
 
+# Allow running a VM for test/demo purposes. Note that access the service is
+# still guarded with the `android.permission.MANAGE_VIRTUAL_MACHINE`
+# permission. The protection level of the permission is `signature|development`
+# so that it can only be granted to either platform-key signed apps or
+# test-only apps having `android:testOnly="true"` in its manifest.
+userdebug_or_eng(`
+  virtualizationservice_use(untrusted_app_all)
+')
+
 with_native_coverage(`
   # Allow writing coverage information to /data/misc/trace
   allow domain method_trace_data_file:dir create_dir_perms;
