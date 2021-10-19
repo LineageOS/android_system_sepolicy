@@ -8,6 +8,7 @@
     artd_service
     attestation_verification_service
     camera2_extensions_prop
+    communal_manager_service
     device_config_nnapi_native_prop
     extra_free_kbytes
     extra_free_kbytes_exec
@@ -32,4 +33,5 @@
     sysfs_vendor_sched
     vendor_vm_file
     vendor_vm_data_file
+    virtual_device_service
   ))
