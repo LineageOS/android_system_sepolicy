@@ -7,6 +7,9 @@
 # in tools/checkfc.c
 attribute dev_type;
 
+# Attribute for block devices.
+attribute bdev_type;
+
 # All types used for processes.
 attribute domain;
 
