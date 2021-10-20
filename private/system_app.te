@@ -93,7 +93,6 @@ allow system_app {
   -tracingproxy_service
   -virtual_touchpad_service
   -vold_service
-  -vr_hwc_service
   -default_android_service
 }:service_manager find;
 # suppress denials for services system_app should not be accessing.
@@ -105,7 +104,6 @@ dontaudit system_app {
   netd_service
   virtual_touchpad_service
   vold_service
-  vr_hwc_service
 }:service_manager find;
 
 # suppress denials caused by debugfs_tracing
