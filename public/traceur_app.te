@@ -15,7 +15,6 @@ allow traceur_app {
   -netd_service
   -virtual_touchpad_service
   -vold_service
-  -vr_hwc_service
   -default_android_service
 }:service_manager find;
 
