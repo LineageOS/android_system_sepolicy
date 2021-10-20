@@ -91,8 +91,6 @@ r_dir_file(surfaceflinger, dumpstate)
 #add_service(surfaceflinger, surfaceflinger_service)
 allow surfaceflinger surfaceflinger_service:service_manager { add find };
 
-add_service(surfaceflinger, vrflinger_vsync_service)
-
 allow surfaceflinger mediaserver_service:service_manager find;
 allow surfaceflinger permission_service:service_manager find;
 allow surfaceflinger power_service:service_manager find;
