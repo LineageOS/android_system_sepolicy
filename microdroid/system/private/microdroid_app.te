@@ -23,7 +23,3 @@ allow microdroid_app vm_payload_key:keystore2_key {
     rebind
     use
 };
-
-# Microdroid manager connects vsock_socket to the host and app's output is redirected to it.
-# TODO(b/195751698) This is flaky; it seems this is not always necessary.
-dontaudit microdroid_app microdroid_manager:vsock_socket getattr;
