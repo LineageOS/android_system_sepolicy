@@ -260,6 +260,7 @@ type hal_contexthub_service, vendor_service, protected_service, service_manager_
 type hal_face_service, vendor_service, protected_service, service_manager_type;
 type hal_fingerprint_service, vendor_service, protected_service, service_manager_type;
 type hal_gnss_service, vendor_service, protected_service, service_manager_type;
+type hal_graphics_composer_service, vendor_service, protected_service, service_manager_type;
 type hal_health_storage_service, vendor_service, protected_service, service_manager_type;
 type hal_identity_service, vendor_service, protected_service, service_manager_type;
 type hal_keymint_service, vendor_service, protected_service, service_manager_type;
