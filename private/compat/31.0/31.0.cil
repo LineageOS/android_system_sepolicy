@@ -3,6 +3,8 @@
 (type apex_permission_data_file)
 (type apex_scheduling_data_file)
 (type apex_wifi_data_file)
+(type vr_hwc)
+(type vr_hwc_exec)
 
 (expandtypeattribute (DockObserver_service_31_0) true)
 (expandtypeattribute (IProxyService_service_31_0) true)

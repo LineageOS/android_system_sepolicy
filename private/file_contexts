@@ -357,7 +357,6 @@
 /system/etc/task_profiles\.json  u:object_r:task_profiles_file:s0
 /system/etc/task_profiles/task_profiles_[0-9]+\.json  u:object_r:task_profiles_api_file:s0
 /system/usr/share/zoneinfo(/.*)? u:object_r:system_zoneinfo_file:s0
-/system/bin/vr_hwc               u:object_r:vr_hwc_exec:s0
 /system/bin/adbd                 u:object_r:adbd_exec:s0
 /system/bin/vold_prepare_subdirs u:object_r:vold_prepare_subdirs_exec:s0
 /system/bin/stats                u:object_r:stats_exec:s0
