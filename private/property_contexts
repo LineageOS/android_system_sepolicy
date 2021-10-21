@@ -1185,16 +1185,19 @@ partition.system.verified     u:object_r:verity_status_prop:s0 exact string
 partition.system_ext.verified u:object_r:verity_status_prop:s0 exact string
 partition.product.verified    u:object_r:verity_status_prop:s0 exact string
 partition.vendor.verified     u:object_r:verity_status_prop:s0 exact string
+partition.odm.verified        u:object_r:verity_status_prop:s0 exact string
 
 # Properties that holds the hashtree information for verity partitions.
 partition.system.verified.hash_alg     u:object_r:verity_status_prop:s0 exact string
 partition.system_ext.verified.hash_alg u:object_r:verity_status_prop:s0 exact string
 partition.product.verified.hash_alg    u:object_r:verity_status_prop:s0 exact string
 partition.vendor.verified.hash_alg     u:object_r:verity_status_prop:s0 exact string
+partition.odm.verified.hash_alg        u:object_r:verity_status_prop:s0 exact string
 partition.system.verified.root_digest     u:object_r:verity_status_prop:s0 exact string
 partition.system_ext.verified.root_digest u:object_r:verity_status_prop:s0 exact string
 partition.product.verified.root_digest    u:object_r:verity_status_prop:s0 exact string
 partition.vendor.verified.root_digest     u:object_r:verity_status_prop:s0 exact string
+partition.odm.verified.root_digest        u:object_r:verity_status_prop:s0 exact string
 
 ro.setupwizard.enterprise_mode u:object_r:setupwizard_prop:s0 exact bool
 ro.setupwizard.esim_cid_ignore u:object_r:setupwizard_prop:s0 exact string
