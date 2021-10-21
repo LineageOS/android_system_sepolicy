@@ -82,6 +82,7 @@
 /dev/uinput		u:object_r:uhid_device:s0
 /dev/uio[0-9]*		u:object_r:uio_device:s0
 /dev/urandom		u:object_r:random_device:s0
+/dev/hvc0		u:object_r:serial_device:s0
 /dev/vhost-vsock	u:object_r:kvm_device:s0
 /dev/vndbinder		u:object_r:vndbinder_device:s0
 /dev/vsock		u:object_r:vsock_device:s0
