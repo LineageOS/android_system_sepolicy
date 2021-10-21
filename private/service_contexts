@@ -4,6 +4,7 @@ android.hardware.biometrics.face.IFace/default                       u:object_r:
 android.hardware.biometrics.fingerprint.IFingerprint/default         u:object_r:hal_fingerprint_service:s0
 android.hardware.contexthub.IContextHub/default                      u:object_r:hal_contexthub_service:s0
 android.hardware.gnss.IGnss/default                                  u:object_r:hal_gnss_service:s0
+android.hardware.graphics.composer3.IComposer/default                u:object_r:hal_graphics_composer_service:s0
 android.hardware.health.storage.IStorage/default                     u:object_r:hal_health_storage_service:s0
 android.hardware.identity.IIdentityCredentialStore/default           u:object_r:hal_identity_service:s0
 android.hardware.light.ILights/default                               u:object_r:hal_light_service:s0
@@ -309,8 +310,6 @@ virtual_touchpad                          u:object_r:virtual_touchpad_service:s0
 voiceinteraction                          u:object_r:voiceinteraction_service:s0
 vold                                      u:object_r:vold_service:s0
 vpn_management                            u:object_r:vpn_management_service:s0
-vr_hwc                                    u:object_r:vr_hwc_service:s0
-vrflinger_vsync                           u:object_r:vrflinger_vsync_service:s0
 vrmanager                                 u:object_r:vr_manager_service:s0
 wallpaper                                 u:object_r:wallpaper_service:s0
 webviewupdate                             u:object_r:webviewupdate_service:s0
