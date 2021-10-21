@@ -1,5 +1,4 @@
 # mediatranscoding - daemon for transcoding video and image.
-type mediatranscoding, domain;
 type mediatranscoding_exec, system_file_type, exec_type, file_type;
 type mediatranscoding_tmpfs, file_type;
 typeattribute mediatranscoding coredomain;
