@@ -42,3 +42,6 @@ r_dir_file(hal_telephony_server, sysfs_type)
 
 # granting the ioctl permission for hal_telephony_server should be device specific
 allow hal_telephony_server self:socket create_socket_perms_no_ioctl;
+
+# Allow AIDL HAL shim to call HIDL HAL implementation
+binder_call(hal_telephony_server, hal_telephony_server)
