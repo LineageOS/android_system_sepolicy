@@ -221,9 +221,6 @@ add_service(vold, vold_service)
 binder_call(vold, system_server)
 allow vold permission_service:service_manager find;
 
-# talk to batteryservice
-binder_call(vold, healthd)
-
 # talk to keymaster
 hal_client_domain(vold, hal_keymaster)
 
@@ -344,7 +341,6 @@ neverallow vold {
   -hal_keymaster_server
   -system_suspend_server
   -hal_bootctl_server
-  -healthd
   -hwservicemanager
   -iorapd_service
   -keystore

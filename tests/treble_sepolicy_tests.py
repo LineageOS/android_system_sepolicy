@@ -20,7 +20,6 @@ coredomainAllowlist = {
         # TODO(b/152813275): need to avoid allowlist for rootdir
         "modprobe",
         "slideshow",
-        "healthd",
         }
 
 class scontext:
