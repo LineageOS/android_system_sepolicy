@@ -1350,11 +1350,10 @@ neverallow {
   -coredomain
 } mnt_product_file:dir *;
 
-# Platform must not have access to sysfs_batteryinfo, but should do it via health HAL and healthd
+# Platform must not have access to sysfs_batteryinfo, but should do it via health HAL
 full_treble_only(`
   neverallow {
     coredomain
-    -healthd
     -shell
     # For access to block device information under /sys/class/block.
     -apexd
