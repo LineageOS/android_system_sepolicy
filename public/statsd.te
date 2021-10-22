@@ -25,7 +25,6 @@ allow statsd stats_data_file:file create_file_perms;
 
 # Allow statsd to make binder calls to any binder service.
 binder_call(statsd, appdomain)
-binder_call(statsd, healthd)
 binder_call(statsd, incidentd)
 binder_call(statsd, system_server)
 

@@ -190,7 +190,6 @@ full_treble_only(`
     -bootstat
     -charger
     -dumpstate
-    -healthd
     userdebug_or_eng(`-incidentd')
     -init
     -logd
