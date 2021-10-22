@@ -27,9 +27,6 @@ allow iorapd package_native_service:service_manager find;
 allow iorapd dumpstate:fd use;
 allow iorapd dumpstate:fifo_file write;
 
-# talk to batteryservice
-binder_call(iorapd, healthd)
-
 # TODO: does each of the service_manager allow finds above need the binder_call?
 
 # iorapd temporarily changes its priority when running benchmarks
@@ -87,7 +84,6 @@ neverallow {
 neverallow { domain -dumpstate -system_server -iorapd } iorapd_service:service_manager find;
 neverallow iorapd {
   domain
-  -healthd
   -servicemanager
   -system_server
   userdebug_or_eng(`-su')
