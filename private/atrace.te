@@ -44,7 +44,6 @@ allow atrace servicemanager:service_manager list;
 # Allow notifying the processes hosting specific binder services that
 # trace-related system properties have changed.
 binder_use(atrace)
-allow atrace healthd:binder call;
 allow atrace surfaceflinger:binder call;
 allow atrace system_server:binder call;
 allow atrace cameraserver:binder call;
