@@ -409,7 +409,6 @@ neverallow {
   -init
   -recovery
   -ueventd
-  -healthd
   -uncrypt
   -tee
   -hal_bootctl_server
