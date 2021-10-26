@@ -412,3 +412,10 @@ attribute gsi_metadata_file_type;
 # Types used for module-specific APEX data directories under
 # /data/{misc,misc_ce,misc_de}/apexdata.
 attribute apex_data_file_type;
+
+# Domains used for charger.
+# This is the common type for domains that executes charger's
+# functionalities, including setting and getting necessary properties,
+# permissions to maintain the health loop, writing to kernel log, handling
+# inputs and drawing screens, etc.
+attribute charger_type;
