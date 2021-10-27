@@ -8,6 +8,8 @@ neverallow {
   -hal_wifi_hostapd_server
   -hal_wifi_supplicant_server
   -hal_telephony_server
+  -hal_uwb_server
+  # TODO(b/196225233): Remove hal_uwb_vendor_server
   -hal_uwb_vendor_server
 } self:global_capability_class_set { net_admin net_raw };
 
@@ -26,6 +28,8 @@ neverallow {
   -hal_wifi_hostapd_server
   -hal_wifi_supplicant_server
   -hal_telephony_server
+  -hal_uwb_server
+  # TODO(b/196225233): Remove hal_uwb_vendor_server
   -hal_uwb_vendor_server
 } domain:{ udp_socket rawip_socket } *;
 
