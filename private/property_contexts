@@ -263,6 +263,8 @@ apexd.                  u:object_r:apexd_prop:s0
 apexd.config.dm_delete.timeout           u:object_r:apexd_config_prop:s0 exact uint
 apexd.config.dm_create.timeout           u:object_r:apexd_config_prop:s0 exact uint
 persist.apexd.          u:object_r:apexd_prop:s0
+persist.vendor.apex.    u:object_r:apexd_select_prop:s0
+ro.boot.vendor.apex.    u:object_r:apexd_select_prop:s0
 
 bpf.progs_loaded        u:object_r:bpf_progs_loaded_prop:s0
 
