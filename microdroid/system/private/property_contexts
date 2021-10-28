@@ -23,9 +23,10 @@ ctl.restart$adbd u:object_r:ctl_adbd_prop:s0
 
 ctl.stop$apexd u:object_r:ctl_apexd_prop:s0
 
-ctl.start$apexd-vm    u:object_r:ctl_apexd_vm_prop:s0
-ctl.start$apkdmverity u:object_r:ctl_apkdmverity_prop:s0
-ctl.start$zipfuse     u:object_r:ctl_zipfuse_prop:s0
+ctl.start$apexd-vm      u:object_r:ctl_apexd_vm_prop:s0
+ctl.start$apkdmverity   u:object_r:ctl_apkdmverity_prop:s0
+ctl.start$seriallogging u:object_r:ctl_seriallogging_prop:s0
+ctl.start$zipfuse       u:object_r:ctl_zipfuse_prop:s0
 
 ctl.console     u:object_r:ctl_console_prop:s0
 ctl.fuse_       u:object_r:ctl_fuse_prop:s0
@@ -90,11 +91,13 @@ init.svc.tombstoned u:object_r:init_service_status_prop:s0 exact string
 
 init.svc.vendor.keymint-microdroid u:object_r:vendor_default_prop:s0 exact string
 
-ro.boot.hardware                   u:object_r:bootloader_prop:s0 exact string
+ro.boot.adb.enabled                u:object_r:bootloader_prop:s0 exact bool
 ro.boot.avb_version                u:object_r:bootloader_prop:s0 exact string
 ro.boot.boot_devices               u:object_r:bootloader_prop:s0 exact string
 ro.boot.first_stage_console        u:object_r:bootloader_prop:s0 exact string
 ro.boot.force_normal_boot          u:object_r:bootloader_prop:s0 exact string
+ro.boot.hardware                   u:object_r:bootloader_prop:s0 exact string
+ro.boot.logd.enabled               u:object_r:bootloader_prop:s0 exact bool
 ro.boot.slot_suffix                u:object_r:bootloader_prop:s0 exact string
 ro.boot.vbmeta.avb_version         u:object_r:bootloader_prop:s0 exact string
 ro.boot.vbmeta.device_state        u:object_r:bootloader_prop:s0 exact string
