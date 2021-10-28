@@ -1,7 +1,7 @@
 type ashmem_device, dev_type, mlstrustedobject;
 type ashmem_libcutils_device, dev_type, mlstrustedobject;
 type binder_device, dev_type, mlstrustedobject;
-type block_device, dev_type, bdev_type;
+type block_device, dev_type;
 type console_device, dev_type;
 type device, dev_type, fs_type;
 type dm_device, dev_type;
@@ -34,7 +34,7 @@ type tun_device, dev_type, mlstrustedobject;
 type uhid_device, dev_type, mlstrustedobject;
 type uio_device, dev_type;
 type userdata_sysdev, dev_type;
-type vd_device, dev_type, bdev_type;
+type vd_device, dev_type;
 type vndbinder_device, dev_type;
 type vsock_device, dev_type;
 type zero_device, dev_type, mlstrustedobject;
