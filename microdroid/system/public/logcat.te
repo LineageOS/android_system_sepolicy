@@ -1,2 +1,2 @@
-type logcat;
+type logcat, domain;
 type logcat_exec, file_type, exec_type, system_file_type;
