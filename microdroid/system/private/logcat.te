@@ -1,0 +1,15 @@
+# logcat in Microdroid runs as a daemon process. It reads logs from logd and
+# emits the logs to the virtual serial console.
+typeattribute logcat coredomain;
+
+# logcat can be executed from init
+init_daemon_domain(logcat)
+
+# logcat can append to the virtual console devices
+allow logcat device:dir r_dir_perms;
+allow logcat serial_device:chr_file ra_file_perms;
+
+# logcat can get logs from logd
+read_logd(logcat)
+
+allow logcat self:global_capability_class_set { sys_nice };

@@ -52,6 +52,7 @@ allowxperm microdroid_manager vsock_device:chr_file ioctl {
 # Allow microdroid_manager to start the services apexd-vm, apkdmverity and zipfuse
 set_prop(microdroid_manager, ctl_apexd_vm_prop)
 set_prop(microdroid_manager, ctl_apkdmverity_prop)
+set_prop(microdroid_manager, ctl_seriallogging_prop)
 set_prop(microdroid_manager, ctl_zipfuse_prop)
 
 # Allow microdroid_manager to wait for linkerconfig to be ready
@@ -59,5 +60,10 @@ get_prop(microdroid_manager, apex_config_prop)
 
 # Allow microdroid_manager to pass the roothash to apkdmverity
 set_prop(microdroid_manager, microdroid_manager_roothash_prop)
+
+# Allow microdroid_manager to read sysprops from bootconfigs. It will use the
+# sysprops to decide whether services required for debugging (adbd, logd, etc.)
+# need to be started or not.
+get_prop(microdroid_manager, bootloader_prop)
 
 neverallow microdroid_manager { file_type fs_type }:file execute_no_trans;

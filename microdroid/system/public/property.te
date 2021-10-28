@@ -17,6 +17,7 @@ type ctl_interface_restart_prop, property_type;
 type ctl_interface_start_prop, property_type;
 type ctl_interface_stop_prop, property_type;
 type ctl_restart_prop, property_type;
+type ctl_seriallogging_prop, property_type;
 type ctl_sigstop_prop, property_type;
 type ctl_start_prop, property_type;
 type ctl_stop_prop, property_type;
