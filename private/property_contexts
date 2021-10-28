@@ -542,6 +542,7 @@ ro.lmk.thrashing_limit          u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.thrashing_limit_critical u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.thrashing_limit_decay    u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.use_minfree_levels       u:object_r:lmkd_config_prop:s0 exact bool
+ro.lmk.use_new_strategy         u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.upgrade_pressure         u:object_r:lmkd_config_prop:s0 exact int
 lmkd.reinit                     u:object_r:lmkd_prop:s0 exact int
 
