@@ -33,6 +33,7 @@ ctl.fuse_       u:object_r:ctl_fuse_prop:s0
 ctl.            u:object_r:ctl_default_prop:s0
 
 sys.init.perf_lsm_hooks u:object_r:init_perf_lsm_hooks_prop:s0 exact bool
+sys.powerctl            u:object_r:powerctl_prop:s0
 
 service.adb.root u:object_r:shell_prop:s0 exact bool
 
