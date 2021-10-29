@@ -21,7 +21,7 @@ allow simpleperf_app_runner self:global_capability_class_set { setuid setgid };
 # simpleperf_app_runner switches to the app security context.
 selinux_check_context(simpleperf_app_runner) # validate context
 allow simpleperf_app_runner self:process setcurrent;
-allow simpleperf_app_runner untrusted_app_all:process dyntransition; # setcon
+allow simpleperf_app_runner { ephemeral_app isolated_app platform_app priv_app untrusted_app_all }:process dyntransition; # setcon
 
 # simpleperf_app_runner/libselinux needs access to seapp_contexts_file to
 # determine which domain to transition to.
