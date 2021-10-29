@@ -45,6 +45,7 @@ type timezone_prop, property_type;
 type usb_control_prop, property_type;
 type vendor_default_prop, property_type;
 type vmsecret_keymint_prop, property_type;
+type powerctl_prop, property_type;
 
 allow property_type tmpfs:filesystem associate;
 
