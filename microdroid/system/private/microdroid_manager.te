@@ -66,4 +66,7 @@ set_prop(microdroid_manager, microdroid_manager_roothash_prop)
 # need to be started or not.
 get_prop(microdroid_manager, bootloader_prop)
 
+# Allow microdroid_manager to shutdown the device when verification fails
+set_prop(microdroid_manager, powerctl_prop)
+
 neverallow microdroid_manager { file_type fs_type }:file execute_no_trans;
