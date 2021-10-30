@@ -59,11 +59,6 @@
 (typeattribute untrusted_app_visible_halserver)
 (typeattributeset untrusted_app_visible_halserver_violators (untrusted_app_visible_halserver))
 
-; Apps, except isolated apps, are clients of BufferHub HAL
-; Unfortunately, we can't currently express this in module policy language:
-;     typeattribute { appdomain -isolated_app } hal_cas_client;
-(typeattributeset hal_bufferhub_client ((and (appdomain) ((not (isolated_app))))))
-
 ; Properties having both system_property_type and vendor_property_type are illegal
 ; Unfortunately, we can't currently express this in module policy language:
 ;     typeattribute { system_property_type && vendor_property_type } system_and_vendor_property_type;
