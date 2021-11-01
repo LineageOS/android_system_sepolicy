@@ -44,6 +44,8 @@ log.                    u:object_r:log_prop:s0
 log.tag                 u:object_r:log_tag_prop:s0
 log.tag.WifiHAL         u:object_r:wifi_log_prop:s0
 security.perf_harden    u:object_r:shell_prop:s0
+persist.simpleperf.profile_app_uid              u:object_r:shell_prop:s0
+persist.simpleperf.profile_app_expiration_time  u:object_r:shell_prop:s0
 security.lower_kptr_restrict u:object_r:lower_kptr_restrict_prop:s0
 service.adb.root        u:object_r:shell_prop:s0
 service.adb.tls.port    u:object_r:adbd_prop:s0
