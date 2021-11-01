@@ -1961,7 +1961,10 @@
 (typeattributeset print_service_31_0 (print_service))
 (typeattributeset priv_app_31_0 (priv_app))
 (typeattributeset privapp_data_file_31_0 (privapp_data_file))
-(typeattributeset proc_31_0 (proc))
+(typeattributeset proc_31_0
+  ( proc
+    proc_cpu_alignment
+))
 (typeattributeset proc_abi_31_0 (proc_abi))
 (typeattributeset proc_asound_31_0 (proc_asound))
 (typeattributeset proc_bluetooth_writable_31_0 (proc_bluetooth_writable))
