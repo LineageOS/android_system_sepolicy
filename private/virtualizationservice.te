@@ -22,9 +22,6 @@ add_service(virtualizationservice, virtualization_service)
 # When virtualizationservice execs a file with the crosvm_exec label, run it in the crosvm domain.
 domain_auto_trans(virtualizationservice, crosvm_exec, crosvm)
 
-# Let virtualizationservice exec other files (e.g. mk_cdisk) in the same domain.
-allow virtualizationservice system_file:file execute_no_trans;
-
 # Let virtualizationservice kill crosvm.
 allow virtualizationservice crosvm:process sigkill;
 
