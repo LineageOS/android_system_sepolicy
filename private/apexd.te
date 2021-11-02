@@ -186,3 +186,6 @@ allow apexd postinstall_apex_mnt_dir:dir { create_dir_perms mounton };
 allow apexd postinstall_apex_mnt_dir:file { create_file_perms relabelfrom };
 allow apexd postinstall_apex_mnt_dir:lnk_file create;
 allow apexd proc_filesystems:file r_file_perms;
+
+# Allow calling derive_classpath to gather BCP information for staged sessions
+domain_auto_trans(apexd, derive_classpath_exec, apexd_derive_classpath);
