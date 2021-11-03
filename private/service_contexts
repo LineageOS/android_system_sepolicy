@@ -14,6 +14,7 @@ android.hardware.net.nlinterceptor.IInterceptor/default              u:object_r:
 android.hardware.oemlock.IOemLock/default                            u:object_r:hal_oemlock_service:s0
 android.hardware.power.IPower/default                                u:object_r:hal_power_service:s0
 android.hardware.power.stats.IPowerStats/default                     u:object_r:hal_power_stats_service:s0
+android.hardware.radio.config.IRadioConfig/default                   u:object_r:hal_radio_service:s0
 android.hardware.rebootescrow.IRebootEscrow/default                  u:object_r:hal_rebootescrow_service:s0
 android.hardware.security.keymint.IKeyMintDevice/default             u:object_r:hal_keymint_service:s0
 android.hardware.security.keymint.IRemotelyProvisionedComponent/default u:object_r:hal_remotelyprovisionedcomponent_service:s0
