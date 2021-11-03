@@ -279,6 +279,7 @@ type hal_sensors_service, vendor_service, protected_service, service_manager_typ
 type hal_secureclock_service, vendor_service, protected_service, service_manager_type;
 type hal_sharedsecret_service, vendor_service, protected_service, service_manager_type;
 type hal_system_suspend_service, protected_service, service_manager_type;
+type hal_radio_service, vendor_service, protected_service, service_manager_type;
 type hal_tv_tuner_service, vendor_service, protected_service, service_manager_type;
 type hal_uwb_service, vendor_service, protected_service, service_manager_type;
 type hal_vibrator_service, vendor_service, protected_service, service_manager_type;
