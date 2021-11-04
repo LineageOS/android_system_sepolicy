@@ -494,8 +494,26 @@ file_contexts {
     flatten_apex: {
         srcs: ["apex/*-file_contexts"],
     },
+}
 
-    recovery_available: true,
+file_contexts {
+    name: "plat_file_contexts.recovery",
+    srcs: [":file_contexts_files"],
+    stem: "plat_file_contexts",
+    product_variables: {
+        address_sanitize: {
+            srcs: [":file_contexts_asan_files"],
+        },
+        debuggable: {
+            srcs: [":file_contexts_overlayfs_files"],
+        },
+    },
+
+    flatten_apex: {
+        srcs: ["apex/*-file_contexts"],
+    },
+
+    recovery: true,
 }
 
 file_contexts {
@@ -559,7 +577,13 @@ hwservice_contexts {
 property_contexts {
     name: "plat_property_contexts",
     srcs: [":property_contexts_files"],
-    recovery_available: true,
+}
+
+property_contexts {
+    name: "plat_property_contexts.recovery",
+    srcs: [":property_contexts_files"],
+    stem: "plat_property_contexts",
+    recovery: true,
 }
 
 property_contexts {
@@ -1163,4 +1187,18 @@ se_policy_cil {
 //////////////////////////////////
 se_freeze_test {
     name: "sepolicy_freeze_test",
+}
+
+//////////////////////////////////
+// Makefile rules temporary imported to Soong
+// TODO(b/33691272): remove these after migrating seapp to Soong
+//////////////////////////////////
+makefile_goal {
+    name: "plat_seapp_contexts_rule",
+    product_out_path: "obj/ETC/plat_seapp_contexts_intermediates/plat_seapp_contexts",
+}
+
+makefile_goal {
+    name: "plat_seapp_neverallows_rule",
+    product_out_path: "obj/ETC/plat_seapp_neverallows_intermediates/plat_seapp_neverallows",
 }
