@@ -55,8 +55,15 @@ allow gsid sysfs_dt_firmware_android:file r_file_perms;
 # Needed to stat /data/gsi/* and realpath on /dev/block/by-name/*
 allow gsid block_device:dir r_dir_perms;
 
+# Allow querying the size of super_block_device_type.
+allow gsid super_block_device_type:blk_file r_file_perms;
+
 # liblp queries these block alignment properties.
-allowxperm gsid { userdata_block_device sdcard_block_device }:blk_file ioctl {
+allowxperm gsid {
+  userdata_block_device
+  sdcard_block_device
+  super_block_device_type
+}:blk_file ioctl {
   BLKIOMIN
   BLKALIGNOFF
 };
