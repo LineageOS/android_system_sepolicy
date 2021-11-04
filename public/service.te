@@ -249,6 +249,7 @@ type wpantund_service, system_api_service, service_manager_type;
 type tethering_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type emergency_affordance_service, system_server_service, service_manager_type;
 type hal_wifi_hostapd_service, vendor_service, protected_service, service_manager_type;
+type hal_wifi_supplicant_service, vendor_service, protected_service, service_manager_type;
 
 ###
 ### HAL Services
@@ -278,6 +279,7 @@ type hal_sensors_service, vendor_service, protected_service, service_manager_typ
 type hal_secureclock_service, vendor_service, protected_service, service_manager_type;
 type hal_sharedsecret_service, vendor_service, protected_service, service_manager_type;
 type hal_system_suspend_service, protected_service, service_manager_type;
+type hal_radio_service, vendor_service, protected_service, service_manager_type;
 type hal_tv_tuner_service, vendor_service, protected_service, service_manager_type;
 type hal_uwb_service, vendor_service, protected_service, service_manager_type;
 type hal_vibrator_service, vendor_service, protected_service, service_manager_type;
