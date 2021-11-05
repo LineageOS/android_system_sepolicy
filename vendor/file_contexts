@@ -70,6 +70,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.radio\.config@1\.0-service  u:object_r:hal_radio_config_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.radio@1\.2-radio-service    u:object_r:hal_radio_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.radio@1\.2-sap-service    u:object_r:hal_radio_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.radio-service\.compat       u:object_r:hal_radio_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.rebootescrow-service\.default    u:object_r:hal_rebootescrow_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.sensors@[0-9]\.[0-9]-service(\.multihal)?  u:object_r:hal_sensors_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.sensors-service\.example  u:object_r:hal_sensors_default_exec:s0
