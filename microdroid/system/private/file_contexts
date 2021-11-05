@@ -53,6 +53,7 @@
 /dev/fuse		u:object_r:fuse_device:s0
 /dev/hvc0               u:object_r:serial_device:s0
 /dev/hvc1               u:object_r:serial_device:s0
+/dev/hvc2               u:object_r:serial_device:s0
 /dev/hw_random		u:object_r:hw_random_device:s0
 /dev/hwbinder		u:object_r:hwbinder_device:s0
 /dev/loop-control	u:object_r:loop_control_device:s0
@@ -84,7 +85,6 @@
 /dev/uinput		u:object_r:uhid_device:s0
 /dev/uio[0-9]*		u:object_r:uio_device:s0
 /dev/urandom		u:object_r:random_device:s0
-/dev/hvc0		u:object_r:serial_device:s0
 /dev/vhost-vsock	u:object_r:kvm_device:s0
 /dev/vndbinder		u:object_r:vndbinder_device:s0
 /dev/vsock		u:object_r:vsock_device:s0
