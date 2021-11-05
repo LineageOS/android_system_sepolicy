@@ -1122,8 +1122,17 @@ ro.telephony.iwlan_operation_mode u:object_r:telephony_config_prop:s0 exact enum
 telephony.active_modems.max_count u:object_r:telephony_config_prop:s0 exact int
 telephony.lteOnCdmaDevice         u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.volte_avail_ovr       u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.volte_avail_ovr0      u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.volte_avail_ovr1      u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.volte_avail_ovr2      u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.vt_avail_ovr          u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.vt_avail_ovr0         u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.vt_avail_ovr1         u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.vt_avail_ovr2         u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.wfc_avail_ovr         u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.wfc_avail_ovr0        u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.wfc_avail_ovr1        u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.wfc_avail_ovr2        u:object_r:telephony_config_prop:s0 exact int
 
 # System locale list filter configuration
 ro.localization.locale_filter u:object_r:localization_prop:s0 exact string
