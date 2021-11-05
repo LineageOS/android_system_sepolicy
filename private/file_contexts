@@ -48,29 +48,21 @@
 
 # SELinux policy files
 /vendor_file_contexts   u:object_r:file_contexts_file:s0
-/nonplat_file_contexts  u:object_r:file_contexts_file:s0
 /plat_file_contexts     u:object_r:file_contexts_file:s0
 /product_file_contexts  u:object_r:file_contexts_file:s0
 /mapping_sepolicy\.cil   u:object_r:sepolicy_file:s0
-/nonplat_sepolicy\.cil   u:object_r:sepolicy_file:s0
 /plat_sepolicy\.cil      u:object_r:sepolicy_file:s0
 /plat_property_contexts  u:object_r:property_contexts_file:s0
 /product_property_contexts  u:object_r:property_contexts_file:s0
-/nonplat_property_contexts  u:object_r:property_contexts_file:s0
 /vendor_property_contexts   u:object_r:property_contexts_file:s0
 /seapp_contexts     u:object_r:seapp_contexts_file:s0
-/nonplat_seapp_contexts     u:object_r:seapp_contexts_file:s0
 /vendor_seapp_contexts      u:object_r:seapp_contexts_file:s0
 /plat_seapp_contexts     u:object_r:seapp_contexts_file:s0
 /sepolicy           u:object_r:sepolicy_file:s0
 /plat_service_contexts   u:object_r:service_contexts_file:s0
 /plat_hwservice_contexts   u:object_r:hwservice_contexts_file:s0
 /plat_keystore2_key_contexts u:object_r:keystore2_key_contexts_file:s0
-/nonplat_service_contexts   u:object_r:nonplat_service_contexts_file:s0
-# Use nonplat_service_contexts_file to allow servicemanager to read it
-# on non full-treble devices.
-/vendor_service_contexts    u:object_r:nonplat_service_contexts_file:s0
-/nonplat_hwservice_contexts   u:object_r:hwservice_contexts_file:s0
+/vendor_service_contexts    u:object_r:vendor_service_contexts_file:s0
 /vendor_hwservice_contexts    u:object_r:hwservice_contexts_file:s0
 /vndservice_contexts   u:object_r:vndservice_contexts_file:s0
 
@@ -401,8 +393,6 @@
 
 # HAL location
 /(vendor|system/vendor)/lib(64)?/hw            u:object_r:vendor_hal_file:s0
-
-/(vendor|system/vendor)/etc/selinux/nonplat_service_contexts u:object_r:nonplat_service_contexts_file:s0
 
 /(vendor|system/vendor)/etc/selinux/vendor_service_contexts u:object_r:vendor_service_contexts_file:s0
 
