@@ -229,6 +229,12 @@ genfscon tracefs /events/ext4/ext4_sync_file_exit/           u:object_r:debugfs_
 genfscon tracefs /events/block/block_rq_issue/               u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/block/block_rq_complete/            u:object_r:debugfs_tracing:s0
 
+genfscon tracefs /synthetic_events                                       u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/synthetic/rss_stat_throttled                    u:object_r:debugfs_tracing:s0
+
+genfscon debugfs /tracing/synthetic_events                               u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/synthetic/rss_stat_throttled            u:object_r:debugfs_tracing:s0
+
 genfscon tracefs /trace_clock                                            u:object_r:debugfs_tracing:s0
 genfscon tracefs /buffer_size_kb                                         u:object_r:debugfs_tracing:s0
 genfscon tracefs /options/overwrite                                      u:object_r:debugfs_tracing:s0
