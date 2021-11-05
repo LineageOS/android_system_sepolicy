@@ -7,7 +7,7 @@
 # in tools/checkfc.c
 attribute dev_type;
 
-# Attribute for block devices.
+# TODO(b/202520796) Remove this attribute once the sc-dev branch stops using it.
 attribute bdev_type;
 
 # All types used for processes.
