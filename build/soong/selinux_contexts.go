@@ -219,25 +219,19 @@ func (m *selinuxContextsModule) selinuxContextsHook(ctx android.LoadHookContext)
 }
 
 func (m *selinuxContextsModule) AndroidMk() android.AndroidMkData {
+	nameSuffix := ""
+	if m.InRecovery() && !m.onlyInRecovery() {
+		nameSuffix = ".recovery"
+	}
 	return android.AndroidMkData{
-		Custom: func(w io.Writer, name, prefix, moduleDir string, data android.AndroidMkData) {
-			nameSuffix := ""
-			if m.InRecovery() && !m.onlyInRecovery() {
-				nameSuffix = ".recovery"
-			}
-			fmt.Fprintln(w, "\ninclude $(CLEAR_VARS)")
-			fmt.Fprintln(w, "LOCAL_PATH :=", moduleDir)
-			fmt.Fprintln(w, "LOCAL_MODULE :=", name+nameSuffix)
-			data.Entries.WriteLicenseVariables(w)
-			fmt.Fprintln(w, "LOCAL_MODULE_CLASS := ETC")
-			if m.Owner() != "" {
-				fmt.Fprintln(w, "LOCAL_MODULE_OWNER :=", m.Owner())
-			}
-			fmt.Fprintln(w, "LOCAL_MODULE_TAGS := optional")
-			fmt.Fprintln(w, "LOCAL_PREBUILT_MODULE_FILE :=", m.outputPath.String())
-			fmt.Fprintln(w, "LOCAL_MODULE_PATH :=", m.installPath.ToMakePath().String())
-			fmt.Fprintln(w, "LOCAL_INSTALLED_MODULE_STEM :=", name)
-			fmt.Fprintln(w, "include $(BUILD_PREBUILT)")
+		Class:      "ETC",
+		OutputFile: android.OptionalPathForPath(m.outputPath),
+		SubName:    nameSuffix,
+		Extra: []android.AndroidMkExtraFunc{
+			func(w io.Writer, outputFile android.Path) {
+				fmt.Fprintln(w, "LOCAL_MODULE_PATH :=", m.installPath.ToMakePath().String())
+				fmt.Fprintln(w, "LOCAL_INSTALLED_MODULE_STEM :=", m.Name())
+			},
 		},
 	}
 }
