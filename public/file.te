@@ -89,11 +89,10 @@ type sysfs, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_android_usb, fs_type, sysfs_type;
 type sysfs_uio, sysfs_type, fs_type;
 type sysfs_batteryinfo, fs_type, sysfs_type;
-type sysfs_block, fs_type, sysfs_type, sysfs_block_type;
 type sysfs_bluetooth_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_devfreq_cur, fs_type, sysfs_type;
 type sysfs_devfreq_dir, fs_type, sysfs_type;
-type sysfs_devices_block, fs_type, sysfs_type, sysfs_block_type;
+type sysfs_devices_block, fs_type, sysfs_type;
 type sysfs_dm, fs_type, sysfs_type;
 type sysfs_dm_verity, fs_type, sysfs_type;
 type sysfs_dma_heap, fs_type, sysfs_type;
@@ -565,9 +564,6 @@ type keystore2_key_contexts_file, system_file_type, file_type;
 
 # vendor service_contexts file
 type vendor_service_contexts_file, vendor_file_type, file_type;
-
-# nonplat service_contexts file (only accessible on non full-treble devices)
-type nonplat_service_contexts_file, vendor_file_type, file_type;
 
 # hwservice_contexts file
 type hwservice_contexts_file, system_file_type, file_type;
