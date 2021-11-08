@@ -1,0 +1,17 @@
+type virtmanager, domain, coredomain;
+type virtmanager_exec, system_file_type, exec_type, file_type;
+
+# When init runs a file labelled with virtmanager_exec, run it in the virtmanager domain.
+init_daemon_domain(virtmanager)
+
+# Let the virtmanager domain use Binder.
+binder_use(virtmanager)
+
+# Let the virtmanager domain register the virtualization_service with ServiceManager.
+add_service(virtmanager, virtualization_service)
+
+# When virtmanager execs a file with the crosvm_exec label, run it in the crosvm domain.
+domain_auto_trans(virtmanager, crosvm_exec, crosvm)
+
+# Let virtmanager kill crosvm.
+allow virtmanager crosvm:process sigkill;

@@ -1,0 +1,72 @@
+# Performance profiler, backed by perf_event_open(2).
+# See go/perfetto-perf-android.
+typeattribute traced_perf coredomain;
+typeattribute traced_perf mlstrustedsubject;
+
+type traced_perf_exec, system_file_type, exec_type, file_type;
+
+init_daemon_domain(traced_perf)
+perfetto_producer(traced_perf)
+
+# Allow traced_perf full use of perf_event_open(2). It will perform cpu-wide
+# profiling, but retain samples only for profileable processes.
+# Thread-specific profiling is still disallowed due to a PTRACE_MODE_ATTACH
+# check (which would require a process:attach SELinux allow-rule).
+allow traced_perf self:perf_event { open cpu kernel read write tracepoint };
+
+# Allow CAP_KILL for delivery of dedicated signal to obtain proc-fds from a
+# process. Allow CAP_DAC_READ_SEARCH for stack unwinding and symbolization of
+# sampled stacks, which requires opening the backing libraries/executables (as
+# symbols are usually not mapped into the process space). Not all such files
+# are world-readable, e.g. odex files that included user profiles during
+# profile-guided optimization.
+allow traced_perf self:capability { kill dac_read_search };
+
+# Allow reading /system/data/packages.list.
+allow traced_perf packages_list_file:file r_file_perms;
+
+# Allow reading files for stack unwinding and symbolization.
+r_dir_file(traced_perf, nativetest_data_file)
+r_dir_file(traced_perf, system_file_type)
+r_dir_file(traced_perf, apex_art_data_file)
+r_dir_file(traced_perf, apk_data_file)
+r_dir_file(traced_perf, dalvikcache_data_file)
+r_dir_file(traced_perf, vendor_file_type)
+
+# Allow to temporarily lift the kptr_restrict setting and build a symbolization
+# map reading /proc/kallsyms.
+userdebug_or_eng(`set_prop(traced_perf, lower_kptr_restrict_prop)')
+allow traced_perf proc_kallsyms:file r_file_perms;
+
+# Allow reading tracefs files to get the format and numeric ids of tracepoints.
+allow traced_perf debugfs_tracing:dir r_dir_perms;
+allow traced_perf debugfs_tracing:file r_file_perms;
+userdebug_or_eng(`
+  allow traced_perf debugfs_tracing_debug:dir r_dir_perms;
+  allow traced_perf debugfs_tracing_debug:file r_file_perms;
+')
+
+# Do not audit the cases where traced_perf attempts to access /proc/[pid] for
+# domains that it cannot read.
+dontaudit traced_perf domain:dir { search getattr open };
+
+# Do not audit failures to signal a process, as there are cases when this is
+# expected (native processes on debug builds use the policy for enforcing which
+# processes are profileable).
+dontaudit traced_perf domain:process signal;
+
+# Never allow access to app data files
+neverallow traced_perf { app_data_file privapp_data_file system_app_data_file }:file *;
+
+# Never allow profiling highly privileged processes.
+never_profile_perf(`{
+  bpfloader
+  init
+  kernel
+  keystore
+  llkd
+  logd
+  ueventd
+  vendor_init
+  vold
+}')
