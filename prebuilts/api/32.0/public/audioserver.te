@@ -1,0 +1,10 @@
+# audioserver - audio services daemon
+type audioserver, domain;
+type audioserver_tmpfs, file_type;
+
+# Allow audioserver to signal audio HAL processes and dump their stacks.
+allow audioserver hal_audio_server:process signal;
+
+# Allow audioserver to access sensorservice.
+allow audioserver sensorservice_service:service_manager find;
+allow audioserver system_server:unix_stream_socket { read write };

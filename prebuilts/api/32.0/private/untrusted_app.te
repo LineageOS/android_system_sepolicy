@@ -1,0 +1,16 @@
+###
+### Untrusted apps.
+###
+### This file defines the rules for untrusted apps running with
+### targetSdkVersion >= 30.
+###
+### See public/untrusted_app.te for more information about which apps are
+### placed in this selinux domain.
+###
+
+typeattribute untrusted_app coredomain;
+
+app_domain(untrusted_app)
+untrusted_app_domain(untrusted_app)
+net_domain(untrusted_app)
+bluetooth_domain(untrusted_app)

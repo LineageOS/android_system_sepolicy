@@ -1,0 +1,62 @@
+# odsign - on-device signing.
+type odsign, domain;
+
+# odsign - Binary for signing ART artifacts.
+typeattribute odsign coredomain;
+
+type odsign_exec, exec_type, file_type, system_file_type;
+
+# Allow init to start odsign
+init_daemon_domain(odsign)
+
+# Allow using persistent storage in /data/odsign
+allow odsign odsign_data_file:dir create_dir_perms;
+allow odsign odsign_data_file:file create_file_perms;
+
+# Create and use pty created by android_fork_execvp().
+create_pty(odsign)
+
+# FS_IOC_ENABLE_VERITY and FS_IOC_MEASURE_VERITY on ART data files
+allowxperm odsign apex_art_data_file:file ioctl {
+  FS_IOC_ENABLE_VERITY FS_IOC_MEASURE_VERITY FS_IOC_GETFLAGS
+};
+
+# talk to binder services (for keystore)
+binder_use(odsign);
+
+# talk to keystore specifically
+use_keystore(odsign);
+
+# Use our dedicated keystore key
+allow odsign odsign_key:keystore2_key {
+    delete
+    get_info
+    rebind
+    use
+};
+
+# talk to keymaster
+hal_client_domain(odsign, hal_keymaster)
+
+# For ART apex data dir access
+allow odsign apex_module_data_file:dir { getattr search };
+
+allow odsign apex_art_data_file:dir { rw_dir_perms rmdir };
+allow odsign apex_art_data_file:file { rw_file_perms unlink };
+
+# Run odrefresh to refresh ART artifacts
+domain_auto_trans(odsign, odrefresh_exec, odrefresh)
+
+# Run fsverity_init to add key to fsverity keyring
+domain_auto_trans(odsign, fsverity_init_exec, fsverity_init)
+
+# only odsign can set odsign sysprop
+set_prop(odsign, odsign_prop)
+neverallow { domain -odsign -init } odsign_prop:property_service set;
+
+# Allow odsign to stop itself
+set_prop(odsign, ctl_odsign_prop)
+
+# Neverallows
+neverallow { domain -odsign -init -fsverity_init } odsign_data_file:dir *;
+neverallow { domain -odsign -init -fsverity_init } odsign_data_file:file *;
