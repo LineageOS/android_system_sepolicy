@@ -1156,6 +1156,33 @@ se_policy_cil {
     installable: false,
 }
 
+// bug_map - Bug tracking information for selinux denials loaded by auditd.
+se_filegroup {
+    name: "bug_map_files",
+    srcs: ["bug_map"],
+}
+
+se_bug_map {
+    name: "plat_bug_map",
+    srcs: [":bug_map_files"],
+    stem: "bug_map",
+}
+
+se_bug_map {
+    name: "system_ext_bug_map",
+    srcs: [":bug_map_files"],
+    stem: "bug_map",
+    system_ext_specific: true,
+}
+
+se_bug_map {
+    name: "vendor_bug_map",
+    srcs: [":bug_map_files"],
+    // Legacy file name of the vendor partition bug_map.
+    stem: "selinux_denial_metadata",
+    vendor: true,
+}
+
 //////////////////////////////////
 // se_freeze_test compares the plat sepolicy with the prebuilt sepolicy
 // Additional directories can be specified via Makefile variables:
