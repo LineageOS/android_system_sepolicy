@@ -1,0 +1,31 @@
+typeattribute update_engine coredomain;
+
+init_daemon_domain(update_engine);
+
+# Allow to talk to gsid.
+allow update_engine gsi_service:service_manager find;
+binder_call(update_engine, gsid)
+
+# Allow to start gsid service.
+set_prop(update_engine, ctl_gsid_prop)
+
+# Allow to start snapuserd for dm-user communication.
+set_prop(update_engine, ctl_snapuserd_prop)
+
+# Allow to set the OTA related properties, e.g. ota.warm_reset.
+set_prop(update_engine, ota_prop)
+
+# Allow to get the DSU status
+get_prop(update_engine, gsid_prop)
+
+# Allow update_engine to call the callback function provided by GKI update hook.
+binder_call(update_engine, gki_apex_prepostinstall)
+
+# Allow to communicate with the snapuserd service, for dm-user snapshots.
+allow update_engine snapuserd:unix_stream_socket connectto;
+allow update_engine snapuserd_socket:sock_file write;
+
+# Allow to communicate with apexd for calculating and reserving space for
+# capex decompression
+allow update_engine apex_service:service_manager find;
+binder_call(update_engine, apexd)
