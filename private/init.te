@@ -106,6 +106,11 @@ neverallow { domain -init } keystore_listen_prop:property_service set;
 # Allow accessing /sys/kernel/tracing/instances/bootreceiver to set up tracing.
 allow init debugfs_bootreceiver_tracing:file w_file_perms;
 
+# Devices with kernels where CONFIG_HIST_TRIGGERS isn't enabled will
+# attempt to write a non exisiting 'synthetic_events' file, when setting
+# up synthetic events. This is a no-op in tracefs.
+dontaudit init debugfs_tracing_debug:dir { write add_name };
+
 # chown/chmod on devices.
 allow init {
   dev_type
