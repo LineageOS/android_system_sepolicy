@@ -40,6 +40,7 @@ allow snapuserd kernel:fd use;
 
 # snapuserd.* properties
 set_prop(snapuserd, snapuserd_prop)
+get_prop(snapuserd, virtual_ab_prop)
 
 # For inotify watching for /dev/socket/snapuserd_proxy to appear.
 allow snapuserd tmpfs:dir { read watch };
