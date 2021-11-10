@@ -23,6 +23,7 @@ userdebug_or_eng(`
   allow llkd {
     domain
     -apexd
+    -diced
     -kernel
     -keystore
     -init

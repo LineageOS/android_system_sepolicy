@@ -65,6 +65,8 @@ android.os.UpdateEngineStableService      u:object_r:update_engine_stable_servic
 android.security.apc                      u:object_r:apc_service:s0
 android.security.authorization            u:object_r:authorization_service:s0
 android.security.compat                   u:object_r:keystore_compat_hal_service:s0
+android.security.dice.IDiceMaintenance    u:object_r:dice_maintenance_service:s0
+android.security.dice.IDiceNode           u:object_r:dice_node_service:s0
 android.security.identity                 u:object_r:credstore_service:s0
 android.security.keystore                 u:object_r:keystore_service:s0
 android.security.legacykeystore           u:object_r:legacykeystore_service:s0
