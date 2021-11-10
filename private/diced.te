@@ -3,5 +3,4 @@ typeattribute diced coredomain;
 init_daemon_domain(diced)
 
 # Talk to dice HAL.
-# TODO uncomment when implemented.
-# hal_client_domain(diced, hal_dice)
+hal_client_domain(diced, hal_dice)
