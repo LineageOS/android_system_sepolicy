@@ -70,6 +70,12 @@ allow system_server sysfs_fs_f2fs:file r_file_perms;
 allow system_server { apex_art_data_file dalvikcache_data_file }:dir r_dir_perms;
 allow system_server { apex_art_data_file dalvikcache_data_file }:file r_file_perms;
 
+# For release odex/vdex compress blocks
+allowxperm system_server dalvikcache_data_file:file ioctl {
+  F2FS_IOC_RELEASE_COMPRESS_BLOCKS
+  FS_IOC_GETFLAGS
+};
+
 # When running system server under --invoke-with, we'll try to load the boot image under the
 # system server domain, following links to the system partition.
 with_asan(`allow system_server dalvikcache_data_file:lnk_file r_file_perms;')
