@@ -1964,6 +1964,7 @@
 (typeattributeset privapp_data_file_31_0 (privapp_data_file))
 (typeattributeset proc_31_0
   ( proc
+    proc_bpf
     proc_cpu_alignment
 ))
 (typeattributeset proc_abi_31_0 (proc_abi))
@@ -1996,7 +1997,10 @@
 (typeattributeset proc_misc_31_0 (proc_misc))
 (typeattributeset proc_modules_31_0 (proc_modules))
 (typeattributeset proc_mounts_31_0 (proc_mounts))
-(typeattributeset proc_net_31_0 (proc_net))
+(typeattributeset proc_net_31_0
+  ( proc_bpf
+    proc_net
+))
 (typeattributeset proc_net_tcp_udp_31_0 (proc_net_tcp_udp))
 (typeattributeset proc_overcommit_memory_31_0 (proc_overcommit_memory))
 (typeattributeset proc_page_cluster_31_0 (proc_page_cluster))

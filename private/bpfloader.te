@@ -41,3 +41,7 @@ neverallow bpfloader *:{ tcp_socket udp_socket rawip_socket } *;
 
 # No domain should be allowed to ptrace bpfloader
 neverallow { domain userdebug_or_eng(`-llkd') } bpfloader:process ptrace;
+
+# Currently only bpfloader.rc (which runs as init) can do bpf sysctl setup
+# this should perhaps be moved to the bpfloader binary itself.  Allow both.
+neverallow { domain -bpfloader -init } proc_bpf:file write;
