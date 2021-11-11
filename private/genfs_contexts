@@ -44,6 +44,7 @@ genfscon proc /sys/fs/protected_hardlinks u:object_r:proc_security:s0
 genfscon proc /sys/fs/protected_symlinks u:object_r:proc_security:s0
 genfscon proc /sys/fs/suid_dumpable u:object_r:proc_security:s0
 genfscon proc /sys/fs/verity/require_signatures u:object_r:proc_fs_verity:s0
+genfscon proc /sys/kernel/bpf_ u:object_r:proc_bpf:s0
 genfscon proc /sys/kernel/core_pattern u:object_r:usermodehelper:s0
 genfscon proc /sys/kernel/core_pipe_limit u:object_r:usermodehelper:s0
 genfscon proc /sys/kernel/domainname u:object_r:proc_hostname:s0
@@ -74,8 +75,10 @@ genfscon proc /sys/kernel/sched_util_clamp_min u:object_r:proc_sched:s0
 genfscon proc /sys/kernel/sched_util_clamp_min_rt_default u:object_r:proc_sched:s0
 genfscon proc /sys/kernel/sched_wakeup_granularity_ns u:object_r:proc_sched:s0
 genfscon proc /sys/kernel/sysrq u:object_r:proc_sysrq:s0
+genfscon proc /sys/kernel/unprivileged_bpf_ u:object_r:proc_bpf:s0
 genfscon proc /sys/kernel/usermodehelper u:object_r:usermodehelper:s0
 genfscon proc /sys/net u:object_r:proc_net:s0
+genfscon proc /sys/net/core/bpf_ u:object_r:proc_bpf:s0
 genfscon proc /sys/vm/dirty_background_ratio u:object_r:proc_dirty:s0
 genfscon proc /sys/vm/dirty_expire_centisecs u:object_r:proc_dirty:s0
 genfscon proc /sys/vm/extra_free_kbytes u:object_r:proc_extra_free_kbytes:s0
