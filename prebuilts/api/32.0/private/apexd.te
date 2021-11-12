@@ -1,0 +1,216 @@
+typeattribute apexd coredomain;
+
+init_daemon_domain(apexd)
+
+# Allow creating, reading and writing of APEX files/dirs in the APEX data dir
+allow apexd apex_data_file:dir create_dir_perms;
+allow apexd apex_data_file:file create_file_perms;
+# Allow relabeling file created in /data/apex/decompressed
+allow apexd apex_data_file:file relabelfrom;
+
+# Allow creating, reading and writing of APEX files/dirs in the APEX metadata dir
+allow apexd metadata_file:dir search;
+allow apexd apex_metadata_file:dir create_dir_perms;
+allow apexd apex_metadata_file:file create_file_perms;
+
+# Allow reserving space on /data/apex/ota_reserved for apex decompression
+allow apexd apex_ota_reserved_file:dir create_dir_perms;
+allow apexd apex_ota_reserved_file:file create_file_perms;
+
+# Allow apexd to create files and directories for snapshots of apex data
+allow apexd apex_appsearch_data_file:dir { create_dir_perms relabelto };
+allow apexd apex_appsearch_data_file:file { create_file_perms relabelto };
+allow apexd apex_art_data_file:dir { create_dir_perms relabelto };
+allow apexd apex_art_data_file:file { create_file_perms relabelto };
+allow apexd apex_permission_data_file:dir { create_dir_perms relabelto };
+allow apexd apex_permission_data_file:file { create_file_perms relabelto };
+allow apexd apex_module_data_file:dir { create_dir_perms relabelfrom };
+allow apexd apex_module_data_file:file { create_file_perms relabelfrom };
+allow apexd apex_rollback_data_file:dir create_dir_perms;
+allow apexd apex_rollback_data_file:file create_file_perms;
+allow apexd apex_scheduling_data_file:dir { create_dir_perms relabelto };
+allow apexd apex_scheduling_data_file:file { create_file_perms relabelto };
+allow apexd apex_wifi_data_file:dir { create_dir_perms relabelto };
+allow apexd apex_wifi_data_file:file { create_file_perms relabelto };
+
+# Allow apexd to read directories under /data/misc_de in order to snapshot and
+# restore apex data for all users.
+allow apexd system_data_file:dir r_dir_perms;
+
+# allow apexd to create loop devices with /dev/loop-control
+allow apexd loop_control_device:chr_file rw_file_perms;
+# allow apexd to access loop devices
+allow apexd loop_device:blk_file rw_file_perms;
+allowxperm apexd loop_device:blk_file ioctl {
+  LOOP_GET_STATUS64
+  LOOP_SET_STATUS64
+  LOOP_SET_FD
+  LOOP_SET_BLOCK_SIZE
+  LOOP_SET_DIRECT_IO
+  LOOP_CLR_FD
+  BLKFLSBUF
+  LOOP_CONFIGURE
+};
+# Allow apexd to access /dev/block
+allow apexd bdev_type:dir r_dir_perms;
+allow apexd bdev_type:blk_file getattr;
+
+#allow apexd to access virtual disks
+allow apexd vd_device:blk_file r_file_perms;
+
+# allow apexd to access /dev/block/dm-* (device-mapper entries)
+allow apexd dm_device:chr_file rw_file_perms;
+allow apexd dm_device:blk_file rw_file_perms;
+
+# sys_admin is required to access the device-mapper and mount
+# dac_override, chown, and fowner are needed for snapshot and restore
+allow apexd self:global_capability_class_set { sys_admin chown dac_override dac_read_search fowner };
+
+# Note: fsetid is deliberately not included above. fsetid checks are
+# triggered by chmod on a directory or file owned by a group other
+# than one of the groups assigned to the current process to see if
+# the setgid bit should be cleared, regardless of whether the setgid
+# bit was even set.  We do not appear to truly need this capability
+# for apexd to operate.
+dontaudit apexd self:global_capability_class_set fsetid;
+
+# allow apexd to create a mount point in /apex
+allow apexd apex_mnt_dir:dir create_dir_perms;
+# allow apexd to mount in /apex
+allow apexd apex_mnt_dir:filesystem { mount unmount };
+allow apexd apex_mnt_dir:dir mounton;
+# allow apexd to create symlinks in /apex
+allow apexd apex_mnt_dir:lnk_file create_file_perms;
+# allow apexd to create /apex/apex-info-list.xml and relabel to apex_info_file
+allow apexd apex_mnt_dir:file { create_file_perms relabelfrom mounton };
+allow apexd apex_info_file:file relabelto;
+# apexd needs to update /apex/apex-info-list.xml after non-staged APEX update.
+allow apexd apex_info_file:file rw_file_perms;
+
+# allow apexd to unlink apex files in /data/apex/active
+# note that apexd won't be able to unlink files in /data/app-staging/session_XXXX,
+# because it doesn't have write permission for staging_data_file object.
+allow apexd staging_data_file:file unlink;
+
+# allow apexd to read files from /data/app-staging and hardlink them to /data/apex.
+allow apexd staging_data_file:dir r_dir_perms;
+allow apexd staging_data_file:file { r_file_perms link };
+# # Allow relabeling file created in /data/apex/decompressed
+allow apexd staging_data_file:file relabelto;
+
+# allow apexd to read files from /vendor/apex
+allow apexd vendor_apex_file:dir r_dir_perms;
+allow apexd vendor_apex_file:file r_file_perms;
+
+# Unmount and mount filesystems
+allow apexd labeledfs:filesystem { mount unmount };
+
+# /sys directory tree traversal
+allow apexd sysfs_type:dir search;
+allow apexd sysfs_block_type:dir r_dir_perms;
+allow apexd sysfs_block_type:file r_file_perms;
+# Configure read-ahead of dm-verity and loop devices
+# for dm-X
+allow apexd sysfs_dm:dir r_dir_perms;
+allow apexd sysfs_dm:file rw_file_perms;
+# for loopX
+allow apexd sysfs_loop:dir r_dir_perms;
+allow apexd sysfs_loop:file rw_file_perms;
+
+# Allow apexd to log to the kernel.
+allow apexd kmsg_device:chr_file w_file_perms;
+
+# Allow apexd to reboot device. Required for rollbacks of apexes that are
+# not covered by rollback manager.
+set_prop(apexd, powerctl_prop)
+
+# Allow apexd to stop itself
+set_prop(apexd, ctl_apexd_prop)
+
+# Find the vold service, and call into vold to manage FS checkpoints
+allow apexd vold_service:service_manager find;
+binder_call(apexd, vold)
+
+# Apex pre- & post-install permission.
+
+# Allow self-execute for the fork mount helper.
+allow apexd apexd_exec:file execute_no_trans;
+
+# Unshare and make / private so that hooks cannot influence the
+# running system.
+allow apexd rootfs:dir mounton;
+
+# Allow to execute shell for pre- and postinstall scripts. A transition
+# rule is required, thus restricted to execute and not execute_no_trans.
+allow apexd shell_exec:file { r_file_perms execute };
+
+# apexd is using bootstrap bionic
+allow apexd system_bootstrap_lib_file:dir r_dir_perms;
+allow apexd system_bootstrap_lib_file:file { execute read open getattr map };
+
+# Allow transition to test APEX preinstall domain.
+userdebug_or_eng(`
+  domain_auto_trans(apexd, apex_test_prepostinstall_exec, apex_test_prepostinstall)
+')
+
+# Allow transition to GKI update pre/post install domain
+domain_auto_trans(apexd, gki_apex_prepostinstall_exec, gki_apex_prepostinstall)
+
+# Allow apexd to be invoked with logwrapper from init during userspace reboot.
+allow apexd devpts:chr_file { read write };
+
+# Allow apexd to create pts files via logwrap_fork_exec for its own use, to pass to
+# other processes
+create_pty(apexd)
+
+# Allow apexd to read file contexts when performing restorecon of snapshots.
+allow apexd file_contexts_file:file r_file_perms;
+
+# Allow apexd to execute toybox for snapshot & restore
+allow apexd toolbox_exec:file rx_file_perms;
+
+# Allow apexd to release compressed blocks in case /data is f2fs-compressed fs.
+allowxperm apexd staging_data_file:file ioctl {
+  FS_IOC_GETFLAGS
+  F2FS_IOC_RELEASE_COMPRESS_BLOCKS
+};
+
+# Allow apexd to read ro.cold_boot_done prop.
+# apexd uses it to decide whether it needs to keep retrying polling for loop device.
+get_prop(apexd, cold_boot_done_prop)
+
+# Allow apexd to read per-device configuration properties.
+get_prop(apexd, apexd_config_prop)
+
+neverallow { domain -apexd -init } apex_data_file:dir no_w_dir_perms;
+neverallow { domain -apexd -init } apex_metadata_file:dir no_w_dir_perms;
+neverallow { domain -apexd -init -kernel } apex_data_file:file no_w_file_perms;
+neverallow { domain -apexd -init -kernel } apex_metadata_file:file no_w_file_perms;
+neverallow { domain -apexd } apex_mnt_dir:lnk_file no_w_file_perms;
+
+neverallow { domain -apexd -init -vold_prepare_subdirs } apex_module_data_file:dir no_w_dir_perms;
+neverallow { domain -apexd -init -vold_prepare_subdirs } apex_module_data_file:file no_w_file_perms;
+
+neverallow { domain -apexd -init -vold_prepare_subdirs } apex_rollback_data_file:dir no_w_dir_perms;
+neverallow { domain -apexd -init -vold_prepare_subdirs } apex_rollback_data_file:file no_w_file_perms;
+
+# only apexd can set apexd sysprop
+set_prop(apexd, apexd_prop)
+neverallow { domain -apexd -init } apexd_prop:property_service set;
+
+# only apexd can write apex-info-list.xml
+neverallow { domain -apexd } apex_info_file:file no_w_file_perms;
+
+# Only apexd and init should be allowed to manage /apex mounts
+# A note on otapreopt_chroot. It used to mount APEXes during postainstall stage of A/B OTAs,
+# but starting from S it just calls into apexd to prepare /apex for otapreoprt. Once the sepolicies
+# around otapreopt_chroot are cleaned up we should be able to remove it from the lists below.
+neverallow { domain -apexd -init -otapreopt_chroot } apex_mnt_dir:filesystem { mount unmount };
+neverallow { domain -apexd -init -otapreopt_chroot } apex_mnt_dir:dir { mounton };
+
+# Allow for use in postinstall
+allow apexd otapreopt_chroot:fd use;
+allow apexd postinstall_apex_mnt_dir:dir { create_dir_perms mounton };
+allow apexd postinstall_apex_mnt_dir:file { create_file_perms relabelfrom };
+allow apexd postinstall_apex_mnt_dir:lnk_file create;
+allow apexd proc_filesystems:file r_file_perms;
