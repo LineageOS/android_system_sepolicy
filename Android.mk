@@ -381,6 +381,7 @@ LOCAL_REQUIRED_MODULES += \
     plat_service_contexts_test \
     plat_hwservice_contexts \
     plat_hwservice_contexts_test \
+    plat_bug_map \
     searchpolicy \
 
 # This conditional inclusion closely mimics the conditional logic
@@ -455,6 +456,7 @@ LOCAL_REQUIRED_MODULES += \
     system_ext_service_contexts \
     system_ext_service_contexts_test \
     system_ext_mac_permissions.xml \
+    system_ext_bug_map \
     $(addprefix system_ext_,$(addsuffix .compat.cil,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS))) \
 
 endif
@@ -549,6 +551,7 @@ LOCAL_REQUIRED_MODULES += \
     vendor_service_contexts \
     vendor_hwservice_contexts \
     vendor_hwservice_contexts_test \
+    vendor_bug_map \
     vndservice_contexts \
 
 ifdef BOARD_ODM_SEPOLICY_DIRS
@@ -566,9 +569,6 @@ endif
 
 LOCAL_REQUIRED_MODULES += selinux_policy_system_ext
 LOCAL_REQUIRED_MODULES += selinux_policy_product
-
-LOCAL_REQUIRED_MODULES += \
-    selinux_denial_metadata \
 
 # Builds an addtional userdebug sepolicy into the debug ramdisk.
 LOCAL_REQUIRED_MODULES += \
@@ -1210,26 +1210,6 @@ file_contexts.device.sorted.tmp :=
 file_contexts.device.tmp :=
 file_contexts.local.tmp :=
 file_contexts.modules.tmp :=
-
-##################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := selinux_denial_metadata
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-bug_files := $(call build_policy, bug_map, $(LOCAL_PATH) $(PLAT_PRIVATE_POLICY) $(PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS) $(PLAT_PUBLIC_POLICY))
-
-$(LOCAL_BUILT_MODULE) : $(bug_files)
-	@mkdir -p $(dir $@)
-	cat $^ > $@
-
-bug_files :=
 
 ##################################
 include $(LOCAL_PATH)/seapp_contexts.mk
