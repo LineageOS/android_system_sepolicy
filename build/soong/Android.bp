@@ -31,6 +31,7 @@ bootstrap_go_package {
         "soong-sysprop",
     ],
     srcs: [
+        "bug_map.go",
         "build_files.go",
         "cil_compat_map.go",
         "compat_cil.go",
