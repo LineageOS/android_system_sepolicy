@@ -1,0 +1,49 @@
+typeattribute recovery coredomain;
+
+# The allow rules are only included in the recovery policy.
+# Otherwise recovery is only allowed the domain rules.
+recovery_only(`
+  # Reboot the device
+  set_prop(recovery, powerctl_prop)
+
+  # Read serial number of the device from system properties
+  get_prop(recovery, serialno_prop)
+
+  # Set sys.usb.ffs.ready when starting minadbd for sideload.
+  get_prop(recovery, ffs_config_prop)
+  set_prop(recovery, ffs_control_prop)
+
+  # Set sys.usb.config when switching into fastboot.
+  set_prop(recovery, usb_control_prop)
+  set_prop(recovery, usb_prop)
+
+  # Read ro.boot.bootreason
+  get_prop(recovery, bootloader_boot_reason_prop)
+
+  # Read storage properties (for correctly formatting filesystems)
+  get_prop(recovery, storage_config_prop)
+
+  set_prop(recovery, gsid_prop)
+
+  # These are needed to allow recovery to manage network
+  allow recovery self:netlink_route_socket { create write read nlmsg_readpriv nlmsg_read };
+  allow recovery self:global_capability_class_set net_admin;
+  allow recovery self:tcp_socket { create ioctl };
+  allowxperm recovery self:tcp_socket ioctl { SIOCGIFFLAGS SIOCSIFFLAGS };
+
+  # Start snapuserd for merging VABC updates
+  set_prop(recovery, ctl_snapuserd_prop)
+
+  # Needed to communicate with snapuserd to complete merges.
+  allow recovery snapuserd_socket:sock_file write;
+  allow recovery snapuserd:unix_stream_socket connectto;
+  allow recovery dm_user_device:dir r_dir_perms;
+
+  # Set fastbootd protocol property
+  set_prop(recovery, fastbootd_protocol_prop)
+
+  get_prop(recovery, recovery_config_prop)
+
+  # Needed to read bootconfig parameters through libfs_mgr
+  allow recovery proc_bootconfig:file r_file_perms;
+')

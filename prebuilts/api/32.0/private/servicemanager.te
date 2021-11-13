@@ -1,0 +1,7 @@
+typeattribute servicemanager coredomain;
+
+init_daemon_domain(servicemanager)
+
+read_runtime_log_tags(servicemanager)
+
+set_prop(servicemanager, ctl_interface_start_prop)
