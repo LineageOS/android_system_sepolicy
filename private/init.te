@@ -15,6 +15,7 @@ recovery_only(`
   domain_trans(init, rootfs, fastbootd)
   domain_trans(init, rootfs, recovery)
   domain_trans(init, rootfs, linkerconfig)
+  domain_trans(init, rootfs, servicemanager)
   domain_trans(init, rootfs, snapuserd)
 ')
 domain_trans(init, shell_exec, shell)
