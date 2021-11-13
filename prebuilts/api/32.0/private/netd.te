@@ -1,0 +1,44 @@
+typeattribute netd coredomain;
+
+init_daemon_domain(netd)
+
+# Allow netd to spawn dnsmasq in it's own domain
+domain_auto_trans(netd, dnsmasq_exec, dnsmasq)
+
+# Allow netd to start clatd in its own domain and kill it
+domain_auto_trans(netd, clatd_exec, clatd)
+allow netd clatd:process signal;
+
+# give netd permission to setup iptables rule with xt_bpf, attach program to cgroup, and read/write
+# the map created by bpfloader
+allow netd bpfloader:bpf { prog_run map_read map_write };
+
+# in order to invoke side effect of close() on such a socket calling synchronize_rcu()
+# TODO: Remove this permission when 4.9 kernel is deprecated.
+allow netd self:key_socket create;
+
+set_prop(netd, ctl_mdnsd_prop)
+set_prop(netd, netd_stable_secret_prop)
+
+get_prop(netd, adbd_config_prop)
+get_prop(netd, bpf_progs_loaded_prop)
+get_prop(netd, hwservicemanager_prop)
+get_prop(netd, device_config_netd_native_prop)
+
+# Allow netd to write to statsd.
+unix_socket_send(netd, statsdw, statsd)
+
+# Allow netd to send callbacks to network_stack
+binder_call(netd, network_stack)
+
+# Allow netd to send dump info to dumpstate
+allow netd dumpstate:fd use;
+allow netd dumpstate:fifo_file { getattr write };
+
+# persist.netd.stable_secret contains RFC 7217 secret key which should never be
+# leaked to other processes. Make sure it never leaks.
+neverallow { domain -netd -init -dumpstate } netd_stable_secret_prop:file r_file_perms;
+
+# We want to ensure that no other process ever tries tampering with persist.netd.stable_secret,
+# the RFC 7217 secret key managed by netd. Doing so could compromise user privacy.
+neverallow { domain -netd -init } netd_stable_secret_prop:property_service set;

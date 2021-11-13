@@ -1,0 +1,26 @@
+# snapuserd - Daemon for servicing dm-user requests for Virtual A/B snapshots.
+type snapuserd, domain;
+type snapuserd_exec, exec_type, file_type, system_file_type;
+
+typeattribute snapuserd coredomain;
+
+init_daemon_domain(snapuserd)
+
+allow snapuserd kmsg_device:chr_file rw_file_perms;
+
+# Reading and writing to /dev/block/dm-* (device-mapper) nodes.
+allow snapuserd block_device:dir r_dir_perms;
+allow snapuserd dm_device:chr_file rw_file_perms;
+allow snapuserd dm_device:blk_file rw_file_perms;
+
+# Reading and writing to dm-user control nodes.
+allow snapuserd dm_user_device:dir r_dir_perms;
+allow snapuserd dm_user_device:chr_file rw_file_perms;
+
+# Reading and writing to /dev/socket/snapuserd.
+allow snapuserd snapuserd_socket:unix_stream_socket { accept listen getattr read write };
+
+# This arises due to first-stage init opening /dev/null without F_CLOEXEC
+# (see SetStdioToDevNull in init). When we fork() and execveat() snapuserd
+# again, the descriptor leaks into the new process.
+allow snapuserd kernel:fd use;

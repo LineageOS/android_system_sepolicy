@@ -1,0 +1,8 @@
+typeattribute mediametrics coredomain;
+
+init_daemon_domain(mediametrics)
+
+# Needed for stats callback registration to statsd.
+allow mediametrics stats_service:service_manager find;
+allow mediametrics statsmanager_service:service_manager find;
+binder_call(mediametrics, statsd)
