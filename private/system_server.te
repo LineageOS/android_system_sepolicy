@@ -907,6 +907,7 @@ allow system_server keystore:keystore2 {
 	clear_uid
 	get_state
 	lock
+	migrate_any_key
 	pull_metrics
 	reset
 	unlock
