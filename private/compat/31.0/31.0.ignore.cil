@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    apexd_select_prop
     artd_service
     attestation_verification_service
     camera2_extensions_prop
