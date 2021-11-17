@@ -1,0 +1,68 @@
+typeattribute vold coredomain;
+
+init_daemon_domain(vold)
+
+# Switch to more restrictive domains when executing common tools
+domain_auto_trans(vold, sgdisk_exec, sgdisk);
+domain_auto_trans(vold, sdcardd_exec, sdcardd);
+
+# For a handful of probing tools, we choose an even more restrictive
+# domain when working with untrusted block devices
+domain_trans(vold, blkid_exec, blkid);
+domain_trans(vold, blkid_exec, blkid_untrusted);
+domain_trans(vold, fsck_exec, fsck);
+domain_trans(vold, fsck_exec, fsck_untrusted);
+
+# Newly created storage dirs are always treated as mount stubs to prevent us
+# from accidentally writing when the mount point isn't present.
+type_transition vold storage_file:dir storage_stub_file;
+type_transition vold mnt_media_rw_file:dir mnt_media_rw_stub_file;
+
+# Property Service
+get_prop(vold, vold_config_prop)
+get_prop(vold, storage_config_prop);
+get_prop(vold, incremental_prop);
+
+set_prop(vold, vold_post_fs_data_prop)
+set_prop(vold, vold_prop)
+set_prop(vold, vold_status_prop)
+set_prop(vold, powerctl_prop)
+set_prop(vold, ctl_fuse_prop)
+set_prop(vold, restorecon_prop)
+set_prop(vold, ota_prop)
+set_prop(vold, boottime_prop)
+set_prop(vold, boottime_public_prop)
+
+# Vold will use Keystore instead of using Keymint directly. But it still needs
+# to manage its Keymint blobs. This is why it needs the `manage_blob` permission.
+allow vold vold_key:keystore2_key {
+    convert_storage_key_to_ephemeral
+    delete
+    get_info
+    manage_blob
+    rebind
+    req_forced_op
+    update
+    use
+};
+
+# vold needs to call keystore methods
+allow vold keystore:binder call;
+
+# vold needs to find keystore2 services
+allow vold keystore_service:service_manager find;
+allow vold keystore_maintenance_service:service_manager find;
+
+# vold needs to be able to call earlyBootEnded() and deleteAllKeys()
+allow vold keystore:keystore2 early_boot_ended;
+allow vold keystore:keystore2 delete_all_keys;
+
+neverallow {
+    domain
+    -system_server
+    -vdc
+    -vold
+    -update_verifier
+    -apexd
+    -gsid
+} vold_service:service_manager find;
