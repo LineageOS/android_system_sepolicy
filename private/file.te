@@ -74,3 +74,6 @@ type kvm_device, dev_type;
 
 # /apex/com.android.virt/bin/fd_server
 type fd_server_exec, system_file_type, exec_type, file_type;
+
+# /metadata/sepolicy
+type sepolicy_metadata_file, file_type;
