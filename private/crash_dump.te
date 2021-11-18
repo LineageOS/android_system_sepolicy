@@ -8,6 +8,7 @@ allow crash_dump {
   -apexd
   -bpfloader
   -crash_dump
+  -diced
   -init
   -kernel
   -keystore
@@ -40,6 +41,7 @@ neverallow crash_dump {
   apexd
   userdebug_or_eng(`-apexd')
   bpfloader
+  diced
   init
   kernel
   keystore
