@@ -30,6 +30,9 @@ type selinuxContextsProperties struct {
 	// Filenames under sepolicy directories, which will be used to generate contexts file.
 	Srcs []string `android:"path"`
 
+	// Output file name. Defaults to module name
+	Stem *string
+
 	Product_variables struct {
 		Debuggable struct {
 			Srcs []string
@@ -120,6 +123,10 @@ func (m *selinuxContextsModule) propertyContextsDeps(ctx android.BottomUpMutator
 	}
 }
 
+func (m *selinuxContextsModule) stem() string {
+	return proptools.StringDefault(m.properties.Stem, m.Name())
+}
+
 func (m *selinuxContextsModule) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	if m.InRecovery() {
 		// Installing context files at the root of the recovery partition
@@ -133,7 +140,7 @@ func (m *selinuxContextsModule) GenerateAndroidBuildActions(ctx android.ModuleCo
 
 		if reuseDeps, ok := dep.(*selinuxContextsModule); ok {
 			m.outputPath = reuseDeps.outputPath
-			ctx.InstallFile(m.installPath, m.Name(), m.outputPath)
+			ctx.InstallFile(m.installPath, m.stem(), m.outputPath)
 			return
 		}
 	}
@@ -185,7 +192,7 @@ func (m *selinuxContextsModule) GenerateAndroidBuildActions(ctx android.ModuleCo
 	}
 
 	m.outputPath = m.build(ctx, inputs)
-	ctx.InstallFile(m.installPath, ctx.ModuleName(), m.outputPath)
+	ctx.InstallFile(m.installPath, m.stem(), m.outputPath)
 }
 
 func newModule() *selinuxContextsModule {
@@ -230,21 +237,21 @@ func (m *selinuxContextsModule) AndroidMk() android.AndroidMkData {
 		Extra: []android.AndroidMkExtraFunc{
 			func(w io.Writer, outputFile android.Path) {
 				fmt.Fprintln(w, "LOCAL_MODULE_PATH :=", m.installPath.ToMakePath().String())
-				fmt.Fprintln(w, "LOCAL_INSTALLED_MODULE_STEM :=", m.Name())
+				fmt.Fprintln(w, "LOCAL_INSTALLED_MODULE_STEM :=", m.stem())
 			},
 		},
 	}
 }
 
 func (m *selinuxContextsModule) ImageMutatorBegin(ctx android.BaseModuleContext) {
-	if proptools.Bool(m.properties.Recovery_available) && m.InstallInRecovery() {
+	if proptools.Bool(m.properties.Recovery_available) && m.ModuleBase.InstallInRecovery() {
 		ctx.PropertyErrorf("recovery_available",
 			"doesn't make sense at the same time as `recovery: true`")
 	}
 }
 
 func (m *selinuxContextsModule) CoreVariantNeeded(ctx android.BaseModuleContext) bool {
-	return !m.InstallInRecovery()
+	return !m.ModuleBase.InstallInRecovery()
 }
 
 func (m *selinuxContextsModule) RamdiskVariantNeeded(ctx android.BaseModuleContext) bool {
@@ -260,7 +267,7 @@ func (m *selinuxContextsModule) DebugRamdiskVariantNeeded(ctx android.BaseModule
 }
 
 func (m *selinuxContextsModule) RecoveryVariantNeeded(ctx android.BaseModuleContext) bool {
-	return m.InstallInRecovery() || proptools.Bool(m.properties.Recovery_available)
+	return m.ModuleBase.InstallInRecovery() || proptools.Bool(m.properties.Recovery_available)
 }
 
 func (m *selinuxContextsModule) ExtraImageVariations(ctx android.BaseModuleContext) []string {
@@ -273,7 +280,7 @@ func (m *selinuxContextsModule) SetImageVariation(ctx android.BaseModuleContext,
 var _ android.ImageInterface = (*selinuxContextsModule)(nil)
 
 func (m *selinuxContextsModule) buildGeneralContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
-	ret := android.PathForModuleGen(ctx, ctx.ModuleName()+"_m4out")
+	builtContext := android.PathForModuleGen(ctx, ctx.ModuleName()+"_m4out")
 
 	rule := android.NewRuleBuilder(pctx, ctx)
 
@@ -282,37 +289,40 @@ func (m *selinuxContextsModule) buildGeneralContexts(ctx android.ModuleContext, 
 		Text("--fatal-warnings -s").
 		FlagForEachArg("-D", ctx.DeviceConfig().SepolicyM4Defs()).
 		Inputs(inputs).
-		FlagWithOutput("> ", ret)
+		FlagWithOutput("> ", builtContext)
 
 	if proptools.Bool(m.properties.Remove_comment) {
-		rule.Temporary(ret)
+		rule.Temporary(builtContext)
 
 		remove_comment_output := android.PathForModuleGen(ctx, ctx.ModuleName()+"_remove_comment")
 
 		rule.Command().
 			Text("sed -e 's/#.*$//' -e '/^$/d'").
-			Input(ret).
+			Input(builtContext).
 			FlagWithOutput("> ", remove_comment_output)
 
-		ret = remove_comment_output
+		builtContext = remove_comment_output
 	}
 
 	if proptools.Bool(m.properties.Fc_sort) {
-		rule.Temporary(ret)
+		rule.Temporary(builtContext)
 
 		sorted_output := android.PathForModuleGen(ctx, ctx.ModuleName()+"_sorted")
 
 		rule.Command().
 			Tool(ctx.Config().HostToolPath(ctx, "fc_sort")).
-			FlagWithInput("-i ", ret).
+			FlagWithInput("-i ", builtContext).
 			FlagWithOutput("-o ", sorted_output)
 
-		ret = sorted_output
+		builtContext = sorted_output
 	}
 
-	rule.Build("selinux_contexts", "building contexts: "+m.Name())
+	ret := android.PathForModuleGen(ctx, m.stem())
+	rule.Temporary(builtContext)
+	rule.Command().Text("cp").Input(builtContext).Output(ret)
 
 	rule.DeleteTemporaryFiles()
+	rule.Build("selinux_contexts", "building contexts: "+m.Name())
 
 	return ret
 }
@@ -499,4 +509,14 @@ func keystoreKeyFactory() android.Module {
 	m := newModule()
 	m.build = m.buildGeneralContexts
 	return m
+}
+
+var _ android.OutputFileProducer = (*selinuxContextsModule)(nil)
+
+// Implements android.OutputFileProducer
+func (m *selinuxContextsModule) OutputFiles(tag string) (android.Paths, error) {
+	if tag == "" {
+		return []android.Path{m.outputPath}, nil
+	}
+	return nil, fmt.Errorf("unsupported module reference tag %q", tag)
 }
