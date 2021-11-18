@@ -30,3 +30,8 @@ allow servicemanager dumpstate:fifo_file write;
 
 # Check SELinux permissions.
 selinux_check_access(servicemanager)
+
+# In recovery, log to kmsg.
+recovery_only(`
+  allow servicemanager kmsg_device:chr_file rw_file_perms;
+')
