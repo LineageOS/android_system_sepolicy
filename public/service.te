@@ -8,6 +8,8 @@ type batteryproperties_service, app_api_service, ephemeral_app_api_service, serv
 type bluetooth_service,         service_manager_type;
 type cameraserver_service,      service_manager_type;
 type default_android_service,   service_manager_type;
+type dice_maintenance_service,  service_manager_type;
+type dice_node_service,         service_manager_type;
 type dnsresolver_service,       service_manager_type;
 type drmserver_service,         service_manager_type;
 type dumpstate_service,         service_manager_type;
@@ -201,6 +203,7 @@ type slice_service, app_api_service, system_server_service, service_manager_type
 type smartspace_service, app_api_service, system_server_service, service_manager_type;
 type statusbar_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type storagestats_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type supplemental_process_service, app_api_service, system_server_service, service_manager_type;
 type system_config_service, system_api_service, system_server_service, service_manager_type;
 type system_server_dumper_service, system_api_service, system_server_service, service_manager_type;
 type system_update_service, system_server_service, service_manager_type;
@@ -259,6 +262,7 @@ type hal_audio_service, vendor_service, protected_service, service_manager_type;
 type hal_audiocontrol_service, vendor_service, service_manager_type;
 type hal_authsecret_service, vendor_service, protected_service, service_manager_type;
 type hal_contexthub_service, vendor_service, protected_service, service_manager_type;
+type hal_dice_service, vendor_service, protected_service, service_manager_type;
 type hal_face_service, vendor_service, protected_service, service_manager_type;
 type hal_fingerprint_service, vendor_service, protected_service, service_manager_type;
 type hal_gnss_service, vendor_service, protected_service, service_manager_type;

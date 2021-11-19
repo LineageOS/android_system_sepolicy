@@ -34,6 +34,7 @@ android.hardware.radio.voice.IRadioVoice/slot1                       u:object_r:
 android.hardware.radio.voice.IRadioVoice/slot2                       u:object_r:hal_radio_voice_service:s0
 android.hardware.radio.voice.IRadioVoice/slot3                       u:object_r:hal_radio_voice_service:s0
 android.hardware.rebootescrow.IRebootEscrow/default                  u:object_r:hal_rebootescrow_service:s0
+android.hardware.security.dice.IDiceDevice/default                   u:object_r:hal_dice_service:s0
 android.hardware.security.keymint.IKeyMintDevice/default             u:object_r:hal_keymint_service:s0
 android.hardware.security.keymint.IRemotelyProvisionedComponent/default u:object_r:hal_remotelyprovisionedcomponent_service:s0
 android.hardware.security.secureclock.ISecureClock/default             u:object_r:hal_secureclock_service:s0
@@ -65,6 +66,8 @@ android.os.UpdateEngineStableService      u:object_r:update_engine_stable_servic
 android.security.apc                      u:object_r:apc_service:s0
 android.security.authorization            u:object_r:authorization_service:s0
 android.security.compat                   u:object_r:keystore_compat_hal_service:s0
+android.security.dice.IDiceMaintenance    u:object_r:dice_maintenance_service:s0
+android.security.dice.IDiceNode           u:object_r:dice_node_service:s0
 android.security.identity                 u:object_r:credstore_service:s0
 android.security.keystore                 u:object_r:keystore_service:s0
 android.security.legacykeystore           u:object_r:legacykeystore_service:s0
@@ -291,6 +294,7 @@ statusbar                                 u:object_r:statusbar_service:s0
 storaged                                  u:object_r:storaged_service:s0
 storaged_pri                              u:object_r:storaged_service:s0
 storagestats                              u:object_r:storagestats_service:s0
+supplemental_process                      u:object_r:supplemental_process_service:s0
 SurfaceFlinger                            u:object_r:surfaceflinger_service:s0
 suspend_control                           u:object_r:system_suspend_control_service:s0
 suspend_control_internal                  u:object_r:system_suspend_control_internal_service:s0
