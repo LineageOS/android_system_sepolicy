@@ -148,6 +148,7 @@ genfscon sysfs /devices/virtual/wakeup          u:object_r:sysfs_wakeup:s0
 genfscon sysfs /firmware/devicetree/base/firmware/android u:object_r:sysfs_dt_firmware_android:s0
 genfscon sysfs /fs/ext4/features                  u:object_r:sysfs_fs_ext4_features:s0
 genfscon sysfs /fs/f2fs                           u:object_r:sysfs_fs_f2fs:s0
+genfscon sysfs /fs/fuse/bpf_prog_type_fuse        u:object_r:sysfs_fs_fuse_bpf:s0
 genfscon sysfs /fs/incremental-fs/features        u:object_r:sysfs_fs_incfs_features:s0
 genfscon sysfs /fs/incremental-fs/instances       u:object_r:sysfs_fs_incfs_metrics:s0
 genfscon sysfs /power/autosleep u:object_r:sysfs_power:s0
