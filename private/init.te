@@ -13,6 +13,7 @@ recovery_only(`
   domain_trans(init, rootfs, adbd)
   domain_trans(init, rootfs, charger)
   domain_trans(init, rootfs, fastbootd)
+  domain_trans(init, rootfs, hal_health_server)
   domain_trans(init, rootfs, recovery)
   domain_trans(init, rootfs, linkerconfig)
   domain_trans(init, rootfs, servicemanager)
