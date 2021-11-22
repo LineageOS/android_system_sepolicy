@@ -38,6 +38,7 @@ sys.powerctl            u:object_r:powerctl_prop:s0
 service.adb.root u:object_r:shell_prop:s0 exact bool
 
 ro.logd.kernel u:object_r:logd_prop:s0 exact bool
+logd.ready     u:object_r:logd_prop:s0 exact bool
 
 ro.config.low_ram u:object_r:build_prop:s0 exact bool
 
