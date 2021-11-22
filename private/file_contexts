@@ -19,6 +19,7 @@
 
 # For kernel modules
 /lib(/.*)?          u:object_r:rootfs:s0
+/system_dlkm(/.*)?  u:object_r:rootfs:s0
 
 # Empty directories
 /lost\+found        u:object_r:rootfs:s0
