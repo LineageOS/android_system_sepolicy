@@ -54,7 +54,7 @@ allow odrefresh system_file:file execute_no_trans;
 
 # Make binder calls back to composd
 binder_use(odrefresh)
-allow odrefresh compos_service:service_manager find;
+allow odrefresh compos_internal_service:service_manager find;
 binder_call(odrefresh, composd)
 
 # Run fd_server in its own domain
