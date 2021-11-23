@@ -12,3 +12,5 @@ hal_client_domain(secure_element, hal_secure_element)
 # the secure element process, from a file in
 # /data/data/com.android.shell/files/bugreports/bugreport-*.
 allow secure_element shell_data_file:file read;
+
+allow secure_element vendor_uuid_mapping_config_file:file r_file_perms;
