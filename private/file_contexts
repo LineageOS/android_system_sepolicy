@@ -412,6 +412,10 @@
 /(odm|vendor/odm)/overlay(/.*)?               u:object_r:vendor_overlay_file:s0
 /(odm|vendor/odm)/framework(/.*)?             u:object_r:vendor_framework_file:s0
 
+# secure-element service: vendor uuid mapping config file
+/(odm|vendor/odm|vendor|system/vendor)/etc/hal_uuid_map_(.*)?\.xml    u:object_r:vendor_uuid_mapping_config_file:s0
+
+
 # Input configuration
 /(odm|vendor/odm|vendor|system/vendor)/usr/keylayout(/.*)?\.kl        u:object_r:vendor_keylayout_file:s0
 /(odm|vendor/odm|vendor|system/vendor)/usr/keychars(/.*)?\.kcm        u:object_r:vendor_keychars_file:s0
