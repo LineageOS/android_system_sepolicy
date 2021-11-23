@@ -249,6 +249,9 @@ type vendor_keylayout_file, vendor_file_type, file_type;
 type vendor_keychars_file, vendor_file_type, file_type;
 type vendor_idc_file, vendor_file_type, file_type;
 
+# Type for vendor uuid mapping config file
+type vendor_uuid_mapping_config_file, vendor_file_type, file_type;
+
 # SoC-specific virtual machine disk files
 type vendor_vm_file, vendor_file_type, file_type;
 # SoC-specific virtual machine disk files that are mutable
