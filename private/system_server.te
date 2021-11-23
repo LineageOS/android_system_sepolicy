@@ -1250,10 +1250,13 @@ neverallow system_server dex2oat_exec:file no_x_file_perms;
 # https://bugs.chromium.org/p/project-zero/issues/detail?id=955 for example.
 neverallow system_server data_file_type:file no_x_file_perms;
 
-# The only block device system_server should be accessing is
+# The only block device system_server should be writing to is
 # the frp_block_device. This helps avoid a system_server to root
 # escalation by writing to raw block devices.
-neverallow system_server { dev_type -frp_block_device }:blk_file no_rw_file_perms;
+# The system_server may need to read from vd_device if it uses
+# block apexes.
+neverallow system_server { dev_type -frp_block_device }:blk_file no_w_file_perms;
+neverallow system_server { dev_type -frp_block_device -vd_device }:blk_file r_file_perms;
 
 # system_server should never use JIT functionality
 # See https://googleprojectzero.blogspot.com/2016/12/bitunmap-attacking-android-ashmem.html
