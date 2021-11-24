@@ -1113,6 +1113,8 @@ cache_key.telephony.                     u:object_r:binder_cache_telephony_serve
 framework_watchdog.fatal_count                u:object_r:framework_watchdog_config_prop:s0 exact int
 framework_watchdog.fatal_window.second        u:object_r:framework_watchdog_config_prop:s0 exact int
 
+gsm.operator.iso-country       u:object_r:telephony_status_prop:s0 exact string
+gsm.sim.operator.iso-country   u:object_r:telephony_status_prop:s0 exact string
 gsm.sim.operator.numeric       u:object_r:telephony_status_prop:s0 exact string
 persist.radio.airplane_mode_on u:object_r:telephony_status_prop:s0 exact bool
 
