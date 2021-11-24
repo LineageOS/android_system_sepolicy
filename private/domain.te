@@ -121,6 +121,7 @@ neverallow {
   -dumpstate
   userdebug_or_eng(`-incidentd')
   userdebug_or_eng(`-profcollectd')
+  userdebug_or_eng(`-simpleperf_boot')
   -storaged
   -system_server
 } self:global_capability_class_set sys_ptrace;
@@ -456,6 +457,7 @@ full_treble_only(`
     -iorap_inode2filename
     -iorap_prefetcherd
     -kernel
+    userdebug_or_eng(`-simpleperf_boot')
     -traced_perf
     -ueventd
   } vendor_file:file { no_w_file_perms no_x_file_perms open };
@@ -496,6 +498,7 @@ full_treble_only(`
     -heapprofd
     userdebug_or_eng(`-profcollectd')
     -shell
+    userdebug_or_eng(`-simpleperf_boot')
     -system_executes_vendor_violators
     -traced_perf # library/binary access for symbolization
     -ueventd # reads /vendor/ueventd.rc
@@ -547,6 +550,7 @@ neverallow {
   -init
   userdebug_or_eng(`-profcollectd')
   -vendor_init
+  userdebug_or_eng(`-simpleperf_boot')
   -traced_probes
   -traced_perf
 } proc_kallsyms:file { open read };
