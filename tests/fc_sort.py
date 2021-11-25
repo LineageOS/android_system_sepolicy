@@ -1,142 +1,158 @@
-#!/usr/bin/env python
-import sys
-import os
+#!/usr/bin/env python2
+#
+# Copyright 2021 - The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import argparse
+import os
+import sys
 
-class FileContextsNode:
-    path = None
-    fileType = None
-    context = None
-    Type = None
-    meta = None
-    stemLen = None
-    strLen = None
-    Type = None
-    line = None
-    def __init__(self, path, fileType, context, meta, stemLen, strLen, line):
-        self.path = path
-        self.fileType = fileType
-        self.context = context
-        self.meta = meta
-        self.stemLen = stemLen
-        self.strlen = strLen
-        self.Type = context.split(":")[2]
-        self.line = line
 
-metaChars = frozenset(['.', '^', '$', '?', '*', '+', '|', '[', '(', '{'])
-escapedMetaChars = frozenset(['\.', '\^', '\$', '\?', '\*', '\+', '\|', '\[', '\(', '\{'])
+META_CHARS = frozenset(['.', '^', '$', '?', '*', '+', '|', '[', '(', '{'])
+ESCAPED_META_CHARS = frozenset([ '\\{}'.format(c) for c in META_CHARS ])
 
-def getStemLen(path):
-    global metaChars
-    stemLen = 0
+
+def get_stem_len(path):
+    """Returns the length of the stem."""
+    stem_len = 0
     i = 0
     while i < len(path):
         if path[i] == "\\":
             i += 1
-        elif path[i] in metaChars:
+        elif path[i] in META_CHARS:
             break
-        stemLen += 1
+        stem_len += 1
         i += 1
-    return stemLen
+    return stem_len
 
 
-def getIsMeta(path):
-    global metaChars
-    global escapedMetaChars
-    metaCharsCount = 0
-    escapedMetaCharsCount = 0
-    for c in metaChars:
+def is_meta(path):
+    """Indicates if a path contains any metacharacter."""
+    meta_char_count = 0
+    escaped_meta_char_count = 0
+    for c in META_CHARS:
         if c in path:
-            metaCharsCount += 1
-    for c in escapedMetaChars:
+            meta_char_count += 1
+    for c in ESCAPED_META_CHARS:
         if c in path:
-            escapedMetaCharsCount += 1
-    return metaCharsCount > escapedMetaCharsCount
+            escaped_meta_char_count += 1
+    return meta_char_count > escaped_meta_char_count
 
-def CreateNode(line):
-    global metaChars
-    if (len(line) == 0) or (line[0] == '#'):
-        return None
 
-    split = line.split()
-    path = split[0].strip()
-    context = split[-1].strip()
-    fileType = None
-    if len(split) == 3:
-        fileType = split[1].strip()
-    meta = getIsMeta(path)
-    stemLen = getStemLen(path)
-    strLen = len(path.replace("\\", ""))
+class FileContextsNode(object):
+    """An entry in a file_context file."""
 
-    return FileContextsNode(path, fileType, context, meta, stemLen, strLen, line)
+    def __init__(self, path, file_type, context, meta, stem_len, str_len, line):
+        self.path = path
+        self.file_type = file_type
+        self.context = context
+        self.meta = meta
+        self.stem_len = stem_len
+        self.str_len = str_len
+        self.type = context.split(":")[2]
+        self.line = line
 
-def ReadFileContexts(files):
-    fc = []
-    for f in files:
-        fd = open(f)
-        for line in fd:
-            node = CreateNode(line.strip())
-            if node != None:
-                fc.append(node)
-    return fc
+    @classmethod
+    def create(cls, line):
+        if (len(line) == 0) or (line[0] == '#'):
+            return None
 
-# Comparator function for list.sort() based off of fc_sort.c
-# Compares two FileContextNodes a and b and returns 1 if a is more
-# specific or -1 if b is more specific.
-def compare(a, b):
-    # The regex without metachars is more specific
-    if a.meta and not b.meta:
-        return -1
-    if b.meta and not a.meta:
-        return 1
+        split = line.split()
+        path = split[0].strip()
+        context = split[-1].strip()
+        file_type = None
+        if len(split) == 3:
+            file_type = split[1].strip()
+        meta = is_meta(path)
+        stem_len = get_stem_len(path)
+        str_len = len(path.replace("\\", ""))
 
-    # The regex with longer stemlen (regex before any meta characters) is more specific.
-    if a.stemLen < b.stemLen:
-        return -1
-    if b.stemLen < a.stemLen:
-        return 1
+        return cls(path, file_type, context, meta, stem_len, str_len, line)
 
-    # The regex with longer string length is more specific
-    if a.strLen < b.strLen:
-        return -1
-    if b.strLen < a.strLen:
-        return 1
+    # Comparator function based off fc_sort.c
+    def __lt__(self, other):
+        # The regex without metachars is more specific.
+        if self.meta and not other.meta:
+            return True
+        if other.meta and not self.meta:
+            return False
 
-    # A regex with a fileType defined (e.g. file, dir) is more specific.
-    if a.fileType is None and b.fileType is not None:
-        return -1
-    if b.fileType is None and a.fileType is not None:
-        return 1
+        # The regex with longer stem_len (regex before any meta characters) is
+        # more specific.
+        if self.stem_len < other.stem_len:
+            return True
+        if other.stem_len < self.stem_len:
+            return False
 
-    # Regexes are equally specific.
-    return 0
+        # The regex with longer string length is more specific
+        if self.str_len < other.str_len:
+            return True
+        if other.str_len < self.str_len:
+            return False
 
-def FcSort(files):
+        # A regex with a file_type defined (e.g. file, dir) is more specific.
+        if self.file_type is None and other.file_type is not None:
+            return True
+        if other.file_type is None and self.file_type is not None:
+            return False
+
+        return False
+
+
+def read_file_contexts(file_descriptor):
+    file_contexts = []
+    for line in file_descriptor:
+        node = FileContextsNode.create(line.strip())
+        if node is not None:
+            file_contexts.append(node)
+    return file_contexts
+
+
+def read_multiple_file_contexts(files):
+    file_contexts = []
+    for filename in files:
+        with open(filename) as fd:
+            file_contexts.extend(read_file_contexts(fd))
+    return file_contexts
+
+
+def sort(files):
     for f in files:
         if not os.path.exists(f):
             sys.exit("Error: File_contexts file " + f + " does not exist\n")
+    file_contexts = read_multiple_file_contexts(files)
+    file_contexts.sort()
+    return file_contexts
 
-    Fc = ReadFileContexts(files)
-    Fc.sort(cmp=compare)
 
-    return Fc
-
-def PrintFc(Fc, out):
+def print_fc(fc, out):
     if not out:
         f = sys.stdout
     else:
         f = open(out, "w")
-    for node in Fc:
+    for node in fc:
         f.write(node.line + "\n")
 
+
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="SELinux file_contexts sorting tool.")
-    parser.add_argument("-i", dest="input", help="Path to the file_contexts file(s).", nargs="?", action='append')
-    parser.add_argument("-o", dest="output", help="Path to the output file", nargs=1)
+    parser = argparse.ArgumentParser(
+            description="SELinux file_contexts sorting tool.")
+    parser.add_argument("-i", dest="input", nargs="*",
+            help="Path to the file_contexts file(s).")
+    parser.add_argument("-o", dest="output", help="Path to the output file.")
     args = parser.parse_args()
     if not args.input:
         parser.error("Must include path to policy")
-    if not not args.output:
-        args.output = args.output[0]
 
-    PrintFc(FcSort(args.input),args.output)
+    print_fc(sort(args.input), args.output)

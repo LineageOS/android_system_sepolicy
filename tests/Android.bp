@@ -28,7 +28,6 @@ python_defaults {
     name: "py2_only",
     version: {
         py2: {
-            embedded_launcher: true,
             enabled: true,
         },
         py3: {
@@ -86,6 +85,18 @@ python_binary_host {
         "fc_sort.py",
     ],
     defaults: ["py2_only"],
+}
+
+python_test_host {
+    name: "fc_sort_test",
+    srcs: [
+        "fc_sort.py",
+        "fc_sort_test.py",
+    ],
+    defaults: ["py2_only"],
+    test_options: {
+        unit_test: true,
+    }
 }
 
 python_binary_host {
