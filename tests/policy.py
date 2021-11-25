@@ -271,7 +271,7 @@ class Policy:
         PathType = []
         for i in range(index, len(self.__FcSorted)):
             if MatchPathPrefix(self.__FcSorted[i].path, prefix):
-                PathType.append((self.__FcSorted[i].path, self.__FcSorted[i].Type))
+                PathType.append((self.__FcSorted[i].path, self.__FcSorted[i].type))
         return PathType
 
     # Return types that match MatchPrefixes but do not match
@@ -430,7 +430,7 @@ class Policy:
                     self.__FcDict[t] = [rec[0]]
             except:
                 pass
-        self.__FcSorted = fc_sort.FcSort(FcPaths)
+        self.__FcSorted = fc_sort.sort(FcPaths)
 
     # load policy
     def __InitPolicy(self, PolicyPath):
