@@ -335,6 +335,9 @@ ro.camera.enableCamera1MaxZsl u:object_r:camera_config_prop:s0 exact bool
 
 ro.camerax.extensions.enabled u:object_r:camerax_extensions_prop:s0 exact bool
 
+ro.vendor.camera.extensions.package u:object_r:camera2_extensions_prop:s0 exact string
+ro.vendor.camera.extensions.service u:object_r:camera2_extensions_prop:s0 exact string
+
 # ART properties
 dalvik.vm.                 u:object_r:dalvik_config_prop:s0
 ro.dalvik.vm.              u:object_r:dalvik_config_prop:s0
@@ -515,6 +518,7 @@ ro.lmk.critical                 u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.critical_upgrade         u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.debug                    u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.downgrade_pressure       u:object_r:lmkd_config_prop:s0 exact int
+ro.lmk.filecache_min_kb         u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.kill_heaviest_task       u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.kill_timeout_ms          u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.log_stats                u:object_r:lmkd_config_prop:s0 exact bool
@@ -565,6 +569,7 @@ sys.usb.configfs   u:object_r:usb_control_prop:s0 exact int
 sys.usb.controller u:object_r:usb_control_prop:s0 exact string
 sys.usb.state      u:object_r:usb_control_prop:s0 exact string
 
+sys.usb.mtp.batchcancel u:object_r:usb_config_prop:s0 exact bool
 sys.usb.mtp.device_type u:object_r:usb_config_prop:s0 exact int
 
 sys.usb.config. u:object_r:usb_prop:s0
@@ -1117,8 +1122,17 @@ ro.telephony.iwlan_operation_mode u:object_r:telephony_config_prop:s0 exact enum
 telephony.active_modems.max_count u:object_r:telephony_config_prop:s0 exact int
 telephony.lteOnCdmaDevice         u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.volte_avail_ovr       u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.volte_avail_ovr0      u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.volte_avail_ovr1      u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.volte_avail_ovr2      u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.vt_avail_ovr          u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.vt_avail_ovr0         u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.vt_avail_ovr1         u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.vt_avail_ovr2         u:object_r:telephony_config_prop:s0 exact int
 persist.dbg.wfc_avail_ovr         u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.wfc_avail_ovr0        u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.wfc_avail_ovr1        u:object_r:telephony_config_prop:s0 exact int
+persist.dbg.wfc_avail_ovr2        u:object_r:telephony_config_prop:s0 exact int
 
 # System locale list filter configuration
 ro.localization.locale_filter u:object_r:localization_prop:s0 exact string
