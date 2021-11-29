@@ -79,6 +79,8 @@ userdebug_or_eng(`
 # usual bugreport .zip file). This is used by the bug reporting UI to tell if
 # the bugreport will contain a system trace or not while the bugreport is still
 # in progress.
+allow priv_app wm_trace_data_file:dir r_dir_perms;
+allow priv_app wm_trace_data_file:file getattr;
 allow priv_app perfetto_traces_bugreport_data_file:dir r_dir_perms;
 allow priv_app perfetto_traces_bugreport_data_file:file { getattr };
 # Required to traverse the parent dir (/data/misc/perfetto-traces).
