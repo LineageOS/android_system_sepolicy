@@ -218,6 +218,7 @@ allow vendor_init self:capability sys_nice;
 set_prop(vendor_init, apk_verity_prop)
 set_prop(vendor_init, bluetooth_a2dp_offload_prop)
 set_prop(vendor_init, bluetooth_audio_hal_prop)
+set_prop(vendor_init, camera2_extensions_prop)
 set_prop(vendor_init, camerax_extensions_prop)
 set_prop(vendor_init, cpu_variant_prop)
 set_prop(vendor_init, dalvik_runtime_prop)
