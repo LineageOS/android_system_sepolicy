@@ -99,9 +99,11 @@
 # inputs are matched on a key value rule line.
 #
 
-# only the system server can be in system_server domain
+# only the system server can be assigned the system_server domains
 neverallow isSystemServer=false domain=system_server
+neverallow isSystemServer=false domain=system_server_startup
 neverallow isSystemServer="" domain=system_server
+neverallow isSystemServer="" domain=system_server_startup
 
 # system domains should never be assigned outside of system uid
 neverallow user=((?!system).)* domain=system_app
