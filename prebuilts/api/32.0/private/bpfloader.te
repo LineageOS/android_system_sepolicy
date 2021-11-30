@@ -1,0 +1,43 @@
+# bpf program loader
+type bpfloader, domain;
+type bpfloader_exec, system_file_type, exec_type, file_type;
+typeattribute bpfloader coredomain;
+
+# These permissions are required to pin ebpf maps & programs.
+allow bpfloader { fs_bpf fs_bpf_tethering }:dir { add_name create search write };
+allow bpfloader { fs_bpf fs_bpf_tethering }:file { create read setattr };
+allow fs_bpf_tethering fs_bpf:filesystem associate;
+
+# Allow bpfloader to create bpf maps and programs.
+allow bpfloader self:bpf { map_create map_read map_write prog_load prog_run };
+
+allow bpfloader self:capability { chown sys_admin net_admin };
+
+set_prop(bpfloader, bpf_progs_loaded_prop)
+
+###
+### Neverallow rules
+###
+
+# TODO: get rid of init & vendor_init; Note: we don't care about getattr/mounton/search
+neverallow { domain -init -vendor_init } { fs_bpf fs_bpf_tethering }:dir { open read setattr };
+neverallow { domain -bpfloader } { fs_bpf fs_bpf_tethering }:dir { add_name create write };
+neverallow domain { fs_bpf fs_bpf_tethering }:dir ~{ add_name create getattr mounton open read search setattr write };
+
+# TODO: get rid of init & vendor_init
+neverallow { domain -bpfloader -init -vendor_init } { fs_bpf fs_bpf_tethering }:file { map open setattr };
+neverallow { domain -bpfloader } { fs_bpf fs_bpf_tethering }:file create;
+neverallow { domain -bpfloader -gpuservice -init -lmkd -netd -netutils_wrapper -network_stack -system_server -vendor_init } { fs_bpf fs_bpf_tethering }:file read;
+neverallow { domain -bpfloader -gpuservice -netd -netutils_wrapper -network_stack -system_server } { fs_bpf fs_bpf_tethering }:file write;
+neverallow domain { fs_bpf fs_bpf_tethering }:file ~{ create map open read setattr write };
+
+neverallow { domain -bpfloader } *:bpf { map_create prog_load };
+neverallow { domain -bpfloader -gpuservice -netd -netutils_wrapper -network_stack -system_server } *:bpf prog_run;
+neverallow { domain -bpfloader -gpuservice -lmkd -netd -network_stack -system_server } *:bpf { map_read map_write };
+
+neverallow { domain -bpfloader -init } bpfloader_exec:file { execute execute_no_trans };
+
+neverallow bpfloader *:{ tcp_socket udp_socket rawip_socket } *;
+
+# No domain should be allowed to ptrace bpfloader
+neverallow { domain userdebug_or_eng(`-llkd') } bpfloader:process ptrace;
