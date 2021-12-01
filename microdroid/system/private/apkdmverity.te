@@ -3,9 +3,6 @@
 type apkdmverity, domain, coredomain;
 type apkdmverity_exec, exec_type, file_type, system_file_type;
 
-# allow domain transition from init
-init_daemon_domain(apkdmverity)
-
 # apkdmverity is using bootstrap bionic
 allow apkdmverity system_bootstrap_lib_file:dir r_dir_perms;
 allow apkdmverity system_bootstrap_lib_file:file { execute read open getattr map };
@@ -34,3 +31,13 @@ allowxperm apkdmverity loop_device:blk_file ioctl {
   LOOP_SET_FD
   LOOP_SET_DIRECT_IO
 };
+
+# allow apkdmverity to log to the kernel
+allow apkdmverity kmsg_device:chr_file w_file_perms;
+
+# apkdmverity is forked from microdroid_manager
+# TODO(inseob): remove this
+allow apkdmverity microdroid_manager:fd use;
+
+# Only microdroid_manager can run apkdmverity
+neverallow { domain -microdroid_manager } apkdmverity:process { transition dyntransition };
