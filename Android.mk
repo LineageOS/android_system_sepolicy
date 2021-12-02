@@ -1296,10 +1296,6 @@ base_plat_pub_policy.cil      := $(call intermediates-dir-for,ETC,base_plat_pub_
 base_system_ext_pub_polcy.cil := $(call intermediates-dir-for,ETC,base_system_ext_pub_polcy.cil)/base_system_ext_pub_polcy.cil
 base_product_pub_policy.cil   := $(call intermediates-dir-for,ETC,base_product_pub_policy.cil)/base_product_pub_policy.cil
 
-version_under_treble_tests := 26.0
-include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
-version_under_treble_tests := 27.0
-include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
 version_under_treble_tests := 28.0
 include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
 version_under_treble_tests := 29.0
@@ -1312,10 +1308,6 @@ version_under_treble_tests := 32.0
 include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
 endif  # PRODUCT_SEPOLICY_SPLIT
 
-version_under_treble_tests := 26.0
-include $(LOCAL_PATH)/compat.mk
-version_under_treble_tests := 27.0
-include $(LOCAL_PATH)/compat.mk
 version_under_treble_tests := 28.0
 include $(LOCAL_PATH)/compat.mk
 version_under_treble_tests := 29.0
