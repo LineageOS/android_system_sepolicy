@@ -1,3 +1,17 @@
+# Copyright 2021 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 from ctypes import *
 import re
 import os
@@ -129,7 +143,7 @@ class Policy:
     # all types associated with an attribute if IsAttr=True
     def QueryTypeAttribute(self, Type, IsAttr):
         TypeIterP = self.__libsepolwrap.init_type_iter(self.__policydbP,
-                        create_string_buffer(Type), IsAttr)
+                        create_string_buffer(Type.encode("ascii")), IsAttr)
         if (TypeIterP == None):
             sys.exit("Failed to initialize type iterator")
         buf = create_string_buffer(self.__BUFSIZE)
@@ -138,7 +152,7 @@ class Policy:
             ret = self.__libsepolwrap.get_type(buf, self.__BUFSIZE,
                     self.__policydbP, TypeIterP)
             if ret == 0:
-                TypeAttr.add(buf.value)
+                TypeAttr.add(buf.value.decode("ascii"))
                 continue
             if ret == 1:
                 break;
@@ -237,7 +251,7 @@ class Policy:
             ret = self.__libsepolwrap.get_type(buf, self.__BUFSIZE,
                     self.__policydbP, TypeIterP)
             if ret == 0:
-                AllTypes.add(buf.value)
+                AllTypes.add(buf.value.decode("ascii"))
                 continue
             if ret == 1:
                 break;
@@ -302,7 +316,7 @@ class Policy:
             ret = self.__libsepolwrap.get_allow_rule(buf, self.__BUFSIZE,
                         policydbP, avtabIterP)
             if ret == 0:
-                Rule = TERule(buf.value)
+                Rule = TERule(buf.value.decode("ascii"))
                 Rules.add(Rule)
                 continue
             if ret == 1:
@@ -399,10 +413,10 @@ class Policy:
             ret = self.__libsepolwrap.get_genfs(buf, self.__BUFSIZE,
                         self.__policydbP, GenfsIterP)
             if ret == 0:
-                self.__GenfsDictAdd(self.__GenfsDict, buf.value)
+                self.__GenfsDictAdd(self.__GenfsDict, buf.value.decode("ascii"))
                 continue
             if ret == 1:
-                self.__GenfsDictAdd(self.__GenfsDict, buf.value)
+                self.__GenfsDictAdd(self.__GenfsDict, buf.value.decode("ascii"))
                 break;
             # We should never get here.
             sys.exit("Failed to get genfs entries")
@@ -434,7 +448,7 @@ class Policy:
 
     # load policy
     def __InitPolicy(self, PolicyPath):
-        cPolicyPath = create_string_buffer(PolicyPath)
+        cPolicyPath = create_string_buffer(PolicyPath.encode("ascii"))
         self.__policydbP = self.__libsepolwrap.load_policy(cPolicyPath)
         if (self.__policydbP is None):
             sys.exit("Failed to load policy")
