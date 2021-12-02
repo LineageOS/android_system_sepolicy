@@ -8,6 +8,7 @@ net_domain(shell)
 # logcat
 read_logd(shell)
 control_logd(shell)
+get_prop(shell, logd_prop)
 # logcat -L (directly, or via dumpstate)
 allow shell pstorefs:dir search;
 allow shell pstorefs:file r_file_perms;
