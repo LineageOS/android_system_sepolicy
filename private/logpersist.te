@@ -15,6 +15,7 @@ userdebug_or_eng(`
 
   control_logd(logpersist)
   unix_socket_connect(logpersist, logdr, logd)
+  get_prop(logpersist, logd_prop)
   read_runtime_log_tags(logpersist)
 
 ')
