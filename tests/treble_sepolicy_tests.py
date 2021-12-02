@@ -1,3 +1,17 @@
+# Copyright 2021 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 from optparse import OptionParser
 from optparse import Option, OptionValueError
 import os
@@ -36,17 +50,17 @@ class scontext:
 def PrintScontexts():
     for d in sorted(alldomains.keys()):
         sctx = alldomains[d]
-        print d
-        print "\tcoredomain="+str(sctx.coredomain)
-        print "\tappdomain="+str(sctx.appdomain)
-        print "\tfromSystem="+str(sctx.fromSystem)
-        print "\tfromVendor="+str(sctx.fromVendor)
-        print "\tattributes="+str(sctx.attributes)
-        print "\tentrypoints="+str(sctx.entrypoints)
-        print "\tentrypointpaths="
+        print(d)
+        print("\tcoredomain="+str(sctx.coredomain))
+        print("\tappdomain="+str(sctx.appdomain))
+        print("\tfromSystem="+str(sctx.fromSystem))
+        print("\tfromVendor="+str(sctx.fromVendor))
+        print("\tattributes="+str(sctx.attributes))
+        print("\tentrypoints="+str(sctx.entrypoints))
+        print("\tentrypointpaths=")
         if sctx.entrypointpaths is not None:
             for path in sctx.entrypointpaths:
-                print "\t\t"+str(path)
+                print("\t\t"+str(path))
 
 alldomains = {}
 coredomains = set()
@@ -367,7 +381,7 @@ if __name__ == '__main__':
 
     # Mapping files and public platform policy are only necessary for the
     # TrebleCompatMapping test.
-    if options.tests is None or options.tests is "TrebleCompatMapping":
+    if options.tests is None or options.tests == "TrebleCompatMapping":
         if not options.basepolicy:
             sys.exit("Must specify the current platform-only policy file\n"
                      + parser.usage)
