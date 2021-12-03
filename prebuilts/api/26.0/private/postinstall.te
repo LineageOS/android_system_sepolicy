@@ -1,3 +1,0 @@
-typeattribute postinstall coredomain;
-
-domain_auto_trans(postinstall, otapreopt_chroot_exec, otapreopt_chroot)

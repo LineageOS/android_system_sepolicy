@@ -12,4 +12,8 @@ allow logcat serial_device:chr_file ra_file_perms;
 # logcat can get logs from logd
 read_logd(logcat)
 
+# Allow logcat to read ro.logd.ready so that it waits until logd is ready to
+# accept commands
+get_prop(logcat, logd_prop)
+
 allow logcat self:global_capability_class_set { sys_nice };
