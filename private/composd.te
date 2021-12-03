@@ -22,3 +22,6 @@ allow composd apex_compos_data_file:file create_file_perms;
 # Run odrefresh to refresh ART artifacts, and kill it if we need to
 domain_auto_trans(composd, odrefresh_exec, odrefresh)
 allow composd odrefresh:process sigkill;
+
+# Read ART's properties
+get_prop(composd, dalvik_config_prop)
