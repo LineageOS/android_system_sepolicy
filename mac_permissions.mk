@@ -26,12 +26,12 @@ all_plat_keys := platform media networkstack shared testkey
 all_plat_keys := $(all_plat_keys:%=$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))/%.x509.pem)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_plat_mac_perms_files)
-$(LOCAL_BUILT_MODULE): $(plat_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
+$(LOCAL_BUILT_MODULE): $(plat_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys \
 $(all_plat_mac_perms_files) $(all_plat_keys)
 	@mkdir -p $(dir $@)
 	$(hide) DEFAULT_SYSTEM_DEV_CERTIFICATE="$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))" \
 		MAINLINE_SEPOLICY_DEV_CERTIFICATES="$(MAINLINE_SEPOLICY_DEV_CERTIFICATES)" \
-		$(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
+		$(HOST_OUT_EXECUTABLES)/insertkeys -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
 
 all_plat_keys :=
 all_plat_mac_perms_files :=
@@ -63,10 +63,10 @@ $(system_ext_mac_perms_keys.tmp): $(all_system_ext_mac_perms_keys) $(M4)
 	$(hide) $(M4) --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_KEYS) > $@
 
 $(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_system_ext_mac_perms_files)
-$(LOCAL_BUILT_MODULE): $(system_ext_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
+$(LOCAL_BUILT_MODULE): $(system_ext_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys \
 $(all_system_ext_mac_perms_files)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
+	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
 
 system_ext_mac_perms_keys.tmp :=
 all_system_ext_mac_perms_files :=
@@ -97,10 +97,10 @@ $(product_mac_perms_keys.tmp): $(all_product_mac_perms_keys) $(M4)
 	$(hide) $(M4) --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_KEYS) > $@
 
 $(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_product_mac_perms_files)
-$(LOCAL_BUILT_MODULE): $(product_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
+$(LOCAL_BUILT_MODULE): $(product_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys \
 $(all_product_mac_perms_files)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
+	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
 
 product_mac_perms_keys.tmp :=
 all_product_mac_perms_files :=
@@ -131,11 +131,11 @@ $(vendor_mac_perms_keys.tmp): $(all_vendor_mac_perms_keys) $(M4)
 	$(hide) $(M4) --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_KEYS) > $@
 
 $(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_vendor_mac_perms_files)
-$(LOCAL_BUILT_MODULE): $(vendor_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
+$(LOCAL_BUILT_MODULE): $(vendor_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys \
 $(all_vendor_mac_perms_files)
 	@mkdir -p $(dir $@)
 	$(hide) DEFAULT_SYSTEM_DEV_CERTIFICATE="$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))" \
-		$(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
+		$(HOST_OUT_EXECUTABLES)/insertkeys -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
 
 vendor_mac_perms_keys.tmp :=
 all_vendor_mac_perms_files :=
@@ -166,10 +166,10 @@ $(odm_mac_perms_keys.tmp): $(all_odm_mac_perms_keys) $(M4)
 	$(hide) $(M4) --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_KEYS) > $@
 
 $(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_odm_mac_perms_files)
-$(LOCAL_BUILT_MODULE): $(odm_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys.py \
+$(LOCAL_BUILT_MODULE): $(odm_mac_perms_keys.tmp) $(HOST_OUT_EXECUTABLES)/insertkeys \
 $(all_odm_mac_perms_files)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys.py -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
+	$(hide) $(HOST_OUT_EXECUTABLES)/insertkeys -t $(TARGET_BUILD_VARIANT) -c $(TOP) $< -o $@ $(PRIVATE_MAC_PERMS_FILES)
 
 odm_mac_perms_keys.tmp :=
 all_odm_mac_perms_files :=
