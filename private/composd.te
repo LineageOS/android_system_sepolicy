@@ -13,6 +13,10 @@ binder_call(composd, system_server)
 # Start a VM
 virtualizationservice_use(composd)
 
+# Allow preparing staging directory for odrefresh
+allow composd apex_art_data_file:dir { create_dir_perms relabelfrom };
+allow composd apex_art_staging_data_file:dir { create_dir_perms relabelto };
+
 # Access our APEX data files
 allow composd apex_module_data_file:dir search;
 allow composd apex_compos_data_file:dir create_dir_perms;
