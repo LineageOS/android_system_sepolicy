@@ -73,4 +73,8 @@ get_prop(microdroid_manager, bootloader_prop)
 # Allow microdroid_manager to shutdown the device when verification fails
 set_prop(microdroid_manager, powerctl_prop)
 
+# Allow microdroid_manager to read bootconfig so that it can reject a bootconfig
+# that is different from what is recorded in the instance.img file.
+allow microdroid_manager proc_bootconfig:file r_file_perms;
+
 neverallow microdroid_manager { file_type fs_type }:file execute_no_trans;
