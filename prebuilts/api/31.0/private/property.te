@@ -1,6 +1,7 @@
 # Properties used only in /system
 system_internal_prop(adbd_prop)
 system_internal_prop(ctl_snapuserd_prop)
+system_internal_prop(device_config_lmkd_native_prop)
 system_internal_prop(device_config_profcollect_native_boot_prop)
 system_internal_prop(device_config_statsd_native_prop)
 system_internal_prop(device_config_statsd_native_boot_prop)
