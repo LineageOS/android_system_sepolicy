@@ -39,7 +39,7 @@ def filter_out(pattern_files, input_file):
         patterns.extend(open(f).readlines())
 
     # Copy lines that are not in the pattern.
-    tmp_output = tempfile.NamedTemporaryFile()
+    tmp_output = tempfile.NamedTemporaryFile(mode='w+')
     with open(input_file, 'r') as in_file:
         tmp_output.writelines(line for line in in_file.readlines()
                               if line not in patterns)
