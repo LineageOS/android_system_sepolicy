@@ -13,6 +13,7 @@ recovery_only(`
   passthrough_hal_client_domain(recovery, hal_bootctl)
 
   # Recovery can use AIDL HALs in binder mode
+  binder_use(recovery)
   hal_client_domain(recovery, hal_health)
 
   allow recovery self:global_capability_class_set {

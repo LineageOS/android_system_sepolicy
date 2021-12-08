@@ -10,6 +10,10 @@ recovery_only(`
   # fastbootd can only use HALs in passthrough mode
   passthrough_hal_client_domain(fastbootd, hal_bootctl)
 
+  # fastbootd can use AIDL HALs in binder mode
+  binder_use(fastbootd)
+  hal_client_domain(fastbootd, hal_health)
+
   # Access /dev/usb-ffs/fastbootd/ep0
   allow fastbootd functionfs:dir search;
   allow fastbootd functionfs:file rw_file_perms;
