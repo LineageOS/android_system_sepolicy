@@ -70,7 +70,7 @@ dontaudit odrefresh devpts:chr_file rw_file_perms;
 dontaudit odrefresh adbd:unix_stream_socket { getattr read write };
 
 # No other processes should be creating files in the staging area.
-neverallow { domain -init -odrefresh } apex_art_staging_data_file:file open;
+neverallow { domain -init -odrefresh -compos_fd_server } apex_art_staging_data_file:file open;
 
 # No processes other than init, odrefresh and system_server access
 # odrefresh_data_files.
