@@ -9,8 +9,11 @@ type recovery, domain;
 recovery_only(`
   # Allow recovery to perform an update as update_engine would do.
   typeattribute recovery update_engine_common;
-  # Recovery can only use HALs in passthrough mode
+  # Recovery can use HIDL HALs in passthrough mode
   passthrough_hal_client_domain(recovery, hal_bootctl)
+
+  # Recovery can use AIDL HALs in binder mode
+  hal_client_domain(recovery, hal_health)
 
   allow recovery self:global_capability_class_set {
     chown
