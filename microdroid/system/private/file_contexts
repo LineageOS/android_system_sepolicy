@@ -171,3 +171,7 @@
 # microdroid doesn't use anr, but tombstoned tries to read this.
 # So marking /data/anr as tombstone_data_file
 /data/anr(/.*)?		u:object_r:tombstone_data_file:s0
+
+#############################
+# Directory for extra apks
+/mnt/extra-apk	u:object_r:extra_apk_file:s0

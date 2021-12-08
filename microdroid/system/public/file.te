@@ -10,6 +10,7 @@ type authfs_data_file, file_type, data_file_type, core_data_file_type;
 type cgroup_desc_api_file, file_type, system_file_type;
 type cgroup_desc_file, file_type, system_file_type;
 type cgroup_rc_file, file_type;
+type extra_apk_file, file_type;
 type file_contexts_file, file_type, system_file_type;
 type hwservice_contexts_file, file_type, system_file_type;
 type keystore2_key_contexts_file, file_type, system_file_type;
