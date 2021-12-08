@@ -39,3 +39,6 @@ allow microdroid_payload vsock_device:chr_file r_file_perms;
 allowxperm microdroid_payload vsock_device:chr_file ioctl {
     IOCTL_VM_SOCKETS_GET_LOCAL_CID
 };
+
+# Payload can read extra apks
+r_dir_file(microdroid_payload, extra_apk_file)
