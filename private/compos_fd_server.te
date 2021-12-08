@@ -2,18 +2,30 @@
 type compos_fd_server, domain, coredomain;
 
 # Allow access to open fds inherited from odrefresh - read inputs, generate outputs
+# TODO(b/209008712): Remove once migration is done.
 allow compos_fd_server odrefresh:fd use;
 allow compos_fd_server apex_art_data_file:file { getattr read };
-allow compos_fd_server apex_art_staging_data_file:file { getattr read write };
+
+# Allow access to open fds inherited from composd
+allow compos_fd_server composd:fd use;
+
+# Allow creating new files and directory in the staging directory.
+allow compos_fd_server apex_art_staging_data_file:dir create_dir_perms;
+allow compos_fd_server apex_art_staging_data_file:file create_file_perms;
+
 # Use a pipe to signal readiness
+# TODO(b/205750213): Removed odrefresh when we run odrefresh in the VM
 allow compos_fd_server odrefresh:fifo_file write;
+allow compos_fd_server composd:fifo_file write;
 
 # TODO(b/196109647) - remove this when no longer needed by minijail
 allow compos_fd_server odrefresh:fifo_file read;
+allow compos_fd_server composd:fifo_file read;
 
 # Create a listening vsock for the VM to connect back to
 allow compos_fd_server self:vsock_socket { create_socket_perms_no_ioctl listen accept };
 
-# Only odrefresh can enter the domain via exec
-neverallow { domain -odrefresh } compos_fd_server:process transition;
+# Only composd and odrefresh can enter the domain via exec
+# TODO(b/209008712): Remove odrefresh once migration is done.
+neverallow { domain -composd -odrefresh } compos_fd_server:process transition;
 neverallow * compos_fd_server:process dyntransition;
