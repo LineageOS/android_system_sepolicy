@@ -315,9 +315,10 @@ neverallow {
 
 neverallow {
   domain
-  # art processes
+  # art-related processes
   -odrefresh
   -odsign
+  -composd
   # others
   -apexd
   -init
