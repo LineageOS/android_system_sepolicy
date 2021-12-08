@@ -37,9 +37,16 @@ allow system_file zipfusefs:filesystem associate;
 # allow zipfuse to log to the kernel
 allow zipfuse kmsg_device:chr_file w_file_perms;
 
+# allow zipfuse to handle extra apks
+r_dir_file(zipfuse, extra_apk_file)
+allow zipfuse extra_apk_file:dir mounton;
+
 # zipfuse is forked from microdroid_manager
 # TODO(inseob): remove this
 allow zipfuse microdroid_manager:fd use;
 
 # Only microdroid_manager can run zipfuse
 neverallow { domain -microdroid_manager } zipfuse:process { transition dyntransition };
+
+# only zipfuse can mount on extra_apk_file
+neverallow { domain -zipfuse } extra_apk_file:dir mounton;
