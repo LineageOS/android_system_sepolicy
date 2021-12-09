@@ -42,7 +42,6 @@ r_dir_file(zipfuse, extra_apk_file)
 allow zipfuse extra_apk_file:dir mounton;
 
 # zipfuse is forked from microdroid_manager
-# TODO(inseob): remove this
 allow zipfuse microdroid_manager:fd use;
 
 # Only microdroid_manager can run zipfuse
