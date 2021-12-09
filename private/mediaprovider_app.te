@@ -62,6 +62,7 @@ get_prop(mediaprovider_app, drm_service_config_prop)
 allow mediaprovider_app gpu_device:dir search;
 
 dontaudit mediaprovider_app sysfs_vendor_sched:dir search;
+dontaudit mediaprovider_app sysfs_vendor_sched:file w_file_perms;
 
 # bpfprog access for FUSE BPF
 allow mediaprovider_app fs_bpf:dir search;
