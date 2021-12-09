@@ -195,12 +195,6 @@ attribute mlstrustedsubject;
 # i.e. files that can be read by lower and written by higher
 attribute mlstrustedobject;
 
-# All domains used for apps.
-attribute appdomain;
-
-# All third party apps (except isolated_app and ephemeral_app)
-attribute untrusted_app_all;
-
 # All domains used for apps with network access.
 attribute netdomain;
 
@@ -259,27 +253,6 @@ expandattribute system_writes_vendor_properties_violators false;
 # /mnt/vendor/*. Must not be used on devices launched with P or later.
 attribute system_writes_mnt_vendor_violators;
 expandattribute system_writes_mnt_vendor_violators false;
-
-# hwservices that are accessible from untrusted applications
-# WARNING: Use of this attribute should be avoided unless
-# absolutely necessary.  It is a temporary allowance to aid the
-# transition to treble and will be removed in a future platform
-# version, requiring all hwservices that are labeled with this
-# attribute to be submitted to AOSP in order to maintain their
-# app-visibility.
-attribute untrusted_app_visible_hwservice_violators;
-expandattribute untrusted_app_visible_hwservice_violators false;
-
-# halserver domains that are accessible to untrusted applications.  These
-# domains are typically those hosting  hwservices attributed by the
-# untrusted_app_visible_hwservice_violators.
-# WARNING: Use of this attribute should be avoided unless absolutely necessary.
-# It is a temporary allowance to aid the transition to treble and will be
-# removed in the future platform version, requiring all halserver domains that
-# are labeled with this attribute to be submitted to AOSP in order to maintain
-# their app-visibility.
-attribute untrusted_app_visible_halserver_violators;
-expandattribute untrusted_app_visible_halserver_violators false;
 
 # PDX services
 attribute pdx_endpoint_dir_type;
