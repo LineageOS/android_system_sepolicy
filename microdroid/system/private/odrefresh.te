@@ -19,5 +19,11 @@ allow odrefresh authfs_data_file:dir { search getattr };
 # the current APEXes.
 allow odrefresh apex_info_file:file r_file_perms;
 
+# Minijail uses pipe for the parent process to signal the child (as a fallback
+# mechanism, since Android does not support minijail's preload).
+# TODO(196109647): We can probably remove this once the minijail preload is
+# supported on Android.
+allow odrefresh compos:fifo_file read;
+
 # Do not audit unused resources from parent processes.
 dontaudit odrefresh compos:fd use;
