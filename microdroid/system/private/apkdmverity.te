@@ -36,7 +36,6 @@ allowxperm apkdmverity loop_device:blk_file ioctl {
 allow apkdmverity kmsg_device:chr_file w_file_perms;
 
 # apkdmverity is forked from microdroid_manager
-# TODO(inseob): remove this
 allow apkdmverity microdroid_manager:fd use;
 
 # Only microdroid_manager can run apkdmverity
