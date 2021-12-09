@@ -17,7 +17,9 @@ package selinux
 import (
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
+	"strings"
 
 	"github.com/google/blueprint/proptools"
 
@@ -30,6 +32,31 @@ const (
 	MlsCats    = 1024
 	PolicyVers = 30
 )
+
+// This order should be kept. checkpolicy syntax requires it.
+var policyConfOrder = []string{
+	"security_classes",
+	"initial_sids",
+	"access_vectors",
+	"global_macros",
+	"neverallow_macros",
+	"mls_macros",
+	"mls_decl",
+	"mls",
+	"policy_capabilities",
+	"te_macros",
+	"attributes",
+	"ioctl_defines",
+	"ioctl_macros",
+	"*.te",
+	"roles_decl",
+	"roles",
+	"users",
+	"initial_sid_contexts",
+	"fs_use",
+	"genfs_contexts",
+	"port_contexts",
+}
 
 func init() {
 	android.RegisterModuleType("se_policy_conf", policyConfFactory)
@@ -143,9 +170,25 @@ func (c *policyConf) enforceDebugfsRestrictions(ctx android.ModuleContext) strin
 	return strconv.FormatBool(ctx.DeviceConfig().BuildDebugfsRestrictionsEnabled())
 }
 
+func findPolicyConfOrder(name string) int {
+	for idx, pattern := range policyConfOrder {
+		if pattern == name || (pattern == "*.te" && strings.HasSuffix(name, ".te")) {
+			return idx
+		}
+	}
+	// name is not matched
+	return len(policyConfOrder)
+}
+
 func (c *policyConf) transformPolicyToConf(ctx android.ModuleContext) android.OutputPath {
 	conf := android.PathForModuleOut(ctx, "conf").OutputPath
 	rule := android.NewRuleBuilder(pctx, ctx)
+
+	srcs := android.PathsForModuleSrc(ctx, c.properties.Srcs)
+	sort.SliceStable(srcs, func(x, y int) bool {
+		return findPolicyConfOrder(srcs[x].Base()) < findPolicyConfOrder(srcs[y].Base())
+	})
+
 	rule.Command().Tool(ctx.Config().PrebuiltBuildTool(ctx, "m4")).
 		Flag("--fatal-warnings").
 		FlagForEachArg("-D ", ctx.DeviceConfig().SepolicyM4Defs()).
@@ -164,7 +207,7 @@ func (c *policyConf) transformPolicyToConf(ctx android.ModuleContext) android.Ou
 		FlagWithArg("-D target_requires_insecure_execmem_for_swiftshader=", strconv.FormatBool(ctx.DeviceConfig().RequiresInsecureExecmemForSwiftshader())).
 		FlagWithArg("-D target_enforce_debugfs_restriction=", c.enforceDebugfsRestrictions(ctx)).
 		Flag("-s").
-		Inputs(android.PathsForModuleSrc(ctx, c.properties.Srcs)).
+		Inputs(srcs).
 		Text("> ").Output(conf)
 
 	rule.Build("conf", "Transform policy to conf: "+ctx.ModuleName())
