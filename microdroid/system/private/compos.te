@@ -28,5 +28,13 @@ allow compos authfs_fuse:file { read write };
 # metadata. See b/196635431.
 allow compos authfs_fuse:file getattr;
 
-# Allow domain transition into dex2oat.
+# Allow creating the odrefresh output directory in authfs.
+allow compos authfs_fuse:dir create_dir_perms;
+
+# Allow locating the authfs mount directory.
+allow compos authfs_data_file:dir { search };
+
+# Allow domain transition into odrefresh and dex2oat.
+# TODO(b/209008712): Remove dex2oat once the migration is done.
+domain_auto_trans(compos, odrefresh_exec, odrefresh)
 domain_auto_trans(compos, dex2oat_exec, dex2oat)
