@@ -661,6 +661,14 @@ se_build_files {
     ],
 }
 
+reqd_mask_policy          = [":se_build_files{.reqd_mask}"]
+plat_public_policy        = [":se_build_files{.plat_public}"]
+plat_private_policy       = [":se_build_files{.plat_private}"]
+system_ext_public_policy  = [":se_build_files{.system_ext_public}"]
+system_ext_private_policy = [":se_build_files{.system_ext_private}"]
+product_public_policy     = [":se_build_files{.product_public}"]
+product_private_policy    = [":se_build_files{.product_private}"]
+
 // reqd_policy_mask - a policy.conf file which contains only the bare minimum
 // policy necessary to use checkpolicy.
 //
@@ -671,7 +679,7 @@ se_build_files {
 // policy and subsequent removal of CIL policy that should not be exported.
 se_policy_conf {
     name: "reqd_policy_mask.conf",
-    srcs: [":se_build_files{.reqd_mask}"],
+    srcs: reqd_mask_policy,
     installable: false,
 }
 
@@ -706,7 +714,10 @@ se_policy_cil {
 //
 se_policy_conf {
     name: "pub_policy.conf",
-    srcs: [":se_build_files{.product_public}"], // product_ includes system and system_ext
+    srcs: plat_public_policy +
+        system_ext_public_policy +
+        product_public_policy +
+        reqd_mask_policy,
     installable: false,
 }
 
@@ -720,7 +731,9 @@ se_policy_cil {
 
 se_policy_conf {
     name: "system_ext_pub_policy.conf",
-    srcs: [":se_build_files{.system_ext_public}"], // system_ext_public includes system
+    srcs: plat_public_policy +
+        system_ext_public_policy +
+        reqd_mask_policy,
     installable: false,
 }
 
@@ -734,7 +747,8 @@ se_policy_cil {
 
 se_policy_conf {
     name: "plat_pub_policy.conf",
-    srcs: [":se_build_files{.plat_public}"],
+    srcs: plat_public_policy +
+        reqd_mask_policy,
     installable: false,
 }
 
@@ -753,7 +767,8 @@ se_policy_cil {
 // currently being attributized.
 se_policy_conf {
     name: "plat_sepolicy.conf",
-    srcs: [":se_build_files{.plat}"],
+    srcs: plat_public_policy +
+        plat_private_policy,
     installable: false,
 }
 
@@ -766,7 +781,8 @@ se_policy_cil {
 // userdebug_plat_policy.conf - the userdebug version plat_sepolicy.cil
 se_policy_conf {
     name: "userdebug_plat_sepolicy.conf",
-    srcs: [":se_build_files{.plat}"],
+    srcs: plat_public_policy +
+        plat_private_policy,
     build_variant: "userdebug",
     installable: false,
 }
@@ -815,7 +831,10 @@ gsi_se_policy_cil {
 // policy which will ship with the device. System_ext policy is not attributized
 se_policy_conf {
     name: "system_ext_sepolicy.conf",
-    srcs: [":se_build_files{.system_ext}"],
+    srcs: plat_public_policy +
+        plat_private_policy +
+        system_ext_public_policy +
+        system_ext_private_policy,
     installable: false,
 }
 
@@ -831,7 +850,12 @@ se_policy_cil {
 // which will ship with the device. Product policy is not attributized
 se_policy_conf {
     name: "product_sepolicy.conf",
-    srcs: [":se_build_files{.product}"],
+    srcs: plat_public_policy +
+        plat_private_policy +
+        system_ext_public_policy +
+        system_ext_private_policy +
+        product_public_policy +
+        product_private_policy,
     installable: false,
 }
 
@@ -1017,7 +1041,8 @@ prebuilt_etc {
 //////////////////////////////////
 se_policy_conf {
     name: "general_sepolicy.conf",
-    srcs: [":se_build_files{.plat}"],
+    srcs: plat_public_policy +
+        plat_private_policy,
     build_variant: "user",
     cts: true,
     exclude_build_test: true,
@@ -1032,7 +1057,8 @@ se_policy_conf {
 //////////////////////////////////
 se_policy_conf {
     name: "base_plat_sepolicy.conf",
-    srcs: [":se_build_files{.plat}"],
+    srcs: plat_public_policy +
+        plat_private_policy,
     build_variant: "user",
     installable: false,
 }
@@ -1053,7 +1079,10 @@ se_policy_binary {
 
 se_policy_conf {
     name: "base_system_ext_sepolicy.conf",
-    srcs: [":se_build_files{.system_ext}"],
+    srcs: plat_public_policy +
+        plat_private_policy +
+        system_ext_public_policy +
+        system_ext_private_policy,
     build_variant: "user",
     installable: false,
 }
@@ -1076,7 +1105,12 @@ se_policy_binary {
 
 se_policy_conf {
     name: "base_product_sepolicy.conf",
-    srcs: [":se_build_files{.product}"],
+    srcs: plat_public_policy +
+        plat_private_policy +
+        system_ext_public_policy +
+        system_ext_private_policy +
+        product_public_policy +
+        product_private_policy,
     build_variant: "user",
     installable: false,
 }
@@ -1099,7 +1133,8 @@ se_policy_binary {
 
 se_policy_conf {
     name: "base_plat_pub_policy.conf",
-    srcs: [":se_build_files{.plat_public}"],
+    srcs: plat_public_policy +
+        reqd_mask_policy,
     build_variant: "user",
     installable: false,
 }
@@ -1114,7 +1149,9 @@ se_policy_cil {
 
 se_policy_conf {
     name: "base_system_ext_pub_policy.conf",
-    srcs: [":se_build_files{.system_ext_public}"], // system_ext_public includes system
+    srcs: plat_public_policy +
+        system_ext_public_policy +
+        reqd_mask_policy,
     build_variant: "user",
     installable: false,
 }
@@ -1129,7 +1166,10 @@ se_policy_cil {
 
 se_policy_conf {
     name: "base_product_pub_policy.conf",
-    srcs: [":se_build_files{.product_public}"], // product_ includes system and system_ext
+    srcs: plat_public_policy +
+        system_ext_public_policy +
+        product_public_policy +
+        reqd_mask_policy,
     build_variant: "user",
     installable: false,
 }
