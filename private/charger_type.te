@@ -15,18 +15,18 @@ neverallow {
     -vendor_init
 } charger_config_prop:property_service set;
 
-# charger_status_prop: Only init, vendor_init, charger, and hal_health_server
+# charger_status_prop: Only init, vendor_init, charger, and charger_vendor
 # are allowed to set it
 neverallow {
     domain
     -init
     -vendor_init
     -charger
-    -hal_health_server
+    -charger_vendor
 } charger_status_prop:property_service set;
 
 # Both charger_config_prop and charger_status_prop:
-# Only init, vendor_init, dumpstate, charger, and hal_health_server
+# Only init, vendor_init, dumpstate, charger, and charger_vendor
 # are allowed to read it
 neverallow {
     domain
@@ -34,5 +34,5 @@ neverallow {
     -dumpstate
     -vendor_init
     -charger
-    -hal_health_server
+    -charger_vendor
 } { charger_config_prop charger_status_prop }:file no_rw_file_perms;
