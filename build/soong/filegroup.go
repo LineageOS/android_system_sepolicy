@@ -137,7 +137,6 @@ func (fg *fileGroup) DepsMutator(ctx android.BottomUpMutatorContext) {}
 func (fg *fileGroup) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	fg.systemPublicSrcs = fg.findSrcsInDir(ctx, filepath.Join(ctx.ModuleDir(), "public"))
 	fg.systemPrivateSrcs = fg.findSrcsInDir(ctx, filepath.Join(ctx.ModuleDir(), "private"))
-	fg.systemVendorSrcs = fg.findSrcsInDir(ctx, filepath.Join(ctx.ModuleDir(), "vendor"))
 	fg.systemReqdMaskSrcs = fg.findSrcsInDir(ctx, filepath.Join(ctx.ModuleDir(), "reqd_mask"))
 
 	fg.systemExtPublicSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().SystemExtPublicSepolicyDirs())
@@ -146,6 +145,11 @@ func (fg *fileGroup) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	fg.productPublicSrcs = fg.findSrcsInDirs(ctx, ctx.Config().ProductPublicSepolicyDirs())
 	fg.productPrivateSrcs = fg.findSrcsInDirs(ctx, ctx.Config().ProductPrivateSepolicyDirs())
 
+	systemVendorDirs := ctx.DeviceConfig().BoardPlatVendorPolicy()
+	if len(systemVendorDirs) == 0 || ctx.DeviceConfig().PlatformSepolicyVersion() == ctx.DeviceConfig().BoardSepolicyVers() {
+		systemVendorDirs = []string{filepath.Join(ctx.ModuleDir(), "vendor")}
+	}
+	fg.systemVendorSrcs = fg.findSrcsInDirs(ctx, systemVendorDirs)
 	fg.vendorReqdMaskSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardReqdMaskPolicy())
 	fg.vendorSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().VendorSepolicyDirs())
 	fg.odmSrcs = fg.findSrcsInDirs(ctx, ctx.DeviceConfig().OdmSepolicyDirs())
