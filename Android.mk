@@ -81,16 +81,6 @@ ifneq (,$(PRODUCT_PUBLIC_POLICY)$(PRODUCT_PRIVATE_POLICY))
 HAS_PRODUCT_SEPOLICY_DIR := true
 endif
 
-# TODO: move to README when doing the README update and finalizing versioning.
-# BOARD_SEPOLICY_VERS must take the format "NN.m" and contain the sepolicy
-# version identifier corresponding to the sepolicy on which the non-platform
-# policy is to be based. If unspecified, this will build against the current
-# public platform policy in tree
-ifndef BOARD_SEPOLICY_VERS
-# The default platform policy version.
-BOARD_SEPOLICY_VERS := $(PLATFORM_SEPOLICY_VERSION)
-endif
-
 # If BOARD_SEPOLICY_VERS is set to a value other than PLATFORM_SEPOLICY_VERSION,
 # policy files of platform (system, system_ext, product) can't be mixed with
 # policy files of vendor (vendor, odm). If it's the case, platform policies and
@@ -1296,28 +1286,16 @@ base_plat_pub_policy.cil      := $(call intermediates-dir-for,ETC,base_plat_pub_
 base_system_ext_pub_polcy.cil := $(call intermediates-dir-for,ETC,base_system_ext_pub_polcy.cil)/base_system_ext_pub_polcy.cil
 base_product_pub_policy.cil   := $(call intermediates-dir-for,ETC,base_product_pub_policy.cil)/base_product_pub_policy.cil
 
-version_under_treble_tests := 28.0
-include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
-version_under_treble_tests := 29.0
-include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
-version_under_treble_tests := 30.0
-include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
-version_under_treble_tests := 31.0
-include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
-version_under_treble_tests := 32.0
-include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk
+$(foreach v,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS), \
+  $(eval version_under_treble_tests := $(v)) \
+  $(eval include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk) \
+)
 endif  # PRODUCT_SEPOLICY_SPLIT
 
-version_under_treble_tests := 28.0
-include $(LOCAL_PATH)/compat.mk
-version_under_treble_tests := 29.0
-include $(LOCAL_PATH)/compat.mk
-version_under_treble_tests := 30.0
-include $(LOCAL_PATH)/compat.mk
-version_under_treble_tests := 31.0
-include $(LOCAL_PATH)/compat.mk
-version_under_treble_tests := 32.0
-include $(LOCAL_PATH)/compat.mk
+$(foreach v,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS), \
+  $(eval version_under_treble_tests := $(v)) \
+  $(eval include $(LOCAL_PATH)/compat.mk) \
+)
 
 built_plat_sepolicy :=
 built_system_ext_sepolicy :=
