@@ -118,4 +118,12 @@ neverallow { domain -init } traced:process transition;
 neverallow * traced:process dyntransition;
 
 # Limit the processes that can access tracingproxy_service.
-neverallow { domain -traced -dumpstate -traceur_app -shell -system_server } tracingproxy_service:service_manager find;
+neverallow {
+  domain
+  -traced
+  -dumpstate
+  -traceur_app
+  -shell
+  -system_server
+  -perfetto
+} tracingproxy_service:service_manager find;
