@@ -188,7 +188,7 @@ endef
 
 # Builds paths for all policy files found in BOARD_VENDOR_SEPOLICY_DIRS.
 # $(1): the set of policy name paths to build
-build_vendor_policy = $(call build_policy, $(1), $(PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS))
+build_vendor_policy = $(call build_policy, $(1), $(BOARD_PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS))
 
 # Builds paths for all policy files found in BOARD_ODM_SEPOLICY_DIRS.
 build_odm_policy = $(call build_policy, $(1), $(BOARD_ODM_SEPOLICY_DIRS))
@@ -1230,7 +1230,7 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-vnd_svcfiles := $(call build_policy, vndservice_contexts, $(PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+vnd_svcfiles := $(call build_policy, vndservice_contexts, $(BOARD_PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS) $(BOARD_REQD_MASK_POLICY))
 
 vndservice_contexts.tmp := $(intermediates)/vndservice_contexts.tmp
 $(vndservice_contexts.tmp): PRIVATE_SVC_FILES := $(vnd_svcfiles)
