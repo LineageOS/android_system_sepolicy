@@ -84,7 +84,7 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-vendor_sc_files := $(call build_policy, seapp_contexts, $(PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+vendor_sc_files := $(call build_policy, seapp_contexts, $(BOARD_PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS) $(BOARD_REQD_MASK_POLICY))
 plat_sc_neverallow_files := $(call build_policy, seapp_contexts, $(PLAT_PRIVATE_POLICY) $(SYSTEM_EXT_PRIVATE_POLICY) $(PRODUCT_PRIVATE_POLICY))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)

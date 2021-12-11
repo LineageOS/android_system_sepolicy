@@ -4,3 +4,7 @@ hal_server_domain(hal_health_default, hal_health)
 
 type hal_health_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_health_default)
+
+# When executing the service in offline-charging mode,
+# allow to transition to charger_vendor domain.
+domain_trans(init, hal_health_default_exec, charger_vendor)
