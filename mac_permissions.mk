@@ -119,8 +119,8 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-all_vendor_mac_perms_keys := $(call build_policy, keys.conf, $(PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
-all_vendor_mac_perms_files := $(call build_policy, mac_permissions.xml, $(PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS) $(REQD_MASK_POLICY))
+all_vendor_mac_perms_keys := $(call build_policy, keys.conf, $(BOARD_PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS) $(BOARD_REQD_MASK_POLICY))
+all_vendor_mac_perms_files := $(call build_policy, mac_permissions.xml, $(BOARD_PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS) $(BOARD_REQD_MASK_POLICY))
 
 # Build keys.conf
 vendor_mac_perms_keys.tmp := $(intermediates)/vendor_keys.tmp
