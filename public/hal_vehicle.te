@@ -4,3 +4,4 @@ binder_call(hal_vehicle_server, hal_vehicle_client)
 
 
 hal_attribute_hwservice(hal_vehicle, hal_vehicle_hwservice)
+hal_attribute_service(hal_vehicle, hal_vehicle_service)
