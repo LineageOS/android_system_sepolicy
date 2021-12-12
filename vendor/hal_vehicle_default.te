@@ -8,3 +8,6 @@ init_daemon_domain(hal_vehicle_default)
 
 # communication with CAN bus HAL
 hal_client_domain(hal_vehicle_default, hal_can_bus)
+
+# communicate with servicemanager
+binder_call(hal_vehicle_server, servicemanager)
