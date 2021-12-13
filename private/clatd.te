@@ -12,6 +12,8 @@ userdebug_or_eng(`
 # Access objects inherited from netd.
 allow clatd netd:fd use;
 allow clatd netd:fifo_file { read write };
+allow clatd netd:packet_socket { read write };
+allow clatd netd:rawip_socket { read write };
 
 allow clatd self:global_capability_class_set { net_admin net_raw setuid setgid };
 
