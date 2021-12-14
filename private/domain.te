@@ -305,6 +305,7 @@ neverallow {
 neverallow {
   domain
   # art processes
+  -compos_fd_server
   -odrefresh
   -odsign
   # others
@@ -316,9 +317,10 @@ neverallow {
 neverallow {
   domain
   # art-related processes
+  -compos_fd_server
   -odrefresh
   -odsign
-  -composd
+  -composd  # TODO: Remove
   # others
   -apexd
   -init
