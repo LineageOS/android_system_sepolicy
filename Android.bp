@@ -342,6 +342,21 @@ se_policy_cil {
     additional_cil_files: [":sepolicy_technical_debt{.plat_private}"],
 }
 
+
+se_policy_conf {
+    name: "apex_sepolicy-33.conf",
+    srcs: plat_public_policy + plat_private_policy + ["com.android.sepolicy/33/*.te"],
+    installable: false,
+}
+
+se_policy_cil {
+    name: "apex_sepolicy-33.cil",
+    src: ":apex_sepolicy-33.conf",
+    filter_out: [":plat_sepolicy.cil"],
+    installable: false,
+    stem: "apex_sepolicy.cil",
+}
+
 // userdebug_plat_policy.conf - the userdebug version plat_sepolicy.cil
 se_policy_conf {
     name: "userdebug_plat_sepolicy.conf",
@@ -659,6 +674,9 @@ se_versioned_policy {
 // AND
 // - product_sepolicy_and_mapping.sha256 equals
 //   precompiled_sepolicy.product_sepolicy_and_mapping.sha256
+// AND
+// - apex_sepolicy.sha256 equals
+//   precompiled_sepolicy.apex_sepolicy.sha256
 // See system/core/init/selinux.cpp for details.
 //////////////////////////////////
 genrule {
@@ -673,6 +691,20 @@ prebuilt_etc {
     filename: "plat_sepolicy_and_mapping.sha256",
     src: ":plat_sepolicy_and_mapping.sha256_gen",
     relative_install_path: "selinux",
+}
+
+genrule {
+    name: "apex_sepolicy.sha256_gen",
+    srcs: [":apex_sepolicy-33.cil"],
+    out: ["apex_sepolicy.sha256"],
+    cmd: "cat $(in) | sha256sum | cut -d' ' -f1 > $(out)",
+}
+
+prebuilt_etc {
+    name: "apex_sepolicy.sha256",
+    filename: "apex_sepolicy.sha256",
+    src: ":apex_sepolicy.sha256_gen",
+    installable: false,
 }
 
 genrule {
@@ -744,6 +776,18 @@ prebuilt_etc {
 }
 
 //////////////////////////////////
+// SHA-256 digest of the apex_sepolicy.cil against which precompiled_policy
+// was built.
+//////////////////////////////////
+prebuilt_etc {
+    defaults: ["precompiled_sepolicy_prebuilts"],
+    name: "precompiled_sepolicy.apex_sepolicy.sha256",
+    filename: "precompiled_sepolicy.apex_sepolicy.sha256",
+    src: ":apex_sepolicy.sha256_gen",
+    relative_install_path: "selinux",
+}
+
+//////////////////////////////////
 // SHA-256 digest of the system_ext_sepolicy.cil and system_ext_mapping_file against
 // which precompiled_policy was built.
 //////////////////////////////////
@@ -780,6 +824,7 @@ precompiled_se_policy_binary {
     name: "precompiled_sepolicy",
     srcs: [
         ":plat_sepolicy.cil",
+        ":apex_sepolicy-33.cil",
         ":plat_pub_versioned.cil",
         ":system_ext_sepolicy.cil",
         ":product_sepolicy.cil",
