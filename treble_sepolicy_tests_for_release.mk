@@ -113,11 +113,8 @@ endif #($(IS_TREBLE_TEST_ENABLED_PARTNER),true)
 
 # vendor_sepolicy.cil and plat_pub_versioned.cil are the new design to replace
 # nonplat_sepolicy.cil.
-$(version)_nonplat := $($(version)_prebuilts_dir)/vendor_sepolicy.cil \
+$(version)_vendor := $($(version)_prebuilts_dir)/vendor_sepolicy.cil \
 $($(version)_prebuilts_dir)/plat_pub_versioned.cil
-ifeq (,$(wildcard $($(version)_nonplat)))
-$(version)_nonplat := $($(version)_prebuilts_dir)/nonplat_sepolicy.cil
-endif
 
 cil_files := $(built_plat_cil)
 ifeq ($(IS_TREBLE_TEST_ENABLED_PARTNER),true)
@@ -128,7 +125,7 @@ ifneq (,$(PRODUCT_PREBUILT_POLICY)
 cil_files += $(built_product_cil)
 endif # (,$(PRODUCT_PREBUILT_POLICY)
 endif # ($(IS_TREBLE_TEST_ENABLED_PARTNER),true)
-cil_files += $($(version)_mapping.cil) $($(version)_nonplat)
+cil_files += $($(version)_mapping.cil) $($(version)_vendor)
 $($(version)_compat): PRIVATE_CIL_FILES := $(cil_files)
 $($(version)_compat): $(HOST_OUT_EXECUTABLES)/secilc $(cil_files)
 	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -N -c $(POLICYVERS) \
@@ -188,7 +185,7 @@ $(version)_compat :=
 $(version)_mapping.cil :=
 $(version)_mapping.combined.cil :=
 $(version)_mapping.ignore.cil :=
-$(version)_nonplat :=
+$(version)_vendor :=
 $(version)_prebuilts_dir :=
 built_$(version)_plat_sepolicy :=
 version :=
