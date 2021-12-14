@@ -51,6 +51,11 @@
       <seinfo value="platform" />
     </signer>
 
+    <!-- Supplemental process key -->
+    <signer signature="@SUPPLEMENTAL_PROCESS" >
+      <seinfo value="supplemental_process" />
+    </signer>
+
     <!-- Media key in AOSP -->
     <signer signature="@MEDIA" >
       <seinfo value="media" />
