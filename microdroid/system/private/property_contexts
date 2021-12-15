@@ -147,8 +147,8 @@ service.adb.listen_addrs u:object_r:adbd_prop:s0 exact string
 
 persist.adb.wifi.guid  u:object_r:adbd_prop:s0 exact string
 
-log.tag.         u:object_r:log_tag_prop:s0 prefix
-persist.log.tag. u:object_r:log_tag_prop:s0 prefix
+log.tag          u:object_r:log_tag_prop:s0 prefix
+persist.log.tag  u:object_r:log_tag_prop:s0 prefix
 
 libc.debug.malloc.options u:object_r:libc_debug_prop:s0 exact string
 libc.debug.malloc.program u:object_r:libc_debug_prop:s0 exact string
