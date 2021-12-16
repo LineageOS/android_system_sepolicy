@@ -1,5 +1,6 @@
 type adbd_prop, property_type;
 type apex_config_prop, property_type;
+type apexd_payload_metadata_prop, property_type;
 type apexd_prop, property_type;
 type arm64_memtag_prop, property_type;
 type bootloader_prop, property_type;
