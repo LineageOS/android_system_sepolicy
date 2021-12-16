@@ -13,16 +13,19 @@ binder_call(composd, system_server)
 # Start a VM
 virtualizationservice_use(composd)
 
-# Allow preparing staging directory for odrefresh
+# Prepare staging directory for odrefresh
 allow composd apex_art_data_file:dir { create_dir_perms relabelfrom };
 allow composd apex_art_staging_data_file:dir { create_dir_perms relabelto };
+
+# Delete files in the odrefresh target directory
+allow composd apex_art_data_file:file unlink;
 
 # Access our APEX data files
 allow composd apex_module_data_file:dir search;
 allow composd apex_compos_data_file:dir create_dir_perms;
 allow composd apex_compos_data_file:file create_file_perms;
 
-# TODO(b/209008712): Removed these when we run odrefresh in the VM
+# TODO(b/209008712): Remove these when we run odrefresh in the VM
 # Run odrefresh to refresh ART artifacts, and kill it if we need to
 domain_auto_trans(composd, odrefresh_exec, odrefresh)
 allow composd odrefresh:process sigkill;
@@ -33,3 +36,6 @@ allow composd compos_fd_server:process signal;
 
 # Read ART's properties
 get_prop(composd, dalvik_config_prop)
+
+# We never create any artifact files directly
+neverallow composd apex_art_data_file:file ~unlink;
