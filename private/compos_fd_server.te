@@ -4,14 +4,17 @@ type compos_fd_server, domain, coredomain;
 # Allow access to open fds inherited from odrefresh - read inputs, generate outputs
 # TODO(b/209008712): Remove once migration is done.
 allow compos_fd_server odrefresh:fd use;
-allow compos_fd_server apex_art_data_file:file { getattr read };
 
 # Allow access to open fds inherited from composd
 allow compos_fd_server composd:fd use;
 
-# Allow creating new files and directory in the staging directory.
+# Allow creating new files and directories in the staging directory.
 allow compos_fd_server apex_art_staging_data_file:dir create_dir_perms;
 allow compos_fd_server apex_art_staging_data_file:file create_file_perms;
+
+# Allow creating new files and directories in the artifacts directory.
+allow compos_fd_server apex_art_data_file:dir create_dir_perms;
+allow compos_fd_server apex_art_data_file:file create_file_perms;
 
 # Use a pipe to signal readiness
 # TODO(b/205750213): Removed odrefresh when we run odrefresh in the VM
