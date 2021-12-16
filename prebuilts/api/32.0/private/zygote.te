@@ -112,7 +112,7 @@ r_dir_file(zygote, vendor_overlay_file)
 
 # Control cgroups.
 allow zygote cgroup:dir create_dir_perms;
-allow zygote cgroup:{ file lnk_file } r_file_perms;
+allow zygote cgroup:{ file lnk_file } { r_file_perms setattr };
 allow zygote cgroup_v2:dir create_dir_perms;
 allow zygote cgroup_v2:{ file lnk_file } { r_file_perms setattr };
 allow zygote self:global_capability_class_set sys_admin;
