@@ -25,5 +25,8 @@ allow odrefresh apex_info_file:file r_file_perms;
 # supported on Android.
 allow odrefresh compos:fifo_file read;
 
-# Do not audit unused resources from parent processes.
-dontaudit odrefresh compos:fd use;
+# Allow using FDs from the parent. It's possible that this could be avoided,
+# if we close fd 0-2 before execute. But minijial replaces them with /dev/null
+# (unless specified otherwise). Without allowing the use, the execution will
+# fail immediately. See b/210909688.
+allow odrefresh compos:fd use;
