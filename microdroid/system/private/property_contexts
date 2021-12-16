@@ -117,7 +117,9 @@ ro.hardware   u:object_r:bootloader_prop:s0 exact string
 ro.revision   u:object_r:bootloader_prop:s0 exact string
 
 ro.build.id                     u:object_r:build_prop:s0 exact string
+ro.build.version.codename       u:object_r:build_prop:s0 exact string
 ro.build.version.release        u:object_r:build_prop:s0 exact string
+ro.build.version.sdk            u:object_r:build_prop:s0 exact int
 ro.build.version.security_patch u:object_r:build_prop:s0 exact string
 ro.debuggable                   u:object_r:build_prop:s0 exact bool
 ro.product.cpu.abilist          u:object_r:build_prop:s0 exact string
@@ -145,8 +147,8 @@ service.adb.listen_addrs u:object_r:adbd_prop:s0 exact string
 
 persist.adb.wifi.guid  u:object_r:adbd_prop:s0 exact string
 
-log.tag.         u:object_r:log_tag_prop:s0 prefix
-persist.log.tag. u:object_r:log_tag_prop:s0 prefix
+log.tag          u:object_r:log_tag_prop:s0 prefix
+persist.log.tag  u:object_r:log_tag_prop:s0 prefix
 
 libc.debug.malloc.options u:object_r:libc_debug_prop:s0 exact string
 libc.debug.malloc.program u:object_r:libc_debug_prop:s0 exact string
@@ -159,3 +161,7 @@ persist.sys.timezone u:object_r:timezone_prop:s0 exact string
 ro.vndk.version  u:object_r:build_prop:s0 exact string
 
 heapprofd.enable u:object_r:heapprofd_prop:s0 exact bool
+
+# ART properties for CompOS
+dalvik.vm.                            u:object_r:dalvik_config_prop:s0 prefix
+persist.device_config.runtime_native. u:object_r:device_config_runtime_native_prop:s0 prefix
