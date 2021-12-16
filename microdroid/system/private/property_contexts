@@ -165,3 +165,5 @@ heapprofd.enable u:object_r:heapprofd_prop:s0 exact bool
 # ART properties for CompOS
 dalvik.vm.                            u:object_r:dalvik_config_prop:s0 prefix
 persist.device_config.runtime_native. u:object_r:device_config_runtime_native_prop:s0 prefix
+
+apexd.payload_metadata.path u:object_r:apexd_payload_metadata_prop:s0 exact string
