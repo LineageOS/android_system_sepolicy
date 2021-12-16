@@ -304,7 +304,8 @@ neverallow {
 # contains boot class path and system server AOT artifacts following an ART APEX Mainline update.
 neverallow {
   domain
-  # art processes
+  # art-related processes
+  -composd
   -compos_fd_server
   -odrefresh
   -odsign
@@ -317,10 +318,10 @@ neverallow {
 neverallow {
   domain
   # art-related processes
+  -composd
   -compos_fd_server
   -odrefresh
   -odsign
-  -composd  # TODO: Remove
   # others
   -apexd
   -init
