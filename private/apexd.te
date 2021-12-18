@@ -158,6 +158,9 @@ get_prop(apexd, apexd_config_prop)
 # Allow apexd to read apex selection properties.
 # These are used to choose between multi-installed APEXes at activation time.
 get_prop(apexd, apexd_select_prop)
+#
+# Allow apexd to read apexd_payload_metadata_prop
+get_prop(apexd, apexd_payload_metadata_prop)
 
 neverallow { domain -apexd -init } apex_data_file:dir no_w_dir_perms;
 neverallow { domain -apexd -init } apex_metadata_file:dir no_w_dir_perms;
