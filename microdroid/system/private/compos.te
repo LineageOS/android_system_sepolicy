@@ -20,7 +20,6 @@ allow compos vm_payload_key:keystore2_key {
 };
 
 # Read artifacts created by odrefresh and create signature files.
-# (Also receive and pass on open FDs to odrefresh.)
 allow compos authfs_fuse:dir rw_dir_perms;
 allow compos authfs_fuse:file create_file_perms;
 
