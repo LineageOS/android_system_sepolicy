@@ -452,7 +452,7 @@ func (c *policyBinary) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 		ctx.PropertyErrorf("srcs", "must be specified")
 		return
 	}
-	bin := android.PathForModuleOut(ctx, c.stem()).OutputPath
+	bin := android.PathForModuleOut(ctx, c.stem()+"_policy")
 	rule := android.NewRuleBuilder(pctx, ctx)
 	secilcCmd := rule.Command().BuiltTool("secilc").
 		Flag("-m").                 // Multiple decls
@@ -466,7 +466,39 @@ func (c *policyBinary) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	if proptools.BoolDefault(c.properties.Ignore_neverallow, ctx.Config().SelinuxIgnoreNeverallows()) {
 		secilcCmd.Flag("-N")
 	}
+	rule.Temporary(bin)
 
+	// permissive check is performed only in user build (not debuggable).
+	if !ctx.Config().Debuggable() {
+		permissiveDomains := android.PathForModuleOut(ctx, c.stem()+"_permissive")
+		rule.Command().BuiltTool("sepolicy-analyze").
+			Input(bin).
+			Text("permissive").
+			Text(" > ").
+			Output(permissiveDomains)
+		rule.Temporary(permissiveDomains)
+
+		msg := `==========\n` +
+			`ERROR: permissive domains not allowed in user builds\n` +
+			`List of invalid domains:`
+
+		rule.Command().Text("if test").
+			FlagWithInput("-s ", permissiveDomains).
+			Text("; then echo").
+			Flag("-e").
+			Text(`"` + msg + `"`).
+			Text("&& cat ").
+			Input(permissiveDomains).
+			Text("; exit 1; fi")
+	}
+
+	out := android.PathForModuleOut(ctx, c.stem())
+	rule.Command().Text("cp").
+		Flag("-f").
+		Input(bin).
+		Output(out)
+
+	rule.DeleteTemporaryFiles()
 	rule.Build("secilc", "Compiling cil files for "+ctx.ModuleName())
 
 	if !c.Installable() {
@@ -474,7 +506,7 @@ func (c *policyBinary) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	}
 
 	c.installPath = android.PathForModuleInstall(ctx, "etc", "selinux")
-	c.installSource = bin
+	c.installSource = out
 	ctx.InstallFile(c.installPath, c.stem(), c.installSource)
 }
 
