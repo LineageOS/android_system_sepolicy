@@ -181,7 +181,15 @@ func (c *cilCompatMap) AndroidMk() android.AndroidMkData {
 }
 
 var _ CilCompatMapGenerator = (*cilCompatMap)(nil)
+var _ android.OutputFileProducer = (*cilCompatMap)(nil)
 
 func (c *cilCompatMap) GeneratedMapFile() android.Path {
 	return c.installSource
+}
+
+func (c *cilCompatMap) OutputFiles(tag string) (android.Paths, error) {
+	if tag == "" {
+		return android.Paths{c.installSource}, nil
+	}
+	return nil, fmt.Errorf("Unknown tag %q", tag)
 }
