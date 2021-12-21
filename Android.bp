@@ -1236,9 +1236,6 @@ precompiled_se_policy_binary {
         },
         IS_TARGET_MIXED_SEPOLICY: {
             ignore_neverallow: true,
-            conditions_default: {
-                ignore_neverallow: false,
-            },
         },
         MIXED_SEPOLICY_VERSION: {
             srcs: [
