@@ -35,8 +35,8 @@ type versionedPolicyProperties struct {
 	// Output file name. Defaults to {name} if target_policy is set, {version}.cil if mapping is set
 	Stem *string
 
-	// Target sepolicy version. Can be a specific version number (e.g. "30.0" for R) or "current"
-	// (PLATFORM_SEPOLICY_VERSION). Defaults to "current"
+	// Target sepolicy version. Can be a specific version number (e.g. "30.0" for R), "current"
+	// (PLATFORM_SEPOLICY_VERSION), or "vendor" (BOARD_SEPOLICY_VERS). Defaults to "current"
 	Version *string
 
 	// If true, generate mapping file from given base cil file. Cannot be set with target_policy.
@@ -90,6 +90,8 @@ func (m *versionedPolicy) GenerateAndroidBuildActions(ctx android.ModuleContext)
 	version := proptools.StringDefault(m.properties.Version, "current")
 	if version == "current" {
 		version = ctx.DeviceConfig().PlatformSepolicyVersion()
+	} else if version == "vendor" {
+		version = ctx.DeviceConfig().BoardSepolicyVers()
 	}
 
 	var stem string
