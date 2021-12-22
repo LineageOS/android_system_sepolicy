@@ -811,6 +811,10 @@ precompiled_se_policy_binary {
             },
         },
     },
+    required: [
+        "sepolicy_neverallows",
+        "sepolicy_neverallows_vendor",
+    ],
 }
 
 //////////////////////////////////
@@ -985,6 +989,25 @@ se_bug_map {
     // Legacy file name of the vendor partition bug_map.
     stem: "selinux_denial_metadata",
     vendor: true,
+}
+
+se_neverallow_test {
+    name: "sepolicy_neverallows",
+    srcs: plat_public_policy +
+        plat_private_policy +
+        system_ext_public_policy +
+        system_ext_private_policy +
+        product_public_policy +
+        product_private_policy,
+}
+
+se_neverallow_test {
+    name: "sepolicy_neverallows_vendor",
+    srcs: plat_policies_for_vendor + [
+        ":se_build_files{.plat_vendor_for_vendor}",
+        ":se_build_files{.vendor}",
+        ":se_build_files{.odm}",
+    ],
 }
 
 //////////////////////////////////
