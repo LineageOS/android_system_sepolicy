@@ -743,6 +743,24 @@ endif
 built_sepolicy := $(call intermediates-dir-for,ETC,precompiled_sepolicy)/precompiled_sepolicy
 
 #################################
+# sepolicy is also built with Android.bp.
+# This module is to keep compatibility with monolithic sepolicy devices.
+include $(CLEAR_VARS)
+
+LOCAL_MODULE := sepolicy
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
+LOCAL_LICENSE_CONDITIONS := notice unencumbered
+LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
+LOCAL_MODULE_CLASS := ETC
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
+
+include $(BUILD_SYSTEM)/base_rules.mk
+
+$(LOCAL_BUILT_MODULE): $(built_sepolicy)
+	$(copy-file-to-target)
+
+#################################
 include $(CLEAR_VARS)
 
 # keep concrete sepolicy for neverallow checks
