@@ -34,17 +34,10 @@ type selinuxContextsProperties struct {
 	Stem *string
 
 	Product_variables struct {
-		Debuggable struct {
-			Srcs []string
-		}
-
 		Address_sanitize struct {
-			Srcs []string
+			Srcs []string `android:"path"`
 		}
 	}
-
-	// Whether reqd_mask directory is included to sepolicy directories or not.
-	Reqd_mask *bool
 
 	// Whether the comments in generated contexts file will be removed or not.
 	Remove_comment *bool
@@ -61,7 +54,7 @@ type fileContextsProperties struct {
 	// Apex paths, /system/apex/{apex_name}, will be amended to the paths of file_contexts
 	// entries.
 	Flatten_apex struct {
-		Srcs []string
+		Srcs []string `android:"path"`
 	}
 }
 
@@ -145,51 +138,7 @@ func (m *selinuxContextsModule) GenerateAndroidBuildActions(ctx android.ModuleCo
 		}
 	}
 
-	var inputs android.Paths
-
-	ctx.VisitDirectDeps(func(dep android.Module) {
-		depTag := ctx.OtherModuleDependencyTag(dep)
-		if !android.IsSourceDepTagWithOutputTag(depTag, "") {
-			return
-		}
-		segroup, ok := dep.(*fileGroup)
-		if !ok {
-			ctx.ModuleErrorf("srcs dependency %q is not an selinux filegroup",
-				ctx.OtherModuleName(dep))
-			return
-		}
-
-		if ctx.ProductSpecific() {
-			inputs = append(inputs, segroup.ProductPrivateSrcs()...)
-		} else if ctx.SocSpecific() {
-			inputs = append(inputs, segroup.SystemVendorSrcs()...)
-			inputs = append(inputs, segroup.VendorSrcs()...)
-		} else if ctx.DeviceSpecific() {
-			inputs = append(inputs, segroup.OdmSrcs()...)
-		} else if ctx.SystemExtSpecific() {
-			inputs = append(inputs, segroup.SystemExtPrivateSrcs()...)
-		} else {
-			inputs = append(inputs, segroup.SystemPrivateSrcs()...)
-			inputs = append(inputs, segroup.SystemPublicSrcs()...)
-		}
-
-		if proptools.Bool(m.properties.Reqd_mask) {
-			if ctx.SocSpecific() || ctx.DeviceSpecific() {
-				inputs = append(inputs, segroup.VendorReqdMaskSrcs()...)
-			} else {
-				inputs = append(inputs, segroup.SystemReqdMaskSrcs()...)
-			}
-		}
-	})
-
-	for _, src := range m.properties.Srcs {
-		// Module sources are handled above with VisitDirectDepsWithTag
-		if android.SrcIsModule(src) == "" {
-			inputs = append(inputs, android.PathForModuleSrc(ctx, src))
-		}
-	}
-
-	m.outputPath = m.build(ctx, inputs)
+	m.outputPath = m.build(ctx, android.PathsForModuleSrc(ctx, m.properties.Srcs))
 	ctx.InstallFile(m.installPath, m.stem(), m.outputPath)
 }
 
@@ -197,6 +146,7 @@ func newModule() *selinuxContextsModule {
 	m := &selinuxContextsModule{}
 	m.AddProperties(
 		&m.properties,
+		&m.fileContextsProperties,
 	)
 	android.InitAndroidArchModule(m, android.DeviceSupported, android.MultilibCommon)
 	android.AddLoadHook(m, func(ctx android.LoadHookContext) {
@@ -208,10 +158,6 @@ func newModule() *selinuxContextsModule {
 func (m *selinuxContextsModule) selinuxContextsHook(ctx android.LoadHookContext) {
 	// TODO: clean this up to use build/soong/android/variable.go after b/79249983
 	var srcs []string
-
-	if ctx.Config().Debuggable() {
-		srcs = append(srcs, m.properties.Product_variables.Debuggable.Srcs...)
-	}
 
 	for _, sanitize := range ctx.Config().SanitizeDevice() {
 		if sanitize == "address" {
@@ -333,25 +279,18 @@ func (m *selinuxContextsModule) buildFileContexts(ctx android.ModuleContext, inp
 	rule := android.NewRuleBuilder(pctx, ctx)
 
 	if ctx.Config().FlattenApex() {
-		for _, src := range m.fileContextsProperties.Flatten_apex.Srcs {
-			if m := android.SrcIsModule(src); m != "" {
-				ctx.ModuleErrorf(
-					"Module srcs dependency %q is not supported for flatten_apex.srcs", m)
-				return nil
-			}
-			for _, path := range android.PathsForModuleSrcExcludes(ctx, []string{src}, nil) {
-				out := android.PathForModuleGen(ctx, "flattened_apex", path.Rel())
-				apex_path := "/system/apex/" + strings.Replace(
-					strings.TrimSuffix(path.Base(), "-file_contexts"),
-					".", "\\\\.", -1)
+		for _, path := range android.PathsForModuleSrc(ctx, m.fileContextsProperties.Flatten_apex.Srcs) {
+			out := android.PathForModuleGen(ctx, "flattened_apex", path.Rel())
+			apex_path := "/system/apex/" + strings.Replace(
+				strings.TrimSuffix(path.Base(), "-file_contexts"),
+				".", "\\\\.", -1)
 
-				rule.Command().
-					Text("awk '/object_r/{printf(\""+apex_path+"%s\\n\",$0)}'").
-					Input(path).
-					FlagWithOutput("> ", out)
+			rule.Command().
+				Text("awk '/object_r/{printf(\""+apex_path+"%s\\n\",$0)}'").
+				Input(path).
+				FlagWithOutput("> ", out)
 
-				inputs = append(inputs, out)
-			}
+			inputs = append(inputs, out)
 		}
 	}
 
@@ -361,7 +300,6 @@ func (m *selinuxContextsModule) buildFileContexts(ctx android.ModuleContext, inp
 
 func fileFactory() android.Module {
 	m := newModule()
-	m.AddProperties(&m.fileContextsProperties)
 	m.build = m.buildFileContexts
 	return m
 }
