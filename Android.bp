@@ -396,73 +396,73 @@ se_compat_cil {
     system_ext_specific: true,
 }
 
-se_filegroup {
+se_build_files {
     name: "file_contexts_files",
     srcs: ["file_contexts"],
 }
 
-se_filegroup {
+se_build_files {
     name: "file_contexts_asan_files",
     srcs: ["file_contexts_asan"],
 }
 
-se_filegroup {
+se_build_files {
     name: "file_contexts_overlayfs_files",
     srcs: ["file_contexts_overlayfs"],
 }
 
-se_filegroup {
+se_build_files {
     name: "hwservice_contexts_files",
     srcs: ["hwservice_contexts"],
 }
 
-se_filegroup {
+se_build_files {
     name: "property_contexts_files",
     srcs: ["property_contexts"],
 }
 
-se_filegroup {
+se_build_files {
     name: "service_contexts_files",
     srcs: ["service_contexts"],
 }
 
-se_filegroup {
+se_build_files {
     name: "keystore2_key_contexts_files",
     srcs: ["keystore2_key_contexts"],
 }
 
 file_contexts {
     name: "plat_file_contexts",
-    srcs: [":file_contexts_files"],
+    srcs: [":file_contexts_files{.plat_private}"],
     product_variables: {
         address_sanitize: {
-            srcs: [":file_contexts_asan_files"],
+            srcs: [":file_contexts_asan_files{.plat_private}"],
         },
         debuggable: {
-            srcs: [":file_contexts_overlayfs_files"],
+            srcs: [":file_contexts_overlayfs_files{.plat_private}"],
         },
     },
 
     flatten_apex: {
-        srcs: ["apex/*-file_contexts"],
+        srcs: [":apex_file_contexts_files"],
     },
 }
 
 file_contexts {
     name: "plat_file_contexts.recovery",
-    srcs: [":file_contexts_files"],
+    srcs: [":file_contexts_files{.plat_private}"],
     stem: "plat_file_contexts",
     product_variables: {
         address_sanitize: {
-            srcs: [":file_contexts_asan_files"],
+            srcs: [":file_contexts_asan_files{.plat_private}"],
         },
         debuggable: {
-            srcs: [":file_contexts_overlayfs_files"],
+            srcs: [":file_contexts_overlayfs_files{.plat_private}"],
         },
     },
 
     flatten_apex: {
-        srcs: ["apex/*-file_contexts"],
+        srcs: [":apex_file_contexts_files"],
     },
 
     recovery: true,
@@ -470,158 +470,173 @@ file_contexts {
 
 file_contexts {
     name: "vendor_file_contexts",
-    srcs: [":file_contexts_files"],
+    srcs: [
+        ":file_contexts_files{.plat_vendor_for_vendor}",
+        ":file_contexts_files{.vendor}",
+    ],
     soc_specific: true,
     recovery_available: true,
 }
 
 file_contexts {
     name: "system_ext_file_contexts",
-    srcs: [":file_contexts_files"],
+    srcs: [":file_contexts_files{.system_ext_private}"],
     system_ext_specific: true,
     recovery_available: true,
 }
 
 file_contexts {
     name: "product_file_contexts",
-    srcs: [":file_contexts_files"],
+    srcs: [":file_contexts_files{.product_private}"],
     product_specific: true,
     recovery_available: true,
 }
 
 file_contexts {
     name: "odm_file_contexts",
-    srcs: [":file_contexts_files"],
+    srcs: [":file_contexts_files{.odm}"],
     device_specific: true,
     recovery_available: true,
 }
 
 hwservice_contexts {
     name: "plat_hwservice_contexts",
-    srcs: [":hwservice_contexts_files"],
+    srcs: [":hwservice_contexts_files{.plat_private}"],
 }
 
 hwservice_contexts {
     name: "system_ext_hwservice_contexts",
-    srcs: [":hwservice_contexts_files"],
+    srcs: [":hwservice_contexts_files{.system_ext_private}"],
     system_ext_specific: true,
 }
 
 hwservice_contexts {
     name: "product_hwservice_contexts",
-    srcs: [":hwservice_contexts_files"],
+    srcs: [":hwservice_contexts_files{.product_private}"],
     product_specific: true,
 }
 
 hwservice_contexts {
     name: "vendor_hwservice_contexts",
-    srcs: [":hwservice_contexts_files"],
-    reqd_mask: true,
+    srcs: [
+        ":hwservice_contexts_files{.plat_vendor_for_vendor}",
+        ":hwservice_contexts_files{.vendor}",
+        ":hwservice_contexts_files{.reqd_mask_for_vendor}",
+    ],
     soc_specific: true,
 }
 
 hwservice_contexts {
     name: "odm_hwservice_contexts",
-    srcs: [":hwservice_contexts_files"],
+    srcs: [":hwservice_contexts_files{.odm}"],
     device_specific: true,
 }
 
 property_contexts {
     name: "plat_property_contexts",
-    srcs: [":property_contexts_files"],
+    srcs: [":property_contexts_files{.plat_private}"],
 }
 
 property_contexts {
     name: "plat_property_contexts.recovery",
-    srcs: [":property_contexts_files"],
+    srcs: [":property_contexts_files{.plat_private}"],
     stem: "plat_property_contexts",
     recovery: true,
 }
 
 property_contexts {
     name: "system_ext_property_contexts",
-    srcs: [":property_contexts_files"],
+    srcs: [":property_contexts_files{.system_ext_private}"],
     system_ext_specific: true,
     recovery_available: true,
 }
 
 property_contexts {
     name: "product_property_contexts",
-    srcs: [":property_contexts_files"],
+    srcs: [":property_contexts_files{.product_private}"],
     product_specific: true,
     recovery_available: true,
 }
 
 property_contexts {
     name: "vendor_property_contexts",
-    srcs: [":property_contexts_files"],
-    reqd_mask: true,
+    srcs: [
+        ":property_contexts_files{.plat_vendor_for_vendor}",
+        ":property_contexts_files{.vendor}",
+        ":property_contexts_files{.reqd_mask_for_vendor}",
+    ],
     soc_specific: true,
     recovery_available: true,
 }
 
 property_contexts {
     name: "odm_property_contexts",
-    srcs: [":property_contexts_files"],
+    srcs: [":property_contexts_files{.odm}"],
     device_specific: true,
     recovery_available: true,
 }
 
 service_contexts {
     name: "plat_service_contexts",
-    srcs: [":service_contexts_files"],
+    srcs: [":service_contexts_files{.plat_private}"],
 }
 
 service_contexts {
     name: "plat_service_contexts.recovery",
-    srcs: [":service_contexts_files"],
+    srcs: [":service_contexts_files{.plat_private}"],
     stem: "plat_service_contexts",
     recovery: true,
 }
 
 service_contexts {
     name: "system_ext_service_contexts",
-    srcs: [":service_contexts_files"],
+    srcs: [":service_contexts_files{.system_ext_private}"],
     system_ext_specific: true,
     recovery_available: true,
 }
 
 service_contexts {
     name: "product_service_contexts",
-    srcs: [":service_contexts_files"],
+    srcs: [":service_contexts_files{.product_private}"],
     product_specific: true,
     recovery_available: true,
 }
 
 service_contexts {
     name: "vendor_service_contexts",
-    srcs: [":service_contexts_files"],
-    reqd_mask: true,
+    srcs: [
+        ":service_contexts_files{.plat_vendor_for_vendor}",
+        ":service_contexts_files{.vendor}",
+        ":service_contexts_files{.reqd_mask_for_vendor}",
+    ],
     soc_specific: true,
     recovery_available: true,
 }
 
 keystore2_key_contexts {
     name: "plat_keystore2_key_contexts",
-    srcs: [":keystore2_key_contexts_files"],
+    srcs: [":keystore2_key_contexts_files{.plat_private}"],
 }
 
 keystore2_key_contexts {
     name: "system_keystore2_key_contexts",
-    srcs: [":keystore2_key_contexts_files"],
+    srcs: [":keystore2_key_contexts_files{.system_ext_private}"],
     system_ext_specific: true,
 }
 
 keystore2_key_contexts {
     name: "product_keystore2_key_contexts",
-    srcs: [":keystore2_key_contexts_files"],
+    srcs: [":keystore2_key_contexts_files{.product_private}"],
     product_specific: true,
 }
 
 keystore2_key_contexts {
     name: "vendor_keystore2_key_contexts",
-    srcs: [":keystore2_key_contexts_files"],
-    reqd_mask: true,
+    srcs: [
+        ":keystore2_key_contexts_files{.plat_vendor_for_vendor}",
+        ":keystore2_key_contexts_files{.vendor}",
+        ":keystore2_key_contexts_files{.reqd_mask_for_vendor}",
+    ],
     soc_specific: true,
 }
 
