@@ -22,6 +22,11 @@ package {
 }
 
 filegroup {
+  name: "apex_file_contexts_files",
+  srcs: ["*-file_contexts"],
+}
+
+filegroup {
   name: "apex.test-file_contexts",
   srcs: [
     "apex.test-file_contexts",
