@@ -740,9 +740,12 @@ ifdef BOARD_ODM_SEPOLICY_DIRS
 built_odm_cil := $(call intermediates-dir-for,ETC,odm_sepolicy.cil)/odm_sepolicy.cil
 endif
 
+built_sepolicy := $(call intermediates-dir-for,ETC,precompiled_sepolicy)/precompiled_sepolicy
+
 #################################
+# sepolicy is also built with Android.bp.
+# This module is to keep compatibility with monolithic sepolicy devices.
 include $(CLEAR_VARS)
-# build this target so that we can still perform neverallow checks
 
 LOCAL_MODULE := sepolicy
 LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
@@ -754,51 +757,8 @@ LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
-all_cil_files := \
-    $(built_plat_cil) \
-    $(TARGET_OUT)/etc/selinux/mapping/$(BOARD_SEPOLICY_VERS).cil \
-    $(built_pub_vers_cil) \
-    $(built_vendor_cil)
-
-ifdef HAS_SYSTEM_EXT_SEPOLICY
-all_cil_files += $(built_system_ext_cil)
-endif
-
-ifdef HAS_SYSTEM_EXT_PUBLIC_SEPOLICY
-all_cil_files += $(TARGET_OUT_SYSTEM_EXT)/etc/selinux/mapping/$(BOARD_SEPOLICY_VERS).cil
-endif
-
-ifdef HAS_PRODUCT_SEPOLICY
-all_cil_files += $(built_product_cil)
-endif
-
-ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
-all_cil_files += $(TARGET_OUT_PRODUCT)/etc/selinux/mapping/$(BOARD_SEPOLICY_VERS).cil
-endif
-
-ifdef BOARD_ODM_SEPOLICY_DIRS
-all_cil_files += $(built_odm_cil)
-endif
-
-$(LOCAL_BUILT_MODULE): PRIVATE_CIL_FILES := $(all_cil_files)
-# Neverallow checks are skipped in a mixed build target.
-$(LOCAL_BUILT_MODULE): PRIVATE_NEVERALLOW_ARG := $(if $(filter $(PLATFORM_SEPOLICY_VERSION),$(BOARD_SEPOLICY_VERS)),$(NEVERALLOW_ARG),-N)
-$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/secilc $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $(all_cil_files) \
-$(built_sepolicy_neverallows)
-	@mkdir -p $(dir $@)
-	$(hide) $< -m -M true -G -c $(POLICYVERS) $(PRIVATE_NEVERALLOW_ARG) $(PRIVATE_CIL_FILES) -o $@.tmp -f /dev/null
-	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $@.tmp permissive > $@.permissivedomains
-	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
-		echo "==========" 1>&2; \
-		echo "ERROR: permissive domains not allowed in user builds" 1>&2; \
-		echo "List of invalid domains:" 1>&2; \
-		cat $@.permissivedomains 1>&2; \
-		exit 1; \
-		fi
-	$(hide) mv $@.tmp $@
-
-built_sepolicy := $(LOCAL_BUILT_MODULE)
-all_cil_files :=
+$(LOCAL_BUILT_MODULE): $(built_sepolicy)
+	$(copy-file-to-target)
 
 #################################
 include $(CLEAR_VARS)
