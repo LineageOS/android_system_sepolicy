@@ -603,66 +603,6 @@ include $(BUILD_SYSTEM)/base_rules.mk
 $(LOCAL_BUILT_MODULE): $(built_sepolicy)
 	$(copy-file-to-target)
 
-#################################
-include $(CLEAR_VARS)
-
-# keep concrete sepolicy for neverallow checks
-# If SELINUX_IGNORE_NEVERALLOWS is set, we use sed to remove the neverallow lines before compiling.
-
-LOCAL_MODULE := sepolicy.recovery
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_STEM := sepolicy
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_RECOVERY_ROOT_OUT)
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-# We use vendor version's policy files because recovery partition is vendor-owned.
-policy_files := $(call build_policy, $(sepolicy_build_files), \
-  $(plat_public_policy_$(BOARD_SEPOLICY_VERS)) $(plat_private_policy_$(BOARD_SEPOLICY_VERS)) \
-  $(system_ext_public_policy_$(BOARD_SEPOLICY_VERS)) $(system_ext_private_policy_$(BOARD_SEPOLICY_VERS)) \
-  $(product_public_policy_$(BOARD_SEPOLICY_VERS)) $(product_private_policy_$(BOARD_SEPOLICY_VERS)) \
-  $(BOARD_PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS) $(BOARD_ODM_SEPOLICY_DIRS))
-sepolicy.recovery.conf := $(intermediates)/sepolicy.recovery.conf
-$(sepolicy.recovery.conf): PRIVATE_MLS_SENS := $(MLS_SENS)
-$(sepolicy.recovery.conf): PRIVATE_MLS_CATS := $(MLS_CATS)
-$(sepolicy.recovery.conf): PRIVATE_TARGET_BUILD_VARIANT := $(TARGET_BUILD_VARIANT)
-$(sepolicy.recovery.conf): PRIVATE_TGT_ARCH := $(my_target_arch)
-$(sepolicy.recovery.conf): PRIVATE_TGT_WITH_ASAN := $(with_asan)
-$(sepolicy.recovery.conf): PRIVATE_TGT_WITH_NATIVE_COVERAGE := $(with_native_coverage)
-$(sepolicy.recovery.conf): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(sepolicy.recovery.conf): PRIVATE_TGT_RECOVERY := -D target_recovery=true
-$(sepolicy.recovery.conf): PRIVATE_ENFORCE_DEBUGFS_RESTRICTION := $(enforce_debugfs_restriction)
-$(sepolicy.recovery.conf): PRIVATE_POLICY_FILES := $(policy_files)
-$(sepolicy.recovery.conf): $(policy_files) $(M4)
-	$(transform-policy-to-conf)
-	$(hide) sed '/^\s*dontaudit.*;/d' $@ | sed '/^\s*dontaudit/,/;/d' > $@.dontaudit
-
-ifeq ($(SELINUX_IGNORE_NEVERALLOWS),true)
-	$(hide) sed -z 's/\n\s*neverallow[^;]*;/\n/g' $@ > $@.neverallow
-	$(hide) mv $@.neverallow $@
-endif
-
-$(LOCAL_BUILT_MODULE): $(sepolicy.recovery.conf) $(HOST_OUT_EXECUTABLES)/checkpolicy \
-                       $(HOST_OUT_EXECUTABLES)/sepolicy-analyze
-	@mkdir -p $(dir $@)
-	$(hide) $(CHECKPOLICY_ASAN_OPTIONS) $(HOST_OUT_EXECUTABLES)/checkpolicy -M -c \
-		$(POLICYVERS) -o $@.tmp $<
-	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy-analyze $@.tmp permissive > $@.permissivedomains
-	$(hide) if [ "$(TARGET_BUILD_VARIANT)" = "user" -a -s $@.permissivedomains ]; then \
-		echo "==========" 1>&2; \
-		echo "ERROR: permissive domains not allowed in user builds" 1>&2; \
-		echo "List of invalid domains:" 1>&2; \
-		cat $@.permissivedomains 1>&2; \
-		exit 1; \
-		fi
-	$(hide) mv $@.tmp $@
-
-sepolicy.recovery.conf :=
-
 ##################################
 # TODO - remove this.   Keep around until we get the filesystem creation stuff taken care of.
 #
