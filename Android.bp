@@ -817,6 +817,32 @@ precompiled_se_policy_binary {
     ],
 }
 
+// policy for recovery
+se_policy_conf {
+    name: "recovery_sepolicy.conf",
+    srcs: plat_policies_for_vendor + [
+        ":se_build_files{.plat_vendor_for_vendor}",
+        ":se_build_files{.vendor}",
+        ":se_build_files{.odm}",
+    ],
+    target_recovery: true,
+    installable: false,
+}
+
+se_policy_cil {
+    name: "recovery_sepolicy.cil",
+    src: ":recovery_sepolicy.conf",
+    secilc_check: false, // will be done in se_policy_binary module
+    installable: false,
+}
+
+se_policy_binary {
+    name: "sepolicy.recovery",
+    srcs: [":recovery_sepolicy.cil"],
+    stem: "sepolicy",
+    recovery: true,
+}
+
 //////////////////////////////////
 // SELinux policy embedded into CTS.
 // CTS checks neverallow rules of this policy against the policy of the device under test.
