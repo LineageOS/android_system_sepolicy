@@ -527,31 +527,6 @@ LOCAL_REQUIRED_MODULES += \
 
 include $(BUILD_PHONY_PACKAGE)
 
-#################################
-
-ifeq ($(mixed_sepolicy_build),true)
-ver := $(BOARD_SEPOLICY_VERS)
-reqd_policy_$(ver) := $(BOARD_REQD_MASK_POLICY)
-plat_public_policy_$(ver) := $(LOCAL_PATH)/prebuilts/api/$(ver)/public
-plat_private_policy_$(ver) := $(LOCAL_PATH)/prebuilts/api/$(ver)/private
-system_ext_public_policy_$(ver) := $(BOARD_SYSTEM_EXT_PUBLIC_PREBUILT_DIRS)
-system_ext_private_policy_$(ver) := $(BOARD_SYSTEM_EXT_PRIVATE_PREBUILT_DIRS)
-product_public_policy_$(ver) := $(BOARD_PRODUCT_PUBLIC_PREBUILT_DIRS)
-product_private_policy_$(ver) := $(BOARD_PRODUCT_PRIVATE_PREBUILT_DIRS)
-ver :=
-else
-reqd_policy_$(PLATFORM_SEPOLICY_VERSION) := $(REQD_MASK_POLICY)
-plat_public_policy_$(PLATFORM_SEPOLICY_VERSION) := $(LOCAL_PATH)/public
-plat_private_policy_$(PLATFORM_SEPOLICY_VERSION) := $(LOCAL_PATH)/private
-system_ext_public_policy_$(PLATFORM_SEPOLICY_VERSION) := $(SYSTEM_EXT_PUBLIC_POLICY)
-system_ext_private_policy_$(PLATFORM_SEPOLICY_VERSION) := $(SYSTEM_EXT_PRIVATE_POLICY)
-product_public_policy_$(PLATFORM_SEPOLICY_VERSION) := $(PRODUCT_PUBLIC_POLICY)
-product_private_policy_$(PLATFORM_SEPOLICY_VERSION) := $(PRODUCT_PRIVATE_POLICY)
-endif
-
-built_sepolicy_neverallows := $(call intermediates-dir-for,ETC,sepolicy_neverallows)/sepolicy_neverallows
-built_sepolicy_neverallows += $(call intermediates-dir-for,ETC,sepolicy_neverallows_vendor)/sepolicy_neverallows_vendor
-
 ##################################
 # Policy files are now built with Android.bp. Grab them from intermediate.
 # See Android.bp for details of policy files.
@@ -584,6 +559,8 @@ built_odm_cil := $(call intermediates-dir-for,ETC,odm_sepolicy.cil)/odm_sepolicy
 endif
 
 built_sepolicy := $(call intermediates-dir-for,ETC,precompiled_sepolicy)/precompiled_sepolicy
+built_sepolicy_neverallows := $(call intermediates-dir-for,ETC,sepolicy_neverallows)/sepolicy_neverallows
+built_sepolicy_neverallows += $(call intermediates-dir-for,ETC,sepolicy_neverallows_vendor)/sepolicy_neverallows_vendor
 
 #################################
 # sepolicy is also built with Android.bp.
