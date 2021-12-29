@@ -222,3 +222,70 @@ keystore2_key_contexts {
     ],
     soc_specific: true,
 }
+
+seapp_contexts {
+    name: "plat_seapp_contexts",
+    srcs: [":seapp_contexts_files{.plat_private}"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+seapp_contexts {
+    name: "system_ext_seapp_contexts",
+    srcs: [":seapp_contexts_files{.system_ext_private}"],
+    neverallow_files: [":seapp_contexts_files{.plat_private}"],
+    system_ext_specific: true,
+    sepolicy: ":precompiled_sepolicy",
+}
+
+seapp_contexts {
+    name: "product_seapp_contexts",
+    srcs: [":seapp_contexts_files{.product_private}"],
+    neverallow_files: [
+        ":seapp_contexts_files{.plat_private}",
+        ":seapp_contexts_files{.system_ext_private}",
+    ],
+    product_specific: true,
+    sepolicy: ":precompiled_sepolicy",
+}
+
+seapp_contexts {
+    name: "vendor_seapp_contexts",
+    srcs: [
+        ":seapp_contexts_files{.plat_vendor_for_vendor}",
+        ":seapp_contexts_files{.vendor}",
+        ":seapp_contexts_files{.reqd_mask_for_vendor}",
+    ],
+    neverallow_files: [
+        ":seapp_contexts_files{.plat_private_for_vendor}",
+        ":seapp_contexts_files{.system_ext_private_for_vendor}",
+        ":seapp_contexts_files{.product_private_for_vendor}",
+    ],
+    soc_specific: true,
+    sepolicy: ":precompiled_sepolicy",
+}
+
+seapp_contexts {
+    name: "odm_seapp_contexts",
+    srcs: [
+        ":seapp_contexts_files{.odm}",
+    ],
+    neverallow_files: [
+        ":seapp_contexts_files{.plat_private_for_vendor}",
+        ":seapp_contexts_files{.system_ext_private_for_vendor}",
+        ":seapp_contexts_files{.product_private_for_vendor}",
+    ],
+    device_specific: true,
+    sepolicy: ":precompiled_sepolicy",
+}
+
+// for CTS
+genrule {
+    name: "plat_seapp_neverallows",
+    srcs: [
+        ":seapp_contexts_files{.plat_private}",
+        ":seapp_contexts_files{.system_ext_private}",
+        ":seapp_contexts_files{.product_private}",
+    ],
+    out: ["plat_seapp_neverallows"],
+    cmd: "grep -ihe '^neverallow' $(in) > $(out) || true",
+}

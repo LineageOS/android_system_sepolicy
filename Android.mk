@@ -703,9 +703,6 @@ file_contexts.local.tmp :=
 file_contexts.modules.tmp :=
 
 ##################################
-include $(LOCAL_PATH)/seapp_contexts.mk
-
-##################################
 include $(LOCAL_PATH)/contexts_tests.mk
 
 ##################################
