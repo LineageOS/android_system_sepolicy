@@ -55,6 +55,10 @@ allow virtualizationservice staging_data_file:dir search;
 # Let virtualizationservice to accept vsock connection from the guest VMs
 allow virtualizationservice self:vsock_socket { create_socket_perms_no_ioctl listen accept };
 
+# Allow virtualization to ioctl on dev/kvm only to check if protected VM is supported or not.
+allow virtualizationservice kvm_device:chr_file { open read write };
+allowxperm virtualizationservice kvm_device:chr_file ioctl KVM_CHECK_EXTENSION;
+
 # Allow virtualizationservice to read/write its own sysprop. Only the process can do so.
 set_prop(virtualizationservice, virtualizationservice_prop)
 neverallow {
