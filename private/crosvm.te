@@ -33,6 +33,10 @@ allow crosvm {
 allow crosvm virtualizationservice_data_file:dir search;
 
 # Don't allow crosvm to open files that it doesn't own.
+# This is important because a malicious application could try to start a VM with a composite disk
+# image referring by name to files which it doesn't have permission to open, trying to get crosvm to
+# open them on its behalf. By preventing crosvm from opening any other files we prevent this
+# potential privilege escalation. See http://b/192453819 for more discussion.
 neverallow crosvm {
   virtualizationservice_data_file
   staging_data_file
@@ -74,7 +78,7 @@ full_treble_only(`
 
 # app_data_file (and shell_data_file for debuggable builds) is the only
 # app_data_file_type that is allowed for crosvm to read.  Note that the use of
-# app_data_file is allowed only for the intance disk image.  This is enforced
+# app_data_file is allowed only for the instance disk image.  This is enforced
 # inside the virtualizationservice by checking the file context of all disk
 # image files.
 neverallow crosvm {
