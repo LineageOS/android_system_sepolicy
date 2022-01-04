@@ -16,6 +16,7 @@ virtualizationservice_use(composd)
 # Prepare staging directory for odrefresh
 allow composd apex_art_data_file:dir { create_dir_perms relabelfrom };
 allow composd apex_art_staging_data_file:dir { create_dir_perms relabelto };
+allow composd apex_art_staging_data_file:file { getattr unlink };
 
 # Delete files in the odrefresh target directory
 allow composd apex_art_data_file:file unlink;
