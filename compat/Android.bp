@@ -260,3 +260,7 @@ se_compat_cil {
     stem: "32.0.compat.cil",
     system_ext_specific: true,
 }
+
+se_compat_test {
+    name: "sepolicy_compat_test",
+}

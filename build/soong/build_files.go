@@ -124,4 +124,9 @@ func (b *buildFiles) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 		b.srcs[".product_public_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardProductPublicPrebuiltDirs()...)
 		b.srcs[".product_private_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardProductPrivatePrebuiltDirs()...)
 	}
+
+	for _, ver := range ctx.DeviceConfig().PlatformSepolicyCompatVersions() {
+		b.srcs[".plat_public_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.ModuleDir(), "prebuilts", "api", ver, "public"))
+		b.srcs[".plat_private_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.ModuleDir(), "prebuilts", "api", ver, "private"))
+	}
 }
