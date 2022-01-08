@@ -52,6 +52,10 @@ allow virtualizationservice apex_data_file:dir search;
 allow virtualizationservice staging_data_file:file r_file_perms;
 allow virtualizationservice staging_data_file:dir search;
 
+# Run derive_classpath in our domain
+allow virtualizationservice derive_classpath_exec:file rx_file_perms;
+allow virtualizationservice apex_mnt_dir:dir r_dir_perms;
+
 # Let virtualizationservice to accept vsock connection from the guest VMs
 allow virtualizationservice self:vsock_socket { create_socket_perms_no_ioctl listen accept };
 
@@ -61,6 +65,7 @@ allowxperm virtualizationservice kvm_device:chr_file ioctl KVM_CHECK_EXTENSION;
 
 # Allow virtualizationservice to read/write its own sysprop. Only the process can do so.
 set_prop(virtualizationservice, virtualizationservice_prop)
+
 neverallow {
   domain
   -init
