@@ -349,7 +349,7 @@ ifneq ($(with_asan),true)
 ifneq ($(SELINUX_IGNORE_NEVERALLOWS),true)
 LOCAL_REQUIRED_MODULES += \
     sepolicy_tests \
-    $(addsuffix _compat_test,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
+    sepolicy_compat_test \
 
 ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_REQUIRED_MODULES += \
@@ -769,11 +769,6 @@ $(foreach v,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS), \
   $(eval include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk) \
 )
 endif  # PRODUCT_SEPOLICY_SPLIT
-
-$(foreach v,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS), \
-  $(eval version_under_treble_tests := $(v)) \
-  $(eval include $(LOCAL_PATH)/compat.mk) \
-)
 
 built_plat_sepolicy :=
 built_system_ext_sepolicy :=
