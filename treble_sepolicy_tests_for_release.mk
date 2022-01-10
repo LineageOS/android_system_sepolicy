@@ -164,8 +164,7 @@ $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests \
   $(public_cil_files) \
   $(built_$(version)_plat_sepolicy) $($(version)_compat) $($(version)_mapping.combined.cil)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests -l \
-                $(HOST_OUT)/lib64/libsepolwrap.$(SHAREDLIB_EXT) $(ALL_FC_ARGS) \
+	$(hide) $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests $(ALL_FC_ARGS) \
                 -b $(PRIVATE_PLAT_SEPOLICY) -m $(PRIVATE_COMBINED_MAPPING) \
                 -o $(PRIVATE_SEPOLICY_OLD) -p $(PRIVATE_SEPOLICY) \
                 -u $(PRIVATE_PLAT_PUB_SEPOLICY) \
