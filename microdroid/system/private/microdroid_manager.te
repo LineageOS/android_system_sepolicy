@@ -46,13 +46,6 @@ allow microdroid_manager system_bootstrap_lib_file:file { execute read open geta
 allow microdroid_manager apex_mnt_dir:dir w_dir_perms;
 allow microdroid_manager apex_mnt_dir:file create_file_perms;
 
-# Allow microdroid_manager to ioctl /dev/vsock.
-# TODO(b/199259751): remove the below rules
-allow microdroid_manager vsock_device:chr_file r_file_perms;
-allowxperm microdroid_manager vsock_device:chr_file ioctl {
-    IOCTL_VM_SOCKETS_GET_LOCAL_CID
-};
-
 # Allow microdroid_manager to start the services apexd-vm, apkdmverity and zipfuse
 set_prop(microdroid_manager, ctl_apexd_vm_prop)
 set_prop(microdroid_manager, ctl_apkdmverity_prop)
