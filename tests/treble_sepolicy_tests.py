@@ -20,6 +20,7 @@ import policy
 from policy import MatchPathPrefix
 import re
 import sys
+import distutils.ccompiler
 
 DEBUG=False
 
@@ -341,7 +342,7 @@ Tests = {"CoredomainViolations": TestCoredomainViolations,
          "ViolatorAttributes": TestViolatorAttributes}
 
 if __name__ == '__main__':
-    usage = "treble_sepolicy_tests -l $(ANDROID_HOST_OUT)/lib64/libsepolwrap.so "
+    usage = "treble_sepolicy_tests "
     usage += "-f nonplat_file_contexts -f plat_file_contexts "
     usage += "-p curr_policy -b base_policy -o old_policy "
     usage +="-m mapping file [--test test] [--help]"
@@ -351,7 +352,6 @@ if __name__ == '__main__':
                       metavar="FILE")
     parser.add_option("-f", "--file_contexts", dest="file_contexts",
             metavar="FILE", action="extend", type="string")
-    parser.add_option("-l", "--library-path", dest="libpath", metavar="FILE")
     parser.add_option("-m", "--mapping", dest="mapping", metavar="FILE")
     parser.add_option("-o", "--oldpolicy", dest="oldpolicy", metavar="FILE")
     parser.add_option("-p", "--policy", dest="policy", metavar="FILE")
@@ -362,11 +362,6 @@ if __name__ == '__main__':
 
     (options, args) = parser.parse_args()
 
-    if not options.libpath:
-        sys.exit("Must specify path to libsepolwrap library\n" + parser.usage)
-    if not os.path.exists(options.libpath):
-        sys.exit("Error: library-path " + options.libpath + " does not exist\n"
-                + parser.usage)
     if not options.policy:
         sys.exit("Must specify current monolithic policy file\n" + parser.usage)
     if not os.path.exists(options.policy):
@@ -378,6 +373,11 @@ if __name__ == '__main__':
         if not os.path.exists(f):
             sys.exit("Error: File_contexts file " + f + " does not exist\n" +
                     parser.usage)
+
+    libpath = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+        "libsepolwrap" + distutils.ccompiler.new_compiler().shared_lib_extension)
+    if not os.path.exists(libpath):
+        sys.exit("Error: libsepolwrap does not exist. Is this binary corrupted?\n")
 
     # Mapping files and public platform policy are only necessary for the
     # TrebleCompatMapping test.
@@ -394,8 +394,8 @@ if __name__ == '__main__':
         if not options.base_pub_policy:
             sys.exit("Must specify the current platform-only public policy "
                      + ".cil file\n" + parser.usage)
-        basepol = policy.Policy(options.basepolicy, None, options.libpath)
-        oldpol = policy.Policy(options.oldpolicy, None, options.libpath)
+        basepol = policy.Policy(options.basepolicy, None, libpath)
+        oldpol = policy.Policy(options.oldpolicy, None, libpath)
         mapping = mini_parser.MiniCilParser(options.mapping)
         pubpol = mini_parser.MiniCilParser(options.base_pub_policy)
         compatSetup(basepol, oldpol, mapping, pubpol.types)
@@ -403,7 +403,7 @@ if __name__ == '__main__':
     if options.faketreble:
         FakeTreble = True
 
-    pol = policy.Policy(options.policy, options.file_contexts, options.libpath)
+    pol = policy.Policy(options.policy, options.file_contexts, libpath)
     setup(pol)
 
     if DEBUG:
