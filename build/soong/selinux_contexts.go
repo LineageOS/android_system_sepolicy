@@ -17,6 +17,7 @@ package selinux
 import (
 	"fmt"
 	"io"
+	"os"
 	"strings"
 
 	"github.com/google/blueprint"
@@ -58,11 +59,20 @@ type fileContextsProperties struct {
 	}
 }
 
+type seappProperties struct {
+	// Files containing neverallow rules.
+	Neverallow_files []string `android:"path"`
+
+	// Precompiled sepolicy binary file which will be fed to checkseapp.
+	Sepolicy *string `android:"path"`
+}
+
 type selinuxContextsModule struct {
 	android.ModuleBase
 
 	properties             selinuxContextsProperties
 	fileContextsProperties fileContextsProperties
+	seappProperties        seappProperties
 	build                  func(ctx android.ModuleContext, inputs android.Paths) android.Path
 	deps                   func(ctx android.BottomUpMutatorContext)
 	outputPath             android.Path
@@ -82,6 +92,7 @@ func init() {
 	android.RegisterModuleType("property_contexts", propertyFactory)
 	android.RegisterModuleType("service_contexts", serviceFactory)
 	android.RegisterModuleType("keystore2_key_contexts", keystoreKeyFactory)
+	android.RegisterModuleType("seapp_contexts", seappFactory)
 }
 
 func (m *selinuxContextsModule) InstallInRoot() bool {
@@ -147,6 +158,7 @@ func newModule() *selinuxContextsModule {
 	m.AddProperties(
 		&m.properties,
 		&m.fileContextsProperties,
+		&m.seappProperties,
 	)
 	android.InitAndroidArchModule(m, android.DeviceSupported, android.MultilibCommon)
 	android.AddLoadHook(m, func(ctx android.LoadHookContext) {
@@ -422,6 +434,31 @@ func (m *selinuxContextsModule) buildPropertyContexts(ctx android.ModuleContext,
 	return builtCtxFile
 }
 
+func (m *selinuxContextsModule) buildSeappContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
+	neverallowFile := android.PathForModuleGen(ctx, "neverallow")
+	ret := android.PathForModuleGen(ctx, m.stem())
+
+	rule := android.NewRuleBuilder(pctx, ctx)
+	rule.Command().Text("(grep").
+		Flag("-ihe").
+		Text("'^neverallow'").
+		Inputs(android.PathsForModuleSrc(ctx, m.seappProperties.Neverallow_files)).
+		Text(os.DevNull). // to make grep happy even when Neverallow_files is empty
+		Text(">").
+		Output(neverallowFile).
+		Text("|| true)") // to make ninja happy even when result is empty
+
+	rule.Temporary(neverallowFile)
+	rule.Command().BuiltTool("checkseapp").
+		FlagWithInput("-p ", android.PathForModuleSrc(ctx, proptools.String(m.seappProperties.Sepolicy))).
+		FlagWithOutput("-o ", ret).
+		Inputs(inputs).
+		Input(neverallowFile)
+
+	rule.Build("seapp_contexts", "Building seapp_contexts: "+m.Name())
+	return ret
+}
+
 func hwServiceFactory() android.Module {
 	m := newModule()
 	m.build = m.buildHwServiceContexts
@@ -444,6 +481,12 @@ func serviceFactory() android.Module {
 func keystoreKeyFactory() android.Module {
 	m := newModule()
 	m.build = m.buildGeneralContexts
+	return m
+}
+
+func seappFactory() android.Module {
+	m := newModule()
+	m.build = m.buildSeappContexts
 	return m
 }
 
