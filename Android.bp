@@ -184,6 +184,11 @@ se_build_files {
     srcs: ["keystore2_key_contexts"],
 }
 
+se_build_files {
+    name: "seapp_contexts_files",
+    srcs: ["seapp_contexts"],
+}
+
 // For vts_treble_sys_prop_test
 filegroup {
     name: "private_property_contexts",
@@ -1043,18 +1048,4 @@ se_neverallow_test {
 //////////////////////////////////
 se_freeze_test {
     name: "sepolicy_freeze_test",
-}
-
-//////////////////////////////////
-// Makefile rules temporary imported to Soong
-// TODO(b/33691272): remove these after migrating seapp to Soong
-//////////////////////////////////
-makefile_goal {
-    name: "plat_seapp_contexts_rule",
-    product_out_path: "obj/ETC/plat_seapp_contexts_intermediates/plat_seapp_contexts",
-}
-
-makefile_goal {
-    name: "plat_seapp_neverallows_rule",
-    product_out_path: "obj/ETC/plat_seapp_neverallows_intermediates/plat_seapp_neverallows",
 }

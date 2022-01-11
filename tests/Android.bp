@@ -11,6 +11,7 @@ cc_library_host_shared {
     srcs: ["sepol_wrap.cpp"],
     cflags: ["-Wall", "-Werror",],
     export_include_dirs: ["include"],
+    stl: "c++_static",
 
     // libsepolwrap gets loaded from the system python, which does not have the
     // ASAN runtime. So turn off sanitization for ourself, and  use static
@@ -32,7 +33,7 @@ python_binary_host {
         "policy.py",
         "treble_sepolicy_tests.py",
     ],
-    required: ["libsepolwrap"],
+    data: [":libsepolwrap"],
 }
 
 python_binary_host {
@@ -42,7 +43,7 @@ python_binary_host {
         "policy.py",
         "sepolicy_tests.py",
     ],
-    required: ["libsepolwrap"],
+    data: [":libsepolwrap"],
 }
 
 python_binary_host {
