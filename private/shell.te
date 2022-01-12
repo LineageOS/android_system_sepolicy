@@ -94,6 +94,9 @@ binder_call(shell, lpdumpd)
 # userspace reboot
 set_prop(shell, userspace_reboot_test_prop)
 
+# Allow shell to set this property to disable charging.
+set_prop(shell, power_debug_prop)
+
 # Allow shell to set this property used for rollback tests
 set_prop(shell, rollback_test_prop)
 
