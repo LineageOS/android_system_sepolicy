@@ -101,7 +101,7 @@ func (c *compatCil) AndroidMkEntries() []android.AndroidMkEntries {
 		OutputFile: android.OptionalPathForPath(c.installSource),
 		ExtraEntries: []android.AndroidMkExtraEntriesFunc{
 			func(ctx android.AndroidMkExtraEntriesContext, entries *android.AndroidMkEntries) {
-				entries.SetPath("LOCAL_MODULE_PATH", c.installPath.ToMakePath())
+				entries.SetPath("LOCAL_MODULE_PATH", c.installPath)
 				entries.SetString("LOCAL_INSTALLED_MODULE_STEM", c.stem())
 			},
 		},

@@ -172,7 +172,7 @@ func (m *versionedPolicy) AndroidMkEntries() []android.AndroidMkEntries {
 		ExtraEntries: []android.AndroidMkExtraEntriesFunc{
 			func(ctx android.AndroidMkExtraEntriesContext, entries *android.AndroidMkEntries) {
 				entries.SetBool("LOCAL_UNINSTALLABLE_MODULE", !m.installable())
-				entries.SetPath("LOCAL_MODULE_PATH", m.installPath.ToMakePath())
+				entries.SetPath("LOCAL_MODULE_PATH", m.installPath)
 				entries.SetString("LOCAL_INSTALLED_MODULE_STEM", m.installSource.Base())
 			},
 		},
