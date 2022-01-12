@@ -569,6 +569,9 @@ enforce_debugfs_restriction(`
   }:file no_rw_file_perms;
 ')
 
+# Restrict write access to etm sysfs interface.
+neverallow { domain -ueventd -vendor_init } sysfs_devices_cs_etm:file no_w_file_perms;
+
 # Restrict write access to shell owned files. The /data/local/tmp directory is
 # untrustworthy, and non-allowed domains should not be trusting any content in
 # those directories. We allow shell files to be passed around by file
