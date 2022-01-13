@@ -17,5 +17,9 @@ allow authfs fuse:filesystem relabelfrom;
 allow authfs authfs_fuse:filesystem { mount relabelfrom relabelto };
 allow authfs authfs_data_file:dir { mounton search };
 
+# Allow authfs to access extra APK mount.
+allow authfs extra_apk_file:file r_file_perms;
+allow authfs extra_apk_file:dir search;
+
 # TODO(195568812): Don't pass FD 0,1,2 unnecessarily.
 allow authfs authfs_service:fd use;
