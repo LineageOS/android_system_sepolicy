@@ -296,9 +296,11 @@ ro.virtual_ab.retrofit  u:object_r:virtual_ab_prop:s0 exact bool
 ro.virtual_ab.compression.enabled  u:object_r:virtual_ab_prop:s0 exact bool
 ro.virtual_ab.compression.xor.enabled   u:object_r:virtual_ab_prop:s0 exact bool
 ro.virtual_ab.userspace.snapshots.enabled u:object_r:virtual_ab_prop:s0 exact bool
+ro.virtual_ab.io_uring.enabled u:object_r:virtual_ab_prop:s0 exact bool
 snapuserd.ready         u:object_r:snapuserd_prop:s0 exact bool
 snapuserd.proxy_ready   u:object_r:snapuserd_prop:s0 exact bool
 snapuserd.test.dm.snapshots u:object_r:snapuserd_prop:s0 exact bool
+snapuserd.test.io_uring.force_disable u:object_r:snapuserd_prop:s0 exact bool
 
 ro.product.ab_ota_partitions u:object_r:ota_prop:s0 exact string
 # Property to set/clear the warm reset flag after an OTA update.
