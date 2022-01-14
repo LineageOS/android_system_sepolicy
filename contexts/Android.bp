@@ -298,3 +298,137 @@ genrule {
     out: ["plat_seapp_neverallows"],
     cmd: "grep -ihe '^neverallow' $(in) > $(out) || true",
 }
+
+//////////////////////////////////
+// Run host-side test with contexts files and the sepolicy file
+file_contexts_test {
+    name: "plat_file_contexts_test",
+    srcs: [":plat_file_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+file_contexts_test {
+    name: "system_ext_file_contexts_test",
+    srcs: [":system_ext_file_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+file_contexts_test {
+    name: "product_file_contexts_test",
+    srcs: [":product_file_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+file_contexts_test {
+    name: "vendor_file_contexts_test",
+    srcs: [":vendor_file_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+file_contexts_test {
+    name: "odm_file_contexts_test",
+    srcs: [":odm_file_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+hwservice_contexts_test {
+    name: "plat_hwservice_contexts_test",
+    srcs: [":plat_hwservice_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+hwservice_contexts_test {
+    name: "system_ext_hwservice_contexts_test",
+    srcs: [":system_ext_hwservice_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+hwservice_contexts_test {
+    name: "product_hwservice_contexts_test",
+    srcs: [":product_hwservice_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+hwservice_contexts_test {
+    name: "vendor_hwservice_contexts_test",
+    srcs: [":vendor_hwservice_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+hwservice_contexts_test {
+    name: "odm_hwservice_contexts_test",
+    srcs: [":odm_hwservice_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+property_contexts_test {
+    name: "plat_property_contexts_test",
+    srcs: [":plat_property_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+property_contexts_test {
+    name: "system_ext_property_contexts_test",
+    srcs: [
+        ":plat_property_contexts",
+        ":system_ext_property_contexts",
+    ],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+property_contexts_test {
+    name: "product_property_contexts_test",
+    srcs: [
+        ":plat_property_contexts",
+        ":system_ext_property_contexts",
+        ":product_property_contexts",
+    ],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+property_contexts_test {
+    name: "vendor_property_contexts_test",
+    srcs: [
+        ":plat_property_contexts",
+        ":system_ext_property_contexts",
+        ":product_property_contexts",
+        ":vendor_property_contexts",
+    ],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+property_contexts_test {
+    name: "odm_property_contexts_test",
+    srcs: [
+        ":plat_property_contexts",
+        ":system_ext_property_contexts",
+        ":product_property_contexts",
+        ":vendor_property_contexts",
+        ":odm_property_contexts",
+    ],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+service_contexts_test {
+    name: "plat_service_contexts_test",
+    srcs: [":plat_service_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+service_contexts_test {
+    name: "system_ext_service_contexts_test",
+    srcs: [":system_ext_service_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+service_contexts_test {
+    name: "product_service_contexts_test",
+    srcs: [":product_service_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+service_contexts_test {
+    name: "vendor_service_contexts_test",
+    srcs: [":vendor_service_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
