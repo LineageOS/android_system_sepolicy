@@ -71,3 +71,13 @@ neverallow supplemental_process { sdcard_type media_rw_data_file }:dir search;
 # Avoid reads to proc_net, it contains too much device wide information about
 # ongoing connections.
 neverallow supplemental_process proc_net:file no_rw_file_perms;
+
+# Supplemental process doesn't have its own private app data directory
+neverallow supplemental_process { app_data_file privapp_data_file }:dir no_rw_file_perms;
+neverallow supplemental_process { app_data_file privapp_data_file }:file no_rw_file_perms;
+
+# Supplemental process doesn't have any access to external storage
+neverallow supplemental_process { media_rw_data_file }:dir no_rw_file_perms;
+neverallow supplemental_process { media_rw_data_file }:file no_rw_file_perms;
+
+neverallow { supplemental_process } tmpfs:dir no_rw_file_perms;
