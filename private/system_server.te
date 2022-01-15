@@ -1114,6 +1114,10 @@ allow system_server fs_bpf:dir search;
 allow system_server fs_bpf:file { read write };
 allow system_server bpfloader:bpf { map_read map_write prog_run };
 
+# Allow system_server to start clatd in its own domain and kill it.
+domain_auto_trans(system_server, clatd_exec, clatd)
+allow system_server clatd:process signal;
+
 # ART Profiles.
 # Allow system_server to open profile snapshots for read.
 # System server never reads the actual content. It passes the descriptor to
@@ -1201,8 +1205,8 @@ neverallow system_server {
 }:file execute_no_trans;
 
 # Ensure that system_server doesn't perform any domain transitions other than
-# transitioning to the crash_dump domain when a crash occurs.
-neverallow system_server { domain -crash_dump }:process transition;
+# transitioning to the crash_dump domain when a crash occurs or fork clatd.
+neverallow system_server { domain -clatd -crash_dump }:process transition;
 neverallow system_server *:process dyntransition;
 
 # Only allow crash_dump to connect to system_ndebug_socket.
