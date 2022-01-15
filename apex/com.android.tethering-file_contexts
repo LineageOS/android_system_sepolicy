@@ -1,1 +1,2 @@
-(/.*)?           u:object_r:system_file:s0
+(/.*)?                  u:object_r:system_file:s0
+/bin/for-system/clatd   u:object_r:clatd_exec:s0

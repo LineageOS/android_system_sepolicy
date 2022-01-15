@@ -10,6 +10,8 @@ get_prop(logd, device_logging_prop)
 neverallow logd {
   file_type
   -runtime_event_log_tags_file
+  # shell_data_file access is needed to dump bugreports
+  -shell_data_file
   userdebug_or_eng(`-coredump_file -misc_logd_file')
   with_native_coverage(`-method_trace_data_file')
 }:file { create write append };
@@ -39,3 +41,11 @@ neverallow {
   userdebug_or_eng(`-su')
   -system_app
 } runtime_event_log_tags_file:file no_rw_file_perms;
+
+# Only binder communication between logd and system_server is allowed
+binder_use(logd)
+binder_service(logd)
+binder_call(logd, system_server)
+
+add_service(logd, logd_service)
+allow logd logcat_service:service_manager find;
