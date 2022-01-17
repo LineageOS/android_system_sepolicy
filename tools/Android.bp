@@ -63,3 +63,8 @@ python_binary_host {
     name: "insertkeys",
     srcs: ["insertkeys.py"],
 }
+
+python_binary_host {
+    name: "sepolicy_generate_compat",
+    srcs: ["sepolicy_generate_compat.py"],
+}
