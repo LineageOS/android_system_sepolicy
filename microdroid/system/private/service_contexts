@@ -1,3 +1,4 @@
+android.hardware.security.dice.IDiceDevice/default                   u:object_r:hal_dice_service:s0
 android.hardware.security.keymint.IKeyMintDevice/default             u:object_r:hal_keymint_service:s0
 android.hardware.security.keymint.IRemotelyProvisionedComponent/default u:object_r:hal_remotelyprovisionedcomponent_service:s0
 android.hardware.security.secureclock.ISecureClock/default             u:object_r:hal_secureclock_service:s0
@@ -8,6 +9,8 @@ adb                                       u:object_r:adb_service:s0
 android.security.apc                      u:object_r:apc_service:s0
 android.security.authorization            u:object_r:authorization_service:s0
 android.security.compat                   u:object_r:keystore_compat_hal_service:s0
+android.security.dice.IDiceMaintenance    u:object_r:dice_maintenance_service:s0
+android.security.dice.IDiceNode           u:object_r:dice_node_service:s0
 android.security.identity                 u:object_r:credstore_service:s0
 android.security.keystore                 u:object_r:keystore_service:s0
 android.security.legacykeystore           u:object_r:legacykeystore_service:s0
