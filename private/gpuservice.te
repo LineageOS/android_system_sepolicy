@@ -51,11 +51,12 @@ allow gpuservice self:perf_event { cpu kernel open write };
 neverallow gpuservice self:perf_event ~{ cpu kernel open write };
 
 # Needed for interact with bpf fs.
+# Write is needed to open read/write bpf maps.
 allow gpuservice fs_bpf:dir search;
-allow gpuservice fs_bpf:file read;
+allow gpuservice fs_bpf:file { read write };
 
-# Needed for enable the bpf program and read the map.
-allow gpuservice bpfloader:bpf { map_read prog_run };
+# Needed for enabling bpf programs and accessing bpf maps (read-only and read/write).
+allow gpuservice bpfloader:bpf { map_read map_write prog_run };
 
 # Needed for getting a prop to ensure bpf programs loaded.
 get_prop(gpuservice, bpf_progs_loaded_prop)
