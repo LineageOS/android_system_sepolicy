@@ -1,4 +1,5 @@
 # Declare ART properties for CompOS
+system_public_prop(dalvik_config_ignored_prop)
 system_public_prop(dalvik_config_prop)
 system_restricted_prop(device_config_runtime_native_prop)
 
