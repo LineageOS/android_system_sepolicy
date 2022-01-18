@@ -12,3 +12,8 @@ allow hal_graphics_allocator dmabuf_system_heap_device:chr_file r_file_perms;
 
 # allow to run with real-time scheduling policy
 allow hal_graphics_allocator self:global_capability_class_set sys_nice;
+
+# IAllocator stable-aidl
+hal_attribute_service(hal_graphics_allocator, hal_graphics_allocator_service)
+binder_call(hal_graphics_allocator_server, servicemanager)
+binder_call(hal_graphics_allocator_client, servicemanager)
