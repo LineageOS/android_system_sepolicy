@@ -35,4 +35,5 @@
 
 /bin/install-recovery\.sh u:object_r:vendor_install_recovery_exec:s0
 
+/bin/hw/android\.hardware\.security\.dice-service\.microdroid u:object_r:hal_dice_default_exec:s0
 /bin/hw/android\.hardware\.security\.keymint-service\.microdroid u:object_r:hal_keymint_default_exec:s0
