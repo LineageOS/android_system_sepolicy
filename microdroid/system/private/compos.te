@@ -44,6 +44,3 @@ dontaudit compos self:global_capability_class_set dac_override;
 # TODO(b/209008712): Remove dex2oat once the migration is done.
 domain_auto_trans(compos, odrefresh_exec, odrefresh)
 domain_auto_trans(compos, dex2oat_exec, dex2oat)
-
-# Allow compos to set dalvik.vm.boot-dex2oat-threads
-set_prop(compos, dalvik_config_prop)
