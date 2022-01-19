@@ -1,5 +1,4 @@
 type attention_service,             system_server_service, service_manager_type;
-type compos_internal_service,       service_manager_type;
 type compos_service,                service_manager_type;
 type dynamic_system_service,        system_api_service, system_server_service, service_manager_type;
 type gsi_service,                   service_manager_type;
