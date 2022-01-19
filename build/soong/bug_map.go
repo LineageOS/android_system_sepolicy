@@ -104,7 +104,7 @@ func (b *bugMap) AndroidMkEntries() []android.AndroidMkEntries {
 		OutputFile: android.OptionalPathForPath(b.installSource),
 		ExtraEntries: []android.AndroidMkExtraEntriesFunc{
 			func(ctx android.AndroidMkExtraEntriesContext, entries *android.AndroidMkEntries) {
-				entries.SetPath("LOCAL_MODULE_PATH", b.installPath.ToMakePath())
+				entries.SetPath("LOCAL_MODULE_PATH", b.installPath)
 				entries.SetString("LOCAL_INSTALLED_MODULE_STEM", b.stem())
 			},
 		},
