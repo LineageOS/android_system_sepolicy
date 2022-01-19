@@ -253,6 +253,7 @@ allow dumpstate {
   -apex_service
   -dumpstate_service
   -gatekeeper_service
+  -hal_wifi_supplicant_service
   -virtual_touchpad_service
   -vold_service
   -default_android_service
@@ -262,6 +263,7 @@ dontaudit dumpstate {
   apex_service
   dumpstate_service
   gatekeeper_service
+  hal_wifi_supplicant_service
   virtual_touchpad_service
   vold_service
 }:service_manager find;
