@@ -192,7 +192,7 @@ func (m *selinuxContextsModule) AndroidMk() android.AndroidMkData {
 		SubName:    nameSuffix,
 		Extra: []android.AndroidMkExtraFunc{
 			func(w io.Writer, outputFile android.Path) {
-				fmt.Fprintln(w, "LOCAL_MODULE_PATH :=", m.installPath.ToMakePath().String())
+				fmt.Fprintln(w, "LOCAL_MODULE_PATH :=", m.installPath.String())
 				fmt.Fprintln(w, "LOCAL_INSTALLED_MODULE_STEM :=", m.stem())
 			},
 		},
