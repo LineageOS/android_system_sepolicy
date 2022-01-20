@@ -1,0 +1,6 @@
+type hal_drm_clearkey_aidl, domain;
+type hal_drm_clearkey_aidl_exec, exec_type, vendor_file_type, file_type;
+
+init_daemon_domain(hal_drm_clearkey_aidl)
+
+hal_server_domain(hal_drm_clearkey_aidl, hal_drm)
