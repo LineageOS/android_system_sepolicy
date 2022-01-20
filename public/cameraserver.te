@@ -35,6 +35,7 @@ allow cameraserver sensor_privacy_service:service_manager find;
 allow cameraserver surfaceflinger_service:service_manager find;
 
 allow cameraserver hidl_token_hwservice:hwservice_manager find;
+allow cameraserver hal_camera_service:service_manager find;
 
 # Allow to talk with surfaceflinger through unix stream socket
 allow cameraserver surfaceflinger:unix_stream_socket { read write };
