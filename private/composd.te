@@ -5,7 +5,6 @@ type composd_exec, system_file_type, exec_type, file_type;
 init_daemon_domain(composd)
 binder_use(composd)
 add_service(composd, compos_service)
-add_service(composd, compos_internal_service)
 
 # Call back into system server
 binder_call(composd, system_server)
