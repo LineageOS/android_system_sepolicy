@@ -62,6 +62,7 @@ allow bluetooth app_api_service:service_manager find;
 allow bluetooth system_api_service:service_manager find;
 allow bluetooth network_stack_service:service_manager find;
 allow bluetooth system_suspend_control_service:service_manager find;
+allow bluetooth hal_audio_service:service_manager find;
 
 # already open bugreport file descriptors may be shared with
 # the bluetooth process, from a file in
