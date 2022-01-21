@@ -4,18 +4,10 @@ type clatd_exec, system_file_type, exec_type, file_type;
 
 net_domain(clatd)
 
-r_dir_file(clatd, proc_net_type)
-userdebug_or_eng(`
-  auditallow clatd proc_net_type:{ dir file lnk_file } { getattr open read };
-')
-
 # Access objects inherited from netd.
 allow clatd netd:fd use;
-allow clatd netd:fifo_file { read write };
 allow clatd netd:packet_socket { read write };
 allow clatd netd:rawip_socket { read write };
-
-allow clatd self:global_capability_class_set { net_admin net_raw setuid setgid };
 
 allow clatd self:netlink_route_socket nlmsg_write;
 allow clatd tun_device:chr_file rw_file_perms;
