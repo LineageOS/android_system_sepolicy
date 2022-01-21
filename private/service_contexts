@@ -84,6 +84,7 @@ android.security.remoteprovisioning       u:object_r:remoteprovisioning_service:
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
 android.system.composd                    u:object_r:compos_service:s0
 android.system.virtualizationservice      u:object_r:virtualization_service:s0
+ambient_context                           u:object_r:ambient_context_service:s0
 app_binding                               u:object_r:app_binding_service:s0
 app_hibernation                           u:object_r:app_hibernation_service:s0
 app_integrity                             u:object_r:app_integrity_service:s0
@@ -331,7 +332,7 @@ time_zone_detector                        u:object_r:timezonedetector_service:s0
 timezone                                  u:object_r:timezone_service:s0
 thermalservice                            u:object_r:thermal_service:s0
 tracing.proxy                             u:object_r:tracingproxy_service:s0
-translation                              u:object_r:translation_service:s0
+translation                               u:object_r:translation_service:s0
 transparency                              u:object_r:transparency_service:s0
 trust                                     u:object_r:trust_service:s0
 tv_interactive_app                        u:object_r:tv_iapp_service:s0
