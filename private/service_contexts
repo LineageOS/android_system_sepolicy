@@ -3,13 +3,16 @@ android.hardware.automotive.vehicle.IVehicle/default                 u:object_r:
 android.hardware.automotive.audiocontrol.IAudioControl/default       u:object_r:hal_audiocontrol_service:s0
 android.hardware.biometrics.face.IFace/default                       u:object_r:hal_face_service:s0
 android.hardware.biometrics.fingerprint.IFingerprint/default         u:object_r:hal_fingerprint_service:s0
+android.hardware.bluetooth.audio.IBluetoothAudioProviderFactory/default u:object_r:hal_audio_service:s0
 android.hardware.contexthub.IContextHub/default                      u:object_r:hal_contexthub_service:s0
 android.hardware.dumpstate.IDumpstateDevice/default                  u:object_r:hal_dumpstate_service:s0
 android.hardware.gnss.IGnss/default                                  u:object_r:hal_gnss_service:s0
+android.hardware.graphics.allocator.IAllocator/default               u:object_r:hal_graphics_allocator_service:s0
 android.hardware.graphics.composer3.IComposer/default                u:object_r:hal_graphics_composer_service:s0
 android.hardware.health.storage.IStorage/default                     u:object_r:hal_health_storage_service:s0
 android.hardware.health.IHealth/default                              u:object_r:hal_health_service:s0
 android.hardware.identity.IIdentityCredentialStore/default           u:object_r:hal_identity_service:s0
+android.hardware.input.processor.IInputProcessor/default           u:object_r:hal_input_processor_service:s0
 android.hardware.ir.IConsumerIr/default                              u:object_r:hal_ir_service:s0
 android.hardware.light.ILights/default                               u:object_r:hal_light_service:s0
 android.hardware.memtrack.IMemtrack/default                          u:object_r:hal_memtrack_service:s0
@@ -45,6 +48,7 @@ android.hardware.security.sharedsecret.ISharedSecret/default             u:objec
 android.hardware.sensors.ISensors/default                            u:object_r:hal_sensors_service:s0
 android.hardware.soundtrigger3.ISoundTriggerHw/default               u:object_r:hal_audio_service:s0
 android.hardware.tv.tuner.ITuner/default                             u:object_r:hal_tv_tuner_service:s0
+android.hardware.usb.IUsb/default                                    u:object_r:hal_usb_service:s0
 android.hardware.uwb.IUwb/default                                    u:object_r:hal_uwb_service:s0
 android.hardware.vibrator.IVibrator/default                          u:object_r:hal_vibrator_service:s0
 android.hardware.vibrator.IVibratorManager/default                   u:object_r:hal_vibrator_service:s0
@@ -81,6 +85,7 @@ android.security.remoteprovisioning       u:object_r:remoteprovisioning_service:
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
 android.system.composd                    u:object_r:compos_service:s0
 android.system.virtualizationservice      u:object_r:virtualization_service:s0
+ambient_context                           u:object_r:ambient_context_service:s0
 app_binding                               u:object_r:app_binding_service:s0
 app_hibernation                           u:object_r:app_hibernation_service:s0
 app_integrity                             u:object_r:app_integrity_service:s0
@@ -328,9 +333,10 @@ time_zone_detector                        u:object_r:timezonedetector_service:s0
 timezone                                  u:object_r:timezone_service:s0
 thermalservice                            u:object_r:thermal_service:s0
 tracing.proxy                             u:object_r:tracingproxy_service:s0
-translation                              u:object_r:translation_service:s0
+translation                               u:object_r:translation_service:s0
+transparency                              u:object_r:transparency_service:s0
 trust                                     u:object_r:trust_service:s0
-tv_iapp                                   u:object_r:tv_iapp_service:s0
+tv_interactive_app                        u:object_r:tv_iapp_service:s0
 tv_input                                  u:object_r:tv_input_service:s0
 tv_tuner_resource_mgr                     u:object_r:tv_tuner_resource_mgr_service:s0
 uce                                       u:object_r:uce_service:s0
@@ -351,6 +357,7 @@ vold                                      u:object_r:vold_service:s0
 vpn_management                            u:object_r:vpn_management_service:s0
 vrmanager                                 u:object_r:vr_manager_service:s0
 wallpaper                                 u:object_r:wallpaper_service:s0
+wallpaper_effects_generation              u:object_r:wallpaper_effects_generation_service:s0
 webviewupdate                             u:object_r:webviewupdate_service:s0
 wifip2p                                   u:object_r:wifip2p_service:s0
 wifiscanner                               u:object_r:wifiscanner_service:s0
