@@ -296,6 +296,7 @@ hal_client_domain(system_server, hal_gnss)
 hal_client_domain(system_server, hal_graphics_allocator)
 hal_client_domain(system_server, hal_health)
 hal_client_domain(system_server, hal_input_classifier)
+hal_client_domain(system_server, hal_input_processor)
 hal_client_domain(system_server, hal_ir)
 hal_client_domain(system_server, hal_light)
 hal_client_domain(system_server, hal_memtrack)
@@ -402,7 +403,7 @@ allow system_server mac_perms_file: file r_file_perms;
 # Check SELinux permissions.
 selinux_check_access(system_server)
 
-allow system_server sysfs_type:dir search;
+allow system_server sysfs_type:dir r_dir_perms;
 
 r_dir_file(system_server, sysfs_android_usb)
 allow system_server sysfs_android_usb:file w_file_perms;

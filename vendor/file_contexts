@@ -10,7 +10,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.can@1\.0-service  u:object_r:hal_can_socketcan_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.evs@1\.[0-9]-service  u:object_r:hal_evs_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@2\.0-((default|emulator)-)*(service|protocan-service)  u:object_r:hal_vehicle_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@V1-default-service u:object_r:hal_vehicle_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@V1-(default|emulator)-service u:object_r:hal_vehicle_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.[0-9]+-service      u:object_r:hal_bluetooth_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.[0-9]+-service\.btlinux    u:object_r:hal_bluetooth_btlinux_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.face@1\.[0-9]+-service\.example u:object_r:hal_face_default_exec:s0
@@ -52,6 +52,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.health\.storage-service\.default   u:object_r:hal_health_storage_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.identity-service.example u:object_r:hal_identity_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.input\.classifier@1\.0-service     u:object_r:hal_input_classifier_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.input\.processor-service     u:object_r:hal_input_processor_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.ir@1\.0-service             u:object_r:hal_ir_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.ir-service\.example          u:object_r:hal_ir_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.keymaster@3\.0-service      u:object_r:hal_keymaster_default_exec:s0
@@ -88,6 +89,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.tv\.tuner@1\.[01]-service   u:object_r:hal_tv_tuner_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.tv\.tuner-service\.example  u:object_r:hal_tv_tuner_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.usb@1\.0-service            u:object_r:hal_usb_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.usb-service\.example        u:object_r:hal_usb_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.usb\.gadget@1\.1-service    u:object_r:hal_usb_gadget_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.uwb-service                 u:object_r:hal_uwb_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.vibrator@1\.0-service       u:object_r:hal_vibrator_default_exec:s0
