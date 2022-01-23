@@ -5,5 +5,4 @@ type hal_dice_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_dice_default)
 
 # hal_dice_default is using bootstrap bionic
-allow hal_dice_default system_bootstrap_lib_file:dir r_dir_perms;
-allow hal_dice_default system_bootstrap_lib_file:file { execute read open getattr map };
+use_bootstrap_libs(hal_dice_default)
