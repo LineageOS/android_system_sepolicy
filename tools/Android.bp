@@ -67,4 +67,6 @@ python_binary_host {
 python_binary_host {
     name: "sepolicy_generate_compat",
     srcs: ["sepolicy_generate_compat.py"],
+    libs: ["mini_cil_parser", "pysepolwrap"],
+    data: [":libsepolwrap"],
 }
