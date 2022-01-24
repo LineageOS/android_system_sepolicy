@@ -41,6 +41,12 @@ allow microdroid_manager self:vsock_socket { create_socket_perms_no_ioctl };
 allow microdroid_manager system_bootstrap_lib_file:dir r_dir_perms;
 allow microdroid_manager system_bootstrap_lib_file:file { execute read open getattr map };
 
+# microdroid_manager can talk to diced over binder
+binder_use(microdroid_manager)
+binder_call(microdroid_manager, diced)
+allow microdroid_manager { dice_node_service dice_maintenance_service }:service_manager find;
+allow microdroid_manager diced:diced { derive demote_self };
+
 # microdroid_manager create /apex/vm-payload-metadata for apexd
 # TODO(b/199371341) create a new label for the file so that only microdroid_manager can create it.
 allow microdroid_manager apex_mnt_dir:dir w_dir_perms;
