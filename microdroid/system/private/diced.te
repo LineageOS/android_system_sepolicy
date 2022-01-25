@@ -17,5 +17,4 @@ add_service(diced, dice_maintenance_service)
 selinux_check_access(diced)
 
 # diced is using bootstrap bionic
-allow diced system_bootstrap_lib_file:dir r_dir_perms;
-allow diced system_bootstrap_lib_file:file { execute read open getattr map };
+use_bootstrap_libs(diced)
