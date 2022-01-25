@@ -33,6 +33,7 @@ allow atrace {
   -installd_service
   -iorapd_service
   -lpdump_service
+  -mdns_service
   -netd_service
   -stats_service
   -tracingproxy_service
