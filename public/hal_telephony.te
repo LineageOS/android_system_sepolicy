@@ -3,13 +3,7 @@ binder_call(hal_telephony_client, hal_telephony_server)
 binder_call(hal_telephony_server, hal_telephony_client)
 
 hal_attribute_hwservice(hal_telephony, hal_telephony_hwservice)
-hal_attribute_service(hal_telephony, hal_radio_config_service)
-hal_attribute_service(hal_telephony, hal_radio_data_service)
-hal_attribute_service(hal_telephony, hal_radio_messaging_service)
-hal_attribute_service(hal_telephony, hal_radio_modem_service)
-hal_attribute_service(hal_telephony, hal_radio_network_service)
-hal_attribute_service(hal_telephony, hal_radio_sim_service)
-hal_attribute_service(hal_telephony, hal_radio_voice_service)
+hal_attribute_service(hal_telephony, hal_radio_service)
 
 allowxperm hal_telephony_server self:udp_socket ioctl priv_sock_ioctls;
 
