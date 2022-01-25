@@ -38,8 +38,7 @@ userdebug_or_eng(`
 allow microdroid_manager self:vsock_socket { create_socket_perms_no_ioctl };
 
 # microdroid_manager is using bootstrap bionic
-allow microdroid_manager system_bootstrap_lib_file:dir r_dir_perms;
-allow microdroid_manager system_bootstrap_lib_file:file { execute read open getattr map };
+use_bootstrap_libs(microdroid_manager)
 
 # microdroid_manager can talk to diced over binder
 binder_use(microdroid_manager)

@@ -81,8 +81,7 @@ allow apexd apexd_exec:file execute_no_trans;
 allow apexd rootfs:dir mounton;
 
 # apexd is using bootstrap bionic
-allow apexd system_bootstrap_lib_file:dir r_dir_perms;
-allow apexd system_bootstrap_lib_file:file { execute read open getattr map };
+use_bootstrap_libs(apexd)
 
 # Allow apexd to read file contexts when performing restorecon
 allow apexd file_contexts_file:file r_file_perms;
