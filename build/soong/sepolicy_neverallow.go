@@ -152,10 +152,11 @@ func (n *neverallowTestModule) GenerateAndroidBuildActions(ctx android.ModuleCon
 		FlagWithArg("-c ", strconv.Itoa(PolicyVers)).
 		FlagWithOutput("-o ", binaryPolicy).
 		Input(checkpolicyConfPath)
+	rule.Build("neverallow_checkpolicy", "Neverallow check: "+ctx.ModuleName())
 
 	// Step 2. Run sepolicy-analyze with the conf file without the build test and binary policy
 	// file from Step 1
-
+	rule = android.NewRuleBuilder(pctx, ctx)
 	msg := `sepolicy-analyze failed. This is most likely due to the use\n` +
 		`of an expanded attribute in a neverallow assertion. Please fix\n` +
 		`the policy.`
@@ -170,9 +171,8 @@ func (n *neverallowTestModule) GenerateAndroidBuildActions(ctx android.ModuleCon
 		Text(`"` + msg + `"`).
 		Text("; exit 1)")
 
-	rule.Temporary(binaryPolicy)
 	rule.Command().Text("touch").Output(n.testTimestamp)
-	rule.Build("neverallow", "Neverallow check: "+ctx.ModuleName())
+	rule.Build("neverallow_sepolicy-analyze", "Neverallow check: "+ctx.ModuleName())
 }
 
 func (n *neverallowTestModule) AndroidMkEntries() []android.AndroidMkEntries {
