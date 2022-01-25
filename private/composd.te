@@ -25,11 +25,6 @@ allow composd apex_module_data_file:dir search;
 allow composd apex_compos_data_file:dir create_dir_perms;
 allow composd apex_compos_data_file:file create_file_perms;
 
-# TODO(b/209008712): Remove these when we run odrefresh in the VM
-# Run odrefresh to refresh ART artifacts, and kill it if we need to
-domain_auto_trans(composd, odrefresh_exec, odrefresh)
-allow composd odrefresh:process sigkill;
-
 # Run fd_server in its own domain, and send SIGTERM when finished.
 domain_auto_trans(composd, fd_server_exec, compos_fd_server)
 allow composd compos_fd_server:process signal;

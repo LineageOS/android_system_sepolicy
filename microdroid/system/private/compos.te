@@ -30,5 +30,5 @@ dontaudit compos self:dir write;
 # See b/35323867#comment3
 dontaudit compos self:global_capability_class_set dac_override;
 
-# Allow domain transition into odrefresh and dex2oat.
+# Allow domain transition into odrefresh.
 domain_auto_trans(compos, odrefresh_exec, odrefresh)
