@@ -85,6 +85,7 @@ allow shell {
   -incident_service
   -installd_service
   -iorapd_service
+  -mdns_service
   -netd_service
   -system_suspend_control_internal_service
   -system_suspend_control_service
