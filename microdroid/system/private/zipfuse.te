@@ -7,8 +7,7 @@ type zipfuse, domain, coredomain;
 type zipfuse_exec, exec_type, file_type, system_file_type;
 
 # zipfuse is using bootstrap bionic
-allow zipfuse system_bootstrap_lib_file:dir r_dir_perms;
-allow zipfuse system_bootstrap_lib_file:file { execute read open getattr map };
+use_bootstrap_libs(zipfuse)
 
 # allow basic rules to implement FUSE
 allow zipfuse fuse_device:chr_file rw_file_perms;
