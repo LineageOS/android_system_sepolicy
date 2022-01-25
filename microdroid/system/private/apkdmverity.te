@@ -4,8 +4,7 @@ type apkdmverity, domain, coredomain;
 type apkdmverity_exec, exec_type, file_type, system_file_type;
 
 # apkdmverity is using bootstrap bionic
-allow apkdmverity system_bootstrap_lib_file:dir r_dir_perms;
-allow apkdmverity system_bootstrap_lib_file:file { execute read open getattr map };
+use_bootstrap_libs(apkdmverity)
 
 # apkdmverity accesses "payload metadata disk" which points to
 # a /dev/vd* block device file.

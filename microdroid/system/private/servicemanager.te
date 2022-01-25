@@ -27,5 +27,4 @@ add_service(servicemanager, service_manager_service)
 set_prop(servicemanager, ctl_interface_start_prop)
 
 # servicemanager is using bootstrap bionic
-allow servicemanager system_bootstrap_lib_file:dir r_dir_perms;
-allow servicemanager system_bootstrap_lib_file:file { execute read open getattr map };
+use_bootstrap_libs(servicemanager)
