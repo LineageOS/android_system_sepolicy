@@ -106,8 +106,8 @@
 /system/bin/linkerconfig u:object_r:linkerconfig_exec:s0
 /system/bin/bootstrap/linker(64)? u:object_r:system_linker_exec:s0
 /system/bin/bootstrap/linkerconfig u:object_r:linkerconfig_exec:s0
-/system/bin/diced		u:object_r:diced_exec:s0
-/system/bin/servicemanager	u:object_r:servicemanager_exec:s0
+/system/bin/diced.microdroid		u:object_r:diced_exec:s0
+/system/bin/servicemanager.microdroid	u:object_r:servicemanager_exec:s0
 /system/bin/hwservicemanager	u:object_r:hwservicemanager_exec:s0
 /system/bin/init		u:object_r:init_exec:s0
 /system/bin/keystore2	u:object_r:keystore_exec:s0

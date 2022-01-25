@@ -865,6 +865,9 @@ precompiled_se_policy_binary {
         "sepolicy_neverallows",
         "sepolicy_neverallows_vendor",
     ],
+    dist: {
+        targets: ["base-sepolicy-files-for-mapping"],
+    },
 }
 
 // policy for recovery
@@ -933,6 +936,9 @@ se_policy_binary {
     name: "base_plat_sepolicy",
     srcs: [":base_plat_sepolicy.cil"],
     installable: false,
+    dist: {
+        targets: ["base-sepolicy-files-for-mapping"],
+    },
 }
 
 se_policy_conf {
@@ -1003,6 +1009,9 @@ se_policy_cil {
     filter_out: [":reqd_policy_mask.cil"],
     secilc_check: false,
     installable: false,
+    dist: {
+        targets: ["base-sepolicy-files-for-mapping"],
+    },
 }
 
 se_policy_conf {

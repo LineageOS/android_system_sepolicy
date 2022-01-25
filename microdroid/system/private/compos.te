@@ -7,23 +7,13 @@ allow compos self:vsock_socket { create_socket_perms_no_ioctl listen accept };
 
 # Allow using various binder services
 binder_use(compos);
-use_keystore(compos);
 allow compos {
     authfs_binder_service
     dice_node_service
 }:service_manager find;
 binder_call(compos, authfs_service);
 binder_call(compos, diced);
-allow compos diced:diced { get_attestation_chain use_sign };
-
-# Allow payloads to use and manage their keys
-allow compos vm_payload_key:keystore2_key {
-    delete
-    get_info
-    manage_blob
-    rebind
-    use
-};
+allow compos diced:diced { get_attestation_chain derive };
 
 # Read artifacts created by odrefresh and create signature files.
 allow compos authfs_fuse:dir rw_dir_perms;
@@ -41,6 +31,4 @@ dontaudit compos self:dir write;
 dontaudit compos self:global_capability_class_set dac_override;
 
 # Allow domain transition into odrefresh and dex2oat.
-# TODO(b/209008712): Remove dex2oat once the migration is done.
 domain_auto_trans(compos, odrefresh_exec, odrefresh)
-domain_auto_trans(compos, dex2oat_exec, dex2oat)
