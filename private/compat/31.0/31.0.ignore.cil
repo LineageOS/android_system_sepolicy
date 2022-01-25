@@ -22,13 +22,7 @@
     hal_dumpstate_service
     hal_graphics_composer_service
     hal_health_service
-    hal_radio_config_service
-    hal_radio_data_service
-    hal_radio_messaging_service
-    hal_radio_modem_service
-    hal_radio_network_service
-    hal_radio_sim_service
-    hal_radio_voice_service
+    hal_radio_service
     hal_sensors_service
     hal_system_suspend_service
     hal_tv_tuner_service
