@@ -207,6 +207,7 @@ logcat                                    u:object_r:logcat_service:s0
 logd                                      u:object_r:logd_service:s0
 looper_stats                              u:object_r:looper_stats_service:s0
 lpdump_service                            u:object_r:lpdump_service:s0
+mdns                                      u:object_r:mdns_service:s0
 media.aaudio                              u:object_r:audioserver_service:s0
 media.audio_flinger                       u:object_r:audioserver_service:s0
 media.audio_policy                        u:object_r:audioserver_service:s0
