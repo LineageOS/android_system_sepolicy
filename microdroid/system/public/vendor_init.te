@@ -133,8 +133,7 @@ r_dir_file(vendor_init, vendor_file_type)
 allow vendor_init self:global_capability_class_set sys_admin;
 
 # vendor_init is using bootstrap bionic
-allow vendor_init system_bootstrap_lib_file:dir r_dir_perms;
-allow vendor_init system_bootstrap_lib_file:file { execute read open getattr map };
+use_bootstrap_libs(vendor_init)
 
 # Get file context
 allow vendor_init file_contexts_file:file r_file_perms;

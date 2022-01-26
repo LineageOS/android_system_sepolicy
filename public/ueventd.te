@@ -60,8 +60,7 @@ allow ueventd vendor_file:system module_load;
 allow ueventd kernel:key search;
 
 # ueventd is using bootstrap bionic
-allow ueventd system_bootstrap_lib_file:dir r_dir_perms;
-allow ueventd system_bootstrap_lib_file:file { execute read open getattr map };
+use_bootstrap_libs(ueventd)
 
 # Allow ueventd to run shell scripts from vendor
 allow ueventd vendor_shell_exec:file execute;
