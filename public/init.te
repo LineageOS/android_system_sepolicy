@@ -609,8 +609,7 @@ allow init userspace_reboot_metadata_file:file w_file_perms;
 allow init proc_pressure_mem:file { rw_file_perms setattr };
 
 # init is using bootstrap bionic
-allow init system_bootstrap_lib_file:dir r_dir_perms;
-allow init system_bootstrap_lib_file:file { execute read open getattr map };
+use_bootstrap_libs(init)
 
 # stat the root dir of fuse filesystems (for the mount handler)
 allow init fuse:dir { search getattr };

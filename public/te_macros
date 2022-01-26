@@ -1021,3 +1021,11 @@ define(`read_fstab', `
   allow $1 gsi_public_metadata_file:file r_file_perms;
   allow $1 proc_bootconfig:file r_file_perms;
 ')
+
+######################################
+# use_bootstrap_libs(domain)
+# Allow domain to use bootstrap bionic libraries in system/lib[64]/bootstrap
+define(`use_bootstrap_libs', `
+  allow $1 system_bootstrap_lib_file:dir r_dir_perms;
+  allow $1 system_bootstrap_lib_file:file { execute read open getattr map };
+')

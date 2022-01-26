@@ -126,8 +126,7 @@ allow apexd vold_service:service_manager find;
 binder_call(apexd, vold)
 
 # apexd is using bootstrap bionic
-allow apexd system_bootstrap_lib_file:dir r_dir_perms;
-allow apexd system_bootstrap_lib_file:file { execute read open getattr map };
+use_bootstrap_libs(apexd)
 
 # Allow apexd to be invoked with logwrapper from init during userspace reboot.
 allow apexd devpts:chr_file { read write };

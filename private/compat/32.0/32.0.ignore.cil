@@ -8,6 +8,7 @@
     apexd_select_prop
     artd_service
     attestation_verification_service
+    bluetooth_config_prop
     charger_vendor
     cloudsearch_service
     device_config_nnapi_native_prop
@@ -29,13 +30,7 @@
     hal_ir_service
     hal_nfc_service
     hal_nlinterceptor_service
-    hal_radio_config_service
-    hal_radio_data_service
-    hal_radio_messaging_service
-    hal_radio_modem_service
-    hal_radio_network_service
-    hal_radio_sim_service
-    hal_radio_voice_service
+    hal_radio_service
     hal_sensors_service
     hal_system_suspend_service
     hal_tv_tuner_service
@@ -45,6 +40,7 @@
     hal_wifi_hostapd_service
     hal_wifi_supplicant_service
     locale_service
+    mdns_service
     mtectrl
     nearby_service
     proc_watermark_boost_factor
