@@ -488,6 +488,7 @@ ro.config.alarm_vol_steps     u:object_r:systemsound_config_prop:s0 exact int
 ro.config.media_vol_default   u:object_r:systemsound_config_prop:s0 exact int
 ro.config.media_vol_steps     u:object_r:systemsound_config_prop:s0 exact int
 ro.config.notification_sound  u:object_r:systemsound_config_prop:s0 exact string
+ro.config.ring_notification_vol_steps u:object_r:systemsound_config_prop:s0 exact string
 ro.config.ringtone            u:object_r:systemsound_config_prop:s0 exact string
 ro.config.system_vol_default  u:object_r:systemsound_config_prop:s0 exact int
 ro.config.system_vol_steps    u:object_r:systemsound_config_prop:s0 exact int
