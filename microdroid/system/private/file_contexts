@@ -63,6 +63,7 @@
 /dev/kmsg_debug	u:object_r:kmsg_debug_device:s0
 /dev/kvm		u:object_r:kvm_device:s0
 /dev/null		u:object_r:null_device:s0
+/dev/open-dice0         u:object_r:open_dice_device:s0
 /dev/random		u:object_r:random_device:s0
 /dev/rtc[0-9]      u:object_r:rtc_device:s0
 /dev/socket(/.*)?	u:object_r:socket_device:s0

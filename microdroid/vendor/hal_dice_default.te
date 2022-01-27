@@ -6,3 +6,5 @@ init_daemon_domain(hal_dice_default)
 
 # hal_dice_default is using bootstrap bionic
 use_bootstrap_libs(hal_dice_default)
+
+allow hal_dice_default open_dice_device:chr_file { read write open map };

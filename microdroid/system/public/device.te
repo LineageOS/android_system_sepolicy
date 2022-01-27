@@ -18,6 +18,7 @@ type kvm_device, dev_type;
 type loop_control_device, dev_type;
 type loop_device, dev_type;
 type null_device, dev_type, mlstrustedobject;
+type open_dice_device, dev_type;
 type owntty_device, dev_type, mlstrustedobject;
 type ppp_device, dev_type;
 type properties_device, dev_type;
