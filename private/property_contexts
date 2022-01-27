@@ -468,7 +468,37 @@ bluetooth.hardware.power.operating_voltage_mv        u:object_r:bluetooth_config
 bluetooth.hardware.power.idle_cur_ma                 u:object_r:bluetooth_config_prop:s0 exact int
 bluetooth.hardware.power.tx_cur_ma                   u:object_r:bluetooth_config_prop:s0 exact int
 bluetooth.hardware.power.rx_cur_ma                   u:object_r:bluetooth_config_prop:s0 exact int
-bluetooth.profile.asha.central                       u:object_r:bluetooth_config_prop:s0 exact bool
+
+bluetooth.device.default_name                        u:object_r:bluetooth_config_prop:s0 exact string
+bluetooth.device.class_of_device                     u:object_r:bluetooth_config_prop:s0 exact uint
+
+bluetooth.profile.a2dp.sink.enabled                  u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.a2dp.source.enabled                u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.asha.central.enabled               u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.avrcp.controller.enabled           u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.avrcp.target.enabled               u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.bap.broadcast.assist.enabled       u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.bap.broadcast.source.enabled       u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.bap.unicast.server.enabled         u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.bass.client.enabled                u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.csip.set_coordinator.enabled       u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.gatt.enabled                       u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.hap.client.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.hfp.ag.enabled                     u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.hfp.hf.enabled                     u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.hid.device.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.hid.host.enabled                   u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.map.client.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.map.server.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.mcp.server.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.opp.enabled                        u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.pan.nap.enabled                    u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.pan.panu.enabled                   u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.pbap.client.enabled                u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.pbap.server.enabled                u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.sap.server.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.tbs.server.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.vc.server.enabled                  u:object_r:bluetooth_config_prop:s0 exact bool
 
 persist.nfc.debug_enabled                      u:object_r:nfc_prop:s0 exact bool
 
