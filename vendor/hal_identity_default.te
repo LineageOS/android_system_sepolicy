@@ -3,3 +3,8 @@ hal_server_domain(hal_identity_default, hal_identity)
 
 type hal_identity_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_identity_default)
+
+# We need to get a handle to the IRemotelyProvisionedComponent, and it's hosted by
+# the keymint HAL.
+hal_client_domain(hal_identity_default, hal_keymint)
+
