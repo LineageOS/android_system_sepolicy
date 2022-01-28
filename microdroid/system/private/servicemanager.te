@@ -15,7 +15,6 @@ allow servicemanager {
   domain
   -init
   -vendor_init
-  -hwservicemanager
 }:binder transfer;
 
 allow servicemanager service_contexts_file:file r_file_perms;

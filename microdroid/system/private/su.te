@@ -6,7 +6,4 @@ userdebug_or_eng(`
   # su is also permissive to permit setenforce.
   permissive su;
 
-  # Do not audit accesses to keystore2 namespace for the su domain.
-  dontaudit su keystore2_key_type:{ keystore2 keystore2_key } *;
-
 ')

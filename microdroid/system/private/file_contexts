@@ -109,9 +109,7 @@
 /system/bin/bootstrap/linkerconfig u:object_r:linkerconfig_exec:s0
 /system/bin/diced.microdroid		u:object_r:diced_exec:s0
 /system/bin/servicemanager.microdroid	u:object_r:servicemanager_exec:s0
-/system/bin/hwservicemanager	u:object_r:hwservicemanager_exec:s0
 /system/bin/init		u:object_r:init_exec:s0
-/system/bin/keystore2	u:object_r:keystore_exec:s0
 /system/bin/logcat	--	u:object_r:logcat_exec:s0
 /system/bin/logd        u:object_r:logd_exec:s0
 /system/bin/run-as	--	u:object_r:runas_exec:s0
@@ -137,8 +135,6 @@
 /system/etc/selinux/plat_mac_permissions\.xml u:object_r:mac_perms_file:s0
 /system/etc/selinux/plat_property_contexts  u:object_r:property_contexts_file:s0
 /system/etc/selinux/plat_service_contexts  u:object_r:service_contexts_file:s0
-/system/etc/selinux/plat_hwservice_contexts  u:object_r:hwservice_contexts_file:s0
-/system/etc/selinux/plat_keystore2_key_contexts  u:object_r:keystore2_key_contexts_file:s0
 /system/etc/selinux/plat_file_contexts  u:object_r:file_contexts_file:s0
 /system/etc/selinux/plat_seapp_contexts  u:object_r:seapp_contexts_file:s0
 /system/etc/selinux/plat_sepolicy\.cil       u:object_r:sepolicy_file:s0
@@ -165,7 +161,6 @@
 /data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
 /data/local/tmp/ltp(/.*)?   u:object_r:nativetest_data_file:s0
 /data/local/traces(/.*)?	u:object_r:trace_data_file:s0
-/data/misc/keystore(/.*)?       u:object_r:keystore_data_file:s0
 /data/misc/authfs(/.*)?         u:object_r:authfs_data_file:s0
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
 /data/vendor(/.*)?              u:object_r:vendor_data_file:s0
