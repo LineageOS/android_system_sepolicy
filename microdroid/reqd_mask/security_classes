@@ -154,14 +154,5 @@ class service_manager           # userspace
 # hardware service manager      # userspace
 class hwservice_manager
 
-# Legacy Keystore key permissions
-class keystore_key              # userspace
-
-# Keystore 2.0 permissions
-class keystore2                 # userspace
-
-# Keystore 2.0 key permissions
-class keystore2_key             # userspace
-
 class drmservice                # userspace
 # FLASK
