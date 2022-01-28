@@ -151,8 +151,5 @@ class property_service          # userspace
 # Service manager
 class service_manager           # userspace
 
-# hardware service manager      # userspace
-class hwservice_manager
-
 class drmservice                # userspace
 # FLASK
