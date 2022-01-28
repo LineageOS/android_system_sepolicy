@@ -15,10 +15,6 @@ allow statsd shell_exec:file rx_file_perms;
 allow statsd system_file:file execute_no_trans;
 allow statsd toolbox_exec:file rx_file_perms;
 
-# Allow statsd to interact with keystore to pull atoms
-allow statsd keystore_service:service_manager find;
-binder_call(statsd, keystore)
-
 # Allow logd access.
 read_logd(statsd)
 control_logd(statsd)
