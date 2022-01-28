@@ -472,6 +472,9 @@ bluetooth.hardware.power.idle_cur_ma                 u:object_r:bluetooth_config
 bluetooth.hardware.power.tx_cur_ma                   u:object_r:bluetooth_config_prop:s0 exact int
 bluetooth.hardware.power.rx_cur_ma                   u:object_r:bluetooth_config_prop:s0 exact int
 
+bluetooth.framework.support_persisted_state          u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.framework.adapter_address_validation       u:object_r:bluetooth_config_prop:s0 exact bool
+
 bluetooth.device.default_name                        u:object_r:bluetooth_config_prop:s0 exact string
 bluetooth.device.class_of_device                     u:object_r:bluetooth_config_prop:s0 exact uint
 
