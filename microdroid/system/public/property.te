@@ -34,8 +34,6 @@ type init_perf_lsm_hooks_prop, property_type;
 type init_service_status_private_prop, property_type;
 type init_service_status_prop, property_type;
 type init_svc_debug_prop, property_type;
-type keystore_crash_prop, property_type;
-type keystore_listen_prop, property_type;
 type libc_debug_prop, property_type;
 type log_tag_prop, property_type;
 type logd_prop, property_type;
