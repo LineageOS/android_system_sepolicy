@@ -29,7 +29,6 @@ type dev_mnt_prop, property_type;
 type fingerprint_prop, property_type;
 type gsid_prop, property_type;
 type heapprofd_prop, property_type;
-type hwservicemanager_prop, property_type;
 type init_perf_lsm_hooks_prop, property_type;
 type init_service_status_private_prop, property_type;
 type init_service_status_prop, property_type;
