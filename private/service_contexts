@@ -117,6 +117,7 @@ bugreport                                 u:object_r:bugreport_service:s0
 cacheinfo                                 u:object_r:cacheinfo_service:s0
 carrier_config                            u:object_r:radio_service:s0
 clipboard                                 u:object_r:clipboard_service:s0
+cloudsearch                               u:object_r:cloudsearch_service:s0
 cloudsearch_service                       u:object_r:cloudsearch_service:s0
 com.android.net.IProxyService             u:object_r:IProxyService_service:s0
 companiondevice                           u:object_r:companion_device_service:s0
