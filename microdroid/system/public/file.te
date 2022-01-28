@@ -11,7 +11,6 @@ type cgroup_desc_file, file_type, system_file_type;
 type cgroup_rc_file, file_type;
 type extra_apk_file, file_type;
 type file_contexts_file, file_type, system_file_type;
-type hwservice_contexts_file, file_type, system_file_type;
 type linkerconfig_file, file_type;
 type logd_socket, file_type, mlstrustedobject, coredomain_socket;
 type logdr_socket, file_type, mlstrustedobject, coredomain_socket;

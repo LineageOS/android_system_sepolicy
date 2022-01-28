@@ -46,7 +46,6 @@ ro.boottime.adbd                      u:object_r:boottime_prop:s0 exact int
 ro.boottime.apexd-vm                  u:object_r:boottime_prop:s0 exact int
 ro.boottime.apkdmverity               u:object_r:boottime_prop:s0 exact int
 ro.boottime.authfs_service            u:object_r:boottime_prop:s0 exact int
-ro.boottime.hwservicemanager          u:object_r:boottime_prop:s0 exact int
 ro.boottime.init                      u:object_r:boottime_prop:s0 exact int
 ro.boottime.init.cold_boot_wait       u:object_r:boottime_prop:s0 exact int
 ro.boottime.init.first_stage          u:object_r:boottime_prop:s0 exact int
@@ -62,8 +61,6 @@ ro.boottime.zipfuse                   u:object_r:boottime_prop:s0 exact int
 
 ro.build.fingerprint u:object_r:fingerprint_prop:s0 exact string
 
-hwservicemanager.ready u:object_r:hwservicemanager_prop:s0 exact bool
-
 apexd.status      u:object_r:apexd_prop:s0 exact enum starting activated ready
 ro.apex.updatable u:object_r:apexd_prop:s0 exact bool
 
@@ -75,7 +72,6 @@ persist.sys.usb.config u:object_r:usb_control_prop:s0 exact string
 init.svc.apexd-vm           u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.apkdmverity        u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.authfs_service     u:object_r:init_service_status_private_prop:s0 exact string
-init.svc.hwservicemanager   u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.logd               u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.logd-reinit        u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.microdroid_manager u:object_r:init_service_status_private_prop:s0 exact string
