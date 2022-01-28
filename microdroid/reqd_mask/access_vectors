@@ -684,13 +684,6 @@ class service_manager
 	list
 }
 
-class hwservice_manager
-{
-	add
-	find
-	list
-}
-
 class drmservice {
 	consumeRights
 	setPlaybackStatus

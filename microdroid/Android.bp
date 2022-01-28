@@ -266,14 +266,6 @@ genrule {
 }
 
 prebuilt_etc {
-    name: "microdroid_hwservice_contexts",
-    filename: "plat_hwservice_contexts",
-    src: "system/private/hwservice_contexts",
-    relative_install_path: "selinux",
-    installable: false,
-}
-
-prebuilt_etc {
     name: "microdroid_property_contexts",
     filename: "plat_property_contexts",
     src: "system/private/property_contexts",
