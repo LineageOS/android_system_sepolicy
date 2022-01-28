@@ -1,4 +1,3 @@
-android.hardware.keymaster::IKeymasterDevice                    u:object_r:hal_keymaster_hwservice:s0
 android.hidl.allocator::IAllocator                              u:object_r:hidl_allocator_hwservice:s0
 android.hidl.base::IBase                                        u:object_r:hidl_base_hwservice:s0
 android.hidl.manager::IServiceManager                           u:object_r:hidl_manager_hwservice:s0

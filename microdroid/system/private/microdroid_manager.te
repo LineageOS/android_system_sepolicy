@@ -25,9 +25,6 @@ domain_auto_trans(microdroid_manager, zipfuse_exec, zipfuse)
 # Let microdroid_manager kernel-log.
 allow microdroid_manager kmsg_device:chr_file w_file_perms;
 
-# Let microdroid_manager initialize the derived VM secrets.
-set_prop(microdroid_manager, vmsecret_keymint_prop);
-
 # Let microdroid_manager read a config file from /mnt/apk (fusefs)
 # TODO(b/188400186) remove the below rule
 userdebug_or_eng(`

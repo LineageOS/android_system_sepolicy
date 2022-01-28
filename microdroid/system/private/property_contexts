@@ -58,12 +58,9 @@ ro.boottime.microdroid_manager        u:object_r:boottime_prop:s0 exact int
 ro.boottime.servicemanager            u:object_r:boottime_prop:s0 exact int
 ro.boottime.tombstoned                u:object_r:boottime_prop:s0 exact int
 ro.boottime.ueventd                   u:object_r:boottime_prop:s0 exact int
-ro.boottime.vendor.keymint-microdroid u:object_r:boottime_prop:s0 exact int
 ro.boottime.zipfuse                   u:object_r:boottime_prop:s0 exact int
 
 ro.build.fingerprint u:object_r:fingerprint_prop:s0 exact string
-
-ro.vmsecret.keymint u:object_r:vmsecret_keymint_prop:s0 exact string
 
 hwservicemanager.ready u:object_r:hwservicemanager_prop:s0 exact bool
 
@@ -88,8 +85,6 @@ init.svc.zipfuse            u:object_r:init_service_status_private_prop:s0 exact
 
 init.svc.adbd       u:object_r:init_service_status_prop:s0 exact string
 init.svc.tombstoned u:object_r:init_service_status_prop:s0 exact string
-
-init.svc.vendor.keymint-microdroid u:object_r:vendor_default_prop:s0 exact string
 
 ro.boot.adb.enabled                u:object_r:bootloader_prop:s0 exact bool
 ro.boot.avb_version                u:object_r:bootloader_prop:s0 exact string
