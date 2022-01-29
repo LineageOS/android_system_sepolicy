@@ -21,6 +21,9 @@ allow mediaprovider_app drmserver_service:service_manager find;
 # Talk to the MediaServer service
 allow mediaprovider_app mediaserver_service:service_manager find;
 
+# Talk to the MediaCodec APIs that log media metrics
+allow mediaprovider_app mediametrics_service:service_manager find;
+
 # Talk to regular app services
 allow mediaprovider_app app_api_service:service_manager find;
 

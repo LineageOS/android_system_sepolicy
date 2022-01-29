@@ -5,16 +5,12 @@ init_daemon_domain(logd)
 allow logd adbd:dir search;
 allow logd adbd:file { getattr open read };
 allow logd device:dir search;
-allow logd hwservicemanager:dir search;
-allow logd hwservicemanager:file { open read };
 allow logd init:dir search;
 allow logd init:fd use;
 allow logd init:file { getattr open read };
 allow logd kernel:dir search;
 allow logd kernel:file { getattr open read };
 allow logd kernel:system { syslog_mod syslog_read };
-allow logd keystore:dir search;
-allow logd keystore:file { getattr open read };
 allow logd linkerconfig_file:dir search;
 allow logd microdroid_manager:dir search;
 allow logd microdroid_manager:file { getattr open read };
