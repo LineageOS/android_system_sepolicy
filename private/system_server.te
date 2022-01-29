@@ -526,9 +526,9 @@ allow system_server incident_data_file:file read;
 allow system_server prereboot_data_file:dir rw_dir_perms;
 allow system_server prereboot_data_file:file create_file_perms;
 
-# Allow dropbox to read /data/misc/perfetto-traces. Only the fd is sent over
+# Allow tracing proxy service to read traces. Only the fd is sent over
 # binder.
-allow system_server perfetto_traces_data_file:file read;
+allow system_server perfetto_traces_data_file:file { read getattr };
 allow system_server perfetto:fd use;
 
 # Manage /data/backup.
@@ -1116,6 +1116,8 @@ with_asan(`
 allow system_server fs_bpf:dir search;
 allow system_server fs_bpf:file { read write };
 allow system_server bpfloader:bpf { map_read map_write prog_run };
+# in order to invoke side effect of close() on such a socket calling synchronize_rcu()
+allow system_server self:key_socket create;
 
 # ART Profiles.
 # Allow system_server to open profile snapshots for read.

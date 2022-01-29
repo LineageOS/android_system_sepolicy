@@ -47,7 +47,7 @@ allow domain null_device:chr_file rw_file_perms;
 allow domain zero_device:chr_file rw_file_perms;
 
 # /dev/binder can be accessed by ... everyone! :)
-allow { domain -hwservicemanager } binder_device:chr_file rw_file_perms;
+allow domain binder_device:chr_file rw_file_perms;
 
 # Restrict binder ioctls to an allowlist. Additional ioctl commands may be
 # added to individual domains, but this sets safe defaults for all processes.
@@ -411,15 +411,6 @@ neverallow domain { contextmount_type -authfs_fuse }:dir_file_class_set { write 
 # from service name to service_type are defined in {,hw,vnd}service_contexts.
 neverallow * default_android_service:service_manager *;
 
-# Looking up the base class/interface of all HwBinder services is a bad idea.
-# hwservicemanager currently offer such lookups only to make it so that security
-# decisions are expressed in SELinux policy. However, it's unclear whether this
-# lookup has security implications. If it doesn't, hwservicemanager should be
-# modified to not offer this lookup.
-# This rule can be removed if hwservicemanager is modified to not permit these
-# lookups.
-neverallow * hidl_base_hwservice:hwservice_manager find;
-
 neverallow { domain -init -vendor_init } vendor_default_prop:property_service set;
 
 neverallow { domain -init } build_prop:property_service set;
@@ -428,8 +419,6 @@ neverallow { domain -init } build_prop:property_service set;
 # The service managers are only allowed to access their own device node
 neverallow servicemanager hwbinder_device:chr_file no_rw_file_perms;
 neverallow servicemanager vndbinder_device:chr_file no_rw_file_perms;
-neverallow hwservicemanager binder_device:chr_file no_rw_file_perms;
-neverallow hwservicemanager vndbinder_device:chr_file no_rw_file_perms;
 
 # system services cant add vendor services
 neverallow {
@@ -549,11 +538,6 @@ neverallow * ~{
     servicemanager
     }:service_manager list;
 
-# hwservicemanager is the only process which handles hw list requests
-neverallow * ~{
-    hwservicemanager
-    }:hwservice_manager list;
-
 # only service_manager_types can be added to service_manager
 # TODO - rework this: neverallow * ~service_manager_type:service_manager { add find };
 
@@ -595,15 +579,6 @@ neverallow * self:global_capability_class_set setfcap;
 
 # Enforce AT_SECURE for executing crash_dump.
 neverallow domain crash_dump:process noatsecure;
-
-# Do not permit non-core domains to register HwBinder services which are
-# guaranteed to be provided by core domains only.
-neverallow ~coredomain coredomain_hwservice:hwservice_manager add;
-
-# Do not permit the registeration of HwBinder services which are guaranteed to
-# be passthrough only (i.e., run in the process of their clients instead of a
-# separate server process).
-neverallow * same_process_hwservice:hwservice_manager add;
 
 # If an already existing file is opened with O_CREAT, the kernel might generate
 # a false report of a create denial. Silence these denials and make sure that

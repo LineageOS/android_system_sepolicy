@@ -2,7 +2,6 @@ type system_linker_exec, file_type, system_file_type;
 
 # file types
 type adbd_socket, file_type, coredomain_socket;
-type apc_service, service_manager_type;
 type anr_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 type apex_info_file, file_type;
 type apex_mnt_dir, file_type;
@@ -12,9 +11,6 @@ type cgroup_desc_file, file_type, system_file_type;
 type cgroup_rc_file, file_type;
 type extra_apk_file, file_type;
 type file_contexts_file, file_type, system_file_type;
-type hwservice_contexts_file, file_type, system_file_type;
-type keystore2_key_contexts_file, file_type, system_file_type;
-type keystore_data_file, file_type, data_file_type, core_data_file_type;
 type linkerconfig_file, file_type;
 type logd_socket, file_type, mlstrustedobject, coredomain_socket;
 type logdr_socket, file_type, mlstrustedobject, coredomain_socket;
