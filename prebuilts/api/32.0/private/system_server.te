@@ -91,7 +91,7 @@ allow system_server {
   crash_dump
   webview_zygote
   zygote
-}:process { sigkill signull };
+}:process { getpgid sigkill signull };
 
 # Read /system/bin/app_process.
 allow system_server zygote_exec:file r_file_perms;
