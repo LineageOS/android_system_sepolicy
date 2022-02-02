@@ -64,6 +64,9 @@ allow virtualizationservice self:vsock_socket { create_socket_perms_no_ioctl lis
 # Allow virtualizationservice to read/write its own sysprop. Only the process can do so.
 set_prop(virtualizationservice, virtualizationservice_prop)
 
+# Allow virtualizationservice to inspect hypervisor capabilities.
+get_prop(virtualizationservice, hypervisor_prop)
+
 # Allow writing stats to statsd
 unix_socket_send(virtualizationservice, statsdw, statsd)
 
