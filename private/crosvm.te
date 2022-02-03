@@ -89,3 +89,10 @@ neverallow crosvm {
   -app_data_file
   userdebug_or_eng(`-shell_data_file')
 }:file read;
+
+# Only virtualizationservice can run crosvm
+neverallow {
+  domain
+  -crosvm
+  -virtualizationservice
+} crosvm_exec:file no_x_file_perms;
