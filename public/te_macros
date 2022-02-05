@@ -196,6 +196,8 @@ allow { virtualizationservice crosvm } $1:fd use;
 # permission to create a vsock; the client can only connect to VMs
 # that it owns.
 allow $1 virtualizationservice:vsock_socket { getattr read write };
+# Allow client to inspect hypervisor capabilities
+get_prop($1, hypervisor_prop)
 ')
 
 #####################################
