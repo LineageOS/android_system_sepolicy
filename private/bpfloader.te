@@ -3,6 +3,9 @@ type bpfloader, domain;
 type bpfloader_exec, system_file_type, exec_type, file_type;
 typeattribute bpfloader coredomain;
 
+# allow bpfloader to write to the kernel log (starts early)
+allow bpfloader kmsg_device:chr_file w_file_perms;
+
 # These permissions are required to pin ebpf maps & programs.
 allow bpfloader { fs_bpf fs_bpf_tethering }:dir { add_name create search write };
 allow bpfloader { fs_bpf fs_bpf_tethering }:file { create read setattr };
