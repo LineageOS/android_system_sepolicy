@@ -14,6 +14,11 @@ allow microdroid_manager vd_device:blk_file rw_file_perms;
 # microdroid_manager verifies DM-verity mounted APK payload
 allow microdroid_manager dm_device:blk_file r_file_perms;
 
+# Allow microdroid_manager to do blkflsbuf on instance disk image. The ioctl
+# requires sys_admin cap as well.
+allowxperm microdroid_manager vd_device:blk_file ioctl BLKFLSBUF;
+allow microdroid_manager self:global_capability_class_set sys_admin;
+
 # Allow microdroid_manager to start payload tasks
 domain_auto_trans(microdroid_manager, microdroid_app_exec, microdroid_app)
 domain_auto_trans(microdroid_manager, compos_exec, compos)
