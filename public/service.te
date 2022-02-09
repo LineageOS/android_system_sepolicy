@@ -268,6 +268,7 @@ type hal_wifi_supplicant_service, vendor_service, protected_service, service_man
 type hal_audio_service, vendor_service, protected_service, service_manager_type;
 type hal_audiocontrol_service, vendor_service, service_manager_type;
 type hal_authsecret_service, vendor_service, protected_service, service_manager_type;
+type hal_camera_service, vendor_service, protected_service, service_manager_type;
 type hal_contexthub_service, vendor_service, protected_service, service_manager_type;
 type hal_dice_service, vendor_service, protected_service, service_manager_type;
 type hal_drm_service, vendor_service, service_manager_type;
