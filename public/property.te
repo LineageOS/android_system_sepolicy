@@ -16,7 +16,6 @@ system_internal_prop(firstboot_prop)
 compatible_property_only(`
     # DO NOT ADD ANY PROPERTIES HERE
     system_internal_prop(boottime_prop)
-    system_internal_prop(bpf_progs_loaded_prop)
     system_internal_prop(charger_prop)
     system_internal_prop(cold_boot_done_prop)
     system_internal_prop(ctl_adbd_prop)
@@ -182,6 +181,7 @@ system_public_prop(audio_prop)
 system_public_prop(bluetooth_a2dp_offload_prop)
 system_public_prop(bluetooth_audio_hal_prop)
 system_public_prop(bluetooth_prop)
+system_public_prop(bpf_progs_loaded_prop)
 system_public_prop(charger_status_prop)
 system_public_prop(ctl_default_prop)
 system_public_prop(ctl_interface_start_prop)
@@ -236,7 +236,6 @@ vendor_public_prop(persist_vendor_debug_wifi_prop)
 not_compatible_property(`
     # DO NOT ADD ANY PROPERTIES HERE
     system_public_prop(boottime_prop)
-    system_public_prop(bpf_progs_loaded_prop)
     system_public_prop(charger_prop)
     system_public_prop(cold_boot_done_prop)
     system_public_prop(ctl_adbd_prop)
