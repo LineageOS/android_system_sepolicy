@@ -2,7 +2,11 @@
 binder_call(hal_camera_client, hal_camera_server)
 binder_call(hal_camera_server, hal_camera_client)
 
+#binder IPC from client to service manager and callbacks
+binder_use(hal_camera_server)
+
 hal_attribute_hwservice(hal_camera, hal_camera_hwservice)
+hal_attribute_service(hal_camera, hal_camera_service)
 
 allow hal_camera device:dir r_dir_perms;
 allow hal_camera video_device:dir r_dir_perms;
@@ -32,7 +36,7 @@ allow hal_camera shell:fifo_file write;
 neverallow hal_camera_server { file_type fs_type }:file execute_no_trans;
 
 # hal_camera should never need network access. Disallow network sockets.
-neverallow hal_camera_server domain:{ tcp_socket udp_socket rawip_socket } *;
+neverallow hal_camera_server { domain userdebug_or_eng(`-su') }:{ tcp_socket udp_socket rawip_socket } *;
 
 # Only camera HAL may directly access the camera hardware
 neverallow { halserverdomain -hal_camera_server } camera_device:chr_file *;
