@@ -377,6 +377,8 @@
 /system/bin/odsign               u:object_r:odsign_exec:s0
 /system/bin/vehicle_binding_util     u:object_r:vehicle_binding_util_exec:s0
 /system/bin/cardisplayproxyd     u:object_r:automotive_display_service_exec:s0
+/system/bin/evsmanagerd          u:object_r:evsmanagerd_exec:s0
+/system/bin/android\.automotive\.evs\.manager@1\.[0-9]+ u:object_r:evsmanagerd_exec:s0
 
 #############################
 # Vendor files
