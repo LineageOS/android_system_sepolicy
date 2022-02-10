@@ -13,7 +13,6 @@ type dice_node_service,         service_manager_type;
 type dnsresolver_service,       service_manager_type;
 type drmserver_service,         service_manager_type;
 type dumpstate_service,         service_manager_type;
-type evsmanagerd_service,       service_manager_type;
 type fingerprintd_service,      service_manager_type;
 type fwk_automotive_display_service, service_manager_type;
 type gatekeeper_service,        app_api_service, service_manager_type;
