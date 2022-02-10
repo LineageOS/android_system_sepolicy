@@ -1,5 +1,7 @@
 type bpfloader_exec, system_file_type, exec_type, file_type;
 
+typeattribute bpfloader bpfdomain;
+
 # allow bpfloader to write to the kernel log (starts early)
 allow bpfloader kmsg_device:chr_file w_file_perms;
 
