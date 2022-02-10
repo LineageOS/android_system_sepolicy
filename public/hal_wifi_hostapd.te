@@ -5,7 +5,7 @@ binder_call(hal_wifi_hostapd_server, hal_wifi_hostapd_client)
 hal_attribute_hwservice(hal_wifi_hostapd, hal_wifi_hostapd_hwservice)
 hal_attribute_service(hal_wifi_hostapd, hal_wifi_hostapd_service)
 
-binder_call(hal_wifi_hostapd_server, servicemanager)
+binder_use(hal_wifi_hostapd_server)
 
 allow hal_wifi_hostapd_server dumpstate:fifo_file write;
 
