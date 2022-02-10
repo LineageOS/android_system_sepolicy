@@ -274,7 +274,6 @@ type hal_contexthub_service, vendor_service, protected_service, service_manager_
 type hal_dice_service, vendor_service, protected_service, service_manager_type;
 type hal_drm_service, vendor_service, service_manager_type;
 type hal_dumpstate_service, vendor_service, protected_service, service_manager_type;
-type hal_evs_service, vendor_service, protected_service, service_manager_type;
 type hal_face_service, vendor_service, protected_service, service_manager_type;
 type hal_fingerprint_service, vendor_service, protected_service, service_manager_type;
 type hal_gnss_service, vendor_service, protected_service, service_manager_type;
