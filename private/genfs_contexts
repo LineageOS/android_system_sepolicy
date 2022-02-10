@@ -393,3 +393,4 @@ genfscon usbfs / u:object_r:usbfs:s0
 genfscon binfmt_misc / u:object_r:binfmt_miscfs:s0
 genfscon bpf / u:object_r:fs_bpf:s0
 genfscon bpf /tethering u:object_r:fs_bpf_tethering:s0
+genfscon bpf /vendor u:object_r:fs_bpf_vendor:s0
