@@ -1,5 +1,7 @@
 # Networking service app
-typeattribute network_stack coredomain, mlstrustedsubject;
+typeattribute network_stack coredomain;
+typeattribute network_stack mlstrustedsubject;
+typeattribute network_stack bpfdomain;
 
 app_domain(network_stack);
 net_domain(network_stack);
