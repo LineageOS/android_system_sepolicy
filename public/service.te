@@ -13,7 +13,6 @@ type dice_node_service,         service_manager_type;
 type dnsresolver_service,       service_manager_type;
 type drmserver_service,         service_manager_type;
 type dumpstate_service,         service_manager_type;
-type evsmanagerd_service,       service_manager_type;
 type fingerprintd_service,      service_manager_type;
 type fwk_automotive_display_service, service_manager_type;
 type gatekeeper_service,        app_api_service, service_manager_type;
@@ -274,7 +273,6 @@ type hal_contexthub_service, vendor_service, protected_service, service_manager_
 type hal_dice_service, vendor_service, protected_service, service_manager_type;
 type hal_drm_service, vendor_service, service_manager_type;
 type hal_dumpstate_service, vendor_service, protected_service, service_manager_type;
-type hal_evs_service, vendor_service, protected_service, service_manager_type;
 type hal_face_service, vendor_service, protected_service, service_manager_type;
 type hal_fingerprint_service, vendor_service, protected_service, service_manager_type;
 type hal_gnss_service, vendor_service, protected_service, service_manager_type;
