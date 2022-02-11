@@ -280,3 +280,11 @@ prebuilt_etc {
     relative_install_path: "selinux",
     installable: false,
 }
+
+// For CTS
+se_policy_conf {
+    name: "microdroid_general_sepolicy.conf",
+    srcs: system_policy_files,
+    exclude_build_test: true,
+    installable: false,
+}
