@@ -48,6 +48,15 @@ allow vold_prepare_subdirs apex_mnt_dir:dir { open read };
 allow vold_prepare_subdirs mnt_expand_file:dir search;
 allow vold_prepare_subdirs user_profile_data_file:dir { search getattr relabelfrom };
 allow vold_prepare_subdirs user_profile_root_file:dir { search getattr relabelfrom relabelto };
+
+# Migrate legacy labels to apex_system_server_data_file (b/217581286)
+allow vold_prepare_subdirs {
+  apex_appsearch_data_file
+  apex_permission_data_file
+  apex_scheduling_data_file
+  apex_wifi_data_file
+}:dir relabelfrom;
+
 # /data/misc is unlabeled during early boot.
 allow vold_prepare_subdirs unlabeled:dir search;
 
