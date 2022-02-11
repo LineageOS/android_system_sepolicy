@@ -86,6 +86,7 @@ allow apexd apex_mnt_dir:file { create_file_perms relabelfrom mounton };
 allow apexd apex_info_file:file relabelto;
 # apexd needs to update /apex/apex-info-list.xml after non-staged APEX update.
 allow apexd apex_info_file:file rw_file_perms;
+allow apexd apex_info_file:file mounton;
 
 # allow apexd to unlink apex files in /data/apex/active
 # note that apexd won't be able to unlink files in /data/app-staging/session_XXXX,
