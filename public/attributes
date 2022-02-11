@@ -51,6 +51,9 @@ expandattribute app_data_file_type false;
 # All types in /system
 attribute system_file_type;
 
+# All types in /system_dlkm
+attribute system_dlkm_file_type;
+
 # All types in /vendor
 attribute vendor_file_type;
 
