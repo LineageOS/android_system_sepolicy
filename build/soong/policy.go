@@ -200,7 +200,7 @@ func findPolicyConfOrder(name string) int {
 }
 
 func (c *policyConf) transformPolicyToConf(ctx android.ModuleContext) android.OutputPath {
-	conf := android.PathForModuleOut(ctx, "conf").OutputPath
+	conf := android.PathForModuleOut(ctx, c.stem()).OutputPath
 	rule := android.NewRuleBuilder(pctx, ctx)
 
 	srcs := android.PathsForModuleSrc(ctx, c.properties.Srcs)

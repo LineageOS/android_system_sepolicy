@@ -1,4 +1,5 @@
 typeattribute lmkd coredomain;
+typeattribute lmkd bpfdomain;
 
 init_daemon_domain(lmkd)
 

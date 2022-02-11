@@ -219,6 +219,10 @@ attribute bluetoothdomain;
 # All domains used for binder service domains.
 attribute binderservicedomain;
 
+# All domains which have BPF access.
+attribute bpfdomain;
+expandattribute bpfdomain false;
+
 # update_engine related domains that need to apply an update and run
 # postinstall. This includes the background daemon and the sideload tool from
 # recovery for A/B devices.
