@@ -583,6 +583,9 @@ type debugfs_bootreceiver_tracing, fs_type, debugfs_type, tracefs_type;
 # kernel modules
 type vendor_kernel_modules, vendor_file_type, file_type;
 
+# system_dlkm
+type system_dlkm_file, system_dlkm_file_type, file_type;
+
 # Allow files to be created in their appropriate filesystems.
 allow fs_type self:filesystem associate;
 allow cgroup tmpfs:filesystem associate;

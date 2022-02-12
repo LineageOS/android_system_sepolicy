@@ -19,7 +19,7 @@
 
 # For kernel modules
 /lib(/.*)?          u:object_r:rootfs:s0
-/system_dlkm(/.*)?  u:object_r:rootfs:s0
+/system_dlkm(/.*)?  u:object_r:system_dlkm_file:s0
 
 # Empty directories
 /lost\+found        u:object_r:rootfs:s0
@@ -291,6 +291,7 @@
 /system/bin/remount              u:object_r:remount_exec:s0
 /system/bin/dhcpcd      u:object_r:dhcp_exec:s0
 /system/bin/dhcpcd-6\.8\.2	u:object_r:dhcp_exec:s0
+/system/bin/dmesgd	u:object_r:dmesgd_exec:s0
 /system/bin/mtpd	u:object_r:mtp_exec:s0
 /system/bin/pppd	u:object_r:ppp_exec:s0
 /system/bin/racoon	u:object_r:racoon_exec:s0
@@ -377,6 +378,8 @@
 /system/bin/odsign               u:object_r:odsign_exec:s0
 /system/bin/vehicle_binding_util     u:object_r:vehicle_binding_util_exec:s0
 /system/bin/cardisplayproxyd     u:object_r:automotive_display_service_exec:s0
+/system/bin/evsmanagerd          u:object_r:evsmanagerd_exec:s0
+/system/bin/android\.automotive\.evs\.manager@1\.[0-9]+ u:object_r:evsmanagerd_exec:s0
 
 #############################
 # Vendor files
@@ -603,6 +606,7 @@
 /data/misc/carrierid(/.*)?      u:object_r:radio_data_file:s0
 /data/misc/dhcp(/.*)?           u:object_r:dhcp_data_file:s0
 /data/misc/dhcp-6\.8\.2(/.*)?     u:object_r:dhcp_data_file:s0
+/data/misc/dmesgd(/.*)?         u:object_r:dmesgd_data_file:s0
 /data/misc/emergencynumberdb(/.*)?     u:object_r:emergency_data_file:s0
 /data/misc/gatekeeper(/.*)?     u:object_r:gatekeeper_data_file:s0
 /data/misc/incidents(/.*)?	    u:object_r:incident_data_file:s0

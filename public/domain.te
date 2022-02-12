@@ -100,6 +100,7 @@ allow domain property_info:file r_file_perms;
 
 # Public readable properties
 get_prop(domain, aaudio_config_prop)
+get_prop(domain, apexd_select_prop)
 get_prop(domain, arm64_memtag_prop)
 get_prop(domain, bluetooth_config_prop)
 get_prop(domain, bootloader_prop)
@@ -1243,8 +1244,9 @@ neverallow {
 
 # Enforce restrictions on kernel module origin.
 # Do not allow kernel module loading except from system,
-# vendor, and boot partitions.
-neverallow * ~{ system_file_type vendor_file_type rootfs }:system module_load;
+# vendor, boot, and system_dlkm partitions.
+# TODO(b/218951883): Remove usage of system and rootfs as origin
+neverallow * ~{ system_file_type vendor_file_type rootfs system_dlkm_file_type }:system module_load;
 
 # Only allow filesystem caps to be set at build time. Runtime changes
 # to filesystem capabilities are not permitted.

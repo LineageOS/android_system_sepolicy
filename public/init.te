@@ -98,6 +98,7 @@ allow init {
     mnt_user_file
     system_data_file
     system_data_root_file
+    system_dlkm_file
     system_file
     vendor_file
     postinstall_mnt_dir
@@ -201,6 +202,7 @@ allow init {
   -nativetest_data_file
   -privapp_data_file
   -system_app_data_file
+  -system_dlkm_file_type
   -system_file_type
   -vendor_file_type
 }:dir { create search getattr open read setattr ioctl };
@@ -217,6 +219,7 @@ allow init {
   -privapp_data_file
   -shell_data_file
   -system_app_data_file
+  -system_dlkm_file_type
   -system_file_type
   -vendor_file_type
   -vold_data_file
@@ -237,6 +240,7 @@ allow init {
   -runtime_event_log_tags_file
   -shell_data_file
   -system_app_data_file
+  -system_dlkm_file_type
   -system_file_type
   -vendor_file_type
   -vold_data_file
@@ -258,6 +262,7 @@ allow init {
   -privapp_data_file
   -shell_data_file
   -system_app_data_file
+  -system_dlkm_file_type
   -system_file_type
   -vendor_file_type
   -vold_data_file
@@ -277,6 +282,7 @@ allow init {
   -privapp_data_file
   -shell_data_file
   -system_app_data_file
+  -system_dlkm_file_type
   -system_file_type
   -vendor_file_type
   -vold_data_file
@@ -286,6 +292,7 @@ allow init cache_file:lnk_file r_file_perms;
 
 allow init {
   file_type
+  -system_dlkm_file_type
   -system_file_type
   -vendor_file_type
   -exec_type
@@ -590,6 +597,7 @@ allowxperm init { data_file_type unlabeled }:dir ioctl {
 allow init misc_block_device:blk_file w_file_perms;
 
 r_dir_file(init, system_file)
+r_dir_file(init, system_dlkm_file_type)
 r_dir_file(init, vendor_file_type)
 
 allow init system_data_file:file { getattr read };
