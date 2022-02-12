@@ -699,6 +699,7 @@ set_prop(system_server, boot_status_prop)
 set_prop(system_server, surfaceflinger_color_prop)
 set_prop(system_server, provisioned_prop)
 set_prop(system_server, retaildemo_prop)
+set_prop(system_server, dmesgd_start_prop)
 userdebug_or_eng(`set_prop(system_server, wifi_log_prop)')
 
 # ctl interface
