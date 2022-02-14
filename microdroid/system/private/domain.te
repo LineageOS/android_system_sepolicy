@@ -263,9 +263,7 @@ allow domain kernel:key search;
 
 # Transition to crash_dump when /system/bin/crash_dump* is executed.
 # This occurs when the process crashes.
-# We do not apply this to the su domain to avoid interfering with
-# tests (b/114136122)
-domain_auto_trans(domain, crash_dump_exec, crash_dump);
+domain_auto_trans({domain -no_crash_dump_domain}, crash_dump_exec, crash_dump);
 allow domain crash_dump:process sigchld;
 
 # Properties that microdroid doesn't have but some still want to read.
@@ -605,3 +603,7 @@ neverallow { domain -init -vendor_init } debugfs_tracing_printk_formats:file *;
 
 # Linux lockdown "integrity" level is enforced for user builds.
 neverallow { domain userdebug_or_eng(`-domain') } self:lockdown integrity;
+
+# These domains must not be crash dumped
+neverallow no_crash_dump_domain crash_dump_exec:file no_x_file_perms;
+neverallow no_crash_dump_domain crash_dump:process { transition dyntransition };
