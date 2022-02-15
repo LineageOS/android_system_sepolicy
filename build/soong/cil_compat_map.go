@@ -172,7 +172,7 @@ func (c *cilCompatMap) AndroidMk() android.AndroidMkData {
 		Class:      "ETC",
 	}
 	ret.Extra = append(ret.Extra, func(w io.Writer, outputFile android.Path) {
-		fmt.Fprintln(w, "LOCAL_MODULE_PATH :=", c.installPath.ToMakePath().String())
+		fmt.Fprintln(w, "LOCAL_MODULE_PATH :=", c.installPath.String())
 		if c.properties.Stem != nil {
 			fmt.Fprintln(w, "LOCAL_INSTALLED_MODULE_STEM :=", String(c.properties.Stem))
 		}
@@ -181,7 +181,15 @@ func (c *cilCompatMap) AndroidMk() android.AndroidMkData {
 }
 
 var _ CilCompatMapGenerator = (*cilCompatMap)(nil)
+var _ android.OutputFileProducer = (*cilCompatMap)(nil)
 
 func (c *cilCompatMap) GeneratedMapFile() android.Path {
 	return c.installSource
+}
+
+func (c *cilCompatMap) OutputFiles(tag string) (android.Paths, error) {
+	if tag == "" {
+		return android.Paths{c.installSource}, nil
+	}
+	return nil, fmt.Errorf("Unknown tag %q", tag)
 }

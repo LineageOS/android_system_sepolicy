@@ -1,5 +1,7 @@
 # Networking service app
-typeattribute network_stack coredomain, mlstrustedsubject;
+typeattribute network_stack coredomain;
+typeattribute network_stack mlstrustedsubject;
+typeattribute network_stack bpfdomain;
 
 app_domain(network_stack);
 net_domain(network_stack);
@@ -22,6 +24,7 @@ allow network_stack self:netlink_route_socket nlmsg_write;
 
 allow network_stack app_api_service:service_manager find;
 allow network_stack dnsresolver_service:service_manager find;
+allow network_stack mdns_service:service_manager find;
 allow network_stack netd_service:service_manager find;
 allow network_stack network_watchlist_service:service_manager find;
 allow network_stack radio_service:service_manager find;

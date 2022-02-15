@@ -147,6 +147,7 @@ dump_hal(hal_wifi)
 dump_hal(hal_graphics_allocator)
 dump_hal(hal_light)
 dump_hal(hal_neuralnetworks)
+dump_hal(hal_nfc)
 dump_hal(hal_thermal)
 dump_hal(hal_power)
 dump_hal(hal_power_stats)
@@ -253,6 +254,7 @@ allow dumpstate {
   -apex_service
   -dumpstate_service
   -gatekeeper_service
+  -hal_wifi_supplicant_service
   -virtual_touchpad_service
   -vold_service
   -default_android_service
@@ -262,6 +264,7 @@ dontaudit dumpstate {
   apex_service
   dumpstate_service
   gatekeeper_service
+  hal_wifi_supplicant_service
   virtual_touchpad_service
   vold_service
 }:service_manager find;

@@ -12,6 +12,10 @@ allow dex2oat odrefresh:fd use;
 # Allow dex2oat to read/write FDs on authfs_fuse filesystem.
 allow dex2oat authfs_fuse:file { read write getattr map };
 
+# Allow to search in authfs directories.
+allow dex2oat authfs_data_file:dir { search };
+allow dex2oat authfs_fuse:dir { search };
+
 # Minijail uses pipe for the parent process to signal the child (as a fallback
 # mechanism, since Android does not support minijail's preload).
 # TODO(196109647): We can probably remove this once the minijail preload is
@@ -23,3 +27,8 @@ allow dex2oat system_file:file lock;
 
 # Allow dex2oat to read /apex/apex-info-list.xml
 allow dex2oat apex_info_file:file r_file_perms;
+
+# Don't audit because we don't configure the compiler through system properties
+# in the VM.
+dontaudit dex2oat dalvik_config_prop:file { open read getattr map };
+dontaudit dex2oat device_config_runtime_native_prop:file { open read getattr map };

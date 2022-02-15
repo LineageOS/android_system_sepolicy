@@ -14,6 +14,11 @@ allow microdroid_manager vd_device:blk_file rw_file_perms;
 # microdroid_manager verifies DM-verity mounted APK payload
 allow microdroid_manager dm_device:blk_file r_file_perms;
 
+# Allow microdroid_manager to do blkflsbuf on instance disk image. The ioctl
+# requires sys_admin cap as well.
+allowxperm microdroid_manager vd_device:blk_file ioctl BLKFLSBUF;
+allow microdroid_manager self:global_capability_class_set sys_admin;
+
 # Allow microdroid_manager to start payload tasks
 domain_auto_trans(microdroid_manager, microdroid_app_exec, microdroid_app)
 domain_auto_trans(microdroid_manager, compos_exec, compos)
@@ -25,9 +30,6 @@ domain_auto_trans(microdroid_manager, zipfuse_exec, zipfuse)
 # Let microdroid_manager kernel-log.
 allow microdroid_manager kmsg_device:chr_file w_file_perms;
 
-# Let microdroid_manager initialize the derived VM secrets.
-set_prop(microdroid_manager, vmsecret_keymint_prop);
-
 # Let microdroid_manager read a config file from /mnt/apk (fusefs)
 # TODO(b/188400186) remove the below rule
 userdebug_or_eng(`
@@ -38,20 +40,18 @@ userdebug_or_eng(`
 allow microdroid_manager self:vsock_socket { create_socket_perms_no_ioctl };
 
 # microdroid_manager is using bootstrap bionic
-allow microdroid_manager system_bootstrap_lib_file:dir r_dir_perms;
-allow microdroid_manager system_bootstrap_lib_file:file { execute read open getattr map };
+use_bootstrap_libs(microdroid_manager)
+
+# microdroid_manager can talk to diced over binder
+binder_use(microdroid_manager)
+binder_call(microdroid_manager, diced)
+allow microdroid_manager { dice_node_service dice_maintenance_service }:service_manager find;
+allow microdroid_manager diced:diced { derive demote_self };
 
 # microdroid_manager create /apex/vm-payload-metadata for apexd
 # TODO(b/199371341) create a new label for the file so that only microdroid_manager can create it.
 allow microdroid_manager apex_mnt_dir:dir w_dir_perms;
 allow microdroid_manager apex_mnt_dir:file create_file_perms;
-
-# Allow microdroid_manager to ioctl /dev/vsock.
-# TODO(b/199259751): remove the below rules
-allow microdroid_manager vsock_device:chr_file r_file_perms;
-allowxperm microdroid_manager vsock_device:chr_file ioctl {
-    IOCTL_VM_SOCKETS_GET_LOCAL_CID
-};
 
 # Allow microdroid_manager to start the services apexd-vm, apkdmverity and zipfuse
 set_prop(microdroid_manager, ctl_apexd_vm_prop)

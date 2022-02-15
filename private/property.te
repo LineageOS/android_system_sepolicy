@@ -1,5 +1,6 @@
 # Properties used only in /system
 system_internal_prop(adbd_prop)
+system_internal_prop(apexd_payload_metadata_prop)
 system_internal_prop(ctl_snapuserd_prop)
 system_internal_prop(device_config_lmkd_native_prop)
 system_internal_prop(device_config_profcollect_native_boot_prop)
@@ -11,7 +12,7 @@ system_internal_prop(device_config_window_manager_native_boot_prop)
 system_internal_prop(device_config_configuration_prop)
 system_internal_prop(device_config_connectivity_prop)
 system_internal_prop(device_config_swcodec_native_prop)
-system_internal_prop(device_config_surface_flinger_native_boot_prop)
+system_internal_prop(dmesgd_start_prop)
 system_internal_prop(fastbootd_protocol_prop)
 system_internal_prop(gsid_prop)
 system_internal_prop(init_perf_lsm_hooks_prop)
@@ -376,6 +377,15 @@ neverallow {
 }:property_service set;
 
 neverallow {
+  # Only allow init to set apexd_payload_metadata_prop
+  domain
+  -init
+} {
+  apexd_payload_metadata_prop
+}:property_service set;
+
+
+neverallow {
   # Only allow init and shell to set userspace_reboot_test_prop
   domain
   -init
@@ -402,10 +412,12 @@ neverallow {
 
 # Allow the shell to set MTE props, so that non-root users with adb shell
 # access can control the settings on their device.
+# Allow system apps to set MTE props, so Developer Options can set them.
 neverallow {
   domain
   -init
   -shell
+  -system_app
 } {
   arm64_memtag_prop
 }:property_service set;
@@ -546,6 +558,7 @@ neverallow {
   domain
   -init
   userdebug_or_eng(`-profcollectd')
+  userdebug_or_eng(`-simpleperf_boot')
   userdebug_or_eng(`-traced_probes')
   userdebug_or_eng(`-traced_perf')
 } {

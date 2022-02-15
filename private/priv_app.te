@@ -86,6 +86,13 @@ allow priv_app perfetto_traces_bugreport_data_file:file { getattr };
 # Required to traverse the parent dir (/data/misc/perfetto-traces).
 allow priv_app perfetto_traces_data_file:dir { search };
 
+# Allow priv apps (e.g. BetterBug) to receive Perfetto traces through
+# the framework (i.e. TracingServiceProxy) and sendfile them into their private
+# directories for reporting when network and battery conditions are
+# appropriate.
+allow priv_app perfetto:fd use;
+allow priv_app perfetto_traces_data_file:file { read getattr };
+
 # Allow verifier to access staged apks.
 allow priv_app { apk_tmp_file apk_private_tmp_file }:dir r_dir_perms;
 allow priv_app { apk_tmp_file apk_private_tmp_file }:file r_file_perms;
@@ -278,3 +285,6 @@ neverallow priv_app *:{
   bluetooth_socket iucv_socket rxrpc_socket isdn_socket phonet_socket ieee802154_socket caif_socket
   alg_socket nfc_socket kcm_socket qipcrtr_socket smc_socket xdp_socket
 } *;
+
+# Allow priv apps to report off body events to keystore2.
+allow priv_app keystore:keystore2 report_off_body;

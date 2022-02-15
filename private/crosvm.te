@@ -8,6 +8,10 @@ allow crosvm kvm_device:chr_file rw_file_perms;
 # Most other domains shouldn't access /dev/kvm.
 neverallow { domain -crosvm -ueventd -shell } kvm_device:chr_file getattr;
 neverallow { domain -crosvm -ueventd } kvm_device:chr_file ~getattr;
+neverallowxperm { domain -crosvm } kvm_device:chr_file ioctl ~{ KVM_CHECK_EXTENSION };
+
+# Let crosvm mlock VM memory and page tables.
+allow crosvm self:capability ipc_lock;
 
 # Let crosvm create temporary files.
 tmpfs_domain(crosvm)
@@ -32,6 +36,10 @@ allow crosvm {
 allow crosvm virtualizationservice_data_file:dir search;
 
 # Don't allow crosvm to open files that it doesn't own.
+# This is important because a malicious application could try to start a VM with a composite disk
+# image referring by name to files which it doesn't have permission to open, trying to get crosvm to
+# open them on its behalf. By preventing crosvm from opening any other files we prevent this
+# potential privilege escalation. See http://b/192453819 for more discussion.
 neverallow crosvm {
   virtualizationservice_data_file
   staging_data_file
@@ -73,7 +81,7 @@ full_treble_only(`
 
 # app_data_file (and shell_data_file for debuggable builds) is the only
 # app_data_file_type that is allowed for crosvm to read.  Note that the use of
-# app_data_file is allowed only for the intance disk image.  This is enforced
+# app_data_file is allowed only for the instance disk image.  This is enforced
 # inside the virtualizationservice by checking the file context of all disk
 # image files.
 neverallow crosvm {
@@ -81,3 +89,10 @@ neverallow crosvm {
   -app_data_file
   userdebug_or_eng(`-shell_data_file')
 }:file read;
+
+# Only virtualizationservice can run crosvm
+neverallow {
+  domain
+  -crosvm
+  -virtualizationservice
+} crosvm_exec:file no_x_file_perms;

@@ -45,24 +45,6 @@ set_prop(odrefresh, bootanim_system_prop)
 get_prop(odrefresh, device_config_runtime_native_prop)
 get_prop(odrefresh, device_config_runtime_native_boot_prop)
 
-# Use inherited stdin/stdout/stderr from composd which exec()'s
-# odrefesh.
-allow odrefresh composd:fd use;
-
-# Run binaries from the CompOS APEX in the same domain
-allow odrefresh system_file:file execute_no_trans;
-
-# Make binder calls back to composd
-binder_use(odrefresh)
-allow odrefresh compos_internal_service:service_manager find;
-binder_call(odrefresh, composd)
-
-# Run fd_server in its own domain
-domain_auto_trans(odrefresh, fd_server_exec, compos_fd_server)
-
-# And kill it via SIGTERM
-allow odrefresh compos_fd_server:process signal;
-
 # Do not audit unused resources from parent processes (adb, shell, su).
 # These appear to be unnecessary for odrefresh.
 dontaudit odrefresh { adbd shell }:fd use;

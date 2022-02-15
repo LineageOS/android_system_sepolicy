@@ -396,7 +396,8 @@ class Policy:
         self.__libsepolwrap = lib
 
     def __GenfsDictAdd(self, Dict, buf):
-        fs, path, context = buf.split(" ")
+        fs, buf = buf.split(' ', 1)
+        path, context = buf.rsplit(' ', 1)
         Type = context.split(":")[2]
         if not fs in Dict:
             Dict[fs] = {Type}

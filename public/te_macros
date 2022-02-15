@@ -196,6 +196,8 @@ allow { virtualizationservice crosvm } $1:fd use;
 # permission to create a vsock; the client can only connect to VMs
 # that it owns.
 allow $1 virtualizationservice:vsock_socket { getattr read write };
+# Allow client to inspect hypervisor capabilities
+get_prop($1, hypervisor_prop)
 ')
 
 #####################################
@@ -1020,4 +1022,12 @@ define(`read_fstab', `
   allow $1 { metadata_file gsi_metadata_file_type }:dir search;
   allow $1 gsi_public_metadata_file:file r_file_perms;
   allow $1 proc_bootconfig:file r_file_perms;
+')
+
+######################################
+# use_bootstrap_libs(domain)
+# Allow domain to use bootstrap bionic libraries in system/lib[64]/bootstrap
+define(`use_bootstrap_libs', `
+  allow $1 system_bootstrap_lib_file:dir r_dir_perms;
+  allow $1 system_bootstrap_lib_file:file { execute read open getattr map };
 ')

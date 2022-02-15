@@ -54,8 +54,18 @@ type apex_art_staging_data_file, file_type, data_file_type, core_data_file_type;
 # /data/misc/apexdata/com.android.compos
 type apex_compos_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
 
+# legacy labels for various /data/misc[_ce|_de]/*/apexdata directories - retained
+# for backward compatibility b/217581286
+type apex_appsearch_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+type apex_permission_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+type apex_scheduling_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+type apex_wifi_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+
 # /data/font/files
 type font_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/dmesgd
+type dmesgd_data_file, file_type, data_file_type, core_data_file_type;
 
 # /data/misc/odrefresh
 type odrefresh_data_file, file_type, data_file_type, core_data_file_type;
@@ -68,6 +78,9 @@ type virtualizationservice_data_file, file_type, data_file_type, core_data_file_
 
 # /data/system/environ
 type environ_system_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/bootanim
+type bootanim_data_file, file_type, data_file_type, core_data_file_type;
 
 # /dev/kvm
 type kvm_device, dev_type;

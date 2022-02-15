@@ -8,11 +8,17 @@ typeattribute system_server mlstrustedsubject;
 typeattribute system_server scheduler_service_server;
 typeattribute system_server sensor_service_server;
 typeattribute system_server stats_service_server;
+typeattribute system_server bpfdomain;
 
 # Define a type for tmpfs-backed ashmem regions.
 tmpfs_domain(system_server)
 
 userfaultfd_use(system_server)
+
+# TODO(b/217368496): remove this.
+perfetto_producer(system_server)
+can_profile_heap(system_server)
+can_profile_perf(system_server)
 
 # Create a socket for connections from crash_dump.
 type_transition system_server system_data_file:sock_file system_ndebug_socket "ndebugsocket";
@@ -97,7 +103,7 @@ allow system_server {
   crash_dump
   webview_zygote
   zygote
-}:process { sigkill signull };
+}:process { getpgid sigkill signull };
 
 # Read /system/bin/app_process.
 allow system_server zygote_exec:file r_file_perms;
@@ -277,6 +283,7 @@ binder_call(system_server, statsd)
 binder_call(system_server, storaged)
 binder_call(system_server, update_engine)
 binder_call(system_server, vold)
+binder_call(system_server, logd)
 binder_call(system_server, wificond)
 binder_call(system_server, wpantund)
 binder_service(system_server)
@@ -295,6 +302,7 @@ hal_client_domain(system_server, hal_gnss)
 hal_client_domain(system_server, hal_graphics_allocator)
 hal_client_domain(system_server, hal_health)
 hal_client_domain(system_server, hal_input_classifier)
+hal_client_domain(system_server, hal_input_processor)
 hal_client_domain(system_server, hal_ir)
 hal_client_domain(system_server, hal_light)
 hal_client_domain(system_server, hal_memtrack)
@@ -401,7 +409,7 @@ allow system_server mac_perms_file: file r_file_perms;
 # Check SELinux permissions.
 selinux_check_access(system_server)
 
-allow system_server sysfs_type:dir search;
+allow system_server sysfs_type:dir r_dir_perms;
 
 r_dir_file(system_server, sysfs_android_usb)
 allow system_server sysfs_android_usb:file w_file_perms;
@@ -441,6 +449,7 @@ allow system_server video_device:chr_file rw_file_perms;
 allow system_server adbd_socket:sock_file rw_file_perms;
 allow system_server rtc_device:chr_file rw_file_perms;
 allow system_server audio_device:dir r_dir_perms;
+allow system_server uhid_device:chr_file rw_file_perms;
 
 # write access to ALSA interfaces (/dev/snd/*) needed for MIDI
 allow system_server audio_device:chr_file rw_file_perms;
@@ -524,9 +533,9 @@ allow system_server incident_data_file:file read;
 allow system_server prereboot_data_file:dir rw_dir_perms;
 allow system_server prereboot_data_file:file create_file_perms;
 
-# Allow dropbox to read /data/misc/perfetto-traces. Only the fd is sent over
+# Allow tracing proxy service to read traces. Only the fd is sent over
 # binder.
-allow system_server perfetto_traces_data_file:file read;
+allow system_server perfetto_traces_data_file:file { read getattr };
 allow system_server perfetto:fd use;
 
 # Manage /data/backup.
@@ -690,6 +699,7 @@ set_prop(system_server, boot_status_prop)
 set_prop(system_server, surfaceflinger_color_prop)
 set_prop(system_server, provisioned_prop)
 set_prop(system_server, retaildemo_prop)
+set_prop(system_server, dmesgd_start_prop)
 userdebug_or_eng(`set_prop(system_server, wifi_log_prop)')
 
 # ctl interface
@@ -780,6 +790,9 @@ get_prop(system_server, packagemanager_config_prop)
 # Read the net.464xlat.cellular.enabled property (written by init).
 get_prop(system_server, net_464xlat_fromvendor_prop)
 
+# Read hypervisor capabilities ro.boot.hypervisor.*
+get_prop(system_server, hypervisor_prop)
+
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
 
@@ -867,6 +880,7 @@ allow system_server iorapd_service:service_manager find;
 allow system_server keystore_maintenance_service:service_manager find;
 allow system_server keystore_metrics_service:service_manager find;
 allow system_server keystore_service:service_manager find;
+allow system_server mdns_service:service_manager find;
 allow system_server mediaserver_service:service_manager find;
 allow system_server mediametrics_service:service_manager find;
 allow system_server mediaextractor_service:service_manager find;
@@ -881,6 +895,7 @@ allow system_server surfaceflinger_service:service_manager find;
 allow system_server update_engine_service:service_manager find;
 allow system_server vold_service:service_manager find;
 allow system_server wifinl80211_service:service_manager find;
+allow system_server logd_service:service_manager find;
 userdebug_or_eng(`
   allow system_server profcollectd_service:service_manager find;
 ')
@@ -915,6 +930,7 @@ allow system_server keystore:keystore2 {
 	clear_ns
 	clear_uid
 	get_state
+	list
 	lock
 	migrate_any_key
 	pull_metrics
@@ -1111,6 +1127,8 @@ with_asan(`
 allow system_server fs_bpf:dir search;
 allow system_server fs_bpf:file { read write };
 allow system_server bpfloader:bpf { map_read map_write prog_run };
+# in order to invoke side effect of close() on such a socket calling synchronize_rcu()
+allow system_server self:key_socket create;
 
 # ART Profiles.
 # Allow system_server to open profile snapshots for read.
@@ -1314,6 +1332,19 @@ allow system_server apex_module_data_file:dir { getattr search };
 # These are modules where the code runs in system_server, so we need full access.
 allow system_server apex_system_server_data_file:dir create_dir_perms;
 allow system_server apex_system_server_data_file:file create_file_perms;
+# Legacy labels that we still need to support (b/217581286)
+allow system_server {
+  apex_appsearch_data_file
+  apex_permission_data_file
+  apex_scheduling_data_file
+  apex_wifi_data_file
+}:dir create_dir_perms;
+allow system_server {
+  apex_appsearch_data_file
+  apex_permission_data_file
+  apex_scheduling_data_file
+  apex_wifi_data_file
+}:file create_file_perms;
 
 # Allow PasswordSlotManager rw access to /metadata/password_slots, so GSIs and the host image can
 # communicate which slots are available for use.

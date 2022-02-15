@@ -1,0 +1,20 @@
+type diced, domain, coredomain;
+type diced_exec, system_file_type, exec_type, file_type;
+
+# diced can be started by init
+init_daemon_domain(diced)
+
+# diced can talk to dice HAL
+hal_client_domain(diced, hal_dice)
+
+# diced hosts AIDL services
+binder_use(diced)
+binder_service(diced)
+add_service(diced, dice_node_service)
+add_service(diced, dice_maintenance_service)
+
+# diced can check SELinux permissions.
+selinux_check_access(diced)
+
+# diced is using bootstrap bionic
+use_bootstrap_libs(diced)

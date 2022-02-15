@@ -128,6 +128,7 @@ userdebug_or_eng(`
 ')
 type fs_bpf, fs_type;
 type fs_bpf_tethering, fs_type;
+type fs_bpf_vendor, fs_type;
 type configfs, fs_type;
 # /sys/devices/cs_etm
 type sysfs_devices_cs_etm, fs_type, sysfs_type;
@@ -581,6 +582,9 @@ type debugfs_bootreceiver_tracing, fs_type, debugfs_type, tracefs_type;
 
 # kernel modules
 type vendor_kernel_modules, vendor_file_type, file_type;
+
+# system_dlkm
+type system_dlkm_file, system_dlkm_file_type, file_type;
 
 # Allow files to be created in their appropriate filesystems.
 allow fs_type self:filesystem associate;

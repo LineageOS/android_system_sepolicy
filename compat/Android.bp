@@ -1,0 +1,275 @@
+// Copyright (C) 2021 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// This file contains module definitions for compatibility files.
+
+package {
+    // See: http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // all of the 'license_kinds' from "system_sepolicy_license"
+    // to get the below license kinds:
+    //   SPDX-license-identifier-Apache-2.0
+    default_applicable_licenses: ["system_sepolicy_license"],
+}
+
+se_cil_compat_map {
+    name: "plat_28.0.cil",
+    stem: "28.0.cil",
+    bottom_half: [":28.0.board.compat.map"],
+    top_half: "plat_29.0.cil",
+}
+
+se_cil_compat_map {
+    name: "plat_29.0.cil",
+    stem: "29.0.cil",
+    bottom_half: [":29.0.board.compat.map"],
+    top_half: "plat_30.0.cil",
+}
+
+se_cil_compat_map {
+    name: "plat_30.0.cil",
+    stem: "30.0.cil",
+    bottom_half: [":30.0.board.compat.map"],
+    top_half: "plat_31.0.cil",
+}
+
+se_cil_compat_map {
+    name: "plat_31.0.cil",
+    stem: "31.0.cil",
+    bottom_half: [":31.0.board.compat.map"],
+    top_half: "plat_32.0.cil",
+}
+
+se_cil_compat_map {
+    name: "plat_32.0.cil",
+    stem: "32.0.cil",
+    bottom_half: [":32.0.board.compat.map"],
+    // top_half: "plat_33.0.cil",
+}
+
+se_cil_compat_map {
+    name: "system_ext_28.0.cil",
+    stem: "28.0.cil",
+    bottom_half: [":28.0.board.compat.map"],
+    top_half: "system_ext_29.0.cil",
+    system_ext_specific: true,
+}
+
+se_cil_compat_map {
+    name: "system_ext_29.0.cil",
+    stem: "29.0.cil",
+    bottom_half: [":29.0.board.compat.map"],
+    top_half: "system_ext_30.0.cil",
+    system_ext_specific: true,
+}
+
+se_cil_compat_map {
+    name: "system_ext_30.0.cil",
+    stem: "30.0.cil",
+    bottom_half: [":30.0.board.compat.map"],
+    top_half: "system_ext_31.0.cil",
+    system_ext_specific: true,
+}
+
+se_cil_compat_map {
+    name: "system_ext_31.0.cil",
+    stem: "31.0.cil",
+    bottom_half: [":31.0.board.compat.map"],
+    top_half: "system_ext_32.0.cil",
+    system_ext_specific: true,
+}
+
+se_cil_compat_map {
+    name: "system_ext_32.0.cil",
+    stem: "32.0.cil",
+    bottom_half: [":32.0.board.compat.map"],
+    // top_half: "system_ext_33.0.cil",
+    system_ext_specific: true,
+}
+
+se_cil_compat_map {
+    name: "product_28.0.cil",
+    stem: "28.0.cil",
+    bottom_half: [":28.0.board.compat.map"],
+    top_half: "product_29.0.cil",
+    product_specific: true,
+}
+
+se_cil_compat_map {
+    name: "product_29.0.cil",
+    stem: "29.0.cil",
+    bottom_half: [":29.0.board.compat.map"],
+    top_half: "product_30.0.cil",
+    product_specific: true,
+}
+
+se_cil_compat_map {
+    name: "product_30.0.cil",
+    stem: "30.0.cil",
+    bottom_half: [":30.0.board.compat.map"],
+    top_half: "product_31.0.cil",
+    product_specific: true,
+}
+
+se_cil_compat_map {
+    name: "product_31.0.cil",
+    stem: "31.0.cil",
+    bottom_half: [":31.0.board.compat.map"],
+    top_half: "product_32.0.cil",
+    product_specific: true,
+}
+
+se_cil_compat_map {
+    name: "product_32.0.cil",
+    stem: "32.0.cil",
+    bottom_half: [":32.0.board.compat.map"],
+    // top_half: "product_33.0.cil",
+    product_specific: true,
+}
+
+se_cil_compat_map {
+    name: "28.0.ignore.cil",
+    bottom_half: [":28.0.board.ignore.map"],
+    top_half: "29.0.ignore.cil",
+}
+
+se_cil_compat_map {
+    name: "29.0.ignore.cil",
+    bottom_half: [":29.0.board.ignore.map"],
+    top_half: "30.0.ignore.cil",
+}
+
+se_cil_compat_map {
+    name: "30.0.ignore.cil",
+    bottom_half: [":30.0.board.ignore.map"],
+    top_half: "31.0.ignore.cil",
+}
+
+se_cil_compat_map {
+    name: "31.0.ignore.cil",
+    bottom_half: [":31.0.board.ignore.map"],
+    top_half: "32.0.ignore.cil",
+}
+
+se_cil_compat_map {
+    name: "32.0.ignore.cil",
+    bottom_half: [":32.0.board.ignore.map"],
+    // top_half: "33.0.ignore.cil",
+}
+
+se_cil_compat_map {
+    name: "system_ext_30.0.ignore.cil",
+    bottom_half: [":30.0.board.ignore.map"],
+    top_half: "system_ext_31.0.ignore.cil",
+    system_ext_specific: true,
+}
+
+se_cil_compat_map {
+    name: "system_ext_31.0.ignore.cil",
+    bottom_half: [":31.0.board.ignore.map"],
+    top_half: "system_ext_32.0.ignore.cil",
+    system_ext_specific: true,
+}
+
+se_cil_compat_map {
+    name: "system_ext_32.0.ignore.cil",
+    bottom_half: [":32.0.board.ignore.map"],
+    // top_half: "system_ext_33.0.ignore.cil",
+    system_ext_specific: true,
+}
+
+se_cil_compat_map {
+    name: "product_30.0.ignore.cil",
+    bottom_half: [":30.0.board.ignore.map"],
+    top_half: "product_31.0.ignore.cil",
+    product_specific: true,
+}
+
+se_cil_compat_map {
+    name: "product_31.0.ignore.cil",
+    bottom_half: [":31.0.board.ignore.map"],
+    top_half: "product_32.0.ignore.cil",
+    product_specific: true,
+}
+
+se_cil_compat_map {
+    name: "product_32.0.ignore.cil",
+    bottom_half: [":32.0.board.ignore.map"],
+    // top_half: "product_33.0.ignore.cil",
+    product_specific: true,
+}
+
+se_compat_cil {
+    name: "28.0.compat.cil",
+    srcs: [":28.0.board.compat.cil"],
+}
+
+se_compat_cil {
+    name: "29.0.compat.cil",
+    srcs: [":29.0.board.compat.cil"],
+}
+
+se_compat_cil {
+    name: "30.0.compat.cil",
+    srcs: [":30.0.board.compat.cil"],
+}
+
+se_compat_cil {
+    name: "31.0.compat.cil",
+    srcs: [":31.0.board.compat.cil"],
+}
+
+se_compat_cil {
+    name: "32.0.compat.cil",
+    srcs: [":32.0.board.compat.cil"],
+}
+
+se_compat_cil {
+    name: "system_ext_28.0.compat.cil",
+    srcs: [":28.0.board.compat.cil"],
+    stem: "28.0.compat.cil",
+    system_ext_specific: true,
+}
+
+se_compat_cil {
+    name: "system_ext_29.0.compat.cil",
+    srcs: [":29.0.board.compat.cil"],
+    stem: "29.0.compat.cil",
+    system_ext_specific: true,
+}
+
+se_compat_cil {
+    name: "system_ext_30.0.compat.cil",
+    srcs: [":30.0.board.compat.cil"],
+    stem: "30.0.compat.cil",
+    system_ext_specific: true,
+}
+
+se_compat_cil {
+    name: "system_ext_31.0.compat.cil",
+    srcs: [":31.0.board.compat.cil"],
+    stem: "31.0.compat.cil",
+    system_ext_specific: true,
+}
+
+se_compat_cil {
+    name: "system_ext_32.0.compat.cil",
+    srcs: [":32.0.board.compat.cil"],
+    stem: "32.0.compat.cil",
+    system_ext_specific: true,
+}
+
+se_compat_test {
+    name: "sepolicy_compat_test",
+}

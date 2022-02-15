@@ -40,6 +40,7 @@ bootstrap_go_package {
         "selinux.go",
         "selinux_contexts.go",
         "sepolicy_freeze.go",
+        "sepolicy_neverallow.go",
         "sepolicy_vers.go",
         "versioned_policy.go",
     ],

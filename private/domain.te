@@ -112,6 +112,26 @@ allow domain linkerconfig_file:file r_file_perms;
 # Allow all processes to check for the existence of the boringssl_self_test_marker files.
 allow domain boringssl_self_test_marker:dir search;
 
+# No domains other than a select few can access the misc_block_device. This
+# block device is reserved for OTA use.
+# Do not assert this rule on userdebug/eng builds, due to some devices using
+# this partition for testing purposes.
+neverallow {
+  domain
+  userdebug_or_eng(`-domain') # exclude debuggable builds
+  -fastbootd
+  -hal_bootctl_server
+  -init
+  -uncrypt
+  -update_engine
+  -vendor_init
+  -vendor_misc_writer
+  -vold
+  -recovery
+  -ueventd
+  -mtectrl
+} misc_block_device:blk_file { append link relabelfrom rename write open read ioctl lock };
+
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
 # with other UIDs to these allowlisted domains.
 neverallow {
@@ -121,6 +141,7 @@ neverallow {
   -dumpstate
   userdebug_or_eng(`-incidentd')
   userdebug_or_eng(`-profcollectd')
+  userdebug_or_eng(`-simpleperf_boot')
   -storaged
   -system_server
 } self:global_capability_class_set sys_ptrace;
@@ -304,7 +325,9 @@ neverallow {
 # contains boot class path and system server AOT artifacts following an ART APEX Mainline update.
 neverallow {
   domain
-  # art processes
+  # art-related processes
+  -composd
+  -compos_fd_server
   -odrefresh
   -odsign
   # others
@@ -316,9 +339,10 @@ neverallow {
 neverallow {
   domain
   # art-related processes
+  -composd
+  -compos_fd_server
   -odrefresh
   -odsign
-  -composd
   # others
   -apexd
   -init
@@ -453,6 +477,7 @@ full_treble_only(`
     -iorap_inode2filename
     -iorap_prefetcherd
     -kernel
+    userdebug_or_eng(`-simpleperf_boot')
     -traced_perf
     -ueventd
   } vendor_file:file { no_w_file_perms no_x_file_perms open };
@@ -493,6 +518,7 @@ full_treble_only(`
     -heapprofd
     userdebug_or_eng(`-profcollectd')
     -shell
+    userdebug_or_eng(`-simpleperf_boot')
     -system_executes_vendor_violators
     -traced_perf # library/binary access for symbolization
     -ueventd # reads /vendor/ueventd.rc
@@ -544,6 +570,7 @@ neverallow {
   -init
   userdebug_or_eng(`-profcollectd')
   -vendor_init
+  userdebug_or_eng(`-simpleperf_boot')
   -traced_probes
   -traced_perf
 } proc_kallsyms:file { open read };
@@ -565,6 +592,9 @@ enforce_debugfs_restriction(`
       -tracefs_type
   }:file no_rw_file_perms;
 ')
+
+# Restrict write access to etm sysfs interface.
+neverallow { domain -ueventd -vendor_init } sysfs_devices_cs_etm:file no_w_file_perms;
 
 # Restrict write access to shell owned files. The /data/local/tmp directory is
 # untrustworthy, and non-allowed domains should not be trusting any content in

@@ -19,6 +19,7 @@
 
 # For kernel modules
 /lib(/.*)?          u:object_r:rootfs:s0
+/system_dlkm(/.*)?  u:object_r:system_dlkm_file:s0
 
 # Empty directories
 /lost\+found        u:object_r:rootfs:s0
@@ -290,12 +291,12 @@
 /system/bin/remount              u:object_r:remount_exec:s0
 /system/bin/dhcpcd      u:object_r:dhcp_exec:s0
 /system/bin/dhcpcd-6\.8\.2	u:object_r:dhcp_exec:s0
+/system/bin/dmesgd	u:object_r:dmesgd_exec:s0
 /system/bin/mtpd	u:object_r:mtp_exec:s0
 /system/bin/pppd	u:object_r:ppp_exec:s0
 /system/bin/racoon	u:object_r:racoon_exec:s0
 /system/xbin/su		u:object_r:su_exec:s0
 /system/bin/dnsmasq     u:object_r:dnsmasq_exec:s0
-/system/bin/clatd	u:object_r:clatd_exec:s0
 /system/bin/linker(64)? u:object_r:system_linker_exec:s0
 /system/bin/linkerconfig u:object_r:linkerconfig_exec:s0
 /system/bin/bootstrap/linker(64)? u:object_r:system_linker_exec:s0
@@ -308,6 +309,7 @@
 /system/bin/lpdumpd        u:object_r:lpdumpd_exec:s0
 /system/bin/rss_hwm_reset	u:object_r:rss_hwm_reset_exec:s0
 /system/bin/perfetto        u:object_r:perfetto_exec:s0
+/system/bin/mtectrl         u:object_r:mtectrl_exec:s0
 /system/bin/traced        u:object_r:traced_exec:s0
 /system/bin/traced_perf        u:object_r:traced_perf_exec:s0
 /system/bin/traced_probes        u:object_r:traced_probes_exec:s0
@@ -364,6 +366,7 @@
 /system/bin/stats                u:object_r:stats_exec:s0
 /system/bin/statsd               u:object_r:statsd_exec:s0
 /system/bin/bpfloader            u:object_r:bpfloader_exec:s0
+/system/bin/btfloader            u:object_r:bpfloader_exec:s0
 /system/bin/watchdogd            u:object_r:watchdogd_exec:s0
 /system/bin/apexd                u:object_r:apexd_exec:s0
 /system/bin/gsid                 u:object_r:gsid_exec:s0
@@ -374,6 +377,9 @@
 /system/bin/snapuserd            u:object_r:snapuserd_exec:s0
 /system/bin/odsign               u:object_r:odsign_exec:s0
 /system/bin/vehicle_binding_util     u:object_r:vehicle_binding_util_exec:s0
+/system/bin/cardisplayproxyd     u:object_r:automotive_display_service_exec:s0
+/system/bin/evsmanagerd          u:object_r:evsmanagerd_exec:s0
+/system/bin/android\.automotive\.evs\.manager@1\.[0-9]+ u:object_r:evsmanagerd_exec:s0
 
 #############################
 # Vendor files
@@ -600,6 +606,7 @@
 /data/misc/carrierid(/.*)?      u:object_r:radio_data_file:s0
 /data/misc/dhcp(/.*)?           u:object_r:dhcp_data_file:s0
 /data/misc/dhcp-6\.8\.2(/.*)?     u:object_r:dhcp_data_file:s0
+/data/misc/dmesgd(/.*)?         u:object_r:dmesgd_data_file:s0
 /data/misc/emergencynumberdb(/.*)?     u:object_r:emergency_data_file:s0
 /data/misc/gatekeeper(/.*)?     u:object_r:gatekeeper_data_file:s0
 /data/misc/incidents(/.*)?	    u:object_r:incident_data_file:s0
@@ -703,6 +710,8 @@
 /data/incremental/MT_[^/]+/mount/.log                   u:object_r:incremental_control_file:s0
 /data/incremental/MT_[^/]+/mount/.blocks_written        u:object_r:incremental_control_file:s0
 
+# Boot animation data
+/data/bootanim(/.*)? u:object_r:bootanim_data_file:s0
 #############################
 # Expanded data files
 #

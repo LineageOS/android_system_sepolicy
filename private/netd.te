@@ -1,4 +1,5 @@
 typeattribute netd coredomain;
+typeattribute netd bpfdomain;
 
 init_daemon_domain(netd)
 
@@ -18,6 +19,7 @@ allow netd bpfloader:bpf { prog_run map_read map_write };
 
 # in order to invoke side effect of close() on such a socket calling synchronize_rcu()
 # TODO: Remove this permission when 4.9 kernel is deprecated.
+# TODO: Remove this after we remove all bpf interactions from netd.
 allow netd self:key_socket create;
 
 set_prop(netd, ctl_mdnsd_prop)

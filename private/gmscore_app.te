@@ -5,6 +5,11 @@ typeattribute gmscore_app coredomain;
 
 app_domain(gmscore_app)
 
+# TODO(b/217368496): remove this.
+perfetto_producer(gmscore_app)
+can_profile_heap(gmscore_app)
+can_profile_perf(gmscore_app)
+
 allow gmscore_app sysfs_type:dir search;
 # Read access to /sys/block/zram*/mm_stat
 r_dir_file(gmscore_app, sysfs_zram)
@@ -28,6 +33,12 @@ allow gmscore_app system_update_service:service_manager find;
 
 # Allow GMS core to communicate with statsd.
 binder_call(gmscore_app, statsd)
+
+# Allow GMS core to receive Perfetto traces through the framework
+# (i.e. TracingServiceProxy) and sendfile them into its private directory
+# for reporting when network and battery conditions are appropriate.
+allow gmscore_app perfetto:fd use;
+allow gmscore_app perfetto_traces_data_file:file { read getattr };
 
 # Allow GMS core to generate unique hardware IDs
 allow gmscore_app keystore:keystore_key gen_unique_id;

@@ -4,7 +4,7 @@ type automotive_display_service_exec, system_file_type, exec_type, file_type;
 
 typeattribute automotive_display_service automotive_display_service_server;
 
-# Allow to add a display service to the manager
+# Allow to add a display service to the hwservicemanager
 add_hwservice(automotive_display_service, fwk_automotive_display_hwservice);
 
 # Allow init to launch automotive display service
@@ -36,3 +36,9 @@ allow automotive_display_service hidl_token_hwservice:hwservice_manager find;
 # Allow to access EGL files
 allow automotive_display_service gpu_device:chr_file rw_file_perms;
 allow automotive_display_service gpu_device:dir search;
+
+# Allow to add a service to the servicemanager
+add_service(automotive_display_service, fwk_automotive_display_service);
+
+# Allow to communicate with EVS services
+binder_call(automotive_display_service, hal_evs)

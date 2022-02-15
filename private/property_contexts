@@ -70,6 +70,7 @@ persist.pm.mock-upgrade u:object_r:mock_ota_prop:s0
 persist.profcollectd.node_id    u:object_r:profcollectd_node_id_prop:s0     exact   string
 persist.sys.            u:object_r:system_prop:s0
 persist.sys.safemode    u:object_r:safemode_prop:s0
+persist.sys.tap_gesture u:object_r:gesture_prop:s0
 persist.sys.theme       u:object_r:theme_prop:s0
 persist.sys.fflag.override.settings_dynamic_system    u:object_r:dynamic_system_prop:s0
 ro.sys.safemode         u:object_r:safemode_prop:s0
@@ -268,7 +269,7 @@ persist.apexd.          u:object_r:apexd_prop:s0
 persist.vendor.apex.    u:object_r:apexd_select_prop:s0
 ro.boot.vendor.apex.    u:object_r:apexd_select_prop:s0
 
-bpf.progs_loaded        u:object_r:bpf_progs_loaded_prop:s0
+bpf.progs_loaded        u:object_r:bpf_progs_loaded_prop:s0 exact bool
 
 gsid.                   u:object_r:gsid_prop:s0
 ro.gsid.                u:object_r:gsid_prop:s0
@@ -295,9 +296,11 @@ ro.virtual_ab.retrofit  u:object_r:virtual_ab_prop:s0 exact bool
 ro.virtual_ab.compression.enabled  u:object_r:virtual_ab_prop:s0 exact bool
 ro.virtual_ab.compression.xor.enabled   u:object_r:virtual_ab_prop:s0 exact bool
 ro.virtual_ab.userspace.snapshots.enabled u:object_r:virtual_ab_prop:s0 exact bool
+ro.virtual_ab.io_uring.enabled u:object_r:virtual_ab_prop:s0 exact bool
 snapuserd.ready         u:object_r:snapuserd_prop:s0 exact bool
 snapuserd.proxy_ready   u:object_r:snapuserd_prop:s0 exact bool
 snapuserd.test.dm.snapshots u:object_r:snapuserd_prop:s0 exact bool
+snapuserd.test.io_uring.force_disable u:object_r:snapuserd_prop:s0 exact bool
 
 ro.product.ab_ota_partitions u:object_r:ota_prop:s0 exact string
 # Property to set/clear the warm reset flag after an OTA update.
@@ -464,6 +467,45 @@ persist.bluetooth.btsnoopdefaultmode           u:object_r:bluetooth_prop:s0 exac
 persist.bluetooth.btsnooplogmode               u:object_r:bluetooth_prop:s0 exact enum empty disabled filtered full
 persist.bluetooth.factoryreset                 u:object_r:bluetooth_prop:s0 exact bool
 
+bluetooth.hardware.power.operating_voltage_mv        u:object_r:bluetooth_config_prop:s0 exact int
+bluetooth.hardware.power.idle_cur_ma                 u:object_r:bluetooth_config_prop:s0 exact int
+bluetooth.hardware.power.tx_cur_ma                   u:object_r:bluetooth_config_prop:s0 exact int
+bluetooth.hardware.power.rx_cur_ma                   u:object_r:bluetooth_config_prop:s0 exact int
+
+bluetooth.framework.support_persisted_state          u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.framework.adapter_address_validation       u:object_r:bluetooth_config_prop:s0 exact bool
+
+bluetooth.device.default_name                        u:object_r:bluetooth_config_prop:s0 exact string
+bluetooth.device.class_of_device                     u:object_r:bluetooth_config_prop:s0 exact string
+
+bluetooth.profile.a2dp.sink.enabled                  u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.a2dp.source.enabled                u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.asha.central.enabled               u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.avrcp.controller.enabled           u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.avrcp.target.enabled               u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.bap.broadcast.assist.enabled       u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.bap.broadcast.source.enabled       u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.bap.unicast.server.enabled         u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.bass.client.enabled                u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.csip.set_coordinator.enabled       u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.gatt.enabled                       u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.hap.client.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.hfp.ag.enabled                     u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.hfp.hf.enabled                     u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.hid.device.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.hid.host.enabled                   u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.map.client.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.map.server.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.mcp.server.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.opp.enabled                        u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.pan.nap.enabled                    u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.pan.panu.enabled                   u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.pbap.client.enabled                u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.pbap.server.enabled                u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.sap.server.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.tbs.server.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.vc.server.enabled                  u:object_r:bluetooth_config_prop:s0 exact bool
+
 persist.nfc.debug_enabled                      u:object_r:nfc_prop:s0 exact bool
 
 persist.radio.multisim.config u:object_r:radio_control_prop:s0 exact string
@@ -609,7 +651,10 @@ tombstoned.max_tombstone_count u:object_r:tombstone_config_prop:s0 exact int
 
 vold.post_fs_data_done u:object_r:vold_post_fs_data_prop:s0 exact int
 
+apexd.payload_metadata.path u:object_r:apexd_payload_metadata_prop:s0 exact string
 apexd.status u:object_r:apexd_prop:s0 exact enum starting activated ready
+
+dmesgd.start u:object_r:dmesgd_start_prop:s0 exact bool
 
 odsign.key.done u:object_r:odsign_prop:s0 exact bool
 odsign.verification.done u:object_r:odsign_prop:s0 exact bool
@@ -667,6 +712,8 @@ libc.debug.hooks.enable   u:object_r:libc_debug_prop:s0 exact string
 
 # shell-only props for ARM memory tagging (MTE).
 arm64.memtag. u:object_r:arm64_memtag_prop:s0 prefix string
+persist.arm64.memtag.default u:object_r:arm64_memtag_prop:s0 exact string
+persist.arm64.memtag.app_default u:object_r:arm64_memtag_prop:s0 exact string
 
 net.redirect_socket_calls.hooked u:object_r:socket_hook_prop:s0 exact bool
 
@@ -696,7 +743,9 @@ ro.boot.vbmeta.avb_version u:object_r:bootloader_prop:s0 exact string
 ro.boot.verifiedbootstate  u:object_r:bootloader_prop:s0 exact string
 ro.boot.veritymode         u:object_r:bootloader_prop:s0 exact string
 # Properties specific to virtualized deployments of Android
+ro.boot.hypervisor.protected_vm.supported   u:object_r:hypervisor_prop:s0 exact bool
 ro.boot.hypervisor.version                  u:object_r:hypervisor_prop:s0 exact string
+ro.boot.hypervisor.vm.supported             u:object_r:hypervisor_prop:s0 exact bool
 
 # These ro.X properties are set to values of ro.boot.X by property_service.
 ro.baseband   u:object_r:bootloader_prop:s0 exact string

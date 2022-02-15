@@ -2,39 +2,33 @@
 type compos, domain, coredomain, microdroid_payload;
 type compos_exec, exec_type, file_type, system_file_type;
 
+# Expose RPC Binder service over vsock
 allow compos self:vsock_socket { create_socket_perms_no_ioctl listen accept };
 
-# Allow using keystore and authfs_service binder services
+# Allow using various binder services
 binder_use(compos);
-use_keystore(compos);
-allow compos authfs_binder_service:service_manager find;
+allow compos {
+    authfs_binder_service
+    dice_node_service
+}:service_manager find;
 binder_call(compos, authfs_service);
+binder_call(compos, diced);
+allow compos diced:diced { get_attestation_chain derive };
 
-# Allow payloads to use and manage their keys
-allow compos vm_payload_key:keystore2_key {
-    delete
-    get_info
-    manage_blob
-    rebind
-    use
-};
-
-# Although the compos should not really read/write the FD on authfs_fuse, this
-# is apparently required for the binder driver to pass the FDs to compos from
-# authfs_service.
-allow compos authfs_fuse:file { read write };
-
-# Allow getattr (in fact, getxattr) as a workaround to retrieve fs-verity
-# metadata. See b/196635431.
-allow compos authfs_fuse:file getattr;
-
-# Allow creating the odrefresh output directory in authfs.
-allow compos authfs_fuse:dir create_dir_perms;
+# Read artifacts created by odrefresh and create signature files.
+allow compos authfs_fuse:dir rw_dir_perms;
+allow compos authfs_fuse:file create_file_perms;
 
 # Allow locating the authfs mount directory.
-allow compos authfs_data_file:dir { search };
+allow compos authfs_data_file:dir search;
 
-# Allow domain transition into odrefresh and dex2oat.
-# TODO(b/209008712): Remove dex2oat once the migration is done.
+# Run derive_classpath in our domain
+allow compos derive_classpath_exec:file rx_file_perms;
+allow compos apex_mnt_dir:dir r_dir_perms;
+# Ignore harmless denials on /proc/self/fd
+dontaudit compos self:dir write;
+# See b/35323867#comment3
+dontaudit compos self:global_capability_class_set dac_override;
+
+# Allow domain transition into odrefresh.
 domain_auto_trans(compos, odrefresh_exec, odrefresh)
-domain_auto_trans(compos, dex2oat_exec, dex2oat)

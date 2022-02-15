@@ -149,480 +149,44 @@ se_filegroup {
     ],
 }
 
-se_cil_compat_map {
-    name: "plat_28.0.cil",
-    stem: "28.0.cil",
-    bottom_half: [":28.0.board.compat.map"],
-    top_half: "plat_29.0.cil",
-}
-
-se_cil_compat_map {
-    name: "plat_29.0.cil",
-    stem: "29.0.cil",
-    bottom_half: [":29.0.board.compat.map"],
-    top_half: "plat_30.0.cil",
-}
-
-se_cil_compat_map {
-    name: "plat_30.0.cil",
-    stem: "30.0.cil",
-    bottom_half: [":30.0.board.compat.map"],
-    top_half: "plat_31.0.cil",
-}
-
-se_cil_compat_map {
-    name: "plat_31.0.cil",
-    stem: "31.0.cil",
-    bottom_half: [":31.0.board.compat.map"],
-    top_half: "plat_32.0.cil",
-}
-
-se_cil_compat_map {
-    name: "plat_32.0.cil",
-    stem: "32.0.cil",
-    bottom_half: [":32.0.board.compat.map"],
-    // top_half: "plat_33.0.cil",
-}
-
-se_cil_compat_map {
-    name: "system_ext_28.0.cil",
-    stem: "28.0.cil",
-    bottom_half: [":28.0.board.compat.map"],
-    top_half: "system_ext_29.0.cil",
-    system_ext_specific: true,
-}
-
-se_cil_compat_map {
-    name: "system_ext_29.0.cil",
-    stem: "29.0.cil",
-    bottom_half: [":29.0.board.compat.map"],
-    top_half: "system_ext_30.0.cil",
-    system_ext_specific: true,
-}
-
-se_cil_compat_map {
-    name: "system_ext_30.0.cil",
-    stem: "30.0.cil",
-    bottom_half: [":30.0.board.compat.map"],
-    top_half: "system_ext_31.0.cil",
-    system_ext_specific: true,
-}
-
-se_cil_compat_map {
-    name: "system_ext_31.0.cil",
-    stem: "31.0.cil",
-    bottom_half: [":31.0.board.compat.map"],
-    top_half: "system_ext_32.0.cil",
-    system_ext_specific: true,
-}
-
-se_cil_compat_map {
-    name: "system_ext_32.0.cil",
-    stem: "32.0.cil",
-    bottom_half: [":32.0.board.compat.map"],
-    // top_half: "system_ext_33.0.cil",
-    system_ext_specific: true,
-}
-
-se_cil_compat_map {
-    name: "product_28.0.cil",
-    stem: "28.0.cil",
-    bottom_half: [":28.0.board.compat.map"],
-    top_half: "product_29.0.cil",
-    product_specific: true,
-}
-
-se_cil_compat_map {
-    name: "product_29.0.cil",
-    stem: "29.0.cil",
-    bottom_half: [":29.0.board.compat.map"],
-    top_half: "product_30.0.cil",
-    product_specific: true,
-}
-
-se_cil_compat_map {
-    name: "product_30.0.cil",
-    stem: "30.0.cil",
-    bottom_half: [":30.0.board.compat.map"],
-    top_half: "product_31.0.cil",
-    product_specific: true,
-}
-
-se_cil_compat_map {
-    name: "product_31.0.cil",
-    stem: "31.0.cil",
-    bottom_half: [":31.0.board.compat.map"],
-    top_half: "product_32.0.cil",
-    product_specific: true,
-}
-
-se_cil_compat_map {
-    name: "product_32.0.cil",
-    stem: "32.0.cil",
-    bottom_half: [":32.0.board.compat.map"],
-    // top_half: "product_33.0.cil",
-    product_specific: true,
-}
-
-se_cil_compat_map {
-    name: "28.0.ignore.cil",
-    bottom_half: [":28.0.board.ignore.map"],
-    top_half: "29.0.ignore.cil",
-}
-
-se_cil_compat_map {
-    name: "29.0.ignore.cil",
-    bottom_half: [":29.0.board.ignore.map"],
-    top_half: "30.0.ignore.cil",
-}
-
-se_cil_compat_map {
-    name: "30.0.ignore.cil",
-    bottom_half: [":30.0.board.ignore.map"],
-    top_half: "31.0.ignore.cil",
-}
-
-se_cil_compat_map {
-    name: "31.0.ignore.cil",
-    bottom_half: [":31.0.board.ignore.map"],
-    top_half: "32.0.ignore.cil",
-}
-
-se_cil_compat_map {
-    name: "32.0.ignore.cil",
-    bottom_half: [":32.0.board.ignore.map"],
-    // top_half: "33.0.ignore.cil",
-}
-
-se_cil_compat_map {
-    name: "system_ext_30.0.ignore.cil",
-    bottom_half: [":30.0.board.ignore.map"],
-    top_half: "system_ext_31.0.ignore.cil",
-    system_ext_specific: true,
-}
-
-se_cil_compat_map {
-    name: "system_ext_31.0.ignore.cil",
-    bottom_half: [":31.0.board.ignore.map"],
-    top_half: "system_ext_32.0.ignore.cil",
-    system_ext_specific: true,
-}
-
-se_cil_compat_map {
-    name: "system_ext_32.0.ignore.cil",
-    bottom_half: [":32.0.board.ignore.map"],
-    // top_half: "system_ext_33.0.ignore.cil",
-    system_ext_specific: true,
-}
-
-se_cil_compat_map {
-    name: "product_30.0.ignore.cil",
-    bottom_half: [":30.0.board.ignore.map"],
-    top_half: "product_31.0.ignore.cil",
-    product_specific: true,
-}
-
-se_cil_compat_map {
-    name: "product_31.0.ignore.cil",
-    bottom_half: [":31.0.board.ignore.map"],
-    top_half: "product_32.0.ignore.cil",
-    product_specific: true,
-}
-
-se_cil_compat_map {
-    name: "product_32.0.ignore.cil",
-    bottom_half: [":32.0.board.ignore.map"],
-    // top_half: "product_33.0.ignore.cil",
-    product_specific: true,
-}
-
-se_compat_cil {
-    name: "28.0.compat.cil",
-    srcs: [":28.0.board.compat.cil"],
-}
-
-se_compat_cil {
-    name: "29.0.compat.cil",
-    srcs: [":29.0.board.compat.cil"],
-}
-
-se_compat_cil {
-    name: "30.0.compat.cil",
-    srcs: [":30.0.board.compat.cil"],
-}
-
-se_compat_cil {
-    name: "31.0.compat.cil",
-    srcs: [":31.0.board.compat.cil"],
-}
-
-se_compat_cil {
-    name: "32.0.compat.cil",
-    srcs: [":32.0.board.compat.cil"],
-}
-
-se_compat_cil {
-    name: "system_ext_28.0.compat.cil",
-    srcs: [":28.0.board.compat.cil"],
-    stem: "28.0.compat.cil",
-    system_ext_specific: true,
-}
-
-se_compat_cil {
-    name: "system_ext_29.0.compat.cil",
-    srcs: [":29.0.board.compat.cil"],
-    stem: "29.0.compat.cil",
-    system_ext_specific: true,
-}
-
-se_compat_cil {
-    name: "system_ext_30.0.compat.cil",
-    srcs: [":30.0.board.compat.cil"],
-    stem: "30.0.compat.cil",
-    system_ext_specific: true,
-}
-
-se_compat_cil {
-    name: "system_ext_31.0.compat.cil",
-    srcs: [":31.0.board.compat.cil"],
-    stem: "31.0.compat.cil",
-    system_ext_specific: true,
-}
-
-se_compat_cil {
-    name: "system_ext_32.0.compat.cil",
-    srcs: [":32.0.board.compat.cil"],
-    stem: "32.0.compat.cil",
-    system_ext_specific: true,
-}
-
-se_filegroup {
+se_build_files {
     name: "file_contexts_files",
     srcs: ["file_contexts"],
 }
 
-se_filegroup {
+se_build_files {
     name: "file_contexts_asan_files",
     srcs: ["file_contexts_asan"],
 }
 
-se_filegroup {
+se_build_files {
     name: "file_contexts_overlayfs_files",
     srcs: ["file_contexts_overlayfs"],
 }
 
-se_filegroup {
+se_build_files {
     name: "hwservice_contexts_files",
     srcs: ["hwservice_contexts"],
 }
 
-se_filegroup {
+se_build_files {
     name: "property_contexts_files",
     srcs: ["property_contexts"],
 }
 
-se_filegroup {
+se_build_files {
     name: "service_contexts_files",
     srcs: ["service_contexts"],
 }
 
-se_filegroup {
+se_build_files {
     name: "keystore2_key_contexts_files",
     srcs: ["keystore2_key_contexts"],
 }
 
-file_contexts {
-    name: "plat_file_contexts",
-    srcs: [":file_contexts_files"],
-    product_variables: {
-        address_sanitize: {
-            srcs: [":file_contexts_asan_files"],
-        },
-        debuggable: {
-            srcs: [":file_contexts_overlayfs_files"],
-        },
-    },
-
-    flatten_apex: {
-        srcs: ["apex/*-file_contexts"],
-    },
-}
-
-file_contexts {
-    name: "plat_file_contexts.recovery",
-    srcs: [":file_contexts_files"],
-    stem: "plat_file_contexts",
-    product_variables: {
-        address_sanitize: {
-            srcs: [":file_contexts_asan_files"],
-        },
-        debuggable: {
-            srcs: [":file_contexts_overlayfs_files"],
-        },
-    },
-
-    flatten_apex: {
-        srcs: ["apex/*-file_contexts"],
-    },
-
-    recovery: true,
-}
-
-file_contexts {
-    name: "vendor_file_contexts",
-    srcs: [":file_contexts_files"],
-    soc_specific: true,
-    recovery_available: true,
-}
-
-file_contexts {
-    name: "system_ext_file_contexts",
-    srcs: [":file_contexts_files"],
-    system_ext_specific: true,
-    recovery_available: true,
-}
-
-file_contexts {
-    name: "product_file_contexts",
-    srcs: [":file_contexts_files"],
-    product_specific: true,
-    recovery_available: true,
-}
-
-file_contexts {
-    name: "odm_file_contexts",
-    srcs: [":file_contexts_files"],
-    device_specific: true,
-    recovery_available: true,
-}
-
-hwservice_contexts {
-    name: "plat_hwservice_contexts",
-    srcs: [":hwservice_contexts_files"],
-}
-
-hwservice_contexts {
-    name: "system_ext_hwservice_contexts",
-    srcs: [":hwservice_contexts_files"],
-    system_ext_specific: true,
-}
-
-hwservice_contexts {
-    name: "product_hwservice_contexts",
-    srcs: [":hwservice_contexts_files"],
-    product_specific: true,
-}
-
-hwservice_contexts {
-    name: "vendor_hwservice_contexts",
-    srcs: [":hwservice_contexts_files"],
-    reqd_mask: true,
-    soc_specific: true,
-}
-
-hwservice_contexts {
-    name: "odm_hwservice_contexts",
-    srcs: [":hwservice_contexts_files"],
-    device_specific: true,
-}
-
-property_contexts {
-    name: "plat_property_contexts",
-    srcs: [":property_contexts_files"],
-}
-
-property_contexts {
-    name: "plat_property_contexts.recovery",
-    srcs: [":property_contexts_files"],
-    stem: "plat_property_contexts",
-    recovery: true,
-}
-
-property_contexts {
-    name: "system_ext_property_contexts",
-    srcs: [":property_contexts_files"],
-    system_ext_specific: true,
-    recovery_available: true,
-}
-
-property_contexts {
-    name: "product_property_contexts",
-    srcs: [":property_contexts_files"],
-    product_specific: true,
-    recovery_available: true,
-}
-
-property_contexts {
-    name: "vendor_property_contexts",
-    srcs: [":property_contexts_files"],
-    reqd_mask: true,
-    soc_specific: true,
-    recovery_available: true,
-}
-
-property_contexts {
-    name: "odm_property_contexts",
-    srcs: [":property_contexts_files"],
-    device_specific: true,
-    recovery_available: true,
-}
-
-service_contexts {
-    name: "plat_service_contexts",
-    srcs: [":service_contexts_files"],
-}
-
-service_contexts {
-    name: "plat_service_contexts.recovery",
-    srcs: [":service_contexts_files"],
-    stem: "plat_service_contexts",
-    recovery: true,
-}
-
-service_contexts {
-    name: "system_ext_service_contexts",
-    srcs: [":service_contexts_files"],
-    system_ext_specific: true,
-    recovery_available: true,
-}
-
-service_contexts {
-    name: "product_service_contexts",
-    srcs: [":service_contexts_files"],
-    product_specific: true,
-    recovery_available: true,
-}
-
-service_contexts {
-    name: "vendor_service_contexts",
-    srcs: [":service_contexts_files"],
-    reqd_mask: true,
-    soc_specific: true,
-    recovery_available: true,
-}
-
-keystore2_key_contexts {
-    name: "plat_keystore2_key_contexts",
-    srcs: [":keystore2_key_contexts_files"],
-}
-
-keystore2_key_contexts {
-    name: "system_keystore2_key_contexts",
-    srcs: [":keystore2_key_contexts_files"],
-    system_ext_specific: true,
-}
-
-keystore2_key_contexts {
-    name: "product_keystore2_key_contexts",
-    srcs: [":keystore2_key_contexts_files"],
-    product_specific: true,
-}
-
-keystore2_key_contexts {
-    name: "vendor_keystore2_key_contexts",
-    srcs: [":keystore2_key_contexts_files"],
-    reqd_mask: true,
-    soc_specific: true,
+se_build_files {
+    name: "seapp_contexts_files",
+    srcs: ["seapp_contexts"],
 }
 
 // For vts_treble_sys_prop_test
@@ -659,6 +223,11 @@ se_build_files {
         "genfs_contexts",
         "port_contexts",
     ],
+}
+
+se_build_files {
+    name: "sepolicy_technical_debt",
+    srcs: ["technical_debt.cil"],
 }
 
 reqd_mask_policy          = [":se_build_files{.reqd_mask}"]
@@ -775,7 +344,22 @@ se_policy_conf {
 se_policy_cil {
     name: "plat_sepolicy.cil",
     src: ":plat_sepolicy.conf",
-    additional_cil_files: ["private/technical_debt.cil"],
+    additional_cil_files: [":sepolicy_technical_debt{.plat_private}"],
+}
+
+
+se_policy_conf {
+    name: "apex_sepolicy-33.conf",
+    srcs: plat_public_policy + plat_private_policy + ["com.android.sepolicy/33/*.te"],
+    installable: false,
+}
+
+se_policy_cil {
+    name: "apex_sepolicy-33.cil",
+    src: ":apex_sepolicy-33.conf",
+    filter_out: [":plat_sepolicy.cil"],
+    installable: false,
+    stem: "apex_sepolicy.cil",
 }
 
 // userdebug_plat_policy.conf - the userdebug version plat_sepolicy.cil
@@ -790,7 +374,7 @@ se_policy_conf {
 se_policy_cil {
     name: "userdebug_plat_sepolicy.cil",
     src: ":userdebug_plat_sepolicy.conf",
-    additional_cil_files: ["private/technical_debt.cil"],
+    additional_cil_files: [":sepolicy_technical_debt{.plat_private}"],
     debug_ramdisk: true,
     dist: {
         targets: ["droidcore"],
@@ -815,7 +399,7 @@ gsi_se_policy_cil {
     name: "system_ext_userdebug_plat_sepolicy.cil",
     stem: "userdebug_plat_sepolicy.cil",
     src: ":userdebug_plat_sepolicy.conf",
-    additional_cil_files: ["private/technical_debt.cil"],
+    additional_cil_files: [":sepolicy_technical_debt{.plat_private}"],
     system_ext_specific: true,
     enabled: false,
     installable: false,
@@ -898,22 +482,191 @@ se_versioned_policy {
     product_specific: true,
 }
 
+// vendor/odm sepolicy
+//
+// If BOARD_SEPOLICY_VERS is set to a value other than PLATFORM_SEPOLICY_VERSION,
+// policy files of platform (system, system_ext, product) can't be mixed with
+// policy files of vendor (vendor, odm). If it's the case, platform policies and
+// vendor policies are separately built. More specifically,
+//
+// - Platform policy files needed to build vendor policies, such as plat_policy,
+//   plat_mapping_cil, plat_pub_policy, reqd_policy_mask, are built from the
+//   prebuilts (copy of platform policy files of version BOARD_SEPOLICY_VERS).
+//
+// - sepolicy_neverallows only checks platform policies, and a new module
+//   sepolicy_neverallows_vendor checks vendor policies.
+//
+// - neverallow checks are turned off while compiling precompiled_sepolicy
+//   module and sepolicy module.
+//
+// - Vendor policies are not checked on the compat test (compat.mk).
+//
+// In such scenario, we can grab platform policy files from the prebuilts/api
+// directory. But we need more than that: prebuilts of system_ext, product,
+// system/sepolicy/reqd_mask, and system/sepolicy/vendor. The following
+// variables are introduced to specify such prebuilts.
+//
+// - BOARD_REQD_MASK_POLICY (prebuilt of system/sepolicy/reqd_mask)
+// - BOARD_PLAT_VENDOR_POLICY (prebuilt of system/sepolicy/vendor)
+// - BOARD_SYSTEM_EXT_PUBLIC_PREBUILT_DIRS (prebuilt of system_ext public)
+// - BOARD_SYSTEM_EXT_PRIVATE_PREBUILT_DIRS (prebuilt of system_ext private)
+// - BOARD_PRODUCT_PUBLIC_PREBUILT_DIRS (prebuilt of product public)
+// - BOARD_PRODUCT_PRIVATE_PREBUILT_DIRS (prebuilt of product private)
+//
+// Vendors are responsible for copying policy files from the old version of the
+// source tree as prebuilts, and for setting BOARD_*_POLICY variables so they
+// can be used to build vendor policies.
+//
+// To support both mixed build and normal build, platform policy files are
+// indirectly referred as {.(partition)_(scope)_for_vendor}. They will be equal
+// to {.(partition)_scope)} if BOARD_SEPOLICY_VERS == PLATFORM_SEPOLICY_VERSION.
+// Otherwise, they will be equal to the Makefile variables above.
+
+plat_public_policies_for_vendor = [
+    ":se_build_files{.plat_public_for_vendor}",
+    ":se_build_files{.system_ext_public_for_vendor}",
+    ":se_build_files{.product_public_for_vendor}",
+    ":se_build_files{.reqd_mask_for_vendor}",
+]
+
+plat_policies_for_vendor = [
+    ":se_build_files{.plat_public_for_vendor}",
+    ":se_build_files{.plat_private_for_vendor}",
+    ":se_build_files{.system_ext_public_for_vendor}",
+    ":se_build_files{.system_ext_private_for_vendor}",
+    ":se_build_files{.product_public_for_vendor}",
+    ":se_build_files{.product_private_for_vendor}",
+]
+
+se_policy_conf {
+    name: "plat_policy_for_vendor.conf",
+    srcs: plat_policies_for_vendor,
+    installable: false,
+}
+
+se_policy_cil {
+    name: "plat_policy_for_vendor.cil",
+    src: ":plat_policy_for_vendor.conf",
+    additional_cil_files: [":sepolicy_technical_debt{.plat_private_for_vendor}"],
+    installable: false,
+}
+
+se_policy_conf {
+    name: "reqd_policy_mask_for_vendor.conf",
+    srcs: [":se_build_files{.reqd_mask_for_vendor}"],
+    installable: false,
+}
+
+se_policy_cil {
+    name: "reqd_policy_mask_for_vendor.cil",
+    src: ":reqd_policy_mask_for_vendor.conf",
+    secilc_check: false,
+    installable: false,
+}
+
+se_policy_conf {
+    name: "pub_policy_for_vendor.conf",
+    srcs: plat_public_policies_for_vendor,
+    installable: false,
+}
+
+se_policy_cil {
+    name: "pub_policy_for_vendor.cil",
+    src: ":pub_policy_for_vendor.conf",
+    filter_out: [":reqd_policy_mask_for_vendor.cil"],
+    secilc_check: false,
+    installable: false,
+}
+
+se_versioned_policy {
+    name: "plat_mapping_file_for_vendor",
+    base: ":pub_policy_for_vendor.cil",
+    mapping: true,
+    version: "vendor",
+    installable: false,
+}
+
 // plat_pub_versioned.cil - the exported platform policy associated with the version
 // that non-platform policy targets.
 se_versioned_policy {
     name: "plat_pub_versioned.cil",
-    base: ":pub_policy.cil",
-    target_policy: ":pub_policy.cil",
-    version: "current",
-    dependent_cils: [
-        ":plat_sepolicy.cil",
-        ":system_ext_sepolicy.cil",
-        ":product_sepolicy.cil",
-        ":plat_mapping_file",
-        ":system_ext_mapping_file",
-        ":product_mapping_file",
-    ],
+    base: ":pub_policy_for_vendor.cil",
+    target_policy: ":pub_policy_for_vendor.cil",
+    version: "vendor",
     vendor: true,
+}
+
+// vendor_policy.cil - the vendor sepolicy. This needs attributization and to be combined
+// with the platform-provided policy.  It makes use of the reqd_policy_mask files from private
+// policy and the platform public policy files in order to use checkpolicy.
+se_policy_conf {
+    name: "vendor_sepolicy.conf",
+    srcs: plat_public_policies_for_vendor + [
+        ":se_build_files{.plat_vendor_for_vendor}",
+        ":se_build_files{.vendor}",
+    ],
+    installable: false,
+}
+
+se_policy_cil {
+    name: "vendor_sepolicy.cil.raw",
+    src: ":vendor_sepolicy.conf",
+    filter_out: [":reqd_policy_mask_for_vendor.cil"],
+    secilc_check: false, // will be done in se_versioned_policy module
+    installable: false,
+}
+
+se_versioned_policy {
+    name: "vendor_sepolicy.cil",
+    base: ":pub_policy_for_vendor.cil",
+    target_policy: ":vendor_sepolicy.cil.raw",
+    version: "vendor",
+    dependent_cils: [
+        ":plat_policy_for_vendor.cil",
+        ":plat_pub_versioned.cil",
+        ":plat_mapping_file_for_vendor",
+    ],
+    filter_out: [":plat_pub_versioned.cil"],
+    vendor: true,
+}
+
+// odm_policy.cil - the odl sepolicy. This needs attributization and to be combined
+// with the platform-provided policy.  It makes use of the reqd_policy_mask files from private
+// policy and the platform public policy files in order to use checkpolicy.
+se_policy_conf {
+    name: "odm_sepolicy.conf",
+    srcs: plat_public_policies_for_vendor + [
+        ":se_build_files{.plat_vendor_for_vendor}",
+        ":se_build_files{.vendor}",
+        ":se_build_files{.odm}",
+    ],
+    installable: false,
+}
+
+se_policy_cil {
+    name: "odm_sepolicy.cil.raw",
+    src: ":odm_sepolicy.conf",
+    filter_out: [
+        ":reqd_policy_mask_for_vendor.cil",
+        ":vendor_sepolicy.cil",
+    ],
+    secilc_check: false, // will be done in se_versioned_policy module
+    installable: false,
+}
+
+se_versioned_policy {
+    name: "odm_sepolicy.cil",
+    base: ":pub_policy_for_vendor.cil",
+    target_policy: ":odm_sepolicy.cil.raw",
+    version: "vendor",
+    dependent_cils: [
+        ":plat_policy_for_vendor.cil",
+        ":plat_pub_versioned.cil",
+        ":plat_mapping_file_for_vendor",
+        ":vendor_sepolicy.cil",
+    ],
+    filter_out: [":plat_pub_versioned.cil", ":vendor_sepolicy.cil"],
+    device_specific: true,
 }
 
 //////////////////////////////////
@@ -926,6 +679,9 @@ se_versioned_policy {
 // AND
 // - product_sepolicy_and_mapping.sha256 equals
 //   precompiled_sepolicy.product_sepolicy_and_mapping.sha256
+// AND
+// - apex_sepolicy.sha256 equals
+//   precompiled_sepolicy.apex_sepolicy.sha256
 // See system/core/init/selinux.cpp for details.
 //////////////////////////////////
 genrule {
@@ -940,6 +696,20 @@ prebuilt_etc {
     filename: "plat_sepolicy_and_mapping.sha256",
     src: ":plat_sepolicy_and_mapping.sha256_gen",
     relative_install_path: "selinux",
+}
+
+genrule {
+    name: "apex_sepolicy.sha256_gen",
+    srcs: [":apex_sepolicy-33.cil"],
+    out: ["apex_sepolicy.sha256"],
+    cmd: "cat $(in) | sha256sum | cut -d' ' -f1 > $(out)",
+}
+
+prebuilt_etc {
+    name: "apex_sepolicy.sha256",
+    filename: "apex_sepolicy.sha256",
+    src: ":apex_sepolicy.sha256_gen",
+    installable: false,
 }
 
 genrule {
@@ -979,15 +749,15 @@ sepolicy_vers {
 }
 
 soong_config_module_type {
-    name: "precompiled_sepolicy_defaults",
+    name: "precompiled_sepolicy_prebuilts_defaults",
     module_type: "prebuilt_defaults",
     config_namespace: "ANDROID",
     bool_variables: ["BOARD_USES_ODMIMAGE"],
     properties: ["vendor", "device_specific"],
 }
 
-precompiled_sepolicy_defaults {
-    name: "precompiled_sepolicy",
+precompiled_sepolicy_prebuilts_defaults {
+    name: "precompiled_sepolicy_prebuilts",
     soong_config_variables: {
         BOARD_USES_ODMIMAGE: {
             device_specific: true,
@@ -1003,10 +773,22 @@ precompiled_sepolicy_defaults {
 // which precompiled_policy was built.
 //////////////////////////////////
 prebuilt_etc {
-    defaults: ["precompiled_sepolicy"],
+    defaults: ["precompiled_sepolicy_prebuilts"],
     name: "precompiled_sepolicy.plat_sepolicy_and_mapping.sha256",
     filename: "precompiled_sepolicy.plat_sepolicy_and_mapping.sha256",
     src: ":plat_sepolicy_and_mapping.sha256_gen",
+    relative_install_path: "selinux",
+}
+
+//////////////////////////////////
+// SHA-256 digest of the apex_sepolicy.cil against which precompiled_policy
+// was built.
+//////////////////////////////////
+prebuilt_etc {
+    defaults: ["precompiled_sepolicy_prebuilts"],
+    name: "precompiled_sepolicy.apex_sepolicy.sha256",
+    filename: "precompiled_sepolicy.apex_sepolicy.sha256",
+    src: ":apex_sepolicy.sha256_gen",
     relative_install_path: "selinux",
 }
 
@@ -1015,7 +797,7 @@ prebuilt_etc {
 // which precompiled_policy was built.
 //////////////////////////////////
 prebuilt_etc {
-    defaults: ["precompiled_sepolicy"],
+    defaults: ["precompiled_sepolicy_prebuilts"],
     name: "precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256",
     filename: "precompiled_sepolicy.system_ext_sepolicy_and_mapping.sha256",
     src: ":system_ext_sepolicy_and_mapping.sha256_gen",
@@ -1027,13 +809,92 @@ prebuilt_etc {
 // which precompiled_policy was built.
 //////////////////////////////////
 prebuilt_etc {
-    defaults: ["precompiled_sepolicy"],
+    defaults: ["precompiled_sepolicy_prebuilts"],
     name: "precompiled_sepolicy.product_sepolicy_and_mapping.sha256",
     filename: "precompiled_sepolicy.product_sepolicy_and_mapping.sha256",
     src: ":product_sepolicy_and_mapping.sha256_gen",
     relative_install_path: "selinux",
 }
 
+soong_config_module_type {
+    name: "precompiled_se_policy_binary",
+    module_type: "se_policy_binary",
+    config_namespace: "ANDROID",
+    bool_variables: ["BOARD_USES_ODMIMAGE", "IS_TARGET_MIXED_SEPOLICY"],
+    value_variables: ["MIXED_SEPOLICY_VERSION"],
+    properties: ["vendor", "device_specific", "srcs", "ignore_neverallow"],
+}
+
+precompiled_se_policy_binary {
+    name: "precompiled_sepolicy",
+    srcs: [
+        ":plat_sepolicy.cil",
+        ":apex_sepolicy-33.cil",
+        ":plat_pub_versioned.cil",
+        ":system_ext_sepolicy.cil",
+        ":product_sepolicy.cil",
+        ":vendor_sepolicy.cil",
+        ":odm_sepolicy.cil",
+    ],
+    soong_config_variables: {
+        BOARD_USES_ODMIMAGE: {
+            device_specific: true,
+            conditions_default: {
+                vendor: true,
+            },
+        },
+        IS_TARGET_MIXED_SEPOLICY: {
+            ignore_neverallow: true,
+        },
+        MIXED_SEPOLICY_VERSION: {
+            srcs: [
+                ":plat_%s.cil",
+                ":system_ext_%s.cil",
+                ":product_%s.cil",
+            ],
+            conditions_default: {
+                srcs: [
+                    ":plat_mapping_file",
+                    ":system_ext_mapping_file",
+                    ":product_mapping_file",
+                ],
+            },
+        },
+    },
+    required: [
+        "sepolicy_neverallows",
+        "sepolicy_neverallows_vendor",
+    ],
+    dist: {
+        targets: ["base-sepolicy-files-for-mapping"],
+    },
+}
+
+// policy for recovery
+se_policy_conf {
+    name: "recovery_sepolicy.conf",
+    srcs: plat_policies_for_vendor + [
+        ":se_build_files{.plat_vendor_for_vendor}",
+        ":se_build_files{.vendor}",
+        ":se_build_files{.odm}",
+    ],
+    target_recovery: true,
+    installable: false,
+}
+
+se_policy_cil {
+    name: "recovery_sepolicy.cil",
+    src: ":recovery_sepolicy.conf",
+    secilc_check: false, // will be done in se_policy_binary module
+    installable: false,
+}
+
+se_policy_binary {
+    name: "sepolicy.recovery",
+    srcs: [":recovery_sepolicy.cil"],
+    stem: "sepolicy",
+    recovery: true,
+}
 
 //////////////////////////////////
 // SELinux policy embedded into CTS.
@@ -1075,6 +936,9 @@ se_policy_binary {
     name: "base_plat_sepolicy",
     srcs: [":base_plat_sepolicy.cil"],
     installable: false,
+    dist: {
+        targets: ["base-sepolicy-files-for-mapping"],
+    },
 }
 
 se_policy_conf {
@@ -1145,6 +1009,9 @@ se_policy_cil {
     filter_out: [":reqd_policy_mask.cil"],
     secilc_check: false,
     installable: false,
+    dist: {
+        targets: ["base-sepolicy-files-for-mapping"],
+    },
 }
 
 se_policy_conf {
@@ -1209,6 +1076,25 @@ se_bug_map {
     vendor: true,
 }
 
+se_neverallow_test {
+    name: "sepolicy_neverallows",
+    srcs: plat_public_policy +
+        plat_private_policy +
+        system_ext_public_policy +
+        system_ext_private_policy +
+        product_public_policy +
+        product_private_policy,
+}
+
+se_neverallow_test {
+    name: "sepolicy_neverallows_vendor",
+    srcs: plat_policies_for_vendor + [
+        ":se_build_files{.plat_vendor_for_vendor}",
+        ":se_build_files{.vendor}",
+        ":se_build_files{.odm}",
+    ],
+}
+
 //////////////////////////////////
 // se_freeze_test compares the plat sepolicy with the prebuilt sepolicy
 // Additional directories can be specified via Makefile variables:
@@ -1216,18 +1102,4 @@ se_bug_map {
 //////////////////////////////////
 se_freeze_test {
     name: "sepolicy_freeze_test",
-}
-
-//////////////////////////////////
-// Makefile rules temporary imported to Soong
-// TODO(b/33691272): remove these after migrating seapp to Soong
-//////////////////////////////////
-makefile_goal {
-    name: "plat_seapp_contexts_rule",
-    product_out_path: "obj/ETC/plat_seapp_contexts_intermediates/plat_seapp_contexts",
-}
-
-makefile_goal {
-    name: "plat_seapp_neverallows_rule",
-    product_out_path: "obj/ETC/plat_seapp_neverallows_intermediates/plat_seapp_neverallows",
 }

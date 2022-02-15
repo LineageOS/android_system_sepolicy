@@ -23,7 +23,7 @@ userdebug_or_eng(`
   allow profcollectd vendor_file:dir r_dir_perms;
   allow profcollectd vendor_kernel_modules:file r_file_perms;
 
-  # Allow profcollectd to read system bootstrap libs.
+  # Allow profcollectd to read (but not execute) system bootstrap libs.
   allow profcollectd system_bootstrap_lib_file:dir search;
   allow profcollectd system_bootstrap_lib_file:file r_file_perms;
 
@@ -48,6 +48,8 @@ userdebug_or_eng(`
 
   # Allow profcollectd to publish a binder service and make binder calls.
   binder_use(profcollectd)
+  # Allow profcollectd to call callbacks registered by system_server when ETM is ready.
+  binder_call(profcollectd, system_server)
   add_service(profcollectd, profcollectd_service)
 
   # Allow to temporarily lift the kptr_restrict setting and get kernel start address

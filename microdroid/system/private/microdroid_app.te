@@ -9,17 +9,9 @@
 type microdroid_app, domain, coredomain, microdroid_payload;
 type microdroid_app_exec, exec_type, file_type, system_file_type;
 
-# Talk to binder services (for keystore)
+# Talk to binder services (for diced)
 binder_use(microdroid_app);
 
-# Allow payloads to use keystore
-use_keystore(microdroid_app);
-
-# Allow payloads to use and manage their keys
-allow microdroid_app vm_payload_key:keystore2_key {
-    delete
-    get_info
-    manage_blob
-    rebind
-    use
-};
+allow microdroid_app dice_node_service:service_manager find;
+binder_call(microdroid_app, diced);
+allow microdroid_app diced:diced { get_attestation_chain derive };

@@ -51,6 +51,9 @@ expandattribute app_data_file_type false;
 # All types in /system
 attribute system_file_type;
 
+# All types in /system_dlkm
+attribute system_dlkm_file_type;
+
 # All types in /vendor
 attribute vendor_file_type;
 
@@ -219,6 +222,10 @@ attribute bluetoothdomain;
 # All domains used for binder service domains.
 attribute binderservicedomain;
 
+# All domains which have BPF access.
+attribute bpfdomain;
+expandattribute bpfdomain false;
+
 # update_engine related domains that need to apply an update and run
 # postinstall. This includes the background daemon and the sideload tool from
 # recovery for A/B devices.
@@ -347,6 +354,7 @@ hal_attribute(health);
 hal_attribute(health_storage);
 hal_attribute(identity);
 hal_attribute(input_classifier);
+hal_attribute(input_processor);
 hal_attribute(ir);
 hal_attribute(keymaster);
 hal_attribute(keymint);
@@ -393,6 +401,7 @@ hal_attribute(wifi_supplicant);
 attribute automotive_display_service_server;
 attribute camera_service_server;
 attribute display_service_server;
+attribute evsmanager_service_server;
 attribute scheduler_service_server;
 attribute sensor_service_server;
 attribute stats_service_server;
