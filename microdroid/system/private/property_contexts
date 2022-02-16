@@ -89,6 +89,7 @@ ro.boot.first_stage_console        u:object_r:bootloader_prop:s0 exact string
 ro.boot.force_normal_boot          u:object_r:bootloader_prop:s0 exact string
 ro.boot.hardware                   u:object_r:bootloader_prop:s0 exact string
 ro.boot.logd.enabled               u:object_r:bootloader_prop:s0 exact bool
+ro.boot.microdroid.app_debuggable  u:object_r:bootloader_prop:s0 exact bool
 ro.boot.microdroid.debuggable      u:object_r:bootloader_prop:s0 exact bool
 ro.boot.slot_suffix                u:object_r:bootloader_prop:s0 exact string
 ro.boot.vbmeta.avb_version         u:object_r:bootloader_prop:s0 exact string
