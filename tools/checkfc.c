@@ -171,6 +171,12 @@ static int validate(char **contextp)
 
     const char *type_name = sepol_context_get_type(ctx);
 
+    // Temporarily exempt hal_power_stats_vendor_service from the check.
+    // TODO(b/211953546): remove this
+    if (strcmp(type_name, "hal_power_stats_vendor_service") == 0) {
+        goto out;
+    }
+
     uint32_t len = ebitmap_length(&global_state.assert.set);
     if (len > 0) {
         res = !is_type_of_attribute_set(global_state.sepolicy.pdb, type_name,
