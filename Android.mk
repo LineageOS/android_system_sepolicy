@@ -341,7 +341,6 @@ ifneq ($(PRODUCT_SEPOLICY_SPLIT),true)
 # The following files are only allowed for non-Treble devices.
 LOCAL_REQUIRED_MODULES += \
     sepolicy \
-    vendor_service_contexts \
 
 endif # ($(PRODUCT_SEPOLICY_SPLIT),true)
 
@@ -501,6 +500,7 @@ LOCAL_REQUIRED_MODULES += \
     vendor_property_contexts_test \
     vendor_seapp_contexts \
     vendor_service_contexts \
+    vendor_service_contexts_test \
     vendor_hwservice_contexts \
     vendor_hwservice_contexts_test \
     vendor_bug_map \
@@ -679,9 +679,6 @@ file_contexts.device.sorted.tmp :=
 file_contexts.device.tmp :=
 file_contexts.local.tmp :=
 file_contexts.modules.tmp :=
-
-##################################
-include $(LOCAL_PATH)/contexts_tests.mk
 
 ##################################
 include $(CLEAR_VARS)
