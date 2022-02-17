@@ -198,6 +198,8 @@ attribute protected_hwservice;
 # All types used for services managed by vndservicemanager
 attribute vndservice_manager_type;
 
+# All services declared as part of an HAL
+attribute hal_service_type;
 
 # All domains that can override MLS restrictions.
 # i.e. processes that can read up and write down.
