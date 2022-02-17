@@ -17,19 +17,11 @@ SYSTEM_EXT_PREBUILT_POLICY := $(BOARD_SYSTEM_EXT_PREBUILT_DIR)
 # BOARD_PRODUCT_PREBUILT_DIR can be set as product prebuilt dir in sepolicy
 # make file of the product partition.
 PRODUCT_PREBUILT_POLICY := $(BOARD_PRODUCT_PREBUILT_DIR)
-# BOARD_PLAT_PUB_VERSIONED_POLICY - path_to_plat_pub_versioned_of_vendor
-# plat_pub_versioned.cil should be in
-# $(BOARD_PLAT_PUB_VERSIONED_POLICY)/prebuilts/api/$(version) dir.
-# plat_pub_versioned.cil should have platform, system_ext and product sepolicies
-# similar to system/sepolicy/prebuilts/api/$(version/plat_pub_verioned.cil file.
-# In order to enable treble sepolicy tests for platform, system_ext and product
-# sepolicies SYSTEM_EXT_PREBUILT_POLICY , PRODUCT_PREBUILT_POLICY and
-# BOARD_PLAT_PUB_VERSIONED_POLICY should be set.
 IS_TREBLE_TEST_ENABLED_PARTNER := false
 ifeq ($(filter 26.0 27.0 28.0 29.0,$(version)),)
-ifneq (,$(BOARD_PLAT_PUB_VERSIONED_POLICY))
+ifneq (,$(SYSTEM_EXT_PREBUILT_POLICY)$(PRODUCT_PREBUILT_POLICY))
 IS_TREBLE_TEST_ENABLED_PARTNER := true
-endif # (,$(BOARD_PLAT_PUB_VERSIONED_POLICY))
+endif # (,$(SYSTEM_EXT_PREBUILT_POLICY)$(PRODUCT_PREBUILT_POLICY))
 endif # ($(filter 26.0 27.0 28.0 29.0,$(version)),)
 
 include $(BUILD_SYSTEM)/base_rules.mk
@@ -90,14 +82,9 @@ $(call dist-for-goals,base-sepolicy-files-for-mapping,$(built_$(version)_plat_se
 
 $(version)_plat_policy.conf :=
 
-# $(version)_compat - the current plat_sepolicy.cil built with the compatibility file
-# targeting the $(version) SELinux release.  This ensures that our policy will build
-# when used on a device that has non-platform policy targetting the $(version) release.
-$(version)_compat := $(intermediates)/$(version)_compat
 $(version)_mapping.cil := $(call intermediates-dir-for,ETC,plat_$(version).cil)/plat_$(version).cil
 $(version)_mapping.ignore.cil := \
     $(call intermediates-dir-for,ETC,$(version).ignore.cil)/$(version).ignore.cil
-$(version)_prebuilts_dir := $(LOCAL_PATH)/prebuilts/api/$(version)
 ifeq ($(IS_TREBLE_TEST_ENABLED_PARTNER),true)
 ifneq (,$(SYSTEM_EXT_PREBUILT_POLICY))
 $(version)_mapping.cil += \
@@ -111,28 +98,7 @@ $(version)_mapping.cil += \
 $(version)_mapping.ignore.cil += \
     $(call intermediates-dir-for,ETC,product_$(version).ignore.cil)/product_$(version).ignore.cil
 endif # (,$(PRODUCT_PREBUILT_POLICY))
-$(version)_prebuilts_dir := $(BOARD_PLAT_PUB_VERSIONED_POLICY)/prebuilts/api/$(version)
 endif #($(IS_TREBLE_TEST_ENABLED_PARTNER),true)
-
-# vendor_sepolicy.cil and plat_pub_versioned.cil are the new design to replace
-# nonplat_sepolicy.cil.
-$(version)_vendor := $($(version)_prebuilts_dir)/vendor_sepolicy.cil \
-$($(version)_prebuilts_dir)/plat_pub_versioned.cil
-
-cil_files := $(built_plat_cil)
-ifeq ($(IS_TREBLE_TEST_ENABLED_PARTNER),true)
-ifneq (,$(SYSTEM_EXT_PREBUILT_POLICY)
-cil_files += $(built_system_ext_cil)
-endif # (,$(SYSTEM_EXT_PREBUILT_POLICY)
-ifneq (,$(PRODUCT_PREBUILT_POLICY)
-cil_files += $(built_product_cil)
-endif # (,$(PRODUCT_PREBUILT_POLICY)
-endif # ($(IS_TREBLE_TEST_ENABLED_PARTNER),true)
-cil_files += $($(version)_mapping.cil) $($(version)_vendor)
-$($(version)_compat): PRIVATE_CIL_FILES := $(cil_files)
-$($(version)_compat): $(HOST_OUT_EXECUTABLES)/secilc $(cil_files)
-	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -N -c $(POLICYVERS) \
-		$(PRIVATE_CIL_FILES) -o $@ -f /dev/null
 
 # $(version)_mapping.combined.cil - a combination of the mapping file used when
 # combining the current platform policy with nonplatform policy based on the
@@ -165,7 +131,7 @@ $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests \
   $(all_fc_files) $(built_sepolicy) \
   $(built_sepolicy_files) \
   $(public_cil_files) \
-  $(built_$(version)_plat_sepolicy) $($(version)_compat) $($(version)_mapping.combined.cil)
+  $(built_$(version)_plat_sepolicy) $($(version)_mapping.combined.cil)
 	@mkdir -p $(dir $@)
 	$(hide) $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests $(ALL_FC_ARGS) \
                 -b $(PRIVATE_PLAT_SEPOLICY) -m $(PRIVATE_COMBINED_MAPPING) \
@@ -183,12 +149,9 @@ $(version)_PLAT_PRIVATE_POLICY :=
 built_sepolicy_files :=
 public_cil_files :=
 cil_files :=
-$(version)_compat :=
 $(version)_mapping.cil :=
 $(version)_mapping.combined.cil :=
 $(version)_mapping.ignore.cil :=
-$(version)_vendor :=
-$(version)_prebuilts_dir :=
 built_$(version)_plat_sepolicy :=
 version :=
 version_under_treble_tests :=
