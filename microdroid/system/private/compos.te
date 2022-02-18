@@ -30,5 +30,10 @@ dontaudit compos self:dir write;
 # See b/35323867#comment3
 dontaudit compos self:global_capability_class_set dac_override;
 
-# Allow domain transition into odrefresh.
+# Allow running odrefresh in its own domain
 domain_auto_trans(compos, odrefresh_exec, odrefresh)
+
+# Allow running compos_key_helper in its own domain
+domain_auto_trans(compos, compos_key_helper_exec, compos_key_helper)
+# And killing it on error
+allow compos compos_key_helper:process sigkill;
