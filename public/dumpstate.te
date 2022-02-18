@@ -142,6 +142,7 @@ r_dir_file(dumpstate, cgroup_v2)
 binder_call(dumpstate, binderservicedomain)
 binder_call(dumpstate, { appdomain netd wificond })
 
+# Allow dumpstate to call dump() on specific hals.
 dump_hal(hal_dumpstate)
 dump_hal(hal_wifi)
 dump_hal(hal_graphics_allocator)
@@ -254,7 +255,7 @@ allow dumpstate {
   -apex_service
   -dumpstate_service
   -gatekeeper_service
-  -hal_wifi_supplicant_service
+  -hal_service_type
   -virtual_touchpad_service
   -vold_service
   -default_android_service
@@ -264,7 +265,7 @@ dontaudit dumpstate {
   apex_service
   dumpstate_service
   gatekeeper_service
-  hal_wifi_supplicant_service
+  hal_service_type
   virtual_touchpad_service
   vold_service
 }:service_manager find;
