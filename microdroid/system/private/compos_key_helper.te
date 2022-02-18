@@ -1,0 +1,20 @@
+# Helper process for compos to perform key derivation & signing
+type compos_key_helper, domain, coredomain;
+type compos_key_helper_exec, exec_type, file_type, system_file_type;
+
+# This domain has access to DICE secrets & the private signing key.
+# Block crash dumps to ensure the secrets are not leaked.
+typeattribute compos_key_helper no_crash_dump_domain;
+
+# Allow using DICE binder service
+binder_use(compos_key_helper);
+allow compos_key_helper dice_node_service:service_manager find;
+binder_call(compos_key_helper, diced);
+allow compos_key_helper diced:diced { get_attestation_chain derive };
+
+# Communicate with compos via stdin/stdout pipes
+allow compos_key_helper compos:fd use;
+allow compos_key_helper compos:fifo_file { getattr read write };
+
+# Write to /dev/kmsg.
+allow compos_key_helper kmsg_device:chr_file rw_file_perms;
