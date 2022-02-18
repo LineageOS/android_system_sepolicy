@@ -26,6 +26,7 @@
 # isEphemeralApp=true will match apps marked by PackageManager as Ephemeral
 # user=_app will match any regular app process.
 # user=_isolated will match any isolated service process.
+# user=_supplemental will match supplemental process for an app.
 # Other values of user are matched against the name associated with the process
 # UID.
 # seinfo= matches aginst the seinfo tag for the app, determined from
@@ -152,6 +153,7 @@ user=shared_relro domain=shared_relro levelFrom=all
 user=shell seinfo=platform domain=shell name=com.android.shell type=shell_data_file
 user=webview_zygote seinfo=webview_zygote domain=webview_zygote
 user=_isolated domain=isolated_app levelFrom=user
+user=_supplemental domain=supplemental_process type=supplemental_app_data_file levelFrom=all
 user=_app seinfo=app_zygote domain=app_zygote levelFrom=user
 user=_app seinfo=media domain=mediaprovider type=app_data_file levelFrom=user
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
@@ -174,4 +176,4 @@ user=_app minTargetSdkVersion=26 domain=untrusted_app_27 type=app_data_file leve
 user=_app domain=untrusted_app_25 type=app_data_file levelFrom=user
 user=_app minTargetSdkVersion=28 fromRunAs=true domain=runas_app levelFrom=all
 user=_app fromRunAs=true domain=runas_app levelFrom=user
-user=_app seinfo=supplemental_process name=com.android.supplemental.process domain=supplemental_process type=app_data_file levelFrom=user
+

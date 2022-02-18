@@ -154,6 +154,8 @@ func (f *compatTestModule) createPlatPubVersionedModule(ctx android.LoadHookCont
 	}, &policyConfProperties{
 		Srcs: []string{
 			fmt.Sprintf(":se_build_files{.plat_public_%s}", ver),
+			fmt.Sprintf(":se_build_files{.system_ext_public_%s}", ver),
+			fmt.Sprintf(":se_build_files{.product_public_%s}", ver),
 			":se_build_files{.reqd_mask}",
 		},
 		Installable: proptools.BoolPtr(false),
