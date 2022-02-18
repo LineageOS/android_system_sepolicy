@@ -125,8 +125,13 @@ func (b *buildFiles) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 		b.srcs[".product_private_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardProductPrivatePrebuiltDirs()...)
 	}
 
+	// directories used for compat tests and Treble tests
 	for _, ver := range ctx.DeviceConfig().PlatformSepolicyCompatVersions() {
 		b.srcs[".plat_public_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.ModuleDir(), "prebuilts", "api", ver, "public"))
 		b.srcs[".plat_private_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.ModuleDir(), "prebuilts", "api", ver, "private"))
+		b.srcs[".system_ext_public_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.DeviceConfig().SystemExtSepolicyPrebuiltApiDir(), "prebuilts", "api", ver, "public"))
+		b.srcs[".system_ext_private_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.DeviceConfig().SystemExtSepolicyPrebuiltApiDir(), "prebuilts", "api", ver, "private"))
+		b.srcs[".product_public_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.DeviceConfig().ProductSepolicyPrebuiltApiDir(), "prebuilts", "api", ver, "public"))
+		b.srcs[".product_private_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.DeviceConfig().ProductSepolicyPrebuiltApiDir(), "prebuilts", "api", ver, "private"))
 	}
 }
