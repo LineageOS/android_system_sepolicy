@@ -26,6 +26,7 @@ allow vold_prepare_subdirs {
     iris_vendor_data_file
     rollback_data_file
     storaged_data_file
+    supplemental_app_data_file
     system_data_file
     vold_data_file
 }:dir { create_dir_perms relabelto };
@@ -41,6 +42,7 @@ allow vold_prepare_subdirs {
     iris_vendor_data_file
     rollback_data_file
     storaged_data_file
+    supplemental_app_data_file
     system_data_file
     vold_data_file
 }:file { getattr unlink };
