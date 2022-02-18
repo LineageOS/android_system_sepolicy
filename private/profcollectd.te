@@ -52,6 +52,9 @@ userdebug_or_eng(`
   binder_call(profcollectd, system_server)
   add_service(profcollectd, profcollectd_service)
 
+  # Allow profcollectd to request wakelock from system-suspend.
+  wakelock_use(profcollectd)
+
   # Allow to temporarily lift the kptr_restrict setting and get kernel start address
   # by reading /proc/kallsyms, get module start address by reading /proc/modules.
   set_prop(profcollectd, lower_kptr_restrict_prop)
