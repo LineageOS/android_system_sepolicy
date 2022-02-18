@@ -76,6 +76,12 @@ allow system_server sysfs_fs_f2fs:file r_file_perms;
 allow system_server { apex_art_data_file dalvikcache_data_file }:dir r_dir_perms;
 allow system_server { apex_art_data_file dalvikcache_data_file }:file r_file_perms;
 
+# Ignore the denial on `system@framework@com.android.location.provider.jar@classes.odex`.
+# `com.android.location.provider.jar` happens to be both a jar on system server classpath and a
+# shared library used by a system server app. The odex file is loaded fine by Zygote when it forks
+# system_server. It fails to be loaded when the jar is used as a shared library, which is expected.
+dontaudit system_server apex_art_data_file:file execute;
+
 # For release odex/vdex compress blocks
 allowxperm system_server dalvikcache_data_file:file ioctl {
   F2FS_IOC_RELEASE_COMPRESS_BLOCKS
