@@ -54,8 +54,8 @@ domain_auto_trans(odsign, odrefresh_exec, odrefresh)
 # Run fsverity_init to add key to fsverity keyring
 domain_auto_trans(odsign, fsverity_init_exec, fsverity_init)
 
-# Run compos_verify_key to verify CompOs instances
-domain_auto_trans(odsign, compos_verify_key_exec, compos_verify_key)
+# Run compos_verify to verify CompOs signatures
+domain_auto_trans(odsign, compos_verify_exec, compos_verify)
 
 # only odsign can set odsign sysprop
 set_prop(odsign, odsign_prop)
