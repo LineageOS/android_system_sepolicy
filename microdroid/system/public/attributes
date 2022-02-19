@@ -373,3 +373,6 @@ attribute fusefs_type;
 
 # All types run from microdroid_manager as a payload
 attribute microdroid_payload;
+
+# Domains that are blocked from producing a crash dump
+attribute no_crash_dump_domain;
