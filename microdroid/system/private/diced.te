@@ -1,6 +1,9 @@
 type diced, domain, coredomain;
 type diced_exec, system_file_type, exec_type, file_type;
 
+# Block crash dumps to ensure the DICE secrets are not leaked.
+typeattribute diced no_crash_dump_domain;
+
 # diced can be started by init
 init_daemon_domain(diced)
 
