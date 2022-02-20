@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 from xml.sax import saxutils, handler, make_parser
 from optparse import OptionParser
