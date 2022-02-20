@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "54787534_0839defa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2022-02-20T03:16:27Z",
+      "side": 1,
+      "message": "We aren\u0027t merging any of these legacy commit until someone either:\n- Ports BPF to something below linux 4.4\n- Manages to properly revert need for BPF.",
+      "revId": "5d71debdbe13f1e74df11c7341c692e3dcc69c9c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
