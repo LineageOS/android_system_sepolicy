@@ -251,6 +251,13 @@ filegroup {
 }
 
 filegroup {
+  name: "com.android.adservices-file_contexts",
+  srcs: [
+    "com.android.adservices-file_contexts",
+  ],
+}
+
+filegroup {
   name: "com.android.car.framework-file_contexts",
   srcs: [
     "com.android.car.framework-file_contexts",
