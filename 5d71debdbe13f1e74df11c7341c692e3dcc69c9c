@@ -16,6 +16,24 @@
       "message": "We aren\u0027t merging any of these legacy commit until someone either:\n- Ports BPF to something below linux 4.4\n- Manages to properly revert need for BPF.",
       "revId": "5d71debdbe13f1e74df11c7341c692e3dcc69c9c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "20a8b660_7bd9d502",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 25958
+      },
+      "writtenOn": "2022-02-21T11:06:34Z",
+      "side": 1,
+      "message": "about rinando\u0027s reverts on netd, monitoring seems to be working atleast on hlte. may i know what\u0027s the main issue for other devices?",
+      "parentUuid": "54787534_0839defa",
+      "revId": "5d71debdbe13f1e74df11c7341c692e3dcc69c9c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
