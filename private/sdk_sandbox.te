@@ -1,0 +1,87 @@
+###
+### SDK Sandbox process.
+###
+### This file defines the security policy for the sdk sandbox processes.
+
+type sdk_sandbox, domain;
+
+typeattribute sdk_sandbox coredomain;
+
+net_domain(sdk_sandbox)
+app_domain(sdk_sandbox)
+
+# Allow finding services. This is different from ephemeral_app policy.
+# Adding services manually to the allowlist is preferred hence app_api_service is not used.
+allow sdk_sandbox activity_service:service_manager find;
+allow sdk_sandbox activity_task_service:service_manager find;
+allow sdk_sandbox audio_service:service_manager find;
+# Audit the access to signal that we are still investigating whether sdk_sandbox
+# should have access to audio_service
+# TODO(b/211632068): remove this line
+auditallow sdk_sandbox audio_service:service_manager find;
+allow sdk_sandbox hint_service:service_manager find;
+allow sdk_sandbox surfaceflinger_service:service_manager find;
+allow sdk_sandbox trust_service:service_manager find;
+allow sdk_sandbox uimode_service:service_manager find;
+allow sdk_sandbox webviewupdate_service:service_manager find;
+
+# Write app-specific trace data to the Perfetto traced damon. This requires
+# connecting to its producer socket and obtaining a (per-process) tmpfs fd.
+perfetto_producer(sdk_sandbox)
+
+# Allow profiling if the app opts in by being marked profileable/debuggable.
+can_profile_heap(sdk_sandbox)
+can_profile_perf(sdk_sandbox)
+
+# allow sdk sandbox to use UDP sockets provided by the system server but not
+# modify them other than to connect
+allow sdk_sandbox system_server:udp_socket {
+        connect getattr read recvfrom sendto write getopt setopt };
+
+# allow access to sdksandbox data directory
+allow sdk_sandbox sdk_sandbox_data_file:dir create_dir_perms;
+allow sdk_sandbox sdk_sandbox_data_file:file create_file_perms;
+
+###
+### neverallow rules
+###
+
+neverallow sdk_sandbox { app_data_file privapp_data_file }:file { execute execute_no_trans };
+
+# Receive or send uevent messages.
+neverallow sdk_sandbox domain:netlink_kobject_uevent_socket *;
+
+# Receive or send generic netlink messages
+neverallow sdk_sandbox domain:netlink_socket *;
+
+# Too much leaky information in debugfs. It's a security
+# best practice to ensure these files aren't readable.
+neverallow sdk_sandbox debugfs:file read;
+
+# execute gpu_device
+neverallow sdk_sandbox gpu_device:chr_file execute;
+
+# access files in /sys with the default sysfs label
+neverallow sdk_sandbox sysfs:file *;
+
+# Avoid reads from generically labeled /proc files
+# Create a more specific label if needed
+neverallow sdk_sandbox proc:file { no_rw_file_perms no_x_file_perms };
+
+# Directly access external storage
+neverallow sdk_sandbox { sdcard_type media_rw_data_file }:file {open create};
+neverallow sdk_sandbox { sdcard_type media_rw_data_file }:dir search;
+
+# Avoid reads to proc_net, it contains too much device wide information about
+# ongoing connections.
+neverallow sdk_sandbox proc_net:file no_rw_file_perms;
+
+# SDK sandbox processes have their own storage not related to app_data_file or privapp_data_file
+neverallow sdk_sandbox { app_data_file privapp_data_file }:dir no_rw_file_perms;
+neverallow sdk_sandbox { app_data_file privapp_data_file }:file no_rw_file_perms;
+
+# SDK sandbox processes don't  have any access to external storage
+neverallow sdk_sandbox { media_rw_data_file }:dir no_rw_file_perms;
+neverallow sdk_sandbox { media_rw_data_file }:file no_rw_file_perms;
+
+neverallow { sdk_sandbox } tmpfs:dir no_rw_file_perms;
