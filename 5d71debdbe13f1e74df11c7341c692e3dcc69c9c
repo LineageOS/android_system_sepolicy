@@ -34,6 +34,24 @@
       "parentUuid": "54787534_0839defa",
       "revId": "5d71debdbe13f1e74df11c7341c692e3dcc69c9c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "214ed14d_b87370e3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 26777
+      },
+      "writtenOn": "2022-02-21T11:09:52Z",
+      "side": 1,
+      "message": "Yeah, bypassing BPF isn’t a long term solution but I believe Redhat backported BPF to 3.10.",
+      "parentUuid": "20a8b660_7bd9d502",
+      "revId": "5d71debdbe13f1e74df11c7341c692e3dcc69c9c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
