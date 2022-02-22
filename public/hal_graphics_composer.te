@@ -31,6 +31,10 @@ allow hal_graphics_composer appdomain:fd use;
 # allow self to set SCHED_FIFO
 allow hal_graphics_composer self:global_capability_class_set sys_nice;
 
+# allow surfaceflinger to use a pipe for dumpsys output
+allow hal_graphics_composer_server hal_graphics_composer_client:fifo_file write;
+
+
 binder_call(hal_graphics_composer_client, servicemanager)
 binder_call(hal_graphics_composer_server, servicemanager)
 
