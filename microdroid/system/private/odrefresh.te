@@ -30,3 +30,8 @@ allow odrefresh compos:fifo_file read;
 # (unless specified otherwise). Without allowing the use, the execution will
 # fail immediately. See b/210909688.
 allow odrefresh compos:fd use;
+
+# Silently ignore the access to properties. Unlike on Android, parameters
+# should be passed from command line to avoid global state.
+dontaudit odrefresh property_socket:sock_file write;
+dontaudit odrefresh dalvik_config_prop:file read;
