@@ -476,6 +476,7 @@ neverallow {
   nfc
   radio
   shared_relro
+  supplemental_process
   system_app
 } {
   data_file_type
