@@ -12,10 +12,10 @@ allow atrace debugfs_tracing:dir r_dir_perms;
 allow atrace debugfs_tracing:file rw_file_perms;
 allow atrace debugfs_trace_marker:file getattr;
 
-# Allow atrace to write data when a pipe is used for stdout/stderr
-# This is used by Perfetto to capture the output on error in atrace.
+# Allow atrace to write data when a pipe is used for stdout/stderr.
+# This is used by Perfetto to capture atrace stdout/stderr.
 allow atrace traced_probes:fd use;
-allow atrace traced_probes:fifo_file write;
+allow atrace traced_probes:fifo_file { getattr write };
 
 # atrace sets debug.atrace.* properties
 set_prop(atrace, debug_prop)
