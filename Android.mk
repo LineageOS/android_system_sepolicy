@@ -509,6 +509,7 @@ LOCAL_REQUIRED_MODULES += \
     vendor_hwservice_contexts_test \
     vendor_bug_map \
     vndservice_contexts \
+    vndservice_contexts_test \
 
 ifdef BOARD_ODM_SEPOLICY_DIRS
 LOCAL_REQUIRED_MODULES += \
@@ -666,37 +667,6 @@ file_contexts.device.sorted.tmp :=
 file_contexts.device.tmp :=
 file_contexts.local.tmp :=
 file_contexts.modules.tmp :=
-
-##################################
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := vndservice_contexts
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/etc/selinux
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-vnd_svcfiles := $(call build_policy, vndservice_contexts, $(BOARD_PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS) $(BOARD_REQD_MASK_POLICY))
-
-vndservice_contexts.tmp := $(intermediates)/vndservice_contexts.tmp
-$(vndservice_contexts.tmp): PRIVATE_SVC_FILES := $(vnd_svcfiles)
-$(vndservice_contexts.tmp): PRIVATE_ADDITIONAL_M4DEFS := $(LOCAL_ADDITIONAL_M4DEFS)
-$(vndservice_contexts.tmp): $(vnd_svcfiles) $(M4)
-	@mkdir -p $(dir $@)
-	$(hide) $(M4) --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_SVC_FILES) > $@
-
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): $(vndservice_contexts.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/checkfc $(ACP)
-	@mkdir -p $(dir $@)
-	sed -e 's/#.*$$//' -e '/^$$/d' $< > $@
-	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc -e -v $(PRIVATE_SEPOLICY) $@
-
-vnd_svcfiles :=
-vndservice_contexts.tmp :=
 
 ##################################
 include $(LOCAL_PATH)/mac_permissions.mk

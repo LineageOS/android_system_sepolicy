@@ -314,6 +314,16 @@ seapp_contexts {
     sepolicy: ":precompiled_sepolicy",
 }
 
+vndservice_contexts {
+    name: "vndservice_contexts",
+    srcs: [
+        ":vndservice_contexts_files{.plat_vendor_for_vendor}",
+        ":vndservice_contexts_files{.vendor}",
+        ":vndservice_contexts_files{.reqd_mask_for_vendor}",
+    ],
+    soc_specific: true,
+}
+
 // for CTS
 genrule {
     name: "plat_seapp_neverallows",
@@ -457,5 +467,11 @@ service_contexts_test {
 service_contexts_test {
     name: "vendor_service_contexts_test",
     srcs: [":vendor_service_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+vndservice_contexts_test {
+    name: "vndservice_contexts_test",
+    srcs: [":vndservice_contexts"],
     sepolicy: ":precompiled_sepolicy",
 }

@@ -189,6 +189,11 @@ se_build_files {
     srcs: ["seapp_contexts"],
 }
 
+se_build_files {
+    name: "vndservice_contexts_files",
+    srcs: ["vndservice_contexts"],
+}
+
 // For vts_treble_sys_prop_test
 filegroup {
     name: "private_property_contexts",
