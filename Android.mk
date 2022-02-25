@@ -347,8 +347,12 @@ endif # ($(PRODUCT_SEPOLICY_SPLIT),true)
 ifneq ($(with_asan),true)
 ifneq ($(SELINUX_IGNORE_NEVERALLOWS),true)
 LOCAL_REQUIRED_MODULES += \
-    sepolicy_tests \
     sepolicy_compat_test \
+
+# HACK: sepolicy_test is implemented as genrule
+# genrule modules aren't installable, so LOCAL_REQUIRED_MODULES doesn't work.
+# Instead, use LOCAL_ADDITIONAL_DEPENDENCIES with intermediate output
+LOCAL_ADDITIONAL_DEPENDENCIES += $(call intermediates-dir-for,ETC,sepolicy_test)/sepolicy_test
 
 ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_REQUIRED_MODULES += \
@@ -697,17 +701,6 @@ vndservice_contexts.tmp :=
 ##################################
 include $(LOCAL_PATH)/mac_permissions.mk
 
-#################################
-include $(CLEAR_VARS)
-LOCAL_MODULE := sepolicy_tests
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_CLASS := FAKE
-LOCAL_MODULE_TAGS := optional
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
 all_fc_files := $(TARGET_OUT)/etc/selinux/plat_file_contexts
 all_fc_files += $(TARGET_OUT_VENDOR)/etc/selinux/vendor_file_contexts
 ifdef HAS_SYSTEM_EXT_SEPOLICY_DIR
@@ -720,13 +713,6 @@ ifdef BOARD_ODM_SEPOLICY_DIRS
 all_fc_files += $(TARGET_OUT_ODM)/etc/selinux/odm_file_contexts
 endif
 all_fc_args := $(foreach file, $(all_fc_files), -f $(file))
-
-$(LOCAL_BUILT_MODULE): ALL_FC_ARGS := $(all_fc_args)
-$(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
-$(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/sepolicy_tests $(all_fc_files) $(built_sepolicy)
-	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/sepolicy_tests $(ALL_FC_ARGS) -p $(PRIVATE_SEPOLICY)
-	$(hide) touch $@
 
 ##################################
 # Tests for Treble compatibility of current platform policy and vendor policy of
