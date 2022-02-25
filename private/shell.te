@@ -130,6 +130,10 @@ allow shell apex_info_file:file r_file_perms;
 allow shell vendor_apex_file:file r_file_perms;
 allow shell vendor_apex_file:dir r_dir_perms;
 
+# Allow shell to read updated APEXes under /data/apex
+allow shell apex_data_file:dir search;
+allow shell staging_data_file:file r_file_perms;
+
 # Set properties.
 set_prop(shell, shell_prop)
 set_prop(shell, ctl_bugreport_prop)
