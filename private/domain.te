@@ -245,6 +245,7 @@ neverallow {
   -installd
   -iorap_inode2filename
   -priv_app
+  -shell
   -virtualizationservice
   -crosvm
 } staging_data_file:file *;
