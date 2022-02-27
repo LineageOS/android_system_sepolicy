@@ -88,6 +88,24 @@
       "parentUuid": "4eb1d53f_b1b909ca",
       "revId": "5d71debdbe13f1e74df11c7341c692e3dcc69c9c",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "86db0778_ae029b9c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 26777
+      },
+      "writtenOn": "2022-02-27T01:54:59Z",
+      "side": 1,
+      "message": "I can’t man, since Redhat now asks for money for patches. They do release the source itself and people have created diffs for them though. Another thing they backported is CGroup PID support.\n\nHere’s a link to the diffs of the source code created by someone:\nhttps://github.com/kernelim/linux/commits/centos7",
+      "parentUuid": "4eb1d53f_b1b909ca",
+      "revId": "5d71debdbe13f1e74df11c7341c692e3dcc69c9c",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
