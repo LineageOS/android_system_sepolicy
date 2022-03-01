@@ -19,8 +19,8 @@ type perfetto_traces_bugreport_data_file, file_type, data_file_type, core_data_f
 # /data/misc/perfetto-configs for perfetto configs
 type perfetto_configs_data_file, file_type, data_file_type, core_data_file_type;
 
-# /data/misc_{ce/de}/<user>/sdk/<app-name>/* subdirectory for supplemental apps
-type supplemental_app_data_file, file_type, data_file_type, core_data_file_type, app_data_file_type;
+# /data/misc_{ce/de}/<user>/sdksandbox/<app-name>/* subdirectory for sdk sandbox processes
+type sdk_sandbox_data_file, file_type, data_file_type, core_data_file_type, app_data_file_type;
 
 # /sys/kernel/debug/kcov for coverage guided kernel fuzzing in userdebug builds.
 type debugfs_kcov, fs_type, debugfs_type;

@@ -51,9 +51,9 @@
       <seinfo value="platform" />
     </signer>
 
-    <!-- Supplemental process key -->
-    <signer signature="@SUPPLEMENTAL_PROCESS" >
-      <seinfo value="supplemental_process" />
+    <!-- Sdk Sandbox key -->
+    <signer signature="@SDK_SANDBOX" >
+      <seinfo value="sdk_sandbox" />
     </signer>
 
     <!-- Media key in AOSP -->
