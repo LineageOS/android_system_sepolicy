@@ -1,7 +1,7 @@
 # Bind to ports.
-allow {netdomain -ephemeral_app -supplemental_process} node_type:{ icmp_socket rawip_socket tcp_socket udp_socket } node_bind;
-allow {netdomain -ephemeral_app -supplemental_process} port_type:udp_socket name_bind;
-allow {netdomain -ephemeral_app -supplemental_process} port_type:tcp_socket name_bind;
+allow {netdomain -ephemeral_app -sdk_sandbox} node_type:{ icmp_socket rawip_socket tcp_socket udp_socket } node_bind;
+allow {netdomain -ephemeral_app -sdk_sandbox} port_type:udp_socket name_bind;
+allow {netdomain -ephemeral_app -sdk_sandbox} port_type:tcp_socket name_bind;
 
 # b/141455849 gate RTM_GETLINK with a new permission nlmsg_readpriv and block access from
 # untrusted_apps.
@@ -12,7 +12,7 @@ allow {
   netdomain
   -ephemeral_app
   -mediaprovider
-  -supplemental_process
+  -sdk_sandbox
   -untrusted_app_all
 } self:netlink_route_socket { bind nlmsg_readpriv nlmsg_getneigh };
 
