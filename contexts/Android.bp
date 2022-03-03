@@ -67,28 +67,55 @@ file_contexts {
         ":file_contexts_files{.vendor}",
     ],
     soc_specific: true,
-    recovery_available: true,
+}
+
+file_contexts {
+    name: "vendor_file_contexts.recovery",
+    srcs: [
+        ":file_contexts_files{.plat_vendor_for_vendor}",
+        ":file_contexts_files{.vendor}",
+    ],
+    stem: "vendor_file_contexts",
+    recovery: true,
 }
 
 file_contexts {
     name: "system_ext_file_contexts",
     srcs: [":file_contexts_files{.system_ext_private}"],
     system_ext_specific: true,
-    recovery_available: true,
+}
+
+file_contexts {
+    name: "system_ext_file_contexts.recovery",
+    srcs: [":file_contexts_files{.system_ext_private}"],
+    stem: "system_ext_file_contexts",
+    recovery: true,
 }
 
 file_contexts {
     name: "product_file_contexts",
     srcs: [":file_contexts_files{.product_private}"],
     product_specific: true,
-    recovery_available: true,
+}
+
+file_contexts {
+    name: "product_file_contexts.recovery",
+    srcs: [":file_contexts_files{.product_private}"],
+    stem: "product_file_contexts",
+    recovery: true,
 }
 
 file_contexts {
     name: "odm_file_contexts",
     srcs: [":file_contexts_files{.odm}"],
     device_specific: true,
-    recovery_available: true,
+}
+
+file_contexts {
+    name: "odm_file_contexts.recovery",
+    srcs: [":file_contexts_files{.odm}"],
+    stem: "odm_file_contexts",
+    recovery: true,
 }
 
 hwservice_contexts {
@@ -287,6 +314,16 @@ seapp_contexts {
     sepolicy: ":precompiled_sepolicy",
 }
 
+vndservice_contexts {
+    name: "vndservice_contexts",
+    srcs: [
+        ":vndservice_contexts_files{.plat_vendor_for_vendor}",
+        ":vndservice_contexts_files{.vendor}",
+        ":vndservice_contexts_files{.reqd_mask_for_vendor}",
+    ],
+    soc_specific: true,
+}
+
 // for CTS
 genrule {
     name: "plat_seapp_neverallows",
@@ -430,5 +467,11 @@ service_contexts_test {
 service_contexts_test {
     name: "vendor_service_contexts_test",
     srcs: [":vendor_service_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+vndservice_contexts_test {
+    name: "vndservice_contexts_test",
+    srcs: [":vndservice_contexts"],
     sepolicy: ":precompiled_sepolicy",
 }
