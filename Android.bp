@@ -189,6 +189,11 @@ se_build_files {
     srcs: ["seapp_contexts"],
 }
 
+se_build_files {
+    name: "vndservice_contexts_files",
+    srcs: ["vndservice_contexts"],
+}
+
 // For vts_treble_sys_prop_test
 filegroup {
     name: "private_property_contexts",
@@ -1102,4 +1107,30 @@ se_neverallow_test {
 //////////////////////////////////
 se_freeze_test {
     name: "sepolicy_freeze_test",
+}
+
+//////////////////////////////////
+// sepolicy_test checks various types of violations, which can't be easily done
+// by CIL itself. Refer tests/sepolicy_tests.py for more detail.
+//////////////////////////////////
+genrule {
+    name: "sepolicy_test",
+    srcs: [
+        ":plat_file_contexts",
+        ":vendor_file_contexts",
+        ":system_ext_file_contexts",
+        ":product_file_contexts",
+        ":odm_file_contexts",
+        ":precompiled_sepolicy",
+    ],
+    tools: ["sepolicy_tests"],
+    out: ["sepolicy_test"],
+    cmd: "$(location sepolicy_tests) " +
+        "-f $(location :plat_file_contexts) " +
+        "-f $(location :vendor_file_contexts) " +
+        "-f $(location :system_ext_file_contexts) " +
+        "-f $(location :product_file_contexts) " +
+        "-f $(location :odm_file_contexts) " +
+        "-p $(location :precompiled_sepolicy) && " +
+        "touch $(out)",
 }

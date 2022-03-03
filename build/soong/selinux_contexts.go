@@ -93,11 +93,13 @@ func init() {
 	android.RegisterModuleType("service_contexts", serviceFactory)
 	android.RegisterModuleType("keystore2_key_contexts", keystoreKeyFactory)
 	android.RegisterModuleType("seapp_contexts", seappFactory)
+	android.RegisterModuleType("vndservice_contexts", vndServiceFactory)
 
 	android.RegisterModuleType("file_contexts_test", fileContextsTestFactory)
 	android.RegisterModuleType("property_contexts_test", propertyContextsTestFactory)
 	android.RegisterModuleType("hwservice_contexts_test", hwserviceContextsTestFactory)
 	android.RegisterModuleType("service_contexts_test", serviceContextsTestFactory)
+	android.RegisterModuleType("vndservice_contexts_test", vndServiceContextsTestFactory)
 }
 
 func (m *selinuxContextsModule) InstallInRoot() bool {
@@ -495,6 +497,18 @@ func seappFactory() android.Module {
 	return m
 }
 
+func vndServiceFactory() android.Module {
+	m := newModule()
+	m.build = m.buildGeneralContexts
+	android.AddLoadHook(m, func(ctx android.LoadHookContext) {
+		if !ctx.SocSpecific() {
+			ctx.ModuleErrorf(m.Name(), "must set vendor: true")
+			return
+		}
+	})
+	return m
+}
+
 var _ android.OutputFileProducer = (*selinuxContextsModule)(nil)
 
 // Implements android.OutputFileProducer
@@ -560,6 +574,14 @@ func hwserviceContextsTestFactory() android.Module {
 func serviceContextsTestFactory() android.Module {
 	// checkfc -s: service_contexts test
 	m := &contextsTestModule{tool: "checkfc", flags: []string{"-s" /* binder services */}}
+	m.AddProperties(&m.properties)
+	android.InitAndroidArchModule(m, android.DeviceSupported, android.MultilibCommon)
+	return m
+}
+
+// vndservice_contexts_test tests given vndservice_contexts files with checkfc.
+func vndServiceContextsTestFactory() android.Module {
+	m := &contextsTestModule{tool: "checkfc", flags: []string{"-e" /* allow empty */, "-v" /* vnd service */}}
 	m.AddProperties(&m.properties)
 	android.InitAndroidArchModule(m, android.DeviceSupported, android.MultilibCommon)
 	return m
