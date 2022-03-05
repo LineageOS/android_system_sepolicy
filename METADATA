@@ -1,6 +1,4 @@
 third_party {
-  # would be UNENCUMBERED save for
-  #  tests/combine_maps.py
-  #  build/soong/
+  license_note: "would be UNENCUMBERED save for: tests/combine_maps.py and build/soong/"
   license_type: NOTICE
 }
