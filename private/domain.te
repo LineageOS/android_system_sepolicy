@@ -500,6 +500,7 @@ full_treble_only(`
     -init
     -tombstoned # linker to tombstoned
     userdebug_or_eng(`-heapprofd')
+    userdebug_or_eng(`-traced')
     userdebug_or_eng(`-traced_perf')
   });
 ')
