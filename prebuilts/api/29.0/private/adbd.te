@@ -152,6 +152,9 @@ allow adbd sepolicy_file:file r_file_perms;
 # Allow pulling config.gz for CTS purposes
 allow adbd config_gz:file r_file_perms;
 
+# For CTS listening ports test.
+allow adbd proc_net_tcp_udp:file r_file_perms;
+
 allow adbd gpu_service:service_manager find;
 allow adbd surfaceflinger_service:service_manager find;
 allow adbd bootchart_data_file:dir search;
