@@ -610,6 +610,26 @@ neverallow {
   -update_engine
 } system_block_device:blk_file { write append };
 
+# No domains other than a select few can access the misc_block_device. This
+# block device is reserved for OTA use.
+# Do not assert this rule on userdebug/eng builds, due to some devices using
+# this partition for testing purposes.
+neverallow {
+  domain
+  userdebug_or_eng(`-domain') # exclude debuggable builds
+  -fastbootd
+  -hal_bootctl_server
+  -init
+  -uncrypt
+  -update_engine
+  -vendor_init
+  -vendor_misc_writer
+  -vold
+  -recovery
+  -ueventd
+  -mtectrl
+} misc_block_device:blk_file { append link relabelfrom rename write open read ioctl lock };
+
 # Only (hw|vnd|)servicemanager should be able to register with binder as the context manager
 neverallow { domain -servicemanager -hwservicemanager -vndservicemanager } *:binder set_context_mgr;
 # The service managers are only allowed to access their own device node
