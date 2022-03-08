@@ -227,3 +227,6 @@ allow shell apex_info_file:file r_file_perms;
 # Let the shell user call virtualizationservice (and
 # virtualizationservice call back to shell) for debugging.
 virtualizationservice_use(shell)
+
+# Allow shell to set persist.wm.debug properties
+userdebug_or_eng(`set_prop(shell, persist_wm_debug_prop)')
