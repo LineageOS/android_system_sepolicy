@@ -112,26 +112,6 @@ allow domain linkerconfig_file:file r_file_perms;
 # Allow all processes to check for the existence of the boringssl_self_test_marker files.
 allow domain boringssl_self_test_marker:dir search;
 
-# No domains other than a select few can access the misc_block_device. This
-# block device is reserved for OTA use.
-# Do not assert this rule on userdebug/eng builds, due to some devices using
-# this partition for testing purposes.
-neverallow {
-  domain
-  userdebug_or_eng(`-domain') # exclude debuggable builds
-  -fastbootd
-  -hal_bootctl_server
-  -init
-  -uncrypt
-  -update_engine
-  -vendor_init
-  -vendor_misc_writer
-  -vold
-  -recovery
-  -ueventd
-  -mtectrl
-} misc_block_device:blk_file { append link relabelfrom rename write open read ioctl lock };
-
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
 # with other UIDs to these allowlisted domains.
 neverallow {
