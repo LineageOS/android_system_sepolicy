@@ -203,6 +203,9 @@ neverallow {
 # allow system_app to access Nfc-related system properties.
 set_prop(system_app, nfc_prop)
 
+# allow system_app to access radio_config system properties.
+set_prop(system_app, radio_control_prop)
+
 # Apps cannot access proc_uid_time_in_state
 neverallow appdomain proc_uid_time_in_state:file *;
 

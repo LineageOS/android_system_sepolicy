@@ -511,6 +511,7 @@ bluetooth.profile.vc.server.enabled                  u:object_r:bluetooth_config
 persist.nfc.debug_enabled                      u:object_r:nfc_prop:s0 exact bool
 
 persist.radio.multisim.config u:object_r:radio_control_prop:s0 exact string
+persist.radio.allow_mock_modem u:object_r:radio_control_prop:s0 exact bool
 
 persist.sys.hdmi.keep_awake                                        u:object_r:hdmi_config_prop:s0 exact bool
 ro.hdmi.cec_device_types                                           u:object_r:hdmi_config_prop:s0 exact string
