@@ -32,7 +32,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.contexthub-service\.example    u:object_r:hal_contexthub_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.0-service            u:object_r:hal_drm_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.0-service-lazy       u:object_r:hal_drm_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.drm-service\.clearkey(-lazy)? u:object_r:hal_drm_clearkey_aidl_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.drm-service(-lazy)?\.clearkey u:object_r:hal_drm_clearkey_aidl_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.cas@1\.[0-2]-service            u:object_r:hal_cas_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.cas@1\.[0-2]-service-lazy       u:object_r:hal_cas_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.dumpstate@1\.[0-1]-service\.example      u:object_r:hal_dumpstate_default_exec:s0
