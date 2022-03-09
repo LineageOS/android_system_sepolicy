@@ -1,0 +1,15 @@
+# wait_for_keymaster service
+type wait_for_keymaster, domain, coredomain;
+type wait_for_keymaster_exec, system_file_type, exec_type, file_type;
+
+init_daemon_domain(wait_for_keymaster)
+
+hal_client_domain(wait_for_keymaster, hal_keymaster)
+
+allow wait_for_keymaster kmsg_device:chr_file w_file_perms;
+
+# wait_for_keymaster needs to find keystore and call methods with the returned
+# binder reference.
+binder_use(wait_for_keymaster)
+allow wait_for_keymaster keystore_service:service_manager find;
+binder_call(wait_for_keymaster, keystore)

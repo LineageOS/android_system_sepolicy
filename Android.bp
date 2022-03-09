@@ -80,6 +80,13 @@ se_filegroup {
 }
 
 se_filegroup {
+    name: "31.0.board.compat.map",
+    srcs: [
+        "compat/31.0/31.0.cil",
+    ],
+}
+
+se_filegroup {
     name: "26.0.board.compat.cil",
     srcs: [
         "compat/26.0/26.0.compat.cil",
@@ -111,6 +118,13 @@ se_filegroup {
     name: "30.0.board.compat.cil",
     srcs: [
         "compat/30.0/30.0.compat.cil",
+    ],
+}
+
+se_filegroup {
+    name: "31.0.board.compat.cil",
+    srcs: [
+        "compat/31.0/31.0.compat.cil",
     ],
 }
 
@@ -149,6 +163,13 @@ se_filegroup {
     ],
 }
 
+se_filegroup {
+    name: "31.0.board.ignore.map",
+    srcs: [
+        "compat/31.0/31.0.ignore.cil",
+    ],
+}
+
 se_cil_compat_map {
     name: "plat_26.0.cil",
     stem: "26.0.cil",
@@ -181,7 +202,14 @@ se_cil_compat_map {
     name: "plat_30.0.cil",
     stem: "30.0.cil",
     bottom_half: [":30.0.board.compat.map"],
-    // top_half: "plat_31.0.cil",
+    top_half: "plat_31.0.cil",
+}
+
+se_cil_compat_map {
+    name: "plat_31.0.cil",
+    stem: "31.0.cil",
+    bottom_half: [":31.0.board.compat.map"],
+    // top_half: "plat_32.0.cil",
 }
 
 se_cil_compat_map {
@@ -220,7 +248,15 @@ se_cil_compat_map {
     name: "system_ext_30.0.cil",
     stem: "30.0.cil",
     bottom_half: [":30.0.board.compat.map"],
-    // top_half: "system_ext_31.0.cil",
+    top_half: "system_ext_31.0.cil",
+    system_ext_specific: true,
+}
+
+se_cil_compat_map {
+    name: "system_ext_31.0.cil",
+    stem: "31.0.cil",
+    bottom_half: [":31.0.board.compat.map"],
+    // top_half: "system_ext_32.0.cil",
     system_ext_specific: true,
 }
 
@@ -260,7 +296,15 @@ se_cil_compat_map {
     name: "product_30.0.cil",
     stem: "30.0.cil",
     bottom_half: [":30.0.board.compat.map"],
-    // top_half: "product_31.0.cil",
+    top_half: "product_31.0.cil",
+    product_specific: true,
+}
+
+se_cil_compat_map {
+    name: "product_31.0.cil",
+    stem: "31.0.cil",
+    bottom_half: [":31.0.board.compat.map"],
+    // top_half: "product_32.0.cil",
     product_specific: true,
 }
 
@@ -291,20 +335,40 @@ se_cil_compat_map {
 se_cil_compat_map {
     name: "30.0.ignore.cil",
     bottom_half: [":30.0.board.ignore.map"],
-    // top_half: "31.0.ignore.cil",
+    top_half: "31.0.ignore.cil",
+}
+
+se_cil_compat_map {
+    name: "31.0.ignore.cil",
+    bottom_half: [":31.0.board.ignore.map"],
+    // top_half: "32.0.ignore.cil",
 }
 
 se_cil_compat_map {
     name: "system_ext_30.0.ignore.cil",
     bottom_half: [":30.0.board.ignore.map"],
-    // top_half: "system_ext_31.0.ignore.cil",
+    top_half: "system_ext_31.0.ignore.cil",
+    system_ext_specific: true,
+}
+
+se_cil_compat_map {
+    name: "system_ext_31.0.ignore.cil",
+    bottom_half: [":31.0.board.ignore.map"],
+    // top_half: "system_ext_32.0.ignore.cil",
     system_ext_specific: true,
 }
 
 se_cil_compat_map {
     name: "product_30.0.ignore.cil",
     bottom_half: [":30.0.board.ignore.map"],
-    // top_half: "product_31.0.ignore.cil",
+    top_half: "product_31.0.ignore.cil",
+    product_specific: true,
+}
+
+se_cil_compat_map {
+    name: "product_31.0.ignore.cil",
+    bottom_half: [":31.0.board.ignore.map"],
+    // top_half: "product_32.0.ignore.cil",
     product_specific: true,
 }
 
@@ -331,6 +395,11 @@ se_compat_cil {
 se_compat_cil {
     name: "30.0.compat.cil",
     srcs: [":30.0.board.compat.cil"],
+}
+
+se_compat_cil {
+    name: "31.0.compat.cil",
+    srcs: [":31.0.board.compat.cil"],
 }
 
 se_compat_cil {
@@ -365,6 +434,13 @@ se_compat_cil {
     name: "system_ext_30.0.compat.cil",
     srcs: [":30.0.board.compat.cil"],
     stem: "30.0.compat.cil",
+    system_ext_specific: true,
+}
+
+se_compat_cil {
+    name: "system_ext_31.0.compat.cil",
+    srcs: [":31.0.board.compat.cil"],
+    stem: "31.0.compat.cil",
     system_ext_specific: true,
 }
 
@@ -714,6 +790,39 @@ se_policy_cil {
     src: ":userdebug_plat_sepolicy.conf",
     additional_cil_files: ["private/technical_debt.cil"],
     debug_ramdisk: true,
+    dist: {
+        targets: ["droidcore"],
+    },
+}
+
+// A copy of the userdebug_plat_policy in GSI.
+soong_config_module_type {
+    name: "gsi_se_policy_cil",
+    module_type: "se_policy_cil",
+    config_namespace: "ANDROID",
+    bool_variables: [
+        "PRODUCT_INSTALL_DEBUG_POLICY_TO_SYSTEM_EXT",
+    ],
+    properties: [
+        "enabled",
+        "installable",
+    ],
+}
+
+gsi_se_policy_cil {
+    name: "system_ext_userdebug_plat_sepolicy.cil",
+    stem: "userdebug_plat_sepolicy.cil",
+    src: ":userdebug_plat_sepolicy.conf",
+    additional_cil_files: ["private/technical_debt.cil"],
+    system_ext_specific: true,
+    enabled: false,
+    installable: false,
+    soong_config_variables: {
+        PRODUCT_INSTALL_DEBUG_POLICY_TO_SYSTEM_EXT: {
+            enabled: true,
+            installable: true,
+        },
+    },
 }
 
 // system_ext_policy.conf - A combination of the private and public system_ext

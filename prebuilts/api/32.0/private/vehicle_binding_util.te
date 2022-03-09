@@ -1,0 +1,20 @@
+# vehicle binding util startup application
+type vehicle_binding_util, domain, coredomain;
+
+# allow init to start vehicle_binding_util
+type vehicle_binding_util_exec, exec_type, file_type, system_file_type;
+init_daemon_domain(vehicle_binding_util)
+
+# allow writing to kmsg during boot
+allow vehicle_binding_util kmsg_device:chr_file { getattr w_file_perms };
+
+# allow reading the binding property from vhal
+hwbinder_use(vehicle_binding_util)
+hal_client_domain(vehicle_binding_util, hal_vehicle)
+
+# allow executing vdc
+domain_auto_trans(vehicle_binding_util, vdc_exec, vdc)
+
+# devpts is needed to redirect output from vdc
+allow vehicle_binding_util devpts:chr_file rw_file_perms;
+

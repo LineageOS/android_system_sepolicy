@@ -380,7 +380,6 @@ neverallow {
   -init
   -ueventd
   -vold
-  -recovery
 } self:global_capability_class_set mknod;
 
 # No process can map low memory (< CONFIG_LSM_MMAP_MIN_ADDR).
@@ -505,8 +504,8 @@ neverallow { domain -kernel with_asan(`-asan_extract') } { system_file_type vend
 # Don't allow mounting on top of /system files or directories
 neverallow * exec_type:dir_file_class_set mounton;
 
-# Nothing should be writing to files in the rootfs, except recovery.
-neverallow { domain -recovery } rootfs:file { create write setattr relabelto append unlink link rename };
+# Nothing should be writing to files in the rootfs.
+neverallow * rootfs:file { create write setattr relabelto append unlink link rename };
 
 # Restrict context mounts to specific types marked with
 # the contextmount_type attribute.
