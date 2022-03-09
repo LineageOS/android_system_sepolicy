@@ -799,6 +799,9 @@ get_prop(system_server, net_464xlat_fromvendor_prop)
 # Read hypervisor capabilities ro.boot.hypervisor.*
 get_prop(system_server, hypervisor_prop)
 
+# Read persist.wm.debug. properties
+get_prop(system_server, persist_wm_debug_prop)
+
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
 

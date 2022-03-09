@@ -6,6 +6,10 @@ init_daemon_domain(dumpstate)
 # Execute and transition to the vdc domain
 domain_auto_trans(dumpstate, vdc_exec, vdc)
 
+# Create tmpfs files for using memfd descriptors to get output from child
+# processes.
+tmpfs_domain(dumpstate)
+
 # Acquire advisory lock on /system/etc/xtables.lock from ip[6]tables
 allow dumpstate system_file:file lock;
 
