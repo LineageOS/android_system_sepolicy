@@ -19,6 +19,9 @@ tmpfs_domain(crosvm)
 # Let crosvm receive file descriptors from VirtualizationService.
 allow crosvm virtualizationservice:fd use;
 
+# Allow sending VirtualizationService the failure reason from the VM via pipe.
+allow crosvm virtualizationservice:fifo_file write;
+
 # Let crosvm read the composite disk images (virtualizationservice_data_file), APEXes
 # (staging_data_file), APKs (apk_data_file and shell_data_file where the latter is for test apks in
 # /data/local/tmp), and instance.img (app_data_file). Note that the open permission is not given as
