@@ -263,3 +263,10 @@ filegroup {
     "com.android.car.framework-file_contexts",
   ],
 }
+
+filegroup {
+  name: "com.android.ondevicepersonalization-file_contexts",
+  srcs: [
+    "com.android.ondevicepersonalization-file_contexts",
+  ],
+}
