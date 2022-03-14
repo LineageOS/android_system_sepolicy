@@ -167,6 +167,7 @@ type sysfs_dm, fs_type, sysfs_type;
 type sysfs_dm_verity, fs_type, sysfs_type;
 type sysfs_dma_heap, fs_type, sysfs_type;
 type sysfs_dmabuf_stats, fs_type, sysfs_type;
+type sysfs_dt_avf, fs_type, sysfs_type;
 type sysfs_dt_firmware_android, fs_type, sysfs_type;
 type sysfs_extcon, fs_type, sysfs_type;
 type sysfs_fs_ext4_features, fs_type, sysfs_type;
