@@ -88,6 +88,9 @@ type policyConfProperties struct {
 
 	// Whether this module is directly installable to one of the partitions. Default is true
 	Installable *bool
+
+	// Desired number of MLS categories. Defaults to 1024
+	Mls_cats *int64
 }
 
 type policyConf struct {
@@ -189,6 +192,10 @@ func (c *policyConf) enforceDebugfsRestrictions(ctx android.ModuleContext) strin
 	return strconv.FormatBool(ctx.DeviceConfig().BuildDebugfsRestrictionsEnabled())
 }
 
+func (c *policyConf) mlsCats() int {
+	return proptools.IntDefault(c.properties.Mls_cats, MlsCats)
+}
+
 func findPolicyConfOrder(name string) int {
 	for idx, pattern := range policyConfOrder {
 		if pattern == name || (pattern == "*.te" && strings.HasSuffix(name, ".te")) {
@@ -212,7 +219,7 @@ func (c *policyConf) transformPolicyToConf(ctx android.ModuleContext) android.Ou
 		Flag("--fatal-warnings").
 		FlagForEachArg("-D ", ctx.DeviceConfig().SepolicyM4Defs()).
 		FlagWithArg("-D mls_num_sens=", strconv.Itoa(MlsSens)).
-		FlagWithArg("-D mls_num_cats=", strconv.Itoa(MlsCats)).
+		FlagWithArg("-D mls_num_cats=", strconv.Itoa(c.mlsCats())).
 		FlagWithArg("-D target_arch=", ctx.DeviceConfig().DeviceArch()).
 		FlagWithArg("-D target_with_asan=", c.withAsan(ctx)).
 		FlagWithArg("-D target_with_dexpreopt=", strconv.FormatBool(ctx.DeviceConfig().WithDexpreopt())).
