@@ -1029,19 +1029,7 @@ neverallow { domain -system_server -webview_zygote -app_zygote } webview_zygote:
 neverallow { domain -system_server } webview_zygote:sock_file write;
 neverallow { domain -system_server } app_zygote:sock_file write;
 
-neverallow {
-  domain
-  -tombstoned
-  -crash_dump
-  -dumpstate
-  -incidentd
-  -system_server
-
-  # Processes that can't exec crash_dump
-  -hal_codec2_server
-  -hal_omx_server
-  -mediaextractor
-} tombstoned_crash_socket:unix_stream_socket connectto;
+neverallow domain tombstoned_crash_socket:unix_stream_socket connectto;
 
 # Never allow anyone except dumpstate, incidentd, or the system server to connect or write to
 # the tombstoned intercept socket.
