@@ -51,6 +51,11 @@
       <seinfo value="platform" />
     </signer>
 
+    <!-- Sdk Sandbox key -->
+    <signer signature="@SDK_SANDBOX" >
+      <seinfo value="sdk_sandbox" />
+    </signer>
+
     <!-- Media key in AOSP -->
     <signer signature="@MEDIA" >
       <seinfo value="media" />

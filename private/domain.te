@@ -612,3 +612,22 @@ neverallow {
   userdebug_or_eng(`-virtualizationservice')
   userdebug_or_eng(`-crosvm')
 } shell_data_file:file open;
+
+# respect system_app sandboxes
+neverallow {
+  domain
+  -appdomain # finer-grained rules for appdomain are listed below
+  -system_server #populate com.android.providers.settings/databases/settings.db.
+  -installd # creation of app sandbox
+  -iorap_inode2filename
+  -traced_probes # resolve inodes for i/o tracing.
+                 # only needs open and read, the rest is neverallow in
+                 # traced_probes.te.
+} system_app_data_file:dir_file_class_set { create unlink open };
+neverallow {
+  isolated_app
+  untrusted_app_all # finer-grained rules for appdomain are listed below
+  ephemeral_app
+  priv_app
+  sdk_sandbox
+} system_app_data_file:dir_file_class_set { create unlink open };
