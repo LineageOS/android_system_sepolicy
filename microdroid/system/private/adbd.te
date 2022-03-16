@@ -1,5 +1,4 @@
 typeattribute adbd coredomain;
-typeattribute adbd mlstrustedsubject;
 
 init_daemon_domain(adbd)
 

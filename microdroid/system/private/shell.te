@@ -1,4 +1,4 @@
-typeattribute shell coredomain, mlstrustedsubject;
+typeattribute shell coredomain;
 
 # allow shell input injection
 allow shell uhid_device:chr_file rw_file_perms;
