@@ -182,7 +182,7 @@ allow domain fs_type:dir getattr;
 allowxperm domain domain:{ icmp_socket rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
 # default allowlist for unix sockets.
-allowxperm domain { domain pdx_channel_socket_type }:{ unix_dgram_socket unix_stream_socket }
+allowxperm domain domain:{ unix_dgram_socket unix_stream_socket }
   ioctl unpriv_unix_sock_ioctls;
 
 # Restrict PTYs to only allowed ioctls.
@@ -427,10 +427,6 @@ neverallow {
   domain
   -tombstoned
   -crash_dump
-
-  # Processes that can't exec crash_dump
-  -hal_codec2_server
-  -hal_omx_server
 } tombstoned_crash_socket:unix_stream_socket connectto;
 
 # Never allow anyone to connect or write to
@@ -500,7 +496,6 @@ neverallow {
   domain
   -adbd
   -init
-  -runas
 } shell:process { transition dyntransition };
 
 # Minimize read access to shell-writable symlinks.
