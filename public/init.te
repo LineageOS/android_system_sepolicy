@@ -625,6 +625,9 @@ allow init fuse:dir { search getattr };
 # allow filesystem tuning
 allow init userdata_sysdev:file create_file_perms;
 
+# allow disk tuning
+allow init rootdisk_sysdev:file create_file_perms;
+
 ###
 ### neverallow rules
 ###
