@@ -294,6 +294,7 @@ runtime                                   u:object_r:runtime_service:s0
 safety_center                             u:object_r:safety_center_service:s0
 samplingprofiler                          u:object_r:samplingprofiler_service:s0
 scheduling_policy                         u:object_r:scheduling_policy_service:s0
+sdk_sandbox                               u:object_r:sdk_sandbox_service:s0
 search                                    u:object_r:search_service:s0
 search_ui                                 u:object_r:search_ui_service:s0
 secure_element                            u:object_r:secure_element_service:s0

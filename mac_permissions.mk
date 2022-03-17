@@ -22,7 +22,7 @@ $(plat_mac_perms_keys.tmp): $(all_plat_mac_perms_keys) $(M4)
 	$(hide) $(M4) --fatal-warnings -s $(PRIVATE_ADDITIONAL_M4DEFS) $(PRIVATE_KEYS) > $@
 
 # Should be synced with keys.conf.
-all_plat_keys := platform media networkstack shared testkey
+all_plat_keys := platform media networkstack sdk_sandbox shared testkey
 all_plat_keys := $(all_plat_keys:%=$(dir $(DEFAULT_SYSTEM_DEV_CERTIFICATE))/%.x509.pem)
 
 $(LOCAL_BUILT_MODULE): PRIVATE_MAC_PERMS_FILES := $(all_plat_mac_perms_files)
