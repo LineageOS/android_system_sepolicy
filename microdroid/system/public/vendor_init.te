@@ -1,5 +1,5 @@
 # vendor_init is its own domain.
-type vendor_init, domain, mlstrustedsubject;
+type vendor_init, domain;
 
 # Communication to the main init process
 allow vendor_init init:unix_stream_socket { read write };

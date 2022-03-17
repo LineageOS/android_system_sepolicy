@@ -90,9 +90,7 @@ dontaudit kernel device:dir { open read relabelto };
 dontaudit kernel tmpfs:file { getattr open read relabelfrom };
 dontaudit kernel {
   file_contexts_file
-  mac_perms_file
   property_contexts_file
-  seapp_contexts_file
   sepolicy_test_file
   service_contexts_file
 }:file relabelto;

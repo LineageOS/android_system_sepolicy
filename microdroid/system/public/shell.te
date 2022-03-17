@@ -1,5 +1,5 @@
 # Domain for shell processes spawned by ADB or console service.
-type shell, domain, mlstrustedsubject;
+type shell, domain;
 type shell_exec, system_file_type, exec_type, file_type;
 
 # Create and use network sockets.
@@ -77,6 +77,5 @@ allow shell proc:lnk_file getattr;
 # read selinux policy files
 allow shell file_contexts_file:file r_file_perms;
 allow shell property_contexts_file:file r_file_perms;
-allow shell seapp_contexts_file:file r_file_perms;
 allow shell service_contexts_file:file r_file_perms;
 allow shell sepolicy_file:file r_file_perms;
