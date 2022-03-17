@@ -1,4 +1,4 @@
-type statsd, domain, mlstrustedsubject;
+type statsd, domain;
 
 type statsd_exec, system_file_type, exec_type, file_type;
 binder_use(statsd)
