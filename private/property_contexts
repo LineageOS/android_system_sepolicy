@@ -69,6 +69,7 @@ persist.sys.            u:object_r:system_prop:s0
 persist.sys.safemode    u:object_r:safemode_prop:s0
 persist.sys.theme       u:object_r:theme_prop:s0
 persist.sys.fflag.override.settings_dynamic_system    u:object_r:dynamic_system_prop:s0
+dynamic_system.data_transfer.shared_memory.size       u:object_r:dynamic_system_prop:s0   exact   int
 ro.sys.safemode         u:object_r:safemode_prop:s0
 persist.sys.audit_safemode      u:object_r:safemode_prop:s0
 persist.sys.dalvik.jvmtiagent   u:object_r:system_jvmti_agent_prop:s0
