@@ -115,9 +115,10 @@ allow installd system_data_file:notdevfile_class_set { getattr relabelfrom unlin
 allow installd app_data_file_type:dir { create_dir_perms relabelfrom relabelto };
 allow installd app_data_file_type:notdevfile_class_set { create_file_perms relabelfrom relabelto };
 
-# Allow setting extended attributes (for project quota IDs) on dirs
+# Allow setting extended attributes (for project quota IDs) on dirs and files
 # and to enable project ID inheritance through FS_IOC_SETFLAGS
-allowxperm installd { app_data_file_type system_data_file }:{ dir file } ioctl {
+# Added install_data_file to be able to create file under /data/misc/installd/ioctl_check
+allowxperm installd { app_data_file_type system_data_file install_data_file}:{ dir file } ioctl {
   FS_IOC_FSGETXATTR
   FS_IOC_FSSETXATTR
   FS_IOC_GETFLAGS
