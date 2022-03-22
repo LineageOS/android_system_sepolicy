@@ -48,7 +48,7 @@ r_dir_file(gsid, sysfs_fs_f2fs)
 # Needed to read fstab, which is used to validate that system verity does not
 # use check_once_at_most for sdcard installs. (Note: proc_cmdline is needed
 # to get the A/B slot suffix).
-allow gsid proc_cmdline:file r_file_perms;
+read_fstab(gsid)
 allow gsid sysfs_dt_firmware_android:dir r_dir_perms;
 allow gsid sysfs_dt_firmware_android:file r_file_perms;
 
