@@ -45,8 +45,9 @@ allow init device:file relabelfrom;
 allow init runtime_event_log_tags_file:file { open write setattr relabelto create };
 # /dev/socket
 allow init { device socket_device dm_user_device }:dir relabelto;
-# Relabel /dev nodes created in first stage init, /dev/null, /dev/ptmx, /dev/random, /dev/urandom
-allow init { null_device ptmx_device random_device } : chr_file relabelto;
+# Relabel /dev nodes created in first stage init: /dev/console, /dev/null, /dev/ptmx, /dev/random
+# and /dev/urandom
+allow init { console_device null_device ptmx_device random_device } : chr_file relabelto;
 # /dev/device-mapper, /dev/block(/.*)?
 allow init tmpfs:{ chr_file blk_file } relabelfrom;
 allow init tmpfs:blk_file getattr;
