@@ -40,7 +40,17 @@ neverallow domain { fs_bpf fs_bpf_tethering }:file ~{ create map open read setat
 
 neverallow { domain -bpfloader } *:bpf { map_create prog_load };
 
-neverallow { domain -bpfloader -gpuservice -mediaprovider_app -netd -netutils_wrapper -network_stack -system_server } *:bpf prog_run;
+neverallow {
+  domain
+  -bpfloader
+  -gpuservice
+  -hal_health_server
+  -mediaprovider_app
+  -netd
+  -netutils_wrapper
+  -network_stack
+  -system_server
+} *:bpf prog_run;
 neverallow { domain -bpfloader -gpuservice -lmkd -mediaprovider_app -netd -network_stack -system_server } *:bpf { map_read map_write };
 neverallow { domain -bpfloader -init } bpfloader_exec:file { execute execute_no_trans };
 
