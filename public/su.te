@@ -22,6 +22,7 @@ userdebug_or_eng(`
   dontaudit su kernel:security *;
   dontaudit su { kernel file_type }:system *;
   dontaudit su self:memprotect *;
+  dontaudit su domain:anon_inode *;
   dontaudit su domain:{ process process2 } *;
   dontaudit su domain:fd *;
   dontaudit su domain:dir *;
