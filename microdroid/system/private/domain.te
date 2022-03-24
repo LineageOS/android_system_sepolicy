@@ -423,12 +423,6 @@ neverallow {
   coredomain
 } vendor_service:service_manager add;
 
-neverallow {
-  domain
-  -tombstoned
-  -crash_dump
-} tombstoned_crash_socket:unix_stream_socket connectto;
-
 # Never allow anyone to connect or write to
 # the tombstoned intercept socket.
 neverallow { domain } tombstoned_intercept_socket:sock_file write;
