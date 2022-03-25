@@ -11,3 +11,4 @@ neverallow {
 # any domain which uses bpf is a bpfdomain
 neverallow { domain -bpfdomain } *:bpf *;
 
+allow bpfdomain fs_bpf:dir search;
