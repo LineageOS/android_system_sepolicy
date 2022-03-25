@@ -1,3 +1,5 @@
+android.hardware.audio.core.IConfig/default                          u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/default                          u:object_r:hal_audio_service:s0
 android.hardware.authsecret.IAuthSecret/default                      u:object_r:hal_authsecret_service:s0
 android.hardware.automotive.evs.IEvsEnumerator/hw/0                  u:object_r:hal_evs_service:s0
 android.hardware.automotive.evs.IEvsEnumerator/hw/1                  u:object_r:hal_evs_service:s0
