@@ -28,7 +28,6 @@ allow hal_health_server kmsg_device:chr_file { getattr w_file_perms };
 allow hal_health_server self:capability2 wake_alarm;
 
 # Use bpf programs
-allow hal_health_server fs_bpf:dir search;
 allow hal_health_server fs_bpf_vendor:dir search;
 allow hal_health_server fs_bpf_vendor:file read;
 allow hal_health_server bpfloader:bpf prog_run;
