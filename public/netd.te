@@ -64,7 +64,6 @@ allow netd sysfs_usb:file write;
 
 r_dir_file(netd, cgroup_v2)
 
-allow netd fs_bpf:dir search;
 allow netd fs_bpf:file { read write };
 
 # TODO: netd previously thought it needed these permissions to do WiFi related
