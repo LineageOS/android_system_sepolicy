@@ -764,6 +764,23 @@ ro.system_ext.build.version.release             u:object_r:build_prop:s0 exact s
 ro.system_ext.build.version.release_or_codename u:object_r:build_prop:s0 exact string
 ro.system_ext.build.version.sdk                 u:object_r:build_prop:s0 exact int
 
+ro.product.custom.brand        u:object_r:build_prop:s0 exact string
+ro.product.custom.device       u:object_r:build_prop:s0 exact string
+ro.product.custom.manufacturer u:object_r:build_prop:s0 exact string
+ro.product.custom.model        u:object_r:build_prop:s0 exact string
+ro.product.custom.name         u:object_r:build_prop:s0 exact string
+
+ro.custom.build.date                        u:object_r:build_prop:s0 exact string
+ro.custom.build.date.utc                    u:object_r:build_prop:s0 exact int
+ro.custom.build.fingerprint                 u:object_r:build_prop:s0 exact string
+ro.custom.build.id                          u:object_r:build_prop:s0 exact string
+ro.custom.build.tags                        u:object_r:build_prop:s0 exact string
+ro.custom.build.type                        u:object_r:build_prop:s0 exact string
+ro.custom.build.version.incremental         u:object_r:build_prop:s0 exact string
+ro.custom.build.version.release             u:object_r:build_prop:s0 exact string
+ro.custom.build.version.release_or_codename u:object_r:build_prop:s0 exact string
+ro.custom.build.version.sdk                 u:object_r:build_prop:s0 exact int
+
 # These ro.product.product.* and ro.product.build.* are set by /product/etc/build.prop
 ro.product.product.brand        u:object_r:build_prop:s0 exact string
 ro.product.product.device       u:object_r:build_prop:s0 exact string
@@ -1177,11 +1194,13 @@ keystore.crash_count u:object_r:keystore_crash_prop:s0 exact int
 
 partition.system.verified     u:object_r:verity_status_prop:s0 exact string
 partition.system_ext.verified u:object_r:verity_status_prop:s0 exact string
+partition.custom.verified     u:object_r:verity_status_prop:s0 exact string
 partition.product.verified    u:object_r:verity_status_prop:s0 exact string
 partition.vendor.verified     u:object_r:verity_status_prop:s0 exact string
 
 partition.system.verified.hash_alg     u:object_r:verity_status_prop:s0 exact string
 partition.system_ext.verified.hash_alg u:object_r:verity_status_prop:s0 exact string
+partition.custom.verified.hash_alg     u:object_r:verity_status_prop:s0 exact string
 partition.product.verified.hash_alg    u:object_r:verity_status_prop:s0 exact string
 partition.vendor.verified.hash_alg     u:object_r:verity_status_prop:s0 exact string
 

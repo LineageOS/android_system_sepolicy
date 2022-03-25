@@ -483,6 +483,15 @@
 /(system_ext|system/system_ext)/lib(64)?(/.*)?      u:object_r:system_lib_file:s0
 
 #############################
+# Custom files
+#
+/(custom|system/custom)(/.*)?               u:object_r:system_file:s0
+/(custom|system/custom)/etc/group           u:object_r:system_group_file:s0
+/(custom|system/custom)/etc/passwd          u:object_r:system_passwd_file:s0
+/(custom|system/custom)/overlay(/.*)?       u:object_r:vendor_overlay_file:s0
+/(custom|system/custom)/lib(64)?(/.*)?      u:object_r:system_lib_file:s0
+
+#############################
 # VendorDlkm files
 # This includes VENDOR Dynamically Loadable Kernel Modules and other misc files.
 #
