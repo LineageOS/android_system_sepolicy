@@ -85,3 +85,5 @@ neverallow sdk_sandbox { media_rw_data_file }:dir no_rw_file_perms;
 neverallow sdk_sandbox { media_rw_data_file }:file no_rw_file_perms;
 
 neverallow { sdk_sandbox } tmpfs:dir no_rw_file_perms;
+
+neverallow sdk_sandbox hal_drm_service:service_manager find;
