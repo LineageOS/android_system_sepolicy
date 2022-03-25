@@ -21,6 +21,7 @@ allow sdk_sandbox audio_service:service_manager find;
 auditallow sdk_sandbox audio_service:service_manager find;
 allow sdk_sandbox hint_service:service_manager find;
 allow sdk_sandbox surfaceflinger_service:service_manager find;
+allow sdk_sandbox thermal_service:service_manager find;
 allow sdk_sandbox trust_service:service_manager find;
 allow sdk_sandbox uimode_service:service_manager find;
 allow sdk_sandbox webviewupdate_service:service_manager find;
