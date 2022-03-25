@@ -20,9 +20,9 @@
 ; Unfortunately, we can't currently express this in module policy language:
 (typeattributeset hal_codec2_client ((and (appdomain) ((not (isolated_app))))))
 
-; Apps, except isolated apps, are clients of Drm-related services
+; Apps, except isolated apps and SDK sandboxes, are clients of Drm-related services
 ; Unfortunately, we can't currently express this in module policy language:
-(typeattributeset hal_drm_client ((and (appdomain) ((not (isolated_app))))))
+(typeattributeset hal_drm_client ((and (appdomain) ((not (or (isolated_app) (sdk_sandbox)))))))
 
 ; Apps, except isolated apps, are clients of Configstore HAL
 ; Unfortunately, we can't currently express this in module policy language:
