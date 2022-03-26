@@ -65,6 +65,5 @@ dontaudit mediaprovider_app sysfs_vendor_sched:dir search;
 dontaudit mediaprovider_app sysfs_vendor_sched:file w_file_perms;
 
 # bpfprog access for FUSE BPF
-allow mediaprovider_app fs_bpf:dir search;
 allow mediaprovider_app fs_bpf:file read;
 allow mediaprovider_app bpfloader:bpf { map_read map_write prog_run };

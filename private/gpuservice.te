@@ -54,7 +54,6 @@ neverallow gpuservice self:perf_event ~{ cpu kernel open write };
 
 # Needed for interact with bpf fs.
 # Write is needed to open read/write bpf maps.
-allow gpuservice fs_bpf:dir search;
 allow gpuservice fs_bpf:file { read write };
 
 # Needed for enabling bpf programs and accessing bpf maps (read-only and read/write).
