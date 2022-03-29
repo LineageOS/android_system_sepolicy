@@ -14,6 +14,10 @@ hal_client_domain(hal_evs_default, hal_graphics_composer)
 # allow to use automotive display service
 binder_call(hal_evs_default, automotive_display_service_server)
 allow hal_evs_default fwk_automotive_display_hwservice:hwservice_manager find;
+allow hal_evs_default fwk_automotive_display_service:service_manager find;
+
+# allow to use hidl token service to retrieve HGBP object
+allow hal_evs_default hidl_token_hwservice:hwservice_manager find;
 
 # allow to access data from surfaceflinger
 allow hal_evs_default surfaceflinger:fd use;
