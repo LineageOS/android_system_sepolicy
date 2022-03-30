@@ -172,6 +172,8 @@ type $1_userfaultfd;
 type_transition $1 $1:anon_inode $1_userfaultfd "[userfaultfd]";
 # Allow domain to create/use userfaultfd anon_inode.
 allow $1 $1_userfaultfd:anon_inode { create ioctl read };
+# Suppress errors generate during bugreport
+dontaudit su $1_userfaultfd:anon_inode *;
 # Other domains may not use userfaultfd anon_inodes created by this domain.
 neverallow { domain -$1 } $1_userfaultfd:anon_inode *;
 # This domain may not use userfaultfd anon_inodes created by other domains.
