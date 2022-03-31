@@ -301,6 +301,7 @@ type system_data_file, file_type, data_file_type, core_data_file_type;
 # TODO(b/129332765): Narrow down permissions to this.
 # Find out users of system_data_file that should be granted only this.
 type packages_list_file, file_type, data_file_type, core_data_file_type;
+type game_mode_intervention_list_file, file_type, data_file_type, core_data_file_type;
 # Default type for anything under /data/vendor{_ce,_de}.
 type vendor_data_file, file_type, data_file_type;
 # Unencrypted data
