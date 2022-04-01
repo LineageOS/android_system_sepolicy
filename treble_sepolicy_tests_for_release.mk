@@ -77,6 +77,8 @@ $(built_$(version)_plat_sepolicy): $($(version)_plat_policy.conf) $(HOST_OUT_EXE
 	$(hide) cat $(PRIVATE_ADDITIONAL_CIL_FILES) >> $@
 	$(hide) $(HOST_OUT_EXECUTABLES)/secilc -m -M true -G -c $(POLICYVERS) $(PRIVATE_NEVERALLOW_ARG) $@ -o $@ -f /dev/null
 
+$(call declare-1p-target,$(built_$(version)_plat_sepolicy),system/sepolicy)
+
 # TODO(b/214336258): move to Soong
 $(call dist-for-goals,base-sepolicy-files-for-mapping,$(built_$(version)_plat_sepolicy):$(version)_plat_sepolicy)
 
