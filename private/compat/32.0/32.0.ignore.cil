@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    adservices_manager_service
     apexd_select_prop
     artd_service
     attestation_verification_service
@@ -13,6 +14,7 @@
     charger_vendor
     cloudsearch
     cloudsearch_service
+    connectivity_native_service
     device_config_nnapi_native_prop
     device_config_surface_flinger_native_boot_prop
     dice_maintenance_service

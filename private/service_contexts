@@ -75,6 +75,7 @@ account                                   u:object_r:account_service:s0
 activity                                  u:object_r:activity_service:s0
 activity_task                             u:object_r:activity_task_service:s0
 adb                                       u:object_r:adb_service:s0
+adservices_manager                        u:object_r:adservices_manager_service:s0
 aidl_lazy_test_1                          u:object_r:aidl_lazy_test_service:s0
 aidl_lazy_test_2                          u:object_r:aidl_lazy_test_service:s0
 aidl_lazy_cb_test                         u:object_r:aidl_lazy_test_service:s0
@@ -137,6 +138,7 @@ communal                                  u:object_r:communal_service:s0
 platform_compat                           u:object_r:platform_compat_service:s0
 platform_compat_native                    u:object_r:platform_compat_service:s0
 connectivity                              u:object_r:connectivity_service:s0
+connectivity_native                       u:object_r:connectivity_native_service:s0
 connmetrics                               u:object_r:connmetrics_service:s0
 consumer_ir                               u:object_r:consumer_ir_service:s0
 content                                   u:object_r:content_service:s0
