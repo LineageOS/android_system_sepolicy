@@ -43,6 +43,9 @@ allow traced_probes proc_kallsyms:file r_file_perms;
 # Allow to read packages.list file.
 allow traced_probes packages_list_file:file r_file_perms;
 
+# Allow to read game_mode_intervention.list file.
+allow traced_probes game_mode_intervention_list_file:file r_file_perms;
+
 # Allow to log to kernel dmesg when starting / stopping ftrace.
 allow traced_probes kmsg_device:chr_file write;
 
@@ -144,6 +147,7 @@ neverallow traced_probes {
   -zoneinfo_data_file
   -packages_list_file
   with_native_coverage(`-method_trace_data_file')
+  -game_mode_intervention_list_file
 }:file *;
 
 # Only init is allowed to enter the traced_probes domain via exec()
