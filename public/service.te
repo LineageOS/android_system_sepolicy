@@ -61,6 +61,7 @@ type account_service, app_api_service, ephemeral_app_api_service, system_server_
 type activity_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type activity_task_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type adb_service, system_api_service, system_server_service, service_manager_type;
+type adservices_manager_service, system_api_service, system_server_service, service_manager_type;
 type alarm_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type app_binding_service, system_server_service, service_manager_type;
 type app_hibernation_service, app_api_service, system_api_service, system_server_service, service_manager_type;
@@ -89,6 +90,7 @@ type contexthub_service, app_api_service,  system_server_service, service_manage
 type crossprofileapps_service, app_api_service, system_server_service, service_manager_type;
 type IProxyService_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type companion_device_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type connectivity_native_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type connectivity_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type connmetrics_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type consumer_ir_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
