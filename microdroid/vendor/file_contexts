@@ -1,38 +1,8 @@
-# TODO(jiyong): clean this up
 #############################
 # Vendor files
 #
 (/.*)?                  u:object_r:vendor_file:s0
-/bin/sh                 u:object_r:vendor_shell_exec:s0
-/bin/toybox_vendor      u:object_r:vendor_toolbox_exec:s0
-/bin/toolbox            u:object_r:vendor_toolbox_exec:s0
 /etc(/.*)?              u:object_r:vendor_configs_file:s0
-/etc/cgroups\.json      u:object_r:vendor_cgroup_desc_file:s0
-/etc/task_profiles\.json    u:object_r:vendor_task_profiles_file:s0
-
-/lib(64)?/egl(/.*)?     u:object_r:same_process_hal_file:s0
-
-/lib(64)?/vndk-sp(/.*)? u:object_r:vndk_sp_file:s0
-
-/manifest\.xml           u:object_r:vendor_configs_file:s0
-/compatibility_matrix\.xml u:object_r:vendor_configs_file:s0
-/etc/vintf(/.*)?        u:object_r:vendor_configs_file:s0
-/app(/.*)?              u:object_r:vendor_app_file:s0
-/priv-app(/.*)?         u:object_r:vendor_app_file:s0
-/overlay(/.*)?          u:object_r:vendor_overlay_file:s0
-/framework(/.*)?        u:object_r:vendor_framework_file:s0
-
-/apex(/[^/]+){0,2}                      u:object_r:vendor_apex_file:s0
-/bin/misc_writer                        u:object_r:vendor_misc_writer_exec:s0
-/bin/boringssl_self_test(32|64)         u:object_r:vendor_boringssl_self_test_exec:s0
 
 # HAL location
-/lib(64)?/hw            u:object_r:vendor_hal_file:s0
-
-/etc/selinux/nonplat_service_contexts u:object_r:nonplat_service_contexts_file:s0
-
-/etc/selinux/vendor_service_contexts u:object_r:vendor_service_contexts_file:s0
-
-/bin/install-recovery\.sh u:object_r:vendor_install_recovery_exec:s0
-
 /bin/hw/android\.hardware\.security\.dice-service\.microdroid u:object_r:hal_dice_default_exec:s0
