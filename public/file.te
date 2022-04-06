@@ -7,6 +7,7 @@ type proc, fs_type, proc_type;
 type binderfs, fs_type;
 type binderfs_logs, fs_type;
 type binderfs_logs_proc, fs_type;
+type binderfs_features, fs_type;
 # Security-sensitive proc nodes that should not be writable to most.
 type proc_security, fs_type, proc_type;
 type proc_drop_caches, fs_type, proc_type;
@@ -300,6 +301,7 @@ type system_data_file, file_type, data_file_type, core_data_file_type;
 # TODO(b/129332765): Narrow down permissions to this.
 # Find out users of system_data_file that should be granted only this.
 type packages_list_file, file_type, data_file_type, core_data_file_type;
+type game_mode_intervention_list_file, file_type, data_file_type, core_data_file_type;
 # Default type for anything under /data/vendor{_ce,_de}.
 type vendor_data_file, file_type, data_file_type;
 # Unencrypted data

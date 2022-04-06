@@ -30,3 +30,6 @@ get_prop(hal_wifi_supplicant_default, device_logging_prop)
 # policy.  This is dontaudited here to avoid conditional
 # device-specific behavior in wpa_supplicant.
 dontaudit hal_wifi_supplicant_default wifi_data_file:dir search;
+
+# Allow wpa supplicant to access Netlink Interceptor
+hal_client_domain(hal_wifi_supplicant_default, hal_nlinterceptor)

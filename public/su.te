@@ -1,3 +1,6 @@
+# Domain used for su processes, as well as for adbd and adb shell
+# after performing an adb root command.
+
 # All types must be defined regardless of build variant to ensure
 # policy compilation succeeds with userdebug/user combination at boot
 type su, domain;
@@ -6,9 +9,6 @@ type su, domain;
 type su_exec, system_file_type, exec_type, file_type;
 
 userdebug_or_eng(`
-  # Domain used for su processes, as well as for adbd and adb shell
-  # after performing an adb root command.  The domain definition is
-  # wrapped to ensure that it does not exist at all on -user builds.
   typeattribute su mlstrustedsubject;
 
   # Add su to various domains
@@ -22,6 +22,7 @@ userdebug_or_eng(`
   dontaudit su kernel:security *;
   dontaudit su { kernel file_type }:system *;
   dontaudit su self:memprotect *;
+  dontaudit su domain:anon_inode *;
   dontaudit su domain:{ process process2 } *;
   dontaudit su domain:fd *;
   dontaudit su domain:dir *;

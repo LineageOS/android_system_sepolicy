@@ -120,3 +120,6 @@ allow dumpstate perfetto_traces_bugreport_data_file:file { r_file_perms unlink }
 # /dev/null.
 allow perfetto dumpstate_tmpfs:file rw_file_perms;
 allow perfetto dumpstate:fd use;
+
+# system_dlkm_file for /system_dlkm partition
+allow dumpstate system_dlkm_file:dir getattr;

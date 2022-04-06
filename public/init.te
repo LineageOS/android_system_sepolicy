@@ -36,8 +36,9 @@ allow init runtime_event_log_tags_file:file { open write setattr relabelto creat
 allow init { device socket_device dm_user_device }:dir relabelto;
 # allow init to establish connection and communicate with lmkd
 unix_socket_connect(init, lmkd, lmkd)
-# Relabel /dev nodes created in first stage init, /dev/null, /dev/ptmx, /dev/random, /dev/urandom
-allow init { null_device ptmx_device random_device } : chr_file relabelto;
+# Relabel /dev nodes created in first stage init: /dev/console, /dev/null, /dev/ptmx, /dev/random
+# and /dev/urandom
+allow init { console_device null_device ptmx_device random_device } : chr_file relabelto;
 # /dev/device-mapper, /dev/block(/.*)?
 allow init tmpfs:{ chr_file blk_file } relabelfrom;
 allow init tmpfs:blk_file getattr;
@@ -624,6 +625,9 @@ allow init fuse:dir { search getattr };
 
 # allow filesystem tuning
 allow init userdata_sysdev:file create_file_perms;
+
+# allow disk tuning
+allow init rootdisk_sysdev:file create_file_perms;
 
 ###
 ### neverallow rules

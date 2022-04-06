@@ -73,6 +73,7 @@ persist.sys.safemode    u:object_r:safemode_prop:s0
 persist.sys.tap_gesture u:object_r:gesture_prop:s0
 persist.sys.theme       u:object_r:theme_prop:s0
 persist.sys.fflag.override.settings_dynamic_system    u:object_r:dynamic_system_prop:s0
+dynamic_system.data_transfer.shared_memory.size       u:object_r:dynamic_system_prop:s0   exact   uint
 ro.sys.safemode         u:object_r:safemode_prop:s0
 persist.sys.audit_safemode      u:object_r:safemode_prop:s0
 persist.sys.dalvik.jvmtiagent   u:object_r:system_jvmti_agent_prop:s0
@@ -256,6 +257,9 @@ persist.device_config.surface_flinger_native_boot.  u:object_r:device_config_sur
 persist.device_config.swcodec_native.               u:object_r:device_config_swcodec_native_prop:s0
 persist.device_config.virtualization_framework_native. u:object_r:device_config_virtualization_framework_native_prop:s0
 persist.device_config.window_manager_native_boot.   u:object_r:device_config_window_manager_native_boot_prop:s0
+
+# F2FS smart idle maint prop
+persist.device_config.storage_native_boot.smart_idle_maint_enabled u:object_r:smart_idle_maint_enabled_prop:s0 exact bool
 
 # MM Events config props
 persist.mm_events.enabled                           u:object_r:mm_events_config_prop:s0 exact bool
@@ -487,6 +491,7 @@ bluetooth.profile.avrcp.target.enabled               u:object_r:bluetooth_config
 bluetooth.profile.bap.broadcast.assist.enabled       u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.profile.bap.broadcast.source.enabled       u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.profile.bap.unicast.server.enabled         u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.bas.client.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.profile.bass.client.enabled                u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.profile.csip.set_coordinator.enabled       u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.profile.gatt.enabled                       u:object_r:bluetooth_config_prop:s0 exact bool
@@ -510,6 +515,7 @@ bluetooth.profile.vc.server.enabled                  u:object_r:bluetooth_config
 persist.nfc.debug_enabled                      u:object_r:nfc_prop:s0 exact bool
 
 persist.radio.multisim.config u:object_r:radio_control_prop:s0 exact string
+persist.radio.allow_mock_modem u:object_r:radio_control_prop:s0 exact bool
 
 persist.sys.hdmi.keep_awake                                        u:object_r:hdmi_config_prop:s0 exact bool
 ro.hdmi.cec_device_types                                           u:object_r:hdmi_config_prop:s0 exact string
@@ -578,6 +584,7 @@ external_storage.projid.enabled   u:object_r:storage_config_prop:s0 exact bool
 external_storage.casefold.enabled u:object_r:storage_config_prop:s0 exact bool
 external_storage.sdcardfs.enabled u:object_r:storage_config_prop:s0 exact bool
 external_storage.cross_user.enabled u:object_r:storage_config_prop:s0 exact bool
+ro.fuse.bpf.enabled u:object_r:storage_config_prop:s0 exact bool
 
 ro.config.per_app_memcg         u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.critical                 u:object_r:lmkd_config_prop:s0 exact int
@@ -1241,6 +1248,10 @@ power.battery_input.suspended u:object_r:power_debug_prop:s0 exact bool
 zygote.critical_window.minute u:object_r:zygote_config_prop:s0 exact int
 
 ro.zygote.disable_gl_preload u:object_r:zygote_config_prop:s0 exact bool
+
+# Store the URL that the provisioning code should point at.
+ro.remote_provisioning.strongbox.rkp_only u:object_r:remote_prov_prop:s0 exact bool
+ro.remote_provisioning.tee.rkp_only u:object_r:remote_prov_prop:s0 exact bool
 
 # Broadcast boot stages, which keystore listens to
 keystore.boot_level u:object_r:keystore_listen_prop:s0 exact int

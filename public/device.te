@@ -121,3 +121,6 @@ type sdcard_block_device, dev_type;
 
 # Userdata device file for filesystem tunables
 type userdata_sysdev, dev_type;
+
+# Root disk file for disk tunables
+type rootdisk_sysdev, dev_type;

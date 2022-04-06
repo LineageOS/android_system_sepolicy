@@ -11,7 +11,7 @@ typeattribute isolated_app coredomain;
 app_domain(isolated_app)
 
 # Access already open app data files received over Binder or local socket IPC.
-allow isolated_app { app_data_file privapp_data_file }:file { append read write getattr lock map };
+allow isolated_app { app_data_file privapp_data_file sdk_sandbox_data_file}:file { append read write getattr lock map };
 
 # Allow access to network sockets received over IPC. New socket creation is not
 # permitted.
@@ -72,7 +72,7 @@ can_profile_perf(isolated_app)
 #####
 
 # Isolated apps should not directly open app data files themselves.
-neverallow isolated_app { app_data_file privapp_data_file }:file open;
+neverallow isolated_app { app_data_file privapp_data_file sdk_sandbox_data_file}:file open;
 
 # Only allow appending to /data/anr/traces.txt (b/27853304, b/18340553)
 # TODO: are there situations where isolated_apps write to this file?
