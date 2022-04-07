@@ -18,7 +18,7 @@ allow {netdomain -ephemeral_app} node_type:{ icmp_socket rawip_socket tcp_socket
 allow {netdomain -ephemeral_app} port_type:udp_socket name_bind;
 allow {netdomain -ephemeral_app} port_type:tcp_socket name_bind;
 # See changes to the routing table.
-allow netdomain self:netlink_route_socket { create read getattr write setattr lock append bind connect getopt setopt shutdown nlmsg_read };
+allow netdomain self:netlink_route_socket { create read getattr write setattr lock append connect getopt setopt shutdown nlmsg_read };
 
 # Talks to netd via dnsproxyd socket.
 unix_socket_connect(netdomain, dnsproxyd, netd)
