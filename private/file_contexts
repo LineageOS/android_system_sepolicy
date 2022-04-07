@@ -623,6 +623,7 @@
 /data/misc/nfc/logs(/.*)?       u:object_r:nfc_logs_data_file:s0
 /data/misc/odrefresh(/.*)?      u:object_r:odrefresh_data_file:s0
 /data/misc/odsign(/.*)?         u:object_r:odsign_data_file:s0
+/data/misc/odsign/metrics(/.*)? u:object_r:odsign_metrics_file:s0
 /data/misc/perfetto-traces/bugreport(.*)? u:object_r:perfetto_traces_bugreport_data_file:s0
 /data/misc/perfetto-traces(/.*)?          u:object_r:perfetto_traces_data_file:s0
 /data/misc/perfetto-configs(/.*)?         u:object_r:perfetto_configs_data_file:s0
