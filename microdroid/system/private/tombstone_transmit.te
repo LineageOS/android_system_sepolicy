@@ -1,0 +1,8 @@
+type tombstone_transmit, domain, coredomain;
+type tombstone_transmit_exec, exec_type, system_file_type, file_type;
+
+init_daemon_domain(tombstone_transmit)
+
+r_dir_file(tombstone_transmit, tombstone_data_file)
+
+allow tombstone_transmit self:{ vsock_socket } create_socket_perms_no_ioctl;
