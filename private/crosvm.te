@@ -63,6 +63,9 @@ allow crosvm {
 allow crosvm adbd:fd use;
 allow crosvm adbd:unix_stream_socket { read write };
 
+# For ACPI
+allow crosvm self:netlink_generic_socket create_socket_perms_no_ioctl;
+
 # The console log can also be written to /data/local/tmp. This is not safe as the log then can be
 # visible to the processes which don't own the VM. Therefore, this is a debugging only feature.
 userdebug_or_eng(`allow crosvm shell_data_file:file w_file_perms;')
