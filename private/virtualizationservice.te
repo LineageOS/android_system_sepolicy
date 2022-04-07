@@ -70,6 +70,13 @@ get_prop(virtualizationservice, hypervisor_prop)
 # Allow writing stats to statsd
 unix_socket_send(virtualizationservice, statsdw, statsd)
 
+# Allow virtualization service to talk to tombstoned to push guest tombstones
+unix_socket_connect(virtualizationservice, tombstoned_crash, tombstoned)
+
+# Append to tombstone files passed as fds from tombstoned
+allow virtualizationservice tombstone_data_file:file { append getattr };
+allow virtualizationservice tombstoned:fd use;
+
 neverallow {
   domain
   -init
