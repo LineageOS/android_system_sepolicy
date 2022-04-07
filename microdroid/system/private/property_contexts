@@ -92,6 +92,7 @@ ro.boot.logd.enabled               u:object_r:bootloader_prop:s0 exact bool
 ro.boot.microdroid.app_debuggable  u:object_r:bootloader_prop:s0 exact bool
 ro.boot.microdroid.debuggable      u:object_r:bootloader_prop:s0 exact bool
 ro.boot.slot_suffix                u:object_r:bootloader_prop:s0 exact string
+ro.boot.tombstone_transmit.enabled u:object_r:bootloader_prop:s0 exact bool
 ro.boot.vbmeta.avb_version         u:object_r:bootloader_prop:s0 exact string
 ro.boot.vbmeta.device_state        u:object_r:bootloader_prop:s0 exact string
 ro.boot.vbmeta.digest              u:object_r:bootloader_prop:s0 exact string
