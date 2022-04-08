@@ -15,7 +15,7 @@ wakelock_use(bluetooth);
 
 # Data file accesses.
 allow bluetooth bluetooth_data_file:dir create_dir_perms;
-allow bluetooth bluetooth_data_file:notdevfile_class_set create_file_perms;
+allow bluetooth bluetooth_data_file:notdevfile_class_set { create_file_perms link };
 allow bluetooth bluetooth_logs_data_file:dir rw_dir_perms;
 allow bluetooth bluetooth_logs_data_file:file create_file_perms;
 
