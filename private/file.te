@@ -76,6 +76,9 @@ type odrefresh_data_file, file_type, data_file_type, core_data_file_type;
 # /data/misc/odsign
 type odsign_data_file, file_type, data_file_type, core_data_file_type;
 
+# /data/misc/odsign_metrics
+type odsign_metrics_file, file_type, data_file_type, core_data_file_type;
+
 # /data/misc/virtualizationservice
 type virtualizationservice_data_file, file_type, data_file_type, core_data_file_type;
 
