@@ -103,6 +103,7 @@
 /system/lib(64)?(/.*)?         u:object_r:system_lib_file:s0
 /system/lib(64)?/bootstrap(/.*)? u:object_r:system_bootstrap_lib_file:s0
 /system/bin/apexd                u:object_r:apexd_exec:s0
+/system/bin/tombstone_transmit.microdroid   u:object_r:tombstone_transmit_exec:s0
 /system/bin/linker(64)? u:object_r:system_linker_exec:s0
 /system/bin/linkerconfig u:object_r:linkerconfig_exec:s0
 /system/bin/bootstrap/linker(64)? u:object_r:system_linker_exec:s0
