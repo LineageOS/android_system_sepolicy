@@ -129,7 +129,7 @@ allow gmscore_app { cache_file cache_recovery_file }:file create_file_perms;
 allow gmscore_app cache_file:lnk_file r_file_perms;
 
 # Write to /data/ota_package for OTA packages.
-allow gmscore_app ota_package_file:dir rw_dir_perms;
+allow gmscore_app ota_package_file:dir create_dir_perms;
 allow gmscore_app ota_package_file:file create_file_perms;
 
 # Write the checkin metadata to /data/misc_ce/<userid>/checkin
