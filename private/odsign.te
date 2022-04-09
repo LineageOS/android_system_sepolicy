@@ -13,6 +13,10 @@ init_daemon_domain(odsign)
 allow odsign odsign_data_file:dir create_dir_perms;
 allow odsign odsign_data_file:file create_file_perms;
 
+# Allow using persistent storage in /data/odsign/metrics - to add metrics related files
+allow odsign odsign_metrics_file:dir rw_dir_perms;
+allow odsign odsign_metrics_file:file create_file_perms;
+
 # Create and use pty created by android_fork_execvp().
 create_pty(odsign)
 
@@ -61,5 +65,5 @@ neverallow { domain -odsign -init } odsign_prop:property_service set;
 set_prop(odsign, ctl_odsign_prop)
 
 # Neverallows
-neverallow { domain -odsign -init -fsverity_init } odsign_data_file:dir *;
-neverallow { domain -odsign -init -fsverity_init } odsign_data_file:file *;
+neverallow { domain -odsign -init -fsverity_init} odsign_data_file:dir ~search;
+neverallow { domain -odsign -init -fsverity_init} odsign_data_file:file *;
