@@ -423,6 +423,7 @@ allow init {
   sysfs_power
   sysfs_fs_f2fs
   sysfs_dm
+  sysfs_lru_gen_enabled
 }:file w_file_perms;
 
 allow init {
