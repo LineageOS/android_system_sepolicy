@@ -56,10 +56,11 @@ allow microdroid_manager diced:diced { derive demote_self };
 allow microdroid_manager apex_mnt_dir:dir w_dir_perms;
 allow microdroid_manager apex_mnt_dir:file create_file_perms;
 
-# Allow microdroid_manager to start the services apexd-vm, apkdmverity and zipfuse
+# Allow microdroid_manager to start the services apexd-vm, apkdmverity,tombstone_transmit & zipfuse
 set_prop(microdroid_manager, ctl_apexd_vm_prop)
 set_prop(microdroid_manager, ctl_apkdmverity_prop)
 set_prop(microdroid_manager, ctl_seriallogging_prop)
+set_prop(microdroid_manager, ctl_tombstone_transmit_prop)
 set_prop(microdroid_manager, ctl_zipfuse_prop)
 
 # Allow microdroid_manager to wait for linkerconfig to be ready
