@@ -72,8 +72,12 @@ userdebug_or_eng(`
   allow surfaceflinger wm_trace_data_file:file { getattr setattr create w_file_perms };
 ')
 
-# Needed to register as a Perfetto producer.
+# Allow userspace tracing via perfetto.
 perfetto_producer(surfaceflinger)
+
+# Allow to be profiled by performance tools.
+can_profile_heap(surfaceflinger)
+can_profile_perf(surfaceflinger)
 
 # Use socket supplied by adbd, for cmd gpu vkjson etc.
 allow surfaceflinger adbd:unix_stream_socket { read write getattr };
