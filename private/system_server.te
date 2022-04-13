@@ -731,6 +731,7 @@ set_prop(system_server, device_config_runtime_native_boot_prop)
 set_prop(system_server, device_config_runtime_native_prop)
 set_prop(system_server, device_config_lmkd_native_prop)
 set_prop(system_server, device_config_media_native_prop)
+set_prop(system_server, device_config_mglru_native_prop)
 set_prop(system_server, device_config_profcollect_native_boot_prop)
 set_prop(system_server, device_config_statsd_native_prop)
 set_prop(system_server, device_config_statsd_native_boot_prop)
@@ -946,9 +947,7 @@ allow system_server keystore:keystore2 {
 	clear_ns
 	clear_uid
 	get_state
-	list
 	lock
-	migrate_any_key
 	pull_metrics
 	reset
 	unlock
@@ -1265,6 +1264,7 @@ neverallow {
   device_config_runtime_native_boot_prop
   device_config_runtime_native_prop
   device_config_media_native_prop
+  device_config_mglru_native_prop
   device_config_storage_native_boot_prop
   device_config_surface_flinger_native_boot_prop
   device_config_sys_traced_prop
