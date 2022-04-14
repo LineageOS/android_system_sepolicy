@@ -1,0 +1,4 @@
+# healthd - battery/charger monitoring service daemon
+# healthd is removed. The type is kept for backwards compatibility.
+
+type healthd, domain;
