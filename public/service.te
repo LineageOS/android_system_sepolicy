@@ -163,7 +163,7 @@ type memtrackproxy_service, app_api_service, ephemeral_app_api_service, system_s
 type midi_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type mount_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type music_recognition_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
-type nearby_service, system_api_service, system_server_service, service_manager_type;
+type nearby_service, app_api_service, system_server_service, service_manager_type;
 type netpolicy_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type netstats_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type network_management_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
