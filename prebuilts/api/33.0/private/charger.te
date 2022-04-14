@@ -1,0 +1,20 @@
+typeattribute charger coredomain;
+
+# charger needs to tell init to continue the boot
+# process when running in charger mode.
+# The system charger needs to be allowed to set these properties on legacy devices.
+set_prop(charger, system_prop)
+set_prop(charger, exported_system_prop)
+set_prop(charger, exported3_system_prop)
+
+# The system charger can read ro.charger.*
+get_prop(charger, charger_prop)
+
+compatible_property_only(`
+    neverallow {
+        domain
+        -init
+        -dumpstate
+        -charger
+    } charger_prop:file no_rw_file_perms;
+')

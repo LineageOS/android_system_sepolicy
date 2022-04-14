@@ -1,0 +1,11 @@
+type diced, domain;
+type diced_exec, system_file_type, exec_type, file_type;
+
+binder_use(diced)
+binder_service(diced)
+
+add_service(diced, dice_node_service)
+add_service(diced, dice_maintenance_service)
+
+# Check SELinux permissions.
+selinux_check_access(diced)
