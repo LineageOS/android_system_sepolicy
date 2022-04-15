@@ -13,13 +13,6 @@ allow installd apk_data_file:dir { create_dir_perms relabelfrom };
 allow installd apk_data_file:file { create_file_perms relabelfrom link };
 allow installd apk_data_file:lnk_file { create r_file_perms unlink };
 
-# FS_IOC_ENABLE_VERITY and FS_IOC_MEASURE_VERITY (or in old implementation used in installd,
-# FS_IOC_SET_VERITY_MEASUREMENT) ioctls on APKs in /data/app, to support fsverity.
-# TODO(b/120629632): this path is deprecated, remove when possible.
-allowxperm installd apk_data_file:file ioctl {
-  FS_IOC_ENABLE_VERITY FS_IOC_MEASURE_VERITY
-};
-
 allow installd asec_apk_file:file r_file_perms;
 allow installd apk_tmp_file:file { r_file_perms unlink };
 allow installd apk_tmp_file:dir { relabelfrom create_dir_perms };
