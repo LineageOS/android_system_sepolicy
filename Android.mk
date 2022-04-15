@@ -485,7 +485,6 @@ ifdef HAS_PRODUCT_SEPOLICY
 LOCAL_REQUIRED_MODULES += precompiled_sepolicy.product_sepolicy_and_mapping.sha256
 endif
 
-LOCAL_REQUIRED_MODULES += precompiled_sepolicy.apex_sepolicy.sha256
 endif # ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 
 
