@@ -702,6 +702,8 @@
 /data/misc_ce/[0-9]+/apexdata/com\.android\.permission(/.*)?  u:object_r:apex_system_server_data_file:s0
 /data/misc_de/[0-9]+/apexdata/com\.android\.wifi(/.*)?        u:object_r:apex_system_server_data_file:s0
 /data/misc_ce/[0-9]+/apexdata/com\.android\.wifi(/.*)?        u:object_r:apex_system_server_data_file:s0
+/data/misc_de/[0-9]+/apexdata/com\.android\.uwb(/.*)?         u:object_r:apex_system_server_data_file:s0
+/data/misc_ce/[0-9]+/apexdata/com\.android\.uwb(/.*)?         u:object_r:apex_system_server_data_file:s0
 
 # Apex rollback directories
 /data/misc_de/[0-9]+/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
