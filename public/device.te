@@ -79,36 +79,35 @@ type root_block_device, dev_type;
 type frp_block_device, dev_type;
 
 # System block device mounted on /system.
-# Documented at https://source.android.com/devices/bootloader/partitions-images
+# Documented at https://source.android.com/devices/bootloader/partitions
 type system_block_device, dev_type;
 
 # Recovery block device.
-# Documented at https://source.android.com/devices/bootloader/partitions-images
+# Documented at https://source.android.com/devices/bootloader/partitions
 type recovery_block_device, dev_type;
 
 # boot block device.
-# Documented at https://source.android.com/devices/bootloader/partitions-images
+# Documented at https://source.android.com/devices/bootloader/partitions
 type boot_block_device, dev_type;
 
 # Userdata block device mounted on /data.
-# Documented at https://source.android.com/devices/bootloader/partitions-images
+# Documented at https://source.android.com/devices/bootloader/partitions
 type userdata_block_device, dev_type;
 
 # Cache block device mounted on /cache.
-# Documented at https://source.android.com/devices/bootloader/partitions-images
+# Documented at https://source.android.com/devices/bootloader/partitions
 type cache_block_device, dev_type;
 
 # Block device for any swap partition.
 type swap_block_device, dev_type;
 
-# Metadata block device used for encryption metadata.
-# Assign this type to the partition specified by the encryptable=
-# mount option in your fstab file in the entry for userdata.
-# Documented at https://source.android.com/devices/bootloader/partitions-images
+# Metadata block device mounted on /metadata, used for encryption metadata and
+# various other purposes.
+# Documented at https://source.android.com/devices/bootloader/partitions
 type metadata_block_device, dev_type;
 
 # The 'misc' partition used by recovery and A/B.
-# Documented at https://source.android.com/devices/bootloader/partitions-images
+# Documented at https://source.android.com/devices/bootloader/partitions
 type misc_block_device, dev_type;
 
 # 'super' partition to be used for logical partitioning.

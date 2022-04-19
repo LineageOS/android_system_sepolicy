@@ -168,16 +168,8 @@ allow vold fsck_exec:file { r_file_perms execute };
 allow vold fscklogs:dir rw_dir_perms;
 allow vold fscklogs:file create_file_perms;
 
-#
-# Rules to support encrypted fs support.
-#
-
-# Unmount and mount the fs.
+# Mount and unmount filesystems.
 allow vold labeledfs:filesystem { mount unmount remount };
-
-# Access /efs/userdata_footer.
-# XXX Split into a separate type?
-allow vold efs_file:file rw_file_perms;
 
 # Create and mount on /data/tmp_mnt and management of expansion mounts
 allow vold {
@@ -210,7 +202,7 @@ allow vold unlabeled:file { r_file_perms setattr relabelfrom };
 allow vold fusectlfs:file rw_file_perms;
 allow vold fusectlfs:dir rw_dir_perms;
 
-# Handle wake locks (used for device encryption)
+# Allow vold to use wake locks.  Needed for idle maintenance and moving storage.
 wakelock_use(vold)
 
 # Allow vold to publish a binder service and make binder calls.
@@ -272,7 +264,7 @@ allow vold app_fusefs:filesystem { mount unmount };
 allow vold app_fuse_file:dir rw_dir_perms;
 allow vold app_fuse_file:file { read write open getattr append };
 
-# MoveTask.cpp executes cp and rm
+# MoveStorage.cpp executes cp and rm
 allow vold toolbox_exec:file rx_file_perms;
 
 # Prepare profile dir for users.
