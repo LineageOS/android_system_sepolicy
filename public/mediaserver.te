@@ -33,6 +33,7 @@ allow mediaserver media_data_file:file create_file_perms;
 allow mediaserver { app_data_file privapp_data_file }:file { append getattr ioctl lock map read write };
 allow mediaserver { sdcard_type fuse }:file write;
 allow mediaserver gpu_device:chr_file rw_file_perms;
+allow mediaserver gpu_device:dir r_dir_perms;
 allow mediaserver video_device:dir r_dir_perms;
 allow mediaserver video_device:chr_file rw_file_perms;
 

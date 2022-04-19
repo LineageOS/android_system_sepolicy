@@ -9,3 +9,6 @@ allow hal_camera_default fwk_sensor_hwservice:hwservice_manager find;
 # For collecting bugreports.
 allow hal_camera_default dumpstate:fd use;
 allow hal_camera_default dumpstate:fifo_file write;
+
+allow hal_camera_default gpu_device:chr_file rw_file_perms;
+allow hal_camera_default gpu_device:dir r_dir_perms;
