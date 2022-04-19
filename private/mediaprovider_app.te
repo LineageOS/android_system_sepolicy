@@ -59,7 +59,8 @@ get_prop(mediaprovider_app, storage_config_prop)
 
 get_prop(mediaprovider_app, drm_service_config_prop)
 
-allow mediaprovider_app gpu_device:dir search;
+allow mediaprovider_app gpu_device:chr_file rw_file_perms;
+allow mediaprovider_app gpu_device:dir r_dir_perms;
 
 dontaudit mediaprovider_app sysfs_vendor_sched:dir search;
 dontaudit mediaprovider_app sysfs_vendor_sched:file w_file_perms;

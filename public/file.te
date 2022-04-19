@@ -106,6 +106,7 @@ type sysfs_ipv4, fs_type, sysfs_type;
 type sysfs_kernel_notes, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_leds, fs_type, sysfs_type;
 type sysfs_loop, fs_type, sysfs_type;
+type sysfs_gpu, fs_type, sysfs_type;
 type sysfs_hwrandom, fs_type, sysfs_type;
 type sysfs_nfc_power_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_wake_lock, fs_type, sysfs_type;
