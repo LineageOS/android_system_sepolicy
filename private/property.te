@@ -614,6 +614,13 @@ neverallow {
 neverallow domain system_and_vendor_property_type:{file property_service} *;
 
 neverallow {
+  # Only init and the remote provisioner can set the ro.remote_provisioning.* props
+  domain
+  -init
+  -remote_prov_app
+} remote_prov_prop:property_service set;
+
+neverallow {
   # Only allow init and shell to set rollback_test_prop
   domain
   -init
