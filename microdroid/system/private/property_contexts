@@ -26,6 +26,7 @@ ctl.stop$apexd u:object_r:ctl_apexd_prop:s0
 ctl.start$apexd-vm      u:object_r:ctl_apexd_vm_prop:s0
 ctl.start$apkdmverity   u:object_r:ctl_apkdmverity_prop:s0
 ctl.start$seriallogging u:object_r:ctl_seriallogging_prop:s0
+ctl.start$tombstone_transmit     u:object_r:ctl_tombstone_transmit_prop:s0
 ctl.start$zipfuse       u:object_r:ctl_zipfuse_prop:s0
 
 ctl.console     u:object_r:ctl_console_prop:s0
