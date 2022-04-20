@@ -57,6 +57,7 @@ persist.bluetooth.      u:object_r:bluetooth_prop:s0
 persist.nfc.            u:object_r:nfc_prop:s0
 persist.nfc_cfg.        u:object_r:nfc_prop:s0
 persist.debug.          u:object_r:persist_debug_prop:s0
+persist.debug.user_mode_emulation u:object_r:system_user_mode_emulation_prop:s0
 logd.                   u:object_r:logd_prop:s0
 persist.logd.           u:object_r:logd_prop:s0
 ro.logd.                u:object_r:logd_prop:s0
