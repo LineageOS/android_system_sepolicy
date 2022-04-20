@@ -213,9 +213,6 @@ add_service(vold, vold_service)
 binder_call(vold, system_server)
 allow vold permission_service:service_manager find;
 
-# talk to keymaster
-hal_client_domain(vold, hal_keymaster)
-
 # talk to health storage HAL
 hal_client_domain(vold, hal_health_storage)
 
@@ -330,7 +327,6 @@ neverallow { domain -vold -init } restorecon_prop:property_service set;
 neverallow vold {
   domain
   -hal_health_storage_server
-  -hal_keymaster_server
   -system_suspend_server
   -hal_bootctl_server
   -hwservicemanager
