@@ -26,9 +26,7 @@ get_prop(apkdmverity, microdroid_manager_roothash_prop)
 # allow apkdmverity to access loop devices
 allow apkdmverity loop_device:blk_file rw_file_perms;
 allowxperm apkdmverity loop_device:blk_file ioctl {
-  LOOP_SET_STATUS64
-  LOOP_SET_FD
-  LOOP_SET_DIRECT_IO
+  LOOP_CONFIGURE
 };
 
 # allow apkdmverity to log to the kernel
