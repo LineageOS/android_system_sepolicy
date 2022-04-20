@@ -42,7 +42,8 @@ unix_socket_send(mediatranscoding, statsdw, statsd)
 # Allow mediatranscoding to access the DMA-BUF system heap
 allow mediatranscoding dmabuf_system_heap_device:chr_file r_file_perms;
 
-allow mediatranscoding gpu_device:dir search;
+allow mediatranscoding gpu_device:chr_file rw_file_perms;
+allow mediatranscoding gpu_device:dir r_dir_perms;
 
 # Allow mediatranscoding service to access media-related system properties
 get_prop(mediatranscoding, media_config_prop)
