@@ -7,6 +7,7 @@ allow hal_graphics_allocator_client same_process_hal_file:file { execute read op
 
 # GPU device access
 allow hal_graphics_allocator gpu_device:chr_file rw_file_perms;
+allow hal_graphics_allocator gpu_device:dir r_dir_perms;
 allow hal_graphics_allocator ion_device:chr_file r_file_perms;
 allow hal_graphics_allocator dmabuf_system_heap_device:chr_file r_file_perms;
 

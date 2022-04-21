@@ -451,6 +451,8 @@ allow system_server sysfs_usb:file w_file_perms;
 allow system_server device:dir r_dir_perms;
 allow system_server mdns_socket:sock_file rw_file_perms;
 allow system_server gpu_device:chr_file rw_file_perms;
+allow system_server gpu_device:dir r_dir_perms;
+allow system_server sysfs_gpu:file r_file_perms;
 allow system_server input_device:dir r_dir_perms;
 allow system_server input_device:chr_file rw_file_perms;
 allow system_server tty_device:chr_file rw_file_perms;
