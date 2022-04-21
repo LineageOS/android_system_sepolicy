@@ -32,7 +32,7 @@ allow crosvm {
   apk_data_file
   app_data_file
   apex_compos_data_file
-  userdebug_or_eng(`shell_data_file')
+  shell_data_file
 }:file { getattr read ioctl lock };
 
 # Allow searching the directory where the composite disk images are.
@@ -84,15 +84,14 @@ full_treble_only(`
   }:file *;
 ')
 
-# app_data_file (and shell_data_file for debuggable builds) is the only
-# app_data_file_type that is allowed for crosvm to read.  Note that the use of
-# app_data_file is allowed only for the instance disk image.  This is enforced
-# inside the virtualizationservice by checking the file context of all disk
-# image files.
+# app_data_file and shell_data_file is the only app_data_file_type that is
+# allowed for crosvm to read.  Note that the use of app_data_file is allowed
+# only for the instance disk image.  This is enforced inside the
+# virtualizationservice by checking the file context of all disk image files.
 neverallow crosvm {
   app_data_file_type
   -app_data_file
-  userdebug_or_eng(`-shell_data_file')
+  -shell_data_file
 }:file read;
 
 # Only virtualizationservice can run crosvm
