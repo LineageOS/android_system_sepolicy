@@ -6,13 +6,6 @@ init_daemon_domain(netd)
 # Allow netd to spawn dnsmasq in it's own domain
 domain_auto_trans(netd, dnsmasq_exec, dnsmasq)
 
-# Allow netd to start clatd in its own domain and kill it
-domain_auto_trans(netd, clatd_exec, clatd)
-allow netd clatd:process signal;
-
-# Allow netd to setup packet socket and pass to clatd
-allow netd self:packet_socket { bind create setopt };
-
 # give netd permission to setup iptables rule with xt_bpf, attach program to cgroup, and read/write
 # the map created by bpfloader
 allow netd bpfloader:bpf { prog_run map_read map_write };
