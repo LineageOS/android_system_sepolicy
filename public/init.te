@@ -144,7 +144,7 @@ allow init configfs:{ file lnk_file } create_file_perms;
 # /metadata
 allow init metadata_file:dir mounton;
 
-# Use tmpfs as /data, used for booting when /data is encrypted
+# Run restorecon on /dev
 allow init tmpfs:dir relabelfrom;
 
 # Create directories under /dev/cpuctl after chowning it to system.
