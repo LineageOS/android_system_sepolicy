@@ -85,6 +85,7 @@ allow shell rs_exec:file rx_file_perms;
 # Allow (host-driven) ART run-tests to execute dex2oat, in order to
 # check ART's compiler.
 allow shell dex2oat_exec:file rx_file_perms;
+allow shell dex2oat_exec:lnk_file read;
 
 # Allow shell to start and comminicate with lpdumpd.
 set_prop(shell, lpdumpd_prop);
