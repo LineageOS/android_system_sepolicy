@@ -231,3 +231,6 @@ virtualizationservice_use(shell)
 
 # Allow shell to set persist.wm.debug properties
 userdebug_or_eng(`set_prop(shell, persist_wm_debug_prop)')
+
+# Allow shell to write GWP-ASan properties even on user builds.
+set_prop(shell, gwp_asan_prop)
