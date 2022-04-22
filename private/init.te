@@ -105,9 +105,6 @@ neverallow { domain -init } property_service_version_prop:property_service set;
 # Only init can set keystore.boot_level
 neverallow { domain -init } keystore_listen_prop:property_service set;
 
-# Only init can set the ro.remote_provisioning.* props
-neverallow { domain -init } remote_prov_prop:property_service set;
-
 # Allow accessing /sys/kernel/tracing/instances/bootreceiver to set up tracing.
 allow init debugfs_bootreceiver_tracing:file w_file_perms;
 
