@@ -57,6 +57,7 @@ persist.bluetooth.      u:object_r:bluetooth_prop:s0
 persist.nfc.            u:object_r:nfc_prop:s0
 persist.nfc_cfg.        u:object_r:nfc_prop:s0
 persist.debug.          u:object_r:persist_debug_prop:s0
+persist.debug.user_mode_emulation u:object_r:system_user_mode_emulation_prop:s0
 logd.                   u:object_r:logd_prop:s0
 persist.logd.           u:object_r:logd_prop:s0
 ro.logd.                u:object_r:logd_prop:s0
@@ -725,6 +726,10 @@ libc.debug.malloc.options u:object_r:libc_debug_prop:s0 exact string
 libc.debug.malloc.program u:object_r:libc_debug_prop:s0 exact string
 libc.debug.hooks.enable   u:object_r:libc_debug_prop:s0 exact string
 
+# GWP-ASan props. Separate from other libc.debug.* props, because we want users
+# to be able to set them from `adb shell` even on release devices.
+libc.debug.gwp_asan.  u:object_r:gwp_asan_prop:s0 prefix string
+
 # shell-only props for ARM memory tagging (MTE).
 arm64.memtag. u:object_r:arm64_memtag_prop:s0 prefix string
 persist.arm64.memtag.default u:object_r:arm64_memtag_prop:s0 exact string
@@ -1256,9 +1261,9 @@ zygote.critical_window.minute u:object_r:zygote_config_prop:s0 exact int
 
 ro.zygote.disable_gl_preload u:object_r:zygote_config_prop:s0 exact bool
 
-# Store the URL that the provisioning code should point at.
-ro.remote_provisioning.strongbox.rkp_only u:object_r:remote_prov_prop:s0 exact bool
-ro.remote_provisioning.tee.rkp_only u:object_r:remote_prov_prop:s0 exact bool
+# Allows a device to run without batch attestation keys
+remote_provisioning.strongbox.rkp_only u:object_r:remote_prov_prop:s0 exact bool
+remote_provisioning.tee.rkp_only u:object_r:remote_prov_prop:s0 exact bool
 
 # Broadcast boot stages, which keystore listens to
 keystore.boot_level u:object_r:keystore_listen_prop:s0 exact int
