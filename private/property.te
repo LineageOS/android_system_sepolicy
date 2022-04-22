@@ -49,6 +49,7 @@ system_internal_prop(virtualizationservice_prop)
 # Properties which can't be written outside system
 system_restricted_prop(device_config_vendor_system_native_prop)
 system_restricted_prop(device_config_virtualization_framework_native_prop)
+system_restricted_prop(system_user_mode_emulation_prop)
 
 ###
 ### Neverallow rules
@@ -121,6 +122,7 @@ neverallow * {
   -restorecon_prop
   -shell_prop
   -system_prop
+  -system_user_mode_emulation_prop
   -usb_prop
   -vold_prop
 }:file no_rw_file_perms;
@@ -413,9 +415,9 @@ neverallow {
   libc_debug_prop
 }:property_service set;
 
-# Allow the shell to set MTE props, so that non-root users with adb shell
-# access can control the settings on their device.
-# Allow system apps to set MTE props, so Developer Options can set them.
+# Allow the shell to set MTE & GWP-ASan props, so that non-root users with adb
+# shell access can control the settings on their device. Allow system apps to
+# set MTE props, so Developer Options can set them.
 neverallow {
   domain
   -init
@@ -423,6 +425,7 @@ neverallow {
   -system_app
 } {
   arm64_memtag_prop
+  gwp_asan_prop
 }:property_service set;
 
 neverallow {
@@ -612,6 +615,13 @@ neverallow {
 # Only one of system_property_type and vendor_property_type can be assigned.
 # Property types having both attributes won't be accessible from anywhere.
 neverallow domain system_and_vendor_property_type:{file property_service} *;
+
+neverallow {
+  # Only init and the remote provisioner can set the ro.remote_provisioning.* props
+  domain
+  -init
+  -remote_prov_app
+} remote_prov_prop:property_service set;
 
 neverallow {
   # Only allow init and shell to set rollback_test_prop
