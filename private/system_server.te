@@ -395,8 +395,10 @@ allow system_server {
   hal_light_server
   hal_neuralnetworks_server
   hal_omx_server
+  hal_power_server
   hal_power_stats_server
   hal_sensors_server
+  hal_vibrator_server
   hal_vr_server
   system_suspend_server
 }:process { signal };
