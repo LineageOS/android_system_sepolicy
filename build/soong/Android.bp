@@ -35,7 +35,6 @@ bootstrap_go_package {
         "build_files.go",
         "cil_compat_map.go",
         "compat_cil.go",
-        "filegroup.go",
         "policy.go",
         "selinux.go",
         "selinux_contexts.go",

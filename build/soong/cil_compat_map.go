@@ -59,7 +59,7 @@ type cilCompatMapProperties struct {
 	// se_cil_compat_map module representing a compatibility mapping file for
 	// platform versions (x->y). Bottom half represents a mapping (y->z).
 	// Together the halves are used to generate a (x->z) mapping.
-	Top_half *string
+	Top_half *string `android:"path"`
 	// list of source (.cil) files used to build an the bottom half of sepolicy
 	// compatibility mapping file. bottom_half may reference the outputs of
 	// other modules that produce source files like genrule or filegroup using
@@ -94,31 +94,7 @@ func expandTopHalf(ctx android.ModuleContext) android.OptionalPath {
 }
 
 func expandSeSources(ctx android.ModuleContext, srcFiles []string) android.Paths {
-	expandedSrcFiles := make(android.Paths, 0, len(srcFiles))
-	for _, s := range srcFiles {
-		if m := android.SrcIsModule(s); m != "" {
-			module := android.GetModuleFromPathDep(ctx, m, "")
-			if module == nil {
-				// Error will have been handled by ExtractSourcesDeps
-				continue
-			}
-			if fg, ok := module.(*fileGroup); ok {
-				if ctx.ProductSpecific() {
-					expandedSrcFiles = append(expandedSrcFiles, fg.ProductPrivateSrcs()...)
-				} else if ctx.SystemExtSpecific() {
-					expandedSrcFiles = append(expandedSrcFiles, fg.SystemExtPrivateSrcs()...)
-				} else {
-					expandedSrcFiles = append(expandedSrcFiles, fg.SystemPrivateSrcs()...)
-				}
-			} else {
-				ctx.ModuleErrorf("srcs dependency %q is not an selinux filegroup", m)
-			}
-		} else {
-			p := android.PathForModuleSrc(ctx, s)
-			expandedSrcFiles = append(expandedSrcFiles, p)
-		}
-	}
-	return expandedSrcFiles
+	return android.PathsForModuleSrc(ctx, srcFiles)
 }
 
 func (c *cilCompatMap) GenerateAndroidBuildActions(ctx android.ModuleContext) {
