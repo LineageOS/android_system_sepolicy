@@ -40,7 +40,7 @@ type bugMap struct {
 }
 
 type bugMapProperties struct {
-	// List of source files. Can reference se_filegroup type modules with the ":module" syntax.
+	// List of source files or se_build_files modules.
 	Srcs []string `android:"path"`
 
 	// Output file name. Defaults to module name if unspecified.
@@ -52,31 +52,7 @@ func (b *bugMap) stem() string {
 }
 
 func (b *bugMap) expandSeSources(ctx android.ModuleContext) android.Paths {
-	srcPaths := make(android.Paths, 0, len(b.properties.Srcs))
-	for _, src := range b.properties.Srcs {
-		if m := android.SrcIsModule(src); m != "" {
-			module := android.GetModuleFromPathDep(ctx, m, "")
-			if module == nil {
-				// Error would have been handled by ExtractSourcesDeps
-				continue
-			}
-			if fg, ok := module.(*fileGroup); ok {
-				if b.SocSpecific() {
-					srcPaths = append(srcPaths, fg.VendorSrcs()...)
-					srcPaths = append(srcPaths, fg.SystemVendorSrcs()...)
-				} else if b.SystemExtSpecific() {
-					srcPaths = append(srcPaths, fg.SystemExtPrivateSrcs()...)
-				} else {
-					srcPaths = append(srcPaths, fg.SystemPrivateSrcs()...)
-				}
-			} else {
-				ctx.PropertyErrorf("srcs", "%q is not an se_filegroup", m)
-			}
-		} else {
-			srcPaths = append(srcPaths, android.PathForModuleSrc(ctx, src))
-		}
-	}
-	return android.FirstUniquePaths(srcPaths)
+	return android.PathsForModuleSrc(ctx, b.properties.Srcs)
 }
 
 func (b *bugMap) GenerateAndroidBuildActions(ctx android.ModuleContext) {
