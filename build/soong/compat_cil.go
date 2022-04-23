@@ -48,7 +48,7 @@ type compatCil struct {
 }
 
 type compatCilProperties struct {
-	// List of source files. Can reference se_filegroup type modules with the ":module" syntax.
+	// List of source files. Can reference se_build_files type modules with the ":module" syntax.
 	Srcs []string `android:"path"`
 
 	// Output file name. Defaults to module name if unspecified.
@@ -60,28 +60,7 @@ func (c *compatCil) stem() string {
 }
 
 func (c *compatCil) expandSeSources(ctx android.ModuleContext) android.Paths {
-	srcPaths := make(android.Paths, 0, len(c.properties.Srcs))
-	for _, src := range c.properties.Srcs {
-		if m := android.SrcIsModule(src); m != "" {
-			module := android.GetModuleFromPathDep(ctx, m, "")
-			if module == nil {
-				// Error would have been handled by ExtractSourcesDeps
-				continue
-			}
-			if fg, ok := module.(*fileGroup); ok {
-				if c.SystemExtSpecific() {
-					srcPaths = append(srcPaths, fg.SystemExtPrivateSrcs()...)
-				} else {
-					srcPaths = append(srcPaths, fg.SystemPrivateSrcs()...)
-				}
-			} else {
-				ctx.PropertyErrorf("srcs", "%q is not an se_filegroup", m)
-			}
-		} else {
-			srcPaths = append(srcPaths, android.PathForModuleSrc(ctx, src))
-		}
-	}
-	return srcPaths
+	return android.PathsForModuleSrc(ctx, c.properties.Srcs)
 }
 
 func (c *compatCil) GenerateAndroidBuildActions(ctx android.ModuleContext) {
