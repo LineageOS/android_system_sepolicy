@@ -44,105 +44,105 @@ license {
 
 cc_defaults { name: "selinux_policy_version", cflags: ["-DSEPOLICY_VERSION=30"], }
 
-se_filegroup {
+se_build_files {
     name: "28.0.board.compat.map",
     srcs: [
         "compat/28.0/28.0.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "29.0.board.compat.map",
     srcs: [
         "compat/29.0/29.0.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "30.0.board.compat.map",
     srcs: [
         "compat/30.0/30.0.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "31.0.board.compat.map",
     srcs: [
         "compat/31.0/31.0.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "32.0.board.compat.map",
     srcs: [
         "compat/32.0/32.0.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "28.0.board.compat.cil",
     srcs: [
         "compat/28.0/28.0.compat.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "29.0.board.compat.cil",
     srcs: [
         "compat/29.0/29.0.compat.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "30.0.board.compat.cil",
     srcs: [
         "compat/30.0/30.0.compat.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "31.0.board.compat.cil",
     srcs: [
         "compat/31.0/31.0.compat.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "32.0.board.compat.cil",
     srcs: [
         "compat/32.0/32.0.compat.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "28.0.board.ignore.map",
     srcs: [
         "compat/28.0/28.0.ignore.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "29.0.board.ignore.map",
     srcs: [
         "compat/29.0/29.0.ignore.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "30.0.board.ignore.map",
     srcs: [
         "compat/30.0/30.0.ignore.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "31.0.board.ignore.map",
     srcs: [
         "compat/31.0/31.0.ignore.cil",
     ],
 }
 
-se_filegroup {
+se_build_files {
     name: "32.0.board.ignore.map",
     srcs: [
         "compat/32.0/32.0.ignore.cil",
@@ -1055,27 +1055,27 @@ se_policy_cil {
 }
 
 // bug_map - Bug tracking information for selinux denials loaded by auditd.
-se_filegroup {
+se_build_files {
     name: "bug_map_files",
     srcs: ["bug_map"],
 }
 
 se_bug_map {
     name: "plat_bug_map",
-    srcs: [":bug_map_files"],
+    srcs: [":bug_map_files{.plat_private}"],
     stem: "bug_map",
 }
 
 se_bug_map {
     name: "system_ext_bug_map",
-    srcs: [":bug_map_files"],
+    srcs: [":bug_map_files{.system_ext_private}"],
     stem: "bug_map",
     system_ext_specific: true,
 }
 
 se_bug_map {
     name: "vendor_bug_map",
-    srcs: [":bug_map_files"],
+    srcs: [":bug_map_files{.vendor}", ":bug_map_files{.plat_vendor_for_vendor}"],
     // Legacy file name of the vendor partition bug_map.
     stem: "selinux_denial_metadata",
     vendor: true,
