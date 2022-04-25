@@ -158,6 +158,7 @@ allow init self:global_capability_class_set { sys_rawio mknod };
 # Mounting filesystems from block devices.
 allow init dev_type:blk_file r_file_perms;
 allowxperm init dev_type:blk_file ioctl BLKROSET;
+allowxperm init system_data_root_file:dir ioctl F2FS_IOC_SHUTDOWN;
 
 # Mounting filesystems.
 # Only allow relabelto for types used in context= mount options,
