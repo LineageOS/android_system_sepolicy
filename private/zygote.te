@@ -36,6 +36,9 @@ allow zygote app_zygote:process { getpgid setpgid };
 allow zygote system_data_file:dir r_dir_perms;
 allow zygote system_data_file:file r_file_perms;
 
+# Get attributes of /mnt/expand, needed by cacheNonBootClasspathClassLoaders.
+allow zygote mnt_expand_file:dir getattr;
+
 # Write to /data/dalvik-cache.
 allow zygote dalvikcache_data_file:dir create_dir_perms;
 allow zygote dalvikcache_data_file:file create_file_perms;
@@ -59,42 +62,48 @@ allow zygote apex_module_data_file:dir search;
 allow zygote apex_art_data_file:dir { getattr search };
 allow zygote apex_art_data_file:file { r_file_perms execute };
 
-# Bind mount on /data/data and mounted volumes
-allow zygote { system_data_file mnt_expand_file }:dir mounton;
+# Mount tmpfs over various directories containing per-app directories, to hide
+# them for app data isolation.  Also traverse these directories (via
+# /data_mirror) to find the allowlisted per-app directories to bind-mount in.
+allow zygote {
+    # /data/data, /data/user{,_de}, /mnt/expand/$volume/user{,_de}
+    system_data_file
+    # /data/misc/profiles/cur
+    user_profile_root_file
+    # /data/misc/profiles/ref
+    user_profile_data_file
+    # /storage/emulated/$uid/Android/{data,obb}
+    media_rw_data_file
+}:dir { mounton search };
 
-# Relabel /data/user /data/user_de and /data/data
+# Traverse /data_mirror to get to the above directories while their normal paths
+# are hidden, in order to bind-mount allowlisted per-app directories.
+allow zygote mirror_data_file:dir search;
+
+# List /mnt/expand to find all /mnt/expand/$volume/user{,_de} directories that
+# need to be hidden by app data isolation, and traverse /mnt/expand to get to
+# any allowlisted per-app directories within these directories.
+allow zygote mnt_expand_file:dir { open read search };
+
+# Get the inode number of app CE data directories to find them by inode number
+# when CE storage is locked.  Needed for app data isolation.
+allow zygote app_data_file_type:dir getattr;
+
+# Create dirs in the app data isolation tmpfs mounts and bind mount on them.
+allow zygote tmpfs:dir { create_dir_perms mounton };
+
+# Create the '/data/user/0 => /data/data' symlink in the /data/user tmpfs mount
+# when setting up app data isolation.
+allow zygote tmpfs:lnk_file create;
+
+# Relabel dirs and symlinks in the app data isolation tmpfs mounts to their
+# standard labels.  Note: it seems that not all dirs are actually relabeled yet,
+# but it works anyway since all domains can search tmpfs:dir.
 allow zygote tmpfs:{ dir lnk_file } relabelfrom;
 allow zygote system_data_file:{ dir lnk_file } relabelto;
 
-# Zygote opens /mnt/expand to mount CE DE storage on each vol
-allow zygote mnt_expand_file:dir { open read search relabelto };
-
-# Bind mount subdirectories on /data/misc/profiles/cur and /data/misc/profiles/ref
-allow zygote { user_profile_root_file user_profile_data_file }:dir { mounton search };
-
-# Create and bind dirs on /data/data
-allow zygote tmpfs:dir { create_dir_perms mounton };
-
-# Goes into media directory and bind mount obb directory
-allow zygote media_rw_data_file:dir { getattr search };
-
-# Bind mount on top of existing mounted obb and data directory
-allow zygote media_rw_data_file:dir { mounton };
-
 # Read if sdcardfs is supported
 allow zygote proc_filesystems:file r_file_perms;
-
-# Create symlink for /data/user/0
-allow zygote tmpfs:lnk_file create;
-
-allow zygote mirror_data_file:dir r_dir_perms;
-
-# Get inode of directories for app data isolation
-allow zygote {
-  app_data_file_type
-  system_data_file
-  mnt_expand_file
-}:dir getattr;
 
 # Allow zygote to create JIT memory.
 allow zygote self:process execmem;
