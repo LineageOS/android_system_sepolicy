@@ -33,6 +33,7 @@ allow sdk_sandbox font_service:service_manager find;
 allow sdk_sandbox game_service:service_manager find;
 allow sdk_sandbox gpu_service:service_manager find;
 allow sdk_sandbox graphicsstats_service:service_manager find;
+allow sdk_sandbox hardware_properties_service:service_manager find;
 allow sdk_sandbox hint_service:service_manager find;
 allow sdk_sandbox imms_service:service_manager find;
 allow sdk_sandbox input_method_service:service_manager find;
@@ -88,6 +89,8 @@ allow sdk_sandbox tv_input_service:service_manager find;
 allow sdk_sandbox uimode_service:service_manager find;
 allow sdk_sandbox vcn_management_service:service_manager find;
 allow sdk_sandbox webviewupdate_service:service_manager find;
+
+allow sdk_sandbox system_linker_exec:file execute_no_trans;
 
 # Write app-specific trace data to the Perfetto traced damon. This requires
 # connecting to its producer socket and obtaining a (per-process) tmpfs fd.
