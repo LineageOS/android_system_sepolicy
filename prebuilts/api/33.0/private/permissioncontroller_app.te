@@ -1,0 +1,22 @@
+###
+### A domain for further sandboxing the GooglePermissionController app.
+###
+type permissioncontroller_app, domain, coredomain;
+
+app_domain(permissioncontroller_app)
+
+allow permissioncontroller_app app_api_service:service_manager find;
+allow permissioncontroller_app system_api_service:service_manager find;
+
+# Allow interaction with gpuservice
+binder_call(permissioncontroller_app, gpuservice)
+
+allow permissioncontroller_app radio_service:service_manager find;
+
+# Allow the app to request and collect incident reports.
+# (Also requires DUMP and PACKAGE_USAGE_STATS permissions)
+allow permissioncontroller_app incident_service:service_manager find;
+binder_call(permissioncontroller_app, incidentd)
+allow permissioncontroller_app incidentd:fifo_file { read write };
+
+allow permissioncontroller_app gpu_device:dir search;
