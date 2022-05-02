@@ -80,6 +80,13 @@ se_build_files {
 }
 
 se_build_files {
+    name: "33.0.board.compat.map",
+    srcs: [
+        "compat/33.0/33.0.cil",
+    ],
+}
+
+se_build_files {
     name: "28.0.board.compat.cil",
     srcs: [
         "compat/28.0/28.0.compat.cil",
@@ -115,6 +122,13 @@ se_build_files {
 }
 
 se_build_files {
+    name: "33.0.board.compat.cil",
+    srcs: [
+        "compat/33.0/33.0.compat.cil",
+    ],
+}
+
+se_build_files {
     name: "28.0.board.ignore.map",
     srcs: [
         "compat/28.0/28.0.ignore.cil",
@@ -146,6 +160,13 @@ se_build_files {
     name: "32.0.board.ignore.map",
     srcs: [
         "compat/32.0/32.0.ignore.cil",
+    ],
+}
+
+se_build_files {
+    name: "33.0.board.ignore.map",
+    srcs: [
+        "compat/33.0/33.0.ignore.cil",
     ],
 }
 
