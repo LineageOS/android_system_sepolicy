@@ -35,6 +35,7 @@ allow shell dev_type:blk_file getattr;
 dontaudit shell sysfs:dir r_dir_perms;
 
 # Test tool tries to read various service status properties.
+get_prop(shell, boot_status_prop)
 get_prop(shell, init_service_status_prop)
 get_prop(shell, init_service_status_private_prop)
 
