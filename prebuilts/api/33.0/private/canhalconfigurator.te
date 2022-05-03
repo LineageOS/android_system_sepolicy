@@ -1,0 +1,7 @@
+type canhalconfigurator, domain, coredomain;
+type canhalconfigurator_exec, exec_type, system_file_type, file_type;
+init_daemon_domain(canhalconfigurator)
+
+# This allows the configurator to look up the CAN HAL controller via
+# hwservice_manager and communicate with it.
+hal_client_domain(canhalconfigurator, hal_can_controller)
