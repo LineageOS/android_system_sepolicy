@@ -6,6 +6,9 @@ type microdroid_manager_exec, exec_type, file_type, system_file_type;
 # allow domain transition from init
 init_daemon_domain(microdroid_manager)
 
+# Allow microdroid_manager to set boot status
+set_prop(microdroid_manager, boot_status_prop)
+
 # microdroid_manager accesses a virtual disk block device to read VM payload
 # It needs write access as it updates the instance image
 allow microdroid_manager block_device:dir r_dir_perms;
