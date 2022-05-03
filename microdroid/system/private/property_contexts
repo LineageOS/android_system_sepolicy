@@ -41,6 +41,8 @@ service.adb.root u:object_r:shell_prop:s0 exact bool
 ro.logd.kernel u:object_r:logd_prop:s0 exact bool
 logd.ready     u:object_r:logd_prop:s0 exact bool
 
+dev.bootcomplete   u:object_r:boot_status_prop:s0 exact bool
+
 ro.config.low_ram u:object_r:build_prop:s0 exact bool
 
 ro.boottime.adbd                      u:object_r:boottime_prop:s0 exact int
