@@ -62,6 +62,7 @@ type apex_compos_data_file, file_type, data_file_type, core_data_file_type, apex
 type apex_appsearch_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
 type apex_permission_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
 type apex_scheduling_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+type apex_tethering_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
 type apex_wifi_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
 
 # /data/font/files
