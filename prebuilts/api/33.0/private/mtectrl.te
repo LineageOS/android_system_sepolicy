@@ -1,0 +1,10 @@
+# mtectrl is a tool to request MTE (Memory Tagging Extensions) from the bootloader.
+type mtectrl, domain, coredomain;
+type mtectrl_exec, system_file_type, exec_type, file_type;
+
+init_daemon_domain(mtectrl)
+
+# mtectrl communicates the request to the bootloader via the misc partition.
+allow mtectrl misc_block_device:blk_file w_file_perms;
+allow mtectrl block_device:dir r_dir_perms;
+read_fstab(mtectrl)

@@ -1,0 +1,4 @@
+binder_call(hal_dice_client, hal_dice_server)
+
+hal_attribute_service(hal_dice, hal_dice_service)
+binder_call(hal_dice_server, servicemanager)
