@@ -176,9 +176,7 @@ userdebug_or_eng(`
 # permission. The protection level of the permission is `signature|development`
 # so that it can only be granted to either platform-key signed apps or
 # test-only apps having `android:testOnly="true"` in its manifest.
-userdebug_or_eng(`
-  virtualizationservice_use(untrusted_app_all)
-')
+virtualizationservice_use(untrusted_app_all)
 
 with_native_coverage(`
   # Allow writing coverage information to /data/misc/trace
