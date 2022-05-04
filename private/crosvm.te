@@ -66,9 +66,12 @@ allow crosvm adbd:unix_stream_socket { read write };
 # For ACPI
 allow crosvm self:netlink_generic_socket create_socket_perms_no_ioctl;
 
-# The console log can also be written to /data/local/tmp. This is not safe as the log then can be
-# visible to the processes which don't own the VM. Therefore, this is a debugging only feature.
-userdebug_or_eng(`allow crosvm shell_data_file:file w_file_perms;')
+# crosvm can write files in /data/local/tmp which are usually used for instance.img and logging by
+# compliance tests and demo apps. Write access to instance.img is particularily important because
+# the VM has to initialize the disk image on its first boot. Note that open access is still not
+# granted because the files are expected to be opened by the owner of the VM (apps or shell in case
+# when the vm is created by the `vm` tool) and handed over to crosvm as FD.
+allow crosvm shell_data_file:file write;
 
 # Don't allow crosvm to have access to ordinary vendor files that are not for VMs.
 full_treble_only(`
