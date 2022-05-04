@@ -33,9 +33,12 @@ allow apexd apex_module_data_file:file { create_file_perms relabelfrom };
 allow apexd apex_rollback_data_file:dir create_dir_perms;
 allow apexd apex_rollback_data_file:file create_file_perms;
 
-# Allow apexd to read directories under /data/misc_de in order to snapshot and
-# restore apex data for all users.
-allow apexd system_data_file:dir r_dir_perms;
+# Allow apexd to read /data/misc_de and the directories under it, in order to
+# snapshot and restore apex data for all users.
+allow apexd {
+    system_userdir_file
+    system_data_file
+}:dir r_dir_perms;
 
 # allow apexd to create loop devices with /dev/loop-control
 allow apexd loop_control_device:chr_file rw_file_perms;

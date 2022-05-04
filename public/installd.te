@@ -42,13 +42,12 @@ allow installd seapp_contexts_file:file r_file_perms;
 allow installd asec_image_file:dir search;
 allow installd asec_image_file:file getattr;
 
-# Create /data/user and /data/user/0 if necessary.
-# Also required to initially create /data/data subdirectories
+# Required to initially create subdirectories of /data/user/$userId
 # and lib symlinks before the setfilecon call.  May want to
 # move symlink creation after setfilecon in installd.
 allow installd system_data_file:dir create_dir_perms;
-# Also, allow read for lnk_file so that we can process /data/user/0 links when
-# optimizing application code.
+# Also, allow read for lnk_file so that we can process symlinks within
+# /data/user/$userId when optimizing application code.
 allow installd system_data_file:lnk_file { create getattr read setattr unlink };
 
 # Manage lower filesystem via pass_through mounts
@@ -62,6 +61,7 @@ allow installd system_data_file:dir relabelfrom;
 allow installd media_rw_data_file:dir relabelto;
 
 # Delete /data/media files through sdcardfs, instead of going behind its back
+allow installd media_userdir_file:dir r_dir_perms;
 allow installd tmpfs:dir r_dir_perms;
 allow installd storage_file:dir search;
 allow installd { sdcard_type fuse }:dir { search open read write remove_name getattr rmdir };
@@ -71,6 +71,7 @@ allow installd { sdcard_type fuse }:file { getattr unlink };
 allow installd mirror_data_file:dir { create_dir_perms mounton };
 
 # Upgrade /data/misc/keychain for multi-user if necessary.
+allow installd system_userdir_file:dir r_dir_perms;
 allow installd misc_user_data_file:dir create_dir_perms;
 allow installd misc_user_data_file:file create_file_perms;
 allow installd keychain_data_file:dir create_dir_perms;
