@@ -110,7 +110,7 @@ allow sdk_sandbox sdk_sandbox_data_file:file create_file_perms;
 ### neverallow rules
 ###
 
-neverallow sdk_sandbox { app_data_file privapp_data_file }:file { execute execute_no_trans };
+neverallow sdk_sandbox { app_data_file privapp_data_file sdk_sandbox_data_file }:file { execute execute_no_trans };
 
 # Receive or send uevent messages.
 neverallow sdk_sandbox domain:netlink_kobject_uevent_socket *;
