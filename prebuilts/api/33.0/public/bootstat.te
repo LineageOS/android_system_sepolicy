@@ -1,0 +1,32 @@
+# bootstat command
+type bootstat, domain;
+type bootstat_exec, system_file_type, exec_type, file_type;
+
+read_runtime_log_tags(bootstat)
+
+# Allow persistent storage in /data/misc/bootstat.
+allow bootstat bootstat_data_file:dir rw_dir_perms;
+allow bootstat bootstat_data_file:file create_file_perms;
+
+allow bootstat metadata_file:dir search;
+allow bootstat metadata_bootstat_file:dir rw_dir_perms;
+allow bootstat metadata_bootstat_file:file create_file_perms;
+
+# ToDo: TBI move access for the following to a system health HAL
+
+# Allow access to /sys/fs/pstore/ and syslog
+allow bootstat pstorefs:dir search;
+allow bootstat pstorefs:file r_file_perms;
+allow bootstat kernel:system syslog_read;
+
+# Allow access to reading the logs to read aspects of system health
+read_logd(bootstat)
+
+# Allow bootstat write to statsd.
+unix_socket_send(bootstat, statsdw, statsd)
+
+neverallow {
+  domain
+  -bootstat
+  -init
+} system_boot_reason_prop:property_service set;
