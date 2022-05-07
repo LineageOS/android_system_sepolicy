@@ -1,0 +1,84 @@
+type virtualizationservice, domain, coredomain;
+type virtualizationservice_exec, system_file_type, exec_type, file_type;
+
+# When init runs a file labelled with virtualizationservice_exec, run it in the
+# virtualizationservice domain.
+init_daemon_domain(virtualizationservice)
+
+# Let the virtualizationservice domain use Binder.
+binder_use(virtualizationservice)
+# ... and host a binder service
+binder_service(virtualizationservice)
+
+# Allow calling into the system server so that it can check permissions.
+binder_call(virtualizationservice, system_server)
+allow virtualizationservice permission_service:service_manager find;
+# Allow virtualizationservice to access "package_native" service for staged apex info.
+allow virtualizationservice package_native_service:service_manager find;
+
+# Let the virtualizationservice domain register the virtualization_service with ServiceManager.
+add_service(virtualizationservice, virtualization_service)
+
+# When virtualizationservice execs a file with the crosvm_exec label, run it in the crosvm domain.
+domain_auto_trans(virtualizationservice, crosvm_exec, crosvm)
+
+# Let virtualizationservice kill crosvm.
+allow virtualizationservice crosvm:process sigkill;
+
+# Let virtualizationservice access its data directory.
+allow virtualizationservice virtualizationservice_data_file:file create_file_perms;
+allow virtualizationservice virtualizationservice_data_file:dir create_dir_perms;
+
+# Allow to use fd (e.g. /dev/pts/0) inherited from adbd so that we can redirect output from
+# crosvm to the console
+allow virtualizationservice adbd:fd use;
+allow virtualizationservice adbd:unix_stream_socket { read write };
+
+# Let virtualizationservice read and write files from its various clients, but not open them
+# directly as they must be passed over Binder by the client.
+allow virtualizationservice apk_data_file:file { getattr read };
+# Write access is needed for mutable partitions like instance.img
+allow virtualizationservice {
+  app_data_file
+  apex_compos_data_file
+}:file { getattr read write };
+
+# shell_data_file is used for automated tests and manual debugging.
+allow virtualizationservice shell_data_file:file { getattr read write };
+
+# Allow virtualizationservice to read apex-info-list.xml and access the APEX files listed there.
+allow virtualizationservice apex_info_file:file r_file_perms;
+allow virtualizationservice apex_data_file:dir search;
+allow virtualizationservice staging_data_file:file r_file_perms;
+allow virtualizationservice staging_data_file:dir search;
+
+# Run derive_classpath in our domain
+allow virtualizationservice derive_classpath_exec:file rx_file_perms;
+allow virtualizationservice apex_mnt_dir:dir r_dir_perms;
+# Ignore harmless denials on /proc/self/fd
+dontaudit virtualizationservice self:dir write;
+
+# Let virtualizationservice to accept vsock connection from the guest VMs
+allow virtualizationservice self:vsock_socket { create_socket_perms_no_ioctl listen accept };
+
+# Allow virtualizationservice to read/write its own sysprop. Only the process can do so.
+set_prop(virtualizationservice, virtualizationservice_prop)
+
+# Allow virtualizationservice to inspect hypervisor capabilities.
+get_prop(virtualizationservice, hypervisor_prop)
+
+# Allow writing stats to statsd
+unix_socket_send(virtualizationservice, statsdw, statsd)
+
+# Allow virtualization service to talk to tombstoned to push guest tombstones
+unix_socket_connect(virtualizationservice, tombstoned_crash, tombstoned)
+
+# Append to tombstone files passed as fds from tombstoned
+allow virtualizationservice tombstone_data_file:file { append getattr };
+allow virtualizationservice tombstoned:fd use;
+
+neverallow {
+  domain
+  -init
+  -virtualizationservice
+} virtualizationservice_prop:property_service set;

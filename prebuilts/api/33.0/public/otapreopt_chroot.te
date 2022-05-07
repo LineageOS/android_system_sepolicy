@@ -1,0 +1,4 @@
+# otapreopt_chroot seclabel
+
+# TODO: Only present to allow mediatek/wembley-sepolicy to see it for validation reasons.
+type otapreopt_chroot, domain;
