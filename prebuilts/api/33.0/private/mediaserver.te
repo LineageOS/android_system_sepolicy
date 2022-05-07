@@ -1,0 +1,20 @@
+typeattribute mediaserver coredomain;
+
+init_daemon_domain(mediaserver)
+tmpfs_domain(mediaserver)
+allow mediaserver appdomain_tmpfs:file { getattr map read write };
+
+# allocate and use graphic buffers
+hal_client_domain(mediaserver, hal_graphics_allocator)
+hal_client_domain(mediaserver, hal_configstore)
+hal_client_domain(mediaserver, hal_drm)
+hal_client_domain(mediaserver, hal_omx)
+hal_client_domain(mediaserver, hal_codec2)
+
+set_prop(mediaserver, audio_prop)
+
+get_prop(mediaserver, drm_service_config_prop)
+get_prop(mediaserver, media_config_prop)
+
+# Allow mediaserver to start media.transcoding service via ctl.start.
+set_prop(mediaserver, ctl_mediatranscoding_prop);

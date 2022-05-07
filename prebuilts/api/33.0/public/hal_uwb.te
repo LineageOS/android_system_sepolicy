@@ -1,0 +1,8 @@
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_uwb_client, hal_uwb_server)
+binder_call(hal_uwb_server, hal_uwb_client)
+
+hal_attribute_service(hal_uwb, hal_uwb_service)
+
+binder_call(hal_uwb_server, servicemanager)
+binder_call(hal_uwb_client, servicemanager)
