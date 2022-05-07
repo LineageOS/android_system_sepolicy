@@ -1,0 +1,7 @@
+typeattribute toolbox coredomain;
+
+init_daemon_domain(toolbox)
+
+# rm -rf in /data/misc/virtualizationservice
+allow toolbox virtualizationservice_data_file:dir { rmdir rw_dir_perms };
+allow toolbox virtualizationservice_data_file:file { getattr unlink };

@@ -1,0 +1,12 @@
+hal_attribute(lazy_test);
+
+# This is applied to apps on vendor images with SDK <=30 only,
+# to exempt them from recent mls changes. It must not be applied
+# to any domain on newer system or vendor image.
+attribute mlsvendorcompat;
+
+# Attributes for property types having both system_property_type
+# and vendor_property_type. Such types are ill-formed because
+# property owner attributes must be exclusive.
+attribute system_and_vendor_property_type;
+expandattribute system_and_vendor_property_type false;

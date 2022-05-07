@@ -1,0 +1,4 @@
+add_hwservice(stats_service_server, fwk_stats_hwservice)
+add_service(stats_service_server, fwk_stats_service)
+
+binder_use(stats_service_server)
