@@ -1,0 +1,66 @@
+# profcollectd - hardware profile collection daemon
+type profcollectd, domain, coredomain, mlstrustedsubject;
+type profcollectd_exec, system_file_type, exec_type, file_type;
+
+userdebug_or_eng(`
+  init_daemon_domain(profcollectd)
+
+  # profcollectd opens a file for writing in /data/misc/profcollectd.
+  allow profcollectd profcollectd_data_file:file create_file_perms;
+  allow profcollectd profcollectd_data_file:dir create_dir_perms;
+
+  # Allow profcollectd full use of perf_event_open(2), to enable system wide profiling.
+  allow profcollectd self:perf_event { cpu kernel open read write };
+
+  # Allow profcollectd to scan through /proc/pid for all processes.
+  r_dir_file(profcollectd, domain)
+
+  # Allow profcollectd to read executable binaries.
+  allow profcollectd system_file_type:file r_file_perms;
+  allow profcollectd vendor_file_type:file r_file_perms;
+
+  # Allow profcollectd to search for and read kernel modules.
+  allow profcollectd vendor_file:dir r_dir_perms;
+  allow profcollectd vendor_kernel_modules:file r_file_perms;
+
+  # Allow profcollectd to read (but not execute) system bootstrap libs.
+  allow profcollectd system_bootstrap_lib_file:dir search;
+  allow profcollectd system_bootstrap_lib_file:file r_file_perms;
+
+  # Allow profcollectd to access tracefs.
+  allow profcollectd debugfs_tracing:dir r_dir_perms;
+  allow profcollectd debugfs_tracing:file rw_file_perms;
+  allow profcollectd debugfs_tracing_debug:dir r_dir_perms;
+  allow profcollectd debugfs_tracing_debug:file rw_file_perms;
+
+  # Allow profcollectd to write to perf_event_paranoid under /proc.
+  allow profcollectd proc_perf:file write;
+
+  # Allow profcollectd to access cs_etm sysfs.
+  r_dir_file(profcollectd, sysfs_devices_cs_etm)
+
+  # Allow profcollectd to ptrace.
+  allow profcollectd self:global_capability_class_set sys_ptrace;
+
+  # Allow profcollectd to read its system properties.
+  get_prop(profcollectd, device_config_profcollect_native_boot_prop)
+  set_prop(profcollectd, profcollectd_node_id_prop)
+
+  # Allow profcollectd to publish a binder service and make binder calls.
+  binder_use(profcollectd)
+  # Allow profcollectd to call callbacks registered by system_server when ETM is ready.
+  binder_call(profcollectd, system_server)
+  add_service(profcollectd, profcollectd_service)
+
+  # Allow profcollectd to request wakelock from system-suspend.
+  wakelock_use(profcollectd)
+
+  # Allow to temporarily lift the kptr_restrict setting and get kernel start address
+  # by reading /proc/kallsyms, get module start address by reading /proc/modules.
+  set_prop(profcollectd, lower_kptr_restrict_prop)
+  allow profcollectd proc_kallsyms:file r_file_perms;
+  allow profcollectd proc_modules:file r_file_perms;
+
+  # Allow profcollectd to read kernel build id.
+  allow profcollectd sysfs_kernel_notes:file r_file_perms;
+')
