@@ -126,6 +126,9 @@ neverallow traced_probes {
   -dalvikcache_data_file
   -system_data_file
   -system_data_root_file
+  -media_userdir_file
+  -system_userdir_file
+  -vendor_userdir_file
   -system_app_data_file
   -backup_data_file
   -bootstat_data_file
