@@ -224,6 +224,7 @@ allow init {
   -system_dlkm_file_type
   -system_file_type
   -vendor_file_type
+  -vendor_userdir_file
   -vold_data_file
 }:dir { write add_name remove_name rmdir relabelfrom };
 
