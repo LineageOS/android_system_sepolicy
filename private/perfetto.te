@@ -110,6 +110,9 @@ neverallow perfetto {
   data_file_type
   -system_data_file
   -system_data_root_file
+  -media_userdir_file
+  -system_userdir_file
+  -vendor_userdir_file
   # TODO(b/72998741) Remove exemption. Further restricted in a subsequent
   # neverallow. Currently only getattr and search are allowed.
   -vendor_data_file

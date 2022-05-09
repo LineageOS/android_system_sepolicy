@@ -99,8 +99,8 @@ allow vold media_rw_data_file:file create_file_perms;
 # Allow mounting (lower filesystem) on parts of media for performance
 allow vold media_rw_data_file:dir mounton;
 
-# Allow setting extended attributes (for project quota IDs) on files and dirs
-# and to enable project ID inheritance through FS_IOC_SETFLAGS
+# Allow setting project quota IDs and enabling project ID inheritance on
+# /data/media/$userId/* and /mnt/expand/$volume/media/$userId/*
 allowxperm vold media_rw_data_file:{ dir file } ioctl {
   FS_IOC_FSGETXATTR
   FS_IOC_FSSETXATTR
@@ -124,6 +124,10 @@ allow vold mnt_pass_through_file:lnk_file create_file_perms;
 allow vold mnt_expand_file:dir { create_dir_perms mounton };
 allow vold apk_data_file:dir { create getattr setattr };
 allow vold shell_data_file:dir { create getattr setattr };
+allow vold system_userdir_file:dir { create getattr setattr };
+allow vold media_userdir_file:dir { create getattr setattr open read ioctl };
+# Needed to set the casefold flag on /mnt/expand/$volume/media
+allowxperm vold media_userdir_file:dir ioctl { FS_IOC_GETFLAGS FS_IOC_SETFLAGS };
 
 # Allow to mount incremental file system on /data/incremental and create files
 allow vold apk_data_file:dir { mounton rw_dir_perms };
