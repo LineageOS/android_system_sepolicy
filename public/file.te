@@ -299,13 +299,20 @@ type coredump_file, file_type;
 type system_data_root_file, file_type, data_file_type, core_data_file_type;
 # Default type for anything under /data.
 type system_data_file, file_type, data_file_type, core_data_file_type;
+# Default type for directories containing per-user encrypted directories, such
+# as /data/user and /data/user_de.
+type system_userdir_file, file_type, data_file_type, core_data_file_type;
 # Type for /data/system/packages.list.
 # TODO(b/129332765): Narrow down permissions to this.
 # Find out users of system_data_file that should be granted only this.
 type packages_list_file, file_type, data_file_type, core_data_file_type;
 type game_mode_intervention_list_file, file_type, data_file_type, core_data_file_type;
-# Default type for anything under /data/vendor{_ce,_de}.
+# Default type for anything inside /data/vendor_{ce,de}.
 type vendor_data_file, file_type, data_file_type;
+# Type for /data/vendor_{ce,de} themselves.  This has core_data_file_type
+# because these directories themselves are platform-managed; only the files
+# *inside* them are vendor data.  (Somewhat similar to system_data_root_file.)
+type vendor_userdir_file, file_type, data_file_type, core_data_file_type;
 # Unencrypted data
 type unencrypted_data_file, file_type, data_file_type, core_data_file_type;
 # installd-create files in /data/misc/installd such as layout_version
@@ -427,6 +434,7 @@ type keychain_data_file, file_type, data_file_type, core_data_file_type;
 type keystore_data_file, file_type, data_file_type, core_data_file_type;
 type media_data_file, file_type, data_file_type, core_data_file_type;
 type media_rw_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
+type media_userdir_file, file_type, data_file_type, core_data_file_type;
 type misc_user_data_file, file_type, data_file_type, core_data_file_type;
 type net_data_file, file_type, data_file_type, core_data_file_type;
 type network_watchlist_data_file, file_type, data_file_type, core_data_file_type;
