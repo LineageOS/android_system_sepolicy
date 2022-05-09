@@ -242,16 +242,30 @@ r_dir_file(domain, sysfs_usb);
 allow domain sysfs_transparent_hugepage:dir search;
 allow domain sysfs_transparent_hugepage:file r_file_perms;
 
-# files under /data.
+# Allow search access, and sometimes getattr access, to various directories
+# under /data.  We are fairly lenient in allowing search access to top-level
+# dirs that commonly need to be traversed to get access to the "real" files, as
+# this greatly simplifies the policy and doesn't open up much attack surface.
 not_full_treble(`
   allow domain system_data_file:dir getattr;
 ')
 allow { coredomain appdomain } system_data_file:dir getattr;
-# /data has the label system_data_root_file. Vendor components need the search
-# permission on system_data_root_file for path traversal to /data/vendor.
+# Anything that accesses anything in /data needs search access to /data itself.
+# This includes vendor components, as they need to access /data/vendor.
 allow domain system_data_root_file:dir { search getattr } ;
+# system_data_file is the default type for directories in /data.  Anything
+# accessing data files with a more specific type often has to traverse a
+# system_data_file directory such as /data/misc to get there.
 allow domain system_data_file:dir search;
+# Anything that accesses files in /data/user (and /data/user_de, etc.) needs
+# search access to these directories themselves.  getattr access is sometimes
+# needed too.
+allow { coredomain appdomain } system_userdir_file:dir { search getattr };
+# Anything that accesses files in /data/media needs search access to /data/media
+# itself.
+allow { coredomain appdomain } media_userdir_file:dir search;
 # TODO restrict this to non-coredomain
+allow domain vendor_userdir_file:dir { getattr search };
 allow domain vendor_data_file:dir { getattr search };
 
 # required by the dynamic linker
@@ -853,6 +867,7 @@ full_treble_only(`
     core_data_file_type
     -system_data_file # default label for files on /data. Covered below...
     -system_data_root_file
+    -vendor_userdir_file
     -vendor_data_file
     -zoneinfo_data_file
     with_native_coverage(`-method_trace_data_file')
@@ -865,6 +880,7 @@ full_treble_only(`
     -unencrypted_data_file
     -system_data_file
     -system_data_root_file
+    -vendor_userdir_file
     -vendor_data_file
     -zoneinfo_data_file
     with_native_coverage(`-method_trace_data_file')

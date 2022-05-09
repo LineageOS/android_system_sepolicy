@@ -66,13 +66,15 @@ allow zygote apex_art_data_file:file { r_file_perms execute };
 # them for app data isolation.  Also traverse these directories (via
 # /data_mirror) to find the allowlisted per-app directories to bind-mount in.
 allow zygote {
-    # /data/data, /data/user{,_de}, /mnt/expand/$volume/user{,_de}
+    # /data/user{,_de}, /mnt/expand/$volume/user{,_de}
+    system_userdir_file
+    # /data/data
     system_data_file
     # /data/misc/profiles/cur
     user_profile_root_file
     # /data/misc/profiles/ref
     user_profile_data_file
-    # /storage/emulated/$uid/Android/{data,obb}
+    # /storage/emulated/$userId/Android/{data,obb}
     media_rw_data_file
 }:dir { mounton search };
 
@@ -100,6 +102,7 @@ allow zygote tmpfs:lnk_file create;
 # standard labels.  Note: it seems that not all dirs are actually relabeled yet,
 # but it works anyway since all domains can search tmpfs:dir.
 allow zygote tmpfs:{ dir lnk_file } relabelfrom;
+allow zygote system_userdir_file:dir relabelto;
 allow zygote system_data_file:{ dir lnk_file } relabelto;
 
 # Read if sdcardfs is supported
