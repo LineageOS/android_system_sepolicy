@@ -252,6 +252,10 @@ allow init {
 
 allow init tracefs_type:file { create_file_perms relabelfrom };
 
+# Allow init to read /apex/apex-info-list.xml for preinstalled paths of APEXes to determine
+# subcontext for action/service defined in APEXes.
+allow init apex_info_file:file r_file_perms;
+
 allow init {
   file_type
   -app_data_file
