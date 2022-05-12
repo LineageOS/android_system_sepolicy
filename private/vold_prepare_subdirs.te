@@ -56,6 +56,7 @@ allow vold_prepare_subdirs {
   apex_appsearch_data_file
   apex_permission_data_file
   apex_scheduling_data_file
+  apex_tethering_data_file
   apex_wifi_data_file
 }:dir relabelfrom;
 
