@@ -487,7 +487,7 @@ allow system_server keychain_data_file:file create_file_perms;
 allow system_server keychain_data_file:lnk_file create_file_perms;
 
 # Read the user parent directories like /data/user.  Don't allow write access,
-# as vold and init are responsible for creating and deleting the subdirectories.
+# as vold is responsible for creating and deleting the subdirectories.
 allow system_server system_userdir_file:dir r_dir_perms;
 
 # Manage /data/app.
