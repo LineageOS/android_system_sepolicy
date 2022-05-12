@@ -14,3 +14,10 @@ app_domain(untrusted_app)
 untrusted_app_domain(untrusted_app)
 net_domain(untrusted_app)
 bluetooth_domain(untrusted_app)
+
+# Allow webview to access fd shared by sdksandbox for experiments data
+# TODO(b/229249719): Will not be supported in Android U
+allow untrusted_app sdk_sandbox_data_file:fd use;
+allow untrusted_app sdk_sandbox_data_file:file write;
+
+neverallow untrusted_app sdk_sandbox_data_file:file { open create };
