@@ -31,6 +31,7 @@ allow composd compos_fd_server:process signal;
 
 # Read ART's properties
 get_prop(composd, dalvik_config_prop)
+get_prop(composd, device_config_runtime_native_boot_prop)
 
 # We never create any artifact files directly
 neverallow composd apex_art_data_file:file ~unlink;
