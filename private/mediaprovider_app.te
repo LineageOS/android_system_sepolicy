@@ -1,7 +1,7 @@
 ###
 ### A domain for further sandboxing the MediaProvider mainline module.
 ###
-type mediaprovider_app, domain, coredomain, bpfdomain;
+type mediaprovider_app, domain, coredomain, bpfdomain, mlstrustedsubject;
 
 app_domain(mediaprovider_app)
 
@@ -79,3 +79,6 @@ allow mediaprovider_app bootanim_oem_file:file r_file_perms;
 
 # allow mediaprovider to use fds passed by other domains, for FUSE passthrough
 allow mediaprovider_app domain:fd use;
+
+allow mediaprovider_app privapp_data_file:dir create_dir_perms;
+allow mediaprovider_app privapp_data_file:file create_file_perms;
