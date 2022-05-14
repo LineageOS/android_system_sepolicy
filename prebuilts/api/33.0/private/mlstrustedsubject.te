@@ -9,6 +9,7 @@ neverallow {
   -installd
   -iorap_prefetcherd
   -iorap_inode2filename
+  -mediaprovider_app
 } { app_data_file privapp_data_file }:file ~{ read write map getattr ioctl lock append };
 
 neverallow {
@@ -16,6 +17,7 @@ neverallow {
   -installd
   -iorap_prefetcherd
   -iorap_inode2filename
+  -mediaprovider_app
 } { app_data_file privapp_data_file }:dir ~{ read getattr search };
 
 neverallow {
@@ -23,6 +25,7 @@ neverallow {
   -installd
   -iorap_prefetcherd
   -iorap_inode2filename
+  -mediaprovider_app
   -system_server
   -adbd
   -runas
