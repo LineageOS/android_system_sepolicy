@@ -1,7 +1,7 @@
 ###
 ### A domain for further sandboxing the MediaProvider mainline module.
 ###
-type mediaprovider_app, domain, coredomain;
+type mediaprovider_app, domain, coredomain, mlstrustedsubject;
 
 app_domain(mediaprovider_app)
 
