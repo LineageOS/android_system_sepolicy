@@ -1,7 +1,7 @@
 ###
 ### A domain for further sandboxing the MediaProvider mainline module.
 ###
-type mediaprovider_app, domain, coredomain;
+type mediaprovider_app, domain, coredomain, mlstrustedsubject;
 
 app_domain(mediaprovider_app)
 
@@ -59,3 +59,6 @@ get_prop(mediaprovider_app, drm_service_config_prop)
 allow mediaprovider_app gpu_device:dir search;
 
 dontaudit mediaprovider_app sysfs_vendor_sched:dir search;
+
+allow mediaprovider_app privapp_data_file:dir create_dir_perms;
+allow mediaprovider_app privapp_data_file:file create_file_perms;
