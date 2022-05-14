@@ -8,18 +8,21 @@ neverallow {
   mlstrustedsubject
   -artd # compile secondary dex files
   -installd
+  -mediaprovider_app
 } { app_data_file privapp_data_file }:file ~{ read write map getattr ioctl lock append };
 
 neverallow {
   mlstrustedsubject
   -artd # compile secondary dex files
   -installd
+  -mediaprovider_app
 } { app_data_file privapp_data_file }:dir ~{ read getattr search };
 
 neverallow {
   mlstrustedsubject
   -artd # compile secondary dex files
   -installd
+  -mediaprovider_app
   -system_server
   -adbd
   -runas
