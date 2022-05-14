@@ -1362,12 +1362,14 @@ allow system_server {
   apex_appsearch_data_file
   apex_permission_data_file
   apex_scheduling_data_file
+  apex_tethering_data_file
   apex_wifi_data_file
 }:dir create_dir_perms;
 allow system_server {
   apex_appsearch_data_file
   apex_permission_data_file
   apex_scheduling_data_file
+  apex_tethering_data_file
   apex_wifi_data_file
 }:file create_file_perms;
 

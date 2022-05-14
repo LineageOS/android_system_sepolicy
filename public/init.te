@@ -212,10 +212,11 @@ allow init {
 allow init {
   file_type
   -app_data_file
+  -credstore_data_file
   -exec_type
   -iorapd_data_file
-  -credstore_data_file
   -keystore_data_file
+  -media_userdir_file
   -misc_logd_file
   -nativetest_data_file
   -privapp_data_file
@@ -223,6 +224,7 @@ allow init {
   -system_app_data_file
   -system_dlkm_file_type
   -system_file_type
+  -system_userdir_file
   -vendor_file_type
   -vendor_userdir_file
   -vold_data_file
@@ -251,6 +253,10 @@ allow init {
 }:file { create getattr open read write setattr relabelfrom unlink map };
 
 allow init tracefs_type:file { create_file_perms relabelfrom };
+
+# Allow init to read /apex/apex-info-list.xml for preinstalled paths of APEXes to determine
+# subcontext for action/service defined in APEXes.
+allow init apex_info_file:file r_file_perms;
 
 allow init {
   file_type
