@@ -85,7 +85,7 @@ neverallow {
 # permission only makes sense within a domain (hence should
 # never be granted to any other domain within mlstrustedsubject)
 # and an untrusted app is allowed fork permission to itself.
-neverallow all_untrusted_apps mlstrustedsubject:process fork;
+neverallow { all_untrusted_apps -mediaprovider_app } mlstrustedsubject:process fork;
 
 # Do not allow untrusted apps to hard link to any files.
 # In particular, if an untrusted app links to other app data
