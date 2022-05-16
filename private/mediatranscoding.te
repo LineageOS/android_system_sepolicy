@@ -19,6 +19,7 @@ hal_client_domain(mediatranscoding, hal_graphics_allocator)
 hal_client_domain(mediatranscoding, hal_configstore)
 hal_client_domain(mediatranscoding, hal_omx)
 hal_client_domain(mediatranscoding, hal_codec2)
+hal_client_domain(mediatranscoding, hal_allocator)
 
 allow mediatranscoding mediaserver_service:service_manager find;
 allow mediatranscoding mediametrics_service:service_manager find;
