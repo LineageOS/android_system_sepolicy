@@ -6,4 +6,6 @@
 (typeattributeset new_objects
   ( new_objects
     device_config_vendor_system_native_prop
+    virtual_face_hal_prop
+    virtual_fingerprint_hal_prop
   ))
