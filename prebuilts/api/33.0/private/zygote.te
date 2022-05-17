@@ -62,9 +62,10 @@ allow zygote apex_art_data_file:file { r_file_perms execute };
 # Bind mount on /data/data and mounted volumes
 allow zygote { system_data_file mnt_expand_file }:dir mounton;
 
-# Relabel /data/user /data/user_de and /data/data
+# Relabel /data/user /data/user_de /data/data and /data/misc_{ce,de}/<user-id>/sdksandbox
 allow zygote tmpfs:{ dir lnk_file } relabelfrom;
 allow zygote system_data_file:{ dir lnk_file } relabelto;
+allow zygote sdk_sandbox_system_data_file:dir { search relabelto };
 
 # Zygote opens /mnt/expand to mount CE DE storage on each vol
 allow zygote mnt_expand_file:dir { open read search relabelto };
@@ -94,6 +95,7 @@ allow zygote {
   app_data_file_type
   system_data_file
   mnt_expand_file
+  sdk_sandbox_system_data_file
 }:dir getattr;
 
 # Allow zygote to create JIT memory.
