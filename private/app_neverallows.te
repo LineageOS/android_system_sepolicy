@@ -127,6 +127,7 @@ neverallow all_untrusted_apps *:vsock_socket ~{ getattr read write };
 
 # Disallow sending RTM_GETLINK messages on netlink sockets.
 neverallow all_untrusted_apps domain:netlink_route_socket { bind nlmsg_readpriv };
+neverallow priv_app domain:netlink_route_socket { bind nlmsg_readpriv };
 
 # Disallow sending RTM_GETNEIGH{TBL} messages on netlink sockets.
 neverallow {
