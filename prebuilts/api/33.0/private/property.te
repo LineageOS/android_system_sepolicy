@@ -47,7 +47,6 @@ system_internal_prop(ctl_odsign_prop)
 system_internal_prop(virtualizationservice_prop)
 
 # Properties which can't be written outside system
-system_restricted_prop(device_config_vendor_system_native_prop)
 system_restricted_prop(device_config_virtualization_framework_native_prop)
 system_restricted_prop(system_user_mode_emulation_prop)
 
