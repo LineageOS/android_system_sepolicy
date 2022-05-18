@@ -78,6 +78,7 @@ allow dumpstate {
   hal_audio_server
   hal_audiocontrol_server
   hal_bluetooth_server
+  hal_broadcastradio_server
   hal_camera_server
   hal_codec2_server
   hal_drm_server
