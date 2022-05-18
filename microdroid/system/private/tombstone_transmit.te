@@ -3,6 +3,8 @@ type tombstone_transmit_exec, exec_type, system_file_type, file_type;
 
 init_daemon_domain(tombstone_transmit)
 
-r_dir_file(tombstone_transmit, tombstone_data_file)
+# permission required to read the file & remove it from directory
+allow tombstone_transmit tombstone_data_file:dir { r_dir_perms write remove_name };
+allow tombstone_transmit tombstone_data_file:file { r_file_perms unlink };
 
 allow tombstone_transmit self:{ vsock_socket } create_socket_perms_no_ioctl;
