@@ -181,8 +181,6 @@ neverallow {
   -app_zygote
   -dexoptanalyzer
   -installd
-  -iorap_inode2filename
-  -iorap_prefetcherd
   -profman
   -rs # spawned by appdomain, so carryover the exception above
   -runas
@@ -205,7 +203,6 @@ neverallow {
   -appdomain
   -app_zygote
   -installd
-  -iorap_prefetcherd
   -rs # spawned by appdomain, so carryover the exception above
 } { privapp_data_file app_data_file }:file_class_set open;
 
@@ -230,7 +227,6 @@ neverallow {
   -system_server
   -apexd
   -installd
-  -iorap_inode2filename
   -priv_app
   -virtualizationservice
 } staging_data_file:dir *;
@@ -243,7 +239,6 @@ neverallow {
   -adbd
   -kernel
   -installd
-  -iorap_inode2filename
   -priv_app
   -shell
   -virtualizationservice
@@ -273,7 +268,6 @@ neverallow {
     domain
     -appdomain
     with_asan(`-asan_extract')
-    -iorap_prefetcherd
     -shell
     userdebug_or_eng(`-su')
     -system_server_startup # for memfd backed executable regions
@@ -394,8 +388,6 @@ neverallow ~dac_override_allowed self:global_capability_class_set dac_override;
 # this list should be a superset of the one above.
 neverallow ~{
   dac_override_allowed
-  iorap_inode2filename
-  iorap_prefetcherd
   traced_perf
   traced_probes
   heapprofd
@@ -475,8 +467,6 @@ full_treble_only(`
     -heapprofd
     userdebug_or_eng(`-profcollectd')
     -init
-    -iorap_inode2filename
-    -iorap_prefetcherd
     -kernel
     userdebug_or_eng(`-simpleperf_boot')
     -traced_perf
@@ -514,8 +504,6 @@ full_treble_only(`
     -crash_dump
     -crosvm # loads vendor-specific disk images
     -init # starts vendor executables
-    -iorap_inode2filename
-    -iorap_prefetcherd
     -kernel # loads /vendor/firmware
     -heapprofd
     userdebug_or_eng(`-profcollectd')
@@ -619,7 +607,6 @@ neverallow {
   -appdomain # finer-grained rules for appdomain are listed below
   -system_server #populate com.android.providers.settings/databases/settings.db.
   -installd # creation of app sandbox
-  -iorap_inode2filename
   -traced_probes # resolve inodes for i/o tracing.
                  # only needs open and read, the rest is neverallow in
                  # traced_probes.te.

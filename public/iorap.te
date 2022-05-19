@@ -1,0 +1,4 @@
+# Define these types for now, as they may be used in device-specific policy.
+type iorapd;
+type iorap_inode2filename;
+type iorap_prefetcherd;
