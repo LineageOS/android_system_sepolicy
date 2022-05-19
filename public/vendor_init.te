@@ -272,6 +272,8 @@ get_prop(vendor_init, test_harness_prop)
 get_prop(vendor_init, theme_prop)
 set_prop(vendor_init, dck_prop)
 
+# Allow vendor_init to read vendor_system_native device config changes
+get_prop(vendor_init, device_config_vendor_system_native_prop)
 
 ###
 ### neverallow rules
