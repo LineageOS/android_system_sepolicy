@@ -309,9 +309,6 @@ allow dumpstate proc_pid_max:file r_file_perms;
 # Allow dumpstate to talk to installd over binder
 binder_call(dumpstate, installd);
 
-# Allow dumpstate to talk to iorapd over binder.
-binder_call(dumpstate, iorapd)
-
 # Allow dumpstate to run ip xfrm policy
 allow dumpstate self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_read };
 

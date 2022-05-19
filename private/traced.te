@@ -1,7 +1,4 @@
 # Perfetto user-space tracing daemon (unprivileged)
-
-# type traced is defined under /public (because iorapd rules
-# under public/ need to refer to it).
 type traced_exec, system_file_type, exec_type, file_type;
 
 # Allow init to exec the daemon.
@@ -40,11 +37,6 @@ allow traced trace_data_file:file { read write };
 allow traced tracingproxy_service:service_manager find;
 binder_use(traced);
 binder_call(traced, system_server);
-
-# Allow iorapd to pass memfd descriptors to traced, so traced can directly
-# write into the shmem buffer file without doing roundtrips over IPC.
-allow traced iorapd:fd use;
-allow traced iorapd_tmpfs:file { read write };
 
 # Allow traced to use shared memory supplied by producers. Typically, traced
 # (i.e. the tracing service) creates the shared memory used for data transfer
