@@ -214,7 +214,6 @@ allow init {
   -app_data_file
   -credstore_data_file
   -exec_type
-  -iorapd_data_file
   -keystore_data_file
   -media_userdir_file
   -misc_logd_file
@@ -236,7 +235,6 @@ allow init {
   -app_data_file
   -exec_type
   -gsi_data_file
-  -iorapd_data_file
   -credstore_data_file
   -keystore_data_file
   -misc_logd_file
@@ -263,7 +261,6 @@ allow init {
   -app_data_file
   -exec_type
   -gsi_data_file
-  -iorapd_data_file
   -credstore_data_file
   -keystore_data_file
   -misc_logd_file
@@ -283,7 +280,6 @@ allow init {
   -app_data_file
   -exec_type
   -gsi_data_file
-  -iorapd_data_file
   -credstore_data_file
   -keystore_data_file
   -misc_logd_file
