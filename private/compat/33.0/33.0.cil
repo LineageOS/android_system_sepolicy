@@ -1,3 +1,16 @@
+;; types removed from current policy
+(type iorap_inode2filename)
+(type iorap_inode2filename_exec)
+(type iorap_inode2filename_tmpfs)
+(type iorap_prefetcherd)
+(type iorap_prefetcherd_exec)
+(type iorap_prefetcherd_tmpfs)
+(type iorapd)
+(type iorapd_data_file)
+(type iorapd_exec)
+(type iorapd_service)
+(type iorapd_tmpfs)
+
 (expandtypeattribute (DockObserver_service_33_0) true)
 (expandtypeattribute (IProxyService_service_33_0) true)
 (expandtypeattribute (aac_drc_prop_33_0) true)
