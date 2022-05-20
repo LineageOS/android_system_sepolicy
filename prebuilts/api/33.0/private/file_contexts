@@ -691,6 +691,10 @@
 # Bootchart data
 /data/bootchart(/.*)?		u:object_r:bootchart_data_file:s0
 
+# Sandbox sdk data (managed by installd)
+/data/misc_de/[0-9]+/sdksandbox       u:object_r:sdk_sandbox_system_data_file:s0
+/data/misc_ce/[0-9]+/sdksandbox       u:object_r:sdk_sandbox_system_data_file:s0
+
 # App data snapshots (managed by installd).
 /data/misc_de/[0-9]+/rollback(/.*)?       u:object_r:rollback_data_file:s0
 /data/misc_ce/[0-9]+/rollback(/.*)?       u:object_r:rollback_data_file:s0
