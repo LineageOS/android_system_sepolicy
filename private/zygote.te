@@ -98,12 +98,13 @@ allow zygote tmpfs:dir { create_dir_perms mounton };
 # when setting up app data isolation.
 allow zygote tmpfs:lnk_file create;
 
-# Relabel dirs and symlinks in the app data isolation tmpfs mounts to their
+# Relabel dirs and symlinks in the app and sdk sandbox data isolation tmpfs mounts to their
 # standard labels.  Note: it seems that not all dirs are actually relabeled yet,
 # but it works anyway since all domains can search tmpfs:dir.
 allow zygote tmpfs:{ dir lnk_file } relabelfrom;
 allow zygote system_userdir_file:dir relabelto;
 allow zygote system_data_file:{ dir lnk_file } relabelto;
+allow zygote sdk_sandbox_system_data_file:dir { getattr relabelto search };
 
 # Read if sdcardfs is supported
 allow zygote proc_filesystems:file r_file_perms;
