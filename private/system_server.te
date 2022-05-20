@@ -177,6 +177,9 @@ allow system_server self:socket create_socket_perms_no_ioctl;
 # Set and get routes directly via netlink.
 allow system_server self:netlink_route_socket nlmsg_write;
 
+# Use XFRM (IPsec) netlink sockets
+allow system_server self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_write nlmsg_read };
+
 # Kill apps.
 allow system_server appdomain:process { getpgid sigkill signal };
 # signull allowed for kill(pid, 0) existence test.
