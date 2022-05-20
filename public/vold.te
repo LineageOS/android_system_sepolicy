@@ -334,7 +334,6 @@ neverallow vold {
   -system_suspend_server
   -hal_bootctl_server
   -hwservicemanager
-  -iorapd_service
   -keystore
   -servicemanager
   -system_server

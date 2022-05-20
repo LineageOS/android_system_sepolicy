@@ -950,8 +950,6 @@ full_treble_only(`
         -system_lib_file
         -system_linker_exec
         -crash_dump_exec
-        -iorap_prefetcherd_exec
-        -iorap_inode2filename_exec
         -netutils_wrapper_exec
         userdebug_or_eng(`-tcpdump_exec')
     }:file { entrypoint execute execute_no_trans };
@@ -1019,7 +1017,6 @@ full_treble_only(`
     system_file_type
     -crash_dump_exec
     -file_contexts_file
-    -iorap_inode2filename_exec
     -netutils_wrapper_exec
     -property_contexts_file
     -system_event_log_tags_file
@@ -1192,7 +1189,6 @@ neverallow {
   -dumpstate
   -init
   -installd
-  -iorap_inode2filename
   -simpleperf_app_runner
   -system_server # why?
   userdebug_or_eng(`-uncrypt')
