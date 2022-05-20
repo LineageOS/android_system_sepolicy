@@ -164,10 +164,19 @@ neverallow {
     domain
     -init
     -installd
+    -system_server
+    -vold_prepare_subdirs
+} sdk_sandbox_system_data_file:dir { relabelfrom };
+
+neverallow {
+    domain
+    -init
+    -installd
     -sdk_sandbox
     -system_server
     -vold_prepare_subdirs
-} sdk_sandbox_system_data_file:dir { create_dir_perms relabelfrom relabelto };
+    -zygote
+} sdk_sandbox_system_data_file:dir { create_dir_perms relabelto };
 
 # sdk_sandbox only needs to traverse through the sdk_sandbox_system_data_file
 neverallow sdk_sandbox sdk_sandbox_system_data_file:dir ~{ getattr search };
