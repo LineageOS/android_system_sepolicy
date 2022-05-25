@@ -46,6 +46,9 @@ allow bluetooth proc_bluetooth_writable:file rw_file_perms;
 allow bluetooth proc_filesystems:file r_file_perms;
 get_prop(bluetooth, incremental_prop)
 
+# For Bluetooth to check security logging state
+get_prop(bluetooth, device_logging_prop)
+
 # Allow write access to bluetooth specific properties
 set_prop(bluetooth, binder_cache_bluetooth_server_prop);
 neverallow { domain -bluetooth -init }
