@@ -1427,6 +1427,8 @@ neverallow {
 
 # Read/Write /proc/pressure/memory
 allow system_server proc_pressure_mem:file rw_file_perms;
+# Read /proc/pressure/cpu and /proc/pressure/io
+allow system_server { proc_pressure_cpu proc_pressure_io }:file r_file_perms;
 
 # dexoptanalyzer is currently used only for secondary dex files which
 # system_server should never access.
