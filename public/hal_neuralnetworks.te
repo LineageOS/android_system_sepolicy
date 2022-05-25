@@ -7,6 +7,8 @@ allow hal_neuralnetworks hidl_memory_hwservice:hwservice_manager find;
 allow hal_neuralnetworks hal_allocator:fd use;
 allow hal_neuralnetworks hal_graphics_mapper_hwservice:hwservice_manager find;
 allow hal_neuralnetworks hal_graphics_allocator:fd use;
+allow hal_neuralnetworks gpu_device:chr_file rw_file_perms;
+allow hal_neuralnetworks gpu_device:dir r_dir_perms;
 
 # Allow NN HAL service to use a client-provided fd residing in /data/data/.
 allow hal_neuralnetworks_server app_data_file:file { read write getattr map };
