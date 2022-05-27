@@ -284,6 +284,7 @@ allow system_server app_zygote:unix_stream_socket { read write connectto setopt 
 # Perform Binder IPC.
 binder_use(system_server)
 binder_call(system_server, appdomain)
+binder_call(system_server, artd)
 binder_call(system_server, binderservicedomain)
 binder_call(system_server, composd)
 binder_call(system_server, dumpstate)
@@ -891,6 +892,7 @@ allow system_server sysfs_zram:dir search;
 allow system_server sysfs_zram:file rw_file_perms;
 
 add_service(system_server, system_server_service);
+allow system_server artd_service:service_manager find;
 allow system_server audioserver_service:service_manager find;
 allow system_server authorization_service:service_manager find;
 allow system_server batteryproperties_service:service_manager find;
@@ -961,7 +963,9 @@ allow system_server keystore:keystore2 {
 	clear_ns
 	clear_uid
 	get_state
+	list
 	lock
+	migrate_any_key
 	pull_metrics
 	reset
 	unlock
