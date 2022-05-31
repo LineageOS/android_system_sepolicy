@@ -50,6 +50,7 @@ full_treble_only(`
     neverallow {
         coredomain
         -appdomain
+        -artd
         -dex2oat
         -dexoptanalyzer
         -idmap
@@ -67,6 +68,7 @@ full_treble_only(`
     neverallow {
         coredomain
         -appdomain
+        -artd
         -dex2oat
         -dexoptanalyzer
         -idmap
