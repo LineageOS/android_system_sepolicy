@@ -22,6 +22,14 @@ allow network_stack self:packet_socket create_socket_perms_no_ioctl;
 # Monitor neighbors via netlink.
 allow network_stack self:netlink_route_socket nlmsg_write;
 
+# Use netlink uevent sockets.
+allow network_stack self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+
+# give network_stack the same netlink permissions as netd
+allow network_stack self:netlink_nflog_socket create_socket_perms_no_ioctl;
+allow network_stack self:netlink_socket create_socket_perms_no_ioctl;
+allow network_stack self:netlink_generic_socket create_socket_perms_no_ioctl;
+
 allow network_stack app_api_service:service_manager find;
 allow network_stack dnsresolver_service:service_manager find;
 allow network_stack mdns_service:service_manager find;
@@ -55,6 +63,9 @@ allow network_stack network_stack_service:service_manager find;
 allow network_stack { fs_bpf fs_bpf_tethering }:dir search;
 allow network_stack { fs_bpf fs_bpf_tethering }:file { read write };
 allow network_stack bpfloader:bpf { map_read map_write prog_run };
+
+# Use XFRM (IPsec) netlink sockets
+allow network_stack self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_write nlmsg_read };
 
 # Only the bpfloader and the network_stack should ever touch 'fs_bpf_tethering' programs/maps.
 # Unfortunately init/vendor_init have all sorts of extra privs

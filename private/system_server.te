@@ -159,10 +159,13 @@ allow system_server self:global_capability2_class_set wake_alarm;
 allow system_server self:netlink_netfilter_socket create_socket_perms_no_ioctl;
 
 # Create/use netlink_tcpdiag_socket for looking up connection UIDs for VPN apps.
-allow system_server self:netlink_tcpdiag_socket { create_socket_perms_no_ioctl nlmsg_read };
+allow system_server self:netlink_tcpdiag_socket
+    { create_socket_perms_no_ioctl nlmsg_read nlmsg_write };
 
 # Use netlink uevent sockets.
 allow system_server self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+
+allow system_server self:netlink_nflog_socket create_socket_perms_no_ioctl;
 
 # Use generic netlink sockets.
 allow system_server self:netlink_socket create_socket_perms_no_ioctl;
@@ -179,6 +182,9 @@ allow system_server self:socket create_socket_perms_no_ioctl;
 
 # Set and get routes directly via netlink.
 allow system_server self:netlink_route_socket nlmsg_write;
+
+# Use XFRM (IPsec) netlink sockets
+allow system_server self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_write nlmsg_read };
 
 # Kill apps.
 allow system_server appdomain:process { getpgid sigkill signal };
