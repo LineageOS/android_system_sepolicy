@@ -67,6 +67,10 @@ allow network_stack bpfloader:bpf { map_read map_write prog_run };
 # Use XFRM (IPsec) netlink sockets
 allow network_stack self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_write nlmsg_read };
 
+# tun device used for 3rd party vpn apps and test network manager
+allow network_stack tun_device:chr_file rw_file_perms;
+allowxperm network_stack tun_device:chr_file ioctl { TUNGETIFF TUNSETIFF TUNSETLINK TUNSETCARRIER };
+
 # Only the bpfloader and the network_stack should ever touch 'fs_bpf_tethering' programs/maps.
 # Unfortunately init/vendor_init have all sorts of extra privs
 neverallow { domain -bpfloader -init -network_stack -vendor_init } fs_bpf_tethering:dir ~getattr;
