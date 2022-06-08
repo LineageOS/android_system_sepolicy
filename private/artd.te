@@ -34,9 +34,10 @@ r_dir_file(artd, apk_data_file)
 # Read access to /vendor/app.
 r_dir_file(artd, vendor_app_file)
 
-# Read access to all compilation artifacts generated on device for apps' primary
-# dex'es. (/data/dalvik-cache/..., /data/app/.../oat/..., etc.)
-r_dir_file(artd, dalvikcache_data_file)
+# Read/write access to all compilation artifacts generated on device for apps'
+# primary dex'es. (/data/dalvik-cache/..., /data/app/.../oat/..., etc.)
+allow artd dalvikcache_data_file:dir create_dir_perms;
+allow artd dalvikcache_data_file:file create_file_perms;
 
 # Read access to the ART APEX data directory.
 # Needed for reading the boot image generated on device.
@@ -46,3 +47,14 @@ r_dir_file(artd, apex_art_data_file)
 # Read access to /apex/apex-info-list.xml
 # Needed for getting APEX versions.
 allow artd apex_info_file:file r_file_perms;
+
+# Allow getting root capabilities to bypass permission checks.
+# - "dac_override" and "dac_read_search" are for
+#   - reading secondary dex'es in app data directories (reading primary dex'es
+#     doesn't need root capabilities)
+#   - managing (CRUD) compilation artifacts in both APK directories for primary
+#     dex'es and in app data directories for secondary dex'es
+#   - managing (CRUD) profile files for both primary dex'es and secondary dex'es
+# - "fowner" is for adjusting the file permissions of compilation artifacts and
+#   profile files based on whether they include user data or not.
+allow artd self:global_capability_class_set { dac_override dac_read_search fowner };
