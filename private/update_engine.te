@@ -30,3 +30,7 @@ get_prop(update_engine, snapuserd_prop)
 # capex decompression
 allow update_engine apex_service:service_manager find;
 binder_call(update_engine, apexd)
+
+# let this domain use the hal service
+binder_use(update_engine)
+hal_client_domain(update_engine, hal_bootctl)
