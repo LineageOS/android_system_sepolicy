@@ -303,6 +303,7 @@ neverallow {
   -cppreopts
   -dex2oat
   -otapreopt_slot
+  -artd
 } dalvikcache_data_file:file no_w_file_perms;
 
 neverallow {
@@ -314,6 +315,7 @@ neverallow {
   -dex2oat
   -zygote
   -otapreopt_slot
+  -artd
 } dalvikcache_data_file:dir no_w_dir_perms;
 
 # Only authorized processes should be writing to /data/misc/apexdata/com.android.art as it
@@ -361,6 +363,7 @@ neverallow {
 # a Unix group or change the permissions of a file.
 define(`dac_override_allowed', `{
   apexd
+  artd
   dnsmasq
   dumpstate
   init
