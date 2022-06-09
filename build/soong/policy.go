@@ -45,10 +45,9 @@ var policyConfOrder = []string{
 	"mls",
 	"policy_capabilities",
 	"te_macros",
-	"attributes",
 	"ioctl_defines",
 	"ioctl_macros",
-	"*.te",
+	"attributes|*.te",
 	"roles_decl",
 	"roles",
 	"users",
@@ -198,7 +197,10 @@ func (c *policyConf) mlsCats() int {
 
 func findPolicyConfOrder(name string) int {
 	for idx, pattern := range policyConfOrder {
-		if pattern == name || (pattern == "*.te" && strings.HasSuffix(name, ".te")) {
+		// We could use regexp but it seems like an overkill
+		if pattern == "attributes|*.te" && (name == "attributes" || strings.HasSuffix(name, ".te")) {
+			return idx
+		} else if pattern == name {
 			return idx
 		}
 	}
