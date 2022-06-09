@@ -11,3 +11,8 @@ hal_client_domain(hal_vehicle_default, hal_can_bus)
 
 # communicate with servicemanager
 binder_call(hal_vehicle_server, servicemanager)
+
+# communicate with statsd
+hwbinder_use(hal_vehicle_default)
+allow hal_vehicle_default fwk_stats_hwservice:hwservice_manager find;
+binder_call(hal_vehicle_default, stats_service_server)
