@@ -113,6 +113,10 @@ allow netd self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_write n
 add_hwservice(netd, system_net_netd_hwservice)
 hwbinder_use(netd)
 
+# AIDL hal server
+binder_call(system_net_netd_service, servicemanager)
+add_service(netd, system_net_netd_service)
+
 ###
 ### Neverallow rules
 ###
