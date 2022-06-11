@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f70a43f3_e9eacd24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14048
+      },
+      "writtenOn": "2022-06-11T23:31:49Z",
+      "side": 1,
+      "message": "I\u0027m iffy on the privapp data stuff here. This wasn\u0027t necessary on R. On S, mediaprovider lost access to its data folder when mls trusted was granted, requiring the extra neverallow workarounds. But it does work.",
+      "revId": "2b16f1f2bdb12470a921c9964534c47daec4ab35",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
