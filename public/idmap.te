@@ -2,14 +2,9 @@
 type idmap, domain;
 type idmap_exec, system_file_type, exec_type, file_type;
 
-# TODO remove /system/bin/idmap and the link between idmap and installd (b/118711077)
-# Use open file to /data/resource-cache file inherited from installd.
-allow idmap installd:fd use;
+# Allow read + write access to /data/resource-cache
 allow idmap resourcecache_data_file:file create_file_perms;
 allow idmap resourcecache_data_file:dir rw_dir_perms;
-
-# Ignore reading /proc/<pid>/maps after a fork.
-dontaudit idmap installd:file read;
 
 # Open and read from target and overlay apk files passed by argument.
 allow idmap apk_data_file:file r_file_perms;
