@@ -327,7 +327,6 @@
 /system/bin/blkid       u:object_r:blkid_exec:s0
 /system/bin/tzdatacheck u:object_r:tzdatacheck_exec:s0
 /system/bin/flags_health_check -- u:object_r:flags_health_check_exec:s0
-/system/bin/idmap u:object_r:idmap_exec:s0
 /system/bin/idmap2(d)?           u:object_r:idmap_exec:s0
 /system/bin/update_engine        u:object_r:update_engine_exec:s0
 /system/bin/profcollectd         u:object_r:profcollectd_exec:s0
