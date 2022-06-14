@@ -93,15 +93,11 @@ neverallow traced {
   # TODO(b/72998741) Remove vendor_data_file exemption. Further restricted in a
   # subsequent neverallow. Currently only getattr and search are allowed.
   -vendor_data_file
-  -zoneinfo_data_file
   with_native_coverage(`-method_trace_data_file')
 }:dir *;
 neverallow traced { system_data_file }:dir ~{ getattr search };
-neverallow traced zoneinfo_data_file:dir ~r_dir_perms;
-neverallow traced { data_file_type -zoneinfo_data_file }:lnk_file *;
 neverallow traced {
   data_file_type
-  -zoneinfo_data_file
   -perfetto_traces_data_file
   -perfetto_traces_bugreport_data_file
   -trace_data_file
