@@ -79,6 +79,9 @@ set_prop(microdroid_manager, powerctl_prop)
 # that is different from what is recorded in the instance.img file.
 allow microdroid_manager proc_bootconfig:file r_file_perms;
 
+# Allow microdroid_manager to read/write failure serial device
+allow microdroid_manager serial_device:chr_file w_file_perms;
+
 # Allow microdroid_manager to handle extra_apks
 allow microdroid_manager extra_apk_file:dir create_dir_perms;
 
