@@ -6,9 +6,10 @@ type compos_verify_exec, exec_type, file_type, system_file_type;
 binder_use(compos_verify);
 virtualizationservice_use(compos_verify);
 
-# Access instance image files
+# Read instance image & write VM logs
 allow compos_verify apex_module_data_file:dir search;
-r_dir_file(compos_verify, apex_compos_data_file)
+allow compos_verify apex_compos_data_file:dir rw_dir_perms;
+allow compos_verify apex_compos_data_file:file { rw_file_perms create };
 
 # Read CompOS info & signature files
 allow compos_verify apex_art_data_file:dir search;
