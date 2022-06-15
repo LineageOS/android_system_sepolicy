@@ -10,5 +10,6 @@ get_prop(remote_prov_app, vendor_security_patch_level_prop)
 
 allow remote_prov_app {
     app_api_service
+    mediametrics_service
     remoteprovisioning_service
 }:service_manager find;
