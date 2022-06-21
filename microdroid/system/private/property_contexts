@@ -116,6 +116,7 @@ ro.build.version.codename       u:object_r:build_prop:s0 exact string
 ro.build.version.release        u:object_r:build_prop:s0 exact string
 ro.build.version.sdk            u:object_r:build_prop:s0 exact int
 ro.build.version.security_patch u:object_r:build_prop:s0 exact string
+ro.build.version.known_codenames u:object_r:build_prop:s0 exact string
 ro.debuggable                   u:object_r:build_prop:s0 exact bool
 ro.product.cpu.abilist          u:object_r:build_prop:s0 exact string
 ro.adb.secure                   u:object_r:build_prop:s0 exact bool
