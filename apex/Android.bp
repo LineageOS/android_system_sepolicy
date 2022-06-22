@@ -21,6 +21,8 @@ package {
     default_applicable_licenses: ["system_sepolicy_license"],
 }
 
+// TODO(b/236681553): Remove com.android.bluetooth-file_contexts
+
 filegroup {
   name: "apex_file_contexts_files",
   srcs: ["*-file_contexts"],
