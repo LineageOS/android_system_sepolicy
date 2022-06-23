@@ -1,6 +1,13 @@
 # /proc/config.gz
 type config_gz, fs_type, proc_type;
 
+# /sys/fs/bpf/<dir> for mainline tethering use
+# TODO: move S+ fs_bpf_tethering here from public/file.te
+type fs_bpf_net_private, fs_type, bpffs_type;
+type fs_bpf_net_shared, fs_type, bpffs_type;
+type fs_bpf_netd_readonly, fs_type, bpffs_type;
+type fs_bpf_netd_shared, fs_type, bpffs_type;
+
 # /data/misc/storaged
 type storaged_data_file, file_type, data_file_type, core_data_file_type;
 
