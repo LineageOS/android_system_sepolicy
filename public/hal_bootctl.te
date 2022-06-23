@@ -5,3 +5,6 @@ binder_use(hal_bootctl_server)
 
 hal_attribute_hwservice(hal_bootctl, hal_bootctl_hwservice)
 allow hal_bootctl_server proc_bootconfig:file r_file_perms;
+
+# Needed to wait for AIDL hal services
+hal_attribute_service(hal_bootctl, hal_bootctl_service);
