@@ -53,7 +53,8 @@ neverallow { appdomain -network_stack }
 # These messages are broadcast messages from the kernel to userspace.
 # Do not allow the writing of netlink messages, which has been a source
 # of rooting vulns in the past.
-neverallow appdomain domain:netlink_kobject_uevent_socket { write append };
+neverallow { appdomain -network_stack }
+    domain:netlink_kobject_uevent_socket { write append };
 
 # Sockets under /dev/socket that are not specifically typed.
 neverallow appdomain socket_device:sock_file write;
