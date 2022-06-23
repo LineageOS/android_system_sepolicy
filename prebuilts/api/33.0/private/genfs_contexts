@@ -395,5 +395,9 @@ genfscon functionfs / u:object_r:functionfs:s0
 genfscon usbfs / u:object_r:usbfs:s0
 genfscon binfmt_misc / u:object_r:binfmt_miscfs:s0
 genfscon bpf / u:object_r:fs_bpf:s0
+genfscon bpf /net_private u:object_r:fs_bpf_net_private:s0
+genfscon bpf /net_shared u:object_r:fs_bpf_net_shared:s0
+genfscon bpf /netd_readonly u:object_r:fs_bpf_netd_readonly:s0
+genfscon bpf /netd_shared u:object_r:fs_bpf_netd_shared:s0
 genfscon bpf /tethering u:object_r:fs_bpf_tethering:s0
 genfscon bpf /vendor u:object_r:fs_bpf_vendor:s0

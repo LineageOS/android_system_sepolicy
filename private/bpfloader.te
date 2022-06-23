@@ -6,9 +6,9 @@ typeattribute bpfloader bpfdomain;
 allow bpfloader kmsg_device:chr_file w_file_perms;
 
 # These permissions are required to pin ebpf maps & programs.
-allow bpfloader { fs_bpf fs_bpf_tethering fs_bpf_vendor }:dir { add_name create search write };
-allow bpfloader { fs_bpf fs_bpf_tethering fs_bpf_vendor }:file { create read setattr };
-allow { fs_bpf_tethering fs_bpf_vendor } fs_bpf:filesystem associate;
+allow bpfloader bpffs_type:dir { add_name create remove_name search write };
+allow bpfloader bpffs_type:file { create read rename setattr };
+allow { bpffs_type -fs_bpf } fs_bpf:filesystem associate;
 
 # Allow bpfloader to create bpf maps and programs.
 allow bpfloader self:bpf { map_create map_read map_write prog_load prog_run };
@@ -26,17 +26,21 @@ allow bpfloader bpfloader_exec:file execute_no_trans;
 ###
 
 # TODO: get rid of init & vendor_init; Note: we don't care about getattr/mounton/search
-neverallow { domain -init -vendor_init } { fs_bpf fs_bpf_tethering fs_bpf_vendor }:dir { open read setattr };
-neverallow { domain -bpfloader } { fs_bpf fs_bpf_tethering fs_bpf_vendor }:dir { add_name create write };
-neverallow domain { fs_bpf fs_bpf_tethering fs_bpf_vendor }:dir ~{ add_name create getattr mounton open read search setattr write };
+neverallow { domain -init -vendor_init } bpffs_type:dir { open read setattr };
+neverallow { domain -bpfloader } bpffs_type:dir { add_name create remove_name write };
+neverallow domain bpffs_type:dir ~{ add_name create getattr mounton open read remove_name search setattr write };
 
 # TODO: get rid of init & vendor_init
-neverallow { domain -bpfloader -init -vendor_init } { fs_bpf fs_bpf_tethering fs_bpf_vendor }:file { map open setattr };
-neverallow { domain -bpfloader } { fs_bpf fs_bpf_tethering fs_bpf_vendor }:file create;
-neverallow { domain -bpfloader -gpuservice -init -lmkd -mediaprovider_app -netd -netutils_wrapper -network_stack -system_server -vendor_init } { fs_bpf }:file read;
-neverallow { domain -bpfloader -gpuservice -init -lmkd -netd -netutils_wrapper -network_stack -system_server -vendor_init } { fs_bpf_tethering }:file read;
-neverallow { domain -bpfloader -gpuservice -netd -netutils_wrapper -network_stack -system_server } { fs_bpf fs_bpf_tethering }:file write;
-neverallow domain { fs_bpf fs_bpf_tethering }:file ~{ create map open read setattr write };
+neverallow { domain -bpfloader -init -vendor_init } bpffs_type:file { map open setattr };
+neverallow { domain -bpfloader } bpffs_type:file { create rename };
+neverallow { domain -bpfloader -gpuservice -init -lmkd -mediaprovider_app -netd -netutils_wrapper                -system_server -vendor_init } fs_bpf:file               read;
+neverallow { domain -bpfloader             -init                                                  -network_stack                -vendor_init } fs_bpf_net_private:file   read;
+neverallow { domain -bpfloader             -init                                                  -network_stack -system_server -vendor_init } fs_bpf_net_shared:file    read;
+neverallow { domain -bpfloader             -init                          -netd                   -network_stack -system_server -vendor_init } fs_bpf_netd_readonly:file read;
+neverallow { domain -bpfloader             -init                          -netd -netutils_wrapper -network_stack -system_server -vendor_init } fs_bpf_netd_shared:file   read;
+neverallow { domain -bpfloader             -init                                                  -network_stack                -vendor_init } fs_bpf_tethering:file     read;
+neverallow { domain -bpfloader -gpuservice                                -netd -netutils_wrapper -network_stack -system_server              } { bpffs_type -fs_bpf_vendor }:file write;
+neverallow domain bpffs_type:file ~{ create map open read rename setattr write };
 
 neverallow { domain -bpfloader } *:bpf { map_create prog_load };
 
