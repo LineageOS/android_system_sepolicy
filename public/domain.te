@@ -227,11 +227,10 @@ full_treble_only(`
 # read and stat any sysfs symlinks
 allow domain sysfs:lnk_file { getattr read };
 
-# libc references /data/misc/zoneinfo and /system/usr/share/zoneinfo for
-# timezone related information.
+# libc references /system/usr/share/zoneinfo for timezone related information.
 # This directory is considered to be a VNDK-stable
-allow domain { system_zoneinfo_file zoneinfo_data_file }:file r_file_perms;
-allow domain { system_zoneinfo_file zoneinfo_data_file }:dir r_dir_perms;
+allow domain { system_zoneinfo_file }:file r_file_perms;
+allow domain { system_zoneinfo_file }:dir r_dir_perms;
 
 # Lots of processes access current CPU information
 r_dir_file(domain, sysfs_devices_system_cpu)
@@ -836,11 +835,6 @@ full_treble_only(`
     -vendor_init
   } {
     core_data_file_type
-    # libc includes functions like mktime and localtime which attempt to access
-    # files in /data/misc/zoneinfo/tzdata and /system/usr/share/zoneinfo/tzdata.
-    # These functions are considered vndk-stable and thus must be allowed for
-    # all processes.
-    -zoneinfo_data_file
     with_native_coverage(`-method_trace_data_file')
   }:file_class_set ~{ append getattr ioctl read write map };
   neverallow {
@@ -849,7 +843,6 @@ full_treble_only(`
   } {
     core_data_file_type
     -unencrypted_data_file
-    -zoneinfo_data_file
     with_native_coverage(`-method_trace_data_file')
   }:file_class_set ~{ append getattr ioctl read write map };
   # vendor init needs to be able to read unencrypted_data_file to create directories with FBE.
@@ -870,7 +863,6 @@ full_treble_only(`
     -system_data_root_file
     -vendor_userdir_file
     -vendor_data_file
-    -zoneinfo_data_file
     with_native_coverage(`-method_trace_data_file')
   }:dir *;
   neverallow {
@@ -883,7 +875,6 @@ full_treble_only(`
     -system_data_root_file
     -vendor_userdir_file
     -vendor_data_file
-    -zoneinfo_data_file
     with_native_coverage(`-method_trace_data_file')
   }:dir *;
   # vendor init needs to be able to read unencrypted_data_file to create directories with FBE.

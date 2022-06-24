@@ -10,6 +10,10 @@
 (type iorapd_exec)
 (type iorapd_service)
 (type iorapd_tmpfs)
+(type timezone_service)
+(type tzdatacheck)
+(type tzdatacheck_exec)
+(type zoneinfo_data_file)
 
 (expandtypeattribute (DockObserver_service_33_0) true)
 (expandtypeattribute (IProxyService_service_33_0) true)
