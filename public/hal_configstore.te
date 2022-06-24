@@ -42,7 +42,6 @@ neverallow hal_configstore_server {
   data_file_type
   -anr_data_file # for crash dump collection
   -tombstone_data_file # for crash dump collection
-  -zoneinfo_data_file # granted to domain
   with_native_coverage(`-method_trace_data_file')
 }:{ file fifo_file sock_file } *;
 
