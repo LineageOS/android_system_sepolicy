@@ -6,6 +6,10 @@ init_daemon_domain(netd)
 # Allow netd to spawn dnsmasq in it's own domain
 domain_auto_trans(netd, dnsmasq_exec, dnsmasq)
 
+allow netd { fs_bpf fs_bpf_netd_readonly fs_bpf_netd_shared }:dir search;
+allow netd { fs_bpf fs_bpf_netd_readonly fs_bpf_netd_shared }:file read;
+allow netd { fs_bpf                      fs_bpf_netd_shared }:file write;
+
 # give netd permission to setup iptables rule with xt_bpf, attach program to cgroup, and read/write
 # the map created by bpfloader
 allow netd bpfloader:bpf { prog_run map_read map_write };
