@@ -14,3 +14,7 @@ read_fstab(hal_bootctl_default)
 # Needed for reading/writing misc partition.
 allow hal_bootctl_default block_device:dir search;
 allow hal_bootctl_default misc_block_device:blk_file rw_file_perms;
+
+# Needed for writing to kernel log
+allow hal_bootctl_default kmsg_device:chr_file open;
+allow hal_bootctl_default kmsg_device:chr_file write;
