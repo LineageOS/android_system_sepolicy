@@ -60,8 +60,8 @@ hal_client_domain(network_stack, hal_tetheroffload)
 allow network_stack self:netlink_netfilter_socket create_socket_perms_no_ioctl;
 allow network_stack network_stack_service:service_manager find;
 # allow Tethering(network_stack process) to run/update/read the eBPF maps to offload tethering traffic by eBPF.
-allow network_stack { fs_bpf fs_bpf_tethering }:dir search;
-allow network_stack { fs_bpf fs_bpf_tethering }:file { read write };
+allow network_stack { fs_bpf_net_private fs_bpf_net_shared fs_bpf_netd_readonly fs_bpf_netd_shared fs_bpf_tethering }:dir search;
+allow network_stack { fs_bpf_net_private fs_bpf_net_shared fs_bpf_netd_readonly fs_bpf_netd_shared fs_bpf_tethering }:file { read write };
 allow network_stack bpfloader:bpf { map_read map_write prog_run };
 
 # Use XFRM (IPsec) netlink sockets
@@ -71,8 +71,46 @@ allow network_stack self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlms
 allow network_stack tun_device:chr_file rw_file_perms;
 allowxperm network_stack tun_device:chr_file ioctl { TUNGETIFF TUNSETIFF TUNSETLINK TUNSETCARRIER };
 
-# Only the bpfloader and the network_stack should ever touch 'fs_bpf_tethering' programs/maps.
+############### NEVER ALLOW RULES
+# This place is as good as any for these rules,
+# and it is probably the most appropriate because
+# network_stack itself is entirely mainline code.
+#
 # Unfortunately init/vendor_init have all sorts of extra privs
+
+# T+: Only the bpfloader and the network_stack should ever touch 'fs_bpf_net_private' programs/maps.
+neverallow { domain -bpfloader -init -network_stack -vendor_init } fs_bpf_net_private:dir ~getattr;
+neverallow { domain -bpfloader -init -network_stack -vendor_init } fs_bpf_net_private:file *;
+
+neverallow { domain -bpfloader -network_stack } fs_bpf_net_private:dir ~{ getattr open read search setattr };
+neverallow { domain -bpfloader -network_stack } fs_bpf_net_private:file ~{ map open read setattr };
+
+# T+: Only the bpfloader, network_stack and system_server should ever touch 'fs_bpf_net_shared' programs/maps.
+neverallow { domain -bpfloader -init -network_stack -system_server -vendor_init } fs_bpf_net_shared:dir ~getattr;
+neverallow { domain -bpfloader -init -network_stack -system_server -vendor_init } fs_bpf_net_shared:file *;
+
+neverallow { domain -bpfloader -network_stack -system_server } fs_bpf_net_shared:dir ~{ getattr open read search setattr };
+neverallow { domain -bpfloader -network_stack -system_server } fs_bpf_net_shared:file ~{ map open read setattr };
+
+# T+: Only the bpfloader, netd, network_stack and system_server should ever touch 'fs_bpf_netd_readonly' programs/maps.
+# netd's access should be readonly
+neverallow { domain -bpfloader -init -netd -network_stack -system_server -vendor_init } fs_bpf_netd_readonly:dir ~getattr;
+neverallow { domain -bpfloader -init -netd -network_stack -system_server -vendor_init } fs_bpf_netd_readonly:file *;
+neverallow netd fs_bpf_netd_readonly:file write;
+
+neverallow { domain -bpfloader -netd -network_stack -system_server } fs_bpf_netd_readonly:dir ~{ getattr open read search setattr };
+neverallow { domain -bpfloader -netd -network_stack -system_server } fs_bpf_netd_readonly:file ~{ map open read setattr };
+
+# T+: Only the bpfloader, netd, netutils_wrapper, network_stack and system_server should ever touch 'fs_bpf_netd_shared' programs/maps.
+# netutils_wrapper requires access to be able to run iptables and only needs readonly access
+neverallow { domain -bpfloader -init -netd -netutils_wrapper -network_stack -system_server -vendor_init } fs_bpf_netd_shared:dir ~getattr;
+neverallow { domain -bpfloader -init -netd -netutils_wrapper -network_stack -system_server -vendor_init } fs_bpf_netd_shared:file *;
+neverallow netutils_wrapper fs_bpf_netd_shared:file write;
+
+neverallow { domain -bpfloader -netd -netutils_wrapper -network_stack -system_server } fs_bpf_netd_shared:dir ~{ getattr open read search setattr };
+neverallow { domain -bpfloader -netd -netutils_wrapper -network_stack -system_server } fs_bpf_netd_shared:file ~{ map open read setattr };
+
+# S+: Only the bpfloader and the network_stack should ever touch 'fs_bpf_tethering' programs/maps.
 neverallow { domain -bpfloader -init -network_stack -vendor_init } fs_bpf_tethering:dir ~getattr;
 neverallow { domain -bpfloader -init -network_stack -vendor_init } fs_bpf_tethering:file *;
 
