@@ -139,15 +139,11 @@ neverallow traced_probes {
   # TODO(b/72998741) Remove vendor_data_file exemption. Further restricted in a
   # subsequent neverallow. Currently only getattr and search are allowed.
   -vendor_data_file
-  -zoneinfo_data_file
   with_native_coverage(`-method_trace_data_file')
 }:dir *;
 neverallow traced_probes system_data_file:dir ~{ getattr userdebug_or_eng(`open read') search };
-neverallow traced_probes zoneinfo_data_file:dir ~r_dir_perms;
-neverallow traced_probes { data_file_type -zoneinfo_data_file }:lnk_file *;
 neverallow traced_probes {
   data_file_type
-  -zoneinfo_data_file
   -packages_list_file
   with_native_coverage(`-method_trace_data_file')
   -game_mode_intervention_list_file
