@@ -67,7 +67,6 @@ allow platform_app mediadrmserver_service:service_manager find;
 allow platform_app persistent_data_block_service:service_manager find;
 allow platform_app radio_service:service_manager find;
 allow platform_app thermal_service:service_manager find;
-allow platform_app timezone_service:service_manager find;
 allow platform_app app_api_service:service_manager find;
 allow platform_app system_api_service:service_manager find;
 allow platform_app vr_manager_service:service_manager find;
