@@ -173,6 +173,13 @@ attribute system_api_service;
 # services which are explicitly disallowed for untrusted apps to access
 attribute protected_service;
 
+# TODO(b/237115222): remove from all vendor policy, unused
+#
+# We don't need this because interface type shouldn't be associated
+# with where they are served. We can serve HALs from anywhere if they are
+# implemented in software.
+#
+# Previously:
 # services which served by vendor and also using the copy of libbinder on
 # system (for instance via libbinder_ndk). services using a different copy
 # of libbinder currently need their own context manager (e.g.
