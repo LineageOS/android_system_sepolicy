@@ -7,7 +7,7 @@ allow bpfloader kmsg_device:chr_file w_file_perms;
 
 # These permissions are required to pin ebpf maps & programs.
 allow bpfloader bpffs_type:dir { add_name create remove_name search write };
-allow bpfloader bpffs_type:file { create read rename setattr };
+allow bpfloader bpffs_type:file { create getattr read rename setattr };
 allow { bpffs_type -fs_bpf } fs_bpf:filesystem associate;
 
 # Allow bpfloader to create bpf maps and programs.
@@ -32,7 +32,7 @@ neverallow domain bpffs_type:dir ~{ add_name create getattr mounton open read re
 
 # TODO: get rid of init & vendor_init
 neverallow { domain -bpfloader -init -vendor_init } bpffs_type:file { map open setattr };
-neverallow { domain -bpfloader } bpffs_type:file { create rename };
+neverallow { domain -bpfloader } bpffs_type:file { create getattr rename };
 neverallow { domain -bpfloader -gpuservice -init -lmkd -mediaprovider_app -netd -netutils_wrapper                -system_server -vendor_init } fs_bpf:file               read;
 neverallow { domain -bpfloader             -init                                                  -network_stack                -vendor_init } fs_bpf_net_private:file   read;
 neverallow { domain -bpfloader             -init                                                  -network_stack -system_server -vendor_init } fs_bpf_net_shared:file    read;
@@ -40,7 +40,7 @@ neverallow { domain -bpfloader             -init                          -netd 
 neverallow { domain -bpfloader             -init                          -netd -netutils_wrapper -network_stack -system_server -vendor_init } fs_bpf_netd_shared:file   read;
 neverallow { domain -bpfloader             -init                                                  -network_stack                -vendor_init } fs_bpf_tethering:file     read;
 neverallow { domain -bpfloader -gpuservice                                -netd -netutils_wrapper -network_stack -system_server              } { bpffs_type -fs_bpf_vendor }:file write;
-neverallow domain bpffs_type:file ~{ create map open read rename setattr write };
+neverallow domain bpffs_type:file ~{ create getattr map open read rename setattr write };
 
 neverallow { domain -bpfloader } *:bpf { map_create prog_load };
 
