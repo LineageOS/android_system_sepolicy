@@ -15,11 +15,6 @@ tmpfs_domain(system_server)
 
 userfaultfd_use(system_server)
 
-# TODO(b/217368496): remove this.
-perfetto_producer(system_server)
-can_profile_heap(system_server)
-can_profile_perf(system_server)
-
 # Create a socket for connections from crash_dump.
 type_transition system_server system_data_file:sock_file system_ndebug_socket "ndebugsocket";
 

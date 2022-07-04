@@ -5,11 +5,6 @@ typeattribute gmscore_app coredomain;
 
 app_domain(gmscore_app)
 
-# TODO(b/217368496): remove this.
-perfetto_producer(gmscore_app)
-can_profile_heap(gmscore_app)
-can_profile_perf(gmscore_app)
-
 allow gmscore_app sysfs_type:dir search;
 # Read access to /sys/class/net/wlan*/address
 r_dir_file(gmscore_app, sysfs_net)
