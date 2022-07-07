@@ -87,6 +87,7 @@ allow dumpstate {
   hal_graphics_allocator_server
   hal_graphics_composer_server
   hal_health_server
+  hal_input_processor_server
   hal_neuralnetworks_server
   hal_omx_server
   hal_power_server
@@ -149,6 +150,7 @@ binder_call(dumpstate, { appdomain netd wificond })
 dump_hal(hal_dumpstate)
 dump_hal(hal_wifi)
 dump_hal(hal_graphics_allocator)
+dump_hal(hal_input_processor)
 dump_hal(hal_light)
 dump_hal(hal_neuralnetworks)
 dump_hal(hal_nfc)
