@@ -75,6 +75,11 @@ dontaudit appdomain vendor_default_prop:file read;
 # Access to /mnt/media_rw/<vol> (limited by DAC to apps with external_storage gid)
 allow { appdomain -sdk_sandbox } mnt_media_rw_file:dir search;
 
+# allow apps to use UDP sockets provided by the system server but not
+# modify them other than to connect
+allow appdomain system_server:udp_socket {
+        connect getattr read recvfrom sendto write getopt setopt };
+
 neverallow appdomain system_server:udp_socket {
         accept append bind create ioctl listen lock name_bind
         relabelfrom relabelto setattr shutdown };
