@@ -131,6 +131,10 @@ set_prop(apexd, powerctl_prop)
 # Allow apexd to stop itself
 set_prop(apexd, ctl_apexd_prop)
 
+# Allow apexd to send control messages to load/unload apex from init
+set_prop(apexd, ctl_apex_load_prop)
+get_prop(apexd, init_apex_status_private_prop)
+
 # Find the vold service, and call into vold to manage FS checkpoints
 allow apexd vold_service:service_manager find;
 binder_call(apexd, vold)
