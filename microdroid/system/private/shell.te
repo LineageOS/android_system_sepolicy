@@ -40,7 +40,3 @@ get_prop(shell, init_service_status_prop)
 get_prop(shell, init_service_status_private_prop)
 
 set_prop(shell, log_tag_prop)
-
-# logcat is a bootstrap binary. shell runs logcat for test.
-# TODO(b/238135989): remove this
-dontaudit shell system_bootstrap_lib_file:dir search;
