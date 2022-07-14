@@ -527,6 +527,15 @@ bluetooth.profile.pbap.server.enabled                u:object_r:bluetooth_config
 bluetooth.profile.sap.server.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.profile.vcp.controller.enabled             u:object_r:bluetooth_config_prop:s0 exact bool
 
+bluetooth.core.acl.link_supervision_timeout          u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.classic.page_scan_type                u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.classic.page_scan_interval            u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.classic.page_scan_window              u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.classic.inq_scan_type                 u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.classic.inq_scan_interval             u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.classic.inq_scan_window               u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.classic.page_timeout                  u:object_r:bluetooth_config_prop:s0 exact uint
+
 persist.nfc.debug_enabled                      u:object_r:nfc_prop:s0 exact bool
 
 persist.radio.multisim.config u:object_r:radio_control_prop:s0 exact string
