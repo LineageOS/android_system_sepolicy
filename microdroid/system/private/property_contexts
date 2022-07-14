@@ -23,6 +23,8 @@ ctl.restart$adbd u:object_r:ctl_adbd_prop:s0
 
 ctl.stop$apexd u:object_r:ctl_apexd_prop:s0
 
+ctl.stop$tombstoned u:object_r:ctl_tombstoned_prop:s0
+
 ctl.start$apexd-vm      u:object_r:ctl_apexd_vm_prop:s0
 ctl.start$apkdmverity   u:object_r:ctl_apkdmverity_prop:s0
 ctl.start$seriallogging u:object_r:ctl_seriallogging_prop:s0
