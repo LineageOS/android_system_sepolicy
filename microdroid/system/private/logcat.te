@@ -17,3 +17,6 @@ read_logd(logcat)
 get_prop(logcat, logd_prop)
 
 allow logcat self:global_capability_class_set { sys_nice };
+
+# logcat uses bootstrap to be run before apexd
+use_bootstrap_libs(logcat)
