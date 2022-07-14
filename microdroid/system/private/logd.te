@@ -41,4 +41,7 @@ read_runtime_log_tags(logd)
 # Logd sets defaults if certain properties are empty.
 set_prop(logd, logd_prop)
 
+# logd uses bootstrap to be run before apexd
+use_bootstrap_libs(logd)
+
 dontaudit domain runtime_event_log_tags_file:file { map open read };
