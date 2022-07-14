@@ -66,6 +66,9 @@ set_prop(microdroid_manager, ctl_seriallogging_prop)
 set_prop(microdroid_manager, ctl_tombstone_transmit_prop)
 set_prop(microdroid_manager, ctl_zipfuse_prop)
 
+# Allow microdroid_manager to stop tombstoned
+set_prop(microdroid_manager, ctl_tombstoned_prop)
+
 # Allow microdroid_manager to wait for linkerconfig to be ready
 get_prop(microdroid_manager, apex_config_prop)
 
