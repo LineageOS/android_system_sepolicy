@@ -268,6 +268,8 @@
 /system/bin/audioserver	u:object_r:audioserver_exec:s0
 /system/bin/mediadrmserver	u:object_r:mediadrmserver_exec:s0
 /system/bin/mediaserver	u:object_r:mediaserver_exec:s0
+/system/bin/mediaserver32	u:object_r:mediaserver_exec:s0
+/system/bin/mediaserver64	u:object_r:mediaserver_exec:s0
 /system/bin/mediametrics	u:object_r:mediametrics_exec:s0
 /system/bin/cameraserver	u:object_r:cameraserver_exec:s0
 /system/bin/mediaextractor	u:object_r:mediaextractor_exec:s0
