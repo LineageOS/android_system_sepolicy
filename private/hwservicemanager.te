@@ -7,3 +7,6 @@ add_hwservice(hwservicemanager, hidl_token_hwservice)
 
 set_prop(hwservicemanager, ctl_interface_start_prop)
 set_prop(hwservicemanager, hwservicemanager_prop)
+
+# hwservicemanager is using bootstrap bionic
+use_bootstrap_libs(hwservicemanager)
