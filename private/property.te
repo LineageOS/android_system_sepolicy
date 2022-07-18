@@ -349,12 +349,13 @@ neverallow {
   system_adbd_prop
 }:property_service set;
 
-# Let (vendor_)init, adbd, and system_server set service.adb.tcp.port
+# Let (vendor_)init, adbd, system_app, and system_server set service.adb.tcp.port
 neverallow {
   domain
   -init
   -vendor_init
   -adbd
+  -system_app
   -system_server
 } {
   adbd_config_prop
