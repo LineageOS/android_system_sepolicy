@@ -12,3 +12,10 @@ neverallow {
 neverallow { domain -bpfdomain } *:bpf *;
 
 allow bpfdomain fs_bpf:dir search;
+
+# genfscon doesn't seem to trigger during symlink creation,
+# and thus any created symlinks end up as 'fs_bpf:lnk_type',
+# however this feels like a kernel bug / missing feature,
+# so let's allow all bpffs_type's instead,
+# this will keep things working even if this is fixed.
+allow bpfdomain bpffs_type:lnk_file read;
