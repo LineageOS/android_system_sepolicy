@@ -355,6 +355,7 @@ neverallow {
   -init
   -vendor_init
   -adbd
+  -priv_app
   -system_server
 } {
   adbd_config_prop
