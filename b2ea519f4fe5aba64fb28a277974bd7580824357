@@ -16,6 +16,23 @@
       "message": "Test build on Deadpool and coral - coral to get all the extra restrictions that get hit post facto - all good.",
       "revId": "b2ea519f4fe5aba64fb28a277974bd7580824357",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "24190a73_215d0077",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 24262
+      },
+      "writtenOn": "2022-07-19T19:10:54Z",
+      "side": 1,
+      "message": "breaks sepolicy freeze test, i uploaded a fixup: https://review.lineageos.org/c/LineageOS/android_system_sepolicy/+/334378",
+      "revId": "b2ea519f4fe5aba64fb28a277974bd7580824357",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
