@@ -670,6 +670,8 @@ full_treble_only(`
     -vendor_service # must be @VintfStability to be used by an app
     -ephemeral_app_api_service
 
+    -hal_service_type # see app_neverallows.te
+
     -apc_service
     -audioserver_service # TODO(b/36783122) remove exemptions below once app_api_service is fixed
     -cameraserver_service
