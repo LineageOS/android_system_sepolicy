@@ -1230,11 +1230,12 @@ neverallow domain debugfs_type:file { execute execute_no_trans };
 neverallow { domain -vold -init -vendor_init } fusectlfs:file no_rw_file_perms;
 
 # Profiles contain untrusted data and profman parses that. We should only run
-# in from installd forked processes.
+# it from installd and artd forked processes.
 neverallow {
   domain
   -installd
   -profman
+  -artd
 } profman_exec:file no_x_file_perms;
 
 # Enforce restrictions on kernel module origin.
