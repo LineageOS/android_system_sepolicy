@@ -202,6 +202,8 @@ allow { virtualizationservice crosvm } $1:fifo_file write;
 allow $1 virtualizationservice:vsock_socket { getattr read write };
 # Allow client to inspect hypervisor capabilities
 get_prop($1, hypervisor_prop)
+# Allow client to read (but not open) the crashdump provided by virtualizationservice
+allow $1 virtualizationservice_data_file:file { getattr read };
 ')
 
 #####################################
