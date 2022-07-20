@@ -78,10 +78,10 @@ rules = []
 for r in TERules:
     if len(r.perms) > 1:
         rules.append("allow " + r.sctx + " " + r.tctx + ":" + r.tclass + " { " +
-                " ".join(r.perms) + " };")
+                " ".join(sorted(r.perms)) + " };")
     else:
         rules.append("allow " + r.sctx + " " + r.tctx + ":" + r.tclass + " " +
-                " ".join(r.perms) + ";")
+                " ".join(sorted(r.perms)) + ";")
 
 for r in sorted(rules):
     print(r)
