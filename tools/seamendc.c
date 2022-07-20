@@ -123,6 +123,7 @@ static int read_cil_files(struct cil_db **db, char **paths,
             goto parse_err;
         }
         free(buff);
+        buff = NULL;
     }
 
     return SEPOL_OK;
