@@ -16,6 +16,24 @@
       "message": "\u003e Patch Set 1:\n\u003e \n\u003e to be fair, I tested this on coral specifically to try to cover all cases.\n\u003e \n\u003e guess coral is an invalid target to test the freeze.\n\nAs far as I am aware, the freeze test only gets built on `m droid` and not `m bacon`.",
       "revId": "43e5814367ed0e38cd768ce871bcbeb298d0e162",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0d2dd7db_30af1f40",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2022-07-21T14:34:33Z",
+      "side": 1,
+      "message": "TIL - noted for future tests, thanks.",
+      "parentUuid": "4c30074e_a3dc9d32",
+      "revId": "43e5814367ed0e38cd768ce871bcbeb298d0e162",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
