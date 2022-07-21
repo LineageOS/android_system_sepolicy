@@ -309,6 +309,7 @@ type hal_weaver_service, protected_service, hal_service_type, service_manager_ty
 type hal_nlinterceptor_service, protected_service, hal_service_type, service_manager_type;
 type hal_wifi_hostapd_service, protected_service, hal_service_type, service_manager_type;
 type hal_wifi_supplicant_service, protected_service, hal_service_type, service_manager_type;
+type hal_gatekeeper_service, protected_service, hal_service_type, service_manager_type;
 
 ###
 ### Neverallow rules
