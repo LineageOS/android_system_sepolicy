@@ -1196,6 +1196,7 @@ ro.surface_flinger.use_content_detection_for_refresh_rate u:object_r:surfaceflin
 ro.surface_flinger.color_space_agnostic_dataspace         u:object_r:surfaceflinger_prop:s0 exact int
 ro.surface_flinger.refresh_rate_switching                 u:object_r:surfaceflinger_prop:s0 exact bool
 ro.surface_flinger.update_device_product_info_on_hotplug_reconnect u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.enable_adpf_cpu_hint                   u:object_r:surfaceflinger_prop:s0 exact bool
 ro.surface_flinger.enable_frame_rate_override             u:object_r:surfaceflinger_prop:s0 exact bool
 ro.surface_flinger.enable_layer_caching                   u:object_r:surfaceflinger_prop:s0 exact bool
 ro.surface_flinger.display_update_imminent_timeout_ms     u:object_r:surfaceflinger_prop:s0 exact int
