@@ -87,6 +87,11 @@ userdebug_or_eng(`
   allow zygote method_trace_data_file:file { create w_file_perms };
 ')
 
+# zygote WrapperInit needs to access /proc/<pid>/status to determine
+# parent PID in order to pass wrapped pid to AMS
+allow zygote self:capability { sys_resource sys_ptrace };
+neverallow zygote domain:process ptrace;
+
 ###
 ### neverallow rules
 ###
