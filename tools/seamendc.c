@@ -9,6 +9,7 @@
 #include <cil/cil.h>
 #include <cil/android.h>
 #include <sepol/policydb.h>
+#include "sepol/handle.h"
 
 void usage(const char *prog)
 {
@@ -26,10 +27,17 @@ void usage(const char *prog)
 
 /*
  * Read binary policy file from path into the allocated pdb.
+ *
+ * We first read the binary policy into memory, and then we parse it to a
+ * policydb object using sepol_policydb_from_image. This combination is slightly
+ * faster than using sepol_policydb_read that reads the binary file in small
+ * chunks at a time.
  */
 static int read_binary_policy(char *path, sepol_policydb_t *pdb)
 {
     int rc = SEPOL_OK;
+    char *buff = NULL;
+    sepol_handle_t *handle = NULL;
 
     FILE *file = fopen(path, "r");
     if (!file) {
@@ -44,24 +52,38 @@ static int read_binary_policy(char *path, sepol_policydb_t *pdb)
         fprintf(stderr, "Could not stat %s: %s.\n", path, strerror(errno));
         goto exit;
     }
-    if (!binarydata.st_size) {
+
+    uint32_t file_size = binarydata.st_size;
+    if (!file_size) {
         fprintf(stderr, "Binary policy file is empty.\n");
         rc = SEPOL_ERR;
         goto exit;
     }
 
-    struct sepol_policy_file *pf = NULL;
-    rc = sepol_policy_file_create(&pf);
-    if (rc != 0) {
-        fprintf(stderr, "Failed to create policy file: %d.\n", rc);
+    buff = malloc(file_size);
+    if (buff == NULL) {
+        perror("malloc failed");
+        rc = SEPOL_ERR;
         goto exit;
     }
-    sepol_policy_file_set_fp(pf, file);
 
-    rc = sepol_policydb_read(pdb, pf);
+    rc = fread(buff, file_size, 1, file);
+    if (rc != 1) {
+        fprintf(stderr, "Failure reading %s: %s.\n", path, strerror(errno));
+        rc = SEPOL_ERR;
+        goto exit;
+    }
+
+    handle = sepol_handle_create();
+    if (!handle) {
+        perror("Could not create policy handle");
+        rc = SEPOL_ERR;
+        goto exit;
+    }
+
+    rc = sepol_policydb_from_image(handle, buff, file_size, pdb);
     if (rc != 0) {
         fprintf(stderr, "Failed to read binary policy: %d.\n", rc);
-        goto exit;
     }
 
 exit:
@@ -69,6 +91,10 @@ exit:
         perror("Failure closing binary file");
         rc = SEPOL_ERR;
     }
+    if(handle != NULL) {
+        sepol_handle_destroy(handle);
+    }
+    free(buff);
     return rc;
 }
 
