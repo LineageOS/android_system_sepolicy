@@ -95,10 +95,10 @@ allow kernel {
   staging_data_file
   vendor_apex_file
 }:file read;
-# Also allow the kernel to read /data/local/tmp files via loop device
-# for ApexTestCases
+# Also allow the kernel to read/write /data/local/tmp files via loop device
+# for ApexTestCases and fiemap_image_test.
 userdebug_or_eng(`
-  allow kernel shell_data_file:file read;
+  allow kernel shell_data_file:file { read write };
 ')
 
 # Allow the first-stage init (which is running in the kernel domain) to execute the
