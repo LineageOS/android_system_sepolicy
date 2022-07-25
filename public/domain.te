@@ -639,22 +639,6 @@ neverallow hwservicemanager vndbinder_device:chr_file no_rw_file_perms;
 neverallow vndservicemanager binder_device:chr_file no_rw_file_perms;
 neverallow vndservicemanager hwbinder_device:chr_file no_rw_file_perms;
 
-# system services cant add vendor services
-neverallow {
-  coredomain
-} vendor_service:service_manager add;
-
-full_treble_only(`
-  # vendor services cant add system services
-  neverallow {
-    domain
-    -coredomain
-  } {
-    service_manager_type
-    -vendor_service
-  }:service_manager add;
-')
-
 full_treble_only(`
   # Vendor apps are permited to use only stable public services. If they were to use arbitrary
   # services which can change any time framework/core is updated, breakage is likely.
