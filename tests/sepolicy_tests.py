@@ -18,7 +18,8 @@ import os
 import policy
 import re
 import sys
-import distutils.ccompiler
+
+SHARED_LIB_EXTENSION = '.dylib' if sys.platform == 'darwin' else '.so'
 
 #############################################################
 # Tests
@@ -158,7 +159,7 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
 
     libpath = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-        "libsepolwrap" + distutils.ccompiler.new_compiler().shared_lib_extension)
+                           "libsepolwrap" + SHARED_LIB_EXTENSION)
     if not os.path.exists(libpath):
         sys.exit("Error: libsepolwrap does not exist. Is this binary corrupted?\n")
 
