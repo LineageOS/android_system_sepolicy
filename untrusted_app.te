@@ -90,6 +90,9 @@ userdebug_or_eng(`
 # gdbserver for ndk-gdb ptrace attaches to app process.
 allow untrusted_app self:process ptrace;
 
+# strace from sudaemon can trace untrusted app
+allow untrusted_app sudaemon:process sigchld;
+
 # Programs routinely attempt to scan through /system, looking
 # for files. Suppress the denials when they occur.
 dontaudit untrusted_app exec_type:file getattr;
