@@ -15,9 +15,12 @@
 from optparse import OptionParser
 from optparse import Option, OptionValueError
 import os
+import pkgutil
 import policy
 import re
+import shutil
 import sys
+import tempfile
 
 SHARED_LIB_EXTENSION = '.dylib' if sys.platform == 'darwin' else '.so'
 
@@ -146,7 +149,11 @@ Tests = [
     "TestDmaHeapDevTypeViolations",
 ]
 
-if __name__ == '__main__':
+def do_main(libpath):
+    """
+    Args:
+        libpath: string, path to libsepolwrap.so
+    """
     usage = "sepolicy_tests -f vendor_file_contexts -f "
     usage +="plat_file_contexts -p policy [--test test] [--help]"
     parser = OptionParser(option_class=MultipleOption, usage=usage)
@@ -157,11 +164,6 @@ if __name__ == '__main__':
             help="Test options include "+str(Tests))
 
     (options, args) = parser.parse_args()
-
-    libpath = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                           "libsepolwrap" + SHARED_LIB_EXTENSION)
-    if not os.path.exists(libpath):
-        sys.exit("Error: libsepolwrap does not exist. Is this binary corrupted?\n")
 
     if not options.policy:
         sys.exit("Must specify monolithic policy file\n" + parser.usage)
@@ -207,3 +209,17 @@ if __name__ == '__main__':
 
     if len(results) > 0:
         sys.exit(results)
+
+if __name__ == '__main__':
+    temp_dir = tempfile.mkdtemp()
+    try:
+        libname = "libsepolwrap" + SHARED_LIB_EXTENSION
+        libpath = os.path.join(temp_dir, libname)
+        with open(libpath, "wb") as f:
+            blob = pkgutil.get_data("sepolicy_tests", libname)
+            if not blob:
+                sys.exit("Error: libsepolwrap does not exist. Is this binary corrupted?\n")
+            f.write(blob)
+        do_main(libpath)
+    finally:
+        shutil.rmtree(temp_dir)
