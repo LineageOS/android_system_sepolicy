@@ -373,19 +373,44 @@ se_policy_cil {
     additional_cil_files: [":sepolicy_technical_debt{.plat_private}"],
 }
 
-
 se_policy_conf {
     name: "apex_sepolicy-33.conf",
-    srcs: plat_public_policy + plat_private_policy + ["com.android.sepolicy/33/*.te"],
+    srcs: plat_public_policy +
+        plat_private_policy +
+        system_ext_public_policy +
+        system_ext_private_policy +
+        product_public_policy +
+        product_private_policy +
+        ["com.android.sepolicy/33/*.te"],
     installable: false,
 }
 
 se_policy_cil {
     name: "apex_sepolicy-33.cil",
     src: ":apex_sepolicy-33.conf",
-    filter_out: [":plat_sepolicy.cil"],
+    filter_out: [
+        ":plat_sepolicy.cil",
+        ":system_ext_sepolicy.cil",
+        ":product_sepolicy.cil",
+    ],
     installable: false,
     stem: "apex_sepolicy.cil",
+    remove_line_marker: true,
+}
+
+se_policy_cil {
+    name: "decompiled_sepolicy-without_apex.cil",
+    src: ":precompiled_sepolicy-without_apex",
+    decompile_binary: true,
+}
+
+se_policy_cil {
+    name: "apex_sepolicy-decompiled.cil",
+    src: ":precompiled_sepolicy",
+    decompile_binary: true,
+    filter_out: [":decompiled_sepolicy-without_apex.cil"],
+    additional_cil_files: ["com.android.sepolicy/33/definitions/definitions.cil"],
+    secilc_check: false,
 }
 
 // userdebug_plat_policy.conf - the userdebug version plat_sepolicy.cil
@@ -856,6 +881,50 @@ precompiled_se_policy_binary {
     srcs: [
         ":plat_sepolicy.cil",
         ":apex_sepolicy-33.cil",
+        ":plat_pub_versioned.cil",
+        ":system_ext_sepolicy.cil",
+        ":product_sepolicy.cil",
+        ":vendor_sepolicy.cil",
+        ":odm_sepolicy.cil",
+    ],
+    soong_config_variables: {
+        BOARD_USES_ODMIMAGE: {
+            device_specific: true,
+            conditions_default: {
+                vendor: true,
+            },
+        },
+        IS_TARGET_MIXED_SEPOLICY: {
+            ignore_neverallow: true,
+        },
+        MIXED_SEPOLICY_VERSION: {
+            srcs: [
+                ":plat_%s.cil",
+                ":system_ext_%s.cil",
+                ":product_%s.cil",
+            ],
+            conditions_default: {
+                srcs: [
+                    ":plat_mapping_file",
+                    ":system_ext_mapping_file",
+                    ":product_mapping_file",
+                ],
+            },
+        },
+    },
+    required: [
+        "sepolicy_neverallows",
+        "sepolicy_neverallows_vendor",
+    ],
+    dist: {
+        targets: ["base-sepolicy-files-for-mapping"],
+    },
+}
+
+precompiled_se_policy_binary {
+    name: "precompiled_sepolicy-without_apex",
+    srcs: [
+        ":plat_sepolicy.cil",
         ":plat_pub_versioned.cil",
         ":system_ext_sepolicy.cil",
         ":product_sepolicy.cil",
