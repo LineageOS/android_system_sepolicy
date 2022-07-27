@@ -287,6 +287,10 @@ type policyCilProperties struct {
 	// Policy file to be compiled to cil file.
 	Src *string `android:"path"`
 
+	// If true, the input policy file is a binary policy that will be decompiled to a cil file.
+	// Defaults to false.
+	Decompile_binary *bool
+
 	// Additional cil files to be added in the end of the output. This is to support workarounds
 	// which are not supported by the policy language.
 	Additional_cil_files []string `android:"path"`
@@ -338,17 +342,22 @@ func (c *policyCil) stem() string {
 func (c *policyCil) compileConfToCil(ctx android.ModuleContext, conf android.Path) android.OutputPath {
 	cil := android.PathForModuleOut(ctx, c.stem()).OutputPath
 	rule := android.NewRuleBuilder(pctx, ctx)
-	rule.Command().BuiltTool("checkpolicy").
-		Flag("-C"). // Write CIL
-		Flag("-M"). // Enable MLS
-		FlagWithArg("-c ", strconv.Itoa(PolicyVers)).
-		FlagWithOutput("-o ", cil).
-		Input(conf)
 
-	if len(c.properties.Additional_cil_files) > 0 {
-		rule.Command().Text("cat").
-			Inputs(android.PathsForModuleSrc(ctx, c.properties.Additional_cil_files)).
-			Text(">> ").Output(cil)
+	if proptools.Bool(c.properties.Decompile_binary) {
+		rule.Command().BuiltTool("checkpolicy").
+			Flag("-b"). // Read binary
+			Flag("-C"). // Write CIL
+			Flag("-M"). // Enable MLS
+			FlagWithArg("-c ", strconv.Itoa(PolicyVers)).
+			FlagWithOutput("-o ", cil).
+			Input(conf)
+	} else {
+		rule.Command().BuiltTool("checkpolicy").
+			Flag("-C"). // Write CIL
+			Flag("-M"). // Enable MLS
+			FlagWithArg("-c ", strconv.Itoa(PolicyVers)).
+			FlagWithOutput("-o ", cil).
+			Input(conf)
 	}
 
 	if len(c.properties.Filter_out) > 0 {
@@ -357,6 +366,12 @@ func (c *policyCil) compileConfToCil(ctx android.ModuleContext, conf android.Pat
 			Flag("-f").
 			Inputs(android.PathsForModuleSrc(ctx, c.properties.Filter_out)).
 			FlagWithOutput("-t ", cil)
+	}
+
+	if len(c.properties.Additional_cil_files) > 0 {
+		rule.Command().Text("cat").
+			Inputs(android.PathsForModuleSrc(ctx, c.properties.Additional_cil_files)).
+			Text(">> ").Output(cil)
 	}
 
 	if proptools.Bool(c.properties.Remove_line_marker) {
