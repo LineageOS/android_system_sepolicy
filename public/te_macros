@@ -758,6 +758,8 @@ define(`hal_attribute_service', `
         -$1_server
         # some services are allowed to find all services
         -atrace
+        # TODO(b/240362192): Remove dumpstate. It is already marked as client
+        # for each HAL via the dump_hal() macro.
         -dumpstate
         -shell
         -system_app
