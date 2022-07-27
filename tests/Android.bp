@@ -43,6 +43,11 @@ python_binary_host {
     srcs: [
         "treble_sepolicy_tests.py",
     ],
+    version: {
+        py3: {
+            embedded_launcher: true,
+        },
+    },
     libs: [
         "mini_cil_parser",
         "pysepolwrap",
@@ -55,6 +60,11 @@ python_binary_host {
     srcs: [
         "sepolicy_tests.py",
     ],
+    version: {
+        py3: {
+            embedded_launcher: true,
+        },
+    },
     libs: ["pysepolwrap"],
     data: [":libsepolwrap"],
 }
