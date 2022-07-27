@@ -16,10 +16,13 @@ from optparse import OptionParser
 from optparse import Option, OptionValueError
 import os
 import mini_parser
+import pkgutil
 import policy
 from policy import MatchPathPrefix
 import re
+import shutil
 import sys
+import tempfile
 
 DEBUG=False
 SHARED_LIB_EXTENSION = '.dylib' if sys.platform == 'darwin' else '.so'
@@ -341,7 +344,13 @@ Tests = {"CoredomainViolations": TestCoredomainViolations,
          "TrebleCompatMapping": TestTrebleCompatMapping,
          "ViolatorAttributes": TestViolatorAttributes}
 
-if __name__ == '__main__':
+def do_main(libpath):
+    """
+    Args:
+        libpath: string, path to libsepolwrap.so
+    """
+    global pol, FakeTreble
+
     usage = "treble_sepolicy_tests "
     usage += "-f nonplat_file_contexts -f plat_file_contexts "
     usage += "-p curr_policy -b base_policy -o old_policy "
@@ -373,11 +382,6 @@ if __name__ == '__main__':
         if not os.path.exists(f):
             sys.exit("Error: File_contexts file " + f + " does not exist\n" +
                     parser.usage)
-
-    libpath = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                           "libsepolwrap" + SHARED_LIB_EXTENSION)
-    if not os.path.exists(libpath):
-        sys.exit("Error: libsepolwrap does not exist. Is this binary corrupted?\n")
 
     # Mapping files and public platform policy are only necessary for the
     # TrebleCompatMapping test.
@@ -428,3 +432,17 @@ if __name__ == '__main__':
 
     if len(results) > 0:
         sys.exit(results)
+
+if __name__ == '__main__':
+    temp_dir = tempfile.mkdtemp()
+    try:
+        libname = "libsepolwrap" + SHARED_LIB_EXTENSION
+        libpath = os.path.join(temp_dir, libname)
+        with open(libpath, "wb") as f:
+            blob = pkgutil.get_data("treble_sepolicy_tests", libname)
+            if not blob:
+                sys.exit("Error: libsepolwrap does not exist. Is this binary corrupted?\n")
+            f.write(blob)
+        do_main(libpath)
+    finally:
+        shutil.rmtree(temp_dir)
