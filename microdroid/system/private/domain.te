@@ -48,6 +48,7 @@ allow domain zero_device:chr_file rw_file_perms;
 
 # /dev/binder can be accessed by ... everyone! :)
 allow domain binder_device:chr_file rw_file_perms;
+get_prop(domain, servicemanager_prop)
 
 # Restrict binder ioctls to an allowlist. Additional ioctl commands may be
 # added to individual domains, but this sets safe defaults for all processes.
