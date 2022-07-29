@@ -78,6 +78,7 @@ full_treble_only(`
         -heapprofd
         userdebug_or_eng(`-profcollectd')
         -postinstall_dexopt
+        -profman
         -rs # spawned by appdomain, so carryover the exception above
         userdebug_or_eng(`-simpleperf_boot')
         -system_server

@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    artd
     device_config_memory_safety_native_prop
     device_config_vendor_system_native_prop
     hal_bootctl_service
