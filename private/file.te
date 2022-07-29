@@ -115,3 +115,8 @@ type sepolicy_metadata_file, file_type;
 # /dev/selinux/test - used to verify that apex sepolicy is loaded and
 # property labeled.
 type sepolicy_test_file, file_type;
+
+# /apex/com.android.art/bin/art_exec
+# This executable does not have its own domain because it is executed in the caller's domain. For
+# example, it is executed in the `artd` domain when artd calls it.
+type art_exec_exec, system_file_type, exec_type, file_type;

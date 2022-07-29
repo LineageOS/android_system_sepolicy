@@ -15,7 +15,6 @@ allow dex2oat tmpfs:file { read getattr map };
 
 r_dir_file(dex2oat, dalvikcache_data_file)
 allow dex2oat dalvikcache_data_file:file write;
-allow dex2oat installd:fd use;
 
 # Acquire advisory lock on /system/framework/arm/*
 allow dex2oat system_file:file lock;
@@ -38,12 +37,8 @@ allow dex2oat { privapp_data_file app_data_file }:file { getattr read write lock
 # Allow dex2oat to find files and directories under /data/misc/apexdata/com.android.runtime.
 allow dex2oat apex_module_data_file:dir search;
 
-# Allow dex2oat to use file descriptors passed from odrefresh.
-allow dex2oat odrefresh:fd use;
-
-# Allow dex2oat to use devpts and file descriptors passed from odsign
+# Allow dex2oat to use devpts passed from odsign.
 allow dex2oat odsign_devpts:chr_file { read write };
-allow dex2oat odsign:fd use;
 
 # Allow dex2oat to write to file descriptors from odrefresh for files
 # in the staging area.
@@ -60,6 +55,9 @@ get_prop(dex2oat, device_config_runtime_native_boot_prop)
 
 # Allow dex2oat to read /apex/apex-info-list.xml
 allow dex2oat apex_info_file:file r_file_perms;
+
+# Allow dex2oat to use file descriptors passed from privileged programs.
+allow dex2oat { artd installd odrefresh odsign }:fd use;
 
 ##################
 # A/B OTA Dexopt #
