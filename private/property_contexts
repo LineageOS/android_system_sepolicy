@@ -220,6 +220,9 @@ ro.lowpan.              u:object_r:lowpan_prop:s0
 # heapprofd properties
 heapprofd.              u:object_r:heapprofd_prop:s0
 
+# servicemanager properties
+servicemanager.ready    u:object_r:servicemanager_prop:s0 exact bool
+
 # hwservicemanager properties
 hwservicemanager.       u:object_r:hwservicemanager_prop:s0
 
