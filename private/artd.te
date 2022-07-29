@@ -1,5 +1,5 @@
-# art service daemon
-type artd, domain, coredomain;
+# ART service daemon.
+typeattribute artd coredomain;
 type artd_exec, system_file_type, exec_type, file_type;
 type artd_tmpfs, file_type;
 
@@ -57,4 +57,23 @@ allow artd apex_info_file:file r_file_perms;
 #   - managing (CRUD) profile files for both primary dex'es and secondary dex'es
 # - "fowner" is for adjusting the file permissions of compilation artifacts and
 #   profile files based on whether they include user data or not.
-allow artd self:global_capability_class_set { dac_override dac_read_search fowner };
+# - "chown" is for transferring the ownership of compilation artifacts and
+#   profile files to the system or apps.
+allow artd self:global_capability_class_set { dac_override dac_read_search fowner chown };
+
+# Read/write access to profiles (/data/misc/profiles/{ref,cur}/...).
+allow artd user_profile_data_file:dir { getattr search };
+allow artd user_profile_data_file:file create_file_perms;
+
+# Never allow running other binaries without a domain transition.
+# The only exception is art_exec. It is allowed to use the artd domain because
+# it is a thin wrapper that executes other binaries on behalf of artd.
+neverallow artd ~{art_exec_exec}:file execute_no_trans;
+allow artd art_exec_exec:file rx_file_perms;
+
+# Allow running other binaries in their own domains.
+domain_auto_trans(artd, profman_exec, profman)
+domain_auto_trans(artd, dex2oat_exec, dex2oat)
+
+# Allow sending sigkill to subprocesses.
+allow artd { profman dex2oat }:process sigkill;
