@@ -80,6 +80,7 @@ allow domain ashmem_libcutils_device:chr_file rw_file_perms;
 
 # /dev/binder can be accessed by ... everyone! :)
 allow { domain -hwservicemanager -vndservicemanager } binder_device:chr_file rw_file_perms;
+get_prop({domain -hwservicemanager -vndservicemanager }, servicemanager_prop)
 
 # Restrict binder ioctls to an allowlist. Additional ioctl commands may be
 # added to individual domains, but this sets safe defaults for all processes.
@@ -1216,11 +1217,12 @@ neverallow domain debugfs_type:file { execute execute_no_trans };
 neverallow { domain -vold -init -vendor_init } fusectlfs:file no_rw_file_perms;
 
 # Profiles contain untrusted data and profman parses that. We should only run
-# in from installd forked processes.
+# it from installd and artd forked processes.
 neverallow {
   domain
   -installd
   -profman
+  -artd
 } profman_exec:file no_x_file_perms;
 
 # Enforce restrictions on kernel module origin.

@@ -5,10 +5,12 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    artd
     device_config_memory_safety_native_prop
     device_config_vendor_system_native_prop
     hal_bootctl_service
     permissive_mte_prop
+    servicemanager_prop
     system_net_netd_service
     virtual_face_hal_prop
     virtual_fingerprint_hal_prop
