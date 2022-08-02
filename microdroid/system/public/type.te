@@ -5,7 +5,7 @@ type authfs_binder_service, service_manager_type;
 type default_android_service, service_manager_type;
 type dice_maintenance_service,  service_manager_type;
 type dice_node_service,         service_manager_type;
-type hal_dice_service, vendor_service, service_manager_type;
+type hal_dice_service, service_manager_type;
 type service_manager_service, service_manager_type;
 type system_linker;
 type vm_payload_key;
