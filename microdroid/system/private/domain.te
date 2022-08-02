@@ -419,11 +419,6 @@ neverallow { domain -init } build_prop:property_service set;
 neverallow servicemanager hwbinder_device:chr_file no_rw_file_perms;
 neverallow servicemanager vndbinder_device:chr_file no_rw_file_perms;
 
-# system services cant add vendor services
-neverallow {
-  coredomain
-} vendor_service:service_manager add;
-
 # Never allow anyone to connect or write to
 # the tombstoned intercept socket.
 neverallow { domain } tombstoned_intercept_socket:sock_file write;
