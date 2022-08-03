@@ -652,7 +652,6 @@ full_treble_only(`
     service_manager_type
 
     -app_api_service
-    -vendor_service # must be @VintfStability to be used by an app
     -ephemeral_app_api_service
 
     -hal_service_type # see app_neverallows.te
