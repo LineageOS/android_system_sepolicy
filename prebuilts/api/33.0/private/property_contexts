@@ -728,7 +728,8 @@ libc.debug.hooks.enable   u:object_r:libc_debug_prop:s0 exact string
 
 # GWP-ASan props. Separate from other libc.debug.* props, because we want users
 # to be able to set them from `adb shell` even on release devices.
-libc.debug.gwp_asan.  u:object_r:gwp_asan_prop:s0 prefix string
+libc.debug.gwp_asan.          u:object_r:gwp_asan_prop:s0 prefix string
+persist.libc.debug.gwp_asan.  u:object_r:gwp_asan_prop:s0 prefix string
 
 # shell-only props for ARM memory tagging (MTE).
 arm64.memtag. u:object_r:arm64_memtag_prop:s0 prefix string
