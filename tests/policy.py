@@ -222,11 +222,15 @@ class Policy:
             scontext = set()
             for sctx in kwargs['scontext']:
                 scontext |= self.ResolveTypeAttribute(sctx)
+            if (len(scontext) == 0):
+                return []
             kwargs['scontext'] = scontext
         if ("tcontext" in kwargs and len(kwargs['tcontext']) > 0):
             tcontext = set()
             for tctx in kwargs['tcontext']:
                 tcontext |= self.ResolveTypeAttribute(tctx)
+            if (len(tcontext) == 0):
+                return []
             kwargs['tcontext'] = tcontext
         for Rule in self.__Rules:
             if self.__TERuleMatch(Rule, **kwargs):
