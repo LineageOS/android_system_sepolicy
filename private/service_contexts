@@ -1,3 +1,4 @@
+android.frameworks.stats.IStats/default                              u:object_r:fwk_stats_service:s0
 android.hardware.audio.core.IConfig/default                          u:object_r:hal_audio_service:s0
 android.hardware.audio.core.IModule/default                          u:object_r:hal_audio_service:s0
 android.hardware.audio.effect.IFactory/default                       u:object_r:hal_audio_service:s0
@@ -17,6 +18,7 @@ android.hardware.broadcastradio.IBroadcastRadio/dab                  u:object_r:
 # The instance here is internal/0 following naming convention for ICameraProvider.
 # It advertises internal camera devices.
 android.hardware.camera.provider.ICameraProvider/internal/0          u:object_r:hal_camera_service:s0
+android.hardware.confirmationui.IConfirmationUI/default              u:object_r:hal_confirmationui_service:s0
 android.hardware.contexthub.IContextHub/default                      u:object_r:hal_contexthub_service:s0
 android.hardware.drm.IDrmFactory/clearkey                            u:object_r:hal_drm_service:s0
 android.hardware.drm.ICryptoFactory/clearkey                         u:object_r:hal_drm_service:s0
@@ -73,7 +75,6 @@ android.hardware.vibrator.IVibratorManager/default                   u:object_r:
 android.hardware.weaver.IWeaver/default                              u:object_r:hal_weaver_service:s0
 android.hardware.wifi.hostapd.IHostapd/default                       u:object_r:hal_wifi_hostapd_service:s0
 android.hardware.wifi.supplicant.ISupplicant/default                 u:object_r:hal_wifi_supplicant_service:s0
-android.frameworks.stats.IStats/default                              u:object_r:fwk_stats_service:s0
 android.se.omapi.ISecureElementService/default                       u:object_r:secure_element_service:s0
 android.system.keystore2.IKeystoreService/default                    u:object_r:keystore_service:s0
 android.system.net.netd.INetd/default                                u:object_r:system_net_netd_service:s0
