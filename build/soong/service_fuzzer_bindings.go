@@ -39,6 +39,7 @@ var (
 		"android.hardware.bluetooth.audio.IBluetoothAudioProviderFactory/default": EXCEPTION_NO_FUZZER,
 		"android.hardware.broadcastradio.IBroadcastRadio/amfm":                    EXCEPTION_NO_FUZZER,
 		"android.hardware.broadcastradio.IBroadcastRadio/dab":                     EXCEPTION_NO_FUZZER,
+		"android.hardware.bluetooth.IBluetoothHci/default":                        EXCEPTION_NO_FUZZER,
 		"android.hardware.camera.provider.ICameraProvider/internal/0":             EXCEPTION_NO_FUZZER,
 		"android.hardware.cas.IMediaCasService/default":                           EXCEPTION_NO_FUZZER,
 		"android.hardware.confirmationui.IConfirmationUI/default":                 []string{"android.hardware.confirmationui-service.trusty_fuzzer"},
