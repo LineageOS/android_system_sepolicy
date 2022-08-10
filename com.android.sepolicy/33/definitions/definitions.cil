@@ -1,0 +1,8 @@
+(sid apex)
+(sidorder (apex))
+
+(classorder (file))
+
+(type shell)
+(type sepolicy_test_file)
+(class file (ioctl read getattr lock map open watch watch_reads))
