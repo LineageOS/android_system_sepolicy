@@ -263,3 +263,10 @@ filegroup {
     "com.android.ondevicepersonalization-file_contexts",
   ],
 }
+
+filegroup {
+  name: "com.android.healthconnect-file_contexts",
+  srcs: [
+    "com.android.healthconnect-file_contexts",
+  ],
+}
