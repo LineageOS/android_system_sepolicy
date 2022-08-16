@@ -678,6 +678,7 @@ sys.usb.mtp.device_type u:object_r:usb_config_prop:s0 exact int
 sys.usb.config. u:object_r:usb_prop:s0
 
 sys.usb.ffs.aio_compat u:object_r:ffs_config_prop:s0 exact bool
+sys.usb.ffs.io_uring_enabled u:object_r:ffs_config_prop:s0 exact bool
 sys.usb.ffs.max_read   u:object_r:ffs_config_prop:s0 exact int
 sys.usb.ffs.max_write  u:object_r:ffs_config_prop:s0 exact int
 
