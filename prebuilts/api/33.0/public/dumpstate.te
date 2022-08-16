@@ -113,6 +113,9 @@ allow dumpstate {
   sysfs_zram
 }:file r_file_perms;
 
+# Ignore other file access under /sys.
+dontaudit dumpstate sysfs:file r_file_perms;
+
 # Other random bits of data we want to collect
 no_debugfs_restriction(`
   allow dumpstate debugfs:file r_file_perms;

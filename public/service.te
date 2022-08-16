@@ -199,7 +199,6 @@ type runtime_service, system_server_service, service_manager_type;
 type rttmanager_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type samplingprofiler_service, system_server_service, service_manager_type;
 type scheduling_policy_service, system_server_service, service_manager_type;
-type sdk_sandbox_service, app_api_service, system_server_service, service_manager_type;
 type search_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type search_ui_service, app_api_service, system_server_service, service_manager_type;
 type sec_key_att_app_id_provider_service, app_api_service, system_server_service, service_manager_type;
@@ -214,6 +213,7 @@ type slice_service, app_api_service, system_server_service, service_manager_type
 type smartspace_service, app_api_service, system_server_service, service_manager_type;
 type statusbar_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type storagestats_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type sdk_sandbox_service, app_api_service, system_server_service, service_manager_type;
 type system_config_service, system_api_service, system_server_service, service_manager_type;
 type system_server_dumper_service, system_api_service, system_server_service, service_manager_type;
 type system_update_service, system_server_service, service_manager_type;

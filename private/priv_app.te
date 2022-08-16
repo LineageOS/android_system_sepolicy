@@ -107,15 +107,10 @@ allow priv_app {
 }:file r_file_perms;
 
 allow priv_app sysfs_type:dir search;
-# Read access to /sys/class/net/wlan*/address
-r_dir_file(priv_app, sysfs_net)
 # Read access to /sys/block/zram*/mm_stat
 r_dir_file(priv_app, sysfs_zram)
 
 r_dir_file(priv_app, rootfs)
-
-# access the mac address
-allowxperm priv_app self:udp_socket ioctl SIOCGIFHWADDR;
 
 # Allow com.android.vending to communicate with statsd.
 binder_call(priv_app, statsd)
@@ -270,5 +265,26 @@ neverallow priv_app app_data_file:file no_x_file_perms;
 # Do not follow untrusted app provided symlinks
 neverallow priv_app app_data_file:lnk_file { open read getattr };
 
-# Allow reporting off body events to keystore.
+# Do not allow getting permission-protected network information from sysfs.
+neverallow priv_app sysfs_net:file *;
+
+# Restrict socket ioctls. Either 1. disallow privileged ioctls, 2. disallow the
+# ioctl permission, or 3. disallow the socket class.
+neverallowxperm priv_app domain:{ icmp_socket rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
+neverallow priv_app *:{ netlink_route_socket netlink_selinux_socket } ioctl;
+neverallow priv_app *:{
+  socket netlink_socket packet_socket key_socket appletalk_socket
+  netlink_tcpdiag_socket netlink_nflog_socket
+  netlink_xfrm_socket netlink_audit_socket
+  netlink_dnrt_socket netlink_kobject_uevent_socket tun_socket
+  netlink_iscsi_socket netlink_fib_lookup_socket netlink_connector_socket
+  netlink_netfilter_socket netlink_generic_socket netlink_scsitransport_socket
+  netlink_rdma_socket netlink_crypto_socket sctp_socket
+  ax25_socket ipx_socket netrom_socket atmpvc_socket x25_socket rose_socket decnet_socket
+  atmsvc_socket rds_socket irda_socket pppox_socket llc_socket can_socket tipc_socket
+  bluetooth_socket iucv_socket rxrpc_socket isdn_socket phonet_socket ieee802154_socket caif_socket
+  alg_socket nfc_socket kcm_socket qipcrtr_socket smc_socket xdp_socket
+} *;
+
+# Allow priv apps to report off body events to keystore2.
 allow priv_app keystore:keystore2 report_off_body;
