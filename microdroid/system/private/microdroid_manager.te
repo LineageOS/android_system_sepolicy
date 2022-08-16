@@ -36,12 +36,6 @@ domain_auto_trans(microdroid_manager, zipfuse_exec, zipfuse)
 # Let microdroid_manager kernel-log.
 allow microdroid_manager kmsg_device:chr_file w_file_perms;
 
-# Let microdroid_manager read a config file from /mnt/apk (fusefs)
-# TODO(b/188400186) remove the below rule
-userdebug_or_eng(`
-  r_dir_file(microdroid_manager, fuse)
-')
-
 # Let microdroid_manager to create a vsock connection back to the host VM
 allow microdroid_manager self:vsock_socket { create_socket_perms_no_ioctl };
 
