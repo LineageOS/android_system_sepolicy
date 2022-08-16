@@ -56,6 +56,11 @@
       <seinfo value="sdk_sandbox" />
     </signer>
 
+    <!-- Bluetooth key in AOSP -->
+    <signer signature="@BLUETOOTH" >
+      <seinfo value="bluetooth" />
+    </signer>
+
     <!-- Media key in AOSP -->
     <signer signature="@MEDIA" >
       <seinfo value="media" />

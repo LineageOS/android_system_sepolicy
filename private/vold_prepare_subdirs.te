@@ -43,8 +43,8 @@ allow vold_prepare_subdirs {
     fingerprint_vendor_data_file
     iris_vendor_data_file
     rollback_data_file
-    sdk_sandbox_data_file
     storaged_data_file
+    sdk_sandbox_data_file
     system_data_file
     vold_data_file
 }:file { getattr unlink };
