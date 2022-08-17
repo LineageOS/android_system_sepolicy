@@ -12,10 +12,6 @@ app_domain(sdk_sandbox)
 
 # Allow finding services. This is different from ephemeral_app policy.
 # Adding services manually to the allowlist is preferred hence app_api_service is not used.
-# Audit the access to signal that we are still investigating whether sdk_sandbox
-# should have access to audio_service
-# TODO(b/211632068): remove this line
-auditallow sdk_sandbox audio_service:service_manager find;
 
 allow sdk_sandbox activity_service:service_manager find;
 allow sdk_sandbox activity_task_service:service_manager find;
