@@ -795,6 +795,7 @@ ro.boot.bootdevice         u:object_r:bootloader_prop:s0 exact string
 ro.boot.bootloader         u:object_r:bootloader_prop:s0 exact string
 ro.boot.boottime           u:object_r:bootloader_prop:s0 exact string
 ro.boot.console            u:object_r:bootloader_prop:s0 exact string
+ro.boot.ddr_size           u:object_r:bootloader_prop:s0 exact string
 ro.boot.hardware           u:object_r:bootloader_prop:s0 exact string
 ro.boot.hardware.color     u:object_r:bootloader_prop:s0 exact string
 ro.boot.hardware.sku       u:object_r:bootloader_prop:s0 exact string
