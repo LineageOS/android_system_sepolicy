@@ -540,6 +540,22 @@ bluetooth.core.classic.inq_scan_type                 u:object_r:bluetooth_config
 bluetooth.core.classic.inq_scan_interval             u:object_r:bluetooth_config_prop:s0 exact uint
 bluetooth.core.classic.inq_scan_window               u:object_r:bluetooth_config_prop:s0 exact uint
 bluetooth.core.classic.page_timeout                  u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.classic.sniff_max_intervals           u:object_r:bluetooth_config_prop:s0 exact string
+bluetooth.core.classic.sniff_min_intervals           u:object_r:bluetooth_config_prop:s0 exact string
+bluetooth.core.classic.sniff_attempts                u:object_r:bluetooth_config_prop:s0 exact string
+bluetooth.core.classic.sniff_timeouts                u:object_r:bluetooth_config_prop:s0 exact string
+
+bluetooth.core.le.min_connection_interval            u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.le.max_connection_interval            u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.le.connection_latency                 u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.le.connection_supervision_timeout     u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.le.direct_connection_timeout          u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.le.connection_scan_interval_fast      u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.le.connection_scan_window_fast        u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.le.connection_scan_window_2m_fast     u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.le.connection_scan_window_coded_fast  u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.le.connection_scan_interval_slow      u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.le.connection_scan_window_slow        u:object_r:bluetooth_config_prop:s0 exact uint
 
 persist.nfc.debug_enabled                      u:object_r:nfc_prop:s0 exact bool
 
@@ -779,6 +795,7 @@ ro.boot.bootdevice         u:object_r:bootloader_prop:s0 exact string
 ro.boot.bootloader         u:object_r:bootloader_prop:s0 exact string
 ro.boot.boottime           u:object_r:bootloader_prop:s0 exact string
 ro.boot.console            u:object_r:bootloader_prop:s0 exact string
+ro.boot.ddr_size           u:object_r:bootloader_prop:s0 exact string
 ro.boot.hardware           u:object_r:bootloader_prop:s0 exact string
 ro.boot.hardware.color     u:object_r:bootloader_prop:s0 exact string
 ro.boot.hardware.sku       u:object_r:bootloader_prop:s0 exact string
@@ -835,7 +852,7 @@ ro.build.version.security_patch           u:object_r:build_prop:s0 exact string
 
 ro.actionable_compatible_property.enabled u:object_r:build_prop:s0 exact bool
 
-ro.debuggable       u:object_r:build_prop:s0 exact bool
+ro.debuggable       u:object_r:userdebug_or_eng_prop:s0 exact bool
 ro.force.debuggable u:object_r:build_prop:s0 exact bool
 
 ro.treble.enabled u:object_r:build_prop:s0 exact bool
@@ -863,7 +880,7 @@ ro.system.build.version.release_or_codename u:object_r:build_prop:s0 exact strin
 ro.system.build.version.sdk                 u:object_r:build_prop:s0 exact int
 
 ro.adb.secure u:object_r:build_prop:s0 exact bool
-ro.secure     u:object_r:build_prop:s0 exact int
+ro.secure     u:object_r:userdebug_or_eng_prop:s0 exact int
 
 ro.product.system_ext.brand        u:object_r:build_prop:s0 exact string
 ro.product.system_ext.device       u:object_r:build_prop:s0 exact string
