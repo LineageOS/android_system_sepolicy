@@ -122,7 +122,6 @@ type network_watchlist_service, system_server_service, service_manager_type;
 type DockObserver_service, system_server_service, service_manager_type;
 type dreams_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type dropbox_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
-type lowpan_service, system_api_service, system_server_service, service_manager_type;
 type ethernet_service, app_api_service, system_server_service, service_manager_type;
 type biometric_service, app_api_service, system_server_service, service_manager_type;
 type bugreport_service, app_api_service, system_server_service, service_manager_type;
@@ -258,7 +257,6 @@ type wifinl80211_service, service_manager_type;
 type wifiaware_service, app_api_service, system_server_service, service_manager_type;
 type window_service, system_api_service, system_server_service, service_manager_type;
 type inputflinger_service, system_api_service, system_server_service, service_manager_type;
-type wpantund_service, system_api_service, service_manager_type;
 type tethering_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type emergency_affordance_service, system_server_service, service_manager_type;
 
