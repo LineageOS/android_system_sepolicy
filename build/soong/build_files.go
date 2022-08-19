@@ -92,10 +92,10 @@ type sepolicyDir struct {
 
 func (b *buildFiles) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	b.srcs = make(map[string]android.Paths)
-	b.srcs[".reqd_mask"] = b.findSrcsInDirs(ctx, filepath.Join(ctx.ModuleDir(), "reqd_mask"))
-	b.srcs[".plat_public"] = b.findSrcsInDirs(ctx, filepath.Join(ctx.ModuleDir(), "public"))
-	b.srcs[".plat_private"] = b.findSrcsInDirs(ctx, filepath.Join(ctx.ModuleDir(), "private"))
-	b.srcs[".plat_vendor"] = b.findSrcsInDirs(ctx, filepath.Join(ctx.ModuleDir(), "vendor"))
+	b.srcs[".reqd_mask"] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "reqd_mask"))
+	b.srcs[".plat_public"] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "public"))
+	b.srcs[".plat_private"] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "private"))
+	b.srcs[".plat_vendor"] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "vendor"))
 	b.srcs[".system_ext_public"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().SystemExtPublicSepolicyDirs()...)
 	b.srcs[".system_ext_private"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().SystemExtPrivateSepolicyDirs()...)
 	b.srcs[".product_public"] = b.findSrcsInDirs(ctx, ctx.Config().ProductPublicSepolicyDirs()...)
@@ -117,8 +117,8 @@ func (b *buildFiles) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 		// use vendor-supplied plat prebuilts
 		b.srcs[".reqd_mask_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardReqdMaskPolicy()...)
 		b.srcs[".plat_vendor_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardPlatVendorPolicy()...)
-		b.srcs[".plat_public_for_vendor"] = b.findSrcsInDirs(ctx, filepath.Join(ctx.ModuleDir(), "prebuilts", "api", ctx.DeviceConfig().BoardSepolicyVers(), "public"))
-		b.srcs[".plat_private_for_vendor"] = b.findSrcsInDirs(ctx, filepath.Join(ctx.ModuleDir(), "prebuilts", "api", ctx.DeviceConfig().BoardSepolicyVers(), "private"))
+		b.srcs[".plat_public_for_vendor"] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "prebuilts", "api", ctx.DeviceConfig().BoardSepolicyVers(), "public"))
+		b.srcs[".plat_private_for_vendor"] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "prebuilts", "api", ctx.DeviceConfig().BoardSepolicyVers(), "private"))
 		b.srcs[".system_ext_public_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardSystemExtPublicPrebuiltDirs()...)
 		b.srcs[".system_ext_private_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardSystemExtPrivatePrebuiltDirs()...)
 		b.srcs[".product_public_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardProductPublicPrebuiltDirs()...)
@@ -127,8 +127,8 @@ func (b *buildFiles) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 
 	// directories used for compat tests and Treble tests
 	for _, ver := range ctx.DeviceConfig().PlatformSepolicyCompatVersions() {
-		b.srcs[".plat_public_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.ModuleDir(), "prebuilts", "api", ver, "public"))
-		b.srcs[".plat_private_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.ModuleDir(), "prebuilts", "api", ver, "private"))
+		b.srcs[".plat_public_"+ver] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "prebuilts", "api", ver, "public"))
+		b.srcs[".plat_private_"+ver] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "prebuilts", "api", ver, "private"))
 		b.srcs[".system_ext_public_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.DeviceConfig().SystemExtSepolicyPrebuiltApiDir(), "prebuilts", "api", ver, "public"))
 		b.srcs[".system_ext_private_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.DeviceConfig().SystemExtSepolicyPrebuiltApiDir(), "prebuilts", "api", ver, "private"))
 		b.srcs[".product_public_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.DeviceConfig().ProductSepolicyPrebuiltApiDir(), "prebuilts", "api", ver, "public"))
