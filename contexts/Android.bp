@@ -23,6 +23,51 @@ package {
     default_applicable_licenses: ["system_sepolicy_license"],
 }
 
+se_build_files {
+    name: "file_contexts_files",
+    srcs: ["file_contexts"],
+}
+
+se_build_files {
+    name: "file_contexts_asan_files",
+    srcs: ["file_contexts_asan"],
+}
+
+se_build_files {
+    name: "file_contexts_overlayfs_files",
+    srcs: ["file_contexts_overlayfs"],
+}
+
+se_build_files {
+    name: "hwservice_contexts_files",
+    srcs: ["hwservice_contexts"],
+}
+
+se_build_files {
+    name: "property_contexts_files",
+    srcs: ["property_contexts"],
+}
+
+se_build_files {
+    name: "service_contexts_files",
+    srcs: ["service_contexts"],
+}
+
+se_build_files {
+    name: "keystore2_key_contexts_files",
+    srcs: ["keystore2_key_contexts"],
+}
+
+se_build_files {
+    name: "seapp_contexts_files",
+    srcs: ["seapp_contexts"],
+}
+
+se_build_files {
+    name: "vndservice_contexts_files",
+    srcs: ["vndservice_contexts"],
+}
+
 file_contexts {
     name: "plat_file_contexts",
     srcs: [":file_contexts_files{.plat_private}"],
