@@ -23,6 +23,132 @@ package {
     default_applicable_licenses: ["system_sepolicy_license"],
 }
 
+se_build_files {
+    name: "28.0.board.compat.map",
+    srcs: [
+        "compat/28.0/28.0.cil",
+    ],
+}
+
+se_build_files {
+    name: "29.0.board.compat.map",
+    srcs: [
+        "compat/29.0/29.0.cil",
+    ],
+}
+
+se_build_files {
+    name: "30.0.board.compat.map",
+    srcs: [
+        "compat/30.0/30.0.cil",
+    ],
+}
+
+se_build_files {
+    name: "31.0.board.compat.map",
+    srcs: [
+        "compat/31.0/31.0.cil",
+    ],
+}
+
+se_build_files {
+    name: "32.0.board.compat.map",
+    srcs: [
+        "compat/32.0/32.0.cil",
+    ],
+}
+
+se_build_files {
+    name: "33.0.board.compat.map",
+    srcs: [
+        "compat/33.0/33.0.cil",
+    ],
+}
+
+se_build_files {
+    name: "28.0.board.compat.cil",
+    srcs: [
+        "compat/28.0/28.0.compat.cil",
+    ],
+}
+
+se_build_files {
+    name: "29.0.board.compat.cil",
+    srcs: [
+        "compat/29.0/29.0.compat.cil",
+    ],
+}
+
+se_build_files {
+    name: "30.0.board.compat.cil",
+    srcs: [
+        "compat/30.0/30.0.compat.cil",
+    ],
+}
+
+se_build_files {
+    name: "31.0.board.compat.cil",
+    srcs: [
+        "compat/31.0/31.0.compat.cil",
+    ],
+}
+
+se_build_files {
+    name: "32.0.board.compat.cil",
+    srcs: [
+        "compat/32.0/32.0.compat.cil",
+    ],
+}
+
+se_build_files {
+    name: "33.0.board.compat.cil",
+    srcs: [
+        "compat/33.0/33.0.compat.cil",
+    ],
+}
+
+se_build_files {
+    name: "28.0.board.ignore.map",
+    srcs: [
+        "compat/28.0/28.0.ignore.cil",
+    ],
+}
+
+se_build_files {
+    name: "29.0.board.ignore.map",
+    srcs: [
+        "compat/29.0/29.0.ignore.cil",
+    ],
+}
+
+se_build_files {
+    name: "30.0.board.ignore.map",
+    srcs: [
+        "compat/30.0/30.0.ignore.cil",
+    ],
+}
+
+se_build_files {
+    name: "31.0.board.ignore.map",
+    srcs: [
+        "compat/31.0/31.0.ignore.cil",
+    ],
+}
+
+se_build_files {
+    name: "32.0.board.ignore.map",
+    srcs: [
+        "compat/32.0/32.0.ignore.cil",
+    ],
+}
+
+se_build_files {
+    name: "33.0.board.ignore.map",
+    srcs: [
+        "compat/33.0/33.0.ignore.cil",
+    ],
+}
+
 se_cil_compat_map {
     name: "plat_28.0.cil",
     stem: "28.0.cil",
