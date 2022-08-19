@@ -255,3 +255,15 @@ neverallow {
 
 # Only privileged apps may find the incident service
 neverallow all_untrusted_apps incident_service:service_manager find;
+
+# Do not allow untrusted app to read hidden system proprerties
+# We exclude older application for compatibility and we do not include in the exclusions other normally
+# untrusted applications such as mediaprovider due to the specific logging use cases.
+# Context: b/193912100
+neverallow {
+  untrusted_app_all
+  -untrusted_app_25
+  -untrusted_app_27
+  -untrusted_app_29
+  -untrusted_app_30
+} { userdebug_or_eng_prop }:file read;
