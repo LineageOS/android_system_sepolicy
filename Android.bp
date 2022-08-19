@@ -256,6 +256,16 @@ se_build_files {
     srcs: ["technical_debt.cil"],
 }
 
+se_build_files {
+    name: "keys.conf",
+    srcs: ["keys.conf"],
+}
+
+se_build_files {
+    name: "mac_permissions.xml",
+    srcs: ["mac_permissions.xml"],
+}
+
 reqd_mask_policy          = [":se_build_files{.reqd_mask}"]
 plat_public_policy        = [":se_build_files{.plat_public}"]
 plat_private_policy       = [":se_build_files{.plat_private}"]
