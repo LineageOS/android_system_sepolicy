@@ -13,3 +13,6 @@ binder_call(hal_dumpstate_server, servicemanager)
 allow hal_dumpstate shell_data_file:file write;
 # allow reading /proc/interrupts for all hal impls
 allow hal_dumpstate proc_interrupts:file r_file_perms;
+
+# Log fsck results
+r_dir_file(hal_dumpstate, fscklogs)
