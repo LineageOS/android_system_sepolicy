@@ -2,9 +2,6 @@
 type compos, domain, coredomain, microdroid_payload;
 type compos_exec, exec_type, file_type, system_file_type;
 
-# Expose RPC Binder service over vsock
-allow compos self:vsock_socket { create_socket_perms_no_ioctl listen accept };
-
 # Allow using various binder services
 binder_use(compos);
 allow compos authfs_binder_service:service_manager find;
