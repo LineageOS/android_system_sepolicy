@@ -1,0 +1,89 @@
+// Copyright (C) 2022 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// This file contains module definitions for mac_permissions.xml files.
+
+se_build_files {
+    name: "keys.conf",
+    srcs: ["keys.conf"],
+}
+
+se_build_files {
+    name: "mac_permissions.xml",
+    srcs: ["mac_permissions.xml"],
+}
+
+mac_permissions {
+    name: "plat_mac_permissions.xml",
+    keys: [
+        ":keys.conf{.plat_private}",
+        ":keys.conf{.system_ext_private}",
+        ":keys.conf{.product_private}",
+    ],
+    srcs: [":mac_permissions.xml{.plat_private}"],
+}
+
+mac_permissions {
+    name: "system_ext_mac_permissions.xml",
+    keys: [
+        ":keys.conf{.system_ext_private}",
+        ":keys.conf{.reqd_mask}",
+    ],
+    srcs: [
+        ":mac_permissions.xml{.system_ext_private}",
+        ":mac_permissions.xml{.reqd_mask}",
+    ],
+    system_ext_specific: true,
+}
+
+mac_permissions {
+    name: "product_mac_permissions.xml",
+    keys: [
+        ":keys.conf{.product_private}",
+        ":keys.conf{.reqd_mask}",
+    ],
+    srcs: [
+        ":mac_permissions.xml{.product_private}",
+        ":mac_permissions.xml{.reqd_mask}",
+    ],
+    product_specific: true,
+}
+
+mac_permissions {
+    name: "vendor_mac_permissions.xml",
+    keys: [
+        ":keys.conf{.plat_vendor_for_vendor}",
+        ":keys.conf{.vendor}",
+        ":keys.conf{.reqd_mask_for_vendor}",
+    ],
+    srcs: [
+        ":mac_permissions.xml{.plat_vendor_for_vendor}",
+        ":mac_permissions.xml{.vendor}",
+        ":mac_permissions.xml{.reqd_mask_for_vendor}",
+    ],
+    vendor: true,
+}
+
+mac_permissions {
+    name: "odm_mac_permissions.xml",
+    keys: [
+        ":keys.conf{.odm}",
+        ":keys.conf{.reqd_mask_for_vendor}",
+    ],
+    srcs: [
+        ":mac_permissions.xml{.odm}",
+        ":mac_permissions.xml{.reqd_mask_for_vendor}",
+    ],
+    device_specific: true,
+}
