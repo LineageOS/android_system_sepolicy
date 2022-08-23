@@ -33,6 +33,9 @@ domain_auto_trans(microdroid_manager, compos_exec, compos)
 domain_auto_trans(microdroid_manager, apkdmverity_exec, apkdmverity)
 domain_auto_trans(microdroid_manager, zipfuse_exec, zipfuse)
 
+# Allow microdroid_manager to run kexec to load crashkernel
+domain_auto_trans(microdroid_manager, kexec_exec, kexec)
+
 # Let microdroid_manager kernel-log.
 allow microdroid_manager kmsg_device:chr_file w_file_perms;
 
@@ -75,6 +78,10 @@ set_prop(microdroid_manager, powerctl_prop)
 # Allow microdroid_manager to read bootconfig so that it can reject a bootconfig
 # that is different from what is recorded in the instance.img file.
 allow microdroid_manager proc_bootconfig:file r_file_perms;
+
+# microdroid_manager needs to read /proc/cmdline to see if crashkernel= parameter is set
+# or not; if set, it executes kexec to load the crashkernel into memory.
+allow microdroid_manager proc_cmdline:file r_file_perms;
 
 # Allow microdroid_manager to read/write failure serial device
 allow microdroid_manager serial_device:chr_file w_file_perms;
