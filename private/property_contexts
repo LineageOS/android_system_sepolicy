@@ -1422,3 +1422,7 @@ vendor.fingerprint.virtual.operation_authenticate_latency u:object_r:virtual_fin
 vendor.fingerprint.virtual.operation_detect_interaction_latency u:object_r:virtual_fingerprint_hal_prop:s0 exact int
 vendor.fingerprint.virtual.operation_enroll_latency u:object_r:virtual_fingerprint_hal_prop:s0 exact int
 vendor.fingerprint.virtual.operation_authenticate_duration u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+
+# properties for tuner
+ro.tuner.lazyhal    u:object_r:tuner_config_prop:s0 exact bool
+tuner.server.enable u:object_r:tuner_server_ctl_prop:s0 exact bool

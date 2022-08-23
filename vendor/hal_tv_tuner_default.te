@@ -8,3 +8,6 @@ allow hal_tv_tuner_default ion_device:chr_file r_file_perms;
 
 # Access to /dev/dma_heap/system
 allow hal_tv_tuner_default dmabuf_system_heap_device:chr_file r_file_perms;
+
+# Allow servicemanager to notify hal_tv_tuner_default clients status
+binder_use(hal_tv_tuner_default)
