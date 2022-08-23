@@ -1,0 +1,12 @@
+# kexec loads a crashdump kernel into memory using the kexec_file_load syscall.
+type kexec, domain, coredomain;
+type kexec_exec, exec_type, file_type, system_file_type;
+
+# allow kexec to write into /dev/kmsg for logging
+allow kexec kmsg_device:chr_file w_file_perms;
+
+# kexec is launched by microdroid_manager with fork/execvp.
+allow kexec microdroid_manager:fd use;
+
+# allow kexec to have SYS_BOOT
+allow kexec self:capability sys_boot;
