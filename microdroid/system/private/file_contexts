@@ -123,6 +123,7 @@
 /system/bin/apkdmverity          u:object_r:apkdmverity_exec:s0
 /system/bin/authfs               u:object_r:authfs_exec:s0
 /system/bin/authfs_service       u:object_r:authfs_service_exec:s0
+/system/bin/kexec_load           u:object_r:kexec_exec:s0
 /system/etc/cgroups\.json               u:object_r:cgroup_desc_file:s0
 /system/etc/task_profiles/cgroups_[0-9]+\.json               u:object_r:cgroup_desc_api_file:s0
 /system/etc/event-log-tags              u:object_r:system_event_log_tags_file:s0
