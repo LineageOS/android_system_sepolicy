@@ -42,3 +42,6 @@ allow microdroid_payload self:vsock_socket { create_socket_perms_no_ioctl listen
 
 # Payload can read extra apks
 r_dir_file(microdroid_payload, extra_apk_file)
+
+# Payload can read /proc/meminfo.
+allow microdroid_payload proc_meminfo:file r_file_perms;
