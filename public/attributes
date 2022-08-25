@@ -7,9 +7,6 @@
 # in tools/checkfc.c
 attribute dev_type;
 
-# TODO(b/202520796) Remove this attribute once the sc-dev branch stops using it.
-attribute bdev_type;
-
 # Attribute for all bpf filesystem subtypes.
 attribute bpffs_type;
 
@@ -73,9 +70,6 @@ expandattribute proc_net_type true;
 
 # All types used for sysfs files.
 attribute sysfs_type;
-
-# TODO(b/202520796) Remove this attribute once the sc-dev branch stops using it.
-attribute sysfs_block_type;
 
 # All types use for debugfs files.
 attribute debugfs_type;
