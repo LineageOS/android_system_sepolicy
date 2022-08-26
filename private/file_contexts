@@ -333,7 +333,6 @@
 /system/bin/profcollectd         u:object_r:profcollectd_exec:s0
 /system/bin/profcollectctl       u:object_r:profcollectd_exec:s0
 /system/bin/storaged             u:object_r:storaged_exec:s0
-/system/bin/wpantund             u:object_r:wpantund_exec:s0
 /system/bin/virtual_touchpad     u:object_r:virtual_touchpad_exec:s0
 /system/bin/hw/android\.frameworks\.bufferhub@1\.0-service    u:object_r:fwk_bufferhub_exec:s0
 /system/bin/hw/android\.hidl\.allocator@1\.0-service          u:object_r:hal_allocator_default_exec:s0
