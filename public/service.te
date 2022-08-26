@@ -299,6 +299,7 @@ type hal_sensors_service, protected_service, hal_service_type, service_manager_t
 type hal_secureclock_service, protected_service, hal_service_type, service_manager_type;
 type hal_sharedsecret_service, protected_service, hal_service_type, service_manager_type;
 type hal_system_suspend_service, protected_service, hal_service_type, service_manager_type;
+type hal_tv_input_service, protected_service, hal_service_type, service_manager_type;
 type hal_tv_tuner_service, protected_service, hal_service_type, service_manager_type;
 type hal_usb_service, protected_service, hal_service_type, service_manager_type;
 type hal_uwb_service, protected_service, hal_service_type, service_manager_type;
