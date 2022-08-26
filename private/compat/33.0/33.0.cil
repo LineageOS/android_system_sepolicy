@@ -10,9 +10,13 @@
 (type iorapd_exec)
 (type iorapd_service)
 (type iorapd_tmpfs)
+(type lowpan_service)
 (type timezone_service)
 (type tzdatacheck)
 (type tzdatacheck_exec)
+(type wpantund)
+(type wpantund_exec)
+(type wpantund_service)
 (type zoneinfo_data_file)
 
 (expandtypeattribute (DockObserver_service_33_0) true)
