@@ -61,6 +61,7 @@ android.hardware.security.sharedsecret.ISharedSecret/default             u:objec
 android.hardware.sensors.ISensors/default                            u:object_r:hal_sensors_service:s0
 android.hardware.soundtrigger3.ISoundTriggerHw/default               u:object_r:hal_audio_service:s0
 android.hardware.tv.tuner.ITuner/default                             u:object_r:hal_tv_tuner_service:s0
+android.hardware.tv.input.ITvInput/default                           u:object_r:hal_tv_input_service:s0
 android.hardware.usb.IUsb/default                                    u:object_r:hal_usb_service:s0
 android.hardware.uwb.IUwb/default                                    u:object_r:hal_uwb_service:s0
 android.hardware.vibrator.IVibrator/default                          u:object_r:hal_vibrator_service:s0
@@ -178,7 +179,6 @@ econtroller                               u:object_r:radio_service:s0
 emergency_affordance                      u:object_r:emergency_affordance_service:s0
 euicc_card_controller                     u:object_r:radio_service:s0
 external_vibrator_service                 u:object_r:external_vibrator_service:s0
-lowpan                                    u:object_r:lowpan_service:s0
 ethernet                                  u:object_r:ethernet_service:s0
 face                                      u:object_r:face_service:s0
 file_integrity                            u:object_r:file_integrity_service:s0

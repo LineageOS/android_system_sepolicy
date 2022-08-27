@@ -300,7 +300,6 @@ binder_call(system_server, update_engine)
 binder_call(system_server, vold)
 binder_call(system_server, logd)
 binder_call(system_server, wificond)
-binder_call(system_server, wpantund)
 binder_service(system_server)
 
 # Use HALs
