@@ -1577,7 +1577,8 @@
 (typeattributeset proc_29_0
   ( proc
     proc_kpageflags
-    proc_lowmemorykiller))
+    proc_lowmemorykiller
+    proc_watermark_scale_factor))
 (typeattributeset proc_abi_29_0 (proc_abi))
 (typeattributeset proc_asound_29_0 (proc_asound))
 (typeattributeset proc_bluetooth_writable_29_0 (proc_bluetooth_writable))
