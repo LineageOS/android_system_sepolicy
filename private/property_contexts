@@ -739,10 +739,6 @@ init.svc.surfaceflinger u:object_r:init_service_status_prop:s0 exact string
 init.svc.tombstoned     u:object_r:init_service_status_prop:s0 exact string
 init.svc.zygote         u:object_r:init_service_status_prop:s0 exact string
 
-# apexd reads this property to check if init has done with ctl.apex_* messages
-# This should be the form of init.apex.<apex_name>.
-init.apex. u:object_r:init_apex_status_private_prop:s0 prefix enum loaded unloaded
-
 libc.debug.malloc.options u:object_r:libc_debug_prop:s0 exact string
 libc.debug.malloc.program u:object_r:libc_debug_prop:s0 exact string
 libc.debug.hooks.enable   u:object_r:libc_debug_prop:s0 exact string
