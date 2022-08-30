@@ -16,6 +16,23 @@
       "message": "Can probs be dropped, ATV has actual ADB wifi now afaict - the only notable \"we may still need this is Aaron testing ethernet ADB (important, didn\u0027t work on 11).",
       "revId": "89a95dfe5d84c690b0ef1a8504ae950e1f5458dc",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47b6f565_76c6332b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14048
+      },
+      "writtenOn": "2022-08-30T04:45:26Z",
+      "side": 1,
+      "message": "Don\u0027t close it yet. The lineage atv policy still adds the rule, so this is necessary to compile atm. I will revisit once atv boots enough to test adb over network.",
+      "revId": "89a95dfe5d84c690b0ef1a8504ae950e1f5458dc",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
