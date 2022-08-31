@@ -1974,6 +1974,7 @@
   ( proc
     proc_bpf
     proc_cpu_alignment
+    proc_watermark_scale_factor
 ))
 (typeattributeset proc_abi_31_0 (proc_abi))
 (typeattributeset proc_asound_31_0 (proc_asound))
