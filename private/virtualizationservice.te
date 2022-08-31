@@ -82,3 +82,9 @@ neverallow {
   -init
   -virtualizationservice
 } virtualizationservice_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+  -virtualizationservice
+} virtualizationservice_data_file:file { open create };
