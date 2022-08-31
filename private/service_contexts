@@ -298,6 +298,8 @@ recovery                                  u:object_r:recovery_service:s0
 resolver                                  u:object_r:resolver_service:s0
 resources                                 u:object_r:resources_manager_service:s0
 restrictions                              u:object_r:restrictions_service:s0
+rkpd.registrar                            u:object_r:rkpd_registrar_service:s0
+rkpd.refresh                              u:object_r:rkpd_refresh_service:s0
 role                                      u:object_r:role_service:s0
 rollback                                  u:object_r:rollback_service:s0
 rttmanager                                u:object_r:rttmanager_service:s0
