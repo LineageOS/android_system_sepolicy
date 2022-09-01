@@ -199,7 +199,7 @@ allow { virtualizationservice crosvm } $1:fifo_file write;
 # communicate with the VM that it created. Notice that we do not grant
 # permission to create a vsock; the client can only connect to VMs
 # that it owns.
-allow $1 virtualizationservice:vsock_socket { getattr read write };
+allow $1 virtualizationservice:vsock_socket { getattr getopt read write };
 # Allow client to inspect hypervisor capabilities
 get_prop($1, hypervisor_prop)
 # Allow client to read (but not open) the crashdump provided by virtualizationservice
