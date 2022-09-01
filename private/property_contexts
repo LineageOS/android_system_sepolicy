@@ -284,6 +284,9 @@ persist.apexd.          u:object_r:apexd_prop:s0
 persist.vendor.apex.    u:object_r:apexd_select_prop:s0
 ro.boot.vendor.apex.    u:object_r:apexd_select_prop:s0
 
+# Property that indicates if an apex is ready: apex.<apex-name>.ready
+apex.                   u:object_r:apex_ready_prop:s0 prefix bool
+
 bpf.progs_loaded        u:object_r:bpf_progs_loaded_prop:s0 exact bool
 
 gsid.                   u:object_r:gsid_prop:s0

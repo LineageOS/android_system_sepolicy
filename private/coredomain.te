@@ -1,3 +1,4 @@
+get_prop(coredomain, apex_ready_prop)
 get_prop(coredomain, boot_status_prop)
 get_prop(coredomain, camera_config_prop)
 get_prop(coredomain, dalvik_config_prop)
