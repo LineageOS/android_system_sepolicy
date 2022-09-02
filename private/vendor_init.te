@@ -12,6 +12,9 @@ set_prop(vendor_init, adbd_config_prop)
 # Let vendor_init react to AVF device config changes
 get_prop(vendor_init, device_config_virtualization_framework_native_prop)
 
+# Let vendor_init use apex.<name>.ready to start services from vendor APEX
+get_prop(vendor_init, apex_ready_prop)
+
 # chown/chmod on devices, e.g. /dev/ttyHS0
 allow vendor_init {
   dev_type
