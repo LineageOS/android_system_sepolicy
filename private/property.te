@@ -47,7 +47,6 @@ system_internal_prop(ctl_mediatranscoding_prop)
 system_internal_prop(ctl_odsign_prop)
 system_internal_prop(virtualizationservice_prop)
 system_internal_prop(ctl_apex_load_prop)
-system_internal_prop(init_apex_status_private_prop)
 
 # Properties which can't be written outside system
 system_restricted_prop(device_config_virtualization_framework_native_prop)
@@ -633,11 +632,6 @@ neverallow {
 neverallow {
   domain
   -init
-} init_apex_status_private_prop:property_service set;
-
-neverallow {
-  domain
-  -init
   -apexd
 } ctl_apex_load_prop:property_service set;
 
@@ -647,7 +641,7 @@ neverallow {
   -init
   -dumpstate
   -apexd
-} {init_apex_status_private_prop ctl_apex_load_prop}:file no_rw_file_perms;
+} ctl_apex_load_prop:file no_rw_file_perms;
 
 neverallow {
   # Only allow init and profcollectd to access profcollectd_node_id_prop
