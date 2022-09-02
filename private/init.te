@@ -11,6 +11,7 @@ domain_auto_trans(init, bpfloader_exec, bpfloader)
 recovery_only(`
   # Files in recovery image are labeled as rootfs.
   domain_trans(init, rootfs, adbd)
+  domain_trans(init, rootfs, hal_bootctl_server)
   domain_trans(init, rootfs, charger)
   domain_trans(init, rootfs, fastbootd)
   domain_trans(init, rootfs, hal_health_server)
