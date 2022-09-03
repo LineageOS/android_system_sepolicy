@@ -133,7 +133,6 @@ set_prop(apexd, ctl_apexd_prop)
 
 # Allow apexd to send control messages to load/unload apex from init
 set_prop(apexd, ctl_apex_load_prop)
-get_prop(apexd, init_apex_status_private_prop)
 
 # Find the vold service, and call into vold to manage FS checkpoints
 allow apexd vold_service:service_manager find;
@@ -210,3 +209,6 @@ allow apexd proc_filesystems:file r_file_perms;
 
 # Allow calling derive_classpath to gather BCP information for staged sessions
 domain_auto_trans(apexd, derive_classpath_exec, apexd_derive_classpath);
+
+# Allow set apex ready property
+set_prop(apexd, apex_ready_prop)
