@@ -53,3 +53,5 @@ neverallow {
   -snapuserd
   -init
 } snapuserd_prop:property_service set;
+
+allow snapuserd self:anon_inode create_file_perms;

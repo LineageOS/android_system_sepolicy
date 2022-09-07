@@ -46,3 +46,8 @@ recovery_only(`
   # Needed for reading boot properties.
   allow fastbootd proc_bootconfig:file r_file_perms;
 ')
+
+# io_uring_setup needs ipc_lock and permission to operate anon inodes
+allow fastbootd self:capability ipc_lock;
+
+allow fastbootd self:anon_inode create_file_perms;
