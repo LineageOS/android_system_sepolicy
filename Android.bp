@@ -224,12 +224,13 @@ se_policy_cil {
 }
 
 se_policy_cil {
-    name: "apex_sepolicy-decompiled.cil",
+    name: "apex_sepolicy-33.decompiled.cil",
     src: ":precompiled_sepolicy",
     decompile_binary: true,
     filter_out: [":decompiled_sepolicy-without_apex.cil"],
     additional_cil_files: ["com.android.sepolicy/33/definitions/definitions.cil"],
     secilc_check: false,
+    stem: "apex_sepolicy.decompiled.cil",
 }
 
 // userdebug_plat_policy.conf - the userdebug version plat_sepolicy.cil
