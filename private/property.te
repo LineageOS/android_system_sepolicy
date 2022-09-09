@@ -18,6 +18,7 @@ system_internal_prop(fastbootd_protocol_prop)
 system_internal_prop(gsid_prop)
 system_internal_prop(init_perf_lsm_hooks_prop)
 system_internal_prop(init_service_status_private_prop)
+system_internal_prop(init_storage_prop)
 system_internal_prop(init_svc_debug_prop)
 system_internal_prop(keystore_crash_prop)
 system_internal_prop(keystore_listen_prop)
@@ -146,6 +147,12 @@ dontaudit domain {
   ctl_mdnsd_prop
   ctl_rildaemon_prop
 }:property_service set;
+
+neverallow {
+  domain
+  -init
+  -extra_free_kbytes
+} init_storage_prop:property_service set;
 
 neverallow {
   domain
