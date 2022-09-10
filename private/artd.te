@@ -77,3 +77,8 @@ domain_auto_trans(artd, dex2oat_exec, dex2oat)
 
 # Allow sending sigkill to subprocesses.
 allow artd { profman dex2oat }:process sigkill;
+
+# Allow reading process info (/proc/<pid>/...).
+# This is needed for getting CPU time and wall time spent on subprocesses.
+r_dir_file(artd, profman);
+r_dir_file(artd, dex2oat);

@@ -1147,6 +1147,9 @@ ro.kernel.qemu             u:object_r:exported_default_prop:s0 exact bool
 ro.kernel.qemu.            u:object_r:exported_default_prop:s0
 ro.kernel.android.bootanim u:object_r:exported_default_prop:s0 exact int
 
+# This property is used by init to store the original value or /proc/sys/vm/watermark_scale_factor
+ro.kernel.watermark_scale_factor          u:object_r:init_storage_prop:s0 exact int
+
 ro.oem.key1 u:object_r:exported_default_prop:s0 exact string
 
 ro.product.vndk.version u:object_r:vndk_prop:s0 exact string
