@@ -324,6 +324,7 @@ LOCAL_REQUIRED_MODULES += \
     plat_service_contexts_test \
     plat_hwservice_contexts \
     plat_hwservice_contexts_test \
+    fuzzer_bindings_test \
     plat_bug_map \
     searchpolicy \
 
