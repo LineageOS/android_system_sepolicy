@@ -70,3 +70,15 @@ sepolicy-check
 sepolicy-analyze
     A tool for performing various kinds of analysis on a sepolicy
     file.
+
+fuzzer_bindings_check
+    Tool to check if fuzzer is added for new services. it is used by fuzzer_bindings_test soong module internally.
+    Error will be generated if there is no fuzzer binding present for service added in service_contexts in
+    system/sepolicy/soong/build/service_fuzzer_bindings.go
+
+    Usage:
+    fuzzer_bindings_check.py -s [SRCs...] -b /path/to/binding.json
+
+    -s [SRCs...]                         list of service_contexts files. Tool will check if there is fuzzer for every service
+                                         in the context file.
+    -b /path/to/binding.json             Path to json file containing "service":[fuzzers...] bindings.
