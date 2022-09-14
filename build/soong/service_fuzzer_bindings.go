@@ -23,6 +23,7 @@ var (
 		"android.hardware.automotive.evs.IEvsEnumerator/hw/0":                     []string{},
 		"android.hardware.boot.IBootControl/default":                              []string{},
 		"android.hardware.automotive.evs.IEvsEnumerator/hw/1":                     []string{},
+		"android.hardware.automotive.remoteaccess.IRemoteAccess/default":          []string{},
 		"android.hardware.automotive.vehicle.IVehicle/default":                    []string{},
 		"android.hardware.automotive.audiocontrol.IAudioControl/default":          []string{},
 		"android.hardware.biometrics.face.IFace/default":                          []string{},
