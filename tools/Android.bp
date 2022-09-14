@@ -77,3 +77,8 @@ python_binary_host {
     libs: ["mini_cil_parser", "pysepolwrap"],
     data: [":libsepolwrap"],
 }
+
+python_binary_host {
+    name: "fuzzer_bindings_check",
+    srcs: ["fuzzer_bindings_check.py"],
+}
