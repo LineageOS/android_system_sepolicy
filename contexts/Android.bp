@@ -520,3 +520,8 @@ vndservice_contexts_test {
     srcs: [":vndservice_contexts"],
     sepolicy: ":precompiled_sepolicy",
 }
+
+fuzzer_bindings_test {
+    name: "fuzzer_bindings_test",
+    srcs: [":plat_service_contexts"],
+}
