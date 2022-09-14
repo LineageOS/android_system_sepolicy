@@ -48,7 +48,7 @@ def check_fuzzer_exists(context_file, bindings):
        # First will be service name and second will be its label.
        service_name = tokens[0]
        if service_name not in bindings:
-         sys.exit("\nerror: Service {0} is being added, but we have no fuzzer on file for it. "
+         sys.exit("\nerror: Service '{0}' is being added, but we have no fuzzer on file for it. "
                   "Fuzzers are listed at $ANDROID_BUILD_TOP/system/sepolicy/build/soong/service_fuzzer_bindings.go \n\n"
                   "NOTE: automatic service fuzzers are currently not supported in Java (b/232439254) "
                   "and Rust (b/164122727). In this case, please ignore this for now. \n\n"
@@ -57,8 +57,9 @@ def check_fuzzer_exists(context_file, bindings):
                   "by adding these things: \n"
                   "- a cc_fuzz Android.bp entry \n"
                   "- a main file that constructs your service and calls 'fuzzService' \n\n"
-                  "An example can be found here: \n "
-                  "$ANDROID_BUILD_TOP/hardware/interfaces/vibrator/aidl/default/fuzzer.cpp \n\n"
+                  "An examples can be found here: \n"
+                  "- $ANDROID_BUILD_TOP/hardware/interfaces/vibrator/aidl/default/fuzzer.cpp \n"
+                  "- https://source.android.com/docs/core/architecture/aidl/aidl-fuzzing \n\n"
                   "This is only ~30 lines of configuration. It requires dependency injection "
                   "for your service which is a good practice, and (in AOSP) you will get bugs "
                   "automatically filed on you. You will find out about issues without needing "
