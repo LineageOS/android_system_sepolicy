@@ -159,6 +159,7 @@ neverallow app_zygote {
 neverallow app_zygote {
   domain
   -app_zygote
+  -prng_seeder
   userdebug_or_eng(`-su')
   userdebug_or_eng(`-heapprofd')
   userdebug_or_eng(`-traced_perf')
