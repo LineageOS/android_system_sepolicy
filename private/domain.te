@@ -112,6 +112,9 @@ allow domain linkerconfig_file:file r_file_perms;
 # Allow all processes to check for the existence of the boringssl_self_test_marker files.
 allow domain boringssl_self_test_marker:dir search;
 
+# Allow all processes to connect to PRNG seeder daemon.
+unix_socket_connect(domain, prng_seeder, prng_seeder)
+
 # No domains other than a select few can access the misc_block_device. This
 # block device is reserved for OTA use.
 # Do not assert this rule on userdebug/eng builds, due to some devices using
@@ -496,6 +499,7 @@ full_treble_only(`
     -logd # Logging by writing to logd Unix domain socket is public API
     -netd # netdomain needs this
     -mdnsd # netdomain needs this
+    -prng_seeder # Any process using libcrypto needs this
     userdebug_or_eng(`-su') # communications with su are permitted only on userdebug or eng builds
     -init
     -tombstoned # linker to tombstoned
