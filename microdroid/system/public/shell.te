@@ -5,10 +5,6 @@ type shell_exec, system_file_type, exec_type, file_type;
 # Create and use network sockets.
 net_domain(shell)
 
-# logcat
-read_logd(shell)
-control_logd(shell)
-
 # Root fs.
 allow shell rootfs:dir r_dir_perms;
 
