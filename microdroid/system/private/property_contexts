@@ -40,9 +40,6 @@ sys.powerctl            u:object_r:powerctl_prop:s0
 
 service.adb.root u:object_r:shell_prop:s0 exact bool
 
-ro.logd.kernel u:object_r:logd_prop:s0 exact bool
-logd.ready     u:object_r:logd_prop:s0 exact bool
-
 dev.bootcomplete   u:object_r:boot_status_prop:s0 exact bool
 
 ro.config.low_ram u:object_r:build_prop:s0 exact bool
@@ -56,8 +53,6 @@ ro.boottime.init.cold_boot_wait       u:object_r:boottime_prop:s0 exact int
 ro.boottime.init.first_stage          u:object_r:boottime_prop:s0 exact int
 ro.boottime.init.modules              u:object_r:boottime_prop:s0 exact int
 ro.boottime.init.selinux              u:object_r:boottime_prop:s0 exact int
-ro.boottime.logd                      u:object_r:boottime_prop:s0 exact int
-ro.boottime.logd-reinit               u:object_r:boottime_prop:s0 exact int
 ro.boottime.microdroid_manager        u:object_r:boottime_prop:s0 exact int
 ro.boottime.servicemanager            u:object_r:boottime_prop:s0 exact int
 ro.boottime.tombstoned                u:object_r:boottime_prop:s0 exact int
@@ -77,8 +72,6 @@ persist.sys.usb.config u:object_r:usb_control_prop:s0 exact string
 init.svc.apexd-vm           u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.apkdmverity        u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.authfs_service     u:object_r:init_service_status_private_prop:s0 exact string
-init.svc.logd               u:object_r:init_service_status_private_prop:s0 exact string
-init.svc.logd-reinit        u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.microdroid_manager u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.servicemanager     u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.ueventd            u:object_r:init_service_status_private_prop:s0 exact string
@@ -93,7 +86,6 @@ ro.boot.boot_devices               u:object_r:bootloader_prop:s0 exact string
 ro.boot.first_stage_console        u:object_r:bootloader_prop:s0 exact string
 ro.boot.force_normal_boot          u:object_r:bootloader_prop:s0 exact string
 ro.boot.hardware                   u:object_r:bootloader_prop:s0 exact string
-ro.boot.logd.enabled               u:object_r:bootloader_prop:s0 exact bool
 ro.boot.microdroid.app_debuggable  u:object_r:bootloader_prop:s0 exact bool
 ro.boot.microdroid.debuggable      u:object_r:bootloader_prop:s0 exact bool
 ro.boot.slot_suffix                u:object_r:bootloader_prop:s0 exact string
@@ -140,6 +132,8 @@ ro.gsid.image_running u:object_r:gsid_prop:s0 exact bool
 service.adb.listen_addrs u:object_r:adbd_prop:s0 exact string
 
 persist.adb.wifi.guid  u:object_r:adbd_prop:s0 exact string
+
+ro.log.file_logger.path    u:object_r:log_prop:s0 exact string
 
 log.tag          u:object_r:log_tag_prop:s0 prefix
 persist.log.tag  u:object_r:log_tag_prop:s0 prefix
