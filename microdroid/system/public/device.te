@@ -29,6 +29,7 @@ type ram_device, dev_type;
 type random_device, dev_type;
 type rtc_device, dev_type;
 type serial_device, dev_type;
+type log_device, dev_type;
 type socket_device, dev_type;
 type tty_device, dev_type;
 type tun_device, dev_type;

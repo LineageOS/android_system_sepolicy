@@ -53,7 +53,7 @@
 /dev/fuse		u:object_r:fuse_device:s0
 /dev/hvc0               u:object_r:serial_device:s0
 /dev/hvc1               u:object_r:serial_device:s0
-/dev/hvc2               u:object_r:serial_device:s0
+/dev/hvc2               u:object_r:log_device:s0
 /dev/hw_random		u:object_r:hw_random_device:s0
 /dev/hwbinder		u:object_r:hwbinder_device:s0
 /dev/loop-control	u:object_r:loop_control_device:s0
@@ -68,9 +68,6 @@
 /dev/rtc[0-9]      u:object_r:rtc_device:s0
 /dev/socket(/.*)?	u:object_r:socket_device:s0
 /dev/socket/adbd	u:object_r:adbd_socket:s0
-/dev/socket/logd	u:object_r:logd_socket:s0
-/dev/socket/logdr	u:object_r:logdr_socket:s0
-/dev/socket/logdw	u:object_r:logdw_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
 /dev/socket/statsdw	u:object_r:statsdw_socket:s0
 /dev/socket/tombstoned_crash u:object_r:tombstoned_crash_socket:s0

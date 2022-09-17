@@ -28,10 +28,6 @@ unix_socket_connect(crash_dump, tombstoned_crash, tombstoned)
 # Append to tombstone files.
 allow crash_dump tombstone_data_file:file { append getattr };
 
-# crash_dump writes out logcat logs at the bottom of tombstones,
-# which is super useful in some cases.
-unix_socket_connect(crash_dump, logdr, logd)
-
 # Crash dump is not intended to access the following files. Since these
 # are WAI, suppress the denials to clean up the logs.
 dontaudit crash_dump {
@@ -56,7 +52,6 @@ allow crash_dump {
   -crash_dump
   -init
   -kernel
-  -logd
   -no_crash_dump_domain
   -ueventd
   -vendor_init
@@ -65,7 +60,6 @@ allow crash_dump {
 userdebug_or_eng(`
   allow crash_dump {
     apexd
-    logd
   }:process { ptrace signal sigchld sigstop sigkill };
 ')
 
