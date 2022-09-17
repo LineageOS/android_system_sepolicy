@@ -15,10 +15,6 @@ allow statsd shell_exec:file rx_file_perms;
 allow statsd system_file:file execute_no_trans;
 allow statsd toolbox_exec:file rx_file_perms;
 
-# Allow logd access.
-read_logd(statsd)
-control_logd(statsd)
-
 # Allow 'adb shell cmd' to upload configs and download output.
 allow statsd adbd:fd use;
 allow statsd adbd:unix_stream_socket { getattr read write };
