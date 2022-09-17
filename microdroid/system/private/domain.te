@@ -73,8 +73,9 @@ dontaudit domain property_type:file audit_access;
 
 allow domain init:key search;
 
-# logd access
-unix_socket_send(domain, logdw, logd)
+# Everyone can send log and read ro.log.file_logger.* properties
+allow domain log_device:chr_file ra_file_perms;
+get_prop(domain, log_prop)
 
 # Directory/link file access for path resolution.
 allow domain {
@@ -228,7 +229,6 @@ get_prop(domain, fingerprint_prop)
 get_prop(domain, init_service_status_prop)
 get_prop(domain, libc_debug_prop)
 get_prop(domain, log_tag_prop)
-get_prop(domain, logd_prop)
 get_prop(domain, property_service_version_prop)
 
 allow domain linkerconfig_file:dir search;
