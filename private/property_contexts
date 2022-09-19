@@ -43,7 +43,7 @@ ro.khungtask.           u:object_r:llkd_prop:s0
 log.                    u:object_r:log_prop:s0
 log.tag                 u:object_r:log_tag_prop:s0
 log.tag.WifiHAL         u:object_r:wifi_log_prop:s0
-ro.log.file_logger.path    u:object_r:log_prop:s0 exact string
+ro.log.file_logger.path    u:object_r:log_file_logger_prop:s0 exact string
 security.perf_harden    u:object_r:shell_prop:s0
 persist.simpleperf.profile_app_uid              u:object_r:shell_prop:s0
 persist.simpleperf.profile_app_expiration_time  u:object_r:shell_prop:s0
