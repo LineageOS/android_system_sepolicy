@@ -117,6 +117,10 @@ allow domain linkerconfig_file:file r_file_perms;
 # Allow all processes to check for the existence of the boringssl_self_test_marker files.
 allow domain boringssl_self_test_marker:dir search;
 
+# Allow all processes to read the file_logger property that liblog uses to check if file_logger
+# should be used.
+get_prop(domain, log_file_logger_prop)
+
 # No domains other than a select few can access the misc_block_device. This
 # block device is reserved for OTA use.
 # Do not assert this rule on userdebug/eng builds, due to some devices using
