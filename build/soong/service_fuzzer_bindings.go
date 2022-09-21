@@ -168,6 +168,7 @@ var (
 		"country_detector":                                                []string{},
 		"coverage":                                                        []string{},
 		"cpuinfo":                                                         []string{},
+		"credential":                                                      []string{},
 		"crossprofileapps":                                                []string{},
 		"dataloader_manager":                                              []string{},
 		"dbinfo":                                                          []string{},
