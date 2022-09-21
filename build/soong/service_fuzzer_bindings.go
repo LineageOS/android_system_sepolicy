@@ -34,6 +34,7 @@ var (
 		"android.hardware.drm.IDrmFactory/clearkey":                               []string{},
 		"android.hardware.drm.ICryptoFactory/clearkey":                            []string{},
 		"android.hardware.dumpstate.IDumpstateDevice/default":                     []string{},
+		"android.hardware.gatekeeper.IGatekeeper/default":                         []string{},
 		"android.hardware.gnss.IGnss/default":                                     []string{},
 		"android.hardware.graphics.allocator.IAllocator/default":                  []string{},
 		"android.hardware.graphics.composer3.IComposer/default":                   []string{},
