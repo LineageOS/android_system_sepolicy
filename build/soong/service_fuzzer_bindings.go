@@ -29,6 +29,8 @@ var (
 		"android.hardware.biometrics.fingerprint.IFingerprint/default":            []string{},
 		"android.hardware.biometrics.fingerprint.IFingerprint/virtual":            []string{},
 		"android.hardware.bluetooth.audio.IBluetoothAudioProviderFactory/default": []string{},
+		"android.hardware.broadcastradio.IBroadcastRadio/amfm":                    []string{},
+		"android.hardware.broadcastradio.IBroadcastRadio/dab":                     []string{},
 		"android.hardware.camera.provider.ICameraProvider/internal/0":             []string{},
 		"android.hardware.contexthub.IContextHub/default":                         []string{},
 		"android.hardware.drm.IDrmFactory/clearkey":                               []string{},
