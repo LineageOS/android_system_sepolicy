@@ -208,6 +208,7 @@ var (
 		"hardware":                     []string{},
 		"hardware_properties":          []string{},
 		"hdmi_control":                 []string{},
+		"healthconnect":                []string{},
 		"ions":                         []string{},
 		"idmap":                        []string{},
 		"incident":                     []string{},
