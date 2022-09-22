@@ -270,6 +270,7 @@ type hal_audio_service, protected_service, hal_service_type, service_manager_typ
 type hal_audiocontrol_service, hal_service_type, service_manager_type;
 type hal_authsecret_service, protected_service, hal_service_type, service_manager_type;
 type hal_bootctl_service, protected_service, hal_service_type, service_manager_type;
+type hal_broadcastradio_service, protected_service, hal_service_type, service_manager_type;
 type hal_camera_service, protected_service, hal_service_type, service_manager_type;
 type hal_contexthub_service, protected_service, hal_service_type, service_manager_type;
 type hal_dice_service, protected_service, hal_service_type, service_manager_type;
