@@ -149,6 +149,7 @@
 /dev/socket/pdx/system/vr/display/manager	u:object_r:pdx_display_manager_endpoint_socket:s0
 /dev/socket/pdx/system/vr/display/screenshot	u:object_r:pdx_display_screenshot_endpoint_socket:s0
 /dev/socket/pdx/system/vr/display/vsync	u:object_r:pdx_display_vsync_endpoint_socket:s0
+/dev/socket/prng_seeder	u:object_r:prng_seeder_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
 /dev/socket/racoon	u:object_r:racoon_socket:s0
 /dev/socket/recovery    u:object_r:recovery_socket:s0
@@ -220,6 +221,7 @@
 /system/bin/bcc                 u:object_r:rs_exec:s0
 /system/bin/blank_screen	u:object_r:blank_screen_exec:s0
 /system/bin/boringssl_self_test(32|64) u:object_r:boringssl_self_test_exec:s0
+/system/bin/prng_seeder		u:object_r:prng_seeder_exec:s0
 /system/bin/charger		u:object_r:charger_exec:s0
 /system/bin/canhalconfigurator  u:object_r:canhalconfigurator_exec:s0
 /system/bin/e2fsdroid		u:object_r:e2fs_exec:s0
