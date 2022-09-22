@@ -1,0 +1,6 @@
+type hal_remoteaccess_default, domain;
+hal_server_domain(hal_remoteaccess_default, hal_remoteaccess)
+
+# may be started by init
+type hal_remoteaccess_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_remoteaccess_default)
