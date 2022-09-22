@@ -11,6 +11,8 @@ android.hardware.biometrics.face.IFace/default                       u:object_r:
 android.hardware.biometrics.fingerprint.IFingerprint/default         u:object_r:hal_fingerprint_service:s0
 android.hardware.biometrics.fingerprint.IFingerprint/virtual         u:object_r:hal_fingerprint_service:s0
 android.hardware.bluetooth.audio.IBluetoothAudioProviderFactory/default u:object_r:hal_audio_service:s0
+android.hardware.broadcastradio.IBroadcastRadio/amfm                 u:object_r:hal_broadcastradio_service:s0
+android.hardware.broadcastradio.IBroadcastRadio/dab                  u:object_r:hal_broadcastradio_service:s0
 # The instance here is internal/0 following naming convention for ICameraProvider.
 # It advertises internal camera devices.
 android.hardware.camera.provider.ICameraProvider/internal/0          u:object_r:hal_camera_service:s0
