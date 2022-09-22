@@ -99,6 +99,13 @@ filegroup {
 }
 
 filegroup {
+  name: "com.android.federatedcompute-file_contexts",
+  srcs: [
+    "com.android.federatedcompute-file_contexts",
+  ],
+}
+
+filegroup {
   name: "com.android.geotz-file_contexts",
   srcs: [
     "com.android.geotz-file_contexts",
