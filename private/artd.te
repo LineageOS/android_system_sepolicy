@@ -1,5 +1,6 @@
 # ART service daemon.
 typeattribute artd coredomain;
+typeattribute artd mlstrustedsubject;
 type artd_exec, system_file_type, exec_type, file_type;
 type artd_tmpfs, file_type;
 
@@ -62,6 +63,7 @@ allow artd apex_info_file:file r_file_perms;
 allow artd self:global_capability_class_set { dac_override dac_read_search fowner chown };
 
 # Read/write access to profiles (/data/misc/profiles/{ref,cur}/...).
+allow artd user_profile_root_file:dir { getattr search };
 allow artd user_profile_data_file:dir rw_dir_perms;
 allow artd user_profile_data_file:file create_file_perms;
 
