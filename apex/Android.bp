@@ -279,3 +279,10 @@ filegroup {
     "com.android.healthconnect-file_contexts",
   ],
 }
+
+filegroup {
+  name: "com.android.rkpd-file_contexts",
+  srcs: [
+    "com.android.rkpd-file_contexts",
+  ],
+}
