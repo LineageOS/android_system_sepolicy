@@ -27,16 +27,6 @@ allow microdroid_payload microdroid_manager:vsock_socket { read write };
 # Write to /dev/kmsg.
 allow microdroid_payload kmsg_device:chr_file rw_file_perms;
 
-# Only microdroid_payload and a few other critical binaries can be run by microdroid_manager
-neverallow microdroid_manager {
-  domain
-  -crash_dump
-  -microdroid_payload
-  -apkdmverity
-  -zipfuse
-  -kexec
-}:process transition;
-
 # Allow microdroid_payload to open binder servers via vsock.
 allow microdroid_payload self:vsock_socket { create_socket_perms_no_ioctl listen accept };
 
@@ -45,3 +35,15 @@ r_dir_file(microdroid_payload, extra_apk_file)
 
 # Payload can read /proc/meminfo.
 allow microdroid_payload proc_meminfo:file r_file_perms;
+
+# Allow use of authfs.
+binder_use(microdroid_payload);
+allow microdroid_payload authfs_binder_service:service_manager find;
+binder_call(microdroid_payload, authfs_service);
+
+# Allow locating the authfs mount directory.
+allow microdroid_payload authfs_data_file:dir search;
+
+# Read and write files authfs-proxied files.
+allow microdroid_payload authfs_fuse:dir rw_dir_perms;
+allow microdroid_payload authfs_fuse:file create_file_perms;
