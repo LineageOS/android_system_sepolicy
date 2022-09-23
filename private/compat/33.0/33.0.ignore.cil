@@ -7,10 +7,13 @@
   ( new_objects
     apex_ready_prop
     artd
+    credential_service
     device_config_memory_safety_native_prop
     device_config_vendor_system_native_prop
     hal_bootctl_service
+    hal_remoteaccess_service
     hal_tv_input_service
+    healthconnect_service
     keystore_config_prop
     permissive_mte_prop
     servicemanager_prop
@@ -19,4 +22,6 @@
     tuner_server_ctl_prop
     virtual_face_hal_prop
     virtual_fingerprint_hal_prop
+    hal_gatekeeper_service
+    hal_broadcastradio_service
   ))
