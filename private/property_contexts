@@ -797,6 +797,11 @@ net.redirect_socket_calls.hooked u:object_r:socket_hook_prop:s0 exact bool
 persist.sys.locale       u:object_r:locale_prop:s0 exact string
 persist.sys.timezone     u:object_r:timezone_prop:s0 exact string
 
+# Time zone metadata system properties. Holds information associated with the
+# device's time zone and will therefore be written to at the same time.  Unlike
+# timezone_prop props, these do not need to be read by other processes.
+persist.sys.timezone_confidence u:object_r:timezone_metadata_prop:s0 exact uint
+
 persist.sys.mte.permissive u:object_r:permissive_mte_prop:s0 exact string
 persist.sys.test_harness u:object_r:test_harness_prop:s0 exact bool
 
