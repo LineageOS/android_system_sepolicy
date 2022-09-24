@@ -120,3 +120,8 @@ type sepolicy_test_file, file_type;
 # This executable does not have its own domain because it is executed in the caller's domain. For
 # example, it is executed in the `artd` domain when artd calls it.
 type art_exec_exec, system_file_type, exec_type, file_type;
+
+# Filesystem entry for for PRNG seeder socket.  Processes require
+# write permission on this to connect, and needs to be mlstrustedobject
+# in to satisfy MLS constraints for trusted domains.
+type prng_seeder_socket, file_type, coredomain_socket, mlstrustedobject;
