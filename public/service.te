@@ -120,6 +120,7 @@ type file_integrity_service, app_api_service, system_server_service, service_man
 type font_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type netd_listener_service, system_server_service, service_manager_type;
 type network_watchlist_service, system_server_service, service_manager_type;
+type devicelock_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type DockObserver_service, system_server_service, service_manager_type;
 type dreams_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type dropbox_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
