@@ -180,6 +180,7 @@ var (
 		"device_policy":                                                   []string{},
 		"device_identifiers":                                              []string{},
 		"deviceidle":                                                      []string{},
+		"device_lock":                                                     []string{},
 		"device_state":                                                    []string{},
 		"devicestoragemonitor":                                            []string{},
 		"diskstats":                                                       []string{},
