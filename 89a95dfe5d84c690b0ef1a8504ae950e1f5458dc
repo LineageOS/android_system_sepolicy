@@ -33,6 +33,23 @@
       "message": "Don\u0027t close it yet. The lineage atv policy still adds the rule, so this is necessary to compile atm. I will revisit once atv boots enough to test adb over network.",
       "revId": "89a95dfe5d84c690b0ef1a8504ae950e1f5458dc",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e72b2c80_a7777a5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 16185
+      },
+      "writtenOn": "2022-09-26T19:10:55Z",
+      "side": 1,
+      "message": "yeah, ugh, the new version still doesn\u0027t handle ADB over ethernet. so, this route it is.",
+      "revId": "89a95dfe5d84c690b0ef1a8504ae950e1f5458dc",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
