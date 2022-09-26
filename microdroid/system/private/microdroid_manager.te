@@ -56,9 +56,10 @@ allow microdroid_manager diced:diced { derive demote_self };
 allow microdroid_manager apex_mnt_dir:dir w_dir_perms;
 allow microdroid_manager apex_mnt_dir:file create_file_perms;
 
-# Allow microdroid_manager to start the services apexd-vm, apkdmverity,tombstone_transmit & zipfuse
+# Allow microdroid_manager to start various services
 set_prop(microdroid_manager, ctl_apexd_vm_prop)
 set_prop(microdroid_manager, ctl_apkdmverity_prop)
+set_prop(microdroid_manager, ctl_authfs_prop)
 set_prop(microdroid_manager, ctl_seriallogging_prop)
 set_prop(microdroid_manager, ctl_tombstone_transmit_prop)
 set_prop(microdroid_manager, ctl_zipfuse_prop)
@@ -93,4 +94,14 @@ allow microdroid_manager extra_apk_file:dir create_dir_perms;
 neverallow { domain -microdroid_manager -init -vendor_init } extra_apk_file:file no_w_file_perms;
 neverallow { domain -microdroid_manager -init -vendor_init } extra_apk_file:dir no_w_dir_perms;
 
+# Only microdroid_payload and a few other critical binaries can be run by microdroid_manager,
+# in their own domains.
 neverallow microdroid_manager { file_type fs_type }:file execute_no_trans;
+neverallow microdroid_manager {
+  domain
+  -crash_dump
+  -microdroid_payload
+  -apkdmverity
+  -zipfuse
+  -kexec
+}:process transition;
