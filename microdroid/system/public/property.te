@@ -11,6 +11,7 @@ type ctl_adbd_prop, property_type;
 type ctl_apexd_prop, property_type;
 type ctl_apexd_vm_prop, property_type;
 type ctl_apkdmverity_prop, property_type;
+type ctl_authfs_prop, property_type;
 type ctl_console_prop, property_type;
 type ctl_default_prop, property_type;
 type ctl_fuse_prop, property_type;
