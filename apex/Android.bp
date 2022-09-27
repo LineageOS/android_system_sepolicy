@@ -286,3 +286,10 @@ filegroup {
     "com.android.rkpd-file_contexts",
   ],
 }
+
+filegroup {
+  name: "com.android.devicelock-file_contexts",
+  srcs: [
+    "com.android.devicelock-file_contexts",
+  ],
+}

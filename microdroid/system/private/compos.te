@@ -2,18 +2,6 @@
 type compos, domain, coredomain, microdroid_payload;
 type compos_exec, exec_type, file_type, system_file_type;
 
-# Allow using various binder services
-binder_use(compos);
-allow compos authfs_binder_service:service_manager find;
-binder_call(compos, authfs_service);
-
-# Read artifacts created by odrefresh and create signature files.
-allow compos authfs_fuse:dir rw_dir_perms;
-allow compos authfs_fuse:file create_file_perms;
-
-# Allow locating the authfs mount directory.
-allow compos authfs_data_file:dir search;
-
 # Run derive_classpath in our domain
 allow compos derive_classpath_exec:file rx_file_perms;
 allow compos apex_mnt_dir:dir r_dir_perms;
