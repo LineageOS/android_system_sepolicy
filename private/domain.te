@@ -634,3 +634,5 @@ neverallow {
   sdk_sandbox
   untrusted_app_all
 } system_app_data_file:dir_file_class_set { create unlink open };
+
+neverallow { domain -init } mtectrl:process { dyntransition transition };

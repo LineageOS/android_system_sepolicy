@@ -430,6 +430,7 @@ neverallow {
   -init
   -shell
   -system_app
+  -mtectrl
 } {
   arm64_memtag_prop
   gwp_asan_prop
