@@ -4,7 +4,12 @@ type mtectrl_exec, system_file_type, exec_type, file_type;
 
 init_daemon_domain(mtectrl)
 
+# to set the sys prop to match the bootloader message state.
+set_prop(mtectrl, arm64_memtag_prop)
+
 # mtectrl communicates the request to the bootloader via the misc partition.
-allow mtectrl misc_block_device:blk_file w_file_perms;
+# needs to write to update the request in misc partition, and read to sync
+# back to the property.
+allow mtectrl misc_block_device:blk_file rw_file_perms;
 allow mtectrl block_device:dir r_dir_perms;
 read_fstab(mtectrl)
