@@ -76,6 +76,7 @@ android.hardware.tv.hdmi.IHdmi/default                               u:object_r:
 android.hardware.tv.tuner.ITuner/default                             u:object_r:hal_tv_tuner_service:s0
 android.hardware.tv.input.ITvInput/default                           u:object_r:hal_tv_input_service:s0
 android.hardware.usb.IUsb/default                                    u:object_r:hal_usb_service:s0
+android.hardware.usb.gadget.IUsbGadget/default                       u:object_r:hal_usb_gadget_service:s0
 android.hardware.uwb.IUwb/default                                    u:object_r:hal_uwb_service:s0
 android.hardware.vibrator.IVibrator/default                          u:object_r:hal_vibrator_service:s0
 android.hardware.vibrator.IVibratorManager/default                   u:object_r:hal_vibrator_service:s0
