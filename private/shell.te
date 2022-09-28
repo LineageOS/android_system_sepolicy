@@ -91,10 +91,6 @@ allow shell dex2oat_exec:lnk_file read;
 set_prop(shell, lpdumpd_prop);
 binder_call(shell, lpdumpd)
 
-# Allow shell to set some global settings system properties for tests.
-set_prop(shell, locale_prop)
-set_prop(shell, timezone_prop)
-
 # Allow shell to set and read value of properties used for CTS tests of
 # userspace reboot
 set_prop(shell, userspace_reboot_test_prop)
