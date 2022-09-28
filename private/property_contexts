@@ -783,8 +783,25 @@ persist.arm64.memtag.app_default u:object_r:arm64_memtag_prop:s0 exact string
 
 net.redirect_socket_calls.hooked u:object_r:socket_hook_prop:s0 exact bool
 
-persist.sys.locale       u:object_r:exported_system_prop:s0 exact string
-persist.sys.timezone     u:object_r:exported_system_prop:s0 exact string
+# Settings system properties containing mutable "global" device settings.
+#
+# These can't be Android settings because they are also read by low-level
+# binaries that don't have access to "real" SettingsProvider settings. This
+# will usually be because of when they execute, e.g. during boot when Android
+# services are not yet running, and/or because they are needed by binaries that
+# are not "Android aware", i.e. they have light integration with the Android
+# platform via the low-level system properties lib.  Processes like shell may
+# modify these for testing purposes, but doing so is generally discouraged;
+# updates to these props will generally require intents to be sent to
+# long-running Android apps so they can update cached data and their UI state.
+persist.sys.locale       u:object_r:locale_prop:s0 exact string
+persist.sys.timezone     u:object_r:timezone_prop:s0 exact string
+
+# Time zone metadata system properties. Holds information associated with the
+# device's time zone and will therefore be written to at the same time.  Unlike
+# timezone_prop props, these do not need to be read by other processes.
+persist.sys.timezone_confidence u:object_r:timezone_metadata_prop:s0 exact uint
+
 persist.sys.mte.permissive u:object_r:permissive_mte_prop:s0 exact string
 persist.sys.test_harness u:object_r:test_harness_prop:s0 exact bool
 
