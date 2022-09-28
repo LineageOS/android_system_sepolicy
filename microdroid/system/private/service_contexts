@@ -1,5 +1,3 @@
-android.hardware.security.dice.IDiceDevice/default                   u:object_r:hal_dice_service:s0
-
 adb                                       u:object_r:adb_service:s0
 android.security.dice.IDiceMaintenance    u:object_r:dice_maintenance_service:s0
 android.security.dice.IDiceNode           u:object_r:dice_node_service:s0
