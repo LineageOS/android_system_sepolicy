@@ -1637,7 +1637,11 @@
 (typeattributeset exported_overlay_prop_33_0 (exported_overlay_prop))
 (typeattributeset exported_pm_prop_33_0 (exported_pm_prop))
 (typeattributeset exported_secure_prop_33_0 (exported_secure_prop))
-(typeattributeset exported_system_prop_33_0 (exported_system_prop))
+(typeattributeset exported_system_prop_33_0
+  ( exported_system_prop
+    locale_prop
+    timezone_prop
+))
 (typeattributeset external_vibrator_service_33_0 (external_vibrator_service))
 (typeattributeset extra_free_kbytes_33_0 (extra_free_kbytes))
 (typeattributeset extra_free_kbytes_exec_33_0 (extra_free_kbytes_exec))
