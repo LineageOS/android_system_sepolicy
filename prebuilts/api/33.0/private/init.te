@@ -108,6 +108,9 @@ neverallow { domain -init } keystore_listen_prop:property_service set;
 # Allow accessing /sys/kernel/tracing/instances/bootreceiver to set up tracing.
 allow init debugfs_bootreceiver_tracing:file w_file_perms;
 
+# PRNG seeder daemon socket is created and listened on by init before forking.
+allow init prng_seeder:unix_stream_socket { create bind listen };
+
 # Devices with kernels where CONFIG_HIST_TRIGGERS isn't enabled will
 # attempt to write a non exisiting 'synthetic_events' file, when setting
 # up synthetic events. This is a no-op in tracefs.
