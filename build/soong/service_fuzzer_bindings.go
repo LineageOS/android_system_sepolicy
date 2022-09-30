@@ -80,6 +80,7 @@ var (
 		"android.hardware.security.sharedsecret.ISharedSecret/default":            []string{},
 		"android.hardware.sensors.ISensors/default":                               []string{},
 		"android.hardware.soundtrigger3.ISoundTriggerHw/default":                  []string{},
+		"android.hardware.thermal.IThermal/default":                               []string{},
 		"android.hardware.tv.input.ITvInput/default":                              []string{},
 		"android.hardware.tv.tuner.ITuner/default":                                []string{},
 		"android.hardware.usb.IUsb/default":                                       []string{},
