@@ -45,11 +45,11 @@ allow microdroid_manager self:vsock_socket { create_socket_perms_no_ioctl };
 # microdroid_manager is using bootstrap bionic
 use_bootstrap_libs(microdroid_manager)
 
-# microdroid_manager can talk to diced over binder
+# microdroid_manager can talk to dice_service over binder
 binder_use(microdroid_manager)
-binder_call(microdroid_manager, diced)
+binder_call(microdroid_manager, dice_service)
 allow microdroid_manager { dice_node_service dice_maintenance_service }:service_manager find;
-allow microdroid_manager diced:diced { derive demote_self };
+allow microdroid_manager dice_service:diced { derive demote_self };
 
 # microdroid_manager create /apex/vm-payload-metadata for apexd
 # TODO(b/199371341) create a new label for the file so that only microdroid_manager can create it.

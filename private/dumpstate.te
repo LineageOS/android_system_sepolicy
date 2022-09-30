@@ -123,3 +123,6 @@ allow perfetto dumpstate:fd use;
 
 # system_dlkm_file for /system_dlkm partition
 allow dumpstate system_dlkm_file:dir getattr;
+
+# Allow dumpstate to execute derive_sdk in its own domain
+domain_auto_trans(dumpstate, derive_sdk_exec, derive_sdk)
