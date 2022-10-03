@@ -229,6 +229,10 @@ get_prop(zygote, packagemanager_config_prop)
 # Allow zygote to read qemu.sf.lcd_density
 get_prop(zygote, qemu_sf_lcd_density_prop)
 
+# Allow zygote to read persist.wm.debug.* to toggle experimental window manager features in
+# preloaded classes
+get_prop(zygote, persist_wm_debug_prop)
+
 # Allow zygote to read /apex/apex-info-list.xml
 allow zygote apex_info_file:file r_file_perms;
 
