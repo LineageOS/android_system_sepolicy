@@ -115,3 +115,8 @@ type sepolicy_metadata_file, file_type;
 # /dev/selinux/test - used to verify that apex sepolicy is loaded and
 # property labeled.
 type sepolicy_test_file, file_type;
+
+# Filesystem entry for for PRNG seeder socket.  Processes require
+# write permission on this to connect, and needs to be mlstrustedobject
+# in to satisfy MLS constraints for trusted domains.
+type prng_seeder_socket, file_type, coredomain_socket, mlstrustedobject;

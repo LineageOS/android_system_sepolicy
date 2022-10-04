@@ -421,6 +421,7 @@ neverallow { domain -init } kernel:security setsecparam;
 # Only the kernel hwrng thread should be able to read from the HW RNG.
 neverallow {
   domain
+  -prng_seeder # PRNG seeder daemon periodically reseeds itself from HW RNG
   -shell # For CTS, restricted to just getattr in shell.te
   -ueventd # To create the /dev/hw_random file
 } hw_random_device:chr_file *;
