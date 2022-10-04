@@ -281,7 +281,8 @@ get_prop(vendor_init, device_config_vendor_system_native_boot_prop)
 ###
 
 # Vendor init shouldn't communicate with any vendor process, nor most system processes.
-neverallow_establish_socket_comms(vendor_init, { domain -init -logd -su -vendor_init });
+neverallow_establish_socket_comms(vendor_init, {
+    domain -init -logd -prng_seeder -su -vendor_init });
 
 # The vendor_init domain is only entered via an exec based transition from the
 # init domain, never via setcon().
