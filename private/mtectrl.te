@@ -13,3 +13,9 @@ set_prop(mtectrl, arm64_memtag_prop)
 allow mtectrl misc_block_device:blk_file rw_file_perms;
 allow mtectrl block_device:dir r_dir_perms;
 read_fstab(mtectrl)
+
+# bootloader_message tries to find the fstab in the device config path first,
+# but because we've already booted up we can use the ro.boot properties instead,
+# so we can just ignore the SELinux denial.
+dontaudit mtectrl sysfs_dt_firmware_android:dir search;
+dontaudit mtectrl vendor_property_type:file read;
