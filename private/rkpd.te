@@ -12,4 +12,4 @@ init_daemon_domain(rkpd)
 add_service(rkpd, rkpd_registrar_service)
 add_service(rkpd, rkpd_refresh_service)
 
-
+get_prop(rkpd, device_config_remote_key_provisioning_native_prop)
