@@ -181,6 +181,9 @@ get_prop(shell, bootloader_boot_reason_prop)
 get_prop(shell, last_boot_reason_prop)
 get_prop(shell, system_boot_reason_prop)
 
+# Allow shell to execute the remote key provisioning factory tool
+binder_call(shell, hal_keymint)
+
 # Allow reading the outcome of perf_event_open LSM support test for CTS.
 get_prop(shell, init_perf_lsm_hooks_prop)
 
