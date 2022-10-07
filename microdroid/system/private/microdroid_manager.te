@@ -51,6 +51,9 @@ binder_call(microdroid_manager, dice_service)
 allow microdroid_manager { dice_node_service dice_maintenance_service }:service_manager find;
 allow microdroid_manager dice_service:diced { derive demote_self };
 
+# microdroid_manager can add virtual_machine_payload_service
+add_service(microdroid_manager, vm_payload_binder_service)
+
 # microdroid_manager create /apex/vm-payload-metadata for apexd
 # TODO(b/199371341) create a new label for the file so that only microdroid_manager can create it.
 allow microdroid_manager apex_mnt_dir:dir w_dir_perms;
