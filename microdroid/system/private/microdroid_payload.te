@@ -47,3 +47,7 @@ allow microdroid_payload authfs_data_file:dir search;
 # Read and write files authfs-proxied files.
 allow microdroid_payload authfs_fuse:dir rw_dir_perms;
 allow microdroid_payload authfs_fuse:file create_file_perms;
+
+# Allow use of virtual_machine_payload_service.
+allow microdroid_payload vm_payload_binder_service:service_manager find;
+binder_call(microdroid_payload, microdroid_manager)
