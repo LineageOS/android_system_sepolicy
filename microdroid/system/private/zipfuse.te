@@ -43,6 +43,9 @@ allow zipfuse extra_apk_file:dir mounton;
 # zipfuse is forked from microdroid_manager
 allow zipfuse microdroid_manager:fd use;
 
+# allow signalling when the mount is ready
+set_prop(zipfuse, microdroid_manager_zipfuse_prop)
+
 # Only microdroid_manager can run zipfuse
 neverallow { domain -microdroid_manager } zipfuse:process { transition dyntransition };
 
