@@ -20,6 +20,12 @@ allow microdroid_manager dm_device:blk_file r_file_perms;
 # microdroid_manager can query AVF flags in the device tree
 allow microdroid_manager sysfs_dt_avf:file r_file_perms;
 
+# Read config from the open-dice driver.
+allow microdroid_manager open_dice_device:chr_file rw_file_perms;
+
+# Block crash dumps to ensure the DICE secrets are not leaked.
+typeattribute microdroid_manager no_crash_dump_domain;
+
 # Allow microdroid_manager to do blkflsbuf on instance disk image. The ioctl
 # requires sys_admin cap as well.
 allowxperm microdroid_manager vd_device:blk_file ioctl BLKFLSBUF;
@@ -45,11 +51,8 @@ allow microdroid_manager self:vsock_socket { create_socket_perms_no_ioctl };
 # microdroid_manager is using bootstrap bionic
 use_bootstrap_libs(microdroid_manager)
 
-# microdroid_manager can talk to dice_service over binder
+# microdroid_manager hosts binder services.
 binder_use(microdroid_manager)
-binder_call(microdroid_manager, dice_service)
-allow microdroid_manager { dice_node_service dice_maintenance_service }:service_manager find;
-allow microdroid_manager dice_service:diced { derive demote_self };
 
 # microdroid_manager can add virtual_machine_payload_service
 add_service(microdroid_manager, vm_payload_binder_service)
