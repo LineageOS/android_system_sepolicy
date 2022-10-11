@@ -1,6 +1,4 @@
 adb                                       u:object_r:adb_service:s0
-android.security.dice.IDiceMaintenance    u:object_r:dice_maintenance_service:s0
-android.security.dice.IDiceNode           u:object_r:dice_node_service:s0
 virtual_machine_payload_service           u:object_r:vm_payload_binder_service:s0
 apexservice                               u:object_r:apex_service:s0
 authfs_service                            u:object_r:authfs_binder_service:s0
