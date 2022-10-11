@@ -93,6 +93,11 @@ allow microdroid_manager proc_bootconfig:file r_file_perms;
 # or not; if set, it executes kexec to load the crashkernel into memory.
 allow microdroid_manager proc_cmdline:file r_file_perms;
 
+# microdroid_manager needs to read /proc/stat and /proc_meminfo to collect CPU & memory usage
+# for creating atoms used in AVF telemetry metrics
+allow microdroid_manager proc_meminfo:file r_file_perms;
+allow microdroid_manager proc_stat:file r_file_perms;
+
 # Allow microdroid_manager to read/write failure serial device
 allow microdroid_manager serial_device:chr_file w_file_perms;
 
