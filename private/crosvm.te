@@ -42,7 +42,7 @@ allow crosvm virtualizationservice_data_file:dir search;
 #   read, write, getattr: listener socket polling
 #   accept: listener socket accepting new connection
 # Note that the open permission is not given as the socket is passed by FD.
-allow crosvm virtualizationservice:unix_stream_socket { accept read write getattr };
+allow crosvm virtualizationservice:unix_stream_socket { accept read write getattr getopt };
 
 # Don't allow crosvm to open files that it doesn't own.
 # This is important because a malicious application could try to start a VM with a composite disk
