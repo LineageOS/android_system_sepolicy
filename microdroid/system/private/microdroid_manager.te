@@ -98,6 +98,13 @@ allow microdroid_manager proc_cmdline:file r_file_perms;
 allow microdroid_manager proc_meminfo:file r_file_perms;
 allow microdroid_manager proc_stat:file r_file_perms;
 
+# Allow microdroid_manager to set up zram-backed swap:
+#  - Read & Write zram properties in sysfs to set/get zram disksize
+#  - Read & Write to zram block device needed for mkswap and swapon
+allow microdroid_manager sysfs_zram:dir { search };
+allow microdroid_manager sysfs_zram:file rw_file_perms;
+allow microdroid_manager ram_device:blk_file rw_file_perms;
+
 # Allow microdroid_manager to read/write failure serial device
 allow microdroid_manager serial_device:chr_file w_file_perms;
 
