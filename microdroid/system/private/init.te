@@ -435,3 +435,5 @@ use_bootstrap_libs(init)
 allow init fuse:dir { search getattr };
 
 set_prop(init, property_type)
+
+allow init self:netlink_audit_socket { create_socket_perms_no_ioctl nlmsg_relay };
