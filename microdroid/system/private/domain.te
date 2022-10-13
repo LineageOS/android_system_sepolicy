@@ -217,9 +217,6 @@ allowxperm domain dev_type:blk_file ioctl { BLKGETSIZE64 BLKSSZGET };
 allow domain apex_mnt_dir:dir { getattr search };
 allow domain apex_mnt_dir:lnk_file r_file_perms;
 
-allow domain self:global_capability_class_set audit_control;
-allow domain self:netlink_audit_socket { create_socket_perms_no_ioctl nlmsg_write };
-
 # globally readable properties
 get_prop(domain, arm64_memtag_prop)
 get_prop(domain, bootloader_prop)
