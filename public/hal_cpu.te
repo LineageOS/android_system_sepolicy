@@ -1,0 +1,9 @@
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_cpu_client, hal_cpu_server)
+binder_call(hal_cpu_server, hal_cpu_client)
+
+hal_attribute_hwservice(hal_cpu, hal_cpu_hwservice)
+hal_attribute_service(hal_cpu, hal_cpu_service)
+
+binder_call(hal_cpu_server, servicemanager)
+binder_call(hal_cpu_client, servicemanager)
