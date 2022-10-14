@@ -10,3 +10,6 @@ set_prop(hwservicemanager, hwservicemanager_prop)
 
 # hwservicemanager is using bootstrap bionic
 use_bootstrap_libs(hwservicemanager)
+
+# hwservicemanager is using apex_info via libvintf
+use_apex_info(hwservicemanager)
