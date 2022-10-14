@@ -34,7 +34,7 @@ func addFuzzerConfigDeps(ctx android.BottomUpMutatorContext) {
 	if _, ok := ctx.Module().(*fuzzerBindingsTestModule); ok {
 		for _, fuzzers := range ServiceFuzzerBindings {
 			for _, fuzzer := range fuzzers {
-				if !ctx.OtherModuleExists(fuzzer) {
+				if !ctx.OtherModuleExists(fuzzer) && !ctx.Config().AllowMissingDependencies() {
 					panic(fmt.Errorf("Fuzzer doesn't exist : %s", fuzzer))
 				}
 			}
