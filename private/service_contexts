@@ -42,6 +42,10 @@ android.hardware.radio.config.IRadioConfig/default                   u:object_r:
 android.hardware.radio.data.IRadioData/slot1                         u:object_r:hal_radio_service:s0
 android.hardware.radio.data.IRadioData/slot2                         u:object_r:hal_radio_service:s0
 android.hardware.radio.data.IRadioData/slot3                         u:object_r:hal_radio_service:s0
+android.hardware.radio.ims.IRadioIms/slot1                           u:object_r:hal_radio_service:s0
+android.hardware.radio.ims.IRadioIms/slot2                           u:object_r:hal_radio_service:s0
+android.hardware.radio.ims.IRadioIms/slot3                           u:object_r:hal_radio_service:s0
+android.hardware.radio.ims.media.IImsMedia/default                   u:object_r:hal_radio_service:s0
 android.hardware.radio.messaging.IRadioMessaging/slot1               u:object_r:hal_radio_service:s0
 android.hardware.radio.messaging.IRadioMessaging/slot2               u:object_r:hal_radio_service:s0
 android.hardware.radio.messaging.IRadioMessaging/slot3               u:object_r:hal_radio_service:s0
