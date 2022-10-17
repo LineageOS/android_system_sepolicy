@@ -336,6 +336,7 @@ dontaudit dumpstate {
   mnt_vendor_file
   mirror_data_file
   mnt_user_file
+  mnt_product_file
 }:dir search;
 dontaudit dumpstate {
   apex_mnt_dir
