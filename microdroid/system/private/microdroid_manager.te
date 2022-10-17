@@ -48,6 +48,9 @@ allow microdroid_manager kmsg_device:chr_file w_file_perms;
 # Let microdroid_manager to create a vsock connection back to the host VM
 allow microdroid_manager self:vsock_socket { create_socket_perms_no_ioctl };
 
+# Allow microdroid_manager to read the CID of the VM.
+allow microdroid_manager vsock_device:chr_file { ioctl open read };
+
 # microdroid_manager is using bootstrap bionic
 use_bootstrap_libs(microdroid_manager)
 
