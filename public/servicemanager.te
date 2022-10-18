@@ -31,10 +31,9 @@ allow servicemanager dumpstate:fifo_file write;
 # Check SELinux permissions.
 selinux_check_access(servicemanager)
 
-recovery_only(`
-  # In recovery, log to kmsg.
-  allow servicemanager kmsg_device:chr_file rw_file_perms;
+allow servicemanager kmsg_device:chr_file rw_file_perms;
 
+recovery_only(`
   # Read VINTF files.
   r_dir_file(servicemanager, rootfs)
 ')
