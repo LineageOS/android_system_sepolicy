@@ -20,3 +20,6 @@ set_prop(vndservicemanager, ctl_interface_start_prop)
 
 # Check SELinux permissions.
 selinux_check_access(vndservicemanager)
+
+# Log to kmesg
+allow vndservicemanager kmsg_device:chr_file rw_file_perms;
