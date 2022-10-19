@@ -1,0 +1,7 @@
+# Binder IPC from clients into server, and callbacks
+binder_call(hal_tv_hdmi_client, hal_tv_hdmi_server)
+binder_call(hal_tv_hdmi_server, hal_tv_hdmi_client)
+binder_call(hal_tv_hdmi_client, servicemanager)
+binder_call(hal_tv_hdmi_server, servicemanager)
+
+hal_attribute_service(hal_tv_hdmi, hal_tv_hdmi_service)
