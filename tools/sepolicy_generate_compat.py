@@ -105,7 +105,7 @@ def extract_mapping_file_from_img(img_path, ver, destination='.'):
     path = os.path.join(destination, '%s.cil' % ver)
     with open(path, 'wb') as f:
         logging.debug('Extracting %s.cil to %s' % (ver, destination))
-        f.write(check_output(cmd).stdout.replace(b'10000.0',b'33.0').replace(b'10000_0',b'33_0'))
+        f.write(check_output(cmd).stdout.replace(b'10000_0', ver.replace('.', '_').encode()))
     return path
 
 
