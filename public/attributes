@@ -369,6 +369,8 @@ hal_attribute(telephony);
 hal_attribute(tetheroffload);
 hal_attribute(thermal);
 hal_attribute(tv_cec);
+hal_attribute(tv_hdmi);
+hal_attribute(tv_hdmi_cec);
 hal_attribute(tv_input);
 hal_attribute(tv_tuner);
 hal_attribute(usb);

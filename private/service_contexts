@@ -71,6 +71,8 @@ android.hardware.security.sharedsecret.ISharedSecret/default             u:objec
 android.hardware.sensors.ISensors/default                            u:object_r:hal_sensors_service:s0
 android.hardware.soundtrigger3.ISoundTriggerHw/default               u:object_r:hal_audio_service:s0
 android.hardware.thermal.IThermal/default                            u:object_r:hal_thermal_service:s0
+android.hardware.tv.cec.IHdmiCec/default                             u:object_r:hal_tv_hdmi_cec_service:s0
+android.hardware.tv.hdmi.IHdmi/default                               u:object_r:hal_tv_hdmi_service:s0
 android.hardware.tv.tuner.ITuner/default                             u:object_r:hal_tv_tuner_service:s0
 android.hardware.tv.input.ITvInput/default                           u:object_r:hal_tv_input_service:s0
 android.hardware.usb.IUsb/default                                    u:object_r:hal_usb_service:s0
