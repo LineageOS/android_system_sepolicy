@@ -15,7 +15,6 @@
 # limitations under the License.
 
 import argparse
-import distutils.ccompiler
 import glob
 import logging
 import mini_parser
@@ -41,6 +40,7 @@ ignore_cil_template = """;; new_objects - a collection of types that have been i
   ))
 """
 
+SHARED_LIB_EXTENSION = '.dylib' if sys.platform == 'darwin' else '.so'
 
 def check_run(cmd, cwd=None):
     if cwd:
@@ -227,8 +227,7 @@ def main():
 
     try:
         libpath = os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), 'libsepolwrap' +
-            distutils.ccompiler.new_compiler().shared_lib_extension)
+            os.path.dirname(os.path.realpath(__file__)), 'libsepolwrap' + SHARED_LIB_EXTENSION)
         if not os.path.exists(libpath):
             sys.exit(
                 'Error: libsepolwrap does not exist. Is this binary corrupted?\n'
