@@ -188,7 +188,6 @@ se_cil_compat_map {
     name: "plat_33.0.cil",
     stem: "33.0.cil",
     bottom_half: [":33.0.board.compat.map{.plat_private}"],
-    // top_half: "plat_34.0.cil",
 }
 
 se_cil_compat_map {
@@ -235,7 +234,6 @@ se_cil_compat_map {
     name: "system_ext_33.0.cil",
     stem: "33.0.cil",
     bottom_half: [":33.0.board.compat.map{.system_ext_private}"],
-    // top_half: "system_ext_34.0.cil",
     system_ext_specific: true,
 }
 
@@ -283,7 +281,6 @@ se_cil_compat_map {
     name: "product_33.0.cil",
     stem: "33.0.cil",
     bottom_half: [":33.0.board.compat.map{.product_private}"],
-    // top_half: "product_34.0.cil",
     product_specific: true,
 }
 
@@ -320,7 +317,6 @@ se_cil_compat_map {
 se_cil_compat_map {
     name: "33.0.ignore.cil",
     bottom_half: [":33.0.board.ignore.map{.plat_private}"],
-    // top_half: "34.0.ignore.cil",
 }
 
 se_cil_compat_map {
@@ -347,7 +343,6 @@ se_cil_compat_map {
 se_cil_compat_map {
     name: "system_ext_33.0.ignore.cil",
     bottom_half: [":33.0.board.ignore.map{.system_ext_private}"],
-    // top_half: "system_ext_34.0.ignore.cil",
     system_ext_specific: true,
 }
 
@@ -375,7 +370,6 @@ se_cil_compat_map {
 se_cil_compat_map {
     name: "product_33.0.ignore.cil",
     bottom_half: [":33.0.board.ignore.map{.product_private}"],
-    // top_half: "product_34.0.ignore.cil",
     product_specific: true,
 }
 
