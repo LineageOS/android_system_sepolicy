@@ -3,3 +3,7 @@ hal_server_domain(hal_contexthub_default, hal_contexthub)
 
 type hal_contexthub_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_contexthub_default)
+
+# Allow Context Hub HAL to talk to the stats service for metric collection
+allow hal_contexthub_default fwk_stats_service:service_manager find;
+binder_call(hal_contexthub_default, stats_service_server)
