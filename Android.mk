@@ -511,6 +511,8 @@ LOCAL_REQUIRED_MODULES += \
     odm_seapp_contexts \
     odm_property_contexts \
     odm_property_contexts_test \
+    odm_service_contexts \
+    odm_service_contexts_test \
     odm_hwservice_contexts \
     odm_hwservice_contexts_test \
     odm_mac_permissions.xml
