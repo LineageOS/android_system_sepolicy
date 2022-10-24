@@ -171,11 +171,13 @@ userdebug_or_eng(`
   allow untrusted_app_all self:lockdown integrity;
 ')
 
-# Allow running a VM for test/demo purposes. Note that access the service is
-# still guarded with the `android.permission.MANAGE_VIRTUAL_MACHINE`
-# permission. The protection level of the permission is `signature|development`
-# so that it can only be granted to either platform-key signed apps or
-# test-only apps having `android:testOnly="true"` in its manifest.
+# Allow running a VM for test/demo purposes. Note that access to the
+# service is still guarded with the
+# `android.permission.MANAGE_VIRTUAL_MACHINE` permission. The
+# protection level of the permission is
+# `signature|privileged|development` so that it can only be granted to
+# either platform-key signed apps, privileged apps, or test-only apps
+# having `android:testOnly="true"` in their manifest.
 virtualizationservice_use(untrusted_app_all)
 
 with_native_coverage(`
