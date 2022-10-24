@@ -134,6 +134,7 @@ attention                                 u:object_r:attention_service:s0
 audio                                     u:object_r:audio_service:s0
 auth                                      u:object_r:auth_service:s0
 autofill                                  u:object_r:autofill_service:s0
+background_install_control                u:object_r:bg_install_control_service:s0
 backup                                    u:object_r:backup_service:s0
 batteryproperties                         u:object_r:batteryproperties_service:s0
 batterystats                              u:object_r:batterystats_service:s0

@@ -149,6 +149,7 @@ var (
 		"audio":                                                           []string{},
 		"auth":                                                            []string{},
 		"autofill":                                                        []string{},
+		"background_install_control":                                      []string{},
 		"backup":                                                          []string{},
 		"batteryproperties":                                               []string{},
 		"batterystats":                                                    []string{},
