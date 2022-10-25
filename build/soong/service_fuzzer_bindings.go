@@ -96,6 +96,7 @@ var (
 		"android.hardware.vibrator.IVibrator/default":                             []string{},
 		"android.hardware.vibrator.IVibratorManager/default":                      []string{"android.hardware.vibrator-service.example_fuzzer"},
 		"android.hardware.weaver.IWeaver/default":                                 []string{},
+		"android.hardware.wifi.IWifi/default":                                     []string{},
 		"android.hardware.wifi.hostapd.IHostapd/default":                          []string{},
 		"android.hardware.wifi.supplicant.ISupplicant/default":                    []string{},
 		"android.frameworks.stats.IStats/default":                                 []string{},
