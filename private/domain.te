@@ -181,6 +181,7 @@ neverallow { domain -init -system_server } dropbox_data_file:file ~{ getattr rea
 neverallow {
   domain
   -appdomain
+  -artd # compile secondary dex files
   -installd # creation of sandbox
 } { privapp_data_file app_data_file }:dir_file_class_set { create unlink };
 
@@ -191,6 +192,7 @@ neverallow {
   -adbd
   -appdomain
   -app_zygote
+  -artd # compile secondary dex files
   -dexoptanalyzer
   -installd
   -profman
@@ -206,6 +208,7 @@ neverallow {
 neverallow {
   domain
   -appdomain
+  -artd # compile secondary dex files
   -installd
   -rs # spawned by appdomain, so carryover the exception above
 } { privapp_data_file app_data_file }:dir ~r_dir_perms;
@@ -214,6 +217,7 @@ neverallow {
   domain
   -appdomain
   -app_zygote
+  -artd # compile secondary dex files
   -installd
   -rs # spawned by appdomain, so carryover the exception above
 } { privapp_data_file app_data_file }:file_class_set open;
@@ -221,11 +225,13 @@ neverallow {
 neverallow {
   domain
   -appdomain
+  -artd # compile secondary dex files
   -installd # creation of sandbox
 } { privapp_data_file app_data_file }:dir_file_class_set { create unlink };
 
 neverallow {
   domain
+  -artd # compile secondary dex files
   -installd
 } { privapp_data_file app_data_file }:dir_file_class_set { relabelfrom relabelto };
 
@@ -606,10 +612,14 @@ neverallow { domain -ueventd -vendor_init } sysfs_devices_cs_etm:file no_w_file_
 # untrustworthy, and non-allowed domains should not be trusting any content in
 # those directories. We allow shell files to be passed around by file
 # descriptor, but not directly opened.
+# artd doesn't need to access /data/local/tmp, but it needs to access
+# /data/{user,user_de}/<user-id>/com.android.shell/... for compiling secondary
+# dex files.
 neverallow {
   domain
   -adbd
   -appdomain
+  -artd
   -dumpstate
   -installd
   userdebug_or_eng(`-uncrypt')
@@ -621,6 +631,7 @@ neverallow {
 neverallow {
   domain
   -appdomain
+  -artd # compile secondary dex files
   -system_server #populate com.android.providers.settings/databases/settings.db.
   -installd # creation of app sandbox
   -traced_probes # resolve inodes for i/o tracing.
