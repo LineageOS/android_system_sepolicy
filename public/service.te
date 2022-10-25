@@ -273,6 +273,7 @@ type hal_authsecret_service, protected_service, hal_service_type, service_manage
 type hal_bootctl_service, protected_service, hal_service_type, service_manager_type;
 type hal_broadcastradio_service, protected_service, hal_service_type, service_manager_type;
 type hal_camera_service, protected_service, hal_service_type, service_manager_type;
+type hal_cas_service, hal_service_type, service_manager_type;
 type hal_confirmationui_service, protected_service, hal_service_type, service_manager_type;
 type hal_contexthub_service, protected_service, hal_service_type, service_manager_type;
 type hal_dice_service, protected_service, hal_service_type, service_manager_type;
