@@ -81,6 +81,7 @@ android.hardware.uwb.IUwb/default                                    u:object_r:
 android.hardware.vibrator.IVibrator/default                          u:object_r:hal_vibrator_service:s0
 android.hardware.vibrator.IVibratorManager/default                   u:object_r:hal_vibrator_service:s0
 android.hardware.weaver.IWeaver/default                              u:object_r:hal_weaver_service:s0
+android.hardware.wifi.IWifi/default                                  u:object_r:hal_wifi_service:s0
 android.hardware.wifi.hostapd.IHostapd/default                       u:object_r:hal_wifi_hostapd_service:s0
 android.hardware.wifi.supplicant.ISupplicant/default                 u:object_r:hal_wifi_supplicant_service:s0
 android.se.omapi.ISecureElementService/default                       u:object_r:secure_element_service:s0
