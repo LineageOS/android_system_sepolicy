@@ -153,9 +153,12 @@ dontaudit untrusted_app_all net_dns_prop:file read;
 
 # These have been disallowed since Android O.
 # For P, we assume that apps are safely handling the denial.
-dontaudit untrusted_app_all proc_stat:file read;
-dontaudit untrusted_app_all proc_vmstat:file read;
-dontaudit untrusted_app_all proc_uptime:file read;
+dontaudit untrusted_app_all {
+  proc_stat
+  proc_uptime
+  proc_vmstat
+  proc_zoneinfo
+}:file read;
 
 # Allow the allocation and use of ptys
 # Used by: https://play.google.com/store/apps/details?id=jackpal.androidterm
