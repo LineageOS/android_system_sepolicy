@@ -67,6 +67,12 @@ allow artd user_profile_root_file:dir { getattr search };
 allow artd user_profile_data_file:dir rw_dir_perms;
 allow artd user_profile_data_file:file create_file_perms;
 
+# Read/write access to secondary dex files, their profiles, and their
+# compilation artifacts
+# ({/data,/mnt/expand/<volume-uuid>}/{user,user_de}/<user-id>/<package-name>/...).
+allow artd app_data_file_type:dir { create_dir_perms relabelfrom relabelto };
+allow artd app_data_file_type:file { create_file_perms relabelfrom relabelto };
+
 # Never allow running other binaries without a domain transition.
 # The only exception is art_exec. It is allowed to use the artd domain because
 # it is a thin wrapper that executes other binaries on behalf of artd.

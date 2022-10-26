@@ -12,11 +12,13 @@
     device_config_vendor_system_native_prop
     devicelock_service
     hal_bootctl_service
+    hal_cas_service
     hal_remoteaccess_service
     hal_thermal_service
     hal_tv_input_service
     hal_tv_hdmi_service
     hal_tv_hdmi_cec_service
+    hal_wifi_service
     healthconnect_service
     keystore_config_prop
     permissive_mte_prop
