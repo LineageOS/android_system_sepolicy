@@ -110,7 +110,7 @@
 /system/bin/logcat	--	u:object_r:logcat_exec:s0
 /system/bin/logd        u:object_r:logd_exec:s0
 /system/bin/sh		--	u:object_r:shell_exec:s0
-/system/bin/tombstoned u:object_r:tombstoned_exec:s0
+/system/bin/tombstoned.microdroid u:object_r:tombstoned_exec:s0
 /system/bin/toolbox	--	u:object_r:toolbox_exec:s0
 /system/bin/toybox	--	u:object_r:toolbox_exec:s0
 /system/bin/zipfuse              u:object_r:zipfuse_exec:s0

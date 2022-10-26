@@ -1155,9 +1155,13 @@ neverallow {
 # write access to shell owned directories. The /data/local/tmp
 # directory is untrustworthy, and non-allowed domains should
 # not be trusting any content in those directories.
+# artd doesn't need to access /data/local/tmp, but it needs to access
+# /data/{user,user_de}/<user-id>/com.android.shell/... for compiling secondary
+# dex files.
 neverallow {
   domain
   -adbd
+  -artd
   -dumpstate
   -installd
   -init
@@ -1169,6 +1173,7 @@ neverallow {
   domain
   -adbd
   -appdomain
+  -artd
   -dumpstate
   -init
   -installd
