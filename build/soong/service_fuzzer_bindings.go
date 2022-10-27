@@ -92,6 +92,7 @@ var (
 		"android.hardware.tv.input.ITvInput/default":                              []string{},
 		"android.hardware.tv.tuner.ITuner/default":                                []string{},
 		"android.hardware.usb.IUsb/default":                                       []string{},
+		"android.hardware.usb.gadget.IUsbGadget/default":                          []string{},
 		"android.hardware.uwb.IUwb/default":                                       []string{},
 		"android.hardware.vibrator.IVibrator/default":                             []string{},
 		"android.hardware.vibrator.IVibratorManager/default":                      []string{"android.hardware.vibrator-service.example_fuzzer"},
