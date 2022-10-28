@@ -27,8 +27,16 @@ allow microdroid_payload microdroid_manager:vsock_socket { read write };
 # Write to /dev/kmsg.
 allow microdroid_payload kmsg_device:chr_file rw_file_perms;
 
-# Allow microdroid_payload to open binder servers via vsock.
-allow microdroid_payload self:vsock_socket { create_socket_perms_no_ioctl listen accept };
+# Allow microdroid_payload to host binder servers via vsock. Listening
+# for connections from the host is permitted, but connecting out to
+# the host is not. Inbound connections are mediated by
+# virtualiationservice which ensures a process can only connect to a
+# VM that it owns.
+allow microdroid_payload self:vsock_socket {
+ create listen accept read getattr write setattr lock append bind
+ getopt setopt shutdown map
+};
+neverallow microdroid_payload self:vsock_socket connect;
 
 # Payload can read extra apks
 r_dir_file(microdroid_payload, extra_apk_file)
