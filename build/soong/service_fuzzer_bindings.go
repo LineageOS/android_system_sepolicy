@@ -341,6 +341,7 @@ var (
 		"oem_lock":                     EXCEPTION_NO_FUZZER,
 		"ondevicepersonalization_system_service": EXCEPTION_NO_FUZZER,
 		"otadexopt":                    EXCEPTION_NO_FUZZER,
+		"ot_daemon":                    []string{"ot_daemon_service_fuzzer"},
 		"overlay":                      EXCEPTION_NO_FUZZER,
 		"pac_proxy":                    EXCEPTION_NO_FUZZER,
 		"package":                      EXCEPTION_NO_FUZZER,
