@@ -434,6 +434,7 @@ var (
 		"textclassification":           EXCEPTION_NO_FUZZER,
 		"textservices":                 EXCEPTION_NO_FUZZER,
 		"texttospeech":                 EXCEPTION_NO_FUZZER,
+		"thread_network":               EXCEPTION_NO_FUZZER,
 		"time_detector":                EXCEPTION_NO_FUZZER,
 		"time_zone_detector":           EXCEPTION_NO_FUZZER,
 		"thermalservice":               EXCEPTION_NO_FUZZER,
