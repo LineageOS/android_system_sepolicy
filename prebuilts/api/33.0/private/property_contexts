@@ -520,6 +520,8 @@ bluetooth.profile.pbap.server.enabled                u:object_r:bluetooth_config
 bluetooth.profile.sap.server.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.profile.vcp.controller.enabled             u:object_r:bluetooth_config_prop:s0 exact bool
 
+bluetooth.sco.disable_enhanced_connection            u:object_r:bluetooth_config_prop:s0 exact bool
+
 persist.nfc.debug_enabled                      u:object_r:nfc_prop:s0 exact bool
 
 persist.radio.multisim.config u:object_r:radio_control_prop:s0 exact string
