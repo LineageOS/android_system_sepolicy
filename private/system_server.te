@@ -1216,8 +1216,8 @@ get_prop(system_server, framework_watchdog_config_prop)
 # Font files are written by system server
 allow system_server font_data_file:file create_file_perms;
 allow system_server font_data_file:dir create_dir_perms;
-# Allow system process to setup fs-verity for font files
-allowxperm system_server font_data_file:file ioctl FS_IOC_ENABLE_VERITY;
+# Allow system process to setup and measure fs-verity for font files
+allowxperm system_server font_data_file:file ioctl { FS_IOC_ENABLE_VERITY FS_IOC_MEASURE_VERITY };
 
 # Read qemu.hw.mainkeys property
 get_prop(system_server, qemu_hw_prop)
