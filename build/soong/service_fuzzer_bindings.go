@@ -34,7 +34,7 @@ var (
 		"android.hardware.broadcastradio.IBroadcastRadio/dab":                     []string{},
 		"android.hardware.camera.provider.ICameraProvider/internal/0":             []string{},
 		"android.hardware.cas.IMediaCasService/default":                           []string{},
-		"android.hardware.confirmationui.IConfirmationUI/default":                 []string{},
+		"android.hardware.confirmationui.IConfirmationUI/default":                 []string{"android.hardware.confirmationui-service.trusty_fuzzer"},
 		"android.hardware.contexthub.IContextHub/default":                         []string{},
 		"android.hardware.drm.IDrmFactory/clearkey":                               []string{},
 		"android.hardware.drm.ICryptoFactory/clearkey":                            []string{},
