@@ -121,6 +121,9 @@ userdebug_or_eng(`
   allow shell profcollectd:binder call;
 ')
 
+# Allow shell to run remount command.
+allow shell remount_exec:file rx_file_perms;
+
 # Allow shell to call perf_event_open for profiling other shell processes, but
 # not the whole system.
 allow shell self:perf_event { open read write kernel };
