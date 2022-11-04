@@ -132,6 +132,9 @@ binder_call(surfaceflinger, statsd);
 # Allow to use files supplied by hal_evs
 allow surfaceflinger hal_evs:fd use;
 
+# Allow to use release fence fds supplied by hal_camera
+allow surfaceflinger hal_camera:fd use;
+
 # Allow pushing jank event atoms to statsd
 userdebug_or_eng(`
     unix_socket_send(surfaceflinger, statsdw, statsd)
