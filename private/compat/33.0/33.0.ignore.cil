@@ -13,6 +13,8 @@
     devicelock_service
     hal_bootctl_service
     hal_cas_service
+    hal_cpu_hwservice
+    hal_cpu_service
     hal_remoteaccess_service
     hal_thermal_service
     hal_usb_gadget_service

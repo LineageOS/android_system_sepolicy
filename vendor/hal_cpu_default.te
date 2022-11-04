@@ -1,0 +1,11 @@
+type hal_cpu_default, domain;
+hal_server_domain(hal_cpu_default, hal_cpu)
+
+type hal_cpu_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_cpu_default)
+
+# Allow reading /proc/stat
+allow hal_cpu_default proc_stat:file r_file_perms;
+
+# Allow reading cpuset information
+allow hal_cpu_default cgroup:dir r_dir_perms;
