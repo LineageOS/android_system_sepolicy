@@ -954,6 +954,7 @@ allow system_server stats_service:service_manager find;
 allow system_server storaged_service:service_manager find;
 allow system_server surfaceflinger_service:service_manager find;
 allow system_server update_engine_service:service_manager find;
+allow system_server virtual_camera_service:service_manager find;
 allow system_server vold_service:service_manager find;
 allow system_server wifinl80211_service:service_manager find;
 allow system_server logd_service:service_manager find;

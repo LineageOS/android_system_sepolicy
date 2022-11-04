@@ -159,6 +159,7 @@ neverallow user=_sdksandbox domain=((?!sdk_sandbox).)*
 user=_app seinfo=platform name=com.android.traceur domain=traceur_app type=app_data_file levelFrom=all
 user=system seinfo=platform domain=system_app type=system_app_data_file
 user=system seinfo=platform isPrivApp=true name=com.android.DeviceAsWebcam domain=device_as_webcam type=system_app_data_file levelFrom=all
+user=system seinfo=platform isPrivApp=true name=com.android.virtualcamera domain=virtual_camera type=app_data_file levelFrom=all
 user=bluetooth seinfo=bluetooth domain=bluetooth type=bluetooth_data_file
 user=network_stack seinfo=network_stack domain=network_stack type=radio_data_file
 user=nfc seinfo=platform domain=nfc type=nfc_data_file
