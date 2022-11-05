@@ -35,6 +35,7 @@
 /(vendor|sustem/vendor)/bin/hw/android\.hardware\.confirmationui@1\.0-service u:object_r:hal_confirmationui_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.contexthub@1\.[0-9]+-service     u:object_r:hal_contexthub_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.contexthub-service\.example    u:object_r:hal_contexthub_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.cpu\.monitor-service\.example u:object_r:hal_cpu_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.0-service            u:object_r:hal_drm_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm@1\.0-service-lazy       u:object_r:hal_drm_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.drm-service(-lazy)?\.clearkey u:object_r:hal_drm_clearkey_aidl_exec:s0

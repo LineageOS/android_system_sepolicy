@@ -27,6 +27,7 @@ android.hardware.configstore::ISurfaceFlingerConfigs            u:object_r:hal_c
 android.hardware.confirmationui::IConfirmationUI                u:object_r:hal_confirmationui_hwservice:s0
 android.hardware.contexthub::IContexthub                        u:object_r:hal_contexthub_hwservice:s0
 android.hardware.cas::IMediaCasService                          u:object_r:hal_cas_hwservice:s0
+android.hardware.cpu.monitor::IMonitor                          u:object_r:hal_cpu_hwservice:s0
 android.hardware.drm::ICryptoFactory                            u:object_r:hal_drm_hwservice:s0
 android.hardware.drm::IDrmFactory                               u:object_r:hal_drm_hwservice:s0
 android.hardware.dumpstate::IDumpstateDevice                    u:object_r:hal_dumpstate_hwservice:s0

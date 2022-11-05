@@ -81,6 +81,7 @@ allow dumpstate {
   hal_broadcastradio_server
   hal_camera_server
   hal_codec2_server
+  hal_cpu_server
   hal_drm_server
   hal_evs_server
   hal_face_server
@@ -150,6 +151,7 @@ binder_call(dumpstate, { appdomain netd wificond })
 # Allow dumpstate to call dump() on specific hals.
 dump_hal(hal_authsecret)
 dump_hal(hal_contexthub)
+dump_hal(hal_cpu)
 dump_hal(hal_drm)
 dump_hal(hal_dumpstate)
 dump_hal(hal_face)
