@@ -248,6 +248,7 @@ var (
 		"game":                         EXCEPTION_NO_FUZZER,
 		"gfxinfo":                      EXCEPTION_NO_FUZZER,
 		"gnss_time_update_service":     EXCEPTION_NO_FUZZER,
+		"grammatical_inflection":       EXCEPTION_NO_FUZZER,
 		"graphicsstats":                EXCEPTION_NO_FUZZER,
 		"gpu":                          EXCEPTION_NO_FUZZER,
 		"hardware":                     EXCEPTION_NO_FUZZER,
