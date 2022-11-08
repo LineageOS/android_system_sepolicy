@@ -25,6 +25,7 @@ android.hardware.cpu.monitor.IMonitor/default                        u:object_r:
 android.hardware.drm.IDrmFactory/clearkey                            u:object_r:hal_drm_service:s0
 android.hardware.drm.ICryptoFactory/clearkey                         u:object_r:hal_drm_service:s0
 android.hardware.dumpstate.IDumpstateDevice/default                  u:object_r:hal_dumpstate_service:s0
+android.hardware.fastboot.IFastboot/default                          u:object_r:hal_fastboot_service:s0
 android.hardware.gnss.IGnss/default                                  u:object_r:hal_gnss_service:s0
 android.hardware.graphics.allocator.IAllocator/default               u:object_r:hal_graphics_allocator_service:s0
 android.hardware.graphics.composer3.IComposer/default                u:object_r:hal_graphics_composer_service:s0

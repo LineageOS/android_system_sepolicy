@@ -339,6 +339,7 @@ hal_attribute(drm);
 hal_attribute(dumpstate);
 hal_attribute(evs);
 hal_attribute(face);
+hal_attribute(fastboot);
 hal_attribute(fingerprint);
 hal_attribute(gatekeeper);
 hal_attribute(gnss);

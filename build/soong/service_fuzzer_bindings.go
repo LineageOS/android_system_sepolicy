@@ -47,6 +47,7 @@ var (
 		"android.hardware.drm.IDrmFactory/clearkey":                               EXCEPTION_NO_FUZZER,
 		"android.hardware.drm.ICryptoFactory/clearkey":                            EXCEPTION_NO_FUZZER,
 		"android.hardware.dumpstate.IDumpstateDevice/default":                     EXCEPTION_NO_FUZZER,
+		"android.hardware.fastboot.IFastboot/default":                             EXCEPTION_NO_FUZZER,
 		"android.hardware.gatekeeper.IGatekeeper/default":                         EXCEPTION_NO_FUZZER,
 		"android.hardware.gnss.IGnss/default":                                     EXCEPTION_NO_FUZZER,
 		"android.hardware.graphics.allocator.IAllocator/default":                  EXCEPTION_NO_FUZZER,
