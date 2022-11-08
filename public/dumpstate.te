@@ -75,6 +75,7 @@ allow dumpstate {
   vold
 
   # This list comes from hal_interfaces_to_dump in dumputils/dump_utils.c
+  evsmanagerd
   hal_audio_server
   hal_audiocontrol_server
   hal_bluetooth_server
