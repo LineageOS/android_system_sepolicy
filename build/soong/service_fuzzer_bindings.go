@@ -29,6 +29,7 @@ var (
 		"android.hardware.authsecret.IAuthSecret/default":                         EXCEPTION_NO_FUZZER,
 		"android.hardware.automotive.evs.IEvsEnumerator/hw/0":                     EXCEPTION_NO_FUZZER,
 		"android.hardware.boot.IBootControl/default":                              EXCEPTION_NO_FUZZER,
+		"android.hardware.automotive.can.ICanController/default":                  EXCEPTION_NO_FUZZER,
 		"android.hardware.automotive.evs.IEvsEnumerator/hw/1":                     EXCEPTION_NO_FUZZER,
 		"android.hardware.automotive.remoteaccess.IRemoteAccess/default":          EXCEPTION_NO_FUZZER,
 		"android.hardware.automotive.vehicle.IVehicle/default":                    EXCEPTION_NO_FUZZER,
