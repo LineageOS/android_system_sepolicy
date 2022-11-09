@@ -43,7 +43,6 @@ var (
 		"android.hardware.cas.IMediaCasService/default":                           EXCEPTION_NO_FUZZER,
 		"android.hardware.confirmationui.IConfirmationUI/default":                 []string{"android.hardware.confirmationui-service.trusty_fuzzer"},
 		"android.hardware.contexthub.IContextHub/default":                         EXCEPTION_NO_FUZZER,
-		"android.hardware.cpu.monitor.IMonitor/default":                           EXCEPTION_NO_FUZZER,
 		"android.hardware.drm.IDrmFactory/clearkey":                               EXCEPTION_NO_FUZZER,
 		"android.hardware.drm.ICryptoFactory/clearkey":                            EXCEPTION_NO_FUZZER,
 		"android.hardware.dumpstate.IDumpstateDevice/default":                     EXCEPTION_NO_FUZZER,
