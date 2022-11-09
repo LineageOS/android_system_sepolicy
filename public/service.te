@@ -276,6 +276,7 @@ type hal_camera_service, protected_service, hal_service_type, service_manager_ty
 type hal_cas_service, hal_service_type, service_manager_type;
 type hal_confirmationui_service, protected_service, hal_service_type, service_manager_type;
 type hal_contexthub_service, protected_service, hal_service_type, service_manager_type;
+type hal_cpu_service, protected_service, hal_service_type, service_manager_type;
 type hal_dice_service, protected_service, hal_service_type, service_manager_type;
 type hal_drm_service, hal_service_type, service_manager_type;
 type hal_dumpstate_service, protected_service, hal_service_type, service_manager_type;

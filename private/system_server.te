@@ -310,6 +310,7 @@ hal_client_domain(system_server, hal_broadcastradio)
 hal_client_domain(system_server, hal_codec2)
 hal_client_domain(system_server, hal_configstore)
 hal_client_domain(system_server, hal_contexthub)
+hal_client_domain(system_server, hal_cpu)
 hal_client_domain(system_server, hal_face)
 hal_client_domain(system_server, hal_fingerprint)
 hal_client_domain(system_server, hal_gnss)
@@ -391,6 +392,7 @@ allow system_server {
   hal_bluetooth_server
   hal_camera_server
   hal_codec2_server
+  hal_cpu_server
   hal_face_server
   hal_fingerprint_server
   hal_gnss_server
