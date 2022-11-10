@@ -1,0 +1,6 @@
+type hal_fastboot_default, domain;
+
+hal_server_domain(hal_fastboot_default, hal_fastboot)
+
+type hal_fastboot_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_fastboot_default)

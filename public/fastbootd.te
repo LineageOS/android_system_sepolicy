@@ -13,6 +13,7 @@ recovery_only(`
   # fastbootd can use AIDL HALs in binder mode
   binder_use(fastbootd)
   hal_client_domain(fastbootd, hal_health)
+  hal_client_domain(fastbootd, hal_fastboot)
 
   # Access /dev/usb-ffs/fastbootd/ep0
   allow fastbootd functionfs:dir search;
