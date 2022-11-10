@@ -45,6 +45,9 @@ recovery_only(`
 
   # Needed for reading boot properties.
   allow fastbootd proc_bootconfig:file r_file_perms;
+  # Let this domain use the hal fastboot service
+  binder_use(fastbootd)
+  hal_client_domain(fastbootd, hal_fastboot)
 ')
 
 # io_uring_setup needs ipc_lock and permission to operate anon inodes
