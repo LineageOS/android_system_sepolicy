@@ -1438,17 +1438,29 @@ vendor.face.virtual.operation_authenticate_duration u:object_r:virtual_face_hal_
 # properties for the virtual Fingerprint HAL
 persist.vendor.fingerprint.virtual.type u:object_r:virtual_fingerprint_hal_prop:s0 exact string
 persist.vendor.fingerprint.virtual.enrollments u:object_r:virtual_fingerprint_hal_prop:s0 exact string
+persist.vendor.fingerprint.virtual.lockout u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
+persist.vendor.fingerprint.virtual.authenticator_id u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+persist.vendor.fingerprint.virtual.sensor_location u:object_r:virtual_fingerprint_hal_prop:s0 exact string
+persist.vendor.fingerprint.virtual.sensor_id u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+persist.vendor.fingerprint.virtual.sensor_strength u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+persist.vendor.fingerprint.virtual.max_enrollments u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+persist.vendor.fingerprint.virtual.navigation_guesture u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
+persist.vendor.fingerprint.virtual.detect_interaction u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
+persist.vendor.fingerprint.virtual.udfps.display_touch u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
+persist.vendor.fingerprint.virtual.udfps.control_illumination u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
+persist.vendor.fingerprint.virtual.lockout_enable u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
+persist.vendor.fingerprint.virtual.lockout_timed_threshold u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+persist.vendor.fingerprint.virtual.lockout_timed_duration u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+persist.vendor.fingerprint.virtual.lockout_permanent_threshold u:object_r:virtual_fingerprint_hal_prop:s0 exact int
 vendor.fingerprint.virtual.enrollment_hit u:object_r:virtual_fingerprint_hal_prop:s0 exact int
 vendor.fingerprint.virtual.next_enrollment u:object_r:virtual_fingerprint_hal_prop:s0 exact string
-vendor.fingerprint.virtual.authenticator_id u:object_r:virtual_fingerprint_hal_prop:s0 exact int
 vendor.fingerprint.virtual.challenge u:object_r:virtual_fingerprint_hal_prop:s0 exact int
-vendor.fingerprint.virtual.lockout u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
 vendor.fingerprint.virtual.operation_authenticate_fails u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
 vendor.fingerprint.virtual.operation_detect_interaction_fails u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
 vendor.fingerprint.virtual.operation_enroll_fails u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
-vendor.fingerprint.virtual.operation_authenticate_latency u:object_r:virtual_fingerprint_hal_prop:s0 exact int
-vendor.fingerprint.virtual.operation_detect_interaction_latency u:object_r:virtual_fingerprint_hal_prop:s0 exact int
-vendor.fingerprint.virtual.operation_enroll_latency u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+vendor.fingerprint.virtual.operation_authenticate_latency u:object_r:virtual_fingerprint_hal_prop:s0 exact string
+vendor.fingerprint.virtual.operation_detect_interaction_latency u:object_r:virtual_fingerprint_hal_prop:s0 exact string
+vendor.fingerprint.virtual.operation_enroll_latency u:object_r:virtual_fingerprint_hal_prop:s0 exact string
 vendor.fingerprint.virtual.operation_authenticate_duration u:object_r:virtual_fingerprint_hal_prop:s0 exact int
 
 # properties for tuner
