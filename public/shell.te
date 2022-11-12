@@ -81,6 +81,9 @@ allow shell {
   -apex_service
   -dnsresolver_service
   -gatekeeper_service
+  -hal_keymint_service
+  -hal_secureclock_service
+  -hal_sharedsecret_service
   -incident_service
   -installd_service
   -mdns_service
@@ -195,6 +198,14 @@ recovery_only(`
 ###
 ### Neverallow rules
 ###
+
+# Do not allow shell to talk directly to security HAL services other than
+# hal_remotelyprovisionedcomponent_service
+neverallow shell {
+  hal_keymint_service
+  hal_secureclock_service
+  hal_sharedsecret_service
+}:service_manager find;
 
 # Do not allow shell to hard link to any files.
 # In particular, if shell hard links to app data
