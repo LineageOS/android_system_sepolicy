@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    adaptive_haptics_prop
     apex_ready_prop
     artd
     credential_service
