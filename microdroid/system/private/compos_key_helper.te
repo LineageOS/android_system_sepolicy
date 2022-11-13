@@ -17,3 +17,6 @@ allow compos_key_helper compos:fifo_file { getattr read write };
 
 # Write to /dev/kmsg.
 allow compos_key_helper kmsg_device:chr_file rw_file_perms;
+
+# Communicate with microdroid manager to get DICE information
+unix_socket_connect(compos_key_helper, vm_payload_service, microdroid_manager)
