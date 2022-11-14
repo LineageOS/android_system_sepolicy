@@ -1466,3 +1466,6 @@ vendor.fingerprint.virtual.operation_authenticate_duration u:object_r:virtual_fi
 # properties for tuner
 ro.tuner.lazyhal    u:object_r:tuner_config_prop:s0 exact bool
 tuner.server.enable u:object_r:tuner_server_ctl_prop:s0 exact bool
+
+# Adaptive haptics settings property
+vibrator.adaptive_haptics.enabled u:object_r:adaptive_haptics_prop:s0 exact string
