@@ -8,8 +8,6 @@ init_daemon_domain(snapuserd)
 
 allow snapuserd kmsg_device:chr_file rw_file_perms;
 
-allow snapuserd self:capability ipc_lock;
-
 # Allow snapuserd to reach block devices in /dev/block.
 allow snapuserd block_device:dir search;
 
@@ -54,9 +52,12 @@ neverallow {
   -init
 } snapuserd_prop:property_service set;
 
-allow snapuserd self:anon_inode create_file_perms;
-
 # Allow to read/write/create OTA metadata files
 allow snapuserd metadata_file:dir search;
 allow snapuserd ota_metadata_file:dir rw_dir_perms;
 allow snapuserd ota_metadata_file:file create_file_perms;
+
+# This capability allows snapuserd to circumvent memlock rlimits while using
+# io_uring. An Alternative would be to up the memlock rlimit for the snapuserd service.
+allow snapuserd self:capability ipc_lock;
+io_uring_use(snapuserd)
