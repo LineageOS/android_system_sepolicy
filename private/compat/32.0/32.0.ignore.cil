@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    adaptive_haptics_prop
     adservices_manager_service
     apexd_select_prop
     artd_service
