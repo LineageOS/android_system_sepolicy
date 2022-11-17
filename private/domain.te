@@ -101,6 +101,48 @@ compatible_property_only(`
     get_prop({domain -coredomain -appdomain}, vendor_default_prop)
 ')
 
+# Public readable properties
+get_prop(domain, aaudio_config_prop)
+get_prop(domain, apexd_select_prop)
+get_prop(domain, arm64_memtag_prop)
+get_prop(domain, bluetooth_config_prop)
+get_prop(domain, bootloader_prop)
+get_prop(domain, build_odm_prop)
+get_prop(domain, build_prop)
+get_prop(domain, build_vendor_prop)
+get_prop(domain, debug_prop)
+get_prop(domain, exported_config_prop)
+get_prop(domain, exported_default_prop)
+get_prop(domain, exported_dumpstate_prop)
+get_prop(domain, exported_secure_prop)
+get_prop(domain, exported_system_prop)
+get_prop(domain, fingerprint_prop)
+get_prop(domain, framework_status_prop)
+get_prop(domain, gwp_asan_prop)
+get_prop(domain, hal_instrumentation_prop)
+get_prop(domain, hw_timeout_multiplier_prop)
+get_prop(domain, init_service_status_prop)
+get_prop(domain, libc_debug_prop)
+get_prop(domain, locale_prop)
+get_prop(domain, logd_prop)
+get_prop(domain, mediadrm_config_prop)
+get_prop(domain, property_service_version_prop)
+get_prop(domain, soc_prop)
+get_prop(domain, socket_hook_prop)
+get_prop(domain, surfaceflinger_prop)
+get_prop(domain, telephony_status_prop)
+get_prop(domain, timezone_prop)
+get_prop({domain - untrusted_app_all },  userdebug_or_eng_prop)
+get_prop(domain, vendor_socket_hook_prop)
+get_prop(domain, vndk_prop)
+get_prop(domain, vold_status_prop)
+get_prop(domain, vts_config_prop)
+
+# Binder cache properties are world-readable
+get_prop(domain, binder_cache_bluetooth_server_prop)
+get_prop(domain, binder_cache_system_server_prop)
+get_prop(domain, binder_cache_telephony_server_prop)
+
 # Allow access to fsverity keyring.
 allow domain kernel:key search;
 # Allow access to keys in the fsverity keyring that were installed at boot.
