@@ -1,4 +1,5 @@
 android.frameworks.stats.IStats/default                              u:object_r:fwk_stats_service:s0
+android.frameworks.sensorservice.ISensorManager/default              u:object_r:fwk_sensor_service:s0
 android.hardware.audio.core.IConfig/default                          u:object_r:hal_audio_service:s0
 android.hardware.audio.core.IModule/default                          u:object_r:hal_audio_service:s0
 android.hardware.audio.effect.IFactory/default                       u:object_r:hal_audio_service:s0
