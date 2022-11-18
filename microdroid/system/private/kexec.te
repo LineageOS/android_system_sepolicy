@@ -10,3 +10,6 @@ allow kexec microdroid_manager:fd use;
 
 # allow kexec to have SYS_BOOT
 allow kexec self:capability sys_boot;
+
+# allow kexec to write kmsg_debug
+allow kexec kmsg_debug_device:chr_file w_file_perms;
