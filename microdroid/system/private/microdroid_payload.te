@@ -49,6 +49,9 @@ binder_use(microdroid_payload);
 allow microdroid_payload authfs_binder_service:service_manager find;
 binder_call(microdroid_payload, authfs_service);
 
+# Allow payload to communicate with authfs_service
+unix_socket_connect(microdroid_payload, authfs_service, authfs_service)
+
 # Allow locating the authfs mount directory.
 allow microdroid_payload authfs_data_file:dir search;
 
