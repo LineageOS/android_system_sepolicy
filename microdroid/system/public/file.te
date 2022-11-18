@@ -5,6 +5,7 @@ type adbd_socket, file_type, coredomain_socket;
 type apex_info_file, file_type;
 type apex_mnt_dir, file_type;
 type authfs_data_file, file_type, data_file_type, core_data_file_type;
+type authfs_service_socket, file_type, coredomain_socket;
 type cgroup_desc_api_file, file_type, system_file_type;
 type cgroup_desc_file, file_type, system_file_type;
 type cgroup_rc_file, file_type;
