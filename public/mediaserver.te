@@ -77,6 +77,7 @@ allow mediaserver drmserver_service:service_manager find;
 allow mediaserver mediaextractor_service:service_manager find;
 allow mediaserver mediametrics_service:service_manager find;
 allow mediaserver media_session_service:service_manager find;
+allow mediaserver package_native_service:service_manager find;
 allow mediaserver permission_service:service_manager find;
 allow mediaserver permission_checker_service:service_manager find;
 allow mediaserver power_service:service_manager find;
