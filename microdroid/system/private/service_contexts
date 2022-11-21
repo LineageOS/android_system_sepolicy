@@ -1,5 +1,4 @@
 adb                                       u:object_r:adb_service:s0
 apexservice                               u:object_r:apex_service:s0
-authfs_service                            u:object_r:authfs_binder_service:s0
 manager                                   u:object_r:service_manager_service:s0
 *                                         u:object_r:default_android_service:s0
