@@ -9,10 +9,6 @@ type authfs_service_exec, exec_type, file_type, system_file_type;
 # Allow domain transition from init.
 init_daemon_domain(authfs_service)
 
-# Allow running as a binder service.
-binder_call(authfs_service, servicemanager)
-add_service(authfs_service, authfs_binder_service)
-
 # Allow domain transition into authfs.
 domain_auto_trans(authfs_service, authfs_exec, authfs)
 
