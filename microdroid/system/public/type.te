@@ -1,7 +1,6 @@
 # Miscellaneous types
 type adb_service, service_manager_type;
 type apex_service, service_manager_type;
-type authfs_binder_service, service_manager_type;
 type default_android_service, service_manager_type;
 type service_manager_service, service_manager_type;
 type system_linker;
