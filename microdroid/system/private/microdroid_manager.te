@@ -39,6 +39,9 @@ domain_auto_trans(microdroid_manager, compos_exec, compos)
 domain_auto_trans(microdroid_manager, apkdmverity_exec, apkdmverity)
 domain_auto_trans(microdroid_manager, zipfuse_exec, zipfuse)
 
+# Allow microdroid_manager to start encryptedstore binary
+domain_auto_trans(microdroid_manager, encryptedstore_exec, encryptedstore)
+
 # Allow microdroid_manager to run kexec to load crashkernel
 domain_auto_trans(microdroid_manager, kexec_exec, kexec)
 
@@ -123,6 +126,7 @@ neverallow microdroid_manager {
   -crash_dump
   -microdroid_payload
   -apkdmverity
+  -encryptedstore
   -zipfuse
   -kexec
 }:process transition;
