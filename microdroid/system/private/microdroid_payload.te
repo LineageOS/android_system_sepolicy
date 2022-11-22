@@ -44,11 +44,6 @@ r_dir_file(microdroid_payload, extra_apk_file)
 # Payload can read /proc/meminfo.
 allow microdroid_payload proc_meminfo:file r_file_perms;
 
-# Allow use of authfs.
-binder_use(microdroid_payload);
-allow microdroid_payload authfs_binder_service:service_manager find;
-binder_call(microdroid_payload, authfs_service);
-
 # Allow payload to communicate with authfs_service
 unix_socket_connect(microdroid_payload, authfs_service, authfs_service)
 
@@ -58,10 +53,6 @@ allow microdroid_payload authfs_data_file:dir search;
 # Read and write files authfs-proxied files.
 allow microdroid_payload authfs_fuse:dir rw_dir_perms;
 allow microdroid_payload authfs_fuse:file create_file_perms;
-
-# Allow use of virtual_machine_payload_service.
-allow microdroid_payload vm_payload_binder_service:service_manager find;
-binder_call(microdroid_payload, microdroid_manager)
 
 # Allow payload to communicate with microdroid manager
 unix_socket_connect(microdroid_payload, vm_payload_service, microdroid_manager)

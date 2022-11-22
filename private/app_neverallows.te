@@ -261,5 +261,7 @@ neverallow all_untrusted_apps incident_service:service_manager find;
 #  due to the specific logging use cases.
 # Context: b/193912100
 neverallow {
-  untrusted_app_all
+  all_untrusted_apps
+  -mediaprovider
+  -mediaprovider_app
 } { userdebug_or_eng_prop }:file read;
