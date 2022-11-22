@@ -32,6 +32,9 @@ allowxperm apkdmverity loop_device:blk_file ioctl {
 # allow apkdmverity to log to the kernel
 allow apkdmverity kmsg_device:chr_file w_file_perms;
 
+# allow apkdmverity to write kmsg_debug (stdio_to_kmsg) inherited from microdroid_manager.
+allow apkdmverity kmsg_debug_device:chr_file w_file_perms;
+
 # apkdmverity is forked from microdroid_manager
 allow apkdmverity microdroid_manager:fd use;
 
