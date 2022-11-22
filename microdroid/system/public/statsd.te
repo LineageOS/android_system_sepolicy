@@ -1,7 +1,6 @@
 type statsd, domain;
 
 type statsd_exec, system_file_type, exec_type, file_type;
-binder_use(statsd)
 
 # Allow statsd to scan through /proc/pid for all processes.
 r_dir_file(statsd, domain)
