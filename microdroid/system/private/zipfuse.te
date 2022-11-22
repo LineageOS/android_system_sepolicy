@@ -36,6 +36,9 @@ allow system_file zipfusefs:filesystem associate;
 # allow zipfuse to log to the kernel
 allow zipfuse kmsg_device:chr_file w_file_perms;
 
+# allow zipfuse to write kmsg_debug (stdio_to_kmsg) inherited from microdroid_manager.
+allow zipfuse kmsg_debug_device:chr_file w_file_perms;
+
 # allow zipfuse to handle extra apks
 r_dir_file(zipfuse, extra_apk_file)
 allow zipfuse extra_apk_file:dir mounton;
