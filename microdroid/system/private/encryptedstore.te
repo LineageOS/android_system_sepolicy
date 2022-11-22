@@ -10,10 +10,10 @@ use_bootstrap_libs(encryptedstore)
 r_dir_file(encryptedstore, block_device)
 
 # encryptedstore accesses /dev/vd* block device file.
-allow encryptedstore vd_device:blk_file r_file_perms;
+allow encryptedstore vd_device:blk_file rw_file_perms;
 
 # allow encryptedstore to create dm-crypt devices
-allow encryptedstore dm_device:{chr_file blk_file} rw_file_perms;
+allow encryptedstore dm_device:{ chr_file blk_file } rw_file_perms;
 
 # sys_admin is required to access the device-mapper and mount
 allow encryptedstore self:global_capability_class_set sys_admin;
@@ -21,8 +21,27 @@ allow encryptedstore self:global_capability_class_set sys_admin;
 # encryptedstore is forked from microdroid_manager
 allow encryptedstore microdroid_manager:fd use;
 
+# For formatting encrypted storage device
+allow encryptedstore e2fs_exec:file { rx_file_perms };
+allowxperm encryptedstore dm_device:blk_file ioctl {
+  BLKPBSZGET BLKDISCARDZEROES BLKROGET BLKDISCARD
+};
+
+# access /sys/fs/ext4/features - required because encryptedstore runs mkfs.ext4 in its own domain
+allow encryptedstore sysfs_fs_ext4_features:dir search;
+allow encryptedstore sysfs_fs_ext4_features:file r_file_perms;
+
+# encryptedstore to mount on /mnt/ directory
+allow encryptedstore tmpfs:dir  { add_name create mounton write };
+
+# Unmount and mount filesystem
+allow encryptedstore labeledfs:filesystem { mount unmount };
+
 # allow encryptedstore to log to the kernel
 allow encryptedstore kmsg_device:chr_file w_file_perms;
+
+# Allow encryptedstore to write kmsg_debug (stdio_to_kmsg).
+allow encryptedstore kmsg_debug_device:chr_file w_file_perms;
 
 # Only microdroid_manager can run encryptedstore
 neverallow { domain -microdroid_manager } encryptedstore:process { transition dyntransition };
