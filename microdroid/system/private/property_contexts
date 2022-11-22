@@ -55,7 +55,6 @@ ro.boottime.init.first_stage          u:object_r:boottime_prop:s0 exact int
 ro.boottime.init.modules              u:object_r:boottime_prop:s0 exact int
 ro.boottime.init.selinux              u:object_r:boottime_prop:s0 exact int
 ro.boottime.microdroid_manager        u:object_r:boottime_prop:s0 exact int
-ro.boottime.servicemanager            u:object_r:boottime_prop:s0 exact int
 ro.boottime.tombstoned                u:object_r:boottime_prop:s0 exact int
 ro.boottime.ueventd                   u:object_r:boottime_prop:s0 exact int
 ro.boottime.zipfuse                   u:object_r:boottime_prop:s0 exact int
@@ -74,7 +73,6 @@ init.svc.apexd-vm           u:object_r:init_service_status_private_prop:s0 exact
 init.svc.apkdmverity        u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.authfs_service     u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.microdroid_manager u:object_r:init_service_status_private_prop:s0 exact string
-init.svc.servicemanager     u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.ueventd            u:object_r:init_service_status_private_prop:s0 exact string
 init.svc.zipfuse            u:object_r:init_service_status_private_prop:s0 exact string
 
@@ -151,8 +149,6 @@ persist.sys.timezone u:object_r:timezone_prop:s0 exact string
 ro.vndk.version  u:object_r:build_prop:s0 exact string
 
 heapprofd.enable u:object_r:heapprofd_prop:s0 exact bool
-
-servicemanager.ready u:object_r:servicemanager_prop:s0 exact bool
 
 # ART properties for CompOS
 dalvik.vm.                                  u:object_r:dalvik_config_prop:s0 prefix
