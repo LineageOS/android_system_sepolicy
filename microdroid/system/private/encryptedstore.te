@@ -1,0 +1,28 @@
+# encryptedstore is a program that provides (encrypted) storage solution in a VM based on dm-crypt
+
+type encryptedstore, domain, coredomain;
+type encryptedstore_exec, exec_type, file_type, system_file_type;
+
+# encryptedstore is using bootstrap bionic
+use_bootstrap_libs(encryptedstore)
+
+# encryptedstore require access to block device directory to map dm-crypt
+r_dir_file(encryptedstore, block_device)
+
+# encryptedstore accesses /dev/vd* block device file.
+allow encryptedstore vd_device:blk_file r_file_perms;
+
+# allow encryptedstore to create dm-crypt devices
+allow encryptedstore dm_device:{chr_file blk_file} rw_file_perms;
+
+# sys_admin is required to access the device-mapper and mount
+allow encryptedstore self:global_capability_class_set sys_admin;
+
+# encryptedstore is forked from microdroid_manager
+allow encryptedstore microdroid_manager:fd use;
+
+# allow encryptedstore to log to the kernel
+allow encryptedstore kmsg_device:chr_file w_file_perms;
+
+# Only microdroid_manager can run encryptedstore
+neverallow { domain -microdroid_manager } encryptedstore:process { transition dyntransition };

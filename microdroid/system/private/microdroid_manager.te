@@ -39,6 +39,9 @@ domain_auto_trans(microdroid_manager, compos_exec, compos)
 domain_auto_trans(microdroid_manager, apkdmverity_exec, apkdmverity)
 domain_auto_trans(microdroid_manager, zipfuse_exec, zipfuse)
 
+# Allow microdroid_manager to start encryptedstore binary
+domain_auto_trans(microdroid_manager, encryptedstore_exec, encryptedstore)
+
 # Allow microdroid_manager to run kexec to load crashkernel
 domain_auto_trans(microdroid_manager, kexec_exec, kexec)
 
@@ -47,9 +50,6 @@ allow microdroid_manager kmsg_device:chr_file w_file_perms;
 
 # Let microdroid_manager to create a vsock connection back to the host VM
 allow microdroid_manager self:vsock_socket { create_socket_perms_no_ioctl };
-
-# Let microdroid_manager listen/accept from the host for stdio proxy
-allow microdroid_manager self:vsock_socket { listen accept };
 
 # microdroid_manager is using bootstrap bionic
 use_bootstrap_libs(microdroid_manager)
@@ -123,6 +123,7 @@ neverallow microdroid_manager {
   -crash_dump
   -microdroid_payload
   -apkdmverity
+  -encryptedstore
   -zipfuse
   -kexec
 }:process transition;
