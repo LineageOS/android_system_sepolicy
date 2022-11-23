@@ -53,10 +53,6 @@ allow domain binder_device:chr_file rw_file_perms;
 # added to individual domains, but this sets safe defaults for all processes.
 allowxperm domain binder_device:chr_file ioctl { unpriv_binder_ioctls };
 
-# /dev/binderfs needs to be accessed by everyone too!
-allow domain binderfs:dir { getattr search };
-allow domain binderfs_logs_proc:dir search;
-
 allow domain ptmx_device:chr_file rw_file_perms;
 allow domain random_device:chr_file rw_file_perms;
 allow domain proc_random:dir r_dir_perms;
