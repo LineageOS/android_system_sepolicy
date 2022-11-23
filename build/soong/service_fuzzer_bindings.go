@@ -108,7 +108,7 @@ var (
 		"android.hardware.wifi.IWifi/default":                                     EXCEPTION_NO_FUZZER,
 		"android.hardware.wifi.hostapd.IHostapd/default":                          EXCEPTION_NO_FUZZER,
 		"android.hardware.wifi.supplicant.ISupplicant/default":                    EXCEPTION_NO_FUZZER,
-		"android.frameworks.sensorservice.ISensorManager/default":                 EXCEPTION_NO_FUZZER,
+		"android.frameworks.sensorservice.ISensorManager/default":                 []string{"libsensorserviceaidl_fuzzer"},
 		"android.frameworks.stats.IStats/default":                                 EXCEPTION_NO_FUZZER,
 		"android.se.omapi.ISecureElementService/default":                          EXCEPTION_NO_FUZZER,
 		"android.system.keystore2.IKeystoreService/default":                       EXCEPTION_NO_FUZZER,
