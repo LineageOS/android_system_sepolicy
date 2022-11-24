@@ -47,9 +47,6 @@ type vendor_service_contexts_file, vendor_file_type, file_type;
 type vm_payload_service_socket, file_type, coredomain_socket;
 
 # file system types
-type binderfs, fs_type;
-type binderfs_logs, fs_type;
-type binderfs_logs_proc, fs_type;
 type binfmt_miscfs, fs_type;
 type cgroup, fs_type;
 type cgroup_v2, fs_type;
