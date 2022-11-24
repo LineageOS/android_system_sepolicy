@@ -640,6 +640,10 @@ external_storage.sdcardfs.enabled u:object_r:storage_config_prop:s0 exact bool
 external_storage.cross_user.enabled u:object_r:storage_config_prop:s0 exact bool
 ro.fuse.bpf.enabled u:object_r:storage_config_prop:s0 exact bool
 
+# hypervisor.*: configured by the vendor to advertise capabilities of their
+# hypervisor to virtualizationservice.
+hypervisor.memory_reclaim.supported u:object_r:hypervisor_restricted_prop:s0 exact bool
+
 ro.config.per_app_memcg         u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.critical                 u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.critical_upgrade         u:object_r:lmkd_config_prop:s0 exact bool
