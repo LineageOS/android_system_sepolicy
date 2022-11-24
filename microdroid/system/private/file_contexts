@@ -34,7 +34,6 @@
 /dev(/.*)?		u:object_r:device:s0
 /dev/ashmem		u:object_r:ashmem_device:s0
 /dev/ashmem(.*)?	u:object_r:ashmem_libcutils_device:s0
-/dev/binder		u:object_r:binder_device:s0
 /dev/block(/.*)?	u:object_r:block_device:s0
 /dev/block/dm-[0-9]+	u:object_r:dm_device:s0
 /dev/block/loop[0-9]*	u:object_r:loop_device:s0
@@ -55,7 +54,6 @@
 /dev/hvc1               u:object_r:serial_device:s0
 /dev/hvc2               u:object_r:log_device:s0
 /dev/hw_random		u:object_r:hw_random_device:s0
-/dev/hwbinder		u:object_r:hwbinder_device:s0
 /dev/loop-control	u:object_r:loop_control_device:s0
 /dev/ppp		u:object_r:ppp_device:s0
 /dev/ptmx		u:object_r:ptmx_device:s0
@@ -86,7 +84,6 @@
 /dev/uio[0-9]*		u:object_r:uio_device:s0
 /dev/urandom		u:object_r:random_device:s0
 /dev/vhost-vsock	u:object_r:kvm_device:s0
-/dev/vndbinder		u:object_r:vndbinder_device:s0
 /dev/vsock		u:object_r:vsock_device:s0
 /dev/zero		u:object_r:zero_device:s0
 /dev/__properties__ u:object_r:properties_device:s0

@@ -230,11 +230,9 @@ allow init {
 allow init { fs_type -contextmount_type -fusefs_type -rootfs }:dir  { open read setattr search };
 
 allow init {
-  binder_device
   console_device
   devpts
   dm_device
-  hwbinder_device
   kmsg_device
   null_device
   owntty_device
