@@ -277,14 +277,6 @@ prebuilt_etc {
     installable: false,
 }
 
-prebuilt_etc {
-    name: "microdroid_service_contexts",
-    filename: "plat_service_contexts",
-    src: "system/private/service_contexts",
-    relative_install_path: "selinux",
-    installable: false,
-}
-
 // For CTS
 se_policy_conf {
     name: "microdroid_general_sepolicy.conf",
