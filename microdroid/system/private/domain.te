@@ -46,13 +46,6 @@ allow domain owntty_device:chr_file rw_file_perms;
 allow domain null_device:chr_file rw_file_perms;
 allow domain zero_device:chr_file rw_file_perms;
 
-# /dev/binder can be accessed by ... everyone! :)
-allow domain binder_device:chr_file rw_file_perms;
-
-# Restrict binder ioctls to an allowlist. Additional ioctl commands may be
-# added to individual domains, but this sets safe defaults for all processes.
-allowxperm domain binder_device:chr_file ioctl { unpriv_binder_ioctls };
-
 allow domain ptmx_device:chr_file rw_file_perms;
 allow domain random_device:chr_file rw_file_perms;
 allow domain proc_random:dir r_dir_perms;
@@ -393,13 +386,6 @@ neverallow * {fs_type -contextmount_type}:filesystem relabelto;
 neverallow * { contextmount_type -authfs_fuse }:dir_file_class_set
     { create relabelfrom relabelto append link rename };
 neverallow domain { contextmount_type -authfs_fuse }:dir_file_class_set { write unlink };
-
-# Do not allow service_manager add for default service labels.
-# Instead domains should use a more specific type such as
-# system_app_service rather than the generic type.
-# New service_types are defined in {,hw,vnd}service.te and new mappings
-# from service name to service_type are defined in {,hw,vnd}service_contexts.
-neverallow * default_android_service:service_manager *;
 
 neverallow { domain -init -vendor_init } vendor_default_prop:property_service set;
 
