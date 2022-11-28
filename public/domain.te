@@ -582,6 +582,7 @@ neverallow {
   -e2fs
   -fsck
   -fastbootd
+  -hal_fastboot_server
 } metadata_block_device:blk_file { append link rename write open read ioctl lock };
 
 # No domain other than recovery, update_engine and fastbootd can write to system partition(s).
