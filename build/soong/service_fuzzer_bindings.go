@@ -114,6 +114,7 @@ var (
 		"android.hardware.soundtrigger3.ISoundTriggerHw/default":                  EXCEPTION_NO_FUZZER,
 		"android.hardware.thermal.IThermal/default":                               EXCEPTION_NO_FUZZER,
 		"android.hardware.tv.cec.IHdmiCec/default":                                EXCEPTION_NO_FUZZER,
+		"android.hardware.tv.earc.IEArc/default":                                  EXCEPTION_NO_FUZZER,
 		"android.hardware.tv.hdmi.IHdmi/default":                                  EXCEPTION_NO_FUZZER,
 		"android.hardware.tv.input.ITvInput/default":                              EXCEPTION_NO_FUZZER,
 		"android.hardware.tv.tuner.ITuner/default":                                EXCEPTION_NO_FUZZER,
