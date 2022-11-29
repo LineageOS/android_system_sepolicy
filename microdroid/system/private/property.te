@@ -39,3 +39,16 @@ neverallow {
   domain
   -init
 } apexd_payload_metadata_prop:property_service set;
+
+# Only microdroid_manager and init can set the microdroid_config_prop sysprops
+neverallow {
+    domain
+    -init
+    -microdroid_manager
+} microdroid_config_prop:property_service set;
+
+neverallow {
+    domain
+    -init
+    -microdroid_manager
+} microdroid_config_prop:file no_rw_file_perms;
