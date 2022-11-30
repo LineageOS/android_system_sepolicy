@@ -45,10 +45,10 @@ neverallow {
     domain
     -init
     -microdroid_manager
-} microdroid_config_prop:property_service set;
+} {microdroid_config_prop microdroid_lifecycle_prop}:property_service set;
 
 neverallow {
     domain
     -init
     -microdroid_manager
-} microdroid_config_prop:file no_rw_file_perms;
+} {microdroid_config_prop microdroid_lifecycle_prop}:file no_rw_file_perms;
