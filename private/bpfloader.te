@@ -26,21 +26,20 @@ allow bpfloader bpfloader_exec:file execute_no_trans;
 ### Neverallow rules
 ###
 
-# TODO: get rid of init & vendor_init; Note: we don't care about getattr/mounton/search
-neverallow { domain -init -vendor_init } bpffs_type:dir { open read setattr };
+# Note: we don't care about getattr/mounton/search
+neverallow { domain } bpffs_type:dir { open read setattr };
 neverallow { domain -bpfloader } bpffs_type:dir { add_name create remove_name write };
 neverallow domain bpffs_type:dir ~{ add_name create getattr mounton open read remove_name search setattr write };
 
-# TODO: get rid of init & vendor_init
-neverallow { domain -bpfloader -init -vendor_init } bpffs_type:file { map open setattr };
+neverallow { domain -bpfloader } bpffs_type:file { map open setattr };
 neverallow { domain -bpfloader } bpffs_type:file { create getattr rename };
-neverallow { domain -bpfloader -gpuservice -init -lmkd -mediaprovider_app -netd -netutils_wrapper                -system_server -vendor_init } fs_bpf:file               read;
-neverallow { domain -bpfloader             -init                                                  -network_stack                -vendor_init } fs_bpf_net_private:file   read;
-neverallow { domain -bpfloader             -init                                                  -network_stack -system_server -vendor_init } fs_bpf_net_shared:file    read;
-neverallow { domain -bpfloader             -init                          -netd                   -network_stack -system_server -vendor_init } fs_bpf_netd_readonly:file read;
-neverallow { domain -bpfloader             -init                          -netd -netutils_wrapper -network_stack -system_server -vendor_init } fs_bpf_netd_shared:file   read;
-neverallow { domain -bpfloader             -init                                                  -network_stack                -vendor_init } fs_bpf_tethering:file     read;
-neverallow { domain -bpfloader -gpuservice                                -netd -netutils_wrapper -network_stack -system_server              } { bpffs_type -fs_bpf_vendor }:file write;
+neverallow { domain -bpfloader -gpuservice -lmkd -mediaprovider_app -netd -netutils_wrapper                -system_server } fs_bpf:file               read;
+neverallow { domain -bpfloader                                                              -network_stack                } fs_bpf_net_private:file   read;
+neverallow { domain -bpfloader                                                              -network_stack -system_server } fs_bpf_net_shared:file    read;
+neverallow { domain -bpfloader                                      -netd                   -network_stack -system_server } fs_bpf_netd_readonly:file read;
+neverallow { domain -bpfloader                                      -netd -netutils_wrapper -network_stack -system_server } fs_bpf_netd_shared:file   read;
+neverallow { domain -bpfloader                                                              -network_stack                } fs_bpf_tethering:file     read;
+neverallow { domain -bpfloader -gpuservice                          -netd -netutils_wrapper -network_stack -system_server } { bpffs_type -fs_bpf_vendor }:file write;
 neverallow domain bpffs_type:file ~{ create getattr map open read rename setattr write };
 
 neverallow { domain -bpfloader } bpffs_type:lnk_file ~read;
@@ -62,7 +61,7 @@ neverallow {
 neverallow { domain -bpfloader -gpuservice -lmkd -mediaprovider_app -netd -network_stack -system_server } *:bpf { map_read map_write };
 neverallow { domain -bpfloader -init } bpfloader_exec:file { execute execute_no_trans };
 
-neverallow { coredomain -bpfloader -init } fs_bpf_vendor:file *;
+neverallow { coredomain -bpfloader } fs_bpf_vendor:file *;
 
 neverallow bpfloader *:{ tcp_socket udp_socket rawip_socket } *;
 
