@@ -5,6 +5,7 @@
 typeattribute rkpdapp coredomain;
 
 app_domain(rkpdapp)
+net_domain(rkpdapp)
 
 # RKPD needs to be able to call the remote provisioning HALs
 hal_client_domain(rkpdapp, hal_keymint)
