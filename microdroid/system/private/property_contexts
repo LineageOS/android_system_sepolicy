@@ -122,7 +122,9 @@ microdroid_manager.apk_root_hash u:object_r:microdroid_manager_roothash_prop:s0 
 microdroid_manager.apk.mounted u:object_r:microdroid_manager_zipfuse_prop:s0 exact bool
 
 microdroid_manager.authfs.enabled u:object_r:microdroid_config_prop:s0 exact bool
-microdroid_manager.config_done u:object_r:microdroid_config_prop:s0 exact bool
+
+microdroid_manager.config_done u:object_r:microdroid_lifecycle_prop:s0 exact bool
+microdroid_manager.init_done u:object_r:microdroid_lifecycle_prop:s0 exact bool
 
 dev.mnt.blk.root   u:object_r:dev_mnt_prop:s0 exact string
 dev.mnt.blk.vendor u:object_r:dev_mnt_prop:s0 exact string
