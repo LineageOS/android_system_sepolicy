@@ -418,11 +418,6 @@ neverallow * *:{ shm sem msg msgq } *;
 # Feature parity with Chromium LSM.
 neverallow * { file_type fs_type dev_type }:{ lnk_file fifo_file sock_file } mounton;
 
-# Nobody should be able to execute su on user builds.
-# On userdebug/eng builds, only shell, and
-# su itself execute su.
-neverallow { domain userdebug_or_eng(`-shell -su') } su_exec:file no_x_file_perms;
-
 neverallow { domain -init } proc:{ file dir } mounton;
 
 # Ensure that all types assigned to processes are included
