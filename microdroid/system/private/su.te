@@ -1,7 +1,4 @@
-userdebug_or_eng(`
-  typeattribute su coredomain;
+typeattribute su coredomain;
 
-  # su is also permissive to permit setenforce.
-  permissive su;
-
-')
+# su is also permissive to permit setenforce.
+permissive su;
