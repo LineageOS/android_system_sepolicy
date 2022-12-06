@@ -199,7 +199,6 @@ allow init self:global_capability_class_set { chown fowner fsetid };
 allow init {
   file_type
   -app_data_file
-  -bpffs_type
   -exec_type
   -misc_logd_file
   -nativetest_data_file
@@ -213,7 +212,6 @@ allow init {
 allow init {
   file_type
   -app_data_file
-  -bpffs_type
   -credstore_data_file
   -exec_type
   -keystore_data_file
@@ -235,7 +233,6 @@ allow init {
   file_type
   -apex_info_file
   -app_data_file
-  -bpffs_type
   -exec_type
   -gsi_data_file
   -credstore_data_file
@@ -262,7 +259,6 @@ allow init apex_info_file:file r_file_perms;
 allow init {
   file_type
   -app_data_file
-  -bpffs_type
   -exec_type
   -gsi_data_file
   -credstore_data_file
@@ -282,7 +278,6 @@ allow init {
   file_type
   -apex_mnt_dir
   -app_data_file
-  -bpffs_type
   -exec_type
   -gsi_data_file
   -credstore_data_file
@@ -302,7 +297,6 @@ allow init cache_file:lnk_file r_file_perms;
 
 allow init {
   file_type
-  -bpffs_type
   -system_dlkm_file_type
   -system_file_type
   -vendor_file_type
@@ -327,7 +321,6 @@ allow init debugfs_wifi_tracing:file w_file_perms;
 # chown/chmod on pseudo files.
 allow init {
   fs_type
-  -bpffs_type
   -contextmount_type
   -keychord_device
   -proc_type
@@ -337,14 +330,7 @@ allow init {
   -rootfs
   enforce_debugfs_restriction(`-debugfs_type')
 }:file { open read setattr };
-allow init {
-  fs_type
-  -bpffs_type
-  -contextmount_type
-  -sdcard_type
-  -fusefs_type
-  -rootfs
-}:dir { open read setattr search };
+allow init { fs_type -contextmount_type -sdcard_type -fusefs_type -rootfs }:dir  { open read setattr search };
 
 allow init {
   binder_device
