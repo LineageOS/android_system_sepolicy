@@ -257,6 +257,7 @@ persist.device_config.storage_native_boot.          u:object_r:device_config_sto
 persist.device_config.surface_flinger_native_boot.  u:object_r:device_config_surface_flinger_native_boot_prop:s0
 persist.device_config.swcodec_native.               u:object_r:device_config_swcodec_native_prop:s0
 persist.device_config.vendor_system_native.         u:object_r:device_config_vendor_system_native_prop:s0
+persist.device_config.vendor_system_native_boot.    u:object_r:device_config_vendor_system_native_boot_prop:s0
 persist.device_config.virtualization_framework_native. u:object_r:device_config_virtualization_framework_native_prop:s0
 persist.device_config.window_manager_native_boot.   u:object_r:device_config_window_manager_native_boot_prop:s0
 
@@ -728,7 +729,8 @@ libc.debug.hooks.enable   u:object_r:libc_debug_prop:s0 exact string
 
 # GWP-ASan props. Separate from other libc.debug.* props, because we want users
 # to be able to set them from `adb shell` even on release devices.
-libc.debug.gwp_asan.  u:object_r:gwp_asan_prop:s0 prefix string
+libc.debug.gwp_asan.          u:object_r:gwp_asan_prop:s0 prefix string
+persist.libc.debug.gwp_asan.  u:object_r:gwp_asan_prop:s0 prefix string
 
 # shell-only props for ARM memory tagging (MTE).
 arm64.memtag. u:object_r:arm64_memtag_prop:s0 prefix string
