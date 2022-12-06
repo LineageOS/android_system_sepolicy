@@ -5,9 +5,6 @@
 # policy compilation succeeds with userdebug/user combination at boot
 type su, domain;
 
-# File types must be defined for file_contexts.
-type su_exec, system_file_type, exec_type, file_type;
-
 userdebug_or_eng(`
   # Add su to various domains
   net_domain(su)
