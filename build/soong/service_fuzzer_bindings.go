@@ -341,6 +341,7 @@ var (
 		"rcs":                          EXCEPTION_NO_FUZZER,
 		"reboot_readiness":             EXCEPTION_NO_FUZZER,
 		"recovery":                     EXCEPTION_NO_FUZZER,
+		"remote_provisioning":          EXCEPTION_NO_FUZZER,
 		"resolver":                     EXCEPTION_NO_FUZZER,
 		"resources":                    EXCEPTION_NO_FUZZER,
 		"restrictions":                 EXCEPTION_NO_FUZZER,

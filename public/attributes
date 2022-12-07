@@ -399,6 +399,7 @@ attribute automotive_display_service_server;
 attribute camera_service_server;
 attribute display_service_server;
 attribute evsmanager_service_server;
+attribute remote_provisioning_service_server;
 attribute scheduler_service_server;
 attribute sensor_service_server;
 attribute stats_service_server;
