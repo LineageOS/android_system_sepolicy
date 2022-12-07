@@ -4,10 +4,12 @@ init_daemon_domain(adbd)
 
 domain_auto_trans(adbd, shell_exec, shell)
 
-userdebug_or_eng(`
-  allow adbd self:process setcurrent;
-  allow adbd su:process dyntransition;
-')
+# Allow adbd to transition to su. In Android, this is disallowed in user builds.
+# However, Microdroid allows it even in user builds because apps should be able
+# to adb root into their "debuggable" VMs in user builds. Disabling adbd for
+# non debuggable VMs are done by not starting adbd at all using sysprops.
+allow adbd self:process setcurrent;
+allow adbd su:process dyntransition;
 
 # Do not sanitize the environment or open fds of the shell. Allow signaling
 # created processes.
@@ -55,3 +57,6 @@ allow adbd kernel:security read_policy;
 # adbd tries to run mdnsd, but mdnsd doesn't exist. Just dontaudit ctl permissions.
 # TODO(b/200902288): patch adb and remove this rule
 dontaudit adbd { ctl_default_prop ctl_start_prop }:property_service set;
+
+# only adbd can transition to su.
+neverallow {domain -adbd} su:process { transition dyntransition };
