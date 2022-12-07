@@ -1,7 +1,6 @@
 # property contexts for microdroid
-# microdroid only uses much fewer properties than normal Android, so every property is listed as
-# an exact entry. The only wildcards are "debug.*", "init.svc_debug_pid.*", "ctl.*", and
-# process-dependent properties like "arm64.memtag.*" and "log.tag.*".
+# microdroid uses far fewer properties than normal Android, so almost
+# every property is listed as an exact entry.
 
 debug.         u:object_r:debug_prop:s0 prefix
 persist.debug. u:object_r:debug_prop:s0 prefix
@@ -120,6 +119,7 @@ apex_config.done u:object_r:apex_config_prop:s0 exact bool
 
 microdroid_manager.apk_root_hash u:object_r:microdroid_manager_roothash_prop:s0 exact string
 microdroid_manager.apk.mounted u:object_r:microdroid_manager_zipfuse_prop:s0 exact bool
+microdroid_manager.extra_apk.mounted. u:object_r:microdroid_manager_zipfuse_prop:s0 prefix bool
 
 microdroid_manager.authfs.enabled u:object_r:microdroid_config_prop:s0 exact bool
 
