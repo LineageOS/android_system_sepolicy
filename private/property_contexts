@@ -504,6 +504,7 @@ bluetooth.framework.adapter_address_validation       u:object_r:bluetooth_config
 
 bluetooth.core.gap.le.privacy.enabled                u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.core.gap.le.conn.min.limit                 u:object_r:bluetooth_config_prop:s0 exact int
+bluetooth.core.gap.le.conn.only_init_1m_phy.enabled  u:object_r:bluetooth_config_prop:s0 exact bool
 
 bluetooth.device.default_name                        u:object_r:bluetooth_config_prop:s0 exact string
 bluetooth.device.class_of_device                     u:object_r:bluetooth_config_prop:s0 exact string
