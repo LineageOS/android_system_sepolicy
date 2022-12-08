@@ -5,6 +5,7 @@
 
 typeattribute system_server coredomain;
 typeattribute system_server mlstrustedsubject;
+typeattribute system_server remote_provisioning_service_server;
 typeattribute system_server scheduler_service_server;
 typeattribute system_server sensor_service_server;
 typeattribute system_server stats_service_server;
