@@ -383,9 +383,9 @@ neverallow * {fs_type -contextmount_type}:filesystem relabelto;
 # Ensure that context mount types are not writable, to ensure that
 # the write to /system restriction above is not bypassed via context=
 # mount to another type.
-neverallow * { contextmount_type -authfs_fuse }:dir_file_class_set
+neverallow * { contextmount_type -authfs_fuse -encryptedstore_file }:dir_file_class_set
     { create relabelfrom relabelto append link rename };
-neverallow domain { contextmount_type -authfs_fuse }:dir_file_class_set { write unlink };
+neverallow domain { contextmount_type -authfs_fuse -encryptedstore_file }:dir_file_class_set { write unlink };
 
 neverallow { domain -init -vendor_init } vendor_default_prop:property_service set;
 
@@ -555,3 +555,6 @@ neverallow { domain userdebug_or_eng(`-domain') } self:lockdown integrity;
 # These domains must not be crash dumped
 neverallow no_crash_dump_domain crash_dump_exec:file no_x_file_perms;
 neverallow no_crash_dump_domain crash_dump:process { transition dyntransition };
+
+# Ensure that no one can execute from encrypted storage, which is a writable partition in VM.
+neverallow domain encryptedstore_file:file no_x_file_perms;
