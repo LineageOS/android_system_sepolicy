@@ -27,12 +27,11 @@ allow bpfloader bpfloader_exec:file execute_no_trans;
 ###
 
 # Note: we don't care about getattr/mounton/search
-neverallow { domain } bpffs_type:dir { open read setattr };
+neverallow { domain            } bpffs_type:dir ~{ add_name create getattr mounton remove_name search write };
 neverallow { domain -bpfloader } bpffs_type:dir { add_name create remove_name write };
-neverallow domain bpffs_type:dir ~{ add_name create getattr mounton open read remove_name search setattr write };
 
-neverallow { domain -bpfloader } bpffs_type:file { map open setattr };
-neverallow { domain -bpfloader } bpffs_type:file { create getattr rename };
+neverallow { domain            } bpffs_type:file ~{ create getattr map open read rename setattr write };
+neverallow { domain -bpfloader } bpffs_type:file { create getattr map open rename setattr };
 neverallow { domain -bpfloader -gpuservice -lmkd -mediaprovider_app -netd -netutils_wrapper                -system_server } fs_bpf:file               read;
 neverallow { domain -bpfloader                                                                                            } fs_bpf_loader:file        read;
 neverallow { domain -bpfloader                                                              -network_stack                } fs_bpf_net_private:file   read;
@@ -41,14 +40,15 @@ neverallow { domain -bpfloader                                      -netd       
 neverallow { domain -bpfloader                                      -netd -netutils_wrapper -network_stack -system_server } fs_bpf_netd_shared:file   read;
 neverallow { domain -bpfloader                                                              -network_stack                } fs_bpf_tethering:file     read;
 neverallow { domain -bpfloader -gpuservice                          -netd -netutils_wrapper -network_stack -system_server } { bpffs_type -fs_bpf_vendor }:file write;
-neverallow domain bpffs_type:file ~{ create getattr map open read rename setattr write };
 
 neverallow { domain -bpfloader } bpffs_type:lnk_file ~read;
 neverallow { domain -bpfdomain } bpffs_type:lnk_file read;
 
 neverallow { domain -bpfloader } *:bpf { map_create prog_load };
+
+# 'fs_bpf_loader' is for internal use of the BpfLoader oneshot boot time process.
 neverallow { domain -bpfloader } fs_bpf_loader:bpf *;
-neverallow { domain -bpfloader } fs_bpf_loader:file open;
+neverallow { domain -bpfloader } fs_bpf_loader:file *;
 
 neverallow {
   domain
