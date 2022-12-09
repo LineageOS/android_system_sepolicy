@@ -9,10 +9,12 @@ init_daemon_domain(hal_can_socketcan)
 allow hal_can_socketcan self:capability net_admin;
 allow hal_can_socketcan self:netlink_route_socket { create bind write nlmsg_write read };
 
-# Calling if_nametoindex(3) to open CAN sockets
+# See man page for netdevice(7) for more info on ioctls
 allow hal_can_socketcan self:udp_socket { create ioctl };
 allowxperm hal_can_socketcan self:udp_socket ioctl {
     SIOCGIFINDEX
+    SIOCGIFFLAGS
+    SIOCSIFFLAGS
 };
 
 # Communicating with SocketCAN interfaces and bringing them up/down
