@@ -2,9 +2,6 @@
 type shell, domain;
 type shell_exec, system_file_type, exec_type, file_type;
 
-# Create and use network sockets.
-net_domain(shell)
-
 # Root fs.
 allow shell rootfs:dir r_dir_perms;
 

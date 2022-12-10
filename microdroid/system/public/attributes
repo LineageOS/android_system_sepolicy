@@ -120,9 +120,6 @@ expandattribute vendor_restricted_property_type false;
 attribute vendor_public_property_type;
 expandattribute vendor_public_property_type false;
 
-# All domains used for apps with network access.
-attribute netdomain;
-
 # All domains used for apps with bluetooth access.
 attribute bluetoothdomain;
 
