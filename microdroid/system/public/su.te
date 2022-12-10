@@ -6,8 +6,6 @@
 type su, domain;
 
 # Add su to various domains
-net_domain(su)
-
 dontaudit su self:capability_class_set *;
 dontaudit su self:capability2 *;
 dontaudit su kernel:security *;
