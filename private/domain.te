@@ -2,7 +2,9 @@
 # This occurs when the process crashes.
 # We do not apply this to the su domain to avoid interfering with
 # tests (b/114136122)
-domain_auto_trans({ domain userdebug_or_eng(`-su') }, crash_dump_exec, crash_dump);
+# We exempt crosvm because parts of its memory are inaccessible to the
+# kernel. TODO(b/238324526): Remove this.
+domain_auto_trans({ domain userdebug_or_eng(`-su') -crosvm }, crash_dump_exec, crash_dump);
 allow domain crash_dump:process sigchld;
 
 # Allow every process to check the heapprofd.enable properties to determine
