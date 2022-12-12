@@ -82,6 +82,11 @@ allow artd user_profile_data_file:file create_file_perms;
 allow artd app_data_file_type:dir { create_dir_perms relabelfrom relabelto };
 allow artd app_data_file_type:file { create_file_perms relabelfrom relabelto };
 
+# Allow symlinks for secondary dex files. This has be to restricted because
+# symlinks can cause various security issues. We allow "privapp_data_file" just
+# for GMS because so far we only see GMS using symlinks.
+allow artd privapp_data_file:lnk_file { getattr read };
+
 # Never allow running other binaries without a domain transition.
 # The only exception is art_exec. It is allowed to use the artd domain because
 # it is a thin wrapper that executes other binaries on behalf of artd.
