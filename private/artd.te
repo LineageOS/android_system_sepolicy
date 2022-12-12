@@ -29,11 +29,20 @@ tmpfs_domain(artd)
 # Allow testing userfaultfd support.
 userfaultfd_use(artd)
 
-# Read access to primary dex'es on writable partitions (e.g., /data/app/...).
+# Read access to primary dex'es on writable partitions
+# ({/data,/mnt/expand/<volume-uuid>}/app/...).
+allow artd mnt_expand_file:dir { getattr search };
 r_dir_file(artd, apk_data_file)
 
-# Read access to /vendor/app.
+# Read access to vendor APKs ({/vendor,/odm}/{app,priv-app}/...).
 r_dir_file(artd, vendor_app_file)
+
+# Read access to vendor overlay APKs ({/vendor,/odm,/oem}/overlay/...).
+allow artd oemfs:dir { getattr search };
+r_dir_file(artd, vendor_overlay_file)
+
+# Read access to vendor shared libraries ({/vendor,/odm}/framework/...).
+r_dir_file(artd, vendor_framework_file)
 
 # Read/write access to all compilation artifacts generated on device for apps'
 # primary dex'es. (/data/dalvik-cache/..., /data/app/.../oat/..., etc.)
