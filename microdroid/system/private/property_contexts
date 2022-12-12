@@ -85,7 +85,6 @@ ro.boot.boot_devices               u:object_r:bootloader_prop:s0 exact string
 ro.boot.first_stage_console        u:object_r:bootloader_prop:s0 exact string
 ro.boot.force_normal_boot          u:object_r:bootloader_prop:s0 exact string
 ro.boot.hardware                   u:object_r:bootloader_prop:s0 exact string
-ro.boot.microdroid.app_debuggable  u:object_r:bootloader_prop:s0 exact bool
 ro.boot.microdroid.debuggable      u:object_r:bootloader_prop:s0 exact bool
 ro.boot.slot_suffix                u:object_r:bootloader_prop:s0 exact string
 ro.boot.tombstone_transmit.enabled u:object_r:bootloader_prop:s0 exact bool
