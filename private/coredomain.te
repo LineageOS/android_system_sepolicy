@@ -92,6 +92,7 @@ full_treble_only(`
     neverallow {
         coredomain
         -appdomain
+        -artd
         -idmap
         -init
         -installd
@@ -110,6 +111,7 @@ full_treble_only(`
     neverallow {
         coredomain
         -appdomain
+        -artd
         -idmap
         -init
         -installd
