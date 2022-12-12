@@ -321,6 +321,8 @@ ro.virtual_ab.compression.enabled  u:object_r:virtual_ab_prop:s0 exact bool
 ro.virtual_ab.compression.xor.enabled   u:object_r:virtual_ab_prop:s0 exact bool
 ro.virtual_ab.userspace.snapshots.enabled u:object_r:virtual_ab_prop:s0 exact bool
 ro.virtual_ab.io_uring.enabled u:object_r:virtual_ab_prop:s0 exact bool
+ro.virtual_ab.compression.threads u:object_r:virtual_ab_prop:s0 exact bool
+ro.virtual_ab.batch_writes u:object_r:virtual_ab_prop:s0 exact bool
 snapuserd.ready         u:object_r:snapuserd_prop:s0 exact bool
 snapuserd.proxy_ready   u:object_r:snapuserd_prop:s0 exact bool
 snapuserd.test.dm.snapshots u:object_r:snapuserd_prop:s0 exact bool
