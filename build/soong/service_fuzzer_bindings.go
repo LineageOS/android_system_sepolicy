@@ -25,6 +25,13 @@ var (
 	ServiceFuzzerBindings = map[string][]string{
 		"android.hardware.audio.core.IConfig/default":                             EXCEPTION_NO_FUZZER,
 		"android.hardware.audio.core.IModule/default":                             EXCEPTION_NO_FUZZER,
+		"android.hardware.audio.core.IModule/a2dp":                                EXCEPTION_NO_FUZZER,
+		"android.hardware.audio.core.IModule/bluetooth":                           EXCEPTION_NO_FUZZER,
+		"android.hardware.audio.core.IModule/hearing_aid":                         EXCEPTION_NO_FUZZER,
+		"android.hardware.audio.core.IModule/msd":                                 EXCEPTION_NO_FUZZER,
+		"android.hardware.audio.core.IModule/r_submix":                            EXCEPTION_NO_FUZZER,
+		"android.hardware.audio.core.IModule/stub":                                EXCEPTION_NO_FUZZER,
+		"android.hardware.audio.core.IModule/usb":                                 EXCEPTION_NO_FUZZER,
 		"android.hardware.audio.effect.IFactory/default":                          EXCEPTION_NO_FUZZER,
 		"android.hardware.authsecret.IAuthSecret/default":                         EXCEPTION_NO_FUZZER,
 		"android.hardware.automotive.evs.IEvsEnumerator/hw/0":                     EXCEPTION_NO_FUZZER,
