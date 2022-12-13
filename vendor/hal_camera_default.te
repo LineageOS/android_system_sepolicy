@@ -6,6 +6,8 @@ init_daemon_domain(hal_camera_default)
 
 allow hal_camera_default fwk_sensor_hwservice:hwservice_manager find;
 
+get_prop(hal_camera_default, device_config_camera_native_prop);
+
 # For collecting bugreports.
 allow hal_camera_default dumpstate:fd use;
 allow hal_camera_default dumpstate:fifo_file write;
