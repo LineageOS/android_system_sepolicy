@@ -43,7 +43,6 @@ genfscon proc /sys/fs/pipe-max-size u:object_r:proc_pipe_conf:s0
 genfscon proc /sys/fs/protected_hardlinks u:object_r:proc_security:s0
 genfscon proc /sys/fs/protected_symlinks u:object_r:proc_security:s0
 genfscon proc /sys/fs/suid_dumpable u:object_r:proc_security:s0
-genfscon proc /sys/fs/verity/require_signatures u:object_r:proc_fs_verity:s0
 genfscon proc /sys/kernel/bpf_ u:object_r:proc_bpf:s0
 genfscon proc /sys/kernel/core_pattern u:object_r:usermodehelper:s0
 genfscon proc /sys/kernel/core_pipe_limit u:object_r:usermodehelper:s0
