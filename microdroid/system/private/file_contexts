@@ -167,3 +167,7 @@
 #############################
 # Directory for extra apks
 /mnt/extra-apk	u:object_r:extra_apk_file:s0
+
+#############################
+# Directory for encrypted storage (persistent across boot)
+/mnt/encryptedstore	u:object_r:encryptedstore_file:s0
