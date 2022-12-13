@@ -1,7 +1,15 @@
 android.frameworks.stats.IStats/default                              u:object_r:fwk_stats_service:s0
 android.frameworks.sensorservice.ISensorManager/default              u:object_r:fwk_sensor_service:s0
 android.hardware.audio.core.IConfig/default                          u:object_r:hal_audio_service:s0
+# 'default' IModule is equivalent to 'primary' in HIDL
 android.hardware.audio.core.IModule/default                          u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/a2dp                             u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/bluetooth                        u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/hearing_aid                      u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/msd                              u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/r_submix                         u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/stub                             u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/usb                              u:object_r:hal_audio_service:s0
 android.hardware.audio.effect.IFactory/default                       u:object_r:hal_audio_service:s0
 android.hardware.authsecret.IAuthSecret/default                      u:object_r:hal_authsecret_service:s0
 android.hardware.automotive.evs.IEvsEnumerator/hw/0                  u:object_r:hal_evs_service:s0
