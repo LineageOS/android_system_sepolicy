@@ -1,8 +1,10 @@
 # HwBinder IPC from clients into server, and callbacks
 binder_call(hal_bluetooth_client, hal_bluetooth_server)
 binder_call(hal_bluetooth_server, hal_bluetooth_client)
+binder_call(hal_bluetooth_server, servicemanager)
 
 hal_attribute_hwservice(hal_bluetooth, hal_bluetooth_hwservice)
+hal_attribute_service(hal_bluetooth, hal_bluetooth_service)
 
 wakelock_use(hal_bluetooth);
 
