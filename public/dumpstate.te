@@ -150,6 +150,7 @@ binder_call(dumpstate, { appdomain netd wificond })
 
 # Allow dumpstate to call dump() on specific hals.
 dump_hal(hal_authsecret)
+dump_hal(hal_bluetooth)
 dump_hal(hal_contexthub)
 dump_hal(hal_drm)
 dump_hal(hal_dumpstate)
