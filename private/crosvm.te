@@ -42,6 +42,12 @@ allow crosvm virtualizationservice_data_file:dir search;
 # Note that the open permission is not given as the socket is passed by FD.
 allow crosvm virtualizationservice:unix_stream_socket { accept read write getattr getopt };
 
+# Let crosvm open test artifacts under /data/local/tmp with file path. (e.g. custom pvmfw.img)
+userdebug_or_eng(`
+  allow crosvm shell_data_file:dir search;
+  allow crosvm shell_data_file:file open;
+')
+
 # The instance image and the composite image should be writable as well because they could represent
 # mutable disks.
 allow crosvm {
