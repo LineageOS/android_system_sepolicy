@@ -1183,8 +1183,9 @@ allow system_server user_profile_data_file:file { getattr open read };
 
 # System server may dump profile data for debuggable apps in the /data/misc/profman.
 # As such it needs to be able create files but it should never read from them.
+# It also needs to stat the directory to check if it has the right permissions.
 allow system_server profman_dump_data_file:file { create getattr setattr w_file_perms};
-allow system_server profman_dump_data_file:dir w_dir_perms;
+allow system_server profman_dump_data_file:dir rw_dir_perms;
 
 # On userdebug build we may profile system server. Allow it to write and create its own profile.
 userdebug_or_eng(`
