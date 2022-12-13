@@ -1101,6 +1101,7 @@ neverallow { domain -simpleperf_app_runner -runas -app_zygote -webview_zygote -z
 neverallow {
   domain
   -appdomain
+  -artd
   -installd
 } { app_data_file privapp_data_file }:lnk_file read;
 
