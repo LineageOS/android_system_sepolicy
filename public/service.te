@@ -7,6 +7,7 @@ type authorization_service,     service_manager_type;
 type batteryproperties_service, app_api_service, ephemeral_app_api_service, service_manager_type;
 type bluetooth_service,         service_manager_type;
 type cameraserver_service,      service_manager_type;
+type fwk_camera_service,        service_manager_type;
 type default_android_service,   service_manager_type;
 type dice_maintenance_service,  service_manager_type;
 type dice_node_service,         service_manager_type;
