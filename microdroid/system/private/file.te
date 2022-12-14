@@ -4,6 +4,7 @@ allow cgroup_v2 tmpfs:filesystem associate;
 allow cgroup_rc_file tmpfs:filesystem associate;
 allow debugfs_type { debugfs debugfs_tracing debugfs_tracing_debug }:filesystem associate;
 allow dev_type tmpfs:filesystem associate;
+allow encryptedstore_file encryptedstore_fs:filesystem associate;
 allow extra_apk_file zipfusefs:filesystem associate;
 allow file_type labeledfs:filesystem associate;
 allow file_type tmpfs:filesystem associate;
@@ -20,3 +21,6 @@ type sepolicy_test_file, file_type;
 
 # /system/bin/mke2fs - used to format encryptedstore block device
 type e2fs_exec, system_file_type, exec_type, file_type;
+
+type encryptedstore_file, file_type;
+type encryptedstore_fs, fs_type, contextmount_type;

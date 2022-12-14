@@ -1,7 +1,15 @@
 android.frameworks.stats.IStats/default                              u:object_r:fwk_stats_service:s0
 android.frameworks.sensorservice.ISensorManager/default              u:object_r:fwk_sensor_service:s0
 android.hardware.audio.core.IConfig/default                          u:object_r:hal_audio_service:s0
+# 'default' IModule is equivalent to 'primary' in HIDL
 android.hardware.audio.core.IModule/default                          u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/a2dp                             u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/bluetooth                        u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/hearing_aid                      u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/msd                              u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/r_submix                         u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/stub                             u:object_r:hal_audio_service:s0
+android.hardware.audio.core.IModule/usb                              u:object_r:hal_audio_service:s0
 android.hardware.audio.effect.IFactory/default                       u:object_r:hal_audio_service:s0
 android.hardware.authsecret.IAuthSecret/default                      u:object_r:hal_authsecret_service:s0
 android.hardware.automotive.evs.IEvsEnumerator/hw/0                  u:object_r:hal_evs_service:s0
@@ -14,6 +22,7 @@ android.hardware.automotive.vehicle.IVehicle/default                 u:object_r:
 android.hardware.biometrics.face.IFace/default                       u:object_r:hal_face_service:s0
 android.hardware.biometrics.fingerprint.IFingerprint/default         u:object_r:hal_fingerprint_service:s0
 android.hardware.biometrics.fingerprint.IFingerprint/virtual         u:object_r:hal_fingerprint_service:s0
+android.hardware.bluetooth.IBluetoothHci/default                     u:object_r:hal_bluetooth_service:s0
 android.hardware.bluetooth.audio.IBluetoothAudioProviderFactory/default u:object_r:hal_audio_service:s0
 android.hardware.broadcastradio.IBroadcastRadio/amfm                 u:object_r:hal_broadcastradio_service:s0
 android.hardware.broadcastradio.IBroadcastRadio/dab                  u:object_r:hal_broadcastradio_service:s0
@@ -62,9 +71,9 @@ android.hardware.radio.network.IRadioNetwork/slot3                   u:object_r:
 android.hardware.radio.sim.IRadioSim/slot1                           u:object_r:hal_radio_service:s0
 android.hardware.radio.sim.IRadioSim/slot2                           u:object_r:hal_radio_service:s0
 android.hardware.radio.sim.IRadioSim/slot3                           u:object_r:hal_radio_service:s0
-android.hardware.radio.sim.ISap/slot1                                u:object_r:hal_radio_service:s0
-android.hardware.radio.sim.ISap/slot2                                u:object_r:hal_radio_service:s0
-android.hardware.radio.sim.ISap/slot3                                u:object_r:hal_radio_service:s0
+android.hardware.radio.sap.ISap/slot1                                u:object_r:hal_radio_service:s0
+android.hardware.radio.sap.ISap/slot2                                u:object_r:hal_radio_service:s0
+android.hardware.radio.sap.ISap/slot3                                u:object_r:hal_radio_service:s0
 android.hardware.radio.voice.IRadioVoice/slot1                       u:object_r:hal_radio_service:s0
 android.hardware.radio.voice.IRadioVoice/slot2                       u:object_r:hal_radio_service:s0
 android.hardware.radio.voice.IRadioVoice/slot3                       u:object_r:hal_radio_service:s0

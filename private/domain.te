@@ -2,7 +2,9 @@
 # This occurs when the process crashes.
 # We do not apply this to the su domain to avoid interfering with
 # tests (b/114136122)
-domain_auto_trans({ domain userdebug_or_eng(`-su') }, crash_dump_exec, crash_dump);
+# We exempt crosvm because parts of its memory are inaccessible to the
+# kernel. TODO(b/238324526): Remove this.
+domain_auto_trans({ domain userdebug_or_eng(`-su') -crosvm }, crash_dump_exec, crash_dump);
 allow domain crash_dump:process sigchld;
 
 # Allow every process to check the heapprofd.enable properties to determine
@@ -650,7 +652,7 @@ enforce_debugfs_restriction(`
 # Restrict write access to etm sysfs interface.
 neverallow { domain -ueventd -vendor_init } sysfs_devices_cs_etm:file no_w_file_perms;
 
-# Restrict write access to shell owned files. The /data/local/tmp directory is
+# Restrict direct access to shell owned files. The /data/local/tmp directory is
 # untrustworthy, and non-allowed domains should not be trusting any content in
 # those directories. We allow shell files to be passed around by file
 # descriptor, but not directly opened.
@@ -668,6 +670,51 @@ neverallow {
   userdebug_or_eng(`-virtualizationservice')
   userdebug_or_eng(`-crosvm')
 } shell_data_file:file open;
+
+# In addition to the symlink reading restrictions above, restrict
+# write access to shell owned directories. The /data/local/tmp
+# directory is untrustworthy, and non-allowed domains should
+# not be trusting any content in those directories.
+# artd doesn't need to access /data/local/tmp, but it needs to access
+# /data/{user,user_de}/<user-id>/com.android.shell/... for compiling secondary
+# dex files.
+neverallow {
+  domain
+  -adbd
+  -artd
+  -dumpstate
+  -installd
+  -init
+  -shell
+  -vold
+} shell_data_file:dir no_w_dir_perms;
+
+neverallow {
+  domain
+  -adbd
+  -appdomain
+  -artd
+  -dumpstate
+  -init
+  -installd
+  -simpleperf_app_runner
+  -system_server # why?
+  userdebug_or_eng(`-uncrypt')
+} shell_data_file:dir open;
+
+neverallow {
+  domain
+  -adbd
+  -appdomain
+  -artd
+  -dumpstate
+  -init
+  -installd
+  -simpleperf_app_runner
+  -system_server # why?
+  userdebug_or_eng(`-uncrypt')
+  userdebug_or_eng(`-crosvm')
+} shell_data_file:dir search;
 
 # respect system_app sandboxes
 neverallow {

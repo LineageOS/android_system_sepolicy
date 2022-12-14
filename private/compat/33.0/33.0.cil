@@ -2116,7 +2116,7 @@
 (typeattributeset proc_drop_caches_33_0 (proc_drop_caches))
 (typeattributeset proc_extra_free_kbytes_33_0 (proc_extra_free_kbytes))
 (typeattributeset proc_filesystems_33_0 (proc_filesystems))
-(typeattributeset proc_fs_verity_33_0 (proc_fs_verity))
+(typeattributeset proc_fs_verity_33_0 (proc))
 (typeattributeset proc_hostname_33_0 (proc_hostname))
 (typeattributeset proc_hung_task_33_0 (proc_hung_task))
 (typeattributeset proc_interrupts_33_0 (proc_interrupts))
