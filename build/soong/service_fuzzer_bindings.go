@@ -113,6 +113,7 @@ var (
 		"android.hardware.security.sharedsecret.ISharedSecret/default":            EXCEPTION_NO_FUZZER,
 		"android.hardware.sensors.ISensors/default":                               EXCEPTION_NO_FUZZER,
 		"android.hardware.soundtrigger3.ISoundTriggerHw/default":                  EXCEPTION_NO_FUZZER,
+		"android.hardware.tetheroffload.IOffload/default":                         EXCEPTION_NO_FUZZER,
 		"android.hardware.thermal.IThermal/default":                               EXCEPTION_NO_FUZZER,
 		"android.hardware.tv.cec.IHdmiCec/default":                                EXCEPTION_NO_FUZZER,
 		"android.hardware.tv.hdmi.IHdmi/default":                                  EXCEPTION_NO_FUZZER,
