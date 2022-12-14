@@ -31,11 +31,12 @@ allowxperm encryptedstore dm_device:blk_file ioctl {
 allow encryptedstore sysfs_fs_ext4_features:dir search;
 allow encryptedstore sysfs_fs_ext4_features:file r_file_perms;
 
-# encryptedstore to mount on /mnt/ directory
+# encryptedstore to mount on tmpfs bases directory (/mnt/)
 allow encryptedstore tmpfs:dir  { add_name create mounton write };
 
-# Unmount and mount filesystem
-allow encryptedstore labeledfs:filesystem { mount unmount };
+# encryptedstore relabels the labeledfs to encryptedstore_fs, then mounts on the later
+allow encryptedstore labeledfs:filesystem { relabelfrom };
+allow encryptedstore encryptedstore_fs:filesystem { mount unmount relabelto relabelfrom };
 
 # allow encryptedstore to log to the kernel
 allow encryptedstore kmsg_device:chr_file w_file_perms;

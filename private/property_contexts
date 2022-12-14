@@ -247,6 +247,7 @@ persist.time.           u:object_r:time_prop:s0
 device_config.reset_performed                       u:object_r:device_config_reset_performed_prop:s0
 persist.device_config.activity_manager_native_boot. u:object_r:device_config_activity_manager_native_boot_prop:s0
 persist.device_config.attempted_boot_count          u:object_r:device_config_boot_count_prop:s0
+persist.device_config.camera_native.                u:object_r:device_config_camera_native_prop:s0
 persist.device_config.configuration.                u:object_r:device_config_configuration_prop:s0
 persist.device_config.connectivity.                 u:object_r:device_config_connectivity_prop:s0
 persist.device_config.input_native_boot.            u:object_r:device_config_input_native_boot_prop:s0
@@ -641,6 +642,7 @@ external_storage.casefold.enabled u:object_r:storage_config_prop:s0 exact bool
 external_storage.sdcardfs.enabled u:object_r:storage_config_prop:s0 exact bool
 external_storage.cross_user.enabled u:object_r:storage_config_prop:s0 exact bool
 ro.fuse.bpf.enabled u:object_r:storage_config_prop:s0 exact bool
+ro.fuse.bpf.is_running u:object_r:vold_status_prop:s0 exact bool
 
 # hypervisor.*: configured by the vendor to advertise capabilities of their
 # hypervisor to virtualizationservice.
