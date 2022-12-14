@@ -29,6 +29,14 @@ allow system_suspend bluetooth:binder call;
 allow system_suspend dumpstate:fd use;
 allow system_suspend dumpstate:fifo_file write;
 
+# Allow init to take kernel wakelock and system suspend to
+# remove kenel wakelocks and the capability to access these
+# files
+allow init sysfs_wake_lock:file rw_file_perms;
+allow init self:global_capability2_class_set block_suspend;
+allow system_suspend sysfs_wake_lock:file rw_file_perms;
+allow system_suspend self:global_capability2_class_set block_suspend;
+
 neverallow {
     domain
     -atrace # tracing
