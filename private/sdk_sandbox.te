@@ -213,6 +213,10 @@ allow sdk_sandbox webviewupdate_service:service_manager find;
 
 allow sdk_sandbox system_linker_exec:file execute_no_trans;
 
+# Required to read CTS tests data from the shell_data_file location.
+allow sdk_sandbox shell_data_file:file r_file_perms;
+allow sdk_sandbox shell_data_file:dir r_dir_perms;
+
 # Write app-specific trace data to the Perfetto traced damon. This requires
 # connecting to its producer socket and obtaining a (per-process) tmpfs fd.
 perfetto_producer(sdk_sandbox)
