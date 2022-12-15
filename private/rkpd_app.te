@@ -16,6 +16,10 @@ get_prop(rkpdapp, device_config_remote_key_provisioning_native_prop)
 # Grant access to the normal services that are available to all apps
 allow rkpdapp app_api_service:service_manager find;
 
+# Grant access to media.metrics service, needed for widevine. This
+# access is granted to all other apps already (e.g. untrusted_app_all).
+allow rkpdapp mediametrics_service:service_manager find;
+
 # Grant access to statsd
 allow rkpdapp statsmanager_service:service_manager find;
 binder_call(rkpdapp, statsd)
