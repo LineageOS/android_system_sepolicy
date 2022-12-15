@@ -10,5 +10,4 @@ hal_attribute_hwservice(hal_can_bus, hal_can_bus_hwservice)
 
 # AIDL HAL for CAN buses (ICanController)
 hal_attribute_service(hal_can_controller, hal_can_controller_service)
-binder_call(hal_can_controller, servicemanager)
-
+binder_use(hal_can_controller)
