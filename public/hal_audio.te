@@ -23,6 +23,9 @@ allow hal_audio dumpstate:fifo_file write;
 # Needed to allow sound trigger hal to access shared memory from apps.
 allow hal_audio_server appdomain:fd use;
 
+# allow self to set scheduler (and allows Binder RT PI)
+allow hal_audio_server self:global_capability_class_set sys_nice;
+
 # allow hal audio to use vnbinder
 vndbinder_use(hal_audio)
 
