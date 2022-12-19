@@ -33,6 +33,7 @@ var (
 		"android.hardware.audio.core.IModule/stub":                                EXCEPTION_NO_FUZZER,
 		"android.hardware.audio.core.IModule/usb":                                 EXCEPTION_NO_FUZZER,
 		"android.hardware.audio.effect.IFactory/default":                          EXCEPTION_NO_FUZZER,
+		"android.hardware.audio.sounddose.ISoundDoseFactory/default":              EXCEPTION_NO_FUZZER,
 		"android.hardware.authsecret.IAuthSecret/default":                         EXCEPTION_NO_FUZZER,
 		"android.hardware.automotive.evs.IEvsEnumerator/hw/0":                     EXCEPTION_NO_FUZZER,
 		"android.hardware.boot.IBootControl/default":                              EXCEPTION_NO_FUZZER,
