@@ -95,8 +95,9 @@ neverallow appdomain system_server:udp_socket {
 # Exception for crash_dump to allow for app crash reporting.
 # Exception for renderscript binaries (/system/bin/bcc, /system/bin/ld.mc)
 # to allow renderscript to create privileged executable files.
+# Exception for virtmgr to allow running VMs as child processes.
 neverallow { appdomain -shell userdebug_or_eng(`-su') }
-    { domain -appdomain -crash_dump -rs }:process { transition };
+    { domain -appdomain -crash_dump -rs -virtmgr }:process { transition };
 neverallow { appdomain -shell userdebug_or_eng(`-su') }
     { domain -appdomain }:process { dyntransition };
 
