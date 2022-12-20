@@ -1,0 +1,8 @@
+# Domain for a child process that manages virtual machines on behalf of its parent.
+
+type virtmgr, domain, coredomain;
+type virtmgr_exec, system_file_type, exec_type, file_type;
+
+# Allow virtmgr to communicate use, read and write over the adb connection.
+allow virtmgr adbd:fd use;
+allow virtmgr adbd:unix_stream_socket { read write };
