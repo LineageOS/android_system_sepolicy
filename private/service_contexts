@@ -12,6 +12,7 @@ android.hardware.audio.core.IModule/r_submix                         u:object_r:
 android.hardware.audio.core.IModule/stub                             u:object_r:hal_audio_service:s0
 android.hardware.audio.core.IModule/usb                              u:object_r:hal_audio_service:s0
 android.hardware.audio.effect.IFactory/default                       u:object_r:hal_audio_service:s0
+android.hardware.audio.sounddose.ISoundDoseFactory/default           u:object_r:hal_audio_service:s0
 android.hardware.authsecret.IAuthSecret/default                      u:object_r:hal_authsecret_service:s0
 android.hardware.automotive.evs.IEvsEnumerator/hw/0                  u:object_r:hal_evs_service:s0
 android.hardware.boot.IBootControl/default                           u:object_r:hal_bootctl_service:s0
