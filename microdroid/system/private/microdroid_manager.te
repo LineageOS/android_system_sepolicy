@@ -31,6 +31,9 @@ typeattribute microdroid_manager no_crash_dump_domain;
 allowxperm microdroid_manager vd_device:blk_file ioctl BLKFLSBUF;
 allow microdroid_manager self:global_capability_class_set sys_admin;
 
+# Allow microdroid_manager to remove capabilities from it's capability bounding set.
+allow microdroid_manager self:global_capability_class_set setpcap;
+
 # Allow microdroid_manager to start payload tasks
 domain_auto_trans(microdroid_manager, microdroid_app_exec, microdroid_app)
 domain_auto_trans(microdroid_manager, compos_exec, compos)
