@@ -4,3 +4,4 @@
 (/.*)?                          u:object_r:system_file:s0
 /lib(64)?(/.*)?                 u:object_r:system_lib_file:s0
 /bin/boringssl_self_test(32|64) u:object_r:boringssl_self_test_exec:s0
+/cacerts(/.*)?                  u:object_r:system_security_cacerts_file:s0
