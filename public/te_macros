@@ -190,9 +190,15 @@ allow $1 virtualization_service:service_manager find;
 binder_call($1, virtualizationservice)
 # Let virtualizationservice call back to the client.
 binder_call(virtualizationservice, $1)
-# Let the client pass file descriptors to virtualizationservice and on
+# Transition to virtmgr when the client executes it.
+domain_auto_trans($1, virtmgr_exec, virtmgr)
+# Allow virtmgr to communicate over UDS with the client.
+allow virtmgr $1:unix_stream_socket { getattr read write };
+# Allow virtmgr and the client to signal each other using pipes.
+allow virtmgr $1:fifo_file { getattr read write };
+# Let the client pass file descriptors to virtualizationservice/virtmgr and on
 # to crosvm
-allow { virtualizationservice crosvm } $1:fd use;
+allow { virtualizationservice virtmgr crosvm } $1:fd use;
 # Allow piping console log to the client
 allow { virtualizationservice crosvm } $1:fifo_file { getattr write};
 # Allow client to read/write vsock created by virtualizationservice to
