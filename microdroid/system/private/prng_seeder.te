@@ -8,6 +8,9 @@ type prng_seeder, domain, coredomain;
 type prng_seeder_exec, system_file_type, exec_type, file_type;
 init_daemon_domain(prng_seeder)
 
+# prng_seeder is using bootstrap bionic
+use_bootstrap_libs(prng_seeder)
+
 # Socket open and listen are performed by init.
 allow prng_seeder prng_seeder:unix_stream_socket { read write getattr accept };
 allow prng_seeder hw_random_device:chr_file { read open };
