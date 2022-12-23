@@ -435,6 +435,3 @@ allow init fuse:dir { search getattr };
 set_prop(init, property_type)
 
 allow init self:netlink_audit_socket { create_socket_perms_no_ioctl nlmsg_relay };
-
-# PRNG seeder daemon socket is created and listened on by init before forking.
-allow init prng_seeder:unix_stream_socket { create bind listen };
