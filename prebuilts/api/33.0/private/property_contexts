@@ -347,6 +347,11 @@ audio.deep_buffer.media         u:object_r:audio_config_prop:s0 exact bool
 audio.offload.video             u:object_r:audio_config_prop:s0 exact bool
 audio.offload.min.duration.secs u:object_r:audio_config_prop:s0 exact int
 
+# spatializer tuning
+audio.spatializer.priority               u:object_r:audio_config_prop:s0 exact int
+audio.spatializer.effect.affinity        u:object_r:audio_config_prop:s0 exact int
+audio.spatializer.effect.util_clamp_min  u:object_r:audio_config_prop:s0 exact int
+
 ro.audio.ignore_effects   u:object_r:audio_config_prop:s0 exact bool
 ro.audio.monitorRotation  u:object_r:audio_config_prop:s0 exact bool
 ro.audio.offload_wakelock u:object_r:audio_config_prop:s0 exact bool
