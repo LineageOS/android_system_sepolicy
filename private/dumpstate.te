@@ -30,6 +30,9 @@ userdebug_or_eng(`
 # Allow dumpstate to make binder calls to incidentd
 binder_call(dumpstate, incidentd)
 
+# Kill incident in case of a timeout
+allow dumpstate incident:process { signal sigkill };
+
 # Allow dumpstate to make binder calls to storaged service
 binder_call(dumpstate, storaged)
 
