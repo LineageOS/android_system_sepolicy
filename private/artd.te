@@ -71,8 +71,9 @@ allow artd apex_info_file:file r_file_perms;
 #   profile files to the system or apps.
 allow artd self:global_capability_class_set { dac_override dac_read_search fowner chown };
 
-# Read/write access to profiles (/data/misc/profiles/{ref,cur}/...).
-allow artd user_profile_root_file:dir { getattr search };
+# Read/write access to profiles (/data/misc/profiles/{ref,cur}/...). Also allow
+# scanning /data/misc/profiles/cur, for cleaning up obsolete managed files.
+allow artd user_profile_root_file:dir r_dir_perms;
 allow artd user_profile_data_file:dir rw_dir_perms;
 allow artd user_profile_data_file:file create_file_perms;
 
@@ -93,6 +94,26 @@ allow artd seapp_contexts_file:file r_file_perms;
 
 # Check validity of SELinux context, for restorecon.
 selinux_check_context(artd)
+
+# Allow scanning /, for cleaning up obsolete managed files.
+allow artd rootfs:dir r_dir_perms;
+
+# Allow scanning /data, for cleaning up obsolete managed files.
+allow artd system_data_root_file:dir r_dir_perms;
+
+# Allow scanning /mnt, for cleaning up obsolete managed files.
+allow artd tmpfs:dir r_dir_perms;
+
+# Allow scanning /mnt/expand, for cleaning up obsolete managed files.
+allow artd mnt_expand_file:dir r_dir_perms;
+
+# Allow scanning {/data,/mnt/expand/<volume-uuid>}/{user,user_de}, for cleaning
+# up obsolete managed files.
+allow artd system_userdir_file:dir r_dir_perms;
+
+# Allow scanning {/data,/mnt/expand/<volume-uuid>}/{user,user_de}/<user-id> and
+# /mnt/expand/<volume-uuid>, for cleaning up obsolete managed files.
+allow artd system_data_file:dir r_dir_perms;
 
 # Never allow running other binaries without a domain transition.
 # The only exception is art_exec. It is allowed to use the artd domain because
