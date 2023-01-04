@@ -90,6 +90,7 @@ android.hardware.sensors.ISensors/default                            u:object_r:
 android.hardware.soundtrigger3.ISoundTriggerHw/default               u:object_r:hal_audio_service:s0
 android.hardware.thermal.IThermal/default                            u:object_r:hal_thermal_service:s0
 android.hardware.tv.cec.IHdmiCec/default                             u:object_r:hal_tv_hdmi_cec_service:s0
+android.hardware.tv.earc.IEArc/default                               u:object_r:hal_tv_earc_service:s0
 android.hardware.tv.hdmi.IHdmi/default                               u:object_r:hal_tv_hdmi_service:s0
 android.hardware.tv.tuner.ITuner/default                             u:object_r:hal_tv_tuner_service:s0
 android.hardware.tv.input.ITvInput/default                           u:object_r:hal_tv_input_service:s0
