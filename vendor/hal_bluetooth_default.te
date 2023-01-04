@@ -1,5 +1,8 @@
 type hal_bluetooth_default, domain;
 hal_server_domain(hal_bluetooth_default, hal_bluetooth)
 
+allow hal_bluetooth_default bt_device:chr_file { open read write };
+allow hal_bluetooth_default self:bluetooth_socket { create bind read write };
+
 type hal_bluetooth_default_exec, exec_type, vendor_file_type, file_type;
 init_daemon_domain(hal_bluetooth_default)
