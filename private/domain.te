@@ -290,7 +290,7 @@ neverallow {
   -apexd
   -installd
   -priv_app
-  -virtualizationservice
+  -virtualizationmanager
 } staging_data_file:dir *;
 neverallow {
   domain
@@ -303,7 +303,7 @@ neverallow {
   -installd
   -priv_app
   -shell
-  -virtualizationservice
+  -virtualizationmanager
   -crosvm
 } staging_data_file:file *;
 neverallow { domain -init -system_server -installd} staging_data_file:dir no_w_dir_perms;
