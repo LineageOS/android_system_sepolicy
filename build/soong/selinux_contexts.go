@@ -247,11 +247,21 @@ func (m *selinuxContextsModule) buildGeneralContexts(ctx android.ModuleContext, 
 
 	rule := android.NewRuleBuilder(pctx, ctx)
 
+	newlineFile := android.PathForModuleGen(ctx, "newline")
+
+	rule.Command().Text("echo").FlagWithOutput("> ", newlineFile)
+	rule.Temporary(newlineFile)
+
+	var inputsWithNewline android.Paths
+	for _, input := range inputs {
+		inputsWithNewline = append(inputsWithNewline, input, newlineFile)
+	}
+
 	rule.Command().
 		Tool(ctx.Config().PrebuiltBuildTool(ctx, "m4")).
 		Text("--fatal-warnings -s").
 		FlagForEachArg("-D", ctx.DeviceConfig().SepolicyM4Defs()).
-		Inputs(inputs).
+		Inputs(inputsWithNewline).
 		FlagWithOutput("> ", builtContext)
 
 	if proptools.Bool(m.properties.Remove_comment) {
