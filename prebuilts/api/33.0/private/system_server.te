@@ -753,6 +753,7 @@ set_prop(system_server, device_config_configuration_prop)
 set_prop(system_server, device_config_connectivity_prop)
 set_prop(system_server, device_config_surface_flinger_native_boot_prop)
 set_prop(system_server, device_config_vendor_system_native_prop)
+set_prop(system_server, device_config_vendor_system_native_boot_prop)
 set_prop(system_server, device_config_virtualization_framework_native_prop)
 set_prop(system_server, smart_idle_maint_enabled_prop)
 

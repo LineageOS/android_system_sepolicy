@@ -129,6 +129,7 @@ get_prop(domain, soc_prop)
 get_prop(domain, socket_hook_prop)
 get_prop(domain, surfaceflinger_prop)
 get_prop(domain, telephony_status_prop)
+get_prop({domain -untrusted_app_all userdebug_or_eng(`-isolated_app -ephemeral_app') },  userdebug_or_eng_prop)
 get_prop(domain, vendor_socket_hook_prop)
 get_prop(domain, vndk_prop)
 get_prop(domain, vold_status_prop)
@@ -421,6 +422,7 @@ neverallow { domain -init } kernel:security setsecparam;
 # Only the kernel hwrng thread should be able to read from the HW RNG.
 neverallow {
   domain
+  -prng_seeder # PRNG seeder daemon periodically reseeds itself from HW RNG
   -shell # For CTS, restricted to just getattr in shell.te
   -ueventd # To create the /dev/hw_random file
 } hw_random_device:chr_file *;
@@ -563,6 +565,7 @@ compatible_property_only(`
 
 neverallow { domain -init } aac_drc_prop:property_service set;
 neverallow { domain -init } build_prop:property_service set;
+neverallow { domain -init } userdebug_or_eng_prop:property_service set;
 
 # Do not allow reading device's serial number from system properties except form
 # a few allowed domains.

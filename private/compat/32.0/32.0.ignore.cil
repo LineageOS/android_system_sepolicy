@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    adaptive_haptics_prop
     adservices_manager_service
     apexd_select_prop
     artd_service
@@ -18,6 +19,7 @@
     device_config_nnapi_native_prop
     device_config_surface_flinger_native_boot_prop
     device_config_vendor_system_native_prop
+    device_config_vendor_system_native_boot_prop
     dice_maintenance_service
     dice_node_service
     diced
@@ -58,6 +60,7 @@
     mdns_service
     nearby_service
     persist_wm_debug_prop
+    prng_seeder
     proc_watermark_boost_factor
     proc_watermark_scale_factor
     remotelyprovisionedkeypool_service
