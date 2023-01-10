@@ -1,7 +1,0 @@
-# Binder IPC from clients into server, and callbacks
-binder_call(hal_tv_earc_client, hal_tv_earc_server)
-binder_call(hal_tv_earc_server, hal_tv_earc_client)
-binder_use(hal_tv_earc_client)
-binder_use(hal_tv_earc_server)
-
-hal_attribute_service(hal_tv_earc, hal_tv_earc_service)
