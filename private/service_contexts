@@ -70,6 +70,9 @@ android.hardware.radio.modem.IRadioModem/slot3                       u:object_r:
 android.hardware.radio.network.IRadioNetwork/slot1                   u:object_r:hal_radio_service:s0
 android.hardware.radio.network.IRadioNetwork/slot2                   u:object_r:hal_radio_service:s0
 android.hardware.radio.network.IRadioNetwork/slot3                   u:object_r:hal_radio_service:s0
+android.hardware.radio.satellite.IRadioSatellite/slot1               u:object_r:hal_radio_service:s0
+android.hardware.radio.satellite.IRadioSatellite/slot2               u:object_r:hal_radio_service:s0
+android.hardware.radio.satellite.IRadioSatellite/slot3               u:object_r:hal_radio_service:s0
 android.hardware.radio.sim.IRadioSim/slot1                           u:object_r:hal_radio_service:s0
 android.hardware.radio.sim.IRadioSim/slot2                           u:object_r:hal_radio_service:s0
 android.hardware.radio.sim.IRadioSim/slot3                           u:object_r:hal_radio_service:s0
