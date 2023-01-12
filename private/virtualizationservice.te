@@ -15,6 +15,10 @@ binder_use(virtualizationservice)
 # Let the virtualizationservice domain register the virtualization_service with ServiceManager.
 add_service(virtualizationservice, virtualization_service)
 
+# Allow calling into the system server to find "permission_service".
+binder_call(virtualizationservice, system_server)
+allow virtualizationservice permission_service:service_manager find;
+
 # Let virtualizationservice remove memlock rlimit of virtualizationmanager. This is necessary
 # to mlock VM memory and page tables.
 allow virtualizationservice self:capability sys_resource;
