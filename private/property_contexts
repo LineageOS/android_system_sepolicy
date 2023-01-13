@@ -702,6 +702,10 @@ ro.oem_unlock_supported u:object_r:oem_unlock_prop:s0 exact int
 
 ro.rebootescrow.device u:object_r:rebootescrow_hal_prop:s0 exact string
 
+ro.recovery.usb.vid          u:object_r:recovery_usb_config_prop:s0 exact string
+ro.recovery.usb.adb.pid      u:object_r:recovery_usb_config_prop:s0 exact string
+ro.recovery.usb.fastboot.pid u:object_r:recovery_usb_config_prop:s0 exact string
+
 ro.storage_manager.enabled     u:object_r:storagemanager_config_prop:s0 exact bool
 ro.storage_manager.show_opt_in u:object_r:storagemanager_config_prop:s0 exact bool
 
