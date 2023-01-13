@@ -7,6 +7,7 @@ type binder_device, dev_type, mlstrustedobject;
 type hwbinder_device, dev_type, mlstrustedobject;
 type vndbinder_device, dev_type;
 type block_device, dev_type;
+type bt_device, dev_type;
 type camera_device, dev_type;
 type dm_device, dev_type;
 type dm_user_device, dev_type;
