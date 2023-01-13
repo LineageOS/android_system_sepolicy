@@ -59,9 +59,6 @@ allow gpuservice fs_bpf:file { read write };
 # Needed for enabling bpf programs and accessing bpf maps (read-only and read/write).
 allow gpuservice bpfloader:bpf { map_read map_write prog_run };
 
-# Needed for getting a prop to ensure bpf programs loaded.
-get_prop(gpuservice, bpf_progs_loaded_prop)
-
 add_service(gpuservice, gpu_service)
 
 # Only uncomment below line when in development
