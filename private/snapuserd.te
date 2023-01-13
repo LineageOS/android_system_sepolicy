@@ -55,3 +55,8 @@ neverallow {
 } snapuserd_prop:property_service set;
 
 allow snapuserd self:anon_inode create_file_perms;
+
+# Allow to read/write/create OTA metadata files
+allow snapuserd metadata_file:dir search;
+allow snapuserd ota_metadata_file:dir rw_dir_perms;
+allow snapuserd ota_metadata_file:file create_file_perms;
