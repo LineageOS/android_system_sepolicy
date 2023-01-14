@@ -16,7 +16,7 @@ tmpfs_domain(crosvm)
 # Let crosvm receive file descriptors from VirtualizationService.
 allow crosvm virtualizationmanager:fd use;
 
-# Allow sending VirtualizationService the failure reason from the VM via pipe.
+# Allow sending VirtualizationService the failure reason and console/log from the VM via pipe.
 allow crosvm virtualizationmanager:fifo_file write;
 
 # Let crosvm read the composite disk images (virtualizationservice_data_file), APEXes
@@ -73,6 +73,11 @@ dontaudit crosvm self:netlink_generic_socket create_socket_perms_no_ioctl;
 # granted because the files are expected to be opened by the owner of the VM (apps or shell in case
 # when the vm is created by the `vm` tool) and handed over to crosvm as FD.
 allow crosvm shell_data_file:file write;
+
+# crosvm tries to read serial device, including the write-only pipe from virtualizationmanager (to
+# forward console/log to the host logcat).
+# crosvm only needs write permission, so dontaudit read
+dontaudit crosvm virtualizationmanager:fifo_file read;
 
 # Don't allow crosvm to open files that it doesn't own.
 # This is important because a malicious application could try to start a VM with a composite disk
