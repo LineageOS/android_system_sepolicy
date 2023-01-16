@@ -19,3 +19,7 @@ allow bpfdomain fs_bpf:dir search;
 # so let's allow all bpffs_type's instead,
 # this will keep things working even if this is fixed.
 allow bpfdomain bpffs_type:lnk_file read;
+
+# Needed for //frameworks/libs/net:
+# common/native/bpf_headers/include/bpf/WaitForProgsLoaded.h
+get_prop(bpfdomain, bpf_progs_loaded_prop)
