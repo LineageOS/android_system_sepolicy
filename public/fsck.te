@@ -17,6 +17,7 @@ allow fsck vold:fifo_file { read write getattr };
 allow fsck userdata_block_device:blk_file rw_file_perms;
 allow fsck cache_block_device:blk_file rw_file_perms;
 allow fsck dm_device:blk_file rw_file_perms;
+allow fsck zoned_block_device:blk_file rw_file_perms;
 userdebug_or_eng(`
 allow fsck system_block_device:blk_file rw_file_perms;
 ')
