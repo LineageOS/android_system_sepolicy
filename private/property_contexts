@@ -592,6 +592,14 @@ ro.hdmi.wake_on_hotplug                                            u:object_r:hd
 ro.hdmi.cec.source.send_standby_on_sleep                           u:object_r:hdmi_config_prop:s0 exact enum to_tv broadcast none
 ro.hdmi.cec.source.playback_device_action_on_routing_control       u:object_r:hdmi_config_prop:s0 exact enum none wake_up_only wake_up_and_send_active_source
 
+# This is the namespace of all system properties used by ART Service.
+# As ART Service is in the updatable ART module, we need the prefix to allow us
+# to add new properties.
+pm.dexopt.                                  u:object_r:exported_pm_prop:s0 prefix
+
+# A set of pm.dexopt properties that we should keep supporting for Treble
+# compatibility. We explicitly list them here to discourage renaming or
+# disregarding them.
 pm.dexopt.ab-ota                            u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.bg-dexopt                         u:object_r:exported_pm_prop:s0 exact string
 pm.dexopt.boot                              u:object_r:exported_pm_prop:s0 exact string
