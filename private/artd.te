@@ -31,8 +31,10 @@ userfaultfd_use(artd)
 
 # Read access to primary dex'es on writable partitions
 # ({/data,/mnt/expand/<volume-uuid>}/app/...).
+# Also allow creating the "oat" directory before restorecon.
 allow artd mnt_expand_file:dir { getattr search };
-r_dir_file(artd, apk_data_file)
+allow artd apk_data_file:dir { rw_dir_perms create setattr relabelfrom };
+allow artd apk_data_file:file r_file_perms;
 
 # Read access to vendor APKs ({/vendor,/odm}/{app,priv-app}/...).
 r_dir_file(artd, vendor_app_file)
@@ -46,8 +48,8 @@ r_dir_file(artd, vendor_framework_file)
 
 # Read/write access to all compilation artifacts generated on device for apps'
 # primary dex'es. (/data/dalvik-cache/..., /data/app/.../oat/..., etc.)
-allow artd dalvikcache_data_file:dir create_dir_perms;
-allow artd dalvikcache_data_file:file create_file_perms;
+allow artd dalvikcache_data_file:dir { create_dir_perms relabelto };
+allow artd dalvikcache_data_file:file { create_file_perms relabelto };
 
 # Read access to the ART APEX data directory.
 # Needed for reading the boot image generated on device.
