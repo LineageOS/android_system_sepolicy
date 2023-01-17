@@ -31,8 +31,8 @@
 
 ; Apps, except isolated apps, are clients of Graphics Allocator HAL
 ; Unfortunately, we can't currently express this in module policy language:
-;     typeattribute { appdomain -isolated_app_all } hal_graphics_allocator_client;
-(typeattributeset hal_graphics_allocator_client ((and (appdomain) ((not (isolated_app_all))))))
+;     typeattribute { appdomain -isolated_app } hal_graphics_allocator_client;
+(typeattributeset hal_graphics_allocator_client ((and (appdomain) ((not (isolated_app))))))
 
 ; Apps, except isolated apps, are clients of Cas HAL
 ; Unfortunately, we can't currently express this in module policy language:

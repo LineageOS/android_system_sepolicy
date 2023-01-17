@@ -11,13 +11,8 @@
 # Access already open app data files received over Binder or local socket IPC.
 allow isolated_app_all { app_data_file privapp_data_file sdk_sandbox_data_file}:file { append read write getattr lock map };
 
-# Allow access to network sockets received over IPC. New socket creation is not
-# permitted.
-allow isolated_app_all { ephemeral_app priv_app untrusted_app_all }:{ tcp_socket udp_socket } { rw_socket_perms_no_ioctl };
-
 allow isolated_app_all activity_service:service_manager find;
 allow isolated_app_all display_service:service_manager find;
-allow isolated_app_all webviewupdate_service:service_manager find;
 
 # Google Breakpad (crash reporter for Chrome) relies on ptrace
 # functionality. Without the ability to ptrace, the crash reporter
@@ -25,25 +20,6 @@ allow isolated_app_all webviewupdate_service:service_manager find;
 # b/20150694
 # https://code.google.com/p/chromium/issues/detail?id=475270
 allow isolated_app_all self:process ptrace;
-
-# b/32896414: Allow accessing sdcard file descriptors passed to isolated_apps
-# by other processes. Open should never be allowed, and is blocked by
-# neverallow rules below.
-# media_rw_data_file is included for sdcardfs, and can be removed if sdcardfs
-# is modified to change the secontext when accessing the lower filesystem.
-allow isolated_app_all { sdcard_type fuse media_rw_data_file }:file { read write append getattr lock map };
-
-# For webviews, isolated_app processes can be forked from the webview_zygote
-# in addition to the zygote. Allow access to resources inherited from the
-# webview_zygote process. These rules are specialized copies of the ones in app.te.
-# Inherit FDs from the webview_zygote.
-allow isolated_app_all webview_zygote:fd use;
-# Notify webview_zygote of child death.
-allow isolated_app_all webview_zygote:process sigchld;
-# Inherit logd write socket.
-allow isolated_app_all webview_zygote:unix_dgram_socket write;
-# Read system properties managed by webview_zygote.
-allow isolated_app_all webview_zygote_tmpfs:file read;
 
 # Inherit FDs from the app_zygote.
 allow isolated_app_all app_zygote:fd use;
@@ -55,15 +31,6 @@ allow isolated_app_all app_zygote:unix_dgram_socket write;
 # TODO (b/63631799) fix this access
 # suppress denials to /data/local/tmp
 dontaudit isolated_app_all shell_data_file:dir search;
-
-# Write app-specific trace data to the Perfetto traced damon. This requires
-# connecting to its producer socket and obtaining a (per-process) tmpfs fd.
-perfetto_producer(isolated_app_all)
-
-# Allow profiling if the main app has been marked as profileable or
-# debuggable.
-can_profile_heap(isolated_app_all)
-can_profile_perf(isolated_app_all)
 
 #####
 ##### Neverallow
@@ -79,20 +46,20 @@ neverallow isolated_app_all anr_data_file:file ~{ open append };
 neverallow isolated_app_all anr_data_file:dir ~search;
 
 # Isolated apps must not be permitted to use HwBinder
-neverallow isolated_app_all hwbinder_device:chr_file *;
-neverallow isolated_app_all *:hwservice_manager *;
+neverallow { isolated_app_all -isolated_compute_app } hwbinder_device:chr_file *;
+neverallow { isolated_app_all -isolated_compute_app } *:hwservice_manager *;
 
 # Isolated apps must not be permitted to use VndBinder
 neverallow isolated_app_all vndbinder_device:chr_file *;
 
 # Isolated apps must not be permitted to perform actions on Binder and VndBinder service_manager
 # except the find actions for services allowlisted below.
-neverallow isolated_app_all *:service_manager ~find;
+neverallow { isolated_app_all -isolated_compute_app } *:service_manager ~find;
 
 # b/17487348
 # Isolated apps can only access three services,
 # activity_service, display_service, webviewupdate_service.
-neverallow isolated_app_all {
+neverallow { isolated_app_all -isolated_compute_app } {
     service_manager_type
     -activity_service
     -display_service
@@ -102,7 +69,7 @@ neverallow isolated_app_all {
 # Isolated apps shouldn't be able to access the driver directly.
 neverallow isolated_app_all gpu_device:chr_file { rw_file_perms execute };
 
-# Do not allow isolated_app access to /cache
+# Do not allow isolated_apps access to /cache
 neverallow isolated_app_all cache_file:dir ~{ r_dir_perms };
 neverallow isolated_app_all cache_file:file ~{ read getattr };
 
@@ -121,7 +88,9 @@ neverallow isolated_app_all webview_zygote:sock_file write;
 
 # Limit the /sys files which isolated_app_all can access. This is important
 # for controlling isolated_app_all attack surface.
-neverallow isolated_app_all {
+# TODO (b/266555480): The permission should be guarded by compliance test.
+# Remove the negation for member domains when refactorization is done.
+neverallow { isolated_app_all -isolated_compute_app } {
   sysfs_type
   -sysfs_devices_system_cpu
   -sysfs_transparent_hugepage
