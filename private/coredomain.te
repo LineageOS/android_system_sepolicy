@@ -93,6 +93,8 @@ full_treble_only(`
         coredomain
         -appdomain
         -artd
+        -dex2oat
+        -dexoptanalyzer
         -idmap
         -init
         -installd
@@ -112,6 +114,8 @@ full_treble_only(`
         coredomain
         -appdomain
         -artd
+        -dex2oat
+        -dexoptanalyzer
         -idmap
         -init
         -installd
