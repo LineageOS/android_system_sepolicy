@@ -10,6 +10,8 @@ r_dir_file(dex2oat, vendor_app_file)
 # Access /vendor/framework
 allow dex2oat vendor_framework_file:dir { getattr search };
 allow dex2oat vendor_framework_file:file { getattr open read map };
+# Access /vendor/overlay
+r_dir_file(dex2oat, vendor_overlay_file);
 
 allow dex2oat tmpfs:file { read getattr map };
 
@@ -58,6 +60,9 @@ allow dex2oat apex_info_file:file r_file_perms;
 
 # Allow dex2oat to use file descriptors passed from privileged programs.
 allow dex2oat { artd installd odrefresh odsign }:fd use;
+
+# Allow dex2oat to read the /proc filesystem for CPU features, etc.
+allow dex2oat proc_filesystems:file r_file_perms;
 
 ##################
 # A/B OTA Dexopt #
