@@ -19,3 +19,9 @@ bluetooth_domain(untrusted_app_29)
 allow untrusted_app_29 self:netlink_route_socket nlmsg_getneigh;
 auditallow untrusted_app_29 self:netlink_route_socket nlmsg_getneigh;
 
+# Connect to mdnsd via mdnsd socket.
+unix_socket_connect(untrusted_app_29, mdnsd, mdnsd)
+userdebug_or_eng(`
+  auditallow untrusted_app_29 mdnsd_socket:sock_file write;
+  auditallow untrusted_app_29 mdnsd:unix_stream_socket connectto;
+')

@@ -49,6 +49,8 @@ allow adbd self:vsock_socket { create_socket_perms_no_ioctl listen accept };
 
 # Create and use network sockets.
 net_domain(adbd)
+# Connect to mdnsd via mdnsd socket.
+unix_socket_connect(adbd, mdnsd, mdnsd)
 
 # Access /dev/usb-ffs/adb/ep0
 allow adbd functionfs:dir search;
