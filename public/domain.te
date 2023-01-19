@@ -537,6 +537,14 @@ compatible_property_only(`
     neverallow { domain -coredomain -vendor_init } exported_pm_prop:file no_rw_file_perms;
 ')
 
+# New "pm.dexopt." sysprops should be explicitly listed as exported_pm_prop.
+neverallow { domain -init -dumpstate -vendor_init } future_pm_prop:property_service set;
+neverallow { domain -init -dumpstate -vendor_init } future_pm_prop:file no_rw_file_perms;
+
+# ART may introduce new sysprops. SELinux denials due to reading new sysprops on
+# old platforms shouldn't be regarded as a problem.
+dontaudit domain future_pm_prop:file read;
+
 neverallow { domain -init } aac_drc_prop:property_service set;
 neverallow { domain -init } build_prop:property_service set;
 neverallow { domain -init } userdebug_or_eng_prop:property_service set;
