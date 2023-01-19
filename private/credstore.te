@@ -10,3 +10,8 @@ hal_client_domain(credstore, hal_keymint)
 
 # credstore needs to get keys from the remotely provisioned pool
 allow credstore remotelyprovisionedkeypool_service:service_manager find;
+allow credstore keystore:keystore2 get_attestation_key;
+
+# credstore needs to get keys from the RKPD
+get_prop(credstore, device_config_remote_key_provisioning_native_prop)
+allow credstore remote_provisioning_service:service_manager find;
