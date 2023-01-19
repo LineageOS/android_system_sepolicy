@@ -49,6 +49,9 @@ allow surfaceflinger graphics_device:chr_file rw_file_perms;
 allow surfaceflinger video_device:dir r_dir_perms;
 allow surfaceflinger video_device:chr_file rw_file_perms;
 
+# Access the secure heap.
+allow surfaceflinger dmabuf_system_secure_heap_device:chr_file r_file_perms;
+
 # Create and use netlink kobject uevent sockets.
 allow surfaceflinger self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
 
