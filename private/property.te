@@ -628,7 +628,7 @@ neverallow {
 neverallow domain system_and_vendor_property_type:{file property_service} *;
 
 neverallow {
-  # Only init and the remote provisioner can set the ro.remote_provisioning.* props
+  # Only init and the remote provisioner can set the remote_provisioning props
   domain
   -init
   -remote_prov_app
