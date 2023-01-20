@@ -161,3 +161,5 @@ persist.device_config.runtime_native.       u:object_r:device_config_runtime_nat
 persist.device_config.runtime_native_boot.  u:object_r:device_config_runtime_native_boot_prop:s0 prefix
 
 apexd.payload_metadata.path u:object_r:apexd_payload_metadata_prop:s0 exact string
+
+tombstone_transmit.init_done u:object_r:tombstone_transmit_status_prop:s0 exact bool
