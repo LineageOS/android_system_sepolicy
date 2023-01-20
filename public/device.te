@@ -95,6 +95,9 @@ type boot_block_device, dev_type;
 # Documented at https://source.android.com/devices/bootloader/partitions
 type userdata_block_device, dev_type;
 
+# Zoned block device.
+type zoned_block_device, dev_type;
+
 # Cache block device mounted on /cache.
 # Documented at https://source.android.com/devices/bootloader/partitions
 type cache_block_device, dev_type;
