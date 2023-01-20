@@ -235,6 +235,13 @@ typeattribute $1 untrusted_app_all;
 ')
 
 #####################################
+# isolated_app_domain(domain)
+# Allow a base set of permissions required for all isolated apps.
+define(`isolated_app_domain', `
+typeattribute $1 isolated_app_all;
+')
+
+#####################################
 # net_domain(domain)
 # Allow a base set of permissions required for network access.
 define(`net_domain', `

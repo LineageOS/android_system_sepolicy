@@ -5,6 +5,7 @@
 define(`all_untrusted_apps',`{
   ephemeral_app
   isolated_app
+  isolated_app_all
   mediaprovider
   mediaprovider_app
   untrusted_app
