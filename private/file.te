@@ -12,7 +12,7 @@ type fs_bpf_netd_shared, fs_type, bpffs_type;
 type storaged_data_file, file_type, data_file_type, core_data_file_type;
 
 # /data/misc/wmtrace for wm traces
-type wm_trace_data_file, file_type, data_file_type, core_data_file_type;
+type wm_trace_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 
 # /data/misc/a11ytrace for accessibility traces
 type accessibility_trace_data_file, file_type, data_file_type, core_data_file_type;
