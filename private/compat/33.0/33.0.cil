@@ -2489,7 +2489,10 @@
 (typeattributeset untrusted_app_27_33_0 (untrusted_app_27))
 (typeattributeset untrusted_app_29_33_0 (untrusted_app_29))
 (typeattributeset untrusted_app_30_33_0 (untrusted_app_30))
-(typeattributeset untrusted_app_33_0 (untrusted_app))
+(typeattributeset untrusted_app_33_0
+  ( untrusted_app
+    untrusted_app_32
+))
 (typeattributeset update_engine_33_0 (update_engine))
 (typeattributeset update_engine_data_file_33_0 (update_engine_data_file))
 (typeattributeset update_engine_exec_33_0 (update_engine_exec))
