@@ -265,3 +265,26 @@ neverallow {
   -mediaprovider
   -mediaprovider_app
 } { userdebug_or_eng_prop }:file read;
+
+
+# Do not allow untrusted app to access /dev/socket/mdnsd since U. The socket is
+# used to communicate to the mdnsd responder. The mdnsd responder will be
+# replaced by a java implementation which is integrated into the system server.
+# For untrusted apps running with API level 33-, they still have access to
+# /dev/socket/mdnsd for backward compatibility.
+neverallow {
+  all_untrusted_apps
+  -untrusted_app_25
+  -untrusted_app_27
+  -untrusted_app_29
+  -untrusted_app_30
+  -untrusted_app_32
+} mdnsd_socket:sock_file write;
+neverallow {
+  all_untrusted_apps
+  -untrusted_app_25
+  -untrusted_app_27
+  -untrusted_app_29
+  -untrusted_app_30
+  -untrusted_app_32
+} mdnsd:unix_stream_socket connectto;

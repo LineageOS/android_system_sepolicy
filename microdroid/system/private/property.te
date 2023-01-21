@@ -1,4 +1,5 @@
 system_internal_prop(ctl_tombstoned_prop)
+system_restricted_prop(tombstone_transmit_status_prop)
 
 system_restricted_prop(boot_status_prop)
 

@@ -3,6 +3,8 @@ type netd, domain, mlstrustedsubject;
 type netd_exec, system_file_type, exec_type, file_type;
 
 net_domain(netd)
+# Connect to mdnsd via mdnsd socket.
+unix_socket_connect(netd, mdnsd, mdnsd)
 # in addition to ioctls allowlisted for all domains, grant netd priv_sock_ioctls.
 allowxperm netd self:udp_socket ioctl priv_sock_ioctls;
 
