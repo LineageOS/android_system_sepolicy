@@ -13,5 +13,5 @@ allow credstore remotelyprovisionedkeypool_service:service_manager find;
 allow credstore keystore:keystore2 get_attestation_key;
 
 # credstore needs to get keys from the RKPD
-get_prop(credstore, device_config_remote_key_provisioning_native_prop)
+get_prop(credstore, remote_prov_prop)
 allow credstore remote_provisioning_service:service_manager find;
