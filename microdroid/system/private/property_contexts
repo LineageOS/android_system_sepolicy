@@ -163,3 +163,7 @@ persist.device_config.runtime_native_boot.  u:object_r:device_config_runtime_nat
 apexd.payload_metadata.path u:object_r:apexd_payload_metadata_prop:s0 exact string
 
 tombstone_transmit.init_done u:object_r:tombstone_transmit_status_prop:s0 exact bool
+
+# tombstone_transmit.start starts tombstone_transmit after creating a directory
+# assigning the same label as ctl.start$tombstone_transmit
+tombstone_transmit.start u:object_r:ctl_tombstone_transmit_prop:s0 exact bool
