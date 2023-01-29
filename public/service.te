@@ -132,6 +132,7 @@ type bugreport_service, app_api_service, system_server_service, service_manager_
 type platform_compat_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type face_service, app_api_service, system_server_service, service_manager_type;
 type fingerprint_service, app_api_service, system_server_service, service_manager_type;
+type fwk_altitude_service, system_server_service, service_manager_type;
 type fwk_stats_service, app_api_service, system_server_service, service_manager_type;
 type fwk_sensor_service, system_server_service, service_manager_type;
 type game_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
