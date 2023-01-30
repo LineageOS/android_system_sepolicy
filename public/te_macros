@@ -176,8 +176,6 @@ allow $1 $1_userfaultfd:anon_inode { create ioctl read };
 dontaudit su $1_userfaultfd:anon_inode *;
 # Other domains may not use userfaultfd anon_inodes created by this domain.
 neverallow { domain -$1 } $1_userfaultfd:anon_inode *;
-# This domain may not use userfaultfd anon_inodes created by other domains.
-neverallow $1 ~$1_userfaultfd:anon_inode *;
 ')
 
 ####################################
@@ -1042,4 +1040,22 @@ define(`use_bootstrap_libs', `
 define(`use_apex_info', `
   allow $1 apex_mnt_dir:dir r_dir_perms;
   allow $1 apex_info_file:file r_file_perms;
+')
+
+####################################
+# io_uring_use(domain)
+# Allow domain to create/use io_uring.
+define(`io_uring_use', `
+# Set up a type_transition to "io_uring" named anonymous inode object.
+type $1_iouring;
+type_transition $1 $1:anon_inode $1_iouring "[io_uring]";
+# Allow domain to create/use io_uring anon_inode.
+allow $1 $1_iouring:anon_inode { create map read write };
+allow $1 self:io_uring sqpoll;
+# Other domains may not use iouring anon_inodes created by this domain.
+neverallow { domain -$1 } $1_iouring:anon_inode *;
+# io_uring checks for CAP_IPC_LOCK to determine whether or not to track
+# memory usage per uid against RLIMIT_MEMLOCK. This can lead folks to
+# grant CAP_IPC_LOCK to silence avc denials, which is undesireable.
+dontaudit $1 self:global_capability_class_set ipc_lock;
 ')
