@@ -45,6 +45,10 @@ allow dexoptanalyzer system_file:file lock;
 # package manager.
 allow dexoptanalyzer { privapp_data_file app_data_file }:file { getattr read map };
 
+# dexoptanalyzer checks the DM files next to dex files. We don't need this check
+# for secondary dex files, but it's not harmful. Just deny it and ignore it.
+dontaudit dexoptanalyzer { privapp_data_file app_data_file }:dir search;
+
 # Allow testing /data/user/0 which symlinks to /data/data
 allow dexoptanalyzer system_data_file:lnk_file { getattr };
 
