@@ -9,6 +9,7 @@
 (type vr_hwc)
 (type vr_hwc_exec)
 
+;; mapping information from ToT policy's types to 32.0 policy's types.
 (expandtypeattribute (DockObserver_service_32_0) true)
 (expandtypeattribute (IProxyService_service_32_0) true)
 (expandtypeattribute (aac_drc_prop_32_0) true)
