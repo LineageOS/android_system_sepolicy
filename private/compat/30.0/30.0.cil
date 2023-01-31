@@ -21,6 +21,7 @@
 
 (typeattribute binder_in_vendor_violators)
 
+;; mapping information from ToT policy's types to 30.0 policy's types.
 (expandtypeattribute (DockObserver_service_30_0) true)
 (expandtypeattribute (IProxyService_service_30_0) true)
 (expandtypeattribute (accessibility_service_30_0) true)

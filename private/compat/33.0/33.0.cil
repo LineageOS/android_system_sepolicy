@@ -19,6 +19,7 @@
 (type wpantund_service)
 (type zoneinfo_data_file)
 
+;; mapping information from ToT policy's types to 33.0 policy's types.
 (expandtypeattribute (DockObserver_service_33_0) true)
 (expandtypeattribute (IProxyService_service_33_0) true)
 (expandtypeattribute (aac_drc_prop_33_0) true)

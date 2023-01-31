@@ -29,9 +29,13 @@ import zipfile
 """This tool generates a mapping file for {ver} core sepolicy."""
 
 temp_dir = ''
-compat_cil_template = ";; This file can't be empty.\n"
-ignore_cil_template = """;; new_objects - a collection of types that have been introduced that have no
-;;   analogue in older policy.  Thus, we do not need to map these types to
+mapping_cil_footer = ";; mapping information from ToT policy's types to %s policy's types.\n"
+compat_cil_template = """;; complement CIL file for compatibility between ToT policy and %s vendors.
+;; will be compiled along with other normal policy files, on %s vendors.
+;;
+"""
+ignore_cil_template = """;; new_objects - a collection of types that have been introduced with ToT policy
+;;   that have no analogue in %s policy.  Thus, we do not need to map these types to
 ;;   previous ones.  Add here to pass checkapi tests.
 (type new_objects)
 (typeattribute new_objects)
@@ -484,16 +488,17 @@ def main():
                 f.write(';; types removed from current policy\n')
                 f.write('\n'.join(f'(type {x})' for x in sorted(target_removed_types)))
                 f.write('\n\n')
+            f.write(mapping_cil_footer % args.target_version)
             f.write(mapping_file_cil.unparse())
 
         with open(target_compat_file, 'w') as f:
             logging.info('writing %s' % target_compat_file)
-            f.write(compat_cil_template)
+            f.write(compat_cil_template % (args.target_version, args.target_version))
 
         with open(target_ignore_file, 'w') as f:
             logging.info('writing %s' % target_ignore_file)
             f.write(ignore_cil_template %
-                    ('\n    '.join(sorted(target_ignored_types))))
+                    (args.target_version, '\n    '.join(sorted(target_ignored_types))))
     finally:
         logging.info('Deleting temporary dir: {}'.format(temp_dir))
         shutil.rmtree(temp_dir)
