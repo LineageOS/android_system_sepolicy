@@ -57,6 +57,12 @@ userdebug_or_eng(`
   auditallow platform_app proc_net_type:{ dir file lnk_file } { getattr open read };
 ')
 
+# Allow writing and removing wmshell protolog in /data/misc/wmtrace.
+userdebug_or_eng(`
+  allow platform_app wm_trace_data_file:dir rw_dir_perms;
+  allow platform_app wm_trace_data_file:file { getattr setattr create unlink w_file_perms };
+')
+
 allow platform_app audioserver_service:service_manager find;
 allow platform_app cameraserver_service:service_manager find;
 allow platform_app drmserver_service:service_manager find;
