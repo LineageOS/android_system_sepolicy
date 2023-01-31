@@ -319,6 +319,7 @@ perf.drop_caches        u:object_r:perf_drop_caches_prop:s0 exact enum 0 3
 ro.charger.                 u:object_r:charger_prop:s0
 sys.boot_from_charger_mode  u:object_r:charger_status_prop:s0 exact int
 ro.enable_boot_charger_mode u:object_r:charger_config_prop:s0 exact bool
+ro.product.charger.unplugged_shutdown_time  u:object_r:charger_config_prop:s0 exact int
 
 # Virtual A/B and snapuserd properties
 ro.virtual_ab.enabled   u:object_r:virtual_ab_prop:s0 exact bool
