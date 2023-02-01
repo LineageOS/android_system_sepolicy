@@ -268,6 +268,7 @@ persist.device_config.vendor_system_native.         u:object_r:device_config_ven
 persist.device_config.vendor_system_native_boot.    u:object_r:device_config_vendor_system_native_boot_prop:s0
 persist.device_config.virtualization_framework_native. u:object_r:device_config_virtualization_framework_native_prop:s0
 persist.device_config.window_manager_native_boot.   u:object_r:device_config_window_manager_native_boot_prop:s0
+persist.device_config.memory_safety_native_boot.    u:object_r:device_config_memory_safety_native_boot_prop:s0
 persist.device_config.memory_safety_native.         u:object_r:device_config_memory_safety_native_prop:s0
 
 # F2FS smart idle maint prop
