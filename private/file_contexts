@@ -224,7 +224,6 @@
 /system/bin/boringssl_self_test(32|64) u:object_r:boringssl_self_test_exec:s0
 /system/bin/prng_seeder		u:object_r:prng_seeder_exec:s0
 /system/bin/charger		u:object_r:charger_exec:s0
-/system/bin/canhalconfigurator(-aidl)?  u:object_r:canhalconfigurator_exec:s0
 /system/bin/e2fsdroid		u:object_r:e2fs_exec:s0
 /system/bin/mke2fs		u:object_r:e2fs_exec:s0
 /system/bin/e2fsck	--	u:object_r:fsck_exec:s0
@@ -494,6 +493,7 @@
 /(system_ext|system/system_ext)/bin/hidl_lazy_cb_test_server u:object_r:hidl_lazy_test_server_exec:s0
 
 /(system_ext|system/system_ext)/bin/android\.frameworks\.automotive\.display@1\.0-service u:object_r:automotive_display_service_exec:s0
+/(system_ext|system/system_ext)/bin/canhalconfigurator(-aidl)? u:object_r:canhalconfigurator_exec:s0
 
 /(system_ext|system/system_ext)/lib(64)?(/.*)?      u:object_r:system_lib_file:s0
 
