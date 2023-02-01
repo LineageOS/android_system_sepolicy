@@ -681,3 +681,9 @@ neverallow {
   domain
   -init
 } log_file_logger_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+  -vendor_init
+} usb_uvc_enabled_prop:property_service set;
