@@ -45,6 +45,9 @@ domain_auto_trans(microdroid_manager, zipfuse_exec, zipfuse)
 # Allow microdroid_manager to start encryptedstore binary
 domain_auto_trans(microdroid_manager, encryptedstore_exec, encryptedstore)
 
+# Microdroid Manager needs read related permission for syncing encrypted storage fs
+allow microdroid_manager encryptedstore_file:dir r_dir_perms;
+
 # Allow microdroid_manager to run kexec to load crashkernel
 domain_auto_trans(microdroid_manager, kexec_exec, kexec)
 
