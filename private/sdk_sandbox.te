@@ -49,6 +49,7 @@ auditallow sdk_sandbox {
     -debug_prop
     -debuggerd_prop
     -default_prop
+    -device_config_memory_safety_native_boot_prop
     -device_config_memory_safety_native_prop
     -device_config_nnapi_native_prop
     -device_config_runtime_native_boot_prop

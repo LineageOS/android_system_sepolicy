@@ -82,6 +82,7 @@ get_prop(domain, bq_config_prop);
 # Allow all domains to check whether MTE is set to permissive mode.
 get_prop(domain, permissive_mte_prop);
 
+get_prop(domain, device_config_memory_safety_native_boot_prop);
 get_prop(domain, device_config_memory_safety_native_prop);
 
 # For now, everyone can access core property files
