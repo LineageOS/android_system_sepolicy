@@ -14,3 +14,6 @@ allow hal_usb_gadget_server configfs:file create_file_perms;
 allow hal_usb_gadget_server functionfs:dir { read search };
 allow hal_usb_gadget_server functionfs:file read;
 allow hal_usb_gadget_server proc_interrupts:file r_file_perms;
+
+# Read access to ro.usb.uvc.enabled
+get_prop(hal_usb_gadget_server, usb_uvc_enabled_prop)
