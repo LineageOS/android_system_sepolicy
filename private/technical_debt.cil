@@ -7,27 +7,27 @@
 
 ; Apps, except isolated apps, are clients of Allocator HAL
 ; Unfortunately, we can't currently express this in module policy language:
-;     typeattribute { appdomain -isolated_app } hal_allocator_client;
+;     typeattribute { appdomain -isolated_app_all } hal_allocator_client;
 ;     typeattribute hal_allocator_client halclientdomain;
-(typeattributeset hal_allocator_client ((and (appdomain) ((not (isolated_app))))))
+(typeattributeset hal_allocator_client ((and (appdomain) ((not (isolated_app_all))))))
 (typeattributeset halclientdomain (hal_allocator_client))
 
 ; Apps, except isolated apps, are clients of OMX-related services
 ; Unfortunately, we can't currently express this in module policy language:
-(typeattributeset hal_omx_client ((and (appdomain) ((not (isolated_app))))))
+(typeattributeset hal_omx_client ((and (appdomain) ((not (isolated_app_all))))))
 
 ; Apps, except isolated apps, are clients of Codec2-related services
 ; Unfortunately, we can't currently express this in module policy language:
-(typeattributeset hal_codec2_client ((and (appdomain) ((not (isolated_app))))))
+(typeattributeset hal_codec2_client ((and (appdomain) ((not (isolated_app_all))))))
 
 ; Apps, except isolated apps and SDK sandboxes, are clients of Drm-related services
 ; Unfortunately, we can't currently express this in module policy language:
-(typeattributeset hal_drm_client ((and (appdomain) ((not (or (isolated_app) (sdk_sandbox)))))))
+(typeattributeset hal_drm_client ((and (appdomain) ((not (or (isolated_app_all) (sdk_sandbox)))))))
 
 ; Apps, except isolated apps, are clients of Configstore HAL
 ; Unfortunately, we can't currently express this in module policy language:
-;     typeattribute { appdomain -isolated_app } hal_configstore_client;
-(typeattributeset hal_configstore_client ((and (appdomain) ((not (isolated_app))))))
+;     typeattribute { appdomain -isolated_app_all } hal_configstore_client;
+(typeattributeset hal_configstore_client ((and (appdomain) ((not (isolated_app_all))))))
 
 ; Apps, except isolated apps, are clients of Graphics Allocator HAL
 ; Unfortunately, we can't currently express this in module policy language:
@@ -36,8 +36,8 @@
 
 ; Apps, except isolated apps, are clients of Cas HAL
 ; Unfortunately, we can't currently express this in module policy language:
-;     typeattribute { appdomain -isolated_app } hal_cas_client;
-(typeattributeset hal_cas_client ((and (appdomain) ((not (isolated_app))))))
+;     typeattribute { appdomain -isolated_app_all } hal_cas_client;
+(typeattributeset hal_cas_client ((and (appdomain) ((not (isolated_app_all))))))
 
 ; Domains hosting Camera HAL implementations are clients of Allocator HAL
 ; Unfortunately, we can't currently express this in module policy language:
@@ -46,8 +46,8 @@
 
 ; Apps, except isolated apps, are clients of Neuralnetworks HAL
 ; Unfortunately, we can't currently express this in module policy language:
-;     typeattribute { appdomain -isolated_app } hal_neuralnetworks_client;
-(typeattributeset hal_neuralnetworks_client ((and (appdomain) ((not (isolated_app))))))
+;     typeattribute { appdomain -isolated_app_all } hal_neuralnetworks_client;
+(typeattributeset hal_neuralnetworks_client ((and (appdomain) ((not (isolated_app_all))))))
 
 ; TODO(b/112056006): move these to mapping files when/if we implement 'versioned' attributes.
 ; Rename untrusted_app_visible_* to untrusted_app_visible_*_violators.
