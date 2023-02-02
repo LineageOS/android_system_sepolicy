@@ -37,6 +37,7 @@ type mediadrmserver_service,    service_manager_type;
 type mediatranscoding_service,  app_api_service, service_manager_type;
 type netd_service,              service_manager_type;
 type nfc_service,               service_manager_type;
+type ondevicepersonalization_system_service, system_api_service, system_server_service, service_manager_type;
 type radio_service,             service_manager_type;
 type remotelyprovisionedkeypool_service, service_manager_type;
 type remoteprovisioning_service,   service_manager_type;
