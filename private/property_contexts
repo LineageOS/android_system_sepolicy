@@ -1501,3 +1501,6 @@ tuner.server.enable u:object_r:tuner_server_ctl_prop:s0 exact bool
 
 # Adaptive haptics settings property
 vibrator.adaptive_haptics.enabled u:object_r:adaptive_haptics_prop:s0 exact string
+
+# UVC Gadget property
+ro.usb.uvc.enabled      u:object_r:usb_uvc_enabled_prop:s0 exact bool
