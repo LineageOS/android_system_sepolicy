@@ -193,6 +193,9 @@ userdebug_or_eng(`
   get_prop(incidentd, last_boot_reason_prop);
 ')
 
+# Allow incident to read the build properties for attestation feature
+get_prop(incidentd, build_attestation_prop);
+
 ###
 ### neverallow rules
 ###
