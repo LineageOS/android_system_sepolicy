@@ -221,9 +221,9 @@ allow system_server proc_uid_procstat_set:file { w_file_perms getattr };
 # Write to /proc/sysrq-trigger.
 allow system_server proc_sysrq:file rw_file_perms;
 
-# Delete /data/misc/stats-data/ and /data/misc/stats-service/ directories.
-allow system_server stats_data_file:dir { open read remove_name search write };
-allow system_server stats_data_file:file unlink;
+# Delete /data/misc/stats-service/ directories.
+allow system_server stats_config_data_file:dir { open read remove_name search write };
+allow system_server stats_config_data_file:file unlink;
 
 # Read metric file & upload to statsd
 allow system_server odsign_data_file:dir search;
