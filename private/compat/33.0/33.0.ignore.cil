@@ -9,6 +9,7 @@
     apex_ready_prop
     artd
     bt_device
+    build_attestation_prop
     credential_service
     device_config_camera_native_prop
     device_config_memory_safety_native_boot_prop
@@ -39,6 +40,7 @@
     ondevicepersonalization_system_service
     permissive_mte_prop
     prng_seeder
+    recovery_usb_config_prop
     remote_provisioning_service
     rkpdapp
     servicemanager_prop
