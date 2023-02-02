@@ -30,6 +30,7 @@
 ;; mapping file compiles with vendor policies without exported_audio_prop type.
 (typeattribute exported_audio_prop_28_0)
 
+;; mapping information from ToT policy's types to 28.0 policy's types.
 (expandtypeattribute (accessibility_service_28_0) true)
 (expandtypeattribute (account_service_28_0) true)
 (expandtypeattribute (activity_service_28_0) true)

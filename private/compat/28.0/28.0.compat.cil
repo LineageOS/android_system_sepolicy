@@ -1,3 +1,7 @@
+;; complement CIL file for compatibility between ToT policy and 28.0 vendors.
+;; will be compiled along with other normal policy files, on 28.0 vendors.
+;;
+
 (typeattribute vendordomain)
 (typeattributeset vendordomain ((and (domain) ((not (coredomain))))))
 (allowx vendordomain dev_type (ioctl blk_file ((range 0x0000 0xffff))))
