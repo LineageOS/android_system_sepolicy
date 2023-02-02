@@ -58,8 +58,6 @@ get_prop(appdomain, camera2_extensions_prop)
 # Allow to ro.camerax.extensions.enabled
 get_prop(appdomain, camerax_extensions_prop)
 
-userdebug_or_eng(`perfetto_producer({ appdomain })')
-
 # Prevent apps from causing presubmit failures.
 # Apps can cause selinux denials by accessing CE storage
 # and/or external storage. In either case, the selinux denial is
@@ -357,6 +355,12 @@ unix_socket_send(appdomain, statsdw, statsd)
 allow appdomain user_profile_root_file:dir search;
 allow appdomain user_profile_data_file:dir w_dir_perms;
 allow appdomain user_profile_data_file:file create_file_perms;
+
+# Allow writing performance tracing data into the perfetto traced daemon.
+# Needed for java heap graph ART plugin (perfetto_hprof).
+# The perfetto profiling daemon will check for the specific application's
+# opt-in/opt-out.
+perfetto_producer(appdomain)
 
 # Send heap dumps to system_server via an already open file descriptor
 # % adb shell am set-watch-heap com.android.systemui 1048576

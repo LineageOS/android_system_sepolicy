@@ -25,15 +25,6 @@ allow isolated_compute_app speech_recognition_service:service_manager find;
 hal_client_domain(isolated_compute_app, hal_allocator)
 hwbinder_use(isolated_compute_app)
 
-# Write app-specific trace data to the Perfetto traced damon. This requires
-# connecting to its producer socket and obtaining a (per-process) tmpfs fd.
-perfetto_producer(isolated_compute_app)
-
-# Allow profiling if the main app has been marked as profileable or
-# debuggable.
-can_profile_heap(isolated_compute_app)
-can_profile_perf(isolated_compute_app)
-
 #####
 ##### Neverallow
 #####

@@ -34,12 +34,3 @@ allow isolated_app webview_zygote:process sigchld;
 allow isolated_app webview_zygote:unix_dgram_socket write;
 # Read system properties managed by webview_zygote.
 allow isolated_app webview_zygote_tmpfs:file read;
-
-# Write app-specific trace data to the Perfetto traced damon. This requires
-# connecting to its producer socket and obtaining a (per-process) tmpfs fd.
-perfetto_producer(isolated_app)
-
-# Allow profiling if the main app has been marked as profileable or
-# debuggable.
-can_profile_heap(isolated_app)
-can_profile_perf(isolated_app)

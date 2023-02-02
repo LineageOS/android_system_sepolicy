@@ -218,14 +218,6 @@ allow sdk_sandbox system_linker_exec:file execute_no_trans;
 allow sdk_sandbox shell_data_file:file r_file_perms;
 allow sdk_sandbox shell_data_file:dir r_dir_perms;
 
-# Write app-specific trace data to the Perfetto traced damon. This requires
-# connecting to its producer socket and obtaining a (per-process) tmpfs fd.
-perfetto_producer(sdk_sandbox)
-
-# Allow profiling if the app opts in by being marked profileable/debuggable.
-can_profile_heap(sdk_sandbox)
-can_profile_perf(sdk_sandbox)
-
 # allow sdk sandbox to use UDP sockets provided by the system server but not
 # modify them other than to connect
 allow sdk_sandbox system_server:udp_socket {

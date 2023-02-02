@@ -60,9 +60,14 @@ dontaudit traced_perf domain:process signal;
 # Never allow access to app data files
 neverallow traced_perf { app_data_file privapp_data_file system_app_data_file }:file *;
 
-# Never allow profiling highly privileged processes.
+# Never allow profiling privileged or otherwise incompatible domains.
+# Corresponding allow-rule is in private/domain.te.
 never_profile_perf(`{
+  apexd
+  app_zygote
   bpfloader
+  diced
+  hal_configstore
   init
   kernel
   keystore
@@ -71,4 +76,6 @@ never_profile_perf(`{
   ueventd
   vendor_init
   vold
+  webview_zygote
+  zygote
 }')

@@ -45,14 +45,6 @@ allow ephemeral_app drmserver_service:service_manager find;
 allow ephemeral_app radio_service:service_manager find;
 allow ephemeral_app ephemeral_app_api_service:service_manager find;
 
-# Write app-specific trace data to the Perfetto traced damon. This requires
-# connecting to its producer socket and obtaining a (per-process) tmpfs fd.
-perfetto_producer(ephemeral_app)
-
-# Allow profiling if the app opts in by being marked profileable/debuggable.
-can_profile_heap(ephemeral_app)
-can_profile_perf(ephemeral_app)
-
 # allow ephemeral apps to use UDP sockets provided by the system server but not
 # modify them other than to connect
 allow ephemeral_app system_server:udp_socket {
