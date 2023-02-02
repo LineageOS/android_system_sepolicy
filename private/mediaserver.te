@@ -18,3 +18,8 @@ get_prop(mediaserver, media_config_prop)
 
 # Allow mediaserver to start media.transcoding service via ctl.start.
 set_prop(mediaserver, ctl_mediatranscoding_prop);
+
+# Needed for stats callback registration to statsd.
+allow mediaserver stats_service:service_manager find;
+allow mediaserver statsmanager_service:service_manager find;
+binder_call(mediaserver, statsd)

@@ -66,6 +66,9 @@ unix_socket_connect(mediaserver, drmserver, drmserver)
 # but seems appropriate for all devices.
 unix_socket_connect(mediaserver, bluetooth, bluetooth)
 
+# Needed for mediaserver to send information to statsd socket.
+unix_socket_send(mediaserver, statsdw, statsd)
+
 add_service(mediaserver, mediaserver_service)
 allow mediaserver activity_service:service_manager find;
 allow mediaserver appops_service:service_manager find;
