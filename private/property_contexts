@@ -1353,6 +1353,9 @@ ro.localization.locale_filter u:object_r:localization_prop:s0 exact string
 # Graphics related properties
 ro.opengles.version u:object_r:graphics_config_prop:s0 exact int
 
+ro.egl.blobcache.multifile       u:object_r:graphics_config_prop:s0 exact bool
+ro.egl.blobcache.multifile_limit u:object_r:graphics_config_prop:s0 exact int
+
 ro.gfx.driver.0          u:object_r:graphics_config_prop:s0 exact string
 ro.gfx.driver.1          u:object_r:graphics_config_prop:s0 exact string
 ro.gfx.angle.supported   u:object_r:graphics_config_prop:s0 exact bool
