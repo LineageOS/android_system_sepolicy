@@ -5,7 +5,7 @@
 r_dir_file({
   appdomain
   -ephemeral_app
-  -isolated_app
+  -isolated_app_all
   -platform_app
   -priv_app
   -shell
@@ -18,7 +18,7 @@ userdebug_or_eng(`
   auditallow {
     appdomain
     -ephemeral_app
-    -isolated_app
+    -isolated_app_all
     -platform_app
     -priv_app
     -shell
@@ -149,53 +149,53 @@ binder_call(appdomain, sdk_sandbox)
 
 # Allow access to external storage; we have several visible mount points under /storage
 # and symlinks to primary storage at places like /storage/sdcard0 and /mnt/user/0/primary
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } storage_file:dir r_dir_perms;
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } storage_file:lnk_file r_file_perms;
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } mnt_user_file:dir r_dir_perms;
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } mnt_user_file:lnk_file r_file_perms;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } storage_file:dir r_dir_perms;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } storage_file:lnk_file r_file_perms;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } mnt_user_file:dir r_dir_perms;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } mnt_user_file:lnk_file r_file_perms;
 
 # Read/write visible storage
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } { sdcard_type fuse }:dir create_dir_perms;
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } { sdcard_type fuse }:file create_file_perms;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } { sdcard_type fuse }:dir create_dir_perms;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } { sdcard_type fuse }:file create_file_perms;
 # This should be removed if sdcardfs is modified to alter the secontext for its
 # accesses to the underlying FS.
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } media_rw_data_file:dir create_dir_perms;
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } media_rw_data_file:file create_file_perms;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } media_rw_data_file:dir create_dir_perms;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } media_rw_data_file:file create_file_perms;
 
 # Allow apps to use the USB Accessory interface.
 # http://developer.android.com/guide/topics/connectivity/usb/accessory.html
 #
 # USB devices are first opened by the system server (USBDeviceManagerService)
 # and the file descriptor is passed to the right Activity via binder.
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } usb_device:chr_file { read write getattr ioctl };
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } usbaccessory_device:chr_file { read write getattr };
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } usb_device:chr_file { read write getattr ioctl };
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } usbaccessory_device:chr_file { read write getattr };
 
 #logd access
 control_logd({ appdomain -ephemeral_app -sdk_sandbox })
 
 # application inherit logd write socket (urge is to deprecate this long term)
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } keystore:keystore_key { get_state get insert delete exist list sign verify };
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } keystore:keystore2_key { delete use get_info rebind update };
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } keystore:keystore_key { get_state get insert delete exist list sign verify };
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } keystore:keystore2_key { delete use get_info rebind update };
 
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } keystore_maintenance_service:service_manager find;
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } keystore:keystore2 get_state;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } keystore_maintenance_service:service_manager find;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } keystore:keystore2 get_state;
 
-use_keystore({ appdomain -isolated_app -ephemeral_app -sdk_sandbox })
+use_keystore({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox })
 
-use_credstore({ appdomain -isolated_app -ephemeral_app -sdk_sandbox })
+use_credstore({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox })
 
 # For app fuse.
-pdx_client({ appdomain -isolated_app -ephemeral_app -sdk_sandbox }, display_client)
-pdx_client({ appdomain -isolated_app -ephemeral_app -sdk_sandbox }, display_manager)
-pdx_client({ appdomain -isolated_app -ephemeral_app -sdk_sandbox }, display_vsync)
-pdx_client({ appdomain -isolated_app -ephemeral_app -sdk_sandbox }, performance_client)
+pdx_client({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox }, display_client)
+pdx_client({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox }, display_manager)
+pdx_client({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox }, display_vsync)
+pdx_client({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox }, performance_client)
 # Apps do not directly open the IPC socket for bufferhubd.
-pdx_use({ appdomain -isolated_app -ephemeral_app -sdk_sandbox }, bufferhub_client)
+pdx_use({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox }, bufferhub_client)
 
 # Apps receive an open tun fd from the framework for
 # device traffic. Do not allow untrusted app to directly open tun_device
-allow { appdomain -isolated_app -ephemeral_app -sdk_sandbox } tun_device:chr_file { read write getattr append ioctl };
-allowxperm { appdomain -isolated_app -ephemeral_app -sdk_sandbox } tun_device:chr_file ioctl TUNGETIFF;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } tun_device:chr_file { read write getattr append ioctl };
+allowxperm { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox } tun_device:chr_file ioctl TUNGETIFF;
 
 
 # WebView and other application-specific JIT compilers
@@ -221,8 +221,8 @@ allow appdomain dalvikcache_data_file:dir { search getattr };
 allow appdomain dalvikcache_data_file:file r_file_perms;
 
 # Read the /sdcard and /mnt/sdcard symlinks
-allow { appdomain -isolated_app -sdk_sandbox } rootfs:lnk_file r_file_perms;
-allow { appdomain -isolated_app -sdk_sandbox } tmpfs:lnk_file r_file_perms;
+allow { appdomain -isolated_app_all -sdk_sandbox } rootfs:lnk_file r_file_perms;
+allow { appdomain -isolated_app_all -sdk_sandbox } tmpfs:lnk_file r_file_perms;
 
 # Search /storage/emulated tmpfs mount.
 allow { appdomain -sdk_sandbox } tmpfs:dir r_dir_perms;
@@ -259,11 +259,11 @@ allow appdomain appdomain:fifo_file rw_file_perms;
 allow appdomain surfaceflinger:unix_stream_socket { read write setopt getattr getopt shutdown };
 
 # App sandbox file accesses.
-allow { appdomain -isolated_app -mlstrustedsubject -sdk_sandbox } { app_data_file privapp_data_file }:dir create_dir_perms;
-allow { appdomain -isolated_app -mlstrustedsubject -sdk_sandbox } { app_data_file privapp_data_file }:file create_file_perms;
+allow { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox } { app_data_file privapp_data_file }:dir create_dir_perms;
+allow { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox } { app_data_file privapp_data_file }:file create_file_perms;
 
 # Access via already open fds is ok even for mlstrustedsubject.
-allow { appdomain -isolated_app -sdk_sandbox } { app_data_file privapp_data_file system_app_data_file }:file { getattr map read write };
+allow { appdomain -isolated_app_all -sdk_sandbox } { app_data_file privapp_data_file system_app_data_file }:file { getattr map read write };
 
 # Traverse into expanded storage
 allow appdomain mnt_expand_file:dir r_dir_perms;
@@ -274,7 +274,7 @@ allow appdomain misc_user_data_file:dir r_dir_perms;
 allow appdomain misc_user_data_file:file r_file_perms;
 
 # TextClassifier
-r_dir_file({ appdomain -isolated_app }, textclassifier_data_file)
+r_dir_file({ appdomain -isolated_app_all }, textclassifier_data_file)
 
 # Access to OEM provided data and apps
 allow appdomain oemfs:dir r_dir_perms;
@@ -293,7 +293,7 @@ not_full_treble(`
 
 full_treble_only(`
     # For looking up Renderscript vendor drivers
-    allow { appdomain -isolated_app } vendor_file:dir { open read };
+    allow { appdomain -isolated_app_all } vendor_file:dir { open read };
 ')
 
 # Allow apps access to /vendor/overlay
@@ -368,9 +368,9 @@ userdebug_or_eng(`
 
 # Grant GPU access to all processes started by Zygote.
 # They need that to render the standard UI.
-allow { appdomain -isolated_app } gpu_device:chr_file rw_file_perms;
-allow { appdomain -isolated_app } gpu_device:dir r_dir_perms;
-allow { appdomain -isolated_app } sysfs_gpu:file r_file_perms;
+allow { appdomain -isolated_app_all } gpu_device:chr_file rw_file_perms;
+allow { appdomain -isolated_app_all } gpu_device:dir r_dir_perms;
+allow { appdomain -isolated_app_all } sysfs_gpu:file r_file_perms;
 
 
 # Use the Binder.
@@ -382,7 +382,7 @@ binder_call(appdomain, appdomain)
 # Perform binder IPC to ephemeral apps.
 binder_call(appdomain, ephemeral_app)
 # Perform binder IPC to gpuservice.
-binder_call({ appdomain -isolated_app }, gpuservice)
+binder_call({ appdomain -isolated_app_all }, gpuservice)
 
 # Talk with graphics composer fences
 allow appdomain hal_graphics_composer:fd use;
@@ -403,10 +403,10 @@ allow appdomain system_data_file:lnk_file r_file_perms;
 allow appdomain system_data_file:file { getattr read map };
 
 # Allow read/stat of /data/media files passed by Binder or local socket IPC.
-allow { appdomain -isolated_app -sdk_sandbox } media_rw_data_file:file { read getattr };
+allow { appdomain -isolated_app_all -sdk_sandbox } media_rw_data_file:file { read getattr };
 
 # Read and write /data/data/com.android.providers.telephony files passed over Binder.
-allow { appdomain -isolated_app } radio_data_file:file { read write getattr };
+allow { appdomain -isolated_app_all } radio_data_file:file { read write getattr };
 
 # For art.
 allow appdomain dalvikcache_data_file:file execute;
@@ -435,21 +435,21 @@ allow appdomain console_device:chr_file { read write };
 allowxperm { appdomain -bluetooth } self:{ rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
 
-allow { appdomain -isolated_app } ion_device:chr_file r_file_perms;
-allow { appdomain -isolated_app } dmabuf_system_heap_device:chr_file r_file_perms;
-allow { appdomain -isolated_app } dmabuf_system_secure_heap_device:chr_file r_file_perms;
+allow { appdomain -isolated_app_all } ion_device:chr_file r_file_perms;
+allow { appdomain -isolated_app_all } dmabuf_system_heap_device:chr_file r_file_perms;
+allow { appdomain -isolated_app_all } dmabuf_system_secure_heap_device:chr_file r_file_perms;
 
 # Allow AAudio apps to use shared memory file descriptors from the HAL
-allow { appdomain -isolated_app } hal_audio:fd use;
+allow { appdomain -isolated_app_all } hal_audio:fd use;
 
 # Allow app to access shared memory created by camera HAL1
-allow { appdomain -isolated_app } hal_camera:fd use;
+allow { appdomain -isolated_app_all } hal_camera:fd use;
 
 # Allow apps to access shared memory file descriptor from the tuner HAL
-allow {appdomain -isolated_app} hal_tv_tuner_server:fd use;
+allow {appdomain -isolated_app_all} hal_tv_tuner_server:fd use;
 
 # RenderScript always-passthrough HAL
-allow { appdomain -isolated_app } hal_renderscript_hwservice:hwservice_manager find;
+allow { appdomain -isolated_app_all } hal_renderscript_hwservice:hwservice_manager find;
 allow appdomain same_process_hal_file:file { execute read open getattr map };
 
 # TODO: switch to meminfo service
@@ -491,7 +491,7 @@ allow appdomain zygote_tmpfs:file { map read };
 # from read-only locations.
 neverallow {
   bluetooth
-  isolated_app
+  isolated_app_all
   nfc
   radio
   shared_relro
