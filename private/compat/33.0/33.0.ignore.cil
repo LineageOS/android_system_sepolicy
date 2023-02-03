@@ -11,6 +11,7 @@
     bt_device
     credential_service
     device_config_camera_native_prop
+    device_config_memory_safety_native_boot_prop
     device_config_memory_safety_native_prop
     device_config_vendor_system_native_prop
     devicelock_service
@@ -32,6 +33,7 @@
     hal_wifi_service
     healthconnect_service
     hypervisor_restricted_prop
+    isolated_compute_app
     keystore_config_prop
     ntfs
     permissive_mte_prop
