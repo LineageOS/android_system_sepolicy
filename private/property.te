@@ -687,3 +687,10 @@ neverallow {
   -init
   -vendor_init
 } usb_uvc_enabled_prop:property_service set;
+
+# Disallow non system apps from reading ro.usb.uvc.enabled
+neverallow {
+  appdomain
+  -system_app
+  -device_as_webcam
+} usb_uvc_enabled_prop:file no_rw_file_perms;
