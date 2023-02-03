@@ -30,7 +30,10 @@ allow dex2oat system_file:file lock;
 # Allow dex2oat to read /apex/apex-info-list.xml
 allow dex2oat apex_info_file:file r_file_perms;
 
-# Don't audit because we don't configure the compiler through system properties
-# in the VM.
-dontaudit dex2oat dalvik_config_prop:file { open read getattr map };
+# Allow reading dalvik system properties that may affect compilation
+get_prop(dex2oat, dalvik_config_prop)
+get_prop(dex2oat, device_config_runtime_native_boot_prop)
+
+# Don't audit because we don't configure the compiler through these
+# properties in the VM.
 dontaudit dex2oat device_config_runtime_native_prop:file { open read getattr map };
