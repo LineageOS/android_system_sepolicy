@@ -504,3 +504,19 @@ neverallow {
   -system_data_file # shared libs in apks
   -apk_data_file
 }:file no_x_file_perms;
+
+# Don't allow apps access to any of the following character devices.
+neverallow appdomain {
+    audio_device
+    camera_device
+    dm_device
+    radio_device
+    rpmsg_device
+}:chr_file { read write };
+
+# Block video device access for all apps except the DeviceAsWebcam Service which
+# needs access to /dev/video* for interfacing with the host
+neverallow {
+    appdomain
+    -device_as_webcam
+} video_device:chr_file { read write };
