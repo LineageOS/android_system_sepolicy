@@ -333,6 +333,7 @@ var (
 		"nfc":                          EXCEPTION_NO_FUZZER,
 		"notification":                 EXCEPTION_NO_FUZZER,
 		"oem_lock":                     EXCEPTION_NO_FUZZER,
+		"ondevicepersonalization_system_service": EXCEPTION_NO_FUZZER,
 		"otadexopt":                    EXCEPTION_NO_FUZZER,
 		"overlay":                      EXCEPTION_NO_FUZZER,
 		"pac_proxy":                    EXCEPTION_NO_FUZZER,
