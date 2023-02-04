@@ -40,6 +40,10 @@ binder_call(statsd, keystore)
 allow statsd mediametrics_service:service_manager find;
 binder_call(statsd, mediametrics)
 
+# Allow statsd to interact with mediametrics
+allow statsd mediaserver_service:service_manager find;
+binder_call(statsd, mediaserver)
+
 # Allow logd access.
 read_logd(statsd)
 control_logd(statsd)

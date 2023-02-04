@@ -703,6 +703,10 @@ ro.oem_unlock_supported u:object_r:oem_unlock_prop:s0 exact int
 
 ro.rebootescrow.device u:object_r:rebootescrow_hal_prop:s0 exact string
 
+ro.recovery.usb.vid          u:object_r:recovery_usb_config_prop:s0 exact string
+ro.recovery.usb.adb.pid      u:object_r:recovery_usb_config_prop:s0 exact string
+ro.recovery.usb.fastboot.pid u:object_r:recovery_usb_config_prop:s0 exact string
+
 ro.storage_manager.enabled     u:object_r:storagemanager_config_prop:s0 exact bool
 ro.storage_manager.show_opt_in u:object_r:storagemanager_config_prop:s0 exact bool
 
@@ -1064,6 +1068,11 @@ ro.product.vendor_dlkm.manufacturer u:object_r:build_vendor_prop:s0 exact string
 ro.product.vendor_dlkm.model        u:object_r:build_vendor_prop:s0 exact string
 ro.product.vendor_dlkm.name         u:object_r:build_vendor_prop:s0 exact string
 
+# build props for attestation feature are set by property_service
+ro.product.brand_for_attestation u:object_r:build_attestation_prop:s0 exact string
+ro.product.model_for_attestation u:object_r:build_attestation_prop:s0 exact string
+ro.product.name_for_attestation  u:object_r:build_attestation_prop:s0 exact string
+
 # GRF property for the first api level of the vendor partition
 ro.board.first_api_level u:object_r:build_vendor_prop:s0 exact int
 ro.board.api_level       u:object_r:build_vendor_prop:s0 exact int
@@ -1343,6 +1352,9 @@ ro.localization.locale_filter u:object_r:localization_prop:s0 exact string
 
 # Graphics related properties
 ro.opengles.version u:object_r:graphics_config_prop:s0 exact int
+
+ro.egl.blobcache.multifile       u:object_r:graphics_config_prop:s0 exact bool
+ro.egl.blobcache.multifile_limit u:object_r:graphics_config_prop:s0 exact int
 
 ro.gfx.driver.0          u:object_r:graphics_config_prop:s0 exact string
 ro.gfx.driver.1          u:object_r:graphics_config_prop:s0 exact string
