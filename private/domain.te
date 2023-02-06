@@ -218,8 +218,18 @@ neverallow {
 
 # System_server owns dropbox data, and init creates/restorecons the directory
 # Disallow direct access by other processes.
-neverallow { domain -init -system_server } dropbox_data_file:dir *;
-neverallow { domain -init -system_server } dropbox_data_file:file ~{ getattr read };
+neverallow {
+  domain
+  -init
+  -system_server
+  userdebug_or_eng(`-dumpstate')
+} dropbox_data_file:dir *;
+neverallow {
+  domain
+  -init
+  -system_server
+  userdebug_or_eng(`-dumpstate')
+} dropbox_data_file:file ~{ getattr read };
 
 ###
 # Services should respect app sandboxes
