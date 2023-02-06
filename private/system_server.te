@@ -1487,6 +1487,10 @@ neverallow { domain -system_server -init }
 allow system_server self:perf_event { open write cpu kernel };
 neverallow system_server self:perf_event ~{ open write cpu kernel };
 
+# Allow writing files under /data/system/shutdown-checkpoints/
+allow system_server shutdown_checkpoints_system_data_file:dir create_dir_perms;
+allow system_server shutdown_checkpoints_system_data_file:file create_file_perms;
+
 # Do not allow any domain other than init or system server to set the property
 neverallow { domain -init -system_server } socket_hook_prop:property_service set;
 
