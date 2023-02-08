@@ -18,7 +18,6 @@ define(`dumpable_domain',`{
   -bpfloader
   -crash_dump
   -crosvm # TODO(b/236672526): Remove exception for crosvm
-  -diced
   -init
   -kernel
   -keystore

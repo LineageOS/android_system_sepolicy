@@ -163,8 +163,5 @@ class keystore2                 # userspace
 # Keystore 2.0 key permissions
 class keystore2_key             # userspace
 
-# Diced permissions
-class diced                     # userspace
-
 class drmservice                # userspace
 # FLASK
