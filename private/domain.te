@@ -12,44 +12,49 @@ allow domain crash_dump:process sigchld;
 # heap profiling, as initialization will fail if it does not have the
 # necessary SELinux permissions.
 get_prop(domain, heapprofd_prop);
-# Allow heap profiling on debug builds.
-userdebug_or_eng(`can_profile_heap({
-  domain
-  -bpfloader
-  -init
-  -kernel
-  -keystore
-  -llkd
-  -logd
-  -logpersist
-  -recovery
-  -recovery_persist
-  -recovery_refresh
-  -ueventd
-  -vendor_init
-  -vold
-})')
 
-# As above, allow perf profiling most processes on debug builds.
-# zygote is excluded as system-wide profiling could end up with it
-# (unexpectedly) holding an open fd across a fork.
-userdebug_or_eng(`can_profile_perf({
+# See private/crash_dump.te
+define(`dumpable_domain',`{
   domain
+  -apexd
   -bpfloader
+  -crash_dump
+  -crosvm # TODO(b/236672526): Remove exception for crosvm
+  -diced
   -init
   -kernel
   -keystore
   -llkd
   -logd
+  -ueventd
+  -vendor_init
+  -vold
+}')
+
+# Allow heap profiling by heapprofd.
+# Zygotes are excluded due to potential issues with holding open file
+# descriptors or other state across forks. Other exclusions conflict with
+# neverallows, and are not considered important to profile.
+can_profile_heap({
+  dumpable_domain
+  -app_zygote
+  -hal_configstore
   -logpersist
   -recovery
   -recovery_persist
   -recovery_refresh
-  -ueventd
-  -vendor_init
-  -vold
+  -webview_zygote
   -zygote
-})')
+})
+
+# Allow profiling using perf_event_open by traced_perf.
+can_profile_perf({
+  dumpable_domain
+  -app_zygote
+  -hal_configstore
+  -webview_zygote
+  -zygote
+})
 
 # Everyone can access the IncFS list of features.
 r_dir_file(domain, sysfs_fs_incfs_features);
@@ -556,9 +561,9 @@ full_treble_only(`
     userdebug_or_eng(`-su') # communications with su are permitted only on userdebug or eng builds
     -init
     -tombstoned # linker to tombstoned
-    userdebug_or_eng(`-heapprofd')
-    userdebug_or_eng(`-traced')
-    userdebug_or_eng(`-traced_perf')
+    -heapprofd
+    -traced
+    -traced_perf
   });
 ')
 
