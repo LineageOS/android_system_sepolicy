@@ -69,6 +69,10 @@ unix_socket_connect(virtualizationmanager, tombstoned_crash, tombstoned)
 allow virtualizationmanager tombstone_data_file:file { append getattr };
 allow virtualizationmanager tombstoned:fd use;
 
+# Allow virtualizationservice to read AVF debug policy
+allow virtualizationmanager sysfs_dt_avf:dir search;
+allow virtualizationmanager sysfs_dt_avf:file { open read };
+
 # Allow reading files under /proc/[crosvm pid]/, for collecting CPU & memory usage inside VM.
 r_dir_file(virtualizationmanager, crosvm);
 
