@@ -34,8 +34,6 @@ neverallow hal_configstore_server {
   -prng_seeder
   userdebug_or_eng(`-su')
   -tombstoned
-  userdebug_or_eng(`-heapprofd')
-  userdebug_or_eng(`-traced_perf')
 }:{ unix_dgram_socket unix_stream_socket } *;
 
 # Should never need access to anything on /data
