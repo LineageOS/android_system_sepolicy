@@ -180,9 +180,6 @@ get_prop(system_app, oem_unlock_prop)
 # Settings app reads ro.usb.uvc.enabled
 get_prop(system_app, usb_uvc_enabled_prop)
 
-# Allow system apps to act as Perfetto producers.
-perfetto_producer(system_app)
-
 ###
 ### Neverallow rules
 ###
