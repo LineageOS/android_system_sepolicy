@@ -130,3 +130,6 @@ type art_exec_exec, system_file_type, exec_type, file_type;
 # write permission on this to connect, and needs to be mlstrustedobject
 # in to satisfy MLS constraints for trusted domains.
 type prng_seeder_socket, file_type, coredomain_socket, mlstrustedobject;
+
+# /sys/firmware/devicetree/base/avf
+type sysfs_dt_avf, fs_type, sysfs_type;
