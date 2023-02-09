@@ -11,6 +11,9 @@ allow hal_camera_default fwk_sensor_service:service_manager find;
 
 get_prop(hal_camera_default, device_config_camera_native_prop);
 
+# Allow reading graphics properties, specifically for EGL blobcache mode
+get_prop(hal_camera_default, graphics_config_prop);
+
 # For collecting bugreports.
 allow hal_camera_default dumpstate:fd use;
 allow hal_camera_default dumpstate:fifo_file write;
