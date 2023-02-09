@@ -31,7 +31,7 @@ userdebug_or_eng(`
   dontaudit su domain:socket_class_set *;
   dontaudit su domain:ipc_class_set *;
   dontaudit su domain:key *;
-  dontaudit su fs_type:filesystem *;
+  dontaudit su {fs_type fusefs_type}:filesystem *;
   dontaudit su {fs_type dev_type file_type}:dir_file_class_set *;
   dontaudit su node_type:node *;
   dontaudit su node_type:{ tcp_socket udp_socket rawip_socket } *;
