@@ -584,6 +584,9 @@ bluetooth.core.le.vendor_capabilities.enabled        u:object_r:bluetooth_config
 bluetooth.sco.disable_enhanced_connection            u:object_r:bluetooth_config_prop:s0 exact bool
 
 persist.nfc.debug_enabled                      u:object_r:nfc_prop:s0 exact bool
+persist.nfc.vendor_debug_enabled               u:object_r:nfc_prop:s0 exact bool
+persist.nfc.snoop_log_mode                     u:object_r:nfc_prop:s0 exact enum full filtered
+nfc.dta.skip_ndef_read                         u:object_r:nfc_prop:s0 exact bool
 
 persist.radio.multisim.config u:object_r:radio_control_prop:s0 exact string
 persist.radio.allow_mock_modem u:object_r:radio_control_prop:s0 exact bool
