@@ -20,10 +20,17 @@ allow isolated_compute_app cameraserver_service:service_manager find;
 allow isolated_compute_app content_capture_service:service_manager find;
 allow isolated_compute_app device_state_service:service_manager find;
 allow isolated_compute_app speech_recognition_service:service_manager find;
+allow isolated_compute_app mediaserver_service:service_manager find;
 
 # Enable access to hardware services for camera functionalilites
 hal_client_domain(isolated_compute_app, hal_allocator)
 hwbinder_use(isolated_compute_app)
+
+allow isolated_compute_app dmabuf_system_heap_device:chr_file r_file_perms;
+
+# Allow access to network sockets received over IPC. New socket creation is not
+# permitted.
+allow isolated_compute_app { ephemeral_app priv_app untrusted_app_all }:{ tcp_socket udp_socket } { rw_socket_perms_no_ioctl };
 
 #####
 ##### Neverallow
