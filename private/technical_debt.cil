@@ -14,11 +14,11 @@
 
 ; Apps, except isolated apps, are clients of OMX-related services
 ; Unfortunately, we can't currently express this in module policy language:
-(typeattributeset hal_omx_client ((and (appdomain) ((not (isolated_app_all))))))
+(typeattributeset hal_omx_client ((and (appdomain) ((not (isolated_app))))))
 
 ; Apps, except isolated apps, are clients of Codec2-related services
 ; Unfortunately, we can't currently express this in module policy language:
-(typeattributeset hal_codec2_client ((and (appdomain) ((not (isolated_app_all))))))
+(typeattributeset hal_codec2_client ((and (appdomain) ((not (isolated_app))))))
 
 ; Apps, except isolated apps and SDK sandboxes, are clients of Drm-related services
 ; Unfortunately, we can't currently express this in module policy language:
