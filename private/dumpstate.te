@@ -27,6 +27,12 @@ userdebug_or_eng(`
   allow dumpstate wm_trace_data_file:file r_file_perms;
 ')
 
+# /data/system/dropbox for dropbox entries
+userdebug_or_eng(`
+  allow dumpstate dropbox_data_file:dir r_dir_perms;
+  allow dumpstate dropbox_data_file:file r_file_perms;
+')
+
 # Allow dumpstate to make binder calls to incidentd
 binder_call(dumpstate, incidentd)
 
