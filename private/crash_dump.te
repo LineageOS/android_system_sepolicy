@@ -30,13 +30,16 @@ userdebug_or_eng(`
   }:process { ptrace signal sigchld sigstop sigkill };
 ')
 
+# Read ART APEX data directory
+allow crash_dump apex_art_data_file:dir { getattr search };
+allow crash_dump apex_art_data_file:file r_file_perms;
+
 ###
 ### neverallow assertions
 ###
 
-# ptrace neverallow assertions are spread throughout the other policy
-# files, so we avoid adding redundant assertions here
-
+# sigchld not explicitly forbidden since it's part of the
+# domain-transition-on-exec macros, and is by itself not sensitive
 neverallow crash_dump {
   apexd
   userdebug_or_eng(`-apexd')
@@ -54,11 +57,7 @@ neverallow crash_dump {
   vendor_init
   vold
   userdebug_or_eng(`-vold')
-}:process { signal sigstop sigkill };
+}:process { ptrace signal sigstop sigkill };
 
 neverallow crash_dump self:process ptrace;
 neverallow crash_dump gpu_device:chr_file *;
-
-# Read ART APEX data directory
-allow crash_dump apex_art_data_file:dir { getattr search };
-allow crash_dump apex_art_data_file:file r_file_perms;

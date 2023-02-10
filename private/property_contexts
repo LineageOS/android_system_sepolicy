@@ -519,6 +519,7 @@ bluetooth.framework.adapter_address_validation       u:object_r:bluetooth_config
 bluetooth.core.gap.le.privacy.enabled                u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.core.gap.le.conn.min.limit                 u:object_r:bluetooth_config_prop:s0 exact int
 bluetooth.core.gap.le.conn.only_init_1m_phy.enabled  u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.core.le_audio.inband_ringtone.supported    u:object_r:bluetooth_config_prop:s0 exact bool
 
 bluetooth.device.default_name                        u:object_r:bluetooth_config_prop:s0 exact string
 bluetooth.device.class_of_device                     u:object_r:bluetooth_config_prop:s0 exact string
@@ -583,6 +584,9 @@ bluetooth.core.le.vendor_capabilities.enabled        u:object_r:bluetooth_config
 bluetooth.sco.disable_enhanced_connection            u:object_r:bluetooth_config_prop:s0 exact bool
 
 persist.nfc.debug_enabled                      u:object_r:nfc_prop:s0 exact bool
+persist.nfc.vendor_debug_enabled               u:object_r:nfc_prop:s0 exact bool
+persist.nfc.snoop_log_mode                     u:object_r:nfc_prop:s0 exact enum full filtered
+nfc.dta.skip_ndef_read                         u:object_r:nfc_prop:s0 exact bool
 
 persist.radio.multisim.config u:object_r:radio_control_prop:s0 exact string
 persist.radio.allow_mock_modem u:object_r:radio_control_prop:s0 exact bool

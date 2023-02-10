@@ -1,14 +1,4 @@
 # Android heap profiling daemon. go/heapprofd.
-#
-# On user builds, this daemon is responsible for receiving the initial
-# profiling configuration, finding matching target processes (if profiling by
-# process name), and sending the activation signal to them (+ setting system
-# properties for new processes to start profiling from startup). When profiling
-# is triggered in a process, it spawns a private heapprofd subprocess (in its
-# own SELinux domain), which will exclusively handle profiling of its parent.
-#
-# On debug builds, this central daemon performs profiling for all target
-# processes (which talk directly to this daemon).
 type heapprofd_exec, exec_type, file_type, system_file_type;
 type heapprofd_tmpfs, file_type;
 
@@ -56,23 +46,28 @@ allow heapprofd self:global_capability_class_set dac_read_search;
 # For checking profileability.
 allow heapprofd packages_list_file:file r_file_perms;
 
-# This is going to happen on user but is benign because central heapprofd
-# does not actually need these permission.
-# If the dac_read_search capability check is rejected, the kernel then tries
-# to perform a dac_override capability check, so we need to dontaudit that
-# as well.
-dontaudit heapprofd self:global_capability_class_set { dac_read_search dac_override };
-
+# Never allow profiling privileged or otherwise incompatible domains.
+# Corresponding allow-rule is in private/domain.te.
 never_profile_heap(`{
+  apexd
+  app_zygote
   bpfloader
+  diced
+  hal_configstore
   init
   kernel
   keystore
   llkd
   logd
+  logpersist
+  recovery
+  recovery_persist
+  recovery_refresh
   ueventd
   vendor_init
   vold
+  webview_zygote
+  zygote
 }')
 
 full_treble_only(`
