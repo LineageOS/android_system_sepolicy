@@ -129,14 +129,6 @@ allow untrusted_app_all vendor_app_file:dir { open getattr read search };
 allow untrusted_app_all vendor_app_file:file { r_file_perms execute };
 allow untrusted_app_all vendor_app_file:lnk_file { open getattr read };
 
-# Write app-specific trace data to the Perfetto traced damon. This requires
-# connecting to its producer socket and obtaining a (per-process) tmpfs fd.
-perfetto_producer(untrusted_app_all)
-
-# Allow profiling if the app opts in by being marked profileable/debuggable.
-can_profile_heap(untrusted_app_all)
-can_profile_perf(untrusted_app_all)
-
 # allow untrusted apps to use UDP sockets provided by the system server but not
 # modify them other than to connect
 allow untrusted_app_all system_server:udp_socket {

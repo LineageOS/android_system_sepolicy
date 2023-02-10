@@ -142,18 +142,15 @@ neverallow app_zygote domain:{
   alg_socket nfc_socket vsock_socket kcm_socket qipcrtr_socket smc_socket
 } *;
 
-# Only allow app_zygote to talk to the logd socket, and
-# su/heapprofd/traced_perf on eng/userdebug. This is because
-# cap_setuid/cap_setgid allow to forge uid/gid in SCM_CREDENTIALS.
-# Think twice before changing.
+# Only allow app_zygote to talk to the logd socket, and su on eng/userdebug.
+# This is because cap_setuid/cap_setgid allow to forge uid/gid in
+# SCM_CREDENTIALS. Think twice before changing.
 neverallow app_zygote {
   domain
   -app_zygote
   -logd
   -system_server
   userdebug_or_eng(`-su')
-  userdebug_or_eng(`-heapprofd')
-  userdebug_or_eng(`-traced_perf')
 }:unix_dgram_socket *;
 
 neverallow app_zygote {
@@ -161,8 +158,6 @@ neverallow app_zygote {
   -app_zygote
   -prng_seeder
   userdebug_or_eng(`-su')
-  userdebug_or_eng(`-heapprofd')
-  userdebug_or_eng(`-traced_perf')
 }:unix_stream_socket *;
 
 # Never allow ptrace

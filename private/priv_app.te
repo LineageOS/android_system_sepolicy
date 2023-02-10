@@ -126,19 +126,11 @@ allow priv_app preloads_media_file:dir r_dir_perms;
 
 read_runtime_log_tags(priv_app)
 
-# Write app-specific trace data to the Perfetto traced damon. This requires
-# connecting to its producer socket and obtaining a (per-process) tmpfs fd.
-perfetto_producer(priv_app)
-
 # Allow priv_apps to request and collect incident reports.
 # (Also requires DUMP and PACKAGE_USAGE_STATS permissions)
 allow priv_app incident_service:service_manager find;
 binder_call(priv_app, incidentd)
 allow priv_app incidentd:fifo_file { read write };
-
-# Allow profiling if the app opts in by being marked profileable/debuggable.
-can_profile_heap(priv_app)
-can_profile_perf(priv_app)
 
 # Allow priv_apps to check whether Dynamic System Update is enabled
 get_prop(priv_app, dynamic_system_prop)
