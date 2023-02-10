@@ -5,7 +5,7 @@ binder_call(hal_fingerprint_server, hal_fingerprint_client)
 hal_attribute_hwservice(hal_fingerprint, hal_fingerprint_hwservice)
 hal_attribute_service(hal_fingerprint, hal_fingerprint_service)
 
-binder_call(hal_fingerprint_server, servicemanager)
+binder_use(hal_fingerprint_server)
 
 # For memory allocation
 allow hal_fingerprint ion_device:chr_file r_file_perms;
