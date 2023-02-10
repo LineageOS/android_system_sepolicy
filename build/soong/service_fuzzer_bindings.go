@@ -224,6 +224,7 @@ var (
 		"dataloader_manager":                                              EXCEPTION_NO_FUZZER,
 		"dbinfo":                                                          EXCEPTION_NO_FUZZER,
 		"device_config":                                                   EXCEPTION_NO_FUZZER,
+		"device_config_updatable":                                         EXCEPTION_NO_FUZZER,
 		"device_policy":                                                   EXCEPTION_NO_FUZZER,
 		"device_identifiers":                                              EXCEPTION_NO_FUZZER,
 		"deviceidle":                                                      EXCEPTION_NO_FUZZER,
