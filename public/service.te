@@ -9,6 +9,7 @@ type bluetooth_service,         service_manager_type;
 type cameraserver_service,      service_manager_type;
 type fwk_camera_service,        service_manager_type;
 type default_android_service,   service_manager_type;
+type device_config_updatable_service,       system_api_service, system_server_service,service_manager_type;
 type dice_maintenance_service,  service_manager_type;
 type dice_node_service,         service_manager_type;
 type dnsresolver_service,       service_manager_type;
