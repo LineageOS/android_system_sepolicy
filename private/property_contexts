@@ -507,6 +507,7 @@ persist.bluetooth.snooplogfilter.profiles.map               u:object_r:bluetooth
 persist.bluetooth.snooplogfilter.profiles.pbap              u:object_r:bluetooth_prop:s0 exact enum empty disabled fullfilter header magic
 persist.bluetooth.snooplogfilter.profiles.rfcomm.enabled    u:object_r:bluetooth_prop:s0 exact bool
 persist.bluetooth.factoryreset                              u:object_r:bluetooth_prop:s0 exact bool
+persist.bluetooth.leaudio.allow_list                        u:object_r:bluetooth_prop:s0 exact string
 
 bluetooth.hardware.power.operating_voltage_mv        u:object_r:bluetooth_config_prop:s0 exact int
 bluetooth.hardware.power.idle_cur_ma                 u:object_r:bluetooth_config_prop:s0 exact int
