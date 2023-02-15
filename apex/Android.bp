@@ -267,9 +267,9 @@ filegroup {
 }
 
 filegroup {
-  name: "com.android.healthconnect-file_contexts",
+  name: "com.android.healthfitness-file_contexts",
   srcs: [
-    "com.android.healthconnect-file_contexts",
+    "com.android.healthfitness-file_contexts",
   ],
 }
 

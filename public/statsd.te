@@ -19,9 +19,16 @@ userdebug_or_eng(`
   allow statsd su:fifo_file read;
 ')
 
-# Create, read, and write into /data/misc/stats-data, /data/misc/stats-system.
+# Create, read, and write into
+#   /data/misc/stats-active-metric
+#   /data/misc/stats-data
+#   /data/misc/stats-metadata
+#   /data/misc/stats-service
+#   /data/misc/train-info
 allow statsd stats_data_file:dir create_dir_perms;
 allow statsd stats_data_file:file create_file_perms;
+allow statsd stats_config_data_file:dir create_dir_perms;
+allow statsd stats_config_data_file:file create_file_perms;
 
 # Allow statsd to make binder calls to any binder service.
 binder_call(statsd, appdomain)
@@ -83,7 +90,10 @@ unix_socket_send(statsd, statsdw, statsd)
 # Only statsd and the other root services in limited circumstances.
 # can get to the files in /data/misc/stats-data, /data/misc/stats-service.
 # Other services are prohibitted from accessing the file.
-neverallow { domain -statsd -system_server -init -vold } stats_data_file:file *;
+neverallow { domain -statsd -init -vold } stats_data_file:file *;
+neverallow { domain -statsd -system_server -init -vold } stats_config_data_file:file *;
+
 
 # Limited access to the directory itself.
-neverallow { domain -statsd -system_server -init -vold } stats_data_file:dir *;
+neverallow { domain -statsd -init -vold } stats_data_file:dir *;
+neverallow { domain -statsd -system_server -init -vold } stats_config_data_file:dir *;
