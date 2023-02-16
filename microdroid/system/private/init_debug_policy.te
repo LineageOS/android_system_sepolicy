@@ -1,0 +1,32 @@
+# init_debug_policy is its own domain.
+type init_debug_policy, domain, coredomain;
+type init_debug_policy_exec, system_file_type, exec_type, file_type;
+
+# Transition from init -> init_debug_policy_exec
+init_daemon_domain(init_debug_policy);
+
+# init_debug_policy is using bootstrap bionic
+use_bootstrap_libs(init_debug_policy)
+
+# Allow init_debug_policy to write /dev/kmsg (specified by stdio_to_kmsg)
+allow init_debug_policy kmsg_debug_device:chr_file w_file_perms;
+
+# Allow init_debug_policy to use xxd and set/getprop
+allow init_debug_policy toolbox_exec:file rx_file_perms;
+
+# Allow init_debug_policy to set ro.debuggable to enable/disable adb root
+set_prop(init_debug_policy, debuggable_prop)
+
+# Allow init_debug_policy to set ro.log.file_logger.path to enable/disable console log
+set_prop(init_debug_policy, log_prop)
+
+# Allow init_debug_policy to get ro.boot.microdroid.debuggable and ro.boot.adb.enabled
+get_prop(init_debug_policy, bootloader_prop)
+
+# Allow init_debug_policy to set init_debug_policy.adbd.enabled
+set_prop(init_debug_policy, init_debug_policy_prop)
+
+# Allow init_debug_policy to read AVF debug policy
+allow init_debug_policy sysfs_dt_avf:dir search;
+allow init_debug_policy sysfs_dt_avf:file { open read };
+
