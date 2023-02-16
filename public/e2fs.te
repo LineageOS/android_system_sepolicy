@@ -9,7 +9,7 @@ allow e2fs userdata_block_device:blk_file rw_file_perms;
 allow e2fs metadata_block_device:blk_file rw_file_perms;
 allow e2fs dm_device:blk_file rw_file_perms;
 allow e2fs zoned_block_device:blk_file rw_file_perms;
-allowxperm e2fs { userdata_block_device metadata_block_device dm_device }:blk_file ioctl {
+allowxperm e2fs { userdata_block_device metadata_block_device dm_device zoned_block_device }:blk_file ioctl {
   BLKSECDISCARD BLKDISCARD BLKPBSZGET BLKDISCARDZEROES BLKROGET BLKREPORTZONE BLKRESETZONE
 };
 
