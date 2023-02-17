@@ -5,6 +5,7 @@ init_daemon_domain(vold)
 # Switch to more restrictive domains when executing common tools
 domain_auto_trans(vold, sgdisk_exec, sgdisk);
 domain_auto_trans(vold, sdcardd_exec, sdcardd);
+domain_auto_trans(vold, fuseblkd_untrusted_exec, fuseblkd_untrusted);
 
 # For a handful of probing tools, we choose an even more restrictive
 # domain when working with untrusted block devices
