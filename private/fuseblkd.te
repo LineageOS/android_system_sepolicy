@@ -1,0 +1,31 @@
+# Compartmentalized domain specifically for mounting fuseblk filesystems.
+# We need this to not grant fuseblkd_untrusted sys_admin permissions.
+type fuseblkd_exec, system_file_type, exec_type, file_type;
+type fuseblkd, domain;
+
+typeattribute fuseblkd coredomain;
+
+# Required for mount and unmounting. We can't minimize this permission,
+# even though we only allow mount/unmount.
+allow fuseblkd self:global_capability_class_set sys_admin;
+
+# Permissions for the fuseblk filesystem.
+allow fuseblkd fuse_device:chr_file rw_file_perms;
+allow fuseblkd fuseblk:filesystem { mount unmount };
+allow fuseblkd fuseblkd_untrusted:fd use;
+
+# Look through block devices to find the correct one.
+allow fuseblkd block_device:dir search;
+
+# Permissions to mount on the media_rw directory for USB drives.
+allow fuseblkd mnt_media_rw_file:dir search;
+allow fuseblkd mnt_media_rw_stub_file:dir mounton;
+
+###
+### neverallow rules
+###
+
+# Only allow entry from fuseblkd_untrusted, and only through fuseblkd_exec binary.
+neverallow { domain -fuseblkd_untrusted } fuseblkd:process transition;
+neverallow * fuseblkd:process dyntransition;
+neverallow fuseblkd { file_type fs_type -fuseblkd_exec }:file entrypoint;
