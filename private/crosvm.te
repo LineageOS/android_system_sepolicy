@@ -79,6 +79,12 @@ allow crosvm shell_data_file:file write;
 # crosvm only needs write permission, so dontaudit read
 dontaudit crosvm virtualizationmanager:fifo_file read;
 
+# Required for crosvm to start gdb-server to enable debugging of guest kernel.
+allow crosvm self:tcp_socket { bind create read setopt write accept listen };
+allow crosvm port:tcp_socket name_bind;
+allow crosvm adbd:unix_stream_socket ioctl;
+allow crosvm node:tcp_socket node_bind;
+
 # Don't allow crosvm to open files that it doesn't own.
 # This is important because a malicious application could try to start a VM with a composite disk
 # image referring by name to files which it doesn't have permission to open, trying to get crosvm to
