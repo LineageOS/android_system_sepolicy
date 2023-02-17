@@ -47,3 +47,21 @@ neverallow fsck_untrusted {
 neverallow { domain -vold } fsck_untrusted:process transition;
 neverallow * fsck_untrusted:process dyntransition;
 neverallow fsck_untrusted { file_type fs_type -fsck_exec }:file entrypoint;
+
+# fsck_untrusted should never have sys_admin permissions. If it requires sys_admin
+# permissions, that is a code mistake that needs to be fixed, not a permission that
+# should be granted. Same with setgid and setuid.
+neverallow fsck_untrusted self:global_capability_class_set { setgid setuid sys_admin };
+
+###
+### dontaudit rules
+###
+
+# Ignores attempts to access sysfs. fsck binaries seem to like trying to go
+# here, but nothing bad happens if they can't, and they shouldn't be allowed.
+dontaudit fsck_untrusted sysfs:file rw_file_perms;
+dontaudit fsck_untrusted sysfs_dm:file rw_file_perms;
+dontaudit fsck_untrusted sysfs_dm:dir rw_dir_perms;
+
+# Ignore attempts to access tmpfs. fsck don't need to do this.
+dontaudit fsck_untrusted tmpfs:lnk_file read;

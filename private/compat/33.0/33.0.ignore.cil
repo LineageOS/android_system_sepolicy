@@ -42,6 +42,11 @@
     keystore_config_prop
     ntfs
     ondevicepersonalization_system_service
+    fuseblk
+    fuseblkd_untrusted
+    fuseblkd_untrusted_exec
+    fuseblkd
+    fuseblkd_exec
     permissive_mte_prop
     prng_seeder
     recovery_usb_config_prop
