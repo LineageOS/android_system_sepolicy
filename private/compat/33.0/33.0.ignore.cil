@@ -42,6 +42,11 @@
     keystore_config_prop
     ntfs
     ondevicepersonalization_system_service
+    fuseblk
+    fuseblkd_untrusted
+    fuseblkd_untrusted_exec
+    fuseblkd
+    fuseblkd_exec
     permissive_mte_prop
     prng_seeder
     recovery_usb_config_prop
@@ -51,6 +56,7 @@
     stats_config_data_file
     system_net_netd_service
     timezone_metadata_prop
+    traced_oome_heap_session_count_prop
     tuner_config_prop
     tuner_server_ctl_prop
     ublk_block_device
