@@ -233,7 +233,7 @@ var (
 		"devicestoragemonitor":                                            EXCEPTION_NO_FUZZER,
 		"diskstats":                                                       EXCEPTION_NO_FUZZER,
 		"display":                                                         EXCEPTION_NO_FUZZER,
-		"dnsresolver":                                                     EXCEPTION_NO_FUZZER,
+		"dnsresolver":                                                     []string{"resolv_service_fuzzer"},
 		"domain_verification":                                             EXCEPTION_NO_FUZZER,
 		"color_display":                                                   EXCEPTION_NO_FUZZER,
 		"netd_listener":                                                   EXCEPTION_NO_FUZZER,
