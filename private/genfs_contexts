@@ -187,6 +187,9 @@ genfscon tracefs /trace                               u:object_r:debugfs_tracing
 genfscon debugfs /tracing/per_cpu/cpu                 u:object_r:debugfs_tracing:s0
 genfscon tracefs /per_cpu/cpu                         u:object_r:debugfs_tracing:s0
 
+genfscon debugfs /tracing/hyp                         u:object_r:debugfs_tracing:s0
+genfscon tracefs /hyp                                 u:object_r:debugfs_tracing:s0
+
 genfscon debugfs /tracing/instances                   u:object_r:debugfs_tracing_instances:s0
 genfscon tracefs /instances                           u:object_r:debugfs_tracing_instances:s0
 genfscon debugfs /tracing/instances/bootreceiver      u:object_r:debugfs_bootreceiver_tracing:s0
