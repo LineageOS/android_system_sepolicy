@@ -38,7 +38,7 @@ define(`dumpable_domain',`{
 can_profile_heap({
   dumpable_domain
   -app_zygote
-  -hal_configstore
+  -hal_configstore_server
   -logpersist
   -recovery
   -recovery_persist
@@ -51,7 +51,7 @@ can_profile_heap({
 can_profile_perf({
   dumpable_domain
   -app_zygote
-  -hal_configstore
+  -hal_configstore_server
   -webview_zygote
   -zygote
 })
