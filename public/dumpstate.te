@@ -368,6 +368,10 @@ allow dumpstate binderfs_logs_proc:file r_file_perms;
 
 use_apex_info(dumpstate)
 
+# Allow reading files under /data/system/shutdown-checkpoints/
+allow dumpstate shutdown_checkpoints_system_data_file:dir r_dir_perms;
+allow dumpstate shutdown_checkpoints_system_data_file:file r_file_perms;
+
 ###
 ### neverallow rules
 ###
