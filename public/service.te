@@ -10,8 +10,6 @@ type cameraserver_service,      service_manager_type;
 type fwk_camera_service,        service_manager_type;
 type default_android_service,   service_manager_type;
 type device_config_updatable_service,       system_api_service, system_server_service,service_manager_type;
-type dice_maintenance_service,  service_manager_type;
-type dice_node_service,         service_manager_type;
 type dnsresolver_service,       service_manager_type;
 type drmserver_service,         service_manager_type;
 type dumpstate_service,         service_manager_type;
@@ -285,7 +283,6 @@ type hal_can_controller_service, protected_service, hal_service_type, service_ma
 type hal_cas_service, hal_service_type, service_manager_type;
 type hal_confirmationui_service, protected_service, hal_service_type, service_manager_type;
 type hal_contexthub_service, protected_service, hal_service_type, service_manager_type;
-type hal_dice_service, protected_service, hal_service_type, service_manager_type;
 type hal_drm_service, hal_service_type, service_manager_type;
 type hal_dumpstate_service, protected_service, hal_service_type, service_manager_type;
 type hal_evs_service, protected_service, hal_service_type, service_manager_type;
