@@ -139,9 +139,6 @@ attribute halserverdomain;
 attribute halclientdomain;
 expandattribute halclientdomain true;
 
-# HALs
-hal_attribute(dice);
-
 # All types used for DMA-BUF heaps
 attribute dmabuf_heap_device_type;
 expandattribute dmabuf_heap_device_type false;
