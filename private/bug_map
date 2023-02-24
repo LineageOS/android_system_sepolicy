@@ -29,6 +29,7 @@ system_server overlayfs_file file b/142390309
 system_server sdcardfs file b/77856826
 system_server system_server capability b/228030183
 system_server zygote process b/77856826
+tombstone_transmit tombstone_transmit capability b/264420112
 untrusted_app untrusted_app netlink_route_socket b/155595000
 vold system_data_file file b/124108085
 zygote untrusted_app_25 process b/77925912
