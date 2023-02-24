@@ -291,7 +291,6 @@
 /system/bin/credstore	u:object_r:credstore_exec:s0
 /system/bin/keystore	u:object_r:keystore_exec:s0
 /system/bin/keystore2	u:object_r:keystore_exec:s0
-/system/bin/diced      u:object_r:diced_exec:s0
 /system/bin/fingerprintd u:object_r:fingerprintd_exec:s0
 /system/bin/gatekeeperd u:object_r:gatekeeperd_exec:s0
 /system/bin/tombstoned u:object_r:tombstoned_exec:s0
