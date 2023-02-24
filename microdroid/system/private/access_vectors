@@ -746,16 +746,6 @@ class keystore2_key
 	use_dev_id
 }
 
-class diced
-{
-	demote
-	demote_self
-	derive
-	get_attestation_chain
-	use_seal
-	use_sign
-}
-
 class drmservice {
 	consumeRights
 	setPlaybackStatus
