@@ -1,4 +1,9 @@
 ;; types removed from current policy
+(type dice_maintenance_service)
+(type dice_node_service)
+(type diced)
+(type diced_exec)
+(type hal_dice_service)
 (type iorap_inode2filename)
 (type iorap_inode2filename_exec)
 (type iorap_inode2filename_tmpfs)
