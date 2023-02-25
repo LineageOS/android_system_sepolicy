@@ -632,6 +632,7 @@ neverallow {
   domain
   -init
   -remote_prov_app
+  -shell
 } remote_prov_prop:property_service set;
 
 neverallow {
