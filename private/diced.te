@@ -1,6 +1,0 @@
-typeattribute diced coredomain;
-
-init_daemon_domain(diced)
-
-# Talk to dice HAL.
-hal_client_domain(diced, hal_dice)
