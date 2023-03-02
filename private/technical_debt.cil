@@ -47,7 +47,7 @@
 ; Apps, except isolated apps, are clients of Neuralnetworks HAL
 ; Unfortunately, we can't currently express this in module policy language:
 ;     typeattribute { appdomain -isolated_app_all } hal_neuralnetworks_client;
-(typeattributeset hal_neuralnetworks_client ((and (appdomain) ((not (isolated_app_all))))))
+(typeattributeset hal_neuralnetworks_client ((and (appdomain) ((not (isolated_app))))))
 
 ; TODO(b/112056006): move these to mapping files when/if we implement 'versioned' attributes.
 ; Rename untrusted_app_visible_* to untrusted_app_visible_*_violators.
