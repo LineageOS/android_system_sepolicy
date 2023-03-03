@@ -1,0 +1,62 @@
+type traced_probes, domain, coredomain;
+type traced_probes_exec, system_file_type, exec_type, file_type;
+type traced_probes_tmpfs, file_type;
+
+# Allow init to exec traced_probes daemon
+init_daemon_domain(traced_probes)
+
+# The traced daemon uses shared memory supplied producers. And hence
+# traced_probes daemon is a producer we need to have tmpfs_domain for it.
+tmpfs_domain(traced_probes)
+
+# Write trace data to the Perfetto traced damon. This requires connecting to its
+# producer socket and obtaining a (per-process) tmpfs fd.
+perfetto_producer(traced_probes)
+
+# Allow traced_probes to access tracefs.
+allow traced_probes debugfs_tracing:dir r_dir_perms;
+allow traced_probes debugfs_tracing:file rw_file_perms;
+allow traced_probes debugfs_trace_marker:file getattr;
+allow traced_probes debugfs_tracing_printk_formats:file r_file_perms;
+
+# Allow to log to kernel dmesg when starting / stopping ftrace.
+allow traced_probes kmsg_device:chr_file write;
+
+# Allow procfs access
+r_dir_file(traced_probes, domain)
+
+# Allow traced_probes to run atrace. atrace pokes at system services to enable
+# their userspace TRACE macros.
+domain_auto_trans(traced_probes, atrace_exec, atrace)
+
+# Allow traced_probes to kill atrace on timeout.
+allow traced_probes atrace:process sigkill;
+
+###
+### Neverallow rules
+###
+### traced_probes should NEVER do any of this
+
+# Block device access.
+neverallow traced_probes dev_type:blk_file { read write };
+
+# ptrace any other app
+# TODO(b/271562015): move this to domain level neverallow rule.
+neverallow traced_probes domain:process ptrace;
+
+# Disallows access to /data files.
+neverallow traced_probes {
+  data_file_type
+  -system_data_file
+  -system_data_root_file
+  -vendor_data_file
+}:dir *;
+
+neverallow traced_probes system_data_file:dir ~{ getattr search };
+
+neverallow traced_probes_exec data_file_type:file *;
+
+# Only init is allowed to enter the traced_probes domain via exec()
+neverallow { domain -init } traced_probes:process transition;
+neverallow * traced_probes:process dyntransition;
+
