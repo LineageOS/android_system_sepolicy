@@ -102,10 +102,12 @@ allow system_server self:process ptrace;
 allow system_server zygote:fd use;
 allow system_server zygote:process sigchld;
 
-# May kill zygote on crashes.
+# May kill zygote (or its child processes) on crashes.
 allow system_server {
   app_zygote
   crash_dump
+  crosvm
+  virtualizationmanager
   webview_zygote
   zygote
 }:process { getpgid sigkill signull };
