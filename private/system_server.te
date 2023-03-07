@@ -102,10 +102,12 @@ allow system_server self:process ptrace;
 allow system_server zygote:fd use;
 allow system_server zygote:process sigchld;
 
-# May kill zygote on crashes.
+# May kill zygote (or its child processes) on crashes.
 allow system_server {
   app_zygote
   crash_dump
+  crosvm
+  virtualizationmanager
   webview_zygote
   zygote
 }:process { getpgid sigkill signull };
@@ -840,7 +842,7 @@ get_prop(system_server, tuner_config_prop)
 set_prop(system_server, tuner_server_ctl_prop)
 
 # Allow the heap dump ART plugin to the count of sessions waiting for OOME
-get_prop(appdomain, traced_oome_heap_session_count_prop)
+get_prop(system_server, traced_oome_heap_session_count_prop)
 
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
