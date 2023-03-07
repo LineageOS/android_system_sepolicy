@@ -208,6 +208,7 @@ allow domain apex_mnt_dir:lnk_file r_file_perms;
 get_prop(domain, arm64_memtag_prop)
 get_prop(domain, bootloader_prop)
 get_prop(domain, build_prop)
+get_prop(domain, debuggable_prop)
 get_prop(domain, debug_prop)
 get_prop(domain, fingerprint_prop)
 get_prop(domain, init_service_status_prop)
@@ -391,6 +392,7 @@ neverallow domain { contextmount_type -authfs_fuse -encryptedstore_file }:dir_fi
 neverallow { domain -init -vendor_init } vendor_default_prop:property_service set;
 
 neverallow { domain -init } build_prop:property_service set;
+neverallow { domain -init -init_debug_policy } debuggable_prop:property_service set;
 
 # Never allow anyone to connect or write to
 # the tombstoned intercept socket.
