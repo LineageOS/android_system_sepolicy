@@ -108,9 +108,10 @@ ro.build.version.release        u:object_r:build_prop:s0 exact string
 ro.build.version.sdk            u:object_r:build_prop:s0 exact int
 ro.build.version.security_patch u:object_r:build_prop:s0 exact string
 ro.build.version.known_codenames u:object_r:build_prop:s0 exact string
-ro.debuggable                   u:object_r:build_prop:s0 exact bool
 ro.product.cpu.abilist          u:object_r:build_prop:s0 exact string
 ro.adb.secure                   u:object_r:build_prop:s0 exact bool
+
+ro.debuggable                   u:object_r:debuggable_prop:s0 exact bool
 
 ro.property_service.version u:object_r:property_service_version_prop:s0 exact int
 
@@ -124,6 +125,8 @@ microdroid_manager.authfs.enabled u:object_r:microdroid_config_prop:s0 exact boo
 
 microdroid_manager.config_done u:object_r:microdroid_lifecycle_prop:s0 exact bool
 microdroid_manager.init_done u:object_r:microdroid_lifecycle_prop:s0 exact bool
+
+init_debug_policy.adbd.enabled u:object_r:init_debug_policy_prop:s0 exact bool
 
 dev.mnt.blk.root   u:object_r:dev_mnt_prop:s0 exact string
 dev.mnt.blk.vendor u:object_r:dev_mnt_prop:s0 exact string
