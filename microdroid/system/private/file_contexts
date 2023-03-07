@@ -106,6 +106,7 @@
 /system/bin/bootstrap/linker(64)? u:object_r:system_linker_exec:s0
 /system/bin/bootstrap/linkerconfig u:object_r:linkerconfig_exec:s0
 /system/bin/init		u:object_r:init_exec:s0
+/system/bin/init_debug_policy	u:object_r:init_debug_policy_exec:s0
 /system/bin/logcat	--	u:object_r:logcat_exec:s0
 /system/bin/logd        u:object_r:logd_exec:s0
 /system/bin/sh		--	u:object_r:shell_exec:s0
