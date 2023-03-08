@@ -137,6 +137,7 @@ genfscon sysfs /devices/virtual/misc/hw_random    u:object_r:sysfs_hwrandom:s0
 genfscon sysfs /devices/virtual/net             u:object_r:sysfs_net:s0
 genfscon sysfs /devices/virtual/switch          u:object_r:sysfs_switch:s0
 genfscon sysfs /devices/virtual/wakeup          u:object_r:sysfs_wakeup:s0
+genfscon sysfs /firmware/devicetree/base/avf u:object_r:sysfs_dt_avf:s0
 genfscon sysfs /firmware/devicetree/base/chosen/avf,new-instance u:object_r:sysfs_dt_avf:s0
 genfscon sysfs /firmware/devicetree/base/chosen/avf,strict-boot u:object_r:sysfs_dt_avf:s0
 genfscon sysfs /firmware/devicetree/base/firmware/android u:object_r:sysfs_dt_firmware_android:s0
