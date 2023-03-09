@@ -20,6 +20,3 @@ bluetooth_domain(untrusted_app_30)
 # allow sending RTM_GETNEIGH{TBL} messages.
 allow untrusted_app_30 self:netlink_route_socket nlmsg_getneigh;
 auditallow untrusted_app_30 self:netlink_route_socket nlmsg_getneigh;
-
-# Allow hidden build props
-get_prop({ untrusted_app_30 userdebug_or_eng(`-untrusted_app_30') }, userdebug_or_eng_prop)

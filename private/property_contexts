@@ -815,7 +815,7 @@ ro.build.version.security_patch           u:object_r:build_prop:s0 exact string
 
 ro.actionable_compatible_property.enabled u:object_r:build_prop:s0 exact bool
 
-ro.debuggable u:object_r:userdebug_or_eng_prop:s0 exact bool
+ro.debuggable u:object_r:build_prop:s0 exact bool
 
 ro.treble.enabled u:object_r:build_prop:s0 exact bool
 
@@ -842,7 +842,7 @@ ro.system.build.version.release_or_codename u:object_r:build_prop:s0 exact strin
 ro.system.build.version.sdk                 u:object_r:build_prop:s0 exact int
 
 ro.adb.secure u:object_r:build_prop:s0 exact bool
-ro.secure     u:object_r:userdebug_or_eng_prop:s0 exact int
+ro.secure     u:object_r:build_prop:s0 exact int
 
 ro.product.system_ext.brand        u:object_r:build_prop:s0 exact string
 ro.product.system_ext.device       u:object_r:build_prop:s0 exact string
