@@ -1,0 +1,11 @@
+# SELinux policy for the atrace daemon running inside Microdroid.
+# For the host Android policy check system/sepolicy/private/atrace.te
+# So far, this file contains a subset of rules defined for the host Android.
+
+type atrace, domain, coredomain;
+type atrace_exec, exec_type, file_type, system_file_type;
+
+# Allow atrace to write data when a pipe is used for stdout/stderr.
+# This is used by Perfetto to capture atrace stdout/stderr.
+allow atrace traced_probes:fd use;
+allow atrace traced_probes:fifo_file { getattr write };

@@ -1,0 +1,69 @@
+# SELinux policy for the traced daemon running inside Microdroid.
+# For the host Android policy check system/sepolicy/private/traced.te
+# So far, this is file contains a subset of rules defined for the host Android.
+
+type traced, domain, coredomain;
+type traced_exec, system_file_type, exec_type, file_type;
+type traced_tmpfs, file_type;
+
+# Allow init to exec traced daemon
+init_daemon_domain(traced)
+
+# Required for perfetto_produced macro
+tmpfs_domain(traced)
+
+# Allow to pass a file descriptor for the output trace from "perfetto" (the
+# cmdline client) and other shell binaries to traced and let traced write
+# directly into that (rather than returning the trace contents over the socket).
+allow traced perfetto:fd use;
+allow traced shell:fd use;
+allow traced shell:fifo_file { read write };
+
+# Allow the service to create new files within /data/misc/perfetto-traces.
+allow traced perfetto_traces_data_file:file create_file_perms;
+allow traced perfetto_traces_data_file:dir rw_dir_perms;
+
+# Allow traced to use shared memory supplied by producers. Typically, traced
+# (i.e. the tracing service) creates the shared memory used for data transfer
+# from the producer. This rule allows an alternative scheme, where the producer
+# creates the shared memory, that is then adopted by traced (after validating
+# that it is appropriately sealed).
+# This list has to replicate the tmpfs domains of all applicable domains that
+# have perfetto_producer() macro applied to them.
+# perfetto_tmpfs excluded as it should never need to use the producer-supplied
+# shared memory scheme.
+allow traced traced_probes_tmpfs:file { getattr map read write };
+
+
+###
+### Neverallow rules
+###
+### traced should NEVER do any of this
+
+# Block device access.
+neverallow traced dev_type:blk_file { read write };
+
+# ptrace any other process
+neverallow traced domain:process ptrace;
+
+# Disallows access to /data files, still allowing to write to file descriptors
+# passed through the socket.
+neverallow traced {
+  data_file_type
+  -perfetto_traces_data_file
+  # We need following 3 lines because allow rules for them are defined at the
+  # domain/coredomain level.
+  -system_data_file
+  -system_data_root_file
+  -vendor_data_file
+}:dir *;
+
+neverallow traced system_data_file:dir ~{ getattr search };
+neverallow traced {
+  data_file_type
+  -perfetto_traces_data_file
+}:file ~write;
+
+# Only init is allowed to enter the traced domain via exec()
+neverallow { domain -init } traced:process transition;
+neverallow * traced:process dyntransition;
