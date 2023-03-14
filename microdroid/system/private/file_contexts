@@ -74,6 +74,8 @@
 /dev/socket/tombstoned_intercept u:object_r:tombstoned_intercept_socket:s0
 /dev/socket/authfs_service u:object_r:authfs_service_socket:s0
 /dev/socket/vm_payload_service u:object_r:vm_payload_service_socket:s0
+/dev/socket/traced_consumer	u:object_r:traced_consumer_socket:s0
+/dev/socket/traced_producer	u:object_r:traced_producer_socket:s0
 /dev/sys/block/by-name/userdata(/.*)?	u:object_r:userdata_sysdev:s0
 /dev/sys/fs/by-name/userdata(/.*)?	u:object_r:userdata_sysdev:s0
 /dev/tty		u:object_r:owntty_device:s0
@@ -123,6 +125,10 @@
 /system/bin/mke2fs		u:object_r:e2fs_exec:s0
 /system/bin/kexec_load           u:object_r:kexec_exec:s0
 /system/bin/prng_seeder          u:object_r:prng_seeder_exec:s0
+/system/bin/atrace               u:object_r:atrace_exec:s0
+/system/bin/perfetto             u:object_r:perfetto_exec:s0
+/system/bin/traced               u:object_r:traced_exec:s0
+/system/bin/traced_probes        u:object_r:traced_probes_exec:s0
 /system/etc/cgroups\.json               u:object_r:cgroup_desc_file:s0
 /system/etc/task_profiles/cgroups_[0-9]+\.json               u:object_r:cgroup_desc_api_file:s0
 /system/etc/event-log-tags              u:object_r:system_event_log_tags_file:s0
