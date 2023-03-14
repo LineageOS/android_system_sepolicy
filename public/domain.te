@@ -129,6 +129,7 @@ get_prop(domain, soc_prop)
 get_prop(domain, socket_hook_prop)
 get_prop(domain, surfaceflinger_prop)
 get_prop(domain, telephony_status_prop)
+get_prop({domain -untrusted_app_all userdebug_or_eng(`-isolated_app -ephemeral_app') },  userdebug_or_eng_prop)
 get_prop(domain, vendor_socket_hook_prop)
 get_prop(domain, vndk_prop)
 get_prop(domain, vold_status_prop)
@@ -565,6 +566,7 @@ compatible_property_only(`
 
 neverallow { domain -init } aac_drc_prop:property_service set;
 neverallow { domain -init } build_prop:property_service set;
+neverallow { domain -init } userdebug_or_eng_prop:property_service set;
 
 # Do not allow reading device's serial number from system properties except form
 # a few allowed domains.

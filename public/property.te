@@ -52,6 +52,7 @@ compatible_property_only(`
 
 # Properties which can't be written outside system
 system_restricted_prop(aac_drc_prop)
+system_restricted_prop(adaptive_haptics_prop)
 system_restricted_prop(arm64_memtag_prop)
 system_restricted_prop(binder_cache_bluetooth_server_prop)
 system_restricted_prop(binder_cache_system_server_prop)
@@ -72,6 +73,7 @@ system_restricted_prop(device_config_vendor_system_native_boot_prop)
 system_restricted_prop(fingerprint_prop)
 system_restricted_prop(gwp_asan_prop)
 system_restricted_prop(hal_instrumentation_prop)
+system_restricted_prop(userdebug_or_eng_prop)
 system_restricted_prop(hypervisor_prop)
 system_restricted_prop(init_service_status_prop)
 system_restricted_prop(libc_debug_prop)
