@@ -45,6 +45,8 @@ type vendor_data_file, file_type, data_file_type;
 type vendor_file, file_type, vendor_file_type;
 type vendor_service_contexts_file, vendor_file_type, file_type;
 type vm_payload_service_socket, file_type, coredomain_socket;
+type traced_consumer_socket, file_type, coredomain_socket;
+type traced_producer_socket, file_type, coredomain_socket;
 
 # file system types
 type binfmt_miscfs, fs_type;
