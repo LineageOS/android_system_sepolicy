@@ -27,3 +27,9 @@ type encryptedstore_fs, fs_type, contextmount_type;
 
 # Filesystem entry for for PRNG seeder socket.
 type prng_seeder_socket, file_type, coredomain_socket;
+
+# /data/misc/perfetto-traces for perfetto traces
+type perfetto_traces_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/perfetto-configs for perfetto configs
+type perfetto_configs_data_file, file_type, data_file_type, core_data_file_type;
