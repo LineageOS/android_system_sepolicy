@@ -1,0 +1,78 @@
+# SELinux policy for the perfetto binary running inside Microdroid.
+# For the host Android policy check system/sepolicy/private/perfetto.te
+# So far, this is file contains a subset of rules defined for the host Android.
+
+type perfetto, domain, coredomain;
+type perfetto_exec, system_file_type, exec_type, file_type;
+
+# Allow to access traced's privileged consumer socket.
+unix_socket_connect(perfetto, traced_consumer, traced)
+
+# Connect to the Perfetto traced daemon as a producer. This requires
+# connecting to its producer socket and obtaining a (per-process) tmpfs fd.
+perfetto_producer(perfetto)
+
+# Allow to write and unlink traces into /data/misc/perfetto-traces.
+allow perfetto perfetto_traces_data_file:dir rw_dir_perms;
+allow perfetto perfetto_traces_data_file:file create_file_perms;
+
+# Allow perfetto to read the trace config from /data/misc/perfetto-configs.
+# shell and adb can write files into that directory.
+allow perfetto perfetto_configs_data_file:dir r_dir_perms;
+allow perfetto perfetto_configs_data_file:file r_file_perms;
+
+# Allow adbd to reap perfetto.
+allow perfetto adbd:process { sigchld };
+
+###
+### Neverallow rules
+###
+
+# Disallow anyone else from being able to handle traces except selected system
+# components.
+neverallow {
+  domain
+  -init      # The creator of the folder.
+  -perfetto  # The owner of the folder.
+  -adbd      # For pulling traces.
+  -shell     # For devepment purposes.
+  -traced    # For write_into_file traces.
+  -vendor_init # TODO(b/249050813): remove this
+} perfetto_traces_data_file:dir *;
+
+neverallow {
+  domain
+  -init      # The creator of the folder.
+  -perfetto  # The owner of the folder.
+  -adbd      # For pulling traces.
+  -shell     # For devepment purposes.
+  -traced    # For write_into_file traces.
+  -vendor_init # TODO(b/249050813): remove this
+} perfetto_traces_data_file:file ~{ getattr read };
+
+### perfetto should NEVER do any of the following
+
+# Block device access.
+neverallow perfetto dev_type:blk_file { read write };
+
+# ptrace any other process
+neverallow perfetto domain:process ptrace;
+
+# Disallows access to other /data files.
+neverallow perfetto {
+  data_file_type
+  -perfetto_traces_data_file
+  -perfetto_configs_data_file
+  # We need following 3 lines because allow rules for them are defined at the
+  # domain/coredomain level.
+  -system_data_file
+  -system_data_root_file
+  -vendor_data_file
+}:dir *;
+
+neverallow perfetto { system_data_file -perfetto_traces_data_file }:dir ~{ getattr search };
+neverallow perfetto {
+  data_file_type
+  -perfetto_traces_data_file
+  -perfetto_configs_data_file
+}:file ~write;
