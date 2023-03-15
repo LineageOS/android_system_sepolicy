@@ -379,7 +379,6 @@
 /system/bin/snapuserd            u:object_r:snapuserd_exec:s0
 /system/bin/odsign               u:object_r:odsign_exec:s0
 /system/bin/vehicle_binding_util     u:object_r:vehicle_binding_util_exec:s0
-/system/bin/cardisplayproxyd     u:object_r:automotive_display_service_exec:s0
 /system/bin/evsmanagerd          u:object_r:evsmanagerd_exec:s0
 /system/bin/android\.automotive\.evs\.manager@1\.[0-9]+ u:object_r:evsmanagerd_exec:s0
 
@@ -497,6 +496,7 @@
 
 /(system_ext|system/system_ext)/bin/android\.frameworks\.automotive\.display@1\.0-service u:object_r:automotive_display_service_exec:s0
 /(system_ext|system/system_ext)/bin/canhalconfigurator(-aidl)? u:object_r:canhalconfigurator_exec:s0
+/(system_ext|system/system_ext)/bin/cardisplayproxyd           u:object_r:automotive_display_service_exec:s0
 
 /(system_ext|system/system_ext)/lib(64)?(/.*)?      u:object_r:system_lib_file:s0
 
