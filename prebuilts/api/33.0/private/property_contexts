@@ -355,6 +355,10 @@ audio.spatializer.effect.util_clamp_min  u:object_r:audio_config_prop:s0 exact i
 ro.audio.ignore_effects   u:object_r:audio_config_prop:s0 exact bool
 ro.audio.monitorRotation  u:object_r:audio_config_prop:s0 exact bool
 ro.audio.offload_wakelock u:object_r:audio_config_prop:s0 exact bool
+
+# Configure whether new device has spatialization default enabled.
+ro.audio.spatializer_binaural_enabled_default u:object_r:audio_config_prop:s0 exact bool
+ro.audio.spatializer_transaural_enabled_default u:object_r:audio_config_prop:s0 exact bool
 # Boolean property used in AudioService to configure whether
 # spatializer functionality should be initialized
 ro.audio.spatializer_enabled u:object_r:audio_config_prop:s0 exact bool
