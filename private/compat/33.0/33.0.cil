@@ -16,6 +16,8 @@
 (type iorapd_service)
 (type iorapd_tmpfs)
 (type lowpan_service)
+(type remotelyprovisionedkeypool_service)
+(type remoteprovisioning_service)
 (type timezone_service)
 (type tzdatacheck)
 (type tzdatacheck_exec)
