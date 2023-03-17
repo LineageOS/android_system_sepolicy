@@ -164,8 +164,6 @@ var (
 		"android.security.legacykeystore":                                 EXCEPTION_NO_FUZZER,
 		"android.security.maintenance":                                    EXCEPTION_NO_FUZZER,
 		"android.security.metrics":                                        EXCEPTION_NO_FUZZER,
-		"android.security.remoteprovisioning":                             EXCEPTION_NO_FUZZER,
-		"android.security.remoteprovisioning.IRemotelyProvisionedKeyPool": EXCEPTION_NO_FUZZER,
 		"android.service.gatekeeper.IGateKeeperService":                   EXCEPTION_NO_FUZZER,
 		"android.system.composd":                                          EXCEPTION_NO_FUZZER,
 		"android.system.virtualizationservice":                            EXCEPTION_NO_FUZZER,
