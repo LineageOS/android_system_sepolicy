@@ -12,7 +12,7 @@ hal_client_domain(rkpdapp, hal_keymint)
 
 # Grant access to certain system properties related to RKP
 get_prop(rkpdapp, device_config_remote_key_provisioning_native_prop)
-get_prop(rkpdapp, remote_prov_prop)
+set_prop(rkpdapp, remote_prov_prop)
 
 # Grant access to the normal services that are available to all apps
 allow rkpdapp app_api_service:service_manager find;
