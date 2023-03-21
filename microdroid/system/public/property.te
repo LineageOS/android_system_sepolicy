@@ -24,7 +24,6 @@ type ctl_seriallogging_prop, property_type;
 type ctl_sigstop_prop, property_type;
 type ctl_start_prop, property_type;
 type ctl_stop_prop, property_type;
-type ctl_tombstone_transmit_prop, property_type;
 type ctl_zipfuse_prop, property_type;
 type debug_prop, property_type;
 type default_prop, property_type;
