@@ -68,6 +68,11 @@ allow traced  {
 set_prop(traced, system_trace_prop)
 # Allow to lazily start producers.
 set_prop(traced, traced_lazy_prop)
+# Allow tracking the count of sessions intercepting Java OutOfMemoryError
+# If there are such tracing sessions and an OutOfMemoryError is thrown by ART,
+# the hprof plugin intercepts the error, lazily registers a data source to
+# traced and collects a heap dump.
+set_prop(traced, traced_oome_heap_session_count_prop)
 
 # Allow traced to talk to statsd for logging metrics.
 unix_socket_send(traced, statsdw, statsd)
