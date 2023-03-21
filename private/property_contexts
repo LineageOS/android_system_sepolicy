@@ -354,6 +354,8 @@ audio.offload.min.duration.secs u:object_r:audio_config_prop:s0 exact int
 audio.spatializer.priority               u:object_r:audio_config_prop:s0 exact int
 audio.spatializer.effect.affinity        u:object_r:audio_config_prop:s0 exact int
 audio.spatializer.effect.util_clamp_min  u:object_r:audio_config_prop:s0 exact int
+audio.spatializer.pose_predictor_type    u:object_r:audio_config_prop:s0 exact enum 0 1 2 3
+audio.spatializer.prediction_duration_ms u:object_r:audio_config_prop:s0 exact int
 
 ro.audio.ignore_effects   u:object_r:audio_config_prop:s0 exact bool
 ro.audio.monitorRotation  u:object_r:audio_config_prop:s0 exact bool
