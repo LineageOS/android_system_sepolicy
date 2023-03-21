@@ -22,13 +22,10 @@ ctl.restart$adbd u:object_r:ctl_adbd_prop:s0
 
 ctl.stop$apexd u:object_r:ctl_apexd_prop:s0
 
-ctl.stop$tombstoned u:object_r:ctl_tombstoned_prop:s0
-
 ctl.start$apexd-vm      u:object_r:ctl_apexd_vm_prop:s0
 ctl.start$apkdmverity   u:object_r:ctl_apkdmverity_prop:s0
 ctl.start$authfs_service u:object_r:ctl_authfs_prop:s0
 ctl.start$seriallogging u:object_r:ctl_seriallogging_prop:s0
-ctl.start$tombstone_transmit     u:object_r:ctl_tombstone_transmit_prop:s0
 ctl.start$zipfuse       u:object_r:ctl_zipfuse_prop:s0
 
 ctl.console     u:object_r:ctl_console_prop:s0
@@ -54,7 +51,6 @@ ro.boottime.init.first_stage          u:object_r:boottime_prop:s0 exact int
 ro.boottime.init.modules              u:object_r:boottime_prop:s0 exact int
 ro.boottime.init.selinux              u:object_r:boottime_prop:s0 exact int
 ro.boottime.microdroid_manager        u:object_r:boottime_prop:s0 exact int
-ro.boottime.tombstoned                u:object_r:boottime_prop:s0 exact int
 ro.boottime.ueventd                   u:object_r:boottime_prop:s0 exact int
 ro.boottime.zipfuse                   u:object_r:boottime_prop:s0 exact int
 
@@ -76,7 +72,6 @@ init.svc.ueventd            u:object_r:init_service_status_private_prop:s0 exact
 init.svc.zipfuse            u:object_r:init_service_status_private_prop:s0 exact string
 
 init.svc.adbd       u:object_r:init_service_status_prop:s0 exact string
-init.svc.tombstoned u:object_r:init_service_status_prop:s0 exact string
 
 ro.boot.adb.enabled                u:object_r:bootloader_prop:s0 exact bool
 ro.boot.avb_version                u:object_r:bootloader_prop:s0 exact string
@@ -86,7 +81,6 @@ ro.boot.force_normal_boot          u:object_r:bootloader_prop:s0 exact string
 ro.boot.hardware                   u:object_r:bootloader_prop:s0 exact string
 ro.boot.microdroid.debuggable      u:object_r:bootloader_prop:s0 exact bool
 ro.boot.slot_suffix                u:object_r:bootloader_prop:s0 exact string
-ro.boot.tombstone_transmit.enabled u:object_r:bootloader_prop:s0 exact bool
 ro.boot.vbmeta.avb_version         u:object_r:bootloader_prop:s0 exact string
 ro.boot.vbmeta.device_state        u:object_r:bootloader_prop:s0 exact string
 ro.boot.vbmeta.digest              u:object_r:bootloader_prop:s0 exact string
@@ -122,6 +116,7 @@ microdroid_manager.apk.mounted u:object_r:microdroid_manager_zipfuse_prop:s0 exa
 microdroid_manager.extra_apk.mounted. u:object_r:microdroid_manager_zipfuse_prop:s0 prefix bool
 
 microdroid_manager.authfs.enabled u:object_r:microdroid_config_prop:s0 exact bool
+microdroid_manager.export_tombstones.enabled u:object_r:microdroid_config_prop:s0 exact bool
 
 microdroid_manager.config_done u:object_r:microdroid_lifecycle_prop:s0 exact bool
 microdroid_manager.init_done u:object_r:microdroid_lifecycle_prop:s0 exact bool
@@ -164,9 +159,3 @@ persist.device_config.runtime_native.       u:object_r:device_config_runtime_nat
 persist.device_config.runtime_native_boot.  u:object_r:device_config_runtime_native_boot_prop:s0 prefix
 
 apexd.payload_metadata.path u:object_r:apexd_payload_metadata_prop:s0 exact string
-
-tombstone_transmit.init_done u:object_r:tombstone_transmit_status_prop:s0 exact bool
-
-# tombstone_transmit.start starts tombstone_transmit after creating a directory
-# assigning the same label as ctl.start$tombstone_transmit
-tombstone_transmit.start u:object_r:ctl_tombstone_transmit_prop:s0 exact bool
