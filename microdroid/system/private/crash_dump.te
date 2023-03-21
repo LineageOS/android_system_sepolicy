@@ -22,11 +22,11 @@ allow crash_dump exec_type:file r_file_perms;
 # Read all /vendor
 r_dir_file(crash_dump, vendor_file)
 
-# Talk to tombstoned
-unix_socket_connect(crash_dump, tombstoned_crash, tombstoned)
+# Allow crash_dump to write on vsock - required for writing tombstones in microdroid
+allow crash_dump self:vsock_socket { connect create write };
 
-# Append to tombstone files.
-allow crash_dump tombstone_data_file:file { append getattr };
+# Allow crash_dump to get microdroid_config_prop - required to deduce whether to write tombstones
+get_prop(crash_dump, microdroid_config_prop)
 
 # Crash dump is not intended to access the following files. Since these
 # are WAI, suppress the denials to clean up the logs.
