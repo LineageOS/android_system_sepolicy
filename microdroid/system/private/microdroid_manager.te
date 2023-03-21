@@ -73,11 +73,7 @@ set_prop(microdroid_manager, ctl_apexd_vm_prop)
 set_prop(microdroid_manager, ctl_apkdmverity_prop)
 set_prop(microdroid_manager, ctl_authfs_prop)
 set_prop(microdroid_manager, ctl_seriallogging_prop)
-set_prop(microdroid_manager, ctl_tombstone_transmit_prop)
 set_prop(microdroid_manager, ctl_zipfuse_prop)
-
-# Allow microdroid_manager to stop tombstoned
-set_prop(microdroid_manager, ctl_tombstoned_prop)
 
 # Allow microdroid_manager to wait for linkerconfig to be ready
 get_prop(microdroid_manager, apex_config_prop)
@@ -125,9 +121,6 @@ allow microdroid_manager extra_apk_file:dir create_dir_perms;
 
 # Allow microdroid_manager to write kmsg_debug (stdio_to_kmsg).
 allow microdroid_manager kmsg_debug_device:chr_file w_file_perms;
-
-# Read tombstone_transmit_status_prop to wait for initialization of tombstone_transmit
-get_prop(microdroid_manager, tombstone_transmit_status_prop)
 
 # Domains other than microdroid can't write extra_apks
 neverallow { domain -microdroid_manager -init -vendor_init } extra_apk_file:file no_w_file_perms;
