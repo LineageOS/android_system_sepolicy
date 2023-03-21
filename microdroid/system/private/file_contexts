@@ -69,9 +69,6 @@
 /dev/socket/prng_seeder u:object_r:prng_seeder_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
 /dev/socket/statsdw	u:object_r:statsdw_socket:s0
-/dev/socket/tombstoned_crash u:object_r:tombstoned_crash_socket:s0
-/dev/socket/tombstoned_java_trace u:object_r:tombstoned_java_trace_socket:s0
-/dev/socket/tombstoned_intercept u:object_r:tombstoned_intercept_socket:s0
 /dev/socket/authfs_service u:object_r:authfs_service_socket:s0
 /dev/socket/vm_payload_service u:object_r:vm_payload_service_socket:s0
 /dev/socket/traced_consumer	u:object_r:traced_consumer_socket:s0
@@ -102,7 +99,6 @@
 /system/lib(64)?(/.*)?         u:object_r:system_lib_file:s0
 /system/lib(64)?/bootstrap(/.*)? u:object_r:system_bootstrap_lib_file:s0
 /system/bin/apexd                u:object_r:apexd_exec:s0
-/system/bin/tombstone_transmit.microdroid   u:object_r:tombstone_transmit_exec:s0
 /system/bin/linker(64)? u:object_r:system_linker_exec:s0
 /system/bin/linkerconfig u:object_r:linkerconfig_exec:s0
 /system/bin/bootstrap/linker(64)? u:object_r:system_linker_exec:s0
@@ -112,7 +108,6 @@
 /system/bin/logcat	--	u:object_r:logcat_exec:s0
 /system/bin/logd        u:object_r:logd_exec:s0
 /system/bin/sh		--	u:object_r:shell_exec:s0
-/system/bin/tombstoned.microdroid u:object_r:tombstoned_exec:s0
 /system/bin/toolbox	--	u:object_r:toolbox_exec:s0
 /system/bin/toybox	--	u:object_r:toolbox_exec:s0
 /system/bin/zipfuse              u:object_r:zipfuse_exec:s0
@@ -166,12 +161,7 @@
 /data/local/tmp/ltp(/.*)?   u:object_r:nativetest_data_file:s0
 /data/local/traces(/.*)?	u:object_r:trace_data_file:s0
 /data/misc/authfs(/.*)?         u:object_r:authfs_data_file:s0
-/data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
 /data/vendor(/.*)?              u:object_r:vendor_data_file:s0
-
-# microdroid doesn't use anr, but tombstoned tries to read this.
-# So marking /data/anr as tombstone_data_file
-/data/anr(/.*)?		u:object_r:tombstone_data_file:s0
 
 #############################
 # Directory for extra apks
