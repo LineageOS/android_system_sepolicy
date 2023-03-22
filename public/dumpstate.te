@@ -221,6 +221,7 @@ read_runtime_log_tags(dumpstate)
 
 # Read files in /proc
 allow dumpstate {
+  proc_bootconfig
   proc_buddyinfo
   proc_cmdline
   proc_meminfo
