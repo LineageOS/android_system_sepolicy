@@ -27,6 +27,8 @@ import tempfile
 DEBUG=False
 SHARED_LIB_EXTENSION = '.dylib' if sys.platform == 'darwin' else '.so'
 
+# TODO(b/266998144): consider rename this file.
+
 '''
 Use file_contexts and policy to verify Treble requirements
 are not violated.
@@ -307,6 +309,94 @@ def TestCoreDataTypeViolations(test_policy):
     return test_policy.pol.AssertPathTypesDoNotHaveAttr(["/data/vendor/", "/data/vendor_ce/",
         "/data/vendor_de/"], [], "core_data_file_type")
 
+# TODO move this to sepolicy_tests
+def TestIsolatedAttributeConsistency(test_policy):
+  permissionAllowList = {
+      # hardware related
+      "codec2_config_prop" : ["file"],
+      "device_config_nnapi_native_prop":["file"],
+      "dmabuf_system_heap_device":["chr_file"],
+      "hal_allocator_default":["binder", "fd"],
+      "hal_codec2": ["binder", "fd"],
+      "hal_codec2_hwservice":["hwservice_manager"],
+      "hal_graphics_allocator": ["binder", "fd"],
+      "hal_graphics_allocator_service":["service_manager"],
+      "hal_graphics_allocator_hwservice":["hwservice_manager"],
+      "hal_graphics_allocator_server":["binder", "service_manager"],
+      "hal_graphics_mapper_hwservice":["hwservice_manager"],
+      "hal_neuralnetworks": ["binder", "fd"],
+      "hal_neuralnetworks_hwservice":["hwservice_manager"],
+      "hal_omx_hwservice":["hwservice_manager"],
+      "hidl_allocator_hwservice":["hwservice_manager"],
+      "hidl_manager_hwservice":["hwservice_manager"],
+      "hidl_memory_hwservice":["hwservice_manager"],
+      "hidl_token_hwservice":["hwservice_manager"],
+      "hwservicemanager":["binder"],
+      "hwservicemanager_prop":["file"],
+      "hwbinder_device":["chr_file"],
+      "mediacodec":["binder", "fd"],
+      "mediaswcodec":["binder", "fd"],
+      "media_variant_prop":["file"],
+      "nnapi_ext_deny_product_prop":["file"],
+      "ion_device" : ["chr_file"],
+      # system services
+      "audioserver_service":["service_manager"],
+      "cameraserver_service":["service_manager"],
+      "content_capture_service":["service_manager"],
+      "device_state_service":["service_manager"],
+      "hal_neuralnetworks_service":["service_manager"],
+      "servicemanager":["fd"],
+      "speech_recognition_service":["service_manager"],
+      "mediaserver_service" :["service_manager"]
+  }
+
+  def resolveHalServerSubtype(target):
+   # permission given as a client in technical_debt.cil
+    hal_server_attributes = [
+       "hal_codec2_server",
+       "hal_graphics_allocator_server",
+       "hal_neuralnetworks_server"]
+
+    for attr in hal_server_attributes:
+      if target in test_policy.pol.QueryTypeAttribute(Type=attr, IsAttr=True):
+        return attr.rsplit("_", 1)[0]
+    return target
+
+  def checkPermissions(permissions):
+    violated_permissions = []
+    for perm in permissions:
+      tctx, tclass, p = perm.split(":")
+      tctx = resolveHalServerSubtype(tctx)
+      if tctx not in permissionAllowList \
+          or tclass not in permissionAllowList[tctx] \
+          or ( p == "write" and not perm.startswith("hwbinder_device:chr_file") ) \
+          or ( p == "rw_file_perms"):
+        violated_permissions += [perm]
+    return violated_permissions
+
+  ret = ""
+
+  isolatedMemberTypes = test_policy.pol.QueryTypeAttribute(Type="isolated_app_all", IsAttr=True)
+  baseRules = test_policy.pol.QueryExpandedTERule(scontext=["isolated_app"])
+  basePermissionSet = set([":".join([rule.tctx, rule.tclass, perm])
+                        for rule in baseRules for perm in rule.perms])
+  for subType in isolatedMemberTypes:
+      if subType == "isolated_app" : continue
+      currentTypeRule = test_policy.pol.QueryExpandedTERule(scontext=[subType])
+      typePermissionSet = set([":".join([rule.tctx, rule.tclass, perm])
+                            for rule in currentTypeRule for perm in rule.perms
+                            if not rule.tctx in [subType, subType + "_userfaultfd"]])
+      deltaPermissionSet = typePermissionSet.difference(basePermissionSet)
+      violated_permissions = checkPermissions(list(deltaPermissionSet))
+      for perm in violated_permissions:
+        ret += "allow %s %s:%s %s \n" % (subType, *perm.split(":"))
+
+  if ret:
+      ret = ("Found prohibited permission granted for isolated like types. " + \
+         "Please replace your allow statements that involve \"-isolated_app\" with " + \
+         "\"-isolated_app_all\". Violations are shown as the following: \n")  + ret
+  return ret
+
 ###
 # extend OptionParser to allow the same option flag to be used multiple times.
 # This is used to allow multiple file_contexts files and tests to be
@@ -327,7 +417,8 @@ class MultipleOption(Option):
 Tests = {"CoredomainViolations": TestCoredomainViolations,
          "CoreDatatypeViolations": TestCoreDataTypeViolations,
          "TrebleCompatMapping": TestTrebleCompatMapping,
-         "ViolatorAttributes": TestViolatorAttributes}
+         "ViolatorAttributes": TestViolatorAttributes,
+         "IsolatedAttributeConsistency": TestIsolatedAttributeConsistency}
 
 def do_main(libpath):
     """
