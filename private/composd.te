@@ -30,9 +30,16 @@ allow composd apex_compos_data_file:file create_file_perms;
 domain_auto_trans(composd, fd_server_exec, compos_fd_server)
 allow composd compos_fd_server:process signal;
 
+# Read properties used to configure the CompOS VM
+get_prop(composd, composd_vm_art_prop)
+get_prop(composd, composd_vm_vendor_prop)
+
 # Read ART's properties
 get_prop(composd, dalvik_config_prop)
 get_prop(composd, device_config_runtime_native_boot_prop)
 
 # We never create any artifact files directly
 neverallow composd apex_art_data_file:file create;
+
+# ART sets these properties via init script, nothing else should
+neverallow { domain -init } composd_vm_art_prop:property_service set;
