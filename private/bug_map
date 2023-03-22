@@ -19,11 +19,6 @@ mediaprovider cache_file blk_file b/77925342
 mediaprovider mnt_media_rw_file dir b/77925342
 mediaprovider shell_data_file dir b/77925342
 mediaswcodec ashmem_device chr_file b/142679232
-netd priv_app unix_stream_socket b/77870037
-netd untrusted_app unix_stream_socket b/77870037
-netd untrusted_app_25 unix_stream_socket b/77870037
-netd untrusted_app_27 unix_stream_socket b/77870037
-netd untrusted_app_29 unix_stream_socket b/77870037
 platform_app nfc_data_file dir b/74331887
 system_server overlayfs_file file b/142390309
 system_server sdcardfs file b/77856826
