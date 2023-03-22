@@ -66,9 +66,11 @@ allow dumpstate {
   netd
 }:process signal;
 
+# Only allow dumpstate to dump Keystore on debuggable builds.
 userdebug_or_eng(`
   allow dumpstate keystore:process signal;
 ')
+dontaudit dumpstate keystore:process { signal };
 
 # For collecting bugreports.
 no_debugfs_restriction(`
