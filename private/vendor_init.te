@@ -19,7 +19,7 @@ get_prop(vendor_init, apex_ready_prop)
 allow vendor_init {
   dev_type
   -keychord_device
-  -kvm_device
+  -vm_manager_device_type
   -port_device
   -lowpan_device
   -hw_random_device
