@@ -45,6 +45,10 @@ userdebug_or_eng(`
 ')
 neverallow { domain -init -dumpstate userdebug_or_eng(`-domain') } persist_wm_debug_prop:property_service set;
 
+userdebug_or_eng(`
+  set_prop(platform_app, persist_sysui_builder_extras_prop)
+')
+
 # com.android.captiveportallogin reads /proc/vmstat
 allow platform_app {
   proc_vmstat
@@ -121,6 +125,8 @@ virtualizationservice_use(platform_app)
 ###
 ### Neverallow rules
 ###
+
+neverallow { domain -init userdebug_or_eng(`-shell -platform_app') } persist_sysui_builder_extras_prop:property_service set;
 
 # app domains which access /dev/fuse should not run as platform_app
 neverallow platform_app fuse_device:chr_file *;
