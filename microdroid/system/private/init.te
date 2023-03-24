@@ -27,7 +27,6 @@ allow init vd_device:blk_file relabelto;
 allow init {
   dev_type
   -hw_random_device
-  -kvm_device
 }:chr_file setattr;
 
 # /dev/__null__ node created by init.
@@ -40,9 +39,6 @@ allow init property_type:file { append create getattr map open read relabelto re
 # /dev/__properties__/property_info
 allow init properties_device:file create_file_perms;
 allow init property_info:file relabelto;
-# /dev/event-log-tags
-allow init device:file relabelfrom;
-allow init runtime_event_log_tags_file:file { open write setattr relabelto create };
 # /dev/socket
 allow init { device socket_device dm_user_device }:dir relabelto;
 # Relabel /dev nodes created in first stage init: /dev/console, /dev/null, /dev/ptmx, /dev/random
@@ -114,7 +110,6 @@ allow init tmpfs:dir create_dir_perms;
 allow init tmpfs:dir mounton;
 allow init cgroup:dir create_dir_perms;
 allow init cgroup:file rw_file_perms;
-allow init cgroup_rc_file:file rw_file_perms;
 allow init cgroup_desc_file:file r_file_perms;
 allow init cgroup_desc_api_file:file r_file_perms;
 allow init cgroup_v2:dir { mounton create_dir_perms};
@@ -181,7 +176,6 @@ allow init {
   file_type
   -apex_info_file
   -exec_type
-  -runtime_event_log_tags_file
   -shell_data_file
   -system_file_type
   -vendor_file_type

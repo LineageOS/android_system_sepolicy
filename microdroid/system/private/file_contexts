@@ -32,8 +32,6 @@
 # Devices
 #
 /dev(/.*)?		u:object_r:device:s0
-/dev/ashmem		u:object_r:ashmem_device:s0
-/dev/ashmem(.*)?	u:object_r:ashmem_libcutils_device:s0
 /dev/block(/.*)?	u:object_r:block_device:s0
 /dev/block/dm-[0-9]+	u:object_r:dm_device:s0
 /dev/block/loop[0-9]*	u:object_r:loop_device:s0
@@ -41,14 +39,8 @@
 /dev/block/ram[0-9]*	u:object_r:ram_device:s0
 /dev/block/zram[0-9]*	u:object_r:ram_device:s0
 /dev/console		u:object_r:console_device:s0
-/dev/dma_heap(/.*)?     u:object_r:dmabuf_heap_device:s0
-/dev/dma_heap/system    u:object_r:dmabuf_system_heap_device:s0
-/dev/dma_heap/system-uncached    u:object_r:dmabuf_system_heap_device:s0
-/dev/dma_heap/system-secure(.*)	 u:object_r:dmabuf_system_secure_heap_device:s0
 /dev/dm-user(/.*)?	u:object_r:dm_user_device:s0
 /dev/device-mapper	u:object_r:dm_device:s0
-/dev/event-log-tags     u:object_r:runtime_event_log_tags_file:s0
-/dev/cgroup_info(/.*)?  u:object_r:cgroup_rc_file:s0
 /dev/fuse		u:object_r:fuse_device:s0
 /dev/hvc0               u:object_r:serial_device:s0
 /dev/hvc1               u:object_r:serial_device:s0
@@ -59,7 +51,6 @@
 /dev/ptmx		u:object_r:ptmx_device:s0
 /dev/kmsg		u:object_r:kmsg_device:s0
 /dev/kmsg_debug	u:object_r:kmsg_debug_device:s0
-/dev/kvm		u:object_r:kvm_device:s0
 /dev/null		u:object_r:null_device:s0
 /dev/open-dice0         u:object_r:open_dice_device:s0
 /dev/random		u:object_r:random_device:s0
@@ -73,17 +64,10 @@
 /dev/socket/vm_payload_service u:object_r:vm_payload_service_socket:s0
 /dev/socket/traced_consumer	u:object_r:traced_consumer_socket:s0
 /dev/socket/traced_producer	u:object_r:traced_producer_socket:s0
-/dev/sys/block/by-name/userdata(/.*)?	u:object_r:userdata_sysdev:s0
-/dev/sys/fs/by-name/userdata(/.*)?	u:object_r:userdata_sysdev:s0
 /dev/tty		u:object_r:owntty_device:s0
 /dev/tty[0-9]*		u:object_r:tty_device:s0
 /dev/ttyS[0-9]*		u:object_r:serial_device:s0
-/dev/tun		u:object_r:tun_device:s0
-/dev/uhid		u:object_r:uhid_device:s0
-/dev/uinput		u:object_r:uhid_device:s0
-/dev/uio[0-9]*		u:object_r:uio_device:s0
 /dev/urandom		u:object_r:random_device:s0
-/dev/vhost-vsock	u:object_r:kvm_device:s0
 /dev/vsock		u:object_r:vsock_device:s0
 /dev/zero		u:object_r:zero_device:s0
 /dev/__properties__ u:object_r:properties_device:s0
