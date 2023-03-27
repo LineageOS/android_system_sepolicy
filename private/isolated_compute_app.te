@@ -32,6 +32,9 @@ allow isolated_compute_app dmabuf_system_heap_device:chr_file r_file_perms;
 # permitted.
 allow isolated_compute_app { ephemeral_app priv_app untrusted_app_all }:{ tcp_socket udp_socket } { rw_socket_perms_no_ioctl };
 
+# Allow access to the toybox: b/275024392
+allow isolated_compute_app toolbox_exec:file rx_file_perms;
+
 #####
 ##### Neverallow
 #####
