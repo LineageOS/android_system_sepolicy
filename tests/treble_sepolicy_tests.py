@@ -347,7 +347,8 @@ def TestIsolatedAttributeConsistency(test_policy):
       "hal_neuralnetworks_service":["service_manager"],
       "servicemanager":["fd"],
       "speech_recognition_service":["service_manager"],
-      "mediaserver_service" :["service_manager"]
+      "mediaserver_service" :["service_manager"],
+      "toolbox_exec": ["file"],
   }
 
   def resolveHalServerSubtype(target):
