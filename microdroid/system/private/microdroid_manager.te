@@ -122,6 +122,10 @@ allow microdroid_manager extra_apk_file:dir create_dir_perms;
 # Allow microdroid_manager to write kmsg_debug (stdio_to_kmsg).
 allow microdroid_manager kmsg_debug_device:chr_file w_file_perms;
 
+# Allow microdroid_manager to read AVF debug policy
+allow microdroid_manager sysfs_dt_avf:dir search;
+allow microdroid_manager sysfs_dt_avf:file { open read };
+
 # Domains other than microdroid can't write extra_apks
 neverallow { domain -microdroid_manager -init -vendor_init } extra_apk_file:file no_w_file_perms;
 neverallow { domain -microdroid_manager -init -vendor_init } extra_apk_file:dir no_w_dir_perms;
