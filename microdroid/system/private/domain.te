@@ -185,10 +185,6 @@ allowxperm domain devpts:chr_file ioctl unpriv_tty_ioctls;
 # named pipes, and named sockets). We start off with a safe set.
 allowxperm domain { file_type fs_type domain dev_type }:{ dir notdevfile_class_set blk_file } ioctl { FIOCLEX FIONCLEX };
 
-# If a domain has ioctl access to tun_device, it must clearly enumerate the
-# ioctls used. Safe defaults are listed below.
-allowxperm domain tun_device:chr_file ioctl { FIOCLEX FIONCLEX };
-
 # Allow a process to make a determination whether a file descriptor
 # for a plain file or pipe (fifo_file) is a tty. Note that granting
 # this allowlist to domain does not grant the ioctl permission to
@@ -229,8 +225,6 @@ allow domain cgroup_v2:dir search;
 allow { domain } cgroup_v2:dir w_dir_perms;
 allow { domain } cgroup_v2:file w_file_perms;
 
-allow domain cgroup_rc_file:dir search;
-allow domain cgroup_rc_file:file r_file_perms;
 allow domain task_profiles_file:file r_file_perms;
 allow domain task_profiles_api_file:file r_file_perms;
 
@@ -532,12 +526,6 @@ neverallow domain {
 # cgroupfs directories can be created, but not files within them.
 neverallow domain cgroup:file create;
 neverallow domain cgroup_v2:file create;
-
-# Only apps targetting < Q are allowed to open /dev/ashmem directly.
-# Apps must use ASharedMemory NDK API. Native code must use libcutils API.
-neverallow {
-  domain
-} ashmem_device:chr_file open;
 
 neverallow { domain -init -vendor_init -traced_probes } debugfs_tracing_printk_formats:file *;
 
