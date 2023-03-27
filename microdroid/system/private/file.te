@@ -1,7 +1,6 @@
 allow fs_type self:filesystem associate;
 allow cgroup tmpfs:filesystem associate;
 allow cgroup_v2 tmpfs:filesystem associate;
-allow cgroup_rc_file tmpfs:filesystem associate;
 allow debugfs_type { debugfs debugfs_tracing debugfs_tracing_debug }:filesystem associate;
 allow dev_type tmpfs:filesystem associate;
 allow encryptedstore_file encryptedstore_fs:filesystem associate;
