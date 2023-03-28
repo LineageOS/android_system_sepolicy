@@ -7,7 +7,7 @@ init_daemon_domain(netd)
 domain_auto_trans(netd, dnsmasq_exec, dnsmasq)
 
 allow netd { fs_bpf fs_bpf_netd_readonly fs_bpf_netd_shared }:dir search;
-allow netd { fs_bpf fs_bpf_netd_readonly fs_bpf_netd_shared }:file read;
+allow netd { fs_bpf fs_bpf_netd_readonly fs_bpf_netd_shared }:file { getattr read };
 allow netd { fs_bpf                      fs_bpf_netd_shared }:file write;
 
 # give netd permission to setup iptables rule with xt_bpf, attach program to cgroup, and read/write
