@@ -217,6 +217,7 @@ var (
 		"country_detector":                                                EXCEPTION_NO_FUZZER,
 		"coverage":                                                        EXCEPTION_NO_FUZZER,
 		"cpuinfo":                                                         EXCEPTION_NO_FUZZER,
+		"cpu_monitor":                                                     EXCEPTION_NO_FUZZER,
 		"credential":                                                      EXCEPTION_NO_FUZZER,
 		"crossprofileapps":                                                EXCEPTION_NO_FUZZER,
 		"dataloader_manager":                                              EXCEPTION_NO_FUZZER,
