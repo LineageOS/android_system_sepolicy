@@ -49,7 +49,6 @@ allow vendor_init unlabeled:{ dir notdevfile_class_set } { getattr relabelfrom }
 allow vendor_init {
   file_type
   -exec_type
-  -runtime_event_log_tags_file
   -system_file_type
   -unlabeled
   -vendor_file_type
@@ -144,6 +143,5 @@ allow vendor_init self:capability sys_nice;
 # chown/chmod on devices, e.g. /dev/ttyHS0
 allow vendor_init {
   dev_type
-  -kvm_device
   -hw_random_device
 }:chr_file setattr;

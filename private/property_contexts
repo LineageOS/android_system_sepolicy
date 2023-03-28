@@ -1485,6 +1485,10 @@ ro.gms.dck.se_capability u:object_r:dck_prop:s0 exact int
 # virtualization service properties
 virtualizationservice.state.last_cid u:object_r:virtualizationservice_prop:s0 exact uint
 
+# composd properties
+composd.vm.art.memory_mib.config u:object_r:composd_vm_art_prop:s0 exact uint
+composd.vm.vendor.memory_mib.config u:object_r:composd_vm_vendor_prop:s0 exact int
+
 # properties for the virtual Face HAL
 persist.vendor.face.virtual.type u:object_r:virtual_face_hal_prop:s0 exact string
 persist.vendor.face.virtual.strength u:object_r:virtual_face_hal_prop:s0 exact string

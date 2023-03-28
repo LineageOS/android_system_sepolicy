@@ -34,6 +34,7 @@ allow statsd stats_config_data_file:file create_file_perms;
 binder_call(statsd, appdomain)
 binder_call(statsd, incidentd)
 binder_call(statsd, system_server)
+binder_call(statsd, traced_probes)
 
 # Allow statsd to interact with gpuservice
 allow statsd gpu_service:service_manager find;
