@@ -26,7 +26,7 @@ binder_call(netutils_wrapper, netd);
 # the whole chain including the xt_bpf rules. They need to access to the pinned
 # program when reloading the rule.
 allow netutils_wrapper { fs_bpf fs_bpf_netd_shared }:dir search;
-allow netutils_wrapper { fs_bpf fs_bpf_netd_shared }:file read;
+allow netutils_wrapper { fs_bpf fs_bpf_netd_shared }:file { getattr read };
 allow netutils_wrapper { fs_bpf                    }:file write;
 allow netutils_wrapper bpfloader:bpf prog_run;
 
