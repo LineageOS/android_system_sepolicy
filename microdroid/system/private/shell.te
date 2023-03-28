@@ -1,8 +1,5 @@
 typeattribute shell coredomain;
 
-# allow shell input injection
-allow shell uhid_device:chr_file rw_file_perms;
-
 # Perform SELinux access checks, needed for CTS
 selinux_check_access(shell)
 selinux_check_context(shell)
