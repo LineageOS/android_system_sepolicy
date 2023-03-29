@@ -538,3 +538,6 @@ neverallow no_crash_dump_domain crash_dump:process { transition dyntransition };
 
 # Ensure that no one can execute from encrypted storage, which is a writable partition in VM.
 neverallow domain encryptedstore_file:file no_x_file_perms;
+
+# Only crash_dump is allowed to access ptrace
+neverallow { domain -crash_dump } domain:process ptrace;
