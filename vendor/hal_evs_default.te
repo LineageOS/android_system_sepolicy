@@ -29,3 +29,6 @@ allow hal_evs_default gpu_device:dir search;
 # allow to monitor uevents and access video devices
 allow hal_evs_default device:dir r_dir_perms;
 allow hal_evs_default video_device:chr_file rw_file_perms;
+
+# allow to access graphics related properties
+get_prop(hal_evs_default, graphics_config_prop);
