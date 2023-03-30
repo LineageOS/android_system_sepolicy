@@ -63,4 +63,5 @@ userdebug_or_eng(`
   }:process { ptrace signal sigchld sigstop sigkill };
 ')
 
+neverallow crash_dump self:process ptrace;
 neverallow crash_dump no_crash_dump_domain:process ptrace;
