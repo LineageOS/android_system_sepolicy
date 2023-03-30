@@ -417,6 +417,9 @@ attribute super_block_device_type;
 attribute dmabuf_heap_device_type;
 expandattribute dmabuf_heap_device_type false;
 
+# Types for VM managers
+attribute vm_manager_device_type;
+
 # All types used for DSU metadata files.
 attribute gsi_metadata_file_type;
 
