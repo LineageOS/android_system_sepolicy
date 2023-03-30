@@ -104,7 +104,7 @@ type bootanim_data_file, file_type, data_file_type, core_data_file_type;
 # /dev/kvm
 # The type needs to be mlstrustedobject to allow for being accessed from
 # crosvm, which runs at a more constrained MLS level.
-type kvm_device, dev_type, mlstrustedobject;
+type kvm_device, dev_type, mlstrustedobject, vm_manager_device_type;
 
 # /apex/com.android.virt/bin/fd_server
 type fd_server_exec, system_file_type, exec_type, file_type;
