@@ -22,6 +22,10 @@ perfetto_producer(perfetto)
 allow perfetto perfetto_traces_data_file:dir rw_dir_perms;
 allow perfetto perfetto_traces_data_file:file create_file_perms;
 
+# Allow to write and unlink trace into /data/misc/perfetto-traces/bugreport*
+allow perfetto perfetto_traces_bugreport_data_file:file create_file_perms;
+allow perfetto perfetto_traces_bugreport_data_file:dir rw_dir_perms;
+
 # Allow perfetto to access the proxy service for reporting traces.
 allow perfetto tracingproxy_service:service_manager find;
 binder_use(perfetto)
@@ -117,6 +121,7 @@ neverallow perfetto {
   # neverallow. Currently only getattr and search are allowed.
   -vendor_data_file
   -perfetto_traces_data_file
+  -perfetto_traces_bugreport_data_file
   -perfetto_configs_data_file
   with_native_coverage(`-method_trace_data_file')
 }:dir *;
@@ -124,6 +129,7 @@ neverallow perfetto { system_data_file -perfetto_traces_data_file }:dir ~{ getat
 neverallow perfetto {
   data_file_type
   -perfetto_traces_data_file
+  -perfetto_traces_bugreport_data_file
   -perfetto_configs_data_file
   with_native_coverage(`-method_trace_data_file')
 }:file ~write;
