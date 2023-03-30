@@ -35,7 +35,7 @@ get_prop(composd, composd_vm_art_prop)
 get_prop(composd, composd_vm_vendor_prop)
 
 # Read ART's properties
-get_prop(composd, dalvik_config_prop)
+get_prop(composd, dalvik_config_prop_type)
 get_prop(composd, device_config_runtime_native_boot_prop)
 
 # We never create any artifact files directly

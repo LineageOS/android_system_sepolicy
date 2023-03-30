@@ -430,3 +430,6 @@ attribute apex_data_file_type;
 # permissions to maintain the health loop, writing to kernel log, handling
 # inputs and drawing screens, etc.
 attribute charger_type;
+
+# All types of ART properties.
+attribute dalvik_config_prop_type;
