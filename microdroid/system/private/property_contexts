@@ -152,10 +152,22 @@ ro.vndk.version  u:object_r:build_prop:s0 exact string
 
 heapprofd.enable u:object_r:heapprofd_prop:s0 exact bool
 
-# ART properties for CompOS
+# ART properties for CompOS.
 dalvik.vm.                                  u:object_r:dalvik_config_prop:s0 prefix
 ro.dalvik.vm.                               u:object_r:dalvik_config_prop:s0 prefix
 persist.device_config.runtime_native.       u:object_r:device_config_runtime_native_prop:s0 prefix
 persist.device_config.runtime_native_boot.  u:object_r:device_config_runtime_native_boot_prop:s0 prefix
+
+# A list of ART properties that can be set dynamically.
+dalvik.vm.background-dex2oat-cpu-set          u:object_r:dalvik_dynamic_config_prop:s0 exact string
+dalvik.vm.background-dex2oat-threads          u:object_r:dalvik_dynamic_config_prop:s0 exact int
+dalvik.vm.boot-dex2oat-cpu-set                u:object_r:dalvik_dynamic_config_prop:s0 exact string
+dalvik.vm.boot-dex2oat-threads                u:object_r:dalvik_dynamic_config_prop:s0 exact int
+dalvik.vm.dex2oat-cpu-set                     u:object_r:dalvik_dynamic_config_prop:s0 exact string
+dalvik.vm.dex2oat-threads                     u:object_r:dalvik_dynamic_config_prop:s0 exact int
+dalvik.vm.image-dex2oat-cpu-set               u:object_r:dalvik_dynamic_config_prop:s0 exact string
+dalvik.vm.image-dex2oat-threads               u:object_r:dalvik_dynamic_config_prop:s0 exact int
+dalvik.vm.restore-dex2oat-cpu-set             u:object_r:dalvik_dynamic_config_prop:s0 exact string
+dalvik.vm.restore-dex2oat-threads             u:object_r:dalvik_dynamic_config_prop:s0 exact int
 
 apexd.payload_metadata.path u:object_r:apexd_payload_metadata_prop:s0 exact string
