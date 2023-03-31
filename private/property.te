@@ -275,7 +275,7 @@ compatible_property_only(`
     -vendor_init
   } {
     core_property_type
-    dalvik_config_prop
+    dalvik_config_prop_type
     extended_core_property_type
     exported3_system_prop
     systemsound_config_prop
