@@ -1545,7 +1545,10 @@
 (typeattributeset ctl_sigstop_prop_33_0 (ctl_sigstop_prop))
 (typeattributeset ctl_start_prop_33_0 (ctl_start_prop))
 (typeattributeset ctl_stop_prop_33_0 (ctl_stop_prop))
-(typeattributeset dalvik_config_prop_33_0 (dalvik_config_prop))
+(typeattributeset dalvik_config_prop_33_0
+  ( dalvik_config_prop
+    dalvik_dynamic_config_prop
+))
 (typeattributeset dalvik_prop_33_0 (dalvik_prop))
 (typeattributeset dalvik_runtime_prop_33_0 (dalvik_runtime_prop))
 (typeattributeset dalvikcache_data_file_33_0 (dalvikcache_data_file))
