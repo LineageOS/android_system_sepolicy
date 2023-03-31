@@ -37,7 +37,7 @@ allow odrefresh compos:fd use;
 
 # Allow odrefresh to read all dalvik system properties. odrefresh needs to record the relevant ones
 # in the output for later verification check.
-get_prop(odrefresh, dalvik_config_prop)
+get_prop(odrefresh, dalvik_config_prop_type)
 get_prop(odrefresh, device_config_runtime_native_boot_prop)
 
 # Silently ignore the write to properties, e.g. for setting boot animation progress.
