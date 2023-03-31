@@ -150,3 +150,6 @@ attribute microdroid_payload;
 
 # Domains that are blocked from producing a crash dump
 attribute no_crash_dump_domain;
+
+# All types of ART properties.
+attribute dalvik_config_prop_type;
