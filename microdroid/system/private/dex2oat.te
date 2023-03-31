@@ -31,7 +31,7 @@ allow dex2oat system_file:file lock;
 allow dex2oat apex_info_file:file r_file_perms;
 
 # Allow reading dalvik system properties that may affect compilation
-get_prop(dex2oat, dalvik_config_prop)
+get_prop(dex2oat, dalvik_config_prop_type)
 get_prop(dex2oat, device_config_runtime_native_boot_prop)
 
 # Don't audit because we don't configure the compiler through these

@@ -11,7 +11,7 @@ dontaudit compos self:dir write;
 dontaudit compos self:global_capability_class_set dac_override;
 
 # Allow settings system properties that ART expects.
-set_prop(compos, dalvik_config_prop)
+set_prop(compos, dalvik_config_prop_type)
 set_prop(compos, device_config_runtime_native_boot_prop)
 
 # Allow running odrefresh in its own domain
