@@ -95,6 +95,7 @@ neverallow { isolated_app_all -isolated_compute_app } {
   -sysfs_devices_system_cpu
   -sysfs_transparent_hugepage
   -sysfs_usb # TODO: check with audio team if needed for isolated_apps (b/28417852)
+  -sysfs_fs_fuse_features
   -sysfs_fs_incfs_features
 }:file no_rw_file_perms;
 
