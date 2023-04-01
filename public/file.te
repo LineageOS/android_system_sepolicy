@@ -123,6 +123,7 @@ type sysfs_wakeup_reasons, fs_type, sysfs_type;
 type sysfs_fs_ext4_features, sysfs_type, fs_type;
 type sysfs_fs_f2fs, sysfs_type, fs_type;
 type sysfs_fs_fuse_bpf, sysfs_type, fs_type;
+type sysfs_fs_fuse_features, sysfs_type, fs_type;
 type sysfs_fs_incfs_features, sysfs_type, fs_type;
 type sysfs_fs_incfs_metrics, sysfs_type, fs_type;
 type sysfs_vendor_sched, sysfs_type, fs_type;

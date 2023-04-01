@@ -207,6 +207,7 @@ system_public_prop(ctl_default_prop)
 system_public_prop(ctl_interface_start_prop)
 system_public_prop(ctl_start_prop)
 system_public_prop(ctl_stop_prop)
+system_public_prop(dalvik_dynamic_config_prop)
 system_public_prop(dalvik_runtime_prop)
 system_public_prop(debug_prop)
 system_public_prop(device_config_memory_safety_native_boot_prop)
@@ -367,3 +368,5 @@ typeattribute system_prop        core_property_type;
 typeattribute usb_prop           core_property_type;
 typeattribute vold_prop          core_property_type;
 
+typeattribute dalvik_config_prop         dalvik_config_prop_type;
+typeattribute dalvik_dynamic_config_prop dalvik_config_prop_type;
