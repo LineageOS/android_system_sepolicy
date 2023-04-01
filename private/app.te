@@ -34,7 +34,7 @@ userdebug_or_eng(`
 get_prop(appdomain, test_harness_prop)
 
 get_prop(appdomain, boot_status_prop)
-get_prop(appdomain, dalvik_config_prop)
+get_prop(appdomain, dalvik_config_prop_type)
 get_prop(appdomain, media_config_prop)
 get_prop(appdomain, packagemanager_config_prop)
 get_prop(appdomain, radio_control_prop)
