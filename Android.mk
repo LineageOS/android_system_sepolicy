@@ -260,19 +260,6 @@ else
 SHAREDLIB_EXT=so
 endif
 
-# Convert a file_context file for a non-flattened APEX into a file for
-# flattened APEX. /system/apex/<apex_name> path is prepended to the original paths
-# $(1): path to the input file_contexts file for non-flattened APEX
-# $(2): path to the flattened APEX
-# $(3): path to the generated file_contexts file for flattened APEX
-# $(4): variable where $(3) is added to
-define build_flattened_apex_file_contexts
-$(4) += $(3)
-$(3): PRIVATE_APEX_PATH := $(subst .,\\.,$(2))
-$(3): $(1)
-	$(hide) awk '/object_r/{printf("$$(PRIVATE_APEX_PATH)%s\n",$$$$0)}' $$< > $$@
-endef
-
 #################################
 
 include $(CLEAR_VARS)
