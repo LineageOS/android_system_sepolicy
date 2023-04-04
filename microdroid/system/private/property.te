@@ -6,6 +6,9 @@ system_public_prop(dalvik_dynamic_config_prop)
 system_restricted_prop(device_config_runtime_native_prop)
 system_restricted_prop(device_config_runtime_native_boot_prop)
 
+typeattribute dalvik_config_prop         dalvik_config_prop_type;
+typeattribute dalvik_dynamic_config_prop dalvik_config_prop_type;
+
 # Don't audit legacy ctl. property handling.  We only want the newer permission check to appear
 # in the audit log
 dontaudit domain {
