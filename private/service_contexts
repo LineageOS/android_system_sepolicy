@@ -194,6 +194,7 @@ contexthub                                u:object_r:contexthub_service:s0
 country_detector                          u:object_r:country_detector_service:s0
 coverage                                  u:object_r:coverage_service:s0
 cpuinfo                                   u:object_r:cpuinfo_service:s0
+cpu_monitor                               u:object_r:cpu_monitor_service:s0
 crossprofileapps                          u:object_r:crossprofileapps_service:s0
 dataloader_manager                        u:object_r:dataloader_manager_service:s0
 dbinfo                                    u:object_r:dbinfo_service:s0
