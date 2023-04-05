@@ -793,6 +793,9 @@ set_prop(system_server, firstboot_prop)
 # such as camera shutter enforcement
 get_prop(system_server, audio_config_prop)
 
+# StorageManager service reads media config while checking if transcoding is supported.
+get_prop(system_server, media_config_prop)
+
 # system server reads this property to keep track of whether server configurable flags have been
 # reset during current boot.
 get_prop(system_server, device_config_reset_performed_prop)
