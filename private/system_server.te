@@ -1185,7 +1185,7 @@ allow system_server self:key_socket create;
 
 # Allow system_server to start clatd in its own domain and kill it.
 domain_auto_trans(system_server, clatd_exec, clatd)
-allow system_server clatd:process signal;
+allow system_server clatd:process { sigkill signal };
 
 # ART Profiles.
 # Allow system_server to open profile snapshots for read.
