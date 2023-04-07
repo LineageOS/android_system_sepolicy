@@ -1,5 +1,0 @@
-typeattribute servicemanager coredomain;
-
-init_daemon_domain(servicemanager)
-
-read_runtime_log_tags(servicemanager)
