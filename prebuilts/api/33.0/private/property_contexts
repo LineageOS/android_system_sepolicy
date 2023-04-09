@@ -493,6 +493,13 @@ persist.bluetooth.btsnoopdefaultmode           u:object_r:bluetooth_prop:s0 exac
 persist.bluetooth.btsnooplogmode               u:object_r:bluetooth_prop:s0 exact enum empty disabled filtered full
 persist.bluetooth.factoryreset                 u:object_r:bluetooth_prop:s0 exact bool
 
+bluetooth.a2dp.source.sbc_priority.config            u:object_r:bluetooth_config_prop:s0 exact int
+bluetooth.a2dp.source.aac_priority.config            u:object_r:bluetooth_config_prop:s0 exact int
+bluetooth.a2dp.source.aptx_priority.config           u:object_r:bluetooth_config_prop:s0 exact int
+bluetooth.a2dp.source.aptx_hd_priority.config        u:object_r:bluetooth_config_prop:s0 exact int
+bluetooth.a2dp.source.ldac_priority.config           u:object_r:bluetooth_config_prop:s0 exact int
+bluetooth.a2dp.source.lc3_priority.config            u:object_r:bluetooth_config_prop:s0 exact int
+
 bluetooth.hardware.power.operating_voltage_mv        u:object_r:bluetooth_config_prop:s0 exact int
 bluetooth.hardware.power.idle_cur_ma                 u:object_r:bluetooth_config_prop:s0 exact int
 bluetooth.hardware.power.tx_cur_ma                   u:object_r:bluetooth_config_prop:s0 exact int
