@@ -11,7 +11,7 @@ allow linkerconfig linkerconfig_file:file create_file_perms;
 allow linkerconfig kmsg_device:chr_file w_file_perms;
 
 # Allow linkerconfig to be invoked with logwrapper from init.
-allow linkerconfig devpts:chr_file { read write };
+allow linkerconfig devpts:chr_file { getattr ioctl read write };
 
 # Allow linkerconfig to scan for apex modules
 allow linkerconfig apex_mnt_dir:dir r_dir_perms;
