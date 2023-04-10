@@ -70,6 +70,39 @@ python_binary_host {
 }
 
 python_binary_host {
+    name: "apex_sepolicy_tests",
+    srcs: [
+        "apex_sepolicy_tests.py",
+    ],
+    version: {
+        py3: {
+            embedded_launcher: true,
+        },
+    },
+    libs: ["pysepolwrap"],
+    data: [
+        ":libsepolwrap",
+        ":precompiled_sepolicy",
+    ],
+}
+
+python_test_host {
+    name: "apex_sepolicy_tests_test",
+    srcs: [
+        "apex_sepolicy_tests.py",
+        "apex_sepolicy_tests_test.py",
+    ],
+    libs: ["pysepolwrap"],
+    data: [
+        ":libsepolwrap",
+        ":precompiled_sepolicy",
+    ],
+    test_options: {
+        unit_test: true,
+    },
+}
+
+python_binary_host {
     name: "searchpolicy",
     srcs: [
         "searchpolicy.py",
