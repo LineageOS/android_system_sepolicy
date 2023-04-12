@@ -390,6 +390,10 @@ ro.audio.spatializer_enabled u:object_r:audio_config_prop:s0 exact bool
 # to enable head tracking for spatial audio
 ro.audio.headtracking_enabled u:object_r:audio_config_prop:s0 exact bool
 
+# Boolean property used in UsbAlsaManager to decide if only one or multiple
+# USB devices can be connected to audio system at a certain time
+ro.audio.multi_usb_mode u:object_r:audio_config_prop:s0 exact bool
+
 persist.config.calibration_fac u:object_r:camera_calibration_prop:s0 exact string
 
 config.disable_cameraservice u:object_r:camera_config_prop:s0 exact bool
