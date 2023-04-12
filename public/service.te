@@ -296,6 +296,7 @@ type hal_health_storage_service, protected_service, hal_service_type, service_ma
 type hal_identity_service, protected_service, hal_service_type, service_manager_type;
 type hal_input_processor_service, protected_service, hal_service_type, service_manager_type;
 type hal_ir_service, protected_service, hal_service_type, service_manager_type;
+type hal_ivn_service, protected_service, hal_service_type, service_manager_type;
 type hal_keymint_service, protected_service, hal_service_type, service_manager_type;
 type hal_light_service, protected_service, hal_service_type, service_manager_type;
 type hal_memtrack_service, protected_service, hal_service_type, service_manager_type;
