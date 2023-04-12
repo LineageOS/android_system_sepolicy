@@ -1,0 +1,9 @@
+type hal_ivn_default, domain;
+hal_server_domain(hal_ivn_default, hal_ivn)
+
+# May be started by init
+type hal_ivn_default_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_ivn_default)
+
+# Allow registering with service manager.
+binder_call(hal_ivn_default, servicemanager)
