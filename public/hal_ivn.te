@@ -1,0 +1,4 @@
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_ivn_client, hal_ivn_server)
+
+hal_attribute_service(hal_ivn, hal_ivn_service)
