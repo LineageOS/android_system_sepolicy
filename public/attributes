@@ -352,6 +352,7 @@ hal_attribute(identity);
 hal_attribute(input_classifier);
 hal_attribute(input_processor);
 hal_attribute(ir);
+hal_attribute(ivn);
 hal_attribute(keymaster);
 hal_attribute(keymint);
 hal_attribute(light);
