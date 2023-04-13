@@ -12,6 +12,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.can@1\.0-service  u:object_r:hal_can_socketcan_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.can-service  u:object_r:hal_can_socketcan_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.evs(.*)?          u:object_r:hal_evs_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.ivn@V1-(.*)-service u:object_r:hal_ivn_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@2\.0-((default|emulator)-)*(service|protocan-service)  u:object_r:hal_vehicle_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@V1-(default|emulator)-service u:object_r:hal_vehicle_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.remoteaccess@V1-(.*)-service u:object_r:hal_remoteaccess_default_exec:s0
