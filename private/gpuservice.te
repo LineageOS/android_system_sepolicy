@@ -64,5 +64,8 @@ add_service(gpuservice, gpu_service)
 # Needed for enabling write access to persist.graphics.egl from developer option switch UI, through gpuservice.
 set_prop(gpuservice, graphics_config_writable_prop)
 
+# Needed for querying permission
+allow gpuservice permission_service:service_manager find;
+
 # Only uncomment below line when in development
 # userdebug_or_eng(`permissive gpuservice;')
