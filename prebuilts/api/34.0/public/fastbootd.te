@@ -117,6 +117,9 @@ recovery_only(`
   allow fastbootd gsi_metadata_file_type:dir search;
   allow fastbootd ota_metadata_file:dir rw_dir_perms;
   allow fastbootd ota_metadata_file:file create_file_perms;
+
+  # Fastbootd uses liblogwrap to write mke2fs logs to kmsg, liblogwrap requires devpts.
+  allow fastbootd devpts:chr_file rw_file_perms;
 ')
 
 ###
