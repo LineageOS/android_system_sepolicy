@@ -357,8 +357,8 @@ def TestIsolatedAttributeConsistency(test_policy):
 
   def checkIsolatedComputeAllowed(tctx, tclass):
     # check if the permission is in isolated_compute_allowed
-    allowedMemberTypes = test_policy.pol.QueryTypeAttribute(Type="isolated_compute_allowed_services", IsAttr=True) \
-      .union(test_policy.pol.QueryTypeAttribute(Type="isolated_compute_allowed_devices", IsAttr=True))
+    allowedMemberTypes = test_policy.pol.QueryTypeAttribute(Type="isolated_compute_allowed_service", IsAttr=True) \
+      .union(test_policy.pol.QueryTypeAttribute(Type="isolated_compute_allowed_device", IsAttr=True))
     return tctx in allowedMemberTypes and tclass in permissionAllowList["isolated_compute_allowed"]
 
 
