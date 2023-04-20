@@ -92,6 +92,7 @@ auditallow sdk_sandbox {
     -pan_result_prop
     -permissive_mte_prop
     -persist_debug_prop
+    -persist_sysui_builder_extras_prop
     -pm_prop
     -powerctl_prop
     -property_service_version_prop
