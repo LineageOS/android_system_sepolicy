@@ -321,6 +321,7 @@ hal_client_domain(system_server, hal_health)
 hal_client_domain(system_server, hal_input_classifier)
 hal_client_domain(system_server, hal_input_processor)
 hal_client_domain(system_server, hal_ir)
+hal_client_domain(system_server, hal_keymint)
 hal_client_domain(system_server, hal_light)
 hal_client_domain(system_server, hal_memtrack)
 hal_client_domain(system_server, hal_neuralnetworks)
@@ -1107,6 +1108,8 @@ allowxperm system_server { apk_data_file system_data_file apex_system_server_dat
 
 # Allow system process to measure fs-verity for apps, apps being installed and system files
 allowxperm system_server { apk_data_file apk_tmp_file system_file }:file ioctl FS_IOC_MEASURE_VERITY;
+allowxperm system_server apk_tmp_file:file ioctl FS_IOC_SETFLAGS;
+allow system_server system_file:file ioctl;
 
 # Postinstall
 #
