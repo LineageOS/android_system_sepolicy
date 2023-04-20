@@ -1108,6 +1108,7 @@ allowxperm system_server { apk_data_file system_data_file apex_system_server_dat
 
 # Allow system process to measure fs-verity for apps, apps being installed and system files
 allowxperm system_server { apk_data_file apk_tmp_file system_file }:file ioctl FS_IOC_MEASURE_VERITY;
+allow system_server system_file:file ioctl;
 
 # Postinstall
 #
