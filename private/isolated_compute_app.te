@@ -14,8 +14,8 @@ typeattribute isolated_compute_app coredomain;
 app_domain(isolated_compute_app)
 isolated_app_domain(isolated_compute_app)
 
-allow isolated_compute_app isolated_compute_allowed_services:service_manager find;
-allow isolated_compute_app isolated_compute_allowed_devices:chr_file { read write ioctl map };
+allow isolated_compute_app isolated_compute_allowed_service:service_manager find;
+allow isolated_compute_app isolated_compute_allowed_device:chr_file { read write ioctl map };
 
 # Enable access to hardware services for camera functionalilites
 hal_client_domain(isolated_compute_app, hal_allocator)
