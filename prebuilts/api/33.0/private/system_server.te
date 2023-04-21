@@ -418,7 +418,14 @@ allow system_server mediaserver:udp_socket rw_socket_perms;
 allow system_server mediadrmserver:tcp_socket rw_socket_perms;
 allow system_server mediadrmserver:udp_socket rw_socket_perms;
 
-userdebug_or_eng(`perfetto_producer({ system_server })')
+# Allow writing performance tracing data to the Perfetto traced daemon. This
+# requires connecting to its producer socket and obtaining a (per-process)
+# tmpfs fd.
+perfetto_producer(system_server)
+
+# Allow performance profiling by the platform itself.
+can_profile_heap(system_server)
+can_profile_perf(system_server)
 
 # Get file context
 allow system_server file_contexts_file:file r_file_perms;
@@ -695,6 +702,7 @@ allow system_server server_configurable_flags_data_file:file r_file_perms;
 # Property Service write
 set_prop(system_server, system_prop)
 set_prop(system_server, bootanim_system_prop)
+set_prop(system_server, bluetooth_prop)
 set_prop(system_server, exported_system_prop)
 set_prop(system_server, exported3_system_prop)
 set_prop(system_server, safemode_prop)
@@ -821,6 +829,9 @@ get_prop(system_server, hypervisor_prop)
 
 # Read persist.wm.debug. properties
 get_prop(system_server, persist_wm_debug_prop)
+
+# Allow the heap dump ART plugin to the count of sessions waiting for OOME
+get_prop(system_server, traced_oome_heap_session_count_prop)
 
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
