@@ -1,0 +1,7 @@
+# allow binder connection from client to server
+binder_call(hal_fastboot_client, hal_fastboot_server)
+# allow client to find the service, allow server to register the service
+hal_attribute_service(hal_fastboot, hal_fastboot_service)
+# allow binder communication from server to service_manager
+binder_call(hal_fastboot_server, servicemanager)
+
