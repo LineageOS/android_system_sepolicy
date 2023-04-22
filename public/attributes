@@ -209,6 +209,12 @@ attribute untrusted_app_all;
 # All apps with UID between AID_ISOLATED_START (99000) and AID_ISOLATED_END (99999).
 attribute isolated_app_all;
 
+# All service types that would be allowed for isolated_compute_app.
+attribute isolated_compute_allowed_service;
+
+# All device types that would be allowed for isolated_compute_app.
+attribute isolated_compute_allowed_device;
+
 # All domains used for apps with network access.
 attribute netdomain;
 
