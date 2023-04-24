@@ -427,13 +427,6 @@ allow appdomain shared_relro_file:file r_file_perms;
 # Allow apps to read/execute installed binaries
 allow appdomain apk_data_file:dir { open getattr read search ioctl lock };
 allow appdomain apk_data_file:file { getattr open read ioctl lock map x_file_perms };
-# Allow watch & watch_reads for now, but audit to see if they're actually used.
-allow appdomain apk_data_file:dir { watch watch_reads };
-allow appdomain apk_data_file:file { watch watch_reads };
-userdebug_or_eng(`
-  auditallow appdomain apk_data_file:dir { watch watch_reads };
-  auditallow appdomain apk_data_file:file { watch watch_reads };
-')
 
 # /data/resource-cache
 allow appdomain resourcecache_data_file:file r_file_perms;
@@ -535,3 +528,8 @@ neverallow {
     appdomain
     -device_as_webcam
 } video_device:chr_file { read write };
+
+# Prevent calling inotify on APKs. This can be used as a side channel
+# to observer app launches, so it must be disallowed. b/231587164
+neverallow appdomain apk_data_file:dir { watch watch_reads };
+neverallow appdomain apk_data_file:file { watch watch_reads };
