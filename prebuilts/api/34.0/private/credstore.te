@@ -1,0 +1,13 @@
+typeattribute credstore coredomain;
+
+init_daemon_domain(credstore)
+
+# talk to Identity Credential
+hal_client_domain(credstore, hal_identity)
+
+# talk to keymint, specifically for IRemotelyProvisionedComponent/default
+hal_client_domain(credstore, hal_keymint)
+
+# credstore needs to get keys from the RKPD
+get_prop(credstore, remote_prov_prop)
+allow credstore remote_provisioning_service:service_manager find;

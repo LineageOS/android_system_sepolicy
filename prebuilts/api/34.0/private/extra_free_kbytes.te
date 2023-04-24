@@ -1,0 +1,6 @@
+typeattribute extra_free_kbytes coredomain;
+
+init_daemon_domain(extra_free_kbytes)
+
+# Only extra_free_kbytes script is allowed to store these properties
+set_prop(extra_free_kbytes, init_storage_prop)
