@@ -1,0 +1,66 @@
+# mediatranscoding - daemon for transcoding video and image.
+type mediatranscoding_exec, system_file_type, exec_type, file_type;
+type mediatranscoding_tmpfs, file_type;
+typeattribute mediatranscoding coredomain;
+
+init_daemon_domain(mediatranscoding)
+tmpfs_domain(mediatranscoding)
+allow mediatranscoding appdomain_tmpfs:file { getattr map read write };
+
+binder_use(mediatranscoding)
+binder_call(mediatranscoding, binderservicedomain)
+binder_call(mediatranscoding, appdomain)
+binder_service(mediatranscoding)
+
+add_service(mediatranscoding, mediatranscoding_service)
+
+hal_client_domain(mediatranscoding, hal_graphics_allocator)
+hal_client_domain(mediatranscoding, hal_configstore)
+hal_client_domain(mediatranscoding, hal_omx)
+hal_client_domain(mediatranscoding, hal_codec2)
+hal_client_domain(mediatranscoding, hal_allocator)
+
+allow mediatranscoding mediaserver_service:service_manager find;
+allow mediatranscoding mediametrics_service:service_manager find;
+allow mediatranscoding mediaextractor_service:service_manager find;
+allow mediatranscoding package_native_service:service_manager find;
+allow mediatranscoding thermal_service:service_manager find;
+
+allow mediatranscoding system_server:fd use;
+allow mediatranscoding activity_service:service_manager find;
+
+# allow mediatranscoding service read/write permissions for file sources
+allow mediatranscoding sdcardfs:file { getattr read write };
+allow mediatranscoding media_rw_data_file:file { getattr read write };
+allow mediatranscoding apk_data_file:file { getattr read };
+allow mediatranscoding app_data_file:file { getattr read write };
+allow mediatranscoding shell_data_file:file { getattr read write };
+
+# allow mediatranscoding service write permission to statsd socket
+unix_socket_send(mediatranscoding, statsdw, statsd)
+
+# Allow mediatranscoding to access the DMA-BUF system heap
+allow mediatranscoding dmabuf_system_heap_device:chr_file r_file_perms;
+
+allow mediatranscoding gpu_device:chr_file rw_file_perms;
+allow mediatranscoding gpu_device:dir r_dir_perms;
+
+# Allow mediatranscoding service to access media-related system properties
+get_prop(mediatranscoding, media_config_prop)
+
+# mediatranscoding should never execute any executable without a
+# domain transition
+neverallow mediatranscoding { file_type fs_type }:file execute_no_trans;
+
+# The goal of the mediaserver split is to place media processing code into
+# restrictive sandboxes with limited responsibilities and thus limited
+# permissions. Example: Audioserver is only responsible for controlling audio
+# hardware and processing audio content. Cameraserver does the same for camera
+# hardware/content. Etc.
+#
+# Media processing code is inherently risky and thus should have limited
+# permissions and be isolated from the rest of the system and network.
+# Lengthier explanation here:
+# https://android-developers.googleblog.com/2016/05/hardening-media-stack.html
+neverallow mediatranscoding domain:{ udp_socket rawip_socket } *;
+neverallow mediatranscoding { domain userdebug_or_eng(`-su') }:tcp_socket *;

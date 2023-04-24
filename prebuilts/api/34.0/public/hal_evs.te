@@ -1,0 +1,15 @@
+hwbinder_use(hal_evs_client)
+hwbinder_use(hal_evs_server)
+
+binder_call(hal_evs_client, hal_evs_server)
+binder_call(hal_evs_server, hal_evs_client)
+
+# Below lines are equivalent to hal_attribute_hwservice(hal_evs, hal_evs_hwservice)
+# except it allows evsmanagerd to add hal_evs_hwservice.
+allow hal_evs_client hal_evs_hwservice:hwservice_manager find;
+allow hal_evs_server hal_evs_hwservice:hwservice_manager { add find };
+allow hal_evs_server hidl_base_hwservice:hwservice_manager add;
+neverallow { domain -hal_evs_server -evsmanagerd } hal_evs_hwservice:hwservice_manager add;
+
+# Allows to add a service
+hal_attribute_service(hal_evs, hal_evs_service)
