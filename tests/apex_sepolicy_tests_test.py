@@ -88,6 +88,11 @@ class ApexSepolicyTests(unittest.TestCase):
         self.assert_ok('./etc/init.x32rc u:object_r:vendor_file:s0')
         self.assert_ok('./etc/init.x32rc u:object_r:unknown:s0')
 
+    def test_linkerconfig(self):
+        self.assert_ok('./etc/linker.config.pb u:object_r:system_file:s0')
+        self.assert_ok('./etc/linker.config.pb u:object_r:linkerconfig_file:s0')
+        self.assert_error('./etc/linker.config.pb u:object_r:vendor_file:s0',
+                        r'Error: .*linkerconfig.* can\'t read')
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

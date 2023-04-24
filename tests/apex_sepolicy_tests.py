@@ -105,6 +105,8 @@ rules = [
     # ./ and apex_manifest.pb
     (Is('./apex_manifest.pb'), AllowRead('file', {'linkerconfig', 'apexd'})),
     (Is('./'), AllowRead('dir', {'linkerconfig', 'apexd'})),
+    # linker.config.pb
+    (Is('./etc/linker.config.pb'), AllowRead('file', {'linkerconfig'})),
 ]
 
 
