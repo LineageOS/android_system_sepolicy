@@ -1,0 +1,15 @@
+type dmesgd, domain, coredomain;
+type dmesgd_exec, system_file_type, exec_type, file_type;
+
+init_daemon_domain(dmesgd)
+
+allow dmesgd dmesgd_data_file:dir create_dir_perms;
+allow dmesgd dmesgd_data_file:file create_file_perms;
+
+allow dmesgd kernel:system syslog_read;
+allow dmesgd shell_exec:file rx_file_perms;
+allow dmesgd toolbox_exec:file rx_file_perms;
+binder_use(dmesgd)
+binder_call(dmesgd, system_server)
+allow dmesgd dropbox_service:service_manager find;
+allow dmesgd proc_version:file r_file_perms;

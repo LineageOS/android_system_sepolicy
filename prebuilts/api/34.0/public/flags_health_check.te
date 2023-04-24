@@ -1,0 +1,11 @@
+# The flags_health_check command run by init.
+type flags_health_check, domain, coredomain;
+type flags_health_check_exec, system_file_type, exec_type, file_type;
+
+allow flags_health_check server_configurable_flags_data_file:dir rw_dir_perms;
+allow flags_health_check server_configurable_flags_data_file:file create_file_perms;
+
+# server_configurable_flags_data_file is used for storing whether server configurable flags which
+# have been reset during current booting. Mistakenly modified by unrelated components can
+# cause bad server configurable flags synced back to device.
+neverallow { domain -init -flags_health_check } server_configurable_flags_data_file:file no_w_file_perms;

@@ -1,0 +1,24 @@
+# Run by odsign to verify a CompOS signature
+type compos_verify, domain, coredomain;
+type compos_verify_exec, exec_type, file_type, system_file_type;
+
+# Start a VM
+binder_use(compos_verify);
+virtualizationservice_use(compos_verify);
+
+# Read instance image & write VM logs
+allow compos_verify apex_module_data_file:dir search;
+allow compos_verify apex_compos_data_file:dir rw_dir_perms;
+allow compos_verify apex_compos_data_file:file { rw_file_perms create };
+
+# Read CompOS info & signature files
+allow compos_verify apex_art_data_file:dir search;
+allow compos_verify apex_art_data_file:file r_file_perms;
+
+# Allow odsign to redirect our stdout/stderr to log
+allow compos_verify odsign:fd use;
+allow compos_verify odsign_devpts:chr_file { read write };
+
+# Only odsign can enter the domain via exec
+neverallow { domain -odsign } compos_verify:process transition;
+neverallow * compos_verify:process dyntransition;

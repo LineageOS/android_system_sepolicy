@@ -1,0 +1,5 @@
+type charger, charger_type, domain;
+type charger_exec, system_file_type, exec_type, file_type;
+
+# The system charger is a client of HIDL health HAL.
+hal_client_domain(charger, hal_health)

@@ -1,0 +1,8 @@
+type hidl_lazy_test_server, domain;
+type hidl_lazy_test_server_exec, exec_type, file_type, system_file_type;
+
+userdebug_or_eng(`
+  typeattribute hidl_lazy_test_server coredomain;
+  init_daemon_domain(hidl_lazy_test_server)
+  hal_server_domain(hidl_lazy_test_server, hal_lazy_test)
+')
