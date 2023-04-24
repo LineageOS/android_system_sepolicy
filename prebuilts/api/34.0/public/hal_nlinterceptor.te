@@ -1,0 +1,8 @@
+binder_call(hal_nlinterceptor_client, hal_nlinterceptor_server)
+
+hal_attribute_service(hal_nlinterceptor, hal_nlinterceptor_service)
+binder_call(hal_nlinterceptor, servicemanager)
+
+allow hal_nlinterceptor self:global_capability_class_set net_admin;
+allow hal_nlinterceptor self:netlink_generic_socket create_socket_perms_no_ioctl;
+allow hal_nlinterceptor self:netlink_route_socket { create_socket_perms_no_ioctl nlmsg_readpriv nlmsg_write };

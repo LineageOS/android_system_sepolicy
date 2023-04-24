@@ -1,0 +1,13 @@
+# adbd seclabel is specified in init.rc since
+# it lives in the rootfs and has no unique file type.
+type adbd, domain;
+type adbd_exec, exec_type, file_type, system_file_type;
+
+# Only init is allowed to enter the adbd domain via exec()
+neverallow { domain -init } adbd:process transition;
+neverallow * adbd:process dyntransition;
+
+# Access /data/local/tests.
+allow adbd shell_test_data_file:dir create_dir_perms;
+allow adbd shell_test_data_file:file create_file_perms;
+allow adbd shell_test_data_file:lnk_file create_file_perms;

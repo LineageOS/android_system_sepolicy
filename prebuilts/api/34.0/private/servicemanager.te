@@ -1,0 +1,14 @@
+typeattribute servicemanager coredomain;
+
+init_daemon_domain(servicemanager)
+
+read_runtime_log_tags(servicemanager)
+
+set_prop(servicemanager, ctl_interface_start_prop)
+set_prop(servicemanager, servicemanager_prop)
+
+# servicemanager is using bootstrap bionic
+use_bootstrap_libs(servicemanager)
+
+# servicemanager is using apex_info via libvintf
+use_apex_info(servicemanager)
