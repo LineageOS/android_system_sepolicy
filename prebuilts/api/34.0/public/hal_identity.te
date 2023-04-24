@@ -1,0 +1,6 @@
+# HwBinder IPC from client to server
+binder_call(hal_identity_client, hal_identity_server)
+
+hal_attribute_service(hal_identity, hal_identity_service)
+
+binder_call(hal_identity_server, servicemanager)
