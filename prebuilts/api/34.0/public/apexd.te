@@ -1,0 +1,11 @@
+# apexd -- manager for APEX packages
+type apexd, domain;
+type apexd_exec, exec_type, file_type, system_file_type;
+
+binder_use(apexd)
+add_service(apexd, apex_service)
+
+neverallow { domain -init -apexd -system_server -update_engine } apex_service:service_manager find;
+neverallow { domain -init -apexd -system_server -servicemanager -update_engine } apexd:binder call;
+
+neverallow { domain userdebug_or_eng(`-crash_dump') } apexd:process ptrace;

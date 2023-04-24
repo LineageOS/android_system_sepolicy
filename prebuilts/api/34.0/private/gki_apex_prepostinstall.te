@@ -1,0 +1,23 @@
+# GKI pre- & post-install hooks.
+#
+# Allow to run pre- and post-install hooks for GKI APEXes
+
+type gki_apex_prepostinstall, domain, coredomain;
+type gki_apex_prepostinstall_exec, system_file_type, exec_type, file_type;
+
+# Execute /system/bin/sh.
+allow gki_apex_prepostinstall shell_exec:file rx_file_perms;
+
+# Execute various toolsbox utilities.
+allow gki_apex_prepostinstall toolbox_exec:file rx_file_perms;
+
+# Allow preinstall.sh to execute update_engine_stable_client binary.
+allow gki_apex_prepostinstall gki_apex_prepostinstall_exec:file execute_no_trans;
+
+# Allow preinstall hook to communicate with update_engine to execute update.
+binder_use(gki_apex_prepostinstall)
+allow gki_apex_prepostinstall update_engine_stable_service:service_manager find;
+binder_call(gki_apex_prepostinstall, update_engine)
+
+# /dev/zero is inherited although it is not used. See b/126787589.
+allow gki_apex_prepostinstall apexd:fd use;

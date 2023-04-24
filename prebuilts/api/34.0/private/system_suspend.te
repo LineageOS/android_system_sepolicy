@@ -1,0 +1,48 @@
+type system_suspend, domain, coredomain, system_suspend_server, system_suspend_internal_server;
+
+type system_suspend_exec, system_file_type, exec_type, file_type;
+init_daemon_domain(system_suspend)
+
+# To serve ISuspendControlService.
+binder_use(system_suspend)
+add_service(system_suspend, system_suspend_control_service)
+
+add_service(system_suspend, hal_system_suspend_service)
+
+# Access to /sys/power/{ wakeup_count, state } suspend interface.
+allow system_suspend sysfs_power:file rw_file_perms;
+
+# Access to wakeup, suspend stats, and wakeup reasons.
+r_dir_file(system_suspend, sysfs_suspend_stats)
+r_dir_file(system_suspend, sysfs_wakeup)
+r_dir_file(system_suspend, sysfs_wakeup_reasons)
+# To resolve arbitrary sysfs paths from /sys/class/wakeup/* symlinks.
+allow system_suspend sysfs_type:dir search;
+
+# Access to suspend_hal system properties
+get_prop(system_suspend, suspend_prop)
+
+# To call BTAA registered callbacks
+allow system_suspend bluetooth:binder call;
+
+# For adding `dumpsys syspend_control` output to bugreport
+allow system_suspend dumpstate:fd use;
+allow system_suspend dumpstate:fifo_file write;
+
+# Allow init to take kernel wakelock and system suspend to
+# remove kenel wakelocks and the capability to access these
+# files
+allow init sysfs_wake_lock:file rw_file_perms;
+allow init self:global_capability2_class_set block_suspend;
+allow system_suspend sysfs_wake_lock:file rw_file_perms;
+allow system_suspend self:global_capability2_class_set block_suspend;
+
+neverallow {
+    domain
+    -atrace # tracing
+    -bluetooth # support Bluetooth activity attribution (BTAA)
+    -dumpstate # bug reports
+    -system_suspend # implements system_suspend_control_service
+    -system_server # configures system_suspend via ISuspendControlService
+    -traceur_app # tracing
+} system_suspend_control_service:service_manager find;
