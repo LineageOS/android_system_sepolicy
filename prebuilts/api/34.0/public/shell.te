@@ -63,8 +63,6 @@ allow shell toolbox_exec:file rx_file_perms;
 allow shell shell_exec:file rx_file_perms;
 allow shell zygote_exec:file rx_file_perms;
 
-r_dir_file(shell, apk_data_file)
-
 userdebug_or_eng(`
   # "systrace --boot" support - allow boottrace service to run
   allow shell boottrace_data_file:dir rw_dir_perms;
