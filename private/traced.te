@@ -52,6 +52,11 @@ allow traced  {
   userdebug_or_eng(`system_server_tmpfs')
 }:file { getattr map read write };
 
+# Allow setting debug properties which guard initialization of the Perfetto SDK
+# in SurfaceFlinger and HWUI's copy of Skia.
+# Required for the android.sdk_sysprop_guard data source.
+# TODO(b/281329340): remove this when no longer needed.
+set_prop(traced, debug_prop)
 # Allow traced to notify Traceur when a trace ends by setting the
 # sys.trace.trace_end_signal property.
 set_prop(traced, system_trace_prop)
