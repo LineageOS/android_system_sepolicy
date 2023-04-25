@@ -104,7 +104,7 @@ neverallow { isolated_app_all -isolated_compute_app } {
 # excluding unix_stream_socket and unix_dgram_socket.
 # Many of these are socket families which have never and will never
 # be compiled into the Android kernel.
-neverallow isolated_app_all { self ephemeral_app priv_app sdk_sandbox_all untrusted_app_all }:{
+neverallow isolated_app_all { self ephemeral_app priv_app sdk_sandbox untrusted_app_all }:{
   socket tcp_socket udp_socket rawip_socket netlink_socket packet_socket
   key_socket appletalk_socket netlink_route_socket
   netlink_tcpdiag_socket netlink_nflog_socket netlink_xfrm_socket
