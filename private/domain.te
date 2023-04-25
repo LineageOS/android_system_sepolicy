@@ -749,7 +749,7 @@ neverallow {
   isolated_app_all
   ephemeral_app
   priv_app
-  sdk_sandbox_all
+  sdk_sandbox
   untrusted_app_all
 } system_app_data_file:dir_file_class_set { create unlink open };
 
