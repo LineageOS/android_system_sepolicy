@@ -25,3 +25,12 @@ userdebug_or_eng(`
   auditallow untrusted_app_29 mdnsd_socket:sock_file write;
   auditallow untrusted_app_29 mdnsd:unix_stream_socket connectto;
 ')
+
+# Allow calling inotify on APKs for backwards compatibility. This is disallowed
+# for targetSdkVersion>=34 to remove a sidechannel.
+allow untrusted_app_29 apk_data_file:dir { watch watch_reads };
+allow untrusted_app_29 apk_data_file:file { watch watch_reads };
+userdebug_or_eng(`
+  auditallow untrusted_app_29 apk_data_file:dir { watch watch_reads };
+  auditallow untrusted_app_29 apk_data_file:file { watch watch_reads };
+')
