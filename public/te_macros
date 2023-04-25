@@ -204,6 +204,13 @@ allow $1 virtualizationservice_data_file:file { getattr read };
 ')
 
 #####################################
+# sdk_sandbox_domain(domain)
+# Allow a base set of permissions required for all sdk sandboxes
+define(`sdk_sandbox_domain', `
+typeattribute $1 sdk_sandbox_all;
+')
+
+#####################################
 # app_domain(domain)
 # Allow a base set of permissions required for all apps.
 define(`app_domain', `
