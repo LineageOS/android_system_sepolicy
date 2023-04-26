@@ -1,0 +1,15 @@
+# Policies for Remote Key Provisioning Daemon (rkpd)
+type rkpd, domain;
+type rkpd_exec, system_file_type, exec_type, file_type;
+
+typeattribute rkpd coredomain;
+
+binder_use(rkpd)
+binder_service(rkpd)
+
+init_daemon_domain(rkpd)
+
+add_service(rkpd, rkpd_registrar_service)
+add_service(rkpd, rkpd_refresh_service)
+
+get_prop(rkpd, device_config_remote_key_provisioning_native_prop)
