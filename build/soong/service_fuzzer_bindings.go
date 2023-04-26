@@ -149,6 +149,7 @@ var (
 		"adservices_manager": EXCEPTION_NO_FUZZER,
 		"aidl_lazy_test_1":   EXCEPTION_NO_FUZZER,
 		"aidl_lazy_test_2":   EXCEPTION_NO_FUZZER,
+		"aidl_lazy_test_quit":   EXCEPTION_NO_FUZZER,
 		"aidl_lazy_cb_test":  EXCEPTION_NO_FUZZER,
 		"alarm":              EXCEPTION_NO_FUZZER,
 		"android.hardware.automotive.evs.IEvsEnumerator/default":          EXCEPTION_NO_FUZZER,
