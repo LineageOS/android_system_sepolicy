@@ -292,6 +292,7 @@ apexd.config.           u:object_r:apexd_config_prop:s0
 apexd.config.dm_delete.timeout           u:object_r:apexd_config_prop:s0 exact uint
 apexd.config.dm_create.timeout           u:object_r:apexd_config_prop:s0 exact uint
 apexd.config.loop_wait.attempts          u:object_r:apexd_config_prop:s0 exact uint
+apexd.config.boot_activation.threads     u:object_r:apexd_config_prop:s0 exact uint
 persist.apexd.          u:object_r:apexd_prop:s0
 persist.vendor.apex.    u:object_r:apexd_select_prop:s0
 ro.boot.vendor.apex.    u:object_r:apexd_select_prop:s0
