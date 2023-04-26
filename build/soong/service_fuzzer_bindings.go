@@ -166,7 +166,7 @@ var (
 		"android.security.legacykeystore":                                 EXCEPTION_NO_FUZZER,
 		"android.security.maintenance":                                    EXCEPTION_NO_FUZZER,
 		"android.security.metrics":                                        EXCEPTION_NO_FUZZER,
-		"android.service.gatekeeper.IGateKeeperService":                   EXCEPTION_NO_FUZZER,
+		"android.service.gatekeeper.IGateKeeperService":                   []string{"gatekeeperd_service_fuzzer"},
 		"android.system.composd":                                          EXCEPTION_NO_FUZZER,
 		"android.system.virtualizationservice":                            EXCEPTION_NO_FUZZER,
 		"ambient_context":                                                 EXCEPTION_NO_FUZZER,
