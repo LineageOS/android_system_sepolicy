@@ -36,7 +36,7 @@ type neverallowTestProperties struct {
 type neverallowTestModule struct {
 	android.ModuleBase
 	properties    neverallowTestProperties
-	testTimestamp android.ModuleOutPath
+	testTimestamp android.OutputPath
 }
 
 type nameProperties struct {
@@ -98,7 +98,7 @@ func (n *neverallowTestModule) DepsMutator(ctx android.BottomUpMutatorContext) {
 }
 
 func (n *neverallowTestModule) GenerateAndroidBuildActions(ctx android.ModuleContext) {
-	n.testTimestamp = android.PathForModuleOut(ctx, "timestamp")
+	n.testTimestamp = pathForModuleOut(ctx, "timestamp")
 	if ctx.Config().SelinuxIgnoreNeverallows() {
 		// just touch
 		android.WriteFileRule(ctx, n.testTimestamp, "")
@@ -146,7 +146,7 @@ func (n *neverallowTestModule) GenerateAndroidBuildActions(ctx android.ModuleCon
 	rule := android.NewRuleBuilder(pctx, ctx)
 
 	// Step 1. Build a binary policy from the conf file including build test
-	binaryPolicy := android.PathForModuleOut(ctx, "policy")
+	binaryPolicy := pathForModuleOut(ctx, "policy")
 	rule.Command().BuiltTool("checkpolicy").
 		Flag("-M").
 		FlagWithArg("-c ", strconv.Itoa(PolicyVers)).
