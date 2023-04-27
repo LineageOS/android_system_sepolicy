@@ -142,6 +142,7 @@ se_policy_conf {
         system_ext_public_policy +
         product_public_policy +
         reqd_mask_policy,
+    vendor: true,
     installable: false,
 }
 
@@ -150,6 +151,7 @@ se_policy_cil {
     src: ":pub_policy.conf",
     filter_out: [":reqd_policy_mask.cil"],
     secilc_check: false,
+    vendor: true,
     installable: false,
 }
 
@@ -158,6 +160,7 @@ se_policy_conf {
     srcs: plat_public_policy +
         system_ext_public_policy +
         reqd_mask_policy,
+    system_ext_specific: true,
     installable: false,
 }
 
@@ -166,6 +169,7 @@ se_policy_cil {
     src: ":system_ext_pub_policy.conf",
     filter_out: [":reqd_policy_mask.cil"],
     secilc_check: false,
+    system_ext_specific: true,
     installable: false,
 }
 
@@ -290,6 +294,7 @@ se_policy_conf {
         plat_private_policy +
         system_ext_public_policy +
         system_ext_private_policy,
+    system_ext_specific: true,
     installable: false,
 }
 
@@ -311,6 +316,7 @@ se_policy_conf {
         system_ext_private_policy +
         product_public_policy +
         product_private_policy,
+    product_specific: true,
     installable: false,
 }
 
@@ -476,6 +482,7 @@ se_policy_conf {
         ":se_build_files{.plat_vendor_for_vendor}",
         ":se_build_files{.vendor}",
     ],
+    vendor: true,
     installable: false,
 }
 
@@ -484,6 +491,7 @@ se_policy_cil {
     src: ":vendor_sepolicy.conf",
     filter_out: [":reqd_policy_mask_for_vendor.cil"],
     secilc_check: false, // will be done in se_versioned_policy module
+    vendor: true,
     installable: false,
 }
 
@@ -511,6 +519,7 @@ se_policy_conf {
         ":se_build_files{.vendor}",
         ":se_build_files{.odm}",
     ],
+    device_specific: true,
     installable: false,
 }
 
@@ -522,6 +531,7 @@ se_policy_cil {
         ":vendor_sepolicy.cil",
     ],
     secilc_check: false, // will be done in se_versioned_policy module
+    device_specific: true,
     installable: false,
 }
 
@@ -795,6 +805,7 @@ se_policy_conf {
     ],
     target_recovery: true,
     installable: false,
+    recovery: true,
 }
 
 se_policy_cil {
@@ -802,6 +813,7 @@ se_policy_cil {
     src: ":recovery_sepolicy.conf",
     secilc_check: false, // will be done in se_policy_binary module
     installable: false,
+    recovery: true,
 }
 
 se_policy_binary {
@@ -864,6 +876,7 @@ se_policy_conf {
         system_ext_private_policy,
     build_variant: "user",
     installable: false,
+    system_ext_specific: true,
 }
 
 se_policy_cil {
@@ -892,6 +905,7 @@ se_policy_conf {
         product_private_policy,
     build_variant: "user",
     installable: false,
+    product_specific: true,
 }
 
 se_policy_cil {
@@ -936,6 +950,7 @@ se_policy_conf {
         reqd_mask_policy,
     build_variant: "user",
     installable: false,
+    system_ext_specific: true,
 }
 
 se_policy_cil {
@@ -944,6 +959,7 @@ se_policy_cil {
     filter_out: [":reqd_policy_mask.cil"],
     secilc_check: false,
     installable: false,
+    system_ext_specific: true,
 }
 
 se_policy_conf {
@@ -954,6 +970,7 @@ se_policy_conf {
         reqd_mask_policy,
     build_variant: "user",
     installable: false,
+    product_specific: true,
 }
 
 se_policy_cil {
@@ -962,6 +979,7 @@ se_policy_cil {
     filter_out: [":reqd_policy_mask.cil"],
     secilc_check: false,
     installable: false,
+    product_specific: true,
 }
 
 // bug_map - Bug tracking information for selinux denials loaded by auditd.
@@ -1008,6 +1026,7 @@ se_neverallow_test {
         ":se_build_files{.vendor}",
         ":se_build_files{.odm}",
     ],
+    vendor: true,
 }
 
 //////////////////////////////////

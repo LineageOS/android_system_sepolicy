@@ -209,7 +209,7 @@ func findPolicyConfOrder(name string) int {
 }
 
 func (c *policyConf) transformPolicyToConf(ctx android.ModuleContext) android.OutputPath {
-	conf := android.PathForModuleOut(ctx, c.stem()).OutputPath
+	conf := pathForModuleOut(ctx, c.stem())
 	rule := android.NewRuleBuilder(pctx, ctx)
 
 	srcs := android.PathsForModuleSrc(ctx, c.properties.Srcs)
@@ -340,7 +340,7 @@ func (c *policyCil) stem() string {
 }
 
 func (c *policyCil) compileConfToCil(ctx android.ModuleContext, conf android.Path) android.OutputPath {
-	cil := android.PathForModuleOut(ctx, c.stem()).OutputPath
+	cil := pathForModuleOut(ctx, c.stem())
 	rule := android.NewRuleBuilder(pctx, ctx)
 	checkpolicyCmd := rule.Command().BuiltTool("checkpolicy").
 		Flag("-C"). // Write CIL
@@ -496,7 +496,7 @@ func (c *policyBinary) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 		ctx.PropertyErrorf("srcs", "must be specified")
 		return
 	}
-	bin := android.PathForModuleOut(ctx, c.stem()+"_policy")
+	bin := pathForModuleOut(ctx, c.stem()+"_policy")
 	rule := android.NewRuleBuilder(pctx, ctx)
 	secilcCmd := rule.Command().BuiltTool("secilc").
 		Flag("-m").                 // Multiple decls
@@ -514,7 +514,7 @@ func (c *policyBinary) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 
 	// permissive check is performed only in user build (not debuggable).
 	if !ctx.Config().Debuggable() {
-		permissiveDomains := android.PathForModuleOut(ctx, c.stem()+"_permissive")
+		permissiveDomains := pathForModuleOut(ctx, c.stem()+"_permissive")
 		cmd := rule.Command().BuiltTool("sepolicy-analyze").
 			Input(bin).
 			Text("permissive")
@@ -544,7 +544,7 @@ func (c *policyBinary) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 			Text("; exit 1; fi")
 	}
 
-	out := android.PathForModuleOut(ctx, c.stem())
+	out := pathForModuleOut(ctx, c.stem())
 	rule.Command().Text("cp").
 		Flag("-f").
 		Input(bin).
