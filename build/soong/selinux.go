@@ -28,3 +28,15 @@ type dependencyTag struct {
 var (
 	pctx = android.NewPackageContext("android/soong/selinux")
 )
+
+// pathForModuleOut is same as android.PathForModuleOut, except that it uses DeviceName() as its
+// intermediate directory name for system_ext/product/vendor/odm modules, to avoid rebuilding upon
+// target change. Contents of system modules (core sepolicy) should be identical across devices, so
+// they falls back to android.PathForModuleOut.
+func pathForModuleOut(ctx android.ModuleContext, paths ...string) android.OutputPath {
+	if ctx.Platform() && !ctx.InstallInRecovery() {
+		return android.PathForModuleOut(ctx, paths...).OutputPath
+	}
+
+	return android.PathForModuleOut(ctx, ctx.Config().DeviceName()).Join(ctx, paths...)
+}

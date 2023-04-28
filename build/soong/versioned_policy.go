@@ -103,7 +103,7 @@ func (m *versionedPolicy) GenerateAndroidBuildActions(ctx android.ModuleContext)
 		stem = ctx.ModuleName()
 	}
 
-	out := android.PathForModuleOut(ctx, stem)
+	out := pathForModuleOut(ctx, stem)
 	rule := android.NewRuleBuilder(pctx, ctx)
 
 	if proptools.String(m.properties.Base) == "" {
