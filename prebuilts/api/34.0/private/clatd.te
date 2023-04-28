@@ -1,0 +1,12 @@
+# 464xlat daemon
+type clatd, domain, coredomain;
+type clatd_exec, system_file_type, exec_type, file_type;
+
+net_domain(clatd)
+
+# Access objects inherited from system_server.
+allow clatd system_server:fd use;
+allow clatd system_server:packet_socket { read write };
+allow clatd system_server:rawip_socket { read write };
+
+allow clatd tun_device:chr_file rw_file_perms;

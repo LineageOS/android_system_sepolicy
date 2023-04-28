@@ -1,0 +1,63 @@
+# snapuserd - Daemon for servicing dm-user requests for Virtual A/B snapshots.
+type snapuserd, domain;
+type snapuserd_exec, exec_type, file_type, system_file_type;
+
+typeattribute snapuserd coredomain;
+
+init_daemon_domain(snapuserd)
+
+allow snapuserd kmsg_device:chr_file rw_file_perms;
+
+# Allow snapuserd to reach block devices in /dev/block.
+allow snapuserd block_device:dir search;
+
+# Read /sys/block to find all the DM directories like (/sys/block/dm-X).
+allow snapuserd sysfs:dir { open read };
+
+# Read /sys/block/dm-X/dm/name (which is a symlink to
+# /sys/devices/virtual/block/dm-X/dm/name) to identify the mapping between
+# dm-X and dynamic partitions.
+allow snapuserd sysfs_dm:dir { open read search };
+allow snapuserd sysfs_dm:file r_file_perms;
+
+# Reading and writing to /dev/block/dm-* (device-mapper) nodes.
+allow snapuserd block_device:dir r_dir_perms;
+allow snapuserd dm_device:chr_file rw_file_perms;
+allow snapuserd dm_device:blk_file rw_file_perms;
+
+# Reading and writing to dm-user control nodes.
+allow snapuserd dm_user_device:dir r_dir_perms;
+allow snapuserd dm_user_device:chr_file rw_file_perms;
+
+# Reading and writing to /dev/socket/snapuserd and snapuserd_proxy.
+allow snapuserd snapuserd_socket:unix_stream_socket { accept listen getattr read write };
+allow snapuserd snapuserd_proxy_socket:sock_file write;
+
+# This arises due to first-stage init opening /dev/null without F_CLOEXEC
+# (see SetStdioToDevNull in init). When we fork() and execveat() snapuserd
+# again, the descriptor leaks into the new process.
+allow snapuserd kernel:fd use;
+
+# snapuserd.* properties
+set_prop(snapuserd, snapuserd_prop)
+get_prop(snapuserd, virtual_ab_prop)
+
+# For inotify watching for /dev/socket/snapuserd_proxy to appear.
+allow snapuserd tmpfs:dir { read watch };
+
+# Forbid anything other than snapuserd and init setting snapuserd properties.
+neverallow {
+  domain
+  -snapuserd
+  -init
+} snapuserd_prop:property_service set;
+
+# Allow to read/write/create OTA metadata files
+allow snapuserd metadata_file:dir search;
+allow snapuserd ota_metadata_file:dir rw_dir_perms;
+allow snapuserd ota_metadata_file:file create_file_perms;
+
+# This capability allows snapuserd to circumvent memlock rlimits while using
+# io_uring. An Alternative would be to up the memlock rlimit for the snapuserd service.
+allow snapuserd self:capability ipc_lock;
+io_uring_use(snapuserd)
