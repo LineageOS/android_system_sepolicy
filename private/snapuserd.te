@@ -57,6 +57,13 @@ allow snapuserd metadata_file:dir search;
 allow snapuserd ota_metadata_file:dir rw_dir_perms;
 allow snapuserd ota_metadata_file:file create_file_perms;
 
+# write to /data/misc/snapuserd_log
+allow snapuserd snapuserd_log_data_file:dir create_dir_perms;
+allow snapuserd snapuserd_log_data_file:file create_file_perms;
+
+# Read /proc/stat to determine boot time
+allow snapuserd proc_stat:file r_file_perms;
+
 # This capability allows snapuserd to circumvent memlock rlimits while using
 # io_uring. An Alternative would be to up the memlock rlimit for the snapuserd service.
 allow snapuserd self:capability ipc_lock;
