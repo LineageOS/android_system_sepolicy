@@ -1106,10 +1106,9 @@ allow system_server toolbox_exec:file rx_file_perms;
 # Allow system process to setup fs-verity
 allowxperm system_server { apk_data_file system_data_file apex_system_server_data_file }:file ioctl FS_IOC_ENABLE_VERITY;
 
-# Allow system process to measure fs-verity for apps, apps being installed and system files
-allowxperm system_server { apk_data_file apk_tmp_file system_file }:file ioctl FS_IOC_MEASURE_VERITY;
+# Allow system process to measure fs-verity for apps, including those being installed
+allowxperm system_server { apk_data_file apk_tmp_file }:file ioctl FS_IOC_MEASURE_VERITY;
 allowxperm system_server apk_tmp_file:file ioctl FS_IOC_SETFLAGS;
-allow system_server system_file:file ioctl;
 
 # Postinstall
 #
