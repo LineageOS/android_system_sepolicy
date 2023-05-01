@@ -949,6 +949,8 @@ ro.product.cpu.abilist   u:object_r:build_prop:s0 exact string
 ro.product.cpu.abilist32 u:object_r:build_prop:s0 exact string
 ro.product.cpu.abilist64 u:object_r:build_prop:s0 exact string
 
+ro.product.cpu.pagesize.max    u:object_r:build_prop:s0 exact enum 4096 16384 65536
+
 ro.product.system.brand        u:object_r:build_prop:s0 exact string
 ro.product.system.device       u:object_r:build_prop:s0 exact string
 ro.product.system.manufacturer u:object_r:build_prop:s0 exact string
