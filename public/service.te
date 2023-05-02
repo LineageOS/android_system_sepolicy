@@ -80,7 +80,7 @@ type battery_service, system_server_service, service_manager_type;
 type binder_calls_stats_service, system_server_service, service_manager_type;
 type blob_store_service, app_api_service, system_server_service, service_manager_type;
 type bluetooth_manager_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
-type broadcastradio_service, system_server_service, service_manager_type;
+type broadcastradio_service, app_api_service, system_server_service, service_manager_type;
 type cacheinfo_service, system_api_service, system_server_service, service_manager_type;
 type cameraproxy_service, system_server_service, service_manager_type;
 type clipboard_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
