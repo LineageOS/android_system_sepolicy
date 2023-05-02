@@ -259,6 +259,9 @@ allow dumpstate recovery_data_file:file r_file_perms;
 # Access /data/misc/update_engine & /data/misc/update_engine_log
 allow dumpstate { update_engine_data_file update_engine_log_data_file }:dir r_dir_perms;
 allow dumpstate { update_engine_data_file update_engine_log_data_file }:file r_file_perms;
+# Access /data/misc/snapuserd_log
+allow dumpstate snapuserd_log_data_file:dir r_dir_perms;
+allow dumpstate snapuserd_log_data_file:file r_file_perms;
 
 # Access /data/misc/profiles/{cur,ref}/
 userdebug_or_eng(`
