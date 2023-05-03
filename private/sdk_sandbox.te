@@ -297,6 +297,26 @@ neverallow {
     -zygote
 } sdk_sandbox_system_data_file:dir { create_dir_perms relabelto };
 
+# Only certain domains should be able to open and write to the SDK's data directory.
+neverallow {
+    domain
+    -artd
+    -init
+    -installd
+    -sdk_sandbox
+    -vold_prepare_subdirs
+} sdk_sandbox_data_file:dir ~{read getattr search};
+
+# Most domains shouldn't be able to open files in the SDK's data directory, unless given an open FD.
+neverallow {
+    domain
+    -artd
+    -init
+    -installd
+    -sdk_sandbox
+    -vold_prepare_subdirs
+} sdk_sandbox_data_file:file ~{append read write getattr lock map};
+
 # sdk_sandbox only needs to traverse through the sdk_sandbox_system_data_file
 neverallow sdk_sandbox sdk_sandbox_system_data_file:dir ~{ getattr search };
 
