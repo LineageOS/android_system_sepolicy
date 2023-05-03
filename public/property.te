@@ -101,7 +101,6 @@ system_restricted_prop(usb_prop)
 system_restricted_prop(userspace_reboot_exported_prop)
 system_restricted_prop(vold_status_prop)
 system_restricted_prop(vts_status_prop)
-system_restricted_prop(graphics_config_writable_prop)
 
 
 compatible_property_only(`
@@ -223,6 +222,7 @@ system_public_prop(future_pm_prop)
 system_public_prop(ffs_control_prop)
 system_public_prop(framework_status_prop)
 system_public_prop(gesture_prop)
+system_public_prop(graphics_config_writable_prop)
 system_public_prop(hal_dumpstate_config_prop)
 system_public_prop(sota_prop)
 system_public_prop(hwservicemanager_prop)
