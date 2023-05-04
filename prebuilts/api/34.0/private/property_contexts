@@ -1559,3 +1559,7 @@ ro.usb.uvc.enabled      u:object_r:usb_uvc_enabled_prop:s0 exact bool
 
 # System UI notification properties
 persist.sysui.notification.builder_extras_override u:object_r:persist_sysui_builder_extras_prop:s0 exact bool
+
+# Properties for Quick Start setup.
+ro.quick_start.oem_id u:object_r:quick_start_prop:s0 exact string
+ro.quick_start.device_id u:object_r:quick_start_prop:s0 exact string
