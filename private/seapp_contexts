@@ -148,8 +148,8 @@ neverallow isEphemeralApp=true domain=((?!ephemeral_app).)*
 
 isSystemServer=true domain=system_server_startup
 
-# sdksandbox must run in the sdksandbox domain
-neverallow name=com.android.sdksandbox domain=((?!sdk_sandbox).)*
+# sdksandbox must run in an sdksandbox domain
+neverallow user=_sdksandbox domain=((?!sdk_sandbox).)*
 
 user=_app seinfo=platform name=com.android.traceur domain=traceur_app type=app_data_file levelFrom=all
 user=system seinfo=platform domain=system_app type=system_app_data_file
@@ -164,7 +164,7 @@ user=shell seinfo=platform domain=shell name=com.android.shell type=shell_data_f
 user=webview_zygote seinfo=webview_zygote domain=webview_zygote
 user=_isolated domain=isolated_app levelFrom=user
 user=_isolated isIsolatedComputeApp=true domain=isolated_compute_app levelFrom=user
-user=_sdksandbox domain=sdk_sandbox type=sdk_sandbox_data_file levelFrom=all
+user=_sdksandbox domain=sdk_sandbox_34 type=sdk_sandbox_data_file levelFrom=all
 user=_app seinfo=app_zygote domain=app_zygote levelFrom=user
 user=_app seinfo=media domain=mediaprovider type=app_data_file levelFrom=user
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
