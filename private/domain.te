@@ -534,6 +534,10 @@ neverallow { domain -coredomain } pm_prop:file no_rw_file_perms;
 # Do not allow reading the last boot timestamp from system properties
 neverallow { domain -init -system_server -dumpstate } firstboot_prop:file r_file_perms;
 
+# Allow ART to set its config properties in its oneshot boot service, in
+# addition to the common init and vendor_init access.
+neverallow { domain -art_boot -init -vendor_init } dalvik_config_prop:property_service set;
+
 # Kprobes should only be used by adb root
 neverallow { domain -init -vendor_init } debugfs_kprobes:file *;
 
