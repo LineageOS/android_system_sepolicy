@@ -769,6 +769,7 @@ set_prop(system_server, device_config_virtualization_framework_native_prop)
 set_prop(system_server, device_config_memory_safety_native_boot_prop)
 set_prop(system_server, device_config_memory_safety_native_prop)
 set_prop(system_server, device_config_remote_key_provisioning_native_prop)
+set_prop(system_server, device_config_tethering_u_or_later_native_prop)
 set_prop(system_server, smart_idle_maint_enabled_prop)
 set_prop(system_server, arm64_memtag_prop)
 
@@ -1322,6 +1323,7 @@ neverallow {
   device_config_sys_traced_prop
   device_config_swcodec_native_prop
   device_config_window_manager_native_boot_prop
+  device_config_tethering_u_or_later_native_prop
 }:property_service set;
 
 # Only allow system_server and init to set tuner_server_ctl_prop
