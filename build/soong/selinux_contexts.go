@@ -333,7 +333,7 @@ func fileFactory() android.Module {
 	return m
 }
 
-func (m *selinuxContextsModule) buildHwServiceContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
+func (m *selinuxContextsModule) buildServiceContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
 	if m.properties.Remove_comment == nil {
 		m.properties.Remove_comment = proptools.BoolPtr(true)
 	}
@@ -478,7 +478,7 @@ func (m *selinuxContextsModule) buildSeappContexts(ctx android.ModuleContext, in
 
 func hwServiceFactory() android.Module {
 	m := newModule()
-	m.build = m.buildHwServiceContexts
+	m.build = m.buildServiceContexts
 	return m
 }
 
@@ -491,7 +491,7 @@ func propertyFactory() android.Module {
 
 func serviceFactory() android.Module {
 	m := newModule()
-	m.build = m.buildGeneralContexts
+	m.build = m.buildServiceContexts
 	return m
 }
 
