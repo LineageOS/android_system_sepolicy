@@ -165,6 +165,7 @@ user=webview_zygote seinfo=webview_zygote domain=webview_zygote
 user=_isolated domain=isolated_app levelFrom=user
 user=_isolated isIsolatedComputeApp=true domain=isolated_compute_app levelFrom=user
 user=_sdksandbox domain=sdk_sandbox_34 type=sdk_sandbox_data_file levelFrom=all
+user=_sdksandbox minTargetSdkVersion=10000 domain=sdk_sandbox_next type=sdk_sandbox_data_file levelFrom=all
 user=_app seinfo=app_zygote domain=app_zygote levelFrom=user
 user=_app seinfo=media domain=mediaprovider type=app_data_file levelFrom=user
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
