@@ -1207,6 +1207,7 @@ allow system_server profman_dump_data_file:dir rw_dir_perms;
 
 # On userdebug build we may profile system server. Allow it to write and create its own profile.
 userdebug_or_eng(`
+  allow system_server user_profile_data_file:dir w_dir_perms;
   allow system_server user_profile_data_file:file create_file_perms;
 ')
 # Allow system server to load JVMTI agents under control of a property.
