@@ -2,6 +2,7 @@
 # System files
 #
 (/.*)?                         u:object_r:system_file:s0
+/bin/art_boot                  u:object_r:art_boot_exec:s0
 /bin/art_exec                  u:object_r:art_exec_exec:s0
 /bin/artd                      u:object_r:artd_exec:s0
 /bin/dex2oat(32|64)?           u:object_r:dex2oat_exec:s0
