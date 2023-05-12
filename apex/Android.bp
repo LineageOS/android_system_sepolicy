@@ -239,13 +239,6 @@ filegroup {
 }
 
 filegroup {
-  name: "com.android.tethering.inprocess-file_contexts",
-  srcs: [
-    "com.android.tethering.inprocess-file_contexts",
-  ],
-}
-
-filegroup {
   name: "com.android.extservices-file_contexts",
   srcs: [
     "com.android.extservices-file_contexts",
