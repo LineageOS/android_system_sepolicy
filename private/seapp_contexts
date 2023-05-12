@@ -12,6 +12,7 @@
 #       minTargetSdkVersion (unsigned integer)
 #       fromRunAs (boolean)
 #       isIsolatedComputeApp (boolean)
+#       isSdkSandboxNext (boolean)
 #
 # All specified input selectors in an entry must match (i.e. logical AND).
 # An unspecified string or boolean selector with no default will match any
@@ -47,6 +48,9 @@
 # with user=_isolated. This selector should not be used unless it is intended
 # to provide isolated processes with relaxed security restrictions.
 #
+# isSdkSandboxNext=true means sdk sandbox processes will get
+# sdk_sandbox_next sepolicy applied to them.
+#
 # Precedence: entries are compared using the following rules, in the order shown
 # (see external/selinux/libselinux/src/android/android_platform.c,
 # seapp_context_cmp()).
@@ -64,6 +68,7 @@
 #              defaults to 0 if unspecified.
 #       (8) fromRunAs=true before fromRunAs=false.
 #       (9) isIsolatedComputeApp=true before isIsolatedComputeApp=false
+#       (10) isSdkSandboxNext=true before isSdkSandboxNext=false
 # (A fixed selector is more specific than a prefix, i.e. ending in *, and a
 # longer prefix is more specific than a shorter prefix.)
 # Apps are checked against entries in precedence order until the first match,
@@ -165,7 +170,7 @@ user=webview_zygote seinfo=webview_zygote domain=webview_zygote
 user=_isolated domain=isolated_app levelFrom=user
 user=_isolated isIsolatedComputeApp=true domain=isolated_compute_app levelFrom=user
 user=_sdksandbox domain=sdk_sandbox_34 type=sdk_sandbox_data_file levelFrom=all
-user=_sdksandbox minTargetSdkVersion=10000 domain=sdk_sandbox_next type=sdk_sandbox_data_file levelFrom=all
+user=_sdksandbox isSdkSandboxNext=true domain=sdk_sandbox_next type=sdk_sandbox_data_file levelFrom=all
 user=_app seinfo=app_zygote domain=app_zygote levelFrom=user
 user=_app seinfo=media domain=mediaprovider type=app_data_file levelFrom=user
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user
