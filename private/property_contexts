@@ -1448,8 +1448,8 @@ partition.product.verified.root_digest    u:object_r:verity_status_prop:s0 exact
 partition.vendor.verified.root_digest     u:object_r:verity_status_prop:s0 exact string
 partition.odm.verified.root_digest        u:object_r:verity_status_prop:s0 exact string
 
-ro.setupwizard.esim_cid_ignore u:object_r:setupwizard_esim_prop:s0 exact string
 ro.setupwizard.enterprise_mode u:object_r:setupwizard_prop:s0 exact bool
+ro.setupwizard.esim_cid_ignore u:object_r:setupwizard_prop:s0 exact string
 ro.setupwizard.rotation_locked u:object_r:setupwizard_prop:s0 exact bool
 ro.setupwizard.wifi_on_exit    u:object_r:setupwizard_prop:s0 exact bool
 
