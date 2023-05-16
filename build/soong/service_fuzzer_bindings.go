@@ -267,7 +267,7 @@ var (
 		"healthconnect":                EXCEPTION_NO_FUZZER,
 		"ions":                         EXCEPTION_NO_FUZZER,
 		"idmap":                        EXCEPTION_NO_FUZZER,
-		"incident":                     EXCEPTION_NO_FUZZER,
+		"incident":                     []string{"incidentd_service_fuzzer"},
 		"incidentcompanion":            EXCEPTION_NO_FUZZER,
 		"inputflinger":                 EXCEPTION_NO_FUZZER,
 		"input_method":                 EXCEPTION_NO_FUZZER,
