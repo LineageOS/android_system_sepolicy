@@ -80,7 +80,7 @@ allow netd self:global_capability_class_set fowner;
 allow netd system_file:file lock;
 
 # Allow netd to spawn dnsmasq in it's own domain
-allow netd dnsmasq:process signal;
+allow netd dnsmasq:process { sigkill signal };
 
 # Allow netd to publish a binder service and make binder calls.
 binder_use(netd)
