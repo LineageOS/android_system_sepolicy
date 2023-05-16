@@ -23,7 +23,7 @@ import (
 
 func init() {
 	ctx := android.InitRegistrationContext
-	ctx.RegisterSingletonModuleType("se_freeze_test", freezeTestFactory)
+	ctx.RegisterParallelSingletonModuleType("se_freeze_test", freezeTestFactory)
 }
 
 // se_freeze_test compares the plat sepolicy with the prebuilt sepolicy.  Additional directories can
