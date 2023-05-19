@@ -272,7 +272,7 @@ var (
 		"inputflinger":                 EXCEPTION_NO_FUZZER,
 		"input_method":                 EXCEPTION_NO_FUZZER,
 		"input":                        EXCEPTION_NO_FUZZER,
-		"installd":                     EXCEPTION_NO_FUZZER,
+		"installd":                     []string{"installd_service_fuzzer"},
 		"iphonesubinfo_msim":           EXCEPTION_NO_FUZZER,
 		"iphonesubinfo2":               EXCEPTION_NO_FUZZER,
 		"iphonesubinfo":                EXCEPTION_NO_FUZZER,
