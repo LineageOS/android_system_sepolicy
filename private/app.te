@@ -262,6 +262,9 @@ allow { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } { app_
 # Access via already open fds is ok even for mlstrustedsubject.
 allow { appdomain -isolated_app_all -sdk_sandbox_all } { app_data_file privapp_data_file system_app_data_file }:file { getattr map read write };
 
+# Access open fds from SDK sandbox
+allow appdomain sdk_sandbox_data_file:file { getattr read };
+
 # Traverse into expanded storage
 allow appdomain mnt_expand_file:dir r_dir_perms;
 
