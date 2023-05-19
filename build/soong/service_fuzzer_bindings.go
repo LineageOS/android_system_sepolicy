@@ -302,7 +302,7 @@ var (
 		"media.aaudio":                 EXCEPTION_NO_FUZZER,
 		"media.audio_flinger":          EXCEPTION_NO_FUZZER,
 		"media.audio_policy":           EXCEPTION_NO_FUZZER,
-		"media.camera":                 EXCEPTION_NO_FUZZER,
+		"media.camera":                 []string{"camera_service_aidl_fuzzer"},
 		"media.camera.proxy":           EXCEPTION_NO_FUZZER,
 		"media.log":                    EXCEPTION_NO_FUZZER,
 		"media.player":                 EXCEPTION_NO_FUZZER,
