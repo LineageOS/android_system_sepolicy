@@ -1203,7 +1203,6 @@ ro.hardware.camera               u:object_r:exported_default_prop:s0 exact strin
 ro.hardware.consumerir           u:object_r:exported_default_prop:s0 exact string
 ro.hardware.context_hub          u:object_r:exported_default_prop:s0 exact string
 ro.hardware.egl                  u:object_r:exported_default_prop:s0 exact string
-ro.hardware.egl_legacy           u:object_r:graphics_config_prop:s0 exact string
 ro.hardware.fingerprint          u:object_r:exported_default_prop:s0 exact string
 ro.hardware.flp                  u:object_r:exported_default_prop:s0 exact string
 ro.hardware.gatekeeper           u:object_r:exported_default_prop:s0 exact string
