@@ -29,7 +29,7 @@ var (
 func init() {
 	ctx := android.InitRegistrationContext
 	ctx.RegisterModuleType("se_compat_cil", compatCilFactory)
-	ctx.RegisterSingletonModuleType("se_compat_test", compatTestFactory)
+	ctx.RegisterParallelSingletonModuleType("se_compat_test", compatTestFactory)
 }
 
 // se_compat_cil collects and installs backwards compatibility cil files.
