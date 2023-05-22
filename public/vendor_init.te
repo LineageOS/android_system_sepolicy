@@ -301,7 +301,7 @@ neverallow { domain -init } vendor_init:process transition;
 neverallow vendor_init { file_type fs_type -init_exec }:file entrypoint;
 
 # Never read/follow symlinks created by shell or untrusted apps.
-neverallow vendor_init { app_data_file privapp_data_file }:lnk_file read;
+neverallow vendor_init app_data_file_type:lnk_file read;
 neverallow vendor_init shell_data_file:lnk_file read;
 # Init should not be creating subdirectories in /data/local/tmp
 neverallow vendor_init shell_data_file:dir { write add_name remove_name };
