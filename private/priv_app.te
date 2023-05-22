@@ -218,7 +218,7 @@ neverallow priv_app kmsg_device:chr_file no_rw_file_perms;
 
 # Too much leaky information in debugfs. It's a security
 # best practice to ensure these files aren't readable.
-neverallow priv_app debugfs:file read;
+neverallow priv_app debugfs_type:file read;
 
 # Do not allow privileged apps to register services.
 # Only trusted components of Android should be registering
