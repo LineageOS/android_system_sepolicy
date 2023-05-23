@@ -70,5 +70,6 @@ never_profile_heap(`{
 }')
 
 full_treble_only(`
-  neverallow heapprofd vendor_file:file { no_w_file_perms no_x_file_perms };
+  neverallow heapprofd vendor_file_type:file no_w_file_perms;
+  neverallow heapprofd { vendor_file_type -vndk_sp_file }:file no_x_file_perms;
 ')
