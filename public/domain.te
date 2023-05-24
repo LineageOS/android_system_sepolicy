@@ -1053,6 +1053,7 @@ neverallow * self:process { execstack execheap };
 neverallow { domain -untrusted_app_25 -untrusted_app_27 } file_type:file execmod;
 
 neverallow { domain -init } proc:{ file dir } mounton;
+neverallow { domain -init -zygote } proc_type:{ file dir } mounton;
 
 # Ensure that all types assigned to processes are included
 # in the domain attribute, so that all allow and neverallow rules
