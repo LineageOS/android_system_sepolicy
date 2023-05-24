@@ -45,7 +45,7 @@ neverallow sdk_sandbox_all domain:netlink_socket *;
 
 # Too much leaky information in debugfs. It's a security
 # best practice to ensure these files aren't readable.
-neverallow sdk_sandbox_all debugfs:file read;
+neverallow sdk_sandbox_all debugfs_type:file read;
 
 # execute gpu_device
 neverallow sdk_sandbox_all gpu_device:chr_file execute;
