@@ -598,10 +598,6 @@ neverallow {
   -init
 } setupwizard_prop:property_service set;
 
-neverallow {
-  domain
-  -init
-} setupwizard_esim_prop:property_service set;
 # ro.product.property_source_order is useless after initialization of ro.product.* props.
 # So making it accessible only from init and vendor_init.
 neverallow {
