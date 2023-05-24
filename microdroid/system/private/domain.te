@@ -410,7 +410,7 @@ neverallow * *:{ shm sem msg msgq } *;
 # Feature parity with Chromium LSM.
 neverallow * { file_type fs_type dev_type }:{ lnk_file fifo_file sock_file } mounton;
 
-neverallow { domain -init } proc:{ file dir } mounton;
+neverallow { domain -init } proc_type:{ file dir } mounton;
 
 # Ensure that all types assigned to processes are included
 # in the domain attribute, so that all allow and neverallow rules
