@@ -69,6 +69,9 @@ allow ueventd vendor_shell_exec:file execute;
 allow ueventd dm_device:chr_file rw_file_perms;
 allow ueventd self:capability sys_admin;
 
+# Allow ueventd to read apexd property
+get_prop(ueventd, apexd_prop)
+
 #####
 ##### neverallow rules
 #####
