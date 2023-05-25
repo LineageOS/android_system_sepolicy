@@ -306,7 +306,7 @@ var (
 		"media.camera.proxy":           EXCEPTION_NO_FUZZER,
 		"media.log":                    EXCEPTION_NO_FUZZER,
 		"media.player":                 EXCEPTION_NO_FUZZER,
-		"media.metrics":                EXCEPTION_NO_FUZZER,
+		"media.metrics":                []string{"mediametrics_aidl_fuzzer"},
 		"media.extractor":              EXCEPTION_NO_FUZZER,
 		"media.transcoding":            EXCEPTION_NO_FUZZER,
 		"media.resource_manager":       []string{"resourcemanager_service_fuzzer", "mediaresourcemanager_fuzzer"},
