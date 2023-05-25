@@ -337,6 +337,7 @@ snapuserd.test.dm.snapshots u:object_r:snapuserd_prop:s0 exact bool
 snapuserd.test.io_uring.force_disable u:object_r:snapuserd_prop:s0 exact bool
 
 ro.product.ab_ota_partitions u:object_r:ota_prop:s0 exact string
+ro.vendor.build.ab_ota_partitions u:object_r:ota_build_prop:s0 exact string
 # Property to set/clear the warm reset flag after an OTA update.
 ota.warm_reset  u:object_r:ota_prop:s0
 # The vbmeta digest for the inactive slot. It can be set after installing
