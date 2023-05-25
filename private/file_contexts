@@ -263,6 +263,8 @@
 /system/bin/bufferhubd	u:object_r:bufferhubd_exec:s0
 /system/bin/performanced	u:object_r:performanced_exec:s0
 /system/bin/drmserver	u:object_r:drmserver_exec:s0
+/system/bin/drmserver32	u:object_r:drmserver_exec:s0
+/system/bin/drmserver64	u:object_r:drmserver_exec:s0
 /system/bin/dumpstate   u:object_r:dumpstate_exec:s0
 /system/bin/incident   u:object_r:incident_exec:s0
 /system/bin/incidentd   u:object_r:incidentd_exec:s0
