@@ -37,7 +37,7 @@ dontaudit isolated_app_all shell_data_file:dir search;
 #####
 
 # Isolated apps should not directly open app data files themselves.
-neverallow isolated_app_all { app_data_file privapp_data_file sdk_sandbox_data_file}:file open;
+neverallow isolated_app_all app_data_file_type:file open;
 
 # Only allow appending to /data/anr/traces.txt (b/27853304, b/18340553)
 # TODO: are there situations where isolated_apps write to this file?
