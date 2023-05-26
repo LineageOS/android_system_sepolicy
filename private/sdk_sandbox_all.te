@@ -35,7 +35,7 @@ allow sdk_sandbox_all { app_data_file privapp_data_file }:file { getattr read };
 ### neverallow rules
 ###
 
-neverallow sdk_sandbox_all { app_data_file privapp_data_file sdk_sandbox_data_file }:file { execute execute_no_trans };
+neverallow sdk_sandbox_all app_data_file_type:file { execute execute_no_trans };
 
 # Receive or send uevent messages.
 neverallow sdk_sandbox_all domain:netlink_kobject_uevent_socket *;
@@ -66,8 +66,9 @@ neverallow sdk_sandbox_all { sdcard_type media_rw_data_file }:dir search;
 neverallow sdk_sandbox_all proc_net:file no_rw_file_perms;
 
 # SDK sandbox processes have their own storage not related to app_data_file or privapp_data_file
-neverallow sdk_sandbox_all { app_data_file privapp_data_file }:dir no_rw_file_perms;
-neverallow sdk_sandbox_all { app_data_file privapp_data_file }:file ~{ getattr read };
+# TODO(b/280514080): shell_data_file shouldn't be allowed here
+neverallow sdk_sandbox_all { app_data_file_type -sdk_sandbox_data_file -shell_data_file -radio_data_file }:dir no_rw_file_perms;
+neverallow sdk_sandbox_all { app_data_file_type -sdk_sandbox_data_file -shell_data_file -radio_data_file }:file ~{ getattr read };
 
 # SDK sandbox processes don't  have any access to external storage
 neverallow sdk_sandbox_all { media_rw_data_file }:dir no_rw_file_perms;

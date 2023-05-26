@@ -262,10 +262,10 @@ neverallow priv_app cgroup_v2:file *;
 # application home directories. Code loading across a security boundary
 # is dangerous and allows a full compromise of a privileged process
 # by an unprivileged process. b/112357170
-neverallow priv_app app_data_file:file no_x_file_perms;
+neverallow priv_app { app_data_file_type -privapp_data_file }:file no_x_file_perms;
 
-# Do not follow untrusted app provided symlinks
-neverallow priv_app app_data_file:lnk_file { open read getattr };
+# Do not follow any app provided symlinks
+neverallow priv_app { app_data_file_type -privapp_data_file }:lnk_file { open read getattr };
 
 # Do not allow getting permission-protected network information from sysfs.
 neverallow priv_app sysfs_net:file *;
