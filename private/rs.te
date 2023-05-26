@@ -35,6 +35,6 @@ allow rs { untrusted_app_all ephemeral_app priv_app }:fd use;
 neverallow rs rs:capability_class_set *;
 neverallow { domain -appdomain } rs:process { dyntransition transition };
 neverallow rs { domain -crash_dump }:process { dyntransition transition };
-neverallow rs app_data_file:file_class_set ~r_file_perms;
+neverallow rs app_data_file_type:file_class_set ~r_file_perms;
 # rs should never use network sockets
 neverallow rs *:network_socket_class_set *;
