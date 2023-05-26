@@ -110,4 +110,4 @@ allow dex2oat apexd:fd use;
 # Neverallow #
 ##############
 
-neverallow dex2oat { privapp_data_file app_data_file }:notdevfile_class_set open;
+neverallow dex2oat app_data_file_type:notdevfile_class_set open;
