@@ -58,7 +58,7 @@ dontaudit traced_perf domain:dir { search getattr open };
 dontaudit traced_perf domain:process signal;
 
 # Never allow access to app data files
-neverallow traced_perf { app_data_file privapp_data_file system_app_data_file }:file *;
+neverallow traced_perf app_data_file_type:file *;
 
 # Never allow profiling privileged or otherwise incompatible domains.
 # Corresponding allow-rule is in private/domain.te.
