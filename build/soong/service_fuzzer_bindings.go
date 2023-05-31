@@ -307,7 +307,7 @@ var (
 		"media.log":                    EXCEPTION_NO_FUZZER,
 		"media.player":                 EXCEPTION_NO_FUZZER,
 		"media.metrics":                []string{"mediametrics_aidl_fuzzer"},
-		"media.extractor":              EXCEPTION_NO_FUZZER,
+		"media.extractor":              []string{"mediaextractor_service_fuzzer"},
 		"media.transcoding":            EXCEPTION_NO_FUZZER,
 		"media.resource_manager":       EXCEPTION_NO_FUZZER,
 		"media.resource_observer":      EXCEPTION_NO_FUZZER,
