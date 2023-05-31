@@ -1562,4 +1562,5 @@ vibrator.adaptive_haptics.enabled u:object_r:adaptive_haptics_prop:s0 exact stri
 ro.usb.uvc.enabled      u:object_r:usb_uvc_enabled_prop:s0 exact bool
 
 # System UI notification properties
+persist.sysui.notification.ranking_update_ashmem u:object_r:persist_sysui_ranking_update_prop:s0 exact bool
 persist.sysui.notification.builder_extras_override u:object_r:persist_sysui_builder_extras_prop:s0 exact bool

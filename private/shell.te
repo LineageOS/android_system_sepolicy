@@ -246,4 +246,6 @@ set_prop(shell, gwp_asan_prop)
 
 # Allow shell to set persist.sysui.notification.builder_extras_override property
 userdebug_or_eng(`set_prop(shell, persist_sysui_builder_extras_prop)')
+# Allow shell to set persist.sysui.notification.ranking_update_ashmem property
+userdebug_or_eng(`set_prop(shell, persist_sysui_ranking_update_prop)')
 

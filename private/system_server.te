@@ -842,6 +842,8 @@ get_prop(system_server, persist_wm_debug_prop)
 
 # Read persist.sysui.notification.builder_extras_override property
 get_prop(system_server, persist_sysui_builder_extras_prop)
+# Read persist.sysui.notification.ranking_update_ashmem property
+get_prop(system_server, persist_sysui_ranking_update_prop)
 
 # Read ro.tuner.lazyhal
 get_prop(system_server, tuner_config_prop)
