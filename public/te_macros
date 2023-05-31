@@ -1047,6 +1047,7 @@ define(`use_bootstrap_libs', `
 define(`use_apex_info', `
   allow $1 apex_mnt_dir:dir r_dir_perms;
   allow $1 apex_info_file:file r_file_perms;
+  r_dir_file($1, vendor_apex_metadata_file)
 ')
 
 ####################################
