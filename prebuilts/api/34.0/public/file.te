@@ -287,6 +287,8 @@ type userspace_reboot_metadata_file, file_type;
 type staged_install_file, file_type;
 # Metadata information within /metadata/watchdog
 type watchdog_metadata_file, file_type;
+# Repair mode files within /metadata/repair-mode
+type repair_mode_metadata_file, file_type;
 
 # Type for /dev/cpu_variant:.*.
 type dev_cpu_variant, file_type;
