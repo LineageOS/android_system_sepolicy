@@ -1,0 +1,24 @@
+#
+# ot_daemon is the native Thread network stack on the host (Android) side.
+# Refer to https://www.threadgroup.org for Thread network knowledge.
+#
+
+# ot_daemon
+type ot_daemon, domain, coredomain;
+type ot_daemon_exec, exec_type, file_type, system_file_type;
+
+# Allow init ot_daemon
+init_daemon_domain(ot_daemon)
+# Allow the ot_daemon to use the net domain.
+net_domain(ot_daemon)
+
+# Allow the ot_daemon to access the folder "/data/misc/threadnetwork".
+allow ot_daemon threadnetwork_data_file:dir rw_dir_perms;
+allow ot_daemon threadnetwork_data_file:file create_file_perms;
+allow ot_daemon threadnetwork_data_file:sock_file {create unlink};
+
+# used for simulation
+userdebug_or_eng(`
+create_pty(ot_daemon);
+domain_auto_trans(ot_daemon, ot_rcp_exec, ot_rcp);
+')
