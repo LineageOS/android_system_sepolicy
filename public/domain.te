@@ -334,6 +334,10 @@ with_asan(`allow domain system_asan_options_file:file r_file_perms;')
 allow domain apex_mnt_dir:dir { getattr search };
 allow domain apex_mnt_dir:lnk_file r_file_perms;
 
+# Allow everyone to read media server-configurable flags, so that libstagefright can be
+# configured using server-configurable flags
+get_prop(domain, device_config_media_native_prop)
+
 ###
 ### neverallow rules
 ###
@@ -1286,7 +1290,3 @@ neverallow { domain -traced_probes -init -vendor_init } debugfs_tracing_printk_f
 
 # Linux lockdown "integrity" level is enforced for user builds.
 neverallow { domain userdebug_or_eng(`-domain') } self:lockdown integrity;
-
-# Allow everyone to read media server-configurable flags, so that libstagefright can be
-# configured using server-configurable flags
-get_prop(domain, device_config_media_native_prop)
