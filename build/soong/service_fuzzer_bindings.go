@@ -418,7 +418,7 @@ var (
 		"slice":                        EXCEPTION_NO_FUZZER,
 		"smartspace":                   EXCEPTION_NO_FUZZER,
 		"speech_recognition":           EXCEPTION_NO_FUZZER,
-		"stats":                        EXCEPTION_NO_FUZZER,
+		"stats":                        []string{"statsd_service_fuzzer"},
 		"statsbootstrap":               EXCEPTION_NO_FUZZER,
 		"statscompanion":               EXCEPTION_NO_FUZZER,
 		"statsmanager":                 EXCEPTION_NO_FUZZER,
