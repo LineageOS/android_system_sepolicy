@@ -113,12 +113,6 @@ $(foreach p,SYSTEM_EXT PRODUCT,$(foreach q,PUBLIC PRIVATE,$(eval \
     ) \
 )))
 
-ifdef BOARD_ODM_SEPOLICY_DIRS
-ifneq ($(PRODUCT_SEPOLICY_SPLIT),true)
-$(error PRODUCT_SEPOLICY_SPLIT needs to be true when using BOARD_ODM_SEPOLICY_DIRS)
-endif
-endif
-
 ###########################################################
 # Compute policy files to be used in policy build.
 # $(1): files to include
@@ -315,15 +309,6 @@ LOCAL_REQUIRED_MODULES += \
     plat_bug_map \
     searchpolicy \
 
-# This conditional inclusion closely mimics the conditional logic
-# inside init/init.cpp for loading SELinux policy from files.
-ifneq ($(PRODUCT_SEPOLICY_SPLIT),true)
-# The following files are only allowed for non-Treble devices.
-LOCAL_REQUIRED_MODULES += \
-    sepolicy \
-
-endif # ($(PRODUCT_SEPOLICY_SPLIT),true)
-
 ifneq ($(with_asan),true)
 ifneq ($(SELINUX_IGNORE_NEVERALLOWS),true)
 LOCAL_REQUIRED_MODULES += \
@@ -334,11 +319,9 @@ LOCAL_REQUIRED_MODULES += \
 # Instead, use LOCAL_ADDITIONAL_DEPENDENCIES with intermediate output
 LOCAL_ADDITIONAL_DEPENDENCIES += $(call intermediates-dir-for,ETC,sepolicy_test)/sepolicy_test
 
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 LOCAL_REQUIRED_MODULES += \
     $(addprefix treble_sepolicy_tests_,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
 
-endif  # PRODUCT_SEPOLICY_SPLIT
 endif  # SELINUX_IGNORE_NEVERALLOWS
 endif  # with_asan
 
@@ -532,24 +515,6 @@ built_sepolicy := $(call intermediates-dir-for,ETC,precompiled_sepolicy)/precomp
 built_sepolicy_neverallows := $(call intermediates-dir-for,ETC,sepolicy_neverallows)/sepolicy_neverallows
 built_sepolicy_neverallows += $(call intermediates-dir-for,ETC,sepolicy_neverallows_vendor)/sepolicy_neverallows_vendor
 
-#################################
-# sepolicy is also built with Android.bp.
-# This module is to keep compatibility with monolithic sepolicy devices.
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := sepolicy
-LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 legacy_unencumbered
-LOCAL_LICENSE_CONDITIONS := notice unencumbered
-LOCAL_NOTICE_FILE := $(LOCAL_PATH)/NOTICE
-LOCAL_MODULE_CLASS := ETC
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_PATH := $(TARGET_ROOT_OUT)
-
-include $(BUILD_SYSTEM)/base_rules.mk
-
-$(LOCAL_BUILT_MODULE): $(built_sepolicy)
-	$(copy-file-to-target)
-
 ##################################
 # TODO - remove this.   Keep around until we get the filesystem creation stuff taken care of.
 #
@@ -667,7 +632,6 @@ all_fc_args := $(foreach file, $(all_fc_files), -f $(file))
 ##################################
 # Tests for Treble compatibility of current platform policy and vendor policy of
 # given release version.
-ifeq ($(PRODUCT_SEPOLICY_SPLIT),true)
 
 built_plat_sepolicy       := $(call intermediates-dir-for,ETC,base_plat_sepolicy)/base_plat_sepolicy
 built_system_ext_sepolicy := $(call intermediates-dir-for,ETC,base_system_ext_sepolicy)/base_system_ext_sepolicy
@@ -681,7 +645,6 @@ $(foreach v,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS), \
   $(eval version_under_treble_tests := $(v)) \
   $(eval include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk) \
 )
-endif  # PRODUCT_SEPOLICY_SPLIT
 
 built_plat_sepolicy :=
 built_system_ext_sepolicy :=
