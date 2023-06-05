@@ -151,7 +151,7 @@ func (c *policyConf) sepolicySplit(ctx android.ModuleContext) string {
 	if c.isTargetRecovery() {
 		return "false"
 	}
-	return strconv.FormatBool(ctx.DeviceConfig().SepolicySplit())
+	return strconv.FormatBool(true)
 }
 
 func (c *policyConf) compatibleProperty(ctx android.ModuleContext) string {
