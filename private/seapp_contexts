@@ -183,8 +183,8 @@ user=_app isPrivApp=true name=com.google.android.providers.media.module domain=m
 user=_app isPrivApp=true name=com.google.android.providers.media.module:* domain=mediaprovider_app type=privapp_data_file levelFrom=all
 user=_app seinfo=platform isPrivApp=true name=com.android.permissioncontroller domain=permissioncontroller_app type=privapp_data_file levelFrom=all
 user=_app isPrivApp=true name=com.android.vzwomatrigger domain=vzwomatrigger_app type=privapp_data_file levelFrom=all
-user=_app isPrivApp=true name=com.android.rkpdapp domain=rkpdapp type=privapp_data_file levelFrom=user
-user=_app isPrivApp=true name=com.google.android.rkpdapp domain=rkpdapp type=privapp_data_file levelFrom=user
+user=_app isPrivApp=true name=com.android.rkpdapp domain=rkpdapp type=privapp_data_file levelFrom=all
+user=_app isPrivApp=true name=com.google.android.rkpdapp domain=rkpdapp type=privapp_data_file levelFrom=all
 user=_app isPrivApp=true name=com.google.android.gms domain=gmscore_app type=privapp_data_file levelFrom=user
 user=_app isPrivApp=true name=com.google.android.gms.* domain=gmscore_app type=privapp_data_file levelFrom=user
 user=_app isPrivApp=true name=com.google.android.gms:* domain=gmscore_app type=privapp_data_file levelFrom=user
