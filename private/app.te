@@ -47,6 +47,7 @@ get_prop(appdomain, adbd_config_prop)
 get_prop(appdomain, dck_prop)
 get_prop(appdomain, persist_wm_debug_prop)
 get_prop(appdomain, persist_sysui_builder_extras_prop)
+get_prop(appdomain, persist_sysui_ranking_update_prop)
 
 # Allow the heap dump ART plugin to the count of sessions waiting for OOME
 get_prop(appdomain, traced_oome_heap_session_count_prop)
