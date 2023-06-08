@@ -161,7 +161,7 @@ var (
 		"android.security.compat":                                         EXCEPTION_NO_FUZZER,
 		"android.security.dice.IDiceMaintenance":                          EXCEPTION_NO_FUZZER,
 		"android.security.dice.IDiceNode":                                 EXCEPTION_NO_FUZZER,
-		"android.security.identity":                                       EXCEPTION_NO_FUZZER,
+		"android.security.identity":                                       []string{"credstore_service_fuzzer"},
 		"android.security.keystore":                                       EXCEPTION_NO_FUZZER,
 		"android.security.legacykeystore":                                 EXCEPTION_NO_FUZZER,
 		"android.security.maintenance":                                    EXCEPTION_NO_FUZZER,
