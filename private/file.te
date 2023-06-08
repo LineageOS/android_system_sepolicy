@@ -131,5 +131,8 @@ type art_exec_exec, system_file_type, exec_type, file_type;
 # in to satisfy MLS constraints for trusted domains.
 type prng_seeder_socket, file_type, coredomain_socket, mlstrustedobject;
 
+# /data/misc/threadnetwork
+type threadnetwork_data_file, file_type, data_file_type, core_data_file_type;
+
 # /sys/firmware/devicetree/base/avf
 type sysfs_dt_avf, fs_type, sysfs_type;
