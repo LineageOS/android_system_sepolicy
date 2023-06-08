@@ -1,0 +1,11 @@
+#
+# ot_ctl is the commandline tool for controling the native Thread network daemon (ot_daemon).
+#
+
+type ot_ctl, domain, coredomain;
+type ot_ctl_exec, exec_type, system_file_type, file_type;
+
+init_daemon_domain(ot_ctl)
+
+# Allow the ot_ctl to read/write the socket file.
+allow ot_ctl threadnetwork_data_file:sock_file {read write};

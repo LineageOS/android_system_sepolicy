@@ -43,6 +43,13 @@ filegroup {
 }
 
 filegroup {
+  name: "com.android.threadnetwork-file_contexts",
+  srcs: [
+    "com.android.threadnetwork-file_contexts",
+  ],
+}
+
+filegroup {
   name: "com.android.sdkext-file_contexts",
   srcs: [
     "com.android.sdkext-file_contexts",
