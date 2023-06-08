@@ -458,7 +458,7 @@ var (
 		"wifip2p":                      EXCEPTION_NO_FUZZER,
 		"wifiscanner":                  EXCEPTION_NO_FUZZER,
 		"wifi":                         EXCEPTION_NO_FUZZER,
-		"wifinl80211":                  EXCEPTION_NO_FUZZER,
+		"wifinl80211":                  []string{"wificond_service_fuzzer"},
 		"wifiaware":                    EXCEPTION_NO_FUZZER,
 		"wifirtt":                      EXCEPTION_NO_FUZZER,
 		"window":                       EXCEPTION_NO_FUZZER,
