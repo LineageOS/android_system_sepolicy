@@ -247,9 +247,11 @@ get_prop(zygote, qemu_sf_lcd_density_prop)
 # preloaded classes
 get_prop(zygote, persist_wm_debug_prop)
 
-# Allow zygote to read persist_sysui_builder_extras_prop to toggle experimental features in
-# core preloaded classes
+# Allow zygote to read persist_sysui_builder_extras_prop
+# and persist_sysui_ranking_update_prop
+# to toggle experimental features in core preloaded classes
 get_prop(zygote, persist_sysui_builder_extras_prop)
+get_prop(zygote, persist_sysui_ranking_update_prop)
 
 # Allow zygote to read /apex/apex-info-list.xml
 allow zygote apex_info_file:file r_file_perms;

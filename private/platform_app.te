@@ -48,6 +48,9 @@ neverallow { domain -init -dumpstate userdebug_or_eng(`-domain') } persist_wm_de
 userdebug_or_eng(`
   set_prop(platform_app, persist_sysui_builder_extras_prop)
 ')
+userdebug_or_eng(`
+  set_prop(platform_app, persist_sysui_ranking_update_prop)
+')
 
 # com.android.captiveportallogin reads /proc/vmstat
 allow platform_app {

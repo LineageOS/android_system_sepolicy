@@ -55,6 +55,7 @@ system_internal_prop(ctl_apex_load_prop)
 system_restricted_prop(device_config_virtualization_framework_native_prop)
 system_restricted_prop(log_file_logger_prop)
 system_restricted_prop(persist_sysui_builder_extras_prop)
+system_restricted_prop(persist_sysui_ranking_update_prop)
 
 ###
 ### Neverallow rules
