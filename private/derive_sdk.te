@@ -6,6 +6,7 @@ init_daemon_domain(derive_sdk)
 
 # Read /apex
 allow derive_sdk apex_mnt_dir:dir r_dir_perms;
+allow derive_sdk vendor_apex_metadata_file:dir r_dir_perms;
 
 # Prop rules: writable by derive_sdk, readable by bootclasspath (apps)
 set_prop(derive_sdk, module_sdkextensions_prop)
