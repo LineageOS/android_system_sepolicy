@@ -46,6 +46,10 @@ allow ueventd self:global_capability_class_set sys_module;
 allow ueventd vendor_file:system module_load;
 allow ueventd kernel:key search;
 
+# Query device-mapper to extract name/uuid in response to uevents.
+allow ueventd dm_device:chr_file rw_file_perms;
+allow ueventd self:capability sys_admin;
+
 # ueventd is using bootstrap bionic
 use_bootstrap_libs(ueventd)
 
