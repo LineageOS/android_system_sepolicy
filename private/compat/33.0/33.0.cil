@@ -2544,7 +2544,10 @@
 (typeattributeset vendor_apex_file_33_0 (vendor_apex_file))
 (typeattributeset vendor_app_file_33_0 (vendor_app_file))
 (typeattributeset vendor_cgroup_desc_file_33_0 (vendor_cgroup_desc_file))
-(typeattributeset vendor_configs_file_33_0 (vendor_configs_file))
+(typeattributeset vendor_configs_file_33_0
+  ( vendor_configs_file
+    vendor_apex_metadata_file
+))
 (typeattributeset vendor_data_file_33_0 (vendor_data_file vendor_userdir_file))
 (typeattributeset vendor_default_prop_33_0 (vendor_default_prop))
 (typeattributeset vendor_file_33_0 (vendor_file))
