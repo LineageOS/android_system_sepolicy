@@ -56,7 +56,7 @@ allow dumpstate pstorefs:file r_file_perms;
 allow dumpstate domain:process getattr;
 
 # Signal java processes to dump their stack
-allow dumpstate { appdomain system_server zygote }:process signal;
+allow dumpstate { appdomain system_server zygote app_zygote }:process signal;
 
 # Signal native processes to dump their stack.
 allow dumpstate {
