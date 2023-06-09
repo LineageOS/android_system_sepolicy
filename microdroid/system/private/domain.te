@@ -252,6 +252,10 @@ allow domain crash_dump:process sigchld;
 # Properties that microdroid doesn't have but some still want to read.
 dontaudit domain { heapprofd_prop timezone_prop }:file r_file_perms;
 
+# Allow all processes to "read" non_existing_prop to suppress libc's access denial logs.
+# dontaudit is not enough; it's still fine because they can't be written, by neverallow rules
+get_prop(domain, non_existing_prop)
+
 ###
 ### neverallow rules
 ###
