@@ -74,6 +74,8 @@ allow app_zygote oemfs:dir search;
 
 # Allow app_zygote access to /vendor/overlay
 r_dir_file(app_zygote, vendor_overlay_file)
+# Allow app_zygote to read vendor_overlay_file from vendor apex as well
+allow app_zygote vendor_apex_metadata_file:dir { getattr search };
 
 allow app_zygote system_data_file:lnk_file r_file_perms;
 allow app_zygote system_data_file:file { getattr read map };
