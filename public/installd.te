@@ -33,6 +33,8 @@ r_dir_file(installd, vendor_app_file)
 r_dir_file(installd, vendor_framework_file)
 # Scan through Runtime Resource Overlay APKs in /vendor/overlay
 r_dir_file(installd, vendor_overlay_file)
+# Vendor overlay can be found in vendor apex
+allow installd vendor_apex_metadata_file:dir { getattr search };
 # Get file context
 allow installd file_contexts_file:file r_file_perms;
 # Get seapp_context
