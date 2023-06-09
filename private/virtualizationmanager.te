@@ -7,6 +7,9 @@ type virtualizationmanager_exec, system_file_type, exec_type, file_type;
 allow virtualizationmanager adbd:fd use;
 allow virtualizationmanager adbd:unix_stream_socket { read write };
 
+# Allow writing VM logs to the shell console
+allow virtualizationmanager devpts:chr_file { read write getattr ioctl };
+
 # Let the virtualizationmanager domain use Binder.
 binder_use(virtualizationmanager)
 
