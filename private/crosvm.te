@@ -69,6 +69,7 @@ allow crosvm {
 # Allow crosvm to pipe console log to shell or app which could be the owner of a VM.
 allow crosvm adbd:fd use;
 allow crosvm adbd:unix_stream_socket { read write };
+allow crosvm devpts:chr_file { read write getattr ioctl };
 
 # crosvm tries to use netlink sockets as part its APCI implementation, but we don't need it for AVF (b/228077254)
 dontaudit crosvm self:netlink_generic_socket create_socket_perms_no_ioctl;
