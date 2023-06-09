@@ -19,6 +19,8 @@ allow rs { app_data_file privapp_data_file }:dir remove_name;
 allow rs vendor_file:dir r_dir_perms;
 r_dir_file(rs, vendor_overlay_file)
 r_dir_file(rs, vendor_app_file)
+# Vendor overlay can be found in vendor apex
+allow rs vendor_apex_metadata_file:dir { getattr search };
 
 # Read contents of app apks
 r_dir_file(rs, apk_data_file)
