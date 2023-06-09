@@ -145,6 +145,7 @@ libc.debug.malloc.program u:object_r:libc_debug_prop:s0 exact string
 libc.debug.hooks.enable   u:object_r:libc_debug_prop:s0 exact string
 
 arm64.memtag. u:object_r:arm64_memtag_prop:s0 prefix string
+persist.arm64.memtag.             u:object_r:non_existing_prop:s0 prefix string
 
 persist.sys.timezone u:object_r:timezone_prop:s0 exact string
 
@@ -171,3 +172,21 @@ dalvik.vm.restore-dex2oat-cpu-set             u:object_r:dalvik_dynamic_config_p
 dalvik.vm.restore-dex2oat-threads             u:object_r:dalvik_dynamic_config_prop:s0 exact int
 
 apexd.payload_metadata.path u:object_r:apexd_payload_metadata_prop:s0 exact string
+
+# These non_existing_prop properties are unused in microdroid, but added here to suppress libc's
+# access denial logs.
+libc.debug.gwp_asan.              u:object_r:non_existing_prop:s0 prefix string
+persist.libc.debug.gwp_asan.      u:object_r:non_existing_prop:s0 prefix string
+persist.adb.tls_server.enable     u:object_r:non_existing_prop:s0 exact bool
+persist.adb.watchdog.timeout_secs u:object_r:non_existing_prop:s0 exact int
+persist.adb.watchdog              u:object_r:non_existing_prop:s0 exact bool
+persist.device_config.            u:object_r:non_existing_prop:s0 prefix string
+persist.sys.test_harness          u:object_r:non_existing_prop:s0 exact bool
+ro.arch                           u:object_r:non_existing_prop:s0 exact string
+ro.boot.vsock_tombstone_port      u:object_r:non_existing_prop:s0 exact int
+ro.product.device                 u:object_r:non_existing_prop:s0 exact string
+ro.product.model                  u:object_r:non_existing_prop:s0 exact string
+ro.product.name                   u:object_r:non_existing_prop:s0 exact string
+ro.product.vndk.version           u:object_r:non_existing_prop:s0 exact string
+ro.secure                         u:object_r:non_existing_prop:s0 exact bool
+ro.serialno                       u:object_r:non_existing_prop:s0 exact string
