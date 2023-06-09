@@ -39,9 +39,11 @@ allow artd apk_data_file:file r_file_perms;
 # Read access to vendor APKs ({/vendor,/odm}/{app,priv-app}/...).
 r_dir_file(artd, vendor_app_file)
 
-# Read access to vendor overlay APKs ({/vendor,/odm,/oem}/overlay/...).
+# Read access to vendor overlay APKs ({/vendor,/odm,/oem,/apex/*}/overlay/...).
 allow artd oemfs:dir { getattr search };
 r_dir_file(artd, vendor_overlay_file)
+# Vendor overlay can be found in vendor apex
+allow artd vendor_apex_metadata_file:dir { getattr search };
 
 # Read access to vendor shared libraries ({/vendor,/odm}/framework/...).
 r_dir_file(artd, vendor_framework_file)

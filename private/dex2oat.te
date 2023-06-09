@@ -12,6 +12,8 @@ allow dex2oat vendor_framework_file:dir { getattr search };
 allow dex2oat vendor_framework_file:file { getattr open read map };
 # Access /vendor/overlay
 r_dir_file(dex2oat, vendor_overlay_file);
+# Vendor overlay can be found in vendor apex
+allow dex2oat vendor_apex_metadata_file:dir { getattr search };
 
 allow dex2oat tmpfs:file { read getattr map };
 

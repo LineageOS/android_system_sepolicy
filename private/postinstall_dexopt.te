@@ -47,6 +47,8 @@ r_dir_file(postinstall_dexopt, apk_data_file)
 r_dir_file(postinstall_dexopt, vendor_app_file)
 # Read vendor overlay files (APKs) as input to dex2oat.
 r_dir_file(postinstall_dexopt, vendor_overlay_file)
+# Vendor overlay can be found in vendor apex
+allow postinstall_dexopt vendor_apex_metadata_file:dir { getattr search };
 # Access to app oat directory.
 r_dir_file(postinstall_dexopt, dalvikcache_data_file)
 
