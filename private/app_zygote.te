@@ -20,6 +20,9 @@ allow app_zygote isolated_app:process dyntransition;
 # For JIT
 allow app_zygote self:process execmem;
 
+# Allow exec mapping from tmpfs (memfds) for binary translation
+allow app_zygote app_zygote_tmpfs:file execute;
+
 # Allow app_zygote to stat the files that it opens. It must
 # be able to inspect them so that it can reopen them on fork
 # if necessary: b/30963384.
