@@ -1323,6 +1323,7 @@ ro.surface_flinger.enable_layer_caching                   u:object_r:surfaceflin
 ro.surface_flinger.display_update_imminent_timeout_ms     u:object_r:surfaceflinger_prop:s0 exact int
 ro.surface_flinger.uclamp.min                             u:object_r:surfaceflinger_prop:s0 exact int
 ro.surface_flinger.ignore_hdr_camera_layers               u:object_r:surfaceflinger_prop:s0 exact bool
+ro.surface_flinger.clear_slots_with_set_layer_buffer      u:object_r:surfaceflinger_prop:s0 exact bool
 
 ro.sf.disable_triple_buffer u:object_r:surfaceflinger_prop:s0 exact bool
 ro.sf.lcd_density           u:object_r:surfaceflinger_prop:s0 exact int
