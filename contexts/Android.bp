@@ -79,10 +79,6 @@ file_contexts {
             srcs: [":file_contexts_overlayfs_files{.plat_private}"],
         },
     },
-
-    flatten_apex: {
-        srcs: [":apex_file_contexts_files"],
-    },
 }
 
 file_contexts {
@@ -97,11 +93,6 @@ file_contexts {
             srcs: [":file_contexts_overlayfs_files{.plat_private}"],
         },
     },
-
-    flatten_apex: {
-        srcs: [":apex_file_contexts_files"],
-    },
-
     recovery: true,
 }
 
