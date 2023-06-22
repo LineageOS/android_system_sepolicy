@@ -12,7 +12,7 @@ allow hal_drm hidl_memory_hwservice:hwservice_manager find;
 allow hal_drm self:process execmem;
 
 # Permit reading device's serial number from system properties
-get_prop(hal_drm, serialno_prop)
+get_prop(hal_drm_server, serialno_prop)
 
 # Read files already opened under /data
 allow hal_drm system_data_file:file { getattr read };
