@@ -1,0 +1,16 @@
+typeattribute update_verifier coredomain;
+
+init_daemon_domain(update_verifier)
+
+# Allow update_verifier to reboot the device.
+set_prop(update_verifier, powerctl_prop)
+
+# Allow to set the OTA related properties e.g. ota.warm_reset.
+set_prop(update_verifier, ota_prop)
+
+# allow update_verifier to connect to snapuserd daemon
+allow update_verifier snapuserd_socket:sock_file write;
+allow update_verifier snapuserd:unix_stream_socket connectto;
+
+# virtual a/b properties
+get_prop(update_verifier, virtual_ab_prop)

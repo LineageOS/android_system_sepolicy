@@ -1,0 +1,39 @@
+###
+### Untrusted apps.
+###
+### This file defines the rules for untrusted apps running with
+### 31 < targetSdkVersion <= 33.
+###
+### See public/untrusted_app.te for more information about which apps are
+### placed in this selinux domain.
+###
+
+typeattribute untrusted_app_32 coredomain;
+
+app_domain(untrusted_app_32)
+untrusted_app_domain(untrusted_app_32)
+net_domain(untrusted_app_32)
+bluetooth_domain(untrusted_app_32)
+
+# Allow webview to access fd shared by sdksandbox for experiments data
+# TODO(b/229249719): Will not be supported in Android U
+allow untrusted_app_32 sdk_sandbox_data_file:fd use;
+allow untrusted_app_32 sdk_sandbox_data_file:file write;
+
+neverallow untrusted_app_32 sdk_sandbox_data_file:file { open create };
+
+# Connect to mdnsd via mdnsd socket.
+unix_socket_connect(untrusted_app_32, mdnsd, mdnsd)
+userdebug_or_eng(`
+  auditallow untrusted_app_32 mdnsd_socket:sock_file write;
+  auditallow untrusted_app_32 mdnsd:unix_stream_socket connectto;
+')
+
+# Allow calling inotify on APKs for backwards compatibility. This is disallowed
+# for targetSdkVersion>=34 to remove a sidechannel.
+allow untrusted_app_32 apk_data_file:dir { watch watch_reads };
+allow untrusted_app_32 apk_data_file:file { watch watch_reads };
+userdebug_or_eng(`
+  auditallow untrusted_app_32 apk_data_file:dir { watch watch_reads };
+  auditallow untrusted_app_32 apk_data_file:file { watch watch_reads };
+')

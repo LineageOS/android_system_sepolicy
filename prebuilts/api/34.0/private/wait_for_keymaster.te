@@ -1,0 +1,5 @@
+# wait_for_keymaster service. No longer used;
+# here only so that downstream code compiles.
+type wait_for_keymaster, domain, coredomain;
+type wait_for_keymaster_exec, system_file_type, exec_type, file_type;
+

@@ -1,0 +1,25 @@
+# platform should have ownership of network attachpoints for BPF
+neverallow {
+  bpfdomain
+  -bpfloader
+  -netd
+  -netutils_wrapper
+  -network_stack
+  -system_server
+} self:global_capability_class_set { net_admin net_raw };
+
+# any domain which uses bpf is a bpfdomain
+neverallow { domain -bpfdomain } *:bpf *;
+
+allow bpfdomain fs_bpf:dir search;
+
+# genfscon doesn't seem to trigger during symlink creation,
+# and thus any created symlinks end up as 'fs_bpf:lnk_type',
+# however this feels like a kernel bug / missing feature,
+# so let's allow all bpffs_type's instead,
+# this will keep things working even if this is fixed.
+allow bpfdomain bpffs_type:lnk_file read;
+
+# Needed for //frameworks/libs/net:
+# common/native/bpf_headers/include/bpf/WaitForProgsLoaded.h
+get_prop(bpfdomain, bpf_progs_loaded_prop)

@@ -1,0 +1,38 @@
+###
+### Untrusted apps.
+###
+### This file defines the rules for untrusted apps running with
+### 29 < targetSdkVersion <= 31.
+###
+### See public/untrusted_app.te for more information about which apps are
+### placed in this selinux domain.
+###
+### TODO(b/192334803): Merge this policy into untrusted_app_29 when possible
+###
+
+typeattribute untrusted_app_30 coredomain;
+
+app_domain(untrusted_app_30)
+untrusted_app_domain(untrusted_app_30)
+net_domain(untrusted_app_30)
+bluetooth_domain(untrusted_app_30)
+
+# allow sending RTM_GETNEIGH{TBL} messages.
+allow untrusted_app_30 self:netlink_route_socket nlmsg_getneigh;
+auditallow untrusted_app_30 self:netlink_route_socket nlmsg_getneigh;
+
+# Connect to mdnsd via mdnsd socket.
+unix_socket_connect(untrusted_app_30, mdnsd, mdnsd)
+userdebug_or_eng(`
+  auditallow untrusted_app_30 mdnsd_socket:sock_file write;
+  auditallow untrusted_app_30 mdnsd:unix_stream_socket connectto;
+')
+
+# Allow calling inotify on APKs for backwards compatibility. This is disallowed
+# for targetSdkVersion>=34 to remove a sidechannel.
+allow untrusted_app_30 apk_data_file:dir { watch watch_reads };
+allow untrusted_app_30 apk_data_file:file { watch watch_reads };
+userdebug_or_eng(`
+  auditallow untrusted_app_30 apk_data_file:dir { watch watch_reads };
+  auditallow untrusted_app_30 apk_data_file:file { watch watch_reads };
+')

@@ -1,0 +1,58 @@
+###
+### Untrusted_27.
+###
+### This file defines the rules for untrusted apps running with
+### 25 < targetSdkVersion <= 28.
+###
+### See public/untrusted_app.te for more information about which apps are
+### placed in this selinux domain.
+###
+
+typeattribute untrusted_app_27 coredomain;
+
+app_domain(untrusted_app_27)
+untrusted_app_domain(untrusted_app_27)
+net_domain(untrusted_app_27)
+bluetooth_domain(untrusted_app_27)
+
+# Text relocation support for API < 23. This is now disallowed for targetSdkVersion>=Q.
+# https://android.googlesource.com/platform/bionic/+/master/android-changes-for-ndk-developers.md#text-relocations-enforced-for-api-level-23
+allow untrusted_app_27 { apk_data_file app_data_file asec_public_file }:file execmod;
+
+# The ability to call exec() on files in the apps home directories
+# for targetApi 26, 27, and 28.
+allow untrusted_app_27 app_data_file:file execute_no_trans;
+auditallow untrusted_app_27 app_data_file:file { execute execute_no_trans };
+
+# The ability to invoke dex2oat. Historically required by ART, now only
+# allowed for targetApi<=28 for compat reasons.
+allow untrusted_app_27 dex2oat_exec:file rx_file_perms;
+userdebug_or_eng(`auditallow untrusted_app_27 dex2oat_exec:file rx_file_perms;')
+
+# The ability to talk to /dev/ashmem directly. targetApi>=29 must use
+# ASharedMemory instead.
+allow untrusted_app_27 ashmem_device:chr_file rw_file_perms;
+auditallow untrusted_app_27 ashmem_device:chr_file open;
+
+# Read /mnt/sdcard symlink.
+allow untrusted_app_27 mnt_sdcard_file:lnk_file r_file_perms;
+
+# allow sending RTM_GETNEIGH{TBL} messages.
+allow untrusted_app_27 self:netlink_route_socket nlmsg_getneigh;
+auditallow untrusted_app_27 self:netlink_route_socket nlmsg_getneigh;
+
+# Connect to mdnsd via mdnsd socket.
+unix_socket_connect(untrusted_app_27, mdnsd, mdnsd)
+userdebug_or_eng(`
+  auditallow untrusted_app_27 mdnsd_socket:sock_file write;
+  auditallow untrusted_app_27 mdnsd:unix_stream_socket connectto;
+')
+
+# Allow calling inotify on APKs for backwards compatibility. This is disallowed
+# for targetSdkVersion>=34 to remove a sidechannel.
+allow untrusted_app_27 apk_data_file:dir { watch watch_reads };
+allow untrusted_app_27 apk_data_file:file { watch watch_reads };
+userdebug_or_eng(`
+  auditallow untrusted_app_27 apk_data_file:dir { watch watch_reads };
+  auditallow untrusted_app_27 apk_data_file:file { watch watch_reads };
+')
