@@ -305,7 +305,7 @@ var (
 		"media.camera":                 []string{"camera_service_aidl_fuzzer"},
 		"media.camera.proxy":           EXCEPTION_NO_FUZZER,
 		"media.log":                    EXCEPTION_NO_FUZZER,
-		"media.player":                 EXCEPTION_NO_FUZZER,
+		"media.player":                 []string{"media_player_service_fuzzer"},
 		"media.metrics":                []string{"mediametrics_aidl_fuzzer"},
 		"media.extractor":              []string{"mediaextractor_service_fuzzer"},
 		"media.transcoding":            EXCEPTION_NO_FUZZER,
