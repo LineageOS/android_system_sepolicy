@@ -1,0 +1,10 @@
+;; new_objects - a collection of types that have been introduced with ToT policy
+;;   that have no analogue in 34.0 policy.  Thus, we do not need to map these types to
+;;   previous ones.  Add here to pass checkapi tests.
+(type new_objects)
+(typeattribute new_objects)
+(typeattributeset new_objects
+  ( new_objects
+    ota_build_prop
+    snapuserd_log_data_file
+  ))
