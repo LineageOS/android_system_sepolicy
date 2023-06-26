@@ -3,14 +3,14 @@
 ###
 ### This file defines the security policy for the sdk sandbox processes
 ### for targetSdkVersion=34.
-type sdk_sandbox_next, domain, coredomain, sdk_sandbox_all;
+type sdk_sandbox_34, domain, coredomain, sdk_sandbox_all;
 
-net_domain(sdk_sandbox_next)
-app_domain(sdk_sandbox_next)
+net_domain(sdk_sandbox_34)
+app_domain(sdk_sandbox_34)
 
 # Allow finding services. This is different from ephemeral_app policy.
 # Adding services manually to the allowlist is preferred hence app_api_service is not used.
-allow sdk_sandbox_next {
+allow sdk_sandbox_34 {
     activity_service
     activity_task_service
     appops_service
@@ -18,11 +18,13 @@ allow sdk_sandbox_next {
     audioserver_service
     batteryproperties_service
     batterystats_service
+    cameraserver_service
     connectivity_service
     connmetrics_service
     deviceidle_service
     display_service
     dropbox_service
+    ephemeral_app_api_service
     font_service
     game_service
     gpu_service
@@ -39,6 +41,7 @@ allow sdk_sandbox_next {
     light_service
     locale_service
     media_communication_service
+    mediadrmserver_service
     mediaextractor_service
     mediametrics_service
     media_projection_service
@@ -58,6 +61,7 @@ allow sdk_sandbox_next {
     platform_compat_service
     power_service
     procstats_service
+    radio_service
     registry_service
     restrictions_service
     rttmanager_service

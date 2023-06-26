@@ -122,3 +122,4 @@ neverallow sdk_sandbox_all sdk_sandbox_system_data_file:dir ~{ getattr search };
 
 # Only dirs should be created at sdk_sandbox_all_system_data_file level
 neverallow { domain -init } sdk_sandbox_system_data_file:file *;
+
