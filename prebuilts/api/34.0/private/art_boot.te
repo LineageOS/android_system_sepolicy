@@ -1,0 +1,9 @@
+# ART boot oneshot service
+type art_boot, domain, coredomain;
+type art_boot_exec, exec_type, file_type, system_file_type;
+
+init_daemon_domain(art_boot)
+
+# Allow ART to set its config properties at boot, mainly to be able to propagate
+# experiment flags to properties that only may change at boot.
+set_prop(art_boot, dalvik_config_prop_type)

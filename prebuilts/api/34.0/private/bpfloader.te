@@ -1,0 +1,76 @@
+type bpfloader_exec, system_file_type, exec_type, file_type;
+
+typeattribute bpfloader bpfdomain;
+
+# allow bpfloader to write to the kernel log (starts early)
+allow bpfloader kmsg_device:chr_file w_file_perms;
+
+# These permissions are required to pin ebpf maps & programs.
+allow bpfloader bpffs_type:dir { add_name create remove_name search write };
+allow bpfloader bpffs_type:file { create getattr read rename setattr };
+allow bpfloader bpffs_type:lnk_file { create getattr read };
+allow { bpffs_type -fs_bpf } fs_bpf:filesystem associate;
+
+# Allow bpfloader to create bpf maps and programs.
+allow bpfloader self:bpf { map_create map_read map_write prog_load prog_run };
+
+allow bpfloader self:capability { chown sys_admin net_admin };
+
+allow bpfloader sysfs_fs_fuse_bpf:file r_file_perms;
+
+allow bpfloader proc_bpf:file w_file_perms;
+
+set_prop(bpfloader, bpf_progs_loaded_prop)
+
+allow bpfloader bpfloader_exec:file execute_no_trans;
+
+###
+### Neverallow rules
+###
+
+# Note: we don't care about getattr/mounton/search
+neverallow { domain            } bpffs_type:dir ~{ add_name create getattr mounton remove_name search write };
+neverallow { domain -bpfloader } bpffs_type:dir { add_name create remove_name write };
+
+neverallow { domain            } bpffs_type:file ~{ create getattr map open read rename setattr write };
+neverallow { domain -bpfloader } bpffs_type:file { create map open rename setattr };
+neverallow { domain -bpfloader -gpuservice -lmkd -mediaprovider_app -netd -netutils_wrapper                -system_server } fs_bpf:file               { getattr read };
+neverallow { domain -bpfloader                                                                                            } fs_bpf_loader:file        { getattr read };
+neverallow { domain -bpfloader                                                              -network_stack                } fs_bpf_net_private:file   { getattr read };
+neverallow { domain -bpfloader                                                              -network_stack -system_server } fs_bpf_net_shared:file    { getattr read };
+neverallow { domain -bpfloader                                      -netd                   -network_stack -system_server } fs_bpf_netd_readonly:file { getattr read };
+neverallow { domain -bpfloader                                      -netd -netutils_wrapper -network_stack -system_server } fs_bpf_netd_shared:file   { getattr read };
+neverallow { domain -bpfloader                                                              -network_stack                } fs_bpf_tethering:file     { getattr read };
+neverallow { domain -bpfloader -gpuservice                          -netd -netutils_wrapper -network_stack -system_server } { bpffs_type -fs_bpf_vendor }:file write;
+
+neverallow { domain -bpfloader } bpffs_type:lnk_file ~read;
+neverallow { domain -bpfdomain } bpffs_type:lnk_file read;
+
+neverallow { domain -bpfloader } *:bpf { map_create prog_load };
+
+# 'fs_bpf_loader' is for internal use of the BpfLoader oneshot boot time process.
+neverallow { domain -bpfloader } fs_bpf_loader:bpf *;
+neverallow { domain -bpfloader } fs_bpf_loader:file *;
+
+neverallow {
+  domain
+  -bpfloader
+  -gpuservice
+  -hal_health_server
+  -mediaprovider_app
+  -netd
+  -netutils_wrapper
+  -network_stack
+  -system_server
+} *:bpf prog_run;
+neverallow { domain -bpfloader -gpuservice -lmkd -mediaprovider_app -netd -network_stack -system_server } *:bpf { map_read map_write };
+neverallow { domain -bpfloader -init } bpfloader_exec:file { execute execute_no_trans };
+
+neverallow { coredomain -bpfloader } fs_bpf_vendor:file *;
+
+neverallow bpfloader *:{ tcp_socket udp_socket rawip_socket } *;
+
+# No domain should be allowed to ptrace bpfloader
+neverallow { domain userdebug_or_eng(`-llkd') } bpfloader:process ptrace;
+
+neverallow { domain -bpfloader } proc_bpf:file write;

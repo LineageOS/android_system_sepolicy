@@ -1,0 +1,138 @@
+type crosvm, domain, coredomain;
+type crosvm_exec, system_file_type, exec_type, file_type;
+type crosvm_tmpfs, file_type;
+
+# Let crosvm open VM manager devices such as /dev/kvm.
+allow crosvm vm_manager_device_type:chr_file rw_file_perms;
+
+# Most other domains shouldn't access /dev/kvm.
+neverallow { domain -crosvm -ueventd -shell } kvm_device:chr_file getattr;
+neverallow { domain -crosvm -ueventd } kvm_device:chr_file ~getattr;
+neverallowxperm { domain -crosvm } kvm_device:chr_file ioctl ~{ KVM_CHECK_EXTENSION };
+
+# Most other domains shouldn't access other vm managers either.
+# These restrictions need to be slightly looser than for kvm_device to allow
+# for different implementations.
+neverallow { coredomain appdomain -crosvm -ueventd -shell } vm_manager_device_type:chr_file getattr;
+neverallow { coredomain appdomain -crosvm -ueventd } vm_manager_device_type:chr_file ~getattr;
+
+# Let crosvm create temporary files.
+tmpfs_domain(crosvm)
+
+# Let crosvm receive file descriptors from VirtualizationService.
+allow crosvm virtualizationmanager:fd use;
+
+# Allow sending VirtualizationService the failure reason and console/log from the VM via pipe.
+allow crosvm virtualizationmanager:fifo_file write;
+
+# Let crosvm read the composite disk images (virtualizationservice_data_file), APEXes
+# (staging_data_file), APKs (apk_data_file and shell_data_file where the latter is for test apks in
+# /data/local/tmp), and instance.img (app_data_file). Note that the open permission is not given as
+# the files are passed as file descriptors.
+allow crosvm {
+  virtualizationservice_data_file
+  staging_data_file
+  apk_data_file
+  app_data_file
+  privapp_data_file
+  apex_compos_data_file
+  shell_data_file
+}:file { getattr read ioctl lock };
+
+# Allow searching the directory where the composite disk images are.
+allow crosvm virtualizationservice_data_file:dir search;
+
+# Allow crosvm to mlock guest memory.
+allow crosvm self:capability ipc_lock;
+
+# Let crosvm access its control socket as created by VS.
+#   read, write, getattr: listener socket polling
+#   accept: listener socket accepting new connection
+# Note that the open permission is not given as the socket is passed by FD.
+allow crosvm virtualizationmanager:unix_stream_socket { accept read write getattr getopt };
+
+# Let crosvm open test artifacts under /data/local/tmp with file path. (e.g. custom pvmfw.img)
+userdebug_or_eng(`
+  allow crosvm shell_data_file:dir search;
+  allow crosvm shell_data_file:file open;
+')
+
+# The instance image and the composite image should be writable as well because they could represent
+# mutable disks.
+allow crosvm {
+  virtualizationservice_data_file
+  app_data_file
+  privapp_data_file
+  apex_compos_data_file
+}:file write;
+
+# Allow crosvm to pipe console log to shell or app which could be the owner of a VM.
+allow crosvm adbd:fd use;
+allow crosvm adbd:unix_stream_socket { read write };
+
+# crosvm tries to use netlink sockets as part its APCI implementation, but we don't need it for AVF (b/228077254)
+dontaudit crosvm self:netlink_generic_socket create_socket_perms_no_ioctl;
+
+# crosvm can write files in /data/local/tmp which are usually used for instance.img and logging by
+# compliance tests and demo apps. Write access to instance.img is particularily important because
+# the VM has to initialize the disk image on its first boot. Note that open access is still not
+# granted because the files are expected to be opened by the owner of the VM (apps or shell in case
+# when the vm is created by the `vm` tool) and handed over to crosvm as FD.
+allow crosvm shell_data_file:file write;
+
+# crosvm tries to read serial device, including the write-only pipe from virtualizationmanager (to
+# forward console/log to the host logcat).
+# crosvm only needs write permission, so dontaudit read
+dontaudit crosvm virtualizationmanager:fifo_file read;
+
+# Required for crosvm to start gdb-server to enable debugging of guest kernel.
+allow crosvm self:tcp_socket { bind create read setopt write accept listen };
+allow crosvm port:tcp_socket name_bind;
+allow crosvm adbd:unix_stream_socket ioctl;
+allow crosvm node:tcp_socket node_bind;
+
+# Don't allow crosvm to open files that it doesn't own.
+# This is important because a malicious application could try to start a VM with a composite disk
+# image referring by name to files which it doesn't have permission to open, trying to get crosvm to
+# open them on its behalf. By preventing crosvm from opening any other files we prevent this
+# potential privilege escalation. See http://b/192453819 for more discussion.
+neverallow crosvm {
+  virtualizationservice_data_file
+  staging_data_file
+  apk_data_file
+  app_data_file
+  privapp_data_file
+  userdebug_or_eng(`-shell_data_file')
+}:file open;
+
+# Don't allow crosvm to have access to ordinary vendor files that are not for VMs.
+full_treble_only(`
+  neverallow crosvm {
+    vendor_file_type
+    -vendor_vm_file
+    -vendor_vm_data_file
+    # These types are not required for crosvm, but the access is granted to globally in domain.te
+    # thus should be exempted here.
+    -vendor_configs_file
+    -vndk_sp_file
+    -vendor_task_profiles_file
+  }:file *;
+')
+
+# Only allow crosvm to read app data files for clients that can start
+# VMs. Note that the use of app data files is further restricted
+# inside the virtualizationservice by checking the label of all disk
+# image files.
+neverallow crosvm {
+  app_data_file_type
+  -app_data_file
+  -privapp_data_file
+  -shell_data_file
+}:file read;
+
+# Only virtualizationmanager can run crosvm
+neverallow {
+  domain
+  -crosvm
+  -virtualizationmanager
+} crosvm_exec:file no_x_file_perms;

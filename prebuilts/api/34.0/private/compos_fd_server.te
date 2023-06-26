@@ -1,0 +1,26 @@
+# Make ART inputs and outputs available to the CompOS VM
+type compos_fd_server, domain, coredomain;
+
+# Allow access to open fds inherited from composd
+allow compos_fd_server composd:fd use;
+
+# Allow creating new files and directories in the staging directory.
+allow compos_fd_server apex_art_staging_data_file:dir create_dir_perms;
+allow compos_fd_server apex_art_staging_data_file:file create_file_perms;
+
+# Allow creating new files and directories in the artifacts directory.
+allow compos_fd_server apex_art_data_file:dir create_dir_perms;
+allow compos_fd_server apex_art_data_file:file create_file_perms;
+
+# Use a pipe to signal readiness
+allow compos_fd_server composd:fifo_file write;
+
+# TODO(b/196109647) - remove this when no longer needed by minijail
+allow compos_fd_server composd:fifo_file read;
+
+# Create a listening vsock for the VM to connect back to
+allow compos_fd_server self:vsock_socket { create_socket_perms_no_ioctl listen accept };
+
+# Only composd can enter the domain via exec
+neverallow { domain -composd } compos_fd_server:process transition;
+neverallow * compos_fd_server:process dyntransition;

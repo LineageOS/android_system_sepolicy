@@ -1,0 +1,10 @@
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_thermal_client, hal_thermal_server)
+binder_call(hal_thermal_server, hal_thermal_client)
+
+hal_attribute_hwservice(hal_thermal, hal_thermal_hwservice)
+hal_attribute_service(hal_thermal, hal_thermal_service)
+
+add_service(hal_thermal_server, hal_thermal_service)
+binder_call(hal_thermal_server, servicemanager)
+binder_call(hal_thermal_client, servicemanager)
