@@ -1,0 +1,52 @@
+;; new_objects - a collection of types that have been introduced with ToT policy
+;;   that have no analogue in 31.0 policy.  Thus, we do not need to map
+;;   these types to previous ones.  Add here to pass checkapi tests.
+(type new_objects)
+(typeattribute new_objects)
+(typeattributeset new_objects
+  ( new_objects
+    apexd_select_prop
+    artd_service
+    attestation_verification_service
+    camera2_extensions_prop
+    communal_service
+    device_config_nnapi_native_prop
+    dice_maintenance_service
+    dice_node_service
+    diced
+    diced_exec
+    extra_free_kbytes
+    extra_free_kbytes_exec
+    hal_contexthub_service
+    hal_dice_service
+    hal_dumpstate_service
+    hal_graphics_composer_service
+    hal_health_service
+    hal_radio_service
+    hal_sensors_service
+    hal_system_suspend_service
+    hal_tv_tuner_service
+    hal_uwb_service
+    hal_uwb_vendor_service
+    hal_wifi_hostapd_service
+    hal_wifi_supplicant_service
+    hal_nlinterceptor_service
+    hypervisor_prop
+    locale_service
+    power_stats_service
+    snapuserd_prop
+    snapuserd_proxy_socket
+    tare_service
+    transformer_service
+    proc_watermark_boost_factor
+    untrusted_app_30
+    proc_vendor_sched
+    sdk_sandbox_service
+    sysfs_fs_fuse_bpf
+    sysfs_vendor_sched
+    tv_iapp_service
+    vendor_uuid_mapping_config_file
+    vendor_vm_file
+    vendor_vm_data_file
+    virtual_device_service
+  ))

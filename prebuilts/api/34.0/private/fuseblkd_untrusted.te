@@ -1,0 +1,82 @@
+# Fuseblk is a Filesystem in USErspace for block device. It should only be used
+# to mount untrusted blocks like USB drives.
+type fuseblkd_untrusted_exec, system_file_type, exec_type, file_type;
+type fuseblkd_untrusted, domain;
+
+typeattribute fuseblkd_untrusted coredomain;
+
+domain_auto_trans(fuseblkd_untrusted, fuseblkd_exec, fuseblkd);
+
+# Allow stdin/out back to vold.
+allow fuseblkd_untrusted vold:fd use;
+
+# Allows fuseblk to read block devices.
+allow fuseblkd_untrusted block_device:dir search;
+
+# Permissions to read dynamic partitions blocks.
+allow fuseblkd_untrusted super_block_device:blk_file getattr;
+
+# Permissions to access FUSE character devices.
+allow fuseblkd_untrusted fuse_device:chr_file { getattr open read write };
+
+# Permissions to access /mnt/media_rw/.
+allow fuseblkd_untrusted mnt_media_rw_file:dir { getattr search };
+allow fuseblkd_untrusted mnt_media_rw_stub_file:dir getattr;
+
+# Permissions to read device mappers.
+allow fuseblkd_untrusted sysfs_dm:dir search;
+allow fuseblkd_untrusted sysfs_dm:file { getattr open read };
+allow fuseblkd_untrusted dm_device:blk_file getattr;
+
+# Permissions to read links in tmpfs.
+allow fuseblkd_untrusted tmpfs:lnk_file read;
+
+# Permissions to read loop device blocks.
+allow fuseblkd_untrusted loop_device:blk_file getattr;
+
+# Permissions to access the /proc/filesystems file.
+allow fuseblkd_untrusted proc_filesystems:file { open read getattr };
+
+###
+### dontaudit rules
+###
+
+# ntfs-3g wants this permission to read a fork return code, for some reason.
+# It's unclear why, because it still reads the fork return code correctly,
+# and nothing breaks. If enforce is set to permissive, the audit goes away.
+dontaudit fuseblkd_untrusted self:capability sys_admin;
+
+###
+### neverallow rules
+###
+
+# Fuseblk should never be run on block devices holding sensitive data.
+neverallow fuseblkd_untrusted {
+  boot_block_device
+  frp_block_device
+  metadata_block_device
+  recovery_block_device
+  root_block_device
+  swap_block_device
+  system_block_device
+  userdata_block_device
+  cache_block_device
+  dm_device
+}:blk_file no_rw_file_perms;
+
+# Only allow entry from vold, and only through fuseblkd_untrusted_exec binaries.
+neverallow { domain -vold } fuseblkd_untrusted:process transition;
+neverallow * fuseblkd_untrusted:process dyntransition;
+neverallow fuseblkd_untrusted { file_type fs_type -fuseblkd_untrusted_exec }:file entrypoint;
+
+# Under no circumstances should fuseblkd_untrusted or any other fuseblk filesystem be
+# given sys_admin access. They are fundementally untrusted, insecure filesystems.
+# The correct solution here is to compartmentalize permissions correctly so that
+# a smaller binary can get the required permissions. See fuseblkd.te.
+# Similar to above, we don't need setgid or setuid permissions.
+neverallow fuseblkd_untrusted self:capability { setgid setuid sys_admin };
+neverallow fuseblkd_untrusted self:global_capability_class_set { setgid setuid sys_admin };
+
+# Since we can't have sys_admin permissions, we definitely can't have mount/unmount
+# permissions, since we won't be able to use them. Same with relabel permissions.
+neverallow fuseblkd_untrusted fuseblk:filesystem { mount unmount relabelto relabelfrom};

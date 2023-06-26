@@ -1,0 +1,88 @@
+# Domain for a child process that manages virtual machines on behalf of its parent.
+
+type virtualizationmanager, domain, coredomain;
+type virtualizationmanager_exec, system_file_type, exec_type, file_type;
+
+# Allow virtualizationmanager to communicate use, read and write over the adb connection.
+allow virtualizationmanager adbd:fd use;
+allow virtualizationmanager adbd:unix_stream_socket { read write };
+
+# Let the virtualizationmanager domain use Binder.
+binder_use(virtualizationmanager)
+
+# Let virtualizationmanager find and communicate with virtualizationservice.
+allow virtualizationmanager virtualization_service:service_manager find;
+binder_call(virtualizationmanager, virtualizationservice)
+
+# Allow calling into the system server to find native services. "permission_service" to check
+# permissions, and "package_native" for staged apex info.
+binder_call(virtualizationmanager, system_server)
+allow virtualizationmanager { package_native_service permission_service }:service_manager find;
+
+# When virtualizationmanager execs a file with the crosvm_exec label, run it in the crosvm domain.
+domain_auto_trans(virtualizationmanager, crosvm_exec, crosvm)
+
+# Let virtualizationmanager kill crosvm.
+allow virtualizationmanager crosvm:process sigkill;
+
+# Let virtualizationmanager create files inside virtualizationservice's temporary directories.
+allow virtualizationmanager virtualizationservice_data_file:dir rw_dir_perms;
+allow virtualizationmanager virtualizationservice_data_file:{ file sock_file } create_file_perms;
+
+# Let virtualizationmanager read and write files from its various clients, but not open them
+# directly as they must be passed over Binder by the client.
+allow virtualizationmanager apk_data_file:file { getattr read };
+
+# Write access is needed for mutable partitions like instance.img
+allow virtualizationmanager {
+  app_data_file
+  apex_compos_data_file
+  privapp_data_file
+}:file { getattr read write };
+
+# shell_data_file is used for automated tests and manual debugging.
+allow virtualizationmanager shell_data_file:file { getattr read write };
+
+# Allow virtualizationmanager to read apex-info-list.xml and access the APEX files listed there.
+allow virtualizationmanager apex_info_file:file r_file_perms;
+allow virtualizationmanager apex_data_file:dir search;
+allow virtualizationmanager staging_data_file:file r_file_perms;
+allow virtualizationmanager staging_data_file:dir search;
+
+# Run derive_classpath in our domain
+allow virtualizationmanager derive_classpath_exec:file rx_file_perms;
+allow virtualizationmanager apex_mnt_dir:dir r_dir_perms;
+# Ignore harmless denials on /proc/self/fd
+dontaudit virtualizationmanager self:dir write;
+
+# Let virtualizationmanager to accept vsock connection from the guest VMs
+allow virtualizationmanager self:vsock_socket { create_socket_perms_no_ioctl listen accept };
+
+# Allow virtualizationmanager to inspect all hypervisor capabilities.
+get_prop(virtualizationmanager, hypervisor_prop)
+get_prop(virtualizationmanager, hypervisor_restricted_prop)
+
+# Allow virtualizationmanager service to talk to tombstoned to push guest ramdumps
+unix_socket_connect(virtualizationmanager, tombstoned_crash, tombstoned)
+
+# Append ramdumps to tombstone files passed as fds from tombstoned
+allow virtualizationmanager tombstone_data_file:file { append getattr };
+allow virtualizationmanager tombstoned:fd use;
+
+# Allow virtualizationmanager to read AVF debug policy
+allow virtualizationmanager sysfs_dt_avf:dir search;
+allow virtualizationmanager sysfs_dt_avf:file { open read };
+
+# Let virtualizationmanager open test artifacts under /data/local/tmp with file path.
+# (e.g. custom debug policy)
+userdebug_or_eng(`
+  allow virtualizationmanager shell_data_file:dir search;
+  allow virtualizationmanager shell_data_file:file open;
+')
+
+# Allow reading files under /proc/[crosvm pid]/, for collecting CPU & memory usage inside VM.
+r_dir_file(virtualizationmanager, crosvm);
+
+# For debug purposes we try to get the canonical path from /proc/self/fd/N. That triggers
+# a harmless denial for CompOS log files, so ignore that.
+dontaudit virtualizationmanager apex_module_data_file:dir search;
