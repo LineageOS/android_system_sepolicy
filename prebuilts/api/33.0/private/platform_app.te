@@ -119,6 +119,10 @@ dontaudit platform_app debugfs_tracing:file rw_file_perms;
 # Allow platform apps to act as Perfetto producers.
 perfetto_producer(platform_app)
 
+# Allow performance profiling if the app opts in.
+can_profile_heap(platform_app)
+can_profile_perf(platform_app)
+
 # Allow platform apps to create VMs
 virtualizationservice_use(platform_app)
 

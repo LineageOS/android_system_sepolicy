@@ -54,6 +54,9 @@ get_prop(appdomain, device_config_runtime_native_boot_prop)
 
 userdebug_or_eng(`perfetto_producer({ appdomain })')
 
+# Allow the heap dump ART plugin to the count of sessions waiting for OOME
+get_prop(appdomain, traced_oome_heap_session_count_prop)
+
 # Prevent apps from causing presubmit failures.
 # Apps can cause selinux denials by accessing CE storage
 # and/or external storage. In either case, the selinux denial is
