@@ -382,6 +382,7 @@ statusbar                                 u:object_r:statusbar_service:s0
 storaged                                  u:object_r:storaged_service:s0
 storaged_pri                              u:object_r:storaged_service:s0
 storagestats                              u:object_r:storagestats_service:s0
+# sdk_sandbox here refers to the service name, not the domain name.
 sdk_sandbox                               u:object_r:sdk_sandbox_service:s0
 SurfaceFlinger                            u:object_r:surfaceflinger_service:s0
 SurfaceFlingerAIDL                        u:object_r:surfaceflinger_service:s0

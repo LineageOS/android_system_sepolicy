@@ -35,9 +35,6 @@ allow mediaprovider_app mediametrics_service:service_manager find;
 # Talk to regular app services
 allow mediaprovider_app app_api_service:service_manager find;
 
-# Read SDK sandbox data files
-allow mediaprovider_app sdk_sandbox_data_file:file { getattr read };
-
 # Talk to the GPU service
 binder_call(mediaprovider_app, gpuservice)
 

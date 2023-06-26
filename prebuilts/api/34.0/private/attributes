@@ -10,3 +10,7 @@ attribute mlsvendorcompat;
 # property owner attributes must be exclusive.
 attribute system_and_vendor_property_type;
 expandattribute system_and_vendor_property_type false;
+
+# All SDK sandbox domains
+attribute sdk_sandbox_all;
+
