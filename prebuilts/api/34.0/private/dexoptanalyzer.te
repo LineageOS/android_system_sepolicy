@@ -1,0 +1,60 @@
+# dexoptanalyzer
+type dexoptanalyzer, domain, coredomain, mlstrustedsubject;
+type dexoptanalyzer_exec, system_file_type, exec_type, file_type;
+type dexoptanalyzer_tmpfs, file_type;
+
+r_dir_file(dexoptanalyzer, apk_data_file)
+# Access to /vendor/app
+r_dir_file(dexoptanalyzer, vendor_app_file)
+
+# Reading an APK opens a ZipArchive, which unpack to tmpfs.
+# Use tmpfs_domain() which will give tmpfs files created by dexoptanalyzer their
+# own label, which differs from other labels created by other processes.
+# This allows to distinguish in policy files created by dexoptanalyzer vs other
+# processes.
+tmpfs_domain(dexoptanalyzer)
+
+userfaultfd_use(dexoptanalyzer)
+
+# Allow dexoptanalyzer to read files in the dalvik cache.
+allow dexoptanalyzer dalvikcache_data_file:dir { getattr search };
+allow dexoptanalyzer dalvikcache_data_file:file r_file_perms;
+
+# Read symlinks in /data/dalvik-cache. This is required for PIC mode boot
+# app_data_file the oat file is symlinked to the original file in /system.
+allow dexoptanalyzer dalvikcache_data_file:lnk_file read;
+
+# Allow dexoptanalyzer to read files in the ART APEX data directory.
+allow dexoptanalyzer { apex_art_data_file apex_module_data_file }:dir { getattr search };
+allow dexoptanalyzer apex_art_data_file:file r_file_perms;
+
+# Allow dexoptanalyzer to use file descriptors from odrefresh.
+allow dexoptanalyzer odrefresh:fd use;
+
+# Use devpts and fd from odsign (which exec()'s odrefresh)
+allow dexoptanalyzer odsign:fd use;
+allow dexoptanalyzer odsign_devpts:chr_file { read write };
+
+allow dexoptanalyzer installd:fd use;
+allow dexoptanalyzer installd:fifo_file { getattr write };
+
+# Acquire advisory lock on /system/framework/arm/*
+allow dexoptanalyzer system_file:file lock;
+
+# Allow reading secondary dex files that were reported by the app to the
+# package manager.
+allow dexoptanalyzer { privapp_data_file app_data_file }:file { getattr read map };
+
+# dexoptanalyzer checks the DM files next to dex files. We don't need this check
+# for secondary dex files, but it's not harmful. Just deny it and ignore it.
+dontaudit dexoptanalyzer { privapp_data_file app_data_file }:dir search;
+
+# Allow testing /data/user/0 which symlinks to /data/data
+allow dexoptanalyzer system_data_file:lnk_file { getattr };
+
+# Allow query ART device config properties
+get_prop(dexoptanalyzer, device_config_runtime_native_prop)
+get_prop(dexoptanalyzer, device_config_runtime_native_boot_prop)
+
+# Allow dexoptanalyzer to read /apex/apex-info-list.xml
+allow dexoptanalyzer apex_info_file:file r_file_perms;

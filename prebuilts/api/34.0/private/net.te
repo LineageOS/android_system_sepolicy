@@ -1,0 +1,19 @@
+# Bind to ports.
+allow {netdomain -ephemeral_app -sdk_sandbox_all} node_type:{ icmp_socket rawip_socket tcp_socket udp_socket } node_bind;
+allow {netdomain -ephemeral_app -sdk_sandbox_all} port_type:udp_socket name_bind;
+allow {netdomain -ephemeral_app -sdk_sandbox_all} port_type:tcp_socket name_bind;
+
+# b/141455849 gate RTM_GETLINK with a new permission nlmsg_readpriv and block access from
+# untrusted_apps.
+# b/171572148 gate RTM_GETNEIGH{TBL} with a new permission nlmsg_getneigh and block access from
+# untrusted_apps. Some untrusted apps (e.g. untrusted_app_25-30) are granted access elsewhere
+# to avoid app-compat breakage.
+allow {
+  netdomain
+  -ephemeral_app
+  -mediaprovider
+  -priv_app
+  -sdk_sandbox_all
+  -untrusted_app_all
+} self:netlink_route_socket { bind nlmsg_readpriv nlmsg_getneigh };
+
