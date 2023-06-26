@@ -152,6 +152,11 @@ get_prop(gmscore_app, dck_prop)
 # Allow GMSCore to read RKP properties for the purpose of GTS testing.
 get_prop(gmscore_app, remote_prov_prop)
 
+# Allow GmsCore to read Quick Start properties and prevent access from other
+# policies.
+get_prop(gmscore_app, quick_start_prop)
+neverallow { domain -init -dumpstate -vendor_init -gmscore_app } quick_start_prop:file no_rw_file_perms;
+
 # Do not allow getting permission-protected network information from sysfs.
 neverallow gmscore_app sysfs_net:file *;
 
