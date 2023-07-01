@@ -378,6 +378,7 @@ hal_attribute(sensors);
 hal_attribute(telephony);
 hal_attribute(tetheroffload);
 hal_attribute(thermal);
+hal_attribute(threadnetwork);
 hal_attribute(tv_cec);
 hal_attribute(tv_hdmi_cec);
 hal_attribute(tv_hdmi_connection);
