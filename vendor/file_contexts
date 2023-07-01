@@ -101,6 +101,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.tetheroffload-service\.example u:object_r:hal_tetheroffload_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.thermal@1\.[01]-service        u:object_r:hal_thermal_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.thermal-service\.example       u:object_r:hal_thermal_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.threadnetwork-service(\.sim)?  u:object_r:hal_threadnetwork_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.tv\.cec@1\.[01]-service        u:object_r:hal_tv_cec_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.tv\.hdmi.cec-service           u:object_r:hal_tv_hdmi_cec_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.tv\.hdmi.connection-service    u:object_r:hal_tv_hdmi_connection_default_exec:s0
@@ -124,6 +125,7 @@
 /(vendor|system/vendor)/bin/hw/hostapd                                        u:object_r:hal_wifi_hostapd_default_exec:s0
 /(vendor|system/vendor)/bin/hw/wpa_supplicant                                 u:object_r:hal_wifi_supplicant_default_exec:s0
 /(vendor|system/vendor)/bin/install-recovery\.sh                              u:object_r:vendor_install_recovery_exec:s0
+/(vendor|system/vendor)/bin/ot-rcp                                            u:object_r:ot_rcp_exec:s0
 /(vendor|system/vendor)/bin/vndservicemanager                                 u:object_r:vndservicemanager_exec:s0
 
 #############################
