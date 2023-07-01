@@ -320,6 +320,7 @@ type hal_tv_hdmi_cec_service, protected_service, hal_service_type, service_manag
 type hal_tv_hdmi_connection_service, protected_service, hal_service_type, service_manager_type;
 type hal_tv_hdmi_earc_service, protected_service, hal_service_type, service_manager_type;
 type hal_tv_input_service, protected_service, hal_service_type, service_manager_type;
+type hal_threadnetwork_service, protected_service, hal_service_type, service_manager_type;
 type hal_tv_tuner_service, protected_service, hal_service_type, service_manager_type;
 type hal_usb_service, protected_service, hal_service_type, service_manager_type;
 type hal_usb_gadget_service, protected_service, hal_service_type, service_manager_type;
