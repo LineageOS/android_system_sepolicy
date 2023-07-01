@@ -27,6 +27,10 @@ allow microdroid_payload microdroid_manager:vsock_socket { read write };
 # Write to /dev/kmsg.
 allow microdroid_payload kmsg_device:chr_file rw_file_perms;
 
+# Read from console. Note that both /dev/kmsg and /dev/console are backed
+# by the same file in the host.
+allow microdroid_payload console_device:chr_file r_file_perms;
+
 # Allow microdroid_payload to host binder servers via vsock. Listening
 # for connections from the host is permitted, but connecting out to
 # the host is not. Inbound connections are mediated by
