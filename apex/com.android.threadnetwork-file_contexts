@@ -1,4 +1,3 @@
 (/.*)?                         u:object_r:system_file:s0
 /bin/otbr-agent                u:object_r:ot_daemon_exec:s0
 /bin/ot-ctl                    u:object_r:ot_ctl_exec:s0
-/bin/ot-rcp                    u:object_r:ot_rcp_exec:s0
