@@ -119,6 +119,7 @@ var (
 		"android.hardware.soundtrigger3.ISoundTriggerHw/default":                  EXCEPTION_NO_FUZZER,
 		"android.hardware.tetheroffload.IOffload/default":                         EXCEPTION_NO_FUZZER,
 		"android.hardware.thermal.IThermal/default":                               EXCEPTION_NO_FUZZER,
+		"android.hardware.threadnetwork.IThreadChip/chip0":                        []string{"android.hardware.threadnetwork-service.fuzzer"},
 		"android.hardware.tv.hdmi.cec.IHdmiCec/default":                           EXCEPTION_NO_FUZZER,
 		"android.hardware.tv.hdmi.connection.IHdmiConnection/default":             EXCEPTION_NO_FUZZER,
 		"android.hardware.tv.hdmi.earc.IEArc/default":                             EXCEPTION_NO_FUZZER,
