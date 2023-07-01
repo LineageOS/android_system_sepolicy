@@ -94,6 +94,7 @@ android.hardware.sensors.ISensors/default                            u:object_r:
 android.hardware.soundtrigger3.ISoundTriggerHw/default               u:object_r:hal_audio_service:s0
 android.hardware.tetheroffload.IOffload/default                      u:object_r:hal_tetheroffload_service:s0
 android.hardware.thermal.IThermal/default                            u:object_r:hal_thermal_service:s0
+android.hardware.threadnetwork.IThreadChip/chip0                     u:object_r:hal_threadnetwork_service:s0
 android.hardware.tv.hdmi.cec.IHdmiCec/default                        u:object_r:hal_tv_hdmi_cec_service:s0
 android.hardware.tv.hdmi.connection.IHdmiConnection/default          u:object_r:hal_tv_hdmi_connection_service:s0
 android.hardware.tv.hdmi.earc.IEArc/default                          u:object_r:hal_tv_hdmi_earc_service:s0
