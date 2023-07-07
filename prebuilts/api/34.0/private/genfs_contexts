@@ -65,6 +65,7 @@ genfscon proc /sys/kernel/random u:object_r:proc_random:s0
 genfscon proc /sys/kernel/randomize_va_space u:object_r:proc_security:s0
 genfscon proc /sys/kernel/sched_child_runs_first u:object_r:proc_sched:s0
 genfscon proc /sys/kernel/sched_latency_ns u:object_r:proc_sched:s0
+genfscon proc /sys/kernel/sched_pelt_multiplier u:object_r:proc_sched:s0
 genfscon proc /sys/kernel/sched_rt_period_us u:object_r:proc_sched:s0
 genfscon proc /sys/kernel/sched_rt_runtime_us u:object_r:proc_sched:s0
 genfscon proc /sys/kernel/sched_schedstats u:object_r:proc_sched:s0
