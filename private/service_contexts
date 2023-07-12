@@ -226,6 +226,7 @@ euicc_card_controller                     u:object_r:radio_service:s0
 external_vibrator_service                 u:object_r:external_vibrator_service:s0
 ethernet                                  u:object_r:ethernet_service:s0
 face                                      u:object_r:face_service:s0
+feature_flags                             u:object_r:feature_flags_service:s0
 file_integrity                            u:object_r:file_integrity_service:s0
 fingerprint                               u:object_r:fingerprint_service:s0
 font                                      u:object_r:font_service:s0
