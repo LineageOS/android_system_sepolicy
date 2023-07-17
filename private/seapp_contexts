@@ -47,9 +47,11 @@
 # be mapped to isolated_compute_app by default. It is expected to be used together
 # with user=_isolated. This selector should not be used unless it is intended
 # to provide isolated processes with relaxed security restrictions.
+# An unspecified isIsolatedComputeApp defaults to false.
 #
 # isSdkSandboxNext=true means sdk sandbox processes will get
 # sdk_sandbox_next sepolicy applied to them.
+# An unspecified isSdkSandboxNext defaults to false.
 #
 # Precedence: entries are compared using the following rules, in the order shown
 # (see external/selinux/libselinux/src/android/android_platform.c,
@@ -67,8 +69,6 @@
 #              minTargetSdkVersion= integer. Note that minTargetSdkVersion=
 #              defaults to 0 if unspecified.
 #       (8) fromRunAs=true before fromRunAs=false.
-#       (9) isIsolatedComputeApp=true before isIsolatedComputeApp=false
-#       (10) isSdkSandboxNext=true before isSdkSandboxNext=false
 # (A fixed selector is more specific than a prefix, i.e. ending in *, and a
 # longer prefix is more specific than a shorter prefix.)
 # Apps are checked against entries in precedence order until the first match,
