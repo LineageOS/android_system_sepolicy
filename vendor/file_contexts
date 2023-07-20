@@ -149,3 +149,46 @@
 #
 /data/vendor/wifi/hostapd(/.*)?                                               u:object_r:hostapd_data_file:s0
 /data/vendor/wifi/wpa(/.*)?                                                   u:object_r:wpa_data_file:s0
+
+#############################
+# Vendor libraries loaded from SP-HAL (former VNDK-SP)
+#
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.common-V2-ndk\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.common\.fmq-V1-ndk\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.allocator-V2-ndk\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.common-V4-ndk\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.common@1\.0\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.common@1\.1\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.common@1\.2\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.composer3-V1-ndk\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.mapper@2\.0\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.mapper@2\.1\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.mapper@3\.0\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.mapper@4\.0\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.renderscript@1\.0\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hidl\.memory\.token@1\.0\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hidl\.memory@1\.0-impl\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hidl\.memory@1\.0\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hidl\.safe_union@1\.0\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libRSCpuRef\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libRSDriver\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libRS_internal\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libbase\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libbcinfo\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libblas\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libc\+\+\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libcompiler_rt\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libcutils\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libdmabufheap\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libgralloctypes\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libhardware\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libhidlbase\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libhidlmemory\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libion\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libjsoncpp\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/liblzma\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libprocessgroup\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libunwindstack\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libutils\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libutilscallstack\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libz\.so u:object_r:same_process_hal_file:s0
