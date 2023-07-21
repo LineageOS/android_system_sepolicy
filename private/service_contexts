@@ -154,6 +154,7 @@ app_integrity                             u:object_r:app_integrity_service:s0
 app_prediction                            u:object_r:app_prediction_service:s0
 app_search                                u:object_r:app_search_service:s0
 apexservice                               u:object_r:apex_service:s0
+archive                                   u:object_r:archive_service:s0
 attestation_verification                  u:object_r:attestation_verification_service:s0
 blob_store                                u:object_r:blob_store_service:s0
 gsiservice                                u:object_r:gsi_service:s0

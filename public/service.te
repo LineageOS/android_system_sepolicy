@@ -70,6 +70,7 @@ type app_prediction_service, app_api_service, system_server_service, service_man
 type app_search_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type appops_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type appwidget_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type archive_service, app_api_service, system_server_service, service_manager_type;
 type assetatlas_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type attestation_verification_service, app_api_service, system_server_service, service_manager_type;
 type audio_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
