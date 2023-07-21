@@ -102,6 +102,10 @@ neverallow { appdomain -shell userdebug_or_eng(`-su') }
 # Don't allow regular apps access to storage configuration properties.
 neverallow { appdomain -mediaprovider_app } storage_config_prop:file no_rw_file_perms;
 
+# Don't allow apps reading /system/etc/font_fallback.xml
+dontaudit appdomain system_font_fallback_file:file no_rw_file_perms;
+neverallow appdomain system_font_fallback_file:file no_rw_file_perms;
+
 # Allow to read sendbug.preferred.domain
 get_prop(appdomain, sendbug_config_prop)
 
