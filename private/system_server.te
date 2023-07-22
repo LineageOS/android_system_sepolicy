@@ -855,6 +855,10 @@ set_prop(system_server, tuner_server_ctl_prop)
 # Allow the heap dump ART plugin to the count of sessions waiting for OOME
 get_prop(system_server, traced_oome_heap_session_count_prop)
 
+# Allow the sensor service (running in the system service) to read sensor
+# configuration properties
+get_prop(system_server, sensors_config_prop)
+
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
 
