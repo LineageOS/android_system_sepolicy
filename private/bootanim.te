@@ -16,5 +16,5 @@ get_prop(bootanim, bootanim_config_prop)
 # Allow updating boot animation status.
 set_prop(bootanim, bootanim_system_prop)
 
-# Allow accessing /data/bootanim
+# Allow accessing /data/misc/bootanim
 r_dir_file(bootanim, bootanim_data_file)
