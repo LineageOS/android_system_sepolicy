@@ -238,7 +238,6 @@
 /system/bin/init		u:object_r:init_exec:s0
 # TODO(/123600489): merge mini-keyctl into toybox
 /system/bin/mini-keyctl	--	u:object_r:toolbox_exec:s0
-/system/bin/fsverity_init	u:object_r:fsverity_init_exec:s0
 /system/bin/sload_f2fs	--	u:object_r:e2fs_exec:s0
 /system/bin/make_f2fs	--	u:object_r:e2fs_exec:s0
 /system/bin/fsck_msdos	--	u:object_r:fsck_exec:s0
