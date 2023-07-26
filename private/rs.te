@@ -32,6 +32,10 @@ allow rs same_process_hal_file:file { r_file_perms execute };
 # File descriptors passed from app to renderscript
 allow rs { untrusted_app_all ephemeral_app priv_app }:fd use;
 
+# See b/291211299. Since rs is deprecated, this shouldn't be too dangerous, since new
+# renderscript usages shouldn't be popping up.
+dontaudit rs { zygote surfaceflinger hal_graphics_allocator }:fd use;
+
 # rs can access app data, so ensure it can only be entered via an app domain and cannot have
 # CAP_DAC_OVERRIDE.
 neverallow rs rs:capability_class_set *;
