@@ -69,6 +69,8 @@
 #              minTargetSdkVersion= integer. Note that minTargetSdkVersion=
 #              defaults to 0 if unspecified.
 #       (8) fromRunAs=true before fromRunAs=false.
+#       (9) Platform seapp_contexts files (system, system_ext, product) before
+#              vendor seapp_contexts files (vendor, odm).
 # (A fixed selector is more specific than a prefix, i.e. ending in *, and a
 # longer prefix is more specific than a shorter prefix.)
 # Apps are checked against entries in precedence order until the first match,
