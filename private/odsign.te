@@ -51,9 +51,6 @@ allow odsign apex_art_data_file:file { rw_file_perms unlink };
 # Run odrefresh to refresh ART artifacts
 domain_auto_trans(odsign, odrefresh_exec, odrefresh)
 
-# Run fsverity_init to add key to fsverity keyring
-domain_auto_trans(odsign, fsverity_init_exec, fsverity_init)
-
 # Run compos_verify to verify CompOs signatures
 domain_auto_trans(odsign, compos_verify_exec, compos_verify)
 
@@ -65,5 +62,5 @@ neverallow { domain -odsign -init } odsign_prop:property_service set;
 set_prop(odsign, ctl_odsign_prop)
 
 # Neverallows
-neverallow { domain -odsign -init -fsverity_init} odsign_data_file:dir ~search;
-neverallow { domain -odsign -init -fsverity_init} odsign_data_file:file *;
+neverallow { domain -odsign -init } odsign_data_file:dir ~search;
+neverallow { domain -odsign -init } odsign_data_file:file *;
