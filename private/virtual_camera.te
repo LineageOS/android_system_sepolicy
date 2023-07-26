@@ -1,0 +1,16 @@
+# virtual_camera - virtual camera daemon
+
+type virtual_camera, domain, coredomain;
+
+app_domain(virtual_camera)
+
+allow virtual_camera system_app_data_file:dir create_dir_perms;
+allow virtual_camera system_app_data_file:file create_file_perms;
+
+allow virtual_camera activity_service:service_manager find;
+
+# hal_server_domain adds this rule to prevent any other domain from adding
+# a virtual_camera_service. We cannot mix app_domain and hal_server_domain
+# so we use app_domain and manully add the neverallow
+allow virtual_camera virtual_camera_service:service_manager add;
+neverallow { domain -virtual_camera} virtual_camera_service:service_manager add;
