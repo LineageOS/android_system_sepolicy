@@ -156,18 +156,10 @@ get_prop(domain, binder_cache_bluetooth_server_prop)
 get_prop(domain, binder_cache_system_server_prop)
 get_prop(domain, binder_cache_telephony_server_prop)
 
-# Allow searching the ".fs-verity" keyring.
-#
-# Note: Android no longer uses fsverity builtin signatures, which makes this
-# rule mostly unnecessary.  This rule can potentially still be invoked when
-# opening a file with an fsverity builtin signature that exists on-disk from
-# Android 13 or earlier, if the kernel hasn't updated to disable fsverity
-# builtin signature support.  Though, opening such a file fails regardless of
-# whether SELinux allows the keyring lookup, as the keyring is now always empty.
-# At the same time, some totally unrelated dependencies on this rule have crept
-# in as well, for example init needs it to create the session keyring on Linux
-# v5.3 and later.  TODO(b/290064770) Replace this with more specific rules.
+# Allow access to fsverity keyring.
 allow domain kernel:key search;
+# Allow access to keys in the fsverity keyring that were installed at boot.
+allow domain fsverity_init:key search;
 # For testing purposes, allow access to keys installed with su.
 userdebug_or_eng(`
   allow domain su:key search;
