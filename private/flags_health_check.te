@@ -3,6 +3,7 @@ typeattribute flags_health_check coredomain;
 init_daemon_domain(flags_health_check)
 
 set_prop(flags_health_check, device_config_boot_count_prop)
+set_prop(flags_health_check, device_config_core_experiments_team_internal_prop)
 set_prop(flags_health_check, device_config_edgetpu_native_prop)
 set_prop(flags_health_check, device_config_reset_performed_prop)
 set_prop(flags_health_check, device_config_runtime_native_boot_prop)
