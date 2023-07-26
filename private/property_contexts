@@ -253,6 +253,7 @@ persist.device_config.attempted_boot_count          u:object_r:device_config_boo
 persist.device_config.camera_native.                u:object_r:device_config_camera_native_prop:s0
 persist.device_config.configuration.                u:object_r:device_config_configuration_prop:s0
 persist.device_config.connectivity.                 u:object_r:device_config_connectivity_prop:s0
+persist.device_config.core_experiments_team_internal.  u:object_r:device_config_core_experiments_team_internal_prop:s0
 persist.device_config.edgetpu_native.               u:object_r:device_config_edgetpu_native_prop:s0
 persist.device_config.input_native_boot.            u:object_r:device_config_input_native_boot_prop:s0
 persist.device_config.lmkd_native.                  u:object_r:device_config_lmkd_native_prop:s0
