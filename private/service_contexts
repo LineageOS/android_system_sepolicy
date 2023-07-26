@@ -33,6 +33,7 @@ android.hardware.broadcastradio.IBroadcastRadio/dab                  u:object_r:
 # The instance here is internal/0 following naming convention for ICameraProvider.
 # It advertises internal camera devices.
 android.hardware.camera.provider.ICameraProvider/internal/0          u:object_r:hal_camera_service:s0
+android.hardware.camera.provider.ICameraProvider/virtual/0           u:object_r:virtual_camera_service:s0
 android.hardware.cas.IMediaCasService/default                        u:object_r:hal_cas_service:s0
 android.hardware.confirmationui.IConfirmationUI/default              u:object_r:hal_confirmationui_service:s0
 android.hardware.contexthub.IContextHub/default                      u:object_r:hal_contexthub_service:s0

@@ -49,6 +49,7 @@ type system_suspend_control_service, service_manager_type;
 type update_engine_service,     service_manager_type;
 type update_engine_stable_service, service_manager_type;
 type virtualization_service,    service_manager_type;
+type virtual_camera_service,    service_manager_type;
 type virtual_touchpad_service,  service_manager_type;
 type vold_service,              service_manager_type;
 type vr_hwc_service,            service_manager_type;
