@@ -743,6 +743,7 @@ set_prop(system_server, ctl_gsid_prop)
 set_prop(system_server, cppreopt_prop)
 
 # server configurable flags properties
+set_prop(system_server, device_config_core_experiments_team_internal_prop)
 set_prop(system_server, device_config_edgetpu_native_prop)
 set_prop(system_server, device_config_input_native_boot_prop)
 set_prop(system_server, device_config_netd_native_prop)
@@ -1312,6 +1313,7 @@ neverallow {
   -system_server
   -flags_health_check
 } {
+  device_config_core_experiments_team_internal_prop
   device_config_activity_manager_native_boot_prop
   device_config_connectivity_prop
   device_config_input_native_boot_prop
