@@ -737,7 +737,7 @@
 /data/incremental/MT_[^/]+/mount/.blocks_written        u:object_r:incremental_control_file:s0
 
 # Boot animation data
-/data/bootanim(/.*)? u:object_r:bootanim_data_file:s0
+/data/misc/bootanim(/.*)? u:object_r:bootanim_data_file:s0
 #############################
 # Expanded data files
 #

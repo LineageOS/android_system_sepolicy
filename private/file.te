@@ -98,7 +98,7 @@ type virtualizationservice_data_file, file_type, data_file_type, core_data_file_
 # /data/system/environ
 type environ_system_data_file, file_type, data_file_type, core_data_file_type;
 
-# /data/bootanim
+# /data/misc/bootanim
 type bootanim_data_file, file_type, data_file_type, core_data_file_type;
 
 # /dev/kvm
