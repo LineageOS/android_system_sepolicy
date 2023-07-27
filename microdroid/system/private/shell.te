@@ -7,11 +7,6 @@ selinux_check_context(shell)
 # Allow shell to run adb shell cmd stats commands. Needed for CTS.
 binder_call(shell, statsd);
 
-# Allow shell to launch microdroid_launcher in its own domain
-# TODO(b/186396070) remove this when microdroid_manager can do this
-domain_auto_trans(shell, microdroid_app_exec, microdroid_app)
-domain_auto_trans(shell, microdroid_manager_exec, microdroid_manager)
-
 # Connect to adbd and use a socket transferred from it.
 # This is used for e.g. adb backup/restore.
 allow shell adbd:unix_stream_socket connectto;
