@@ -21,6 +21,7 @@
 #define log_info(fmt, ...) if (logging_verbose ) { log_msg(stdout, "Info: ", fmt, ##__VA_ARGS__); }
 
 #define APP_DATA_REQUIRED_ATTRIB "app_data_file_type"
+#define COREDOMAIN "coredomain"
 
 /**
  * Initializes an empty, static list.
@@ -61,6 +62,7 @@ typedef struct list_element list_element;
 typedef struct list list;
 typedef struct key_map_regex key_map_regex;
 typedef struct file_info file_info;
+typedef struct coredomain_violation_entry coredomain_violation_entry;
 
 enum map_match {
 	map_no_matches,
@@ -106,7 +108,7 @@ struct key_map {
 	key_dir dir;
 	char *data;
 	key_map_regex regex;
-	bool (*fn_validate)(char *value, char **errmsg);
+	bool (*fn_validate)(char *value, const char *filename, int lineno, char **errmsg);
 };
 
 /**
@@ -149,6 +151,7 @@ struct policy_info {
 	sepol_policy_file_t *pf;
 	sepol_handle_t *handle;
 	sepol_context_t *con;
+	bool vendor;
 };
 
 struct file_info {
@@ -157,6 +160,14 @@ struct file_info {
 	list_element listify;
 };
 
+struct coredomain_violation_entry {
+	list_element listify;
+	char *domain;
+	char *filename;
+	int lineno;
+};
+
+static void coredomain_violation_list_freefn(list_element *e);
 static void input_file_list_freefn(list_element *e);
 static void line_order_list_freefn(list_element *e);
 static void rule_map_free(rule_map *rm, bool is_in_htable);
@@ -169,13 +180,16 @@ static file_info out_file;
 
 static list input_file_list = list_init(input_file_list_freefn);
 
+static list coredomain_violation_list = list_init(coredomain_violation_list_freefn);
+
 static policy_info pol = {
 	.policy_file_name = NULL,
 	.policy_file = NULL,
 	.db = NULL,
 	.pf = NULL,
 	.handle = NULL,
-	.con = NULL
+	.con = NULL,
+	.vendor = false
 };
 
 /**
@@ -192,12 +206,12 @@ static list line_order_list = list_init(line_order_list_freefn);
 static list nallow_list = list_init(line_order_list_freefn);
 
 /* validation call backs */
-static bool validate_bool(char *value, char **errmsg);
-static bool validate_levelFrom(char *value, char **errmsg);
-static bool validate_domain(char *value, char **errmsg);
-static bool validate_type(char *value, char **errmsg);
-static bool validate_selinux_level(char *value, char **errmsg);
-static bool validate_uint(char *value, char **errmsg);
+static bool validate_bool(char *value, const char *filename, int lineno, char **errmsg);
+static bool validate_levelFrom(char *value, const char *filename, int lineno, char **errmsg);
+static bool validate_domain(char *value, const char *filename, int lineno, char **errmsg);
+static bool validate_type(char *value, const char *filename, int lineno, char **errmsg);
+static bool validate_selinux_level(char *value, const char *filename, int lineno, char **errmsg);
+static bool validate_uint(char *value, const char *filename, int lineno, char **errmsg);
 
 /**
  * The heart of the mapping process, this must be updated if a new key value pair is added
@@ -276,6 +290,14 @@ static void input_file_list_freefn(list_element *e) {
 		fclose(f->file);
 	}
 	free(f);
+}
+
+static void coredomain_violation_list_freefn(list_element *e) {
+	coredomain_violation_entry *c = list_entry(e, typeof(*c), listify);
+
+	free(c->domain);
+	free(c->filename);
+	free(c);
 }
 
 /**
@@ -377,8 +399,11 @@ static bool compile_regex(key_map *km, int *errcode, PCRE2_SIZE *erroff) {
 	return true;
 }
 
-static bool validate_bool(char *value, char **errmsg) {
-
+static bool validate_bool(
+		char *value,
+		__attribute__ ((unused)) const char *filename,
+		__attribute__ ((unused)) int lineno,
+		char **errmsg) {
 	if (!strcmp("true", value) || !strcmp("false", value)) {
 		return true;
 	}
@@ -387,8 +412,11 @@ static bool validate_bool(char *value, char **errmsg) {
 	return false;
 }
 
-static bool validate_levelFrom(char *value, char **errmsg) {
-
+static bool validate_levelFrom(
+		char *value,
+		__attribute__ ((unused)) const char *filename,
+		__attribute__ ((unused)) int lineno,
+		char **errmsg) {
 	if (strcasecmp(value, "none") && strcasecmp(value, "all") &&
 		strcasecmp(value, "app") && strcasecmp(value, "user")) {
 		*errmsg = "Expecting one of: \"none\", \"all\", \"app\" or \"user\"";
@@ -397,7 +425,7 @@ static bool validate_levelFrom(char *value, char **errmsg) {
 	return true;
 }
 
-static bool validate_domain(char *value, char **errmsg) {
+static bool validate_domain(char *value, const char *filename, int lineno, char **errmsg) {
 
 #if defined(LINK_SEPOL_STATIC)
 	/*
@@ -408,17 +436,37 @@ static bool validate_domain(char *value, char **errmsg) {
 		return true;
 	}
 
-	if (!find_type(pol.db, value, TYPE_TYPE)) {
+	type_datum_t *type_dat = find_type(pol.db, value, TYPE_TYPE);
+	if (!type_dat) {
 		*errmsg = "Expecting a valid SELinux type";
 		return false;
+	}
+
+	if (pol.vendor) {
+		type_datum_t *attrib_dat = find_type(pol.db, COREDOMAIN, TYPE_ATTRIB);
+		if (!attrib_dat) {
+			*errmsg = "The attribute " COREDOMAIN " is not defined in the policy";
+			return false;
+		}
+
+		if (type_has_attribute(pol.db, type_dat, attrib_dat)) {
+			coredomain_violation_entry *entry = (coredomain_violation_entry *)malloc(sizeof(*entry));
+			entry->domain = strdup(value);
+			entry->filename = strdup(filename);
+			entry->lineno = lineno;
+			list_append(&coredomain_violation_list, &entry->listify);
+		}
 	}
 #endif
 
 	return true;
 }
 
-static bool validate_type(char *value, char **errmsg) {
-
+static bool validate_type(
+		char *value,
+		__attribute__ ((unused)) const char *filename,
+		__attribute__ ((unused)) int lineno,
+		char **errmsg) {
 #if defined(LINK_SEPOL_STATIC)
 	/*
 	 * No policy file present means we cannot check
@@ -451,8 +499,11 @@ static bool validate_type(char *value, char **errmsg) {
 	return true;
 }
 
-static bool validate_selinux_level(char *value, char **errmsg) {
-
+static bool validate_selinux_level(
+		char *value,
+		__attribute__ ((unused)) const char *filename,
+		__attribute__ ((unused)) int lineno,
+		char **errmsg) {
 	/*
 	 * No policy file present means we cannot check
 	 * SE Linux MLS
@@ -470,8 +521,11 @@ static bool validate_selinux_level(char *value, char **errmsg) {
 	return true;
 }
 
-static bool validate_uint(char *value, char **errmsg) {
-
+static bool validate_uint(
+		char *value,
+		__attribute__ ((unused)) const char *filename,
+		__attribute__ ((unused)) int lineno,
+		char **errmsg) {
 	char *endptr;
 	long longvalue;
 	longvalue = strtol(value, &endptr, 10);
@@ -528,7 +582,7 @@ static bool key_map_validate(key_map *m, const char *filename, int lineno,
 
 	/* If the key has a validation routine, call it */
 	if (m->fn_validate) {
-		rc = m->fn_validate(value, &errmsg);
+		rc = m->fn_validate(value, filename, lineno, &errmsg);
 
 		if (!rc) {
 			log_error("Could not validate key \"%s\" for value \"%s\" on line: %d in file: \"%s\": %s\n", key, value,
@@ -996,7 +1050,7 @@ static void handle_options(int argc, char *argv[]) {
 	int c;
 	file_info *input_file;
 
-	while ((c = getopt(argc, argv, "ho:p:v")) != -1) {
+	while ((c = getopt(argc, argv, "ho:p:vc")) != -1) {
 		switch (c) {
 		case 'h':
 			usage();
@@ -1009,6 +1063,9 @@ static void handle_options(int argc, char *argv[]) {
 			break;
 		case 'v':
 			log_set_verbose();
+			break;
+		case 'c':
+			pol.vendor = true;
 			break;
 		case '?':
 			if (optopt == 'o' || optopt == 'p')
@@ -1228,6 +1285,7 @@ static void validate() {
 	bool found_issues = false;
 	hash_entry *e;
 	rule_map *r;
+	coredomain_violation_entry *c;
 	list_for_each(&line_order_list, cursor) {
 		e = list_entry(cursor, typeof(*e), listify);
 		rule_map_validate(e->r);
@@ -1245,6 +1303,12 @@ static void validate() {
 			rule_map_print(stderr, r);
 			fprintf(stderr, "\"\n");
 		}
+	}
+
+	list_for_each(&coredomain_violation_list, cursor) {
+		c = list_entry(cursor, typeof(*c), listify);
+		fprintf(stderr, "Forbidden attribute " COREDOMAIN " assigned to domain \"%s\" in "
+                        "File \"%s\" on line %d\n", c->domain, c->filename, c->lineno);
 	}
 
 	if (found_issues) {
@@ -1305,6 +1369,7 @@ static void cleanup() {
 	list_free(&input_file_list);
 	list_free(&line_order_list);
 	list_free(&nallow_list);
+	list_free(&coredomain_violation_list);
 	hdestroy();
 }
 
