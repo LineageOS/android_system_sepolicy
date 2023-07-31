@@ -434,11 +434,15 @@ func (m *selinuxContextsModule) buildSeappContexts(ctx android.ModuleContext, in
 		Text("|| true)") // to make ninja happy even when result is empty
 
 	rule.Temporary(neverallowFile)
-	rule.Command().BuiltTool("checkseapp").
+	checkCmd := rule.Command().BuiltTool("checkseapp").
 		FlagWithInput("-p ", android.PathForModuleSrc(ctx, proptools.String(m.seappProperties.Sepolicy))).
 		FlagWithOutput("-o ", ret).
 		Inputs(inputs).
 		Input(neverallowFile)
+
+	if ctx.SocSpecific() || ctx.DeviceSpecific() {
+		checkCmd.Flag("-c") // check coredomain
+	}
 
 	rule.Build("seapp_contexts", "Building seapp_contexts: "+m.Name())
 	return ret
