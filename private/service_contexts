@@ -147,6 +147,7 @@ android.security.metrics                  u:object_r:keystore_metrics_service:s0
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
 android.system.composd                    u:object_r:compos_service:s0
 android.system.virtualizationservice      u:object_r:virtualization_service:s0
+android.system.virtualizationservice_internal.IVfioHandler u:object_r:vfio_handler_service:s0
 ambient_context                           u:object_r:ambient_context_service:s0
 app_binding                               u:object_r:app_binding_service:s0
 app_hibernation                           u:object_r:app_hibernation_service:s0
