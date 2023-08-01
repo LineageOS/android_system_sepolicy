@@ -150,6 +150,7 @@ full_treble_only(`
     -apexd
     -init
     -ueventd
+    -vfio_handler
     -vold
   } sysfs:file no_rw_file_perms;
 

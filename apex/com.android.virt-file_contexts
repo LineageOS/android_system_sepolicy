@@ -3,3 +3,4 @@
 /bin/fd_server             u:object_r:fd_server_exec:s0
 /bin/virtmgr               u:object_r:virtualizationmanager_exec:s0
 /bin/virtualizationservice u:object_r:virtualizationservice_exec:s0
+/bin/vfio_handler          u:object_r:vfio_handler_exec:s0
