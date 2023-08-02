@@ -92,6 +92,14 @@ allow crosvm port:tcp_socket name_bind;
 allow crosvm adbd:unix_stream_socket ioctl;
 allow crosvm node:tcp_socket node_bind;
 
+# Allow crosvm to interact to VFIO device
+allow crosvm vfio_device:chr_file rw_file_perms;
+allow crosvm vfio_device:dir r_dir_perms;
+
+# Allow crosvm to access VM DTBO via a pipe created by vfio handler.
+allow crosvm vfio_handler:fd use;
+allow crosvm vfio_handler:fifo_file r_file_perms;
+
 # Don't allow crosvm to open files that it doesn't own.
 # This is important because a malicious application could try to start a VM with a composite disk
 # image referring by name to files which it doesn't have permission to open, trying to get crosvm to

@@ -190,6 +190,7 @@
 /dev/urandom		u:object_r:random_device:s0
 /dev/usb_accessory	u:object_r:usbaccessory_device:s0
 /dev/v4l-touch[0-9]*	u:object_r:input_device:s0
+/dev/vfio(/.*)?		u:object_r:vfio_device:s0
 /dev/vhost-vsock	u:object_r:kvm_device:s0
 /dev/video[0-9]*	u:object_r:video_device:s0
 /dev/vndbinder		u:object_r:vndbinder_device:s0
