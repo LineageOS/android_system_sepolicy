@@ -1049,6 +1049,7 @@ allowxperm system_server frp_block_device:blk_file ioctl { BLKSECDISCARD BLKDISC
 
 # Create new process groups and clean up old cgroups
 allow system_server cgroup:dir create_dir_perms;
+allow system_server cgroup:file setattr;
 allow system_server cgroup_v2:dir create_dir_perms;
 allow system_server cgroup_v2:file { r_file_perms setattr };
 
