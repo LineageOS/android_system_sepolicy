@@ -1604,7 +1604,7 @@
 (typeattributeset default_android_vndservice_34_0 (default_android_vndservice))
 (typeattributeset default_prop_34_0 (default_prop))
 (typeattributeset dev_cpu_variant_34_0 (dev_cpu_variant))
-(typeattributeset device_34_0 (device))
+(typeattributeset device_34_0 (device vfio_device))
 (typeattributeset device_config_activity_manager_native_boot_prop_34_0 (device_config_activity_manager_native_boot_prop))
 (typeattributeset device_config_boot_count_prop_34_0 (device_config_boot_count_prop))
 (typeattributeset device_config_camera_native_prop_34_0 (device_config_camera_native_prop))
