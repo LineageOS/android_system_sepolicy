@@ -89,3 +89,7 @@ r_dir_file(virtualizationmanager, crosvm);
 # For debug purposes we try to get the canonical path from /proc/self/fd/N. That triggers
 # a harmless denial for CompOS log files, so ignore that.
 dontaudit virtualizationmanager apex_module_data_file:dir search;
+
+# Allow virtualizationmanager to access VM DTBO via a pipe created by vfio handler.
+allow virtualizationmanager vfio_handler:fd use;
+allow virtualizationmanager vfio_handler:fifo_file r_file_perms;
