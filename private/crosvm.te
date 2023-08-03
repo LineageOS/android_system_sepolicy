@@ -84,7 +84,7 @@ allow crosvm shell_data_file:file write;
 # crosvm tries to read serial device, including the write-only pipe from virtualizationmanager (to
 # forward console/log to the host logcat).
 # crosvm only needs write permission, so dontaudit read
-dontaudit crosvm virtualizationmanager:fifo_file read;
+dontaudit crosvm virtualizationmanager:fifo_file { read getattr };
 
 # Required for crosvm to start gdb-server to enable debugging of guest kernel.
 allow crosvm self:tcp_socket { bind create read setopt write accept listen };
@@ -96,9 +96,9 @@ allow crosvm node:tcp_socket node_bind;
 allow crosvm vfio_device:chr_file rw_file_perms;
 allow crosvm vfio_device:dir r_dir_perms;
 
-# Allow crosvm to access VM DTBO via a pipe created by vfio handler.
-allow crosvm vfio_handler:fd use;
-allow crosvm vfio_handler:fifo_file r_file_perms;
+# Allow crosvm to access VM DTBO via a file created by virtualizationmanager.
+allow crosvm virtualizationmanager:fd use;
+allow crosvm virtualizationservice_data_file:file read;
 
 # Don't allow crosvm to open files that it doesn't own.
 # This is important because a malicious application could try to start a VM with a composite disk
