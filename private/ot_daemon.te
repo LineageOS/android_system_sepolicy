@@ -17,4 +17,12 @@ allow ot_daemon threadnetwork_data_file:dir rw_dir_perms;
 allow ot_daemon threadnetwork_data_file:file create_file_perms;
 allow ot_daemon threadnetwork_data_file:sock_file {create unlink};
 
+# Allow OT daemon to read/write the Thread tunnel interface
+allow ot_daemon tun_device:chr_file {read write};
+
 hal_client_domain(ot_daemon, hal_threadnetwork)
+
+# Only ot_daemon can publish the binder service
+binder_use(ot_daemon)
+add_service(ot_daemon, ot_daemon_service)
+binder_call(ot_daemon, system_server)
