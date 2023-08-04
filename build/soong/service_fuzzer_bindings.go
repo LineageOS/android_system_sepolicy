@@ -180,6 +180,7 @@ var (
 		"app_prediction":                                                  EXCEPTION_NO_FUZZER,
 		"app_search":                                                      EXCEPTION_NO_FUZZER,
 		"apexservice":                                                     EXCEPTION_NO_FUZZER,
+		"archive":                                                         EXCEPTION_NO_FUZZER,
 		"attestation_verification":                                        EXCEPTION_NO_FUZZER,
 		"blob_store":                                                      EXCEPTION_NO_FUZZER,
 		"gsiservice":                                                      EXCEPTION_NO_FUZZER,
