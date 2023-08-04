@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    archive_service
     ota_build_prop
     snapuserd_log_data_file
     hal_threadnetwork_service
