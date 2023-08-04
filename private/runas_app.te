@@ -30,3 +30,6 @@ dontaudit runas_app domain:dir search;
 # processes, but not the whole system.
 allow runas_app self:perf_event { open read write kernel };
 neverallow runas_app self:perf_event ~{ open read write kernel };
+
+# Suppress bionic loader denial /data/local/tests directories.
+dontaudit runas_app shell_test_data_file:dir search;
