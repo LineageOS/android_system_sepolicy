@@ -35,6 +35,7 @@ allow virtualizationservice self:capability chown;
 # directories, it needs the permission to unlink the files created by virtualizationmanager.
 allow virtualizationservice virtualizationservice_data_file:dir create_dir_perms;
 allow virtualizationservice virtualizationservice_data_file:{ file sock_file } unlink;
+allow virtualizationservice virtualizationservice_data_file:file write;
 
 # Allow to use fd (e.g. /dev/pts/0) inherited from adbd so that we can redirect output from
 # crosvm to the console
@@ -62,9 +63,8 @@ allow virtualizationservice tombstoned:fd use;
 allow virtualizationservice vfio_device:chr_file getattr;
 allow virtualizationservice vfio_device:dir r_dir_perms;
 
-# Allow virtualizationservice to access VM DTBO via a pipe created by vfio handler.
-allow virtualizationservice vfio_handler:fd use;
-allow virtualizationservice vfio_handler:fifo_file r_file_perms;
+# Allow virtualizationservice to access VM DTBO via a file created by virtualizationmanager.
+allow virtualizationservice virtualizationmanager:fd use;
 
 neverallow {
   domain
