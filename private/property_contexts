@@ -1145,7 +1145,7 @@ ro.crypto.state u:object_r:vold_status_prop:s0 exact enum encrypted unencrypted 
 ro.crypto.type  u:object_r:vold_status_prop:s0 exact enum block file managed none
 
 ro.property_service.version u:object_r:property_service_version_prop:s0 exact int
-ro.property_service.async_persist_write u:object_r:build_config_prop:s0 exact bool
+ro.property_service.async_persist_writes u:object_r:build_config_prop:s0 exact bool
 
 ro.vendor.redirect_socket_calls u:object_r:vendor_socket_hook_prop:s0 exact bool
 
