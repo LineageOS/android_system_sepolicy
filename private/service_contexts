@@ -347,6 +347,7 @@ radio.sms                                 u:object_r:radio_service:s0
 rcs                                       u:object_r:radio_service:s0
 reboot_readiness                          u:object_r:reboot_readiness_service:s0
 recovery                                  u:object_r:recovery_service:s0
+remote_auth                               u:object_r:remote_auth_service:s0
 remote_provisioning                       u:object_r:remote_provisioning_service:s0
 resolver                                  u:object_r:resolver_service:s0
 resources                                 u:object_r:resources_manager_service:s0
