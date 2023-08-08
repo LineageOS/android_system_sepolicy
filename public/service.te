@@ -199,6 +199,7 @@ type procstats_service, app_api_service, ephemeral_app_api_service, system_serve
 type reboot_readiness_service, app_api_service, system_server_service, service_manager_type;
 type recovery_service, system_server_service, service_manager_type;
 type registry_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type remote_auth_service, app_api_service, system_server_service, service_manager_type;
 type remote_provisioning_service, system_server_service, service_manager_type;
 type resources_manager_service, system_api_service, system_server_service, service_manager_type;
 type restrictions_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
