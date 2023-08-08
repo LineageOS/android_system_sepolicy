@@ -36,9 +36,10 @@ allow otapreopt_chroot postinstall_file:dir r_dir_perms;
 # Allow otapreopt_chroot to read the persist.apexd.verity_on_system system property.
 get_prop(otapreopt_chroot, apexd_prop)
 
-# Allow otapreopt to use file descriptors from update-engine. It will
-# close them immediately.
+# Allow otapreopt to use file descriptors from update-engine and the postinstall
+# script. It will read dexopt commands from stdin and write progress to stdout.
 allow otapreopt_chroot postinstall:fd use;
+allow otapreopt_chroot postinstall:fifo_file { read write getattr };
 allow otapreopt_chroot update_engine:fd use;
 allow otapreopt_chroot update_engine:fifo_file write;
 
