@@ -265,6 +265,9 @@ allow zygote vendor_apex_metadata_file:dir { search };
 # Allow zygote to query for compression/features.
 r_dir_file(zygote, sysfs_fs_f2fs)
 
+# Allow zygote to read fonts_customization.xml for preloading font files that matches device locale.
+allow zygote system_font_fallback_file:file r_file_perms;
+
 ###
 ### neverallow rules
 ###
