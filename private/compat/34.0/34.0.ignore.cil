@@ -7,7 +7,6 @@
   ( new_objects
     archive_service
     ota_build_prop
-    dtbo_block_device
     snapuserd_log_data_file
     hal_threadnetwork_service
     virtual_camera_service
