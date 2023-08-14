@@ -1555,5 +1555,8 @@ neverallowxperm { domain -system_server } binder_device:chr_file ioctl { BINDER_
 neverallow { domain -init -system_server } font_data_file:file no_w_file_perms;
 neverallow { domain -init -system_server } font_data_file:dir no_w_dir_perms;
 
+# Allow reading /system/etc/font_fallback.xml
+allow system_server system_font_fallback_file:file r_file_perms;
+
 # Allow system server to set dynamic ART properties.
 set_prop(system_server, dalvik_dynamic_config_prop)
