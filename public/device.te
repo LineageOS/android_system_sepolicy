@@ -93,10 +93,6 @@ type recovery_block_device, dev_type;
 # Documented at https://source.android.com/devices/bootloader/partitions
 type boot_block_device, dev_type;
 
-# dtbo block device, type used for getting DTBO information for AVF.
-# Documented at https://source.android.com/docs/core/architecture/dto/partitions
-type dtbo_block_device, dev_type;
-
 # Userdata block device mounted on /data.
 # Documented at https://source.android.com/devices/bootloader/partitions
 type userdata_block_device, dev_type;
