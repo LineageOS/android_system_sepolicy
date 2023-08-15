@@ -263,6 +263,7 @@ allow appdomain surfaceflinger:unix_stream_socket { read write setopt getattr ge
 # App sandbox file accesses.
 allow { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } { app_data_file privapp_data_file }:dir create_dir_perms;
 allow { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } { app_data_file privapp_data_file }:file create_file_perms;
+allowxperm { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } { app_data_file privapp_data_file }:file ioctl FS_IOC_MEASURE_VERITY;
 
 # Access via already open fds is ok even for mlstrustedsubject.
 allow { appdomain -isolated_app_all -sdk_sandbox_all } { app_data_file privapp_data_file system_app_data_file }:file { getattr map read write };
