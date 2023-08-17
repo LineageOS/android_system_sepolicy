@@ -94,6 +94,13 @@ filegroup {
 }
 
 filegroup {
+  name: "com.android.crashrecovery-file_contexts",
+  srcs: [
+    "com.android.crashrecovery-file_contexts",
+  ],
+}
+
+filegroup {
   name: "com.android.federatedcompute-file_contexts",
   srcs: [
     "com.android.federatedcompute-file_contexts",
