@@ -56,6 +56,7 @@ allow init {
   userdata_block_device
 }:{ blk_file lnk_file } relabelto;
 
+allow init dtbo_block_device:lnk_file relabelto;
 allow init super_block_device:lnk_file relabelto;
 
 # Create /mnt/sdcard -> /storage/self/primary symlink.
