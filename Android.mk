@@ -221,14 +221,6 @@ ifeq ($(BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW),true)
   treble_sysprop_neverallow := false
 endif
 
-ifeq ($(PRODUCT_SHIPPING_API_LEVEL),)
-  #$(warning no product shipping level defined)
-else ifneq ($(call math_lt,29,$(PRODUCT_SHIPPING_API_LEVEL)),)
-  ifneq ($(BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW),)
-    $(error BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW cannot be set on a device shipping with R or later, and this is tested by CTS.)
-  endif
-endif
-
 enforce_sysprop_owner := true
 ifeq ($(BUILD_BROKEN_ENFORCE_SYSPROP_OWNER),true)
   enforce_sysprop_owner := false
@@ -239,13 +231,32 @@ ifeq ($(PRODUCT_SET_DEBUGFS_RESTRICTIONS),true)
   enforce_debugfs_restriction := true
 endif
 
-ifeq ($(PRODUCT_SHIPPING_API_LEVEL),)
+ifneq ($(PRODUCT_SHIPPING_API_LEVEL),)
+  product_shipping_api_level := $(PRODUCT_SHIPPING_API_LEVEL)
+else
   #$(warning no product shipping level defined)
-else ifneq ($(call math_lt,30,$(PRODUCT_SHIPPING_API_LEVEL)),)
-  ifneq ($(BUILD_BROKEN_ENFORCE_SYSPROP_OWNER),)
+  product_shipping_api_level := 0
+endif
+
+ifneq ($(BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW),)
+  ifneq ($(call math_lt,29,$(product_shipping_api_level)),)
+    $(error BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW cannot be set on a device shipping with R or later, and this is tested by CTS.)
+  endif
+endif
+
+ifneq ($(BUILD_BROKEN_ENFORCE_SYSPROP_OWNER),)
+  ifneq ($(call math_lt,30,$(product_shipping_api_level)),)
     $(error BUILD_BROKEN_ENFORCE_SYSPROP_OWNER cannot be set on a device shipping with S or later, and this is tested by CTS.)
   endif
 endif
+
+ifneq ($(BUILD_BROKEN_VENDOR_SEAPP_USES_COREDOMAIN),)
+  ifneq ($(call math_lt,34,$(product_shipping_api_level)),)
+    $(error BUILD_BROKEN_VENDOR_SEAPP_USES_COREDOMAIN cannot be set on a device shipping with V or later, and this is tested by CTS.)
+  endif
+endif
+
+product_shipping_api_level :=
 
 # Library extension for host-side tests
 ifeq ($(HOST_OS),darwin)
