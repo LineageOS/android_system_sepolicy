@@ -44,6 +44,7 @@ var (
 		"android.hardware.automotive.vehicle.IVehicle/default":                    EXCEPTION_NO_FUZZER,
 		"android.hardware.automotive.audiocontrol.IAudioControl/default":          EXCEPTION_NO_FUZZER,
 		"android.hardware.biometrics.face.IFace/default":                          EXCEPTION_NO_FUZZER,
+		"android.hardware.biometrics.face.IFace/virtual":                          EXCEPTION_NO_FUZZER,
 		"android.hardware.biometrics.fingerprint.IFingerprint/default":            EXCEPTION_NO_FUZZER,
 		"android.hardware.biometrics.fingerprint.IFingerprint/virtual":            EXCEPTION_NO_FUZZER,
 		"android.hardware.bluetooth.audio.IBluetoothAudioProviderFactory/default": EXCEPTION_NO_FUZZER,
