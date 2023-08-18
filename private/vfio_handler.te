@@ -27,5 +27,9 @@ allow vfio_handler virtualizationservice_data_file:file write;
 # vfio_handler can only use fd from virtualizationmanager, and can't open files itself
 neverallow vfio_handler virtualizationservice_data_file:file { open create };
 
+# Allow vfio_handler to search /dev/block for accessing dtbo.img
+allow vfio_handler block_device:dir search;
+allow vfio_handler dtbo_block_device:blk_file r_file_perms;
+
 # Only vfio_handler can add vfio_handler_service
 neverallow { domain -vfio_handler } vfio_handler_service:service_manager add;
