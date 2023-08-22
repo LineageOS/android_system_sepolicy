@@ -440,7 +440,7 @@ func (m *selinuxContextsModule) buildSeappContexts(ctx android.ModuleContext, in
 		Inputs(inputs).
 		Input(neverallowFile)
 
-	if ctx.SocSpecific() || ctx.DeviceSpecific() {
+	if (ctx.SocSpecific() || ctx.DeviceSpecific()) && !ctx.DeviceConfig().BuildBrokenVendorSeappUsesCoredomain() {
 		checkCmd.Flag("-c") // check coredomain
 	}
 
