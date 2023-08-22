@@ -11,7 +11,6 @@ allowxperm hal_wifi_supplicant self:udp_socket ioctl priv_sock_ioctls;
 r_dir_file(hal_wifi_supplicant, sysfs_type)
 r_dir_file(hal_wifi_supplicant, proc_net_type)
 
-allow hal_wifi_supplicant kernel:system module_request;
 allow hal_wifi_supplicant self:global_capability_class_set { setuid net_admin setgid net_raw };
 allow hal_wifi_supplicant cgroup:dir create_dir_perms;
 allow hal_wifi_supplicant cgroup_v2:dir create_dir_perms;

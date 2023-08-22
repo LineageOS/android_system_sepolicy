@@ -87,7 +87,6 @@ recovery_only(`
     allow fastbootd cache_file:dir search;
     allow fastbootd proc_filesystems:file { getattr open read };
     allow fastbootd self:capability sys_rawio;
-    dontaudit fastbootd kernel:system module_request;
     allowxperm fastbootd dev_type:blk_file ioctl BLKROSET;
     allow fastbootd overlayfs_file:dir { create_dir_perms mounton };
     allow fastbootd {
