@@ -285,6 +285,7 @@ type hal_broadcastradio_service, protected_service, hal_service_type, service_ma
 type hal_camera_service, protected_service, hal_service_type, service_manager_type;
 type hal_can_controller_service, protected_service, hal_service_type, service_manager_type;
 type hal_cas_service, hal_service_type, service_manager_type;
+type hal_codec2_service, hal_service_type, service_manager_type, isolated_compute_allowed_service;
 type hal_confirmationui_service, protected_service, hal_service_type, service_manager_type;
 type hal_contexthub_service, protected_service, hal_service_type, service_manager_type;
 type hal_drm_service, hal_service_type, service_manager_type;
