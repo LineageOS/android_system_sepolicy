@@ -14,8 +14,3 @@ allow fsverity_init fsverity_init:key { view search write };
 # Read the on-device signing certificate, to be able to add it to the keyring
 allow fsverity_init odsign:fd use;
 allow fsverity_init odsign_data_file:file { getattr read };
-
-# When kernel requests an algorithm, the crypto API first looks for an
-# already registered algorithm with that name. If it fails, the kernel creates
-# an implementation of the algorithm from templates.
-dontaudit fsverity_init kernel:system module_request;

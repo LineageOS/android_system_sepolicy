@@ -147,9 +147,6 @@ allow system_server self:global_capability_class_set {
     sys_tty_config
 };
 
-# Trigger module auto-load.
-allow system_server kernel:system module_request;
-
 # Allow alarmtimers to be set
 allow system_server self:global_capability2_class_set wake_alarm;
 
