@@ -223,6 +223,7 @@ se_cil_compat_map {{
     name: "plat_{ver}.cil",
     stem: "{ver}.cil",
     bottom_half: [":{ver}.board.compat.map{{.plat_private}}"],
+    version: "{ver}",
 }}
 
 se_cil_compat_map {{
@@ -230,6 +231,7 @@ se_cil_compat_map {{
     stem: "{ver}.cil",
     bottom_half: [":{ver}.board.compat.map{{.system_ext_private}}"],
     system_ext_specific: true,
+    version: "{ver}",
 }}
 
 se_cil_compat_map {{
@@ -237,11 +239,13 @@ se_cil_compat_map {{
     stem: "{ver}.cil",
     bottom_half: [":{ver}.board.compat.map{{.product_private}}"],
     product_specific: true,
+    version: "{ver}",
 }}
 
 se_cil_compat_map {{
     name: "{ver}.ignore.cil",
     bottom_half: [":{ver}.board.ignore.map{{.plat_private}}"],
+    version: "{ver}",
 }}
 
 se_cil_compat_map {{
@@ -249,6 +253,7 @@ se_cil_compat_map {{
     stem: "{ver}.ignore.cil",
     bottom_half: [":{ver}.board.ignore.map{{.system_ext_private}}"],
     system_ext_specific: true,
+    version: "{ver}",
 }}
 
 se_cil_compat_map {{
@@ -256,11 +261,13 @@ se_cil_compat_map {{
     stem: "{ver}.ignore.cil",
     bottom_half: [":{ver}.board.ignore.map{{.product_private}}"],
     product_specific: true,
+    version: "{ver}",
 }}
 
 se_compat_cil {{
     name: "{ver}.compat.cil",
     srcs: [":{ver}.board.compat.cil{{.plat_private}}"],
+    version: "{ver}",
 }}
 
 se_compat_cil {{
@@ -268,6 +275,7 @@ se_compat_cil {{
     stem: "{ver}.compat.cil",
     srcs: [":{ver}.board.compat.cil{{.system_ext_private}}"],
     system_ext_specific: true,
+    version: "{ver}",
 }}
 """
 
