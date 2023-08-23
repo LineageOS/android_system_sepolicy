@@ -440,8 +440,10 @@ func (m *selinuxContextsModule) buildSeappContexts(ctx android.ModuleContext, in
 		Inputs(inputs).
 		Input(neverallowFile)
 
-	if (ctx.SocSpecific() || ctx.DeviceSpecific()) && !ctx.DeviceConfig().BuildBrokenVendorSeappUsesCoredomain() {
-		checkCmd.Flag("-c") // check coredomain
+	shippingApiLevel := ctx.DeviceConfig().ShippingApiLevel()
+	ApiLevelU := android.ApiLevelOrPanic(ctx, "UpsideDownCake")
+	if (ctx.SocSpecific() || ctx.DeviceSpecific()) && shippingApiLevel.GreaterThan(ApiLevelU) {
+		checkCmd.Flag("-c") // check coredomain for V (or later) launching devices
 	}
 
 	rule.Build("seapp_contexts", "Building seapp_contexts: "+m.Name())
