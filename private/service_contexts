@@ -439,6 +439,7 @@ vpn_management                            u:object_r:vpn_management_service:s0
 vrmanager                                 u:object_r:vr_manager_service:s0
 wallpaper                                 u:object_r:wallpaper_service:s0
 wallpaper_effects_generation              u:object_r:wallpaper_effects_generation_service:s0
+wearable_sensing                          u:object_r:wearable_sensing_service:s0
 webviewupdate                             u:object_r:webviewupdate_service:s0
 wifip2p                                   u:object_r:wifip2p_service:s0
 wifiscanner                               u:object_r:wifiscanner_service:s0

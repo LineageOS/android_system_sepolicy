@@ -429,8 +429,8 @@ allow appdomain shared_relro_file:dir search;
 allow appdomain shared_relro_file:file r_file_perms;
 
 # Allow apps to read/execute installed binaries
-allow appdomain apk_data_file:dir r_dir_perms;
-allow appdomain apk_data_file:file rx_file_perms;
+allow appdomain apk_data_file:dir { open getattr read search ioctl lock };
+allow appdomain apk_data_file:file { getattr open read ioctl lock map x_file_perms };
 
 # /data/resource-cache
 allow appdomain resourcecache_data_file:file r_file_perms;
@@ -532,3 +532,23 @@ neverallow {
     appdomain
     -device_as_webcam
 } video_device:chr_file { read write };
+
+# Prevent calling inotify on APKs. This can be used as a side channel
+# to observer app launches, so it must be disallowed. b/231587164
+# Gate by targetSdkVersion to avoid breaking existing apps.
+neverallow {
+  appdomain
+  -untrusted_app_25
+  -untrusted_app_27
+  -untrusted_app_29
+  -untrusted_app_30
+  -untrusted_app_32
+} apk_data_file:dir { watch watch_reads };
+neverallow {
+  appdomain
+  -untrusted_app_25
+  -untrusted_app_27
+  -untrusted_app_29
+  -untrusted_app_30
+  -untrusted_app_32
+} apk_data_file:file { watch watch_reads };

@@ -59,6 +59,7 @@
 /dev/socket/adbd	u:object_r:adbd_socket:s0
 /dev/socket/prng_seeder u:object_r:prng_seeder_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
+/dev/socket/property_service_for_system  u:object_r:property_socket:s0
 /dev/socket/statsdw	u:object_r:statsdw_socket:s0
 /dev/socket/authfs_service u:object_r:authfs_service_socket:s0
 /dev/socket/vm_payload_service u:object_r:vm_payload_service_socket:s0
