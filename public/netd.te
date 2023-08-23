@@ -185,6 +185,4 @@ dontaudit netd self:capability sys_admin;
 # (things it requires should be built directly into the kernel)
 dontaudit netd self:capability sys_module;
 
-dontaudit netd kernel:system module_request;
-
 dontaudit netd appdomain:unix_stream_socket { read write };
