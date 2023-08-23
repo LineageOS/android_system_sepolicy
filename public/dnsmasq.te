@@ -23,6 +23,3 @@ allow dnsmasq netd:netlink_route_socket { read write };
 allow dnsmasq netd:unix_stream_socket { getattr read write };
 allow dnsmasq netd:unix_dgram_socket { read write };
 allow dnsmasq netd:udp_socket { read write };
-
-# sometimes a network device vanishes and we try to load module netdev-{devicename}
-dontaudit dnsmasq kernel:system module_request;

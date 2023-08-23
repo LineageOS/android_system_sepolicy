@@ -29,9 +29,6 @@ allow update_engine update_engine_data_file:file create_file_perms;
 allow update_engine update_engine_log_data_file:dir create_dir_perms;
 allow update_engine update_engine_log_data_file:file create_file_perms;
 
-# Don't allow kernel module loading, just silence the logs.
-dontaudit update_engine kernel:system module_request;
-
 # Register the service to perform Binder IPC.
 binder_use(update_engine)
 add_service(update_engine, update_engine_service)
