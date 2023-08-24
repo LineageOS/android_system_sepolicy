@@ -59,3 +59,18 @@ allow microdroid_payload encryptedstore_file:file create_file_perms;
 
 # Never allow microdroid_payload to connect to vsock
 neverallow microdroid_payload self:vsock_socket connect;
+
+# Nothing else should be accessing the payload's storage
+neverallow { domain
+  -microdroid_payload
+  -microdroid_manager
+  -encryptedstore
+  -init
+  -vendor_init
+} encryptedstore_file:dir { read write };
+neverallow { domain
+  -microdroid_payload
+  -microdroid_manager
+  -init
+  -vendor_init
+} encryptedstore_file:file no_rw_file_perms;
