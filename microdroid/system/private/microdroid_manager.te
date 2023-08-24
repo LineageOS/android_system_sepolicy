@@ -34,9 +34,10 @@ allow microdroid_manager self:global_capability_class_set sys_admin;
 # Allow microdroid_manager to remove capabilities from it's capability bounding set.
 allow microdroid_manager self:global_capability_class_set setpcap;
 
-# Allow microdroid_manager to start payload tasks
+# Allow microdroid_manager to start payload tasks in a different uid/gid.
 domain_auto_trans(microdroid_manager, microdroid_app_exec, microdroid_app)
 domain_auto_trans(microdroid_manager, compos_exec, compos)
+allow microdroid_manager self:global_capability_class_set { setuid setgid };
 
 # Allow microdroid_manager to start apk verity binaries
 domain_auto_trans(microdroid_manager, apkdmverity_exec, apkdmverity)
