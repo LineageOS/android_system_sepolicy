@@ -57,6 +57,9 @@ allow init tmpfs:lnk_file { getattr read relabelfrom };
 # setrlimit
 allow init self:global_capability_class_set sys_resource;
 
+# Set usermodehelpers.
+allow init { usermodehelper sysfs_usermodehelper }:file rw_file_perms;
+
 # Remove /dev/.booting and load /debug_ramdisk/* files
 allow init tmpfs:file { getattr unlink };
 
