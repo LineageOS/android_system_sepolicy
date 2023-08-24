@@ -325,10 +325,11 @@ LOCAL_REQUIRED_MODULES += \
 endif  # SELINUX_IGNORE_NEVERALLOWS
 endif  # with_asan
 
-ifneq ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
-LOCAL_REQUIRED_MODULES += \
-    sepolicy_freeze_test
-endif # ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
+# TODO(b/296875906): re-enable once freeze_test becomes trunk stable aware
+# ifneq ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
+# LOCAL_REQUIRED_MODULES += \
+#     sepolicy_freeze_test
+# endif # ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
 
 include $(BUILD_PHONY_PACKAGE)
 
