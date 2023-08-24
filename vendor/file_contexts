@@ -14,8 +14,8 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.evs(.*)?          u:object_r:hal_evs_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.ivn@V1-(.*)-service u:object_r:hal_ivn_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@2\.0-((default|emulator)-)*(service|protocan-service)  u:object_r:hal_vehicle_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@V1-(default|emulator)-service u:object_r:hal_vehicle_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.remoteaccess@V1-(.*)-service u:object_r:hal_remoteaccess_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.vehicle@V[1-3]-(default|emulator)-service u:object_r:hal_vehicle_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.automotive\.remoteaccess@V[1-2]-(.*)-service u:object_r:hal_remoteaccess_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.[0-9]+-service      u:object_r:hal_bluetooth_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.[0-9]+-service\.btlinux    u:object_r:hal_bluetooth_btlinux_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth-service.default      u:object_r:hal_bluetooth_default_exec:s0
