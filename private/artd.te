@@ -7,7 +7,8 @@ type artd_tmpfs, file_type;
 # Allow artd to publish a binder service and make binder calls.
 binder_use(artd)
 add_service(artd, artd_service)
-allow artd dumpstate:fifo_file  { getattr write };
+allow artd dumpstate:fifo_file { getattr write };
+allow artd dumpstate:fd use;
 
 init_daemon_domain(artd)
 
