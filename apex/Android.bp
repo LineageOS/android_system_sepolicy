@@ -295,3 +295,10 @@ filegroup {
     "com.android.devicelock-file_contexts",
   ],
 }
+
+filegroup {
+  name: "com.android.telephonymodules-file_contexts",
+  srcs: [
+    "com.android.telephonymodules-file_contexts"
+  ],
+}

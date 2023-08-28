@@ -276,6 +276,7 @@ persist.device_config.virtualization_framework_native. u:object_r:device_config_
 persist.device_config.window_manager_native_boot.   u:object_r:device_config_window_manager_native_boot_prop:s0
 persist.device_config.memory_safety_native_boot.    u:object_r:device_config_memory_safety_native_boot_prop:s0
 persist.device_config.memory_safety_native.         u:object_r:device_config_memory_safety_native_prop:s0
+persist.device_config.tethering_u_or_later_native.  u:object_r:device_config_tethering_u_or_later_native_prop:s0
 
 # F2FS smart idle maint prop
 persist.device_config.storage_native_boot.smart_idle_maint_enabled u:object_r:smart_idle_maint_enabled_prop:s0 exact bool
@@ -669,6 +670,7 @@ ro.bt.bdaddr_path u:object_r:exported_bluetooth_prop:s0 exact string
 ro.config.alarm_alert         u:object_r:systemsound_config_prop:s0 exact string
 ro.config.alarm_vol_default   u:object_r:systemsound_config_prop:s0 exact int
 ro.config.alarm_vol_steps     u:object_r:systemsound_config_prop:s0 exact int
+ro.config.assistant_vol_min   u:object_r:systemsound_config_prop:s0 exact int
 ro.config.media_vol_default   u:object_r:systemsound_config_prop:s0 exact int
 ro.config.media_vol_steps     u:object_r:systemsound_config_prop:s0 exact int
 ro.config.notification_sound  u:object_r:systemsound_config_prop:s0 exact string

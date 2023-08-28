@@ -63,6 +63,8 @@ allow network_stack network_stack_service:service_manager find;
 allow network_stack { fs_bpf_net_private fs_bpf_net_shared fs_bpf_netd_readonly fs_bpf_netd_shared fs_bpf_tethering }:dir search;
 allow network_stack { fs_bpf_net_private fs_bpf_net_shared fs_bpf_netd_readonly fs_bpf_netd_shared fs_bpf_tethering }:file { getattr read write };
 allow network_stack bpfloader:bpf { map_read map_write prog_run };
+# allow Tethering(network_stack process) to read flag value in tethering_u_or_later_native namespace
+get_prop(network_stack, device_config_tethering_u_or_later_native_prop)
 
 # Use XFRM (IPsec) netlink sockets
 allow network_stack self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_write nlmsg_read };

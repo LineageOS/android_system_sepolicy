@@ -155,6 +155,7 @@
 /dev/socket/pdx/system/vr/display/vsync	u:object_r:pdx_display_vsync_endpoint_socket:s0
 /dev/socket/prng_seeder	u:object_r:prng_seeder_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
+/dev/socket/property_service_for_system  u:object_r:property_socket:s0
 /dev/socket/racoon	u:object_r:racoon_socket:s0
 /dev/socket/recovery    u:object_r:recovery_socket:s0
 /dev/socket/rild	u:object_r:rild_socket:s0
