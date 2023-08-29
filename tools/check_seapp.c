@@ -1312,10 +1312,23 @@ static void validate() {
 		}
 	}
 
+	bool coredomain_violation = false;
 	list_for_each(&coredomain_violation_list, cursor) {
 		c = list_entry(cursor, typeof(*c), listify);
 		fprintf(stderr, "Forbidden attribute " COREDOMAIN " assigned to domain \"%s\" in "
-                        "File \"%s\" on line %d\n", c->domain, c->filename, c->lineno);
+		        "File \"%s\" on line %d\n", c->domain, c->filename, c->lineno);
+		coredomain_violation = true;
+	}
+
+	if (coredomain_violation) {
+		fprintf(stderr, "********************************************************************************\n");
+		fprintf(stderr, "You tried to assign coredomain with vendor seapp_contexts, which is not allowed.\n"
+		        "Either move offending entries to system, system_ext, or product seapp_contexts,\n"
+		        "or remove 'coredomain' attribute from the domains.\n"
+		        "See an example of how to fix this:\n"
+		        "https://android-review.googlesource.com/2671075\n");
+		fprintf(stderr, "********************************************************************************\n");
+		found_issues = true;
 	}
 
 	if (found_issues) {
