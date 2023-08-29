@@ -419,6 +419,14 @@ func (m *selinuxContextsModule) buildPropertyContexts(ctx android.ModuleContext,
 	return builtCtxFile
 }
 
+func (m *selinuxContextsModule) shouldCheckCoredomain(ctx android.ModuleContext) bool {
+	if !ctx.SocSpecific() && !ctx.DeviceSpecific() {
+		return false
+	}
+
+	return ctx.DeviceConfig().CheckVendorSeappViolations()
+}
+
 func (m *selinuxContextsModule) buildSeappContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
 	neverallowFile := pathForModuleOut(ctx, "neverallow")
 	ret := pathForModuleOut(ctx, m.stem())
@@ -440,10 +448,8 @@ func (m *selinuxContextsModule) buildSeappContexts(ctx android.ModuleContext, in
 		Inputs(inputs).
 		Input(neverallowFile)
 
-	shippingApiLevel := ctx.DeviceConfig().ShippingApiLevel()
-	ApiLevelU := android.ApiLevelOrPanic(ctx, "UpsideDownCake")
-	if (ctx.SocSpecific() || ctx.DeviceSpecific()) && shippingApiLevel.GreaterThan(ApiLevelU) {
-		checkCmd.Flag("-c") // check coredomain for V (or later) launching devices
+	if m.shouldCheckCoredomain(ctx) {
+		checkCmd.Flag("-c") // check coredomain for vendor contexts
 	}
 
 	rule.Build("seapp_contexts", "Building seapp_contexts: "+m.Name())
