@@ -440,8 +440,7 @@ allow $1 $2:fd use;
 
 #####################################
 # binder_service(domain)
-# Mark a domain as being a Binder service domain.
-# Used to allow binder IPC to the various system services.
+# Deprecated. Consider granting the exact permissions required by your service.
 define(`binder_service', `
 typeattribute $1 binderservicedomain;
 ')
