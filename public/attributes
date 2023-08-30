@@ -221,7 +221,8 @@ attribute netdomain;
 # All domains used for apps with bluetooth access.
 attribute bluetoothdomain;
 
-# All domains used for binder service domains.
+# Specific domains that expose a binder service.
+# Deprecated, consider granting the exact permissions required by your service.
 attribute binderservicedomain;
 
 # All domains which have BPF access.
