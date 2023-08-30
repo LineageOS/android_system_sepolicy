@@ -66,6 +66,9 @@ allow virtualizationservice vfio_device:dir r_dir_perms;
 # Allow virtualizationservice to access VM DTBO via a file created by virtualizationmanager.
 allow virtualizationservice virtualizationmanager:fd use;
 
+# Allow virtualizationservice to access vendor_configs_file to get the list of assignable devices.
+r_dir_file(virtualizationservice, vendor_configs_file)
+
 neverallow {
   domain
   -init
