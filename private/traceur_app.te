@@ -10,6 +10,8 @@ userdebug_or_eng(`
 
 allow traceur_app trace_data_file:file create_file_perms;
 allow traceur_app trace_data_file:dir rw_dir_perms;
+allow traceur_app wm_trace_data_file:dir rw_dir_perms;
+allow traceur_app wm_trace_data_file:file { getattr r_file_perms unlink };
 allow traceur_app atrace_exec:file rx_file_perms;
 
 # To exec the perfetto cmdline client and pass it the trace config on
