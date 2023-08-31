@@ -65,6 +65,14 @@ allow virtualizationmanager self:vsock_socket { create_socket_perms_no_ioctl lis
 get_prop(virtualizationmanager, hypervisor_prop)
 get_prop(virtualizationmanager, hypervisor_restricted_prop)
 
+# Allow virtualizationmanager to be read custom pvmfw.img configuration
+userdebug_or_eng(`get_prop(virtualizationmanager, hypervisor_pvmfw_prop)')
+dontaudit virtualizationmanager hypervisor_pvmfw_prop:file read;
+
+# Allow virtualizationmanager to be read custom virtualizationmanager configuration
+userdebug_or_eng(`get_prop(virtualizationmanager, hypervisor_virtualizationmanager_prop)')
+dontaudit virtualizationmanager hypervisor_virtualizationmanager_prop:file read;
+
 # Allow virtualizationmanager service to talk to tombstoned to push guest ramdumps
 unix_socket_connect(virtualizationmanager, tombstoned_crash, tombstoned)
 
