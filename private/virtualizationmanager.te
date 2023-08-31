@@ -40,6 +40,7 @@ allow virtualizationmanager apk_data_file:file { getattr read };
 allow virtualizationmanager {
   app_data_file
   apex_compos_data_file
+  apex_virt_data_file
   privapp_data_file
 }:file { getattr read write };
 
