@@ -359,116 +359,16 @@ se_versioned_policy {
     product_specific: true,
 }
 
+//////////////////////////////////
 // vendor/odm sepolicy
-//
-// If BOARD_SEPOLICY_VERS is set to a value other than PLATFORM_SEPOLICY_VERSION,
-// policy files of platform (system, system_ext, product) can't be mixed with
-// policy files of vendor (vendor, odm). If it's the case, platform policies and
-// vendor policies are separately built. More specifically,
-//
-// - Platform policy files needed to build vendor policies, such as plat_policy,
-//   plat_mapping_cil, plat_pub_policy, reqd_policy_mask, are built from the
-//   prebuilts (copy of platform policy files of version BOARD_SEPOLICY_VERS).
-//
-// - sepolicy_neverallows only checks platform policies, and a new module
-//   sepolicy_neverallows_vendor checks vendor policies.
-//
-// - neverallow checks are turned off while compiling precompiled_sepolicy
-//   module and sepolicy module.
-//
-// - Vendor policies are not checked on the compat test (compat.mk).
-//
-// In such scenario, we can grab platform policy files from the prebuilts/api
-// directory. But we need more than that: prebuilts of system_ext, product,
-// system/sepolicy/reqd_mask, and system/sepolicy/vendor. The following
-// variables are introduced to specify such prebuilts.
-//
-// - BOARD_REQD_MASK_POLICY (prebuilt of system/sepolicy/reqd_mask)
-// - BOARD_PLAT_VENDOR_POLICY (prebuilt of system/sepolicy/vendor)
-// - BOARD_SYSTEM_EXT_PUBLIC_PREBUILT_DIRS (prebuilt of system_ext public)
-// - BOARD_SYSTEM_EXT_PRIVATE_PREBUILT_DIRS (prebuilt of system_ext private)
-// - BOARD_PRODUCT_PUBLIC_PREBUILT_DIRS (prebuilt of product public)
-// - BOARD_PRODUCT_PRIVATE_PREBUILT_DIRS (prebuilt of product private)
-//
-// Vendors are responsible for copying policy files from the old version of the
-// source tree as prebuilts, and for setting BOARD_*_POLICY variables so they
-// can be used to build vendor policies.
-//
-// To support both mixed build and normal build, platform policy files are
-// indirectly referred as {.(partition)_(scope)_for_vendor}. They will be equal
-// to {.(partition)_scope)} if BOARD_SEPOLICY_VERS == PLATFORM_SEPOLICY_VERSION.
-// Otherwise, they will be equal to the Makefile variables above.
-
-plat_public_policies_for_vendor = [
-    ":se_build_files{.plat_public_for_vendor}",
-    ":se_build_files{.system_ext_public_for_vendor}",
-    ":se_build_files{.product_public_for_vendor}",
-    ":se_build_files{.reqd_mask_for_vendor}",
-]
-
-plat_policies_for_vendor = [
-    ":se_build_files{.plat_public_for_vendor}",
-    ":se_build_files{.plat_private_for_vendor}",
-    ":se_build_files{.system_ext_public_for_vendor}",
-    ":se_build_files{.system_ext_private_for_vendor}",
-    ":se_build_files{.product_public_for_vendor}",
-    ":se_build_files{.product_private_for_vendor}",
-]
-
-se_policy_conf {
-    name: "plat_policy_for_vendor.conf",
-    srcs: plat_policies_for_vendor,
-    installable: false,
-}
-
-se_policy_cil {
-    name: "plat_policy_for_vendor.cil",
-    src: ":plat_policy_for_vendor.conf",
-    additional_cil_files: [":sepolicy_technical_debt{.plat_private_for_vendor}"],
-    installable: false,
-}
-
-se_policy_conf {
-    name: "reqd_policy_mask_for_vendor.conf",
-    srcs: [":se_build_files{.reqd_mask_for_vendor}"],
-    installable: false,
-}
-
-se_policy_cil {
-    name: "reqd_policy_mask_for_vendor.cil",
-    src: ":reqd_policy_mask_for_vendor.conf",
-    secilc_check: false,
-    installable: false,
-}
-
-se_policy_conf {
-    name: "pub_policy_for_vendor.conf",
-    srcs: plat_public_policies_for_vendor,
-    installable: false,
-}
-
-se_policy_cil {
-    name: "pub_policy_for_vendor.cil",
-    src: ":pub_policy_for_vendor.conf",
-    filter_out: [":reqd_policy_mask_for_vendor.cil"],
-    secilc_check: false,
-    installable: false,
-}
-
-se_versioned_policy {
-    name: "plat_mapping_file_for_vendor",
-    base: ":pub_policy_for_vendor.cil",
-    mapping: true,
-    version: "vendor",
-    installable: false,
-}
+//////////////////////////////////
 
 // plat_pub_versioned.cil - the exported platform policy associated with the version
 // that non-platform policy targets.
 se_versioned_policy {
     name: "plat_pub_versioned.cil",
-    base: ":pub_policy_for_vendor.cil",
-    target_policy: ":pub_policy_for_vendor.cil",
+    base: ":pub_policy.cil",
+    target_policy: ":pub_policy.cil",
     version: "vendor",
     vendor: true,
 }
@@ -478,8 +378,11 @@ se_versioned_policy {
 // policy and the platform public policy files in order to use checkpolicy.
 se_policy_conf {
     name: "vendor_sepolicy.conf",
-    srcs: plat_public_policies_for_vendor + [
-        ":se_build_files{.plat_vendor_for_vendor}",
+    srcs: plat_public_policy +
+        system_ext_public_policy +
+        product_public_policy +
+        reqd_mask_policy + [
+        ":se_build_files{.plat_vendor}",
         ":se_build_files{.vendor}",
     ],
     vendor: true,
@@ -489,7 +392,7 @@ se_policy_conf {
 se_policy_cil {
     name: "vendor_sepolicy.cil.raw",
     src: ":vendor_sepolicy.conf",
-    filter_out: [":reqd_policy_mask_for_vendor.cil"],
+    filter_out: [":reqd_policy_mask.cil"],
     secilc_check: false, // will be done in se_versioned_policy module
     vendor: true,
     installable: false,
@@ -497,13 +400,15 @@ se_policy_cil {
 
 se_versioned_policy {
     name: "vendor_sepolicy.cil",
-    base: ":pub_policy_for_vendor.cil",
+    base: ":pub_policy.cil",
     target_policy: ":vendor_sepolicy.cil.raw",
     version: "vendor",
     dependent_cils: [
-        ":plat_policy_for_vendor.cil",
+        ":plat_sepolicy.cil",
+        ":system_ext_sepolicy.cil",
+        ":product_sepolicy.cil",
         ":plat_pub_versioned.cil",
-        ":plat_mapping_file_for_vendor",
+        ":plat_mapping_file",
     ],
     filter_out: [":plat_pub_versioned.cil"],
     vendor: true,
@@ -514,8 +419,11 @@ se_versioned_policy {
 // policy and the platform public policy files in order to use checkpolicy.
 se_policy_conf {
     name: "odm_sepolicy.conf",
-    srcs: plat_public_policies_for_vendor + [
-        ":se_build_files{.plat_vendor_for_vendor}",
+    srcs: plat_public_policy +
+        system_ext_public_policy +
+        product_public_policy +
+        reqd_mask_policy + [
+        ":se_build_files{.plat_vendor}",
         ":se_build_files{.vendor}",
         ":se_build_files{.odm}",
     ],
@@ -527,7 +435,7 @@ se_policy_cil {
     name: "odm_sepolicy.cil.raw",
     src: ":odm_sepolicy.conf",
     filter_out: [
-        ":reqd_policy_mask_for_vendor.cil",
+        ":reqd_policy_mask.cil",
         ":vendor_sepolicy.cil",
     ],
     secilc_check: false, // will be done in se_versioned_policy module
@@ -537,13 +445,15 @@ se_policy_cil {
 
 se_versioned_policy {
     name: "odm_sepolicy.cil",
-    base: ":pub_policy_for_vendor.cil",
+    base: ":pub_policy.cil",
     target_policy: ":odm_sepolicy.cil.raw",
     version: "vendor",
     dependent_cils: [
-        ":plat_policy_for_vendor.cil",
+        ":plat_sepolicy.cil",
+        ":system_ext_sepolicy.cil",
+        ":product_sepolicy.cil",
         ":plat_pub_versioned.cil",
-        ":plat_mapping_file_for_vendor",
+        ":plat_mapping_file",
         ":vendor_sepolicy.cil",
     ],
     filter_out: [":plat_pub_versioned.cil", ":vendor_sepolicy.cil"],
@@ -701,9 +611,8 @@ soong_config_module_type {
     name: "precompiled_se_policy_binary",
     module_type: "se_policy_binary",
     config_namespace: "ANDROID",
-    bool_variables: ["BOARD_USES_ODMIMAGE", "IS_TARGET_MIXED_SEPOLICY"],
-    value_variables: ["MIXED_SEPOLICY_VERSION"],
-    properties: ["vendor", "device_specific", "srcs", "ignore_neverallow"],
+    bool_variables: ["BOARD_USES_ODMIMAGE"],
+    properties: ["vendor", "device_specific"],
 }
 
 precompiled_se_policy_binary {
@@ -716,6 +625,9 @@ precompiled_se_policy_binary {
         ":product_sepolicy.cil",
         ":vendor_sepolicy.cil",
         ":odm_sepolicy.cil",
+        ":plat_mapping_file",
+        ":system_ext_mapping_file",
+        ":product_mapping_file",
     ],
     soong_config_variables: {
         BOARD_USES_ODMIMAGE: {
@@ -724,27 +636,9 @@ precompiled_se_policy_binary {
                 vendor: true,
             },
         },
-        IS_TARGET_MIXED_SEPOLICY: {
-            ignore_neverallow: true,
-        },
-        MIXED_SEPOLICY_VERSION: {
-            srcs: [
-                ":plat_%s.cil",
-                ":system_ext_%s.cil",
-                ":product_%s.cil",
-            ],
-            conditions_default: {
-                srcs: [
-                    ":plat_mapping_file",
-                    ":system_ext_mapping_file",
-                    ":product_mapping_file",
-                ],
-            },
-        },
     },
     required: [
         "sepolicy_neverallows",
-        "sepolicy_neverallows_vendor",
     ],
     dist: {
         targets: ["base-sepolicy-files-for-mapping"],
@@ -760,6 +654,9 @@ precompiled_se_policy_binary {
         ":product_sepolicy.cil",
         ":vendor_sepolicy.cil",
         ":odm_sepolicy.cil",
+        ":plat_mapping_file",
+        ":system_ext_mapping_file",
+        ":product_mapping_file",
     ],
     soong_config_variables: {
         BOARD_USES_ODMIMAGE: {
@@ -768,27 +665,9 @@ precompiled_se_policy_binary {
                 vendor: true,
             },
         },
-        IS_TARGET_MIXED_SEPOLICY: {
-            ignore_neverallow: true,
-        },
-        MIXED_SEPOLICY_VERSION: {
-            srcs: [
-                ":plat_%s.cil",
-                ":system_ext_%s.cil",
-                ":product_%s.cil",
-            ],
-            conditions_default: {
-                srcs: [
-                    ":plat_mapping_file",
-                    ":system_ext_mapping_file",
-                    ":product_mapping_file",
-                ],
-            },
-        },
     },
     required: [
         "sepolicy_neverallows",
-        "sepolicy_neverallows_vendor",
     ],
     dist: {
         targets: ["base-sepolicy-files-for-mapping"],
@@ -798,8 +677,13 @@ precompiled_se_policy_binary {
 // policy for recovery
 se_policy_conf {
     name: "recovery_sepolicy.conf",
-    srcs: plat_policies_for_vendor + [
-        ":se_build_files{.plat_vendor_for_vendor}",
+    srcs: plat_public_policy +
+        plat_private_policy +
+        system_ext_public_policy +
+        system_ext_private_policy +
+        product_public_policy +
+        product_private_policy + [
+        ":se_build_files{.plat_vendor}",
         ":se_build_files{.vendor}",
         ":se_build_files{.odm}",
     ],
@@ -1003,7 +887,7 @@ se_bug_map {
 
 se_bug_map {
     name: "vendor_bug_map",
-    srcs: [":bug_map_files{.vendor}", ":bug_map_files{.plat_vendor_for_vendor}"],
+    srcs: [":bug_map_files{.vendor}", ":bug_map_files{.plat_vendor}"],
     // Legacy file name of the vendor partition bug_map.
     stem: "selinux_denial_metadata",
     vendor: true,
@@ -1016,17 +900,11 @@ se_neverallow_test {
         system_ext_public_policy +
         system_ext_private_policy +
         product_public_policy +
-        product_private_policy,
-}
-
-se_neverallow_test {
-    name: "sepolicy_neverallows_vendor",
-    srcs: plat_policies_for_vendor + [
-        ":se_build_files{.plat_vendor_for_vendor}",
+        product_private_policy + [
+        ":se_build_files{.plat_vendor}",
         ":se_build_files{.vendor}",
         ":se_build_files{.odm}",
     ],
-    vendor: true,
 }
 
 //////////////////////////////////
