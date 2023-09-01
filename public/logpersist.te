@@ -28,3 +28,8 @@ neverallow logpersist { app_data_file_type system_data_file }:dir_file_class_set
 #   -system_app # Smith.apk
 # } logpersist:process transition;
 neverallow * logpersist:process dyntransition;
+
+allowxperm logpersist misc_logd_file:file ioctl {
+  F2FS_IOC_RELEASE_COMPRESS_BLOCKS
+  FS_IOC_SETFLAGS
+};
