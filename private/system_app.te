@@ -66,6 +66,9 @@ set_prop(system_app, ctl_bugreport_prop)
 # Allow developer settings to query gsid status
 get_prop(system_app, gsid_prop)
 
+# Allow developer settings to check 16k pages boot option status
+get_prop(system_app, enable_16k_pages_prop)
+
 # Create /data/anr/traces.txt.
 allow system_app anr_data_file:dir ra_dir_perms;
 allow system_app anr_data_file:file create_file_perms;
