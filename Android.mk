@@ -73,12 +73,6 @@ ifneq (,$(PRODUCT_PUBLIC_POLICY)$(PRODUCT_PRIVATE_POLICY))
 HAS_PRODUCT_SEPOLICY_DIR := true
 endif
 
-ifneq ($(PLATFORM_SEPOLICY_VERSION),$(BOARD_SEPOLICY_VERS))
-mixed_sepolicy_build := true
-else
-mixed_sepolicy_build :=
-endif
-
 NEVERALLOW_ARG :=
 ifeq ($(SELINUX_IGNORE_NEVERALLOWS),true)
 ifeq ($(TARGET_BUILD_VARIANT),user)
@@ -98,21 +92,6 @@ ifdef BOARD_SEPOLICY_DIRS
 BOARD_VENDOR_SEPOLICY_DIRS += $(BOARD_SEPOLICY_DIRS)
 endif
 
-# Set default values for these prebuilt directories
-ifeq (,$(BOARD_REQD_MASK_POLICY))
-BOARD_REQD_MASK_POLICY := $(REQD_MASK_POLICY)
-endif
-
-ifeq (,$(BOARD_PLAT_VENDOR_POLICY))
-BOARD_PLAT_VENDOR_POLICY := $(PLAT_VENDOR_POLICY)
-endif
-
-$(foreach p,SYSTEM_EXT PRODUCT,$(foreach q,PUBLIC PRIVATE,$(eval \
-    $(if $(BOARD_$(p)_$(q)_PREBUILT_DIRS),,\
-        BOARD_$(p)_$(q)_PREBUILT_DIRS := $($(p)_$(q)_POLICY) \
-    ) \
-)))
-
 ###########################################################
 # Compute policy files to be used in policy build.
 # $(1): files to include
@@ -125,7 +104,7 @@ endef
 
 # Builds paths for all policy files found in BOARD_VENDOR_SEPOLICY_DIRS.
 # $(1): the set of policy name paths to build
-build_vendor_policy = $(call build_policy, $(1), $(BOARD_PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS))
+build_vendor_policy = $(call build_policy, $(1), $(PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS))
 
 # Builds paths for all policy files found in BOARD_ODM_SEPOLICY_DIRS.
 build_odm_policy = $(call build_policy, $(1), $(BOARD_ODM_SEPOLICY_DIRS))
@@ -514,7 +493,6 @@ endif # ifdef HAS_PRODUCT_SEPOLICY
 
 built_sepolicy := $(call intermediates-dir-for,ETC,precompiled_sepolicy)/precompiled_sepolicy
 built_sepolicy_neverallows := $(call intermediates-dir-for,ETC,sepolicy_neverallows)/sepolicy_neverallows
-built_sepolicy_neverallows += $(call intermediates-dir-for,ETC,sepolicy_neverallows_vendor)/sepolicy_neverallows_vendor
 
 ##################################
 # TODO - remove this.   Keep around until we get the filesystem creation stuff taken care of.
