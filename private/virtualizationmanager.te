@@ -68,10 +68,12 @@ get_prop(virtualizationmanager, hypervisor_restricted_prop)
 # Allow virtualizationmanager to be read custom pvmfw.img configuration
 userdebug_or_eng(`get_prop(virtualizationmanager, hypervisor_pvmfw_prop)')
 dontaudit virtualizationmanager hypervisor_pvmfw_prop:file read;
+neverallow { domain -init -dumpstate userdebug_or_eng(`-virtualizationmanager') } hypervisor_pvmfw_prop:file no_rw_file_perms;
 
 # Allow virtualizationmanager to be read custom virtualizationmanager configuration
 userdebug_or_eng(`get_prop(virtualizationmanager, hypervisor_virtualizationmanager_prop)')
 dontaudit virtualizationmanager hypervisor_virtualizationmanager_prop:file read;
+neverallow { domain -init -dumpstate userdebug_or_eng(`-virtualizationmanager') } hypervisor_virtualizationmanager_prop:file no_rw_file_perms;
 
 # Allow virtualizationmanager service to talk to tombstoned to push guest ramdumps
 unix_socket_connect(virtualizationmanager, tombstoned_crash, tombstoned)
