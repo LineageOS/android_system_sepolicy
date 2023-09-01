@@ -99,7 +99,7 @@ file_contexts {
 file_contexts {
     name: "vendor_file_contexts",
     srcs: [
-        ":file_contexts_files{.plat_vendor_for_vendor}",
+        ":file_contexts_files{.plat_vendor}",
         ":file_contexts_files{.vendor}",
     ],
     soc_specific: true,
@@ -108,7 +108,7 @@ file_contexts {
 file_contexts {
     name: "vendor_file_contexts.recovery",
     srcs: [
-        ":file_contexts_files{.plat_vendor_for_vendor}",
+        ":file_contexts_files{.plat_vendor}",
         ":file_contexts_files{.vendor}",
     ],
     stem: "vendor_file_contexts",
@@ -174,9 +174,9 @@ hwservice_contexts {
 hwservice_contexts {
     name: "vendor_hwservice_contexts",
     srcs: [
-        ":hwservice_contexts_files{.plat_vendor_for_vendor}",
+        ":hwservice_contexts_files{.plat_vendor}",
         ":hwservice_contexts_files{.vendor}",
-        ":hwservice_contexts_files{.reqd_mask_for_vendor}",
+        ":hwservice_contexts_files{.reqd_mask}",
     ],
     soc_specific: true,
 }
@@ -216,9 +216,9 @@ property_contexts {
 property_contexts {
     name: "vendor_property_contexts",
     srcs: [
-        ":property_contexts_files{.plat_vendor_for_vendor}",
+        ":property_contexts_files{.plat_vendor}",
         ":property_contexts_files{.vendor}",
-        ":property_contexts_files{.reqd_mask_for_vendor}",
+        ":property_contexts_files{.reqd_mask}",
     ],
     soc_specific: true,
     recovery_available: true,
@@ -260,9 +260,9 @@ service_contexts {
 service_contexts {
     name: "vendor_service_contexts",
     srcs: [
-        ":service_contexts_files{.plat_vendor_for_vendor}",
+        ":service_contexts_files{.plat_vendor}",
         ":service_contexts_files{.vendor}",
-        ":service_contexts_files{.reqd_mask_for_vendor}",
+        ":service_contexts_files{.reqd_mask}",
     ],
     soc_specific: true,
     recovery_available: true,
@@ -297,9 +297,9 @@ keystore2_key_contexts {
 keystore2_key_contexts {
     name: "vendor_keystore2_key_contexts",
     srcs: [
-        ":keystore2_key_contexts_files{.plat_vendor_for_vendor}",
+        ":keystore2_key_contexts_files{.plat_vendor}",
         ":keystore2_key_contexts_files{.vendor}",
-        ":keystore2_key_contexts_files{.reqd_mask_for_vendor}",
+        ":keystore2_key_contexts_files{.reqd_mask}",
     ],
     soc_specific: true,
 }
@@ -332,14 +332,14 @@ seapp_contexts {
 seapp_contexts {
     name: "vendor_seapp_contexts",
     srcs: [
-        ":seapp_contexts_files{.plat_vendor_for_vendor}",
+        ":seapp_contexts_files{.plat_vendor}",
         ":seapp_contexts_files{.vendor}",
-        ":seapp_contexts_files{.reqd_mask_for_vendor}",
+        ":seapp_contexts_files{.reqd_mask}",
     ],
     neverallow_files: [
-        ":seapp_contexts_files{.plat_private_for_vendor}",
-        ":seapp_contexts_files{.system_ext_private_for_vendor}",
-        ":seapp_contexts_files{.product_private_for_vendor}",
+        ":seapp_contexts_files{.plat_private}",
+        ":seapp_contexts_files{.system_ext_private}",
+        ":seapp_contexts_files{.product_private}",
     ],
     soc_specific: true,
     sepolicy: ":precompiled_sepolicy",
@@ -351,9 +351,9 @@ seapp_contexts {
         ":seapp_contexts_files{.odm}",
     ],
     neverallow_files: [
-        ":seapp_contexts_files{.plat_private_for_vendor}",
-        ":seapp_contexts_files{.system_ext_private_for_vendor}",
-        ":seapp_contexts_files{.product_private_for_vendor}",
+        ":seapp_contexts_files{.plat_private}",
+        ":seapp_contexts_files{.system_ext_private}",
+        ":seapp_contexts_files{.product_private}",
     ],
     device_specific: true,
     sepolicy: ":precompiled_sepolicy",
@@ -362,9 +362,9 @@ seapp_contexts {
 vndservice_contexts {
     name: "vndservice_contexts",
     srcs: [
-        ":vndservice_contexts_files{.plat_vendor_for_vendor}",
+        ":vndservice_contexts_files{.plat_vendor}",
         ":vndservice_contexts_files{.vendor}",
-        ":vndservice_contexts_files{.reqd_mask_for_vendor}",
+        ":vndservice_contexts_files{.reqd_mask}",
     ],
     soc_specific: true,
 }

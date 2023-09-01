@@ -72,14 +72,14 @@ mac_permissions {
 mac_permissions {
     name: "vendor_mac_permissions.xml",
     keys: [
-        ":keys.conf{.plat_vendor_for_vendor}",
+        ":keys.conf{.plat_vendor}",
         ":keys.conf{.vendor}",
-        ":keys.conf{.reqd_mask_for_vendor}",
+        ":keys.conf{.reqd_mask}",
     ],
     srcs: [
-        ":mac_permissions.xml{.plat_vendor_for_vendor}",
+        ":mac_permissions.xml{.plat_vendor}",
         ":mac_permissions.xml{.vendor}",
-        ":mac_permissions.xml{.reqd_mask_for_vendor}",
+        ":mac_permissions.xml{.reqd_mask}",
     ],
     vendor: true,
 }
@@ -88,11 +88,11 @@ mac_permissions {
     name: "odm_mac_permissions.xml",
     keys: [
         ":keys.conf{.odm}",
-        ":keys.conf{.reqd_mask_for_vendor}",
+        ":keys.conf{.reqd_mask}",
     ],
     srcs: [
         ":mac_permissions.xml{.odm}",
-        ":mac_permissions.xml{.reqd_mask_for_vendor}",
+        ":mac_permissions.xml{.reqd_mask}",
     ],
     device_specific: true,
 }
