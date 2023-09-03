@@ -152,15 +152,22 @@ allow system_app wifi_key:keystore2_key {
     use
 };
 
-# settings app reads /proc/version
+# settings app reads /proc/{pagetypeinfo,version,vmallocinfo}
 allow system_app {
+  proc_pagetypeinfo
   proc_version
+  proc_vmallocinfo
 }:file r_file_perms;
 
 # Settings app writes to /dev/stune/foreground/tasks.
 allow system_app cgroup:file w_file_perms;
 allow system_app cgroup_v2:file w_file_perms;
 allow system_app cgroup_v2:dir w_dir_perms;
+
+# Settings app /sys access
+allow system_app sysfs_zram:dir search;
+# Settings app reads /sys/block/zram*/mm_stat
+r_dir_file(system_app, sysfs_zram)
 
 control_logd(system_app)
 read_runtime_log_tags(system_app)
