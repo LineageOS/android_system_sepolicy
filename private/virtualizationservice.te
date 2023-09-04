@@ -42,6 +42,15 @@ allow virtualizationservice virtualizationservice_data_file:file write;
 allow virtualizationservice adbd:fd use;
 allow virtualizationservice adbd:unix_stream_socket { read write };
 
+# Allow to connnect to and run VirtMgr to start the service VM for remote attestation.
+virtualizationservice_use(virtualizationservice)
+
+# Allow virtualizationservice to read and write in the apex data directory
+# /data/misc/apexdata/com.android.virt
+allow virtualizationservice apex_module_data_file:dir search;
+allow virtualizationservice apex_virt_data_file:dir create_dir_perms;
+allow virtualizationservice apex_virt_data_file:file create_file_perms;
+
 # Let virtualizationservice to accept vsock connection from the guest VMs to singleton services
 # such as the guest tombstone server.
 allow virtualizationservice self:vsock_socket { create_socket_perms_no_ioctl listen accept };
