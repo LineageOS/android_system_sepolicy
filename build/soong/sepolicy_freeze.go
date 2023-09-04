@@ -15,11 +15,13 @@
 package selinux
 
 import (
-	"path/filepath"
 	"sort"
 
 	"android/soong/android"
 )
+
+var currentCilTag = dependencyTag{name: "current_cil"}
+var prebuiltCilTag = dependencyTag{name: "prebuilt_cil"}
 
 func init() {
 	ctx := android.InitRegistrationContext
@@ -32,6 +34,9 @@ func init() {
 func freezeTestFactory() android.SingletonModule {
 	f := &freezeTestModule{}
 	android.InitAndroidModule(f)
+	android.AddLoadHook(f, func(ctx android.LoadHookContext) {
+		f.loadHook(ctx)
+	})
 	return f
 }
 
@@ -40,26 +45,23 @@ type freezeTestModule struct {
 	freezeTestTimestamp android.ModuleOutPath
 }
 
-func (f *freezeTestModule) GenerateSingletonBuildActions(ctx android.SingletonContext) {
-	// does nothing; se_freeze_test is a singeton because two freeze test modules don't make sense.
-}
-
-func (f *freezeTestModule) GenerateAndroidBuildActions(ctx android.ModuleContext) {
+func (f *freezeTestModule) shouldSkip(ctx android.EarlyModuleContext) bool {
 	platformVersion := ctx.DeviceConfig().PlatformSepolicyVersion()
 	totVersion := ctx.DeviceConfig().TotSepolicyVersion()
 
+	return platformVersion == totVersion
+}
+
+func (f *freezeTestModule) loadHook(ctx android.LoadHookContext) {
 	extraDirs := ctx.DeviceConfig().SepolicyFreezeTestExtraDirs()
 	extraPrebuiltDirs := ctx.DeviceConfig().SepolicyFreezeTestExtraPrebuiltDirs()
-	f.freezeTestTimestamp = android.PathForModuleOut(ctx, "freeze_test")
 
-	if platformVersion == totVersion {
+	if f.shouldSkip(ctx) {
 		if len(extraDirs) > 0 || len(extraPrebuiltDirs) > 0 {
 			ctx.ModuleErrorf("SEPOLICY_FREEZE_TEST_EXTRA_DIRS or SEPOLICY_FREEZE_TEST_EXTRA_PREBUILT_DIRS cannot be set before system/sepolicy freezes.")
 			return
 		}
 
-		// we still build a rule to prevent possible regression
-		android.WriteFileRule(ctx, f.freezeTestTimestamp, ";; no freeze tests needed before system/sepolicy freezes")
 		return
 	}
 
@@ -67,17 +69,80 @@ func (f *freezeTestModule) GenerateAndroidBuildActions(ctx android.ModuleContext
 		ctx.ModuleErrorf("SEPOLICY_FREEZE_TEST_EXTRA_DIRS and SEPOLICY_FREEZE_TEST_EXTRA_PREBUILT_DIRS must have the same number of directories.")
 		return
 	}
+}
 
-	platPublic := filepath.Join(ctx.ModuleDir(), "public")
-	platPrivate := filepath.Join(ctx.ModuleDir(), "private")
-	prebuiltPublic := filepath.Join(ctx.ModuleDir(), "prebuilts", "api", platformVersion, "public")
-	prebuiltPrivate := filepath.Join(ctx.ModuleDir(), "prebuilts", "api", platformVersion, "private")
+func (f *freezeTestModule) prebuiltCilModuleName(ctx android.EarlyModuleContext) string {
+	return ctx.DeviceConfig().PlatformSepolicyVersion() + "_plat_pub_policy.cil"
+}
 
-	sourceDirs := append(extraDirs, platPublic, platPrivate)
-	prebuiltDirs := append(extraPrebuiltDirs, prebuiltPublic, prebuiltPrivate)
+func (f *freezeTestModule) DepsMutator(ctx android.BottomUpMutatorContext) {
+	if f.shouldSkip(ctx) {
+		return
+	}
+
+	ctx.AddDependency(f, currentCilTag, "base_plat_pub_policy.cil")
+	ctx.AddDependency(f, prebuiltCilTag, f.prebuiltCilModuleName(ctx))
+}
+
+func (f *freezeTestModule) GenerateSingletonBuildActions(ctx android.SingletonContext) {
+	// does nothing; se_freeze_test is a singeton because two freeze test modules don't make sense.
+}
+
+func (f *freezeTestModule) outputFileOfDep(ctx android.ModuleContext, depTag dependencyTag) android.Path {
+	deps := ctx.GetDirectDepsWithTag(depTag)
+	if len(deps) != 1 {
+		ctx.ModuleErrorf("%d deps having tag %q; expected only one dep", len(deps), depTag)
+		return nil
+	}
+
+	dep := deps[0]
+	outputFileProducer, ok := dep.(android.OutputFileProducer)
+	if !ok {
+		ctx.ModuleErrorf("module %q is not an output file producer", dep.String())
+		return nil
+	}
+
+	output, err := outputFileProducer.OutputFiles("")
+	if err != nil {
+		ctx.ModuleErrorf("module %q failed to produce output: %w", dep.String(), err)
+		return nil
+	}
+	if len(output) != 1 {
+		ctx.ModuleErrorf("module %q produced %d outputs; expected only one output", dep.String(), len(output))
+		return nil
+	}
+
+	return output[0]
+}
+
+func (f *freezeTestModule) GenerateAndroidBuildActions(ctx android.ModuleContext) {
+	f.freezeTestTimestamp = android.PathForModuleOut(ctx, "freeze_test")
+
+	if f.shouldSkip(ctx) {
+		// we still build a rule to prevent possible regression
+		android.WriteFileRule(ctx, f.freezeTestTimestamp, ";; no freeze tests needed before system/sepolicy freezes")
+		return
+	}
+
+	// Freeze test 1: compare ToT sepolicy and prebuilt sepolicy
+	currentCil := f.outputFileOfDep(ctx, currentCilTag)
+	prebuiltCil := f.outputFileOfDep(ctx, prebuiltCilTag)
+	if ctx.Failed() {
+		return
+	}
+
+	rule := android.NewRuleBuilder(pctx, ctx)
+	rule.Command().BuiltTool("sepolicy_freeze_test").
+		FlagWithInput("-c ", currentCil).
+		FlagWithInput("-p ", prebuiltCil)
+
+	// Freeze test 2: compare extra directories
+	// We don't know the exact structure of extra directories, so just directly compare them
+	extraDirs := ctx.DeviceConfig().SepolicyFreezeTestExtraDirs()
+	extraPrebuiltDirs := ctx.DeviceConfig().SepolicyFreezeTestExtraPrebuiltDirs()
 
 	var implicits []string
-	for _, dir := range append(sourceDirs, prebuiltDirs...) {
+	for _, dir := range append(extraDirs, extraPrebuiltDirs...) {
 		glob, err := ctx.GlobWithDeps(dir+"/**/*", []string{"bug_map"} /* exclude */)
 		if err != nil {
 			ctx.ModuleErrorf("failed to glob sepolicy dir %q: %s", dir, err.Error())
@@ -87,15 +152,13 @@ func (f *freezeTestModule) GenerateAndroidBuildActions(ctx android.ModuleContext
 	}
 	sort.Strings(implicits)
 
-	rule := android.NewRuleBuilder(pctx, ctx)
-
-	for idx, _ := range sourceDirs {
+	for idx, _ := range extraDirs {
 		rule.Command().Text("diff").
 			Flag("-r").
 			Flag("-q").
 			FlagWithArg("-x ", "bug_map"). // exclude
-			Text(sourceDirs[idx]).
-			Text(prebuiltDirs[idx])
+			Text(extraDirs[idx]).
+			Text(extraPrebuiltDirs[idx])
 	}
 
 	rule.Command().Text("touch").
