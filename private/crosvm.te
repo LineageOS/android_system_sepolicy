@@ -27,8 +27,9 @@ allow crosvm virtualizationmanager:fifo_file write;
 
 # Let crosvm read the composite disk images (virtualizationservice_data_file), APEXes
 # (staging_data_file), APKs (apk_data_file and shell_data_file where the latter is for test apks in
-# /data/local/tmp), and instance.img (app_data_file). Note that the open permission is not given as
-# the files are passed as file descriptors.
+# /data/local/tmp), and instance.img (app_data_file).
+# Allow crosvm to read the instance image of the service VM saved in apex_virt_data_file.
+# Note that the open permission is not given as the files are passed as file descriptors.
 allow crosvm {
   virtualizationservice_data_file
   staging_data_file
@@ -36,6 +37,7 @@ allow crosvm {
   app_data_file
   privapp_data_file
   apex_compos_data_file
+  apex_virt_data_file
   shell_data_file
 }:file { getattr read ioctl lock };
 
@@ -64,6 +66,7 @@ allow crosvm {
   app_data_file
   privapp_data_file
   apex_compos_data_file
+  apex_virt_data_file
 }:file write;
 
 # Allow crosvm to pipe console log to shell or app which could be the owner of a VM.
