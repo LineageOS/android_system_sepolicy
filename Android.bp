@@ -912,10 +912,9 @@ se_neverallow_test {
 // Additional directories can be specified via Makefile variables:
 // SEPOLICY_FREEZE_TEST_EXTRA_DIRS and SEPOLICY_FREEZE_TEST_EXTRA_PREBUILT_DIRS.
 //////////////////////////////////
-// TODO(b/296875906): re-enable once freeze_test becomes trunk stable aware
-// se_freeze_test {
-//     name: "sepolicy_freeze_test",
-// }
+se_freeze_test {
+    name: "sepolicy_freeze_test",
+}
 
 //////////////////////////////////
 // sepolicy_test checks various types of violations, which can't be easily done
