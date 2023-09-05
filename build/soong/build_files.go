@@ -16,6 +16,7 @@ package selinux
 
 import (
 	"fmt"
+	"path"
 	"path/filepath"
 	"strings"
 
@@ -103,8 +104,15 @@ func (b *buildFiles) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	b.srcs[".vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().VendorSepolicyDirs()...)
 	b.srcs[".odm"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().OdmSepolicyDirs()...)
 
+	prebuilt_directories, err := ctx.GlobWithDeps("system/sepolicy/prebuilts/api/*", nil)
+	if err != nil {
+		ctx.ModuleErrorf("error while globbing: %w", err)
+		return
+	}
+
 	// directories used for compat tests and Treble tests
-	for _, ver := range ctx.DeviceConfig().PlatformSepolicyCompatVersions() {
+	for _, dir := range prebuilt_directories {
+		ver := path.Base(dir)
 		b.srcs[".plat_public_"+ver] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "prebuilts", "api", ver, "public"))
 		b.srcs[".plat_private_"+ver] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "prebuilts", "api", ver, "private"))
 		b.srcs[".system_ext_public_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.DeviceConfig().SystemExtSepolicyPrebuiltApiDir(), "prebuilts", "api", ver, "public"))
