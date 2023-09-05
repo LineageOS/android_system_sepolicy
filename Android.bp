@@ -913,7 +913,7 @@ se_neverallow_test {
 // SEPOLICY_FREEZE_TEST_EXTRA_DIRS and SEPOLICY_FREEZE_TEST_EXTRA_PREBUILT_DIRS.
 //////////////////////////////////
 se_freeze_test {
-    name: "sepolicy_freeze_test",
+    name: "se_freeze_test",
 }
 
 //////////////////////////////////

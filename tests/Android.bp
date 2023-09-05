@@ -146,3 +146,18 @@ python_binary_host {
     name: "check_prop_prefix",
     srcs: ["check_prop_prefix.py"],
 }
+
+python_binary_host {
+    name: "sepolicy_freeze_test",
+    srcs: [
+        "sepolicy_freeze_test.py",
+    ],
+    version: {
+        py3: {
+            embedded_launcher: true,
+        },
+    },
+    libs: [
+        "mini_cil_parser",
+    ],
+}
