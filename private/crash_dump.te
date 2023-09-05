@@ -32,6 +32,9 @@ userdebug_or_eng(`
 allow crash_dump apex_art_data_file:dir { getattr search };
 allow crash_dump apex_art_data_file:file r_file_perms;
 
+# Read Vendor APEX directories
+allow crash_dump vendor_apex_metadata_file:dir { getattr search };
+
 ###
 ### neverallow assertions
 ###
