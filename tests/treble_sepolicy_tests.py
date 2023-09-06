@@ -16,16 +16,10 @@ from optparse import OptionParser
 from optparse import Option, OptionValueError
 import os
 import mini_parser
-import pkgutil
-import policy
-from policy import MatchPathPrefix
 import re
 import shutil
 import sys
 import tempfile
-
-DEBUG=False
-SHARED_LIB_EXTENSION = '.dylib' if sys.platform == 'darwin' else '.so'
 
 '''
 Verify that Treble compatibility are not broken.
@@ -39,13 +33,13 @@ Verify that Treble compatibility are not broken.
 ###
 # Make sure that any new public type introduced in the new policy that was not
 # present in the old policy has been recorded in the mapping file.
-def TestNoUnmappedNewTypes(test_policy):
-    newt = test_policy.alltypes - test_policy.oldalltypes
+def TestNoUnmappedNewTypes(base_pub_policy, old_pub_policy, mapping):
+    newt = base_pub_policy.types - old_pub_policy.types
     ret = ""
     violators = []
 
     for n in newt:
-        if n in test_policy.pubtypes and test_policy.compatMapping.rTypeattributesets.get(n) is None:
+        if mapping.rTypeattributesets.get(n) is None:
             violators.append(n)
 
     if len(violators) > 0:
@@ -62,13 +56,13 @@ def TestNoUnmappedNewTypes(test_policy):
 ###
 # Make sure that any public type removed in the current policy has its
 # declaration added to the mapping file for use in non-platform policy
-def TestNoUnmappedRmTypes(test_policy):
-    rmt = test_policy.oldalltypes - test_policy.alltypes
+def TestNoUnmappedRmTypes(base_pub_policy, old_pub_policy, mapping):
+    rmt = old_pub_policy.types - base_pub_policy.types
     ret = ""
     violators = []
 
     for o in rmt:
-        if o in test_policy.compatMapping.pubtypes and not o in test_policy.compatMapping.types:
+        if o in mapping.pubtypes and not o in mapping.types:
             violators.append(o)
 
     if len(violators) > 0:
@@ -81,9 +75,9 @@ def TestNoUnmappedRmTypes(test_policy):
         ret += "https://android-review.googlesource.com/c/platform/system/sepolicy/+/822743\n"
     return ret
 
-def TestTrebleCompatMapping(test_policy):
-    ret = TestNoUnmappedNewTypes(test_policy)
-    ret += TestNoUnmappedRmTypes(test_policy)
+def TestTrebleCompatMapping(base_pub_policy, old_pub_policy, mapping):
+    ret = TestNoUnmappedNewTypes(base_pub_policy, old_pub_policy, mapping)
+    ret += TestNoUnmappedRmTypes(base_pub_policy, old_pub_policy, mapping)
     return ret
 
 ###
@@ -103,73 +97,38 @@ class MultipleOption(Option):
         else:
             Option.take_action(self, action, dest, opt, value, values, parser)
 
-def do_main(libpath):
-    """
-    Args:
-        libpath: string, path to libsepolwrap.so
-    """
-    test_policy = policy.TestPolicy()
-
+def do_main():
     usage = "treble_sepolicy_tests "
-    usage += "-p curr_policy -b base_policy -o old_policy "
+    usage += "-b base_pub_policy -o old_pub_policy "
     usage += "-m mapping file [--test test] [--help]"
     parser = OptionParser(option_class=MultipleOption, usage=usage)
-    parser.add_option("-b", "--basepolicy", dest="basepolicy", metavar="FILE")
-    parser.add_option("-u", "--base-pub-policy", dest="base_pub_policy",
+    parser.add_option("-b", "--base-pub-policy", dest="base_pub_policy",
                       metavar="FILE")
     parser.add_option("-m", "--mapping", dest="mapping", metavar="FILE")
-    parser.add_option("-o", "--oldpolicy", dest="oldpolicy", metavar="FILE")
-    parser.add_option("-p", "--policy", dest="policy", metavar="FILE")
+    parser.add_option("-o", "--old-pub-policy", dest="old_pub_policy",
+                      metavar="FILE")
 
     (options, args) = parser.parse_args()
 
-    if not options.policy:
-        sys.exit("Must specify current monolithic policy file\n" + parser.usage)
-    if not os.path.exists(options.policy):
-        sys.exit("Error: policy file " + options.policy + " does not exist\n"
-                + parser.usage)
-
     # Mapping files and public platform policy are only necessary for the
     # TrebleCompatMapping test.
-    if not options.basepolicy:
-        sys.exit("Must specify the current platform-only policy file\n"
-                    + parser.usage)
     if not options.mapping:
         sys.exit("Must specify a compatibility mapping file\n"
                     + parser.usage)
-    if not options.oldpolicy:
-        sys.exit("Must specify the previous monolithic policy file\n"
+    if not options.old_pub_policy:
+        sys.exit("Must specify the previous public policy .cil file\n"
                     + parser.usage)
     if not options.base_pub_policy:
         sys.exit("Must specify the current platform-only public policy "
                     + ".cil file\n" + parser.usage)
-    basepol = policy.Policy(options.basepolicy, None, libpath)
-    oldpol = policy.Policy(options.oldpolicy, None, libpath)
     mapping = mini_parser.MiniCilParser(options.mapping)
-    pubpol = mini_parser.MiniCilParser(options.base_pub_policy)
-    test_policy.compatSetup(basepol, oldpol, mapping, pubpol.types)
+    base_pub_policy = mini_parser.MiniCilParser(options.base_pub_policy)
+    old_pub_policy = mini_parser.MiniCilParser(options.old_pub_policy)
 
-    pol = policy.Policy(options.policy, None, libpath)
-    test_policy.setup(pol)
-
-    if DEBUG:
-        test_policy.PrintScontexts()
-
-    results = TestTrebleCompatMapping(test_policy)
+    results = TestTrebleCompatMapping(base_pub_policy, old_pub_policy, mapping)
 
     if len(results) > 0:
         sys.exit(results)
 
 if __name__ == '__main__':
-    temp_dir = tempfile.mkdtemp()
-    try:
-        libname = "libsepolwrap" + SHARED_LIB_EXTENSION
-        libpath = os.path.join(temp_dir, libname)
-        with open(libpath, "wb") as f:
-            blob = pkgutil.get_data("treble_sepolicy_tests", libname)
-            if not blob:
-                sys.exit("Error: libsepolwrap does not exist. Is this binary corrupted?\n")
-            f.write(blob)
-        do_main(libpath)
-    finally:
-        shutil.rmtree(temp_dir)
+    do_main()

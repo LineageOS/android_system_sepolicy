@@ -52,4 +52,7 @@ se_policy_binary {
     name: "34.0_plat_policy",
     srcs: [":34.0_plat_policy.cil"],
     installable: false,
+    dist: {
+        targets: ["base-sepolicy-files-for-mapping"],
+    },
 }
