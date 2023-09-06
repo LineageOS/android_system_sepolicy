@@ -429,6 +429,7 @@ class Policy:
 
     # load file_contexts
     def __InitFC(self, FcPaths):
+        self.__FcDict = {}
         if FcPaths is None:
             return
         fc = []
@@ -438,7 +439,6 @@ class Policy:
             fd = open(path, "r")
             fc += fd.readlines()
             fd.close()
-        self.__FcDict = {}
         for i in fc:
             rec = i.split()
             try:
@@ -467,3 +467,159 @@ class Policy:
     def __del__(self):
         if self.__policydbP is not None:
             self.__libsepolwrap.destroy_policy(self.__policydbP)
+
+coredomainAllowlist = {
+        # TODO: how do we make sure vendor_init doesn't have bad coupling with
+        # /vendor? It is the only system process which is not coredomain.
+        'vendor_init',
+        # TODO(b/152813275): need to avoid allowlist for rootdir
+        "modprobe",
+        "slideshow",
+        }
+
+class scontext:
+    def __init__(self):
+        self.fromSystem = False
+        self.fromVendor = False
+        self.coredomain = False
+        self.appdomain = False
+        self.attributes = set()
+        self.entrypoints = []
+        self.entrypointpaths = []
+        self.error = ""
+
+class TestPolicy:
+    """A policy loaded in memory with its domains easily accessible."""
+
+    def __init__(self):
+        self.alldomains = {}
+        self.coredomains = set()
+        self.appdomains = set()
+        self.vendordomains = set()
+        self.pol = None
+
+        # compat vars
+        self.alltypes = set()
+        self.oldalltypes = set()
+        self.compatMapping = None
+        self.pubtypes = set()
+
+    def GetAllDomains(self):
+        for result in self.pol.QueryTypeAttribute("domain", True):
+            self.alldomains[result] = scontext()
+
+    def GetAppDomains(self):
+        for d in self.alldomains:
+            # The application of the "appdomain" attribute is trusted because core
+            # selinux policy contains neverallow rules that enforce that only zygote
+            # and runas spawned processes may transition to processes that have
+            # the appdomain attribute.
+            if "appdomain" in self.alldomains[d].attributes:
+                self.alldomains[d].appdomain = True
+                self.appdomains.add(d)
+
+    def GetCoreDomains(self):
+        for d in self.alldomains:
+            domain = self.alldomains[d]
+            # TestCoredomainViolations will verify if coredomain was incorrectly
+            # applied.
+            if "coredomain" in domain.attributes:
+                domain.coredomain = True
+                self.coredomains.add(d)
+            # check whether domains are executed off of /system or /vendor
+            if d in coredomainAllowlist:
+                continue
+            # TODO(b/153112003): add checks to prevent app domains from being
+            # incorrectly labeled as coredomain. Apps don't have entrypoints as
+            # they're always dynamically transitioned to by zygote.
+            if d in self.appdomains:
+                continue
+            # TODO(b/153112747): need to handle cases where there is a dynamic
+            # transition OR there happens to be no context in AOSP files.
+            if not domain.entrypointpaths:
+                continue
+
+            for path in domain.entrypointpaths:
+                vendor = any(MatchPathPrefix(path, prefix) for prefix in
+                             ["/vendor", "/odm"])
+                system = any(MatchPathPrefix(path, prefix) for prefix in
+                             ["/init", "/system_ext", "/product" ])
+
+                # only mark entrypoint as system if it is not in legacy /system/vendor
+                if MatchPathPrefix(path, "/system/vendor"):
+                    vendor = True
+                elif MatchPathPrefix(path, "/system"):
+                    system = True
+
+                if not vendor and not system:
+                    domain.error += "Unrecognized entrypoint for " + d + " at " + path + "\n"
+
+                domain.fromSystem = domain.fromSystem or system
+                domain.fromVendor = domain.fromVendor or vendor
+
+    ###
+    # Add the entrypoint type and path(s) to each domain.
+    #
+    def GetDomainEntrypoints(self):
+        for x in self.pol.QueryExpandedTERule(tclass=set(["file"]), perms=set(["entrypoint"])):
+            if not x.sctx in self.alldomains:
+                continue
+            self.alldomains[x.sctx].entrypoints.append(str(x.tctx))
+            # postinstall_file represents a special case specific to A/B OTAs.
+            # Update_engine mounts a partition and relabels it postinstall_file.
+            # There is no file_contexts entry associated with postinstall_file
+            # so skip the lookup.
+            if x.tctx == "postinstall_file":
+                continue
+            entrypointpath = self.pol.QueryFc(x.tctx)
+            if not entrypointpath:
+                continue
+            self.alldomains[x.sctx].entrypointpaths.extend(entrypointpath)
+
+    ###
+    # Get attributes associated with each domain
+    #
+    def GetAttributes(self):
+        for domain in self.alldomains:
+            for result in self.pol.QueryTypeAttribute(domain, False):
+                self.alldomains[domain].attributes.add(result)
+
+    def setup(self, pol):
+        self.pol = pol
+        self.GetAllDomains()
+        self.GetAttributes()
+        self.GetDomainEntrypoints()
+        self.GetAppDomains()
+        self.GetCoreDomains()
+
+    def GetAllTypes(self, basepol, oldpol):
+        self.alltypes = basepol.GetAllTypes(False)
+        self.oldalltypes = oldpol.GetAllTypes(False)
+
+    # setup for the policy compatibility tests
+    def compatSetup(self, basepol, oldpol, mapping, types):
+        self.GetAllTypes(basepol, oldpol)
+        self.compatMapping = mapping
+        self.pubtypes = types
+
+    def DomainsWithAttribute(self, attr):
+        domains = []
+        for domain in self.alldomains:
+            if attr in self.alldomains[domain].attributes:
+                domains.append(domain)
+        return domains
+
+    def PrintScontexts(self):
+        for d in sorted(self.alldomains.keys()):
+            sctx = self.alldomains[d]
+            print(d)
+            print("\tcoredomain="+str(sctx.coredomain))
+            print("\tappdomain="+str(sctx.appdomain))
+            print("\tfromSystem="+str(sctx.fromSystem))
+            print("\tfromVendor="+str(sctx.fromVendor))
+            print("\tattributes="+str(sctx.attributes))
+            print("\tentrypoints="+str(sctx.entrypoints))
+            print("\tentrypointpaths=")
+            if sctx.entrypointpaths is not None:
+                for path in sctx.entrypointpaths:
+                    print("\t\t"+str(path))
