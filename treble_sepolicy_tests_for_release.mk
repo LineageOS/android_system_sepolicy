@@ -118,28 +118,21 @@ else
 built_sepolicy_files := $(built_plat_sepolicy)
 public_cil_files := $(base_plat_pub_policy.cil)
 endif # ($(IS_TREBLE_TEST_ENABLED_PARTNER),true)
-$(LOCAL_BUILT_MODULE): ALL_FC_ARGS := $(all_fc_args)
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY_OLD := $(built_$(version)_plat_sepolicy)
 $(LOCAL_BUILT_MODULE): PRIVATE_COMBINED_MAPPING := $($(version)_mapping.combined.cil)
 $(LOCAL_BUILT_MODULE): PRIVATE_PLAT_SEPOLICY := $(built_sepolicy_files)
 $(LOCAL_BUILT_MODULE): PRIVATE_PLAT_PUB_SEPOLICY := $(public_cil_files)
-$(LOCAL_BUILT_MODULE): PRIVATE_FAKE_TREBLE :=
-ifeq ($(PRODUCT_FULL_TREBLE_OVERRIDE),true)
-# TODO(b/113124961): remove fake-treble
-$(LOCAL_BUILT_MODULE): PRIVATE_FAKE_TREBLE := --fake-treble
-endif # PRODUCT_FULL_TREBLE_OVERRIDE = true
 $(LOCAL_BUILT_MODULE): $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests \
   $(all_fc_files) $(built_sepolicy) \
   $(built_sepolicy_files) \
   $(public_cil_files) \
   $(built_$(version)_plat_sepolicy) $($(version)_mapping.combined.cil)
 	@mkdir -p $(dir $@)
-	$(hide) $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests $(ALL_FC_ARGS) \
+	$(hide) $(HOST_OUT_EXECUTABLES)/treble_sepolicy_tests \
                 -b $(PRIVATE_PLAT_SEPOLICY) -m $(PRIVATE_COMBINED_MAPPING) \
                 -o $(PRIVATE_SEPOLICY_OLD) -p $(PRIVATE_SEPOLICY) \
-                -u $(PRIVATE_PLAT_PUB_SEPOLICY) \
-                $(PRIVATE_FAKE_TREBLE)
+                -u $(PRIVATE_PLAT_PUB_SEPOLICY)
 	$(hide) touch $@
 
 $(version)_SYSTEM_EXT_PUBLIC_POLICY :=
