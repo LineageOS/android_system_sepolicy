@@ -1,12 +1,6 @@
 LOCAL_PATH:= $(call my-dir)
 
-include $(LOCAL_PATH)/definitions.mk
-include $(LOCAL_PATH)/policy_version.mk
-
 include $(CLEAR_VARS)
-
-MLS_SENS=1
-MLS_CATS=1024
 
 ifdef BOARD_SEPOLICY_UNION
 $(warning BOARD_SEPOLICY_UNION is no longer required - all files found in BOARD_SEPOLICY_DIRS are implicitly unioned; please remove from your BoardConfig.mk or other .mk file.)
@@ -73,7 +67,6 @@ ifneq (,$(PRODUCT_PUBLIC_POLICY)$(PRODUCT_PRIVATE_POLICY))
 HAS_PRODUCT_SEPOLICY_DIR := true
 endif
 
-NEVERALLOW_ARG :=
 ifeq ($(SELINUX_IGNORE_NEVERALLOWS),true)
 ifeq ($(TARGET_BUILD_VARIANT),user)
 $(error SELINUX_IGNORE_NEVERALLOWS := true cannot be used in user builds)
@@ -81,7 +74,6 @@ endif
 $(warning Be careful when using the SELINUX_IGNORE_NEVERALLOWS flag. \
           It does not work in user builds and using it will \
           not stop you from failing CTS.)
-NEVERALLOW_ARG := -N
 endif
 
 # BOARD_SEPOLICY_DIRS was used for vendor/odm sepolicy customization before.
@@ -170,34 +162,9 @@ ifdef HAS_PRODUCT_SEPOLICY_DIR
   endif
 endif # ifdef HAS_PRODUCT_SEPOLICY_DIR
 
-# CIL files which contain workarounds for current limitation of human-readable
-# module policy language. These files are appended to the CIL files produced
-# from module language files.
-sepolicy_build_cil_workaround_files := technical_debt.cil
-
-my_target_arch := $(TARGET_ARCH)
-ifneq (,$(filter mips mips64,$(TARGET_ARCH)))
-  my_target_arch := mips
-endif
-
-intermediates := $(TARGET_OUT_INTERMEDIATES)/ETC/sepolicy_intermediates
-
 with_asan := false
 ifneq (,$(filter address,$(SANITIZE_TARGET)))
   with_asan := true
-endif
-
-with_native_coverage := false
-ifeq ($(NATIVE_COVERAGE),true)
-  with_native_coverage := true
-endif
-ifeq ($(CLANG_COVERAGE),true)
-  with_native_coverage := true
-endif
-
-treble_sysprop_neverallow := true
-ifeq ($(BUILD_BROKEN_TREBLE_SYSPROP_NEVERALLOW),true)
-  treble_sysprop_neverallow := false
 endif
 
 ifeq ($(PRODUCT_SHIPPING_API_LEVEL),)
@@ -208,29 +175,12 @@ else ifneq ($(call math_lt,29,$(PRODUCT_SHIPPING_API_LEVEL)),)
   endif
 endif
 
-enforce_sysprop_owner := true
-ifeq ($(BUILD_BROKEN_ENFORCE_SYSPROP_OWNER),true)
-  enforce_sysprop_owner := false
-endif
-
-enforce_debugfs_restriction := false
-ifeq ($(PRODUCT_SET_DEBUGFS_RESTRICTIONS),true)
-  enforce_debugfs_restriction := true
-endif
-
 ifeq ($(PRODUCT_SHIPPING_API_LEVEL),)
   #$(warning no product shipping level defined)
 else ifneq ($(call math_lt,30,$(PRODUCT_SHIPPING_API_LEVEL)),)
   ifneq ($(BUILD_BROKEN_ENFORCE_SYSPROP_OWNER),)
     $(error BUILD_BROKEN_ENFORCE_SYSPROP_OWNER cannot be set on a device shipping with S or later, and this is tested by CTS.)
   endif
-endif
-
-# Library extension for host-side tests
-ifeq ($(HOST_OS),darwin)
-SHAREDLIB_EXT=dylib
-else
-SHAREDLIB_EXT=so
 endif
 
 #################################
@@ -480,16 +430,6 @@ include $(BUILD_PHONY_PACKAGE)
 # Policy files are now built with Android.bp. Grab them from intermediate.
 # See Android.bp for details of policy files.
 #
-built_plat_cil := $(call intermediates-dir-for,ETC,plat_sepolicy.cil)/plat_sepolicy.cil
-
-ifdef HAS_SYSTEM_EXT_SEPOLICY
-built_system_ext_cil := $(call intermediates-dir-for,ETC,system_ext_sepolicy.cil)/system_ext_sepolicy.cil
-endif # ifdef HAS_SYSTEM_EXT_SEPOLICY
-
-ifdef HAS_PRODUCT_SEPOLICY
-built_product_cil := $(call intermediates-dir-for,ETC,product_sepolicy.cil)/product_sepolicy.cil
-endif # ifdef HAS_PRODUCT_SEPOLICY
-
 built_sepolicy := $(call intermediates-dir-for,ETC,precompiled_sepolicy)/precompiled_sepolicy
 built_sepolicy_neverallows := $(call intermediates-dir-for,ETC,sepolicy_neverallows)/sepolicy_neverallows
 
@@ -542,6 +482,23 @@ ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
   local_fc_files += $(wildcard $(addsuffix /file_contexts_overlayfs, $(PLAT_PRIVATE_POLICY)))
 endif
 
+###########################################################
+## Collect file_contexts files into a single tmp file with m4
+##
+## $(1): list of file_contexts files
+## $(2): filename into which file_contexts files are merged
+###########################################################
+
+define _merge-fc-files
+$(2): $(1) $(M4)
+	$(hide) mkdir -p $$(dir $$@)
+	$(hide) $(M4) --fatal-warnings -s $(1) > $$@
+endef
+
+define merge-fc-files
+$(eval $(call _merge-fc-files,$(1),$(2)))
+endef
+
 file_contexts.local.tmp := $(intermediates)/file_contexts.local.tmp
 $(call merge-fc-files,$(local_fc_files),$(file_contexts.local.tmp))
 
@@ -581,31 +538,13 @@ $(LOCAL_BUILT_MODULE): $(file_contexts.concat.tmp) $(built_sepolicy) $(HOST_OUT_
 	$(hide) $(HOST_OUT_EXECUTABLES)/checkfc $(PRIVATE_SEPOLICY) $<
 	$(hide) $(HOST_OUT_EXECUTABLES)/sefcontext_compile -o $@ $<
 
-built_fc := $(LOCAL_BUILT_MODULE)
 local_fc_files :=
-local_fcfiles_with_nl :=
 device_fc_files :=
-device_fcfiles_with_nl :=
 file_contexts.concat.tmp :=
 file_contexts.device.sorted.tmp :=
 file_contexts.device.tmp :=
 file_contexts.local.tmp :=
 file_contexts.modules.tmp :=
-
-##################################
-
-all_fc_files := $(TARGET_OUT)/etc/selinux/plat_file_contexts
-all_fc_files += $(TARGET_OUT_VENDOR)/etc/selinux/vendor_file_contexts
-ifdef HAS_SYSTEM_EXT_SEPOLICY_DIR
-all_fc_files += $(TARGET_OUT_SYSTEM_EXT)/etc/selinux/system_ext_file_contexts
-endif
-ifdef HAS_PRODUCT_SEPOLICY_DIR
-all_fc_files += $(TARGET_OUT_PRODUCT)/etc/selinux/product_file_contexts
-endif
-ifdef BOARD_ODM_SEPOLICY_DIRS
-all_fc_files += $(TARGET_OUT_ODM)/etc/selinux/odm_file_contexts
-endif
-all_fc_args := $(foreach file, $(all_fc_files), -f $(file))
 
 ##################################
 # Tests for Treble compatibility of current platform policy and vendor policy of
@@ -630,8 +569,6 @@ built_product_sepolicy :=
 base_plat_pub_policy.cil :=
 base_system_ext_pub_polcy.cil :=
 base_product_pub_policy.cil :=
-all_fc_files :=
-all_fc_args :=
 
 #################################
 
@@ -639,19 +576,7 @@ all_fc_args :=
 build_vendor_policy :=
 build_odm_policy :=
 build_policy :=
-built_plat_cil :=
-built_system_ext_cil :=
-built_product_cil :=
 built_sepolicy :=
 built_sepolicy_neverallows :=
-built_plat_svc :=
-built_vendor_svc :=
-treble_sysprop_neverallow :=
-enforce_sysprop_owner :=
-enforce_debugfs_restriction :=
-my_target_arch :=
 sepolicy_build_files :=
-sepolicy_build_cil_workaround_files :=
 with_asan :=
-
-include $(call all-makefiles-under,$(LOCAL_PATH))
