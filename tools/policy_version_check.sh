@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MK=$(awk -F= '/POLICYVERS/ { print $2 }' policy_version.mk | tr -d ' [:space:]')
+MK=$(awk -F= '/PolicyVers/ { print $2 }' build/soong/policy.go | tr -d ' [:space:]')
 BP=$(awk -F= '/DSEPOLICY_VERSION/ { print $2 }' Android.bp | awk -F\" ' { print $1 }')
 
 if [ "$MK" != "$BP" ]; then

@@ -753,33 +753,6 @@ se_policy_binary {
 }
 
 se_policy_conf {
-    name: "base_system_ext_sepolicy.conf",
-    srcs: plat_public_policy +
-        plat_private_policy +
-        system_ext_public_policy +
-        system_ext_private_policy,
-    build_variant: "user",
-    installable: false,
-    system_ext_specific: true,
-}
-
-se_policy_cil {
-    name: "base_system_ext_sepolicy.cil",
-    src: ":base_system_ext_sepolicy.conf",
-    additional_cil_files: ["private/technical_debt.cil"],
-    system_ext_specific: true,
-    installable: false,
-    secilc_check: false, // done by se_policy_binary
-}
-
-se_policy_binary {
-    name: "base_system_ext_sepolicy",
-    srcs: [":base_system_ext_sepolicy.cil"],
-    system_ext_specific: true,
-    installable: false,
-}
-
-se_policy_conf {
     name: "base_product_sepolicy.conf",
     srcs: plat_public_policy +
         plat_private_policy +
@@ -825,25 +798,6 @@ se_policy_cil {
     dist: {
         targets: ["base-sepolicy-files-for-mapping"],
     },
-}
-
-se_policy_conf {
-    name: "base_system_ext_pub_policy.conf",
-    srcs: plat_public_policy +
-        system_ext_public_policy +
-        reqd_mask_policy,
-    build_variant: "user",
-    installable: false,
-    system_ext_specific: true,
-}
-
-se_policy_cil {
-    name: "base_system_ext_pub_policy.cil",
-    src: ":base_system_ext_pub_policy.conf",
-    filter_out: [":reqd_policy_mask.cil"],
-    secilc_check: false,
-    installable: false,
-    system_ext_specific: true,
 }
 
 se_policy_conf {
