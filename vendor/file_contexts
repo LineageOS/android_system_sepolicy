@@ -76,6 +76,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light@2\.0-service-lazy     u:object_r:hal_light_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.lights-service\.example     u:object_r:hal_light_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.lowpan@1\.0-service         u:object_r:hal_lowpan_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.media\.c2-default-service   u:object_r:mediacodec_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.memtrack@1\.0-service       u:object_r:hal_memtrack_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.memtrack-service.example    u:object_r:hal_memtrack_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.nfc@1\.0-service            u:object_r:hal_nfc_default_exec:s0
