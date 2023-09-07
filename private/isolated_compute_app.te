@@ -21,6 +21,8 @@ allow isolated_compute_app isolated_compute_allowed_device:chr_file { read write
 hal_client_domain(isolated_compute_app, hal_allocator)
 hwbinder_use(isolated_compute_app)
 
+hal_client_domain(isolated_compute_app, hal_codec2)
+
 allow isolated_compute_app dmabuf_system_heap_device:chr_file r_file_perms;
 
 # Allow access to network sockets received over IPC. New socket creation is not
