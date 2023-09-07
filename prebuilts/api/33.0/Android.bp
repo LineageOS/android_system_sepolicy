@@ -26,3 +26,33 @@ se_policy_cil {
     secilc_check: false,
     installable: false,
 }
+
+se_policy_conf {
+    name: "33.0_plat_policy.conf",
+    srcs: [
+        ":se_build_files{.plat_public_33.0}",
+        ":se_build_files{.plat_private_33.0}",
+        ":se_build_files{.system_ext_public_33.0}",
+        ":se_build_files{.system_ext_private_33.0}",
+        ":se_build_files{.product_public_33.0}",
+        ":se_build_files{.product_private_33.0}",
+    ],
+    installable: false,
+    build_variant: "user",
+}
+
+se_policy_cil {
+    name: "33.0_plat_policy.cil",
+    src: ":33.0_plat_policy.conf",
+    additional_cil_files: [":sepolicy_technical_debt{.plat_private_33.0}"],
+    installable: false,
+}
+
+se_policy_binary {
+    name: "33.0_plat_policy",
+    srcs: [":33.0_plat_policy.cil"],
+    installable: false,
+    dist: {
+        targets: ["base-sepolicy-files-for-mapping"],
+    },
+}
