@@ -20,11 +20,11 @@ allow vfio_handler vfio_device:dir r_dir_perms;
 allow vfio_handler sysfs:dir r_dir_perms;
 allow vfio_handler sysfs:file rw_file_perms;
 
-# Allow vfio_handler to write to VM DTBO via a file created by virtualizationmanager.
-allow vfio_handler virtualizationmanager:fd use;
+# Allow vfio_handler to write to VM DTBO via a file created by virtualizationservice.
+allow vfio_handler virtualizationservice:fd use;
 allow vfio_handler virtualizationservice_data_file:file write;
 
-# vfio_handler can only use fd from virtualizationmanager, and can't open files itself
+# vfio_handler can only use fd from virtualizationservice, and can't open files itself
 neverallow vfio_handler virtualizationservice_data_file:file { open create };
 
 # Allow vfio_handler to search /dev/block for accessing dtbo.img
