@@ -34,8 +34,8 @@ allow virtualizationservice self:capability chown;
 # Let virtualizationservice create and delete temporary directories of VMs. To remove old
 # directories, it needs the permission to unlink the files created by virtualizationmanager.
 allow virtualizationservice virtualizationservice_data_file:dir create_dir_perms;
-allow virtualizationservice virtualizationservice_data_file:{ file sock_file } unlink;
-allow virtualizationservice virtualizationservice_data_file:file write;
+allow virtualizationservice virtualizationservice_data_file:sock_file unlink;
+allow virtualizationservice virtualizationservice_data_file:file create_file_perms;
 
 # Allow to use fd (e.g. /dev/pts/0) inherited from adbd so that we can redirect output from
 # crosvm to the console
