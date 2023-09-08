@@ -550,24 +550,24 @@ file_contexts.modules.tmp :=
 # Tests for Treble compatibility of current platform policy and vendor policy of
 # given release version.
 
-built_plat_sepolicy       := $(call intermediates-dir-for,ETC,base_plat_sepolicy)/base_plat_sepolicy
-built_system_ext_sepolicy := $(call intermediates-dir-for,ETC,base_system_ext_sepolicy)/base_system_ext_sepolicy
-built_product_sepolicy    := $(call intermediates-dir-for,ETC,base_product_sepolicy)/base_product_sepolicy
-
-base_plat_pub_policy.cil      := $(call intermediates-dir-for,ETC,base_plat_pub_policy.cil)/base_plat_pub_policy.cil
-base_system_ext_pub_polcy.cil := $(call intermediates-dir-for,ETC,base_system_ext_pub_polcy.cil)/base_system_ext_pub_polcy.cil
-base_product_pub_policy.cil   := $(call intermediates-dir-for,ETC,base_product_pub_policy.cil)/base_product_pub_policy.cil
+ver := $(PLATFORM_SEPOLICY_VERSION)
+ifneq ($(wildcard $(LOCAL_PATH)/prebuilts/api/$(PLATFORM_SEPOLICY_VERSION)),)
+# If PLATFORM_SEPOLICY_VERSION is already frozen, use prebuilts for compat test
+base_plat_pub_policy.cil    := $(call intermediates-dir-for,ETC,$(ver)_plat_pub_policy.cil)/$(ver)_plat_pub_policy.cil
+base_product_pub_policy.cil := $(call intermediates-dir-for,ETC,$(ver)_product_pub_policy.cil)/$(ver)_product_pub_policy.cil
+else
+# If not, use ToT for compat test
+base_plat_pub_policy.cil    := $(call intermediates-dir-for,ETC,base_plat_pub_policy.cil)/base_plat_pub_policy.cil
+base_product_pub_policy.cil := $(call intermediates-dir-for,ETC,base_product_pub_policy.cil)/base_product_pub_policy.cil
+endif
+ver :=
 
 $(foreach v,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS), \
   $(eval version_under_treble_tests := $(v)) \
   $(eval include $(LOCAL_PATH)/treble_sepolicy_tests_for_release.mk) \
 )
 
-built_plat_sepolicy :=
-built_system_ext_sepolicy :=
-built_product_sepolicy :=
 base_plat_pub_policy.cil :=
-base_system_ext_pub_polcy.cil :=
 base_product_pub_policy.cil :=
 
 #################################

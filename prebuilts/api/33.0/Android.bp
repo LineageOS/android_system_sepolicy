@@ -28,6 +28,26 @@ se_policy_cil {
 }
 
 se_policy_conf {
+    name: "33.0_product_pub_policy.conf",
+    srcs: [
+        ":se_build_files{.plat_public_33.0}",
+        ":se_build_files{.system_ext_public_33.0}",
+        ":se_build_files{.product_public_33.0}",
+        ":se_build_files{.reqd_mask}",
+    ],
+    installable: false,
+    build_variant: "user",
+}
+
+se_policy_cil {
+    name: "33.0_product_pub_policy.cil",
+    src: ":33.0_product_pub_policy.conf",
+    filter_out: [":reqd_policy_mask.cil"],
+    secilc_check: false,
+    installable: false,
+}
+
+se_policy_conf {
     name: "33.0_plat_policy.conf",
     srcs: [
         ":se_build_files{.plat_public_33.0}",
