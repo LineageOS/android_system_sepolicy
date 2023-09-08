@@ -256,7 +256,7 @@ endif  # with_asan
 
 ifneq ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
 LOCAL_REQUIRED_MODULES += \
-    sepolicy_freeze_test
+    se_freeze_test
 endif # ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
 
 include $(BUILD_PHONY_PACKAGE)
