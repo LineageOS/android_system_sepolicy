@@ -250,3 +250,6 @@ userdebug_or_eng(`set_prop(shell, persist_sysui_builder_extras_prop)')
 # Allow shell to set persist.sysui.notification.ranking_update_ashmem property
 userdebug_or_eng(`set_prop(shell, persist_sysui_ranking_update_prop)')
 
+# Allow shell to read the build properties for attestation feature
+get_prop(shell, build_attestation_prop)
+
