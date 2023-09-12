@@ -65,7 +65,13 @@ class AllowRead:
     scontext: set[str]
 
 
-Rule = AllowRead
+@dataclass
+class ResolveType:
+    """Rule checking if type can be resolved"""
+    pass
+
+
+Rule = AllowRead | ResolveType
 
 
 def match_path(path: str, matcher: Matcher) -> bool:
@@ -94,10 +100,18 @@ def check_rule(pol, path: str, tcontext: str, rule: Rule) -> List[str]:
                     continue  # no errors
 
                 errors.append(f"Error: {path}: {s} can't read. (tcontext={tcontext})")
+        case ResolveType():
+            if tcontext not in pol.GetAllTypes(False):
+                errors.append(f"Error: {path}: tcontext({tcontext}) is unknown")
     return errors
 
 
-rules = [
+target_specific_rules = [
+    (Glob('*'), ResolveType()),
+]
+
+
+generic_rules = [
     # permissions
     (Is('./etc/permissions/'), AllowRead('dir', {'system_server'})),
     (Glob('./etc/permissions/*.xml'), AllowRead('file', {'system_server'})),
@@ -114,7 +128,10 @@ rules = [
 ]
 
 
-def check_line(pol: policy.Policy, line: str) -> List[str]:
+all_rules = target_specific_rules + generic_rules
+
+
+def check_line(pol: policy.Policy, line: str, rules) -> List[str]:
     """Parses a file_contexts line and runs checks"""
     # skip empty/comment line
     line = line.strip()
@@ -151,6 +168,7 @@ def extract_data(name, temp_dir):
 def do_main(work_dir):
     """Do testing"""
     parser = argparse.ArgumentParser()
+    parser.add_argument('--all', action='store_true', help='tests ALL aspects')
     parser.add_argument('-f', '--file_contexts', help='output of "deapexer list -Z"')
     args = parser.parse_args()
 
@@ -158,10 +176,15 @@ def do_main(work_dir):
     policy_path = extract_data('precompiled_sepolicy', work_dir)
     pol = policy.Policy(policy_path, None, lib_path)
 
+    if args.all:
+        rules = all_rules
+    else:
+        rules = generic_rules
+
     errors = []
     with open(args.file_contexts, 'rt', encoding='utf-8') as file_contexts:
         for line in file_contexts:
-            errors.extend(check_line(pol, line))
+            errors.extend(check_line(pol, line, rules))
     if len(errors) > 0:
         sys.exit('\n'.join(errors))
 
