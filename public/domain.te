@@ -57,6 +57,9 @@ with_native_coverage(`
   allow domain method_trace_data_file:file create_file_perms;
 ')
 
+# Allow everyone to read aconfig flags
+get_prop(domain, device_config_aconfig_flags_prop);
+
 # Root fs.
 allow domain tmpfs:dir { getattr search };
 allow domain rootfs:dir search;
