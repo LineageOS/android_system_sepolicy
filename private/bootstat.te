@@ -17,6 +17,7 @@ neverallow {
   -dumpstate
   userdebug_or_eng(`-incidentd')
   -init
+  -platform_app
   -recovery
   -shell
   -system_server
