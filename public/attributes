@@ -299,6 +299,11 @@ expandattribute untrusted_app_visible_hwservice_violators false;
 attribute untrusted_app_visible_halserver_violators;
 expandattribute untrusted_app_visible_halserver_violators false;
 
+# All system domains which are assignable with vendor's seapp_contexts files.
+# TODO(b/280547417): Remove this once there are no violations
+attribute vendor_seapp_assigns_coredomain_violators;
+expandattribute vendor_seapp_assigns_coredomain_violators false;
+
 # PDX services
 attribute pdx_endpoint_dir_type;
 attribute pdx_endpoint_socket_type;
