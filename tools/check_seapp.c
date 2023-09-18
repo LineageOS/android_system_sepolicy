@@ -22,7 +22,6 @@
 
 #define APP_DATA_REQUIRED_ATTRIB "app_data_file_type"
 #define COREDOMAIN "coredomain"
-#define VENDOR_SEAPP_ASSIGNS_COREDOMAIN_VIOLATORS "vendor_seapp_assigns_coredomain_violators"
 
 /**
  * Initializes an empty, static list.
@@ -450,13 +449,7 @@ static bool validate_domain(char *value, const char *filename, int lineno, char 
 			return false;
 		}
 
-		type_datum_t *attrib_violators = find_type(pol.db,
-												   VENDOR_SEAPP_ASSIGNS_COREDOMAIN_VIOLATORS,
-												   TYPE_ATTRIB);
-		bool allowlisted = attrib_violators != NULL &&
-				type_has_attribute(pol.db, type_dat, attrib_violators);
-
-		if (type_has_attribute(pol.db, type_dat, attrib_dat) && !allowlisted) {
+		if (type_has_attribute(pol.db, type_dat, attrib_dat)) {
 			coredomain_violation_entry *entry = (coredomain_violation_entry *)malloc(sizeof(*entry));
 			entry->domain = strdup(value);
 			entry->filename = strdup(filename);
