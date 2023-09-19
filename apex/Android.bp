@@ -192,13 +192,6 @@ filegroup {
 }
 
 filegroup {
-  name: "com.android.sepolicy-file_contexts",
-  srcs: [
-    "com.android.sepolicy-file_contexts",
-  ],
-}
-
-filegroup {
   name: "com.android.tzdata-file_contexts",
   srcs: [
     "com.android.tzdata-file_contexts",
