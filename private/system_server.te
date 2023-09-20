@@ -1146,6 +1146,7 @@ allow system_server dmabuf_system_heap_device:chr_file r_file_perms;
 allow system_server dmabuf_system_secure_heap_device:chr_file r_file_perms;
 
 r_dir_file(system_server, proc_asound)
+r_dir_file(system_server, proc_memhealth)
 r_dir_file(system_server, proc_net_type)
 r_dir_file(system_server, proc_qtaguid_stat)
 allow system_server {
