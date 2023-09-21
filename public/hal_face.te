@@ -5,7 +5,7 @@ binder_call(hal_face_server, hal_face_client)
 hal_attribute_hwservice(hal_face, hal_face_hwservice)
 hal_attribute_service(hal_face, hal_face_service)
 
-binder_call(hal_face_server, servicemanager)
+binder_use(hal_face_server)
 
 # Allow access to the ion memory allocation device.
 allow hal_face ion_device:chr_file r_file_perms;

@@ -5,7 +5,7 @@ type virtualizationmanager_exec, system_file_type, exec_type, file_type;
 
 # Allow virtualizationmanager to communicate use, read and write over the adb connection.
 allow virtualizationmanager adbd:fd use;
-allow virtualizationmanager adbd:unix_stream_socket { read write };
+allow virtualizationmanager adbd:unix_stream_socket { getattr read write };
 
 # Allow writing VM logs to the shell console
 allow virtualizationmanager devpts:chr_file { read write getattr ioctl };
@@ -40,6 +40,7 @@ allow virtualizationmanager apk_data_file:file { getattr read };
 allow virtualizationmanager {
   app_data_file
   apex_compos_data_file
+  apex_virt_data_file
   privapp_data_file
 }:file { getattr read write };
 
@@ -64,6 +65,16 @@ allow virtualizationmanager self:vsock_socket { create_socket_perms_no_ioctl lis
 # Allow virtualizationmanager to inspect all hypervisor capabilities.
 get_prop(virtualizationmanager, hypervisor_prop)
 get_prop(virtualizationmanager, hypervisor_restricted_prop)
+
+# Allow virtualizationmanager to be read custom pvmfw.img configuration
+userdebug_or_eng(`get_prop(virtualizationmanager, hypervisor_pvmfw_prop)')
+dontaudit virtualizationmanager hypervisor_pvmfw_prop:file read;
+neverallow { domain -init -dumpstate userdebug_or_eng(`-virtualizationmanager') } hypervisor_pvmfw_prop:file no_rw_file_perms;
+
+# Allow virtualizationmanager to be read custom virtualizationmanager configuration
+userdebug_or_eng(`get_prop(virtualizationmanager, hypervisor_virtualizationmanager_prop)')
+dontaudit virtualizationmanager hypervisor_virtualizationmanager_prop:file read;
+neverallow { domain -init -dumpstate userdebug_or_eng(`-virtualizationmanager') } hypervisor_virtualizationmanager_prop:file no_rw_file_perms;
 
 # Allow virtualizationmanager service to talk to tombstoned to push guest ramdumps
 unix_socket_connect(virtualizationmanager, tombstoned_crash, tombstoned)

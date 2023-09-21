@@ -24,6 +24,7 @@ android.hardware.automotive.ivn.IIvnAndroidDevice/default            u:object_r:
 android.hardware.automotive.remoteaccess.IRemoteAccess/default       u:object_r:hal_remoteaccess_service:s0
 android.hardware.automotive.vehicle.IVehicle/default                 u:object_r:hal_vehicle_service:s0
 android.hardware.biometrics.face.IFace/default                       u:object_r:hal_face_service:s0
+android.hardware.biometrics.face.IFace/virtual                       u:object_r:hal_face_service:s0
 android.hardware.biometrics.fingerprint.IFingerprint/default         u:object_r:hal_fingerprint_service:s0
 android.hardware.biometrics.fingerprint.IFingerprint/virtual         u:object_r:hal_fingerprint_service:s0
 android.hardware.bluetooth.IBluetoothHci/default                     u:object_r:hal_bluetooth_service:s0
@@ -50,6 +51,8 @@ android.hardware.identity.IIdentityCredentialStore/default           u:object_r:
 android.hardware.input.processor.IInputProcessor/default           u:object_r:hal_input_processor_service:s0
 android.hardware.ir.IConsumerIr/default                              u:object_r:hal_ir_service:s0
 android.hardware.light.ILights/default                               u:object_r:hal_light_service:s0
+android.hardware.media.c2.IComponentStore/default                    u:object_r:hal_codec2_service:s0
+android.hardware.media.c2.IComponentStore/software                   u:object_r:hal_codec2_service:s0
 android.hardware.memtrack.IMemtrack/default                          u:object_r:hal_memtrack_service:s0
 android.hardware.net.nlinterceptor.IInterceptor/default              u:object_r:hal_nlinterceptor_service:s0
 android.hardware.nfc.INfc/default                                    u:object_r:hal_nfc_service:s0
@@ -412,6 +415,7 @@ texttospeech                              u:object_r:texttospeech_service:s0
 time_detector                             u:object_r:timedetector_service:s0
 time_zone_detector                        u:object_r:timezonedetector_service:s0
 thermalservice                            u:object_r:thermal_service:s0
+thread_network                            u:object_r:threadnetwork_service:s0
 tracing.proxy                             u:object_r:tracingproxy_service:s0
 translation                               u:object_r:translation_service:s0
 transparency                              u:object_r:transparency_service:s0

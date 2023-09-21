@@ -20,7 +20,6 @@ package selinux
 import (
 	"android/soong/android"
 	"fmt"
-	"io"
 
 	"github.com/google/blueprint"
 	"github.com/google/blueprint/proptools"
@@ -67,18 +66,21 @@ type cilCompatMapProperties struct {
 	Bottom_half []string `android:"path"`
 	// name of the output
 	Stem *string
+	// Target version that this module supports. This module will be ignored if platform sepolicy
+	// version is same as this module's version.
+	Version *string
 }
 
 type cilCompatMap struct {
 	android.ModuleBase
 	properties cilCompatMapProperties
 	// (.intermediate) module output path as installation source.
-	installSource android.Path
+	installSource android.OptionalPath
 	installPath   android.InstallPath
 }
 
 type CilCompatMapGenerator interface {
-	GeneratedMapFile() android.Path
+	GeneratedMapFile() android.OptionalPath
 }
 
 func expandTopHalf(ctx android.ModuleContext) android.OptionalPath {
@@ -87,7 +89,7 @@ func expandTopHalf(ctx android.ModuleContext) android.OptionalPath {
 		depTag := ctx.OtherModuleDependencyTag(dep)
 		switch depTag {
 		case TopHalfDepTag:
-			topHalf = android.OptionalPathForPath(dep.(CilCompatMapGenerator).GeneratedMapFile())
+			topHalf = dep.(CilCompatMapGenerator).GeneratedMapFile()
 		}
 	})
 	return topHalf
@@ -97,7 +99,15 @@ func expandSeSources(ctx android.ModuleContext, srcFiles []string) android.Paths
 	return android.PathsForModuleSrc(ctx, srcFiles)
 }
 
+func (c *cilCompatMap) shouldSkipBuild(ctx android.ModuleContext) bool {
+	return proptools.String(c.properties.Version) == ctx.DeviceConfig().PlatformSepolicyVersion()
+}
+
 func (c *cilCompatMap) GenerateAndroidBuildActions(ctx android.ModuleContext) {
+	if c.shouldSkipBuild(ctx) {
+		return
+	}
+
 	c.installPath = android.PathForModuleInstall(ctx, "etc", "selinux", "mapping")
 
 	srcFiles := expandSeSources(ctx, c.properties.Bottom_half)
@@ -130,9 +140,9 @@ func (c *cilCompatMap) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 				"bottomHalf": bottomHalf.String(),
 			},
 		})
-		c.installSource = out
+		c.installSource = android.OptionalPathForPath(out)
 	} else {
-		c.installSource = bottomHalf
+		c.installSource = android.OptionalPathForPath(bottomHalf)
 	}
 }
 
@@ -142,30 +152,38 @@ func (c *cilCompatMap) DepsMutator(ctx android.BottomUpMutatorContext) {
 	}
 }
 
-func (c *cilCompatMap) AndroidMk() android.AndroidMkData {
-	ret := android.AndroidMkData{
-		OutputFile: android.OptionalPathForPath(c.installSource),
-		Class:      "ETC",
+func (c *cilCompatMap) AndroidMkEntries() []android.AndroidMkEntries {
+	if !c.installSource.Valid() {
+		return nil
 	}
-	ret.Extra = append(ret.Extra, func(w io.Writer, outputFile android.Path) {
-		fmt.Fprintln(w, "LOCAL_MODULE_PATH :=", c.installPath.String())
-		if c.properties.Stem != nil {
-			fmt.Fprintln(w, "LOCAL_INSTALLED_MODULE_STEM :=", String(c.properties.Stem))
-		}
-	})
-	return ret
+	return []android.AndroidMkEntries{android.AndroidMkEntries{
+		Class:      "ETC",
+		OutputFile: c.installSource,
+		ExtraEntries: []android.AndroidMkExtraEntriesFunc{
+			func(ctx android.AndroidMkExtraEntriesContext, entries *android.AndroidMkEntries) {
+				entries.SetPath("LOCAL_MODULE_PATH", c.installPath)
+				if c.properties.Stem != nil {
+					entries.SetString("LOCAL_INSTALLED_MODULE_STEM", String(c.properties.Stem))
+				}
+			},
+		},
+	}}
 }
 
 var _ CilCompatMapGenerator = (*cilCompatMap)(nil)
 var _ android.OutputFileProducer = (*cilCompatMap)(nil)
 
-func (c *cilCompatMap) GeneratedMapFile() android.Path {
+func (c *cilCompatMap) GeneratedMapFile() android.OptionalPath {
 	return c.installSource
 }
 
 func (c *cilCompatMap) OutputFiles(tag string) (android.Paths, error) {
 	if tag == "" {
-		return android.Paths{c.installSource}, nil
+		if c.installSource.Valid() {
+			return android.Paths{c.installSource.Path()}, nil
+		} else {
+			return nil, nil
+		}
 	}
 	return nil, fmt.Errorf("Unknown tag %q", tag)
 }

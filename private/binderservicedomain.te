@@ -1,4 +1,5 @@
-# Rules common to all binder service domains
+# Rules common to some specific binder service domains.
+# Deprecated. Consider granting the exact permissions required by your service.
 
 # Allow dumpstate and incidentd to collect information from binder services
 allow binderservicedomain { dumpstate incidentd }:fd use;

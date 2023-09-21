@@ -24,6 +24,7 @@
     device_config_memory_safety_native_prop
     device_config_updatable_service
     device_config_vendor_system_native_prop
+    device_config_aconfig_flags_prop
     devicelock_service
     fwk_altitude_service
     fwk_camera_service
@@ -48,7 +49,6 @@
     hypervisor_restricted_prop
     isolated_compute_app
     keystore_config_prop
-    ntfs
     ondevicepersonalization_system_service
     fuseblk
     fuseblkd_untrusted

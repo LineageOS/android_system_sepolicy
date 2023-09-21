@@ -34,9 +34,12 @@ allow encryptedstore sysfs_fs_ext4_features:file r_file_perms;
 # encryptedstore to mount on tmpfs bases directory (/mnt/)
 allow encryptedstore tmpfs:dir  { add_name create mounton write };
 
-# encryptedstore relabels the labeledfs to encryptedstore_fs, then mounts on the later
+# encryptedstore relabels the labeledfs to encryptedstore_fs, then mounts on the latter
 allow encryptedstore labeledfs:filesystem { relabelfrom };
 allow encryptedstore encryptedstore_fs:filesystem { mount unmount relabelto relabelfrom };
+
+# chmod the root directory
+allow encryptedstore encryptedstore_file:dir setattr;
 
 # allow encryptedstore to log to the kernel
 allow encryptedstore kmsg_device:chr_file w_file_perms;

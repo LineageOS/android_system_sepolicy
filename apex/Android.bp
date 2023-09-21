@@ -38,13 +38,6 @@ filegroup {
 }
 
 filegroup {
-  name: "com.android.threadnetwork-file_contexts",
-  srcs: [
-    "com.android.threadnetwork-file_contexts",
-  ],
-}
-
-filegroup {
   name: "com.android.sdkext-file_contexts",
   srcs: [
     "com.android.sdkext-file_contexts",
@@ -90,6 +83,13 @@ filegroup {
   name: "com.android.conscrypt-file_contexts",
   srcs: [
     "com.android.conscrypt-file_contexts",
+  ],
+}
+
+filegroup {
+  name: "com.android.crashrecovery-file_contexts",
+  srcs: [
+    "com.android.crashrecovery-file_contexts",
   ],
 }
 
@@ -188,13 +188,6 @@ filegroup {
   name: "com.android.scheduling-file_contexts",
   srcs: [
     "com.android.scheduling-file_contexts",
-  ],
-}
-
-filegroup {
-  name: "com.android.sepolicy-file_contexts",
-  srcs: [
-    "com.android.sepolicy-file_contexts",
   ],
 }
 

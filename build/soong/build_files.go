@@ -16,6 +16,7 @@ package selinux
 
 import (
 	"fmt"
+	"path"
 	"path/filepath"
 	"strings"
 
@@ -103,30 +104,15 @@ func (b *buildFiles) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	b.srcs[".vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().VendorSepolicyDirs()...)
 	b.srcs[".odm"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().OdmSepolicyDirs()...)
 
-	if ctx.DeviceConfig().PlatformSepolicyVersion() == ctx.DeviceConfig().BoardSepolicyVers() {
-		// vendor uses the same source with plat policy
-		b.srcs[".reqd_mask_for_vendor"] = b.srcs[".reqd_mask"]
-		b.srcs[".plat_vendor_for_vendor"] = b.srcs[".plat_vendor"]
-		b.srcs[".plat_public_for_vendor"] = b.srcs[".plat_public"]
-		b.srcs[".plat_private_for_vendor"] = b.srcs[".plat_private"]
-		b.srcs[".system_ext_public_for_vendor"] = b.srcs[".system_ext_public"]
-		b.srcs[".system_ext_private_for_vendor"] = b.srcs[".system_ext_private"]
-		b.srcs[".product_public_for_vendor"] = b.srcs[".product_public"]
-		b.srcs[".product_private_for_vendor"] = b.srcs[".product_private"]
-	} else {
-		// use vendor-supplied plat prebuilts
-		b.srcs[".reqd_mask_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardReqdMaskPolicy()...)
-		b.srcs[".plat_vendor_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardPlatVendorPolicy()...)
-		b.srcs[".plat_public_for_vendor"] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "prebuilts", "api", ctx.DeviceConfig().BoardSepolicyVers(), "public"))
-		b.srcs[".plat_private_for_vendor"] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "prebuilts", "api", ctx.DeviceConfig().BoardSepolicyVers(), "private"))
-		b.srcs[".system_ext_public_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardSystemExtPublicPrebuiltDirs()...)
-		b.srcs[".system_ext_private_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardSystemExtPrivatePrebuiltDirs()...)
-		b.srcs[".product_public_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardProductPublicPrebuiltDirs()...)
-		b.srcs[".product_private_for_vendor"] = b.findSrcsInDirs(ctx, ctx.DeviceConfig().BoardProductPrivatePrebuiltDirs()...)
+	prebuilt_directories, err := ctx.GlobWithDeps("system/sepolicy/prebuilts/api/*", nil)
+	if err != nil {
+		ctx.ModuleErrorf("error while globbing: %w", err)
+		return
 	}
 
 	// directories used for compat tests and Treble tests
-	for _, ver := range ctx.DeviceConfig().PlatformSepolicyCompatVersions() {
+	for _, dir := range prebuilt_directories {
+		ver := path.Base(dir)
 		b.srcs[".plat_public_"+ver] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "prebuilts", "api", ver, "public"))
 		b.srcs[".plat_private_"+ver] = b.findSrcsInDirs(ctx, filepath.Join("system", "sepolicy", "prebuilts", "api", ver, "private"))
 		b.srcs[".system_ext_public_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.DeviceConfig().SystemExtSepolicyPrebuiltApiDir(), "prebuilts", "api", ver, "public"))

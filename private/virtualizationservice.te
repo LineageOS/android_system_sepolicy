@@ -34,13 +34,22 @@ allow virtualizationservice self:capability chown;
 # Let virtualizationservice create and delete temporary directories of VMs. To remove old
 # directories, it needs the permission to unlink the files created by virtualizationmanager.
 allow virtualizationservice virtualizationservice_data_file:dir create_dir_perms;
-allow virtualizationservice virtualizationservice_data_file:{ file sock_file } unlink;
-allow virtualizationservice virtualizationservice_data_file:file write;
+allow virtualizationservice virtualizationservice_data_file:sock_file unlink;
+allow virtualizationservice virtualizationservice_data_file:file create_file_perms;
 
 # Allow to use fd (e.g. /dev/pts/0) inherited from adbd so that we can redirect output from
 # crosvm to the console
 allow virtualizationservice adbd:fd use;
 allow virtualizationservice adbd:unix_stream_socket { read write };
+
+# Allow to connnect to and run VirtMgr to start the service VM for remote attestation.
+virtualizationservice_use(virtualizationservice)
+
+# Allow virtualizationservice to read and write in the apex data directory
+# /data/misc/apexdata/com.android.virt
+allow virtualizationservice apex_module_data_file:dir search;
+allow virtualizationservice apex_virt_data_file:dir create_dir_perms;
+allow virtualizationservice apex_virt_data_file:file create_file_perms;
 
 # Let virtualizationservice to accept vsock connection from the guest VMs to singleton services
 # such as the guest tombstone server.
@@ -65,6 +74,9 @@ allow virtualizationservice vfio_device:dir r_dir_perms;
 
 # Allow virtualizationservice to access VM DTBO via a file created by virtualizationmanager.
 allow virtualizationservice virtualizationmanager:fd use;
+
+# Allow virtualizationservice to access vendor_configs_file to get the list of assignable devices.
+r_dir_file(virtualizationservice, vendor_configs_file)
 
 neverallow {
   domain

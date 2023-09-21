@@ -147,9 +147,6 @@ allow system_server self:global_capability_class_set {
     sys_tty_config
 };
 
-# Trigger module auto-load.
-allow system_server kernel:system module_request;
-
 # Allow alarmtimers to be set
 allow system_server self:global_capability2_class_set wake_alarm;
 
@@ -766,6 +763,7 @@ set_prop(system_server, device_config_window_manager_native_boot_prop)
 set_prop(system_server, device_config_configuration_prop)
 set_prop(system_server, device_config_connectivity_prop)
 set_prop(system_server, device_config_surface_flinger_native_boot_prop)
+set_prop(system_server, device_config_aconfig_flags_prop)
 set_prop(system_server, device_config_vendor_system_native_prop)
 set_prop(system_server, device_config_vendor_system_native_boot_prop)
 set_prop(system_server, device_config_virtualization_framework_native_prop)
@@ -1148,6 +1146,7 @@ allow system_server dmabuf_system_heap_device:chr_file r_file_perms;
 allow system_server dmabuf_system_secure_heap_device:chr_file r_file_perms;
 
 r_dir_file(system_server, proc_asound)
+r_dir_file(system_server, proc_memhealth)
 r_dir_file(system_server, proc_net_type)
 r_dir_file(system_server, proc_qtaguid_stat)
 allow system_server {
@@ -1335,6 +1334,7 @@ neverallow {
   device_config_surface_flinger_native_boot_prop
   device_config_sys_traced_prop
   device_config_swcodec_native_prop
+  device_config_aconfig_flags_prop
   device_config_window_manager_native_boot_prop
   device_config_tethering_u_or_later_native_prop
 }:property_service set;
