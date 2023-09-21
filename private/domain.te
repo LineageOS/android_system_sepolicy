@@ -668,6 +668,7 @@ enforce_debugfs_restriction(`
     userdebug_or_eng(`
       -init
       -hal_dumpstate
+      -incidentd
     ')
   } { debugfs_type
       userdebug_or_eng(`-debugfs_kcov')
