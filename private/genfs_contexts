@@ -177,6 +177,7 @@ genfscon sysfs /module/wlan/parameters/fwpath u:object_r:sysfs_wlan_fwpath:s0
 genfscon sysfs /devices/virtual/timed_output/vibrator/enable u:object_r:sysfs_vibrator:s0
 genfscon sysfs /devices/virtual/misc/uhid u:object_r:sysfs_uhid:s0
 genfscon sysfs /kernel/vendor_sched u:object_r:sysfs_vendor_sched:s0
+genfscon sysfs /devices/uprobe u:object_r:sysfs_uprobe:s0
 
 genfscon debugfs /kprobes                             u:object_r:debugfs_kprobes:s0
 genfscon debugfs /mmc0                                u:object_r:debugfs_mmc:s0
@@ -411,3 +412,4 @@ genfscon bpf /netd_readonly u:object_r:fs_bpf_netd_readonly:s0
 genfscon bpf /netd_shared u:object_r:fs_bpf_netd_shared:s0
 genfscon bpf /tethering u:object_r:fs_bpf_tethering:s0
 genfscon bpf /vendor u:object_r:fs_bpf_vendor:s0
+genfscon bpf /uprobe_private u:object_r:fs_bpf_uprobe_private:s0
