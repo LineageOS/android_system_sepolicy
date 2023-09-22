@@ -9,6 +9,8 @@ hal_attribute_service(hal_dumpstate, hal_dumpstate_service)
 
 binder_call(hal_dumpstate_server, servicemanager)
 
+binder_use(hal_dumpstate_server)
+
 # write bug reports in /data/data/com.android.shell/files/bugreports/bugreport
 allow hal_dumpstate shell_data_file:file write;
 # allow reading /proc/interrupts for all hal impls
