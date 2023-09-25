@@ -353,6 +353,10 @@ with_asan(`allow domain system_asan_options_file:file r_file_perms;')
 allow domain apex_mnt_dir:dir { getattr search };
 allow domain apex_mnt_dir:lnk_file r_file_perms;
 
+# Allow everyone to read media server-configurable flags, so that libstagefright can be
+# configured using server-configurable flags
+get_prop(domain, device_config_media_native_prop)
+
 ###
 ### neverallow rules
 ###
