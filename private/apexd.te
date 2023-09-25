@@ -13,14 +13,6 @@ allow apexd metadata_file:dir search;
 allow apexd apex_metadata_file:dir create_dir_perms;
 allow apexd apex_metadata_file:file create_file_perms;
 
-# Allow creating and writing APEX files/dirs in the SEPolicy metadata dir
-allow apexd sepolicy_metadata_file:dir create_dir_perms;
-allow apexd sepolicy_metadata_file:file create_file_perms;
-# Allow apexd to setup fs-verity for SEPolicy files in metadata
-allowxperm apexd sepolicy_metadata_file:file ioctl  {
-  FS_IOC_ENABLE_VERITY FS_IOC_MEASURE_VERITY
-};
-
 # Allow reserving space on /data/apex/ota_reserved for apex decompression
 allow apexd apex_ota_reserved_file:dir create_dir_perms;
 allow apexd apex_ota_reserved_file:file create_file_perms;

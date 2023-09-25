@@ -14,10 +14,6 @@ allow system_data_file tmpfs:filesystem associate;
 
 type authfs_fuse, fs_type, contextmount_type;
 
-# /dev/selinux/test - used to verify that apex sepolicy is loaded and
-# property labeled.
-type sepolicy_test_file, file_type;
-
 # /system/bin/mke2fs - used to format encryptedstore block device
 type e2fs_exec, system_file_type, exec_type, file_type;
 
