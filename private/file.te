@@ -8,6 +8,7 @@ type fs_bpf_net_shared, fs_type, bpffs_type;
 type fs_bpf_netd_readonly, fs_type, bpffs_type;
 type fs_bpf_netd_shared, fs_type, bpffs_type;
 type fs_bpf_loader, fs_type, bpffs_type;
+type fs_bpf_uprobe_private, fs_type, bpffs_type;
 
 # /data/misc/storaged
 type storaged_data_file, file_type, data_file_type, core_data_file_type;
@@ -133,3 +134,6 @@ type prng_seeder_socket, file_type, coredomain_socket, mlstrustedobject;
 
 # /sys/firmware/devicetree/base/avf
 type sysfs_dt_avf, fs_type, sysfs_type;
+
+# Type for /sys/devices/uprobe.
+type sysfs_uprobe, fs_type, sysfs_type;
