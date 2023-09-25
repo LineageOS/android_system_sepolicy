@@ -81,16 +81,3 @@ allow kernel apexd:fd use;
 
 #-----------------------------------------
 allow kernel apkdmverity:fd use;
-
-# Some contexts are changed before the device is flipped into enforcing mode
-# during the setup of Apex sepolicy. These denials can be suppressed since
-# the permissions should not be allowed after the device is flipped into
-# enforcing mode.
-dontaudit kernel device:dir { open read relabelto };
-dontaudit kernel tmpfs:file { getattr open read relabelfrom };
-dontaudit kernel {
-  file_contexts_file
-  property_contexts_file
-  sepolicy_test_file
-  service_contexts_file
-}:file relabelto;
