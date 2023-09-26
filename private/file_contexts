@@ -206,14 +206,6 @@
 #
 /linkerconfig(/.*)?          u:object_r:linkerconfig_file:s0
 
-# Apex sepoolicy files.
-/dev/selinux/apex_file_contexts                 u:object_r:file_contexts_file:s0
-/dev/selinux/apex_seapp_contexts                u:object_r:seapp_contexts_file:s0
-/dev/selinux/apex_service_contexts              u:object_r:service_contexts_file:s0
-/dev/selinux/apex_property_contexts             u:object_r:property_contexts_file:s0
-/dev/selinux/apex_hwservice_contexts            u:object_r:hwservice_contexts_file:s0
-/dev/selinux/apex_mac_permissions\.xml          u:object_r:mac_perms_file:s0
-
 #############################
 # System files
 #
@@ -384,7 +376,6 @@
 /system/bin/cardisplayproxyd     u:object_r:automotive_display_service_exec:s0
 /system/bin/evsmanagerd          u:object_r:evsmanagerd_exec:s0
 /system/bin/android\.automotive\.evs\.manager@1\.[0-9]+ u:object_r:evsmanagerd_exec:s0
-/system/bin/uprobestats           u:object_r:uprobestats_exec:s0
 
 #############################
 # Vendor files
@@ -845,7 +836,6 @@
 /metadata/password_slots(/.*)?    u:object_r:password_slot_metadata_file:s0
 /metadata/ota(/.*)?       u:object_r:ota_metadata_file:s0
 /metadata/bootstat(/.*)?  u:object_r:metadata_bootstat_file:s0
-/metadata/sepolicy(/.*)?    u:object_r:sepolicy_metadata_file:s0
 /metadata/staged-install(/.*)?    u:object_r:staged_install_file:s0
 /metadata/userspacereboot(/.*)?    u:object_r:userspace_reboot_metadata_file:s0
 /metadata/watchdog(/.*)?    u:object_r:watchdog_metadata_file:s0

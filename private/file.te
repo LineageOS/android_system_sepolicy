@@ -8,7 +8,6 @@ type fs_bpf_net_shared, fs_type, bpffs_type;
 type fs_bpf_netd_readonly, fs_type, bpffs_type;
 type fs_bpf_netd_shared, fs_type, bpffs_type;
 type fs_bpf_loader, fs_type, bpffs_type;
-type fs_bpf_uprobe_private, fs_type, bpffs_type;
 
 # /data/misc/storaged
 type storaged_data_file, file_type, data_file_type, core_data_file_type;
@@ -118,13 +117,6 @@ type compos_exec, exec_type, file_type, system_file_type;
 # /apex/com.android.compos/bin/compos_key_helper
 type compos_key_helper_exec, exec_type, file_type, system_file_type;
 
-# /metadata/sepolicy
-type sepolicy_metadata_file, file_type;
-
-# /dev/selinux/test - used to verify that apex sepolicy is loaded and
-# property labeled.
-type sepolicy_test_file, file_type;
-
 # /apex/com.android.art/bin/art_exec
 # This executable does not have its own domain because it is executed in the caller's domain. For
 # example, it is executed in the `artd` domain when artd calls it.
@@ -143,6 +135,3 @@ type sysfs_dt_avf, fs_type, sysfs_type;
 
 # Type for /system/fonts/font_fallback.xm
 type system_font_fallback_file, system_file_type, file_type;
-
-# Type for /sys/devices/uprobe.
-type sysfs_uprobe, fs_type, sysfs_type;
