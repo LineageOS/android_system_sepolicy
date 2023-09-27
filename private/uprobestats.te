@@ -1,0 +1,16 @@
+type uprobestats, domain, coredomain;
+
+typeattribute uprobestats bpfdomain;
+
+type uprobestats_exec, system_file_type, exec_type, file_type;
+
+# Allow uprobestats to be invoked by statsd.
+domain_auto_trans(statsd, uprobestats_exec, uprobestats)
+
+allow uprobestats fs_bpf_uprobe_private:file { read write };
+allow uprobestats fs_bpf_uprobe_private:dir search;
+allow uprobestats bpfloader:bpf { map_read map_write prog_run };
+allow uprobestats self:capability2 perfmon;
+allow uprobestats self:perf_event { cpu open write };
+allow uprobestats sysfs_uprobe:file { open read };
+allow uprobestats sysfs_uprobe:dir { search };
