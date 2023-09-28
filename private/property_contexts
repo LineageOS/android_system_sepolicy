@@ -115,6 +115,7 @@ suspend.short_suspend_threshold_millis u:object_r:suspend_prop:s0 exact uint
 suspend.sleep_time_scale_factor u:object_r:suspend_prop:s0 exact double
 suspend.failed_suspend_backoff_enabled u:object_r:suspend_prop:s0 exact bool
 suspend.short_suspend_backoff_enabled u:object_r:suspend_prop:s0 exact bool
+suspend.disable_sync_on_suspend u:object_r:suspend_prop:s0 exact bool
 
 # Fastbootd protocol control property
 fastbootd.protocol    u:object_r:fastbootd_protocol_prop:s0 exact enum usb tcp
