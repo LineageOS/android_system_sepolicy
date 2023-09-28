@@ -159,3 +159,20 @@ python_binary_host {
         "mini_cil_parser",
     ],
 }
+
+python_test_host {
+    name: "policy_test",
+    srcs: [
+        "fc_sort.py",
+        "policy.py",
+        "policy_test.py",
+    ],
+    test_options: {
+        unit_test: true,
+    },
+    version: {
+        py3: {
+            embedded_launcher: true,
+        },
+    },
+}

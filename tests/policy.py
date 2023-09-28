@@ -30,7 +30,46 @@ import fc_sort
 # 1) there is a match - return True or 2) run out of characters - return
 #    False.
 #
+COMMON_PREFIXES = {
+    "/(vendor|system/vendor)": ["/vendor", "/system/vendor"],
+    "/(odm|vendor/odm)": ["/odm", "/vendor/odm"],
+    "/(product|system/product)": ["/product", "/system/product"],
+    "/(system_ext|system/system_ext)": ["/system_ext", "/system/system_ext"],
+}
+
 def MatchPathPrefix(pathregex, prefix):
+    # Before running regex compile loop, try two heuristics, because compiling
+    # regex is too expensive. These two can handle more than 90% out of all
+    # MatchPathPrefix calls.
+
+    # Heuristic 1: handle common prefixes for partitions
+    for c in COMMON_PREFIXES:
+        if not pathregex.startswith(c):
+            continue
+        found = False
+        for p in COMMON_PREFIXES[c]:
+            if prefix.startswith(p):
+                found = True
+                prefix = prefix[len(p):]
+                pathregex = pathregex[len(c):]
+                break
+        if not found:
+            return False
+
+    # Heuristic 2: compare normal characters as long as possible
+    idx = 0
+    while idx < len(prefix):
+        if idx == len(pathregex):
+            return False
+        if pathregex[idx] in fc_sort.META_CHARS or pathregex[idx] == '\\':
+            break
+        if pathregex[idx] != prefix[idx]:
+            return False
+        idx += 1
+    if idx == len(prefix):
+        return True
+
+    # Fall back to regex compile loop.
     for i in range(len(pathregex), 0, -1):
         try:
             pattern = re.compile('^' + pathregex[0:i] + "$")
