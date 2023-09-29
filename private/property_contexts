@@ -279,6 +279,9 @@ persist.device_config.memory_safety_native_boot.    u:object_r:device_config_mem
 persist.device_config.memory_safety_native.         u:object_r:device_config_memory_safety_native_prop:s0
 persist.device_config.tethering_u_or_later_native.  u:object_r:device_config_tethering_u_or_later_native_prop:s0
 
+# Properties that is for staging
+next_boot.  u:object_r:next_boot_prop:s0
+
 # F2FS smart idle maint prop
 persist.device_config.storage_native_boot.smart_idle_maint_enabled u:object_r:smart_idle_maint_enabled_prop:s0 exact bool
 

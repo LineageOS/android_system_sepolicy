@@ -34,6 +34,7 @@ set_prop(flags_health_check, device_config_memory_safety_native_prop)
 set_prop(flags_health_check, device_config_remote_key_provisioning_native_prop)
 set_prop(flags_health_check, device_config_camera_native_prop)
 set_prop(flags_health_check, device_config_tethering_u_or_later_native_prop)
+set_prop(flags_health_check, next_boot_prop)
 
 # system property device_config_boot_count_prop is used for deciding when to perform server
 # configurable flags related disaster recovery. Mistakenly set up by unrelated components can, at a
