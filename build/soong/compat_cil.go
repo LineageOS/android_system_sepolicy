@@ -188,6 +188,7 @@ func (f *compatTestModule) createCompatTestModule(ctx android.LoadHookContext, v
 		Srcs:              srcs,
 		Ignore_neverallow: proptools.BoolPtr(true),
 		Installable:       proptools.BoolPtr(false),
+		Permissive_domains_on_user_builds: []string{"backuptool"},
 	})
 }
 
