@@ -157,6 +157,7 @@ genfscon sysfs /fs/incremental-fs/instances       u:object_r:sysfs_fs_incfs_metr
 genfscon sysfs /power/autosleep u:object_r:sysfs_power:s0
 genfscon sysfs /power/state u:object_r:sysfs_power:s0
 genfscon sysfs /power/suspend_stats u:object_r:sysfs_suspend_stats:s0
+genfscon sysfs /power/sync_on_suspend u:object_r:sysfs_sync_on_suspend:s0
 genfscon sysfs /power/wakeup_count u:object_r:sysfs_power:s0
 genfscon sysfs /power/wake_lock u:object_r:sysfs_wake_lock:s0
 genfscon sysfs /power/wake_unlock u:object_r:sysfs_wake_lock:s0
