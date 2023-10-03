@@ -40,3 +40,6 @@ allow untrusted_app_27 mnt_sdcard_file:lnk_file r_file_perms;
 # allow sending RTM_GETNEIGH{TBL} messages.
 allow untrusted_app_27 self:netlink_route_socket nlmsg_getneigh;
 auditallow untrusted_app_27 self:netlink_route_socket nlmsg_getneigh;
+
+# Allow hidden build props
+get_prop({ untrusted_app_27 userdebug_or_eng(`-untrusted_app_27') }, userdebug_or_eng_prop)
