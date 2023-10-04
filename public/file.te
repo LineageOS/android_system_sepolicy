@@ -116,6 +116,7 @@ type sysfs_power, fs_type, sysfs_type;
 type sysfs_rtc, fs_type, sysfs_type;
 type sysfs_suspend_stats, fs_type, sysfs_type;
 type sysfs_switch, fs_type, sysfs_type;
+type sysfs_sync_on_suspend, fs_type, sysfs_type;
 type sysfs_transparent_hugepage, fs_type, sysfs_type;
 type sysfs_lru_gen_enabled, fs_type, sysfs_type;
 type sysfs_usb, fs_type, sysfs_type;
