@@ -14,6 +14,7 @@
     virtual_camera_service
     ot_daemon_service
     remote_auth_service
+    sysfs_sync_on_suspend
     threadnetwork_service
     device_config_aconfig_flags_prop
     proc_memhealth
