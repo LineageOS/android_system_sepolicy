@@ -37,6 +37,9 @@ allow init self:global_capability2_class_set block_suspend;
 allow system_suspend sysfs_wake_lock:file rw_file_perms;
 allow system_suspend self:global_capability2_class_set block_suspend;
 
+# Allow init to set /sys/power/sync_on_suspend.
+allow init sysfs_sync_on_suspend:file w_file_perms;
+
 neverallow {
     domain
     -atrace # tracing
