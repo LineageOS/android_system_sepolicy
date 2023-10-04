@@ -1,6 +1,7 @@
 dnsmasq netd fifo_file b/77868789
 dnsmasq netd unix_stream_socket b/77868789
 gmscore_app system_data_file dir b/146166941
+gmscore_app kernel security b/303319090
 init app_data_file file b/77873135
 init cache_file blk_file b/77873135
 init logpersist file b/77873135
