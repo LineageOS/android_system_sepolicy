@@ -435,6 +435,7 @@ vcn_management                            u:object_r:vcn_management_service:s0
 vibrator                                  u:object_r:vibrator_service:s0
 vibrator_manager                          u:object_r:vibrator_manager_service:s0
 virtualdevice                             u:object_r:virtual_device_service:s0
+virtualdevice_native                      u:object_r:virtual_device_native_service:s0
 virtual_touchpad                          u:object_r:virtual_touchpad_service:s0
 voiceinteraction                          u:object_r:voiceinteraction_service:s0
 vold                                      u:object_r:vold_service:s0
