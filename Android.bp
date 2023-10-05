@@ -556,8 +556,8 @@ soong_config_module_type {
     properties: ["vendor", "device_specific"],
 }
 
-precompiled_se_policy_binary {
-    name: "precompiled_sepolicy",
+filegroup {
+    name: "precompiled_sepolicy_srcs",
     srcs: [
         ":plat_sepolicy.cil",
         ":plat_pub_versioned.cil",
@@ -568,6 +568,16 @@ precompiled_se_policy_binary {
         ":plat_mapping_file",
         ":system_ext_mapping_file",
         ":product_mapping_file",
+    ],
+    // Make precompiled_sepolicy_srcs as public so that OEMs have access to them.
+    // Useful when some partitions need to be bind mounted across VM boundaries.
+    visibility: ["//visibility:public"],
+}
+
+precompiled_se_policy_binary {
+    name: "precompiled_sepolicy",
+    srcs: [
+        ":precompiled_sepolicy_srcs",
     ],
     soong_config_variables: {
         BOARD_USES_ODMIMAGE: {
