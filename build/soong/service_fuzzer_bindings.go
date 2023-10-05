@@ -467,6 +467,7 @@ var (
 		"vrmanager":                    EXCEPTION_NO_FUZZER,
 		"wallpaper":                    EXCEPTION_NO_FUZZER,
 		"wallpaper_effects_generation": EXCEPTION_NO_FUZZER,
+		"wearable_sensing":             EXCEPTION_NO_FUZZER,
 		"webviewupdate":                EXCEPTION_NO_FUZZER,
 		"wifip2p":                      EXCEPTION_NO_FUZZER,
 		"wifiscanner":                  EXCEPTION_NO_FUZZER,
