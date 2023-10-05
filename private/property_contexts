@@ -580,6 +580,7 @@ bluetooth.profile.pan.nap.enabled                    u:object_r:bluetooth_config
 bluetooth.profile.pan.panu.enabled                   u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.profile.pbap.client.enabled                u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.profile.pbap.server.enabled                u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.profile.pbap.sim.enabled                   u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.profile.sap.server.enabled                 u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.profile.vcp.controller.enabled             u:object_r:bluetooth_config_prop:s0 exact bool
 
