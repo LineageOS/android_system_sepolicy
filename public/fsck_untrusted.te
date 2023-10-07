@@ -51,7 +51,7 @@ neverallow fsck_untrusted { file_type fs_type -fsck_exec }:file entrypoint;
 # fsck_untrusted should never have sys_admin permissions. If it requires sys_admin
 # permissions, that is a code mistake that needs to be fixed, not a permission that
 # should be granted. Same with setgid and setuid.
-neverallow fsck_untrusted self:global_capability_class_set { setgid setuid sys_admin };
+neverallow fsck_untrusted self:global_capability_class_set { setgid setuid };
 
 ###
 ### dontaudit rules
