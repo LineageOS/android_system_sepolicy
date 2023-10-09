@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3aeb3ff7_6b2e5bfd",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 903,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2023-10-09T20:59:00Z",
+      "side": 1,
+      "message": "Is this intentional? Shouldn\u0027t it belong to the follow-up commit?",
+      "range": {
+        "startLine": 903,
+        "startChar": 9,
+        "endLine": 903,
+        "endChar": 19
+      },
+      "revId": "5432cf91ac933f2328ffaaed9452abb6b57adcdf",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
