@@ -362,7 +362,7 @@
 /system/bin/stats                u:object_r:stats_exec:s0
 /system/bin/statsd               u:object_r:statsd_exec:s0
 /system/bin/bpfloader            u:object_r:bpfloader_exec:s0
-/system/bin/btfloader            u:object_r:bpfloader_exec:s0
+/system/bin/netbpfload           u:object_r:bpfloader_exec:s0
 /system/bin/watchdogd            u:object_r:watchdogd_exec:s0
 /system/bin/apexd                u:object_r:apexd_exec:s0
 /system/bin/gsid                 u:object_r:gsid_exec:s0
