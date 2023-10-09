@@ -114,6 +114,7 @@ var (
 		"android.hardware.secure_element.ISecureElement/SIM1":                     EXCEPTION_NO_FUZZER,
 		"android.hardware.secure_element.ISecureElement/SIM2":                     EXCEPTION_NO_FUZZER,
 		"android.hardware.secure_element.ISecureElement/SIM3":                     EXCEPTION_NO_FUZZER,
+		"android.hardware.security.authgraph.IAuthGraphKeyExchange/nonsecure":     EXCEPTION_NO_FUZZER,
 		"android.hardware.security.dice.IDiceDevice/default":                      EXCEPTION_NO_FUZZER,
 		"android.hardware.security.keymint.IKeyMintDevice/default":                EXCEPTION_NO_FUZZER,
 		"android.hardware.security.keymint.IRemotelyProvisionedComponent/default": EXCEPTION_NO_FUZZER,

@@ -306,6 +306,7 @@ binder_service(system_server)
 # Use HALs
 hal_client_domain(system_server, hal_allocator)
 hal_client_domain(system_server, hal_audio)
+hal_client_domain(system_server, hal_authgraph)
 hal_client_domain(system_server, hal_authsecret)
 hal_client_domain(system_server, hal_broadcastradio)
 hal_client_domain(system_server, hal_codec2)
