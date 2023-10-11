@@ -1,4 +1,5 @@
 (/.*)?                  u:object_r:system_file:s0
 /bin/for-system/clatd   u:object_r:clatd_exec:s0
+/bin/netbpfload         u:object_r:bpfloader_exec:s0
 /bin/ot-daemon          u:object_r:ot_daemon_exec:s0
 /lib(64)?(/.*)          u:object_r:system_lib_file:s0
