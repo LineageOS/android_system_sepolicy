@@ -10,3 +10,8 @@ allow profman {
 
 # Allow profman to use file descriptors passed from privileged programs.
 allow profman { artd installd }:fd use;
+
+# Allow profman to read from memfd created by artd.
+# profman needs to read the embedded profile that artd extracts from an APK,
+# which is passed by a memfd.
+allow profman artd_tmpfs:file { getattr read map lock };
