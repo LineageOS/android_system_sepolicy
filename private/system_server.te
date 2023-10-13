@@ -774,6 +774,9 @@ set_prop(system_server, device_config_tethering_u_or_later_native_prop)
 set_prop(system_server, smart_idle_maint_enabled_prop)
 set_prop(system_server, arm64_memtag_prop)
 
+# staged flag properties
+set_prop(system_server, next_boot_prop)
+
 # Allow query ART device config properties
 get_prop(system_server, device_config_runtime_native_boot_prop)
 get_prop(system_server, device_config_runtime_native_prop)
@@ -1337,6 +1340,7 @@ neverallow {
   device_config_aconfig_flags_prop
   device_config_window_manager_native_boot_prop
   device_config_tethering_u_or_later_native_prop
+  next_boot_prop
 }:property_service set;
 
 # Only allow system_server and init to set tuner_server_ctl_prop
