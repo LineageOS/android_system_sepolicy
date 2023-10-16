@@ -137,3 +137,8 @@ allow artd { profman dex2oat }:process sigkill;
 # This is needed for getting CPU time and wall time spent on subprocesses.
 r_dir_file(artd, profman);
 r_dir_file(artd, dex2oat);
+
+# Allow artd to reopen its own memfd.
+# artd needs to reopen a memfd with readonly in order to pass it to subprocesses
+# that don't have write permissions on memfds.
+allow artd artd_tmpfs:file open;
