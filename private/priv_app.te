@@ -150,7 +150,7 @@ dontaudit priv_app sysfs:dir read;
 dontaudit priv_app sysfs:file read;
 dontaudit priv_app sysfs_android_usb:file read;
 dontaudit priv_app sysfs_dm:file r_file_perms;
-dontaudit priv_app { wifi_prop wifi_hal_prop }:file read;
+dontaudit priv_app { wifi_prop wifi_config_prop wifi_hal_prop }:file read;
 
 # allow privileged apps to use UDP sockets provided by the system server but not
 # modify them other than to connect
