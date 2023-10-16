@@ -179,7 +179,6 @@ control_logd({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all })
 allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } keystore:keystore2_key { delete use get_info rebind update };
 
 allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } keystore_maintenance_service:service_manager find;
-allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } keystore:keystore2 get_state;
 
 use_keystore({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all })
 
