@@ -7,6 +7,7 @@
 #include <sepol/module.h>
 #include <sepol/policydb/policydb.h>
 #include <sepol/sepol.h>
+#include <selinux/context.h>
 #include <selinux/selinux.h>
 #include <selinux/label.h>
 #include <sys/stat.h>
@@ -209,8 +210,14 @@ static void usage(char *name) {
         "If -e is specified, then the context_file is allowed to be empty.\n\n"
 
         "usage2:  %s -c file_contexts1 file_contexts2\n\n"
-        "Compares two file contexts files and reports one of subset, equal, superset, or incomparable.\n\n",
-        name, name);
+        "Compares two file contexts files and reports one of \n"
+        "subset, equal, superset, or incomparable.\n\n"
+
+        "usage3:  %s -t file_contexts test_data\n\n"
+        "Validates a file contexts file against test_data.\n"
+        "test_data is a text file where each line has the format:\n"
+        "  path expected_type\n\n\n",
+        name, name, name);
     exit(1);
 }
 
@@ -262,6 +269,67 @@ static void do_compare_and_die_on_error(struct selinux_opt opts[], unsigned int 
 
      result = selabel_cmp(global_state.sepolicy.sehnd[0], global_state.sepolicy.sehnd[1]);
      printf("%s\n", result_str[result]);
+}
+
+static void do_test_data_and_die_on_error(struct selinux_opt opts[], unsigned int backend,
+        char *paths[])
+{
+    opts[0].value = NULL; /* not validating against a policy */
+    opts[1].value = paths[0];
+    global_state.sepolicy.sehnd[0] = selabel_open(backend, opts, 2);
+    if (!global_state.sepolicy.sehnd[0]) {
+        fprintf(stderr, "Error: could not load context file from %s: %s\n",
+                paths[0], strerror(errno));
+        exit(1);
+    }
+
+    FILE* test_data = fopen(paths[1], "r");
+    if (test_data == NULL) {
+        fprintf(stderr, "Error: could not load test file from %s : %s\n",
+                paths[1], strerror(errno));
+        exit(1);
+    }
+
+    char line[1024];
+    while (fgets(line, sizeof(line), test_data)) {
+        char *path;
+        char *expected_type;
+
+        if (!strcmp(line, "\n") || line[0] == '#') {
+            continue;
+        }
+
+        int ret = sscanf(line, "%ms %ms", &path, &expected_type);
+        if (ret != 2) {
+            fprintf(stderr, "Error: unable to parse the line %s\n", line);
+            exit(1);
+        }
+
+        char *found_context;
+        ret = selabel_lookup(global_state.sepolicy.sehnd[0], &found_context, path, 0);
+        if (ret != 0) {
+            fprintf(stderr, "Error: unable to lookup the path for %s\n", line);
+            exit(1);
+        }
+
+        context_t found = context_new(found_context);
+        const char *found_type = context_type_get(found);
+
+        if (strcmp(found_type, expected_type)) {
+            fprintf(stderr, "Incorrect type for %s: resolved to %s, expected %s\n",
+                    path, found_type, expected_type);
+        }
+
+        free(found_context);
+        context_free(found);
+        free(path);
+        free(expected_type);
+    }
+    fclose(test_data);
+
+    // Prints the coverage of file_contexts on the test data. It includes
+    // warnings for rules that have not been hit by any test example.
+    selabel_stats(global_state.sepolicy.sehnd[0]);
 }
 
 static void do_fc_check_and_die_on_error(struct selinux_opt opts[], unsigned int backend, filemode mode,
@@ -345,11 +413,12 @@ int main(int argc, char **argv)
 
   bool allow_empty = false;
   bool compare = false;
+  bool test_data = false;
   char c;
 
   filemode mode = filemode_file_contexts;
 
-  while ((c = getopt(argc, argv, "clpsve")) != -1) {
+  while ((c = getopt(argc, argv, "clpsvet")) != -1) {
     switch (c) {
       case 'c':
         compare = true;
@@ -373,6 +442,9 @@ int main(int argc, char **argv)
         mode = filemode_vendor_service_contexts;
         backend = SELABEL_CTX_ANDROID_SERVICE;
         break;
+      case 't':
+        test_data = true;
+        break;
       case 'h':
       default:
         usage(argv[0]);
@@ -385,7 +457,7 @@ int main(int argc, char **argv)
     usage(argv[0]);
   }
 
-  if (compare && backend != SELABEL_CTX_FILE) {
+  if ((compare || test_data) && backend != SELABEL_CTX_FILE) {
     usage(argv[0]);
   }
 
@@ -393,6 +465,8 @@ int main(int argc, char **argv)
 
   if (compare) {
       do_compare_and_die_on_error(opts, backend, &(argv[index]));
+  } else if (test_data) {
+      do_test_data_and_die_on_error(opts, backend, &(argv[index]));
   } else {
       /* remaining args are sepolicy file and context file  */
       char *sepolicy_file = argv[index];
