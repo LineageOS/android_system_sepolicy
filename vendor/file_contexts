@@ -157,7 +157,7 @@
 /(vendor|system/vendor)/lib(64)?/android\.hardware\.common-V2-ndk\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/android\.hardware\.common\.fmq-V1-ndk\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.allocator-V2-ndk\.so u:object_r:same_process_hal_file:s0
-/(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.common-V4-ndk\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.common-V5-ndk\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.common@1\.0\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.common@1\.1\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.common@1\.2\.so u:object_r:same_process_hal_file:s0
