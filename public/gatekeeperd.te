@@ -22,7 +22,6 @@ add_service(gatekeeperd, gatekeeper_service)
 
 # Need to add auth tokens to KeyStore
 use_keystore(gatekeeperd)
-allow gatekeeperd keystore:keystore_key { add_auth };
 allow gatekeeperd keystore:keystore2 { add_auth };
 allow gatekeeperd authorization_service:service_manager find;
 
