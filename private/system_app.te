@@ -120,26 +120,6 @@ dontaudit system_app debugfs_tracing:file rw_file_perms;
 # Ignore access to zram when Debug.getMemInfo is called.
 dontaudit system_app sysfs_zram:dir search;
 
-allow system_app keystore:keystore_key {
-    get_state
-    get
-    insert
-    delete
-    exist
-    list
-    reset
-    password
-    lock
-    unlock
-    is_empty
-    sign
-    verify
-    grant
-    duplicate
-    clear_uid
-    user_changed
-};
-
 allow system_app keystore:keystore2_key {
     delete
     get_info
