@@ -21,6 +21,7 @@ mediaprovider mnt_media_rw_file dir b/77925342
 mediaprovider shell_data_file dir b/77925342
 mediaswcodec ashmem_device chr_file b/142679232
 platform_app nfc_data_file dir b/74331887
+platform_app system_data_file dir b/306090533
 system_server overlayfs_file file b/142390309
 system_server sdcardfs file b/77856826
 system_server system_server capability b/228030183
