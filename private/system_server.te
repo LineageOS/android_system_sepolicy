@@ -973,34 +973,12 @@ userdebug_or_eng(`
 
 add_service(system_server, batteryproperties_service)
 
-allow system_server keystore:keystore_key {
-	get_state
-	get
-	insert
-	delete
-	exist
-	list
-	reset
-	password
-	lock
-	unlock
-	is_empty
-	sign
-	verify
-	grant
-	duplicate
-	clear_uid
-	add_auth
-	user_changed
-};
-
 allow system_server keystore:keystore2 {
 	add_auth
 	change_password
 	change_user
 	clear_ns
 	clear_uid
-	get_state
 	lock
 	pull_metrics
 	reset
