@@ -517,14 +517,20 @@ type contextsTestProperties struct {
 	Sepolicy *string `android:"path"`
 }
 
+type fileContextsTestProperties struct {
+	// Test data. File passed to `checkfc -t` to validate how contexts are resolved.
+	Test_data *string `android:"path"`
+}
+
 type contextsTestModule struct {
 	android.ModuleBase
 
 	// The type of context.
 	context contextType
 
-	properties    contextsTestProperties
-	testTimestamp android.OutputPath
+	properties     contextsTestProperties
+	fileProperties fileContextsTestProperties
+	testTimestamp  android.OutputPath
 }
 
 type contextType int
@@ -547,6 +553,7 @@ const (
 func fileContextsTestFactory() android.Module {
 	m := &contextsTestModule{context: FileContext}
 	m.AddProperties(&m.properties)
+	m.AddProperties(&m.fileProperties)
 	android.InitAndroidArchModule(m, android.DeviceSupported, android.MultilibCommon)
 	return m
 }
@@ -595,13 +602,26 @@ func (m *contextsTestModule) GenerateAndroidBuildActions(ctx android.ModuleConte
 		return
 	}
 
+	validateWithPolicy := true
 	if proptools.String(m.properties.Sepolicy) == "" {
-		ctx.PropertyErrorf("sepolicy", "can't be empty")
-		return
+		if m.context == FileContext {
+			if proptools.String(m.fileProperties.Test_data) == "" {
+				ctx.PropertyErrorf("test_data", "Either test_data or sepolicy should be provided")
+				return
+			}
+			validateWithPolicy = false
+		} else {
+			ctx.PropertyErrorf("sepolicy", "can't be empty")
+			return
+		}
 	}
 
 	flags := []string(nil)
 	switch m.context {
+	case FileContext:
+		if !validateWithPolicy {
+			flags = []string{"-t"}
+		}
 	case ServiceContext:
 		flags = []string{"-s" /* binder services */}
 	case HwServiceContext:
@@ -611,13 +631,21 @@ func (m *contextsTestModule) GenerateAndroidBuildActions(ctx android.ModuleConte
 	}
 
 	srcs := android.PathsForModuleSrc(ctx, m.properties.Srcs)
-	sepolicy := android.PathForModuleSrc(ctx, proptools.String(m.properties.Sepolicy))
-
 	rule := android.NewRuleBuilder(pctx, ctx)
-	rule.Command().BuiltTool(tool).
-		Flags(flags).
-		Input(sepolicy).
-		Inputs(srcs)
+
+	if validateWithPolicy {
+		sepolicy := android.PathForModuleSrc(ctx, proptools.String(m.properties.Sepolicy))
+		rule.Command().BuiltTool(tool).
+			Flags(flags).
+			Input(sepolicy).
+			Inputs(srcs)
+	} else {
+		test_data := android.PathForModuleSrc(ctx, proptools.String(m.fileProperties.Test_data))
+		rule.Command().BuiltTool(tool).
+			Flags(flags).
+			Inputs(srcs).
+			Input(test_data)
+	}
 
 	m.testTimestamp = pathForModuleOut(ctx, "timestamp")
 	rule.Command().Text("touch").Output(m.testTimestamp)
