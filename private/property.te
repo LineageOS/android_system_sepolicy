@@ -57,6 +57,7 @@ system_internal_prop(enable_16k_pages_prop)
 system_internal_prop(sensors_config_prop)
 system_internal_prop(hypervisor_pvmfw_prop)
 system_internal_prop(hypervisor_virtualizationmanager_prop)
+system_internal_prop(game_manager_config_prop)
 
 # Properties which can't be written outside system
 system_restricted_prop(device_config_virtualization_framework_native_prop)
