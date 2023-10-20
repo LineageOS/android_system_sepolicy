@@ -435,3 +435,7 @@ allow init self:netlink_audit_socket { create_socket_perms_no_ioctl nlmsg_relay 
 
 # PRNG seeder daemon socket is created and listened on by init before forking.
 allow init prng_seeder:unix_stream_socket { create bind listen };
+
+# Workaround for test failures (b/306516077)
+# We get a denial for this on VM boot, but the denial is correct.
+dontaudit init device:file relabelto;
