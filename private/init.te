@@ -123,3 +123,7 @@ allow init {
   -vm_manager_device_type
   -port_device
 }:chr_file setattr;
+
+# Workaround for test failures (b/306516077)
+# We get a denial for this on boot, but the denial is correct.
+dontaudit init device:file relabelto;
