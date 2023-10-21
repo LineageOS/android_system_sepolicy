@@ -416,6 +416,7 @@ ro.camera.enableLazyHal       u:object_r:camera_config_prop:s0 exact bool
 ro.camera.enableCamera1MaxZsl u:object_r:camera_config_prop:s0 exact bool
 ro.camera.disableJpegR        u:object_r:camera_config_prop:s0 exact bool
 ro.camera.enableCompositeAPI0JpegR u:object_r:camera_config_prop:s0 exact bool
+ro.camera.enableVirtualCamera      u:object_r:camera_config_prop:s0 exact bool
 
 ro.camerax.extensions.enabled u:object_r:camerax_extensions_prop:s0 exact bool
 
@@ -512,6 +513,7 @@ persist.sys.dalvik.vm.lib.2 u:object_r:dalvik_runtime_prop:s0 exact string
 keyguard.no_require_sim u:object_r:keyguard_config_prop:s0 exact bool
 
 media.c2.dmabuf.padding                      u:object_r:codec2_config_prop:s0 exact int
+media.c2.hal.selection                       u:object_r:codec2_config_prop:s0 exact enum aidl hidl
 
 media.recorder.show_manufacturer_and_model   u:object_r:media_config_prop:s0 exact bool
 media.resolution.limit.32bit                 u:object_r:media_config_prop:s0 exact int
