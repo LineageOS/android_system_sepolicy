@@ -7,6 +7,7 @@ type proc, fs_type, proc_type;
 type binderfs, fs_type;
 type binderfs_logs, fs_type;
 type binderfs_logs_proc, fs_type;
+type binderfs_logs_stats, fs_type;
 type binderfs_features, fs_type;
 # Security-sensitive proc nodes that should not be writable to most.
 type proc_security, fs_type, proc_type;
