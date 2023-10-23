@@ -271,6 +271,19 @@ static void do_compare_and_die_on_error(struct selinux_opt opts[], unsigned int 
      printf("%s\n", result_str[result]);
 }
 
+static int warnings = 0;
+static int log_callback(int type, const char *fmt, ...) {
+    va_list ap;
+
+    if (type == SELINUX_WARNING) {
+        warnings += 1;
+    }
+    va_start(ap, fmt);
+    vfprintf(stderr, fmt, ap);
+    va_end(ap);
+    return 0;
+}
+
 static void do_test_data_and_die_on_error(struct selinux_opt opts[], unsigned int backend,
         char *paths[])
 {
@@ -329,7 +342,15 @@ static void do_test_data_and_die_on_error(struct selinux_opt opts[], unsigned in
 
     // Prints the coverage of file_contexts on the test data. It includes
     // warnings for rules that have not been hit by any test example.
+    union selinux_callback cb;
+    cb.func_log = log_callback;
+    selinux_set_callback(SELINUX_CB_LOG, cb);
     selabel_stats(global_state.sepolicy.sehnd[0]);
+    if (warnings) {
+        fprintf(stderr, "No test entries were found for the contexts above. " \
+                        "You may need to update %s.\n", paths[1]);
+        exit(1);
+    }
 }
 
 static void do_fc_check_and_die_on_error(struct selinux_opt opts[], unsigned int backend, filemode mode,

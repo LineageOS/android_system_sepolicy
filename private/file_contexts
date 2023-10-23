@@ -561,7 +561,6 @@
 /data/gsi_persistent_data    u:object_r:gsi_persistent_data_file:s0
 /data/gsi/ota(/.*)?    u:object_r:ota_image_data_file:s0
 /data/tombstones(/.*)?	u:object_r:tombstone_data_file:s0
-/data/vendor/tombstones/wifi(/.*)? u:object_r:tombstone_wifi_data_file:s0
 /data/local/tests(/.*)?	u:object_r:shell_test_data_file:s0
 /data/local/tmp(/.*)?	u:object_r:shell_data_file:s0
 /data/local/tmp/ltp(/.*)?   u:object_r:nativetest_data_file:s0
@@ -636,8 +635,8 @@
 /data/misc/odrefresh(/.*)?      u:object_r:odrefresh_data_file:s0
 /data/misc/odsign(/.*)?         u:object_r:odsign_data_file:s0
 /data/misc/odsign/metrics(/.*)? u:object_r:odsign_metrics_file:s0
-/data/misc/perfetto-traces/bugreport(.*)? u:object_r:perfetto_traces_bugreport_data_file:s0
 /data/misc/perfetto-traces(/.*)?          u:object_r:perfetto_traces_data_file:s0
+/data/misc/perfetto-traces/bugreport(.*)? u:object_r:perfetto_traces_bugreport_data_file:s0
 /data/misc/perfetto-configs(/.*)?         u:object_r:perfetto_configs_data_file:s0
 /data/misc/prereboot(/.*)?      u:object_r:prereboot_data_file:s0
 /data/misc/profcollectd(/.*)?   u:object_r:profcollectd_data_file:s0
@@ -680,6 +679,7 @@
 /data/vendor_ce/.*              u:object_r:vendor_data_file:s0
 /data/vendor_de                 u:object_r:vendor_userdir_file:s0
 /data/vendor_de/.*              u:object_r:vendor_data_file:s0
+/data/vendor/tombstones/wifi(/.*)? u:object_r:tombstone_wifi_data_file:s0
 
 # storaged proto files
 /data/misc_de/[0-9]+/storaged(/.*)?       u:object_r:storaged_data_file:s0
