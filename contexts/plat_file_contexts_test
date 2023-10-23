@@ -1228,6 +1228,8 @@
 /metadata/userspacereboot/test                                    userspace_reboot_metadata_file
 /metadata/watchdog                                                watchdog_metadata_file
 /metadata/watchdog/test                                           watchdog_metadata_file
+/metadata/repair-mode                                             repair_mode_metadata_file
+/metadata/repair-mode/test                                        repair_mode_metadata_file
 
 /mnt/asec                                                         asec_apk_file
 /mnt/asec/test                                                    asec_apk_file
