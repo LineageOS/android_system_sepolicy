@@ -1546,3 +1546,7 @@ set_prop(system_server, dalvik_dynamic_config_prop)
 # Allow system server to read binderfs
 allow system_server binderfs_logs:dir r_dir_perms;
 allow system_server binderfs_logs_stats:file r_file_perms;
+
+# Allow GameManagerService to read and write persist.graphics.game_default_frame_rate.enabled
+set_prop(system_server, game_manager_config_prop)
+
