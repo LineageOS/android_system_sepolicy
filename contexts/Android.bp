@@ -390,6 +390,12 @@ file_contexts_test {
 }
 
 file_contexts_test {
+    name: "plat_file_contexts_data_test",
+    srcs: [":file_contexts_files{.plat_private}"],
+    test_data: "plat_file_contexts_test",
+}
+
+file_contexts_test {
     name: "system_ext_file_contexts_test",
     srcs: [":system_ext_file_contexts"],
     sepolicy: ":precompiled_sepolicy",
