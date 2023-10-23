@@ -520,15 +520,22 @@ type contextsTestProperties struct {
 type contextsTestModule struct {
 	android.ModuleBase
 
-	// Name of the test tool. "checkfc" or "property_info_checker"
-	tool string
-
-	// Additional flags to be passed to the tool.
-	flags []string
+	// The type of context.
+	context contextType
 
 	properties    contextsTestProperties
 	testTimestamp android.OutputPath
 }
+
+type contextType int
+
+const (
+	FileContext contextType = iota
+	PropertyContext
+	ServiceContext
+	HwServiceContext
+	VndServiceContext
+)
 
 // checkfc parses a context file and checks for syntax errors.
 // If -s is specified, the service backend is used to verify binder services.
@@ -538,7 +545,7 @@ type contextsTestModule struct {
 
 // file_contexts_test tests given file_contexts files with checkfc.
 func fileContextsTestFactory() android.Module {
-	m := &contextsTestModule{tool: "checkfc" /* no flags: file_contexts file check */}
+	m := &contextsTestModule{context: FileContext}
 	m.AddProperties(&m.properties)
 	android.InitAndroidArchModule(m, android.DeviceSupported, android.MultilibCommon)
 	return m
@@ -546,7 +553,7 @@ func fileContextsTestFactory() android.Module {
 
 // property_contexts_test tests given property_contexts files with property_info_checker.
 func propertyContextsTestFactory() android.Module {
-	m := &contextsTestModule{tool: "property_info_checker"}
+	m := &contextsTestModule{context: PropertyContext}
 	m.AddProperties(&m.properties)
 	android.InitAndroidArchModule(m, android.DeviceSupported, android.MultilibCommon)
 	return m
@@ -554,7 +561,7 @@ func propertyContextsTestFactory() android.Module {
 
 // hwservice_contexts_test tests given hwservice_contexts files with checkfc.
 func hwserviceContextsTestFactory() android.Module {
-	m := &contextsTestModule{tool: "checkfc", flags: []string{"-e" /* allow empty */, "-l" /* hwbinder services */}}
+	m := &contextsTestModule{context: HwServiceContext}
 	m.AddProperties(&m.properties)
 	android.InitAndroidArchModule(m, android.DeviceSupported, android.MultilibCommon)
 	return m
@@ -563,7 +570,7 @@ func hwserviceContextsTestFactory() android.Module {
 // service_contexts_test tests given service_contexts files with checkfc.
 func serviceContextsTestFactory() android.Module {
 	// checkfc -s: service_contexts test
-	m := &contextsTestModule{tool: "checkfc", flags: []string{"-s" /* binder services */}}
+	m := &contextsTestModule{context: ServiceContext}
 	m.AddProperties(&m.properties)
 	android.InitAndroidArchModule(m, android.DeviceSupported, android.MultilibCommon)
 	return m
@@ -571,16 +578,16 @@ func serviceContextsTestFactory() android.Module {
 
 // vndservice_contexts_test tests given vndservice_contexts files with checkfc.
 func vndServiceContextsTestFactory() android.Module {
-	m := &contextsTestModule{tool: "checkfc", flags: []string{"-e" /* allow empty */, "-v" /* vnd service */}}
+	m := &contextsTestModule{context: VndServiceContext}
 	m.AddProperties(&m.properties)
 	android.InitAndroidArchModule(m, android.DeviceSupported, android.MultilibCommon)
 	return m
 }
 
 func (m *contextsTestModule) GenerateAndroidBuildActions(ctx android.ModuleContext) {
-	tool := m.tool
-	if tool != "checkfc" && tool != "property_info_checker" {
-		panic(fmt.Errorf("%q: unknown tool name: %q", ctx.ModuleName(), tool))
+	tool := "checkfc"
+	if m.context == PropertyContext {
+		tool = "property_info_checker"
 	}
 
 	if len(m.properties.Srcs) == 0 {
@@ -593,12 +600,22 @@ func (m *contextsTestModule) GenerateAndroidBuildActions(ctx android.ModuleConte
 		return
 	}
 
+	flags := []string(nil)
+	switch m.context {
+	case ServiceContext:
+		flags = []string{"-s" /* binder services */}
+	case HwServiceContext:
+		flags = []string{"-e" /* allow empty */, "-l" /* hwbinder services */}
+	case VndServiceContext:
+		flags = []string{"-e" /* allow empty */, "-v" /* vnd service */}
+	}
+
 	srcs := android.PathsForModuleSrc(ctx, m.properties.Srcs)
 	sepolicy := android.PathForModuleSrc(ctx, proptools.String(m.properties.Sepolicy))
 
 	rule := android.NewRuleBuilder(pctx, ctx)
 	rule.Command().BuiltTool(tool).
-		Flags(m.flags).
+		Flags(flags).
 		Input(sepolicy).
 		Inputs(srcs)
 
