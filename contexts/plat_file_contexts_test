@@ -209,6 +209,7 @@
 /dev/socket/pdx/system/vr/display/vsync                           pdx_display_vsync_endpoint_socket
 /dev/socket/prng_seeder                                           prng_seeder_socket
 /dev/socket/property_service                                      property_socket
+/dev/socket/property_service_for_system                           property_socket
 /dev/socket/racoon                                                racoon_socket
 /dev/socket/recovery                                              recovery_socket
 /dev/socket/rild                                                  rild_socket
@@ -419,6 +420,7 @@
 /system/bin/profcollectd                                          profcollectd_exec
 /system/bin/profcollectctl                                        profcollectd_exec
 /system/bin/storaged                                              storaged_exec
+/system/bin/virtual_camera                                        virtual_camera_exec
 /system/bin/virtual_touchpad                                      virtual_touchpad_exec
 /system/bin/hw/android.frameworks.bufferhub@1.0-service           fwk_bufferhub_exec
 /system/bin/hw/android.system.suspend-service                     system_suspend_exec
@@ -1226,6 +1228,8 @@
 /metadata/userspacereboot/test                                    userspace_reboot_metadata_file
 /metadata/watchdog                                                watchdog_metadata_file
 /metadata/watchdog/test                                           watchdog_metadata_file
+/metadata/repair-mode                                             repair_mode_metadata_file
+/metadata/repair-mode/test                                        repair_mode_metadata_file
 
 /mnt/asec                                                         asec_apk_file
 /mnt/asec/test                                                    asec_apk_file
