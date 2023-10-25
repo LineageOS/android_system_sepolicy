@@ -59,6 +59,8 @@ type seappProperties struct {
 
 type selinuxContextsModule struct {
 	android.ModuleBase
+	android.DefaultableModuleBase
+	flaggableModuleBase
 
 	properties      selinuxContextsProperties
 	seappProperties seappProperties
@@ -68,6 +70,8 @@ type selinuxContextsModule struct {
 	installPath     android.InstallPath
 }
 
+var _ flaggableModule = (*selinuxContextsModule)(nil)
+
 var (
 	reuseContextsDepTag  = dependencyTag{name: "reuseContexts"}
 	syspropLibraryDepTag = dependencyTag{name: "sysprop_library"}
@@ -76,6 +80,7 @@ var (
 func init() {
 	pctx.HostBinToolVariable("fc_sort", "fc_sort")
 
+	android.RegisterModuleType("contexts_defaults", contextsDefaultsFactory)
 	android.RegisterModuleType("file_contexts", fileFactory)
 	android.RegisterModuleType("hwservice_contexts", hwServiceFactory)
 	android.RegisterModuleType("property_contexts", propertyFactory)
@@ -155,10 +160,32 @@ func newModule() *selinuxContextsModule {
 		&m.properties,
 		&m.seappProperties,
 	)
+	initFlaggableModule(m)
 	android.InitAndroidArchModule(m, android.DeviceSupported, android.MultilibCommon)
+	android.InitDefaultableModule(m)
 	android.AddLoadHook(m, func(ctx android.LoadHookContext) {
 		m.selinuxContextsHook(ctx)
 	})
+	return m
+}
+
+type contextsDefaults struct {
+	android.ModuleBase
+	android.DefaultsModuleBase
+}
+
+// contexts_defaults provides a set of properties that can be inherited by other contexts modules.
+// (file_contexts, property_contexts, seapp_contexts, etc.) A module can use the properties from a
+// contexts_defaults using `defaults: ["<:default_module_name>"]`. Properties of both modules are
+// erged (when possible) by prepending the default module's values to the depending module's values.
+func contextsDefaultsFactory() android.Module {
+	m := &contextsDefaults{}
+	m.AddProperties(
+		&selinuxContextsProperties{},
+		&seappProperties{},
+		&flagsProperties{},
+	)
+	android.InitDefaultsModule(m)
 	return m
 }
 
@@ -245,10 +272,12 @@ func (m *selinuxContextsModule) buildGeneralContexts(ctx android.ModuleContext, 
 		inputsWithNewline = append(inputsWithNewline, input, newlineFile)
 	}
 
+	flags := m.getBuildFlags(ctx)
 	rule.Command().
 		Tool(ctx.Config().PrebuiltBuildTool(ctx, "m4")).
 		Text("--fatal-warnings -s").
 		FlagForEachArg("-D", ctx.DeviceConfig().SepolicyM4Defs()).
+		Flags(flagsToM4Macros(flags)).
 		Inputs(inputsWithNewline).
 		FlagWithOutput("> ", builtContext)
 
