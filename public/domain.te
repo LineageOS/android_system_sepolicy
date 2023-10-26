@@ -440,6 +440,10 @@ neverallow { domain -init -vendor_init } proc_security:file { append open read w
 neverallow * init:binder *;
 neverallow * vendor_init:binder *;
 
+# Binderfs logs contain sensitive information about other processes.
+neverallow { domain -dumpstate -init -vendor_init userdebug_or_eng(`-domain') } { binderfs_logs binderfs_logs_proc }:file no_rw_file_perms;
+neverallow { domain -dumpstate -init -vendor_init -system_server } binderfs_logs_stats:file no_rw_file_perms;
+
 # Don't allow raw read/write/open access to block_device
 # Rather force a relabel to a more specific type
 neverallow { domain -kernel -init -recovery } block_device:blk_file { open read write };
