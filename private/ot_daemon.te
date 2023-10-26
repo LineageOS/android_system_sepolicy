@@ -29,3 +29,6 @@ hal_client_domain(ot_daemon, hal_threadnetwork)
 binder_use(ot_daemon)
 add_service(ot_daemon, ot_daemon_service)
 binder_call(ot_daemon, system_server)
+
+# Allow OT daemon to write to statsd
+unix_socket_send(ot_daemon, statsdw, statsd)
