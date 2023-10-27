@@ -392,6 +392,7 @@ var (
 		"search":                       EXCEPTION_NO_FUZZER,
 		"search_ui":                    EXCEPTION_NO_FUZZER,
 		"secure_element":               EXCEPTION_NO_FUZZER,
+		"security_state":               EXCEPTION_NO_FUZZER,
 		"sec_key_att_app_id_provider":  EXCEPTION_NO_FUZZER,
 		"selection_toolbar":            EXCEPTION_NO_FUZZER,
 		"sensorservice":                EXCEPTION_NO_FUZZER,
