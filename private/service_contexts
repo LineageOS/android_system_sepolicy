@@ -368,6 +368,7 @@ search                                    u:object_r:search_service:s0
 search_ui                                 u:object_r:search_ui_service:s0
 secure_element                            u:object_r:secure_element_service:s0
 sec_key_att_app_id_provider               u:object_r:sec_key_att_app_id_provider_service:s0
+security_state                            u:object_r:security_state_service:s0
 selection_toolbar                         u:object_r:selection_toolbar_service:s0
 sensorservice                             u:object_r:sensorservice_service:s0
 sensor_privacy                            u:object_r:sensor_privacy_service:s0
