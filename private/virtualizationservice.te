@@ -15,9 +15,6 @@ binder_use(virtualizationservice)
 # Let the virtualizationservice domain register the virtualization_service with ServiceManager.
 add_service(virtualizationservice, virtualization_service)
 
-# Allow registering as a remotely provisioned component for pVM remote attestation.
-add_service(virtualizationservice, avf_remotelyprovisionedcomponent_service)
-
 # Let virtualizationservice find and communicate with vfio_handler.
 allow virtualizationservice vfio_handler_service:service_manager find;
 binder_call(virtualizationservice, vfio_handler)
