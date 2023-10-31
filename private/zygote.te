@@ -76,6 +76,8 @@ allow zygote {
     user_profile_data_file
     # /storage/emulated/$userId/Android/{data,obb}
     media_rw_data_file
+    # /dev/__properties__
+    properties_device
 }:dir { mounton search };
 
 # Traverse /data_mirror to get to the above directories while their normal paths

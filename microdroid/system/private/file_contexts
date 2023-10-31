@@ -72,7 +72,9 @@
 /dev/vsock		u:object_r:vsock_device:s0
 /dev/zero		u:object_r:zero_device:s0
 /dev/__properties__ u:object_r:properties_device:s0
+/dev/__properties__/appcompat_override u:object_r:properties_device:s0
 /dev/__properties__/property_info   u:object_r:property_info:s0
+/dev/__properties__/appcompat_override/property_info   u:object_r:property_info:s0
 #############################
 # Linker configuration
 #
