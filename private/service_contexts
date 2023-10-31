@@ -435,6 +435,7 @@ user                                      u:object_r:user_service:s0
 uwb                                       u:object_r:uwb_service:s0
 vcn_management                            u:object_r:vcn_management_service:s0
 vibrator                                  u:object_r:vibrator_service:s0
+vibrator_control               	  	  u:object_r:vibrator_control_service:s0
 vibrator_manager                          u:object_r:vibrator_manager_service:s0
 virtualdevice                             u:object_r:virtual_device_service:s0
 virtualdevice_native                      u:object_r:virtual_device_native_service:s0
