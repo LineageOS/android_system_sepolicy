@@ -280,6 +280,8 @@
 /dev/zero                                                         zero_device
 /dev/__properties__                                               properties_device
 /dev/__properties__/property_info                                 property_info
+/dev/__properties__/appcompat_override                            properties_device
+/dev/__properties__/appcompat_override/property_info              property_info
 
 /linkerconfig                                                     linkerconfig_file
 /linkerconfig/test                                                linkerconfig_file

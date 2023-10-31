@@ -34,6 +34,8 @@ allow app_zygote system_server:process getpgid;
 # Interaction between the app_zygote and its children.
 allow app_zygote isolated_app:process setpgid;
 
+allow app_zygote properties_device:dir mounton;
+
 # TODO (b/63631799) fix this access
 dontaudit app_zygote mnt_expand_file:dir getattr;
 

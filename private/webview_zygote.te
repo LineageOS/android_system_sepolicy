@@ -83,6 +83,8 @@ allow webview_zygote same_process_hal_file:file { execute read open getattr map 
 
 allow webview_zygote system_data_file:lnk_file r_file_perms;
 
+allow webview_zygote properties_device:dir mounton;
+
 # Send unsolicited message to system_server
 unix_socket_send(webview_zygote, system_unsolzygote, system_server)
 
