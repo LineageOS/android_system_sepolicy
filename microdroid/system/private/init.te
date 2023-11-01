@@ -32,11 +32,11 @@ allow init {
 # /dev/__null__ node created by init.
 allow init tmpfs:chr_file { create setattr unlink rw_file_perms };
 
-# /dev/__properties__
+# /dev/__properties__ and /dev/__properties__/appcompat_override
 allow init properties_device:dir relabelto;
 allow init properties_serial:file { write relabelto };
 allow init property_type:file { append create getattr map open read relabelto rename setattr unlink write };
-# /dev/__properties__/property_info
+# /dev/__properties__/property_info and /dev/__properties__/appcompat_override/property_info
 allow init properties_device:file create_file_perms;
 allow init property_info:file relabelto;
 # /dev/socket
@@ -435,7 +435,3 @@ allow init self:netlink_audit_socket { create_socket_perms_no_ioctl nlmsg_relay 
 
 # PRNG seeder daemon socket is created and listened on by init before forking.
 allow init prng_seeder:unix_stream_socket { create bind listen };
-
-# Workaround for test failures (b/306516077)
-# We get a denial for this on VM boot, but the denial is correct.
-dontaudit init device:file relabelto;
