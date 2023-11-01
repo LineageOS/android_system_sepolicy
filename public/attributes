@@ -331,6 +331,7 @@ hal_attribute(allocator);
 hal_attribute(atrace);
 hal_attribute(audio);
 hal_attribute(audiocontrol);
+hal_attribute(authgraph);
 hal_attribute(authsecret);
 hal_attribute(bluetooth);
 hal_attribute(bootctl);
