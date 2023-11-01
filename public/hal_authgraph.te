@@ -1,0 +1,7 @@
+binder_call(hal_authgraph_client, hal_authgraph_server)
+
+hal_attribute_service(hal_authgraph, hal_authgraph_service)
+binder_call(hal_authgraph_server, servicemanager)
+
+allow hal_authgraph_server tee_device:chr_file rw_file_perms;
+allow hal_authgraph_server ion_device:chr_file r_file_perms;
