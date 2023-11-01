@@ -280,6 +280,7 @@ type emergency_affordance_service, system_server_service, service_manager_type;
 
 type hal_audio_service, protected_service, hal_service_type, service_manager_type;
 type hal_audiocontrol_service, hal_service_type, service_manager_type;
+type hal_authgraph_service, protected_service, hal_service_type, service_manager_type;
 type hal_authsecret_service, protected_service, hal_service_type, service_manager_type;
 type hal_bluetooth_service, protected_service, hal_service_type, service_manager_type;
 type hal_bootctl_service, protected_service, hal_service_type, service_manager_type;
