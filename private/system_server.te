@@ -1545,3 +1545,7 @@ neverallow { domain -init -system_server } font_data_file:dir no_w_dir_perms;
 
 # Allow system server to set dynamic ART properties.
 set_prop(system_server, dalvik_dynamic_config_prop)
+
+# Allow system server to read binderfs
+allow system_server binderfs_logs:dir r_dir_perms;
+allow system_server binderfs_logs_stats:file r_file_perms;
