@@ -983,6 +983,7 @@ allow system_server keystore:keystore2 {
 	change_user
 	clear_ns
 	clear_uid
+	get_last_auth_time
 	lock
 	pull_metrics
 	reset
