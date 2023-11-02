@@ -13,6 +13,8 @@ allow hal_drm self:process execmem;
 
 # Permit reading device's serial number from system properties
 get_prop(hal_drm_server, serialno_prop)
+# Permit reading force L3 system property
+get_prop(hal_drm_server, drm_forcel3_prop)
 
 # Read files already opened under /data
 allow hal_drm system_data_file:file { getattr read };

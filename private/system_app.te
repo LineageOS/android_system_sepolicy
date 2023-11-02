@@ -52,6 +52,7 @@ set_prop(system_app, timezone_prop)
 set_prop(system_app, usb_control_prop)
 set_prop(system_app, usb_prop)
 set_prop(system_app, log_tag_prop)
+set_prop(system_app, drm_forcel3_prop)
 userdebug_or_eng(`set_prop(system_app, logpersistd_logging_prop)')
 auditallow system_app net_radio_prop:property_service set;
 auditallow system_app usb_control_prop:property_service set;
