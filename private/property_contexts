@@ -827,6 +827,7 @@ build.version.extensions. u:object_r:module_sdkextensions_prop:s0 prefix int
 
 drm.64bit.enabled            u:object_r:mediadrm_config_prop:s0 exact bool
 media.mediadrmservice.enable u:object_r:mediadrm_config_prop:s0 exact bool
+persist.drm.forcel3.enabled  u:object_r:drm_forcel3_prop:s0 exact bool
 
 drm.service.enabled u:object_r:drm_service_config_prop:s0 exact bool
 
