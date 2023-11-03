@@ -289,8 +289,8 @@ func (m *selinuxContextsModule) buildGeneralContexts(ctx android.ModuleContext, 
 }
 
 func (m *selinuxContextsModule) buildFileContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
-	if m.properties.Fc_sort == nil {
-		m.properties.Fc_sort = proptools.BoolPtr(true)
+	if m.properties.Remove_comment == nil {
+		m.properties.Remove_comment = proptools.BoolPtr(true)
 	}
 	return m.buildGeneralContexts(ctx, inputs)
 }
