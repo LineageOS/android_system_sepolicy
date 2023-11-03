@@ -12,3 +12,6 @@ allow hal_vibrator_server dumpstate:fifo_file write;
 # vibrator sysfs rw access
 allow hal_vibrator sysfs_vibrator:file rw_file_perms;
 allow hal_vibrator sysfs_vibrator:dir search;
+
+# Allow HAL vibrator to control some parameters of a vibration, such as scaling.
+allow hal_vibrator vibrator_control_service:service_manager find;
