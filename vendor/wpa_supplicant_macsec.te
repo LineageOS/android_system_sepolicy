@@ -1,0 +1,28 @@
+# wpa supplicant macsec or equivalent
+type wpa_supplicant_macsec, domain;
+type wpa_supplicant_macsec_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(wpa_supplicant_macsec)
+
+net_domain(wpa_supplicant_macsec)
+
+# Allow wpa_supplicant to configure nl80211
+allow wpa_supplicant_macsec proc_net_type:file write;
+
+# in addition to ioctls allowlisted for all domains, grant wpa_supplicant_macsec priv_sock_ioctls.
+allowxperm wpa_supplicant_macsec self:udp_socket ioctl priv_sock_ioctls;
+
+r_dir_file(wpa_supplicant_macsec, sysfs_type)
+r_dir_file(wpa_supplicant_macsec, proc_net_type)
+
+allow wpa_supplicant_macsec self:global_capability_class_set { setuid net_admin setgid net_raw };
+allow wpa_supplicant_macsec cgroup:dir create_dir_perms;
+allow wpa_supplicant_macsec cgroup_v2:dir create_dir_perms;
+allow wpa_supplicant_macsec self:netlink_route_socket nlmsg_write;
+allow wpa_supplicant_macsec self:netlink_socket create_socket_perms_no_ioctl;
+allow wpa_supplicant_macsec self:netlink_generic_socket create_socket_perms_no_ioctl;
+allow wpa_supplicant_macsec self:packet_socket create_socket_perms;
+allowxperm wpa_supplicant_macsec self:packet_socket ioctl { unpriv_sock_ioctls priv_sock_ioctls unpriv_tty_ioctls };
+
+binder_use(wpa_supplicant_macsec)
+hal_client_domain(wpa_supplicant_macsec, hal_macsec)
+
