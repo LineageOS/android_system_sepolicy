@@ -459,6 +459,7 @@ var (
 		"uwb":                          EXCEPTION_NO_FUZZER,
 		"vcn_management":               EXCEPTION_NO_FUZZER,
 		"vibrator":                     EXCEPTION_NO_FUZZER,
+		"vibrator_control":             EXCEPTION_NO_FUZZER,
 		"vibrator_manager":             EXCEPTION_NO_FUZZER,
 		"virtualdevice":                EXCEPTION_NO_FUZZER,
 		"virtualdevice_native":         EXCEPTION_NO_FUZZER,

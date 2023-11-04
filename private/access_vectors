@@ -726,6 +726,7 @@ class keystore2
 	early_boot_ended
 	get_attestation_key
 	get_auth_token
+	get_last_auth_time
 	get_state
 	list
 	lock
