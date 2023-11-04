@@ -69,4 +69,9 @@
     <signer signature="@NETWORK_STACK" >
       <seinfo value="network_stack" />
     </signer>
+
+    <!-- NFC key in AOSP -->
+    <signer signature="@NFC" >
+      <seinfo value="nfc" />
+    </signer>
 </policy>
