@@ -92,6 +92,7 @@ genfscon proc /sys/vm/overcommit_memory u:object_r:proc_overcommit_memory:s0
 genfscon proc /sys/vm/min_free_order_shift u:object_r:proc_min_free_order_shift:s0
 genfscon proc /sys/vm/watermark_boost_factor u:object_r:proc_watermark_boost_factor:s0
 genfscon proc /sys/vm/watermark_scale_factor u:object_r:proc_watermark_scale_factor:s0
+genfscon proc /sys/vm/percpu_pagelist_high_fraction u:object_r:proc_percpu_pagelist_high_fraction:s0
 genfscon proc /timer_list u:object_r:proc_timer:s0
 genfscon proc /timer_stats u:object_r:proc_timer:s0
 genfscon proc /tty/drivers u:object_r:proc_tty_drivers:s0
