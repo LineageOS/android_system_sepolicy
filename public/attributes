@@ -365,6 +365,7 @@ hal_attribute(keymaster);
 hal_attribute(keymint);
 hal_attribute(light);
 hal_attribute(lowpan);
+hal_attribute(macsec);
 hal_attribute(memtrack);
 hal_attribute(neuralnetworks);
 hal_attribute(nfc);

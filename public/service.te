@@ -309,6 +309,7 @@ type hal_ir_service, protected_service, hal_service_type, service_manager_type;
 type hal_ivn_service, protected_service, hal_service_type, service_manager_type;
 type hal_keymint_service, protected_service, hal_service_type, service_manager_type;
 type hal_light_service, protected_service, hal_service_type, service_manager_type;
+type hal_macsec_service, protected_service, hal_service_type, service_manager_type;
 type hal_memtrack_service, protected_service, hal_service_type, service_manager_type;
 type hal_neuralnetworks_service, hal_service_type, service_manager_type;
 type hal_nfc_service, protected_service, hal_service_type, service_manager_type;
