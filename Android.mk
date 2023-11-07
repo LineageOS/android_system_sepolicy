@@ -94,13 +94,6 @@ define build_policy
 $(strip $(foreach type, $(1), $(foreach file, $(addsuffix /$(type), $(2)), $(sort $(wildcard $(file))))))
 endef
 
-# Builds paths for all policy files found in BOARD_VENDOR_SEPOLICY_DIRS.
-# $(1): the set of policy name paths to build
-build_vendor_policy = $(call build_policy, $(1), $(PLAT_VENDOR_POLICY) $(BOARD_VENDOR_SEPOLICY_DIRS))
-
-# Builds paths for all policy files found in BOARD_ODM_SEPOLICY_DIRS.
-build_odm_policy = $(call build_policy, $(1), $(BOARD_ODM_SEPOLICY_DIRS))
-
 sepolicy_build_files := security_classes \
                         initial_sids \
                         access_vectors \
@@ -465,21 +458,14 @@ include $(BUILD_SYSTEM)/base_rules.mk
 #  Note: That a newline file is placed between each file_context file found to
 #        ensure a proper build when an fc file is missing an ending newline.
 
-local_fc_files := $(call build_policy, file_contexts, $(PLAT_PRIVATE_POLICY))
+local_fc_files := $(call intermediates-dir-for,ETC,plat_file_contexts)/plat_file_contexts
 
 ifdef HAS_SYSTEM_EXT_SEPOLICY_DIR
-local_fc_files += $(call build_policy, file_contexts, $(SYSTEM_EXT_PRIVATE_POLICY))
+local_fc_files += $(call intermediates-dir-for,ETC,system_ext_file_contexts)/system_ext_file_contexts
 endif
 
 ifdef HAS_PRODUCT_SEPOLICY_DIR
-local_fc_files += $(call build_policy, file_contexts, $(PRODUCT_PRIVATE_POLICY))
-endif
-
-ifneq ($(filter address,$(SANITIZE_TARGET)),)
-  local_fc_files += $(wildcard $(addsuffix /file_contexts_asan, $(PLAT_PRIVATE_POLICY)))
-endif
-ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
-  local_fc_files += $(wildcard $(addsuffix /file_contexts_overlayfs, $(PLAT_PRIVATE_POLICY)))
+local_fc_files += $(call intermediates-dir-for,ETC,product_file_contexts)/product_file_contexts
 endif
 
 ###########################################################
@@ -506,10 +492,10 @@ $(call merge-fc-files,$(local_fc_files),$(file_contexts.local.tmp))
 # it gathers LOCAL_FILE_CONTEXTS from product_MODULES
 file_contexts.modules.tmp := $(intermediates)/file_contexts.modules.tmp
 
-device_fc_files := $(call build_vendor_policy, file_contexts)
+device_fc_files += $(call intermediates-dir-for,ETC,vendor_file_contexts)/vendor_file_contexts
 
 ifdef BOARD_ODM_SEPOLICY_DIRS
-device_fc_files += $(call build_odm_policy, file_contexts)
+device_fc_files += $(call intermediates-dir-for,ETC,odm_file_contexts)/odm_file_contexts
 endif
 
 file_contexts.device.tmp := $(intermediates)/file_contexts.device.tmp
@@ -573,8 +559,6 @@ base_product_pub_policy.cil :=
 #################################
 
 
-build_vendor_policy :=
-build_odm_policy :=
 build_policy :=
 built_sepolicy :=
 built_sepolicy_neverallows :=
