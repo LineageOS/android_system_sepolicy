@@ -1,0 +1,7 @@
+# Binder IPC from client to server, and callbacks
+binder_call(hal_macsec_client, hal_macsec_server)
+binder_call(hal_macsec_server, hal_macsec_client)
+
+hal_attribute_service(hal_macsec, hal_macsec_service)
+
+binder_use(hal_macsec_server)
