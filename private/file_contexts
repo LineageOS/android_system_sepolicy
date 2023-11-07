@@ -1,4 +1,25 @@
 ###########################################
+# Entries in this file describe the security context associated with a file
+# path. They are used when building the device image, to include the security
+# context within the extended file attributes of the file system. They are also
+# used at runtime when calling restorecon.
+#
+# Entries are merged with other file_contexts from other partitions (e.g.,
+# vendor or odm, see the full list at libselinux/src/android/android.c).
+#
+# The entries are evaluated by the following rules:
+# - Static entries (that is, not using regular expressions) are always
+#   evaluated first.
+# - The first matching entry is used.
+# - Entries are evaluated from the bottom to the top.
+#
+# Based on these rules, it is recommended that the less specific entries appear
+# first. For instance:
+#    /dev(/.*)?        u:object_r:device:s0
+#    /dev/block(/.*)?  u:object_r:block_device:s0
+#    /dev/block/my_dev u:object_r:my_dev:s0
+#
+
 # Root
 /                   u:object_r:rootfs:s0
 
@@ -741,16 +762,7 @@
 # Expanded data files
 #
 /mnt/expand                                         u:object_r:mnt_expand_file:s0
-# CAREFUL: the two system_data_file patterns below can't be replaced with one
-# pattern "/mnt/expand/[^/]+(/.*)?", since SELinux would prioritize that over
-# "/mnt/expand/[^/]+/user".  This is because when a path is matched by two
-# patterns that contain regex meta-characters, SELinux just chooses the longer
-# pattern (or the later pattern if the patterns are the same length), rather
-# than the pattern containing fewer regex meta-characters.  Splitting the
-# pattern into "/mnt/expand/[^/]+" and "/mnt/expand/[^/]+/.*" works around this
-# problem, except for 1-character filenames which we aren't using.
-/mnt/expand/[^/]+                                   u:object_r:system_data_file:s0
-/mnt/expand/[^/]+/.*                                u:object_r:system_data_file:s0
+/mnt/expand/[^/]+(/.*)?                             u:object_r:system_data_file:s0
 /mnt/expand/[^/]+/app(/.*)?                         u:object_r:apk_data_file:s0
 /mnt/expand/[^/]+/app/[^/]+/oat(/.*)?               u:object_r:dalvikcache_data_file:s0
 # /mnt/expand/..../app/[randomStringA]/[packageName]-[randomStringB]/base.apk layout
