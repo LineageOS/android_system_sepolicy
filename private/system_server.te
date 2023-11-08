@@ -1185,6 +1185,9 @@ allow system_server { fs_bpf fs_bpf_net_shared fs_bpf_netd_readonly fs_bpf_netd_
 allow system_server bpfloader:bpf { map_read map_write prog_run };
 # in order to invoke side effect of close() on such a socket calling synchronize_rcu()
 allow system_server self:key_socket create;
+# Java's Os.close() in libcore/luni/src/main/java/libcore/io/BlockGuardOs.java;l=100
+# calls if (fd.isSocket$()) if (isLingerSocket(fd)) ...
+dontaudit system_server self:key_socket getopt;
 
 # Allow system_server to start clatd in its own domain and kill it.
 domain_auto_trans(system_server, clatd_exec, clatd)
