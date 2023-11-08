@@ -43,7 +43,6 @@ allow network_stack radio_data_file:file create_file_perms;
 binder_call(network_stack, netd);
 
 # in order to invoke side effect of close() on such a socket calling synchronize_rcu()
-# TODO: Remove this permission when 4.9 kernel is deprecated.
 allow network_stack self:key_socket create;
 # Java's Os.close() in libcore/luni/src/main/java/libcore/io/BlockGuardOs.java;l=100
 # calls if (fd.isSocket$()) if (isLingerSocket(fd)) ...
