@@ -29,6 +29,9 @@ func init() {
 }
 
 type neverallowTestProperties struct {
+	// Default modules for conf
+	Defaults []string
+
 	// Policy files to be tested.
 	Srcs []string `android:"path"`
 }
@@ -79,6 +82,10 @@ func (n *neverallowTestModule) loadHook(ctx android.LoadHookContext) {
 		Srcs:          n.properties.Srcs,
 		Build_variant: proptools.StringPtr("user"),
 		Installable:   proptools.BoolPtr(false),
+	}, &struct {
+		Defaults []string
+	}{
+		Defaults: n.properties.Defaults,
 	})
 
 	sepolicyAnalyzeConf := n.sepolicyAnalyzeConfModuleName()
@@ -89,6 +96,10 @@ func (n *neverallowTestModule) loadHook(ctx android.LoadHookContext) {
 		Build_variant:      proptools.StringPtr("user"),
 		Exclude_build_test: proptools.BoolPtr(true),
 		Installable:        proptools.BoolPtr(false),
+	}, &struct {
+		Defaults []string
+	}{
+		Defaults: n.properties.Defaults,
 	})
 }
 
