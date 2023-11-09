@@ -2,6 +2,7 @@ android.frameworks.cameraservice.service.ICameraService/default      u:object_r:
 android.frameworks.location.altitude.IAltitudeService/default        u:object_r:fwk_altitude_service:s0
 android.frameworks.stats.IStats/default                              u:object_r:fwk_stats_service:s0
 android.frameworks.sensorservice.ISensorManager/default              u:object_r:fwk_sensor_service:s0
+android.frameworks.vibrator.IVibratorControlService/default          u:object_r:fwk_vibrator_control_service:s0
 android.hardware.audio.core.IConfig/default                          u:object_r:hal_audio_service:s0
 # 'default' IModule is equivalent to 'primary' in HIDL
 android.hardware.audio.core.IModule/default                          u:object_r:hal_audio_service:s0
@@ -438,7 +439,6 @@ user                                      u:object_r:user_service:s0
 uwb                                       u:object_r:uwb_service:s0
 vcn_management                            u:object_r:vcn_management_service:s0
 vibrator                                  u:object_r:vibrator_service:s0
-vibrator_control               	  	  u:object_r:vibrator_control_service:s0
 vibrator_manager                          u:object_r:vibrator_manager_service:s0
 virtualdevice                             u:object_r:virtual_device_service:s0
 virtualdevice_native                      u:object_r:virtual_device_native_service:s0
