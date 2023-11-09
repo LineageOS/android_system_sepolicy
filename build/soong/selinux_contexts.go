@@ -17,7 +17,6 @@ package selinux
 import (
 	"fmt"
 	"io"
-	"os"
 
 	"github.com/google/blueprint"
 	"github.com/google/blueprint/proptools"
@@ -338,7 +337,7 @@ func (m *selinuxContextsModule) buildServiceContexts(ctx android.ModuleContext, 
 	return m.buildGeneralContexts(ctx, inputs)
 }
 
-func (m *selinuxContextsModule) checkVendorPropertyNamespace(ctx android.ModuleContext, inputs android.Paths) android.Paths {
+func (m *selinuxContextsModule) checkVendorPropertyNamespace(ctx android.ModuleContext, input android.Path) android.Path {
 	shippingApiLevel := ctx.DeviceConfig().ShippingApiLevel()
 	ApiLevelR := android.ApiLevelOrPanic(ctx, "R")
 
@@ -379,36 +378,32 @@ func (m *selinuxContextsModule) checkVendorPropertyNamespace(ctx android.ModuleC
 		}
 	}
 
-	var ret android.Paths
-	for _, input := range inputs {
-		cmd := rule.Command().
-			BuiltTool("check_prop_prefix").
-			FlagWithInput("--property-contexts ", input).
-			FlagForEachArg("--allowed-property-prefix ", proptools.ShellEscapeList(allowedPropertyPrefixes)). // contains shell special character '$'
-			FlagForEachArg("--allowed-context-prefix ", allowedContextPrefixes)
+	cmd := rule.Command().
+		BuiltTool("check_prop_prefix").
+		FlagWithInput("--property-contexts ", input).
+		FlagForEachArg("--allowed-property-prefix ", proptools.ShellEscapeList(allowedPropertyPrefixes)). // contains shell special character '$'
+		FlagForEachArg("--allowed-context-prefix ", allowedContextPrefixes)
 
-		if !ctx.DeviceConfig().BuildBrokenVendorPropertyNamespace() {
-			cmd.Flag("--strict")
-		}
-
-		out := pathForModuleOut(ctx, "namespace_checked").Join(ctx, input.String())
-		rule.Command().Text("cp -f").Input(input).Output(out)
-		ret = append(ret, out)
+	if !ctx.DeviceConfig().BuildBrokenVendorPropertyNamespace() {
+		cmd.Flag("--strict")
 	}
+
+	out := pathForModuleOut(ctx, "namespace_checked").Join(ctx, input.String())
+	rule.Command().Text("cp -f").Input(input).Output(out)
 	rule.Build("check_namespace", "checking namespace of "+ctx.ModuleName())
-	return ret
+	return out
 }
 
 func (m *selinuxContextsModule) buildPropertyContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
 	// vendor/odm properties are enforced for devices launching with Android Q or later. So, if
 	// vendor/odm, make sure that only vendor/odm properties exist.
+	builtCtxFile := m.buildGeneralContexts(ctx, inputs)
+
 	shippingApiLevel := ctx.DeviceConfig().ShippingApiLevel()
 	ApiLevelQ := android.ApiLevelOrPanic(ctx, "Q")
 	if (ctx.SocSpecific() || ctx.DeviceSpecific()) && shippingApiLevel.GreaterThanOrEqualTo(ApiLevelQ) {
-		inputs = m.checkVendorPropertyNamespace(ctx, inputs)
+		builtCtxFile = m.checkVendorPropertyNamespace(ctx, builtCtxFile)
 	}
-
-	builtCtxFile := m.buildGeneralContexts(ctx, inputs)
 
 	var apiFiles android.Paths
 	ctx.VisitDirectDepsWithTag(syspropLibraryDepTag, func(c android.Module) {
@@ -458,23 +453,39 @@ func (m *selinuxContextsModule) shouldCheckCoredomain(ctx android.ModuleContext)
 
 func (m *selinuxContextsModule) buildSeappContexts(ctx android.ModuleContext, inputs android.Paths) android.Path {
 	neverallowFile := pathForModuleOut(ctx, "neverallow")
-	ret := pathForModuleOut(ctx, m.stem())
+	ret := pathForModuleOut(ctx, "checkseapp", m.stem())
 
+	// Step 1. Generate a M4 processed neverallow file
+	flags := m.getBuildFlags(ctx)
+	m4NeverallowFile := pathForModuleOut(ctx, "neverallow.m4out")
 	rule := android.NewRuleBuilder(pctx, ctx)
-	rule.Command().Text("(grep").
+	rule.Command().
+		Tool(ctx.Config().PrebuiltBuildTool(ctx, "m4")).
+		Flag("--fatal-warnings").
+		FlagForEachArg("-D", ctx.DeviceConfig().SepolicyM4Defs()).
+		Flags(flagsToM4Macros(flags)).
+		Inputs(android.PathsForModuleSrc(ctx, m.seappProperties.Neverallow_files)).
+		FlagWithOutput("> ", m4NeverallowFile)
+
+	rule.Temporary(m4NeverallowFile)
+	rule.Command().
+		Text("( grep").
 		Flag("-ihe").
 		Text("'^neverallow'").
-		Inputs(android.PathsForModuleSrc(ctx, m.seappProperties.Neverallow_files)).
-		Text(os.DevNull). // to make grep happy even when Neverallow_files is empty
+		Input(m4NeverallowFile).
 		Text(">").
 		Output(neverallowFile).
-		Text("|| true)") // to make ninja happy even when result is empty
+		Text("|| true )") // to make ninja happy even when result is empty
 
+	// Step 2. Generate a M4 processed contexts file
+	builtCtx := m.buildGeneralContexts(ctx, inputs)
+
+	// Step 3. checkseapp
 	rule.Temporary(neverallowFile)
 	checkCmd := rule.Command().BuiltTool("checkseapp").
 		FlagWithInput("-p ", android.PathForModuleSrc(ctx, proptools.String(m.seappProperties.Sepolicy))).
 		FlagWithOutput("-o ", ret).
-		Inputs(inputs).
+		Input(builtCtx).
 		Input(neverallowFile)
 
 	if m.shouldCheckCoredomain(ctx) {

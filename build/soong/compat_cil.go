@@ -129,6 +129,7 @@ var _ android.OutputFileProducer = (*compatCil)(nil)
 // current policy.
 func compatTestFactory() android.SingletonModule {
 	f := &compatTestModule{}
+	f.AddProperties(&f.properties)
 	android.InitAndroidModule(f)
 	android.AddLoadHook(f, func(ctx android.LoadHookContext) {
 		f.loadHook(ctx)
@@ -138,6 +139,10 @@ func compatTestFactory() android.SingletonModule {
 
 type compatTestModule struct {
 	android.SingletonModuleBase
+	properties struct {
+		// Default modules for conf
+		Defaults []string
+	}
 
 	compatTestTimestamp android.ModuleOutPath
 }
@@ -157,6 +162,10 @@ func (f *compatTestModule) createPlatPubVersionedModule(ctx android.LoadHookCont
 			":se_build_files{.reqd_mask}",
 		},
 		Installable: proptools.BoolPtr(false),
+	}, &struct {
+		Defaults []string
+	}{
+		Defaults: f.properties.Defaults,
 	})
 
 	ctx.CreateModule(policyCilFactory, &nameProperties{

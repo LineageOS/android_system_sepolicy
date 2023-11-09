@@ -76,7 +76,7 @@ if len(violations) > 0:
     print('%d violations found:' % len(violations))
     print('\n'.join(violations))
     print('******************************')
-    print('%s contains properties which are not properly namespaced.' % args.property_contexts)
+    print("vendor's and odm's property_contexts MUST use ONLY vendor-prefixed properties.")
     print('This is enforced by VTS, so please fix such offending properties.')
     if args.allowed_property_prefix:
         print('Allowed property prefixes for %s: %s' % (args.property_contexts, args.allowed_property_prefix))
