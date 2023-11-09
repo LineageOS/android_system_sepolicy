@@ -103,6 +103,7 @@ product_private_policy    = [":se_build_files{.product_private}"]
 // policy and subsequent removal of CIL policy that should not be exported.
 se_policy_conf {
     name: "reqd_policy_mask.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: reqd_mask_policy,
     installable: false,
 }
@@ -138,6 +139,7 @@ se_policy_cil {
 //
 se_policy_conf {
     name: "pub_policy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         system_ext_public_policy +
         product_public_policy +
@@ -157,6 +159,7 @@ se_policy_cil {
 
 se_policy_conf {
     name: "system_ext_pub_policy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         system_ext_public_policy +
         reqd_mask_policy,
@@ -175,6 +178,7 @@ se_policy_cil {
 
 se_policy_conf {
     name: "plat_pub_policy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         reqd_mask_policy,
     installable: false,
@@ -195,6 +199,7 @@ se_policy_cil {
 // currently being attributized.
 se_policy_conf {
     name: "plat_sepolicy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         plat_private_policy,
     installable: false,
@@ -210,6 +215,7 @@ se_policy_cil {
 // userdebug_plat_policy.conf - the userdebug version plat_sepolicy.cil
 se_policy_conf {
     name: "userdebug_plat_sepolicy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         plat_private_policy,
     build_variant: "userdebug",
@@ -260,6 +266,7 @@ gsi_se_policy_cil {
 // policy which will ship with the device. System_ext policy is not attributized
 se_policy_conf {
     name: "system_ext_sepolicy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         plat_private_policy +
         system_ext_public_policy +
@@ -280,6 +287,7 @@ se_policy_cil {
 // which will ship with the device. Product policy is not attributized
 se_policy_conf {
     name: "product_sepolicy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         plat_private_policy +
         system_ext_public_policy +
@@ -348,6 +356,7 @@ se_versioned_policy {
 // policy and the platform public policy files in order to use checkpolicy.
 se_policy_conf {
     name: "vendor_sepolicy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         system_ext_public_policy +
         product_public_policy +
@@ -389,6 +398,7 @@ se_versioned_policy {
 // policy and the platform public policy files in order to use checkpolicy.
 se_policy_conf {
     name: "odm_sepolicy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         system_ext_public_policy +
         product_public_policy +
@@ -598,6 +608,7 @@ precompiled_se_policy_binary {
 // policy for recovery
 se_policy_conf {
     name: "recovery_sepolicy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         plat_private_policy +
         system_ext_public_policy +
@@ -634,6 +645,7 @@ se_policy_binary {
 //////////////////////////////////
 se_policy_conf {
     name: "general_sepolicy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         plat_private_policy,
     build_variant: "user",
@@ -650,6 +662,7 @@ se_policy_conf {
 //////////////////////////////////
 se_policy_conf {
     name: "base_plat_sepolicy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         plat_private_policy,
     build_variant: "user",
@@ -675,6 +688,7 @@ se_policy_binary {
 
 se_policy_conf {
     name: "base_product_sepolicy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         plat_private_policy +
         system_ext_public_policy +
@@ -704,6 +718,7 @@ se_policy_binary {
 
 se_policy_conf {
     name: "base_plat_pub_policy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         reqd_mask_policy,
     build_variant: "user",
@@ -723,6 +738,7 @@ se_policy_cil {
 
 se_policy_conf {
     name: "base_product_pub_policy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         system_ext_public_policy +
         product_public_policy +
@@ -770,6 +786,7 @@ se_bug_map {
 
 se_neverallow_test {
     name: "sepolicy_neverallows",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: plat_public_policy +
         plat_private_policy +
         system_ext_public_policy +
