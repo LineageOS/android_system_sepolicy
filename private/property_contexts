@@ -62,6 +62,7 @@ persist.debug.user_mode_emulation u:object_r:system_user_mode_emulation_prop:s0
 logd.                   u:object_r:logd_prop:s0
 persist.logd.           u:object_r:logd_prop:s0
 ro.logd.                u:object_r:logd_prop:s0
+persist.logd.audit.rate u:object_r:logd_auditrate_prop:s0
 persist.logd.security   u:object_r:device_logging_prop:s0
 persist.logd.logpersistd        u:object_r:logpersistd_logging_prop:s0
 logd.logpersistd        u:object_r:logpersistd_logging_prop:s0
