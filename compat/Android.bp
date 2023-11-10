@@ -429,6 +429,7 @@ se_compat_cil {
 
 se_compat_test {
     name: "sepolicy_compat_test",
+    defaults: ["se_policy_conf_flags_defaults"],
 }
 
 se_build_files {
