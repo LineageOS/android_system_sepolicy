@@ -862,9 +862,8 @@ libc.debug.gwp_asan.          u:object_r:gwp_asan_prop:s0 prefix string
 persist.libc.debug.gwp_asan.  u:object_r:gwp_asan_prop:s0 prefix string
 
 # shell-only props for ARM memory tagging (MTE).
-arm64.memtag. u:object_r:arm64_memtag_prop:s0 prefix string
-persist.arm64.memtag.default u:object_r:arm64_memtag_prop:s0 exact string
-persist.arm64.memtag.app_default u:object_r:arm64_memtag_prop:s0 exact string
+arm64.memtag.         u:object_r:arm64_memtag_prop:s0 prefix string
+persist.arm64.memtag. u:object_r:arm64_memtag_prop:s0 prefix string
 
 net.redirect_socket_calls.hooked u:object_r:socket_hook_prop:s0 exact bool
 
