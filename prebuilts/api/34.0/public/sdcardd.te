@@ -16,6 +16,7 @@ allow sdcardd self:global_capability_class_set { setuid setgid dac_override dac_
 allow sdcardd { sdcard_type fuse }:dir create_dir_perms;
 allow sdcardd { sdcard_type fuse }:file create_file_perms;
 
+allow sdcardd media_userdir_file:dir r_dir_perms;
 allow sdcardd media_rw_data_file:dir create_dir_perms;
 allow sdcardd media_rw_data_file:file create_file_perms;
 
