@@ -93,6 +93,7 @@ android.hardware.rebootescrow.IRebootEscrow/default                  u:object_r:
 android.hardware.security.authgraph.IAuthGraphKeyExchange/nonsecure  u:object_r:hal_authgraph_service:s0
 android.hardware.security.keymint.IKeyMintDevice/default             u:object_r:hal_keymint_service:s0
 android.hardware.security.keymint.IRemotelyProvisionedComponent/default u:object_r:hal_remotelyprovisionedcomponent_service:s0
+android.hardware.security.keymint.IRemotelyProvisionedComponent/avf     u:object_r:avf_remotelyprovisionedcomponent_service:s0
 android.hardware.gatekeeper.IGatekeeper/default                      u:object_r:hal_gatekeeper_service:s0
 android.hardware.security.secureclock.ISecureClock/default             u:object_r:hal_secureclock_service:s0
 android.hardware.security.sharedsecret.ISharedSecret/default             u:object_r:hal_sharedsecret_service:s0
