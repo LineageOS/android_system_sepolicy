@@ -309,7 +309,7 @@ var (
 		"logd":                         EXCEPTION_NO_FUZZER,
 		"looper_stats":                 EXCEPTION_NO_FUZZER,
 		"lpdump_service":               EXCEPTION_NO_FUZZER,
-		"mdns":                         []string{"mdns_service_fuzzer"},
+		"mdns":                         EXCEPTION_NO_FUZZER,
 		"media.aaudio":                 EXCEPTION_NO_FUZZER,
 		"media.audio_flinger":          []string{"audioflinger_aidl_fuzzer"},
 		"media.audio_policy":           []string{"audiopolicy_aidl_fuzzer"},
