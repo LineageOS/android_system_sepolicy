@@ -150,6 +150,8 @@
 /dev/gnss10                                                       gnss_device
 /dev/graphics                                                     graphics_device
 /dev/graphics/test                                                graphics_device
+/dev/hidraw0                                                      hidraw_device
+/dev/hidraw1                                                      hidraw_device
 /dev/hw_random                                                    hw_random_device
 /dev/hwbinder                                                     hwbinder_device
 /dev/input                                                        input_device

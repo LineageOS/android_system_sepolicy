@@ -478,6 +478,8 @@ allow system_server adbd_socket:sock_file rw_file_perms;
 allow system_server rtc_device:chr_file rw_file_perms;
 allow system_server audio_device:dir r_dir_perms;
 allow system_server uhid_device:chr_file rw_file_perms;
+allow system_server hidraw_device:dir r_dir_perms;
+allow system_server hidraw_device:chr_file rw_file_perms;
 
 # write access to ALSA interfaces (/dev/snd/*) needed for MIDI
 allow system_server audio_device:chr_file rw_file_perms;
