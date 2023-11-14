@@ -129,3 +129,6 @@ type userdata_sysdev, dev_type;
 
 # Root disk file for disk tunables
 type rootdisk_sysdev, dev_type;
+
+# vfio device
+type vfio_device, dev_type;
