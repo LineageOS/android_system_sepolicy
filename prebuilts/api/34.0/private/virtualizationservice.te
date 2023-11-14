@@ -15,6 +15,10 @@ binder_use(virtualizationservice)
 # Let the virtualizationservice domain register the virtualization_service with ServiceManager.
 add_service(virtualizationservice, virtualization_service)
 
+# Let virtualizationservice find and communicate with vfio_handler.
+allow virtualizationservice vfio_handler_service:service_manager find;
+binder_call(virtualizationservice, vfio_handler)
+
 # Allow calling into the system server to find "permission_service".
 binder_call(virtualizationservice, system_server)
 allow virtualizationservice permission_service:service_manager find;
@@ -54,6 +58,14 @@ unix_socket_connect(virtualizationservice, tombstoned_crash, tombstoned)
 allow virtualizationservice tombstone_data_file:file { append getattr };
 allow virtualizationservice tombstoned:fd use;
 
+# Allow virtualizationservice to check if VFIO is supported
+allow virtualizationservice vfio_device:chr_file getattr;
+allow virtualizationservice vfio_device:dir r_dir_perms;
+
+# Allow virtualizationservice to access VM DTBO via a pipe created by vfio handler.
+allow virtualizationservice vfio_handler:fd use;
+allow virtualizationservice vfio_handler:fifo_file r_file_perms;
+
 neverallow {
   domain
   -init
@@ -72,3 +84,6 @@ neverallow virtualizationservice {
   -virtualizationmanager
   -virtualizationservice
 }:process setrlimit;
+
+# Only virtualizationservice can communicate to vfio_handler
+neverallow { domain -virtualizationservice -servicemanager } vfio_handler:binder call;
