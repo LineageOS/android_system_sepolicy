@@ -13,4 +13,5 @@ expandattribute system_and_vendor_property_type false;
 
 # All SDK sandbox domains
 attribute sdk_sandbox_all;
-
+# The SDK sandbox domains for the current SDK level.
+attribute sdk_sandbox_current;
