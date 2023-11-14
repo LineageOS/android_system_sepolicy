@@ -319,7 +319,6 @@ type hal_power_stats_service, protected_service, hal_service_type, service_manag
 type hal_radio_service, protected_service, hal_service_type, service_manager_type;
 type hal_rebootescrow_service, protected_service, hal_service_type, service_manager_type;
 type hal_remoteaccess_service, protected_service, hal_service_type, service_manager_type;
-type avf_remotelyprovisionedcomponent_service, protected_service, hal_service_type, service_manager_type;
 type hal_remotelyprovisionedcomponent_service, protected_service, hal_service_type, service_manager_type;
 type hal_sensors_service, protected_service, hal_service_type, service_manager_type;
 type hal_secureclock_service, protected_service, hal_service_type, service_manager_type;
