@@ -423,6 +423,7 @@ tracing.proxy                             u:object_r:tracingproxy_service:s0
 translation                               u:object_r:translation_service:s0
 transparency                              u:object_r:transparency_service:s0
 trust                                     u:object_r:trust_service:s0
+tv_ad                                     u:object_r:tv_ad_service:s0
 tv_interactive_app                        u:object_r:tv_iapp_service:s0
 tv_input                                  u:object_r:tv_input_service:s0
 tv_tuner_resource_mgr                     u:object_r:tv_tuner_resource_mgr_service:s0
