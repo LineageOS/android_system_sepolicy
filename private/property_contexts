@@ -1480,6 +1480,8 @@ ro.setupwizard.esim_cid_ignore u:object_r:setupwizard_prop:s0 exact string
 ro.setupwizard.rotation_locked u:object_r:setupwizard_prop:s0 exact bool
 ro.setupwizard.wifi_on_exit    u:object_r:setupwizard_prop:s0 exact bool
 
+ro.setupwizard.mode            u:object_r:setupwizard_mode_prop:s0 exact string
+
 setupwizard.enable_assist_gesture_training                         u:object_r:setupwizard_prop:s0 exact bool
 setupwizard.feature.avoid_duplicate_tos                            u:object_r:setupwizard_prop:s0 exact bool
 setupwizard.feature.baseline_setupwizard_enabled                   u:object_r:setupwizard_prop:s0 exact bool
