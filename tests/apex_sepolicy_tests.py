@@ -59,10 +59,11 @@ class Regex:
 Matcher = Is | Glob | Regex
 
 @dataclass
-class AllowRead:
-    """Rule checking if scontext can read the entity"""
+class AllowPerm:
+    """Rule checking if scontext has 'perm' to the entity"""
     tclass: str
     scontext: set[str]
+    perm: str
 
 
 @dataclass
@@ -71,7 +72,12 @@ class ResolveType:
     pass
 
 
-Rule = AllowRead | ResolveType
+Rule = AllowPerm | ResolveType
+
+
+# Helper for 'read'
+def AllowRead(tclass, scontext):
+    return AllowPerm(tclass, scontext, 'read')
 
 
 def match_path(path: str, matcher: Matcher) -> bool:
@@ -89,17 +95,17 @@ def check_rule(pol, path: str, tcontext: str, rule: Rule) -> List[str]:
     """Returns error message if scontext can't read the target"""
     errors = []
     match rule:
-        case AllowRead(tclass, scontext):
+        case AllowPerm(tclass, scontext, perm):
             # Test every source in scontext(set)
             for s in scontext:
                 te_rules = list(pol.QueryTERule(scontext={s},
                                                 tcontext={tcontext},
                                                 tclass={tclass},
-                                                perms={'read'}))
+                                                perms={perm}))
                 if len(te_rules) > 0:
                     continue  # no errors
 
-                errors.append(f"Error: {path}: {s} can't read. (tcontext={tcontext})")
+                errors.append(f"Error: {path}: {s} can't {perm}. (tcontext={tcontext})")
         case ResolveType():
             if tcontext not in pol.GetAllTypes(False):
                 errors.append(f"Error: {path}: tcontext({tcontext}) is unknown")
@@ -122,7 +128,7 @@ generic_rules = [
     (Glob('./etc/vintf/*.xml'), AllowRead('file', {'servicemanager', 'apexd'})),
     # ./ and apex_manifest.pb
     (Is('./apex_manifest.pb'), AllowRead('file', {'linkerconfig', 'apexd'})),
-    (Is('./'), AllowRead('dir', {'linkerconfig', 'apexd'})),
+    (Is('./'), AllowPerm('dir', {'linkerconfig', 'apexd'}, 'search')),
     # linker.config.pb
     (Is('./etc/linker.config.pb'), AllowRead('file', {'linkerconfig'})),
 ]
