@@ -132,6 +132,9 @@ allow shell remount_exec:file rx_file_perms;
 allow shell self:perf_event { open read write kernel };
 neverallow shell self:perf_event ~{ open read write kernel };
 
+# Allow shell to read microdroid vendor image
+r_dir_file(shell, vendor_microdroid_file)
+
 # Allow shell to read /apex/apex-info-list.xml and the vendor apexes
 allow shell apex_info_file:file r_file_perms;
 allow shell vendor_apex_file:file r_file_perms;

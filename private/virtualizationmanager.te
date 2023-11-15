@@ -94,6 +94,9 @@ userdebug_or_eng(`
   allow virtualizationmanager shell_data_file:file open;
 ')
 
+# Allow virtualizationmanager to read microdroid related files in vendor partition
+r_dir_file(virtualizationmanager, vendor_microdroid_file)
+
 # Allow reading files under /proc/[crosvm pid]/, for collecting CPU & memory usage inside VM.
 r_dir_file(virtualizationmanager, crosvm);
 
