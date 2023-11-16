@@ -385,6 +385,7 @@ genfscon binder /hwbinder u:object_r:hwbinder_device:s0
 genfscon binder /vndbinder u:object_r:vndbinder_device:s0
 genfscon binder /binder_logs u:object_r:binderfs_logs:s0
 genfscon binder /binder_logs/proc u:object_r:binderfs_logs_proc:s0
+genfscon binder /binder_logs/stats u:object_r:binderfs_logs_stats:s0
 genfscon binder /features u:object_r:binderfs_features:s0
 
 genfscon inotifyfs / u:object_r:inotify:s0
