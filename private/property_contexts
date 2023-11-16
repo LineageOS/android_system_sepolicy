@@ -1430,6 +1430,8 @@ persist.graphics.egl             u:object_r:graphics_config_writable_prop:s0 exa
 
 ro.cpuvulkan.version u:object_r:graphics_config_prop:s0 exact int
 
+ro.vulkan.apex          u:object_r:graphics_config_prop:s0 exact string
+
 # surfaceflinger-settable
 graphics.display.kernel_idle_timer.enabled u:object_r:surfaceflinger_display_prop:s0 exact bool
 
