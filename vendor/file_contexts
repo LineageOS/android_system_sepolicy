@@ -171,7 +171,7 @@
 /(vendor|system/vendor)/lib(64)?/android\.hardware\.graphics\.mapper@4\.0\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/android\.hardware\.renderscript@1\.0\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/android\.hidl\.memory\.token@1\.0\.so u:object_r:same_process_hal_file:s0
-/(vendor|system/vendor)/lib(64)?/android\.hidl\.memory@1\.0-impl\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/hw/android\.hidl\.memory@1\.0-impl\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/android\.hidl\.memory@1\.0\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/android\.hidl\.safe_union@1\.0\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libRSCpuRef\.so u:object_r:same_process_hal_file:s0
