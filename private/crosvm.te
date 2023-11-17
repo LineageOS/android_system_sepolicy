@@ -27,7 +27,7 @@ allow crosvm virtualizationmanager:fifo_file write;
 
 # Let crosvm read the composite disk images (virtualizationservice_data_file), APEXes
 # (staging_data_file), APKs (apk_data_file and shell_data_file where the latter is for test apks in
-# /data/local/tmp), and instance.img (app_data_file).
+# /data/local/tmp), instance.img (app_data_file), and microdroid vendor image (vendor_microdroid_file).
 # Allow crosvm to read the instance image of the service VM saved in apex_virt_data_file.
 # Note that the open permission is not given as the files are passed as file descriptors.
 allow crosvm {
@@ -39,6 +39,7 @@ allow crosvm {
   apex_compos_data_file
   apex_virt_data_file
   shell_data_file
+  vendor_microdroid_file
 }:file { getattr read ioctl lock };
 
 # Allow searching the directory where the composite disk images are.
@@ -126,6 +127,7 @@ full_treble_only(`
     # These types are not required for crosvm, but the access is granted to globally in domain.te
     # thus should be exempted here.
     -vendor_configs_file
+    -vendor_microdroid_file
     -vndk_sp_file
     -vendor_task_profiles_file
   }:file *;
