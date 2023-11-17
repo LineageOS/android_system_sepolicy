@@ -388,7 +388,7 @@ func (m *selinuxContextsModule) checkVendorPropertyNamespace(ctx android.ModuleC
 		cmd.Flag("--strict")
 	}
 
-	out := pathForModuleOut(ctx, "namespace_checked").Join(ctx, input.String())
+	out := pathForModuleOut(ctx, ctx.ModuleName()+"_namespace_checked")
 	rule.Command().Text("cp -f").Input(input).Output(out)
 	rule.Build("check_namespace", "checking namespace of "+ctx.ModuleName())
 	return out
