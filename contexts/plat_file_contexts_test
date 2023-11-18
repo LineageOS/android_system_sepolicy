@@ -540,6 +540,8 @@
 /vendor/framework/test                                            vendor_framework_file
 /system/vendor/framework                                          vendor_framework_file
 /system/vendor/framework/test                                     vendor_framework_file
+/vendor/etc/avf/microdroid                                        vendor_microdroid_file
+/vendor/etc/avf/microdroid/test                                   vendor_microdroid_file
 
 /vendor/apex                                                      vendor_apex_file
 /vendor/apex/test                                                 vendor_apex_file
