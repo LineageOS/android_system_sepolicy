@@ -56,9 +56,19 @@
 # as the current dessert release, with additional auditing rules for the accesses
 # we are considering forbidding in the upcoming release.
 #
+# The sdk_sandbox_next and sdk_sandbox_audit domains are special domains for the
+# SDK sandbox process. sdk_sandbox_next defines the set of restrictions proposed
+# for the upcoming dessert release. sdk_sandbox_audit uses the same restrictions
+# as the current dessert release, with additional auditing rules for the accesses
+# we are considering forbidding in the upcoming release.
+#
 # isSdkSandboxNext=true means sdk sandbox processes will get
 # sdk_sandbox_next sepolicy applied to them.
 # An unspecified isSdkSandboxNext defaults to false.
+#
+# isSdkSandboxAudit=true means sdk sandbox processes will get
+# sdk_sandbox_audit sepolicy applied to them.
+# An unspecified isSdkSandboxAudit defaults to false.
 #
 # isSdkSandboxAudit=true means sdk sandbox processes will get
 # sdk_sandbox_audit sepolicy applied to them.
