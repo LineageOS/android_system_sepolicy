@@ -9,6 +9,8 @@ init_daemon_domain(virtual_camera)
 # hal_server_domain(virtual_camera, hal_camera) macro but only the rules that
 # we actually need from halserverdomain and hal_camera_server:
 binder_use(virtual_camera)
+binder_call(virtual_camera, cameraserver)
+binder_call(virtual_camera, system_server)
 
 # Allow virtual_camera to use fd from apps
 allow virtual_camera { appdomain -isolated_app }:fd use;
