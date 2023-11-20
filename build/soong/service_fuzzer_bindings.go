@@ -447,6 +447,7 @@ var (
 		"translation":                  EXCEPTION_NO_FUZZER,
 		"transparency":                 EXCEPTION_NO_FUZZER,
 		"trust":                        EXCEPTION_NO_FUZZER,
+		"tv_ad":                        EXCEPTION_NO_FUZZER,
 		"tv_interactive_app":           EXCEPTION_NO_FUZZER,
 		"tv_input":                     EXCEPTION_NO_FUZZER,
 		"tv_tuner_resource_mgr":        EXCEPTION_NO_FUZZER,
