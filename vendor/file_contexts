@@ -100,6 +100,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.secure_element-service.example u:object_r:hal_secure_element_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.security\.authgraph-service\.nonsecure    u:object_r:hal_authgraph_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.security\.keymint-service   u:object_r:hal_keymint_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.security\.secretkeeper-service.nonsecure       u:object_r:hal_secretkeeper_default_exec:s0
 /(vendor|system/vendor)/bin/hw/rild                                           u:object_r:rild_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.tetheroffload-service\.example u:object_r:hal_tetheroffload_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.thermal@1\.[01]-service        u:object_r:hal_thermal_default_exec:s0
