@@ -376,6 +376,7 @@ hal_attribute(power);
 hal_attribute(power_stats);
 hal_attribute(rebootescrow);
 hal_attribute(remoteaccess);
+hal_attribute(secretkeeper);
 hal_attribute(secure_element);
 hal_attribute(sensors);
 hal_attribute(telephony);
