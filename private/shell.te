@@ -159,6 +159,8 @@ set_prop(shell, wifi_log_prop)
 # Allow shell to start/stop traced via the persist.traced.enable
 # property (which also takes care of /data/misc initialization).
 set_prop(shell, traced_enabled_prop)
+# adjust SELinux audit rates
+set_prop(shell, logd_auditrate_prop)
 # adjust is_loggable properties
 userdebug_or_eng(`set_prop(shell, log_prop)')
 # logpersist script
