@@ -338,6 +338,10 @@ ro.virtual_ab.userspace.snapshots.enabled u:object_r:virtual_ab_prop:s0 exact bo
 ro.virtual_ab.io_uring.enabled u:object_r:virtual_ab_prop:s0 exact bool
 ro.virtual_ab.compression.threads u:object_r:virtual_ab_prop:s0 exact bool
 ro.virtual_ab.batch_writes u:object_r:virtual_ab_prop:s0 exact bool
+# OEMs can set this prop at build time to configure how many seconds to delay
+# merge after installing a Virtual AB OTA. The default behavior is to start
+# merge immediately.
+ro.virtual_ab.merge_delay_seconds u:object_r:virtual_ab_prop:s0 exact int
 snapuserd.ready         u:object_r:snapuserd_prop:s0 exact bool
 snapuserd.proxy_ready   u:object_r:snapuserd_prop:s0 exact bool
 snapuserd.test.dm.snapshots u:object_r:snapuserd_prop:s0 exact bool
@@ -1481,6 +1485,8 @@ ro.setupwizard.enterprise_mode u:object_r:setupwizard_prop:s0 exact bool
 ro.setupwizard.esim_cid_ignore u:object_r:setupwizard_prop:s0 exact string
 ro.setupwizard.rotation_locked u:object_r:setupwizard_prop:s0 exact bool
 ro.setupwizard.wifi_on_exit    u:object_r:setupwizard_prop:s0 exact bool
+
+ro.setupwizard.mode            u:object_r:setupwizard_mode_prop:s0 exact string
 
 setupwizard.enable_assist_gesture_training                         u:object_r:setupwizard_prop:s0 exact bool
 setupwizard.feature.avoid_duplicate_tos                            u:object_r:setupwizard_prop:s0 exact bool
