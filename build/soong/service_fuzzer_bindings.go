@@ -467,7 +467,7 @@ var (
 		"vibrator_manager":             EXCEPTION_NO_FUZZER,
 		"virtualdevice":                EXCEPTION_NO_FUZZER,
 		"virtualdevice_native":         EXCEPTION_NO_FUZZER,
-		"virtual_camera":               EXCEPTION_NO_FUZZER,
+		"virtual_camera":               []string{"virtual_camera_fuzzer"},
 		"virtual_touchpad":             EXCEPTION_NO_FUZZER,
 		"voiceinteraction":             EXCEPTION_NO_FUZZER,
 		"vold":                         []string{"vold_native_service_fuzzer"},
