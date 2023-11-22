@@ -240,6 +240,7 @@ LOCAL_REQUIRED_MODULES += \
 # genrule modules aren't installable, so LOCAL_REQUIRED_MODULES doesn't work.
 # Instead, use LOCAL_ADDITIONAL_DEPENDENCIES with intermediate output
 LOCAL_ADDITIONAL_DEPENDENCIES += $(call intermediates-dir-for,ETC,sepolicy_test)/sepolicy_test
+LOCAL_ADDITIONAL_DEPENDENCIES += $(call intermediates-dir-for,ETC,sepolicy_dev_type_test)/sepolicy_dev_type_test
 
 LOCAL_REQUIRED_MODULES += \
     $(addprefix treble_sepolicy_tests_,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
