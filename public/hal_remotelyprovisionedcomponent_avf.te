@@ -1,0 +1,8 @@
+# allow binder connection from client to server
+binder_call(hal_remotelyprovisionedcomponent_avf_client, hal_remotelyprovisionedcomponent_avf_server)
+
+# allow client to find the service, allow server to register the service
+hal_attribute_service(hal_remotelyprovisionedcomponent_avf, hal_remotelyprovisionedcomponent_avf_service)
+
+# allow binder communication from server to service_manager
+binder_use(hal_remotelyprovisionedcomponent_avf_server)
