@@ -114,7 +114,8 @@ dontaudit system_app {
 # suppress denials caused by debugfs_tracing
 dontaudit system_app debugfs_tracing:file rw_file_perms;
 
-# Ignore access to zram when Debug.getMemInfo is called.
+# Ignore access to memory properties for Settings.
+dontaudit system_app proc_pagetypeinfo:file r_file_perms;
 dontaudit system_app sysfs_zram:dir search;
 
 allow system_app keystore:keystore_key {
