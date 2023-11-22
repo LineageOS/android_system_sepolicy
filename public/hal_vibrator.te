@@ -14,4 +14,4 @@ allow hal_vibrator sysfs_vibrator:file rw_file_perms;
 allow hal_vibrator sysfs_vibrator:dir search;
 
 # Allow HAL vibrator to control some parameters of a vibration, such as scaling.
-allow hal_vibrator vibrator_control_service:service_manager find;
+allow hal_vibrator fwk_vibrator_control_service:service_manager find;
