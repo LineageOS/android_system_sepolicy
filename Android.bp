@@ -833,3 +833,45 @@ genrule {
         "-p $(location :precompiled_sepolicy) && " +
         "touch $(out)",
 }
+
+//////////////////////////////////
+// TestDevTypeViolations can't run on old devices (V or before)
+//////////////////////////////////
+
+soong_config_module_type {
+    name: "dev_type_test_genrule",
+    module_type: "genrule",
+    config_namespace: "ANDROID",
+    bool_variables: ["CHECK_DEV_TYPE_VIOLATIONS"],
+    properties: ["cmd"],
+}
+
+dev_type_test_genrule {
+    name: "sepolicy_dev_type_test",
+    srcs: [
+        ":plat_file_contexts",
+        ":vendor_file_contexts",
+        ":system_ext_file_contexts",
+        ":product_file_contexts",
+        ":odm_file_contexts",
+        ":precompiled_sepolicy",
+    ],
+    tools: ["sepolicy_tests"],
+    out: ["sepolicy_dev_type_test"],
+    soong_config_variables: {
+        CHECK_DEV_TYPE_VIOLATIONS: {
+            cmd: "$(location sepolicy_tests) " +
+                "-f $(location :plat_file_contexts) " +
+                "-f $(location :vendor_file_contexts) " +
+                "-f $(location :system_ext_file_contexts) " +
+                "-f $(location :product_file_contexts) " +
+                "-f $(location :odm_file_contexts) " +
+                "-p $(location :precompiled_sepolicy) " +
+                "-t TestDevTypeViolations && " +
+                "touch $(out)",
+            conditions_default: {
+                cmd: "touch $(out)",
+            },
+        },
+    },
+}
