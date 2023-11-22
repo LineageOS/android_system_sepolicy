@@ -122,6 +122,7 @@ android.hardware.secure_element.ISecureElement/eSE3                  u:object_r:
 android.hardware.secure_element.ISecureElement/SIM1                  u:object_r:hal_secure_element_service:s0
 android.hardware.secure_element.ISecureElement/SIM2                  u:object_r:hal_secure_element_service:s0
 android.hardware.secure_element.ISecureElement/SIM3                  u:object_r:hal_secure_element_service:s0
+android.hardware.security.secretkeeper.ISecretkeeper/nonsecure       u:object_r:hal_secretkeeper_service:s0
 android.system.keystore2.IKeystoreService/default                    u:object_r:keystore_service:s0
 android.system.net.netd.INetd/default                                u:object_r:system_net_netd_service:s0
 android.system.suspend.ISystemSuspend/default                        u:object_r:hal_system_suspend_service:s0
@@ -423,6 +424,7 @@ tracing.proxy                             u:object_r:tracingproxy_service:s0
 translation                               u:object_r:translation_service:s0
 transparency                              u:object_r:transparency_service:s0
 trust                                     u:object_r:trust_service:s0
+tv_ad                                     u:object_r:tv_ad_service:s0
 tv_interactive_app                        u:object_r:tv_iapp_service:s0
 tv_input                                  u:object_r:tv_input_service:s0
 tv_tuner_resource_mgr                     u:object_r:tv_tuner_resource_mgr_service:s0

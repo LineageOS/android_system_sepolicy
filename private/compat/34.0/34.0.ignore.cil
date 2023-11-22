@@ -10,6 +10,7 @@
     ota_build_prop
     snapuserd_log_data_file
     hal_authgraph_service
+    hal_secretkeeper_service
     vibrator_control_service
     hal_codec2_service
     hal_macsec_service
@@ -21,6 +22,7 @@
     security_state_service
     setupwizard_mode_prop
     sysfs_sync_on_suspend
+    tv_ad_service
     threadnetwork_service
     device_config_aconfig_flags_prop
     proc_memhealth

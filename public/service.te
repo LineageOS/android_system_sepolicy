@@ -243,6 +243,7 @@ type timedetector_service, app_api_service, ephemeral_app_api_service, system_se
 type timezonedetector_service, app_api_service, system_server_service, service_manager_type;
 type translation_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type trust_service, app_api_service, system_server_service, service_manager_type;
+type tv_ad_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type tv_iapp_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type tv_input_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type tv_tuner_resource_mgr_service, app_api_service, system_server_service, service_manager_type;
@@ -321,6 +322,7 @@ type hal_rebootescrow_service, protected_service, hal_service_type, service_mana
 type hal_remoteaccess_service, protected_service, hal_service_type, service_manager_type;
 type hal_remotelyprovisionedcomponent_service, protected_service, hal_service_type, service_manager_type;
 type hal_sensors_service, protected_service, hal_service_type, service_manager_type;
+type hal_secretkeeper_service, protected_service, hal_service_type, service_manager_type;
 type hal_secureclock_service, protected_service, hal_service_type, service_manager_type;
 type hal_secure_element_service, protected_service, hal_service_type, service_manager_type;
 type hal_sharedsecret_service, protected_service, hal_service_type, service_manager_type;
