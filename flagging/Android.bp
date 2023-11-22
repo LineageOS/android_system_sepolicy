@@ -16,14 +16,14 @@
 se_policy_conf_defaults {
     name: "se_policy_conf_flags_defaults",
     srcs: [":sepolicy_flagging_macros"],
-    flags: [],
+    flags: ["RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT"],
 }
 
 contexts_defaults {
     name: "contexts_flags_defaults",
     srcs: [":sepolicy_flagging_macros"],
     neverallow_files: [":sepolicy_flagging_macros"], // for seapp_contexts
-    flags: [],
+    flags: ["RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT"],
 }
 
 filegroup {
