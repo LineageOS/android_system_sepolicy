@@ -205,11 +205,10 @@ filegroup {
   ],
 }
 
-filegroup {
+file_contexts {
   name: "com.android.virt-file_contexts",
-  srcs: [
-    "com.android.virt-file_contexts",
-  ],
+  defaults: ["contexts_flags_defaults"],
+  srcs: ["com.android.virt-file_contexts"],
 }
 
 filegroup {
