@@ -1274,6 +1274,7 @@ wifi.aware.interface      u:object_r:wifi_hal_prop:s0 exact string
 wifi.concurrent.interface u:object_r:wifi_hal_prop:s0 exact string
 wifi.direct.interface     u:object_r:wifi_hal_prop:s0 exact string
 wifi.interface            u:object_r:wifi_hal_prop:s0 exact string
+wifi.interface.           u:object_r:wifi_hal_prop:s0 prefix string
 wlan.driver.status        u:object_r:wifi_hal_prop:s0 exact enum ok unloaded
 
 ro.boot.wificountrycode u:object_r:wifi_config_prop:s0 exact string
