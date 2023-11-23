@@ -9,11 +9,12 @@
     dtbo_block_device
     ota_build_prop
     snapuserd_log_data_file
+    fwk_vibrator_control_service
     hal_authgraph_service
     hal_secretkeeper_service
-    vibrator_control_service
     hal_codec2_service
     hal_macsec_service
+    hal_remotelyprovisionedcomponent_avf_service
     hal_threadnetwork_service
     hidraw_device
     virtual_camera_service
