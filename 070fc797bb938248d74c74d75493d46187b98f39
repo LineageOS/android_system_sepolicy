@@ -69,6 +69,23 @@
       "parentUuid": "954f8c05_3de2c64c",
       "revId": "070fc797bb938248d74c74d75493d46187b98f39",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "81f6182c_09f9ad25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2023-11-24T12:31:15Z",
+      "side": 1,
+      "message": "Files system/sepolicy/private/bootstat.te and system/sepolicy/prebuilts/api/34.0/private/bootstat.te differ\nFiles system/sepolicy/private/platform_app.te and system/sepolicy/prebuilts/api/34.0/private/platform_app.te differ",
+      "revId": "070fc797bb938248d74c74d75493d46187b98f39",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
