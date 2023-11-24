@@ -33,6 +33,24 @@
       "message": "Additional patches are needed, because after that we get:\n\n[  157.223608] (3)[656:logd.auditd][20231124_07:39:11.084137]@3 type\u003d1400 audit(1700811551.070:50): avc:  denied  { getattr } for  comm\u003d\"ndroid.systemui\" path\u003d\"/sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/sde-crtc-0/measured_fps\" dev\u003d\"sysfs\" ino\u003d73703 scontext\u003du:r:platform_app:s0:c512,c768 tcontext\u003du:object_r:sysfs_dm:s0 tclass\u003dfile permissive\u003d0 app\u003dcom.android.systemui",
       "revId": "070fc797bb938248d74c74d75493d46187b98f39",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "954f8c05_3de2c64c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 32442
+      },
+      "writtenOn": "2023-11-24T07:56:53Z",
+      "side": 1,
+      "message": "Are you sure?\nCause, I don\u0027t have such audit denials on my end.",
+      "parentUuid": "bbcdbccf_880ea4ac",
+      "revId": "070fc797bb938248d74c74d75493d46187b98f39",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
