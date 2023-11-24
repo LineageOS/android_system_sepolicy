@@ -16,6 +16,23 @@
       "message": "Picked up from commit 957e8f37a138ed74586f252e1018fede99874087 of main branch of AOSP.\n\nFixes:\nW ndroid.systemui: type\u003d1400 audit(0.0:65): avc:  denied  { read } for  name\u003d\"u:object_r:last_boot_reason_prop:s0\" dev\u003d\"tmpfs\" ino\u003d11427 scontext\u003du:r:platform_app:s0:c512,c768 tcontext\u003du:object_r:last_boot_reason_prop:s0 tclass\u003dfile permissive\u003d0 app\u003dcom.android.systemui\n\nW libc    : Access denied finding property \"sys.boot.reason.last\"",
       "revId": "070fc797bb938248d74c74d75493d46187b98f39",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbcdbccf_880ea4ac",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 9760
+      },
+      "writtenOn": "2023-11-24T07:50:57Z",
+      "side": 1,
+      "message": "Additional patches are needed, because after that we get:\n\n[  157.223608] (3)[656:logd.auditd][20231124_07:39:11.084137]@3 type\u003d1400 audit(1700811551.070:50): avc:  denied  { getattr } for  comm\u003d\"ndroid.systemui\" path\u003d\"/sys/devices/platform/soc/ae00000.qcom,mdss_mdp/drm/card0/sde-crtc-0/measured_fps\" dev\u003d\"sysfs\" ino\u003d73703 scontext\u003du:r:platform_app:s0:c512,c768 tcontext\u003du:object_r:sysfs_dm:s0 tclass\u003dfile permissive\u003d0 app\u003dcom.android.systemui",
+      "revId": "070fc797bb938248d74c74d75493d46187b98f39",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
