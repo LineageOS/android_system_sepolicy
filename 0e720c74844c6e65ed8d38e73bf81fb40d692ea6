@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "98acdc77_49c89625",
+        "filename": "public/fsck_untrusted.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 28223
+      },
+      "writtenOn": "2023-11-27T00:07:50Z",
+      "side": 0,
+      "message": "But it says it should never have it?",
+      "range": {
+        "startLine": 51,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 49
+      },
+      "revId": "0e720c74844c6e65ed8d38e73bf81fb40d692ea6",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
