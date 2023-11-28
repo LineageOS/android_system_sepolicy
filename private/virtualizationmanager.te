@@ -97,6 +97,10 @@ userdebug_or_eng(`
 # Allow virtualizationmanager to read microdroid related files in vendor partition
 r_dir_file(virtualizationmanager, vendor_microdroid_file)
 
+# Do not allow writing vendor_microdroid_file from any process.
+neverallow { domain recovery_only(`userdebug_or_eng(`-fastbootd')') } vendor_microdroid_file:dir no_w_dir_perms;
+neverallow { domain recovery_only(`userdebug_or_eng(`-fastbootd')') } vendor_microdroid_file:file no_w_file_perms;
+
 # Allow reading files under /proc/[crosvm pid]/, for collecting CPU & memory usage inside VM.
 r_dir_file(virtualizationmanager, crosvm);
 
