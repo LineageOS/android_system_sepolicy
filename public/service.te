@@ -213,7 +213,7 @@ type scheduling_policy_service, system_server_service, service_manager_type;
 type search_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type search_ui_service, app_api_service, system_server_service, service_manager_type;
 type sec_key_att_app_id_provider_service, app_api_service, system_server_service, service_manager_type;
-type security_state_service, system_server_service, service_manager_type;
+type security_state_service, app_api_service, system_server_service, service_manager_type;
 type selection_toolbar_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type sensorservice_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type sensor_privacy_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
