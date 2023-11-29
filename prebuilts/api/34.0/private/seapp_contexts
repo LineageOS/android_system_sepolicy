@@ -13,6 +13,7 @@
 #       fromRunAs (boolean)
 #       isIsolatedComputeApp (boolean)
 #       isSdkSandboxNext (boolean)
+#       isSdkSandboxAudit (boolean)
 #
 # All specified input selectors in an entry must match (i.e. logical AND).
 # An unspecified string or boolean selector with no default will match any
@@ -48,8 +49,18 @@
 # with user=_isolated. This selector should not be used unless it is intended
 # to provide isolated processes with relaxed security restrictions.
 #
+# The sdk_sandbox_next and sdk_sandbox_audit domains are special domains for the
+# SDK sandbox process. sdk_sandbox_next defines the set of restrictions proposed
+# for the upcoming dessert release. sdk_sandbox_audit uses the same restrictions
+# as the current dessert release, with additional auditing rules for the accesses
+# we are considering forbidding in the upcoming release.
+#
 # isSdkSandboxNext=true means sdk sandbox processes will get
 # sdk_sandbox_next sepolicy applied to them.
+#
+# isSdkSandboxAudit=true means sdk sandbox processes will get
+# sdk_sandbox_audit sepolicy applied to them.
+# An unspecified isSdkSandboxAudit defaults to false.
 #
 # Precedence: entries are compared using the following rules, in the order shown
 # (see external/selinux/libselinux/src/android/android_platform.c,
@@ -171,6 +182,7 @@ user=_isolated domain=isolated_app levelFrom=user
 user=_isolated isIsolatedComputeApp=true domain=isolated_compute_app levelFrom=user
 user=_sdksandbox domain=sdk_sandbox_34 type=sdk_sandbox_data_file levelFrom=all
 user=_sdksandbox isSdkSandboxNext=true domain=sdk_sandbox_next type=sdk_sandbox_data_file levelFrom=all
+user=_sdksandbox isSdkSandboxAudit=true domain=sdk_sandbox_audit type=sdk_sandbox_data_file levelFrom=all
 user=_app seinfo=app_zygote domain=app_zygote levelFrom=user
 user=_app seinfo=media domain=mediaprovider type=app_data_file levelFrom=user
 user=_app seinfo=platform domain=platform_app type=app_data_file levelFrom=user

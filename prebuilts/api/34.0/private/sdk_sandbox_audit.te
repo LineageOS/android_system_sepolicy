@@ -1,0 +1,34 @@
+###
+### SDK Sandbox process.
+###
+### This file defines the audit sdk sandbox security policy for
+### the set of restrictions proposed for the next SDK level.
+###
+### The sdk_sandbox_audit domain has the same rules as the
+### sdk_sandbox_current domain and additional auditing rules
+### for the accesses we are considering forbidding in the upcoming
+### sdk_sandbox_next domain.
+type sdk_sandbox_audit, domain, coredomain, sdk_sandbox_all, sdk_sandbox_current;
+
+net_domain(sdk_sandbox_audit)
+app_domain(sdk_sandbox_audit)
+
+# Auditallow rules for accesses that are currently allowed but we
+# might remove in the future.
+
+auditallow sdk_sandbox_audit {
+    cameraserver_service
+    ephemeral_app_api_service
+    mediadrmserver_service
+    radio_service
+}:service_manager find;
+
+auditallow sdk_sandbox_audit {
+    property_type
+    -system_property_type
+}:file rw_file_perms;
+
+auditallow sdk_sandbox_audit {
+    property_type
+    -system_property_type
+}:dir rw_dir_perms;
