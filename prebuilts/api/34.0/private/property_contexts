@@ -1426,9 +1426,6 @@ remote_provisioning.tee.rkp_only u:object_r:remote_prov_prop:s0 exact bool
 # Hostname for the remote provisioning server a device should communicate with
 remote_provisioning.hostname u:object_r:remote_prov_prop:s0 exact string
 
-# Indicates the system should use rkpd instead of RemoteProvisioner
-remote_provisioning.enable_rkpd u:object_r:remote_prov_prop:s0 exact bool
-
 # Broadcast boot stages, which keystore listens to
 keystore.boot_level u:object_r:keystore_listen_prop:s0 exact int
 
