@@ -32,6 +32,9 @@ allow isolated_app_all app_zygote:unix_dgram_socket write;
 # suppress denials to /data/local/tmp
 dontaudit isolated_app_all shell_data_file:dir search;
 
+# Allow to read (but not open) staged apks.
+allow isolated_app_all { apk_tmp_file apk_private_tmp_file }:file { read getattr };
+
 #####
 ##### Neverallow
 #####
