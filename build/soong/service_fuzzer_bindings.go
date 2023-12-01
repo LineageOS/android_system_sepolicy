@@ -51,6 +51,7 @@ var (
 		"android.hardware.broadcastradio.IBroadcastRadio/amfm":                    []string{"android.hardware.broadcastradio-service.default_fuzzer"},
 		"android.hardware.broadcastradio.IBroadcastRadio/dab":                     []string{"android.hardware.broadcastradio-service.default_fuzzer"},
 		"android.hardware.bluetooth.IBluetoothHci/default":                        EXCEPTION_NO_FUZZER,
+		"android.hardware.bluetooth.finder.IBluetoothFinder/default":              EXCEPTION_NO_FUZZER,
 		"android.hardware.camera.provider.ICameraProvider/internal/0":             EXCEPTION_NO_FUZZER,
 		"android.hardware.camera.provider.ICameraProvider/virtual/0":              EXCEPTION_NO_FUZZER,
 		"android.hardware.cas.IMediaCasService/default":                           EXCEPTION_NO_FUZZER,
