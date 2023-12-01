@@ -32,3 +32,7 @@ binder_call(ot_daemon, system_server)
 
 # Allow OT daemon to write to statsd
 unix_socket_send(ot_daemon, statsdw, statsd)
+
+# For collecting bugreports.
+allow ot_daemon dumpstate:fd use;
+allow ot_daemon dumpstate:fifo_file write;
