@@ -61,6 +61,7 @@ system_internal_prop(hypervisor_pvmfw_prop)
 system_internal_prop(hypervisor_virtualizationmanager_prop)
 system_internal_prop(game_manager_config_prop)
 system_internal_prop(hidl_memory_prop)
+system_internal_prop(suspend_debug_prop)
 
 # Properties which can't be written outside system
 system_restricted_prop(device_config_virtualization_framework_native_prop)
@@ -342,7 +343,25 @@ compatible_property_only(`
   } {
     suspend_prop
   }:property_service set;
+
+  neverallow {
+    domain
+    -init
+  } {
+    suspend_debug_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -init
+    -dumpstate
+    userdebug_or_eng(`-system_suspend')
+    } {
+      suspend_debug_prop
+    }:file no_rw_file_perms;
 ')
+
+dontaudit system_suspend suspend_debug_prop:file r_file_perms;
 
 compatible_property_only(`
   # Neverallow coredomain to set vendor properties
