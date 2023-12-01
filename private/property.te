@@ -711,3 +711,10 @@ neverallow {
   -system_app
   -device_as_webcam
 } usb_uvc_enabled_prop:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+  -vendor_init
+} pm_archiving_enabled_prop:property_service set;
+
