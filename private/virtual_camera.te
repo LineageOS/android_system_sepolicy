@@ -24,3 +24,7 @@ hal_client_domain(virtual_camera, hal_graphics_allocator)
 # Allow virtual_camera to use GPU
 allow virtual_camera gpu_device:chr_file rw_file_perms;
 allow virtual_camera gpu_device:dir r_dir_perms;
+
+# For collecting bugreports.
+allow virtual_camera dumpstate:fd use;
+allow virtual_camera dumpstate:fifo_file write;
