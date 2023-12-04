@@ -388,6 +388,7 @@ allow system_server {
   mediatuner
   netd
   sdcardd
+  servicemanager
   statsd
   surfaceflinger
   vold
