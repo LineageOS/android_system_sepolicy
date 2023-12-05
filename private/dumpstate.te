@@ -62,6 +62,9 @@ binder_call(dumpstate, automotive_display_service)
 # Allow dumpstate to talk to virtual_camera service over binder
 binder_call(dumpstate, virtual_camera)
 
+# Allow dumpstate to talk to ot_daemon service over binder
+binder_call(dumpstate, ot_daemon)
+
 # Collect metrics on boot time created by init
 get_prop(dumpstate, boottime_prop)
 
@@ -71,6 +74,7 @@ allow dumpstate {
   statsd
   netd
   virtual_camera
+  ot_daemon
 }:process signal;
 
 # Only allow dumpstate to dump Keystore on debuggable builds.
