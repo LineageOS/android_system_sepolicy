@@ -125,6 +125,7 @@ android.hardware.secure_element.ISecureElement/eSE3                  u:object_r:
 android.hardware.secure_element.ISecureElement/SIM1                  u:object_r:hal_secure_element_service:s0
 android.hardware.secure_element.ISecureElement/SIM2                  u:object_r:hal_secure_element_service:s0
 android.hardware.secure_element.ISecureElement/SIM3                  u:object_r:hal_secure_element_service:s0
+android.hardware.security.secretkeeper.ISecretkeeper/default         u:object_r:hal_secretkeeper_service:s0
 android.hardware.security.secretkeeper.ISecretkeeper/nonsecure       u:object_r:hal_secretkeeper_service:s0
 android.system.keystore2.IKeystoreService/default                    u:object_r:keystore_service:s0
 android.system.net.netd.INetd/default                                u:object_r:system_net_netd_service:s0
