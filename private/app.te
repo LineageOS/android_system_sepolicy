@@ -149,6 +149,9 @@ allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } vendor_app
 # Perform binder IPC to sdk sandbox.
 binder_call(appdomain, sdk_sandbox_all)
 
+# Allow apps to communicate via binder with virtual camera service.
+binder_call(appdomain, virtual_camera)
+
 # Allow access to external storage; we have several visible mount points under /storage
 # and symlinks to primary storage at places like /storage/sdcard0 and /mnt/user/0/primary
 allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } storage_file:dir r_dir_perms;

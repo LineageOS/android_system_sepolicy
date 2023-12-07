@@ -110,9 +110,6 @@ neverallow { appdomain -platform_app }
     apk_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 neverallow { appdomain -platform_app }
-    apk_tmp_file:dir_file_class_set
-    { create write setattr relabelfrom relabelto append unlink link rename };
-neverallow { appdomain -platform_app }
     apk_private_data_file:dir_file_class_set
     { create write setattr relabelfrom relabelto append unlink link rename };
 neverallow { appdomain -platform_app }
@@ -139,11 +136,15 @@ neverallow appdomain
     { create write setattr relabelfrom relabelto append unlink link rename };
 
 # access tmp apk files
-neverallow { appdomain -untrusted_app_all -platform_app -priv_app }
+neverallow { appdomain -platform_app }
+    apk_tmp_file:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+
+neverallow { appdomain -untrusted_app_all -platform_app -priv_app -isolated_app_all }
     { apk_tmp_file apk_private_tmp_file }:dir_file_class_set *;
 
-neverallow untrusted_app_all { apk_tmp_file apk_private_tmp_file }:{ devfile_class_set dir fifo_file lnk_file sock_file } *;
-neverallow untrusted_app_all { apk_tmp_file apk_private_tmp_file }:file ~{ getattr read };
+neverallow { untrusted_app_all isolated_app_all } { apk_tmp_file apk_private_tmp_file }:{ devfile_class_set dir fifo_file lnk_file sock_file } *;
+neverallow { untrusted_app_all isolated_app_all } { apk_tmp_file apk_private_tmp_file }:file ~{ getattr read };
 
 # Access to factory files.
 neverallow appdomain efs_file:dir_file_class_set write;
