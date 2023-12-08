@@ -29,4 +29,4 @@ allow hal_codec2_client ion_device:chr_file r_file_perms;
 # codec2 aidl graphic buffer allocation waitable object
 allow hal_codec2_server su:fifo_file read;
 allow hal_codec2_server mediaserver:fifo_file read;
-allow hal_codec2_server untrusted_app:fifo_file read;
+allow hal_codec2_server untrusted_app_all:fifo_file read;
