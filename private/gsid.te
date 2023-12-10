@@ -150,7 +150,7 @@ allow gsid gsi_public_metadata_file:file relabelto;
 allow gsid {
       gsi_data_file
       ota_image_data_file
-}:dir rw_dir_perms;
+}:dir create_dir_perms;
 allow gsid {
       gsi_data_file
       ota_image_data_file

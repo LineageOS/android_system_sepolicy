@@ -844,6 +844,7 @@
 /metadata/staged-install(/.*)?    u:object_r:staged_install_file:s0
 /metadata/userspacereboot(/.*)?    u:object_r:userspace_reboot_metadata_file:s0
 /metadata/watchdog(/.*)?    u:object_r:watchdog_metadata_file:s0
+/metadata/repair-mode(/.*)?    u:object_r:repair_mode_metadata_file:s0
 
 #############################
 # asec containers
