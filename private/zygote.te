@@ -258,6 +258,7 @@ allow zygote apex_info_file:file r_file_perms;
 # preinstalled path of APEXes that contain runtime resource overlays for the 'android' package.
 allow zygote vendor_apex_file:dir { getattr search };
 allow zygote vendor_apex_file:file { getattr };
+allow zygote vendor_apex_metadata_file:dir { search };
 
 # Allow zygote to query for compression/features.
 r_dir_file(zygote, sysfs_fs_f2fs)

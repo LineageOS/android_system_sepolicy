@@ -102,8 +102,8 @@ allow apexd staging_data_file:file { r_file_perms link };
 allow apexd staging_data_file:file relabelto;
 
 # allow apexd to read files from /vendor/apex
-allow apexd vendor_apex_file:dir r_dir_perms;
-allow apexd vendor_apex_file:file r_file_perms;
+r_dir_file(apexd, vendor_apex_file)
+r_dir_file(apexd, vendor_apex_metadata_file)
 
 # Unmount and mount filesystems
 allow apexd labeledfs:filesystem { mount unmount };
