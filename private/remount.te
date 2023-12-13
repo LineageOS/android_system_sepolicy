@@ -12,4 +12,14 @@ userdebug_or_eng(`
 
   # Allow searching for /metadata/gsi/remount/lp_metadata.
   allow remount { metadata_file gsi_metadata_file_type }:dir search;
+
+  # Allow remount to flip the overlayfs bit in the super partition.
+  # This requires being able to read fstab, find /dev/block/by-name/super,
+  # and read-write super.
+  r_dir_file(remount, sysfs_dt_firmware_android)
+  allow remount proc_bootconfig:file r_file_perms;
+  allow remount proc_cmdline:file r_file_perms;
+  allow remount block_device:dir r_dir_perms;
+  allow remount super_block_device_type:blk_file rw_file_perms;
+  allowxperm remount super_block_device_type:blk_file ioctl { BLKIOMIN BLKALIGNOFF };
 ')
