@@ -87,7 +87,6 @@ persist.traced.enable   u:object_r:traced_enabled_prop:s0
 traced.lazy.            u:object_r:traced_lazy_prop:s0
 persist.heapprofd.enable u:object_r:heapprofd_enabled_prop:s0
 persist.traced_perf.enable u:object_r:traced_perf_enabled_prop:s0
-uprobestats.start_with_config u:object_r:uprobestats_start_with_config_prop:s0
 persist.vendor.debug.wifi. u:object_r:persist_vendor_debug_wifi_prop:s0
 persist.vendor.overlay.  u:object_r:overlay_prop:s0
 ril.cdma.inecmmode      u:object_r:radio_cdma_ecm_prop:s0 exact bool
