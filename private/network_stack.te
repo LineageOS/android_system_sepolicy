@@ -13,6 +13,8 @@ allow network_stack self:global_capability_class_set {
     net_raw
 };
 
+allow network_stack self:global_capability2_class_set wake_alarm;
+
 # Allow access to net_admin ioctl, DHCP server uses SIOCSARP
 allowxperm network_stack self:udp_socket ioctl priv_sock_ioctls;
 
