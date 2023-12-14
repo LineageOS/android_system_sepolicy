@@ -1269,3 +1269,5 @@
 /product/bin/otapreopt_script                                     postinstall_exec
 /system/bin/otapreopt                                             postinstall_dexopt_exec
 /product/bin/otapreopt                                            postinstall_dexopt_exec
+/data/misc/uprobestats-configs                                    uprobestats_configs_data_file
+/data/misc/uprobestats-configs/test                               uprobestats_configs_data_file

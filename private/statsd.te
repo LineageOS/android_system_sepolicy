@@ -28,3 +28,10 @@ binder_call(statsd, surfaceflinger);
 # Allow statsd to read its system properties
 get_prop(statsd, device_config_statsd_native_prop)
 get_prop(statsd, device_config_statsd_native_boot_prop)
+
+# Allow statsd to write uprobestats configs.
+allow statsd uprobestats_configs_data_file:dir rw_dir_perms;
+allow statsd uprobestats_configs_data_file:file create_file_perms;
+
+# Allow statsd to trigger uprobestats via property.
+set_prop(statsd, uprobestats_start_with_config_prop);
