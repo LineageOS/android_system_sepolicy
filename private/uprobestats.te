@@ -4,8 +4,8 @@ typeattribute uprobestats bpfdomain;
 
 type uprobestats_exec, system_file_type, exec_type, file_type;
 
-# Allow uprobestats to be invoked by statsd.
-domain_auto_trans(statsd, uprobestats_exec, uprobestats)
+# Allow init to start uprobestats.
+init_daemon_domain(uprobestats)
 
 allow uprobestats fs_bpf_uprobe_private:file { read write };
 allow uprobestats fs_bpf_uprobe_private:dir search;
@@ -14,3 +14,24 @@ allow uprobestats self:capability2 perfmon;
 allow uprobestats self:perf_event { cpu open write };
 allow uprobestats sysfs_uprobe:file { open read };
 allow uprobestats sysfs_uprobe:dir { search };
+
+# Allow uprobestats to popen oatdump.
+allow uprobestats oatdump_exec:file rx_file_perms;
+
+# Allow uprobestats to write atoms to statsd
+unix_socket_send(uprobestats, statsdw, statsd)
+
+# For registration with system server as a process observer.
+binder_use(uprobestats)
+allow uprobestats activity_service:service_manager find;
+binder_call(uprobestats, system_server);
+
+# Allow uprobestats to talk to native package manager
+allow uprobestats package_native_service:service_manager find;
+
+# Allow uprobestats to scan /proc/<pid>/cmdline.
+r_dir_file(uprobestats, { domain -appdomain })
+
+# Allow uprobestats to manage its own config files.
+allow uprobestats uprobestats_configs_data_file:dir rw_dir_perms;
+allow uprobestats uprobestats_configs_data_file:file { r_file_perms unlink };
