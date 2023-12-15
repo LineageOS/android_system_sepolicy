@@ -734,6 +734,7 @@ ro.lmk.kill_timeout_ms          u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.log_stats                u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.low                      u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.medium                   u:object_r:lmkd_config_prop:s0 exact int
+ro.lmk.pressure_after_kill_min_score u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.psi_partial_stall_ms     u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.psi_complete_stall_ms    u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.stall_limit_critical     u:object_r:lmkd_config_prop:s0 exact int
