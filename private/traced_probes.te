@@ -84,6 +84,9 @@ allow traced_probes {
   proc_vmstat
   proc_stat
   proc_buddyinfo
+  proc_pressure_cpu
+  proc_pressure_io
+  proc_pressure_mem
 }:file r_file_perms;
 
 # Allow access to read /sys/class/devfreq/ and /$DEVICE/cur_freq files
