@@ -179,6 +179,9 @@ get_prop(priv_app, incremental_prop)
 # allow privileged apps to read the device config flags.
 get_prop(priv_app, device_config_aconfig_flags_prop)
 
+# allow privileged apps to read boot reason property
+get_prop(priv_app, system_boot_reason_prop)
+
 # Required for Phonesky to be able to read APEX files under /data/apex/active/.
 allow priv_app apex_data_file:dir search;
 allow priv_app staging_data_file:file r_file_perms;
@@ -293,3 +296,6 @@ neverallow priv_app *:{
 
 # Allow priv apps to report off body events to keystore2.
 allow priv_app keystore:keystore2 report_off_body;
+
+# Allow priv_apps to check if archiving is enabled
+get_prop(priv_app, pm_archiving_enabled_prop)

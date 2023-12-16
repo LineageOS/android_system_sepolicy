@@ -87,6 +87,10 @@ allow virtualizationmanager tombstoned:fd use;
 allow virtualizationmanager sysfs_dt_avf:dir search;
 allow virtualizationmanager sysfs_dt_avf:file { open read };
 
+# virtualizationmanager to be client of secretkeeper HAL. It ferries SecretManagement messages
+# from pVM to HAL.
+hal_client_domain(virtualizationmanager, hal_secretkeeper);
+
 # Let virtualizationmanager open test artifacts under /data/local/tmp with file path.
 # (e.g. custom debug policy)
 userdebug_or_eng(`
@@ -96,6 +100,10 @@ userdebug_or_eng(`
 
 # Allow virtualizationmanager to read microdroid related files in vendor partition
 r_dir_file(virtualizationmanager, vendor_microdroid_file)
+
+# Do not allow writing vendor_microdroid_file from any process.
+neverallow { domain recovery_only(`userdebug_or_eng(`-fastbootd')') } vendor_microdroid_file:dir no_w_dir_perms;
+neverallow { domain recovery_only(`userdebug_or_eng(`-fastbootd')') } vendor_microdroid_file:file no_w_file_perms;
 
 # Allow reading files under /proc/[crosvm pid]/, for collecting CPU & memory usage inside VM.
 r_dir_file(virtualizationmanager, crosvm);

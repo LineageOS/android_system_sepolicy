@@ -2,6 +2,7 @@ android.frameworks.cameraservice.service.ICameraService/default      u:object_r:
 android.frameworks.location.altitude.IAltitudeService/default        u:object_r:fwk_altitude_service:s0
 android.frameworks.stats.IStats/default                              u:object_r:fwk_stats_service:s0
 android.frameworks.sensorservice.ISensorManager/default              u:object_r:fwk_sensor_service:s0
+android.frameworks.vibrator.IVibratorControlService/default          u:object_r:fwk_vibrator_control_service:s0
 android.hardware.audio.core.IConfig/default                          u:object_r:hal_audio_service:s0
 # 'default' IModule is equivalent to 'primary' in HIDL
 android.hardware.audio.core.IModule/default                          u:object_r:hal_audio_service:s0
@@ -28,6 +29,10 @@ android.hardware.biometrics.face.IFace/virtual                       u:object_r:
 android.hardware.biometrics.fingerprint.IFingerprint/default         u:object_r:hal_fingerprint_service:s0
 android.hardware.biometrics.fingerprint.IFingerprint/virtual         u:object_r:hal_fingerprint_service:s0
 android.hardware.bluetooth.IBluetoothHci/default                     u:object_r:hal_bluetooth_service:s0
+android.hardware.bluetooth.finder.IBluetoothFinder/default           u:object_r:hal_bluetooth_service:s0
+is_flag_enabled(RELEASE_HARDWARE_BLUETOOTH_RANGING_SERVICE, `
+    android.hardware.bluetooth.ranging.IBluetoothChannelSounding/default u:object_r:hal_bluetooth_service:s0
+')
 android.hardware.bluetooth.audio.IBluetoothAudioProviderFactory/default u:object_r:hal_audio_service:s0
 android.hardware.broadcastradio.IBroadcastRadio/amfm                 u:object_r:hal_broadcastradio_service:s0
 android.hardware.broadcastradio.IBroadcastRadio/dab                  u:object_r:hal_broadcastradio_service:s0
@@ -93,6 +98,7 @@ android.hardware.rebootescrow.IRebootEscrow/default                  u:object_r:
 android.hardware.security.authgraph.IAuthGraphKeyExchange/nonsecure  u:object_r:hal_authgraph_service:s0
 android.hardware.security.keymint.IKeyMintDevice/default             u:object_r:hal_keymint_service:s0
 android.hardware.security.keymint.IRemotelyProvisionedComponent/default u:object_r:hal_remotelyprovisionedcomponent_service:s0
+android.hardware.security.keymint.IRemotelyProvisionedComponent/avf     u:object_r:hal_remotelyprovisionedcomponent_avf_service:s0
 android.hardware.gatekeeper.IGatekeeper/default                      u:object_r:hal_gatekeeper_service:s0
 android.hardware.security.secureclock.ISecureClock/default             u:object_r:hal_secureclock_service:s0
 android.hardware.security.sharedsecret.ISharedSecret/default             u:object_r:hal_sharedsecret_service:s0
@@ -122,6 +128,8 @@ android.hardware.secure_element.ISecureElement/eSE3                  u:object_r:
 android.hardware.secure_element.ISecureElement/SIM1                  u:object_r:hal_secure_element_service:s0
 android.hardware.secure_element.ISecureElement/SIM2                  u:object_r:hal_secure_element_service:s0
 android.hardware.secure_element.ISecureElement/SIM3                  u:object_r:hal_secure_element_service:s0
+android.hardware.security.secretkeeper.ISecretkeeper/default         u:object_r:hal_secretkeeper_service:s0
+android.hardware.security.secretkeeper.ISecretkeeper/nonsecure       u:object_r:hal_secretkeeper_service:s0
 android.system.keystore2.IKeystoreService/default                    u:object_r:keystore_service:s0
 android.system.net.netd.INetd/default                                u:object_r:system_net_netd_service:s0
 android.system.suspend.ISystemSuspend/default                        u:object_r:hal_system_suspend_service:s0
@@ -152,7 +160,9 @@ android.security.metrics                  u:object_r:keystore_metrics_service:s0
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
 android.system.composd                    u:object_r:compos_service:s0
 android.system.virtualizationservice      u:object_r:virtualization_service:s0
-android.system.virtualizationservice_internal.IVfioHandler u:object_r:vfio_handler_service:s0
+is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
+    android.system.virtualizationservice_internal.IVfioHandler u:object_r:vfio_handler_service:s0
+')
 ambient_context                           u:object_r:ambient_context_service:s0
 app_binding                               u:object_r:app_binding_service:s0
 app_hibernation                           u:object_r:app_hibernation_service:s0
@@ -437,8 +447,8 @@ user                                      u:object_r:user_service:s0
 uwb                                       u:object_r:uwb_service:s0
 vcn_management                            u:object_r:vcn_management_service:s0
 vibrator                                  u:object_r:vibrator_service:s0
-vibrator_control               	  	  u:object_r:vibrator_control_service:s0
 vibrator_manager                          u:object_r:vibrator_manager_service:s0
+virtual_camera                            u:object_r:virtual_camera_service:s0
 virtualdevice                             u:object_r:virtual_device_service:s0
 virtualdevice_native                      u:object_r:virtual_device_native_service:s0
 virtual_touchpad                          u:object_r:virtual_touchpad_service:s0

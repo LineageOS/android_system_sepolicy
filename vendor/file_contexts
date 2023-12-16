@@ -19,6 +19,8 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.[0-9]+-service      u:object_r:hal_bluetooth_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth@1\.[0-9]+-service\.btlinux    u:object_r:hal_bluetooth_btlinux_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth-service.default      u:object_r:hal_bluetooth_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth\.finder-service\.default      u:object_r:hal_bluetooth_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth\.ranging-service\.default      u:object_r:hal_bluetooth_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.face@1\.[0-9]+-service\.example u:object_r:hal_face_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.face-service\.example u:object_r:hal_face_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service u:object_r:hal_fingerprint_default_exec:s0
@@ -28,12 +30,12 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.boot-service.default      u:object_r:hal_bootctl_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.broadcastradio@\d+\.\d+-service u:object_r:hal_broadcastradio_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.broadcastradio-service.default u:object_r:hal_broadcastradio_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider(@2\.[0-9]+|-V1)-service_64       u:object_r:hal_camera_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider(@2\.[0-9]+|-V1)-service          u:object_r:hal_camera_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider(@2\.[0-9]+|-V1)-service-lazy_64  u:object_r:hal_camera_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider(@2\.[0-9]+|-V1)-service-lazy     u:object_r:hal_camera_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider(@2\.[0-9]+|-V1)-external-service          u:object_r:hal_camera_default_exec:s0
-/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider(@2\.[0-9]+|-V1)-external-service-lazy     u:object_r:hal_camera_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider(@2\.[0-9]+|-V[0-9]+)-service_64       u:object_r:hal_camera_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider(@2\.[0-9]+|-V[0-9]+)-service          u:object_r:hal_camera_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider(@2\.[0-9]+|-V[0-9]+)-service-lazy_64  u:object_r:hal_camera_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider(@2\.[0-9]+|-V[0-9]+)-service-lazy     u:object_r:hal_camera_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider(@2\.[0-9]+|-V[0-9]+)-external-service          u:object_r:hal_camera_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.camera\.provider(@2\.[0-9]+|-V[0-9]+)-external-service-lazy     u:object_r:hal_camera_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.configstore@1\.[0-9]+-service    u:object_r:hal_configstore_default_exec:s0
 /(vendor|sustem/vendor)/bin/hw/android\.hardware\.confirmationui@1\.0-service u:object_r:hal_confirmationui_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.contexthub@1\.[0-9]+-service     u:object_r:hal_contexthub_default_exec:s0
@@ -100,6 +102,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.secure_element-service.example u:object_r:hal_secure_element_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.security\.authgraph-service\.nonsecure    u:object_r:hal_authgraph_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.security\.keymint-service   u:object_r:hal_keymint_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.security\.secretkeeper-service.nonsecure       u:object_r:hal_secretkeeper_default_exec:s0
 /(vendor|system/vendor)/bin/hw/rild                                           u:object_r:rild_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.tetheroffload-service\.example u:object_r:hal_tetheroffload_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.thermal@1\.[01]-service        u:object_r:hal_thermal_default_exec:s0

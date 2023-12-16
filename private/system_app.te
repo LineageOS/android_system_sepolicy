@@ -118,7 +118,8 @@ dontaudit system_app {
 # suppress denials caused by debugfs_tracing
 dontaudit system_app debugfs_tracing:file rw_file_perms;
 
-# Ignore access to zram when Debug.getMemInfo is called.
+# Ignore access to memory properties for Settings.
+dontaudit system_app proc_pagetypeinfo:file r_file_perms;
 dontaudit system_app sysfs_zram:dir search;
 
 allow system_app keystore:keystore2_key {
@@ -158,11 +159,17 @@ get_prop(system_app, device_logging_prop)
 allow system_app system_server:udp_socket {
         connect getattr read recvfrom sendto write getopt setopt };
 
+# allow system apps to read game manager related sysrops
+get_prop(system_app, game_manager_config_prop)
+
 # Settings app reads ro.oem_unlock_supported
 get_prop(system_app, oem_unlock_prop)
 
 # Settings app reads ro.usb.uvc.enabled
 get_prop(system_app, usb_uvc_enabled_prop)
+
+# Settings and Launcher apps read pm.archiving.enabled
+get_prop(system_app, pm_archiving_enabled_prop)
 
 ###
 ### Neverallow rules
