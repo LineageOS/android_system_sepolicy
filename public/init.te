@@ -105,6 +105,7 @@ allow init {
     vendor_file
     postinstall_mnt_dir
     mirror_data_file
+    shell_data_file
 }:dir mounton;
 
 # Mount bpf fs on sys/fs/bpf
