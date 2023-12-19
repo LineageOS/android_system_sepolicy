@@ -53,6 +53,7 @@ var (
 		"android.hardware.bluetooth.IBluetoothHci/default":                        EXCEPTION_NO_FUZZER,
 		"android.hardware.bluetooth.finder.IBluetoothFinder/default":              EXCEPTION_NO_FUZZER,
 		"android.hardware.bluetooth.ranging.IBluetoothChannelSounding/default":    EXCEPTION_NO_FUZZER,
+		"android.hardware.bluetooth.lmp_event.IBluetoothLmpEvent/default":         EXCEPTION_NO_FUZZER,
 		"android.hardware.camera.provider.ICameraProvider/internal/0":             EXCEPTION_NO_FUZZER,
 		"android.hardware.camera.provider.ICameraProvider/virtual/0":              EXCEPTION_NO_FUZZER,
 		"android.hardware.cas.IMediaCasService/default":                           EXCEPTION_NO_FUZZER,
