@@ -33,6 +33,7 @@ android.hardware.bluetooth.finder.IBluetoothFinder/default           u:object_r:
 is_flag_enabled(RELEASE_HARDWARE_BLUETOOTH_RANGING_SERVICE, `
     android.hardware.bluetooth.ranging.IBluetoothChannelSounding/default u:object_r:hal_bluetooth_service:s0
 ')
+android.hardware.bluetooth.lmp_event.IBluetoothLmpEvent/default      u:object_r:hal_bluetooth_service:s0
 android.hardware.bluetooth.audio.IBluetoothAudioProviderFactory/default u:object_r:hal_audio_service:s0
 android.hardware.broadcastradio.IBroadcastRadio/amfm                 u:object_r:hal_broadcastradio_service:s0
 android.hardware.broadcastradio.IBroadcastRadio/dab                  u:object_r:hal_broadcastradio_service:s0
