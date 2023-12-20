@@ -54,6 +54,7 @@
 /sys                u:object_r:sysfs:s0
 /apex               u:object_r:apex_mnt_dir:s0
 /bootstrap-apex     u:object_r:apex_mnt_dir:s0
+/tmp                u:object_r:shell_data_file:s0
 
 # Postinstall directories
 /postinstall         u:object_r:postinstall_mnt_dir:s0
