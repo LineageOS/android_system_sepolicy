@@ -3,3 +3,6 @@ hal_server_domain(hal_allocator_default, hal_allocator)
 
 type hal_allocator_default_exec, system_file_type, exec_type, file_type;
 init_daemon_domain(hal_allocator_default)
+
+# to force stop the service when it's not supported
+set_prop(hal_allocator_default, hidl_memory_prop)
