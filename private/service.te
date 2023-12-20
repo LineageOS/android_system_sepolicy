@@ -27,4 +27,4 @@ is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
 ')
 
 type uce_service,                   service_manager_type;
-type wearable_sensing_service,      system_api_service, system_server_service, service_manager_type;
+type wearable_sensing_service,      app_api_service, system_server_service, service_manager_type;
