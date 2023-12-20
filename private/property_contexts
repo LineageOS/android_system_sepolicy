@@ -233,6 +233,9 @@ servicemanager.ready    u:object_r:servicemanager_prop:s0 exact bool
 # hwservicemanager properties
 hwservicemanager.       u:object_r:hwservicemanager_prop:s0
 
+# hidl_memory properties to intentionally force a shutdown
+hidl_memory.            u:object_r:hidl_memory_prop:s0
+
 # Common default properties for vendor, odm, vendor_dlkm, and odm_dlkm.
 init.svc.odm.           u:object_r:vendor_default_prop:s0
 init.svc.vendor.        u:object_r:vendor_default_prop:s0
