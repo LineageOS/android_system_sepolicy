@@ -85,7 +85,7 @@ allow virtualizationmanager tombstoned:fd use;
 
 # Allow virtualizationmanager to read AVF debug policy
 allow virtualizationmanager sysfs_dt_avf:dir search;
-allow virtualizationmanager sysfs_dt_avf:file { open read };
+allow virtualizationmanager sysfs_dt_avf:file r_file_perms;
 
 # virtualizationmanager to be client of secretkeeper HAL. It ferries SecretManagement messages
 # from pVM to HAL.
