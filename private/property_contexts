@@ -233,6 +233,9 @@ servicemanager.ready    u:object_r:servicemanager_prop:s0 exact bool
 # hwservicemanager properties
 hwservicemanager.       u:object_r:hwservicemanager_prop:s0
 
+# hidl_memory properties to intentionally force a shutdown
+hidl_memory.            u:object_r:hidl_memory_prop:s0
+
 # Common default properties for vendor, odm, vendor_dlkm, and odm_dlkm.
 init.svc.odm.           u:object_r:vendor_default_prop:s0
 init.svc.vendor.        u:object_r:vendor_default_prop:s0
@@ -1547,6 +1550,12 @@ persist.vendor.face.virtual.type u:object_r:virtual_face_hal_prop:s0 exact strin
 persist.vendor.face.virtual.strength u:object_r:virtual_face_hal_prop:s0 exact string
 persist.vendor.face.virtual.enrollments u:object_r:virtual_face_hal_prop:s0 exact string
 persist.vendor.face.virtual.features u:object_r:virtual_face_hal_prop:s0 exact string
+persist.vendor.face.virtual.lockout_enable u:object_r:virtual_face_hal_prop:s0 exact bool
+persist.vendor.face.virtual.lockout_timed_enable u:object_r:virtual_face_hal_prop:s0 exact bool
+persist.vendor.face.virtual.lockout_timed_threshold u:object_r:virtual_face_hal_prop:s0 exact int
+persist.vendor.face.virtual.lockout_timed_duration u:object_r:virtual_face_hal_prop:s0 exact int
+persist.vendor.face.virtual.lockout_permanent_threshold u:object_r:virtual_face_hal_prop:s0 exact int
+vendor.face.virtual.no_human_face_detected u:object_r:virtual_face_hal_prop:s0 exact bool
 vendor.face.virtual.enrollment_hit u:object_r:virtual_face_hal_prop:s0 exact int
 vendor.face.virtual.operation_start_enroll_latency u:object_r:virtual_face_hal_prop:s0 exact int
 vendor.face.virtual.next_enrollment u:object_r:virtual_face_hal_prop:s0 exact string

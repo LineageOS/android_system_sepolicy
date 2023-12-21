@@ -7,4 +7,9 @@ init_daemon_domain(hal_face_default)
 # android.frameworks.sensorservice through libsensorndkbridge
 allow hal_face_default fwk_sensor_service:service_manager find;
 
-set_prop(hal_face_default, virtual_face_hal_prop)
+# virtual_face_hal_prop is only for debuggable builds
+userdebug_or_eng(`set_prop(hal_face_default, virtual_face_hal_prop)');
+neverallow { domain -init -dumpstate userdebug_or_eng(`-hal_face_default') not_compatible_property(`-vendor_init') } virtual_face_hal_prop:file no_rw_file_perms;
+neverallow { domain -init userdebug_or_eng(`-hal_face_default') not_compatible_property(`-vendor_init') } virtual_face_hal_prop:property_service set;
+
+
