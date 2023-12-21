@@ -186,13 +186,13 @@ define(`virtualizationservice_use', `
 # Transition to virtualizationmanager when the client executes it.
 domain_auto_trans($1, virtualizationmanager_exec, virtualizationmanager)
 # Allow virtualizationmanager to communicate over UDS with the client.
-allow { virtualizationmanager crosvm } $1:unix_stream_socket { getattr read write };
+allow { virtualizationmanager crosvm } $1:unix_stream_socket { ioctl getattr read write };
 # Let the client pass file descriptors to virtualizationmanager and on to crosvm.
 allow { virtualizationmanager crosvm } $1:fd use;
 # Let the client use file descriptors created by virtualizationmanager.
 allow $1 virtualizationmanager:fd use;
 # Allow piping console log to the client
-allow { virtualizationmanager crosvm } $1:fifo_file { getattr read write };
+allow { virtualizationmanager crosvm } $1:fifo_file { ioctl getattr read write };
 # Allow client to read/write vsock created by virtualizationmanager to communicate with the VM
 # that it created. Notice that we do not grant permission to create a vsock;
 # the client can only connect to VMs that it owns.
