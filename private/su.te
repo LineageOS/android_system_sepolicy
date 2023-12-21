@@ -19,8 +19,9 @@ userdebug_or_eng(`
   # Put the perfetto command into its domain so it is the same on user, userdebug and eng.
   domain_auto_trans(su, perfetto_exec, perfetto)
 
-  # Put the virtmgr command into its domain.
-  domain_auto_trans(su, virtualizationmanager_exec, virtualizationmanager)
+  # Allow accessing virtualization (e.g. via the vm command) - ensures virtmgr runs in its
+  # own domain.
+  virtualizationservice_use(su)
 
   # su is also permissive to permit setenforce.
   permissive su;
