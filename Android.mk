@@ -210,6 +210,12 @@ LOCAL_REQUIRED_MODULES += \
     plat_sepolicy.cil \
     secilc \
 
+# HACK to support pre-vFRC vendor blobs
+# TODO(b/314010177): remove after new ToT (1000000.0) fully propagates
+ifneq (true,$(BOARD_API_LEVEL_FROZEN))
+LOCAL_REQUIRED_MODULES += plat_mapping_file_10000.0
+endif
+
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 LOCAL_REQUIRED_MODULES += plat_sepolicy_and_mapping.sha256
 endif
@@ -278,6 +284,12 @@ ifdef HAS_SYSTEM_EXT_PUBLIC_SEPOLICY
 LOCAL_REQUIRED_MODULES += \
     system_ext_mapping_file
 
+# HACK to support pre-vFRC vendor blobs
+# TODO(b/314010177): remove after new ToT (1000000.0) fully propagates
+ifneq (true,$(BOARD_API_LEVEL_FROZEN))
+LOCAL_REQUIRED_MODULES += system_ext_mapping_file_10000.0
+endif
+
 system_ext_compat_files := $(call build_policy, $(sepolicy_compat_files), $(SYSTEM_EXT_PRIVATE_POLICY))
 
 LOCAL_REQUIRED_MODULES += $(addprefix system_ext_, $(notdir $(system_ext_compat_files)))
@@ -325,6 +337,12 @@ endif
 ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
 LOCAL_REQUIRED_MODULES += \
     product_mapping_file
+
+# HACK to support pre-vFRC vendor blobs
+# TODO(b/314010177): remove after new ToT (1000000.0) fully propagates
+ifneq (true,$(BOARD_API_LEVEL_FROZEN))
+LOCAL_REQUIRED_MODULES += product_mapping_file_10000.0
+endif
 
 product_compat_files := $(call build_policy, $(sepolicy_compat_files), $(PRODUCT_PRIVATE_POLICY))
 
