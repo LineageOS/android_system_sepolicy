@@ -45,18 +45,16 @@ type freezeTestModule struct {
 	freezeTestTimestamp android.ModuleOutPath
 }
 
-func (f *freezeTestModule) shouldSkip(ctx android.EarlyModuleContext) bool {
-	platformVersion := ctx.DeviceConfig().PlatformSepolicyVersion()
-	totVersion := ctx.DeviceConfig().TotSepolicyVersion()
-
-	return platformVersion == totVersion
+func (f *freezeTestModule) shouldRunTest(ctx android.EarlyModuleContext) bool {
+	val, _ := ctx.Config().GetBuildFlag("RELEASE_BOARD_API_LEVEL_FROZEN")
+	return val == "true"
 }
 
 func (f *freezeTestModule) loadHook(ctx android.LoadHookContext) {
 	extraDirs := ctx.DeviceConfig().SepolicyFreezeTestExtraDirs()
 	extraPrebuiltDirs := ctx.DeviceConfig().SepolicyFreezeTestExtraPrebuiltDirs()
 
-	if f.shouldSkip(ctx) {
+	if !f.shouldRunTest(ctx) {
 		if len(extraDirs) > 0 || len(extraPrebuiltDirs) > 0 {
 			ctx.ModuleErrorf("SEPOLICY_FREEZE_TEST_EXTRA_DIRS or SEPOLICY_FREEZE_TEST_EXTRA_PREBUILT_DIRS cannot be set before system/sepolicy freezes.")
 			return
@@ -76,7 +74,7 @@ func (f *freezeTestModule) prebuiltCilModuleName(ctx android.EarlyModuleContext)
 }
 
 func (f *freezeTestModule) DepsMutator(ctx android.BottomUpMutatorContext) {
-	if f.shouldSkip(ctx) {
+	if !f.shouldRunTest(ctx) {
 		return
 	}
 
@@ -118,7 +116,7 @@ func (f *freezeTestModule) outputFileOfDep(ctx android.ModuleContext, depTag dep
 func (f *freezeTestModule) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	f.freezeTestTimestamp = android.PathForModuleOut(ctx, "freeze_test")
 
-	if f.shouldSkip(ctx) {
+	if !f.shouldRunTest(ctx) {
 		// we still build a rule to prevent possible regression
 		android.WriteFileRule(ctx, f.freezeTestTimestamp, ";; no freeze tests needed before system/sepolicy freezes")
 		return
