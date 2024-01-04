@@ -187,3 +187,5 @@ neverallow system_app shell_data_file:file { open read ioctl lock };
 
 # system_app should be the only domain writing the adaptive haptics prop
 neverallow { domain -init -system_app } adaptive_haptics_prop:property_service set;
+# system_app should be the only domain writing the force l3 prop
+neverallow { domain -init -system_app } drm_forcel3_prop:property_service set;
