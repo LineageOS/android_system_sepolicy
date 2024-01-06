@@ -45,6 +45,7 @@ neverallow {
   -hal_wifi_supplicant_server
   -hal_telephony_server
   -hal_nlinterceptor_server
+  -hal_bluetooth_server
 } {
   domain
   userdebug_or_eng(`-su')
