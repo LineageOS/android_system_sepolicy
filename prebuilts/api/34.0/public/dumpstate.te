@@ -376,6 +376,7 @@ allow dumpstate snapshotctl_log_data_file:file r_file_perms;
 allow dumpstate binderfs_logs:dir r_dir_perms;
 allow dumpstate binderfs_logs:file r_file_perms;
 allow dumpstate binderfs_logs_proc:file r_file_perms;
+allow dumpstate binderfs_logs_stats:file r_file_perms;
 
 use_apex_info(dumpstate)
 
