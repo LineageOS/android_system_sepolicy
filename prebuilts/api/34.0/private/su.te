@@ -1,6 +1,6 @@
-userdebug_or_eng(`
-  typeattribute su coredomain;
+typeattribute su coredomain;
 
+userdebug_or_eng(`
   domain_auto_trans(shell, su_exec, su)
   # Allow dumpstate to call su on userdebug / eng builds to collect
   # additional information.
@@ -22,9 +22,6 @@ userdebug_or_eng(`
   # Put the virtmgr command into its domain.
   domain_auto_trans(su, virtualizationmanager_exec, virtualizationmanager)
 
-  # su is also permissive to permit setenforce.
-  permissive su;
-
   app_domain(su)
 
   # Do not audit accesses to keystore2 namespace for the su domain.
@@ -33,3 +30,6 @@ userdebug_or_eng(`
   # Allow root to set MTE permissive mode.
   set_prop(su, permissive_mte_prop);
 ')
+
+# su is also permissive to permit setenforce.
+permissive su;
