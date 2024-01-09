@@ -915,8 +915,10 @@
 /data/misc/apexdata/com.android.permission/test                   apex_system_server_data_file
 /data/misc/apexdata/com.android.scheduling                        apex_system_server_data_file
 /data/misc/apexdata/com.android.scheduling/test                   apex_system_server_data_file
-/data/misc/apexdata/com.android.tethering                         apex_system_server_data_file
-/data/misc/apexdata/com.android.tethering/test                    apex_system_server_data_file
+/data/misc/apexdata/com.android.tethering                         apex_tethering_data_file
+/data/misc/apexdata/com.android.tethering/test                    apex_tethering_data_file
+/data/misc/apexdata/com.android.tethering/threadnetwork           apex_tethering_data_file
+/data/misc/apexdata/com.android.tethering/threadnetwork/test      apex_tethering_data_file
 /data/misc/apexdata/com.android.uwb                               apex_system_server_data_file
 /data/misc/apexdata/com.android.uwb/test                          apex_system_server_data_file
 /data/misc/apexdata/com.android.wifi                              apex_system_server_data_file
@@ -1017,8 +1019,6 @@
 /data/misc/systemkeys/test                                        systemkeys_data_file
 /data/misc/textclassifier                                         textclassifier_data_file
 /data/misc/textclassifier/test                                    textclassifier_data_file
-/data/misc/threadnetwork                                          threadnetwork_data_file
-/data/misc/threadnetwork/test                                     threadnetwork_data_file
 /data/misc/train-info                                             stats_data_file
 /data/misc/train-info/test                                        stats_data_file
 /data/misc/user                                                   misc_user_data_file
