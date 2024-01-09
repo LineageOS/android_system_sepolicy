@@ -77,12 +77,14 @@ type apex_compos_data_file, file_type, data_file_type, core_data_file_type, apex
 # /data/misc/apexdata/com.android.virt
 type apex_virt_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
 
+# /data/misc/apexdata/com.android.tethering
+type apex_tethering_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+
 # legacy labels for various /data/misc[_ce|_de]/*/apexdata directories - retained
 # for backward compatibility b/217581286
 type apex_appsearch_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
 type apex_permission_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
 type apex_scheduling_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
-type apex_tethering_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
 type apex_wifi_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
 
 # /data/font/files
@@ -133,9 +135,6 @@ type art_exec_exec, system_file_type, exec_type, file_type;
 # write permission on this to connect, and needs to be mlstrustedobject
 # in to satisfy MLS constraints for trusted domains.
 type prng_seeder_socket, file_type, coredomain_socket, mlstrustedobject;
-
-# /data/misc/threadnetwork
-type threadnetwork_data_file, file_type, data_file_type, core_data_file_type;
 
 # /sys/firmware/devicetree/base/avf
 type sysfs_dt_avf, fs_type, sysfs_type;
