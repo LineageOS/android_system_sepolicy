@@ -33,6 +33,9 @@ allow snapuserd dm_user_device:chr_file rw_file_perms;
 allow snapuserd snapuserd_socket:unix_stream_socket { accept listen getattr read write };
 allow snapuserd snapuserd_proxy_socket:sock_file write;
 
+# Required for setting GID to system while calling SetTaskProfile() API
+allow snapuserd self:global_capability_class_set { setgid };
+
 # This arises due to first-stage init opening /dev/null without F_CLOEXEC
 # (see SetStdioToDevNull in init). When we fork() and execveat() snapuserd
 # again, the descriptor leaks into the new process.
