@@ -29,3 +29,7 @@ allow mediaserver sdk_sandbox_data_file:file { getattr read };
 allow mediaserver stats_service:service_manager find;
 allow mediaserver statsmanager_service:service_manager find;
 binder_call(mediaserver, statsd)
+
+# Allow mediaserver to communicate with Surface provided
+# by virtual camera.
+binder_call(mediaserver, virtual_camera)
