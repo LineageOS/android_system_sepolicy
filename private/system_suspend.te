@@ -22,6 +22,11 @@ allow system_suspend sysfs_type:dir search;
 # Access to suspend_hal system properties
 get_prop(system_suspend, suspend_prop)
 
+# Access to system_suspend debug system properties
+userdebug_or_eng(`
+  get_prop(system_suspend, suspend_debug_prop)
+')
+
 # To call BTAA registered callbacks
 allow system_suspend bluetooth:binder call;
 

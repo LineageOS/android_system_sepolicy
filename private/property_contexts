@@ -119,6 +119,9 @@ suspend.failed_suspend_backoff_enabled u:object_r:suspend_prop:s0 exact bool
 suspend.short_suspend_backoff_enabled u:object_r:suspend_prop:s0 exact bool
 suspend.disable_sync_on_suspend u:object_r:suspend_prop:s0 exact bool
 
+# Suspend service debug properties
+suspend.debug.wakestats_log.enabled u:object_r:suspend_debug_prop:s0 exact bool
+
 # Fastbootd protocol control property
 fastbootd.protocol    u:object_r:fastbootd_protocol_prop:s0 exact enum usb tcp
 
