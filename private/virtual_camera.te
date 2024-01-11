@@ -12,6 +12,15 @@ binder_use(virtual_camera)
 binder_call(virtual_camera, cameraserver)
 binder_call(virtual_camera, system_server)
 
+# Allow virtual_camera to communicate with
+# mediaserver (required for using Surface originating
+# from virtual camera in mediaserver).
+binder_call(virtual_camera, mediaserver)
+
+# Required for the codecs to be able to decode
+# video into surface provided by virtual camera.
+hal_client_domain(virtual_camera, hal_codec2)
+hal_client_domain(virtual_camera, hal_omx)
 
 # Allow virtualCamera to call apps via binder.
 binder_call(virtual_camera, appdomain)
