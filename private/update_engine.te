@@ -22,6 +22,10 @@ get_prop(update_engine, gsid_prop)
 # Allow update_engine to call the callback function provided by GKI update hook.
 binder_call(update_engine, gki_apex_prepostinstall)
 
+# Allow update_engine to call the callback function by settings app
+# for the kernel update triggered using 16k developer option
+binder_call(update_engine, system_app)
+
 # Allow to communicate with the snapuserd service, for dm-user snapshots.
 allow update_engine snapuserd:unix_stream_socket connectto;
 allow update_engine snapuserd_socket:sock_file write;
