@@ -8,7 +8,7 @@ type fs_bpf_net_shared, fs_type, bpffs_type;
 type fs_bpf_netd_readonly, fs_type, bpffs_type;
 type fs_bpf_netd_shared, fs_type, bpffs_type;
 type fs_bpf_loader, fs_type, bpffs_type;
-type fs_bpf_uprobe_private, fs_type, bpffs_type;
+type fs_bpf_uprobestats, fs_type, bpffs_type;
 
 # /data/misc/storaged
 type storaged_data_file, file_type, data_file_type, core_data_file_type;
