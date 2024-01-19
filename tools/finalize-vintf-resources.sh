@@ -22,33 +22,33 @@ fi
 top=$1
 ver=$2
 
-mkdir -p "$top/system/sepolicy/prebuilts/api/${ver}.0/"
-cp -r "$top/system/sepolicy/public/" "$top/system/sepolicy/prebuilts/api/${ver}.0/"
-cp -r "$top/system/sepolicy/private/" "$top/system/sepolicy/prebuilts/api/${ver}.0/"
+mkdir -p "$top/system/sepolicy/prebuilts/api/${ver}/"
+cp -r "$top/system/sepolicy/public/" "$top/system/sepolicy/prebuilts/api/${ver}/"
+cp -r "$top/system/sepolicy/private/" "$top/system/sepolicy/prebuilts/api/${ver}/"
 
-cat > "$top/system/sepolicy/prebuilts/api/${ver}.0/Android.bp" <<EOF
+cat > "$top/system/sepolicy/prebuilts/api/${ver}/Android.bp" <<EOF
 // Automatically generated file, do not edit!
 se_policy_conf {
-    name: "${ver}.0_plat_pub_policy.conf",
-    srcs: [":se_build_files{.plat_public_${ver}.0}", ":se_build_files{.reqd_mask}"],
+    name: "${ver}_plat_pub_policy.conf",
+    srcs: [":se_build_files{.plat_public_${ver}}", ":se_build_files{.reqd_mask}"],
     installable: false,
     build_variant: "user",
 }
 
 se_policy_cil {
-    name: "${ver}.0_plat_pub_policy.cil",
-    src: ":${ver}.0_plat_pub_policy.conf",
+    name: "${ver}_plat_pub_policy.cil",
+    src: ":${ver}_plat_pub_policy.conf",
     filter_out: [":reqd_policy_mask.cil"],
     secilc_check: false,
     installable: false,
 }
 
 se_policy_conf {
-    name: "${ver}.0_product_pub_policy.conf",
+    name: "${ver}_product_pub_policy.conf",
     srcs: [
-        ":se_build_files{.plat_public_${ver}.0}",
-        ":se_build_files{.system_ext_public_${ver}.0}",
-        ":se_build_files{.product_public_${ver}.0}",
+        ":se_build_files{.plat_public_${ver}}",
+        ":se_build_files{.system_ext_public_${ver}}",
+        ":se_build_files{.product_public_${ver}}",
         ":se_build_files{.reqd_mask}",
     ],
     installable: false,
@@ -56,37 +56,37 @@ se_policy_conf {
 }
 
 se_policy_cil {
-    name: "${ver}.0_product_pub_policy.cil",
-    src: ":${ver}.0_product_pub_policy.conf",
+    name: "${ver}_product_pub_policy.cil",
+    src: ":${ver}_product_pub_policy.conf",
     filter_out: [":reqd_policy_mask.cil"],
     secilc_check: false,
     installable: false,
 }
 
 se_policy_conf {
-    name: "${ver}.0_plat_policy.conf",
+    name: "${ver}_plat_policy.conf",
     srcs: [
-        ":se_build_files{.plat_public_${ver}.0}",
-        ":se_build_files{.plat_private_${ver}.0}",
-        ":se_build_files{.system_ext_public_${ver}.0}",
-        ":se_build_files{.system_ext_private_${ver}.0}",
-        ":se_build_files{.product_public_${ver}.0}",
-        ":se_build_files{.product_private_${ver}.0}",
+        ":se_build_files{.plat_public_${ver}}",
+        ":se_build_files{.plat_private_${ver}}",
+        ":se_build_files{.system_ext_public_${ver}}",
+        ":se_build_files{.system_ext_private_${ver}}",
+        ":se_build_files{.product_public_${ver}}",
+        ":se_build_files{.product_private_${ver}}",
     ],
     installable: false,
     build_variant: "user",
 }
 
 se_policy_cil {
-    name: "${ver}.0_plat_policy.cil",
-    src: ":${ver}.0_plat_policy.conf",
-    additional_cil_files: [":sepolicy_technical_debt{.plat_private_${ver}.0}"],
+    name: "${ver}_plat_policy.cil",
+    src: ":${ver}_plat_policy.conf",
+    additional_cil_files: [":sepolicy_technical_debt{.plat_private_${ver}}"],
     installable: false,
 }
 
 se_policy_binary {
-    name: "${ver}.0_plat_policy",
-    srcs: [":${ver}.0_plat_policy.cil"],
+    name: "${ver}_plat_policy",
+    srcs: [":${ver}_plat_policy.cil"],
     installable: false,
     dist: {
         targets: ["base-sepolicy-files-for-mapping"],
