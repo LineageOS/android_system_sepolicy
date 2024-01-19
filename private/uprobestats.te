@@ -7,8 +7,8 @@ type uprobestats_exec, system_file_type, exec_type, file_type;
 # Allow init to start uprobestats.
 init_daemon_domain(uprobestats)
 
-allow uprobestats fs_bpf_uprobe_private:file { read write };
-allow uprobestats fs_bpf_uprobe_private:dir search;
+allow uprobestats fs_bpf_uprobestats:file { read write };
+allow uprobestats fs_bpf_uprobestats:dir search;
 allow uprobestats bpfloader:bpf { map_read map_write prog_run };
 allow uprobestats self:capability2 perfmon;
 allow uprobestats self:perf_event { cpu open write };
