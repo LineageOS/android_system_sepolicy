@@ -541,6 +541,7 @@ persist.sys.media.avsync                     u:object_r:media_config_prop:s0 exa
 
 persist.bluetooth.a2dp_offload.cap                          u:object_r:bluetooth_a2dp_offload_prop:s0 exact string
 persist.bluetooth.a2dp_offload.disabled                     u:object_r:bluetooth_a2dp_offload_prop:s0 exact bool
+persist.bluetooth.leaudio_offload.disabled                  u:object_r:bluetooth_a2dp_offload_prop:s0 exact bool
 persist.bluetooth.bluetooth_audio_hal.disabled              u:object_r:bluetooth_audio_hal_prop:s0 exact bool
 persist.bluetooth.btsnoopenable                             u:object_r:exported_bluetooth_prop:s0 exact bool
 persist.bluetooth.btsnoopdefaultmode                        u:object_r:bluetooth_prop:s0 exact enum empty disabled filtered full
