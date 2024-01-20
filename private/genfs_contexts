@@ -419,4 +419,4 @@ genfscon bpf /netd_readonly u:object_r:fs_bpf_netd_readonly:s0
 genfscon bpf /netd_shared u:object_r:fs_bpf_netd_shared:s0
 genfscon bpf /tethering u:object_r:fs_bpf_tethering:s0
 genfscon bpf /vendor u:object_r:fs_bpf_vendor:s0
-genfscon bpf /uprobe_private u:object_r:fs_bpf_uprobe_private:s0
+genfscon bpf /uprobestats u:object_r:fs_bpf_uprobestats:s0
