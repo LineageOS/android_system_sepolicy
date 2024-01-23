@@ -263,6 +263,7 @@ var (
 		"dumpstate":                                                       EXCEPTION_NO_FUZZER,
 		"dynamic_system":                                                  EXCEPTION_NO_FUZZER,
 		"econtroller":                                                     EXCEPTION_NO_FUZZER,
+		"ecm_enhanced_confirmation":                                       EXCEPTION_NO_FUZZER,
 		"emergency_affordance":                                            EXCEPTION_NO_FUZZER,
 		"euicc_card_controller":                                           EXCEPTION_NO_FUZZER,
 		"external_vibrator_service":                                       EXCEPTION_NO_FUZZER,
