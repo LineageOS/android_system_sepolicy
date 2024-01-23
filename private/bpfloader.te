@@ -68,7 +68,7 @@ neverallow {
 neverallow { domain -bpfloader -gpuservice -lmkd -mediaprovider_app -netd -network_stack -system_server -uprobestats } *:bpf { map_read map_write };
 neverallow { domain -bpfloader -init } bpfloader_exec:file { execute execute_no_trans };
 
-neverallow { coredomain -bpfloader } fs_bpf_vendor:file *;
+neverallow { coredomain -bpfloader -netd -netutils_wrapper } fs_bpf_vendor:file *;
 
 neverallow bpfloader *:{ tcp_socket udp_socket rawip_socket } *;
 
