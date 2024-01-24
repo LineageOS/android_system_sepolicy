@@ -200,6 +200,9 @@
 /dev/socket/mdns                                                  mdns_socket
 /dev/socket/mdnsd                                                 mdnsd_socket
 /dev/socket/mtpd                                                  mtpd_socket
+/dev/socket/ot-daemon/                                            ot_daemon_socket
+/dev/socket/ot-daemon/thread-wpan                                 ot_daemon_socket
+/dev/socket/ot-daemon/100                                         ot_daemon_socket
 /dev/socket/pdx/system/buffer_hub                                 pdx_bufferhub_dir
 /dev/socket/pdx/system/buffer_hub/client                          pdx_bufferhub_client_endpoint_socket
 /dev/socket/pdx/system/performance                                pdx_performance_dir
