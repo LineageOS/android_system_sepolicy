@@ -167,6 +167,7 @@
 /dev/socket/mdns	u:object_r:mdns_socket:s0
 /dev/socket/mdnsd	u:object_r:mdnsd_socket:s0
 /dev/socket/mtpd	u:object_r:mtpd_socket:s0
+/dev/socket/ot-daemon(/.*)?  u:object_r:ot_daemon_socket:s0
 /dev/socket/pdx/system/buffer_hub	u:object_r:pdx_bufferhub_dir:s0
 /dev/socket/pdx/system/buffer_hub/client	u:object_r:pdx_bufferhub_client_endpoint_socket:s0
 /dev/socket/pdx/system/performance	u:object_r:pdx_performance_dir:s0

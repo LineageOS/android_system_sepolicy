@@ -19,7 +19,6 @@ allow ot_daemon apex_module_data_file:dir search;
 # /data/misc/apexdata/com\.android\.tethering
 allow ot_daemon apex_tethering_data_file:dir {create rw_dir_perms};
 allow ot_daemon apex_tethering_data_file:file create_file_perms;
-allow ot_daemon apex_tethering_data_file:sock_file {create unlink};
 
 # Allow OT daemon to read/write the Thread tunnel interface
 allow ot_daemon tun_device:chr_file {read write};
