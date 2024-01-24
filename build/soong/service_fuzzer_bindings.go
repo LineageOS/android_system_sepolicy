@@ -158,6 +158,7 @@ var (
 		"account":            EXCEPTION_NO_FUZZER,
 		"activity":           EXCEPTION_NO_FUZZER,
 		"activity_task":      EXCEPTION_NO_FUZZER,
+		"adaptive_auth":      EXCEPTION_NO_FUZZER,
 		"adb":                EXCEPTION_NO_FUZZER,
 		"adservices_manager": EXCEPTION_NO_FUZZER,
 		"aidl_lazy_test_1":   EXCEPTION_NO_FUZZER,
