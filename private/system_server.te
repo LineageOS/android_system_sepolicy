@@ -1565,3 +1565,14 @@ allow system_server binderfs_logs_stats:file r_file_perms;
 # Allow GameManagerService to read and write persist.graphics.game_default_frame_rate.enabled
 set_prop(system_server, game_manager_config_prop)
 
+# ThreadNetworkService reads Thread Network properties
+get_prop(system_server, threadnetwork_config_prop)
+
+# Do not allow any domain other than init and system server to set the property
+neverallow {
+  domain
+  -init
+  -vendor_init
+  -dumpstate
+  -system_server
+} threadnetwork_config_prop:file no_rw_file_perms;
