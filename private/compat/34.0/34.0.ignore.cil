@@ -10,6 +10,7 @@
     ota_build_prop
     snapuserd_log_data_file
     fwk_vibrator_control_service
+    ecm_enhanced_confirmation_service
     hal_authgraph_service
     hal_secretkeeper_service
     hal_codec2_service
@@ -20,6 +21,7 @@
     hidraw_device
     virtual_camera_service
     ot_daemon_service
+    ot_daemon_socket
     pm_archiving_enabled_prop
     remote_auth_service
     security_state_service
