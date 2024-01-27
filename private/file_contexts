@@ -180,7 +180,6 @@
 /dev/socket/prng_seeder	u:object_r:prng_seeder_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
 /dev/socket/property_service_for_system  u:object_r:property_socket:s0
-/dev/socket/racoon	u:object_r:racoon_socket:s0
 /dev/socket/recovery    u:object_r:recovery_socket:s0
 /dev/socket/rild	u:object_r:rild_socket:s0
 /dev/socket/rild-debug	u:object_r:rild_debug_socket:s0
@@ -322,7 +321,6 @@
 /system/bin/dmesgd	u:object_r:dmesgd_exec:s0
 /system/bin/mtpd	u:object_r:mtp_exec:s0
 /system/bin/pppd	u:object_r:ppp_exec:s0
-/system/bin/racoon	u:object_r:racoon_exec:s0
 /system/xbin/su		u:object_r:su_exec:s0
 /system/bin/dnsmasq     u:object_r:dnsmasq_exec:s0
 /system/bin/linker(64)? u:object_r:system_linker_exec:s0
@@ -658,6 +656,7 @@
 /data/misc/media(/.*)?          u:object_r:media_data_file:s0
 /data/misc/net(/.*)?            u:object_r:net_data_file:s0
 /data/misc/network_watchlist(/.*)? u:object_r:network_watchlist_data_file:s0
+/data/misc/telephonyconfig(/.*)? u:object_r:radio_data_file:s0
 /data/misc/nfc/logs(/.*)?       u:object_r:nfc_logs_data_file:s0
 /data/misc/odrefresh(/.*)?      u:object_r:odrefresh_data_file:s0
 /data/misc/odsign(/.*)?         u:object_r:odsign_data_file:s0

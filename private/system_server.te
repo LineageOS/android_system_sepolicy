@@ -262,7 +262,6 @@ allow system_server self:tun_socket create_socket_perms_no_ioctl;
 unix_socket_connect(system_server, lmkd, lmkd)
 unix_socket_connect(system_server, mtpd, mtp)
 unix_socket_connect(system_server, zygote, zygote)
-unix_socket_connect(system_server, racoon, racoon)
 unix_socket_connect(system_server, uncrypt, uncrypt)
 
 # Allow system_server to write to statsd.
@@ -1576,3 +1575,7 @@ neverallow {
   -dumpstate
   -system_server
 } threadnetwork_config_prop:file no_rw_file_perms;
+
+# Allow system server to read pm.archiving.enabled prop
+# TODO(azilio): Remove system property after archiving testing is completed.
+get_prop(system_server, pm_archiving_enabled_prop)
