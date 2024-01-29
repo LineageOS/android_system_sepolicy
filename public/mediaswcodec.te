@@ -11,6 +11,9 @@ hal_client_domain(mediaswcodec, hal_omx)
 hal_client_domain(mediaswcodec, hal_allocator)
 hal_client_domain(mediaswcodec, hal_graphics_allocator)
 
+# get aac_drc_* properties
+get_prop(mediaswcodec, aac_drc_prop)
+
 crash_dump_fallback(mediaswcodec)
 
 # mediaswcodec_server should never execute any executable without a
