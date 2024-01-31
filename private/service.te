@@ -1,3 +1,4 @@
+type adaptive_auth_service,         system_server_service, service_manager_type;
 type ambient_context_service,       app_api_service, system_server_service, service_manager_type;
 type attention_service,             system_server_service, service_manager_type;
 type bg_install_control_service,    system_api_service, system_server_service, service_manager_type;
