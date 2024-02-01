@@ -148,6 +148,7 @@ aidl_lazy_test_quit                       u:object_r:aidl_lazy_test_service:s0
 aidl_lazy_cb_test                         u:object_r:aidl_lazy_test_service:s0
 alarm                                     u:object_r:alarm_service:s0
 android.hardware.automotive.evs.IEvsEnumerator/default u:object_r:evsmanagerd_service:s0
+android.media.audio.IHalAdapterVendorExtension/default u:object_r:audio_vendor_parameter_parser_service:s0
 android.os.UpdateEngineService            u:object_r:update_engine_service:s0
 android.os.UpdateEngineStableService      u:object_r:update_engine_stable_service:s0
 android.frameworks.automotive.display.ICarDisplayProxy/default u:object_r:fwk_automotive_display_service:s0
