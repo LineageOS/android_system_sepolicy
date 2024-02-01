@@ -48,7 +48,6 @@ type proc_locks, fs_type, proc_type;
 type proc_lowmemorykiller, fs_type, proc_type;
 type proc_max_map_count, fs_type, proc_type;
 type proc_meminfo, fs_type, proc_type;
-type proc_memhealth, fs_type, proc_type;
 type proc_misc, fs_type, proc_type;
 type proc_modules, fs_type, proc_type;
 type proc_mounts, fs_type, proc_type;
