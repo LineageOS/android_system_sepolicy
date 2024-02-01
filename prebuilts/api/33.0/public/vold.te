@@ -328,6 +328,7 @@ neverallow { domain -vold -init } restorecon_prop:property_service set;
 neverallow vold {
   domain
   -hal_health_storage_server
+  -hal_keymaster_server
   -system_suspend_server
   -hal_bootctl_server
   -hwservicemanager
