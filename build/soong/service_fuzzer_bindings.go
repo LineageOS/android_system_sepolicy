@@ -150,7 +150,6 @@ var (
 		"android.frameworks.sensorservice.ISensorManager/default":                 []string{"libsensorserviceaidl_fuzzer"},
 		"android.frameworks.stats.IStats/default":                                 EXCEPTION_NO_FUZZER,
                 "android.frameworks.vibrator.IVibratorControlService/default":             EXCEPTION_NO_FUZZER,
-		"android.media.audio.IHalAdapterVendorExtension/default":                  EXCEPTION_NO_FUZZER,
 		"android.se.omapi.ISecureElementService/default":                          EXCEPTION_NO_FUZZER,
 		"android.system.keystore2.IKeystoreService/default":                       EXCEPTION_NO_FUZZER,
 		"android.system.net.netd.INetd/default":                                   []string{"netd_hw_service_fuzzer"},
