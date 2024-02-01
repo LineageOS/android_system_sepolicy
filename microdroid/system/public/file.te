@@ -84,6 +84,7 @@ type proc_cpuinfo, fs_type, proc_type;
 type proc_dirty, fs_type, proc_type;
 type proc_diskstats, fs_type, proc_type;
 type proc_drop_caches, fs_type, proc_type;
+type proc_dt_avf, fs_type, proc_type;
 type proc_extra_free_kbytes, fs_type, proc_type;
 type proc_filesystems, fs_type, proc_type;
 type proc_hostname, fs_type, proc_type;
