@@ -755,7 +755,8 @@
 /system/system_ext/bin/hwservicemanager                           hwservicemanager_exec
 /system_ext/bin/hw/android.hidl.allocator@1.0-service             hal_allocator_default_exec
 /system/system_ext/bin/hw/android.hidl.allocator@1.0-service      hal_allocator_default_exec
-
+/system_ext/bin/hw/android.hardware.audio.parameter_parser.example_service audio_vendor_parameter_parser_exec
+/system/system_ext/bin/hw/android.hardware.audio.parameter_parser.example_service audio_vendor_parameter_parser_exec
 
 /system_ext/bin/canhalconfigurator                                canhalconfigurator_exec
 /system_ext/bin/canhalconfigurator-aidl                           canhalconfigurator_exec
