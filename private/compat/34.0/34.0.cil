@@ -1,6 +1,9 @@
 ;; types removed from current policy
 (type racoon)
 (type racoon_exec)
+(type mtp_exec)
+(type ppp_device)
+(type ppp_exec)
 
 ;; mapping information from ToT policy's types to 34.0 policy's types.
 (expandtypeattribute (DockObserver_service_34_0) true)

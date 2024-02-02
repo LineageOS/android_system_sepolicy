@@ -141,7 +141,6 @@
 /dev/pmsg0		u:object_r:pmsg_device:s0
 /dev/pn544		u:object_r:nfc_device:s0
 /dev/port		u:object_r:port_device:s0
-/dev/ppp		u:object_r:ppp_device:s0
 /dev/ptmx		u:object_r:ptmx_device:s0
 /dev/pvrsrvkm		u:object_r:gpu_device:s0
 /dev/kmsg		u:object_r:kmsg_device:s0
@@ -166,7 +165,6 @@
 /dev/socket/statsdw	u:object_r:statsdw_socket:s0
 /dev/socket/mdns	u:object_r:mdns_socket:s0
 /dev/socket/mdnsd	u:object_r:mdnsd_socket:s0
-/dev/socket/mtpd	u:object_r:mtpd_socket:s0
 /dev/socket/ot-daemon(/.*)?  u:object_r:ot_daemon_socket:s0
 /dev/socket/pdx/system/buffer_hub	u:object_r:pdx_bufferhub_dir:s0
 /dev/socket/pdx/system/buffer_hub/client	u:object_r:pdx_bufferhub_client_endpoint_socket:s0
@@ -319,8 +317,6 @@
 /system/bin/dhcpcd      u:object_r:dhcp_exec:s0
 /system/bin/dhcpcd-6\.8\.2	u:object_r:dhcp_exec:s0
 /system/bin/dmesgd	u:object_r:dmesgd_exec:s0
-/system/bin/mtpd	u:object_r:mtp_exec:s0
-/system/bin/pppd	u:object_r:ppp_exec:s0
 /system/xbin/su		u:object_r:su_exec:s0
 /system/bin/dnsmasq     u:object_r:dnsmasq_exec:s0
 /system/bin/linker(64)? u:object_r:system_linker_exec:s0
