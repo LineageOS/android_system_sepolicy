@@ -631,6 +631,7 @@ bluetooth.core.le.inquiry_scan_window                u:object_r:bluetooth_config
 
 bluetooth.core.le.vendor_capabilities.enabled        u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.sco.disable_enhanced_connection            u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.sco.managed_by_audio                       u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.core.le.dsa_transport_preference           u:object_r:bluetooth_config_prop:s0 exact string
 
 persist.nfc.debug_enabled                      u:object_r:nfc_prop:s0 exact bool
@@ -1630,3 +1631,14 @@ pm.archiving.enabled      u:object_r:pm_archiving_enabled_prop:s0 exact bool
 
 # Properties for ThreadNetworkService
 threadnetwork.country_code u:object_r:threadnetwork_config_prop:s0 exact string
+
+# Properties for crashrecovery
+crashrecovery.attempting_factory_reset u:object_r:crashrecovery_prop:s0 exact bool
+crashrecovery.attempting_reboot u:object_r:crashrecovery_prop:s0 exact bool
+crashrecovery.boot_mitigation_count u:object_r:crashrecovery_prop:s0 exact int
+crashrecovery.boot_mitigation_start u:object_r:crashrecovery_prop:s0 exact int
+crashrecovery.max_rescue_level_attempted u:object_r:crashrecovery_prop:s0 exact int
+crashrecovery.rescue_boot_count u:object_r:crashrecovery_prop:s0 exact int
+crashrecovery.rescue_boot_start u:object_r:crashrecovery_prop:s0 exact int
+persist.crashrecovery.enable_rescue u:object_r:crashrecovery_prop:s0 exact bool
+persist.crashrecovery.last_factory_reset u:object_r:crashrecovery_prop:s0 exact int
