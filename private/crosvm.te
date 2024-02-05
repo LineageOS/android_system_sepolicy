@@ -45,6 +45,12 @@ allow crosvm {
 # Allow searching the directory where the composite disk images are.
 allow crosvm virtualizationservice_data_file:dir search;
 
+# When running a VM as root we get spurious capability denials.
+# Suppress them.
+userdebug_or_eng(`
+  dontaudit crosvm self:capability ipc_lock;
+')
+
 # Let crosvm access its control socket as created by VS.
 #   read, write, getattr: listener socket polling
 #   accept: listener socket accepting new connection
