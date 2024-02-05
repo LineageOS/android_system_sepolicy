@@ -190,6 +190,7 @@ def TestIsolatedAttributeConsistency(test_policy):
         "hal_graphics_allocator_hwservice":["hwservice_manager"],
         "hal_graphics_allocator_server":["binder", "service_manager"],
         "hal_graphics_mapper_hwservice":["hwservice_manager"],
+        "hal_graphics_mapper_service":["service_manager"],
         "hal_neuralnetworks": ["binder", "fd"],
         "hal_neuralnetworks_service": ["service_manager"],
         "hal_neuralnetworks_hwservice":["hwservice_manager"],
