@@ -1152,7 +1152,7 @@ ro.product.manufacturer_for_attestation  u:object_r:build_attestation_prop:s0 ex
 ro.board.first_api_level u:object_r:build_vendor_prop:s0 exact int
 ro.board.api_level       u:object_r:build_vendor_prop:s0 exact int
 ro.board.api_frozen      u:object_r:build_vendor_prop:s0 exact bool
-ro.llndk.api_level       u:object_r:build_vendor_prop:s0 exact int
+ro.llndk.api_level       u:object_r:build_prop:s0 exact int
 ro.vendor.api_level      u:object_r:build_vendor_prop:s0 exact int
 
 # Boot image build props set by /{second_stage_resources/,}boot/etc/build.prop
