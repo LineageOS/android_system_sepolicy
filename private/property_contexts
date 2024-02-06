@@ -557,6 +557,8 @@ bluetooth.core.le_audio.inband_ringtone.supported    u:object_r:bluetooth_config
 bluetooth.device.default_name                        u:object_r:bluetooth_config_prop:s0 exact string
 bluetooth.device.class_of_device                     u:object_r:bluetooth_config_prop:s0 exact string
 
+bluetooth.device.m_rsplen_workaround                 u:object_r:bluetooth_config_prop:s0 exact bool
+
 bluetooth.le.disable_apcf_extended_features          u:object_r:bluetooth_config_prop:s0 exact bool
 
 bluetooth.profile.a2dp.sink.enabled                  u:object_r:bluetooth_config_prop:s0 exact bool
