@@ -6,6 +6,7 @@
 (typeattributeset new_objects
   ( new_objects
     archive_service
+    contextual_search_service
     dtbo_block_device
     ota_build_prop
     snapuserd_log_data_file
