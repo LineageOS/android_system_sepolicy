@@ -410,6 +410,9 @@ ro.audio.spatializer_enabled u:object_r:audio_config_prop:s0 exact bool
 # Boolean property used in AudioService to configure whether
 # to enable head tracking for spatial audio
 ro.audio.headtracking_enabled u:object_r:audio_config_prop:s0 exact bool
+# Boolean property used in AudioPolicyManager to configure whether
+# to enable spatialization for stereo channel mask
+ro.audio.stereo_spatialization_enabled u:object_r:audio_config_prop:s0 exact bool
 
 # Boolean property used in UsbAlsaManager to decide if only one or multiple
 # USB devices can be connected to audio system at a certain time
