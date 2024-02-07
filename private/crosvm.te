@@ -51,6 +51,9 @@ userdebug_or_eng(`
   dontaudit crosvm self:capability ipc_lock;
 ')
 
+# Allow crosvm to tune for performance.
+allow crosvm self:global_capability_class_set sys_nice;
+
 # Let crosvm access its control socket as created by VS.
 #   read, write, getattr: listener socket polling
 #   accept: listener socket accepting new connection
