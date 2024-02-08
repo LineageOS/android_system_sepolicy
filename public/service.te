@@ -89,6 +89,7 @@ type cameraproxy_service, system_server_service, service_manager_type;
 type clipboard_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type cloudsearch_service, app_api_service, system_server_service, service_manager_type;
 type contexthub_service, app_api_service,  system_server_service, service_manager_type;
+type contextual_search_service, app_api_service, system_server_service, service_manager_type;
 type crossprofileapps_service, app_api_service, system_server_service, service_manager_type;
 type IProxyService_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type companion_device_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
