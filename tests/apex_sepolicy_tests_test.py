@@ -102,5 +102,11 @@ class ApexSepolicyTests(unittest.TestCase):
         self.assert_error('./bin/hw/foo u:object_r:foo_exec:s0',
                         r'Error: \./bin/hw/foo: tcontext\(foo_exec\) is unknown')
 
+    def test_binaries(self):
+        self.assert_ok('./bin/init u:object_r:init_exec:s0')
+        self.assert_ok('./bin/hw/svc u:object_r:init_exec:s0')
+        self.assert_error('./bin/hw/svc u:object_r:vendor_file:s0',
+                          r"Error: .*svc: can\'t be labelled as \'vendor_file\'")
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
