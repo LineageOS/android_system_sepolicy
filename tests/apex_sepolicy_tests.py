@@ -56,7 +56,16 @@ class Regex:
     pattern: str
 
 
-Matcher = Is | Glob | Regex
+@dataclass
+class BinaryFile:
+    pass
+
+
+Matcher = Is | Glob | Regex | BinaryFile
+
+
+# predicate functions for Func matcher
+
 
 @dataclass
 class AllowPerm:
@@ -72,7 +81,13 @@ class ResolveType:
     pass
 
 
-Rule = AllowPerm | ResolveType
+@dataclass
+class NotAnyOf:
+    """Rule checking if entity is not labelled as any of the given labels"""
+    labels: set[str]
+
+
+Rule = AllowPerm | ResolveType | NotAnyOf
 
 
 # Helper for 'read'
@@ -89,6 +104,8 @@ def match_path(path: str, matcher: Matcher) -> bool:
             return pathlib.PurePath(path).match(pattern)
         case Regex(pattern):
             return re.match(pattern, path)
+        case BinaryFile:
+            return path.startswith('./bin/') and not path.endswith('/')
 
 
 def check_rule(pol, path: str, tcontext: str, rule: Rule) -> List[str]:
@@ -109,6 +126,9 @@ def check_rule(pol, path: str, tcontext: str, rule: Rule) -> List[str]:
         case ResolveType():
             if tcontext not in pol.GetAllTypes(False):
                 errors.append(f"Error: {path}: tcontext({tcontext}) is unknown")
+        case NotAnyOf(labels):
+            if tcontext in labels:
+                errors.append(f"Error: {path}: can't be labelled as '{tcontext}'")
     return errors
 
 
@@ -118,6 +138,8 @@ target_specific_rules = [
 
 
 generic_rules = [
+    # binaries should be executable
+    (BinaryFile, NotAnyOf({'vendor_file'})),
     # permissions
     (Is('./etc/permissions/'), AllowRead('dir', {'system_server'})),
     (Glob('./etc/permissions/*.xml'), AllowRead('file', {'system_server'})),
