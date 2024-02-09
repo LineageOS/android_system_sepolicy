@@ -283,6 +283,7 @@ binder_call(system_server, appdomain)
 binder_call(system_server, artd)
 binder_call(system_server, binderservicedomain)
 binder_call(system_server, composd)
+binder_call(system_server, dexopt_chroot_setup)
 binder_call(system_server, dumpstate)
 binder_call(system_server, fingerprintd)
 binder_call(system_server, gatekeeperd)
@@ -940,12 +941,14 @@ allow system_server kernel:security read_policy;
 
 add_service(system_server, system_server_service);
 allow system_server artd_service:service_manager find;
+allow system_server artd_pre_reboot_service:service_manager find;
 allow system_server audioserver_service:service_manager find;
 allow system_server authorization_service:service_manager find;
 allow system_server batteryproperties_service:service_manager find;
 allow system_server cameraserver_service:service_manager find;
 allow system_server compos_service:service_manager find;
 allow system_server dataloader_manager_service:service_manager find;
+allow system_server dexopt_chroot_setup_service:service_manager find;
 allow system_server dnsresolver_service:service_manager find;
 allow system_server drmserver_service:service_manager find;
 allow system_server dumpstate_service:service_manager find;

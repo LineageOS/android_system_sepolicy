@@ -1,0 +1,23 @@
+type dexopt_chroot_setup, domain, coredomain;
+type dexopt_chroot_setup_exec, system_file_type, exec_type, file_type;
+type dexopt_chroot_setup_tmpfs, file_type;
+
+# Allow dexopt_chroot_setup to publish a binder service and make binder calls.
+binder_use(dexopt_chroot_setup)
+add_service(dexopt_chroot_setup, dexopt_chroot_setup_service)
+allow dexopt_chroot_setup dumpstate:fifo_file { getattr write };
+allow dexopt_chroot_setup dumpstate:fd use;
+
+init_daemon_domain(dexopt_chroot_setup)
+
+# Use tmpfs_domain() which will give tmpfs files created by dexopt_chroot_setup their
+# own label, which differs from other labels created by other processes.
+# This allows to distinguish in policy files created by dexopt_chroot_setup vs other
+# processes.
+tmpfs_domain(dexopt_chroot_setup)
+
+# libart (mark_compact.cc) has some intialization code that touches the cache
+# info file and userfaultfd.
+allow dexopt_chroot_setup apex_module_data_file:dir { getattr search };
+r_dir_file(dexopt_chroot_setup, apex_art_data_file)
+userfaultfd_use(dexopt_chroot_setup)
