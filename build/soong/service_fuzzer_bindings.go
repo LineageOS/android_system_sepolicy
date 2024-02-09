@@ -407,6 +407,7 @@ var (
 		"security_state":               EXCEPTION_NO_FUZZER,
 		"sec_key_att_app_id_provider":  EXCEPTION_NO_FUZZER,
 		"selection_toolbar":            EXCEPTION_NO_FUZZER,
+		"sensitive_content_protection_service": EXCEPTION_NO_FUZZER,
 		"sensorservice":                EXCEPTION_NO_FUZZER,
 		"sensor_privacy":               EXCEPTION_NO_FUZZER,
 		"serial":                       EXCEPTION_NO_FUZZER,
