@@ -2,6 +2,7 @@ type aidl_lazy_test_service,    service_manager_type;
 type apc_service,               service_manager_type;
 type apex_service,              service_manager_type;
 type artd_service,              service_manager_type;
+type artd_pre_reboot_service,   service_manager_type;
 type audioserver_service,       service_manager_type, isolated_compute_allowed_service;
 type authorization_service,     service_manager_type;
 type batteryproperties_service, app_api_service, ephemeral_app_api_service, service_manager_type;
@@ -10,6 +11,7 @@ type cameraserver_service,      service_manager_type, isolated_compute_allowed_s
 type fwk_camera_service,        service_manager_type;
 type default_android_service,   service_manager_type;
 type device_config_updatable_service,       system_api_service, system_server_service,service_manager_type;
+type dexopt_chroot_setup_service, service_manager_type;
 type dnsresolver_service,       service_manager_type;
 type drmserver_service,         service_manager_type;
 type dumpstate_service,         service_manager_type;
@@ -217,6 +219,7 @@ type search_ui_service, app_api_service, system_server_service, service_manager_
 type sec_key_att_app_id_provider_service, app_api_service, system_server_service, service_manager_type;
 type security_state_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type selection_toolbar_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
+type sensitive_content_protection_service, app_api_service, system_server_service, service_manager_type;
 type sensorservice_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type sensor_privacy_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type serial_service, system_api_service, system_server_service, service_manager_type;
