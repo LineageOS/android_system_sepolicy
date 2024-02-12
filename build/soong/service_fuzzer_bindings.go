@@ -383,6 +383,7 @@ var (
 		"processinfo":                  EXCEPTION_NO_FUZZER,
 		"procstats":                    EXCEPTION_NO_FUZZER,
 		"profcollectd":                 EXCEPTION_NO_FUZZER,
+		"profiling_service":            EXCEPTION_NO_FUZZER,
 		"radio.phonesubinfo":           EXCEPTION_NO_FUZZER,
 		"radio.phone":                  EXCEPTION_NO_FUZZER,
 		"radio.sms":                    EXCEPTION_NO_FUZZER,
