@@ -571,6 +571,10 @@ allow system_server prereboot_data_file:file create_file_perms;
 allow system_server perfetto_traces_data_file:file { read getattr };
 allow system_server perfetto:fd use;
 
+# Allow system_server to exec the perfetto cmdline client and pass it a trace config
+domain_auto_trans(system_server, perfetto_exec, perfetto);
+allow system_server perfetto:fifo_file { read write };
+
 # Manage /data/backup.
 allow system_server backup_data_file:dir create_dir_perms;
 allow system_server backup_data_file:file create_file_perms;
@@ -1284,7 +1288,7 @@ neverallow system_server {
 
 # Ensure that system_server doesn't perform any domain transitions other than
 # transitioning to the crash_dump domain when a crash occurs or fork clatd.
-neverallow system_server { domain -clatd -crash_dump }:process transition;
+neverallow system_server { domain -clatd -crash_dump -perfetto }:process transition;
 neverallow system_server *:process dyntransition;
 
 # Only allow crash_dump to connect to system_ndebug_socket.
