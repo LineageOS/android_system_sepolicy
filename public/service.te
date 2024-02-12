@@ -40,6 +40,7 @@ type netd_service,              service_manager_type;
 type nfc_service,               service_manager_type;
 type ondevicepersonalization_system_service, system_api_service, system_server_service, service_manager_type;
 type ot_daemon_service,         service_manager_type;
+type profiling_service,         app_api_service, system_server_service, service_manager_type;
 type radio_service,             service_manager_type;
 type secure_element_service,    service_manager_type;
 type service_manager_service,   service_manager_type;
