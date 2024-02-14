@@ -258,6 +258,9 @@ neverallow {
 # Only privileged apps may find the incident service
 neverallow all_untrusted_apps incident_service:service_manager find;
 
+# Only privileged apps may find stats service
+neverallow all_untrusted_apps stats_service:service_manager find;
+
 # Do not allow untrusted app to read hidden system proprerties.
 # We do not include in the exclusions other normally untrusted applications such as mediaprovider
 #  due to the specific logging use cases.
