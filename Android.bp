@@ -337,6 +337,36 @@ se_versioned_policy {
     product_specific: true,
 }
 
+// HACK to support vendor blobs using 1000000.0
+// TODO(b/314010177): remove after new ToT (202404) fully propagates
+se_versioned_policy {
+    name: "plat_mapping_file_1000000.0",
+    base: ":plat_pub_policy.cil",
+    mapping: true,
+    version: "1000000.0",
+    relative_install_path: "mapping", // install to /system/etc/selinux/mapping
+}
+
+se_versioned_policy {
+    name: "system_ext_mapping_file_1000000.0",
+    base: ":system_ext_pub_policy.cil",
+    mapping: true,
+    version: "1000000.0",
+    filter_out: [":plat_mapping_file"],
+    relative_install_path: "mapping", // install to /system_ext/etc/selinux/mapping
+    system_ext_specific: true,
+}
+
+se_versioned_policy {
+    name: "product_mapping_file_1000000.0",
+    base: ":pub_policy.cil",
+    mapping: true,
+    version: "1000000.0",
+    filter_out: [":plat_mapping_file", ":system_ext_mapping_file"],
+    relative_install_path: "mapping", // install to /product/etc/selinux/mapping
+    product_specific: true,
+}
+
 //////////////////////////////////
 // vendor/odm sepolicy
 //////////////////////////////////
