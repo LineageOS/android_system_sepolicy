@@ -86,6 +86,7 @@ allow vold {
 neverallow {
     domain
     -vold
+    -data_between_core_and_vendor_violators
 } {
     media_userdir_file
     system_userdir_file
