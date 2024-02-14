@@ -40,7 +40,7 @@ allow perfetto perfetto_configs_data_file:file r_file_perms;
 # (both root and non-root) on stdin and also to write the resulting trace to
 # stdout.
 allow perfetto { statsd mm_events shell su }:fd use;
-allow perfetto { statsd mm_events shell su }:fifo_file { getattr read write };
+allow perfetto { statsd mm_events shell su system_server }:fifo_file { getattr read write ioctl };
 
 # Allow to communicate use, read and write over the adb connection.
 allow perfetto adbd:fd use;
