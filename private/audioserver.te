@@ -105,3 +105,4 @@ wakelock_use(audioserver)
 
 # Allow reading audio config props, e.g. af.fast_track_multiplier
 get_prop(audioserver, audio_config_prop)
+get_prop(audioserver, system_audio_config_prop)
