@@ -1456,6 +1456,9 @@ allow system_server staged_install_file:file create_file_perms;
 allow system_server watchdog_metadata_file:dir rw_dir_perms;
 allow system_server watchdog_metadata_file:file create_file_perms;
 
+allow system_server aconfig_storage_flags_metadata_file:dir rw_dir_perms;
+allow system_server aconfig_storage_flags_metadata_file:file create_file_perms;
+
 allow system_server repair_mode_metadata_file:dir rw_dir_perms;
 allow system_server repair_mode_metadata_file:file create_file_perms;
 
@@ -1511,6 +1514,11 @@ neverallow { domain -init -system_server } password_slot_metadata_file:notdevfil
 # Only system_server/init should access /metadata/userspacereboot.
 neverallow { domain -init -system_server } userspace_reboot_metadata_file:dir *;
 neverallow { domain -init -system_server } userspace_reboot_metadata_file:file no_rw_file_perms;
+
+# Only system server should access /metadata/aconfig
+# TODO: add storage daemon to neverallow exception when it is introduced
+neverallow { domain -init -system_server } aconfig_storage_flags_metadata_file:dir *;
+neverallow { domain -init -system_server } aconfig_storage_flags_metadata_file:file no_rw_file_perms;
 
 # Allow systemserver to read/write the invalidation property
 set_prop(system_server, binder_cache_system_server_prop)
