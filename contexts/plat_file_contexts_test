@@ -995,10 +995,12 @@
 /data/misc/odsign/test                                            odsign_data_file
 /data/misc/odsign/metrics                                         odsign_metrics_file
 /data/misc/odsign/metrics/test                                    odsign_metrics_file
-/data/misc/perfetto-traces/bugreport                             perfetto_traces_bugreport_data_file
-/data/misc/perfetto-traces/bugreport/test                        perfetto_traces_bugreport_data_file
+/data/misc/perfetto-traces/bugreport                              perfetto_traces_bugreport_data_file
+/data/misc/perfetto-traces/bugreport/test                         perfetto_traces_bugreport_data_file
 /data/misc/perfetto-traces                                        perfetto_traces_data_file
 /data/misc/perfetto-traces/test                                   perfetto_traces_data_file
+/data/misc/perfetto-traces/profiling                              perfetto_traces_profiling_data_file
+/data/misc/perfetto-traces/profiling/test                         perfetto_traces_profiling_data_file
 /data/misc/perfetto-configs                                       perfetto_configs_data_file
 /data/misc/perfetto-configs/test                                  perfetto_configs_data_file
 /data/misc/prereboot                                              prereboot_data_file
