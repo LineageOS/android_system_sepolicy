@@ -341,6 +341,12 @@ allow domain apex_mnt_dir:lnk_file r_file_perms;
 # configured using server-configurable flags
 get_prop(domain, device_config_media_native_prop)
 
+# Allow everyone to read from flag value boot snapshot files and general pb files
+# The boot copy of the flag value files serves flag read traffic for all processes, thus
+# needs to be readable by everybody. Also, the metadata directory will contain pb file
+# that records where flag storage files are, so also needs to be readable by everbody.
+allow domain { aconfig_storage_metadata_file }:file r_file_perms;
+
 ###
 ### neverallow rules
 ###
@@ -622,6 +628,11 @@ neverallow hwservicemanager binder_device:chr_file no_rw_file_perms;
 neverallow hwservicemanager vndbinder_device:chr_file no_rw_file_perms;
 neverallow vndservicemanager binder_device:chr_file no_rw_file_perms;
 neverallow vndservicemanager hwbinder_device:chr_file no_rw_file_perms;
+
+# Do not allow write access to the general aconfig pb file and boot flag value files except init
+# TODO: need to add storage daemon into this exception list once it is created
+neverallow { domain -init } aconfig_storage_metadata_file:dir *;
+neverallow { domain -init } aconfig_storage_metadata_file:file no_w_file_perms;
 
 full_treble_only(`
   # Vendor apps are permited to use only stable public services. If they were to use arbitrary
