@@ -457,6 +457,9 @@
 
 /oem(/.*)?              u:object_r:oemfs:s0
 /oem/overlay(/.*)?      u:object_r:vendor_overlay_file:s0
+/oem/media/bootanimation.zip            u:object_r:bootanim_oem_file:s0
+/oem/media/shutdownanimation.zip        u:object_r:bootanim_oem_file:s0
+/oem/media/userspace-reboot.zip         u:object_r:bootanim_oem_file:s0
 
 # The precompiled monolithic sepolicy will be under /odm only when
 # BOARD_USES_ODMIMAGE is true: a separate odm.img is built.
