@@ -25,14 +25,13 @@ hwbinder_use(gpuservice)
 allow gpuservice graphics_device:dir search;
 allow gpuservice graphics_device:chr_file rw_file_perms;
 
-# Needed for dumpsys pipes.
-allow gpuservice shell:fifo_file write;
+# Allow shell access
+allow gpuservice adbd:fd use;
+allow gpuservice adbd:unix_stream_socket { getattr read write };
+allow gpuservice shell:fifo_file { getattr read write };
 
 # Needed for perfetto producer.
 perfetto_producer(gpuservice)
-
-# Use socket supplied by adbd, for cmd gpu vkjson etc.
-allow gpuservice adbd:unix_stream_socket { read write getattr };
 
 # Needed for interactive shell
 allow gpuservice devpts:chr_file { read write getattr };
