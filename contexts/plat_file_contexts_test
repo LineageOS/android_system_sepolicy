@@ -1215,6 +1215,12 @@
 
 /metadata                                                         metadata_file
 /metadata/test                                                    metadata_file
+/metadata/aconfig                                                 aconfig_storage_metadata_file
+/metadata/aconfig/test                                            aconfig_storage_metadata_file
+/metadata/aconfig/flags                                           aconfig_storage_flags_metadata_file
+/metadata/aconfig/flags/test                                      aconfig_storage_flags_metadata_file
+/metadata/aconfig/boot                                            aconfig_storage_metadata_file
+/metadata/aconfig/boot/test                                       aconfig_storage_metadata_file
 /metadata/apex                                                    apex_metadata_file
 /metadata/apex/test                                               apex_metadata_file
 /metadata/vold                                                    vold_metadata_file

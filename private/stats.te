@@ -33,28 +33,3 @@ allow statsd stats:fifo_file write;
 # Allow statsd to call back to stats with status updates.
 binder_call(statsd, stats)
 
-###
-### neverallow rules
-###
-
-neverallow {
-  domain
-  -dumpstate
-  -gmscore_app
-  -gpuservice
-  -incidentd
-  -keystore
-  -mediametrics
-  -mediaserver
-  -platform_app
-  -priv_app
-  -rkpdapp
-  -shell
-  -stats
-  -statsd
-  -surfaceflinger
-  -system_app
-  -system_server
-  -traceur_app
-  -traced_probes
-} stats_service:service_manager find;
