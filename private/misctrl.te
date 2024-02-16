@@ -8,6 +8,8 @@ allow misctrl misc_block_device:blk_file rw_file_perms;
 allow misctrl block_device:dir r_dir_perms;
 read_fstab(misctrl)
 
+set_prop(misctrl, misctrl_prop)
+
 # bootloader_message tries to find the fstab in the device config path first,
 # but because we've already booted up we can use the ro.boot properties instead,
 # so we can just ignore the SELinux denial.
