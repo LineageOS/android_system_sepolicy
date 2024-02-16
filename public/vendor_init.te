@@ -62,6 +62,8 @@ allow vendor_init {
   -gsi_metadata_file_type
   -apex_metadata_file
   -userspace_reboot_metadata_file
+  -aconfig_storage_metadata_file
+  -aconfig_storage_flags_metadata_file
 }:dir { create search getattr open read setattr ioctl write add_name remove_name rmdir relabelfrom };
 
 allow vendor_init unlabeled:{ dir notdevfile_class_set } { getattr relabelfrom };
@@ -83,6 +85,8 @@ allow vendor_init {
   -apex_metadata_file
   -apex_info_file
   -userspace_reboot_metadata_file
+  -aconfig_storage_metadata_file
+  -aconfig_storage_flags_metadata_file
   enforce_debugfs_restriction(`-debugfs_type')
 }:file { create getattr open read write setattr relabelfrom unlink map };
 
@@ -101,6 +105,8 @@ allow vendor_init {
   -gsi_metadata_file_type
   -apex_metadata_file
   -userspace_reboot_metadata_file
+  -aconfig_storage_metadata_file
+  -aconfig_storage_flags_metadata_file
 }:{ sock_file fifo_file } { create getattr open read setattr relabelfrom unlink };
 
 allow vendor_init {
@@ -119,6 +125,8 @@ allow vendor_init {
   -gsi_metadata_file_type
   -apex_metadata_file
   -userspace_reboot_metadata_file
+  -aconfig_storage_metadata_file
+  -aconfig_storage_flags_metadata_file
 }:lnk_file { create getattr setattr relabelfrom unlink };
 
 allow vendor_init {
@@ -136,6 +144,8 @@ allow vendor_init {
   -gsi_metadata_file_type
   -apex_metadata_file
   -userspace_reboot_metadata_file
+  -aconfig_storage_metadata_file
+  -aconfig_storage_flags_metadata_file
 }:dir_file_class_set relabelto;
 
 allow vendor_init dev_type:dir create_dir_perms;
