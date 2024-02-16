@@ -855,6 +855,8 @@
 /metadata/userspacereboot(/.*)?    u:object_r:userspace_reboot_metadata_file:s0
 /metadata/watchdog(/.*)?    u:object_r:watchdog_metadata_file:s0
 /metadata/repair-mode(/.*)?    u:object_r:repair_mode_metadata_file:s0
+/metadata/aconfig(/.*)?    u:object_r:aconfig_storage_metadata_file:s0
+/metadata/aconfig/flags(/.*)?    u:object_r:aconfig_storage_flags_metadata_file:s0
 
 #############################
 # asec containers

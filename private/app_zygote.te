@@ -93,10 +93,6 @@ get_prop(app_zygote, device_config_runtime_native_boot_prop)
 # Allow app_zygote to access odsign verification status
 get_prop(app_zygote, odsign_prop)
 
-# /data/resource-cache
-allow app_zygote resourcecache_data_file:file r_file_perms;
-allow app_zygote resourcecache_data_file:dir r_dir_perms;
-
 #####
 ##### Neverallow
 #####
