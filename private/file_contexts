@@ -323,6 +323,7 @@
 /system/bin/rss_hwm_reset	u:object_r:rss_hwm_reset_exec:s0
 /system/bin/perfetto        u:object_r:perfetto_exec:s0
 /system/bin/mtectrl         u:object_r:mtectrl_exec:s0
+/system/bin/misctrl         u:object_r:misctrl_exec:s0
 /system/bin/traced        u:object_r:traced_exec:s0
 /system/bin/traced_perf        u:object_r:traced_perf_exec:s0
 /system/bin/traced_probes        u:object_r:traced_probes_exec:s0
