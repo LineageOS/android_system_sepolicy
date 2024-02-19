@@ -59,8 +59,9 @@ allow virtualizationservice adbd:unix_stream_socket { read write };
 virtualizationservice_use(virtualizationservice)
 
 # Allow virtualizationservice to read and write in the apex data directory
-# /data/misc/apexdata/com.android.virt
-allow virtualizationservice apex_module_data_file:dir search;
+# /data/misc/apexdata/com.android.virt. Also allow checking of the parent directory
+# (needed for SQLite database creation).
+allow virtualizationservice apex_module_data_file:dir { search getattr };
 allow virtualizationservice apex_virt_data_file:dir create_dir_perms;
 allow virtualizationservice apex_virt_data_file:file create_file_perms;
 
