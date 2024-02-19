@@ -361,6 +361,7 @@ var (
 		"notification":                 EXCEPTION_NO_FUZZER,
 		"oem_lock":                     EXCEPTION_NO_FUZZER,
 		"ondevicepersonalization_system_service": EXCEPTION_NO_FUZZER,
+		"on_device_intelligence":             EXCEPTION_NO_FUZZER,
 		"otadexopt":                    EXCEPTION_NO_FUZZER,
 		"ot_daemon":                    []string{"ot_daemon_service_fuzzer"},
 		"overlay":                      EXCEPTION_NO_FUZZER,

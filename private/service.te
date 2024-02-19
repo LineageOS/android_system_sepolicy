@@ -11,6 +11,7 @@ type incidentcompanion_service,     app_api_service, system_api_service, system_
 type logcat_service,                system_server_service, service_manager_type;
 type logd_service,                  service_manager_type;
 type mediatuner_service,            app_api_service, service_manager_type;
+type on_device_intelligence_service, app_api_service, system_server_service, service_manager_type, isolated_compute_allowed_service;
 type profcollectd_service,          service_manager_type;
 type resolver_service,              system_server_service, service_manager_type;
 type rkpd_registrar_service,        service_manager_type;
