@@ -47,5 +47,6 @@ bootstrap_go_package {
         "service_fuzzer_bindings.go",
         "validate_bindings.go",
     ],
+    testSrcs: ["selinux_test.go"],
     pluginFor: ["soong_build"],
 }
