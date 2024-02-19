@@ -129,7 +129,7 @@ func policyConfDefaultFactory() android.Module {
 	c := &policyConfDefaults{}
 	c.AddProperties(
 		&policyConfProperties{},
-		&flagsProperties{},
+		&flaggableModuleProperties{},
 	)
 	android.InitDefaultsModule(c)
 	return c
@@ -268,6 +268,10 @@ func (c *policyConf) transformPolicyToConf(ctx android.ModuleContext) android.Ou
 
 	rule.Build("conf", "Transform policy to conf: "+ctx.ModuleName())
 	return conf
+}
+
+func (c *policyConf) DepsMutator(ctx android.BottomUpMutatorContext) {
+	c.flagDeps(ctx)
 }
 
 func (c *policyConf) GenerateAndroidBuildActions(ctx android.ModuleContext) {
