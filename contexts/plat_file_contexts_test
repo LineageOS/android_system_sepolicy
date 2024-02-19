@@ -653,6 +653,9 @@
 
 /oem                                                              oemfs
 /oem/does_not_exist                                               oemfs
+/oem/media/bootanimation.zip                                      bootanim_oem_file
+/oem/media/shutdownanimation.zip                                  bootanim_oem_file
+/oem/media/userspace-reboot.zip                                   bootanim_oem_file
 /oem/overlay                                                      vendor_overlay_file
 /oem/overlay/does_not_exist                                       vendor_overlay_file
 

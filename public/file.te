@@ -229,6 +229,8 @@ type art_apex_dir, system_file_type, file_type;
 type linkerconfig_file, file_type;
 # Control files under /data/incremental
 type incremental_control_file, file_type, data_file_type, core_data_file_type;
+# /oem/media/bootanimation.zip|shutdownanimation.zip|userspace-reboot.zip
+type bootanim_oem_file, file_type, system_file_type;
 
 # Default type for directories search for
 # HAL implementations
