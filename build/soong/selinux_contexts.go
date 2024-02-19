@@ -110,6 +110,8 @@ func (m *selinuxContextsModule) onlyInRecovery() bool {
 }
 
 func (m *selinuxContextsModule) DepsMutator(ctx android.BottomUpMutatorContext) {
+	m.flagDeps(ctx)
+
 	if m.deps != nil {
 		m.deps(ctx)
 	}
@@ -182,7 +184,7 @@ func contextsDefaultsFactory() android.Module {
 	m.AddProperties(
 		&selinuxContextsProperties{},
 		&seappProperties{},
-		&flagsProperties{},
+		&flaggableModuleProperties{},
 	)
 	android.InitDefaultsModule(m)
 	return m
