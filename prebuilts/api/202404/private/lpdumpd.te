@@ -1,0 +1,47 @@
+type lpdumpd, domain, coredomain;
+type lpdumpd_exec, system_file_type, exec_type, file_type;
+
+init_daemon_domain(lpdumpd)
+
+# Allow lpdumpd to register itself as a service.
+binder_use(lpdumpd)
+add_service(lpdumpd, lpdump_service)
+
+# Allow lpdumpd to find the super partition block device.
+allow lpdumpd block_device:dir r_dir_perms;
+
+# Allow lpdumpd to read super partition metadata.
+allow lpdumpd super_block_device_type:blk_file r_file_perms;
+
+# Allow lpdumpd to read fstab.
+allow lpdumpd sysfs_dt_firmware_android:dir r_dir_perms;
+allow lpdumpd sysfs_dt_firmware_android:file r_file_perms;
+read_fstab(lpdumpd)
+
+# Allow to get A/B slot suffix from device tree or kernel cmdline.
+r_dir_file(lpdumpd, sysfs_dt_firmware_android);
+allow lpdumpd proc_cmdline:file r_file_perms;
+
+# Allow reading Virtual A/B status information.
+get_prop(lpdumpd, virtual_ab_prop)
+allow lpdumpd metadata_file:dir search;
+allow lpdumpd ota_metadata_file:dir { r_dir_perms lock };
+allow lpdumpd ota_metadata_file:file r_file_perms;
+
+### Neverallow rules
+
+# Disallow other domains to get lpdump_service and call lpdumpd.
+neverallow {
+    domain
+    -dumpstate
+    -lpdumpd
+    -shell
+} lpdump_service:service_manager find;
+
+neverallow {
+    domain
+    -dumpstate
+    -lpdumpd
+    -shell
+    -servicemanager
+} lpdumpd:binder call;

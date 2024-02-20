@@ -1,0 +1,50 @@
+###
+### isolated_compute_apps.
+###
+### This file defines the rules for isolated apps that requires the permission
+### to gather data with service manager and require computational resources to
+### improve the performance to process data under a sandbox. This
+### isolated_compute_app restricts data egress to protect the privacy.
+###
+### TODO(b/266923392): Clean rules for isolated_compute_app characteristics
+###
+
+typeattribute isolated_compute_app coredomain;
+
+app_domain(isolated_compute_app)
+isolated_app_domain(isolated_compute_app)
+
+allow isolated_compute_app isolated_compute_allowed_service:service_manager find;
+allow isolated_compute_app isolated_compute_allowed_device:chr_file { read write ioctl map };
+
+# Enable access to hardware services for camera functionalilites
+hal_client_domain(isolated_compute_app, hal_allocator)
+hwbinder_use(isolated_compute_app)
+
+hal_client_domain(isolated_compute_app, hal_codec2)
+
+allow isolated_compute_app dmabuf_system_heap_device:chr_file r_file_perms;
+
+# Allow access to network sockets received over IPC. New socket creation is not
+# permitted.
+allow isolated_compute_app { ephemeral_app priv_app untrusted_app_all }:{ tcp_socket udp_socket } { rw_socket_perms_no_ioctl };
+
+# Allow access to the toybox: b/275024392
+allow isolated_compute_app toolbox_exec:file rx_file_perms;
+
+#####
+##### Neverallow
+#####
+
+# Do not allow isolated_compute_app to access hardware service except for the
+# ones necessary for camera service.
+# TODO (b/266555480): The permission should be guarded by compliance test.
+# Remove the negation for member domains when refactorization is done.
+# neverallow isolated_compute_app {
+# hwservice_manager_type
+#  -hal_graphics_allocator_hwservice
+#  -hal_graphics_mapper_hwservice
+#  -hidl_allocator_hwservice
+#  -hidl_manager_hwservice
+#  -hidl_memory_hwservice
+# }:hwservice_manager *;

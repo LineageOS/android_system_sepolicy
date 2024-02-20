@@ -1,0 +1,9 @@
+# HwBinder IPC from client to server, and callbacks
+binder_call(hal_power_client, hal_power_server)
+binder_call(hal_power_server, hal_power_client)
+
+hal_attribute_hwservice(hal_power, hal_power_hwservice)
+hal_attribute_service(hal_power, hal_power_service)
+
+binder_call(hal_power_server, servicemanager)
+binder_call(hal_power_client, servicemanager)

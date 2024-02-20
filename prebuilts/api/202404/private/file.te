@@ -1,0 +1,147 @@
+# /proc/config.gz
+type config_gz, fs_type, proc_type;
+
+# /sys/fs/bpf/<dir> for mainline tethering use
+# TODO: move S+ fs_bpf_tethering here from public/file.te
+type fs_bpf_net_private, fs_type, bpffs_type;
+type fs_bpf_net_shared, fs_type, bpffs_type;
+type fs_bpf_netd_readonly, fs_type, bpffs_type;
+type fs_bpf_netd_shared, fs_type, bpffs_type;
+type fs_bpf_loader, fs_type, bpffs_type;
+type fs_bpf_uprobestats, fs_type, bpffs_type;
+
+# /data/misc/storaged
+type storaged_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/wmtrace for wm traces
+type wm_trace_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
+
+# /data/misc/a11ytrace for accessibility traces
+type accessibility_trace_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/perfetto-traces for perfetto traces
+type perfetto_traces_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/perfetto-traces/bugreport for perfetto traces for bugreports.
+type perfetto_traces_bugreport_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/perfetto-configs for perfetto configs
+type perfetto_configs_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/uprobestats-configs for uprobestats configs
+type uprobestats_configs_data_file, file_type, data_file_type, core_data_file_type;
+
+# /apex/com.android.art/bin/oatdump
+type oatdump_exec, system_file_type, exec_type, file_type;
+
+# /data/misc_{ce/de}/<user>/sdksandbox root data directory for sdk sandbox processes
+type sdk_sandbox_system_data_file, file_type, data_file_type, core_data_file_type;
+# /data/misc_{ce/de}/<user>/sdksandbox/<app-name>/* subdirectory for sdk sandbox processes
+type sdk_sandbox_data_file, file_type, data_file_type, core_data_file_type, app_data_file_type;
+
+# /sys/kernel/debug/kcov for coverage guided kernel fuzzing in userdebug builds.
+type debugfs_kcov, fs_type, debugfs_type;
+
+# App executable files in /data/data directories
+type app_exec_data_file, file_type, data_file_type, core_data_file_type;
+typealias app_exec_data_file alias rs_data_file;
+
+# /data/misc_[ce|de]/rollback : Used by installd to store snapshots
+# of application data.
+type rollback_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc_ce/checkin for checkin apps.
+type checkin_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/gsi/ota
+type ota_image_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/gsi_persistent_data
+type gsi_persistent_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/emergencynumberdb
+type emergency_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/profcollectd
+type profcollectd_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/apexdata/com.android.art
+type apex_art_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+
+# /data/misc/apexdata/com.android.art/staging
+type apex_art_staging_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/apexdata/com.android.compos
+type apex_compos_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+
+# /data/misc/apexdata/com.android.virt
+type apex_virt_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+
+# /data/misc/apexdata/com.android.tethering
+type apex_tethering_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+
+# legacy labels for various /data/misc[_ce|_de]/*/apexdata directories - retained
+# for backward compatibility b/217581286
+type apex_appsearch_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+type apex_permission_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+type apex_scheduling_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+type apex_wifi_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
+
+# /data/font/files
+type font_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/dmesgd
+type dmesgd_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/odrefresh
+type odrefresh_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/odsign
+type odsign_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/odsign_metrics
+type odsign_metrics_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/virtualizationservice
+# The type needs to be mlstrustedobject to allow for being accessed from
+# virtualizationmanager, which runs at a more constrained MLS level.
+type virtualizationservice_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
+
+# /data/system/environ
+type environ_system_data_file, file_type, data_file_type, core_data_file_type;
+
+# /data/misc/bootanim
+type bootanim_data_file, file_type, data_file_type, core_data_file_type;
+
+# /dev/kvm
+# The type needs to be mlstrustedobject to allow for being accessed from
+# crosvm, which runs at a more constrained MLS level.
+type kvm_device, dev_type, mlstrustedobject, vm_manager_device_type;
+
+# /apex/com.android.virt/bin/fd_server
+type fd_server_exec, system_file_type, exec_type, file_type;
+
+# /apex/com.android.compos/bin/compsvc
+type compos_exec, exec_type, file_type, system_file_type;
+# /apex/com.android.compos/bin/compos_key_helper
+type compos_key_helper_exec, exec_type, file_type, system_file_type;
+
+# /apex/com.android.art/bin/art_exec
+# This executable does not have its own domain because it is executed in the caller's domain. For
+# example, it is executed in the `artd` domain when artd calls it.
+type art_exec_exec, system_file_type, exec_type, file_type;
+
+# Filesystem entry for for PRNG seeder socket.  Processes require
+# write permission on this to connect, and needs to be mlstrustedobject
+# in to satisfy MLS constraints for trusted domains.
+type prng_seeder_socket, file_type, coredomain_socket, mlstrustedobject;
+
+# /proc/device-tree/avf and /sys/firmware/devicetree/base/avf
+type sysfs_dt_avf, fs_type, sysfs_type;
+type proc_dt_avf, fs_type, proc_type;
+
+# Type for /system/fonts/font_fallback.xm
+type system_font_fallback_file, system_file_type, file_type;
+
+# Type for /sys/devices/uprobe.
+type sysfs_uprobe, fs_type, sysfs_type;

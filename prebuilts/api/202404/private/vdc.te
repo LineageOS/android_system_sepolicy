@@ -1,0 +1,6 @@
+typeattribute vdc coredomain;
+
+init_daemon_domain(vdc)
+
+# Allow stdin/out back to vehicle_binding_util
+allow vdc vehicle_binding_util:fd use;

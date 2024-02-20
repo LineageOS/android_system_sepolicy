@@ -1,0 +1,5 @@
+# This service is hosted by system server, and provides a stable aidl
+# front-end for a mainline module that is loaded into system server.
+add_service(remote_provisioning_service_server, remote_provisioning_service)
+
+binder_use(remote_provisioning_service_server)

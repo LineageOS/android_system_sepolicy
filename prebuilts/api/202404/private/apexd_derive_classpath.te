@@ -1,0 +1,9 @@
+# Exclusive domain for apexd calling into derive_classpath binary
+type apexd_derive_classpath, domain, coredomain;
+
+# Allow the binary to write into output file at location /apex/derive_classpath_temp
+allow apexd_derive_classpath apexd:fd use;
+allow apexd_derive_classpath apex_mnt_dir:file { write open };
+# Allow the binary to log using logwrap
+allow apexd_derive_classpath apexd_devpts:chr_file { read write };
+

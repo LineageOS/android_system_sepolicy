@@ -1,0 +1,135 @@
+# Perfetto command-line client. Can be used only from the domains that are
+# explicitly allowlisted with a domain_auto_trans(X, perfetto_exec, perfetto).
+# This command line client accesses the privileged socket of the traced
+# daemon.
+
+type perfetto_exec, system_file_type, exec_type, file_type;
+type perfetto_tmpfs, file_type;
+
+tmpfs_domain(perfetto);
+
+# Allow init to start a trace (for perfetto_boottrace).
+init_daemon_domain(perfetto)
+
+# Allow to access traced's privileged consumer socket.
+unix_socket_connect(perfetto, traced_consumer, traced)
+
+# Connect to the Perfetto traced daemon as a producer. This requires
+# connecting to its producer socket and obtaining a (per-process) tmpfs fd.
+perfetto_producer(perfetto)
+
+# Allow to write and unlink traces into /data/misc/perfetto-traces.
+allow perfetto perfetto_traces_data_file:dir rw_dir_perms;
+allow perfetto perfetto_traces_data_file:file create_file_perms;
+
+# Allow to write and unlink trace into /data/misc/perfetto-traces/bugreport*
+allow perfetto perfetto_traces_bugreport_data_file:file create_file_perms;
+allow perfetto perfetto_traces_bugreport_data_file:dir rw_dir_perms;
+
+# Allow perfetto to access the proxy service for reporting traces.
+allow perfetto tracingproxy_service:service_manager find;
+binder_use(perfetto)
+binder_call(perfetto, system_server)
+
+# Allow perfetto to read the trace config from /data/misc/perfetto-configs.
+# shell and adb can write files into that directory.
+allow perfetto perfetto_configs_data_file:dir r_dir_perms;
+allow perfetto perfetto_configs_data_file:file r_file_perms;
+
+# Allow perfetto to read the trace config from statsd, mm_events and shell
+# (both root and non-root) on stdin and also to write the resulting trace to
+# stdout.
+allow perfetto { statsd mm_events shell su }:fd use;
+allow perfetto { statsd mm_events shell su system_server }:fifo_file { getattr read write ioctl };
+
+# Allow to communicate use, read and write over the adb connection.
+allow perfetto adbd:fd use;
+allow perfetto adbd:unix_stream_socket { read write };
+
+# Allow adbd to reap perfetto.
+allow perfetto adbd:process { sigchld };
+
+# Allow perfetto to write to statsd.
+unix_socket_send(perfetto, statsdw, statsd)
+
+# Allow to access /dev/pts when launched in an adb shell.
+allow perfetto devpts:chr_file rw_file_perms;
+
+# Allow perfetto to ask incidentd to start a report.
+# TODO(lalitm): remove all incidentd rules when proxy service is stable.
+allow perfetto incident_service:service_manager find;
+binder_call(perfetto, incidentd)
+
+# perfetto log formatter calls isatty() on its stderr. Denial when running
+# under adbd is harmless. Avoid generating denial logs.
+dontaudit perfetto adbd:unix_stream_socket getattr;
+dontauditxperm perfetto adbd:unix_stream_socket ioctl unpriv_tty_ioctls;
+# As above, when adbd is running in "su" domain (only the ioctl is denied in
+# practice).
+dontauditxperm perfetto su:unix_stream_socket ioctl unpriv_tty_ioctls;
+# Similarly, CTS tests end up hitting a denial on shell pipes.
+dontauditxperm perfetto shell:fifo_file ioctl unpriv_tty_ioctls;
+
+###
+### Neverallow rules
+###
+
+# Disallow anyone else from being able to handle traces except selected system
+# components.
+neverallow {
+  domain
+  -init      # The creator of the folder.
+  -perfetto  # The owner of the folder.
+  -adbd      # For pulling traces.
+  -shell     # For devepment purposes.
+  -traced    # For write_into_file traces.
+  -dumpstate # For attaching traces to bugreports.
+  -incidentd # For receiving reported traces. TODO(lalitm): remove this.
+  -priv_app  # For stating traces for bug-report UI.
+} perfetto_traces_data_file:dir *;
+neverallow {
+  domain
+  -init      # The creator of the folder.
+  -perfetto  # The owner of the folder.
+  -adbd      # For pulling traces.
+  -shell     # For devepment purposes.
+  -traced    # For write_into_file traces.
+  -incidentd      # For receiving reported traces. TODO(lalitm): remove this.
+} perfetto_traces_data_file:file ~{ getattr read };
+
+### perfetto should NEVER do any of the following
+
+# Disallow mapping executable memory (execstack and exec are already disallowed
+# globally in domain.te).
+neverallow perfetto self:process execmem;
+
+# Block device access.
+neverallow perfetto dev_type:blk_file { read write };
+
+# ptrace any other process
+neverallow perfetto domain:process ptrace;
+
+# Disallows access to other /data files.
+neverallow perfetto {
+  data_file_type
+  -system_data_file
+  -system_data_root_file
+  -media_userdir_file
+  -system_userdir_file
+  -vendor_userdir_file
+  # TODO(b/72998741) Remove exemption. Further restricted in a subsequent
+  # neverallow. Currently only getattr and search are allowed.
+  -vendor_data_file
+  -perfetto_traces_data_file
+  -perfetto_traces_bugreport_data_file
+  -perfetto_configs_data_file
+  with_native_coverage(`-method_trace_data_file')
+}:dir *;
+neverallow perfetto { system_data_file -perfetto_traces_data_file }:dir ~{ getattr search };
+neverallow perfetto {
+  data_file_type
+  -perfetto_traces_data_file
+  -perfetto_traces_bugreport_data_file
+  -perfetto_configs_data_file
+  with_native_coverage(`-method_trace_data_file')
+}:file ~write;
