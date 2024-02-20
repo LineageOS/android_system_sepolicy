@@ -98,6 +98,9 @@ allow mediaserver hidl_token_hwservice:hwservice_manager find;
 allow mediaserver oemfs:dir search;
 allow mediaserver oemfs:file r_file_perms;
 
+# /oem boot animation file
+allow mediaserver bootanim_oem_file:file r_file_perms;
+
 # /vendor apk access
 allow mediaserver vendor_app_file:file { read map getattr };
 

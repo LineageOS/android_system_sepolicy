@@ -85,7 +85,13 @@ neverallow {
   halserverdomain
   -hal_dumpstate_server
   -hal_telephony_server
-} { file_type fs_type }:file execute_no_trans;
+} {
+  file_type
+  fs_type
+  # May invoke shell commands via /system/bin/sh
+  -shell_exec
+  -toolbox_exec
+}:file execute_no_trans;
 # Do not allow a process other than init to transition into a HAL domain.
 neverallow { domain -init } halserverdomain:process transition;
 # Only allow transitioning to a domain by running its executable. Do not
