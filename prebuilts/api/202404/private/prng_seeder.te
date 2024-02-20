@@ -1,0 +1,17 @@
+# PRNG seeder daemon
+# Started from early init, maintains a FIPS approved DRBG which it periodically reseeds from
+# /dev/hw_random.  When BoringSSL (libcrypto) in other processes needs seeding data for its
+# internal DRBGs it will connect to /dev/socket/prng_seeder and the daemon will write a
+# fixed size block of entropy then disconnect.  No other IO is performed.
+typeattribute prng_seeder coredomain;
+
+# mlstrustedsubject required in order to allow connections from trusted app domains.
+typeattribute prng_seeder mlstrustedsubject;
+
+type prng_seeder_exec, system_file_type, exec_type, file_type;
+init_daemon_domain(prng_seeder)
+
+# Socket open and listen are performed by init.
+allow prng_seeder prng_seeder:unix_stream_socket { read write getattr accept };
+allow prng_seeder hw_random_device:chr_file { read open };
+allow prng_seeder kmsg_debug_device:chr_file { w_file_perms getattr ioctl };

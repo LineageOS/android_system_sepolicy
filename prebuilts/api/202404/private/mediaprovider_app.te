@@ -1,0 +1,78 @@
+###
+### A domain for further sandboxing the MediaProvider mainline module.
+###
+type mediaprovider_app, domain, coredomain, bpfdomain;
+
+app_domain(mediaprovider_app)
+
+# Access to /mnt/pass_through.
+r_dir_file(mediaprovider_app, mnt_pass_through_file)
+
+# Allow MediaProvider to host a FUSE daemon for external storage
+allow mediaprovider_app fuse_device:chr_file { read write ioctl getattr };
+
+# Allow MediaProvider to access fuseblk devices for external storage.
+allow mediaprovider_app fuseblk:dir create_dir_perms;
+allow mediaprovider_app fuseblk:file create_file_perms;
+
+# Allow MediaProvider to read/write media_rw_data_file files and dirs
+allow mediaprovider_app media_userdir_file:dir r_dir_perms;
+allow mediaprovider_app media_rw_data_file:file create_file_perms;
+allow mediaprovider_app media_rw_data_file:dir create_dir_perms;
+
+# Talk to the DRM service
+allow mediaprovider_app drmserver_service:service_manager find;
+
+# Talk to the MediaServer service
+allow mediaprovider_app mediaserver_service:service_manager find;
+
+# Talk to the AudioServer service
+allow mediaprovider_app audioserver_service:service_manager find;
+
+# Talk to the MediaCodec APIs that log media metrics
+allow mediaprovider_app mediametrics_service:service_manager find;
+
+# Talk to regular app services
+allow mediaprovider_app app_api_service:service_manager find;
+
+# Talk to the GPU service
+binder_call(mediaprovider_app, gpuservice)
+
+# Talk to statsd
+allow mediaprovider_app statsmanager_service:service_manager find;
+binder_call(mediaprovider_app, statsd)
+
+# read pipe-max-size configuration
+allow mediaprovider_app proc_pipe_conf:file r_file_perms;
+
+# Allow MediaProvider to set extended attributes (such as quota project ID)
+# on media files.
+allowxperm mediaprovider_app media_rw_data_file:{ dir file } ioctl {
+  FS_IOC_FSGETXATTR
+  FS_IOC_FSSETXATTR
+  FS_IOC_GETFLAGS
+  FS_IOC_SETFLAGS
+};
+
+# Access external sdcards through /mnt/media_rw
+allow mediaprovider_app { mnt_media_rw_file }:dir search;
+
+allow mediaprovider_app proc_filesystems:file r_file_perms;
+
+#Allow MediaProvider to see if sdcardfs is in use
+get_prop(mediaprovider_app, storage_config_prop)
+
+get_prop(mediaprovider_app, drm_service_config_prop)
+
+allow mediaprovider_app gpu_device:chr_file rw_file_perms;
+allow mediaprovider_app gpu_device:dir r_dir_perms;
+
+dontaudit mediaprovider_app sysfs_vendor_sched:dir search;
+dontaudit mediaprovider_app sysfs_vendor_sched:file w_file_perms;
+
+# bpfprog access for FUSE BPF
+allow mediaprovider_app fs_bpf:file read;
+allow mediaprovider_app bpfloader:bpf { map_read map_write prog_run };
+
+# boot animations on oem are stored with specific label
+allow mediaprovider_app bootanim_oem_file:file r_file_perms;

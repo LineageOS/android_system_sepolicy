@@ -1,0 +1,17 @@
+typeattribute profman coredomain;
+
+# Allow profman to read APKs and profile files next to them by FDs passed from
+# other programs. In addition, allow profman to acquire flocks on those files.
+allow profman {
+  system_file
+  apk_data_file
+  vendor_app_file
+}:file { getattr read map lock };
+
+# Allow profman to use file descriptors passed from privileged programs.
+allow profman { artd installd }:fd use;
+
+# Allow profman to read from memfd created by artd.
+# profman needs to read the embedded profile that artd extracts from an APK,
+# which is passed by a memfd.
+allow profman artd_tmpfs:file { getattr read map lock };

@@ -1,0 +1,31 @@
+type adaptive_auth_service,         system_server_service, service_manager_type;
+type ambient_context_service,       app_api_service, system_server_service, service_manager_type;
+type attention_service,             system_server_service, service_manager_type;
+type bg_install_control_service,    system_api_service, system_server_service, service_manager_type;
+type compos_service,                service_manager_type;
+type communal_service,              app_api_service, system_server_service, service_manager_type;
+type dynamic_system_service,        system_api_service, system_server_service, service_manager_type;
+type feature_flags_service,         app_api_service, system_server_service, service_manager_type;
+type gsi_service,                   service_manager_type;
+type incidentcompanion_service,     app_api_service, system_api_service, system_server_service, service_manager_type;
+type logcat_service,                system_server_service, service_manager_type;
+type logd_service,                  service_manager_type;
+type mediatuner_service,            app_api_service, service_manager_type;
+type profcollectd_service,          service_manager_type;
+type resolver_service,              system_server_service, service_manager_type;
+type rkpd_registrar_service,        service_manager_type;
+type rkpd_refresh_service,          service_manager_type;
+type safety_center_service,         app_api_service, system_api_service, system_server_service, service_manager_type;
+type stats_service,                 service_manager_type;
+type statsbootstrap_service,        system_server_service, service_manager_type;
+type statscompanion_service,        system_server_service, service_manager_type;
+type statsmanager_service,          system_api_service, system_server_service, service_manager_type;
+type tracingproxy_service,          system_server_service, service_manager_type;
+type transparency_service,          system_server_service, service_manager_type;
+
+is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
+    type vfio_handler_service,          service_manager_type;
+')
+
+type uce_service,                   service_manager_type;
+type wearable_sensing_service,      app_api_service, system_server_service, service_manager_type;

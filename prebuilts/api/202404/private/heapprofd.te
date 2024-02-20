@@ -1,0 +1,75 @@
+# Android heap profiling daemon. go/heapprofd.
+type heapprofd_exec, exec_type, file_type, system_file_type;
+type heapprofd_tmpfs, file_type;
+
+init_daemon_domain(heapprofd)
+tmpfs_domain(heapprofd)
+
+# Allow apps in other MLS contexts (for multi-user) to access
+# shared memory buffers created by heapprofd.
+typeattribute heapprofd_tmpfs mlstrustedobject;
+
+set_prop(heapprofd, heapprofd_prop);
+
+# Necessary for /proc/[pid]/cmdline access & sending signals.
+typeattribute heapprofd mlstrustedsubject;
+
+# Allow sending signals to processes. This excludes SIGKILL, SIGSTOP and
+# SIGCHLD, which are controlled by separate permissions.
+allow heapprofd self:capability kill;
+
+# When scanning /proc/[pid]/cmdline to find matching processes for by-name
+# profiling, only allowlisted domains will be allowed by SELinux. Avoid
+# spamming logs with denials for entries that we can not access.
+dontaudit heapprofd domain:dir { search open };
+
+# Write trace data to the Perfetto traced daemon. This requires connecting to
+# its producer socket and obtaining a (per-process) tmpfs fd.
+perfetto_producer(heapprofd)
+
+# When handling profiling for all processes, heapprofd needs to read
+# executables/libraries/etc to do stack unwinding.
+r_dir_file(heapprofd, nativetest_data_file)
+r_dir_file(heapprofd, system_file_type)
+r_dir_file(heapprofd, apk_data_file)
+r_dir_file(heapprofd, dalvikcache_data_file)
+r_dir_file(heapprofd, vendor_file_type)
+r_dir_file(heapprofd, shell_test_data_file)
+# ART apex files and directory access to the containing /data/misc/apexdata.
+r_dir_file(heapprofd, apex_art_data_file)
+allow heapprofd apex_module_data_file:dir { getattr search };
+
+# Some dex files are not world-readable.
+# We are still constrained by the SELinux rules above.
+allow heapprofd self:global_capability_class_set dac_read_search;
+
+# For checking profileability.
+allow heapprofd packages_list_file:file r_file_perms;
+
+# Never allow profiling privileged or otherwise incompatible domains.
+# Corresponding allow-rule is in private/domain.te.
+never_profile_heap(`{
+  apexd
+  app_zygote
+  bpfloader
+  hal_configstore_server
+  init
+  kernel
+  keystore
+  llkd
+  logd
+  logpersist
+  recovery
+  recovery_persist
+  recovery_refresh
+  ueventd
+  vendor_init
+  vold
+  webview_zygote
+  zygote
+}')
+
+full_treble_only(`
+  neverallow heapprofd vendor_file_type:file no_w_file_perms;
+  neverallow heapprofd { vendor_file_type -vndk_sp_file }:file no_x_file_perms;
+')

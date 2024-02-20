@@ -1,0 +1,23 @@
+typeattribute bootanim coredomain;
+
+init_daemon_domain(bootanim)
+
+# b/68864350
+dontaudit bootanim unlabeled:dir search;
+
+# Bootanim should not be reading default vendor-defined properties.
+dontaudit bootanim vendor_default_prop:file read;
+
+# Read ro.boot.bootreason b/30654343
+get_prop(bootanim, bootloader_boot_reason_prop)
+
+get_prop(bootanim, bootanim_config_prop)
+
+# Allow updating boot animation status.
+set_prop(bootanim, bootanim_system_prop)
+
+# Allow accessing /data/misc/bootanim
+r_dir_file(bootanim, bootanim_data_file)
+
+# Allow accessing vendor apex for EGL/GLES
+allow bootanim vendor_apex_metadata_file:dir r_dir_perms;

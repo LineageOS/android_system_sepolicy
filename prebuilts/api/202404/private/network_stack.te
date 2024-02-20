@@ -1,0 +1,104 @@
+# Networking service app
+typeattribute network_stack coredomain;
+typeattribute network_stack mlstrustedsubject;
+typeattribute network_stack bpfdomain;
+
+app_domain(network_stack);
+net_domain(network_stack);
+
+allow network_stack self:global_capability_class_set {
+    net_admin
+    net_bind_service
+    net_broadcast
+    net_raw
+};
+
+allow network_stack self:global_capability2_class_set wake_alarm;
+
+# Allow access to net_admin ioctl, DHCP server uses SIOCSARP
+allowxperm network_stack self:udp_socket ioctl priv_sock_ioctls;
+
+# The DhcpClient uses packet_sockets
+allow network_stack self:packet_socket create_socket_perms_no_ioctl;
+
+# Monitor neighbors via netlink.
+allow network_stack self:netlink_route_socket nlmsg_write;
+
+# Use netlink uevent sockets.
+allow network_stack self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+
+# give network_stack the same netlink permissions as netd
+allow network_stack self:netlink_nflog_socket create_socket_perms_no_ioctl;
+allow network_stack self:netlink_socket create_socket_perms_no_ioctl;
+allow network_stack self:netlink_generic_socket create_socket_perms_no_ioctl;
+
+allow network_stack app_api_service:service_manager find;
+allow network_stack dnsresolver_service:service_manager find;
+allow network_stack mdns_service:service_manager find;
+allow network_stack netd_service:service_manager find;
+allow network_stack network_watchlist_service:service_manager find;
+allow network_stack radio_service:service_manager find;
+allow network_stack system_config_service:service_manager find;
+allow network_stack radio_data_file:dir create_dir_perms;
+allow network_stack radio_data_file:file create_file_perms;
+
+binder_call(network_stack, netd);
+
+# in order to invoke side effect of close() on such a socket calling synchronize_rcu()
+allow network_stack self:key_socket create;
+# Java's Os.close() in libcore/luni/src/main/java/libcore/io/BlockGuardOs.java;l=100
+# calls if (fd.isSocket$()) if (isLingerSocket(fd)) ...
+dontaudit network_stack self:key_socket getopt;
+
+# Grant read permission of connectivity namespace system property prefix.
+get_prop(network_stack, device_config_connectivity_prop)
+
+# Create/use netlink_tcpdiag_socket to get tcp info
+allow network_stack self:netlink_tcpdiag_socket { create_socket_perms_no_ioctl nlmsg_read nlmsg_write };
+############### Tethering Service app - Tethering.apk ##############
+hal_client_domain(network_stack, hal_tetheroffload)
+# Create and share netlink_netfilter_sockets for tetheroffload.
+allow network_stack self:netlink_netfilter_socket create_socket_perms_no_ioctl;
+allow network_stack network_stack_service:service_manager find;
+# allow Tethering(network_stack process) to run/update/read the eBPF maps to offload tethering traffic by eBPF.
+allow network_stack { fs_bpf_net_private fs_bpf_net_shared fs_bpf_netd_readonly fs_bpf_netd_shared fs_bpf_tethering }:dir search;
+allow network_stack { fs_bpf_net_private fs_bpf_net_shared fs_bpf_netd_readonly fs_bpf_netd_shared fs_bpf_tethering }:file { getattr read write };
+allow network_stack bpfloader:bpf { map_read map_write prog_run };
+# allow Tethering(network_stack process) to read flag value in tethering_u_or_later_native namespace
+get_prop(network_stack, device_config_tethering_u_or_later_native_prop)
+
+# Use XFRM (IPsec) netlink sockets
+allow network_stack self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_write nlmsg_read };
+
+# tun device used for 3rd party vpn apps and test network manager
+allow network_stack tun_device:chr_file rw_file_perms;
+allowxperm network_stack tun_device:chr_file ioctl { TUNGETIFF TUNSETIFF TUNSETLINK TUNSETCARRIER };
+
+############### NEVER ALLOW RULES
+# This place is as good as any for these rules,
+# and it is probably the most appropriate because
+# network_stack itself is entirely mainline code.
+
+# T+: Only the bpfloader and the network_stack should ever touch 'fs_bpf_net_private' programs/maps.
+neverallow { domain -bpfloader -network_stack } fs_bpf_net_private:dir ~getattr;
+neverallow { domain -bpfloader -network_stack } fs_bpf_net_private:file *;
+
+# T+: Only the bpfloader, network_stack and system_server should ever touch 'fs_bpf_net_shared' programs/maps.
+neverallow { domain -bpfloader -network_stack -system_server } fs_bpf_net_shared:dir ~getattr;
+neverallow { domain -bpfloader -network_stack -system_server } fs_bpf_net_shared:file *;
+
+# T+: Only the bpfloader, netd, network_stack and system_server should ever touch 'fs_bpf_netd_readonly' programs/maps.
+# netd's access should be readonly
+neverallow { domain -bpfloader -netd -network_stack -system_server } fs_bpf_netd_readonly:dir ~getattr;
+neverallow { domain -bpfloader -netd -network_stack -system_server } fs_bpf_netd_readonly:file *;
+neverallow netd fs_bpf_netd_readonly:file write;
+
+# T+: Only the bpfloader, netd, netutils_wrapper, network_stack and system_server should ever touch 'fs_bpf_netd_shared' programs/maps.
+# netutils_wrapper requires access to be able to run iptables and only needs readonly access
+neverallow { domain -bpfloader -netd -netutils_wrapper -network_stack -system_server } fs_bpf_netd_shared:dir ~getattr;
+neverallow { domain -bpfloader -netd -netutils_wrapper -network_stack -system_server } fs_bpf_netd_shared:file *;
+neverallow netutils_wrapper fs_bpf_netd_shared:file write;
+
+# S+: Only the bpfloader and the network_stack should ever touch 'fs_bpf_tethering' programs/maps.
+neverallow { domain -bpfloader -network_stack } fs_bpf_tethering:dir ~getattr;
+neverallow { domain -bpfloader -network_stack } fs_bpf_tethering:file *;

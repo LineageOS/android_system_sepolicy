@@ -1,0 +1,13 @@
+type modprobe, domain;
+
+allow modprobe proc_modules:file r_file_perms;
+allow modprobe proc_cmdline:file r_file_perms;
+allow modprobe self:global_capability_class_set sys_module;
+allow modprobe kernel:key search;
+allow modprobe system_dlkm_file:dir search;
+allow modprobe system_dlkm_file:file r_file_perms;
+allow modprobe system_dlkm_file:system module_load;
+recovery_only(`
+  allow modprobe rootfs:system module_load;
+  allow modprobe rootfs:file r_file_perms;
+')

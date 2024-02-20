@@ -1,0 +1,60 @@
+# odrefresh
+type odrefresh, domain, coredomain;
+type odrefresh_exec, system_file_type, exec_type, file_type;
+
+# Allow odrefresh to create files and directories for on device signing.
+allow odrefresh apex_module_data_file:dir { getattr search };
+allow odrefresh apex_art_data_file:dir { create_dir_perms relabelfrom };
+allow odrefresh apex_art_data_file:file create_file_perms;
+
+# Allow odrefresh to create data files (typically for metrics before statsd starts).
+allow odrefresh odrefresh_data_file:dir create_dir_perms;
+allow odrefresh odrefresh_data_file:file create_file_perms;
+
+userfaultfd_use(odrefresh)
+
+# Staging area labels (/data/misc/apexdata/com.android.art/staging). odrefresh
+# sets up files here and passes file descriptors for dex2oat to write to.
+allow odrefresh apex_art_staging_data_file:dir { create_dir_perms relabelto };
+allow odrefresh apex_art_staging_data_file:file create_file_perms;
+
+# Run dex2oat in its own sandbox.
+domain_auto_trans(odrefresh, dex2oat_exec, dex2oat)
+
+# Allow odrefresh to kill dex2oat if compilation times out.
+allow odrefresh dex2oat:process sigkill;
+
+# Run dexoptanalyzer in its own sandbox.
+domain_auto_trans(odrefresh, dexoptanalyzer_exec, dexoptanalyzer)
+
+# Allow odrefresh to kill dexoptanalyzer if analysis times out.
+allow odrefresh dexoptanalyzer:process sigkill;
+
+# Use devpts and fd from odsign (which exec()'s odrefresh)
+allow odrefresh odsign_devpts:chr_file { read write };
+allow odrefresh odsign:fd use;
+
+# Allow odrefresh to read /apex/apex-info-list.xml to determine
+# whether current apex is in /system or /data.
+allow odrefresh apex_info_file:file r_file_perms;
+
+# Allow updating boot animation status.
+set_prop(odrefresh, bootanim_system_prop)
+
+# Allow query ART device config properties
+get_prop(odrefresh, device_config_runtime_native_prop)
+get_prop(odrefresh, device_config_runtime_native_boot_prop)
+
+# Do not audit unused resources from parent processes (adb, shell, su).
+# These appear to be unnecessary for odrefresh.
+dontaudit odrefresh { adbd shell }:fd use;
+dontaudit odrefresh devpts:chr_file rw_file_perms;
+dontaudit odrefresh adbd:unix_stream_socket { getattr read write };
+
+# No other processes should be creating files in the staging area.
+neverallow { domain -init -odrefresh -compos_fd_server } apex_art_staging_data_file:file open;
+
+# No processes other than init, odrefresh and system_server access
+# odrefresh_data_files.
+neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:dir *;
+neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:file *;

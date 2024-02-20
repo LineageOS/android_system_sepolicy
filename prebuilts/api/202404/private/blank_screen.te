@@ -1,0 +1,7 @@
+type blank_screen, domain, coredomain;
+type blank_screen_exec, exec_type, file_type, system_file_type;
+
+init_daemon_domain(blank_screen)
+
+# hal_light_client has access to hal_light_server
+hal_client_domain(blank_screen, hal_light)

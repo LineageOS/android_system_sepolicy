@@ -1,0 +1,59 @@
+# Domain used when running /system/bin/simpleperf to record boot-time profiles.
+# It is started by init process. It's only available on userdebug/eng build.
+
+type simpleperf_boot, domain, coredomain, mlstrustedsubject;
+
+# /data/simpleperf_boot_data, used to store boot-time profiles.
+type simpleperf_boot_data_file, file_type;
+
+userdebug_or_eng(`
+  domain_auto_trans(init, simpleperf_exec, simpleperf_boot)
+
+  # simpleperf_boot writes profile data to /data/simpleperf_boot_data.
+  allow simpleperf_boot simpleperf_boot_data_file:file create_file_perms;
+  allow simpleperf_boot simpleperf_boot_data_file:dir rw_dir_perms;
+
+  # Allow simpleperf_boot full use of perf_event_open(2), to enable system wide profiling.
+  allow simpleperf_boot self:perf_event { cpu kernel open read write };
+  allow simpleperf_boot self:global_capability2_class_set perfmon;
+
+  # Allow simpleperf_boot to scan through /proc/pid for all processes.
+  r_dir_file(simpleperf_boot, domain)
+
+  # Allow simpleperf_boot to read executable binaries.
+  allow simpleperf_boot system_file_type:file r_file_perms;
+  allow simpleperf_boot vendor_file_type:file r_file_perms;
+
+  # Allow simpleperf_boot to search for and read kernel modules.
+  allow simpleperf_boot vendor_file:dir r_dir_perms;
+  allow simpleperf_boot vendor_kernel_modules:file r_file_perms;
+
+  # Allow simpleperf_boot to read system bootstrap libs.
+  allow simpleperf_boot system_bootstrap_lib_file:dir search;
+  allow simpleperf_boot system_bootstrap_lib_file:file r_file_perms;
+
+  # Allow simpleperf_boot to access tracefs.
+  allow simpleperf_boot debugfs_tracing:dir r_dir_perms;
+  allow simpleperf_boot debugfs_tracing:file rw_file_perms;
+  allow simpleperf_boot debugfs_tracing_debug:dir r_dir_perms;
+  allow simpleperf_boot debugfs_tracing_debug:file rw_file_perms;
+
+  # Allow simpleperf_boot to write to perf_event_paranoid under /proc.
+  allow simpleperf_boot proc_perf:file write;
+
+  # Allow simpleperf_boot to read process maps.
+  allow simpleperf_boot self:global_capability_class_set sys_ptrace;
+  # Allow simpleperf_boot to read JIT debug info from system_server and zygote.
+  allow simpleperf_boot { system_server zygote }:process ptrace;
+
+  # Allow to temporarily lift the kptr_restrict setting and get kernel start address
+  # by reading /proc/kallsyms, get module start address by reading /proc/modules.
+  set_prop(simpleperf_boot, lower_kptr_restrict_prop)
+  allow simpleperf_boot proc_kallsyms:file r_file_perms;
+  allow simpleperf_boot proc_modules:file r_file_perms;
+
+  # Allow simpleperf_boot to read kernel build id.
+  allow simpleperf_boot sysfs_kernel_notes:file r_file_perms;
+
+  dontaudit simpleperf_boot shell_data_file:dir search;
+')
