@@ -924,6 +924,9 @@ full_treble_only(`
         -crash_dump_exec
         -netutils_wrapper_exec
         userdebug_or_eng(`-tcpdump_exec')
+        # Vendor components still can invoke shell commands via /system/bin/sh
+        -shell_exec
+        -toolbox_exec
     }:file { entrypoint execute execute_no_trans };
 ')
 
@@ -1004,6 +1007,9 @@ full_treble_only(`
     -task_profiles_api_file
     -task_profiles_file
     userdebug_or_eng(`-tcpdump_exec')
+    # Vendor components still can invoke shell commands via /system/bin/sh
+    -shell_exec
+    -toolbox_exec
   }:file *;
 ')
 
