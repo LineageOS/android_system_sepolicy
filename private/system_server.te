@@ -982,6 +982,9 @@ allow system_server storaged_service:service_manager find;
 allow system_server surfaceflinger_service:service_manager find;
 allow system_server update_engine_service:service_manager find;
 allow system_server virtual_camera_service:service_manager find;
+is_flag_enabled(RELEASE_AVF_ENABLE_LLPVM_CHANGES, `
+    allow system_server virtualization_maintenance_service:service_manager find;
+')
 allow system_server vold_service:service_manager find;
 allow system_server wifinl80211_service:service_manager find;
 allow system_server logd_service:service_manager find;
