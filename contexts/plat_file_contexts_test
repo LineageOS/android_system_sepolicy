@@ -409,6 +409,7 @@
 /system/bin/perfetto                                              perfetto_exec
 /system/bin/misctrl                                               misctrl_exec
 /system/bin/mtectrl                                               mtectrl_exec
+/system/bin/kcmdlinectrl                                          kcmdlinectrl_exec
 /system/bin/traced                                                traced_exec
 /system/bin/traced_perf                                           traced_perf_exec
 /system/bin/traced_probes                                         traced_probes_exec

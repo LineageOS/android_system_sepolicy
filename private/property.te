@@ -24,6 +24,7 @@ system_internal_prop(init_perf_lsm_hooks_prop)
 system_internal_prop(init_service_status_private_prop)
 system_internal_prop(init_storage_prop)
 system_internal_prop(init_svc_debug_prop)
+system_internal_prop(kcmdline_prop)
 system_internal_prop(keystore_crash_prop)
 system_internal_prop(keystore_listen_prop)
 system_internal_prop(last_boot_reason_prop)
@@ -487,6 +488,15 @@ neverallow {
 } {
   arm64_memtag_prop
   gwp_asan_prop
+}:property_service set;
+
+neverallow {
+  domain
+  -init
+  -shell
+  -kcmdlinectrl
+} {
+  kcmdline_prop
 }:property_service set;
 
 neverallow {
