@@ -33,6 +33,9 @@ allow virtualizationservice permission_service:service_manager find;
 binder_call(virtualizationservice, remote_provisioning_service)
 allow virtualizationservice remote_provisioning_service:service_manager find;
 
+# Allow virtualizationservice to manage VM secrets via Secretkeeper.
+hal_client_domain(virtualizationservice, hal_secretkeeper)
+
 # Let virtualizationservice remove memlock rlimit of virtualizationmanager. This is necessary
 # to mlock VM memory and page tables.
 allow virtualizationservice self:capability sys_resource;
