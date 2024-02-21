@@ -660,9 +660,10 @@
 /data/misc/odrefresh(/.*)?      u:object_r:odrefresh_data_file:s0
 /data/misc/odsign(/.*)?         u:object_r:odsign_data_file:s0
 /data/misc/odsign/metrics(/.*)? u:object_r:odsign_metrics_file:s0
-/data/misc/perfetto-traces(/.*)?          u:object_r:perfetto_traces_data_file:s0
-/data/misc/perfetto-traces/bugreport(.*)? u:object_r:perfetto_traces_bugreport_data_file:s0
-/data/misc/perfetto-configs(/.*)?         u:object_r:perfetto_configs_data_file:s0
+/data/misc/perfetto-traces(/.*)?           u:object_r:perfetto_traces_data_file:s0
+/data/misc/perfetto-traces/bugreport(.*)?  u:object_r:perfetto_traces_bugreport_data_file:s0
+/data/misc/perfetto-traces/profiling(/.*)? u:object_r:perfetto_traces_profiling_data_file:s0
+/data/misc/perfetto-configs(/.*)?          u:object_r:perfetto_configs_data_file:s0
 /data/misc/uprobestats-configs(/.*)?      u:object_r:uprobestats_configs_data_file:s0
 /data/misc/prereboot(/.*)?      u:object_r:prereboot_data_file:s0
 /data/misc/profcollectd(/.*)?   u:object_r:profcollectd_data_file:s0
