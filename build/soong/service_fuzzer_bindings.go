@@ -186,6 +186,7 @@ var (
 		"android.hardware.security.keymint.IRemotelyProvisionedComponent/avf": EXCEPTION_NO_FUZZER,
 		"android.system.virtualizationservice":                            EXCEPTION_NO_FUZZER,
 		"android.system.virtualizationservice_internal.IVfioHandler":      EXCEPTION_NO_FUZZER,
+		"android.system.virtualizationmaintenance":                        EXCEPTION_NO_FUZZER,
 		"ambient_context":                                                 EXCEPTION_NO_FUZZER,
 		"app_binding":                                                     EXCEPTION_NO_FUZZER,
 		"app_hibernation":                                                 EXCEPTION_NO_FUZZER,
