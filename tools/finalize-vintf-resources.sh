@@ -30,6 +30,7 @@ cat > "$top/system/sepolicy/prebuilts/api/${ver}/Android.bp" <<EOF
 // Automatically generated file, do not edit!
 se_policy_conf {
     name: "${ver}_plat_pub_policy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: [":se_build_files{.plat_public_${ver}}", ":se_build_files{.reqd_mask}"],
     installable: false,
     build_variant: "user",
@@ -45,6 +46,7 @@ se_policy_cil {
 
 se_policy_conf {
     name: "${ver}_product_pub_policy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: [
         ":se_build_files{.plat_public_${ver}}",
         ":se_build_files{.system_ext_public_${ver}}",
@@ -65,6 +67,7 @@ se_policy_cil {
 
 se_policy_conf {
     name: "${ver}_plat_policy.conf",
+    defaults: ["se_policy_conf_flags_defaults"],
     srcs: [
         ":se_build_files{.plat_public_${ver}}",
         ":se_build_files{.plat_private_${ver}}",
