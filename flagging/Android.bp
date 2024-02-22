@@ -18,6 +18,7 @@ se_flags {
     name: "aosp_selinux_flags",
     flags: [
         "RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT",
+        "RELEASE_AVF_ENABLE_LLPVM_CHANGES",
         "RELEASE_HARDWARE_BLUETOOTH_RANGING_SERVICE",
     ],
     export_to: ["all_selinux_flags"],
