@@ -98,6 +98,7 @@ ro.boot.btmacaddr       u:object_r:bluetooth_prop:s0
 ro.boot.serialno        u:object_r:serialno_prop:s0
 ro.bt.                  u:object_r:bluetooth_prop:s0
 ro.boot.bootreason      u:object_r:bootloader_boot_reason_prop:s0
+ro.misctrl.             u:object_r:misctrl_prop:s0
 persist.sys.boot.reason u:object_r:last_boot_reason_prop:s0
 sys.boot.reason         u:object_r:system_boot_reason_prop:s0
 sys.boot.reason.last    u:object_r:last_boot_reason_prop:s0
