@@ -165,6 +165,9 @@ android.system.virtualizationservice      u:object_r:virtualization_service:s0
 is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
     android.system.virtualizationservice_internal.IVfioHandler u:object_r:vfio_handler_service:s0
 ')
+is_flag_enabled(RELEASE_AVF_ENABLE_LLPVM_CHANGES, `
+    android.system.virtualizationmaintenance u:object_r:virtualization_maintenance_service:s0
+')
 ambient_context                           u:object_r:ambient_context_service:s0
 app_binding                               u:object_r:app_binding_service:s0
 app_hibernation                           u:object_r:app_hibernation_service:s0

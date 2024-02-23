@@ -25,6 +25,9 @@ type perfetto_traces_data_file, file_type, data_file_type, core_data_file_type;
 # /data/misc/perfetto-traces/bugreport for perfetto traces for bugreports.
 type perfetto_traces_bugreport_data_file, file_type, data_file_type, core_data_file_type;
 
+# /data/misc/perfetto-traces/profiling for perfetto traces from profiling apis.
+type perfetto_traces_profiling_data_file, file_type, data_file_type, core_data_file_type;
+
 # /data/misc/perfetto-configs for perfetto configs
 type perfetto_configs_data_file, file_type, data_file_type, core_data_file_type;
 
