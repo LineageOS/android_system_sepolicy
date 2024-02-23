@@ -405,6 +405,7 @@
 /system/bin/lpdumpd                                               lpdumpd_exec
 /system/bin/rss_hwm_reset                                         rss_hwm_reset_exec
 /system/bin/perfetto                                              perfetto_exec
+/system/bin/misctrl                                               misctrl_exec
 /system/bin/mtectrl                                               mtectrl_exec
 /system/bin/traced                                                traced_exec
 /system/bin/traced_perf                                           traced_perf_exec
@@ -995,10 +996,12 @@
 /data/misc/odsign/test                                            odsign_data_file
 /data/misc/odsign/metrics                                         odsign_metrics_file
 /data/misc/odsign/metrics/test                                    odsign_metrics_file
-/data/misc/perfetto-traces/bugreport                             perfetto_traces_bugreport_data_file
-/data/misc/perfetto-traces/bugreport/test                        perfetto_traces_bugreport_data_file
+/data/misc/perfetto-traces/bugreport                              perfetto_traces_bugreport_data_file
+/data/misc/perfetto-traces/bugreport/test                         perfetto_traces_bugreport_data_file
 /data/misc/perfetto-traces                                        perfetto_traces_data_file
 /data/misc/perfetto-traces/test                                   perfetto_traces_data_file
+/data/misc/perfetto-traces/profiling                              perfetto_traces_profiling_data_file
+/data/misc/perfetto-traces/profiling/test                         perfetto_traces_profiling_data_file
 /data/misc/perfetto-configs                                       perfetto_configs_data_file
 /data/misc/perfetto-configs/test                                  perfetto_configs_data_file
 /data/misc/prereboot                                              prereboot_data_file
