@@ -188,6 +188,7 @@
 /(vendor|system/vendor)/lib(64)?/libcompiler_rt\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libcutils\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libdmabufheap\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libft2\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libgralloctypes\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libhardware\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libhidlbase\.so u:object_r:same_process_hal_file:s0
@@ -195,6 +196,7 @@
 /(vendor|system/vendor)/lib(64)?/libion\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libjsoncpp\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/liblzma\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libpng\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libprocessgroup\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libunwindstack\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libutils\.so u:object_r:same_process_hal_file:s0
