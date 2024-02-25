@@ -629,11 +629,6 @@ neverallow hwservicemanager vndbinder_device:chr_file no_rw_file_perms;
 neverallow vndservicemanager binder_device:chr_file no_rw_file_perms;
 neverallow vndservicemanager hwbinder_device:chr_file no_rw_file_perms;
 
-# Do not allow write access to the general aconfig pb file and boot flag value files except init
-# TODO: need to add storage daemon into this exception list once it is created
-neverallow { domain -init } aconfig_storage_metadata_file:dir *;
-neverallow { domain -init } aconfig_storage_metadata_file:file no_w_file_perms;
-
 full_treble_only(`
   # Vendor apps are permited to use only stable public services. If they were to use arbitrary
   # services which can change any time framework/core is updated, breakage is likely.

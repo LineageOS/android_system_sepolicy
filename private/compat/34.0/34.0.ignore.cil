@@ -45,4 +45,7 @@
     profiling_service
     aconfig_storage_metadata_file
     aconfig_storage_flags_metadata_file
+    aconfigd
+    aconfigd_exec
+    aconfigd_socket
   ))

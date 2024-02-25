@@ -1527,9 +1527,8 @@ neverallow { domain -init -system_server } userspace_reboot_metadata_file:dir *;
 neverallow { domain -init -system_server } userspace_reboot_metadata_file:file no_rw_file_perms;
 
 # Only system server should access /metadata/aconfig
-# TODO: add storage daemon to neverallow exception when it is introduced
-neverallow { domain -init -system_server } aconfig_storage_flags_metadata_file:dir *;
-neverallow { domain -init -system_server } aconfig_storage_flags_metadata_file:file no_rw_file_perms;
+neverallow { domain -init -system_server -aconfigd } aconfig_storage_flags_metadata_file:dir *;
+neverallow { domain -init -system_server -aconfigd } aconfig_storage_flags_metadata_file:file no_rw_file_perms;
 
 # Allow systemserver to read/write the invalidation property
 set_prop(system_server, binder_cache_system_server_prop)
