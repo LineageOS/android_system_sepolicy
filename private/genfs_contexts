@@ -252,6 +252,7 @@ genfscon tracefs /events/synthetic/suspend_resume_minimal                u:objec
 genfscon debugfs /tracing/events/synthetic/suspend_resume_minimal        u:object_r:debugfs_tracing:s0
 
 genfscon tracefs /trace_clock                                            u:object_r:debugfs_tracing:s0
+genfscon tracefs /buffer_percent                                         u:object_r:debugfs_tracing:s0
 genfscon tracefs /buffer_size_kb                                         u:object_r:debugfs_tracing:s0
 genfscon tracefs /options/overwrite                                      u:object_r:debugfs_tracing:s0
 genfscon tracefs /options/print-tgid                                     u:object_r:debugfs_tracing:s0
@@ -319,6 +320,7 @@ genfscon tracefs /events/clk/clk_disable/                                u:objec
 genfscon tracefs /events/clk/clk_set_rate/                               u:object_r:debugfs_tracing:s0
 
 genfscon debugfs /tracing/trace_clock                                            u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/buffer_percent                                         u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/buffer_size_kb                                         u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/options/overwrite                                      u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/options/print-tgid                                     u:object_r:debugfs_tracing:s0
