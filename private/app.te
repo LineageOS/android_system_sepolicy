@@ -132,9 +132,9 @@ allow appdomain apex_art_data_file:dir r_dir_perms;
 allow appdomain apex_art_data_file:file rx_file_perms;
 
 # Allow access to tombstones if an fd to one is given to you.
-# This is restricted by unix permissions, so an app must go through system_server to get one.
+# An app cannot open the tombstone itself because it lacks `open`.
 allow appdomain tombstone_data_file:file { getattr read };
-neverallow appdomain tombstone_data_file:file ~{ getattr read };
+neverallow { appdomain -shell } tombstone_data_file:file ~{ getattr read };
 
 # Execute the shell or other system executables.
 allow { appdomain -ephemeral_app -sdk_sandbox_all } shell_exec:file rx_file_perms;
