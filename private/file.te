@@ -151,3 +151,9 @@ type sysfs_uprobe, fs_type, sysfs_type;
 
 # Type for aconfig daemon socket
 type aconfigd_socket, file_type, coredomain_socket;
+
+# Type for /(system|system_ext|product)/etc/aconfig
+type system_aconfig_storage_file, system_file_type, file_type;
+
+# Type for /vendor/etc/aconfig
+type vendor_aconfig_storage_file, vendor_file_type, file_type;
