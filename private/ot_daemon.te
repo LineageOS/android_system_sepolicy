@@ -39,3 +39,12 @@ unix_socket_send(ot_daemon, statsdw, statsd)
 # For collecting bugreports.
 allow ot_daemon dumpstate:fd use;
 allow ot_daemon dumpstate:fifo_file write;
+
+# ot-daemon socket is for only ot-daemon and ot-ctl
+neverallow {
+  domain
+  -ot_daemon
+  userdebug_or_eng(`-ot_ctl')
+  -init
+  -vendor_init
+} ot_daemon_socket:sock_file *;
