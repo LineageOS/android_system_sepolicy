@@ -1,0 +1,37 @@
+is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
+    # vfio_handler is a helper service for VFIO tasks, like binding platform devices to VFIO driver.
+    # vfio_handler is separate from virtualizationservice as VFIO tasks require root.
+    type vfio_handler, domain, coredomain;
+    type vfio_handler_exec, system_file_type, exec_type, file_type;
+
+    # When init runs a file labelled with vfio_handler_exec, run it in the vfio_handler domain.
+    init_daemon_domain(vfio_handler)
+
+    # Let the vfio_handler domain register the vfio_handler_service with ServiceManager.
+    add_service(vfio_handler, vfio_handler_service)
+
+    # Let the vfio_handler domain use Binder.
+    binder_use(vfio_handler)
+
+    # Allow vfio_handler to check if VFIO is supported
+    allow vfio_handler vfio_device:chr_file getattr;
+    allow vfio_handler vfio_device:dir r_dir_perms;
+
+    # Allow vfio_handler to bind/unbind platform devices
+    allow vfio_handler sysfs:dir r_dir_perms;
+    allow vfio_handler sysfs:file rw_file_perms;
+
+    # Allow vfio_handler to write to VM DTBO via a file created by virtualizationservice.
+    allow vfio_handler virtualizationservice:fd use;
+    allow vfio_handler virtualizationservice_data_file:file write;
+
+    # vfio_handler can only use fd from virtualizationservice, and cannot open files itself
+    neverallow vfio_handler virtualizationservice_data_file:file { open create };
+
+    # Allow vfio_handler to search /dev/block for accessing dtbo.img
+    allow vfio_handler block_device:dir search;
+    allow vfio_handler dtbo_block_device:blk_file r_file_perms;
+
+    # Only vfio_handler can add vfio_handler_service
+    neverallow { domain -vfio_handler } vfio_handler_service:service_manager add;
+') # is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT)

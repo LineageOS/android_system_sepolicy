@@ -1,0 +1,26 @@
+
+# Domain for derive_classpath
+type derive_classpath, domain, coredomain;
+type derive_classpath_exec, system_file_type, exec_type, file_type;
+init_daemon_domain(derive_classpath)
+
+# Read /apex
+allow derive_classpath apex_mnt_dir:dir r_dir_perms;
+allow derive_classpath vendor_apex_metadata_file:dir r_dir_perms;
+
+# Create /data/system/environ/classpath file
+allow derive_classpath environ_system_data_file:dir rw_dir_perms;
+allow derive_classpath environ_system_data_file:file create_file_perms;
+
+# b/183079517 fails on gphone targets otherwise
+allow derive_classpath unlabeled:dir search;
+
+# Allow derive_classpath to write the classpath into ota dexopt
+# - Read the ota's apex dir
+allow derive_classpath postinstall_apex_mnt_dir:dir r_dir_perms;
+# - Report the BCP to the ota's dexopt
+allow derive_classpath postinstall_dexopt:dir search;
+allow derive_classpath postinstall_dexopt:fd use;
+allow derive_classpath postinstall_dexopt:file read;
+allow derive_classpath postinstall_dexopt:lnk_file read;
+allow derive_classpath postinstall_dexopt_tmpfs:file rw_file_perms;

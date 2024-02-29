@@ -1,0 +1,226 @@
+###
+### Domain for all zygote spawned apps
+###
+### This file is the base policy for all zygote spawned apps.
+### Other policy files, such as isolated_app.te, untrusted_app.te, etc
+### extend from this policy. Only policies which should apply to ALL
+### zygote spawned apps should be added here.
+###
+type appdomain_tmpfs, file_type;
+
+###
+### Neverallow rules
+###
+### These are things that Android apps should NEVER be able to do
+###
+
+# Superuser capabilities.
+# bluetooth requires net_admin and wake_alarm. network stack app requires net_admin.
+neverallow { appdomain -bluetooth -network_stack } self:capability_class_set *;
+
+# Block device access.
+neverallow appdomain dev_type:blk_file { read write };
+
+# Note: Try expanding list of app domains in the future.
+neverallow { untrusted_app isolated_app shell } graphics_device:chr_file { read write };
+
+neverallow { appdomain -nfc } nfc_device:chr_file
+    { read write };
+neverallow { appdomain -bluetooth } hci_attach_dev:chr_file
+    { read write };
+neverallow appdomain tee_device:chr_file { read write };
+
+# Privileged netlink socket interfaces.
+neverallow { appdomain -network_stack }
+    domain:{
+        netlink_tcpdiag_socket
+        netlink_nflog_socket
+        netlink_xfrm_socket
+        netlink_audit_socket
+        netlink_dnrt_socket
+    } *;
+
+# These messages are broadcast messages from the kernel to userspace.
+# Do not allow the writing of netlink messages, which has been a source
+# of rooting vulns in the past.
+neverallow { appdomain -network_stack }
+    domain:netlink_kobject_uevent_socket { write append };
+
+# Sockets under /dev/socket that are not specifically typed.
+neverallow appdomain socket_device:sock_file write;
+
+# Unix domain sockets.
+neverallow appdomain adbd_socket:sock_file write;
+neverallow { appdomain -radio } rild_socket:sock_file write;
+
+# ptrace access to non-app domains.
+neverallow appdomain { domain -appdomain }:process ptrace;
+
+# The Android security model guarantees the confidentiality and integrity
+# of application data and execution state. Ptrace bypasses those
+# confidentiality guarantees. Disallow ptrace access from system components
+# to apps. Crash_dump is excluded, as it needs ptrace access to
+# produce stack traces.  llkd is excluded, as it needs ptrace access to
+# inspect stack traces for live lock conditions.
+
+neverallow {
+  domain
+  -appdomain
+  -crash_dump
+  userdebug_or_eng(`-llkd')
+} appdomain:process ptrace;
+
+# Read or write access to /proc/pid entries for any non-app domain.
+# A different form of hidepid=2 like protections
+neverallow appdomain { domain -appdomain }:file no_w_file_perms;
+neverallow { appdomain -shell } { domain -appdomain }:file no_rw_file_perms;
+
+# signal access to non-app domains.
+# sigchld allowed for parent death notification.
+# signull allowed for kill(pid, 0) existence test.
+# All others prohibited.
+# -perfetto is to allow shell (which is an appdomain) to kill perfetto
+# (see private/shell.te).
+neverallow appdomain { domain -appdomain -perfetto }:process
+    { sigkill sigstop signal };
+
+# Write to rootfs.
+neverallow appdomain rootfs:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+
+# Write to /system.
+neverallow appdomain system_file_type:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+
+# Write to entrypoint executables.
+neverallow appdomain exec_type:file
+    { create write setattr relabelfrom relabelto append unlink link rename };
+
+# Write to system-owned parts of /data.
+# This is the default type for anything under /data not otherwise
+# specified in file_contexts.  Define a different type for portions
+# that should be writable by apps.
+neverallow appdomain system_data_file:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+
+# Write to various other parts of /data.
+neverallow appdomain drm_data_file:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { appdomain -platform_app }
+    apk_data_file:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { appdomain -platform_app }
+    apk_private_data_file:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { appdomain -platform_app }
+    apk_private_tmp_file:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { appdomain -shell }
+    shell_data_file:dir_file_class_set
+    { create setattr relabelfrom relabelto append unlink link rename };
+neverallow { appdomain -bluetooth }
+    bluetooth_data_file:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow { domain -credstore -init } credstore_data_file:dir_file_class_set *;
+neverallow appdomain
+    keystore_data_file:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow appdomain
+    systemkeys_data_file:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow appdomain
+    wifi_data_file:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+neverallow appdomain
+    dhcp_data_file:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+
+# access tmp apk files
+neverallow { appdomain -platform_app }
+    apk_tmp_file:dir_file_class_set
+    { create write setattr relabelfrom relabelto append unlink link rename };
+
+neverallow { appdomain -untrusted_app_all -platform_app -priv_app -isolated_app_all }
+    { apk_tmp_file apk_private_tmp_file }:dir_file_class_set *;
+
+neverallow { untrusted_app_all isolated_app_all } { apk_tmp_file apk_private_tmp_file }:{ devfile_class_set dir fifo_file lnk_file sock_file } *;
+neverallow { untrusted_app_all isolated_app_all } { apk_tmp_file apk_private_tmp_file }:file ~{ getattr read };
+
+# Access to factory files.
+neverallow appdomain efs_file:dir_file_class_set write;
+neverallow { appdomain -shell } efs_file:dir_file_class_set read;
+
+# Write to various pseudo file systems.
+neverallow { appdomain -bluetooth -nfc }
+    sysfs:dir_file_class_set write;
+neverallow appdomain
+    proc:dir_file_class_set write;
+
+# Access to syslog(2) or /proc/kmsg.
+neverallow appdomain kernel:system { syslog_read syslog_mod syslog_console };
+
+# SELinux is not an API for apps to use
+neverallow { appdomain -shell } *:security { compute_av check_context };
+neverallow { appdomain -shell } *:netlink_selinux_socket *;
+
+# Ability to perform any filesystem operation other than statfs(2).
+# i.e. no mount(2), unmount(2), etc.
+neverallow appdomain fs_type:filesystem ~getattr;
+
+# prevent creation/manipulation of globally readable symlinks
+neverallow appdomain {
+  apk_data_file
+  cache_file
+  cache_recovery_file
+  dev_type
+  rootfs
+  system_file
+  tmpfs
+}:lnk_file no_w_file_perms;
+
+# Applications should use the activity model for receiving events
+neverallow {
+  appdomain
+  -shell # bugreport
+} input_device:chr_file ~getattr;
+
+# Do not allow access to Bluetooth-related system properties except for a few allowed domains.
+# neverallow rules for access to Bluetooth-related data files are above.
+neverallow {
+  appdomain
+  -bluetooth
+  -system_app
+} { bluetooth_audio_hal_prop bluetooth_a2dp_offload_prop bluetooth_prop exported_bluetooth_prop }:file create_file_perms;
+
+# allow system_app to access Nfc-related system properties.
+set_prop(system_app, nfc_prop)
+
+# allow system_app to access radio_config system properties.
+set_prop(system_app, radio_control_prop)
+
+# Apps cannot access proc_uid_time_in_state
+neverallow appdomain proc_uid_time_in_state:file *;
+
+# Apps cannot access proc_uid_concurrent_active_time
+neverallow appdomain proc_uid_concurrent_active_time:file *;
+
+# Apps cannot access proc_uid_concurrent_policy_time
+neverallow appdomain proc_uid_concurrent_policy_time:file *;
+
+# Apps cannot access proc_uid_cpupower
+neverallow appdomain proc_uid_cpupower:file *;
+
+# Apps may not read /proc/net/{tcp,tcp6,udp,udp6}. These files leak information across the
+# application boundary. VPN apps may use the ConnectivityManager.getConnectionOwnerUid() API to
+# perform UID lookups.
+neverallow { appdomain -shell } proc_net_tcp_udp:file *;
+
+# Apps cannot access bootstrap files. The bootstrap files are only for
+# extremely early processes (like init, etc.) which are started before
+# the runtime APEX is activated and Bionic libs are provided from there.
+# If app process accesses (or even load/execute) the bootstrap files,
+# it might cause problems such as ODR violation, etc.
+neverallow appdomain system_bootstrap_lib_file:file
+    { open read write append execute execute_no_trans map };
+neverallow appdomain system_bootstrap_lib_file:dir
+    { open read getattr search };

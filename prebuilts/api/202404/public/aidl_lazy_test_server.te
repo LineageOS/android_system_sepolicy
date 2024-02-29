@@ -1,0 +1,9 @@
+type aidl_lazy_test_server, domain;
+type aidl_lazy_test_server_exec, exec_type, file_type, system_file_type;
+
+userdebug_or_eng(`
+  binder_use(aidl_lazy_test_server)
+  binder_call(aidl_lazy_test_server, binderservicedomain)
+
+  add_service(aidl_lazy_test_server, aidl_lazy_test_service)
+')

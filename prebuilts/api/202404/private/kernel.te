@@ -1,0 +1,46 @@
+typeattribute kernel coredomain;
+
+domain_auto_trans(kernel, init_exec, init)
+domain_auto_trans(kernel, snapuserd_exec, snapuserd)
+
+# Allow the kernel to read otapreopt_chroot's file descriptors and files under
+# /postinstall, as it uses apexd logic to mount APEX packages in /postinstall/apex.
+allow kernel otapreopt_chroot:fd use;
+allow kernel postinstall_file:file read;
+
+# The following sections are for the transition period during a Virtual A/B
+# OTA. Once sepolicy is loaded, snapuserd must be re-launched in the correct
+# context, and with properly labelled devices. This must be done before
+# enabling enforcement, eg, in permissive mode while still in the kernel
+# context.
+allow kernel tmpfs:blk_file { getattr relabelfrom };
+allow kernel tmpfs:chr_file { getattr relabelfrom };
+allow kernel tmpfs:lnk_file { getattr relabelfrom };
+allow kernel tmpfs:dir { open read relabelfrom };
+
+allow kernel block_device:blk_file relabelto;
+allow kernel block_device:lnk_file relabelto;
+allow kernel dm_device:chr_file relabelto;
+allow kernel dm_device:blk_file relabelto;
+allow kernel dm_user_device:dir { read open search relabelto };
+allow kernel dm_user_device:chr_file relabelto;
+allow kernel kmsg_device:chr_file relabelto;
+allow kernel null_device:chr_file relabelto;
+allow kernel random_device:chr_file relabelto;
+allow kernel snapuserd_exec:file relabelto;
+
+allow kernel kmsg_device:chr_file write;
+allow kernel gsid:fd use;
+
+dontaudit kernel metadata_file:dir search;
+dontaudit kernel ota_metadata_file:dir rw_dir_perms;
+dontaudit kernel sysfs:dir r_dir_perms;
+dontaudit kernel sysfs:file { open read write };
+dontaudit kernel sysfs:chr_file { open read write };
+dontaudit kernel dm_device:chr_file ioctl;
+dontaudit kernel self:capability { sys_admin setgid mknod };
+
+dontaudit kernel dm_user_device:dir { write add_name };
+dontaudit kernel dm_user_device:chr_file { create setattr };
+dontaudit kernel tmpfs:lnk_file read;
+dontaudit kernel tmpfs:blk_file { open read };
