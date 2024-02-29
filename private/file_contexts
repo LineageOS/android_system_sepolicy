@@ -155,6 +155,7 @@
 /dev/snd(/.*)?		u:object_r:audio_device:s0
 /dev/socket(/.*)?	u:object_r:socket_device:s0
 /dev/socket/adbd	u:object_r:adbd_socket:s0
+/dev/socket/aconfigd	u:object_r:aconfigd_socket:s0
 /dev/socket/dnsproxyd	u:object_r:dnsproxyd_socket:s0
 /dev/socket/dumpstate	u:object_r:dumpstate_socket:s0
 /dev/socket/fwmarkd	u:object_r:fwmarkd_socket:s0
@@ -386,6 +387,7 @@
 /system/bin/bpfloader            u:object_r:bpfloader_exec:s0
 /system/bin/netbpfload           u:object_r:bpfloader_exec:s0
 /system/bin/watchdogd            u:object_r:watchdogd_exec:s0
+/system/bin/aconfigd             u:object_r:aconfigd_exec:s0
 /system/bin/apexd                u:object_r:apexd_exec:s0
 /system/bin/gsid                 u:object_r:gsid_exec:s0
 /system/bin/simpleperf           u:object_r:simpleperf_exec:s0
