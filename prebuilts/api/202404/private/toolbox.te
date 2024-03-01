@@ -1,0 +1,12 @@
+typeattribute toolbox coredomain;
+
+init_daemon_domain(toolbox)
+
+# rm -rf in /data/misc/virtualizationservice
+allow toolbox virtualizationservice_data_file:dir { rmdir rw_dir_perms };
+allow toolbox virtualizationservice_data_file:file { getattr unlink };
+
+# If we can't remove these directories we try to chmod them. That
+# doesn't work, but it doesn't matter as virtualizationservice itself
+# will delete them when it starts. See b/235338094#comment39
+dontaudit toolbox virtualizationservice_data_file:dir setattr;

@@ -1,0 +1,197 @@
+###
+### Apps that run with the system UID, e.g. com.android.system.ui,
+### com.android.settings.  These are not as privileged as the system
+### server.
+###
+
+typeattribute system_app coredomain, mlstrustedsubject;
+
+app_domain(system_app)
+net_domain(system_app)
+binder_service(system_app)
+
+# android.ui and system.ui
+allow system_app rootfs:dir getattr;
+
+# Read and write /data/data subdirectory.
+allow system_app system_app_data_file:dir create_dir_perms;
+allow system_app system_app_data_file:{ file lnk_file } create_file_perms;
+
+# Read and write to /data/misc/user.
+allow system_app misc_user_data_file:dir create_dir_perms;
+allow system_app misc_user_data_file:file create_file_perms;
+
+# Access to apex files stored on /data (b/136063500)
+# Needed so that Settings can access NOTICE files inside apex
+# files located in the assets/ directory.
+allow system_app apex_data_file:dir search;
+allow system_app staging_data_file:file r_file_perms;
+
+# Read wallpaper file.
+allow system_app wallpaper_file:file r_file_perms;
+
+# Read icon file.
+allow system_app icon_file:file r_file_perms;
+
+# Write to properties
+set_prop(system_app, adaptive_haptics_prop)
+set_prop(system_app, arm64_memtag_prop)
+set_prop(system_app, bluetooth_a2dp_offload_prop)
+set_prop(system_app, bluetooth_audio_hal_prop)
+set_prop(system_app, bluetooth_prop)
+set_prop(system_app, debug_prop)
+set_prop(system_app, system_prop)
+set_prop(system_app, exported_bluetooth_prop)
+set_prop(system_app, exported_system_prop)
+set_prop(system_app, exported3_system_prop)
+set_prop(system_app, gesture_prop)
+set_prop(system_app, locale_prop)
+set_prop(system_app, logd_prop)
+set_prop(system_app, net_radio_prop)
+set_prop(system_app, timezone_prop)
+set_prop(system_app, usb_control_prop)
+set_prop(system_app, usb_prop)
+set_prop(system_app, log_tag_prop)
+set_prop(system_app, drm_forcel3_prop)
+userdebug_or_eng(`set_prop(system_app, logpersistd_logging_prop)')
+auditallow system_app net_radio_prop:property_service set;
+auditallow system_app usb_control_prop:property_service set;
+auditallow system_app usb_prop:property_service set;
+# Allow Settings to enable Dynamic System Update
+set_prop(system_app, dynamic_system_prop)
+
+# ctl interface
+set_prop(system_app, ctl_default_prop)
+set_prop(system_app, ctl_bugreport_prop)
+
+# Allow developer settings to query gsid status
+get_prop(system_app, gsid_prop)
+
+# Allow developer settings to check 16k pages boot option status
+get_prop(system_app, enable_16k_pages_prop)
+
+# Create /data/anr/traces.txt.
+allow system_app anr_data_file:dir ra_dir_perms;
+allow system_app anr_data_file:file create_file_perms;
+
+# Settings need to access app name and icon from asec
+allow system_app asec_apk_file:file r_file_perms;
+
+# Allow system apps (like Settings) to interact with statsd
+binder_call(system_app, statsd)
+
+# Allow system apps to interact with incidentd
+binder_call(system_app, incidentd)
+
+# Allow system apps (Settings) to call into update_engine
+# in order to apply update to switch from 4k kernel to 16K and vice-versa
+binder_use(system_app)
+allow system_app update_engine_stable_service:service_manager find;
+binder_call(system_app, update_engine)
+
+# Allow system app to interact with Dumpstate HAL
+hal_client_domain(system_app, hal_dumpstate)
+
+allow system_app servicemanager:service_manager list;
+# TODO: scope this down? Too broad?
+allow system_app {
+  service_manager_type
+  -apex_service
+  -dnsresolver_service
+  -dumpstate_service
+  -installd_service
+  -lpdump_service
+  -mdns_service
+  -netd_service
+  -system_suspend_control_internal_service
+  -system_suspend_control_service
+  -tracingproxy_service
+  -virtual_touchpad_service
+  -vold_service
+  -default_android_service
+}:service_manager find;
+# suppress denials for services system_app should not be accessing.
+dontaudit system_app {
+  dnsresolver_service
+  dumpstate_service
+  installd_service
+  mdns_service
+  netd_service
+  virtual_touchpad_service
+  vold_service
+}:service_manager find;
+
+# suppress denials caused by debugfs_tracing
+dontaudit system_app debugfs_tracing:file rw_file_perms;
+
+# Ignore access to memory properties for Settings.
+dontaudit system_app proc_pagetypeinfo:file r_file_perms;
+dontaudit system_app sysfs_zram:dir search;
+
+allow system_app keystore:keystore2_key {
+    delete
+    get_info
+    grant
+    rebind
+    update
+    use
+};
+
+# Allow Settings to manage WI-FI keys.
+allow system_app wifi_key:keystore2_key {
+    delete
+    get_info
+    rebind
+    update
+    use
+};
+
+# settings app reads /proc/version
+allow system_app {
+  proc_version
+}:file r_file_perms;
+
+# Settings app writes to /dev/stune/foreground/tasks.
+allow system_app cgroup:file w_file_perms;
+allow system_app cgroup_v2:file w_file_perms;
+allow system_app cgroup_v2:dir w_dir_perms;
+
+control_logd(system_app)
+read_runtime_log_tags(system_app)
+get_prop(system_app, device_logging_prop)
+
+# allow system apps to use UDP sockets provided by the system server but not
+# modify them other than to connect
+allow system_app system_server:udp_socket {
+        connect getattr read recvfrom sendto write getopt setopt };
+
+# allow system apps to read game manager related sysrops
+get_prop(system_app, game_manager_config_prop)
+
+# Settings app reads ro.oem_unlock_supported
+get_prop(system_app, oem_unlock_prop)
+
+# Settings app reads ro.usb.uvc.enabled
+get_prop(system_app, usb_uvc_enabled_prop)
+
+# Settings and Launcher apps read pm.archiving.enabled
+get_prop(system_app, pm_archiving_enabled_prop)
+
+###
+### Neverallow rules
+###
+
+# app domains which access /dev/fuse should not run as system_app
+neverallow system_app fuse_device:chr_file *;
+
+# Apps which run as UID=system should not rely on any attacker controlled
+# filesystem locations, such as /data/local/tmp. For /data/local/tmp, we
+# allow writes to files passed by file descriptor to support dumpstate and
+# bug reports, but not reads.
+neverallow system_app shell_data_file:dir { no_w_dir_perms open search read };
+neverallow system_app shell_data_file:file { open read ioctl lock };
+
+# system_app should be the only domain writing the adaptive haptics prop
+neverallow { domain -init -system_app } adaptive_haptics_prop:property_service set;
+# system_app should be the only domain writing the force l3 prop
+neverallow { domain -init -system_app } drm_forcel3_prop:property_service set;

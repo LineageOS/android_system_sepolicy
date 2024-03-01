@@ -1,0 +1,151 @@
+typeattribute dumpstate coredomain;
+type dumpstate_tmpfs, file_type;
+
+init_daemon_domain(dumpstate)
+
+# Execute and transition to the vdc domain
+domain_auto_trans(dumpstate, vdc_exec, vdc)
+
+# Create tmpfs files for using memfd descriptors to get output from child
+# processes.
+tmpfs_domain(dumpstate)
+
+# Acquire advisory lock on /system/etc/xtables.lock from ip[6]tables
+allow dumpstate system_file:file lock;
+
+allow dumpstate storaged_exec:file rx_file_perms;
+
+# /data/misc/a11ytrace for accessibility traces
+userdebug_or_eng(`
+  allow dumpstate accessibility_trace_data_file:dir r_dir_perms;
+  allow dumpstate accessibility_trace_data_file:file r_file_perms;
+')
+
+# /data/misc/wmtrace for wm traces
+userdebug_or_eng(`
+  allow dumpstate wm_trace_data_file:dir r_dir_perms;
+  allow dumpstate wm_trace_data_file:file r_file_perms;
+')
+
+# /data/system/dropbox for dropbox entries
+userdebug_or_eng(`
+  allow dumpstate dropbox_data_file:dir r_dir_perms;
+  allow dumpstate dropbox_data_file:file r_file_perms;
+')
+
+# Allow dumpstate to make binder calls to incidentd
+binder_call(dumpstate, incidentd)
+
+# Kill incident in case of a timeout
+allow dumpstate incident:process { signal sigkill };
+
+# Allow dumpstate to make binder calls to storaged service
+binder_call(dumpstate, storaged)
+
+# Allow dumpstate to make binder calls to statsd
+binder_call(dumpstate, statsd)
+
+# Allow dumpstate to talk to gpuservice over binder
+binder_call(dumpstate, gpuservice);
+
+# Allow dumpstate to talk to idmap over binder
+binder_call(dumpstate, idmap);
+
+# Allow dumpstate to talk to profcollectd over binder
+userdebug_or_eng(`
+  binder_call(dumpstate, profcollectd)
+')
+
+# Allow dumpstate to talk to automotive_display_service over binder
+binder_call(dumpstate, automotive_display_service)
+
+# Allow dumpstate to talk to virtual_camera service over binder
+binder_call(dumpstate, virtual_camera)
+
+# Allow dumpstate to talk to ot_daemon service over binder
+binder_call(dumpstate, ot_daemon)
+
+# Collect metrics on boot time created by init
+get_prop(dumpstate, boottime_prop)
+
+# Signal native processes to dump their stack.
+allow dumpstate {
+  mediatranscoding
+  statsd
+  netd
+  virtual_camera
+  ot_daemon
+}:process signal;
+
+# Only allow dumpstate to dump Keystore on debuggable builds.
+userdebug_or_eng(`
+  allow dumpstate keystore:process signal;
+')
+dontaudit dumpstate keystore:process { signal };
+
+# For collecting bugreports.
+no_debugfs_restriction(`
+  allow dumpstate debugfs_wakeup_sources:file r_file_perms;
+')
+
+allow dumpstate dev_type:blk_file getattr;
+allow dumpstate webview_zygote:process signal;
+allow dumpstate sysfs_dmabuf_stats:file r_file_perms;
+dontaudit dumpstate update_engine:binder call;
+
+# Read files in /proc
+allow dumpstate {
+  config_gz
+  proc_net_tcp_udp
+  proc_pid_max
+}:file r_file_perms;
+
+# For comminucating with the system process to do confirmation ui.
+binder_call(dumpstate, incidentcompanion_service)
+
+# Set properties.
+# dumpstate_prop is used to share state with the Shell app.
+set_prop(dumpstate, dumpstate_prop)
+set_prop(dumpstate, exported_dumpstate_prop)
+
+# dumpstate_options_prop is used to pass extra command-line args.
+set_prop(dumpstate, dumpstate_options_prop)
+
+# Allow dumpstate to kill vendor dumpstate service by init
+set_prop(dumpstate, ctl_dumpstate_prop)
+
+# For dumping dynamic partition information.
+set_prop(dumpstate, lpdumpd_prop)
+binder_call(dumpstate, lpdumpd)
+
+# For dumping hypervisor information.
+get_prop(dumpstate, hypervisor_prop)
+
+# For dumping device-mapper and snapshot information.
+allow dumpstate gsid_exec:file rx_file_perms;
+set_prop(dumpstate, ctl_gsid_prop)
+binder_call(dumpstate, gsid)
+
+r_dir_file(dumpstate, ota_metadata_file)
+
+# For starting (and killing) perfetto --save-for-bugreport. If a labelled trace
+# is being recorded, the command above will serialize it into
+# /data/misc/perfetto-traces/bugreport/*.pftrace .
+domain_auto_trans(dumpstate, perfetto_exec, perfetto)
+allow dumpstate perfetto:process signal;
+allow dumpstate perfetto_traces_data_file:dir { search };
+allow dumpstate perfetto_traces_bugreport_data_file:dir rw_dir_perms;
+allow dumpstate perfetto_traces_bugreport_data_file:file { r_file_perms unlink };
+
+# When exec-ing /system/bin/perfetto, dumpstates redirects stdio to /dev/null
+# (which is labelled as dumpstate_tmpfs) to avoid leaking a FD to the bugreport
+# zip file. These rules are to allow perfetto.te to inherit dumpstate's
+# /dev/null.
+allow perfetto dumpstate_tmpfs:file rw_file_perms;
+allow perfetto dumpstate:fd use;
+
+# system_dlkm_file for /system_dlkm partition
+allow dumpstate system_dlkm_file:dir getattr;
+
+# Allow dumpstate to execute derive_sdk in its own domain
+domain_auto_trans(dumpstate, derive_sdk_exec, derive_sdk)

@@ -1,0 +1,36 @@
+typeattribute radio coredomain, mlstrustedsubject;
+
+app_domain(radio)
+
+read_runtime_log_tags(radio)
+
+# Property service
+set_prop(radio, radio_control_prop)
+set_prop(radio, radio_prop)
+set_prop(radio, net_radio_prop)
+set_prop(radio, telephony_status_prop)
+set_prop(radio, radio_cdma_ecm_prop)
+
+# ctl interface
+set_prop(radio, ctl_rildaemon_prop)
+
+# Telephony code contains time / time zone detection logic so it reads the associated properties.
+get_prop(radio, time_prop)
+
+# allow telephony to access platform compat to log permission denials
+allow radio platform_compat_service:service_manager find;
+
+allow radio uce_service:service_manager find;
+
+# Manage /data/misc/emergencynumberdb
+allow radio emergency_data_file:dir r_dir_perms;
+allow radio emergency_data_file:file r_file_perms;
+
+# allow telephony to access related cache properties
+set_prop(radio, binder_cache_telephony_server_prop);
+neverallow { domain -radio -init }
+    binder_cache_telephony_server_prop:property_service set;
+
+# allow sending pulled atoms to statsd
+binder_call(radio, statsd)
+

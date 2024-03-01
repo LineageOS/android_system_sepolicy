@@ -1,0 +1,21 @@
+
+# Domain for derive_sdk
+type derive_sdk, domain, coredomain;
+type derive_sdk_exec, system_file_type, exec_type, file_type;
+init_daemon_domain(derive_sdk)
+
+# Read /apex
+allow derive_sdk apex_mnt_dir:dir r_dir_perms;
+allow derive_sdk vendor_apex_metadata_file:dir r_dir_perms;
+
+# Prop rules: writable by derive_sdk, readable by bootclasspath (apps)
+set_prop(derive_sdk, module_sdkextensions_prop)
+neverallow { domain -init -derive_sdk } module_sdkextensions_prop:property_service set;
+
+# Allow derive_sdk to write data back to dumpstate when forked from dumpstate.
+# The shell_data_file permissions are needed when a bugreport is taken:
+# dumpstate will redirect its stdout to a temporary shell_data_file:file, and
+# this makes derive_sdk append to that file.
+allow derive_sdk dumpstate:fd use;
+allow derive_sdk dumpstate:unix_stream_socket { read write };
+allow derive_sdk shell_data_file:file { getattr append read write };

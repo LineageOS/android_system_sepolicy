@@ -1,0 +1,558 @@
+# /proc/net access.
+# TODO(b/9496886) Audit access for removal.
+# proc_net access for the negated domains below is granted (or not) in their
+# individual .te files.
+r_dir_file({
+  appdomain
+  -ephemeral_app
+  -isolated_app_all
+  -platform_app
+  -priv_app
+  -shell
+  -sdk_sandbox_all
+  -system_app
+  -untrusted_app_all
+}, proc_net_type)
+# audit access for all these non-core app domains.
+userdebug_or_eng(`
+  auditallow {
+    appdomain
+    -ephemeral_app
+    -isolated_app_all
+    -platform_app
+    -priv_app
+    -shell
+    -su
+    -sdk_sandbox_all
+    -system_app
+    -untrusted_app_all
+  } proc_net_type:{ dir file lnk_file } { getattr open read };
+')
+
+# Allow apps to read the Test Harness Mode property. This property is used in
+# the implementation of ActivityManager.isDeviceInTestHarnessMode()
+get_prop(appdomain, test_harness_prop)
+
+get_prop(appdomain, boot_status_prop)
+get_prop(appdomain, dalvik_config_prop_type)
+get_prop(appdomain, media_config_prop)
+get_prop(appdomain, packagemanager_config_prop)
+get_prop(appdomain, radio_control_prop)
+get_prop(appdomain, surfaceflinger_color_prop)
+get_prop(appdomain, systemsound_config_prop)
+get_prop(appdomain, telephony_config_prop)
+get_prop(appdomain, userspace_reboot_config_prop)
+get_prop(appdomain, vold_config_prop)
+get_prop(appdomain, adbd_config_prop)
+get_prop(appdomain, dck_prop)
+get_prop(appdomain, persist_wm_debug_prop)
+get_prop(appdomain, persist_sysui_builder_extras_prop)
+get_prop(appdomain, persist_sysui_ranking_update_prop)
+
+# Allow the heap dump ART plugin to the count of sessions waiting for OOME
+get_prop(appdomain, traced_oome_heap_session_count_prop)
+
+# Allow to read ro.vendor.camera.extensions.enabled
+get_prop(appdomain, camera2_extensions_prop)
+
+# Allow to ro.camerax.extensions.enabled
+get_prop(appdomain, camerax_extensions_prop)
+
+# Prevent apps from causing presubmit failures.
+# Apps can cause selinux denials by accessing CE storage
+# and/or external storage. In either case, the selinux denial is
+# not the cause of the failure, but just a symptom that
+# storage isn't ready. Many apps handle the failure appropriately.
+#
+# Apps cannot access external storage before it becomes available.
+dontaudit appdomain storage_stub_file:dir getattr;
+# Attempts to write to system_data_file is generally a sign
+# that apps are attempting to access encrypted storage before
+# the ACTION_USER_UNLOCKED intent is delivered. Apps are not
+# allowed to write to CE storage before it's available.
+# Attempting to do so will be blocked by both selinux and unix
+# permissions.
+dontaudit appdomain system_data_file:dir write;
+# Apps should not be reading vendor-defined properties.
+dontaudit appdomain vendor_default_prop:file read;
+
+# Access to /mnt/media_rw/<vol> (limited by DAC to apps with external_storage gid)
+allow { appdomain -sdk_sandbox_all } mnt_media_rw_file:dir search;
+
+# allow apps to use UDP sockets provided by the system server but not
+# modify them other than to connect
+allow appdomain system_server:udp_socket {
+        connect getattr read recvfrom sendto write getopt setopt };
+
+neverallow appdomain system_server:udp_socket {
+        accept append bind create ioctl listen lock name_bind
+        relabelfrom relabelto setattr shutdown };
+
+# Transition to a non-app domain.
+# Exception for the shell and su domains, can transition to runas, etc.
+# Exception for crash_dump to allow for app crash reporting.
+# Exception for renderscript binaries (/system/bin/bcc, /system/bin/ld.mc)
+# to allow renderscript to create privileged executable files.
+# Exception for virtualizationmanager to allow running VMs as child processes.
+neverallow { appdomain -shell userdebug_or_eng(`-su') }
+    { domain -appdomain -crash_dump -rs -virtualizationmanager }:process { transition };
+neverallow { appdomain -shell userdebug_or_eng(`-su') }
+    { domain -appdomain }:process { dyntransition };
+
+# Don't allow regular apps access to storage configuration properties.
+neverallow { appdomain -mediaprovider_app } storage_config_prop:file no_rw_file_perms;
+
+# Don't allow apps reading /system/etc/font_fallback.xml
+dontaudit appdomain system_font_fallback_file:file no_rw_file_perms;
+neverallow appdomain system_font_fallback_file:file no_rw_file_perms;
+
+# Allow to read sendbug.preferred.domain
+get_prop(appdomain, sendbug_config_prop)
+
+# Allow to read graphics related properties.
+get_prop(appdomain, graphics_config_prop)
+
+# Allow to read persist.config.calibration_fac
+get_prop(appdomain, camera_calibration_prop)
+
+# Allow to read db.log.detailed, db.log.slow_query_threshold*
+get_prop(appdomain, sqlite_log_prop)
+
+# Allow to read system_user_mode_emulation_prop, which is used by UserManager.java
+userdebug_or_eng(`get_prop(appdomain, system_user_mode_emulation_prop)')
+
+# Allow font file read by apps.
+allow appdomain font_data_file:file r_file_perms;
+allow appdomain font_data_file:dir r_dir_perms;
+
+# Enter /data/misc/apexdata/
+allow appdomain apex_module_data_file:dir search;
+# Read /data/misc/apexdata/com.android.art, execute signed AOT artifacts.
+allow appdomain apex_art_data_file:dir r_dir_perms;
+allow appdomain apex_art_data_file:file rx_file_perms;
+
+# Allow access to tombstones if an fd to one is given to you.
+# This is restricted by unix permissions, so an app must go through system_server to get one.
+allow appdomain tombstone_data_file:file { getattr read };
+neverallow appdomain tombstone_data_file:file ~{ getattr read };
+
+# Execute the shell or other system executables.
+allow { appdomain -ephemeral_app -sdk_sandbox_all } shell_exec:file rx_file_perms;
+allow { appdomain -ephemeral_app -sdk_sandbox_all } toolbox_exec:file rx_file_perms;
+not_full_treble(`allow { appdomain -ephemeral_app -sdk_sandbox_all } vendor_file:file x_file_perms;')
+
+# Allow apps access to /vendor/app except for privileged
+# apps which cannot be in /vendor.
+r_dir_file({ appdomain -ephemeral_app -sdk_sandbox_all }, vendor_app_file)
+allow { appdomain -ephemeral_app -sdk_sandbox_all } vendor_app_file:file execute;
+
+# Allow apps to read microdroid related files in vendor partition for CTS purpose.
+r_dir_file({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all }, vendor_microdroid_file)
+
+# Perform binder IPC to sdk sandbox.
+binder_call(appdomain, sdk_sandbox_all)
+
+# Allow apps to communicate via binder with virtual camera service.
+binder_call(appdomain, virtual_camera)
+
+# Allow access to external storage; we have several visible mount points under /storage
+# and symlinks to primary storage at places like /storage/sdcard0 and /mnt/user/0/primary
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } storage_file:dir r_dir_perms;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } storage_file:lnk_file r_file_perms;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } mnt_user_file:dir r_dir_perms;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } mnt_user_file:lnk_file r_file_perms;
+
+# Read/write visible storage
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } { sdcard_type fuse }:dir create_dir_perms;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } { sdcard_type fuse }:file create_file_perms;
+# This should be removed if sdcardfs is modified to alter the secontext for its
+# accesses to the underlying FS.
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } media_rw_data_file:dir create_dir_perms;
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } media_rw_data_file:file create_file_perms;
+
+# Allow apps to use the USB Accessory interface.
+# http://developer.android.com/guide/topics/connectivity/usb/accessory.html
+#
+# USB devices are first opened by the system server (USBDeviceManagerService)
+# and the file descriptor is passed to the right Activity via binder.
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } usb_device:chr_file { read write getattr ioctl };
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } usbaccessory_device:chr_file { read write getattr };
+
+#logd access
+control_logd({ appdomain -ephemeral_app -sdk_sandbox_all })
+
+# application inherit logd write socket (urge is to deprecate this long term)
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } keystore:keystore2_key { delete use get_info rebind update };
+
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } keystore_maintenance_service:service_manager find;
+
+use_keystore({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all })
+
+use_credstore({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all })
+
+# For app fuse.
+pdx_client({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all }, display_client)
+pdx_client({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all }, display_manager)
+pdx_client({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all }, display_vsync)
+pdx_client({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all }, performance_client)
+# Apps do not directly open the IPC socket for bufferhubd.
+pdx_use({ appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all }, bufferhub_client)
+
+# Apps receive an open tun fd from the framework for
+# device traffic. Do not allow untrusted app to directly open tun_device
+allow { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } tun_device:chr_file { read write getattr append ioctl };
+allowxperm { appdomain -isolated_app_all -ephemeral_app -sdk_sandbox_all } tun_device:chr_file ioctl TUNGETIFF;
+
+
+# WebView and other application-specific JIT compilers
+allow appdomain self:process execmem;
+
+allow appdomain { ashmem_device ashmem_libcutils_device }:chr_file execute;
+
+# Receive and use open file descriptors inherited from zygote.
+allow appdomain zygote:fd use;
+
+# Receive and use open file descriptors inherited from app zygote.
+allow appdomain app_zygote:fd use;
+
+# gdbserver for ndk-gdb reads the zygote.
+# valgrind needs mmap exec for zygote
+allow appdomain zygote_exec:file rx_file_perms;
+
+# Notify zygote of death;
+allow appdomain zygote:process sigchld;
+
+# Read /data/dalvik-cache.
+allow appdomain dalvikcache_data_file:dir { search getattr };
+allow appdomain dalvikcache_data_file:file r_file_perms;
+
+# Read the /sdcard and /mnt/sdcard symlinks
+allow { appdomain -isolated_app_all -sdk_sandbox_all } rootfs:lnk_file r_file_perms;
+allow { appdomain -isolated_app_all -sdk_sandbox_all } tmpfs:lnk_file r_file_perms;
+
+# Search /storage/emulated tmpfs mount.
+allow { appdomain -sdk_sandbox_all } tmpfs:dir r_dir_perms;
+
+# Notify zygote of the wrapped process PID when using --invoke-with.
+allow appdomain zygote:fifo_file write;
+
+userdebug_or_eng(`
+  # Allow apps to create and write method traces in /data/misc/trace.
+  allow appdomain method_trace_data_file:dir w_dir_perms;
+  allow appdomain method_trace_data_file:file { create w_file_perms };
+')
+
+# Notify shell and adbd of death when spawned via runas for ndk-gdb.
+allow appdomain shell:process sigchld;
+allow appdomain adbd:process sigchld;
+
+# child shell or gdbserver pty access for runas.
+allow appdomain devpts:chr_file { getattr read write ioctl };
+
+# Use pipes and sockets provided by system_server via binder or local socket.
+allow appdomain system_server:fd use;
+allow appdomain system_server:fifo_file rw_file_perms;
+allow appdomain system_server:unix_stream_socket { read write setopt getattr getopt shutdown };
+allow appdomain system_server:tcp_socket { read write getattr getopt shutdown };
+
+# For AppFuse.
+allow appdomain vold:fd use;
+
+# Communication with other apps via fifos
+allow appdomain appdomain:fifo_file rw_file_perms;
+
+# Communicate with surfaceflinger.
+allow appdomain surfaceflinger:unix_stream_socket { read write setopt getattr getopt shutdown };
+
+# App sandbox file accesses.
+allow { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } { app_data_file privapp_data_file }:dir create_dir_perms;
+allow { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } { app_data_file privapp_data_file }:file create_file_perms;
+allowxperm { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } { app_data_file privapp_data_file }:file ioctl FS_IOC_MEASURE_VERITY;
+
+# Access via already open fds is ok even for mlstrustedsubject.
+allow { appdomain -isolated_app_all -sdk_sandbox_all } { app_data_file privapp_data_file system_app_data_file }:file { getattr map read write };
+
+# Access open fds from SDK sandbox
+allow appdomain sdk_sandbox_data_file:file { getattr read };
+
+# Traverse into expanded storage
+allow appdomain mnt_expand_file:dir r_dir_perms;
+
+# Keychain and user-trusted credentials
+r_dir_file(appdomain, keychain_data_file)
+allow appdomain misc_user_data_file:dir r_dir_perms;
+allow appdomain misc_user_data_file:file r_file_perms;
+
+# TextClassifier
+r_dir_file({ appdomain -isolated_app_all }, textclassifier_data_file)
+
+# Access to OEM provided data and apps
+allow appdomain oemfs:dir r_dir_perms;
+allow appdomain oemfs:file rx_file_perms;
+
+allow appdomain system_file:file x_file_perms;
+
+# Renderscript needs the ability to read directories on /system
+allow appdomain system_file:dir r_dir_perms;
+allow appdomain system_file:lnk_file { getattr open read };
+# Renderscript specific permissions to open /system/vendor/lib64.
+not_full_treble(`
+    allow appdomain vendor_file_type:dir r_dir_perms;
+    allow appdomain vendor_file_type:lnk_file { getattr open read };
+')
+
+full_treble_only(`
+    # For looking up Renderscript vendor drivers
+    allow { appdomain -isolated_app_all } vendor_file:dir { open read };
+')
+
+# Allow apps access to /vendor/overlay
+r_dir_file(appdomain, vendor_overlay_file)
+
+# Allow apps access to /vendor/framework
+# for vendor provided libraries.
+r_dir_file(appdomain, vendor_framework_file)
+
+# Allow apps read / execute access to vendor public libraries.
+allow appdomain {vendor_public_framework_file vendor_public_lib_file}:dir r_dir_perms;
+allow appdomain {vendor_public_framework_file vendor_public_lib_file}:file { execute read open getattr map };
+
+# Read/write wallpaper file (opened by system).
+allow appdomain wallpaper_file:file { getattr read write map };
+
+# Read/write cached ringtones (opened by system).
+allow appdomain ringtone_file:file { getattr read write map };
+
+# Read ShortcutManager icon files (opened by system).
+allow appdomain shortcut_manager_icons:file { getattr read map };
+
+# Read icon file (opened by system).
+allow appdomain icon_file:file { getattr read map };
+
+# Old stack dumping scheme : append to a global trace file (/data/anr/traces.txt).
+#
+# TODO: All of these permissions except for anr_data_file:file append can be
+# withdrawn once we've switched to the new stack dumping mechanism, see b/32064548
+# and the rules below.
+allow appdomain anr_data_file:dir search;
+allow appdomain anr_data_file:file { open append };
+
+# New stack dumping scheme : request an output FD from tombstoned via a unix
+# domain socket.
+#
+# Allow apps to connect and write to the tombstoned java trace socket in
+# order to dump their traces. Also allow them to append traces to pipes
+# created by dumptrace. (Also see the rules below where they are given
+# additional permissions to dumpstate pipes for other aspects of bug report
+# creation).
+unix_socket_connect(appdomain, tombstoned_java_trace, tombstoned)
+allow appdomain tombstoned:fd use;
+allow appdomain dumpstate:fifo_file append;
+allow appdomain incidentd:fifo_file append;
+
+# Allow apps to send dump information to dumpstate
+allow appdomain dumpstate:fd use;
+allow appdomain dumpstate:unix_stream_socket { read write getopt getattr shutdown };
+allow appdomain dumpstate:fifo_file { write getattr };
+allow appdomain shell_data_file:file { write getattr };
+
+# Allow apps to send dump information to incidentd
+allow appdomain incidentd:fd use;
+allow appdomain incidentd:fifo_file { write getattr };
+
+# Allow apps to send information to statsd socket.
+unix_socket_send(appdomain, statsdw, statsd)
+
+# Write profiles /data/misc/profiles
+allow appdomain user_profile_root_file:dir search;
+allow appdomain user_profile_data_file:dir w_dir_perms;
+allow appdomain user_profile_data_file:file create_file_perms;
+
+# Allow writing performance tracing data into the perfetto traced daemon.
+# Needed for java heap graph ART plugin (perfetto_hprof).
+# The perfetto profiling daemon will check for the specific application's
+# opt-in/opt-out.
+perfetto_producer(appdomain)
+
+# Send heap dumps to system_server via an already open file descriptor
+# % adb shell am set-watch-heap com.android.systemui 1048576
+# % adb shell dumpsys procstats --start-testing
+# debuggable builds only.
+userdebug_or_eng(`
+  allow appdomain heapdump_data_file:file append;
+')
+
+# Grant GPU access to all processes started by Zygote.
+# They need that to render the standard UI.
+allow { appdomain -isolated_app_all } gpu_device:chr_file rw_file_perms;
+allow { appdomain -isolated_app_all } gpu_device:dir r_dir_perms;
+allow { appdomain -isolated_app_all } sysfs_gpu:file r_file_perms;
+
+
+# Use the Binder.
+binder_use(appdomain)
+# Perform binder IPC to binder services.
+binder_call(appdomain, binderservicedomain)
+# Perform binder IPC to other apps.
+binder_call(appdomain, appdomain)
+# Perform binder IPC to ephemeral apps.
+binder_call(appdomain, ephemeral_app)
+# Perform binder IPC to gpuservice.
+binder_call({ appdomain -isolated_app_all }, gpuservice)
+
+# Talk with graphics composer fences
+allow appdomain hal_graphics_composer:fd use;
+
+# Already connected, unnamed sockets being passed over some other IPC
+# hence no sock_file or connectto permission. This appears to be how
+# Chrome works, may need to be updated as more apps using isolated services
+# are examined.
+allow appdomain appdomain:unix_stream_socket { getopt getattr read write shutdown };
+
+# Backup ability for every app. BMS opens and passes the fd
+# to any app that has backup ability. Hence, no open permissions here.
+allow appdomain backup_data_file:file { read write getattr map };
+allow appdomain cache_backup_file:file { read write getattr map };
+allow appdomain cache_backup_file:dir getattr;
+# Backup ability using 'adb backup'
+allow appdomain system_data_file:lnk_file r_file_perms;
+allow appdomain system_data_file:file { getattr read map };
+
+# Allow read/stat of /data/media files passed by Binder or local socket IPC.
+allow { appdomain -isolated_app_all -sdk_sandbox_all } media_rw_data_file:file { read getattr };
+
+# Read and write /data/data/com.android.providers.telephony files passed over Binder.
+allow { appdomain -isolated_app_all } radio_data_file:file { read write getattr };
+
+# For art.
+allow appdomain dalvikcache_data_file:file execute;
+allow appdomain dalvikcache_data_file:lnk_file r_file_perms;
+
+# Allow any app to read shared RELRO files.
+allow appdomain shared_relro_file:dir search;
+allow appdomain shared_relro_file:file r_file_perms;
+
+# Allow apps to read/execute installed binaries
+allow appdomain apk_data_file:dir { open getattr read search ioctl lock };
+allow appdomain apk_data_file:file { getattr open read ioctl lock map x_file_perms };
+
+# /data/resource-cache
+allow appdomain resourcecache_data_file:file r_file_perms;
+allow appdomain resourcecache_data_file:dir r_dir_perms;
+
+# logd access
+read_logd(appdomain)
+
+allow appdomain zygote:unix_dgram_socket write;
+
+allow appdomain console_device:chr_file { read write };
+
+# only allow unprivileged socket ioctl commands
+allowxperm { appdomain -bluetooth } self:{ rawip_socket tcp_socket udp_socket }
+  ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
+
+allow { appdomain -isolated_app_all } ion_device:chr_file r_file_perms;
+allow { appdomain -isolated_app_all } dmabuf_system_heap_device:chr_file r_file_perms;
+allow { appdomain -isolated_app_all } dmabuf_system_secure_heap_device:chr_file r_file_perms;
+
+# Allow AAudio apps to use shared memory file descriptors from the HAL
+allow { appdomain -isolated_app_all } hal_audio:fd use;
+
+# Allow app to access shared memory created by camera HAL1
+allow { appdomain -isolated_app_all } hal_camera:fd use;
+
+# Allow apps to access shared memory file descriptor from the tuner HAL
+allow {appdomain -isolated_app_all} hal_tv_tuner_server:fd use;
+
+# RenderScript always-passthrough HAL
+allow { appdomain -isolated_app_all } hal_renderscript_hwservice:hwservice_manager find;
+allow appdomain same_process_hal_file:file { execute read open getattr map };
+
+# TODO: switch to meminfo service
+allow appdomain proc_meminfo:file r_file_perms;
+
+# For app fuse.
+allow appdomain app_fuse_file:file { getattr read append write map };
+
+###
+### CTS-specific rules
+###
+
+# For cts/tests/tests/permission/src/android/permission/cts/FileSystemPermissionTest.java.
+# testRunAsHasCorrectCapabilities
+allow appdomain runas_exec:file getattr;
+# Others are either allowed elsewhere or not desired.
+
+# Connect to adbd and use a socket transferred from it.
+# This is used for e.g. adb backup/restore.
+allow appdomain adbd:unix_stream_socket connectto;
+allow appdomain adbd:fd use;
+allow appdomain adbd:unix_stream_socket { getattr getopt ioctl read write shutdown };
+
+allow appdomain cache_file:dir getattr;
+
+# Allow apps to run with asanwrapper.
+with_asan(`allow appdomain asanwrapper_exec:file rx_file_perms;')
+
+# Read access to FDs from the DropboxManagerService.
+allow appdomain dropbox_data_file:file { getattr read };
+
+# Read tmpfs types from these processes.
+allow appdomain audioserver_tmpfs:file { getattr map read write };
+allow appdomain system_server_tmpfs:file { getattr map read write };
+allow appdomain zygote_tmpfs:file { map read };
+
+# Sensitive app domains are not allowed to execute from /data
+# to prevent persistence attacks and ensure all code is executed
+# from read-only locations.
+neverallow {
+  bluetooth
+  isolated_app_all
+  nfc
+  radio
+  shared_relro
+  sdk_sandbox_all
+  system_app
+} {
+  data_file_type
+  -apex_art_data_file
+  -dalvikcache_data_file
+  -system_data_file # shared libs in apks
+  -apk_data_file
+}:file no_x_file_perms;
+
+# Don't allow apps access to any of the following character devices.
+neverallow appdomain {
+    audio_device
+    camera_device
+    dm_device
+    radio_device
+    rpmsg_device
+}:chr_file { read write };
+
+# Block video device access for all apps except the DeviceAsWebcam Service which
+# needs access to /dev/video* for interfacing with the host
+neverallow {
+    appdomain
+    -device_as_webcam
+} video_device:chr_file { read write };
+
+# Prevent calling inotify on APKs. This can be used as a side channel
+# to observer app launches, so it must be disallowed. b/231587164
+# Gate by targetSdkVersion to avoid breaking existing apps.
+neverallow {
+  appdomain
+  -untrusted_app_25
+  -untrusted_app_27
+  -untrusted_app_29
+  -untrusted_app_30
+  -untrusted_app_32
+} apk_data_file:dir { watch watch_reads };
+neverallow {
+  appdomain
+  -untrusted_app_25
+  -untrusted_app_27
+  -untrusted_app_29
+  -untrusted_app_30
+  -untrusted_app_32
+} apk_data_file:file { watch watch_reads };

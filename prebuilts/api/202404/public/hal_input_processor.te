@@ -1,0 +1,8 @@
+# HwBinder IPC from client to server
+binder_call(hal_input_processor_client, hal_input_processor_server)
+binder_call(hal_input_processor_server, servicemanager)
+
+hal_attribute_service(hal_input_processor, hal_input_processor_service)
+
+# Allow dumping of the HAL
+allow hal_input_processor_server dumpstate:fifo_file write;

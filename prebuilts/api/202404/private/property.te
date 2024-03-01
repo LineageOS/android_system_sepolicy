@@ -1,0 +1,743 @@
+# Properties used only in /system
+system_internal_prop(adbd_prop)
+system_internal_prop(apexd_payload_metadata_prop)
+system_internal_prop(ctl_snapuserd_prop)
+system_internal_prop(crashrecovery_prop)
+system_internal_prop(device_config_core_experiments_team_internal_prop)
+system_internal_prop(device_config_lmkd_native_prop)
+system_internal_prop(device_config_mglru_native_prop)
+system_internal_prop(device_config_profcollect_native_boot_prop)
+system_internal_prop(device_config_remote_key_provisioning_native_prop)
+system_internal_prop(device_config_statsd_native_prop)
+system_internal_prop(device_config_statsd_native_boot_prop)
+system_internal_prop(device_config_storage_native_boot_prop)
+system_internal_prop(device_config_sys_traced_prop)
+system_internal_prop(device_config_window_manager_native_boot_prop)
+system_internal_prop(device_config_configuration_prop)
+system_internal_prop(device_config_connectivity_prop)
+system_internal_prop(device_config_swcodec_native_prop)
+system_internal_prop(device_config_tethering_u_or_later_native_prop)
+system_internal_prop(dmesgd_start_prop)
+system_internal_prop(fastbootd_protocol_prop)
+system_internal_prop(gsid_prop)
+system_internal_prop(init_perf_lsm_hooks_prop)
+system_internal_prop(init_service_status_private_prop)
+system_internal_prop(init_storage_prop)
+system_internal_prop(init_svc_debug_prop)
+system_internal_prop(keystore_crash_prop)
+system_internal_prop(keystore_listen_prop)
+system_internal_prop(last_boot_reason_prop)
+system_internal_prop(localization_prop)
+system_internal_prop(logd_auditrate_prop)
+system_internal_prop(lower_kptr_restrict_prop)
+system_internal_prop(net_464xlat_fromvendor_prop)
+system_internal_prop(net_connectivity_prop)
+system_internal_prop(netd_stable_secret_prop)
+system_internal_prop(next_boot_prop)
+system_internal_prop(odsign_prop)
+system_internal_prop(perf_drop_caches_prop)
+system_internal_prop(pm_prop)
+system_internal_prop(profcollectd_node_id_prop)
+system_internal_prop(radio_cdma_ecm_prop)
+system_internal_prop(remote_prov_prop)
+system_internal_prop(rollback_test_prop)
+system_internal_prop(setupwizard_prop)
+system_internal_prop(snapuserd_prop)
+system_internal_prop(system_adbd_prop)
+system_internal_prop(system_audio_config_prop)
+system_internal_prop(timezone_metadata_prop)
+system_internal_prop(traced_perf_enabled_prop)
+system_internal_prop(uprobestats_start_with_config_prop)
+system_internal_prop(tuner_server_ctl_prop)
+system_internal_prop(userspace_reboot_log_prop)
+system_internal_prop(userspace_reboot_test_prop)
+system_internal_prop(verity_status_prop)
+system_internal_prop(zygote_wrap_prop)
+system_internal_prop(ctl_mediatranscoding_prop)
+system_internal_prop(ctl_odsign_prop)
+system_internal_prop(virtualizationservice_prop)
+system_internal_prop(ctl_apex_load_prop)
+system_internal_prop(enable_16k_pages_prop)
+system_internal_prop(sensors_config_prop)
+system_internal_prop(hypervisor_pvmfw_prop)
+system_internal_prop(hypervisor_virtualizationmanager_prop)
+system_internal_prop(game_manager_config_prop)
+system_internal_prop(hidl_memory_prop)
+system_internal_prop(suspend_debug_prop)
+
+# Properties which can't be written outside system
+system_restricted_prop(device_config_virtualization_framework_native_prop)
+system_restricted_prop(log_file_logger_prop)
+system_restricted_prop(persist_sysui_builder_extras_prop)
+system_restricted_prop(persist_sysui_ranking_update_prop)
+
+###
+### Neverallow rules
+###
+
+treble_sysprop_neverallow(`
+
+enforce_sysprop_owner(`
+  neverallow domain {
+    property_type
+    -system_property_type
+    -product_property_type
+    -vendor_property_type
+  }:file no_rw_file_perms;
+')
+
+neverallow { domain -coredomain } {
+  system_property_type
+  system_internal_property_type
+  -system_restricted_property_type
+  -system_public_property_type
+}:file no_rw_file_perms;
+
+neverallow { domain -coredomain } {
+  system_property_type
+  -system_public_property_type
+}:property_service set;
+
+# init is in coredomain, but should be able to read/write all props.
+# dumpstate is also in coredomain, but should be able to read all props.
+neverallow { coredomain -init -dumpstate } {
+  vendor_property_type
+  vendor_internal_property_type
+  -vendor_restricted_property_type
+  -vendor_public_property_type
+}:file no_rw_file_perms;
+
+neverallow { coredomain -init } {
+  vendor_property_type
+  -vendor_public_property_type
+}:property_service set;
+
+')
+
+# There is no need to perform ioctl or advisory locking operations on
+# property files. If this neverallow is being triggered, it is
+# likely that the policy is using r_file_perms directly instead of
+# the get_prop() macro.
+neverallow domain property_type:file { ioctl lock };
+
+neverallow * {
+  core_property_type
+  -audio_prop
+  -config_prop
+  -cppreopt_prop
+  -dalvik_prop
+  -debuggerd_prop
+  -debug_prop
+  -dhcp_prop
+  -dumpstate_prop
+  -fingerprint_prop
+  -logd_prop
+  -net_radio_prop
+  -nfc_prop
+  -ota_prop
+  -pan_result_prop
+  -persist_debug_prop
+  -powerctl_prop
+  -radio_prop
+  -restorecon_prop
+  -shell_prop
+  -system_prop
+  -usb_prop
+  -vold_prop
+}:file no_rw_file_perms;
+
+# sigstop property is only used for debugging; should only be set by su which is permissive
+# for userdebug/eng
+neverallow {
+  domain
+  -init
+  -vendor_init
+} ctl_sigstop_prop:property_service set;
+
+# Don't audit legacy ctl. property handling.  We only want the newer permission check to appear
+# in the audit log
+dontaudit domain {
+  ctl_bootanim_prop
+  ctl_bugreport_prop
+  ctl_console_prop
+  ctl_default_prop
+  ctl_dumpstate_prop
+  ctl_fuse_prop
+  ctl_mdnsd_prop
+  ctl_rildaemon_prop
+}:property_service set;
+
+neverallow {
+  domain
+  -init
+  -extra_free_kbytes
+} init_storage_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+} init_svc_debug_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+  -dumpstate
+  userdebug_or_eng(`-su')
+} init_svc_debug_prop:file no_rw_file_perms;
+
+compatible_property_only(`
+# Prevent properties from being set
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -vendor_init
+  } {
+    core_property_type
+    extended_core_property_type
+    exported_config_prop
+    exported_default_prop
+    exported_dumpstate_prop
+    exported_system_prop
+    exported3_system_prop
+    usb_control_prop
+    -nfc_prop
+    -powerctl_prop
+    -radio_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -hal_nfc_server
+  } {
+    nfc_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -hal_telephony_server
+    -vendor_init
+  } {
+    radio_control_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -hal_telephony_server
+  } {
+    radio_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -bluetooth
+    -hal_bluetooth_server
+  } {
+    bluetooth_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -bluetooth
+    -hal_bluetooth_server
+    -vendor_init
+  } {
+    exported_bluetooth_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -hal_camera_server
+    -cameraserver
+    -vendor_init
+  } {
+    exported_camera_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -coredomain
+    -hal_wifi_server
+    -wificond
+  } {
+    wifi_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -init
+    -dumpstate
+    -hal_wifi_server
+    -wificond
+    -vendor_init
+  } {
+    wifi_hal_prop
+  }:property_service set;
+
+# Prevent properties from being read
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -vendor_init
+  } {
+    core_property_type
+    dalvik_config_prop_type
+    extended_core_property_type
+    exported3_system_prop
+    systemsound_config_prop
+    -debug_prop
+    -logd_prop
+    -nfc_prop
+    -powerctl_prop
+    -radio_prop
+  }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -hal_nfc_server
+  } {
+    nfc_prop
+  }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -hal_telephony_server
+  } {
+    radio_prop
+  }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -coredomain
+    -bluetooth
+    -hal_bluetooth_server
+  } {
+    bluetooth_prop
+  }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -coredomain
+    -hal_wifi_server
+    -wificond
+  } {
+    wifi_prop
+  }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -coredomain
+    -vendor_init
+  } {
+    suspend_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -init
+  } {
+    suspend_debug_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -init
+    -dumpstate
+    userdebug_or_eng(`-system_suspend')
+    } {
+      suspend_debug_prop
+    }:file no_rw_file_perms;
+')
+
+dontaudit system_suspend suspend_debug_prop:file r_file_perms;
+
+compatible_property_only(`
+  # Neverallow coredomain to set vendor properties
+  neverallow {
+    coredomain
+    -init
+    -system_writes_vendor_properties_violators
+  } {
+    property_type
+    -system_property_type
+    -extended_core_property_type
+  }:property_service set;
+')
+
+neverallow {
+  domain
+  -coredomain
+  -vendor_init
+} {
+  ffs_config_prop
+  ffs_control_prop
+}:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+  -system_server
+} {
+  userspace_reboot_log_prop
+}:property_service set;
+
+neverallow {
+  # Only allow init and system_server to set system_adbd_prop
+  domain
+  -init
+  -system_server
+} {
+  system_adbd_prop
+}:property_service set;
+
+# Let (vendor_)init, adbd, and system_server set service.adb.tcp.port
+neverallow {
+  domain
+  -init
+  -vendor_init
+  -adbd
+  -system_server
+} {
+  adbd_config_prop
+}:property_service set;
+
+neverallow {
+  # Only allow init and adbd to set adbd_prop
+  domain
+  -init
+  -adbd
+} {
+  adbd_prop
+}:property_service set;
+
+neverallow {
+  # Only allow init to set apexd_payload_metadata_prop
+  domain
+  -init
+} {
+  apexd_payload_metadata_prop
+}:property_service set;
+
+
+neverallow {
+  # Only allow init and shell to set userspace_reboot_test_prop
+  domain
+  -init
+  -shell
+} {
+  userspace_reboot_test_prop
+}:property_service set;
+
+neverallow {
+  domain
+  -init
+  -system_server
+  -vendor_init
+} {
+  surfaceflinger_color_prop
+}:property_service set;
+
+neverallow {
+  domain
+  -init
+} {
+  libc_debug_prop
+}:property_service set;
+
+# Allow the shell to set MTE & GWP-ASan props, so that non-root users with adb
+# shell access can control the settings on their device. Allow system apps to
+# set MTE props, so Developer Options can set them.
+neverallow {
+  domain
+  -init
+  -shell
+  -system_app
+  -system_server
+  -mtectrl
+} {
+  arm64_memtag_prop
+  gwp_asan_prop
+}:property_service set;
+
+neverallow {
+  domain
+  -init
+  -system_server
+  -vendor_init
+} zram_control_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+  -system_server
+  -vendor_init
+} dalvik_runtime_prop:property_service set;
+
+neverallow {
+  domain
+  -coredomain
+  -vendor_init
+} {
+  usb_config_prop
+  usb_control_prop
+}:property_service set;
+
+neverallow {
+  domain
+  -init
+  -system_server
+} {
+  provisioned_prop
+  retaildemo_prop
+}:property_service set;
+
+neverallow {
+  domain
+  -coredomain
+  -vendor_init
+} {
+  provisioned_prop
+  retaildemo_prop
+}:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+} {
+  init_service_status_private_prop
+  init_service_status_prop
+}:property_service set;
+
+neverallow {
+  domain
+  -init
+  -radio
+  -appdomain
+  -hal_telephony_server
+  not_compatible_property(`-vendor_init')
+} telephony_status_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+  -vendor_init
+} {
+  graphics_config_prop
+}:property_service set;
+
+neverallow {
+  domain
+  -init
+  -surfaceflinger
+} {
+  surfaceflinger_display_prop
+}:property_service set;
+
+neverallow {
+  domain
+  -coredomain
+  -appdomain
+  -vendor_init
+} packagemanager_config_prop:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -coredomain
+  -vendor_init
+} keyguard_config_prop:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+} {
+  localization_prop
+}:property_service set;
+
+neverallow {
+  domain
+  -init
+  -vendor_init
+  -dumpstate
+  -system_app
+} oem_unlock_prop:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -coredomain
+  -vendor_init
+} storagemanager_config_prop:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+  -vendor_init
+  -dumpstate
+  -appdomain
+} sendbug_config_prop:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+  -vendor_init
+  -dumpstate
+  -appdomain
+} camera_calibration_prop:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+  -dumpstate
+  -hal_dumpstate_server
+  not_compatible_property(`-vendor_init')
+} hal_dumpstate_config_prop:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+  userdebug_or_eng(`-profcollectd')
+  userdebug_or_eng(`-simpleperf_boot')
+  userdebug_or_eng(`-traced_probes')
+  userdebug_or_eng(`-traced_perf')
+} {
+  lower_kptr_restrict_prop
+}:property_service set;
+
+neverallow {
+  domain
+  -init
+} zygote_wrap_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+} verity_status_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+  -vendor_init
+} setupwizard_mode_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+} setupwizard_prop:property_service set;
+
+# ro.product.property_source_order is useless after initialization of ro.product.* props.
+# So making it accessible only from init and vendor_init.
+neverallow {
+  domain
+  -init
+  -dumpstate
+  -vendor_init
+} build_config_prop:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+  -shell
+} sqlite_log_prop:property_service set;
+
+neverallow {
+  domain
+  -coredomain
+  -appdomain
+} sqlite_log_prop:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+} default_prop:property_service set;
+
+# Only one of system_property_type and vendor_property_type can be assigned.
+# Property types having both attributes won't be accessible from anywhere.
+neverallow domain system_and_vendor_property_type:{file property_service} *;
+
+neverallow {
+  domain
+  -init
+  -shell
+  -rkpdapp
+} remote_prov_prop:property_service set;
+
+neverallow {
+  # Only allow init and shell to set rollback_test_prop
+  domain
+  -init
+  -shell
+} rollback_test_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+  -apexd
+} ctl_apex_load_prop:property_service set;
+
+neverallow {
+  domain
+  -coredomain
+  -init
+  -dumpstate
+  -apexd
+} ctl_apex_load_prop:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+  -apexd
+} apex_ready_prop:property_service set;
+
+neverallow {
+  domain
+  -coredomain
+  -dumpstate
+  -apexd
+  -vendor_init
+} apex_ready_prop:file no_rw_file_perms;
+
+neverallow {
+  # Only allow init and profcollectd to access profcollectd_node_id_prop
+  domain
+  -init
+  -dumpstate
+  -profcollectd
+} profcollectd_node_id_prop:file r_file_perms;
+
+neverallow {
+  domain
+  -init
+} log_file_logger_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+  -vendor_init
+} usb_uvc_enabled_prop:property_service set;
+
+# Disallow non system apps from reading ro.usb.uvc.enabled
+neverallow {
+  appdomain
+  -system_app
+  -device_as_webcam
+} usb_uvc_enabled_prop:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+  -vendor_init
+} pm_archiving_enabled_prop:property_service set;
+
