@@ -1,0 +1,51 @@
+# Domain used when running /system/bin/simpleperf to profile a specific app.
+# Entered either by the app itself exec-ing the binary, or through
+# simpleperf_app_runner (with shell as its origin). Certain other domains
+# (runas_app, shell) can also exec this binary without a domain transition.
+typeattribute simpleperf coredomain;
+type simpleperf_exec, system_file_type, exec_type, file_type;
+
+# Define apps that can be marked debuggable/profileable and be profiled by simpleperf.
+define(`simpleperf_profileable_apps', `{
+  ephemeral_app
+  isolated_app
+  platform_app
+  priv_app
+  untrusted_app_all
+}')
+
+domain_auto_trans({ simpleperf_profileable_apps -runas_app }, simpleperf_exec, simpleperf)
+
+# When running in this domain, simpleperf is scoped to profiling an individual
+# app. The necessary MAC permissions for profiling are more maintainable and
+# consistent if simpleperf is marked as an app domain as well (as, for example,
+# it will then see the same set of system libraries as the app).
+app_domain(simpleperf)
+untrusted_app_domain(simpleperf)
+
+# Allow ptrace attach to the target app, for reading JIT debug info (using
+# process_vm_readv) during unwinding and symbolization.
+allow simpleperf simpleperf_profileable_apps:process ptrace;
+
+# Allow using perf_event_open syscall for profiling the target app.
+allow simpleperf self:perf_event { open read write kernel };
+
+# Allow /proc/<pid> access for the target app (for example, when trying to
+# discover it by cmdline).
+r_dir_file(simpleperf, simpleperf_profileable_apps)
+
+# Allow apps signalling simpleperf domain, which is the domain that the simpleperf
+# profiler runs as when executed by the app. The signals are used to control
+# the profiler (which would be profiling the app that is sending the signal).
+allow simpleperf_profileable_apps simpleperf:process signal;
+
+# Suppress denial logspam when simpleperf is trying to find a matching process
+# by scanning /proc/<pid>/cmdline files. The /proc/<pid> directories are within
+# the same domain as their respective processes, most of which this domain is
+# not allowed to see.
+dontaudit simpleperf domain:dir search;
+
+# Neverallows:
+
+# Profiling must be confined to the scope of an individual app.
+neverallow simpleperf self:perf_event ~{ open read write kernel };

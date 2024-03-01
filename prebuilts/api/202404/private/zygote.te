@@ -1,0 +1,309 @@
+# zygote
+typeattribute zygote coredomain;
+typeattribute zygote mlstrustedsubject;
+
+init_daemon_domain(zygote)
+tmpfs_domain(zygote)
+
+read_runtime_log_tags(zygote)
+
+# Override DAC on files and switch uid/gid.
+allow zygote self:global_capability_class_set { dac_override dac_read_search setgid setuid fowner chown };
+
+# Drop capabilities from bounding set.
+allow zygote self:global_capability_class_set setpcap;
+
+# Switch SELinux context to app domains.
+allow zygote self:process setcurrent;
+allow zygote system_server_startup:process dyntransition;
+allow zygote appdomain:process dyntransition;
+allow zygote webview_zygote:process dyntransition;
+allow zygote app_zygote:process dyntransition;
+
+# Allow zygote to read app /proc/pid dirs (b/10455872).
+allow zygote appdomain:dir { getattr search };
+allow zygote appdomain:file { r_file_perms };
+
+userfaultfd_use(zygote)
+
+# Move children into the peer process group.
+allow zygote system_server:process { getpgid setpgid };
+allow zygote appdomain:process { getpgid setpgid };
+allow zygote webview_zygote:process { getpgid setpgid };
+allow zygote app_zygote:process { getpgid setpgid };
+
+# Read system data.
+allow zygote system_data_file:dir r_dir_perms;
+allow zygote system_data_file:file r_file_perms;
+
+# Get attributes of /mnt/expand, needed by cacheNonBootClasspathClassLoaders.
+allow zygote mnt_expand_file:dir getattr;
+
+# Write to /data/dalvik-cache.
+allow zygote dalvikcache_data_file:dir create_dir_perms;
+allow zygote dalvikcache_data_file:file create_file_perms;
+
+# Create symlinks in /data/dalvik-cache.
+allow zygote dalvikcache_data_file:lnk_file create_file_perms;
+
+# Write to /data/resource-cache.
+allow zygote resourcecache_data_file:dir rw_dir_perms;
+allow zygote resourcecache_data_file:file create_file_perms;
+
+# For updateability, the zygote may fetch the current boot
+# classpath from the dalvik cache. Integrity of the files
+# is ensured by fsverity protection (checked in art_apex_boot_integrity).
+allow zygote dalvikcache_data_file:file execute;
+
+# Allow zygote to find files in APEX data directories.
+allow zygote apex_module_data_file:dir search;
+
+# Allow zygote to find and map files created by on device signing.
+allow zygote apex_art_data_file:dir { getattr search };
+allow zygote apex_art_data_file:file { r_file_perms execute };
+
+# Mount tmpfs over various directories containing per-app directories, to hide
+# them for app data isolation.  Also traverse these directories (via
+# /data_mirror) to find the allowlisted per-app directories to bind-mount in.
+allow zygote {
+    # /data/user{,_de}, /mnt/expand/$volume/user{,_de}
+    system_userdir_file
+    # /data/data
+    system_data_file
+    # /data/misc/profiles/cur
+    user_profile_root_file
+    # /data/misc/profiles/ref
+    user_profile_data_file
+    # /storage/emulated/$userId/Android/{data,obb}
+    media_rw_data_file
+    # /dev/__properties__
+    properties_device
+}:dir { mounton search };
+
+# Traverse /data_mirror to get to the above directories while their normal paths
+# are hidden, in order to bind-mount allowlisted per-app directories.
+allow zygote mirror_data_file:dir search;
+
+# List /mnt/expand to find all /mnt/expand/$volume/user{,_de} directories that
+# need to be hidden by app data isolation, and traverse /mnt/expand to get to
+# any allowlisted per-app directories within these directories.
+allow zygote mnt_expand_file:dir { open read search };
+
+# Get the inode number of app CE data directories to find them by inode number
+# when CE storage is locked.  Needed for app data isolation.
+allow zygote app_data_file_type:dir getattr;
+
+# Create dirs in the app data isolation tmpfs mounts and bind mount on them.
+allow zygote tmpfs:dir { create_dir_perms mounton };
+
+# Create the '/data/user/0 => /data/data' symlink in the /data/user tmpfs mount
+# when setting up app data isolation.
+allow zygote tmpfs:lnk_file create;
+
+# Relabel dirs and symlinks in the app and sdk sandbox data isolation tmpfs mounts to their
+# standard labels.  Note: it seems that not all dirs are actually relabeled yet,
+# but it works anyway since all domains can search tmpfs:dir.
+allow zygote tmpfs:{ dir lnk_file } relabelfrom;
+allow zygote system_userdir_file:dir relabelto;
+allow zygote system_data_file:{ dir lnk_file } relabelto;
+allow zygote sdk_sandbox_system_data_file:dir { getattr relabelto search };
+
+# Read if sdcardfs is supported
+allow zygote proc_filesystems:file r_file_perms;
+
+# Allow zygote to create JIT memory.
+allow zygote self:process execmem;
+allow zygote zygote_tmpfs:file execute;
+allow zygote ashmem_libcutils_device:chr_file execute;
+
+# Execute idmap and dex2oat within zygote's own domain.
+# TODO:  Should either of these be transitioned to the same domain
+# used by installd or stay in-domain for zygote?
+allow zygote idmap_exec:file rx_file_perms;
+allow zygote dex2oat_exec:file rx_file_perms;
+
+# Allow apps access to /vendor/overlay
+r_dir_file(zygote, vendor_overlay_file)
+
+# Control cgroups.
+allow zygote cgroup:dir create_dir_perms;
+allow zygote cgroup:{ file lnk_file } { r_file_perms setattr };
+allow zygote cgroup_v2:dir create_dir_perms;
+allow zygote cgroup_v2:{ file lnk_file } { r_file_perms setattr };
+allow zygote self:global_capability_class_set sys_admin;
+
+# Allow zygote to stat the files that it opens. The zygote must
+# be able to inspect them so that it can reopen them on fork
+# if necessary: b/30963384.
+allow zygote pmsg_device:chr_file getattr;
+allow zygote debugfs_trace_marker:file getattr;
+
+# Get seapp_contexts
+allow zygote seapp_contexts_file:file r_file_perms;
+# Check validity of SELinux context before use.
+selinux_check_context(zygote)
+# Check SELinux permissions.
+selinux_check_access(zygote)
+
+# Native bridge functionality requires that zygote replaces
+# /proc/cpuinfo with /system/lib/<ISA>/cpuinfo using a bind mount
+allow zygote proc_cpuinfo:file mounton;
+
+# Allow remounting rootfs as MS_SLAVE.
+allow zygote rootfs:dir mounton;
+allow zygote tmpfs:filesystem { mount unmount };
+allow zygote fuse:filesystem { unmount };
+allow zygote sdcardfs:filesystem { unmount };
+allow zygote labeledfs:filesystem { unmount };
+
+# Allow creating user-specific storage source if started before vold.
+allow zygote mnt_user_file:dir { create_dir_perms mounton };
+allow zygote mnt_user_file:lnk_file create_file_perms;
+allow zygote mnt_user_file:file create_file_perms;
+
+# Allow mounting user-specific storage source if started before vold.
+allow zygote mnt_pass_through_file:dir { create_dir_perms mounton };
+
+# Allowed to mount user-specific storage into place
+allow zygote storage_file:dir { search mounton };
+
+# Allow mounting and creating files, dirs on sdcardfs.
+allow zygote { sdcard_type fuse }:dir { create_dir_perms mounton };
+allow zygote { sdcard_type fuse }:file { create_file_perms };
+
+# Handle --invoke-with command when launching Zygote with a wrapper command.
+allow zygote zygote_exec:file rx_file_perms;
+
+# Allow zygote to write to statsd.
+unix_socket_send(zygote, statsdw, statsd)
+
+# Root fs.
+r_dir_file(zygote, rootfs)
+
+# System file accesses.
+r_dir_file(zygote, system_file)
+
+# /oem accesses.
+allow zygote oemfs:dir search;
+
+userdebug_or_eng(`
+  # Allow zygote to create and write method traces in /data/misc/trace.
+  allow zygote method_trace_data_file:dir w_dir_perms;
+  allow zygote method_trace_data_file:file { create w_file_perms };
+')
+
+allow zygote ion_device:chr_file r_file_perms;
+allow zygote tmpfs:dir r_dir_perms;
+
+allow zygote same_process_hal_file:file { execute read open getattr map };
+
+# Allow zygote to read build properties for attestation feature
+get_prop(zygote, build_attestation_prop)
+
+# Allow the zygote to access storage properties to check if sdcardfs is enabled.
+get_prop(zygote, storage_config_prop);
+
+# Let the zygote access overlays so it can initialize the AssetManager.
+get_prop(zygote, overlay_prop)
+get_prop(zygote, exported_overlay_prop)
+
+# Allow the zygote to access the runtime feature flag properties.
+get_prop(zygote, device_config_runtime_native_prop)
+get_prop(zygote, device_config_runtime_native_boot_prop)
+
+# Allow the zygote to access window manager native boot feature flags
+# to initialize WindowManager static properties.
+get_prop(zygote, device_config_window_manager_native_boot_prop)
+
+# ingore spurious denials
+# fsetid can be checked as a consequence of chmod when using cgroup v2 uid/pid hierarchy. This is
+# done to determine if the file should inherit setgid. In this case, setgid on the file is
+# undesirable, so suppress the denial.
+dontaudit zygote self:global_capability_class_set { sys_resource fsetid };
+
+# Ignore spurious denials calling access() on fuse.
+# Also ignore read and open as sdcardfs may read and open dir when app tries to access a dir that
+# doesn't exist.
+# TODO(b/151316657): avoid the denials
+dontaudit zygote media_rw_data_file:dir  { read open setattr };
+
+# Allow zygote to use ashmem fds from system_server.
+allow zygote system_server:fd use;
+
+# Send unsolicited message to system_server
+unix_socket_send(zygote, system_unsolzygote, system_server)
+
+# Allow zygote to access media_variant_prop for static initialization
+get_prop(zygote, media_variant_prop)
+
+# Allow zygote to access odsign verification status
+get_prop(zygote, odsign_prop)
+
+# Allow zygote to read ro.control_privapp_permissions and ro.cp_system_other_odex
+get_prop(zygote, packagemanager_config_prop)
+
+# Allow zygote to read qemu.sf.lcd_density
+get_prop(zygote, qemu_sf_lcd_density_prop)
+
+# Allow zygote to read persist.wm.debug.* to toggle experimental window manager features in
+# preloaded classes
+get_prop(zygote, persist_wm_debug_prop)
+
+# Allow zygote to read persist_sysui_builder_extras_prop
+# and persist_sysui_ranking_update_prop
+# to toggle experimental features in core preloaded classes
+get_prop(zygote, persist_sysui_builder_extras_prop)
+get_prop(zygote, persist_sysui_ranking_update_prop)
+
+# Allow zygote to read /apex/apex-info-list.xml
+allow zygote apex_info_file:file r_file_perms;
+
+# Allow zygote to canonicalize vendor APEX paths. This is used when zygote is checking the
+# preinstalled path of APEXes that contain runtime resource overlays for the 'android' package.
+allow zygote vendor_apex_file:dir { getattr search };
+allow zygote vendor_apex_file:file { getattr };
+allow zygote vendor_apex_metadata_file:dir { search };
+
+# Allow zygote to query for compression/features.
+r_dir_file(zygote, sysfs_fs_f2fs)
+
+# Allow zygote to read fonts_customization.xml for preloading font files that matches device locale.
+allow zygote system_font_fallback_file:file r_file_perms;
+
+###
+### neverallow rules
+###
+
+# Ensure that all types assigned to app processes are included
+# in the appdomain attribute, so that all allow and neverallow rules
+# written on appdomain are applied to all app processes.
+# This is achieved by ensuring that it is impossible for zygote to
+# setcon (dyntransition) to any types other than those associated
+# with appdomain plus system_server_startup, webview_zygote and
+# app_zygote.
+neverallow zygote ~{
+  appdomain
+  system_server_startup
+  webview_zygote
+  app_zygote
+}:process dyntransition;
+
+# Zygote should never execute anything from /data except for
+# /data/dalvik-cache files or files generated during on-device
+# signing under /data/misc/apexdata/com.android.art/.
+neverallow zygote {
+  data_file_type
+  -apex_art_data_file # map PROT_EXEC
+  -dalvikcache_data_file # map PROT_EXEC
+}:file no_x_file_perms;
+
+# Do not allow access to Bluetooth-related system properties and files
+neverallow zygote {
+  bluetooth_a2dp_offload_prop
+  bluetooth_audio_hal_prop
+  bluetooth_prop
+  exported_bluetooth_prop
+}:file create_file_perms;
+
+# Zygote should not be able to access app private data.
+neverallow zygote app_data_file_type:dir ~getattr;

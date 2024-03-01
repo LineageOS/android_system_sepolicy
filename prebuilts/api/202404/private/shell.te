@@ -1,0 +1,262 @@
+typeattribute shell coredomain, mlstrustedsubject;
+
+# allow shell input injection
+allow shell uhid_device:chr_file rw_file_perms;
+
+# systrace support - allow atrace to run
+allow shell debugfs_tracing_debug:dir r_dir_perms;
+allow shell debugfs_tracing:dir r_dir_perms;
+allow shell debugfs_tracing:file rw_file_perms;
+allow shell debugfs_trace_marker:file getattr;
+allow shell atrace_exec:file rx_file_perms;
+
+userdebug_or_eng(`
+  allow shell debugfs_tracing_debug:file rw_file_perms;
+')
+
+# read config.gz for CTS purposes
+allow shell config_gz:file r_file_perms;
+
+# Run app_process.
+# XXX Transition into its own domain?
+app_domain(shell)
+
+# allow shell to call dumpsys storaged
+binder_call(shell, storaged)
+
+# Perform SELinux access checks, needed for CTS
+selinux_check_access(shell)
+selinux_check_context(shell)
+
+# Control Perfetto traced and obtain traces from it.
+# Needed for Studio and debugging.
+unix_socket_connect(shell, traced_consumer, traced)
+
+# Allow shell binaries to write trace data to Perfetto. Used for testing and
+# cmdline utils.
+perfetto_producer(shell)
+
+domain_auto_trans(shell, vendor_shell_exec, vendor_shell)
+
+# Allow shell binaries to exec the perfetto cmdline util and have that
+# transition into its own domain, so that it behaves consistently to
+# when exec()-d by statsd.
+domain_auto_trans(shell, perfetto_exec, perfetto)
+# Allow to send SIGINT to perfetto when daemonized.
+allow shell perfetto:process signal;
+
+# Allow shell to run adb shell cmd stats commands. Needed for CTS.
+binder_call(shell, statsd);
+
+# Allow shell to read and unlink traces stored in /data/misc/a11ytraces.
+userdebug_or_eng(`
+  allow shell accessibility_trace_data_file:dir rw_dir_perms;
+  allow shell accessibility_trace_data_file:file { r_file_perms unlink };
+')
+
+# Allow shell to read and unlink traces stored in /data/misc/perfetto-traces.
+allow shell perfetto_traces_data_file:dir rw_dir_perms;
+allow shell perfetto_traces_data_file:file { r_file_perms unlink };
+# ... and /data/misc/perfetto-traces/bugreport/ .
+allow shell perfetto_traces_bugreport_data_file:dir rw_dir_perms;
+allow shell perfetto_traces_bugreport_data_file:file { r_file_perms unlink };
+
+# Allow shell to create/remove configs stored in /data/misc/perfetto-configs.
+allow shell perfetto_configs_data_file:dir rw_dir_perms;
+allow shell perfetto_configs_data_file:file create_file_perms;
+
+# Allow shell to run adb shell cmd gpu commands.
+binder_call(shell, gpuservice);
+
+# Allow shell to use atrace HAL
+hal_client_domain(shell, hal_atrace)
+
+# For hostside tests such as CTS listening ports test.
+allow shell proc_net_tcp_udp:file r_file_perms;
+
+# The dl.exec_linker* tests need to execute /system/bin/linker
+# b/124789393
+allow shell system_linker_exec:file rx_file_perms;
+
+# Renderscript host side tests depend on being able to execute
+# /system/bin/bcc (b/126388046)
+allow shell rs_exec:file rx_file_perms;
+
+# Allow (host-driven) ART run-tests to execute dex2oat, in order to
+# check ART's compiler.
+allow shell dex2oat_exec:file rx_file_perms;
+allow shell dex2oat_exec:lnk_file read;
+
+# Allow shell to start and comminicate with lpdumpd.
+set_prop(shell, lpdumpd_prop);
+binder_call(shell, lpdumpd)
+
+# Allow shell to set and read value of properties used for CTS tests of
+# userspace reboot
+set_prop(shell, userspace_reboot_test_prop)
+
+# Allow shell to set this property to disable charging.
+set_prop(shell, power_debug_prop)
+
+# Allow shell to set this property used for rollback tests
+set_prop(shell, rollback_test_prop)
+
+# Allow shell to set RKP properties for testing purposes
+set_prop(shell, remote_prov_prop)
+
+# Allow shell to get encryption policy of /data/local/tmp/, for CTS
+allowxperm shell shell_data_file:dir ioctl {
+  FS_IOC_GET_ENCRYPTION_POLICY
+  FS_IOC_GET_ENCRYPTION_POLICY_EX
+};
+
+# Allow shell to execute simpleperf without a domain transition.
+allow shell simpleperf_exec:file rx_file_perms;
+
+userdebug_or_eng(`
+  # Allow shell to execute profcollectctl without a domain transition.
+  allow shell profcollectd_exec:file rx_file_perms;
+
+  # Allow shell to read profcollectd data files.
+  r_dir_file(shell, profcollectd_data_file)
+
+  # Allow to issue control commands to profcollectd binder service.
+  allow shell profcollectd:binder call;
+')
+
+# Allow shell to run remount command.
+allow shell remount_exec:file rx_file_perms;
+
+# Allow shell to call perf_event_open for profiling other shell processes, but
+# not the whole system.
+allow shell self:perf_event { open read write kernel };
+neverallow shell self:perf_event ~{ open read write kernel };
+
+# Allow shell to read microdroid vendor image
+r_dir_file(shell, vendor_microdroid_file)
+
+# Allow shell to read /apex/apex-info-list.xml and the vendor apexes
+allow shell apex_info_file:file r_file_perms;
+allow shell vendor_apex_file:file r_file_perms;
+allow shell vendor_apex_file:dir r_dir_perms;
+allow shell vendor_apex_metadata_file:dir r_dir_perms;
+
+# Allow shell to read updated APEXes under /data/apex
+allow shell apex_data_file:dir search;
+allow shell staging_data_file:file r_file_perms;
+
+# Set properties.
+set_prop(shell, shell_prop)
+set_prop(shell, ctl_bugreport_prop)
+set_prop(shell, ctl_dumpstate_prop)
+set_prop(shell, dumpstate_prop)
+set_prop(shell, exported_dumpstate_prop)
+set_prop(shell, debug_prop)
+set_prop(shell, perf_drop_caches_prop)
+set_prop(shell, powerctl_prop)
+set_prop(shell, log_tag_prop)
+set_prop(shell, wifi_log_prop)
+# Allow shell to start/stop traced via the persist.traced.enable
+# property (which also takes care of /data/misc initialization).
+set_prop(shell, traced_enabled_prop)
+# adjust SELinux audit rates
+set_prop(shell, logd_auditrate_prop)
+# adjust is_loggable properties
+userdebug_or_eng(`set_prop(shell, log_prop)')
+# logpersist script
+userdebug_or_eng(`set_prop(shell, logpersistd_logging_prop)')
+# Allow shell to start/stop heapprofd via the persist.heapprofd.enable
+# property.
+set_prop(shell, heapprofd_enabled_prop)
+# Allow shell to start/stop traced_perf via the persist.traced_perf.enable
+# property.
+set_prop(shell, traced_perf_enabled_prop)
+# Allow shell to start/stop gsid via ctl.start|stop|restart gsid.
+set_prop(shell, ctl_gsid_prop)
+set_prop(shell, ctl_snapuserd_prop)
+# Allow shell to enable Dynamic System Update
+set_prop(shell, dynamic_system_prop)
+# Allow shell to mock an OTA using persist.pm.mock-upgrade
+set_prop(shell, mock_ota_prop)
+
+# Read device's serial number from system properties
+get_prop(shell, serialno_prop)
+
+# Allow shell to read the vendor security patch level for CTS
+get_prop(shell, vendor_security_patch_level_prop)
+
+# Read state of logging-related properties
+get_prop(shell, device_logging_prop)
+
+# Read state of boot reason properties
+get_prop(shell, bootloader_boot_reason_prop)
+get_prop(shell, last_boot_reason_prop)
+get_prop(shell, system_boot_reason_prop)
+
+# Allow shell to execute the remote key provisioning factory tool
+binder_call(shell, hal_keymint)
+
+# Allow reading the outcome of perf_event_open LSM support test for CTS.
+get_prop(shell, init_perf_lsm_hooks_prop)
+
+# Allow shell to read boot image timestamps and fingerprints.
+get_prop(shell, build_bootimage_prop)
+
+# Allow shell to read odsign verification properties
+get_prop(shell, odsign_prop)
+
+userdebug_or_eng(`set_prop(shell, persist_debug_prop)')
+
+# Allow shell to read the keystore key contexts files. Used by native tests to test label lookup.
+allow shell keystore2_key_contexts_file:file r_file_perms;
+
+# Allow shell to access the keystore2_key namespace shell_key. Mainly used for native tests.
+allow shell shell_key:keystore2_key { delete rebind use get_info update };
+
+# Allow shell to open and execute memfd files for minijail unit tests.
+userdebug_or_eng(`
+  allow shell appdomain_tmpfs:file { open execute_no_trans };
+')
+
+# Allow shell to write db.log.detailed, db.log.slow_query_threshold*
+set_prop(shell, sqlite_log_prop)
+
+# Allow shell to write MTE properties even on user builds.
+set_prop(shell, arm64_memtag_prop)
+
+# Allow shell to read the dm-verity props on user builds.
+get_prop(shell, verity_status_prop)
+
+# Allow shell to read Virtual A/B related properties
+get_prop(shell, virtual_ab_prop)
+
+# Never allow others to set or get the perf.drop_caches property.
+neverallow { domain -shell -init } perf_drop_caches_prop:property_service set;
+neverallow { domain -shell -init -dumpstate } perf_drop_caches_prop:file read;
+
+# Allow ReadDefaultFstab() for CTS.
+read_fstab(shell)
+
+# Allow shell read access to /apex/apex-info-list.xml for CTS.
+allow shell apex_info_file:file r_file_perms;
+
+# Let the shell user call virtualizationservice (and
+# virtualizationservice call back to shell) for debugging.
+virtualizationservice_use(shell)
+
+# Allow shell to set persist.wm.debug properties
+userdebug_or_eng(`set_prop(shell, persist_wm_debug_prop)')
+
+# Allow shell to write GWP-ASan properties even on user builds.
+set_prop(shell, gwp_asan_prop)
+
+# Allow shell to set persist.sysui.notification.builder_extras_override property
+userdebug_or_eng(`set_prop(shell, persist_sysui_builder_extras_prop)')
+# Allow shell to set persist.sysui.notification.ranking_update_ashmem property
+userdebug_or_eng(`set_prop(shell, persist_sysui_ranking_update_prop)')
+
+# Allow shell to read the build properties for attestation feature
+get_prop(shell, build_attestation_prop)
+
+# Allow shell to execute oatdump.
+allow shell oatdump_exec:file rx_file_perms;

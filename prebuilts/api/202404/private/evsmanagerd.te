@@ -1,0 +1,39 @@
+# evsmanager
+typeattribute evsmanagerd coredomain;
+typeattribute evsmanagerd evsmanager_service_server;
+
+type evsmanagerd_exec, system_file_type, exec_type, file_type;
+
+init_daemon_domain(evsmanagerd);
+
+# Declares as a binder service
+binder_service(evsmanagerd)
+
+# Allows to add a service to service_manager
+add_service(evsmanagerd, evsmanagerd_service)
+
+# Allows to use the binder IPC
+binder_use(evsmanagerd)
+
+# Allows binder IPCs to the various system services
+binder_call(evsmanagerd, system_server)
+
+# Allows to use EVS HAL implementations
+hal_client_domain(evsmanagerd, hal_evs)
+
+# Allows to write messages to the shell
+allow evsmanagerd shell:fd use;
+allow evsmanagerd shell:fifo_file write;
+
+# Allows to use the graphics allocator
+allow evsmanagerd hal_graphics_allocator:fd use;
+
+# Allows to use a bootstrap statsd
+allow evsmanagerd statsbootstrap_service:service_manager find;
+
+# Allows binder IPCs to the CarService
+binder_call(evsmanagerd, appdomain)
+
+# For HIDL evs manager implementation
+allow evsmanagerd hal_evs_hwservice:hwservice_manager add;
+allow evsmanagerd hidl_base_hwservice:hwservice_manager add;
