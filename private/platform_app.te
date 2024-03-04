@@ -64,10 +64,24 @@ userdebug_or_eng(`
   auditallow platform_app proc_net_type:{ dir file lnk_file } { getattr open read };
 ')
 
+# Allow sharing traces to betterbug from /data/misc/wmtrace.
+userdebug_or_eng(`
+  allow platform_app trace_data_file:file create_file_perms;
+  allow platform_app trace_data_file:dir rw_dir_perms;
+')
+
 # Allow writing and removing wmshell protolog in /data/misc/wmtrace.
 userdebug_or_eng(`
   allow platform_app wm_trace_data_file:dir rw_dir_perms;
-  allow platform_app wm_trace_data_file:file { getattr setattr create unlink w_file_perms };
+  allow platform_app wm_trace_data_file:file { getattr setattr create unlink rw_file_perms };
+')
+
+
+# To exec the perfetto cmdline client and pass it the trace config on
+# stdint through a pipe. Allow to access traced's privileged consumer socket.
+userdebug_or_eng(`
+  allow platform_app perfetto_exec:file rx_file_perms;
+  unix_socket_connect(platform_app, traced_consumer, traced);
 ')
 
 allow platform_app audioserver_service:service_manager find;
