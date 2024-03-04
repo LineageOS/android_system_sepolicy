@@ -28,6 +28,7 @@ allow traced perfetto_traces_data_file:dir rw_dir_perms;
 # Allow traceur to pass open file descriptors to traced, so traced can directly
 # write into the output file without doing roundtrips over IPC.
 allow traced traceur_app:fd use;
+allow traced platform_app:fd use;
 allow traced trace_data_file:file { read write };
 
 # Allow perfetto to access the proxy service for notifying Traceur.
@@ -119,6 +120,7 @@ neverallow {
   -traced
   -dumpstate
   -traceur_app
+  -platform_app
   -shell
   -system_server
   -perfetto
