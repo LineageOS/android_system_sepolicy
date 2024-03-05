@@ -1,0 +1,12 @@
+#
+# ot-ctl is a command line tool for controlling ot-daemon
+#
+
+type ot_ctl, domain, coredomain;
+type ot_ctl_exec, exec_type, file_type, system_file_type;
+
+# ot-ctl is available in only userdebug or eng build
+userdebug_or_eng(`
+  # ot-ctl connects to ot-daemon via the socket
+  allow ot_ctl ot_daemon_socket:sock_file rw_file_perms;
+')
