@@ -25,9 +25,9 @@ binder_call(netutils_wrapper, netd);
 # For vendor code that update the iptables rules at runtime. They need to reload
 # the whole chain including the xt_bpf rules. They need to access to the pinned
 # program when reloading the rule.
-allow netutils_wrapper { fs_bpf fs_bpf_netd_shared }:dir search;
-allow netutils_wrapper { fs_bpf fs_bpf_netd_shared }:file { getattr read };
-allow netutils_wrapper { fs_bpf                    }:file write;
+allow netutils_wrapper { fs_bpf fs_bpf_netd_shared fs_bpf_vendor }:dir search;
+allow netutils_wrapper { fs_bpf fs_bpf_netd_shared fs_bpf_vendor }:file { getattr read };
+allow netutils_wrapper { fs_bpf                                  }:file write;
 allow netutils_wrapper bpfloader:bpf prog_run;
 
 # For /data/misc/net access to ndc and ip
