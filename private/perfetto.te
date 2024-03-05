@@ -40,6 +40,10 @@ binder_call(perfetto, system_server)
 allow perfetto perfetto_configs_data_file:dir r_dir_perms;
 allow perfetto perfetto_configs_data_file:file r_file_perms;
 
+# Allow perfetto to read the trace config from /system/etc/perfetto.
+allow perfetto system_perfetto_config_file:dir r_dir_perms;
+allow perfetto system_perfetto_config_file:file r_file_perms;
+
 # Allow perfetto to read the trace config from statsd, mm_events and shell
 # (both root and non-root) on stdin and also to write the resulting trace to
 # stdout.

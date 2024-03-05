@@ -31,6 +31,9 @@ type perfetto_traces_profiling_data_file, file_type, data_file_type, core_data_f
 # /data/misc/perfetto-configs for perfetto configs
 type perfetto_configs_data_file, file_type, data_file_type, core_data_file_type;
 
+# /system/etc/perfetto for perfetto configs
+type system_perfetto_config_file, file_type, system_file_type;
+
 # /data/misc/uprobestats-configs for uprobestats configs
 type uprobestats_configs_data_file, file_type, data_file_type, core_data_file_type;
 
