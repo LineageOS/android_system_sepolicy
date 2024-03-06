@@ -227,6 +227,7 @@ neverallow {
   -ueventd
   -mtectrl
   -misctrl
+  -kcmdlinectrl
 } misc_block_device:blk_file { append link relabelfrom rename write open read ioctl lock };
 
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
@@ -806,6 +807,7 @@ neverallow {
 } system_app_data_file:dir_file_class_set { create unlink open };
 
 neverallow { domain -init } mtectrl:process { dyntransition transition };
+neverallow { domain -init } kcmdlinectrl:process { dyntransition transition };
 
 # For now, don't allow processes other than gmscore to access /data/misc_ce/<userid>/checkin
 neverallow { domain -gmscore_app -init -vold_prepare_subdirs } checkin_data_file:{dir file} *;
