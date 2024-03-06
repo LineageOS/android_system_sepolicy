@@ -3,3 +3,6 @@ type postinstall_exec, system_file_type, exec_type, file_type;
 domain_auto_trans(postinstall, otapreopt_chroot_exec, otapreopt_chroot)
 
 allow postinstall rootfs:dir r_dir_perms;
+
+# Allow invoking `pm` shell commands.
+allow postinstall package_service:service_manager find;
