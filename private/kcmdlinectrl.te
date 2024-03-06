@@ -1,0 +1,22 @@
+# kcmdlinectrl is a tool to have the bootloader send kernel commandline flags
+# for enabling dogfood features in the kernel
+type kcmdlinectrl, domain, coredomain;
+type kcmdlinectrl_exec, system_file_type, exec_type, file_type;
+
+init_daemon_domain(kcmdlinectrl)
+
+# for setting kcmdline properties to match the bootloader state.
+set_prop(kcmdlinectrl, kcmdline_prop)
+
+# kcmdlinectrl communicates the request to the bootloader via the misc partition.
+# needs to write to update the request in misc partition, and read to sync
+# back to the property.
+allow kcmdlinectrl misc_block_device:blk_file rw_file_perms;
+allow kcmdlinectrl block_device:dir r_dir_perms;
+read_fstab(kcmdlinectrl)
+
+# bootloader_message tries to find the fstab in the device config path first,
+# but because we've already booted up we can use the ro.boot properties instead,
+# so we can just ignore the SELinux denial.
+dontaudit kcmdlinectrl sysfs_dt_firmware_android:dir search;
+dontaudit kcmdlinectrl vendor_property_type:file read;

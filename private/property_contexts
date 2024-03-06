@@ -893,6 +893,11 @@ persist.libc.debug.gwp_asan.  u:object_r:gwp_asan_prop:s0 prefix string
 arm64.memtag.         u:object_r:arm64_memtag_prop:s0 prefix string
 persist.arm64.memtag. u:object_r:arm64_memtag_prop:s0 prefix string
 
+# kcmdline props for dogfood experiments
+# All kcmdline properties share the kcmdline_prop context
+kcmdline.loaded     u:object_r:kcmdline_prop:s0 exact bool
+kcmdline.binder     u:object_r:kcmdline_prop:s0 exact enum c rust
+
 net.redirect_socket_calls.hooked u:object_r:socket_hook_prop:s0 exact bool
 
 # Settings system properties containing mutable "global" device settings.
