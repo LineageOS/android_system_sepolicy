@@ -281,13 +281,14 @@ allow domain debugfs_tracing:dir search;
 allow domain debugfs_tracing_debug:dir search;
 allow domain debugfs_trace_marker:file w_file_perms;
 
-# Linux lockdown mode offers coarse-grained definitions for access controls.
-# The "confidentiality" level detects access to tracefs or the perf subsystem.
-# This overlaps with more precise declarations in Android's policy. The
-# debugfs_trace_marker above is an example in which all processes should have
-# some access to tracefs. Therefore, allow all domains to access this level.
-# The "integrity" level is however enforced.
-allow domain self:lockdown confidentiality;
+# Linux lockdown mode offered coarse-grained definitions for access controls. In
+# previous versions of the policy, the integrity permission was neverallowed.
+# It was found that this permission mainly duplicates pre-existing rules in
+# the policy (see b/285443587). Additionally, some access were found to be
+# required (b/269377822). The access vector was removed from kernel 5.16
+# onwards. Grant unconditional access, these rules should be removed from the
+# policy once no kernel <5.16 are supported.
+allow domain self:lockdown { confidentiality integrity };
 
 # Filesystem access.
 allow domain fs_type:filesystem getattr;
@@ -1349,6 +1350,3 @@ neverallow {
 } ashmem_device:chr_file open;
 
 neverallow { domain -traced_probes -init -vendor_init } debugfs_tracing_printk_formats:file *;
-
-# Linux lockdown "integrity" level is enforced for user builds.
-neverallow { domain userdebug_or_eng(`-domain') } self:lockdown integrity;
