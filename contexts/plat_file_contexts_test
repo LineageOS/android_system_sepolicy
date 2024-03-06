@@ -368,6 +368,7 @@
 /system/bin/mediatranscoding                                      mediatranscoding_exec
 /system/bin/mediatuner                                            mediatuner_exec
 /system/bin/mdnsd                                                 mdnsd_exec
+/system/bin/ot-ctl                                                ot_ctl_exec
 /system/bin/installd                                              installd_exec
 /system/bin/otapreopt_chroot                                      otapreopt_chroot_exec
 /system/bin/otapreopt_slot                                        otapreopt_slot_exec
@@ -443,6 +444,7 @@
 /system/etc/ld.config.                                            system_linker_config_file
 /system/etc/ld.config.test                                        system_linker_config_file
 /system/etc/passwd                                                system_passwd_file
+/system/etc/perfetto/persistent_cfg.pbtxt                         system_perfetto_config_file
 /system/etc/seccomp_policy                                        system_seccomp_policy_file
 /system/etc/seccomp_policy/crash_dump.x86.policy                  system_seccomp_policy_file
 /system/etc/security/cacerts                                      system_security_cacerts_file

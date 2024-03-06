@@ -289,6 +289,7 @@
 /system/bin/vold	u:object_r:vold_exec:s0
 /system/bin/netd	u:object_r:netd_exec:s0
 /system/bin/wificond	u:object_r:wificond_exec:s0
+/system/bin/ot-ctl      u:object_r:ot_ctl_exec:s0
 /system/bin/audioserver	u:object_r:audioserver_exec:s0
 /system/bin/mediadrmserver	u:object_r:mediadrmserver_exec:s0
 /system/bin/mediaserver	u:object_r:mediaserver_exec:s0
@@ -366,6 +367,7 @@
 /system/etc/group                       u:object_r:system_group_file:s0
 /system/etc/ld\.config.*                u:object_r:system_linker_config_file:s0
 /system/etc/passwd                      u:object_r:system_passwd_file:s0
+/system/etc/perfetto(/.*)?              u:object_r:system_perfetto_config_file:s0
 /system/etc/seccomp_policy(/.*)?        u:object_r:system_seccomp_policy_file:s0
 /system/etc/security/cacerts(/.*)?      u:object_r:system_security_cacerts_file:s0
 /system/etc/selinux/mapping/[0-9]+\.[0-9]+(\.compat)?\.cil       u:object_r:sepolicy_file:s0
