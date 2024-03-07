@@ -169,7 +169,6 @@
 /dev/pmsg0                                                        pmsg_device
 /dev/pn544                                                        nfc_device
 /dev/port                                                         port_device
-/dev/ppp                                                          ppp_device
 /dev/ptmx                                                         ptmx_device
 /dev/pvrsrvkm                                                     gpu_device
 /dev/kmsg                                                         kmsg_device
@@ -200,7 +199,6 @@
 /dev/socket/statsdw                                               statsdw_socket
 /dev/socket/mdns                                                  mdns_socket
 /dev/socket/mdnsd                                                 mdnsd_socket
-/dev/socket/mtpd                                                  mtpd_socket
 /dev/socket/ot-daemon/                                            ot_daemon_socket
 /dev/socket/ot-daemon/thread-wpan                                 ot_daemon_socket
 /dev/socket/ot-daemon/100                                         ot_daemon_socket
@@ -216,7 +214,6 @@
 /dev/socket/prng_seeder                                           prng_seeder_socket
 /dev/socket/property_service                                      property_socket
 /dev/socket/property_service_for_system                           property_socket
-/dev/socket/racoon                                                racoon_socket
 /dev/socket/recovery                                              recovery_socket
 /dev/socket/rild                                                  rild_socket
 /dev/socket/rild-debug                                            rild_debug_socket
@@ -386,9 +383,6 @@
 /system/bin/dhcpcd                                                dhcp_exec
 /system/bin/dhcpcd-6.8.2                                          dhcp_exec
 /system/bin/dmesgd                                                dmesgd_exec
-/system/bin/mtpd                                                  mtp_exec
-/system/bin/pppd                                                  ppp_exec
-/system/bin/racoon                                                racoon_exec
 /system/xbin/su                                                   su_exec
 /system/bin/dnsmasq                                               dnsmasq_exec
 /system/bin/linker                                                system_linker_exec
