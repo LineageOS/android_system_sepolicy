@@ -29,10 +29,8 @@ allow hal_drm cgroup_v2:dir { search write };
 allow hal_drm cgroup_v2:file w_file_perms;
 
 # Allow dumpsys Widevine without root
-userdebug_or_eng(`
-  allow hal_drm_server shell:fd use;
-  allow hal_drm_server shell:fifo_file write;
-')
+allow hal_drm_server shell:fd use;
+allow hal_drm_server shell:fifo_file write;
 
 # Allow access to ion memory allocation device
 allow hal_drm ion_device:chr_file rw_file_perms;
