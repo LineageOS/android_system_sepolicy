@@ -1659,3 +1659,7 @@ crashrecovery.rescue_boot_count u:object_r:crashrecovery_prop:s0 exact int
 crashrecovery.rescue_boot_start u:object_r:crashrecovery_prop:s0 exact int
 persist.crashrecovery.enable_rescue u:object_r:crashrecovery_prop:s0 exact bool
 persist.crashrecovery.last_factory_reset u:object_r:crashrecovery_prop:s0 exact int
+
+# Properties for controlling snapshotctl.
+sys.snapshotctl.map u:object_r:snapshotctl_prop:s0 exact string
+sys.snapshotctl.unmap u:object_r:snapshotctl_prop:s0 exact string
