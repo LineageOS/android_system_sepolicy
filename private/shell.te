@@ -132,10 +132,14 @@ allow shell remount_exec:file rx_file_perms;
 allow shell self:perf_event { open read write kernel };
 neverallow shell self:perf_event ~{ open read write kernel };
 
+# Allow shell to read microdroid vendor image
+r_dir_file(shell, vendor_microdroid_file)
+
 # Allow shell to read /apex/apex-info-list.xml and the vendor apexes
 allow shell apex_info_file:file r_file_perms;
 allow shell vendor_apex_file:file r_file_perms;
 allow shell vendor_apex_file:dir r_dir_perms;
+allow shell vendor_apex_metadata_file:dir r_dir_perms;
 
 # Allow shell to read updated APEXes under /data/apex
 allow shell apex_data_file:dir search;
@@ -155,6 +159,8 @@ set_prop(shell, wifi_log_prop)
 # Allow shell to start/stop traced via the persist.traced.enable
 # property (which also takes care of /data/misc initialization).
 set_prop(shell, traced_enabled_prop)
+# adjust SELinux audit rates
+set_prop(shell, logd_auditrate_prop)
 # adjust is_loggable properties
 userdebug_or_eng(`set_prop(shell, log_prop)')
 # logpersist script
@@ -246,4 +252,9 @@ set_prop(shell, gwp_asan_prop)
 
 # Allow shell to set persist.sysui.notification.builder_extras_override property
 userdebug_or_eng(`set_prop(shell, persist_sysui_builder_extras_prop)')
+# Allow shell to set persist.sysui.notification.ranking_update_ashmem property
+userdebug_or_eng(`set_prop(shell, persist_sysui_ranking_update_prop)')
+
+# Allow shell to read the build properties for attestation feature
+get_prop(shell, build_attestation_prop)
 

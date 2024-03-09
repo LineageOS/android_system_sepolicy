@@ -70,6 +70,7 @@ se_build_files {
 
 file_contexts {
     name: "plat_file_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":file_contexts_files{.plat_private}"],
     product_variables: {
         address_sanitize: {
@@ -79,14 +80,11 @@ file_contexts {
             srcs: [":file_contexts_overlayfs_files{.plat_private}"],
         },
     },
-
-    flatten_apex: {
-        srcs: [":apex_file_contexts_files"],
-    },
 }
 
 file_contexts {
     name: "plat_file_contexts.recovery",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":file_contexts_files{.plat_private}"],
     stem: "plat_file_contexts",
     product_variables: {
@@ -97,41 +95,42 @@ file_contexts {
             srcs: [":file_contexts_overlayfs_files{.plat_private}"],
         },
     },
-
-    flatten_apex: {
-        srcs: [":apex_file_contexts_files"],
-    },
-
     recovery: true,
 }
 
 file_contexts {
     name: "vendor_file_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [
-        ":file_contexts_files{.plat_vendor_for_vendor}",
+        ":file_contexts_files{.plat_vendor}",
         ":file_contexts_files{.vendor}",
     ],
     soc_specific: true,
+    fc_sort: true,
 }
 
 file_contexts {
     name: "vendor_file_contexts.recovery",
+    defaults: ["contexts_flags_defaults"],
     srcs: [
-        ":file_contexts_files{.plat_vendor_for_vendor}",
+        ":file_contexts_files{.plat_vendor}",
         ":file_contexts_files{.vendor}",
     ],
     stem: "vendor_file_contexts",
     recovery: true,
+    fc_sort: true,
 }
 
 file_contexts {
     name: "system_ext_file_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":file_contexts_files{.system_ext_private}"],
     system_ext_specific: true,
 }
 
 file_contexts {
     name: "system_ext_file_contexts.recovery",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":file_contexts_files{.system_ext_private}"],
     stem: "system_ext_file_contexts",
     recovery: true,
@@ -139,12 +138,14 @@ file_contexts {
 
 file_contexts {
     name: "product_file_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":file_contexts_files{.product_private}"],
     product_specific: true,
 }
 
 file_contexts {
     name: "product_file_contexts.recovery",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":file_contexts_files{.product_private}"],
     stem: "product_file_contexts",
     recovery: true,
@@ -152,57 +153,68 @@ file_contexts {
 
 file_contexts {
     name: "odm_file_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":file_contexts_files{.odm}"],
     device_specific: true,
+    fc_sort: true,
 }
 
 file_contexts {
     name: "odm_file_contexts.recovery",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":file_contexts_files{.odm}"],
     stem: "odm_file_contexts",
     recovery: true,
+    fc_sort: true,
 }
 
 hwservice_contexts {
     name: "plat_hwservice_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":hwservice_contexts_files{.plat_private}"],
 }
 
 hwservice_contexts {
     name: "system_ext_hwservice_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":hwservice_contexts_files{.system_ext_private}"],
     system_ext_specific: true,
 }
 
 hwservice_contexts {
     name: "product_hwservice_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":hwservice_contexts_files{.product_private}"],
     product_specific: true,
 }
 
 hwservice_contexts {
     name: "vendor_hwservice_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [
-        ":hwservice_contexts_files{.plat_vendor_for_vendor}",
+        ":hwservice_contexts_files{.plat_vendor}",
         ":hwservice_contexts_files{.vendor}",
-        ":hwservice_contexts_files{.reqd_mask_for_vendor}",
+        ":hwservice_contexts_files{.reqd_mask}",
     ],
     soc_specific: true,
 }
 
 hwservice_contexts {
     name: "odm_hwservice_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":hwservice_contexts_files{.odm}"],
     device_specific: true,
 }
 
 property_contexts {
     name: "plat_property_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":property_contexts_files{.plat_private}"],
 }
 
 property_contexts {
     name: "plat_property_contexts.recovery",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":property_contexts_files{.plat_private}"],
     stem: "plat_property_contexts",
     recovery: true,
@@ -210,6 +222,7 @@ property_contexts {
 
 property_contexts {
     name: "system_ext_property_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":property_contexts_files{.system_ext_private}"],
     system_ext_specific: true,
     recovery_available: true,
@@ -217,6 +230,7 @@ property_contexts {
 
 property_contexts {
     name: "product_property_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":property_contexts_files{.product_private}"],
     product_specific: true,
     recovery_available: true,
@@ -224,10 +238,11 @@ property_contexts {
 
 property_contexts {
     name: "vendor_property_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [
-        ":property_contexts_files{.plat_vendor_for_vendor}",
+        ":property_contexts_files{.plat_vendor}",
         ":property_contexts_files{.vendor}",
-        ":property_contexts_files{.reqd_mask_for_vendor}",
+        ":property_contexts_files{.reqd_mask}",
     ],
     soc_specific: true,
     recovery_available: true,
@@ -235,6 +250,7 @@ property_contexts {
 
 property_contexts {
     name: "odm_property_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":property_contexts_files{.odm}"],
     device_specific: true,
     recovery_available: true,
@@ -242,11 +258,13 @@ property_contexts {
 
 service_contexts {
     name: "plat_service_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":service_contexts_files{.plat_private}"],
 }
 
 service_contexts {
     name: "plat_service_contexts.recovery",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":service_contexts_files{.plat_private}"],
     stem: "plat_service_contexts",
     recovery: true,
@@ -254,6 +272,7 @@ service_contexts {
 
 service_contexts {
     name: "system_ext_service_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":service_contexts_files{.system_ext_private}"],
     system_ext_specific: true,
     recovery_available: true,
@@ -261,6 +280,7 @@ service_contexts {
 
 service_contexts {
     name: "product_service_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":service_contexts_files{.product_private}"],
     product_specific: true,
     recovery_available: true,
@@ -268,10 +288,11 @@ service_contexts {
 
 service_contexts {
     name: "vendor_service_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [
-        ":service_contexts_files{.plat_vendor_for_vendor}",
+        ":service_contexts_files{.plat_vendor}",
         ":service_contexts_files{.vendor}",
-        ":service_contexts_files{.reqd_mask_for_vendor}",
+        ":service_contexts_files{.reqd_mask}",
     ],
     soc_specific: true,
     recovery_available: true,
@@ -279,6 +300,7 @@ service_contexts {
 
 service_contexts {
     name: "odm_service_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [
         ":service_contexts_files{.odm}",
     ],
@@ -288,39 +310,45 @@ service_contexts {
 
 keystore2_key_contexts {
     name: "plat_keystore2_key_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":keystore2_key_contexts_files{.plat_private}"],
 }
 
 keystore2_key_contexts {
     name: "system_keystore2_key_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":keystore2_key_contexts_files{.system_ext_private}"],
     system_ext_specific: true,
 }
 
 keystore2_key_contexts {
     name: "product_keystore2_key_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":keystore2_key_contexts_files{.product_private}"],
     product_specific: true,
 }
 
 keystore2_key_contexts {
     name: "vendor_keystore2_key_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [
-        ":keystore2_key_contexts_files{.plat_vendor_for_vendor}",
+        ":keystore2_key_contexts_files{.plat_vendor}",
         ":keystore2_key_contexts_files{.vendor}",
-        ":keystore2_key_contexts_files{.reqd_mask_for_vendor}",
+        ":keystore2_key_contexts_files{.reqd_mask}",
     ],
     soc_specific: true,
 }
 
 seapp_contexts {
     name: "plat_seapp_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":seapp_contexts_files{.plat_private}"],
     sepolicy: ":precompiled_sepolicy",
 }
 
 seapp_contexts {
     name: "system_ext_seapp_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":seapp_contexts_files{.system_ext_private}"],
     neverallow_files: [":seapp_contexts_files{.plat_private}"],
     system_ext_specific: true,
@@ -329,6 +357,7 @@ seapp_contexts {
 
 seapp_contexts {
     name: "product_seapp_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [":seapp_contexts_files{.product_private}"],
     neverallow_files: [
         ":seapp_contexts_files{.plat_private}",
@@ -340,15 +369,16 @@ seapp_contexts {
 
 seapp_contexts {
     name: "vendor_seapp_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [
-        ":seapp_contexts_files{.plat_vendor_for_vendor}",
+        ":seapp_contexts_files{.plat_vendor}",
         ":seapp_contexts_files{.vendor}",
-        ":seapp_contexts_files{.reqd_mask_for_vendor}",
+        ":seapp_contexts_files{.reqd_mask}",
     ],
     neverallow_files: [
-        ":seapp_contexts_files{.plat_private_for_vendor}",
-        ":seapp_contexts_files{.system_ext_private_for_vendor}",
-        ":seapp_contexts_files{.product_private_for_vendor}",
+        ":seapp_contexts_files{.plat_private}",
+        ":seapp_contexts_files{.system_ext_private}",
+        ":seapp_contexts_files{.product_private}",
     ],
     soc_specific: true,
     sepolicy: ":precompiled_sepolicy",
@@ -356,13 +386,14 @@ seapp_contexts {
 
 seapp_contexts {
     name: "odm_seapp_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [
         ":seapp_contexts_files{.odm}",
     ],
     neverallow_files: [
-        ":seapp_contexts_files{.plat_private_for_vendor}",
-        ":seapp_contexts_files{.system_ext_private_for_vendor}",
-        ":seapp_contexts_files{.product_private_for_vendor}",
+        ":seapp_contexts_files{.plat_private}",
+        ":seapp_contexts_files{.system_ext_private}",
+        ":seapp_contexts_files{.product_private}",
     ],
     device_specific: true,
     sepolicy: ":precompiled_sepolicy",
@@ -370,10 +401,11 @@ seapp_contexts {
 
 vndservice_contexts {
     name: "vndservice_contexts",
+    defaults: ["contexts_flags_defaults"],
     srcs: [
-        ":vndservice_contexts_files{.plat_vendor_for_vendor}",
+        ":vndservice_contexts_files{.plat_vendor}",
         ":vndservice_contexts_files{.vendor}",
-        ":vndservice_contexts_files{.reqd_mask_for_vendor}",
+        ":vndservice_contexts_files{.reqd_mask}",
     ],
     soc_specific: true,
 }
@@ -396,6 +428,12 @@ file_contexts_test {
     name: "plat_file_contexts_test",
     srcs: [":plat_file_contexts"],
     sepolicy: ":precompiled_sepolicy",
+}
+
+file_contexts_test {
+    name: "plat_file_contexts_data_test",
+    srcs: [":file_contexts_files{.plat_private}"],
+    test_data: "plat_file_contexts_test",
 }
 
 file_contexts_test {

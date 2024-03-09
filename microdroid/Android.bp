@@ -233,7 +233,7 @@ prebuilt_etc {
 
 se_policy_binary {
     name: "microdroid_precompiled_sepolicy",
-    stem: "precompiled_sepolicy",
+    stem: "microdroid_precompiled_sepolicy",
     srcs: [
         ":microdroid_plat_sepolicy.cil",
         ":microdroid_plat_mapping_file",

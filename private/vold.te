@@ -7,6 +7,10 @@ domain_auto_trans(vold, sgdisk_exec, sgdisk);
 domain_auto_trans(vold, sdcardd_exec, sdcardd);
 domain_auto_trans(vold, fuseblkd_untrusted_exec, fuseblkd_untrusted);
 
+# Switch to e2fs domain when running mkfs.ext4 to format a partition
+domain_auto_trans(vold, e2fs_exec, e2fs);
+
+
 # For a handful of probing tools, we choose an even more restrictive
 # domain when working with untrusted block devices
 domain_trans(vold, blkid_exec, blkid);

@@ -295,3 +295,6 @@ neverallow {
 # anon_inode usages like userfaultfd and io_uring. This prevents us from
 # creating a more fine-grained neverallow policy for each anon_inode usage.
 neverallow all_untrusted_apps domain:anon_inode *;
+
+# Do not allow untrusted app access to hidraw devices.
+neverallow all_untrusted_apps hidraw_device:chr_file *;

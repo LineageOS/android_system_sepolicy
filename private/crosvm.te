@@ -27,8 +27,9 @@ allow crosvm virtualizationmanager:fifo_file write;
 
 # Let crosvm read the composite disk images (virtualizationservice_data_file), APEXes
 # (staging_data_file), APKs (apk_data_file and shell_data_file where the latter is for test apks in
-# /data/local/tmp), and instance.img (app_data_file). Note that the open permission is not given as
-# the files are passed as file descriptors.
+# /data/local/tmp), instance.img (app_data_file), and microdroid vendor image (vendor_microdroid_file).
+# Allow crosvm to read the instance image of the service VM saved in apex_virt_data_file.
+# Note that the open permission is not given as the files are passed as file descriptors.
 allow crosvm {
   virtualizationservice_data_file
   staging_data_file
@@ -36,7 +37,9 @@ allow crosvm {
   app_data_file
   privapp_data_file
   apex_compos_data_file
+  apex_virt_data_file
   shell_data_file
+  vendor_microdroid_file
 }:file { getattr read ioctl lock };
 
 # Allow searching the directory where the composite disk images are.
@@ -64,11 +67,13 @@ allow crosvm {
   app_data_file
   privapp_data_file
   apex_compos_data_file
+  apex_virt_data_file
 }:file write;
 
 # Allow crosvm to pipe console log to shell or app which could be the owner of a VM.
 allow crosvm adbd:fd use;
 allow crosvm adbd:unix_stream_socket { read write };
+allow crosvm devpts:chr_file { read write getattr ioctl };
 
 # crosvm tries to use netlink sockets as part its APCI implementation, but we don't need it for AVF (b/228077254)
 dontaudit crosvm self:netlink_generic_socket create_socket_perms_no_ioctl;
@@ -83,13 +88,21 @@ allow crosvm shell_data_file:file write;
 # crosvm tries to read serial device, including the write-only pipe from virtualizationmanager (to
 # forward console/log to the host logcat).
 # crosvm only needs write permission, so dontaudit read
-dontaudit crosvm virtualizationmanager:fifo_file read;
+dontaudit crosvm virtualizationmanager:fifo_file { read getattr };
 
 # Required for crosvm to start gdb-server to enable debugging of guest kernel.
 allow crosvm self:tcp_socket { bind create read setopt write accept listen };
 allow crosvm port:tcp_socket name_bind;
 allow crosvm adbd:unix_stream_socket ioctl;
 allow crosvm node:tcp_socket node_bind;
+
+# Allow crosvm to interact to VFIO device
+allow crosvm vfio_device:chr_file rw_file_perms;
+allow crosvm vfio_device:dir r_dir_perms;
+
+# Allow crosvm to access VM DTBO via a file created by virtualizationmanager.
+allow crosvm virtualizationmanager:fd use;
+allow crosvm virtualizationservice_data_file:file read;
 
 # Don't allow crosvm to open files that it doesn't own.
 # This is important because a malicious application could try to start a VM with a composite disk
@@ -114,6 +127,7 @@ full_treble_only(`
     # These types are not required for crosvm, but the access is granted to globally in domain.te
     # thus should be exempted here.
     -vendor_configs_file
+    -vendor_microdroid_file
     -vndk_sp_file
     -vendor_task_profiles_file
   }:file *;

@@ -147,9 +147,6 @@ allow system_server self:global_capability_class_set {
     sys_tty_config
 };
 
-# Trigger module auto-load.
-allow system_server kernel:system module_request;
-
 # Allow alarmtimers to be set
 allow system_server self:global_capability2_class_set wake_alarm;
 
@@ -296,10 +293,12 @@ binder_call(system_server, idmap)
 binder_call(system_server, installd)
 binder_call(system_server, incidentd)
 binder_call(system_server, netd)
+binder_call(system_server, ot_daemon)
 userdebug_or_eng(`binder_call(system_server, profcollectd)')
 binder_call(system_server, statsd)
 binder_call(system_server, storaged)
 binder_call(system_server, update_engine)
+binder_call(system_server, virtual_camera)
 binder_call(system_server, vold)
 binder_call(system_server, logd)
 binder_call(system_server, wificond)
@@ -308,6 +307,7 @@ binder_service(system_server)
 # Use HALs
 hal_client_domain(system_server, hal_allocator)
 hal_client_domain(system_server, hal_audio)
+hal_client_domain(system_server, hal_authgraph)
 hal_client_domain(system_server, hal_authsecret)
 hal_client_domain(system_server, hal_broadcastradio)
 hal_client_domain(system_server, hal_codec2)
@@ -330,9 +330,11 @@ hal_client_domain(system_server, hal_omx)
 hal_client_domain(system_server, hal_power)
 hal_client_domain(system_server, hal_power_stats)
 hal_client_domain(system_server, hal_rebootescrow)
+hal_client_domain(system_server, hal_remotelyprovisionedcomponent_avf)
 hal_client_domain(system_server, hal_sensors)
 hal_client_domain(system_server, hal_tetheroffload)
 hal_client_domain(system_server, hal_thermal)
+hal_client_domain(system_server, hal_threadnetwork)
 hal_client_domain(system_server, hal_tv_cec)
 hal_client_domain(system_server, hal_tv_hdmi_cec)
 hal_client_domain(system_server, hal_tv_hdmi_connection)
@@ -386,6 +388,7 @@ allow system_server {
   mediatuner
   netd
   sdcardd
+  servicemanager
   statsd
   surfaceflinger
   vold
@@ -478,6 +481,8 @@ allow system_server adbd_socket:sock_file rw_file_perms;
 allow system_server rtc_device:chr_file rw_file_perms;
 allow system_server audio_device:dir r_dir_perms;
 allow system_server uhid_device:chr_file rw_file_perms;
+allow system_server hidraw_device:dir r_dir_perms;
+allow system_server hidraw_device:chr_file rw_file_perms;
 
 # write access to ALSA interfaces (/dev/snd/*) needed for MIDI
 allow system_server audio_device:chr_file rw_file_perms;
@@ -742,6 +747,7 @@ set_prop(system_server, ctl_gsid_prop)
 set_prop(system_server, cppreopt_prop)
 
 # server configurable flags properties
+set_prop(system_server, device_config_core_experiments_team_internal_prop)
 set_prop(system_server, device_config_edgetpu_native_prop)
 set_prop(system_server, device_config_input_native_boot_prop)
 set_prop(system_server, device_config_netd_native_prop)
@@ -763,6 +769,7 @@ set_prop(system_server, device_config_window_manager_native_boot_prop)
 set_prop(system_server, device_config_configuration_prop)
 set_prop(system_server, device_config_connectivity_prop)
 set_prop(system_server, device_config_surface_flinger_native_boot_prop)
+set_prop(system_server, device_config_aconfig_flags_prop)
 set_prop(system_server, device_config_vendor_system_native_prop)
 set_prop(system_server, device_config_vendor_system_native_boot_prop)
 set_prop(system_server, device_config_virtualization_framework_native_prop)
@@ -772,6 +779,9 @@ set_prop(system_server, device_config_remote_key_provisioning_native_prop)
 set_prop(system_server, device_config_tethering_u_or_later_native_prop)
 set_prop(system_server, smart_idle_maint_enabled_prop)
 set_prop(system_server, arm64_memtag_prop)
+
+# staged flag properties
+set_prop(system_server, next_boot_prop)
 
 # Allow query ART device config properties
 get_prop(system_server, device_config_runtime_native_boot_prop)
@@ -843,6 +853,8 @@ get_prop(system_server, persist_wm_debug_prop)
 
 # Read persist.sysui.notification.builder_extras_override property
 get_prop(system_server, persist_sysui_builder_extras_prop)
+# Read persist.sysui.notification.ranking_update_ashmem property
+get_prop(system_server, persist_sysui_ranking_update_prop)
 
 # Read ro.tuner.lazyhal
 get_prop(system_server, tuner_config_prop)
@@ -851,6 +863,10 @@ set_prop(system_server, tuner_server_ctl_prop)
 
 # Allow the heap dump ART plugin to the count of sessions waiting for OOME
 get_prop(system_server, traced_oome_heap_session_count_prop)
+
+# Allow the sensor service (running in the system service) to read sensor
+# configuration properties
+get_prop(system_server, sensors_config_prop)
 
 # Create a socket for connections from debuggerd.
 allow system_server system_ndebug_socket:sock_file create_file_perms;
@@ -917,6 +933,9 @@ allow system_server pstorefs:file r_file_perms;
 allow system_server sysfs_zram:dir search;
 allow system_server sysfs_zram:file rw_file_perms;
 
+# Read /sys/fs/selinux/policy
+allow system_server kernel:security read_policy;
+
 add_service(system_server, system_server_service);
 allow system_server artd_service:service_manager find;
 allow system_server audioserver_service:service_manager find;
@@ -947,11 +966,13 @@ allow system_server mediadrmserver_service:service_manager find;
 allow system_server mediatuner_service:service_manager find;
 allow system_server netd_service:service_manager find;
 allow system_server nfc_service:service_manager find;
+allow system_server ot_daemon_service:service_manager find;
 allow system_server radio_service:service_manager find;
 allow system_server stats_service:service_manager find;
 allow system_server storaged_service:service_manager find;
 allow system_server surfaceflinger_service:service_manager find;
 allow system_server update_engine_service:service_manager find;
+allow system_server virtual_camera_service:service_manager find;
 allow system_server vold_service:service_manager find;
 allow system_server wifinl80211_service:service_manager find;
 allow system_server logd_service:service_manager find;
@@ -961,34 +982,13 @@ userdebug_or_eng(`
 
 add_service(system_server, batteryproperties_service)
 
-allow system_server keystore:keystore_key {
-	get_state
-	get
-	insert
-	delete
-	exist
-	list
-	reset
-	password
-	lock
-	unlock
-	is_empty
-	sign
-	verify
-	grant
-	duplicate
-	clear_uid
-	add_auth
-	user_changed
-};
-
 allow system_server keystore:keystore2 {
 	add_auth
 	change_password
 	change_user
 	clear_ns
 	clear_uid
-	get_state
+	get_last_auth_time
 	lock
 	pull_metrics
 	reset
@@ -1040,7 +1040,8 @@ allow system_server frp_block_device:blk_file rw_file_perms;
 allowxperm system_server frp_block_device:blk_file ioctl { BLKSECDISCARD BLKDISCARD };
 
 # Create new process groups and clean up old cgroups
-allow system_server cgroup:dir { remove_name rmdir };
+allow system_server cgroup:dir create_dir_perms;
+allow system_server cgroup:file setattr;
 allow system_server cgroup_v2:dir create_dir_perms;
 allow system_server cgroup_v2:file { r_file_perms setattr };
 
@@ -1105,12 +1106,11 @@ set_prop(system_server, system_adbd_prop)
 allow system_server toolbox_exec:file rx_file_perms;
 
 # Allow system process to setup fs-verity
-allowxperm system_server { apk_data_file system_data_file apex_system_server_data_file }:file ioctl FS_IOC_ENABLE_VERITY;
+allowxperm system_server { apk_data_file apk_tmp_file system_data_file apex_system_server_data_file }:file ioctl FS_IOC_ENABLE_VERITY;
 
-# Allow system process to measure fs-verity for apps, apps being installed and system files
-allowxperm system_server { apk_data_file apk_tmp_file system_file }:file ioctl FS_IOC_MEASURE_VERITY;
+# Allow system process to measure fs-verity for apps, including those being installed
+allowxperm system_server { apk_data_file apk_tmp_file }:file ioctl FS_IOC_MEASURE_VERITY;
 allowxperm system_server apk_tmp_file:file ioctl FS_IOC_SETFLAGS;
-allow system_server system_file:file ioctl;
 
 # Postinstall
 #
@@ -1137,6 +1137,7 @@ allow system_server dmabuf_system_heap_device:chr_file r_file_perms;
 allow system_server dmabuf_system_secure_heap_device:chr_file r_file_perms;
 
 r_dir_file(system_server, proc_asound)
+r_dir_file(system_server, proc_memhealth)
 r_dir_file(system_server, proc_net_type)
 r_dir_file(system_server, proc_qtaguid_stat)
 allow system_server {
@@ -1189,6 +1190,9 @@ allow system_server { fs_bpf fs_bpf_net_shared fs_bpf_netd_readonly fs_bpf_netd_
 allow system_server bpfloader:bpf { map_read map_write prog_run };
 # in order to invoke side effect of close() on such a socket calling synchronize_rcu()
 allow system_server self:key_socket create;
+# Java's Os.close() in libcore/luni/src/main/java/libcore/io/BlockGuardOs.java;l=100
+# calls if (fd.isSocket$()) if (isLingerSocket(fd)) ...
+dontaudit system_server self:key_socket getopt;
 
 # Allow system_server to start clatd in its own domain and kill it.
 domain_auto_trans(system_server, clatd_exec, clatd)
@@ -1307,6 +1311,7 @@ neverallow {
   -system_server
   -flags_health_check
 } {
+  device_config_core_experiments_team_internal_prop
   device_config_activity_manager_native_boot_prop
   device_config_connectivity_prop
   device_config_input_native_boot_prop
@@ -1323,8 +1328,10 @@ neverallow {
   device_config_surface_flinger_native_boot_prop
   device_config_sys_traced_prop
   device_config_swcodec_native_prop
+  device_config_aconfig_flags_prop
   device_config_window_manager_native_boot_prop
   device_config_tethering_u_or_later_native_prop
+  next_boot_prop
 }:property_service set;
 
 # Only allow system_server and init to set tuner_server_ctl_prop
@@ -1543,9 +1550,16 @@ neverallowxperm { domain -system_server } binder_device:chr_file ioctl { BINDER_
 neverallow { domain -init -system_server } font_data_file:file no_w_file_perms;
 neverallow { domain -init -system_server } font_data_file:dir no_w_dir_perms;
 
+# Allow reading /system/etc/font_fallback.xml
+allow system_server system_font_fallback_file:file r_file_perms;
+
 # Allow system server to set dynamic ART properties.
 set_prop(system_server, dalvik_dynamic_config_prop)
 
 # Allow system server to read binderfs
 allow system_server binderfs_logs:dir r_dir_perms;
 allow system_server binderfs_logs_stats:file r_file_perms;
+
+# Allow GameManagerService to read and write persist.graphics.game_default_frame_rate.enabled
+set_prop(system_server, game_manager_config_prop)
+

@@ -28,3 +28,25 @@ type dependencyTag struct {
 var (
 	pctx = android.NewPackageContext("android/soong/selinux")
 )
+
+// pathForModuleOut is same as android.PathForModuleOut, except that it uses DeviceName() as its
+// intermediate directory name for system_ext/product/vendor/odm modules, to avoid rebuilding upon
+// target change. Contents of system modules (core sepolicy) should be identical across devices, so
+// they falls back to android.PathForModuleOut.
+func pathForModuleOut(ctx android.ModuleContext, paths ...string) android.OutputPath {
+	if ctx.Platform() && !ctx.InstallInRecovery() {
+		return android.PathForModuleOut(ctx, paths...).OutputPath
+	}
+
+	return android.PathForModuleOut(ctx, ctx.Config().DeviceName()).Join(ctx, paths...)
+}
+
+// flagsToM4Macros converts given map to a list of M4's -D parameters to guard te files and contexts
+// files.
+func flagsToM4Macros(flags map[string]string) []string {
+	flagMacros := []string{}
+	for _, flag := range android.SortedKeys(flags) {
+		flagMacros = append(flagMacros, "-D target_flag_"+flag+"="+flags[flag])
+	}
+	return flagMacros
+}

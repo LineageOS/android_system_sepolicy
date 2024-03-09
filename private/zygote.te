@@ -76,6 +76,8 @@ allow zygote {
     user_profile_data_file
     # /storage/emulated/$userId/Android/{data,obb}
     media_rw_data_file
+    # /dev/__properties__
+    properties_device
 }:dir { mounton search };
 
 # Traverse /data_mirror to get to the above directories while their normal paths
@@ -247,9 +249,11 @@ get_prop(zygote, qemu_sf_lcd_density_prop)
 # preloaded classes
 get_prop(zygote, persist_wm_debug_prop)
 
-# Allow zygote to read persist_sysui_builder_extras_prop to toggle experimental features in
-# core preloaded classes
+# Allow zygote to read persist_sysui_builder_extras_prop
+# and persist_sysui_ranking_update_prop
+# to toggle experimental features in core preloaded classes
 get_prop(zygote, persist_sysui_builder_extras_prop)
+get_prop(zygote, persist_sysui_ranking_update_prop)
 
 # Allow zygote to read /apex/apex-info-list.xml
 allow zygote apex_info_file:file r_file_perms;
@@ -258,9 +262,13 @@ allow zygote apex_info_file:file r_file_perms;
 # preinstalled path of APEXes that contain runtime resource overlays for the 'android' package.
 allow zygote vendor_apex_file:dir { getattr search };
 allow zygote vendor_apex_file:file { getattr };
+allow zygote vendor_apex_metadata_file:dir { search };
 
 # Allow zygote to query for compression/features.
 r_dir_file(zygote, sysfs_fs_f2fs)
+
+# Allow zygote to read fonts_customization.xml for preloading font files that matches device locale.
+allow zygote system_font_fallback_file:file r_file_perms;
 
 ###
 ### neverallow rules

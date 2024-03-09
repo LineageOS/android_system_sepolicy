@@ -1,4 +1,5 @@
-# Rules common to all binder service domains
+# Rules common to some specific binder service domains.
+# Deprecated. Consider granting the exact permissions required by your service.
 
 # Allow dumpstate and incidentd to collect information from binder services
 allow binderservicedomain { dumpstate incidentd }:fd use;
@@ -17,8 +18,6 @@ allow binderservicedomain appdomain:fifo_file write;
 # allow all services to run permission checks
 allow binderservicedomain permission_service:service_manager find;
 
-allow binderservicedomain keystore:keystore_key { get_state get insert delete exist list sign verify };
-allow binderservicedomain keystore:keystore2 { get_state };
 allow binderservicedomain keystore:keystore2_key { delete get_info rebind use };
 
 use_keystore(binderservicedomain)

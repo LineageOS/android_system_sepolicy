@@ -150,7 +150,7 @@ dontaudit priv_app sysfs:dir read;
 dontaudit priv_app sysfs:file read;
 dontaudit priv_app sysfs_android_usb:file read;
 dontaudit priv_app sysfs_dm:file r_file_perms;
-dontaudit priv_app { wifi_prop wifi_hal_prop }:file read;
+dontaudit priv_app { wifi_prop wifi_config_prop wifi_hal_prop }:file read;
 
 # allow privileged apps to use UDP sockets provided by the system server but not
 # modify them other than to connect
@@ -175,6 +175,12 @@ allowxperm priv_app incremental_control_file:file ioctl INCFS_IOCTL_PERMIT_FILL;
 
 # allow privileged apps to read the vendor property that indicates if Incremental File System is enabled
 get_prop(priv_app, incremental_prop)
+
+# allow privileged apps to read the device config flags.
+get_prop(priv_app, device_config_aconfig_flags_prop)
+
+# allow privileged apps to read boot reason property
+get_prop(priv_app, system_boot_reason_prop)
 
 # Required for Phonesky to be able to read APEX files under /data/apex/active/.
 allow priv_app apex_data_file:dir search;
@@ -218,7 +224,7 @@ neverallow priv_app kmsg_device:chr_file no_rw_file_perms;
 
 # Too much leaky information in debugfs. It's a security
 # best practice to ensure these files aren't readable.
-neverallow priv_app debugfs:file read;
+neverallow priv_app debugfs_type:file read;
 
 # Do not allow privileged apps to register services.
 # Only trusted components of Android should be registering
@@ -262,10 +268,10 @@ neverallow priv_app cgroup_v2:file *;
 # application home directories. Code loading across a security boundary
 # is dangerous and allows a full compromise of a privileged process
 # by an unprivileged process. b/112357170
-neverallow priv_app app_data_file:file no_x_file_perms;
+neverallow priv_app { app_data_file_type -privapp_data_file }:file no_x_file_perms;
 
-# Do not follow untrusted app provided symlinks
-neverallow priv_app app_data_file:lnk_file { open read getattr };
+# Do not follow any app provided symlinks
+neverallow priv_app { app_data_file_type -privapp_data_file }:lnk_file { open read getattr };
 
 # Do not allow getting permission-protected network information from sysfs.
 neverallow priv_app sysfs_net:file *;
@@ -290,3 +296,6 @@ neverallow priv_app *:{
 
 # Allow priv apps to report off body events to keystore2.
 allow priv_app keystore:keystore2 report_off_body;
+
+# Allow priv_apps to check if archiving is enabled
+get_prop(priv_app, pm_archiving_enabled_prop)

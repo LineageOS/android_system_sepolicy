@@ -1,0 +1,9 @@
+####################################
+# is_flag_enabled(flag, rules)
+# SELinux rules which apply only if given feature is turned on
+define(`is_flag_enabled', `ifelse(target_flag_$1, `true', `$2')')
+
+####################################
+# is_flag_disabled(flag, rules)
+# SELinux rules which apply only if given feature is turned off
+define(`is_flag_disabled', `ifelse(target_flag_$1, `true', , `$2')')

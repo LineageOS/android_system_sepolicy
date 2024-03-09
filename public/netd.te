@@ -80,7 +80,7 @@ allow netd self:global_capability_class_set fowner;
 allow netd system_file:file lock;
 
 # Allow netd to spawn dnsmasq in it's own domain
-allow netd dnsmasq:process signal;
+allow netd dnsmasq:process { sigkill signal };
 
 # Allow netd to publish a binder service and make binder calls.
 binder_use(netd)
@@ -129,7 +129,7 @@ neverallow netd dev_type:blk_file { read write };
 neverallow netd { domain }:process ptrace;
 
 # Write to /system.
-neverallow netd system_file:dir_file_class_set write;
+neverallow netd system_file_type:dir_file_class_set write;
 
 # Write to files in /data/data or system files on /data
 neverallow netd { app_data_file_type system_data_file }:dir_file_class_set write;
@@ -184,7 +184,5 @@ dontaudit netd self:capability sys_admin;
 # Netd should not have SYS_MODULE privs, nor should it be requesting module loads
 # (things it requires should be built directly into the kernel)
 dontaudit netd self:capability sys_module;
-
-dontaudit netd kernel:system module_request;
 
 dontaudit netd appdomain:unix_stream_socket { read write };

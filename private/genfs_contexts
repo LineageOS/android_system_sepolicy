@@ -19,6 +19,7 @@ genfscon proc /loadavg u:object_r:proc_loadavg:s0
 genfscon proc /locks u:object_r:proc_locks:s0
 genfscon proc /lowmemorykiller u:object_r:proc_lowmemorykiller:s0
 genfscon proc /meminfo u:object_r:proc_meminfo:s0
+genfscon proc /memhealth u:object_r:proc_memhealth:s0
 genfscon proc /misc u:object_r:proc_misc:s0
 genfscon proc /modules u:object_r:proc_modules:s0
 genfscon proc /mounts u:object_r:proc_mounts:s0
@@ -91,6 +92,7 @@ genfscon proc /sys/vm/overcommit_memory u:object_r:proc_overcommit_memory:s0
 genfscon proc /sys/vm/min_free_order_shift u:object_r:proc_min_free_order_shift:s0
 genfscon proc /sys/vm/watermark_boost_factor u:object_r:proc_watermark_boost_factor:s0
 genfscon proc /sys/vm/watermark_scale_factor u:object_r:proc_watermark_scale_factor:s0
+genfscon proc /sys/vm/percpu_pagelist_high_fraction u:object_r:proc_percpu_pagelist_high_fraction:s0
 genfscon proc /timer_list u:object_r:proc_timer:s0
 genfscon proc /timer_stats u:object_r:proc_timer:s0
 genfscon proc /tty/drivers u:object_r:proc_tty_drivers:s0
@@ -156,6 +158,7 @@ genfscon sysfs /fs/incremental-fs/instances       u:object_r:sysfs_fs_incfs_metr
 genfscon sysfs /power/autosleep u:object_r:sysfs_power:s0
 genfscon sysfs /power/state u:object_r:sysfs_power:s0
 genfscon sysfs /power/suspend_stats u:object_r:sysfs_suspend_stats:s0
+genfscon sysfs /power/sync_on_suspend u:object_r:sysfs_sync_on_suspend:s0
 genfscon sysfs /power/wakeup_count u:object_r:sysfs_power:s0
 genfscon sysfs /power/wake_lock u:object_r:sysfs_wake_lock:s0
 genfscon sysfs /power/wake_unlock u:object_r:sysfs_wake_lock:s0
@@ -176,6 +179,7 @@ genfscon sysfs /module/wlan/parameters/fwpath u:object_r:sysfs_wlan_fwpath:s0
 genfscon sysfs /devices/virtual/timed_output/vibrator/enable u:object_r:sysfs_vibrator:s0
 genfscon sysfs /devices/virtual/misc/uhid u:object_r:sysfs_uhid:s0
 genfscon sysfs /kernel/vendor_sched u:object_r:sysfs_vendor_sched:s0
+genfscon sysfs /devices/uprobe u:object_r:sysfs_uprobe:s0
 
 genfscon debugfs /kprobes                             u:object_r:debugfs_kprobes:s0
 genfscon debugfs /mmc0                                u:object_r:debugfs_mmc:s0
@@ -284,6 +288,8 @@ genfscon tracefs /events/binder/binder_locked/                           u:objec
 genfscon tracefs /events/binder/binder_unlock/                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/binder/binder_transaction_alloc_buf/            u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/binder/binder_set_priority/                     u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/binder/binder_command/                          u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/binder/binder_return/                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/lowmemorykiller/                                u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/sync/                                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/fence/                                          u:object_r:debugfs_tracing:s0
@@ -349,6 +355,8 @@ genfscon debugfs /tracing/events/binder/binder_locked/                          
 genfscon debugfs /tracing/events/binder/binder_unlock/                           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/binder/binder_transaction_alloc_buf/            u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/binder/binder_set_priority/                     u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/binder/binder_command/                          u:object_r:debugfs_tracing:s0
+genfscon debugfs /tracing/events/binder/binder_return/                           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/lowmemorykiller/                                u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/sync/                                           u:object_r:debugfs_tracing:s0
 genfscon debugfs /tracing/events/fence/                                          u:object_r:debugfs_tracing:s0
@@ -411,3 +419,4 @@ genfscon bpf /netd_readonly u:object_r:fs_bpf_netd_readonly:s0
 genfscon bpf /netd_shared u:object_r:fs_bpf_netd_shared:s0
 genfscon bpf /tethering u:object_r:fs_bpf_tethering:s0
 genfscon bpf /vendor u:object_r:fs_bpf_vendor:s0
+genfscon bpf /uprobe_private u:object_r:fs_bpf_uprobe_private:s0

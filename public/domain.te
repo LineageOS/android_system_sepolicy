@@ -57,6 +57,9 @@ with_native_coverage(`
   allow domain method_trace_data_file:file create_file_perms;
 ')
 
+# Allow everyone to read aconfig flags
+get_prop(domain, device_config_aconfig_flags_prop);
+
 # Root fs.
 allow domain tmpfs:dir { getattr search };
 allow domain rootfs:dir search;
@@ -334,6 +337,10 @@ with_asan(`allow domain system_asan_options_file:file r_file_perms;')
 allow domain apex_mnt_dir:dir { getattr search };
 allow domain apex_mnt_dir:lnk_file r_file_perms;
 
+# Allow everyone to read media server-configurable flags, so that libstagefright can be
+# configured using server-configurable flags
+get_prop(domain, device_config_media_native_prop)
+
 ###
 ### neverallow rules
 ###
@@ -433,6 +440,10 @@ neverallow { domain -init -vendor_init } proc_security:file { append open read w
 # triggered, it's probably due to a service with no SELinux domain.
 neverallow * init:binder *;
 neverallow * vendor_init:binder *;
+
+# Binderfs logs contain sensitive information about other processes.
+neverallow { domain -dumpstate -init -vendor_init userdebug_or_eng(`-domain') } { binderfs_logs binderfs_logs_proc }:file no_rw_file_perms;
+neverallow { domain -dumpstate -init -vendor_init -system_server } binderfs_logs_stats:file no_rw_file_perms;
 
 # Don't allow raw read/write/open access to block_device
 # Rather force a relabel to a more specific type
@@ -576,7 +587,6 @@ neverallow {
   -init
   -recovery
   -system_server
-  -shell # Shell is further restricted in shell.te
   -ueventd # Further restricted in ueventd.te
 } frp_block_device:blk_file no_rw_file_perms;
 
@@ -1054,6 +1064,7 @@ neverallow * self:process { execstack execheap };
 neverallow { domain -untrusted_app_25 -untrusted_app_27 } file_type:file execmod;
 
 neverallow { domain -init } proc:{ file dir } mounton;
+neverallow { domain -init -zygote } proc_type:{ file dir } mounton;
 
 # Ensure that all types assigned to processes are included
 # in the domain attribute, so that all allow and neverallow rules
@@ -1286,7 +1297,3 @@ neverallow { domain -traced_probes -init -vendor_init } debugfs_tracing_printk_f
 
 # Linux lockdown "integrity" level is enforced for user builds.
 neverallow { domain userdebug_or_eng(`-domain') } self:lockdown integrity;
-
-# Allow everyone to read media server-configurable flags, so that libstagefright can be
-# configured using server-configurable flags
-get_prop(domain, device_config_media_native_prop)

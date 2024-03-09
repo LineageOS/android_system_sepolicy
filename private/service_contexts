@@ -2,6 +2,7 @@ android.frameworks.cameraservice.service.ICameraService/default      u:object_r:
 android.frameworks.location.altitude.IAltitudeService/default        u:object_r:fwk_altitude_service:s0
 android.frameworks.stats.IStats/default                              u:object_r:fwk_stats_service:s0
 android.frameworks.sensorservice.ISensorManager/default              u:object_r:fwk_sensor_service:s0
+android.frameworks.vibrator.IVibratorControlService/default          u:object_r:fwk_vibrator_control_service:s0
 android.hardware.audio.core.IConfig/default                          u:object_r:hal_audio_service:s0
 # 'default' IModule is equivalent to 'primary' in HIDL
 android.hardware.audio.core.IModule/default                          u:object_r:hal_audio_service:s0
@@ -24,15 +25,21 @@ android.hardware.automotive.ivn.IIvnAndroidDevice/default            u:object_r:
 android.hardware.automotive.remoteaccess.IRemoteAccess/default       u:object_r:hal_remoteaccess_service:s0
 android.hardware.automotive.vehicle.IVehicle/default                 u:object_r:hal_vehicle_service:s0
 android.hardware.biometrics.face.IFace/default                       u:object_r:hal_face_service:s0
+android.hardware.biometrics.face.IFace/virtual                       u:object_r:hal_face_service:s0
 android.hardware.biometrics.fingerprint.IFingerprint/default         u:object_r:hal_fingerprint_service:s0
 android.hardware.biometrics.fingerprint.IFingerprint/virtual         u:object_r:hal_fingerprint_service:s0
 android.hardware.bluetooth.IBluetoothHci/default                     u:object_r:hal_bluetooth_service:s0
+android.hardware.bluetooth.finder.IBluetoothFinder/default           u:object_r:hal_bluetooth_service:s0
+is_flag_enabled(RELEASE_HARDWARE_BLUETOOTH_RANGING_SERVICE, `
+    android.hardware.bluetooth.ranging.IBluetoothChannelSounding/default u:object_r:hal_bluetooth_service:s0
+')
 android.hardware.bluetooth.audio.IBluetoothAudioProviderFactory/default u:object_r:hal_audio_service:s0
 android.hardware.broadcastradio.IBroadcastRadio/amfm                 u:object_r:hal_broadcastradio_service:s0
 android.hardware.broadcastradio.IBroadcastRadio/dab                  u:object_r:hal_broadcastradio_service:s0
 # The instance here is internal/0 following naming convention for ICameraProvider.
 # It advertises internal camera devices.
 android.hardware.camera.provider.ICameraProvider/internal/0          u:object_r:hal_camera_service:s0
+android.hardware.camera.provider.ICameraProvider/virtual/0           u:object_r:virtual_camera_service:s0
 android.hardware.cas.IMediaCasService/default                        u:object_r:hal_cas_service:s0
 android.hardware.confirmationui.IConfirmationUI/default              u:object_r:hal_confirmationui_service:s0
 android.hardware.contexthub.IContextHub/default                      u:object_r:hal_contexthub_service:s0
@@ -49,6 +56,9 @@ android.hardware.identity.IIdentityCredentialStore/default           u:object_r:
 android.hardware.input.processor.IInputProcessor/default           u:object_r:hal_input_processor_service:s0
 android.hardware.ir.IConsumerIr/default                              u:object_r:hal_ir_service:s0
 android.hardware.light.ILights/default                               u:object_r:hal_light_service:s0
+android.hardware.macsec.IMacsecPskPlugin/default                     u:object_r:hal_macsec_service:s0
+android.hardware.media.c2.IComponentStore/default                    u:object_r:hal_codec2_service:s0
+android.hardware.media.c2.IComponentStore/software                   u:object_r:hal_codec2_service:s0
 android.hardware.memtrack.IMemtrack/default                          u:object_r:hal_memtrack_service:s0
 android.hardware.net.nlinterceptor.IInterceptor/default              u:object_r:hal_nlinterceptor_service:s0
 android.hardware.nfc.INfc/default                                    u:object_r:hal_nfc_service:s0
@@ -85,8 +95,10 @@ android.hardware.radio.voice.IRadioVoice/slot1                       u:object_r:
 android.hardware.radio.voice.IRadioVoice/slot2                       u:object_r:hal_radio_service:s0
 android.hardware.radio.voice.IRadioVoice/slot3                       u:object_r:hal_radio_service:s0
 android.hardware.rebootescrow.IRebootEscrow/default                  u:object_r:hal_rebootescrow_service:s0
+android.hardware.security.authgraph.IAuthGraphKeyExchange/nonsecure  u:object_r:hal_authgraph_service:s0
 android.hardware.security.keymint.IKeyMintDevice/default             u:object_r:hal_keymint_service:s0
 android.hardware.security.keymint.IRemotelyProvisionedComponent/default u:object_r:hal_remotelyprovisionedcomponent_service:s0
+android.hardware.security.keymint.IRemotelyProvisionedComponent/avf     u:object_r:hal_remotelyprovisionedcomponent_avf_service:s0
 android.hardware.gatekeeper.IGatekeeper/default                      u:object_r:hal_gatekeeper_service:s0
 android.hardware.security.secureclock.ISecureClock/default             u:object_r:hal_secureclock_service:s0
 android.hardware.security.sharedsecret.ISharedSecret/default             u:object_r:hal_sharedsecret_service:s0
@@ -94,6 +106,7 @@ android.hardware.sensors.ISensors/default                            u:object_r:
 android.hardware.soundtrigger3.ISoundTriggerHw/default               u:object_r:hal_audio_service:s0
 android.hardware.tetheroffload.IOffload/default                      u:object_r:hal_tetheroffload_service:s0
 android.hardware.thermal.IThermal/default                            u:object_r:hal_thermal_service:s0
+android.hardware.threadnetwork.IThreadChip/chip0                     u:object_r:hal_threadnetwork_service:s0
 android.hardware.tv.hdmi.cec.IHdmiCec/default                        u:object_r:hal_tv_hdmi_cec_service:s0
 android.hardware.tv.hdmi.connection.IHdmiConnection/default          u:object_r:hal_tv_hdmi_connection_service:s0
 android.hardware.tv.hdmi.earc.IEArc/default                          u:object_r:hal_tv_hdmi_earc_service:s0
@@ -115,6 +128,8 @@ android.hardware.secure_element.ISecureElement/eSE3                  u:object_r:
 android.hardware.secure_element.ISecureElement/SIM1                  u:object_r:hal_secure_element_service:s0
 android.hardware.secure_element.ISecureElement/SIM2                  u:object_r:hal_secure_element_service:s0
 android.hardware.secure_element.ISecureElement/SIM3                  u:object_r:hal_secure_element_service:s0
+android.hardware.security.secretkeeper.ISecretkeeper/default         u:object_r:hal_secretkeeper_service:s0
+android.hardware.security.secretkeeper.ISecretkeeper/nonsecure       u:object_r:hal_secretkeeper_service:s0
 android.system.keystore2.IKeystoreService/default                    u:object_r:keystore_service:s0
 android.system.net.netd.INetd/default                                u:object_r:system_net_netd_service:s0
 android.system.suspend.ISystemSuspend/default                        u:object_r:hal_system_suspend_service:s0
@@ -127,6 +142,7 @@ adb                                       u:object_r:adb_service:s0
 adservices_manager                        u:object_r:adservices_manager_service:s0
 aidl_lazy_test_1                          u:object_r:aidl_lazy_test_service:s0
 aidl_lazy_test_2                          u:object_r:aidl_lazy_test_service:s0
+aidl_lazy_test_quit                       u:object_r:aidl_lazy_test_service:s0
 aidl_lazy_cb_test                         u:object_r:aidl_lazy_test_service:s0
 alarm                                     u:object_r:alarm_service:s0
 android.hardware.automotive.evs.IEvsEnumerator/default u:object_r:evsmanagerd_service:s0
@@ -144,6 +160,9 @@ android.security.metrics                  u:object_r:keystore_metrics_service:s0
 android.service.gatekeeper.IGateKeeperService    u:object_r:gatekeeper_service:s0
 android.system.composd                    u:object_r:compos_service:s0
 android.system.virtualizationservice      u:object_r:virtualization_service:s0
+is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
+    android.system.virtualizationservice_internal.IVfioHandler u:object_r:vfio_handler_service:s0
+')
 ambient_context                           u:object_r:ambient_context_service:s0
 app_binding                               u:object_r:app_binding_service:s0
 app_hibernation                           u:object_r:app_hibernation_service:s0
@@ -151,6 +170,7 @@ app_integrity                             u:object_r:app_integrity_service:s0
 app_prediction                            u:object_r:app_prediction_service:s0
 app_search                                u:object_r:app_search_service:s0
 apexservice                               u:object_r:apex_service:s0
+archive                                   u:object_r:archive_service:s0
 attestation_verification                  u:object_r:attestation_verification_service:s0
 blob_store                                u:object_r:blob_store_service:s0
 gsiservice                                u:object_r:gsi_service:s0
@@ -314,6 +334,7 @@ notification                              u:object_r:notification_service:s0
 oem_lock                                  u:object_r:oem_lock_service:s0
 ondevicepersonalization_system_service    u:object_r:ondevicepersonalization_system_service:s0
 otadexopt                                 u:object_r:otadexopt_service:s0
+ot_daemon                                 u:object_r:ot_daemon_service:s0
 overlay                                   u:object_r:overlay_service:s0
 pac_proxy                                 u:object_r:pac_proxy_service:s0
 package                                   u:object_r:package_service:s0
@@ -341,6 +362,7 @@ radio.sms                                 u:object_r:radio_service:s0
 rcs                                       u:object_r:radio_service:s0
 reboot_readiness                          u:object_r:reboot_readiness_service:s0
 recovery                                  u:object_r:recovery_service:s0
+remote_auth                               u:object_r:remote_auth_service:s0
 remote_provisioning                       u:object_r:remote_provisioning_service:s0
 resolver                                  u:object_r:resolver_service:s0
 resources                                 u:object_r:resources_manager_service:s0
@@ -358,6 +380,7 @@ search                                    u:object_r:search_service:s0
 search_ui                                 u:object_r:search_ui_service:s0
 secure_element                            u:object_r:secure_element_service:s0
 sec_key_att_app_id_provider               u:object_r:sec_key_att_app_id_provider_service:s0
+security_state                            u:object_r:security_state_service:s0
 selection_toolbar                         u:object_r:selection_toolbar_service:s0
 sensorservice                             u:object_r:sensorservice_service:s0
 sensor_privacy                            u:object_r:sensor_privacy_service:s0
@@ -405,10 +428,12 @@ texttospeech                              u:object_r:texttospeech_service:s0
 time_detector                             u:object_r:timedetector_service:s0
 time_zone_detector                        u:object_r:timezonedetector_service:s0
 thermalservice                            u:object_r:thermal_service:s0
+thread_network                            u:object_r:threadnetwork_service:s0
 tracing.proxy                             u:object_r:tracingproxy_service:s0
 translation                               u:object_r:translation_service:s0
 transparency                              u:object_r:transparency_service:s0
 trust                                     u:object_r:trust_service:s0
+tv_ad                                     u:object_r:tv_ad_service:s0
 tv_interactive_app                        u:object_r:tv_iapp_service:s0
 tv_input                                  u:object_r:tv_input_service:s0
 tv_tuner_resource_mgr                     u:object_r:tv_tuner_resource_mgr_service:s0
@@ -423,7 +448,9 @@ uwb                                       u:object_r:uwb_service:s0
 vcn_management                            u:object_r:vcn_management_service:s0
 vibrator                                  u:object_r:vibrator_service:s0
 vibrator_manager                          u:object_r:vibrator_manager_service:s0
+virtual_camera                            u:object_r:virtual_camera_service:s0
 virtualdevice                             u:object_r:virtual_device_service:s0
+virtualdevice_native                      u:object_r:virtual_device_native_service:s0
 virtual_touchpad                          u:object_r:virtual_touchpad_service:s0
 voiceinteraction                          u:object_r:voiceinteraction_service:s0
 vold                                      u:object_r:vold_service:s0

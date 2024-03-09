@@ -7,7 +7,8 @@ type artd_tmpfs, file_type;
 # Allow artd to publish a binder service and make binder calls.
 binder_use(artd)
 add_service(artd, artd_service)
-allow artd dumpstate:fifo_file  { getattr write };
+allow artd dumpstate:fifo_file { getattr write };
+allow artd dumpstate:fd use;
 
 init_daemon_domain(artd)
 
@@ -39,9 +40,11 @@ allow artd apk_data_file:file r_file_perms;
 # Read access to vendor APKs ({/vendor,/odm}/{app,priv-app}/...).
 r_dir_file(artd, vendor_app_file)
 
-# Read access to vendor overlay APKs ({/vendor,/odm,/oem}/overlay/...).
+# Read access to vendor overlay APKs ({/vendor,/odm,/oem,/apex/*}/overlay/...).
 allow artd oemfs:dir { getattr search };
 r_dir_file(artd, vendor_overlay_file)
+# Vendor overlay can be found in vendor apex
+allow artd vendor_apex_metadata_file:dir { getattr search };
 
 # Read access to vendor shared libraries ({/vendor,/odm}/framework/...).
 r_dir_file(artd, vendor_framework_file)
@@ -134,3 +137,8 @@ allow artd { profman dex2oat }:process sigkill;
 # This is needed for getting CPU time and wall time spent on subprocesses.
 r_dir_file(artd, profman);
 r_dir_file(artd, dex2oat);
+
+# Allow artd to reopen its own memfd.
+# artd needs to reopen a memfd with readonly in order to pass it to subprocesses
+# that don't have write permissions on memfds.
+allow artd artd_tmpfs:file open;

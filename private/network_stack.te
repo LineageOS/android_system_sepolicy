@@ -13,6 +13,8 @@ allow network_stack self:global_capability_class_set {
     net_raw
 };
 
+allow network_stack self:global_capability2_class_set wake_alarm;
+
 # Allow access to net_admin ioctl, DHCP server uses SIOCSARP
 allowxperm network_stack self:udp_socket ioctl priv_sock_ioctls;
 
@@ -43,7 +45,6 @@ allow network_stack radio_data_file:file create_file_perms;
 binder_call(network_stack, netd);
 
 # in order to invoke side effect of close() on such a socket calling synchronize_rcu()
-# TODO: Remove this permission when 4.9 kernel is deprecated.
 allow network_stack self:key_socket create;
 # Java's Os.close() in libcore/luni/src/main/java/libcore/io/BlockGuardOs.java;l=100
 # calls if (fd.isSocket$()) if (isLingerSocket(fd)) ...

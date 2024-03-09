@@ -19,6 +19,8 @@ allow rs { app_data_file privapp_data_file }:dir remove_name;
 allow rs vendor_file:dir r_dir_perms;
 r_dir_file(rs, vendor_overlay_file)
 r_dir_file(rs, vendor_app_file)
+# Vendor overlay can be found in vendor apex
+allow rs vendor_apex_metadata_file:dir { getattr search };
 
 # Read contents of app apks
 r_dir_file(rs, apk_data_file)
@@ -30,11 +32,15 @@ allow rs same_process_hal_file:file { r_file_perms execute };
 # File descriptors passed from app to renderscript
 allow rs { untrusted_app_all ephemeral_app priv_app }:fd use;
 
+# See b/291211299. Since rs is deprecated, this shouldn't be too dangerous, since new
+# renderscript usages shouldn't be popping up.
+dontaudit rs { zygote surfaceflinger hal_graphics_allocator }:fd use;
+
 # rs can access app data, so ensure it can only be entered via an app domain and cannot have
 # CAP_DAC_OVERRIDE.
 neverallow rs rs:capability_class_set *;
 neverallow { domain -appdomain } rs:process { dyntransition transition };
 neverallow rs { domain -crash_dump }:process { dyntransition transition };
-neverallow rs app_data_file:file_class_set ~r_file_perms;
+neverallow rs app_data_file_type:file_class_set ~r_file_perms;
 # rs should never use network sockets
 neverallow rs *:network_socket_class_set *;

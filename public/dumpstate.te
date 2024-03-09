@@ -56,7 +56,7 @@ allow dumpstate pstorefs:file r_file_perms;
 allow dumpstate domain:process getattr;
 
 # Signal java processes to dump their stack
-allow dumpstate { appdomain system_server zygote }:process signal;
+allow dumpstate { appdomain system_server zygote app_zygote }:process signal;
 
 # Signal native processes to dump their stack.
 allow dumpstate {
@@ -146,11 +146,12 @@ r_dir_file(dumpstate, cgroup_v2)
 
 # Allow dumpstate to make binder calls to any binder service
 binder_call(dumpstate, binderservicedomain)
-binder_call(dumpstate, { appdomain netd wificond })
+binder_call(dumpstate, { appdomain artd netd wificond })
 
 # Allow dumpstate to call dump() on specific hals.
 dump_hal(hal_audio)
 dump_hal(hal_audiocontrol)
+dump_hal(hal_authgraph)
 dump_hal(hal_authsecret)
 dump_hal(hal_bluetooth)
 dump_hal(hal_broadcastradio)
@@ -177,6 +178,7 @@ dump_hal(hal_oemlock)
 dump_hal(hal_power)
 dump_hal(hal_power_stats)
 dump_hal(hal_rebootescrow)
+dump_hal(hal_secretkeeper)
 dump_hal(hal_sensors)
 dump_hal(hal_thermal)
 dump_hal(hal_vehicle)
@@ -259,6 +261,9 @@ allow dumpstate recovery_data_file:file r_file_perms;
 # Access /data/misc/update_engine & /data/misc/update_engine_log
 allow dumpstate { update_engine_data_file update_engine_log_data_file }:dir r_dir_perms;
 allow dumpstate { update_engine_data_file update_engine_log_data_file }:file r_file_perms;
+# Access /data/misc/snapuserd_log
+allow dumpstate snapuserd_log_data_file:dir r_dir_perms;
+allow dumpstate snapuserd_log_data_file:file r_file_perms;
 
 # Access /data/misc/profiles/{cur,ref}/
 userdebug_or_eng(`

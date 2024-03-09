@@ -2,6 +2,7 @@
 system_internal_prop(adbd_prop)
 system_internal_prop(apexd_payload_metadata_prop)
 system_internal_prop(ctl_snapuserd_prop)
+system_internal_prop(device_config_core_experiments_team_internal_prop)
 system_internal_prop(device_config_lmkd_native_prop)
 system_internal_prop(device_config_mglru_native_prop)
 system_internal_prop(device_config_profcollect_native_boot_prop)
@@ -26,10 +27,12 @@ system_internal_prop(keystore_crash_prop)
 system_internal_prop(keystore_listen_prop)
 system_internal_prop(last_boot_reason_prop)
 system_internal_prop(localization_prop)
+system_internal_prop(logd_auditrate_prop)
 system_internal_prop(lower_kptr_restrict_prop)
 system_internal_prop(net_464xlat_fromvendor_prop)
 system_internal_prop(net_connectivity_prop)
 system_internal_prop(netd_stable_secret_prop)
+system_internal_prop(next_boot_prop)
 system_internal_prop(odsign_prop)
 system_internal_prop(perf_drop_caches_prop)
 system_internal_prop(pm_prop)
@@ -51,11 +54,17 @@ system_internal_prop(ctl_mediatranscoding_prop)
 system_internal_prop(ctl_odsign_prop)
 system_internal_prop(virtualizationservice_prop)
 system_internal_prop(ctl_apex_load_prop)
+system_internal_prop(enable_16k_pages_prop)
+system_internal_prop(sensors_config_prop)
+system_internal_prop(hypervisor_pvmfw_prop)
+system_internal_prop(hypervisor_virtualizationmanager_prop)
+system_internal_prop(game_manager_config_prop)
 
 # Properties which can't be written outside system
 system_restricted_prop(device_config_virtualization_framework_native_prop)
 system_restricted_prop(log_file_logger_prop)
 system_restricted_prop(persist_sysui_builder_extras_prop)
+system_restricted_prop(persist_sysui_ranking_update_prop)
 
 ###
 ### Neverallow rules
@@ -598,6 +607,12 @@ neverallow {
 neverallow {
   domain
   -init
+  -vendor_init
+} setupwizard_mode_prop:property_service set;
+
+neverallow {
+  domain
+  -init
 } setupwizard_prop:property_service set;
 
 # ro.product.property_source_order is useless after initialization of ro.product.* props.
@@ -697,3 +712,10 @@ neverallow {
   -system_app
   -device_as_webcam
 } usb_uvc_enabled_prop:file no_rw_file_perms;
+
+neverallow {
+  domain
+  -init
+  -vendor_init
+} pm_archiving_enabled_prop:property_service set;
+

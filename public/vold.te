@@ -177,10 +177,13 @@ allow vold fscklogs:file create_file_perms;
 allow vold labeledfs:filesystem { mount unmount remount };
 
 # Create and mount on /data/tmp_mnt and management of expansion mounts
+#
+# Also rename per-user encrypted directories such as /data/user/10 from their
+# temporary name ("10.new") to their final name ("10").
 allow vold {
     system_data_file
     system_data_root_file
-}:dir { create rw_dir_perms mounton setattr rmdir };
+}:dir { create_dir_perms mounton };
 allow vold system_data_file:lnk_file getattr;
 
 # Vold create users in /data/vendor_{ce,de}/[0-9]+

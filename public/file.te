@@ -16,6 +16,7 @@ type proc_overcommit_memory, fs_type, proc_type;
 type proc_min_free_order_shift, fs_type, proc_type;
 type proc_kpageflags, fs_type, proc_type;
 type proc_watermark_boost_factor, fs_type, proc_type;
+type proc_percpu_pagelist_high_fraction, fs_type, proc_type;
 # proc, sysfs, or other nodes that permit configuration of kernel usermodehelpers.
 type usermodehelper, fs_type, proc_type;
 type sysfs_usermodehelper, fs_type, sysfs_type;
@@ -47,6 +48,7 @@ type proc_locks, fs_type, proc_type;
 type proc_lowmemorykiller, fs_type, proc_type;
 type proc_max_map_count, fs_type, proc_type;
 type proc_meminfo, fs_type, proc_type;
+type proc_memhealth, fs_type, proc_type;
 type proc_misc, fs_type, proc_type;
 type proc_modules, fs_type, proc_type;
 type proc_mounts, fs_type, proc_type;
@@ -116,6 +118,7 @@ type sysfs_power, fs_type, sysfs_type;
 type sysfs_rtc, fs_type, sysfs_type;
 type sysfs_suspend_stats, fs_type, sysfs_type;
 type sysfs_switch, fs_type, sysfs_type;
+type sysfs_sync_on_suspend, fs_type, sysfs_type;
 type sysfs_transparent_hugepage, fs_type, sysfs_type;
 type sysfs_lru_gen_enabled, fs_type, sysfs_type;
 type sysfs_usb, fs_type, sysfs_type;
@@ -252,6 +255,9 @@ type vendor_public_lib_file, vendor_file_type, file_type;
 # Type for all vendor public libraries for system. These libs should only be exposed to
 # system. ABI stability of these libs is vendor's responsibility.
 type vendor_public_framework_file, vendor_file_type, file_type;
+# Type for all microdroid related files in the vendor partition.
+# Files having this type should be read-only.
+type vendor_microdroid_file, vendor_file_type, file_type;
 
 # Input configuration
 type vendor_keylayout_file, vendor_file_type, file_type;
@@ -384,6 +390,8 @@ type server_configurable_flags_data_file, file_type, data_file_type, core_data_f
 type staging_data_file, file_type, data_file_type, core_data_file_type;
 # /vendor/apex
 type vendor_apex_file, vendor_file_type, file_type;
+# apex_manifest.pb in vendor apex
+type vendor_apex_metadata_file, vendor_file_type, file_type;
 # /data/system/shutdown-checkpoints
 type shutdown_checkpoints_system_data_file, file_type, data_file_type, core_data_file_type;
 
@@ -463,6 +471,7 @@ type vold_data_file, file_type, data_file_type, core_data_file_type;
 type tee_data_file, file_type, data_file_type;
 type update_engine_data_file, file_type, data_file_type, core_data_file_type;
 type update_engine_log_data_file, file_type, data_file_type, core_data_file_type;
+type snapuserd_log_data_file, file_type, data_file_type, core_data_file_type;
 # /data/misc/trace for method traces on userdebug / eng builds
 type method_trace_data_file, file_type, data_file_type, core_data_file_type, mlstrustedobject;
 type gsi_data_file, file_type, data_file_type, core_data_file_type;

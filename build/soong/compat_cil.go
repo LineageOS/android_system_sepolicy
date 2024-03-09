@@ -29,7 +29,7 @@ var (
 func init() {
 	ctx := android.InitRegistrationContext
 	ctx.RegisterModuleType("se_compat_cil", compatCilFactory)
-	ctx.RegisterSingletonModuleType("se_compat_test", compatTestFactory)
+	ctx.RegisterParallelSingletonModuleType("se_compat_test", compatTestFactory)
 }
 
 // se_compat_cil collects and installs backwards compatibility cil files.
@@ -43,7 +43,7 @@ func compatCilFactory() android.Module {
 type compatCil struct {
 	android.ModuleBase
 	properties    compatCilProperties
-	installSource android.Path
+	installSource android.OptionalPath
 	installPath   android.InstallPath
 }
 
@@ -53,6 +53,10 @@ type compatCilProperties struct {
 
 	// Output file name. Defaults to module name if unspecified.
 	Stem *string
+
+	// Target version that this module supports. This module will be ignored if platform sepolicy
+	// version is same as this module's version.
+	Version *string
 }
 
 func (c *compatCil) stem() string {
@@ -63,9 +67,17 @@ func (c *compatCil) expandSeSources(ctx android.ModuleContext) android.Paths {
 	return android.PathsForModuleSrc(ctx, c.properties.Srcs)
 }
 
+func (c *compatCil) shouldSkipBuild(ctx android.ModuleContext) bool {
+	return proptools.String(c.properties.Version) == ctx.DeviceConfig().PlatformSepolicyVersion()
+}
+
 func (c *compatCil) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	if c.ProductSpecific() || c.SocSpecific() || c.DeviceSpecific() {
 		ctx.ModuleErrorf("Compat cil files only support system and system_ext partitions")
+	}
+
+	if c.shouldSkipBuild(ctx) {
+		return
 	}
 
 	srcPaths := c.expandSeSources(ctx)
@@ -78,14 +90,17 @@ func (c *compatCil) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	})
 
 	c.installPath = android.PathForModuleInstall(ctx, "etc", "selinux", "mapping")
-	c.installSource = out
-	ctx.InstallFile(c.installPath, c.stem(), c.installSource)
+	c.installSource = android.OptionalPathForPath(out)
+	ctx.InstallFile(c.installPath, c.stem(), out)
 }
 
 func (c *compatCil) AndroidMkEntries() []android.AndroidMkEntries {
+	if !c.installSource.Valid() {
+		return nil
+	}
 	return []android.AndroidMkEntries{android.AndroidMkEntries{
 		Class:      "ETC",
-		OutputFile: android.OptionalPathForPath(c.installSource),
+		OutputFile: c.installSource,
 		ExtraEntries: []android.AndroidMkExtraEntriesFunc{
 			func(ctx android.AndroidMkExtraEntriesContext, entries *android.AndroidMkEntries) {
 				entries.SetPath("LOCAL_MODULE_PATH", c.installPath)
@@ -98,7 +113,11 @@ func (c *compatCil) AndroidMkEntries() []android.AndroidMkEntries {
 func (c *compatCil) OutputFiles(tag string) (android.Paths, error) {
 	switch tag {
 	case "":
-		return android.Paths{c.installSource}, nil
+		if c.installSource.Valid() {
+			return android.Paths{c.installSource.Path()}, nil
+		} else {
+			return nil, nil
+		}
 	default:
 		return nil, fmt.Errorf("unsupported module reference tag %q", tag)
 	}
@@ -110,6 +129,7 @@ var _ android.OutputFileProducer = (*compatCil)(nil)
 // current policy.
 func compatTestFactory() android.SingletonModule {
 	f := &compatTestModule{}
+	f.AddProperties(&f.properties)
 	android.InitAndroidModule(f)
 	android.AddLoadHook(f, func(ctx android.LoadHookContext) {
 		f.loadHook(ctx)
@@ -119,6 +139,10 @@ func compatTestFactory() android.SingletonModule {
 
 type compatTestModule struct {
 	android.SingletonModuleBase
+	properties struct {
+		// Default modules for conf
+		Defaults []string
+	}
 
 	compatTestTimestamp android.ModuleOutPath
 }
@@ -138,6 +162,10 @@ func (f *compatTestModule) createPlatPubVersionedModule(ctx android.LoadHookCont
 			":se_build_files{.reqd_mask}",
 		},
 		Installable: proptools.BoolPtr(false),
+	}, &struct {
+		Defaults []string
+	}{
+		Defaults: f.properties.Defaults,
 	})
 
 	ctx.CreateModule(policyCilFactory, &nameProperties{

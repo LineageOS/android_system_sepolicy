@@ -5,6 +5,7 @@ system_public_prop(dalvik_config_prop)
 system_public_prop(dalvik_dynamic_config_prop)
 system_restricted_prop(device_config_runtime_native_prop)
 system_restricted_prop(device_config_runtime_native_boot_prop)
+system_restricted_prop(non_existing_prop)
 
 typeattribute dalvik_config_prop         dalvik_config_prop_type;
 typeattribute dalvik_dynamic_config_prop dalvik_config_prop_type;
@@ -61,3 +62,8 @@ neverallow {
     -microdroid_manager
     -crash_dump
 } {microdroid_config_prop}:file no_rw_file_perms;
+
+neverallow {
+    domain
+    -init
+} non_existing_prop:property_service set;

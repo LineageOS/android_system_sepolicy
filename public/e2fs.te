@@ -9,6 +9,12 @@ allow e2fs userdata_block_device:blk_file rw_file_perms;
 allow e2fs metadata_block_device:blk_file rw_file_perms;
 allow e2fs dm_device:blk_file rw_file_perms;
 allow e2fs zoned_block_device:blk_file rw_file_perms;
+# Vold needs to capture mkfs.ext4's output
+allow e2fs vold:fd use;
+# Need to be able to format a partition
+allow e2fs sysfs_dm:dir r_dir_perms;
+allow e2fs sysfs_dm:file r_file_perms;
+
 allowxperm e2fs { userdata_block_device metadata_block_device dm_device zoned_block_device }:blk_file ioctl {
   BLKSECDISCARD BLKDISCARD BLKPBSZGET BLKDISCARDZEROES BLKROGET BLKREPORTZONE BLKRESETZONE
 };

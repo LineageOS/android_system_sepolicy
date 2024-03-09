@@ -28,4 +28,4 @@ get_prop(profman, device_config_runtime_native_boot_prop)
 ### neverallow rules
 ###
 
-neverallow profman { privapp_data_file app_data_file }:notdevfile_class_set open;
+neverallow profman app_data_file_type:notdevfile_class_set open;

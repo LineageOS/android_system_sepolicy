@@ -20,6 +20,9 @@ binder_call(mediatuner, system_server)
 # Read ro.tuner.lazyhal
 get_prop(mediatuner, tuner_config_prop)
 
+# Read tuner.server.enable
+get_prop(mediatuner, tuner_server_ctl_prop)
+
 ###
 ### neverallow rules
 ###

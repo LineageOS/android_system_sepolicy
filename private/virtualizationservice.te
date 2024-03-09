@@ -15,6 +15,16 @@ binder_use(virtualizationservice)
 # Let the virtualizationservice domain register the virtualization_service with ServiceManager.
 add_service(virtualizationservice, virtualization_service)
 
+is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
+    # Let virtualizationservice find and communicate with vfio_handler.
+    allow virtualizationservice vfio_handler_service:service_manager find;
+    binder_call(virtualizationservice, vfio_handler)
+')
+
+# Allow the virtualizationservice domain to serve a remotely provisioned component for
+# pVM remote attestation.
+hal_server_domain(virtualizationservice, hal_remotelyprovisionedcomponent_avf)
+
 # Allow calling into the system server to find "permission_service".
 binder_call(virtualizationservice, system_server)
 allow virtualizationservice permission_service:service_manager find;
@@ -30,12 +40,22 @@ allow virtualizationservice self:capability chown;
 # Let virtualizationservice create and delete temporary directories of VMs. To remove old
 # directories, it needs the permission to unlink the files created by virtualizationmanager.
 allow virtualizationservice virtualizationservice_data_file:dir create_dir_perms;
-allow virtualizationservice virtualizationservice_data_file:{ file sock_file } unlink;
+allow virtualizationservice virtualizationservice_data_file:sock_file unlink;
+allow virtualizationservice virtualizationservice_data_file:file create_file_perms;
 
 # Allow to use fd (e.g. /dev/pts/0) inherited from adbd so that we can redirect output from
 # crosvm to the console
 allow virtualizationservice adbd:fd use;
 allow virtualizationservice adbd:unix_stream_socket { read write };
+
+# Allow to connnect to and run VirtMgr to start the service VM for remote attestation.
+virtualizationservice_use(virtualizationservice)
+
+# Allow virtualizationservice to read and write in the apex data directory
+# /data/misc/apexdata/com.android.virt
+allow virtualizationservice apex_module_data_file:dir search;
+allow virtualizationservice apex_virt_data_file:dir create_dir_perms;
+allow virtualizationservice apex_virt_data_file:file create_file_perms;
 
 # Let virtualizationservice to accept vsock connection from the guest VMs to singleton services
 # such as the guest tombstone server.
@@ -53,6 +73,16 @@ unix_socket_connect(virtualizationservice, tombstoned_crash, tombstoned)
 # Append to tombstone files passed as fds from tombstoned
 allow virtualizationservice tombstone_data_file:file { append getattr };
 allow virtualizationservice tombstoned:fd use;
+
+# Allow virtualizationservice to check if VFIO is supported
+allow virtualizationservice vfio_device:chr_file getattr;
+allow virtualizationservice vfio_device:dir r_dir_perms;
+
+# Allow virtualizationservice to access VM DTBO via a file created by virtualizationmanager.
+allow virtualizationservice virtualizationmanager:fd use;
+
+# Allow virtualizationservice to access vendor_configs_file to get the list of assignable devices.
+r_dir_file(virtualizationservice, vendor_configs_file)
 
 neverallow {
   domain
@@ -72,3 +102,8 @@ neverallow virtualizationservice {
   -virtualizationmanager
   -virtualizationservice
 }:process setrlimit;
+
+is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
+    # Only virtualizationservice can communicate to vfio_handler
+    neverallow { domain -virtualizationservice -servicemanager } vfio_handler:binder call;
+')

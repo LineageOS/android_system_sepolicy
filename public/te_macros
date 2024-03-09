@@ -440,8 +440,7 @@ allow $1 $2:fd use;
 
 #####################################
 # binder_service(domain)
-# Mark a domain as being a Binder service domain.
-# Used to allow binder IPC to the various system services.
+# Deprecated. Consider granting the exact permissions required by your service.
 define(`binder_service', `
 typeattribute $1 binderservicedomain;
 ')
@@ -1047,6 +1046,7 @@ define(`use_bootstrap_libs', `
 define(`use_apex_info', `
   allow $1 apex_mnt_dir:dir r_dir_perms;
   allow $1 apex_info_file:file r_file_perms;
+  r_dir_file($1, vendor_apex_metadata_file)
 ')
 
 ####################################

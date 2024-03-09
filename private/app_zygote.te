@@ -20,6 +20,9 @@ allow app_zygote isolated_app:process dyntransition;
 # For JIT
 allow app_zygote self:process execmem;
 
+# Allow exec mapping from tmpfs (memfds) for binary translation
+allow app_zygote app_zygote_tmpfs:file execute;
+
 # Allow app_zygote to stat the files that it opens. It must
 # be able to inspect them so that it can reopen them on fork
 # if necessary: b/30963384.
@@ -30,6 +33,8 @@ allow app_zygote system_server:process getpgid;
 
 # Interaction between the app_zygote and its children.
 allow app_zygote isolated_app:process setpgid;
+
+allow app_zygote properties_device:dir mounton;
 
 # TODO (b/63631799) fix this access
 dontaudit app_zygote mnt_expand_file:dir getattr;
@@ -74,6 +79,8 @@ allow app_zygote oemfs:dir search;
 
 # Allow app_zygote access to /vendor/overlay
 r_dir_file(app_zygote, vendor_overlay_file)
+# Allow app_zygote to read vendor_overlay_file from vendor apex as well
+allow app_zygote vendor_apex_metadata_file:dir { getattr search };
 
 allow app_zygote system_data_file:lnk_file r_file_perms;
 allow app_zygote system_data_file:file { getattr read map };

@@ -8,3 +8,8 @@ init_daemon_domain(hal_fingerprint_default)
 allow hal_fingerprint_default fwk_sensor_service:service_manager find;
 
 set_prop(hal_fingerprint_default, virtual_fingerprint_hal_prop)
+
+userdebug_or_eng(`
+  # Allow fingerprint hal to read app-created pipes (to respond shell commands from test apps)
+  allow hal_fingerprint_default appdomain:fifo_file read;
+')

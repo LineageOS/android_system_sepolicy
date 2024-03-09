@@ -26,7 +26,7 @@ userdebug_or_eng(`
 allow init properties_device:dir relabelto;
 allow init properties_serial:file { write relabelto };
 allow init property_type:file { append create getattr map open read relabelto rename setattr unlink write };
-# /dev/__properties__/property_info
+# /dev/__properties__/property_info and /dev/__properties/appcompat_override/property_info
 allow init properties_device:file create_file_perms;
 allow init property_info:file relabelto;
 # /dev/event-log-tags
@@ -56,6 +56,7 @@ allow init {
   userdata_block_device
 }:{ blk_file lnk_file } relabelto;
 
+allow init dtbo_block_device:lnk_file relabelto;
 allow init super_block_device:lnk_file relabelto;
 
 # Create /mnt/sdcard -> /storage/self/primary symlink.
@@ -660,7 +661,7 @@ neverallow init { file_type fs_type -init_exec }:file entrypoint;
 
 # Never read/follow symlinks created by shell or untrusted apps.
 neverallow init shell_data_file:lnk_file read;
-neverallow init { app_data_file privapp_data_file }:lnk_file read;
+neverallow init app_data_file_type:lnk_file read;
 
 # init should never execute a program without changing to another domain.
 neverallow init { file_type fs_type }:file execute_no_trans;

@@ -44,19 +44,3 @@ dontaudit kernel dm_user_device:dir { write add_name };
 dontaudit kernel dm_user_device:chr_file { create setattr };
 dontaudit kernel tmpfs:lnk_file read;
 dontaudit kernel tmpfs:blk_file { open read };
-
-# Some contexts are changed before the device is flipped into enforcing mode
-# during the setup of Apex sepolicy. These denials can be suppressed since
-# the permissions should not be allowed after the device is flipped into
-# enforcing mode.
-dontaudit kernel device:dir { open read relabelto };
-dontaudit kernel tmpfs:file { getattr open read relabelfrom };
-dontaudit kernel {
-  file_contexts_file
-  hwservice_contexts_file
-  mac_perms_file
-  property_contexts_file
-  seapp_contexts_file
-  sepolicy_test_file
-  service_contexts_file
-}:file relabelto;

@@ -8,13 +8,6 @@ allow microdroid_payload adbd:unix_stream_socket { read write };
 # microdroid_launcher is launched by microdroid_manager with fork/execvp.
 allow microdroid_payload microdroid_manager:fd use;
 
-# Allow to use FDs inherited from the shell. This includes the FD opened for
-# the microdroid_launcher executable itself and the FD for adb connection.
-# TODO(b/186396070) remove this when this is executed from microdroid_manager
-userdebug_or_eng(`
-  allow microdroid_payload shell:fd use;
-')
-
 # Allow to use terminal
 allow microdroid_payload devpts:chr_file rw_file_perms;
 
@@ -26,6 +19,10 @@ allow microdroid_payload microdroid_manager:vsock_socket { read write };
 
 # Write to /dev/kmsg.
 allow microdroid_payload kmsg_device:chr_file rw_file_perms;
+
+# Read from console. Note that both /dev/kmsg and /dev/console are backed
+# by the same file in the host.
+allow microdroid_payload console_device:chr_file r_file_perms;
 
 # Allow microdroid_payload to host binder servers via vsock. Listening
 # for connections from the host is permitted, but connecting out to
@@ -60,5 +57,23 @@ unix_socket_connect(microdroid_payload, vm_payload_service, microdroid_manager)
 allow microdroid_payload encryptedstore_file:dir create_dir_perms;
 allow microdroid_payload encryptedstore_file:file create_file_perms;
 
+# Payload can access devices labeled as payload accessible.
+allow microdroid_payload payload_accessible_device:chr_file rw_file_perms;
+
 # Never allow microdroid_payload to connect to vsock
 neverallow microdroid_payload self:vsock_socket connect;
+
+# Nothing else should be accessing the payload's storage
+neverallow { domain
+  -microdroid_payload
+  -microdroid_manager
+  -encryptedstore
+  -init
+  -vendor_init
+} encryptedstore_file:dir { read write };
+neverallow { domain
+  -microdroid_payload
+  -microdroid_manager
+  -init
+  -vendor_init
+} encryptedstore_file:file no_rw_file_perms;

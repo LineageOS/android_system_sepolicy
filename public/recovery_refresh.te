@@ -18,7 +18,7 @@ neverallow recovery_refresh dev_type:blk_file { read write };
 neverallow recovery_refresh domain:process ptrace;
 
 # Write to /system.
-neverallow recovery_refresh system_file:dir_file_class_set write;
+neverallow recovery_refresh system_file_type:dir_file_class_set write;
 
 # Write to files in /data/data or system files on /data
-neverallow recovery_refresh { app_data_file privapp_data_file system_data_file }:dir_file_class_set write;
+neverallow recovery_refresh { app_data_file_type system_data_file }:dir_file_class_set write;

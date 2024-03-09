@@ -224,7 +224,8 @@ attribute netdomain;
 # All domains used for apps with bluetooth access.
 attribute bluetoothdomain;
 
-# All domains used for binder service domains.
+# Specific domains that expose a binder service.
+# Deprecated, consider granting the exact permissions required by your service.
 attribute binderservicedomain;
 
 # All domains which have BPF access.
@@ -333,6 +334,7 @@ hal_attribute(allocator);
 hal_attribute(atrace);
 hal_attribute(audio);
 hal_attribute(audiocontrol);
+hal_attribute(authgraph);
 hal_attribute(authsecret);
 hal_attribute(bluetooth);
 hal_attribute(bootctl);
@@ -366,6 +368,7 @@ hal_attribute(keymaster);
 hal_attribute(keymint);
 hal_attribute(light);
 hal_attribute(lowpan);
+hal_attribute(macsec);
 hal_attribute(memtrack);
 hal_attribute(neuralnetworks);
 hal_attribute(nfc);
@@ -376,11 +379,14 @@ hal_attribute(power);
 hal_attribute(power_stats);
 hal_attribute(rebootescrow);
 hal_attribute(remoteaccess);
+hal_attribute(secretkeeper);
+hal_attribute(remotelyprovisionedcomponent_avf);
 hal_attribute(secure_element);
 hal_attribute(sensors);
 hal_attribute(telephony);
 hal_attribute(tetheroffload);
 hal_attribute(thermal);
+hal_attribute(threadnetwork);
 hal_attribute(tv_cec);
 hal_attribute(tv_hdmi_cec);
 hal_attribute(tv_hdmi_connection);
