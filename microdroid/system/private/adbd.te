@@ -54,6 +54,9 @@ allow adbd selinuxfs:dir r_dir_perms;
 allow adbd selinuxfs:file r_file_perms;
 allow adbd kernel:security read_policy;
 
+# adbd may try to restorecon files (see b/328753027)
+allow adbd file_contexts_file:file r_file_perms;
+
 # adbd tries to run mdnsd, but mdnsd doesn't exist. Just dontaudit ctl permissions.
 # TODO(b/200902288): patch adb and remove this rule
 dontaudit adbd { ctl_default_prop ctl_start_prop }:property_service set;
