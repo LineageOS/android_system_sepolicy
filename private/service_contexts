@@ -342,6 +342,7 @@ nfc                                       u:object_r:nfc_service:s0
 notification                              u:object_r:notification_service:s0
 oem_lock                                  u:object_r:oem_lock_service:s0
 ondevicepersonalization_system_service    u:object_r:ondevicepersonalization_system_service:s0
+on_device_intelligence                    u:object_r:on_device_intelligence_service:s0
 otadexopt                                 u:object_r:otadexopt_service:s0
 ot_daemon                                 u:object_r:ot_daemon_service:s0
 overlay                                   u:object_r:overlay_service:s0
