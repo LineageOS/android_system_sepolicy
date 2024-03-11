@@ -43,3 +43,22 @@ userdebug_or_eng(`
   allow snapshotctl snapshotctl_log_data_file:dir rw_dir_perms;
   allow snapshotctl snapshotctl_log_data_file:file create_file_perms;
 ')
+
+# Allow to read /proc/bootconfig.
+allow snapshotctl proc_bootconfig:file r_file_perms;
+
+# Allow to control snapuserd.
+set_prop(snapshotctl, ctl_snapuserd_prop)
+
+# Allow to read snapuserd.* properties.
+get_prop(snapshotctl, snapuserd_prop)
+
+# Allow to talk to snapuserd.
+allow snapshotctl snapuserd_socket:sock_file write;
+allow snapshotctl snapuserd:unix_stream_socket { connectto };
+
+# Allow to read /dev/block/dm-* (device-mapper) nodes.
+allow snapshotctl dm_device:blk_file r_file_perms;
+
+# Allow to read dm-user control nodes.
+allow snapshotctl dm_user_device:dir search;
