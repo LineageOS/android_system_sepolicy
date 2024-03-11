@@ -71,3 +71,14 @@ allow snapuserd proc_stat:file r_file_perms;
 # io_uring. An Alternative would be to up the memlock rlimit for the snapuserd service.
 allow snapuserd self:capability ipc_lock;
 io_uring_use(snapuserd)
+
+# Disallow other domains controlling snapuserd.
+neverallow {
+  domain
+  -fastbootd
+  -init
+  -recovery
+  -shell
+  -snapshotctl
+  -update_engine
+} ctl_snapuserd_prop:property_service set;
