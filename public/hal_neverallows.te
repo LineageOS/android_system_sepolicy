@@ -33,6 +33,7 @@ neverallow {
   # TODO(b/196225233): Remove hal_uwb_vendor_server
   -hal_uwb_vendor_server
   -hal_nlinterceptor_server
+  -hal_bluetooth_server
 } domain:{ udp_socket rawip_socket } *;
 
 neverallow {
