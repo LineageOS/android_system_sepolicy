@@ -1,0 +1,89 @@
+###
+### SDK Sandbox process.
+###
+### This file defines the security policy for the sdk sandbox processes
+### for a test set of restrictions. These restrictions will be adapted
+### with modifications, into the set of restrictions for the next SDK
+### level.
+type sdk_sandbox_next, domain, coredomain, sdk_sandbox_all;
+
+net_domain(sdk_sandbox_next)
+app_domain(sdk_sandbox_next)
+
+# Allow finding services. This is different from ephemeral_app policy.
+# Adding services manually to the allowlist is preferred hence app_api_service is not used.
+allow sdk_sandbox_next {
+    activity_service
+    activity_task_service
+    appops_service
+    audio_service
+    audioserver_service
+    batteryproperties_service
+    batterystats_service
+    connectivity_service
+    connmetrics_service
+    deviceidle_service
+    display_service
+    dropbox_service
+    font_service
+    game_service
+    gpu_service
+    graphicsstats_service
+    hardware_properties_service
+    hint_service
+    imms_service
+    input_method_service
+    input_service
+    IProxyService_service
+    ipsec_service
+    launcherapps_service
+    legacy_permission_service
+    light_service
+    locale_service
+    media_communication_service
+    mediaextractor_service
+    mediametrics_service
+    media_projection_service
+    media_router_service
+    mediaserver_service
+    media_session_service
+    memtrackproxy_service
+    midi_service
+    netpolicy_service
+    netstats_service
+    network_management_service
+    notification_service
+    package_service
+    permission_checker_service
+    permission_service
+    permissionmgr_service
+    platform_compat_service
+    power_service
+    procstats_service
+    registry_service
+    restrictions_service
+    rttmanager_service
+    search_service
+    selection_toolbar_service
+    sensor_privacy_service
+    sensorservice_service
+    servicediscovery_service
+    settings_service
+    speech_recognition_service
+    statusbar_service
+    storagestats_service
+    surfaceflinger_service
+    telecom_service
+    tethering_service
+    textclassification_service
+    textservices_service
+    texttospeech_service
+    thermal_service
+    translation_service
+    tv_iapp_service
+    tv_input_service
+    uimode_service
+    vcn_management_service
+    webviewupdate_service
+}:service_manager find;
+

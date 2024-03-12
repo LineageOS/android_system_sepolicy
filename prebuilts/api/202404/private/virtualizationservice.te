@@ -1,0 +1,116 @@
+type virtualizationservice, domain, coredomain;
+type virtualizationservice_exec, system_file_type, exec_type, file_type;
+
+# The domain needs to be a 'mlstrustedsubject' to change the memlock rlimit of
+# the virtualizationmanager domain running at a more constrained MLS level.
+typeattribute virtualizationservice mlstrustedsubject;
+
+# When init runs a file labelled with virtualizationservice_exec, run it in the
+# virtualizationservice domain.
+init_daemon_domain(virtualizationservice)
+
+# Let the virtualizationservice domain use Binder.
+binder_use(virtualizationservice)
+
+# Let the virtualizationservice domain register the virtualization_service with ServiceManager.
+add_service(virtualizationservice, virtualization_service)
+
+is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
+    # Let virtualizationservice find and communicate with vfio_handler.
+    allow virtualizationservice vfio_handler_service:service_manager find;
+    binder_call(virtualizationservice, vfio_handler)
+')
+
+# Allow the virtualizationservice domain to serve a remotely provisioned component for
+# pVM remote attestation.
+hal_server_domain(virtualizationservice, hal_remotelyprovisionedcomponent_avf)
+
+# Allow calling into the system server to find "permission_service".
+binder_call(virtualizationservice, system_server)
+allow virtualizationservice permission_service:service_manager find;
+
+# Allow virtualizationservice to retrieve the remotely provisioned keys from rkpd.
+binder_call(virtualizationservice, remote_provisioning_service)
+allow virtualizationservice remote_provisioning_service:service_manager find;
+
+# Allow virtualizationservice to manage VM secrets via Secretkeeper.
+hal_client_domain(virtualizationservice, hal_secretkeeper)
+
+# Let virtualizationservice remove memlock rlimit of virtualizationmanager. This is necessary
+# to mlock VM memory and page tables.
+allow virtualizationservice self:capability sys_resource;
+allow virtualizationservice virtualizationmanager:process setrlimit;
+
+# Let virtualizationservice set the owner of a VM's temporary directory.
+allow virtualizationservice self:capability chown;
+
+# Let virtualizationservice create and delete temporary directories of VMs. To remove old
+# directories, it needs the permission to unlink the files created by virtualizationmanager.
+allow virtualizationservice virtualizationservice_data_file:dir create_dir_perms;
+allow virtualizationservice virtualizationservice_data_file:sock_file unlink;
+allow virtualizationservice virtualizationservice_data_file:file create_file_perms;
+
+# Allow to use fd (e.g. /dev/pts/0) inherited from adbd so that we can redirect output from
+# crosvm to the console
+allow virtualizationservice adbd:fd use;
+allow virtualizationservice adbd:unix_stream_socket { read write };
+
+# Allow to connnect to and run VirtMgr to start the service VM for remote attestation.
+virtualizationservice_use(virtualizationservice)
+
+# Allow virtualizationservice to read and write in the apex data directory
+# /data/misc/apexdata/com.android.virt
+allow virtualizationservice apex_module_data_file:dir search;
+allow virtualizationservice apex_virt_data_file:dir create_dir_perms;
+allow virtualizationservice apex_virt_data_file:file create_file_perms;
+
+# Let virtualizationservice to accept vsock connection from the guest VMs to singleton services
+# such as the guest tombstone server.
+allow virtualizationservice self:vsock_socket { create_socket_perms_no_ioctl listen accept };
+
+# Allow virtualizationservice to read/write its own sysprop. Only the process can do so.
+set_prop(virtualizationservice, virtualizationservice_prop)
+
+# Allow writing stats to statsd
+unix_socket_send(virtualizationservice, statsdw, statsd)
+
+# Allow virtualization service to talk to tombstoned to push guest tombstones
+unix_socket_connect(virtualizationservice, tombstoned_crash, tombstoned)
+
+# Append to tombstone files passed as fds from tombstoned
+allow virtualizationservice tombstone_data_file:file { append getattr };
+allow virtualizationservice tombstoned:fd use;
+
+# Allow virtualizationservice to check if VFIO is supported
+allow virtualizationservice vfio_device:chr_file getattr;
+allow virtualizationservice vfio_device:dir r_dir_perms;
+
+# Allow virtualizationservice to access VM DTBO via a file created by virtualizationmanager.
+allow virtualizationservice virtualizationmanager:fd use;
+
+# Allow virtualizationservice to access vendor_configs_file to get the list of assignable devices.
+r_dir_file(virtualizationservice, vendor_configs_file)
+
+neverallow {
+  domain
+  -init
+  -virtualizationservice
+} virtualizationservice_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+  -virtualizationmanager
+  -virtualizationservice
+} virtualizationservice_data_file:file { open create };
+
+neverallow virtualizationservice {
+  domain
+  -virtualizationmanager
+  -virtualizationservice
+}:process setrlimit;
+
+is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
+    # Only virtualizationservice and virtualizationmanager can communicate to vfio_handler
+    neverallow { domain -virtualizationmanager -virtualizationservice -servicemanager } vfio_handler:binder call;
+')

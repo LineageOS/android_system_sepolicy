@@ -1,0 +1,13 @@
+# type_transition must be private policy the domain_trans rules could stay
+# public, but conceptually should go with this
+# The postinstall program is run by update_engine_common and must be tagged
+# with postinstall_exec in the new filesystem.
+# TODO Have build system attempt to verify this
+domain_auto_trans(update_engine_common, postinstall_exec, postinstall)
+
+# Vendor directories can have the transition as well during OTA. This is caused
+# by update_engine execing scripts in vendor to perform any update tasks needed
+# there.
+domain_auto_trans(update_engine_common, postinstall_file, postinstall)
+
+allow update_engine_common labeledfs:filesystem { mount unmount relabelfrom };

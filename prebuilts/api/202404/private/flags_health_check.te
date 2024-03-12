@@ -1,0 +1,48 @@
+typeattribute flags_health_check coredomain;
+
+init_daemon_domain(flags_health_check)
+
+set_prop(flags_health_check, device_config_boot_count_prop)
+set_prop(flags_health_check, device_config_core_experiments_team_internal_prop)
+set_prop(flags_health_check, device_config_edgetpu_native_prop)
+set_prop(flags_health_check, device_config_reset_performed_prop)
+set_prop(flags_health_check, device_config_runtime_native_boot_prop)
+set_prop(flags_health_check, device_config_runtime_native_prop)
+set_prop(flags_health_check, device_config_input_native_boot_prop)
+set_prop(flags_health_check, device_config_lmkd_native_prop)
+set_prop(flags_health_check, device_config_netd_native_prop)
+set_prop(flags_health_check, device_config_nnapi_native_prop)
+set_prop(flags_health_check, device_config_activity_manager_native_boot_prop)
+set_prop(flags_health_check, device_config_media_native_prop)
+set_prop(flags_health_check, device_config_mglru_native_prop)
+set_prop(flags_health_check, device_config_profcollect_native_boot_prop)
+set_prop(flags_health_check, device_config_statsd_native_prop)
+set_prop(flags_health_check, device_config_statsd_native_boot_prop)
+set_prop(flags_health_check, device_config_storage_native_boot_prop)
+set_prop(flags_health_check, device_config_swcodec_native_prop)
+set_prop(flags_health_check, device_config_sys_traced_prop)
+set_prop(flags_health_check, device_config_window_manager_native_boot_prop)
+set_prop(flags_health_check, device_config_configuration_prop)
+set_prop(flags_health_check, device_config_connectivity_prop)
+set_prop(flags_health_check, device_config_surface_flinger_native_boot_prop)
+set_prop(flags_health_check, device_config_aconfig_flags_prop)
+set_prop(flags_health_check, device_config_vendor_system_native_prop)
+set_prop(flags_health_check, device_config_vendor_system_native_boot_prop)
+set_prop(flags_health_check, device_config_virtualization_framework_native_prop)
+set_prop(flags_health_check, device_config_memory_safety_native_boot_prop)
+set_prop(flags_health_check, device_config_memory_safety_native_prop)
+set_prop(flags_health_check, device_config_remote_key_provisioning_native_prop)
+set_prop(flags_health_check, device_config_camera_native_prop)
+set_prop(flags_health_check, device_config_tethering_u_or_later_native_prop)
+set_prop(flags_health_check, next_boot_prop)
+
+# system property device_config_boot_count_prop is used for deciding when to perform server
+# configurable flags related disaster recovery. Mistakenly set up by unrelated components can, at a
+# wrong timing, trigger server configurable flag related disaster recovery, which will override
+# server configured values of all flags with default values.
+neverallow { domain -init -flags_health_check } device_config_boot_count_prop:property_service set;
+
+# system property device_config_reset_performed_prop is used for indicating whether server
+# configurable flags have been reset during booting. Mistakenly modified by unrelated components can
+# cause bad server configurable flags synced back to device.
+neverallow { domain -init -flags_health_check } device_config_reset_performed_prop:property_service set;

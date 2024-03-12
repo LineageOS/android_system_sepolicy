@@ -1,0 +1,6 @@
+# Context when health HAL runs charger mode
+
+type charger_vendor, charger_type, domain;
+hal_server_domain(charger_vendor, hal_health)
+
+typeattribute charger_vendor bpfdomain;

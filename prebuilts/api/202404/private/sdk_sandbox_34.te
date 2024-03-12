@@ -1,0 +1,9 @@
+###
+### SDK Sandbox process.
+###
+### This file defines the security policy for the sdk sandbox processes
+### for targetSdkVersion=34.
+type sdk_sandbox_34, domain, coredomain, sdk_sandbox_all, sdk_sandbox_current;
+
+net_domain(sdk_sandbox_34)
+app_domain(sdk_sandbox_34)
