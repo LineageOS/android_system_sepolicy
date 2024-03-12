@@ -1,0 +1,9 @@
+;; new_objects - a collection of types that have been introduced with ToT policy
+;;   that have no analogue in 202404 policy.  Thus, we do not need to map these types to
+;;   previous ones.  Add here to pass checkapi tests.
+(type new_objects)
+(typeattribute new_objects)
+(typeattributeset new_objects
+  ( new_objects
+    input_device_config_prop
+  ))
