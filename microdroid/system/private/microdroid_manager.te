@@ -24,6 +24,19 @@ r_dir_file(microdroid_manager, sysfs_dt_avf)
 # Read config from the open-dice driver.
 allow microdroid_manager open_dice_device:chr_file rw_file_perms;
 
+# In case Microdroid VM is started with microdroid vendor partition, the first_stage_init
+# will derive a microdroid vendor dice node, and write a resulting dice chain into file
+# with dice_chain_file type, microdroid_manager will need to read it to derive the next chain.
+allow microdroid_manager microdroid_resources_file:file { rw_file_perms unlink };
+# In case dice chain is stored in dice_chain_file microdroid_manager will delete it after deriving
+# the next dice chain.
+allow microdroid_manager microdroid_resources_file:dir { remove_name search write };
+
+# Microdroid manager unmounts /microdroid_resources before starting the payload.
+# This is a defence-in-depth measure to ensure that payload can't read the dice chain stored
+# on /microdroid_resources/dice_chain.raw
+allow microdroid_manager tmpfs:filesystem unmount;
+
 # Block crash dumps to ensure the DICE secrets are not leaked.
 typeattribute microdroid_manager no_crash_dump_domain;
 
