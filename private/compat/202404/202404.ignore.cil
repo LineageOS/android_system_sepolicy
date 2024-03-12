@@ -6,4 +6,6 @@
 (typeattributeset new_objects
   ( new_objects
     profcollectd_etr_prop
+    fs_bpf_lmkd_memevents_rb
+    fs_bpf_lmkd_memevents_prog
   ))
