@@ -1,0 +1,57 @@
+typeattribute fastbootd coredomain;
+
+# The allow rules are only included in the recovery policy.
+# Otherwise fastbootd is only allowed the domain rules.
+recovery_only(`
+  # Reboot the device
+  set_prop(fastbootd, powerctl_prop)
+
+  # Read serial number of the device from system properties
+  get_prop(fastbootd, serialno_prop)
+
+  # Set sys.usb.ffs.ready.
+  get_prop(fastbootd, ffs_config_prop)
+  set_prop(fastbootd, ffs_control_prop)
+
+  userdebug_or_eng(`
+    get_prop(fastbootd, persistent_properties_ready_prop)
+  ')
+
+  set_prop(fastbootd, gsid_prop)
+
+  # Determine allocation scheme (whether B partitions needs to be
+  # at the second half of super.
+  get_prop(fastbootd, virtual_ab_prop)
+  get_prop(fastbootd, snapuserd_prop)
+
+  # Needed for TCP protocol
+  allow fastbootd node:tcp_socket node_bind;
+  allow fastbootd port:tcp_socket name_bind;
+  allow fastbootd self:tcp_socket { create_socket_perms_no_ioctl listen accept };
+
+  # Start snapuserd for merging VABC updates
+  set_prop(fastbootd, ctl_snapuserd_prop)
+
+  # Needed to communicate with snapuserd to complete merges.
+  allow fastbootd snapuserd_socket:sock_file write;
+  allow fastbootd snapuserd:unix_stream_socket connectto;
+  allow fastbootd dm_user_device:dir r_dir_perms;
+
+  # Get fastbootd protocol property
+  get_prop(fastbootd, fastbootd_protocol_prop)
+
+  # Mount /metadata to interact with Virtual A/B snapshots.
+  allow fastbootd labeledfs:filesystem { mount unmount };
+  set_prop(fastbootd, boottime_prop)
+
+  # Needed for reading boot properties.
+  allow fastbootd proc_bootconfig:file r_file_perms;
+  # Let this domain use the hal fastboot service
+  binder_use(fastbootd)
+  hal_client_domain(fastbootd, hal_fastboot)
+')
+
+# This capability allows fastbootd to circumvent memlock rlimits while using
+# io_uring. An Alternative would be to up the memlock rlimit for the fastbootd service.
+allow fastbootd self:capability ipc_lock;
+io_uring_use(fastbootd)

@@ -452,6 +452,7 @@ se_cil_compat_map {
     stem: "34.0.cil",
     bottom_half: [":34.0.board.compat.map{.plat_private}"],
     version: "34.0",
+    top_half: "plat_202404.cil",
 }
 
 se_cil_compat_map {
@@ -460,6 +461,7 @@ se_cil_compat_map {
     bottom_half: [":34.0.board.compat.map{.system_ext_private}"],
     system_ext_specific: true,
     version: "34.0",
+    top_half: "system_ext_202404.cil",
 }
 
 se_cil_compat_map {
@@ -468,12 +470,14 @@ se_cil_compat_map {
     bottom_half: [":34.0.board.compat.map{.product_private}"],
     product_specific: true,
     version: "34.0",
+    top_half: "product_202404.cil",
 }
 
 se_cil_compat_map {
     name: "34.0.ignore.cil",
     bottom_half: [":34.0.board.ignore.map{.plat_private}"],
     version: "34.0",
+    top_half: "202404.ignore.cil",
 }
 
 se_cil_compat_map {
@@ -482,6 +486,7 @@ se_cil_compat_map {
     bottom_half: [":34.0.board.ignore.map{.system_ext_private}"],
     system_ext_specific: true,
     version: "34.0",
+    top_half: "system_ext_202404.ignore.cil",
 }
 
 se_cil_compat_map {
@@ -490,6 +495,7 @@ se_cil_compat_map {
     bottom_half: [":34.0.board.ignore.map{.product_private}"],
     product_specific: true,
     version: "34.0",
+    top_half: "product_202404.ignore.cil",
 }
 
 se_compat_cil {
@@ -504,4 +510,78 @@ se_compat_cil {
     srcs: [":34.0.board.compat.cil{.system_ext_private}"],
     system_ext_specific: true,
     version: "34.0",
+}
+
+se_build_files {
+    name: "202404.board.compat.map",
+    srcs: ["compat/202404/202404.cil"],
+}
+
+se_build_files {
+    name: "202404.board.compat.cil",
+    srcs: ["compat/202404/202404.compat.cil"],
+}
+
+se_build_files {
+    name: "202404.board.ignore.map",
+    srcs: ["compat/202404/202404.ignore.cil"],
+}
+
+se_cil_compat_map {
+    name: "plat_202404.cil",
+    stem: "202404.cil",
+    bottom_half: [":202404.board.compat.map{.plat_private}"],
+    version: "202404",
+}
+
+se_cil_compat_map {
+    name: "system_ext_202404.cil",
+    stem: "202404.cil",
+    bottom_half: [":202404.board.compat.map{.system_ext_private}"],
+    system_ext_specific: true,
+    version: "202404",
+}
+
+se_cil_compat_map {
+    name: "product_202404.cil",
+    stem: "202404.cil",
+    bottom_half: [":202404.board.compat.map{.product_private}"],
+    product_specific: true,
+    version: "202404",
+}
+
+se_cil_compat_map {
+    name: "202404.ignore.cil",
+    bottom_half: [":202404.board.ignore.map{.plat_private}"],
+    version: "202404",
+}
+
+se_cil_compat_map {
+    name: "system_ext_202404.ignore.cil",
+    stem: "202404.ignore.cil",
+    bottom_half: [":202404.board.ignore.map{.system_ext_private}"],
+    system_ext_specific: true,
+    version: "202404",
+}
+
+se_cil_compat_map {
+    name: "product_202404.ignore.cil",
+    stem: "202404.ignore.cil",
+    bottom_half: [":202404.board.ignore.map{.product_private}"],
+    product_specific: true,
+    version: "202404",
+}
+
+se_compat_cil {
+    name: "202404.compat.cil",
+    srcs: [":202404.board.compat.cil{.plat_private}"],
+    version: "202404",
+}
+
+se_compat_cil {
+    name: "system_ext_202404.compat.cil",
+    stem: "202404.compat.cil",
+    srcs: [":202404.board.compat.cil{.system_ext_private}"],
+    system_ext_specific: true,
+    version: "202404",
 }

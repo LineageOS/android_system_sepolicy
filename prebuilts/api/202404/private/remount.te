@@ -1,0 +1,25 @@
+type remount, domain, coredomain;
+type remount_exec, system_file_type, exec_type, file_type;
+
+userdebug_or_eng(`
+  # Allow init to run clean_scratch_files and do auto domain transfer.
+  init_daemon_domain(remount)
+
+  # Allow talking to gsid.
+  binder_use(remount)
+  allow remount gsi_service:service_manager find;
+  binder_call(remount, gsid)
+
+  # Allow searching for /metadata/gsi/remount/lp_metadata.
+  allow remount { metadata_file gsi_metadata_file_type }:dir search;
+
+  # Allow remount to flip the overlayfs bit in the super partition.
+  # This requires being able to read fstab, find /dev/block/by-name/super,
+  # and read-write super.
+  r_dir_file(remount, sysfs_dt_firmware_android)
+  allow remount proc_bootconfig:file r_file_perms;
+  allow remount proc_cmdline:file r_file_perms;
+  allow remount block_device:dir r_dir_perms;
+  allow remount super_block_device_type:blk_file rw_file_perms;
+  allowxperm remount super_block_device_type:blk_file ioctl { BLKIOMIN BLKALIGNOFF };
+')

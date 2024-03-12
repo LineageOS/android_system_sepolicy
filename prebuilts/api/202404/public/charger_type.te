@@ -1,0 +1,37 @@
+# Write to /dev/kmsg
+allow charger_type kmsg_device:chr_file rw_file_perms;
+
+# Read access to pseudo filesystems.
+r_dir_file(charger_type, rootfs)
+r_dir_file(charger_type, cgroup)
+r_dir_file(charger_type, cgroup_v2)
+
+# Allow to read /sys/class/power_supply directory
+allow charger_type sysfs_type:dir r_dir_perms;
+
+allow charger_type self:global_capability_class_set {
+    sys_boot
+    sys_tty_config
+};
+
+wakelock_use(charger_type)
+
+allow charger_type self:netlink_kobject_uevent_socket create_socket_perms_no_ioctl;
+
+# Read/write to /sys/power/state
+allow charger_type sysfs_power:file rw_file_perms;
+
+r_dir_file(charger_type, sysfs_batteryinfo)
+
+# Read /sys/fs/pstore/console-ramoops
+# Don't worry about overly broad permissions for now, as there's
+# only one file in /sys/fs/pstore
+allow charger_type pstorefs:dir r_dir_perms;
+allow charger_type pstorefs:file r_file_perms;
+
+allow charger_type graphics_device:dir r_dir_perms;
+allow charger_type graphics_device:chr_file rw_file_perms;
+allow charger_type input_device:dir r_dir_perms;
+allow charger_type input_device:chr_file r_file_perms;
+allow charger_type tty_device:chr_file rw_file_perms;
+allow charger_type proc_sysrq:file rw_file_perms;
