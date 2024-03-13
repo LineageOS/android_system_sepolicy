@@ -1470,6 +1470,7 @@ allow system_server watchdog_metadata_file:file create_file_perms;
 
 allow system_server aconfig_storage_flags_metadata_file:dir rw_dir_perms;
 allow system_server aconfig_storage_flags_metadata_file:file create_file_perms;
+allow system_server aconfig_storage_metadata_file:dir search;
 
 allow system_server repair_mode_metadata_file:dir rw_dir_perms;
 allow system_server repair_mode_metadata_file:file create_file_perms;
