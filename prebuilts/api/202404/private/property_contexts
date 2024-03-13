@@ -98,6 +98,7 @@ ro.boot.btmacaddr       u:object_r:bluetooth_prop:s0
 ro.boot.serialno        u:object_r:serialno_prop:s0
 ro.bt.                  u:object_r:bluetooth_prop:s0
 ro.boot.bootreason      u:object_r:bootloader_boot_reason_prop:s0
+ro.misctrl.             u:object_r:misctrl_prop:s0
 persist.sys.boot.reason u:object_r:last_boot_reason_prop:s0
 sys.boot.reason         u:object_r:system_boot_reason_prop:s0
 sys.boot.reason.last    u:object_r:last_boot_reason_prop:s0
@@ -286,6 +287,9 @@ persist.device_config.window_manager_native_boot.   u:object_r:device_config_win
 persist.device_config.memory_safety_native_boot.    u:object_r:device_config_memory_safety_native_boot_prop:s0
 persist.device_config.memory_safety_native.         u:object_r:device_config_memory_safety_native_prop:s0
 persist.device_config.tethering_u_or_later_native.  u:object_r:device_config_tethering_u_or_later_native_prop:s0
+
+# Prop indicates the apex that bundles input configuration files (*.idc,*.kl,*.kcm)
+input_device.config_file.apex    u:object_r:input_device_config_prop:s0 exact string
 
 # Properties that is for staging
 next_boot.  u:object_r:next_boot_prop:s0
@@ -1192,8 +1196,12 @@ ro.property_service.async_persist_writes u:object_r:build_config_prop:s0 exact b
 
 ro.vendor.redirect_socket_calls u:object_r:vendor_socket_hook_prop:s0 exact bool
 
-service.bootanim.exit u:object_r:bootanim_system_prop:s0 exact int
-service.bootanim.progress u:object_r:bootanim_system_prop:s0 exact int
+service.bootanim.exit       u:object_r:bootanim_system_prop:s0 exact int
+service.bootanim.progress   u:object_r:bootanim_system_prop:s0 exact int
+persist.bootanim.color1     u:object_r:bootanim_system_prop:s0 exact int
+persist.bootanim.color2     u:object_r:bootanim_system_prop:s0 exact int
+persist.bootanim.color3     u:object_r:bootanim_system_prop:s0 exact int
+persist.bootanim.color4     u:object_r:bootanim_system_prop:s0 exact int
 
 sys.init.userspace_reboot.in_progress u:object_r:userspace_reboot_exported_prop:s0 exact bool
 sys.use_memfd                         u:object_r:use_memfd_prop:s0 exact bool

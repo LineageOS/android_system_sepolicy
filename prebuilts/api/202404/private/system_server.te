@@ -520,6 +520,7 @@ allow system_server apk_tmp_file:file create_file_perms;
 r_dir_file(system_server, vendor_keylayout_file)
 r_dir_file(system_server, vendor_keychars_file)
 r_dir_file(system_server, vendor_idc_file)
+get_prop(system_server, input_device_config_prop)
 
 # Access /vendor/{app,framework,overlay}
 r_dir_file(system_server, vendor_app_file)
@@ -581,6 +582,11 @@ allow system_server perfetto:fd use;
 # Allow system_server to exec the perfetto cmdline client and pass it a trace config
 domain_auto_trans(system_server, perfetto_exec, perfetto);
 allow system_server perfetto:fifo_file { read write };
+
+# Allow system server to manage perfetto traces for ProfilingService.
+allow system_server perfetto_traces_profiling_data_file:dir rw_dir_perms;
+allow system_server perfetto_traces_profiling_data_file:file { rw_file_perms unlink };
+allow system_server perfetto_traces_data_file:dir search;
 
 # Manage /data/backup.
 allow system_server backup_data_file:dir create_dir_perms;
@@ -982,6 +988,9 @@ allow system_server storaged_service:service_manager find;
 allow system_server surfaceflinger_service:service_manager find;
 allow system_server update_engine_service:service_manager find;
 allow system_server virtual_camera_service:service_manager find;
+is_flag_enabled(RELEASE_AVF_ENABLE_LLPVM_CHANGES, `
+    allow system_server virtualization_maintenance_service:service_manager find;
+')
 allow system_server vold_service:service_manager find;
 allow system_server wifinl80211_service:service_manager find;
 allow system_server logd_service:service_manager find;
@@ -1299,6 +1308,9 @@ neverallow system_server {
 neverallow system_server { domain -clatd -crash_dump -perfetto }:process transition;
 neverallow system_server *:process dyntransition;
 
+# Ensure that system_server doesn't access anything but search in perfetto_traces_data_file:dir.
+neverallow system_server perfetto_traces_data_file:dir ~search;
+
 # Only allow crash_dump to connect to system_ndebug_socket.
 neverallow { domain -init -system_server -crash_dump } system_ndebug_socket:sock_file { open write };
 
@@ -1516,9 +1528,8 @@ neverallow { domain -init -system_server } userspace_reboot_metadata_file:dir *;
 neverallow { domain -init -system_server } userspace_reboot_metadata_file:file no_rw_file_perms;
 
 # Only system server should access /metadata/aconfig
-# TODO: add storage daemon to neverallow exception when it is introduced
-neverallow { domain -init -system_server } aconfig_storage_flags_metadata_file:dir *;
-neverallow { domain -init -system_server } aconfig_storage_flags_metadata_file:file no_rw_file_perms;
+neverallow { domain -init -system_server -aconfigd } aconfig_storage_flags_metadata_file:dir *;
+neverallow { domain -init -system_server -aconfigd } aconfig_storage_flags_metadata_file:file no_rw_file_perms;
 
 # Allow systemserver to read/write the invalidation property
 set_prop(system_server, binder_cache_system_server_prop)
