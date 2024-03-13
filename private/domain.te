@@ -813,5 +813,5 @@ neverallow { domain -init } kcmdlinectrl:process { dyntransition transition };
 neverallow { domain -gmscore_app -init -vold_prepare_subdirs } checkin_data_file:{dir file} *;
 
 # Do not allow write access to aconfig flag value files except init and aconfigd
-neverallow { domain -init -aconfigd } aconfig_storage_metadata_file:dir *;
-neverallow { domain -init -aconfigd } aconfig_storage_metadata_file:file no_w_file_perms;
+neverallow { domain -init -aconfigd -system_server } aconfig_storage_metadata_file:dir *;
+neverallow { domain -init -aconfigd -system_server } aconfig_storage_metadata_file:file no_w_file_perms;
