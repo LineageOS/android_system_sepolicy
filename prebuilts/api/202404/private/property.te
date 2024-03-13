@@ -35,6 +35,7 @@ system_internal_prop(net_connectivity_prop)
 system_internal_prop(netd_stable_secret_prop)
 system_internal_prop(next_boot_prop)
 system_internal_prop(odsign_prop)
+system_internal_prop(misctrl_prop)
 system_internal_prop(perf_drop_caches_prop)
 system_internal_prop(pm_prop)
 system_internal_prop(profcollectd_node_id_prop)
@@ -184,6 +185,21 @@ neverallow {
   -dumpstate
   userdebug_or_eng(`-su')
 } init_svc_debug_prop:file no_rw_file_perms;
+
+# DO NOT ADD: compat risk
+neverallow {
+  domain
+  -init
+  -dumpstate
+  -misctrl
+  userdebug_or_eng(`-su')
+} misctrl_prop:file no_rw_file_perms;
+neverallow {
+  domain
+  -init
+  -misctrl
+  userdebug_or_eng(`-su')
+} misctrl_prop:property_service set;
 
 compatible_property_only(`
 # Prevent properties from being set

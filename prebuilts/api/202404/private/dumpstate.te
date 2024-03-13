@@ -68,6 +68,8 @@ binder_call(dumpstate, ot_daemon)
 # Collect metrics on boot time created by init
 get_prop(dumpstate, boottime_prop)
 
+get_prop(dumpstate, misctrl_prop)
+
 # Signal native processes to dump their stack.
 allow dumpstate {
   mediatranscoding

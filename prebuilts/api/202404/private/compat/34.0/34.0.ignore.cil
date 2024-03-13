@@ -23,6 +23,7 @@
     hal_threadnetwork_service
     hidl_memory_prop
     hidraw_device
+    input_device_config_prop
     virtual_camera_service
     ot_daemon_service
     ot_daemon_socket
@@ -45,4 +46,7 @@
     profiling_service
     aconfig_storage_metadata_file
     aconfig_storage_flags_metadata_file
+    aconfigd
+    aconfigd_exec
+    aconfigd_socket
   ))
