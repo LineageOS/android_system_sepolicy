@@ -1,0 +1,36 @@
+# aconfigd -- manager for aconfig flags
+type aconfigd, domain;
+type aconfigd_exec, exec_type, file_type, system_file_type;
+
+typeattribute aconfigd coredomain;
+
+init_daemon_domain(aconfigd)
+
+# only init is allowed to enter the aconfigd domain
+neverallow { domain -init } aconfigd:process transition;
+neverallow * aconfigd:process dyntransition;
+
+allow aconfigd metadata_file:dir search;
+
+allow aconfigd {
+    aconfig_storage_metadata_file
+    aconfig_storage_flags_metadata_file
+}:dir create_dir_perms;
+
+allow aconfigd {
+    aconfig_storage_metadata_file
+    aconfig_storage_flags_metadata_file
+}:file create_file_perms;
+
+allow aconfigd aconfigd_socket:sock_file rw_file_perms;
+
+# allow aconfigd to log to the kernel.
+allow aconfigd kmsg_device:chr_file w_file_perms;
+
+# allow aconfigd to read system/system_ext/product partition storage files
+allow aconfigd system_aconfig_storage_file:file r_file_perms;
+allow aconfigd system_aconfig_storage_file:dir r_dir_perms;
+
+# allow aconfigd to read vendor partition storage files
+allow aconfigd vendor_aconfig_storage_file:file r_file_perms;
+allow aconfigd vendor_aconfig_storage_file:dir r_dir_perms;

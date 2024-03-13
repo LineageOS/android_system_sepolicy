@@ -161,9 +161,6 @@ create_pty(untrusted_app_all)
 userdebug_or_eng(`
   allow untrusted_app_all debugfs_kcov:file rw_file_perms;
   allowxperm untrusted_app_all debugfs_kcov:file ioctl { KCOV_INIT_TRACE KCOV_ENABLE KCOV_DISABLE };
-  # The use of debugfs kcov is considered a breach of the kernel integrity
-  # according to the heuristic of lockdown.
-  allow untrusted_app_all self:lockdown integrity;
 ')
 
 # Allow running a VM for test/demo purposes. Note that access to the
