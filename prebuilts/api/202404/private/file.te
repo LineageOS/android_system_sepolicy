@@ -25,6 +25,9 @@ type perfetto_traces_data_file, file_type, data_file_type, core_data_file_type;
 # /data/misc/perfetto-traces/bugreport for perfetto traces for bugreports.
 type perfetto_traces_bugreport_data_file, file_type, data_file_type, core_data_file_type;
 
+# /data/misc/perfetto-traces/profiling for perfetto traces from profiling apis.
+type perfetto_traces_profiling_data_file, file_type, data_file_type, core_data_file_type;
+
 # /data/misc/perfetto-configs for perfetto configs
 type perfetto_configs_data_file, file_type, data_file_type, core_data_file_type;
 
@@ -145,3 +148,12 @@ type system_font_fallback_file, system_file_type, file_type;
 
 # Type for /sys/devices/uprobe.
 type sysfs_uprobe, fs_type, sysfs_type;
+
+# Type for aconfig daemon socket
+type aconfigd_socket, file_type, coredomain_socket;
+
+# Type for /(system|system_ext|product)/etc/aconfig
+type system_aconfig_storage_file, system_file_type, file_type;
+
+# Type for /vendor/etc/aconfig
+type vendor_aconfig_storage_file, vendor_file_type, file_type;

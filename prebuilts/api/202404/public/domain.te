@@ -259,13 +259,14 @@ allow domain debugfs_tracing:dir search;
 allow domain debugfs_tracing_debug:dir search;
 allow domain debugfs_trace_marker:file w_file_perms;
 
-# Linux lockdown mode offers coarse-grained definitions for access controls.
-# The "confidentiality" level detects access to tracefs or the perf subsystem.
-# This overlaps with more precise declarations in Android's policy. The
-# debugfs_trace_marker above is an example in which all processes should have
-# some access to tracefs. Therefore, allow all domains to access this level.
-# The "integrity" level is however enforced.
-allow domain self:lockdown confidentiality;
+# Linux lockdown mode offered coarse-grained definitions for access controls. In
+# previous versions of the policy, the integrity permission was neverallowed.
+# It was found that this permission mainly duplicates pre-existing rules in
+# the policy (see b/285443587). Additionally, some access were found to be
+# required (b/269377822). The access vector was removed from kernel 5.16
+# onwards. Grant unconditional access, these rules should be removed from the
+# policy once no kernel <5.16 are supported.
+allow domain self:lockdown { confidentiality integrity };
 
 # Filesystem access.
 allow domain fs_type:filesystem getattr;
@@ -628,11 +629,6 @@ neverallow hwservicemanager binder_device:chr_file no_rw_file_perms;
 neverallow hwservicemanager vndbinder_device:chr_file no_rw_file_perms;
 neverallow vndservicemanager binder_device:chr_file no_rw_file_perms;
 neverallow vndservicemanager hwbinder_device:chr_file no_rw_file_perms;
-
-# Do not allow write access to the general aconfig pb file and boot flag value files except init
-# TODO: need to add storage daemon into this exception list once it is created
-neverallow { domain -init } aconfig_storage_metadata_file:dir *;
-neverallow { domain -init } aconfig_storage_metadata_file:file no_w_file_perms;
 
 full_treble_only(`
   # Vendor apps are permited to use only stable public services. If they were to use arbitrary
@@ -1310,6 +1306,3 @@ neverallow {
 } ashmem_device:chr_file open;
 
 neverallow { domain -traced_probes -init -vendor_init } debugfs_tracing_printk_formats:file *;
-
-# Linux lockdown "integrity" level is enforced for user builds.
-neverallow { domain userdebug_or_eng(`-domain') } self:lockdown integrity;
