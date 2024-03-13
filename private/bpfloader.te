@@ -48,24 +48,12 @@ neverallow { domain -bpfloader } bpffs_type:lnk_file ~read;
 neverallow { domain -bpfdomain } bpffs_type:lnk_file read;
 
 neverallow { domain -bpfloader } *:bpf { map_create prog_load };
+neverallow { domain -bpfdomain } *:bpf { map_read map_write prog_run };
 
 # 'fs_bpf_loader' is for internal use of the BpfLoader oneshot boot time process.
 neverallow { domain -bpfloader } fs_bpf_loader:bpf *;
 neverallow { domain -bpfloader } fs_bpf_loader:file *;
 
-neverallow {
-  domain
-  -bpfloader
-  -gpuservice
-  -hal_health_server
-  -mediaprovider_app
-  -netd
-  -netutils_wrapper
-  -network_stack
-  -system_server
-  -uprobestats
-} *:bpf prog_run;
-neverallow { domain -bpfloader -gpuservice -lmkd -mediaprovider_app -netd -network_stack -system_server -uprobestats } *:bpf { map_read map_write };
 neverallow { domain -bpfloader -init } bpfloader_exec:file { execute execute_no_trans };
 
 neverallow { coredomain -bpfloader -netd -netutils_wrapper } fs_bpf_vendor:file *;
