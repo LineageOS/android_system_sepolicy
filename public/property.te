@@ -103,6 +103,7 @@ system_restricted_prop(usb_prop)
 system_restricted_prop(userspace_reboot_exported_prop)
 system_restricted_prop(vold_status_prop)
 system_restricted_prop(vts_status_prop)
+system_restricted_prop(profcollectd_etr_prop)
 
 compatible_property_only(`
     # DO NOT ADD ANY PROPERTIES HERE
