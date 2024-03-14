@@ -15,7 +15,10 @@ allow ueventd sysfs_type:file w_file_perms;
 r_dir_file(ueventd, sysfs_type)
 allow ueventd sysfs_type:{ file lnk_file } { relabelfrom relabelto setattr };
 allow ueventd sysfs_type:dir { relabelfrom relabelto setattr };
-allow ueventd tmpfs:chr_file rw_file_perms;
+# the open-dice0 device is now created in first_stage_init, ueventd needs these permissions
+# so that it can relabel it to open_dice_device, so that microdroid_manager can access it.
+allow ueventd tmpfs:chr_file { relabelfrom rw_file_perms setattr };
+allow ueventd open_dice_device:chr_file relabelto;
 allow ueventd dev_type:dir create_dir_perms;
 allow ueventd dev_type:lnk_file { create unlink };
 allow ueventd dev_type:chr_file { getattr create setattr unlink };
