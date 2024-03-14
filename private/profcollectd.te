@@ -46,6 +46,9 @@ userdebug_or_eng(`
   get_prop(profcollectd, device_config_profcollect_native_boot_prop)
   set_prop(profcollectd, profcollectd_node_id_prop)
 
+  # Allow profcollectd to trigger manual probe of coresight etr.
+  set_prop(profcollectd, profcollectd_etr_prop)
+
   # Allow profcollectd to publish a binder service and make binder calls.
   binder_use(profcollectd)
   # Allow profcollectd to call callbacks registered by system_server when ETM is ready.

@@ -297,6 +297,10 @@ set_prop(vendor_init, dck_prop)
 get_prop(vendor_init, device_config_vendor_system_native_prop)
 get_prop(vendor_init, device_config_vendor_system_native_boot_prop)
 
+userdebug_or_eng(`
+get_prop(vendor_init, profcollectd_etr_prop)
+')
+
 ###
 ### neverallow rules
 ###

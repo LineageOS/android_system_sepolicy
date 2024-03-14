@@ -109,6 +109,7 @@ sys.lmk.                u:object_r:system_lmk_prop:s0
 sys.trace.              u:object_r:system_trace_prop:s0
 wrap.                   u:object_r:zygote_wrap_prop:s0 prefix string
 persist.wm.debug.       u:object_r:persist_wm_debug_prop:s0
+profcollectd.etr.probe  u:object_r:profcollectd_etr_prop:s0
 
 # Suspend service properties
 suspend.max_sleep_time_millis u:object_r:suspend_prop:s0 exact uint
