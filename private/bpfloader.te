@@ -6,7 +6,7 @@ typeattribute bpfloader bpfdomain;
 allow bpfloader kmsg_device:chr_file w_file_perms;
 
 # These permissions are required to pin ebpf maps & programs.
-allow bpfloader bpffs_type:dir { add_name create remove_name search write };
+allow bpfloader bpffs_type:dir { add_name create remove_name search setattr write };
 allow bpfloader bpffs_type:file { create getattr read rename setattr };
 allow bpfloader bpffs_type:lnk_file { create getattr read };
 allow { bpffs_type -fs_bpf } fs_bpf:filesystem associate;
@@ -29,8 +29,8 @@ allow bpfloader bpfloader_exec:file execute_no_trans;
 ###
 
 # Note: we don't care about getattr/mounton/search
-neverallow { domain            } bpffs_type:dir ~{ add_name create getattr mounton remove_name search write };
-neverallow { domain -bpfloader } bpffs_type:dir { add_name create remove_name write };
+neverallow { domain            } bpffs_type:dir ~{ add_name create getattr mounton remove_name search setattr write };
+neverallow { domain -bpfloader } bpffs_type:dir { add_name create remove_name setattr write };
 
 neverallow { domain            } bpffs_type:file ~{ create getattr map open read rename setattr write };
 neverallow { domain -bpfloader } bpffs_type:file { create map open rename setattr };
