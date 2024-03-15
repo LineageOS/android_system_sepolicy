@@ -18,7 +18,7 @@ allow bpfloader self:capability { chown sys_admin net_admin };
 
 allow bpfloader sysfs_fs_fuse_bpf:file r_file_perms;
 
-allow bpfloader proc_bpf:file w_file_perms;
+allow bpfloader proc_bpf:file rw_file_perms;
 
 set_prop(bpfloader, bpf_progs_loaded_prop)
 
