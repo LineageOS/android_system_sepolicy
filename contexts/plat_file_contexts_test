@@ -422,6 +422,7 @@
 /system/bin/idmap2                                                idmap_exec
 /system/bin/idmap2d                                               idmap_exec
 /system/bin/update_engine                                         update_engine_exec
+/system/bin/update_engine_nostats                                 update_engine_exec
 /system/bin/profcollectd                                          profcollectd_exec
 /system/bin/profcollectctl                                        profcollectd_exec
 /system/bin/storaged                                              storaged_exec
