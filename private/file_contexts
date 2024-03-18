@@ -351,13 +351,14 @@
 /system/bin/sgdisk      u:object_r:sgdisk_exec:s0
 /system/bin/blkid       u:object_r:blkid_exec:s0
 /system/bin/flags_health_check -- u:object_r:flags_health_check_exec:s0
-/system/bin/idmap2(d)?           u:object_r:idmap_exec:s0
-/system/bin/update_engine        u:object_r:update_engine_exec:s0
-/system/bin/profcollectd         u:object_r:profcollectd_exec:s0
-/system/bin/profcollectctl       u:object_r:profcollectd_exec:s0
-/system/bin/storaged             u:object_r:storaged_exec:s0
-/system/bin/virtual_touchpad     u:object_r:virtual_touchpad_exec:s0
-/system/bin/virtual_camera       u:object_r:virtual_camera_exec:s0
+/system/bin/idmap2(d)?              u:object_r:idmap_exec:s0
+/system/bin/update_engine           u:object_r:update_engine_exec:s0
+/system/bin/update_engine_nostats   u:object_r:update_engine_exec:s0
+/system/bin/profcollectd            u:object_r:profcollectd_exec:s0
+/system/bin/profcollectctl          u:object_r:profcollectd_exec:s0
+/system/bin/storaged                u:object_r:storaged_exec:s0
+/system/bin/virtual_touchpad        u:object_r:virtual_touchpad_exec:s0
+/system/bin/virtual_camera          u:object_r:virtual_camera_exec:s0
 /system/bin/hw/android\.frameworks\.bufferhub@1\.0-service    u:object_r:fwk_bufferhub_exec:s0
 /system/bin/hw/android\.system\.suspend-service               u:object_r:system_suspend_exec:s0
 /(system|system_ext|product)/etc/aconfig(/.*)?                u:object_r:system_aconfig_storage_file:s0
