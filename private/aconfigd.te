@@ -22,7 +22,14 @@ allow aconfigd {
     aconfig_storage_flags_metadata_file
 }:file create_file_perms;
 
+allow aconfigd aconfigd_socket:unix_stream_socket { accept listen getattr read write };
 allow aconfigd aconfigd_socket:sock_file rw_file_perms;
+
+# allow aconfigd to access shell_data_file for atest
+userdebug_or_eng(`
+    allow aconfigd shell_data_file:dir search;
+    allow aconfigd shell_data_file:file { getattr read open };
+')
 
 # allow aconfigd to log to the kernel.
 allow aconfigd kmsg_device:chr_file w_file_perms;
