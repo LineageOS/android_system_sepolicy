@@ -30,7 +30,4 @@ userdebug_or_eng(`
 
   # Do not audit accesses to keystore2 namespace for the su domain.
   dontaudit su keystore2_key_type:{ keystore2 keystore2_key } *;
-
-  # Allow root to set MTE permissive mode.
-  set_prop(su, permissive_mte_prop);
 ')
