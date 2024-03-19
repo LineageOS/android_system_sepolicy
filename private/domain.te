@@ -735,6 +735,7 @@ neverallow {
   -artd
   -dumpstate
   -installd
+  userdebug_or_eng(`-aconfigd')
   userdebug_or_eng(`-uncrypt')
   userdebug_or_eng(`-virtualizationmanager')
   userdebug_or_eng(`-virtualizationservice')
@@ -782,6 +783,7 @@ neverallow {
   -installd
   -simpleperf_app_runner
   -system_server # why?
+  userdebug_or_eng(`-aconfigd')
   userdebug_or_eng(`-uncrypt')
   userdebug_or_eng(`-virtualizationmanager')
   userdebug_or_eng(`-crosvm')

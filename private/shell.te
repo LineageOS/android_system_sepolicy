@@ -267,3 +267,9 @@ get_prop(shell, build_attestation_prop)
 
 # Allow shell to execute oatdump.
 allow shell oatdump_exec:file rx_file_perms;
+
+# Allow shell access to socket for test
+userdebug_or_eng(`
+    allow shell aconfigd_socket:sock_file write;
+    allow shell aconfigd:unix_stream_socket connectto;
+')
