@@ -294,8 +294,5 @@ neverallow priv_app *:{
   alg_socket nfc_socket kcm_socket qipcrtr_socket smc_socket xdp_socket
 } *;
 
-# Allow priv apps to report off body events to keystore2.
-allow priv_app keystore:keystore2 report_off_body;
-
 # Allow priv_apps to check if archiving is enabled
 get_prop(priv_app, pm_archiving_enabled_prop)
