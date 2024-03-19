@@ -588,6 +588,9 @@ allow system_server perfetto_traces_profiling_data_file:dir rw_dir_perms;
 allow system_server perfetto_traces_profiling_data_file:file { rw_file_perms unlink };
 allow system_server perfetto_traces_data_file:dir search;
 
+# Allow system server to kill perfetto processes for ProfilingService.
+allow system_server perfetto:process signal;
+
 # Manage /data/backup.
 allow system_server backup_data_file:dir create_dir_perms;
 allow system_server backup_data_file:file create_file_perms;
