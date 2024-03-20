@@ -124,24 +124,3 @@ neverallow sdk_sandbox_all sdk_sandbox_system_data_file:dir ~{ getattr search };
 # Only dirs should be created at sdk_sandbox_all_system_data_file level
 neverallow { domain -init } sdk_sandbox_system_data_file:file *;
 
-# Restrict unix stream sockets for IPC.
-neverallow sdk_sandbox_all {
-    domain
-    -sdk_sandbox_all
-    -surfaceflinger
-    -netd
-    -logd
-    -adbd
-    userdebug_or_eng(`-su')
-    # needed for profiling
-    -traced
-    -traced_perf
-    -heapprofd
-    # fallback crash handling for processes that can't exec crash_dump.
-    -tombstoned
-    -dumpstate
-    # needed to connect to PRNG seeder daemon.
-    -prng_seeder
-    # needed by the SDK sandbox
-    -system_server
-}:unix_stream_socket { create_stream_socket_perms connectto };
