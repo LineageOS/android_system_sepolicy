@@ -70,6 +70,9 @@ allow cameraserver shell:fd use;
 allow cameraserver shell:unix_stream_socket { read write };
 allow cameraserver shell:fifo_file { read write };
 
+# allow self to set SCHED_FIFO
+allow cameraserver self:global_capability_class_set sys_nice;
+
 # Allow to talk with media codec
 allow cameraserver mediametrics_service:service_manager find;
 hal_client_domain(cameraserver, hal_codec2)
