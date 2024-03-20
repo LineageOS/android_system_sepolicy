@@ -611,6 +611,11 @@ allow system_server adb_keys_file:file create_file_perms;
 allow system_server appcompat_data_file:dir rw_dir_perms;
 allow system_server appcompat_data_file:file create_file_perms;
 
+# Manage /data/misc/connectivityblobdb.
+# Specifically, for vpn and wifi to create, read and write to an sqlite database.
+allow system_server connectivityblob_data_file:dir create_dir_perms;
+allow system_server connectivityblob_data_file:file create_file_perms;
+
 # Manage /data/misc/emergencynumberdb
 allow system_server emergency_data_file:dir create_dir_perms;
 allow system_server emergency_data_file:file create_file_perms;
