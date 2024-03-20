@@ -346,7 +346,8 @@ get_prop(domain, device_config_media_native_prop)
 # The boot copy of the flag value files serves flag read traffic for all processes, thus
 # needs to be readable by everybody. Also, the metadata directory will contain pb file
 # that records where flag storage files are, so also needs to be readable by everbody.
-allow domain { aconfig_storage_metadata_file }:file r_file_perms;
+allow domain aconfig_storage_metadata_file:file r_file_perms;
+allow domain aconfig_storage_metadata_file:dir r_dir_perms;
 
 ###
 ### neverallow rules
