@@ -227,6 +227,7 @@ set_prop(shell, sqlite_log_prop)
 
 # Allow shell to write MTE properties even on user builds.
 set_prop(shell, arm64_memtag_prop)
+set_prop(shell, permissive_mte_prop)
 
 # Allow shell to write kcmdline properties even on user builds.
 set_prop(shell, kcmdline_prop)
