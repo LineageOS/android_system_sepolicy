@@ -902,3 +902,12 @@
 /(system|product)/bin/check_dynamic_partitions  u:object_r:postinstall_exec:s0
 /(system|product)/bin/otapreopt_script          u:object_r:postinstall_exec:s0
 /(system|product)/bin/otapreopt                 u:object_r:postinstall_dexopt_exec:s0
+
+#############################
+# For Pre-reboot Dexopt (see art/dexopt_chroot_setup/README.md)
+
+# Managed by dexopt_chroot_setup.
+# Note that pre_reboot_dexopt_file also applies to any tmpfs mounted by
+# dexopt_chroot_setup inside chroot, in addition to the files and directories
+# matching the pattern below.
+/mnt/pre_reboot_dexopt(/.*)?  u:object_r:pre_reboot_dexopt_file:s0

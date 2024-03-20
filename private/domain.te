@@ -190,6 +190,7 @@ allow {
   -webview_zygote
   -system_server
   -artd
+  -dexopt_chroot_setup
   -audioserver
   -cameraserver
   -mediadrmserver
@@ -526,6 +527,7 @@ neverallow ~{
 neverallow {
     domain
     -apexd
+    -dexopt_chroot_setup
     recovery_only(`-fastbootd')
     -init
     -kernel
@@ -676,7 +678,7 @@ neverallow domain mlsvendorcompat:process fork;
 
 # Only init and otapreopt_chroot should be mounting filesystems on locations
 # labeled system or vendor (/product and /vendor respectively).
-neverallow { domain -init -otapreopt_chroot } { system_file_type vendor_file_type }:dir_file_class_set mounton;
+neverallow { domain -dexopt_chroot_setup -init -otapreopt_chroot } { system_file_type vendor_file_type }:dir_file_class_set mounton;
 
 # Only allow init and vendor_init to read/write mm_events properties
 # NOTE: dumpstate is allowed to read any system property
@@ -829,3 +831,5 @@ neverallow { domain -gmscore_app -init -vold_prepare_subdirs } checkin_data_file
 neverallow { domain -init -aconfigd -system_server } aconfig_storage_metadata_file:dir no_w_dir_perms;
 neverallow { domain -init -aconfigd -system_server } aconfig_storage_metadata_file:file no_w_file_perms;
 
+neverallow { domain -dexopt_chroot_setup -init } proc:{ file dir } mounton;
+neverallow { domain -dexopt_chroot_setup -init -zygote } proc_type:{ file dir } mounton;

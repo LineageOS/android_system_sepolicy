@@ -1618,3 +1618,7 @@ get_prop(system_server, pm_archiving_enabled_prop)
 # Do not allow any domain other than init or system server to get or set the property
 neverallow { domain -init -system_server } crashrecovery_prop:property_service set;
 neverallow { domain -init -dumpstate -system_server } crashrecovery_prop:file no_rw_file_perms;
+
+# Allow accessing /mnt/pre_reboot_dexopt/chroot, to load the new service-art.jar
+# in Pre-reboot Dexopt.
+allow system_server pre_reboot_dexopt_file:dir { getattr search };

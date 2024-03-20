@@ -51,17 +51,28 @@ dontaudit odrefresh { adbd shell }:fd use;
 dontaudit odrefresh devpts:chr_file rw_file_perms;
 dontaudit odrefresh adbd:unix_stream_socket { getattr read write };
 
-# No other processes should be creating files in the staging area.
-neverallow { domain -init -odrefresh -compos_fd_server } apex_art_staging_data_file:file open;
-
-# No processes other than init, odrefresh and system_server access
-# odrefresh_data_files.
-neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:dir *;
-neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:file *;
-
 # Read access to SELinux context files, for restorecon.
 allow odrefresh file_contexts_file:file r_file_perms;
 allow odrefresh seapp_contexts_file:file r_file_perms;
 
 # Check validity of SELinux context, for restorecon.
 selinux_check_context(odrefresh)
+
+# odrefresh iterates over all properties to find the ones that it's interested
+# in. It's okay to ignore denials on other properties.
+dontaudit odrefresh property_type:file r_file_perms;
+
+# Allow to be called by artd in Pre-reboot Dexopt.
+allow odrefresh artd:fd use;
+
+# Neverallow rules.
+
+# No other processes should be creating files in the staging area.
+neverallow { domain -init -odrefresh -compos_fd_server } apex_art_staging_data_file:file open;
+
+# No processes other than init, odrefresh, system_server, and artd access
+# odrefresh_data_files.
+# Among those, artd only needs to bind-mount /data/misc/odrefresh, but doesn't
+# need to access the files.
+neverallow { domain -init -odrefresh -system_server -artd } odrefresh_data_file:dir *;
+neverallow { domain -init -odrefresh -system_server } odrefresh_data_file:file *;
