@@ -342,13 +342,6 @@ allow domain apex_mnt_dir:lnk_file r_file_perms;
 # configured using server-configurable flags
 get_prop(domain, device_config_media_native_prop)
 
-# Allow everyone to read from flag value boot snapshot files and general pb files
-# The boot copy of the flag value files serves flag read traffic for all processes, thus
-# needs to be readable by everybody. Also, the metadata directory will contain pb file
-# that records where flag storage files are, so also needs to be readable by everbody.
-allow domain aconfig_storage_metadata_file:file r_file_perms;
-allow domain aconfig_storage_metadata_file:dir r_dir_perms;
-
 ###
 ### neverallow rules
 ###
