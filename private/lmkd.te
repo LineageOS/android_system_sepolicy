@@ -12,7 +12,16 @@ set_prop(lmkd, lmkd_prop)
 # Get persist.device_config.lmk_native.* properties.
 get_prop(lmkd, device_config_lmkd_native_prop)
 
+# Needed for reading tracepoint ids in order to attach bpf programs.
+allow lmkd debugfs_tracing:file r_file_perms;
+allow lmkd self:perf_event { cpu kernel open write };
+
 allow lmkd fs_bpf:file read;
-allow lmkd bpfloader:bpf map_read;
+allow lmkd bpfloader:bpf { map_read map_write prog_run };
+
+# Needed for polling directly from the bpf ring buffer's fd
+allow lmkd fs_bpf_lmkd_memevents_rb:file { read write };
+allow lmkd fs_bpf_lmkd_memevents_prog:file read;
 
 neverallow { domain -init -lmkd -vendor_init } lmkd_prop:property_service set;
+neverallow lmkd self:perf_event ~{ cpu kernel open write };

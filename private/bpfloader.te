@@ -42,7 +42,7 @@ neverallow { domain -bpfloader                                      -netd       
 neverallow { domain -bpfloader                                      -netd -netutils_wrapper -network_stack -system_server } fs_bpf_netd_shared:file   { getattr read };
 neverallow { domain -bpfloader                                                              -network_stack                } fs_bpf_tethering:file     { getattr read };
 neverallow { domain -bpfloader                                                                                            -uprobestats } fs_bpf_uprobestats:file   { getattr read };
-neverallow { domain -bpfloader -gpuservice                          -netd -netutils_wrapper -network_stack -system_server -uprobestats } { bpffs_type -fs_bpf_vendor }:file write;
+neverallow { domain -bpfloader -gpuservice -lmkd                    -netd -netutils_wrapper -network_stack -system_server -uprobestats } { bpffs_type -fs_bpf_vendor }:file write;
 
 neverallow { domain -bpfloader } bpffs_type:lnk_file ~read;
 neverallow { domain -bpfdomain } bpffs_type:lnk_file read;

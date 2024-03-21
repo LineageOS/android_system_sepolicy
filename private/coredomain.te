@@ -181,6 +181,7 @@ full_treble_only(`
     -dumpstate
     -gpuservice
     -init
+    -lmkd
     -traced_perf
     -traced_probes
     -shell
