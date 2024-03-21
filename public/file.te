@@ -137,6 +137,8 @@ type fs_bpf, fs_type, bpffs_type;
 # TODO: S+ fs_bpf_tethering (used by mainline) should be private
 type fs_bpf_tethering, fs_type, bpffs_type;
 type fs_bpf_vendor, fs_type, bpffs_type;
+type fs_bpf_lmkd_memevents_rb, fs_type, bpffs_type;
+type fs_bpf_lmkd_memevents_prog, fs_type, bpffs_type;
 type configfs, fs_type;
 # /sys/devices/cs_etm
 type sysfs_devices_cs_etm, fs_type, sysfs_type;

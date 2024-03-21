@@ -407,13 +407,7 @@ allow appdomain hal_graphics_composer:fd use;
 # hence no sock_file or connectto permission. This appears to be how
 # Chrome works, may need to be updated as more apps using isolated services
 # are examined.
-allow {
-  appdomain
-  -sdk_sandbox_all
-} {
-  appdomain
-  -sdk_sandbox_all
-}:unix_stream_socket { getopt getattr read write shutdown };
+allow appdomain appdomain:unix_stream_socket { getopt getattr read write shutdown };
 
 # Backup ability for every app. BMS opens and passes the fd
 # to any app that has backup ability. Hence, no open permissions here.

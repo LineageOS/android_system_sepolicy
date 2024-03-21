@@ -28,6 +28,9 @@ binder_call(virtual_camera, appdomain)
 # Allow virtual_camera to use fd from apps
 allow virtual_camera { appdomain -isolated_app }:fd use;
 
+# Allow virtual_camera to use fd from surface flinger
+allow virtual_camera surfaceflinger:fd use;
+
 # Only allow virtual_camera to add a virtual_camera_service and no one else.
 add_service(virtual_camera, virtual_camera_service);
 
