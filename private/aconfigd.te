@@ -28,7 +28,7 @@ allow aconfigd aconfigd_socket:sock_file rw_file_perms;
 # allow aconfigd to access shell_data_file for atest
 userdebug_or_eng(`
     allow aconfigd shell_data_file:dir search;
-    allow aconfigd shell_data_file:file { getattr read open };
+    allow aconfigd shell_data_file:file { getattr read open map };
 ')
 
 # allow aconfigd to log to the kernel.
