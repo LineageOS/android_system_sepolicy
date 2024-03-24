@@ -137,3 +137,6 @@ type sysfs_dt_avf, fs_type, sysfs_type;
 
 # Type for /sys/devices/uprobe.
 type sysfs_uprobe, fs_type, sysfs_type;
+
+# Type for /vendor/etc/aconfig
+type vendor_aconfig_storage_file, vendor_file_type, file_type;
