@@ -121,10 +121,9 @@ allow artd system_userdir_file:dir r_dir_perms;
 # /mnt/expand/<volume-uuid>, for cleaning up obsolete managed files.
 allow artd system_data_file:dir r_dir_perms;
 
-# Never allow running other binaries without a domain transition.
-# The only exception is art_exec. It is allowed to use the artd domain because
-# it is a thin wrapper that executes other binaries on behalf of artd.
-neverallow artd ~{art_exec_exec}:file execute_no_trans;
+# Allow art_exec_exec to use the artd domain because it is a thin wrapper that
+# executes other binaries on behalf of artd. Domain transition will take place
+# as soon as art_exec_exec executes other binaries.
 allow artd art_exec_exec:file rx_file_perms;
 
 # Allow running other binaries in their own domains.
@@ -143,3 +142,43 @@ r_dir_file(artd, dex2oat);
 # artd needs to reopen a memfd with readonly in order to pass it to subprocesses
 # that don't have write permissions on memfds.
 allow artd artd_tmpfs:file open;
+
+# For Pre-reboot Dexopt.
+
+# Allow init to execute artd through art_exec.
+allow artd art_exec:fd use;
+
+# During Pre-reboot Dexopt, artd needs one more capability:
+# - "sys_admin" is for bind-mounting temp dirs at
+#   /data/misc/apexdata/com.android.art and /data/misc/odrefresh, to run
+#   odrefresh innocuously (in a way that doesn't affect the real boot images,
+#   metrics, etc.).
+allow artd self:global_capability_class_set sys_admin;
+
+# Allow running other binaries in their own domains.
+domain_auto_trans(artd, derive_classpath_exec, derive_classpath)
+domain_auto_trans(artd, odrefresh_exec, odrefresh)
+
+# Allow accessing Pre-reboot Dexopt files.
+allow artd pre_reboot_dexopt_file:dir { getattr search };
+
+# Allow reading /init.environ.rc in chroot, to extract env vars from it.
+allow artd rootfs:file { read open getattr };
+
+# Allow managing Pre-reboot Dexopt temp files.
+# The root of the temp dir that artd uses during Pre-reboot Dexopt is labeled
+# pre_reboot_dexopt_artd_file. Inside the temp dir, we create files and dirs and
+# relabel them after creation, so we need relabelfrom.
+allow artd pre_reboot_dexopt_artd_file:dir { create_dir_perms relabelfrom };
+allow artd pre_reboot_dexopt_artd_file:file { create_file_perms relabelfrom };
+
+# Allow bind-mounting at /data/misc/apexdata/com.android.art and
+# /data/misc/odrefresh and restorecon, to run odrefresh innocuously.
+allow artd { apex_art_data_file odrefresh_data_file }:dir relabelto;
+allow artd { apex_art_data_file odrefresh_data_file pre_reboot_dexopt_artd_file }:dir mounton;
+
+# Neverallow rules.
+
+# Never allow running other binaries without a domain transition.
+# The exception for art_exec_exec is explained above.
+neverallow artd ~{art_exec_exec}:file execute_no_trans;
