@@ -401,6 +401,7 @@ allow system_server {
   hal_bluetooth_server
   hal_camera_server
   hal_codec2_server
+  hal_drm_server
   hal_face_server
   hal_fingerprint_server
   hal_gnss_server
