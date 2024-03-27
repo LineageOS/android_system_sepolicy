@@ -1,3 +1,4 @@
+# A service that sets up the chroot environment for Pre-reboot Dexopt.
 type dexopt_chroot_setup, domain, coredomain;
 type dexopt_chroot_setup_exec, system_file_type, exec_type, file_type;
 type dexopt_chroot_setup_tmpfs, file_type;
@@ -10,10 +11,10 @@ allow dexopt_chroot_setup dumpstate:fd use;
 
 init_daemon_domain(dexopt_chroot_setup)
 
-# Use tmpfs_domain() which will give tmpfs files created by dexopt_chroot_setup their
-# own label, which differs from other labels created by other processes.
-# This allows to distinguish in policy files created by dexopt_chroot_setup vs other
-# processes.
+# Use tmpfs_domain() which will give tmpfs files created by dexopt_chroot_setup
+# their own label, which differs from other labels created by other processes.
+# This allows to distinguish in policy files created by dexopt_chroot_setup vs
+# other processes.
 tmpfs_domain(dexopt_chroot_setup)
 
 # libart (mark_compact.cc) has some intialization code that touches the cache
@@ -21,3 +22,118 @@ tmpfs_domain(dexopt_chroot_setup)
 allow dexopt_chroot_setup apex_module_data_file:dir { getattr search };
 r_dir_file(dexopt_chroot_setup, apex_art_data_file)
 userfaultfd_use(dexopt_chroot_setup)
+
+# Allow getting root capabilities to bypass permission checks.
+# - "sys_admin" is for performing mount and umount.
+# - "sys_chroot" is for performing chroot.
+allow dexopt_chroot_setup self:global_capability_class_set { sys_admin sys_chroot };
+
+# Allow managing its own files.
+# The root of the temp dir that dexopt_chroot_setup uses is labeled
+# pre_reboot_dexopt_file.
+allow dexopt_chroot_setup pre_reboot_dexopt_file:dir create_dir_perms;
+allow dexopt_chroot_setup pre_reboot_dexopt_file:file create_file_perms;
+
+# Allow accessing /proc/filesystems.
+allow dexopt_chroot_setup proc_filesystems:file r_file_perms;
+
+# Allow accessing block devices (/dev/block/...).
+allow dexopt_chroot_setup block_device:dir { getattr search };
+
+# Allow mounting file systems, to create a chroot environment.
+allow dexopt_chroot_setup {
+  apex_mnt_dir
+  binderfs
+  cgroup
+  cgroup_v2
+  debugfs_tracing_debug
+  device
+  devpts
+  fs_bpf
+  fusectlfs
+  linkerconfig_file
+  metadata_file
+  mnt_expand_file
+  pre_reboot_dexopt_file
+  proc
+  pstorefs
+  rootfs
+  selinuxfs
+  sysfs
+  system_data_file
+  system_data_root_file
+  system_file
+  tmpfs
+  vendor_file
+}:dir mounton;
+
+allow dexopt_chroot_setup { tmpfs labeledfs }:filesystem mount;
+
+allow dexopt_chroot_setup {
+  binderfs
+  cgroup
+  cgroup_v2
+  debugfs_tracing_debug
+  devpts
+  fs_bpf
+  fusectlfs
+  labeledfs
+  proc
+  pstorefs
+  selinuxfs
+  sysfs
+  tmpfs
+}:filesystem unmount;
+
+# Allow reading /apex in chroot.
+r_dir_file(dexopt_chroot_setup, apex_mnt_dir)
+allow dexopt_chroot_setup apex_info_file:file r_file_perms;
+
+# Allow writing an empty linker config in chroot to suppress linker warnings.
+# The empty linker config is used until linkerconfig has run.
+# In chroot, we're reusing the type outside the chroot, to reuse all the rules
+# for it for other domains, even though we're not changing the real linker
+# config outside the chroot.
+allow dexopt_chroot_setup linkerconfig_file:dir { write add_name };
+allow dexopt_chroot_setup linkerconfig_file:file { create write };
+
+# Allow using the `rootcontext=` option when mounting tmpfs, so we can give the
+# right labels to /apex, /linkerconfig, /mnt/artd_tmp in chroot.
+# Combined with `allow file_type tmpfs:filesystem associate;`, this allows
+# giving any labels to any tmpfs filesystems as soon as they are mounted.
+# Note that those tmpfs filesystems are known to be empty at the time where the
+# labels are given, and this rule doesn't allow relabeling any existing tmpfs.
+allow dexopt_chroot_setup tmpfs:filesystem relabelfrom;
+
+# Allow executing art_exec_exec without a domain transition because it is a thin
+# wrapper that executes other binaries on behalf of dexopt_chroot_setup. Domain
+# transition will take place as soon as art_exec_exec executes other binaries.
+allow dexopt_chroot_setup art_exec_exec:file rx_file_perms;
+
+# Allow running other binaries in their own domains.
+domain_auto_trans(dexopt_chroot_setup, apexd_exec, apexd)
+domain_auto_trans(dexopt_chroot_setup, linkerconfig_exec, linkerconfig)
+
+# Allow running snapshotctl through init, to map and unmap block devices.
+set_prop(dexopt_chroot_setup, snapshotctl_prop)
+
+# Neverallow rules.
+
+# Never allow running other binaries without a domain transition.
+# The exception for art_exec_exec is explained above.
+neverallow dexopt_chroot_setup ~{art_exec_exec}:file execute_no_trans;
+
+# Given how powerful this domain is, it shouldn't be used for other purposes.
+neverallow { domain -init } dexopt_chroot_setup:process transition;
+neverallow * dexopt_chroot_setup:process dyntransition;
+
+# Never allow other processes to access the temp dirs for Pre-reboot Dexopt.
+neverallow {
+  domain
+  -art_exec
+  -artd
+  -dexopt_chroot_setup
+  -init
+  -system_server
+  -vendor_init
+} pre_reboot_dexopt_file:dir *;

@@ -1,0 +1,22 @@
+# A wrapper program that configures the process and executes a command.
+type art_exec, domain, coredomain;
+type art_exec_exec, system_file_type, exec_type, file_type;
+
+# Usually, this program is executed in the caller's domain. For example, it is
+# executed in the `artd` domain when artd calls it. Domain transition will take
+# place as soon as it executes other programs.
+# The only exception is when called by init. In this case, it's executed in its
+# own domain because init should never execute a program without changing to
+# another domain.
+init_daemon_domain(art_exec)
+
+# init calls this program to execute artd in a chroot environment for Pre-reboot
+# Dexopt.
+domain_auto_trans(art_exec, artd_exec, artd)
+
+# "sys_chroot" is for chroot'ing into the chroot environment, created by
+# dexopt_chroot_setup.
+allow art_exec self:global_capability_class_set sys_chroot;
+
+# Allow finding artd in the chroot dir for Pre-reboot Dexopt.
+allow art_exec pre_reboot_dexopt_file:dir search;
