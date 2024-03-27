@@ -24,3 +24,9 @@ allow derive_classpath postinstall_dexopt:fd use;
 allow derive_classpath postinstall_dexopt:file read;
 allow derive_classpath postinstall_dexopt:lnk_file read;
 allow derive_classpath postinstall_dexopt_tmpfs:file rw_file_perms;
+
+# Allow to be called by artd in Pre-reboot Dexopt.
+allow derive_classpath artd:fd use;
+
+# Allow writing to Pre-reboot Dexopt temp files.
+allow derive_classpath pre_reboot_dexopt_artd_file:file { open read write };

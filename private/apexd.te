@@ -189,8 +189,10 @@ neverallow { domain -apexd } apex_info_file:file no_w_file_perms;
 # A note on otapreopt_chroot. It used to mount APEXes during postainstall stage of A/B OTAs,
 # but starting from S it just calls into apexd to prepare /apex for otapreoprt. Once the sepolicies
 # around otapreopt_chroot are cleaned up we should be able to remove it from the lists below.
+# dexopt_chroot_setup calls apexd to prepare /apex for Pre-reboot Dexopt, but it
+# needs to mount a tmpfs on /apex for apexd to work on.
 neverallow { domain -apexd -init -otapreopt_chroot } apex_mnt_dir:filesystem { mount unmount };
-neverallow { domain -apexd -init -otapreopt_chroot } apex_mnt_dir:dir { mounton };
+neverallow { domain -apexd -dexopt_chroot_setup -init -otapreopt_chroot } apex_mnt_dir:dir mounton;
 
 # Allow for use in postinstall
 allow apexd otapreopt_chroot:fd use;
@@ -198,6 +200,9 @@ allow apexd postinstall_apex_mnt_dir:dir { create_dir_perms mounton };
 allow apexd postinstall_apex_mnt_dir:file { create_file_perms relabelfrom };
 allow apexd postinstall_apex_mnt_dir:lnk_file create;
 allow apexd proc_filesystems:file r_file_perms;
+
+# Allow for use in Pre-reboot Dexopt.
+allow apexd dexopt_chroot_setup:fd use;
 
 # Allow calling derive_classpath to gather BCP information for staged sessions
 domain_auto_trans(apexd, derive_classpath_exec, apexd_derive_classpath);
