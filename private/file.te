@@ -132,11 +132,6 @@ type compos_exec, exec_type, file_type, system_file_type;
 # /apex/com.android.compos/bin/compos_key_helper
 type compos_key_helper_exec, exec_type, file_type, system_file_type;
 
-# /apex/com.android.art/bin/art_exec
-# This executable does not have its own domain because it is executed in the caller's domain. For
-# example, it is executed in the `artd` domain when artd calls it.
-type art_exec_exec, system_file_type, exec_type, file_type;
-
 # Filesystem entry for for PRNG seeder socket.  Processes require
 # write permission on this to connect, and needs to be mlstrustedobject
 # in to satisfy MLS constraints for trusted domains.
@@ -163,3 +158,10 @@ type vendor_aconfig_storage_file, vendor_file_type, file_type;
 
 # /data/misc/connectivityblobdb
 type connectivityblob_data_file, file_type, data_file_type, core_data_file_type;
+
+# Type for /mnt/pre_reboot_dexopt
+type pre_reboot_dexopt_file, file_type;
+
+# Type for /mnt/artd_tmp in the Pre-reboot Dexopt chroot
+# This type is set on the directory through the `rootcontext=` mount option.
+type pre_reboot_dexopt_artd_file, file_type;
