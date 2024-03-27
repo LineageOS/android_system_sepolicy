@@ -13,3 +13,20 @@ use_bootstrap_libs(hwservicemanager)
 
 # hwservicemanager is using apex_info via libvintf
 use_apex_info(hwservicemanager)
+
+# Note that we do not use the binder_* macros here.
+# hwservicemanager provides name service (aka context manager)
+# for hwbinder.
+# Additionally, it initiates binder IPC calls to
+# clients who request service notifications. The permission
+# to do this is granted in the hwbinder_use macro.
+allow hwservicemanager self:binder set_context_mgr;
+
+# Scan through /system/lib64/hw looking for installed HALs
+allow hwservicemanager system_file:dir r_dir_perms;
+
+# Read hwservice_contexts
+allow hwservicemanager hwservice_contexts_file:file r_file_perms;
+
+# Check SELinux permissions.
+selinux_check_access(hwservicemanager)

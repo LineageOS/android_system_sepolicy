@@ -1,0 +1,3 @@
+hal_server_domain(charger_vendor, hal_health)
+
+typeattribute charger_vendor bpfdomain;

@@ -39,9 +39,15 @@ domain_auto_trans({
     -appdomain
 }, netutils_wrapper_exec, netutils_wrapper)
 
+###
+### Neverallow rules
+###
+
 # suppress spurious denials
 dontaudit netutils_wrapper self:global_capability_class_set sys_resource;
 dontaudit netutils_wrapper sysfs_type:file read;
 
 # netutils wrapper may only use the following capabilities.
 neverallow netutils_wrapper self:global_capability_class_set ~{ net_admin net_raw };
+
+neverallow domain netutils_wrapper_exec:file execute_no_trans;

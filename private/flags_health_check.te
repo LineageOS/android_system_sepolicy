@@ -36,6 +36,18 @@ set_prop(flags_health_check, device_config_camera_native_prop)
 set_prop(flags_health_check, device_config_tethering_u_or_later_native_prop)
 set_prop(flags_health_check, next_boot_prop)
 
+allow flags_health_check server_configurable_flags_data_file:dir rw_dir_perms;
+allow flags_health_check server_configurable_flags_data_file:file create_file_perms;
+
+###
+### Neverallow rules
+###
+
+# server_configurable_flags_data_file is used for storing whether server configurable flags which
+# have been reset during current booting. Mistakenly modified by unrelated components can
+# cause bad server configurable flags synced back to device.
+neverallow { domain -init -flags_health_check } server_configurable_flags_data_file:file no_w_file_perms;
+
 # system property device_config_boot_count_prop is used for deciding when to perform server
 # configurable flags related disaster recovery. Mistakenly set up by unrelated components can, at a
 # wrong timing, trigger server configurable flag related disaster recovery, which will override

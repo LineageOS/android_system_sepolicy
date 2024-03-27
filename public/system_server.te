@@ -4,15 +4,3 @@
 #
 type system_server, domain;
 type system_server_tmpfs, file_type, mlstrustedobject;
-
-# Power controls for debugging/diagnostics
-get_prop(system_server, power_debug_prop)
-set_prop(system_server, power_debug_prop)
-
-neverallow {
-  domain
-  -init
-  -vendor_init
-  -system_server
-  -shell
-} power_debug_prop:property_service set;

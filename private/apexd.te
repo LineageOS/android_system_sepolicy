@@ -2,6 +2,9 @@ typeattribute apexd coredomain;
 
 init_daemon_domain(apexd)
 
+binder_use(apexd)
+add_service(apexd, apex_service)
+
 # Allow creating, reading and writing of APEX files/dirs in the APEX data dir
 allow apexd apex_data_file:dir create_dir_perms;
 allow apexd apex_data_file:file create_file_perms;
@@ -166,33 +169,7 @@ get_prop(apexd, apexd_select_prop)
 # Allow apexd to read apexd_payload_metadata_prop
 get_prop(apexd, apexd_payload_metadata_prop)
 
-neverallow { domain -apexd -init } apex_data_file:dir no_w_dir_perms;
-neverallow { domain -apexd -init } apex_metadata_file:dir no_w_dir_perms;
-neverallow { domain -apexd -init -kernel } apex_data_file:file no_w_file_perms;
-neverallow { domain -apexd -init -kernel } apex_metadata_file:file no_w_file_perms;
-neverallow { domain -apexd } apex_mnt_dir:lnk_file no_w_file_perms;
-
-neverallow { domain -apexd -init -vold_prepare_subdirs } apex_module_data_file:dir no_w_dir_perms;
-neverallow { domain -apexd -init -vold_prepare_subdirs } apex_module_data_file:file no_w_file_perms;
-
-neverallow { domain -apexd -init -vold_prepare_subdirs } apex_rollback_data_file:dir no_w_dir_perms;
-neverallow { domain -apexd -init -vold_prepare_subdirs } apex_rollback_data_file:file no_w_file_perms;
-
-# only apexd can set apexd sysprop
 set_prop(apexd, apexd_prop)
-neverallow { domain -apexd -init } apexd_prop:property_service set;
-
-# only apexd can write apex-info-list.xml
-neverallow { domain -apexd } apex_info_file:file no_w_file_perms;
-
-# Only apexd and init should be allowed to manage /apex mounts
-# A note on otapreopt_chroot. It used to mount APEXes during postainstall stage of A/B OTAs,
-# but starting from S it just calls into apexd to prepare /apex for otapreoprt. Once the sepolicies
-# around otapreopt_chroot are cleaned up we should be able to remove it from the lists below.
-# dexopt_chroot_setup calls apexd to prepare /apex for Pre-reboot Dexopt, but it
-# needs to mount a tmpfs on /apex for apexd to work on.
-neverallow { domain -apexd -init -otapreopt_chroot } apex_mnt_dir:filesystem { mount unmount };
-neverallow { domain -apexd -dexopt_chroot_setup -init -otapreopt_chroot } apex_mnt_dir:dir mounton;
 
 # Allow for use in postinstall
 allow apexd otapreopt_chroot:fd use;
@@ -212,3 +189,39 @@ set_prop(apexd, apex_ready_prop)
 
 # Allow apexd to write to statsd.
 unix_socket_send(apexd, statsdw, statsd)
+
+###
+### Neverallow rules
+###
+
+neverallow { domain -apexd -init } apex_data_file:dir no_w_dir_perms;
+neverallow { domain -apexd -init } apex_metadata_file:dir no_w_dir_perms;
+neverallow { domain -apexd -init -kernel } apex_data_file:file no_w_file_perms;
+neverallow { domain -apexd -init -kernel } apex_metadata_file:file no_w_file_perms;
+neverallow { domain -apexd } apex_mnt_dir:lnk_file no_w_file_perms;
+
+neverallow { domain -apexd -init -vold_prepare_subdirs } apex_module_data_file:dir no_w_dir_perms;
+neverallow { domain -apexd -init -vold_prepare_subdirs } apex_module_data_file:file no_w_file_perms;
+
+neverallow { domain -apexd -init -vold_prepare_subdirs } apex_rollback_data_file:dir no_w_dir_perms;
+neverallow { domain -apexd -init -vold_prepare_subdirs } apex_rollback_data_file:file no_w_file_perms;
+
+# only apexd can set apexd sysprop
+neverallow { domain -apexd -init } apexd_prop:property_service set;
+
+# only apexd can write apex-info-list.xml
+neverallow { domain -apexd } apex_info_file:file no_w_file_perms;
+
+# Only apexd and init should be allowed to manage /apex mounts
+# A note on otapreopt_chroot. It used to mount APEXes during postainstall stage of A/B OTAs,
+# but starting from S it just calls into apexd to prepare /apex for otapreoprt. Once the sepolicies
+# around otapreopt_chroot are cleaned up we should be able to remove it from the lists below.
+# dexopt_chroot_setup calls apexd to prepare /apex for Pre-reboot Dexopt, but it
+# needs to mount a tmpfs on /apex for apexd to work on.
+neverallow { domain -apexd -init -otapreopt_chroot } apex_mnt_dir:filesystem { mount unmount };
+neverallow { domain -apexd -dexopt_chroot_setup -init -otapreopt_chroot } apex_mnt_dir:dir mounton;
+
+neverallow { domain -init -apexd -system_server -update_engine } apex_service:service_manager find;
+neverallow { domain -init -apexd -system_server -servicemanager -update_engine } apexd:binder call;
+
+neverallow { domain userdebug_or_eng(`-crash_dump') } apexd:process ptrace;
