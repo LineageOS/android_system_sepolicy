@@ -354,12 +354,3 @@ type hal_wifi_service, protected_service, hal_service_type, service_manager_type
 type hal_wifi_hostapd_service, protected_service, hal_service_type, service_manager_type;
 type hal_wifi_supplicant_service, protected_service, hal_service_type, service_manager_type;
 type hal_gatekeeper_service, protected_service, hal_service_type, service_manager_type;
-
-###
-### Neverallow rules
-###
-
-# servicemanager handles registering or looking up named services.
-# It does not make sense to register or lookup something which is not a service.
-# Trigger a compile error if this occurs.
-neverallow domain ~{ service_manager_type vndservice_manager_type }:service_manager { add find };

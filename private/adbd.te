@@ -230,6 +230,11 @@ allow adbd apex_info_file:file r_file_perms;
 allow adbd tombstone_data_file:dir r_dir_perms;
 allow adbd tombstone_data_file:file r_file_perms;
 
+# Access /data/local/tests.
+allow adbd shell_test_data_file:dir create_dir_perms;
+allow adbd shell_test_data_file:file create_file_perms;
+allow adbd shell_test_data_file:lnk_file create_file_perms;
+
 ###
 ### Neverallow rules
 ###
@@ -239,3 +244,7 @@ allow adbd tombstone_data_file:file r_file_perms;
 # never want to see a transition from adbd to su (aka "adb root")
 neverallow adbd { domain -crash_dump -shell }:process transition;
 neverallow adbd { domain userdebug_or_eng(`-su') recovery_only(`-shell') }:process dyntransition;
+
+# Only init is allowed to enter the adbd domain via exec()
+neverallow { domain -init } adbd:process transition;
+neverallow * adbd:process dyntransition;

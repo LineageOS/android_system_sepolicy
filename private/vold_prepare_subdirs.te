@@ -1,5 +1,6 @@
 domain_auto_trans(vold, vold_prepare_subdirs_exec, vold_prepare_subdirs)
 
+typeattribute vold_prepare_subdirs coredomain;
 typeattribute vold_prepare_subdirs mlstrustedsubject;
 
 allow vold_prepare_subdirs system_file:file execute_no_trans;

@@ -4,3 +4,13 @@ init_daemon_domain(extra_free_kbytes)
 
 # Only extra_free_kbytes script is allowed to store these properties
 set_prop(extra_free_kbytes, init_storage_prop)
+
+# required permissions to run the script from init
+allow extra_free_kbytes shell_exec:file rx_file_perms;
+allow extra_free_kbytes system_file:file x_file_perms;
+allow extra_free_kbytes toolbox_exec:file rx_file_perms;
+
+# files used by the script
+allow extra_free_kbytes proc_extra_free_kbytes:file rw_file_perms;
+allow extra_free_kbytes proc_watermark_scale_factor:file rw_file_perms;
+allow extra_free_kbytes proc_zoneinfo:file r_file_perms;
