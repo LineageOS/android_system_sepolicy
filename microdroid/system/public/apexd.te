@@ -1,2 +1,6 @@
 type apexd, domain, coredomain;
 type apexd_exec, file_type, exec_type, system_file_type;
+
+# public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to private/*.te.
