@@ -34,3 +34,7 @@ type untrusted_app_27, domain;
 # This file defines the rules for untrusted apps running with
 # targetSdkVersion <= 25.
 type untrusted_app_25, domain;
+
+# system/sepolicy/public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to system/sepolicy/private/*.te.
