@@ -90,12 +90,3 @@ type hidl_base_hwservice, hwservice_manager_type;
 type hidl_manager_hwservice, hwservice_manager_type, coredomain_hwservice;
 type hidl_memory_hwservice, hwservice_manager_type, coredomain_hwservice;
 type hidl_token_hwservice, hwservice_manager_type, coredomain_hwservice;
-
-###
-### Neverallow rules
-###
-
-# hwservicemanager handles registering or looking up named services.
-# It does not make sense to register or lookup something which is not a
-# hwservice. Trigger a compile error if this occurs.
-neverallow domain ~hwservice_manager_type:hwservice_manager { add find };

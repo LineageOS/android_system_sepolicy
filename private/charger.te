@@ -1,5 +1,8 @@
 typeattribute charger coredomain;
 
+# The system charger is a client of HIDL health HAL.
+hal_client_domain(charger, hal_health)
+
 # charger needs to tell init to continue the boot
 # process when running in charger mode.
 # The system charger needs to be allowed to set these properties on legacy devices.

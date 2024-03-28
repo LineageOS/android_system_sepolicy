@@ -1,0 +1,11 @@
+# Do not allow domains to transition to vendor toolbox
+# or read, execute the vendor_toolbox file.
+full_treble_only(`
+    # Do not allow non-vendor domains to transition
+    # to vendor toolbox except for the allowlisted domains.
+    neverallow {
+        coredomain
+        -init
+        -modprobe
+    } vendor_toolbox_exec:file { entrypoint execute execute_no_trans };
+')
