@@ -1,22 +1,6 @@
 type statsd, domain;
-
 type statsd_exec, system_file_type, exec_type, file_type;
 
-# Allow statsd to scan through /proc/pid for all processes.
-r_dir_file(statsd, domain)
-
-# Allow executing files on system, such as running a shell or running:
-#   /system/bin/toolbox
-#   /system/bin/logcat
-#   /system/bin/dumpsys
-allow statsd devpts:chr_file { getattr ioctl read write };
-allow statsd shell_exec:file rx_file_perms;
-allow statsd system_file:file execute_no_trans;
-allow statsd toolbox_exec:file rx_file_perms;
-
-# Allow 'adb shell cmd' to upload configs and download output.
-allow statsd adbd:fd use;
-allow statsd adbd:unix_stream_socket { getattr read write };
-allow statsd shell:fifo_file { getattr read write };
-
-unix_socket_send(statsd, statsdw, statsd)
+# public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to private/*.te.
