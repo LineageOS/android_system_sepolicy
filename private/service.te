@@ -33,3 +33,12 @@ is_flag_enabled(RELEASE_AVF_ENABLE_LLPVM_CHANGES, `
 
 type uce_service,                   service_manager_type;
 type wearable_sensing_service,      app_api_service, system_server_service, service_manager_type;
+
+###
+### Neverallow rules
+###
+
+# servicemanager handles registering or looking up named services.
+# It does not make sense to register or lookup something which is not a service.
+# Trigger a compile error if this occurs.
+neverallow domain ~{ service_manager_type vndservice_manager_type }:service_manager { add find };

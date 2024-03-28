@@ -1,5 +1,6 @@
 type charger, charger_type, domain;
 type charger_exec, system_file_type, exec_type, file_type;
 
-# The system charger is a client of HIDL health HAL.
-hal_client_domain(charger, hal_health)
+# system/sepolicy/public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to system/sepolicy/private/*.te.

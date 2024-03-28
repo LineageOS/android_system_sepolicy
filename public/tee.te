@@ -6,6 +6,6 @@ type tee, domain;
 # Device(s) for communicating with the TEE
 type tee_device, dev_type;
 
-allow tee fingerprint_vendor_data_file:dir rw_dir_perms;
-allow tee fingerprint_vendor_data_file:file create_file_perms;
-
+# system/sepolicy/public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to system/sepolicy/private/*.te.

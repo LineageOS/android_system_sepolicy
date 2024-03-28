@@ -2,3 +2,7 @@
 type zygote, domain;
 type zygote_tmpfs, file_type;
 type zygote_exec, system_file_type, exec_type, file_type;
+
+# system/sepolicy/public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to system/sepolicy/private/*.te.

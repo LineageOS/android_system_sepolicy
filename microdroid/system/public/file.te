@@ -191,3 +191,7 @@ type tmpfs, fs_type;
 type usbfs, fs_type;
 type usermodehelper, fs_type, proc_type;
 type vfat, fs_type, sdcard_type;
+
+# public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to private/*.te.

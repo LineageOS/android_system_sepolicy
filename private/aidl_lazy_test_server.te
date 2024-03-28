@@ -2,4 +2,9 @@ userdebug_or_eng(`
   typeattribute aidl_lazy_test_server coredomain;
 
   init_daemon_domain(aidl_lazy_test_server)
+
+  binder_use(aidl_lazy_test_server)
+  binder_call(aidl_lazy_test_server, binderservicedomain)
+
+  add_service(aidl_lazy_test_server, aidl_lazy_test_service)
 ')

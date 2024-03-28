@@ -165,3 +165,27 @@ type pre_reboot_dexopt_file, file_type;
 # Type for /mnt/artd_tmp in the Pre-reboot Dexopt chroot
 # This type is set on the directory through the `rootcontext=` mount option.
 type pre_reboot_dexopt_artd_file, file_type;
+
+# Allow files to be created in their appropriate filesystems.
+allow fs_type self:filesystem associate;
+allow cgroup tmpfs:filesystem associate;
+allow cgroup_v2 tmpfs:filesystem associate;
+allow cgroup_rc_file tmpfs:filesystem associate;
+allow sysfs_type sysfs:filesystem associate;
+allow debugfs_type { debugfs debugfs_tracing debugfs_tracing_debug }:filesystem associate;
+allow file_type labeledfs:filesystem associate;
+allow file_type tmpfs:filesystem associate;
+allow file_type rootfs:filesystem associate;
+allow dev_type tmpfs:filesystem associate;
+allow app_fuse_file app_fusefs:filesystem associate;
+allow postinstall_file self:filesystem associate;
+allow proc_net proc:filesystem associate;
+
+# It's a bug to assign the file_type attribute and fs_type attribute
+# to any type. Do not allow it.
+#
+# For example, the following is a bug:
+#   type apk_data_file, file_type, data_file_type, fs_type;
+# Should be:
+#   type apk_data_file, file_type, data_file_type;
+neverallow fs_type file_type:filesystem associate;

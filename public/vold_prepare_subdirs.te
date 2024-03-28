@@ -1,6 +1,7 @@
 # SELinux directory creation and labelling for vold-managed directories
-
 type vold_prepare_subdirs, domain;
 type vold_prepare_subdirs_exec, system_file_type, exec_type, file_type;
 
-typeattribute vold_prepare_subdirs coredomain;
+# system/sepolicy/public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to system/sepolicy/private/*.te.

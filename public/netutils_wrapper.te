@@ -1,4 +1,6 @@
 type netutils_wrapper, domain;
 type netutils_wrapper_exec, system_file_type, exec_type, file_type;
 
-neverallow domain netutils_wrapper_exec:file execute_no_trans;
+# system/sepolicy/public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to system/sepolicy/private/*.te.

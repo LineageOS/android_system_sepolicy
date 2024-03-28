@@ -3,11 +3,6 @@
 type adbd, domain;
 type adbd_exec, exec_type, file_type, system_file_type;
 
-# Only init is allowed to enter the adbd domain via exec()
-neverallow { domain -init } adbd:process transition;
-neverallow * adbd:process dyntransition;
-
-# Access /data/local/tests.
-allow adbd shell_test_data_file:dir create_dir_perms;
-allow adbd shell_test_data_file:file create_file_perms;
-allow adbd shell_test_data_file:lnk_file create_file_perms;
+# system/sepolicy/public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to system/sepolicy/private/*.te.

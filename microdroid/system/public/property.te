@@ -50,11 +50,6 @@ type usb_control_prop, property_type;
 type vendor_default_prop, property_type;
 type powerctl_prop, property_type;
 
-allow property_type tmpfs:filesystem associate;
-
-# Properties should be explicitly labeled in property_contexts
-neverallow { domain -init } default_prop:file no_rw_file_perms;
-neverallow { domain -init } default_prop:property_service set;
-
-dontaudit { domain -init } default_prop:file no_rw_file_perms;
-dontaudit { domain -init } default_prop:property_service set;
+# public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to private/*.te.

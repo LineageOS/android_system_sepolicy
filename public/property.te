@@ -76,6 +76,7 @@ system_restricted_prop(device_config_surface_flinger_native_boot_prop)
 system_restricted_prop(device_config_vendor_system_native_prop)
 system_restricted_prop(device_config_vendor_system_native_boot_prop)
 system_restricted_prop(drm_forcel3_prop)
+system_restricted_prop(enable_16k_pages_prop)
 system_restricted_prop(fingerprint_prop)
 system_restricted_prop(gwp_asan_prop)
 system_restricted_prop(hal_instrumentation_prop)
@@ -343,40 +344,6 @@ compatible_property_only(`
     vendor_internal_prop(vendor_default_prop)
 ')
 
-typeattribute log_prop log_property_type;
-typeattribute log_tag_prop log_property_type;
-typeattribute wifi_log_prop log_property_type;
-
-allow property_type tmpfs:filesystem associate;
-
-# core_property_type should not be used for new properties or
-# device specific properties. Properties with this attribute
-# are readable to everyone, which is overly broad and should
-# be avoided.
-# New properties should have appropriate read / write access
-# control rules written.
-
-typeattribute audio_prop         core_property_type;
-typeattribute config_prop        core_property_type;
-typeattribute cppreopt_prop      core_property_type;
-typeattribute dalvik_prop        core_property_type;
-typeattribute debuggerd_prop     core_property_type;
-typeattribute debug_prop         core_property_type;
-typeattribute dhcp_prop          core_property_type;
-typeattribute dumpstate_prop     core_property_type;
-typeattribute logd_prop          core_property_type;
-typeattribute net_radio_prop     core_property_type;
-typeattribute nfc_prop           core_property_type;
-typeattribute ota_prop           core_property_type;
-typeattribute pan_result_prop    core_property_type;
-typeattribute persist_debug_prop core_property_type;
-typeattribute powerctl_prop      core_property_type;
-typeattribute radio_prop         core_property_type;
-typeattribute restorecon_prop    core_property_type;
-typeattribute shell_prop         core_property_type;
-typeattribute system_prop        core_property_type;
-typeattribute usb_prop           core_property_type;
-typeattribute vold_prop          core_property_type;
-
-typeattribute dalvik_config_prop         dalvik_config_prop_type;
-typeattribute dalvik_dynamic_config_prop dalvik_config_prop_type;
+# system/sepolicy/public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to system/sepolicy/private/*.te.

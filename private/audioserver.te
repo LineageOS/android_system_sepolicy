@@ -1,8 +1,7 @@
 # audioserver - audio services daemon
-
+type audioserver_exec, exec_type, file_type, system_file_type;
 typeattribute audioserver coredomain;
 
-type audioserver_exec, exec_type, file_type, system_file_type;
 init_daemon_domain(audioserver)
 tmpfs_domain(audioserver)
 
@@ -79,6 +78,20 @@ userdebug_or_eng(`
 # Allow write access to log tag property
 set_prop(audioserver, log_tag_prop);
 
+# Allow audioserver to signal audio HAL processes and dump their stacks.
+allow audioserver hal_audio_server:process signal;
+
+# Allow audioserver to access sensorservice.
+allow audioserver sensorservice_service:service_manager find;
+allow audioserver system_server:unix_stream_socket { read write };
+
+# Allow using wake locks
+wakelock_use(audioserver)
+
+# Allow reading audio config props, e.g. af.fast_track_multiplier
+get_prop(audioserver, audio_config_prop)
+get_prop(audioserver, system_audio_config_prop)
+
 ###
 ### neverallow rules
 ###
@@ -99,10 +112,3 @@ neverallow audioserver { file_type fs_type }:file execute_no_trans;
 # https://android-developers.googleblog.com/2016/05/hardening-media-stack.html
 neverallow audioserver domain:{ udp_socket rawip_socket } *;
 neverallow audioserver { domain userdebug_or_eng(`-su') }:tcp_socket *;
-
-# Allow using wake locks
-wakelock_use(audioserver)
-
-# Allow reading audio config props, e.g. af.fast_track_multiplier
-get_prop(audioserver, audio_config_prop)
-get_prop(audioserver, system_audio_config_prop)

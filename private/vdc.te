@@ -4,3 +4,14 @@ init_daemon_domain(vdc)
 
 # Allow stdin/out back to vehicle_binding_util
 allow vdc vehicle_binding_util:fd use;
+
+# vdc can be invoked with logwrapper, so let it write to pty
+allow vdc devpts:chr_file rw_file_perms;
+
+# vdc writes directly to kmsg during the boot process
+allow vdc kmsg_device:chr_file { getattr w_file_perms };
+
+# vdc talks to vold over Binder
+binder_use(vdc)
+binder_call(vdc, vold)
+allow vdc vold_service:service_manager find;
