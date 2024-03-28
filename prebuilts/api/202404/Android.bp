@@ -69,3 +69,12 @@ se_policy_binary {
         targets: ["base-sepolicy-files-for-mapping"],
     },
 }
+
+filegroup {
+    name: "202404_sepolicy_cts_data",
+    srcs: [
+        "202404_general_sepolicy.conf",
+        "202404_plat_sepolicy.cil",
+        "202404_mapping.cil",
+    ],
+}
