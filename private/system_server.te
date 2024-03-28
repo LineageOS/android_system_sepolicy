@@ -586,8 +586,13 @@ allow system_server perfetto:fifo_file { read write };
 
 # Allow system server to manage perfetto traces for ProfilingService.
 allow system_server perfetto_traces_profiling_data_file:dir rw_dir_perms;
-allow system_server perfetto_traces_profiling_data_file:file { rw_file_perms unlink };
+allow system_server perfetto_traces_profiling_data_file:file create_file_perms;
 allow system_server perfetto_traces_data_file:dir search;
+
+# Allow system server to exec the trace redactor cmdline client and kill the process for
+# ProfilingService.
+domain_auto_trans(system_server, trace_redactor_exec, trace_redactor);
+allow system_server trace_redactor:process signal;
 
 # Allow system server to kill perfetto processes for ProfilingService.
 allow system_server perfetto:process signal;
@@ -1319,7 +1324,8 @@ neverallow system_server {
 
 # Ensure that system_server doesn't perform any domain transitions other than
 # transitioning to the crash_dump domain when a crash occurs or fork clatd.
-neverallow system_server { domain -clatd -crash_dump -perfetto }:process transition;
+# add perfetto and trace_redactor which are exec'd from system server for ProfilingService.
+neverallow system_server { domain -clatd -crash_dump -perfetto -trace_redactor }:process transition;
 neverallow system_server *:process dyntransition;
 
 # Ensure that system_server doesn't access anything but search in perfetto_traces_data_file:dir.
