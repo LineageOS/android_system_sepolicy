@@ -1,1 +1,10 @@
 type hal_lazy_test_hwservice, hwservice_manager_type, protected_hwservice;
+
+###
+### Neverallow rules
+###
+
+# hwservicemanager handles registering or looking up named services.
+# It does not make sense to register or lookup something which is not a
+# hwservice. Trigger a compile error if this occurs.
+neverallow domain ~hwservice_manager_type:hwservice_manager { add find };

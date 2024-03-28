@@ -1,3 +1,6 @@
 typeattribute watchdogd coredomain;
 
 init_daemon_domain(watchdogd)
+
+allow watchdogd watchdog_device:chr_file rw_file_perms;
+allow watchdogd kmsg_device:chr_file rw_file_perms;
