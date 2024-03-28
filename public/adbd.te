@@ -2,3 +2,7 @@
 # it lives in the rootfs and has no unique file type.
 type adbd, domain;
 type adbd_exec, exec_type, file_type, system_file_type;
+
+# system/sepolicy/public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to system/sepolicy/private/*.te.

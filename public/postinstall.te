@@ -2,3 +2,7 @@
 # Extend the permissions in this domain to allow this program to access other
 # files needed by the specific device on your device's sepolicy directory.
 type postinstall, domain;
+
+# system/sepolicy/public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to system/sepolicy/private/*.te.
