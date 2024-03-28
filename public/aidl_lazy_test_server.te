@@ -1,2 +1,6 @@
 type aidl_lazy_test_server, domain;
 type aidl_lazy_test_server_exec, exec_type, file_type, system_file_type;
+
+# system/sepolicy/public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to system/sepolicy/private/*.te.

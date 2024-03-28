@@ -2,3 +2,7 @@
 
 # TODO: Only present to allow mediatek/wembley-sepolicy to see it for validation reasons.
 type otapreopt_chroot, domain;
+
+# system/sepolicy/public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to system/sepolicy/private/*.te.

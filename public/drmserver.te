@@ -2,3 +2,7 @@
 type drmserver, domain;
 type drmserver_exec, system_file_type, exec_type, file_type;
 type drmserver_socket, file_type;
+
+# system/sepolicy/public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to system/sepolicy/private/*.te.
