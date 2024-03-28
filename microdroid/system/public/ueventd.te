@@ -2,3 +2,7 @@
 # it lives in the rootfs and has no unique file type.
 type ueventd, domain;
 type ueventd_tmpfs, file_type;
+
+# public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to private/*.te.

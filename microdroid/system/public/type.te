@@ -1,3 +1,7 @@
 # Miscellaneous types
 type system_linker;
 type vm_payload_key;
+
+# public is for vendor-facing type and attribute definitions.
+# DO NOT ADD allow, neverallow, or dontaudit statements here.
+# Instead, add such policy rules to private/*.te.

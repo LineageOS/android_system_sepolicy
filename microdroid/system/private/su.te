@@ -2,3 +2,34 @@ typeattribute su coredomain;
 
 # su is also permissive to permit setenforce.
 permissive su;
+
+# Add su to various domains
+dontaudit su self:capability_class_set *;
+dontaudit su self:capability2 *;
+dontaudit su kernel:security *;
+dontaudit su { kernel file_type }:system *;
+dontaudit su self:memprotect *;
+dontaudit su domain:{ process process2 } *;
+dontaudit su domain:fd *;
+dontaudit su domain:dir *;
+dontaudit su domain:lnk_file *;
+dontaudit su domain:{ fifo_file file } *;
+dontaudit su domain:socket_class_set *;
+dontaudit su domain:ipc_class_set *;
+dontaudit su domain:key *;
+dontaudit su fs_type:filesystem *;
+dontaudit su {fs_type dev_type file_type}:dir_file_class_set *;
+dontaudit su node_type:node *;
+dontaudit su node_type:{ tcp_socket udp_socket rawip_socket } *;
+dontaudit su netif_type:netif *;
+dontaudit su port_type:socket_class_set *;
+dontaudit su port_type:{ tcp_socket dccp_socket } *;
+dontaudit su domain:peer *;
+dontaudit su domain:binder *;
+dontaudit su property_type:property_service *;
+dontaudit su property_type:file *;
+dontaudit su domain:drmservice *;
+dontaudit su unlabeled:filesystem *;
+dontaudit su domain:bpf *;
+dontaudit su unlabeled:vsock_socket *;
+dontaudit su self:perf_event *;
