@@ -15,7 +15,7 @@ IS_TREBLE_TEST_ENABLED_PARTNER := false
 ifeq ($(filter 26.0 27.0 28.0 29.0,$(version)),)
 ifneq (,$(BOARD_SYSTEM_EXT_PREBUILT_DIR)$(BOARD_PRODUCT_PREBUILT_DIR))
 IS_TREBLE_TEST_ENABLED_PARTNER := true
-endif # (,$(SYSTEM_EXT_PREBUILT_POLICY)$(PRODUCT_PREBUILT_POLICY))
+endif # (,$(BOARD_SYSTEM_EXT_PREBUILT_DIR)$(BOARD_PRODUCT_PREBUILT_DIR))
 endif # ($(filter 26.0 27.0 28.0 29.0,$(version)),)
 
 include $(BUILD_SYSTEM)/base_rules.mk
@@ -30,18 +30,18 @@ $(version)_mapping.cil := $(call intermediates-dir-for,ETC,plat_$(version).cil)/
 $(version)_mapping.ignore.cil := \
     $(call intermediates-dir-for,ETC,$(version).ignore.cil)/$(version).ignore.cil
 ifeq ($(IS_TREBLE_TEST_ENABLED_PARTNER),true)
-ifneq (,$(SYSTEM_EXT_PREBUILT_POLICY))
+ifneq (,$(BOARD_SYSTEM_EXT_PREBUILT_DIR))
 $(version)_mapping.cil += \
     $(call intermediates-dir-for,ETC,system_ext_$(version).cil)/system_ext_$(version).cil
 $(version)_mapping.ignore.cil += \
     $(call intermediates-dir-for,ETC,system_ext_$(version).ignore.cil)/system_ext_$(version).ignore.cil
-endif # (,$(SYSTEM_EXT_PREBUILT_POLICY))
-ifneq (,$(PRODUCT_PREBUILT_POLICY))
+endif # (,$(BOARD_SYSTEM_EXT_PREBUILT_DIR))
+ifneq (,$(BOARD_PRODUCT_PREBUILT_DIR))
 $(version)_mapping.cil += \
     $(call intermediates-dir-for,ETC,product_$(version).cil)/product_$(version).cil
 $(version)_mapping.ignore.cil += \
     $(call intermediates-dir-for,ETC,product_$(version).ignore.cil)/product_$(version).ignore.cil
-endif # (,$(PRODUCT_PREBUILT_POLICY))
+endif # (,$(BOARD_PRODUCT_PREBUILT_DIR))
 endif #($(IS_TREBLE_TEST_ENABLED_PARTNER),true)
 
 # $(version)_mapping.combined.cil - a combination of the mapping file used when
