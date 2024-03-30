@@ -41,8 +41,9 @@ def Combine(top, bottom):
         if len(top_type_set) == 1:
             continue
 
-        m = re.match(r"(\w+)_\d+_\d+", top_ta)
-        # Typeattributes in V.v.cil have _V_v suffix, but not in V.v.ignore.cil
+        m = re.fullmatch(r"(\w+?)_\d+(_0)?", top_ta)
+        # Typeattributes in V(.0).cil have _V(_0) suffix, but not in
+        # V(.0).ignore.cil
         bottom_type = m.group(1) if m else top_ta
 
         # If type doesn't exist in bottom map, no need to maintain mappings to
