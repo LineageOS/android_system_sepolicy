@@ -483,6 +483,7 @@
 /system/bin/android.automotive.evs.manager@1.0                    evsmanagerd_exec
 /system/bin/android.automotive.evs.manager@1.99                   evsmanagerd_exec
 /system/bin/uprobestats                                           uprobestats_exec
+/system/bin/trace_redactor                                        trace_redactor_exec
 
 /vendor                                                           vendor_file
 /vendor/does_not_exist                                            vendor_file
