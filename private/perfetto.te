@@ -95,6 +95,7 @@ neverallow {
   -incidentd # For receiving reported traces. TODO(lalitm): remove this.
   -priv_app  # For stating traces for bug-report UI.
   -system_server # For accessing traces started by profiling apis.
+  -trace_redactor # For accessing traces to be redacted.
 } perfetto_traces_data_file:dir *;
 neverallow {
   domain
@@ -104,6 +105,7 @@ neverallow {
   -shell     # For devepment purposes.
   -traced    # For write_into_file traces.
   -incidentd      # For receiving reported traces. TODO(lalitm): remove this.
+  -trace_redactor # For redacting trace files.
 } perfetto_traces_data_file:file ~{ getattr read };
 
 ### perfetto should NEVER do any of the following

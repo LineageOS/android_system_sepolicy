@@ -1,0 +1,13 @@
+# Trace Redactor command line
+type trace_redactor_exec, system_file_type, exec_type, file_type;
+type trace_redactor, domain, coredomain;
+
+# Use pipes provided by system_server
+allow trace_redactor system_server:fd use;
+allow trace_redactor system_server:fifo_file { read write getattr ioctl };
+
+# Allow trace_redactor to read output trace file and write to new redacted file.
+allow trace_redactor perfetto_traces_profiling_data_file:dir search;
+allow trace_redactor perfetto_traces_data_file:dir search;
+allow trace_redactor perfetto_traces_data_file:file { read getattr ioctl };
+allow trace_redactor perfetto_traces_profiling_data_file:file rw_file_perms;
