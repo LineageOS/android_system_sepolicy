@@ -339,6 +339,7 @@
 /system/bin/traced        u:object_r:traced_exec:s0
 /system/bin/traced_perf        u:object_r:traced_perf_exec:s0
 /system/bin/traced_probes        u:object_r:traced_probes_exec:s0
+/system/bin/trace_redactor        u:object_r:trace_redactor_exec:s0
 /system/bin/heapprofd        u:object_r:heapprofd_exec:s0
 /system/bin/uncrypt     u:object_r:uncrypt_exec:s0
 /system/bin/update_verifier u:object_r:update_verifier_exec:s0
