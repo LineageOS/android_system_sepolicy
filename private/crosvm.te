@@ -81,6 +81,24 @@ allow crosvm adbd:fd use;
 allow crosvm adbd:unix_stream_socket { read write };
 allow crosvm devpts:chr_file { read write getattr ioctl };
 
+is_flag_enabled(RELEASE_AVF_SUPPORT_CUSTOM_VM_WITH_PARAVIRTUALIZED_DEVICES, `
+  # Allow crosvm to draw screen in the surface
+  allow crosvm device:dir { read open };
+  allow crosvm same_process_hal_file:file { read open getattr map execute };
+  allow crosvm gpu_device:chr_file { read write open ioctl map open getattr };
+  allow crosvm hal_graphics_allocator:fd use;
+  allow crosvm hal_graphics_allocator_server:binder call;
+  allow crosvm surfaceflinger:fd use;
+  hal_client_domain(crosvm, hal_graphics_allocator)
+
+  # To provide display service to an app to get surface.
+  # TODO(b/332677707): remove them when display service uses binder RPC.
+  allow crosvm priv_app:binder { transfer call };
+  allow crosvm servicemanager:binder { call transfer };
+  allow crosvm virtualization_service:service_manager find;
+  allow crosvm virtualizationservice:binder { call transfer };
+')
+
 # crosvm tries to use netlink sockets as part its APCI implementation, but we don't need it for AVF (b/228077254)
 dontaudit crosvm self:netlink_generic_socket create_socket_perms_no_ioctl;
 
@@ -136,6 +154,7 @@ full_treble_only(`
     -vendor_microdroid_file
     -vndk_sp_file
     -vendor_task_profiles_file
+    is_flag_enabled(RELEASE_AVF_SUPPORT_CUSTOM_VM_WITH_PARAVIRTUALIZED_DEVICES, `-same_process_hal_file')
   }:file *;
 ')
 
