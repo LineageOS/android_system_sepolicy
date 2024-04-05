@@ -103,6 +103,10 @@ func (c *cilCompatMap) shouldSkipBuild(ctx android.ModuleContext) bool {
 	return proptools.String(c.properties.Version) == ctx.DeviceConfig().PlatformSepolicyVersion()
 }
 
+func (c *cilCompatMap) stem() string {
+	return proptools.StringDefault(c.properties.Stem, c.Name())
+}
+
 func (c *cilCompatMap) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	if c.shouldSkipBuild(ctx) {
 		return
@@ -144,6 +148,7 @@ func (c *cilCompatMap) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	} else {
 		c.installSource = android.OptionalPathForPath(bottomHalf)
 	}
+	ctx.InstallFile(c.installPath, c.stem(), c.installSource.Path())
 }
 
 func (c *cilCompatMap) DepsMutator(ctx android.BottomUpMutatorContext) {
