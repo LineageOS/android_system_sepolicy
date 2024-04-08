@@ -20,6 +20,8 @@ type e2fs_exec, system_file_type, exec_type, file_type;
 type encryptedstore_file, file_type;
 type encryptedstore_fs, fs_type, contextmount_type;
 
+type microdroid_resources_file, file_type;
+
 # Filesystem entry for for PRNG seeder socket.
 type prng_seeder_socket, file_type, coredomain_socket;
 
