@@ -15,7 +15,7 @@
 # Empty directories
 /lost\+found        u:object_r:rootfs:s0
 /debug_ramdisk      u:object_r:tmpfs:s0
-/microdroid_resources u:object_r:tmpfs:s0
+/microdroid_resources(/.*)? u:object_r:microdroid_resources_file:s0
 /mnt                u:object_r:tmpfs:s0
 /proc               u:object_r:rootfs:s0
 /second_stage_resources u:object_r:tmpfs:s0
