@@ -81,3 +81,10 @@ allow kernel apexd:fd use;
 
 #-----------------------------------------
 allow kernel apkdmverity:fd use;
+
+# We run restorecon_recursive /microdroid_resources during setup_selinux stage which runs in the
+# kernel domain. This is to avoid granting init weird capabilities like
+# `allow init tmpfs:file relabelfrom;`
+allow kernel microdroid_resources_file:dir { read open search relabelto};
+allow kernel microdroid_resources_file:file relabelto;
+allow kernel tmpfs:file { getattr relabelfrom };
