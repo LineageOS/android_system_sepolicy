@@ -886,6 +886,9 @@ init.svc.surfaceflinger u:object_r:init_service_status_prop:s0 exact string
 init.svc.tombstoned     u:object_r:init_service_status_prop:s0 exact string
 init.svc.zygote         u:object_r:init_service_status_prop:s0 exact string
 
+# Epoch time at which last fatal reboot was performed
+persist.init.svc.last_fatal_reboot_epoch u:object_r:init_service_status_private_prop:s0 exact int
+
 libc.debug.malloc.options u:object_r:libc_debug_prop:s0 exact string
 libc.debug.malloc.program u:object_r:libc_debug_prop:s0 exact string
 libc.debug.hooks.enable   u:object_r:libc_debug_prop:s0 exact string
