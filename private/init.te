@@ -543,6 +543,7 @@ allow init {
   sysfs_fs_f2fs
   sysfs_dm
   sysfs_lru_gen_enabled
+  sysfs_pgsize_migration
 }:file w_file_perms;
 
 allow init {

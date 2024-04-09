@@ -338,6 +338,10 @@ with_asan(`allow domain system_asan_options_file:file r_file_perms;')
 allow domain apex_mnt_dir:dir { getattr search };
 allow domain apex_mnt_dir:lnk_file r_file_perms;
 
+# Allow reading /sys/kernel/mm/pgsize_migration/enabled
+allow domain sysfs_pgsize_migration:dir search;
+allow domain sysfs_pgsize_migration:file r_file_perms;
+
 # Allow everyone to read media server-configurable flags, so that libstagefright can be
 # configured using server-configurable flags
 get_prop(domain, device_config_media_native_prop)
@@ -2136,3 +2140,7 @@ neverallow { domain -init -aconfigd -system_server } aconfig_storage_metadata_fi
 
 neverallow { domain -dexopt_chroot_setup -init } proc:{ file dir } mounton;
 neverallow { domain -dexopt_chroot_setup -init -zygote } proc_type:{ file dir } mounton;
+
+# Only init/vendor are allowed to write sysfs_pgsize_migration;
+# ueventd needs write access to all sysfs files.
+neverallow { domain -init -vendor_init -ueventd } sysfs_pgsize_migration:file no_w_file_perms;
