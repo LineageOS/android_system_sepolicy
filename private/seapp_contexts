@@ -75,7 +75,7 @@
 # An unspecified isSdkSandboxAudit defaults to false.
 #
 # Precedence: entries are compared using the following rules, in the order shown
-# (see external/selinux/libselinux/src/android/android_platform.c,
+# (see external/selinux/libselinux/src/android/android_seapp.c,
 # seapp_context_cmp()).
 #       (1) isSystemServer=true before isSystemServer=false.
 #       (2) Specified isEphemeralApp= before unspecified isEphemeralApp=
