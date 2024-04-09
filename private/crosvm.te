@@ -93,7 +93,7 @@ is_flag_enabled(RELEASE_AVF_SUPPORT_CUSTOM_VM_WITH_PARAVIRTUALIZED_DEVICES, `
 
   # To provide display service to an app to get surface.
   # TODO(b/332677707): remove them when display service uses binder RPC.
-  allow crosvm priv_app:binder { transfer call };
+  allow crosvm vmlauncher_app:binder { transfer call };
   allow crosvm servicemanager:binder { call transfer };
   allow crosvm virtualization_service:service_manager find;
   allow crosvm virtualizationservice:binder { call transfer };
