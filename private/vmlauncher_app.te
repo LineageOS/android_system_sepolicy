@@ -1,0 +1,18 @@
+type vmlauncher_app, domain;
+typeattribute vmlauncher_app coredomain;
+
+app_domain(vmlauncher_app)
+
+allow vmlauncher_app app_api_service:service_manager find;
+allow vmlauncher_app system_api_service:service_manager find;
+
+allow vmlauncher_app shell_data_file:dir search;
+allow vmlauncher_app shell_data_file:file { read open write };
+virtualizationservice_use(vmlauncher_app)
+
+is_flag_enabled(RELEASE_AVF_SUPPORT_CUSTOM_VM_WITH_PARAVIRTUALIZED_DEVICES, `
+  # TODO(b/332677707): remove them when display service uses binder RPC.
+  allow vmlauncher_app virtualization_service:service_manager find;
+  allow vmlauncher_app virtualizationservice:binder call;
+  allow vmlauncher_app crosvm:binder { call transfer };
+')

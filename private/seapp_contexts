@@ -224,3 +224,4 @@ user=_app minTargetSdkVersion=26 domain=untrusted_app_27 type=app_data_file leve
 user=_app domain=untrusted_app_25 type=app_data_file levelFrom=user
 user=_app minTargetSdkVersion=28 fromRunAs=true domain=runas_app levelFrom=all
 user=_app fromRunAs=true domain=runas_app levelFrom=user
+user=_app isPrivApp=true name=com.android.virtualization.vmlauncher domain=vmlauncher_app type=privapp_data_file levelFrom=all

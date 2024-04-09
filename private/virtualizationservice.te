@@ -47,7 +47,7 @@ allow virtualizationservice virtualizationmanager:process setrlimit;
 is_flag_enabled(RELEASE_AVF_SUPPORT_CUSTOM_VM_WITH_PARAVIRTUALIZED_DEVICES, `
   # To provide display service to an app to get surface.
   # TODO(b/332677707): remove them when display service uses binder RPC.
-  allow virtualizationservice priv_app:binder transfer;
+  allow virtualizationservice vmlauncher_app:binder transfer;
 ')
 
 # Let virtualizationservice set the owner of a VM's temporary directory.
