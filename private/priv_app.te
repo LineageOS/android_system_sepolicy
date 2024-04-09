@@ -124,13 +124,6 @@ allow priv_app preloads_data_file:dir r_dir_perms;
 allow priv_app preloads_media_file:file r_file_perms;
 allow priv_app preloads_media_file:dir r_dir_perms;
 
-is_flag_enabled(RELEASE_AVF_SUPPORT_CUSTOM_VM_WITH_PARAVIRTUALIZED_DEVICES, `
-  # TODO(b/332677707): remove them when display service uses binder RPC.
-  allow priv_app virtualization_service:service_manager find;
-  allow priv_app virtualizationservice:binder call;
-  allow priv_app crosvm:binder { call transfer };
-')
-
 read_runtime_log_tags(priv_app)
 
 # Allow priv_apps to request and collect incident reports.
