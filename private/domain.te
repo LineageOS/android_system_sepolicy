@@ -562,6 +562,7 @@ allow {
 # that records where flag storage files are, so also needs to be readable by everbody.
 r_dir_file({ coredomain appdomain }, aconfig_storage_metadata_file);
 r_dir_file({ coredomain appdomain }, system_aconfig_storage_file);
+r_dir_file({ coredomain appdomain }, aconfig_test_mission_files);
 
 # processes needs to access storage file stored at /metadata/aconfig/boot, require search
 # permission on /metadata dir
