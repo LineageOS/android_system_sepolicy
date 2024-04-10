@@ -156,6 +156,8 @@ type system_aconfig_storage_file, system_file_type, file_type;
 # Type for /vendor/etc/aconfig
 type vendor_aconfig_storage_file, vendor_file_type, file_type;
 
+type aconfig_test_mission_files, file_type;
+
 # /data/misc/connectivityblobdb
 type connectivityblob_data_file, file_type, data_file_type, core_data_file_type;
 
