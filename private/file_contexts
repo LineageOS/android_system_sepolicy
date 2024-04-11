@@ -872,6 +872,7 @@
 /metadata/repair-mode(/.*)?    u:object_r:repair_mode_metadata_file:s0
 /metadata/aconfig(/.*)?    u:object_r:aconfig_storage_metadata_file:s0
 /metadata/aconfig/flags(/.*)?    u:object_r:aconfig_storage_flags_metadata_file:s0
+/metadata/aconfig_test_missions(/.*)?    u:object_r:aconfig_test_mission_files:s0
 
 #############################
 # asec containers
