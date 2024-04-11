@@ -1629,6 +1629,10 @@ neverallow {
   -system_server
 } threadnetwork_config_prop:file no_rw_file_perms;
 
+# Allow system server to read pm.archiving.enabled prop
+# TODO(azilio): Remove system property after archiving testing is completed.
+get_prop(system_server, pm_archiving_enabled_prop)
+
 # Allow accessing /mnt/pre_reboot_dexopt/chroot, to load the new service-art.jar
 # in Pre-reboot Dexopt.
 allow system_server pre_reboot_dexopt_file:dir { getattr search };
