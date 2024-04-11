@@ -1602,10 +1602,6 @@ neverallow {
   -system_server
 } threadnetwork_config_prop:file no_rw_file_perms;
 
-# Allow system server to read pm.archiving.enabled prop
-# TODO(azilio): Remove system property after archiving testing is completed.
-get_prop(system_server, pm_archiving_enabled_prop)
-
 # Do not allow any domain other than init or system server to get or set the property
 neverallow { domain -init -system_server } crashrecovery_prop:property_service set;
 neverallow { domain -init -dumpstate -system_server } crashrecovery_prop:file no_rw_file_perms;
