@@ -189,10 +189,11 @@ func (n *neverallowTestModule) GenerateAndroidBuildActions(ctx android.ModuleCon
 func (n *neverallowTestModule) AndroidMkEntries() []android.AndroidMkEntries {
 	return []android.AndroidMkEntries{android.AndroidMkEntries{
 		OutputFile: android.OptionalPathForPath(n.testTimestamp),
-		Class:      "ETC",
+		Class:      "FAKE",
+		Include:    "$(BUILD_PHONY_PACKAGE)",
 		ExtraEntries: []android.AndroidMkExtraEntriesFunc{
 			func(ctx android.AndroidMkExtraEntriesContext, entries *android.AndroidMkEntries) {
-				entries.SetBool("LOCAL_UNINSTALLABLE_MODULE", true)
+				entries.SetPath("LOCAL_ADDITIONAL_DEPENDENCIES", n.testTimestamp)
 			},
 		},
 	}}
