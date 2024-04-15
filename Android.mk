@@ -443,7 +443,6 @@ include $(BUILD_PHONY_PACKAGE)
 # See Android.bp for details of policy files.
 #
 built_sepolicy := $(call intermediates-dir-for,ETC,precompiled_sepolicy)/precompiled_sepolicy
-built_sepolicy_neverallows := $(call intermediates-dir-for,ETC,sepolicy_neverallows)/sepolicy_neverallows
 
 ##################################
 # TODO - remove this.   Keep around until we get the filesystem creation stuff taken care of.
@@ -572,6 +571,5 @@ base_product_pub_policy.cil :=
 
 build_policy :=
 built_sepolicy :=
-built_sepolicy_neverallows :=
 sepolicy_build_files :=
 with_asan :=
