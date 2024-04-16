@@ -106,7 +106,7 @@ product_private_policy = [":se_build_files{.product_private}"]
 // policy and subsequent removal of CIL policy that should not be exported.
 se_policy_conf {
     name: "reqd_policy_mask.conf",
-    defaults: ["se_policy_conf_flags_defaults"],
+    defaults: ["se_policy_conf_public_flags_defaults"],
     srcs: reqd_mask_policy,
     installable: false,
 }
@@ -142,7 +142,7 @@ se_policy_cil {
 //
 se_policy_conf {
     name: "pub_policy.conf",
-    defaults: ["se_policy_conf_flags_defaults"],
+    defaults: ["se_policy_conf_public_flags_defaults"],
     srcs: plat_public_policy +
         system_ext_public_policy +
         product_public_policy +
@@ -162,7 +162,7 @@ se_policy_cil {
 
 se_policy_conf {
     name: "system_ext_pub_policy.conf",
-    defaults: ["se_policy_conf_flags_defaults"],
+    defaults: ["se_policy_conf_public_flags_defaults"],
     srcs: plat_public_policy +
         system_ext_public_policy +
         reqd_mask_policy,
@@ -181,7 +181,7 @@ se_policy_cil {
 
 se_policy_conf {
     name: "plat_pub_policy.conf",
-    defaults: ["se_policy_conf_flags_defaults"],
+    defaults: ["se_policy_conf_public_flags_defaults"],
     srcs: plat_public_policy +
         reqd_mask_policy,
     installable: false,
@@ -403,7 +403,7 @@ se_versioned_policy {
 // policy and the platform public policy files in order to use checkpolicy.
 se_policy_conf {
     name: "vendor_sepolicy.conf",
-    defaults: ["se_policy_conf_flags_defaults"],
+    defaults: ["se_policy_conf_public_flags_defaults"],
     srcs: plat_public_policy +
         system_ext_public_policy +
         product_public_policy +
@@ -445,7 +445,7 @@ se_versioned_policy {
 // policy and the platform public policy files in order to use checkpolicy.
 se_policy_conf {
     name: "odm_sepolicy.conf",
-    defaults: ["se_policy_conf_flags_defaults"],
+    defaults: ["se_policy_conf_public_flags_defaults"],
     srcs: plat_public_policy +
         system_ext_public_policy +
         product_public_policy +
@@ -786,7 +786,7 @@ se_policy_binary {
 
 se_policy_conf {
     name: "base_plat_pub_policy.conf",
-    defaults: ["se_policy_conf_flags_defaults"],
+    defaults: ["se_policy_conf_public_flags_defaults"],
     srcs: plat_public_policy +
         reqd_mask_policy,
     build_variant: "user",
@@ -806,7 +806,7 @@ se_policy_cil {
 
 se_policy_conf {
     name: "base_product_pub_policy.conf",
-    defaults: ["se_policy_conf_flags_defaults"],
+    defaults: ["se_policy_conf_public_flags_defaults"],
     srcs: plat_public_policy +
         system_ext_public_policy +
         product_public_policy +

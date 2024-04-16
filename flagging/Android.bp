@@ -36,6 +36,13 @@ se_policy_conf_defaults {
     build_flags: ["all_selinux_flags"],
 }
 
+se_policy_conf_defaults {
+    name: "se_policy_conf_public_flags_defaults",
+    srcs: [":sepolicy_flagging_macros"],
+    build_flags: ["all_selinux_flags"],
+    board_api_level_guard: true,
+}
+
 contexts_defaults {
     name: "contexts_flags_defaults",
     srcs: [":sepolicy_flagging_macros"],
