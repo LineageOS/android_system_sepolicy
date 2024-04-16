@@ -50,3 +50,8 @@ allow virtual_camera dumpstate:fifo_file write;
 
 # Needed for permission checks.
 allow virtual_camera permission_service:service_manager find;
+
+# Allow 'adb shell cmd' to configure test instances of camera.
+allow virtual_camera adbd:fd use;
+allow virtual_camera adbd:unix_stream_socket { getattr read write };
+allow virtual_camera shell:fifo_file { getattr read write };
