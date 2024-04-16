@@ -22,11 +22,12 @@ fi
 top=$1
 ver=$2
 
-mkdir -p "$top/system/sepolicy/prebuilts/api/${ver}/"
-cp -r "$top/system/sepolicy/public/" "$top/system/sepolicy/prebuilts/api/${ver}/"
-cp -r "$top/system/sepolicy/private/" "$top/system/sepolicy/prebuilts/api/${ver}/"
+prebuilt_dir=$top/system/sepolicy/prebuilts/api/$ver
+mkdir -p "$prebuilt_dir"
+cp -r "$top/system/sepolicy/public/" "$prebuilt_dir"
+cp -r "$top/system/sepolicy/private/" "$prebuilt_dir"
 
-cat > "$top/system/sepolicy/prebuilts/api/${ver}/Android.bp" <<EOF
+cat > "$prebuilt_dir/Android.bp" <<EOF
 // Automatically generated file, do not edit!
 se_policy_conf {
     name: "${ver}_plat_pub_policy.conf",
@@ -97,5 +98,24 @@ se_policy_binary {
     dist: {
         targets: ["base-sepolicy-files-for-mapping"],
     },
+}
+EOF
+
+# Build general_sepolicy.conf, plat_sepolicy.cil, and mapping file for CTS
+DIST_DIR=out/dist $top/build/soong/soong_ui.bash --make-mode dist sepolicy_finalize
+
+cp "$top/out/dist/plat_sepolicy.cil" "$prebuilt_dir/${ver}_plat_sepolicy.cil"
+cp "$top/out/dist/general_sepolicy.conf" "$prebuilt_dir/${ver}_general_sepolicy.conf"
+cp "$top/out/dist/$ver.cil" "$prebuilt_dir/${ver}_mapping.cil"
+
+cat >> "$prebuilt_dir/Android.bp" <<EOF
+
+filegroup {
+    name: "${ver}_sepolicy_cts_data",
+    srcs: [
+        "${ver}_general_sepolicy.conf",
+        "${ver}_plat_sepolicy.cil",
+        "${ver}_mapping.cil",
+    ],
 }
 EOF
