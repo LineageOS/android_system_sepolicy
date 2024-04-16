@@ -293,6 +293,3 @@ neverallow priv_app *:{
   bluetooth_socket iucv_socket rxrpc_socket isdn_socket phonet_socket ieee802154_socket caif_socket
   alg_socket nfc_socket kcm_socket qipcrtr_socket smc_socket xdp_socket
 } *;
-
-# Allow priv_apps to check if archiving is enabled
-get_prop(priv_app, pm_archiving_enabled_prop)
