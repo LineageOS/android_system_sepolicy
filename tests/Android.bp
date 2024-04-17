@@ -9,7 +9,10 @@ package {
 cc_library_host_shared {
     name: "libsepolwrap",
     srcs: ["sepol_wrap.cpp"],
-    cflags: ["-Wall", "-Werror",],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
     export_include_dirs: ["include"],
     stl: "c++_static",
 
@@ -137,7 +140,7 @@ python_test_host {
     ],
     test_options: {
         unit_test: true,
-    }
+    },
 }
 
 python_binary_host {

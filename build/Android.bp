@@ -21,14 +21,14 @@ package {
 }
 
 python_binary_host {
-  name: "build_sepolicy",
-  srcs: [
-    "build_sepolicy.py",
-    "file_utils.py",
-  ],
-  required: [
-    "checkpolicy",
-    "secilc",
-    "version_policy",
-  ],
+    name: "build_sepolicy",
+    srcs: [
+        "build_sepolicy.py",
+        "file_utils.py",
+    ],
+    required: [
+        "checkpolicy",
+        "secilc",
+        "version_policy",
+    ],
 }
