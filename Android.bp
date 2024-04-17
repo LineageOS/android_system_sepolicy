@@ -42,7 +42,10 @@ license {
     ],
 }
 
-cc_defaults { name: "selinux_policy_version", cflags: ["-DSEPOLICY_VERSION=30"], }
+cc_defaults {
+    name: "selinux_policy_version",
+    cflags: ["-DSEPOLICY_VERSION=30"],
+}
 
 // For vts_treble_sys_prop_test
 filegroup {
@@ -85,13 +88,13 @@ se_build_files {
     srcs: ["technical_debt.cil"],
 }
 
-reqd_mask_policy          = [":se_build_files{.reqd_mask}"]
-plat_public_policy        = [":se_build_files{.plat_public}"]
-plat_private_policy       = [":se_build_files{.plat_private}"]
-system_ext_public_policy  = [":se_build_files{.system_ext_public}"]
+reqd_mask_policy = [":se_build_files{.reqd_mask}"]
+plat_public_policy = [":se_build_files{.plat_public}"]
+plat_private_policy = [":se_build_files{.plat_private}"]
+system_ext_public_policy = [":se_build_files{.system_ext_public}"]
 system_ext_private_policy = [":se_build_files{.system_ext_private}"]
-product_public_policy     = [":se_build_files{.product_public}"]
-product_private_policy    = [":se_build_files{.product_private}"]
+product_public_policy = [":se_build_files{.product_public}"]
+product_private_policy = [":se_build_files{.product_private}"]
 
 // reqd_policy_mask - a policy.conf file which contains only the bare minimum
 // policy necessary to use checkpolicy.
@@ -214,7 +217,6 @@ se_policy_cil {
     },
 }
 
-
 // userdebug_plat_policy.conf - the userdebug version plat_sepolicy.cil
 se_policy_conf {
     name: "userdebug_plat_sepolicy.conf",
@@ -305,7 +307,10 @@ se_policy_cil {
     name: "product_sepolicy.cil",
     src: ":product_sepolicy.conf",
     product_specific: true,
-    filter_out: [":plat_sepolicy.cil", ":system_ext_sepolicy.cil"],
+    filter_out: [
+        ":plat_sepolicy.cil",
+        ":system_ext_sepolicy.cil",
+    ],
     remove_line_marker: true,
 }
 
@@ -338,7 +343,10 @@ se_versioned_policy {
     base: ":pub_policy.cil",
     mapping: true,
     version: "current",
-    filter_out: [":plat_mapping_file", ":system_ext_mapping_file"],
+    filter_out: [
+        ":plat_mapping_file",
+        ":system_ext_mapping_file",
+    ],
     relative_install_path: "mapping", // install to /product/etc/selinux/mapping
     product_specific: true,
 }
@@ -368,7 +376,10 @@ se_versioned_policy {
     base: ":pub_policy.cil",
     mapping: true,
     version: "1000000.0",
-    filter_out: [":plat_mapping_file", ":system_ext_mapping_file"],
+    filter_out: [
+        ":plat_mapping_file",
+        ":system_ext_mapping_file",
+    ],
     relative_install_path: "mapping", // install to /product/etc/selinux/mapping
     product_specific: true,
 }
@@ -397,9 +408,9 @@ se_policy_conf {
         system_ext_public_policy +
         product_public_policy +
         reqd_mask_policy + [
-        ":se_build_files{.plat_vendor}",
-        ":se_build_files{.vendor}",
-    ],
+            ":se_build_files{.plat_vendor}",
+            ":se_build_files{.vendor}",
+        ],
     vendor: true,
     installable: false,
 }
@@ -439,10 +450,10 @@ se_policy_conf {
         system_ext_public_policy +
         product_public_policy +
         reqd_mask_policy + [
-        ":se_build_files{.plat_vendor}",
-        ":se_build_files{.vendor}",
-        ":se_build_files{.odm}",
-    ],
+            ":se_build_files{.plat_vendor}",
+            ":se_build_files{.vendor}",
+            ":se_build_files{.odm}",
+        ],
     device_specific: true,
     installable: false,
 }
@@ -472,7 +483,10 @@ se_versioned_policy {
         ":plat_mapping_file",
         ":vendor_sepolicy.cil",
     ],
-    filter_out: [":plat_pub_versioned.cil", ":vendor_sepolicy.cil"],
+    filter_out: [
+        ":plat_pub_versioned.cil",
+        ":vendor_sepolicy.cil",
+    ],
     device_specific: true,
 }
 
@@ -490,7 +504,10 @@ se_versioned_policy {
 //////////////////////////////////
 genrule {
     name: "plat_sepolicy_and_mapping.sha256_gen",
-    srcs: [":plat_sepolicy.cil", ":plat_mapping_file"],
+    srcs: [
+        ":plat_sepolicy.cil",
+        ":plat_mapping_file",
+    ],
     out: ["plat_sepolicy_and_mapping.sha256"],
     cmd: "cat $(in) | sha256sum | cut -d' ' -f1 > $(out)",
 }
@@ -504,7 +521,10 @@ prebuilt_etc {
 
 genrule {
     name: "system_ext_sepolicy_and_mapping.sha256_gen",
-    srcs: [":system_ext_sepolicy.cil", ":system_ext_mapping_file"],
+    srcs: [
+        ":system_ext_sepolicy.cil",
+        ":system_ext_mapping_file",
+    ],
     out: ["system_ext_sepolicy_and_mapping.sha256"],
     cmd: "cat $(in) | sha256sum | cut -d' ' -f1 > $(out)",
 }
@@ -519,7 +539,10 @@ prebuilt_etc {
 
 genrule {
     name: "product_sepolicy_and_mapping.sha256_gen",
-    srcs: [":product_sepolicy.cil", ":product_mapping_file"],
+    srcs: [
+        ":product_sepolicy.cil",
+        ":product_mapping_file",
+    ],
     out: ["product_sepolicy_and_mapping.sha256"],
     cmd: "cat $(in) | sha256sum | cut -d' ' -f1 > $(out)",
 }
@@ -543,7 +566,10 @@ soong_config_module_type {
     module_type: "prebuilt_defaults",
     config_namespace: "ANDROID",
     bool_variables: ["BOARD_USES_ODMIMAGE"],
-    properties: ["vendor", "device_specific"],
+    properties: [
+        "vendor",
+        "device_specific",
+    ],
 }
 
 precompiled_sepolicy_prebuilts_defaults {
@@ -599,7 +625,10 @@ soong_config_module_type {
     module_type: "se_policy_binary",
     config_namespace: "ANDROID",
     bool_variables: ["BOARD_USES_ODMIMAGE"],
-    properties: ["vendor", "device_specific"],
+    properties: [
+        "vendor",
+        "device_specific",
+    ],
 }
 
 filegroup {
@@ -651,10 +680,10 @@ se_policy_conf {
         system_ext_private_policy +
         product_public_policy +
         product_private_policy + [
-        ":se_build_files{.plat_vendor}",
-        ":se_build_files{.vendor}",
-        ":se_build_files{.odm}",
-    ],
+            ":se_build_files{.plat_vendor}",
+            ":se_build_files{.vendor}",
+            ":se_build_files{.odm}",
+        ],
     target_recovery: true,
     installable: false,
     recovery: true,
@@ -817,7 +846,10 @@ se_bug_map {
 
 se_bug_map {
     name: "vendor_bug_map",
-    srcs: [":bug_map_files{.vendor}", ":bug_map_files{.plat_vendor}"],
+    srcs: [
+        ":bug_map_files{.vendor}",
+        ":bug_map_files{.plat_vendor}",
+    ],
     // Legacy file name of the vendor partition bug_map.
     stem: "selinux_denial_metadata",
     vendor: true,
@@ -832,10 +864,10 @@ se_neverallow_test {
         system_ext_private_policy +
         product_public_policy +
         product_private_policy + [
-        ":se_build_files{.plat_vendor}",
-        ":se_build_files{.vendor}",
-        ":se_build_files{.odm}",
-    ],
+            ":se_build_files{.plat_vendor}",
+            ":se_build_files{.vendor}",
+            ":se_build_files{.odm}",
+        ],
 }
 
 //////////////////////////////////

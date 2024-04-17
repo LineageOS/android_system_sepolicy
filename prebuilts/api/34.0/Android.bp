@@ -14,7 +14,10 @@
 
 se_policy_conf {
     name: "34.0_plat_pub_policy.conf",
-    srcs: [":se_build_files{.plat_public_34.0}", ":se_build_files{.reqd_mask}"],
+    srcs: [
+        ":se_build_files{.plat_public_34.0}",
+        ":se_build_files{.reqd_mask}",
+    ],
     installable: false,
     build_variant: "user",
 }

@@ -210,7 +210,10 @@ sepolicy_vers {
 // sepolicy sha256 for vendor
 genrule {
     name: "microdroid_plat_sepolicy_and_mapping.sha256_gen",
-    srcs: [":microdroid_plat_sepolicy.cil", ":microdroid_plat_mapping_file"],
+    srcs: [
+        ":microdroid_plat_sepolicy.cil",
+        ":microdroid_plat_mapping_file",
+    ],
     out: ["microdroid_plat_sepolicy_and_mapping.sha256"],
     cmd: "cat $(in) | sha256sum | cut -d' ' -f1 > $(out)",
 }
@@ -254,7 +257,7 @@ genrule {
     tools: ["fc_sort"],
     out: ["file_contexts"],
     cmd: "sed -e 's/#.*$$//' -e '/^$$/d' $(in) > $(out).tmp && " +
-         "$(location fc_sort) -i $(out).tmp -o $(out)",
+        "$(location fc_sort) -i $(out).tmp -o $(out)",
 }
 
 prebuilt_etc {
@@ -271,7 +274,7 @@ genrule {
     tools: ["fc_sort"],
     out: ["file_contexts"],
     cmd: "sed -e 's/#.*$$//' -e '/^$$/d' $(in) > $(out).tmp && " +
-         "$(location fc_sort) -i $(out).tmp -o $(out)",
+        "$(location fc_sort) -i $(out).tmp -o $(out)",
 }
 
 prebuilt_etc {

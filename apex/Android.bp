@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 package {
     // http://go/android-license-faq
     // A large-scale-change added 'default_applicable_licenses' to import
@@ -24,266 +23,266 @@ package {
 // TODO(b/236681553): Remove com.android.bluetooth-file_contexts
 
 filegroup {
-  name: "apex.test-file_contexts",
-  srcs: [
-    "apex.test-file_contexts",
-  ],
+    name: "apex.test-file_contexts",
+    srcs: [
+        "apex.test-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.adbd-file_contexts",
-  srcs: [
-    "com.android.adbd-file_contexts",
-  ],
+    name: "com.android.adbd-file_contexts",
+    srcs: [
+        "com.android.adbd-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.sdkext-file_contexts",
-  srcs: [
-    "com.android.sdkext-file_contexts",
-  ],
+    name: "com.android.sdkext-file_contexts",
+    srcs: [
+        "com.android.sdkext-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.art-file_contexts",
-  srcs: [
-    "com.android.art-file_contexts",
-  ],
+    name: "com.android.art-file_contexts",
+    srcs: [
+        "com.android.art-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.art.debug-file_contexts",
-  srcs: [
-    "com.android.art.debug-file_contexts",
-  ],
+    name: "com.android.art.debug-file_contexts",
+    srcs: [
+        "com.android.art.debug-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.bootanimation-file_contexts",
-  srcs: [
-    "com.android.bootanimation-file_contexts",
-  ],
+    name: "com.android.bootanimation-file_contexts",
+    srcs: [
+        "com.android.bootanimation-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.cellbroadcast-file_contexts",
-  srcs: [
-    "com.android.cellbroadcast-file_contexts",
-  ],
+    name: "com.android.cellbroadcast-file_contexts",
+    srcs: [
+        "com.android.cellbroadcast-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.compos-file_contexts",
-  srcs: [
-    "com.android.compos-file_contexts",
-  ],
+    name: "com.android.compos-file_contexts",
+    srcs: [
+        "com.android.compos-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.conscrypt-file_contexts",
-  srcs: [
-    "com.android.conscrypt-file_contexts",
-  ],
+    name: "com.android.conscrypt-file_contexts",
+    srcs: [
+        "com.android.conscrypt-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.crashrecovery-file_contexts",
-  srcs: [
-    "com.android.crashrecovery-file_contexts",
-  ],
+    name: "com.android.crashrecovery-file_contexts",
+    srcs: [
+        "com.android.crashrecovery-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.federatedcompute-file_contexts",
-  srcs: [
-    "com.android.federatedcompute-file_contexts",
-  ],
+    name: "com.android.federatedcompute-file_contexts",
+    srcs: [
+        "com.android.federatedcompute-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.geotz-file_contexts",
-  srcs: [
-    "com.android.geotz-file_contexts",
-  ],
+    name: "com.android.geotz-file_contexts",
+    srcs: [
+        "com.android.geotz-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.gki-file_contexts",
-  srcs: [
-    "com.android.gki-file_contexts",
-  ],
+    name: "com.android.gki-file_contexts",
+    srcs: [
+        "com.android.gki-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.ipsec-file_contexts",
-  srcs: [
-    "com.android.ipsec-file_contexts",
-  ],
+    name: "com.android.ipsec-file_contexts",
+    srcs: [
+        "com.android.ipsec-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.i18n-file_contexts",
-  srcs: [
-    "com.android.i18n-file_contexts",
-  ],
+    name: "com.android.i18n-file_contexts",
+    srcs: [
+        "com.android.i18n-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.media-file_contexts",
-  srcs: [
-    "com.android.media-file_contexts",
-  ],
+    name: "com.android.media-file_contexts",
+    srcs: [
+        "com.android.media-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.mediaprovider-file_contexts",
-  srcs: [
-    "com.android.mediaprovider-file_contexts",
-  ],
+    name: "com.android.mediaprovider-file_contexts",
+    srcs: [
+        "com.android.mediaprovider-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.media.swcodec-file_contexts",
-  srcs: [
-    "com.android.media.swcodec-file_contexts",
-  ],
+    name: "com.android.media.swcodec-file_contexts",
+    srcs: [
+        "com.android.media.swcodec-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.neuralnetworks-file_contexts",
-  srcs: [
-    "com.android.neuralnetworks-file_contexts",
-  ],
+    name: "com.android.neuralnetworks-file_contexts",
+    srcs: [
+        "com.android.neuralnetworks-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.os.statsd-file_contexts",
-  srcs: [
-    "com.android.os.statsd-file_contexts",
-  ],
+    name: "com.android.os.statsd-file_contexts",
+    srcs: [
+        "com.android.os.statsd-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.permission-file_contexts",
-  srcs: [
-    "com.android.permission-file_contexts",
-  ],
+    name: "com.android.permission-file_contexts",
+    srcs: [
+        "com.android.permission-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.resolv-file_contexts",
-  srcs: [
-    "com.android.resolv-file_contexts",
-  ],
+    name: "com.android.resolv-file_contexts",
+    srcs: [
+        "com.android.resolv-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.runtime-file_contexts",
-  srcs: [
-    "com.android.runtime-file_contexts",
-  ],
+    name: "com.android.runtime-file_contexts",
+    srcs: [
+        "com.android.runtime-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.scheduling-file_contexts",
-  srcs: [
-    "com.android.scheduling-file_contexts",
-  ],
+    name: "com.android.scheduling-file_contexts",
+    srcs: [
+        "com.android.scheduling-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.tzdata-file_contexts",
-  srcs: [
-    "com.android.tzdata-file_contexts",
-  ],
+    name: "com.android.tzdata-file_contexts",
+    srcs: [
+        "com.android.tzdata-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.uwb-file_contexts",
-  srcs: [
-    "com.android.uwb-file_contexts",
-  ],
+    name: "com.android.uwb-file_contexts",
+    srcs: [
+        "com.android.uwb-file_contexts",
+    ],
 }
 
 file_contexts {
-  name: "com.android.virt-file_contexts",
-  defaults: ["contexts_flags_defaults"],
-  srcs: ["com.android.virt-file_contexts"],
+    name: "com.android.virt-file_contexts",
+    defaults: ["contexts_flags_defaults"],
+    srcs: ["com.android.virt-file_contexts"],
 }
 
 filegroup {
-  name: "com.android.vndk-file_contexts",
-  srcs: [
-    "com.android.vndk-file_contexts",
-  ],
+    name: "com.android.vndk-file_contexts",
+    srcs: [
+        "com.android.vndk-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.wifi-file_contexts",
-  srcs: [
-    "com.android.wifi-file_contexts",
-  ],
+    name: "com.android.wifi-file_contexts",
+    srcs: [
+        "com.android.wifi-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.tethering-file_contexts",
-  srcs: [
-    "com.android.tethering-file_contexts",
-  ],
+    name: "com.android.tethering-file_contexts",
+    srcs: [
+        "com.android.tethering-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.extservices-file_contexts",
-  srcs: [
-    "com.android.extservices-file_contexts",
-  ],
+    name: "com.android.extservices-file_contexts",
+    srcs: [
+        "com.android.extservices-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.adservices-file_contexts",
-  srcs: [
-    "com.android.adservices-file_contexts",
-  ],
+    name: "com.android.adservices-file_contexts",
+    srcs: [
+        "com.android.adservices-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.car.framework-file_contexts",
-  srcs: [
-    "com.android.car.framework-file_contexts",
-  ],
+    name: "com.android.car.framework-file_contexts",
+    srcs: [
+        "com.android.car.framework-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.ondevicepersonalization-file_contexts",
-  srcs: [
-    "com.android.ondevicepersonalization-file_contexts",
-  ],
+    name: "com.android.ondevicepersonalization-file_contexts",
+    srcs: [
+        "com.android.ondevicepersonalization-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.healthfitness-file_contexts",
-  srcs: [
-    "com.android.healthfitness-file_contexts",
-  ],
+    name: "com.android.healthfitness-file_contexts",
+    srcs: [
+        "com.android.healthfitness-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.rkpd-file_contexts",
-  srcs: [
-    "com.android.rkpd-file_contexts",
-  ],
+    name: "com.android.rkpd-file_contexts",
+    srcs: [
+        "com.android.rkpd-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.devicelock-file_contexts",
-  srcs: [
-    "com.android.devicelock-file_contexts",
-  ],
+    name: "com.android.devicelock-file_contexts",
+    srcs: [
+        "com.android.devicelock-file_contexts",
+    ],
 }
 
 filegroup {
-  name: "com.android.telephonymodules-file_contexts",
-  srcs: [
-    "com.android.telephonymodules-file_contexts"
-  ],
+    name: "com.android.telephonymodules-file_contexts",
+    srcs: [
+        "com.android.telephonymodules-file_contexts",
+    ],
 }
