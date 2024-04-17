@@ -209,6 +209,9 @@ se_policy_cil {
     name: "plat_sepolicy.cil",
     src: ":plat_sepolicy.conf",
     additional_cil_files: [":sepolicy_technical_debt{.plat_private}"],
+    dist: {
+        targets: ["sepolicy_finalize"],
+    },
 }
 
 
@@ -315,6 +318,9 @@ se_versioned_policy {
     mapping: true,
     version: "current",
     relative_install_path: "mapping", // install to /system/etc/selinux/mapping
+    dist: {
+        targets: ["sepolicy_finalize"],
+    },
 }
 
 se_versioned_policy {
@@ -681,6 +687,9 @@ se_policy_conf {
     build_variant: "user",
     cts: true,
     exclude_build_test: true,
+    dist: {
+        targets: ["sepolicy_finalize"],
+    },
 }
 
 //////////////////////////////////
