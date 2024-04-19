@@ -7,3 +7,18 @@ define(`is_flag_enabled', `ifelse(target_flag_$1, `true', `$2')')
 # is_flag_disabled(flag, rules)
 # SELinux rules which apply only if given feature is turned off
 define(`is_flag_disabled', `ifelse(target_flag_$1, `true', , `$2')')
+
+####################################
+# starting_at_board_api(api_level, rules)
+#
+# This macro conditionally exposes SELinux rules within system/sepolicy/public,
+# ensuring they are available to vendors only when the board API level is at or
+# above the specified 'api_level'.
+#
+# * Platform sepolicy: Rules are always enabled, regardless of API level.
+# * Vendor sepolicy: Rules are enabled only when the board API level meets or
+#                    exceeds the value provided in 'api_level'.
+#
+# Apply this macro to public types and attributes (in system/sepolicy/public) to
+# restrict vendor access based on board API level.
+define(`starting_at_board_api', `ifelse(eval(target_board_api_level >= $1), 1, `$2')')
