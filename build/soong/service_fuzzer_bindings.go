@@ -75,6 +75,8 @@ var (
 		"android.hardware.light.ILights/default":                                  EXCEPTION_NO_FUZZER,
 		"android.hardware.macsec.IMacsecPskPlugin/default":                        EXCEPTION_NO_FUZZER,
 		"android.hardware.media.c2.IComponentStore/default":                       EXCEPTION_NO_FUZZER,
+		"android.hardware.media.c2.IComponentStore/default1":                      EXCEPTION_NO_FUZZER,
+		"android.hardware.media.c2.IComponentStore/default2":                      EXCEPTION_NO_FUZZER,
 		"android.hardware.media.c2.IComponentStore/software":                      []string{"libcodec2-aidl-fuzzer"},
 		"android.hardware.memtrack.IMemtrack/default":                             EXCEPTION_NO_FUZZER,
 		"android.hardware.net.nlinterceptor.IInterceptor/default":                 EXCEPTION_NO_FUZZER,

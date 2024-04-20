@@ -59,6 +59,8 @@ android.hardware.ir.IConsumerIr/default                              u:object_r:
 android.hardware.light.ILights/default                               u:object_r:hal_light_service:s0
 android.hardware.macsec.IMacsecPskPlugin/default                     u:object_r:hal_macsec_service:s0
 android.hardware.media.c2.IComponentStore/default                    u:object_r:hal_codec2_service:s0
+android.hardware.media.c2.IComponentStore/default1                   u:object_r:hal_codec2_service:s0
+android.hardware.media.c2.IComponentStore/default2                   u:object_r:hal_codec2_service:s0
 android.hardware.media.c2.IComponentStore/software                   u:object_r:hal_codec2_service:s0
 android.hardware.memtrack.IMemtrack/default                          u:object_r:hal_memtrack_service:s0
 android.hardware.net.nlinterceptor.IInterceptor/default              u:object_r:hal_nlinterceptor_service:s0
