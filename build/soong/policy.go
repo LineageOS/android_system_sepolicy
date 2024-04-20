@@ -90,6 +90,9 @@ type policyConfProperties struct {
 
 	// Desired number of MLS categories. Defaults to 1024
 	Mls_cats *int64
+
+	// Whether to turn on board_api_level guard or not. Defaults to false
+	Board_api_level_guard *bool
 }
 
 type policyConf struct {
@@ -220,6 +223,14 @@ func (c *policyConf) mlsCats() int {
 	return proptools.IntDefault(c.properties.Mls_cats, MlsCats)
 }
 
+func (c *policyConf) boardApiLevel(ctx android.ModuleContext) string {
+	if proptools.Bool(c.properties.Board_api_level_guard) {
+		return ctx.Config().VendorApiLevel()
+	}
+	// aribtrary value greater than any other vendor API levels
+	return "1000000"
+}
+
 func findPolicyConfOrder(name string) int {
 	for idx, pattern := range policyConfOrder {
 		// We could use regexp but it seems like an overkill
@@ -261,6 +272,7 @@ func (c *policyConf) transformPolicyToConf(ctx android.ModuleContext) android.Ou
 		FlagWithArg("-D target_requires_insecure_execmem_for_swiftshader=", strconv.FormatBool(ctx.DeviceConfig().RequiresInsecureExecmemForSwiftshader())).
 		FlagWithArg("-D target_enforce_debugfs_restriction=", c.enforceDebugfsRestrictions(ctx)).
 		FlagWithArg("-D target_recovery=", strconv.FormatBool(c.isTargetRecovery())).
+		FlagWithArg("-D target_board_api_level=", c.boardApiLevel(ctx)).
 		Flags(flagsToM4Macros(flags)).
 		Flag("-s").
 		Inputs(srcs).
