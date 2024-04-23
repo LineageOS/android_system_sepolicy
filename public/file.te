@@ -8,7 +8,11 @@ type binderfs, fs_type;
 type binderfs_logs, fs_type;
 type binderfs_logs_proc, fs_type;
 type binderfs_logs_stats, fs_type;
-type binderfs_logs_transactions, fs_type;
+
+starting_at_board_api(202504, `
+    type binderfs_logs_transactions, fs_type;
+')
+
 type binderfs_features, fs_type;
 # Security-sensitive proc nodes that should not be writable to most.
 type proc_security, fs_type, proc_type;
@@ -18,6 +22,7 @@ type proc_min_free_order_shift, fs_type, proc_type;
 type proc_kpageflags, fs_type, proc_type;
 type proc_watermark_boost_factor, fs_type, proc_type;
 type proc_percpu_pagelist_high_fraction, fs_type, proc_type;
+# TODO(b/330670954): guard this once all internal references are removed.
 type proc_compaction_proactiveness, fs_type, proc_type;
 # proc, sysfs, or other nodes that permit configuration of kernel usermodehelpers.
 type usermodehelper, fs_type, proc_type;
@@ -139,8 +144,13 @@ type fs_bpf, fs_type, bpffs_type;
 # TODO: S+ fs_bpf_tethering (used by mainline) should be private
 type fs_bpf_tethering, fs_type, bpffs_type;
 type fs_bpf_vendor, fs_type, bpffs_type;
-type fs_bpf_lmkd_memevents_rb, fs_type, bpffs_type;
-type fs_bpf_lmkd_memevents_prog, fs_type, bpffs_type;
+
+starting_at_board_api(202504, `
+    type fs_bpf_lmkd_memevents_rb, fs_type, bpffs_type;
+    type fs_bpf_lmkd_memevents_prog, fs_type, bpffs_type;
+')
+
+
 type configfs, fs_type;
 # /sys/devices/cs_etm
 type sysfs_devices_cs_etm, fs_type, sysfs_type;
