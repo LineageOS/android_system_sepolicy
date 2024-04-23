@@ -37,20 +37,44 @@ def do_main():
 
     current_policy = mini_parser.MiniCilParser(options.current)
     prebuilt_policy = mini_parser.MiniCilParser(options.prebuilt)
+    current_policy.typeattributes = set(filter(lambda x: "base_typeattr_" not in x,
+                                               current_policy.typeattributes))
+    prebuilt_policy.typeattributes = set(filter(lambda x: "base_typeattr_" not in x,
+                                                prebuilt_policy.typeattributes))
 
     results = ""
     removed_types = prebuilt_policy.types - current_policy.types
+    added_types = current_policy.types - prebuilt_policy.types
     removed_attributes = prebuilt_policy.typeattributes - current_policy.typeattributes
-    removed_attributes = set(filter(lambda x: "base_typeattr_" not in x, removed_attributes))
+    added_attributes = current_policy.typeattributes - prebuilt_policy.typeattributes
+
+    # TODO(b/330670954): remove this once all internal references are removed.
+    if "proc_compaction_proactiveness" in added_types:
+        added_types.remove("proc_compaction_proactiveness")
 
     if removed_types:
         results += "The following public types were removed:\n" + ", ".join(removed_types) + "\n"
 
+    if added_types:
+        results += "The following public types were added:\n" + ", ".join(added_types) + "\n"
+
     if removed_attributes:
         results += "The following public attributes were removed:\n" + ", ".join(removed_attributes) + "\n"
 
-    if len(results) > 0:
-        sys.exit(results)
+    if added_attributes:
+        results += "The following public attributes were added:\n" + ", ".join(added_attributes) + "\n"
+
+    if results:
+        sys.exit(f'''{results}
+******************************
+You have tried to change system/sepolicy/public after vendor API freeze.
+To make these errors go away, you can guard types and attributes listed above,
+so they won't be included to the release build.
+
+See an example of how to guard them:
+    https://android-review.googlesource.com/3050544
+******************************
+''')
 
 if __name__ == '__main__':
     do_main()

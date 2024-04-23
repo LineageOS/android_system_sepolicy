@@ -76,7 +76,6 @@ system_restricted_prop(device_config_surface_flinger_native_boot_prop)
 system_restricted_prop(device_config_vendor_system_native_prop)
 system_restricted_prop(device_config_vendor_system_native_boot_prop)
 system_restricted_prop(drm_forcel3_prop)
-system_restricted_prop(enable_16k_pages_prop)
 system_restricted_prop(fingerprint_prop)
 system_restricted_prop(gwp_asan_prop)
 system_restricted_prop(hal_instrumentation_prop)
@@ -104,7 +103,11 @@ system_restricted_prop(usb_prop)
 system_restricted_prop(userspace_reboot_exported_prop)
 system_restricted_prop(vold_status_prop)
 system_restricted_prop(vts_status_prop)
-system_restricted_prop(profcollectd_etr_prop)
+
+starting_at_board_api(202504, `
+    system_restricted_prop(enable_16k_pages_prop)
+    system_restricted_prop(profcollectd_etr_prop)
+')
 
 compatible_property_only(`
     # DO NOT ADD ANY PROPERTIES HERE
