@@ -48,10 +48,6 @@ def do_main():
     removed_attributes = prebuilt_policy.typeattributes - current_policy.typeattributes
     added_attributes = current_policy.typeattributes - prebuilt_policy.typeattributes
 
-    # TODO(b/330670954): remove this once all internal references are removed.
-    if "proc_compaction_proactiveness" in added_types:
-        added_types.remove("proc_compaction_proactiveness")
-
     if removed_types:
         results += "The following public types were removed:\n" + ", ".join(removed_types) + "\n"
 
