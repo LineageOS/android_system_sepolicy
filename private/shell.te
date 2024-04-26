@@ -372,6 +372,7 @@ r_dir_file(shell, proc_net_type)
 
 allow shell {
   proc_asound
+  proc_cgroups
   proc_filesystems
   proc_interrupts
   proc_loadavg # b/124024827

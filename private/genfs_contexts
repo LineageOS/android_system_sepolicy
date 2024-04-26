@@ -5,6 +5,7 @@ genfscon proc / u:object_r:proc:s0
 genfscon proc /asound u:object_r:proc_asound:s0
 genfscon proc /bootconfig u:object_r:proc_bootconfig:s0
 genfscon proc /buddyinfo u:object_r:proc_buddyinfo:s0
+genfscon proc /cgroups u:object_r:proc_cgroups:s0
 genfscon proc /cmdline u:object_r:proc_cmdline:s0
 genfscon proc /config.gz u:object_r:config_gz:s0
 genfscon proc /cpu/alignment u:object_r:proc_cpu_alignment:s0
