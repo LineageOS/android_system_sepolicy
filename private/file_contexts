@@ -583,6 +583,7 @@
 /data/apex/decompressed/(.*)?    u:object_r:staging_data_file:s0
 /data/apex/ota_reserved(/.*)?       u:object_r:apex_ota_reserved_file:s0
 /data/app(/.*)?                       u:object_r:apk_data_file:s0
+/data/app-metadata(/.*)?              u:object_r:apk_metadata_file:s0
 # Traditional /data/app/[packageName]-[randomString]/base.apk location
 /data/app/[^/]+/oat(/.*)?                u:object_r:dalvikcache_data_file:s0
 # /data/app/[randomStringA]/[packageName]-[randomStringB]/base.apk layout
