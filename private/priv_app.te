@@ -96,6 +96,7 @@ allow priv_app perfetto_traces_data_file:file { read getattr };
 # Allow verifier to access staged apks.
 allow priv_app { apk_tmp_file apk_private_tmp_file }:dir r_dir_perms;
 allow priv_app { apk_tmp_file apk_private_tmp_file }:file r_file_perms;
+allowxperm priv_app { apk_tmp_file apk_private_tmp_file }:file ioctl FS_IOC_MEASURE_VERITY;
 
 # For AppFuse.
 allow priv_app vold:fd use;
