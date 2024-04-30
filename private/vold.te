@@ -62,6 +62,27 @@ allow vold keystore_maintenance_service:service_manager find;
 allow vold keystore:keystore2 early_boot_ended;
 allow vold keystore:keystore2 delete_all_keys;
 
+is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `
+    # Allow vold to encrypt storage area directories on behalf of apps.
+    allow vold {
+        storage_area_dir
+        storage_area_app_dir
+    }:dir {
+        getattr
+        ioctl # for FS_IOC_SET_ENCRYPTION_POLICY
+        open
+        read # for open(O_RDONLY) for ioctl
+        search
+    };
+')
+
+# when a storage area is created (with `openStorageArea`), vold creates the key
+# and when a storage area is deleted (with `deleteStorageArea`), vold deletes the key
+is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `
+  allow vold storage_area_key_file:file create_file_perms;
+  allow vold storage_area_key_file:dir create_dir_perms;
+')
+
 # Allow vold to create and delete per-user directories like /data/user/$userId.
 allow vold {
     media_userdir_file
@@ -119,6 +140,7 @@ allowxperm vold { fs_type file_type }:dir ioctl FITRIM;
 # and add/remove file-based encryption keys.
 allowxperm vold data_file_type:dir ioctl {
   FS_IOC_GET_ENCRYPTION_POLICY
+  FS_IOC_GET_ENCRYPTION_POLICY_EX
   FS_IOC_SET_ENCRYPTION_POLICY
   FS_IOC_ADD_ENCRYPTION_KEY
   FS_IOC_REMOVE_ENCRYPTION_KEY
@@ -131,6 +153,7 @@ allowxperm vold data_file_type:dir ioctl {
 allowxperm vold {
   vold_data_file
   vold_metadata_file
+  is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `storage_area_key_file')
 }:file ioctl {
   F2FS_IOC_SEC_TRIM_FILE
   FS_IOC_FIEMAP

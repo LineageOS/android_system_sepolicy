@@ -194,3 +194,12 @@ allow proc_net proc:filesystem associate;
 # Should be:
 #   type apk_data_file, file_type, data_file_type;
 neverallow fs_type file_type:filesystem associate;
+# app directories of storage areas: /data/storage_area/userId/pkgName -- apps cannot write to it
+type storage_area_app_dir, file_type, data_file_type, core_data_file_type, app_data_file_type;
+# app storage areas: /data/storage_area/userId/pkgName/storageAreaName
+type storage_area_dir, file_type, data_file_type, core_data_file_type, app_data_file_type;
+# contents of app storage areas: /data/storage_area/userId/pkgName/storageAreaName/*
+type storage_area_content_file, file_type, data_file_type, core_data_file_type, app_data_file_type;
+
+# /data/misc_ce/userId/storage_area_keys
+type storage_area_key_file, file_type, data_file_type, core_data_file_type;
