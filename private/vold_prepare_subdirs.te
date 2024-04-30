@@ -10,6 +10,7 @@ allow vold_prepare_subdirs devpts:chr_file rw_file_perms;
 allow vold_prepare_subdirs vold:fd use;
 allow vold_prepare_subdirs vold:fifo_file { read write };
 allow vold_prepare_subdirs file_contexts_file:file r_file_perms;
+allow vold_prepare_subdirs seapp_contexts_file:file r_file_perms;
 allow vold_prepare_subdirs self:global_capability_class_set { chown dac_override dac_read_search fowner };
 allow vold_prepare_subdirs self:process setfscreate;
 allow vold_prepare_subdirs {
@@ -27,6 +28,7 @@ allow vold_prepare_subdirs {
     fingerprint_vendor_data_file
     iris_vendor_data_file
     rollback_data_file
+    is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `storage_area_key_file')
     storaged_data_file
     sdk_sandbox_data_file
     sdk_sandbox_system_data_file
@@ -53,6 +55,27 @@ allow vold_prepare_subdirs apex_mnt_dir:dir { open read };
 allow vold_prepare_subdirs mnt_expand_file:dir search;
 allow vold_prepare_subdirs user_profile_data_file:dir { search getattr relabelfrom };
 allow vold_prepare_subdirs user_profile_root_file:dir { search getattr relabelfrom relabelto };
+
+# Allow vold_prepare_subdirs to create storage area directories on behalf of apps.
+is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `
+  allow vold_prepare_subdirs {
+      storage_area_dir
+      storage_area_app_dir
+  }:dir {
+      rw_dir_perms
+      create
+      setattr # for chown() and chmod()
+      rmdir
+      unlink
+      relabelfrom # setfilecon
+      relabelto # setfilecon
+  };
+
+  # The storage area directories should have type storage_area_dir
+  type_transition vold_prepare_subdirs storage_area_app_dir:dir storage_area_dir;
+
+  selinux_check_context(vold_prepare_subdirs)
+')
 
 # Migrate legacy labels to apex_system_server_data_file (b/217581286)
 allow vold_prepare_subdirs {
