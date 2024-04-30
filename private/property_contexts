@@ -757,6 +757,7 @@ ro.lmk.kill_heaviest_task       u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.kill_timeout_ms          u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.log_stats                u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.low                      u:object_r:lmkd_config_prop:s0 exact int
+ro.lmk.lowmem_min_oom_score     u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.medium                   u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.pressure_after_kill_min_score u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.psi_partial_stall_ms     u:object_r:lmkd_config_prop:s0 exact int
