@@ -426,6 +426,9 @@ allow shell sysfs:dir r_dir_perms;
 allow shell sysfs_batteryinfo:dir r_dir_perms;
 allow shell sysfs_batteryinfo:file r_file_perms;
 
+# Allow reads (but not writes) of the MGLRU state
+allow shell sysfs_lru_gen_enabled:file r_file_perms;
+
 # Allow access to ion memory allocation device.
 allow shell ion_device:chr_file rw_file_perms;
 
