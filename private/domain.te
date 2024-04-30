@@ -1594,7 +1594,20 @@ neverallow {
   -appdomain
   -artd # compile secondary dex files
   -installd # creation of sandbox
-} { privapp_data_file app_data_file }:dir_file_class_set { create unlink };
+} {
+  privapp_data_file
+  app_data_file
+  is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `storage_area_content_file')
+}:dir_file_class_set { create unlink };
+
+is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `
+  neverallow {
+    domain
+    -artd # compile secondary dex files
+    -installd # creation of sandbox
+    -vold_prepare_subdirs # creation of storage area directories
+  } {storage_area_app_dir storage_area_dir }:dir { create unlink };
+')
 
 # Only the following processes should be directly accessing private app
 # directories.
@@ -1611,7 +1624,38 @@ neverallow {
   -runas
   -system_server
   -zygote
-} { privapp_data_file app_data_file }:dir *;
+} {
+  privapp_data_file
+  app_data_file
+  is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `storage_area_content_file')
+}:dir *;
+
+is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `
+  neverallow {
+    domain
+    -appdomain
+    -app_zygote
+    -artd # compile secondary dex files
+    -installd
+    -rs # spawned by appdomain, so carryover the exception above
+    -system_server
+    -vold # encryption of storage area directories
+    -vold_prepare_subdirs # creation of storage area directories
+    -zygote
+  } { storage_area_dir storage_area_app_dir }:dir *;
+')
+
+is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `
+  # only vold and installd can access the storage area key files
+  # (and init, in case of a recursive restorecon)
+  neverallow {
+    domain
+    -init
+    -vold
+    -vold_prepare_subdirs
+    -installd
+  } { storage_area_key_file }:dir_file_class_set *;
+')
 
 # Only apps should be modifying app data. installd is exempted for
 # restorecon and package install/uninstall.
@@ -1621,7 +1665,22 @@ neverallow {
   -artd # compile secondary dex files
   -installd
   -rs # spawned by appdomain, so carryover the exception above
-} { privapp_data_file app_data_file }:dir ~r_dir_perms;
+} {
+  privapp_data_file
+  app_data_file
+  is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `storage_area_content_file')
+}:dir ~r_dir_perms;
+
+is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `
+  neverallow {
+    domain
+    -appdomain
+    -artd # compile secondary dex files
+    -installd
+    -rs # spawned by appdomain, so carryover the exception above
+    -vold_prepare_subdirs # creation of storage area directories
+  } { storage_area_dir storage_area_app_dir }:dir ~r_dir_perms;
+')
 
 neverallow {
   domain
@@ -1630,20 +1689,41 @@ neverallow {
   -artd # compile secondary dex files
   -installd
   -rs # spawned by appdomain, so carryover the exception above
-} { privapp_data_file app_data_file }:file_class_set open;
+} {
+  privapp_data_file
+  app_data_file
+  is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `storage_area_content_file')
+}:file_class_set open;
 
 neverallow {
   domain
   -appdomain
   -artd # compile secondary dex files
   -installd # creation of sandbox
-} { privapp_data_file app_data_file }:dir_file_class_set { create unlink };
+} {
+  privapp_data_file
+  app_data_file
+  is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `storage_area_content_file')
+}:dir_file_class_set { create unlink };
 
 neverallow {
   domain
   -artd # compile secondary dex files
   -installd
-} { privapp_data_file app_data_file }:dir_file_class_set { relabelfrom relabelto };
+} {
+  privapp_data_file
+  app_data_file
+  is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `storage_area_content_file')
+}:dir_file_class_set { relabelfrom relabelto };
+
+is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `
+  neverallow {
+    domain
+    -artd # compile secondary dex files
+    -installd
+    -vold_prepare_subdirs
+  } { storage_area_dir storage_area_app_dir }:dir { relabelfrom relabelto };
+')
 
 # The staging directory contains APEX and APK files. It is important to ensure
 # that these files cannot be accessed by other domains to ensure that the files

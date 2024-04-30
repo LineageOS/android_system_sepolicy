@@ -139,6 +139,7 @@ neverallow crosvm {
   apk_data_file
   app_data_file
   privapp_data_file
+  is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `storage_area_content_file')
   userdebug_or_eng(`-shell_data_file')
 }:file open;
 
