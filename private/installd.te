@@ -225,6 +225,12 @@ get_prop(installd, storage_config_prop)
 # Accessing files on the Incremental File System uses fds opened in the context of vold.
 allow installd vold:fd use;
 
+# on app uninstall, installd deletes the storage area keys for the app
+is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `
+  allow installd storage_area_key_file:dir { open search write remove_name lock };
+  allow installd storage_area_key_file:file unlink;
+')
+
 ###
 ### Neverallow rules
 ###

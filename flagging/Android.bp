@@ -21,6 +21,7 @@ se_flags {
         "RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT",
         "RELEASE_AVF_ENABLE_LLPVM_CHANGES",
         "RELEASE_HARDWARE_BLUETOOTH_RANGING_SERVICE",
+        "RELEASE_UNLOCKED_STORAGE_API",
     ],
     export_to: ["all_selinux_flags"],
 }

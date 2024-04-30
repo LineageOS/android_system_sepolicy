@@ -242,12 +242,37 @@ allow appdomain appdomain:fifo_file rw_file_perms;
 allow appdomain surfaceflinger:unix_stream_socket { read write setopt getattr getopt shutdown };
 
 # App sandbox file accesses.
-allow { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } { app_data_file privapp_data_file }:dir create_dir_perms;
-allow { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } { app_data_file privapp_data_file }:file create_file_perms;
-allowxperm { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } { app_data_file privapp_data_file }:file ioctl FS_IOC_MEASURE_VERITY;
+allow { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } {
+  app_data_file
+  privapp_data_file
+  is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `storage_area_content_file')
+}:dir create_dir_perms;
+allow { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } {
+  app_data_file
+  privapp_data_file
+  is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `storage_area_content_file')
+}:file create_file_perms;
+
+is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `
+  # an app can read but cannot write to its own directory of storage areas
+  allow { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } storage_area_app_dir:dir r_dir_perms;
+  # an app can write to its storage areas
+  allow { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } storage_area_dir:dir rw_dir_perms;
+')
+
+allowxperm { appdomain -isolated_app_all -mlstrustedsubject -sdk_sandbox_all } {
+  app_data_file
+  privapp_data_file
+  is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `storage_area_content_file')
+}:file ioctl FS_IOC_MEASURE_VERITY;
 
 # Access via already open fds is ok even for mlstrustedsubject.
-allow { appdomain -isolated_app_all -sdk_sandbox_all } { app_data_file privapp_data_file system_app_data_file }:file { getattr map read write };
+allow { appdomain -isolated_app_all -sdk_sandbox_all } {
+  app_data_file
+  privapp_data_file
+  system_app_data_file
+  is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `storage_area_content_file')
+}:file { getattr map read write };
 
 # Access open fds from SDK sandbox
 allow appdomain sdk_sandbox_data_file:file { getattr read };
@@ -777,3 +802,13 @@ dontaudit appdomain system_font_fallback_file:file no_rw_file_perms;
 neverallow appdomain system_font_fallback_file:file no_rw_file_perms;
 
 neverallow { appdomain -shell } tombstone_data_file:file ~{ getattr read };
+is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `
+  # Files and directories that apps write to their storage areas
+  # should have type storage_area_content_file
+  type_transition {
+    appdomain
+    -isolated_app_all
+    -ephemeral_app
+    -sdk_sandbox_all
+  } storage_area_dir:{ notdevfile_class_set dir } storage_area_content_file;
+')
