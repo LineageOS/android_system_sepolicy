@@ -38,6 +38,9 @@ type proc_asound, fs_type, proc_type;
 type proc_bootconfig, fs_type, proc_type;
 type proc_bpf, fs_type, proc_type;
 type proc_buddyinfo, fs_type, proc_type;
+starting_at_board_api(202504, `
+    type proc_cgroups, fs_type, proc_type;
+')
 type proc_cmdline, fs_type, proc_type;
 type proc_cpu_alignment, fs_type, proc_type;
 type proc_cpuinfo, fs_type, proc_type;
