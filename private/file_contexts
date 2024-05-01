@@ -624,6 +624,7 @@
 /data/system_de           u:object_r:system_userdir_file:s0
 /data/user                u:object_r:system_userdir_file:s0
 /data/user_de             u:object_r:system_userdir_file:s0
+/data/storage_area        u:object_r:system_userdir_file:s0
 
 # Misc data
 /data/misc/adb(/.*)?            u:object_r:adb_keys_file:s0
@@ -818,6 +819,9 @@
 # vold per-user data
 /data/misc_de/[0-9]+/vold(/.*)?           u:object_r:vold_data_file:s0
 /data/misc_ce/[0-9]+/vold(/.*)?           u:object_r:vold_data_file:s0
+
+# storage area keys
+/data/misc_ce/[0-9]+/storage_area_keys(/.*)?           u:object_r:storage_area_key_file:s0
 
 # Backup service persistent per-user bookkeeping
 /data/system_ce/[0-9]+/backup(/.*)?		u:object_r:backup_data_file:s0
