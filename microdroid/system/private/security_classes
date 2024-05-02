@@ -142,6 +142,8 @@ class xdp_socket
 
 class perf_event
 
+class io_uring
+
 # Introduced in https://github.com/torvalds/linux/commit/59438b46471ae6cdfb761afc8c9beaf1e428a331
 class lockdown
 
@@ -153,15 +155,6 @@ class service_manager           # userspace
 
 # hardware service manager      # userspace
 class hwservice_manager
-
-# Legacy Keystore key permissions
-class keystore_key              # userspace
-
-# Keystore 2.0 permissions
-class keystore2                 # userspace
-
-# Keystore 2.0 key permissions
-class keystore2_key             # userspace
 
 class drmservice                # userspace
 # FLASK
