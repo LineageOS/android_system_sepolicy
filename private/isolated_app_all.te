@@ -100,6 +100,7 @@ neverallow { isolated_app_all -isolated_compute_app } {
   -sysfs_usb # TODO: check with audio team if needed for isolated_apps (b/28417852)
   -sysfs_fs_fuse_features
   -sysfs_fs_incfs_features
+  -sysfs_pgsize_migration
 }:file no_rw_file_perms;
 
 # No creation of sockets families other than AF_UNIX sockets.
