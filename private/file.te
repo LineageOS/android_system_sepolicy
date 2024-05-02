@@ -171,6 +171,9 @@ type pre_reboot_dexopt_artd_file, file_type;
 # /data/app-metadata - extracted app metadata bundles from APKs
 type apk_metadata_file, file_type, data_file_type, core_data_file_type;
 
+# Type for /sys/kernel/mm/pgsize_migration/enabled
+type sysfs_pgsize_migration, fs_type, sysfs_type;
+
 # Allow files to be created in their appropriate filesystems.
 allow fs_type self:filesystem associate;
 allow cgroup tmpfs:filesystem associate;
