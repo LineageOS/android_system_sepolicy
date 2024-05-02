@@ -539,6 +539,8 @@
 /vendor/priv-app/test                                             vendor_app_file
 /system/vendor/priv-app                                           vendor_app_file
 /system/vendor/priv-app/test                                      vendor_app_file
+/vendor/boot_otas/                                                vendor_boot_ota_file
+/vendor/boot_otas/test                                            vendor_boot_ota_file
 /vendor/overlay                                                   vendor_overlay_file
 /vendor/overlay/test                                              vendor_overlay_file
 /system/vendor/overlay                                            vendor_overlay_file
