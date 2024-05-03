@@ -102,7 +102,7 @@ se_policy_binary {
 EOF
 
 # Build general_sepolicy.conf, plat_sepolicy.cil, and mapping file for CTS
-DIST_DIR=out/dist $top/build/soong/soong_ui.bash --make-mode dist sepolicy_finalize
+DIST_DIR=out/dist $top/build/soong/soong_ui.bash --make-mode dist sepolicy_finalize bpmodify
 
 cp "$top/out/dist/plat_sepolicy.cil" "$prebuilt_dir/${ver}_plat_sepolicy.cil"
 cp "$top/out/dist/general_sepolicy.conf" "$prebuilt_dir/${ver}_general_sepolicy.conf"
@@ -119,3 +119,7 @@ filegroup {
     ],
 }
 EOF
+
+bpmodify="$top/out/host/linux-x86/bin/bpmodify"
+$bpmodify -a ":${ver}_sepolicy_cts_data" -m prebuilt_sepolicy_cts_data -property srcs -w \
+    $top/system/sepolicy/tests/Android.bp
