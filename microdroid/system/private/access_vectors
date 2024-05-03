@@ -395,6 +395,7 @@ inherits socket
 	nlmsg_read
 	nlmsg_write
 	nlmsg_readpriv
+	nlmsg_getneigh
 }
 
 class netlink_tcpdiag_socket
@@ -691,61 +692,6 @@ class hwservice_manager
 	list
 }
 
-class keystore_key
-{
-	get_state
-	get
-	insert
-	delete
-	exist
-	list
-	reset
-	password
-	lock
-	unlock
-	is_empty
-	sign
-	verify
-	grant
-	duplicate
-	clear_uid
-	add_auth
-	user_changed
-	gen_unique_id
-}
-
-class keystore2
-{
-	add_auth
-	change_password
-	change_user
-	clear_ns
-	clear_uid
-	early_boot_ended
-	get_auth_token
-	get_state
-	list
-	lock
-	report_off_body
-	reset
-	unlock
-}
-
-class keystore2_key
-{
-	convert_storage_key_to_ephemeral
-	delete
-	gen_unique_id
-	get_info
-	grant
-	manage_blob
-	rebind
-	req_forced_op
-	update
-	use
-	use_dev_id
-}
-
 class drmservice {
 	consumeRights
 	setPlaybackStatus
@@ -774,4 +720,11 @@ class lockdown
 {
 	integrity
 	confidentiality
+}
+
+class io_uring
+{
+	override_creds
+	sqpoll
+	cmd
 }
