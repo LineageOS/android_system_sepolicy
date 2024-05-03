@@ -26,7 +26,9 @@ allow hal_codec2_server bufferhubd:fd use;
 
 allow hal_codec2_client ion_device:chr_file r_file_perms;
 
+allow { hal_codec2_client -isolated_app_all } surfaceflinger_service:service_manager find;
+
 # codec2 aidl graphic buffer allocation waitable object
 allow hal_codec2_server su:fifo_file read;
-allow hal_codec2_server mediaserver:fifo_file read;
+allow hal_codec2_server hal_codec2_client:fifo_file read;
 allow hal_codec2_server { appdomain -isolated_app_all }:fifo_file read;
