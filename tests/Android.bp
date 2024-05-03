@@ -179,3 +179,10 @@ python_test_host {
         },
     },
 }
+
+// prebuilt files to be included to CTS
+filegroup {
+    name: "prebuilt_sepolicy_cts_data",
+    srcs: [":202404_sepolicy_cts_data"],
+    visibility: ["//cts/hostsidetests/security"],
+}
