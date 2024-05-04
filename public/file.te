@@ -280,6 +280,11 @@ type vendor_public_framework_file, vendor_file_type, file_type;
 # Files having this type should be read-only.
 type vendor_microdroid_file, vendor_file_type, file_type;
 
+starting_at_board_api(202504, `
+    # boot otas for 16KB developer option
+    type vendor_boot_ota_file, vendor_file_type, file_type;
+')
+
 # Input configuration
 type vendor_keylayout_file, vendor_file_type, file_type;
 type vendor_keychars_file, vendor_file_type, file_type;

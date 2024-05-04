@@ -2682,7 +2682,7 @@
 (typeattributeset vendor_configs_file_202404 (vendor_configs_file))
 (typeattributeset vendor_data_file_202404 (vendor_data_file))
 (typeattributeset vendor_default_prop_202404 (vendor_default_prop))
-(typeattributeset vendor_file_202404 (vendor_file))
+(typeattributeset vendor_file_202404 (vendor_file vendor_boot_ota_file))
 (typeattributeset vendor_framework_file_202404 (vendor_framework_file))
 (typeattributeset vendor_hal_file_202404 (vendor_hal_file))
 (typeattributeset vendor_idc_file_202404 (vendor_idc_file))
