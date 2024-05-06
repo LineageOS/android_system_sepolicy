@@ -44,6 +44,7 @@ allow audioserver mediametrics_service:service_manager find;
 allow audioserver sensor_privacy_service:service_manager find;
 allow audioserver soundtrigger_middleware_service:service_manager find;
 allow audioserver audio_service:service_manager find;
+allow audioserver virtual_device_native_service:service_manager find;
 
 # Allow read/write access to bluetooth-specific properties
 set_prop(audioserver, bluetooth_a2dp_offload_prop)
