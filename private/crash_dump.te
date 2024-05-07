@@ -109,6 +109,8 @@ dontaudit crash_dump {
 dontaudit crash_dump system_data_file:{ lnk_file file } read;
 dontaudit crash_dump property_type:file read;
 
+get_prop(crash_dump, misctrl_prop)
+
 ###
 ### neverallow assertions
 ###
