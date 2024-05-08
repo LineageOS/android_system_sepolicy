@@ -231,6 +231,7 @@ neverallow {
   -init
   -dumpstate
   -misctrl
+  -crash_dump
   userdebug_or_eng(`-su')
 } misctrl_prop:file no_rw_file_perms;
 neverallow {
