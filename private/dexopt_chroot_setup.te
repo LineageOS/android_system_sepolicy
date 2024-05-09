@@ -50,6 +50,7 @@ allow dexopt_chroot_setup {
   device
   devpts
   fs_bpf
+  functionfs
   fusectlfs
   linkerconfig_file
   metadata_file
@@ -76,6 +77,7 @@ allow dexopt_chroot_setup {
   debugfs_tracing_debug
   devpts
   fs_bpf
+  functionfs
   fusectlfs
   labeledfs
   proc
