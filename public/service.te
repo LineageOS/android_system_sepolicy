@@ -273,7 +273,7 @@ type wallpaper_service, app_api_service, system_server_service, service_manager_
 type wallpaper_effects_generation_service, app_api_service, system_server_service, service_manager_type;
 type webviewupdate_service, app_api_service, ephemeral_app_api_service, system_server_service, service_manager_type;
 type wifip2p_service, app_api_service, system_server_service, service_manager_type;
-type wifiscanner_service, system_api_service, system_server_service, service_manager_type;
+type wifiscanner_service, app_api_service, system_server_service, service_manager_type;
 type wifi_service, app_api_service, system_server_service, service_manager_type;
 type wifinl80211_service, service_manager_type;
 type wifiaware_service, app_api_service, system_server_service, service_manager_type;
