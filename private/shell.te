@@ -430,6 +430,12 @@ allow shell sysfs_batteryinfo:file r_file_perms;
 # Allow reads (but not writes) of the MGLRU state
 allow shell sysfs_lru_gen_enabled:file r_file_perms;
 
+# Allow communicating with the VM terminal.
+userdebug_or_eng(`
+  allow shell vmlauncher_app_devpts:chr_file rw_file_perms;
+  allowxperm shell vmlauncher_app_devpts:chr_file ioctl unpriv_tty_ioctls;
+')
+
 # Allow access to ion memory allocation device.
 allow shell ion_device:chr_file rw_file_perms;
 
