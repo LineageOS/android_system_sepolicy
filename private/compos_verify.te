@@ -15,9 +15,10 @@ allow compos_verify apex_compos_data_file:file { rw_file_perms create };
 allow compos_verify apex_art_data_file:dir search;
 allow compos_verify apex_art_data_file:file r_file_perms;
 
-# Allow odsign to redirect our stdout/stderr to log
-allow compos_verify odsign:fd use;
-allow compos_verify odsign_devpts:chr_file { read write };
+# odsign runs us with its console as our stdin/stdout/stderr.
+# But we never use them; logs go to logcat. Suppress the useless denials.
+dontaudit compos_verify odsign:fd use;
+dontaudit compos_verify odsign_devpts:chr_file { read write };
 
 # Only odsign can enter the domain via exec
 neverallow { domain -odsign } compos_verify:process transition;
