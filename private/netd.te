@@ -10,12 +10,14 @@ allow netd { fs_bpf fs_bpf_netd_readonly fs_bpf_netd_shared fs_bpf_vendor }:dir 
 allow netd { fs_bpf fs_bpf_netd_readonly fs_bpf_netd_shared fs_bpf_vendor }:file { getattr read };
 allow netd { fs_bpf                      fs_bpf_netd_shared               }:file write;
 
-# give netd permission to setup iptables rule with xt_bpf, attach program to cgroup, and read/write
-# the map created by bpfloader
-allow netd bpfloader:bpf { prog_run map_read map_write };
+# give netd permission to setup iptables rule with xt_bpf, attach program to cgroup,
+# create maps, and read/write maps created by bpfloader, itself and NS/SS mainline networking
+allow netd bpfloader:bpf prog_run;
+allow netd self:bpf map_create;
+allow netd { bpfloader netd network_stack system_server }:bpf { map_read map_write };
 
 # in order to invoke side effect of close() on such a socket calling synchronize_rcu()
-# TODO: Remove this permission when 4.9 kernel is deprecated.
+# TODO: Still needed as of kernel 6.6-rc1 - see BpfUtils.h synchronizeKernelRCU()
 # TODO: Remove this after we remove all bpf interactions from netd.
 allow netd self:key_socket create;
 
