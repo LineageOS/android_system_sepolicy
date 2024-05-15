@@ -1465,6 +1465,8 @@ allow system_server apex_system_server_data_file:dir create_dir_perms;
 allow system_server apex_system_server_data_file:file create_file_perms;
 allow system_server apex_tethering_data_file:dir create_dir_perms;
 allow system_server apex_tethering_data_file:file create_file_perms;
+allow system_server apex_uwb_data_file:dir create_dir_perms;
+allow system_server apex_uwb_data_file:file create_file_perms;
 # Legacy labels that we still need to support (b/217581286)
 allow system_server {
   apex_appsearch_data_file

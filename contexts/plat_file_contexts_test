@@ -936,8 +936,10 @@
 /data/misc/apexdata/com.android.tethering/test                    apex_tethering_data_file
 /data/misc/apexdata/com.android.tethering/threadnetwork           apex_tethering_data_file
 /data/misc/apexdata/com.android.tethering/threadnetwork/test      apex_tethering_data_file
-/data/misc/apexdata/com.android.uwb                               apex_system_server_data_file
-/data/misc/apexdata/com.android.uwb/test                          apex_system_server_data_file
+/data/misc/apexdata/com.android.uwb                               apex_uwb_data_file
+/data/misc/apexdata/com.android.uwb/test                          apex_uwb_data_file
+/data/misc/apexdata/com.android.uwb/log                           apex_uwb_data_file
+/data/misc/apexdata/com.android.uwb/log/test                      apex_uwb_data_file
 /data/misc/apexdata/com.android.wifi                              apex_system_server_data_file
 /data/misc/apexdata/com.android.wifi/test                         apex_system_server_data_file
 /data/misc/apexrollback                                           apex_rollback_data_file

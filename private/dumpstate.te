@@ -365,6 +365,12 @@ allow dumpstate bluetooth_logs_data_file:file r_file_perms;
 allow dumpstate nfc_logs_data_file:dir r_dir_perms;
 allow dumpstate nfc_logs_data_file:file r_file_perms;
 
+# For uwb
+allow dumpstate apex_module_data_file:dir search;
+allow dumpstate apex_system_server_data_file:dir search;
+allow dumpstate apex_uwb_data_file:dir r_dir_perms;
+allow dumpstate apex_uwb_data_file:file r_file_perms;
+
 # Dumpstate calls screencap, which grabs a screenshot. Needs gpu access
 allow dumpstate gpu_device:chr_file rw_file_perms;
 allow dumpstate gpu_device:dir r_dir_perms;
@@ -558,3 +564,21 @@ neverallow {
   -traceur_app
   -dumpstate
 } dumpstate_service:service_manager find;
+
+# only dumpstate, system_server and related others to access apex_uwb_data_file
+neverallow {
+  domain
+  -dumpstate
+  -system_server
+  -apexd
+  -init
+  -vold_prepare_subdirs
+} apex_uwb_data_file:dir no_rw_file_perms;
+neverallow {
+  domain
+  -dumpstate
+  -system_server
+  -apexd
+  -init
+  -vold_prepare_subdirs
+} apex_uwb_data_file:file no_rw_file_perms;
