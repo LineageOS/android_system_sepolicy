@@ -1224,7 +1224,9 @@ with_asan(`
 # time in state accounting
 allow system_server { fs_bpf fs_bpf_net_shared fs_bpf_netd_readonly fs_bpf_netd_shared }:dir search;
 allow system_server { fs_bpf fs_bpf_net_shared fs_bpf_netd_readonly fs_bpf_netd_shared }:file { getattr read write };
-allow system_server bpfloader:bpf { map_read map_write prog_run };
+allow system_server bpfloader:bpf prog_run;
+allow system_server self:bpf map_create;
+allow system_server { bpfloader netd network_stack system_server }:bpf { map_read map_write };
 # in order to invoke side effect of close() on such a socket calling synchronize_rcu()
 allow system_server self:key_socket create;
 # Java's Os.close() in libcore/luni/src/main/java/libcore/io/BlockGuardOs.java;l=100
