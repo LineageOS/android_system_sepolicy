@@ -133,12 +133,12 @@ class vsock_socket
 class kcm_socket
 class qipcrtr_socket
 class smc_socket
+class xdp_socket
+class mctp_socket
 
 class process2
 
 class bpf
-
-class xdp_socket
 
 class perf_event
 
@@ -146,6 +146,8 @@ class io_uring
 
 # Introduced in https://github.com/torvalds/linux/commit/59438b46471ae6cdfb761afc8c9beaf1e428a331
 class lockdown
+
+class user_namespace
 
 # Property service
 class property_service          # userspace
