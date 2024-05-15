@@ -45,6 +45,7 @@ allow network_stack radio_data_file:file create_file_perms;
 binder_call(network_stack, netd);
 
 # in order to invoke side effect of close() on such a socket calling synchronize_rcu()
+# TODO: Still needed as of kernel 6.6-rc1 - see BpfUtils.h synchronizeKernelRCU()
 allow network_stack self:key_socket create;
 # Java's Os.close() in libcore/luni/src/main/java/libcore/io/BlockGuardOs.java;l=100
 # calls if (fd.isSocket$()) if (isLingerSocket(fd)) ...
@@ -63,7 +64,10 @@ allow network_stack network_stack_service:service_manager find;
 # allow Tethering(network_stack process) to run/update/read the eBPF maps to offload tethering traffic by eBPF.
 allow network_stack { fs_bpf_net_private fs_bpf_net_shared fs_bpf_netd_readonly fs_bpf_netd_shared fs_bpf_tethering }:dir search;
 allow network_stack { fs_bpf_net_private fs_bpf_net_shared fs_bpf_netd_readonly fs_bpf_netd_shared fs_bpf_tethering }:file { getattr read write };
-allow network_stack bpfloader:bpf { map_read map_write prog_run };
+allow network_stack bpfloader:bpf prog_run;
+allow network_stack self:bpf map_create;
+allow network_stack { bpfloader netd network_stack system_server }:bpf { map_read map_write };
+
 # allow Tethering(network_stack process) to read flag value in tethering_u_or_later_native namespace
 get_prop(network_stack, device_config_tethering_u_or_later_native_prop)
 
