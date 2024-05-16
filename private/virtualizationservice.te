@@ -33,7 +33,7 @@ binder_call(virtualizationservice, system_server)
 allow virtualizationservice permission_service:service_manager find;
 
 # Allow virtualizationservice to retrieve the remotely provisioned keys from rkpd.
-binder_call(virtualizationservice, remote_provisioning_service)
+binder_call(virtualizationservice, remote_provisioning_service_server)
 allow virtualizationservice remote_provisioning_service:service_manager find;
 
 # Allow virtualizationservice to manage VM secrets via Secretkeeper.

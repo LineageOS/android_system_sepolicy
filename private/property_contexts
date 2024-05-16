@@ -532,6 +532,7 @@ dalvik.vm.image-dex2oat-cpu-set               u:object_r:dalvik_dynamic_config_p
 dalvik.vm.image-dex2oat-threads               u:object_r:dalvik_dynamic_config_prop:s0 exact int
 dalvik.vm.restore-dex2oat-cpu-set             u:object_r:dalvik_dynamic_config_prop:s0 exact string
 dalvik.vm.restore-dex2oat-threads             u:object_r:dalvik_dynamic_config_prop:s0 exact int
+dalvik.vm.pre-reboot.                         u:object_r:dalvik_dynamic_config_prop:s0 prefix
 
 persist.sys.dalvik.vm.lib.2 u:object_r:dalvik_runtime_prop:s0 exact string
 
