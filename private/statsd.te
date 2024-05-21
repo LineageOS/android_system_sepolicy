@@ -29,6 +29,9 @@ binder_call(statsd, surfaceflinger);
 get_prop(statsd, device_config_statsd_native_prop)
 get_prop(statsd, device_config_statsd_native_boot_prop)
 
+# Allow statsd to read misctl properties (for 16 KB)
+get_prop(statsd, misctrl_prop)
+
 # Allow statsd to write uprobestats configs.
 allow statsd uprobestats_configs_data_file:dir rw_dir_perms;
 allow statsd uprobestats_configs_data_file:file create_file_perms;
