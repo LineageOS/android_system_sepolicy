@@ -229,9 +229,10 @@ neverallow {
 neverallow {
   domain
   -init
+  -crash_dump
   -dumpstate
   -misctrl
-  -crash_dump
+  -statsd
   userdebug_or_eng(`-su')
 } misctrl_prop:file no_rw_file_perms;
 neverallow {
