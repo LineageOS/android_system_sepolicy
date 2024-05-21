@@ -24,6 +24,12 @@ is_flag_enabled(RELEASE_AVF_SUPPORT_CUSTOM_VM_WITH_PARAVIRTUALIZED_DEVICES, `
     binder_call(virtualizationservice, vfio_handler)
 ')
 
+is_flag_enabled(RELEASE_AVF_ENABLE_NETWORK, `
+    # Let virtualizationservice find and communicate with vmnic.
+    allow virtualizationservice vmnic_service:service_manager find;
+    binder_call(virtualizationservice, vmnic)
+')
+
 # Allow the virtualizationservice domain to serve a remotely provisioned component for
 # pVM remote attestation.
 hal_server_domain(virtualizationservice, hal_remotelyprovisionedcomponent_avf)
