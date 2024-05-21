@@ -139,6 +139,8 @@ common cap2
 	block_suspend
 	audit_read
 	perfmon
+	checkpoint_restore
+	bpf
 }
 
 #
@@ -664,6 +666,12 @@ inherits socket
 class smc_socket
 inherits socket
 
+class xdp_socket
+inherits socket
+
+class mctp_socket
+inherits socket
+
 class bpf
 {
 	map_create
@@ -772,9 +780,6 @@ class drmservice {
 	pread
 }
 
-class xdp_socket
-inherits socket
-
 class perf_event
 {
 	open
@@ -796,4 +801,9 @@ class io_uring
 	override_creds
 	sqpoll
 	cmd
+}
+
+class user_namespace
+{
+	create
 }
