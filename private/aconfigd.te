@@ -37,3 +37,7 @@ allow aconfigd kmsg_device:chr_file w_file_perms;
 # allow aconfigd to read vendor partition storage files
 allow aconfigd vendor_aconfig_storage_file:file r_file_perms;
 allow aconfigd vendor_aconfig_storage_file:dir r_dir_perms;
+
+# allow aconfigd to read /apex dir
+allow aconfigd apex_mnt_dir:dir r_dir_perms;
+allow aconfigd apex_mnt_dir:file r_file_perms;
