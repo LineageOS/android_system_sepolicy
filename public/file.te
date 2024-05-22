@@ -11,6 +11,7 @@ type binderfs_logs_stats, fs_type;
 
 starting_at_board_api(202504, `
     type binderfs_logs_transactions, fs_type;
+    type binderfs_logs_transaction_history, fs_type;
 ')
 
 type binderfs_features, fs_type;

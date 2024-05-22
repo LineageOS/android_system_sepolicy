@@ -309,6 +309,8 @@ genfscon binder /binder_logs u:object_r:binderfs_logs:s0
 genfscon binder /binder_logs/proc u:object_r:binderfs_logs_proc:s0
 genfscon binder /binder_logs/stats u:object_r:binderfs_logs_stats:s0
 genfscon binder /binder_logs/transactions u:object_r:binderfs_logs_transactions:s0
+genfscon binder /binder_logs/transaction_log u:object_r:binderfs_logs_transaction_history:s0
+genfscon binder /binder_logs/failed_transaction_log u:object_r:binderfs_logs_transaction_history:s0
 genfscon binder /features u:object_r:binderfs_features:s0
 
 genfscon inotifyfs / u:object_r:inotify:s0
