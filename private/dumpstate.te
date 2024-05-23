@@ -129,7 +129,9 @@ set_prop(dumpstate, ctl_gsid_prop)
 binder_call(dumpstate, gsid)
 
 #Allow access to /dev/binderfs/binder_logs
-allow dumpstate binderfs_logs_transactions:file r_file_perms;
+userdebug_or_eng(`
+    allow dumpstate binderfs_logs_transactions:file r_file_perms;
+')
 
 r_dir_file(dumpstate, ota_metadata_file)
 
