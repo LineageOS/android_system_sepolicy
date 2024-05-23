@@ -1645,6 +1645,11 @@ neverallow {
 # in Pre-reboot Dexopt.
 allow system_server pre_reboot_dexopt_file:dir { getattr search };
 
+# Allow system_server to reopen its own memfd.
+# system_server needs to copy the new service-art.jar to a memfd and reopen it with the path
+# /proc/self/fd/<fd> with a classloader.
+allow system_server system_server_tmpfs:file open;
+
 # Do not allow any domain other than init or system server to get or set the property
 neverallow { domain -init -system_server } crashrecovery_prop:property_service set;
 neverallow { domain -init -dumpstate -system_server } crashrecovery_prop:file no_rw_file_perms;
