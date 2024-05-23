@@ -357,7 +357,16 @@ compatible_property_only(`
     -nfc_prop
     -powerctl_prop
     -radio_prop
+    -dalvik_dynamic_config_prop
   }:file no_rw_file_perms;
+
+  neverallow {
+    domain
+    -coredomain
+    -appdomain
+    -vendor_init
+    -hal_power_server
+  } dalvik_dynamic_config_prop:file no_rw_file_perms;
 
   neverallow {
     domain
