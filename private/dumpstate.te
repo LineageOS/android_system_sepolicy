@@ -132,6 +132,7 @@ binder_call(dumpstate, gsid)
 userdebug_or_eng(`
     allow dumpstate binderfs_logs_transactions:file r_file_perms;
 ')
+allow dumpstate binderfs_logs_transaction_history:file r_file_perms;
 
 r_dir_file(dumpstate, ota_metadata_file)
 
