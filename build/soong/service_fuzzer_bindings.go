@@ -186,7 +186,7 @@ var (
 		"android.system.composd":                                         EXCEPTION_NO_FUZZER,
 		// TODO(b/294158658): add fuzzer
 		"android.hardware.security.keymint.IRemotelyProvisionedComponent/avf": EXCEPTION_NO_FUZZER,
-		"android.system.virtualizationservice":                                EXCEPTION_NO_FUZZER,
+		"android.system.virtualizationservice":                                []string{"virtualizationmanager_fuzzer"},
 		"android.system.virtualizationservice_internal.IVfioHandler":          EXCEPTION_NO_FUZZER,
 		"android.system.virtualizationservice_internal.IVmnic":                EXCEPTION_NO_FUZZER,
 		"android.system.virtualizationmaintenance":                            EXCEPTION_NO_FUZZER,
