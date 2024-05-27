@@ -13,6 +13,14 @@ is_flag_enabled(RELEASE_AVF_ENABLE_NETWORK, `
     # Let the vmnic domain use Binder.
     binder_use(vmnic)
 
+    # Allow for creating TAP network interfaces.
+    allow vmnic self:global_capability_class_set net_admin;
+    allow vmnic self:tun_socket create_socket_perms_no_ioctl;
+    allow vmnic tun_device:chr_file rw_file_perms;
+    allowxperm vmnic tun_device:chr_file ioctl { TUNSETIFF TUNSETPERSIST };
+    allow vmnic self:udp_socket create_socket_perms;
+    allowxperm vmnic self:udp_socket ioctl { SIOCGIFFLAGS SIOCSIFFLAGS };
+
     # Only virtualizationservice can communicate to vmnic
     neverallow { domain -virtualizationservice -servicemanager } vmnic:binder call;
 ') # is_flag_enabled(RELEASE_AVF_ENABLE_NETWORK)

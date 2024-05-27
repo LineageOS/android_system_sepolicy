@@ -128,6 +128,12 @@ neverallow virtualizationservice {
   is_flag_enabled(RELEASE_AVF_SUPPORT_CUSTOM_VM_WITH_PARAVIRTUALIZED_DEVICES, `-crosvm')
 }:process setrlimit;
 
+is_flag_enabled(RELEASE_AVF_ENABLE_NETWORK, `
+    # Allow virtualizationservice to deal with file descriptors of TAP interfaces.
+    allow virtualizationservice tun_device:chr_file rw_file_perms;
+    allow virtualizationservice vmnic:fd use;
+')
+
 is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
     # Only virtualizationservice and virtualizationmanager can communicate to vfio_handler
     neverallow { domain -virtualizationmanager -virtualizationservice -servicemanager } vfio_handler:binder call;
