@@ -159,6 +159,9 @@ allow artd self:global_capability_class_set sys_admin;
 domain_auto_trans(artd, derive_classpath_exec, derive_classpath)
 domain_auto_trans(artd, odrefresh_exec, odrefresh)
 
+# Allow sending sigkill to subprocesses.
+allow artd { derive_classpath odrefresh }:process sigkill;
+
 # Allow accessing Pre-reboot Dexopt files.
 allow artd pre_reboot_dexopt_file:dir { getattr search };
 
