@@ -200,6 +200,10 @@ allowxperm domain dev_type:blk_file ioctl { BLKGETSIZE64 BLKSSZGET };
 allow domain apex_mnt_dir:dir { getattr search };
 allow domain apex_mnt_dir:lnk_file r_file_perms;
 
+# Allow reading /sys/kernel/mm/pgsize_migration/enabled
+allow domain sysfs_pgsize_migration:dir search;
+allow domain sysfs_pgsize_migration:file r_file_perms;
+
 # globally readable properties
 get_prop(domain, arm64_memtag_prop)
 get_prop(domain, bootloader_prop)
@@ -545,3 +549,7 @@ neverallow domain encryptedstore_file:file no_x_file_perms;
 
 # Only crash_dump is allowed to access ptrace
 neverallow { domain -crash_dump } domain:process ptrace;
+
+# Only init is allowed to write sysfs_pgsize_migration;
+# ueventd needs write access to all sysfs files.
+neverallow { domain -init -vendor_init -ueventd } sysfs_pgsize_migration:file no_w_file_perms;
