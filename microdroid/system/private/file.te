@@ -30,3 +30,7 @@ type perfetto_traces_data_file, file_type, data_file_type, core_data_file_type;
 
 # /data/misc/perfetto-configs for perfetto configs
 type perfetto_configs_data_file, file_type, data_file_type, core_data_file_type;
+
+
+# Type for /sys/kernel/mm/pgsize_migration/enabled
+type sysfs_pgsize_migration, fs_type, sysfs_type;
