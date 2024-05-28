@@ -19,8 +19,11 @@ allow statsd incidentd:fifo_file write;
 # Allow StatsCompanionService to pipe data to statsd.
 allow statsd system_server:fifo_file { read write getattr };
 
-# Allow Statsd to pipe data to privileged apps.
-allow statsd priv_app:fifo_file { read write getattr };
+# Allow any app to pipe data to statsd.
+# Access control to all statsd APIs inherit from system_api_service, so
+# appdomain permissions are granted to avoid listing each individual
+# service that can access system_api_service.
+allow statsd appdomain:fifo_file { read write getattr };
 
 # Allow statsd to retrieve SF statistics over binder
 binder_call(statsd, surfaceflinger);
