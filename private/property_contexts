@@ -973,7 +973,6 @@ ro.boot.dynamic_partitions_retrofit u:object_r:exported_default_prop:s0 exact st
 
 ro.boottime.init.mount.data u:object_r:boottime_public_prop:s0 exact string
 ro.boottime.init.fsck.data  u:object_r:boottime_public_prop:s0 exact string
-ro.fstype.data  u:object_r:fstype_prop:s0 exact string
 
 ro.build.characteristics                  u:object_r:build_prop:s0 exact string
 ro.build.date                             u:object_r:build_prop:s0 exact string
