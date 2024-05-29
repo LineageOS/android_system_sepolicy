@@ -16,3 +16,10 @@ is_flag_enabled(RELEASE_AVF_SUPPORT_CUSTOM_VM_WITH_PARAVIRTUALIZED_DEVICES, `
   allow vmlauncher_app virtualizationservice:binder call;
   allow vmlauncher_app crosvm:binder { call transfer };
 ')
+
+userdebug_or_eng(`
+  # Create pty/pts and connect it to the guest terminal.
+  create_pty(vmlauncher_app)
+  # Allow other processes to access the pts.
+  allow vmlauncher_app vmlauncher_app_devpts:chr_file setattr;
+')
