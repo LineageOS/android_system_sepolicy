@@ -288,6 +288,7 @@ ifdef HAS_SYSTEM_EXT_SEPOLICY_DIR
 LOCAL_REQUIRED_MODULES += \
     system_ext_file_contexts \
     system_ext_file_contexts_test \
+    system_ext_keystore2_key_contexts \
     system_ext_hwservice_contexts \
     system_ext_hwservice_contexts_test \
     system_ext_property_contexts \
@@ -336,6 +337,7 @@ ifdef HAS_PRODUCT_SEPOLICY_DIR
 LOCAL_REQUIRED_MODULES += \
     product_file_contexts \
     product_file_contexts_test \
+    product_keystore2_key_contexts \
     product_hwservice_contexts \
     product_hwservice_contexts_test \
     product_property_contexts \
@@ -384,6 +386,7 @@ LOCAL_REQUIRED_MODULES += \
 LOCAL_REQUIRED_MODULES += \
     vendor_file_contexts \
     vendor_file_contexts_test \
+    vendor_keystore2_key_contexts \
     vendor_mac_permissions.xml \
     vendor_property_contexts \
     vendor_property_contexts_test \
