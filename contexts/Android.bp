@@ -315,7 +315,7 @@ keystore2_key_contexts {
 }
 
 keystore2_key_contexts {
-    name: "system_keystore2_key_contexts",
+    name: "system_ext_keystore2_key_contexts",
     defaults: ["contexts_flags_defaults"],
     srcs: [":keystore2_key_contexts_files{.system_ext_private}"],
     system_ext_specific: true,
