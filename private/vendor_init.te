@@ -15,6 +15,10 @@ get_prop(vendor_init, device_config_virtualization_framework_native_prop)
 # Let vendor_init use apex.<name>.ready to start services from vendor APEX
 get_prop(vendor_init, apex_ready_prop)
 
+# Let vendor_init read ro.fstype.data to process init.rc triggers
+# for this property
+get_prop(vendor_init, fstype_prop)
+
 # chown/chmod on devices, e.g. /dev/ttyHS0
 allow vendor_init {
   dev_type
