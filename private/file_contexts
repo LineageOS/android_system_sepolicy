@@ -638,7 +638,7 @@
 /data/misc/apexdata/com\.android\.permission(/.*)?    u:object_r:apex_system_server_data_file:s0
 /data/misc/apexdata/com\.android\.scheduling(/.*)?    u:object_r:apex_system_server_data_file:s0
 /data/misc/apexdata/com\.android\.tethering(/.*)?     u:object_r:apex_tethering_data_file:s0
-/data/misc/apexdata/com\.android\.uwb(/.*)?           u:object_r:apex_system_server_data_file:s0
+/data/misc/apexdata/com\.android\.uwb(/.*)?           u:object_r:apex_uwb_data_file:s0
 /data/misc/apexdata/com\.android\.wifi(/.*)?          u:object_r:apex_system_server_data_file:s0
 /data/misc/apexrollback(/.*)?   u:object_r:apex_rollback_data_file:s0
 /data/misc/apns(/.*)?           u:object_r:radio_data_file:s0
