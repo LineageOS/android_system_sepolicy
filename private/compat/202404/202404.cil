@@ -1,3 +1,8 @@
+;; This type may or may not already exist in vendor policy. Re-define it here - duplicate
+;; definitions in CIL will be ignored - so we can reference it in 202404.cil.
+(type vendor_hidraw_device)
+(typeattributeset dev_type (vendor_hidraw_device))
+
 ;; mapping information from ToT policy's types to 202404 policy's types.
 (expandtypeattribute (DockObserver_service_202404) true)
 (expandtypeattribute (IProxyService_service_202404) true)
@@ -1952,7 +1957,7 @@
 (typeattributeset hidl_manager_hwservice_202404 (hidl_manager_hwservice))
 (typeattributeset hidl_memory_hwservice_202404 (hidl_memory_hwservice))
 (typeattributeset hidl_token_hwservice_202404 (hidl_token_hwservice))
-(typeattributeset hidraw_device_202404 (hidraw_device))
+(typeattributeset hidraw_device_202404 (hidraw_device vendor_hidraw_device))
 (typeattributeset hint_service_202404 (hint_service))
 (typeattributeset hw_random_device_202404 (hw_random_device))
 (typeattributeset hw_timeout_multiplier_prop_202404 (hw_timeout_multiplier_prop))
