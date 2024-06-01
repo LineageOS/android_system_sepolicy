@@ -86,6 +86,9 @@ allow lmkd lmkd_socket:sock_file write;
 # Allow lmkd to write to statsd.
 unix_socket_send(lmkd, statsdw, statsd)
 
+# Allow lmkd to create io_uring
+allow lmkd self:anon_inode { create map read write };
+
 ### neverallow rules
 
 # never honor LD_PRELOAD
