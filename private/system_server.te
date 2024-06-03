@@ -1656,6 +1656,16 @@ allow system_server system_server_tmpfs:file open;
 # otapreopt_script is still alive.
 allow system_server postinstall:fifo_file read;
 
+# Allow system_server to kill artd and its subprocesses, to make sure that no process is accessing
+# files in chroot when we teardown chroot.
+allow system_server {
+  artd
+  derive_classpath
+  dex2oat
+  odrefresh
+  profman
+}:process sigkill;
+
 # Do not allow any domain other than init or system server to get or set the property
 neverallow { domain -init -system_server } crashrecovery_prop:property_service set;
 neverallow { domain -init -dumpstate -system_server } crashrecovery_prop:file no_rw_file_perms;
