@@ -71,7 +71,13 @@ class MiniCilParser:
         s = ""
         c = infile.read(1)
         # get to first statement
-        while c and c != "(":
+        while c:
+            if c == ';':
+                # comment, get rid of rest of the line
+                while c != '\n':
+                    c = infile.read(1)
+            elif c == '(':
+                break
             c = infile.read(1)
 
         parens += 1
