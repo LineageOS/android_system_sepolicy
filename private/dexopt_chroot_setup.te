@@ -43,6 +43,7 @@ allow dexopt_chroot_setup block_device:dir { getattr search };
 # Allow mounting file systems, to create a chroot environment.
 allow dexopt_chroot_setup {
   apex_mnt_dir
+  apk_data_file
   binderfs
   cgroup
   cgroup_v2
@@ -118,6 +119,9 @@ domain_auto_trans(dexopt_chroot_setup, linkerconfig_exec, linkerconfig)
 
 # Allow running snapshotctl through init, to map and unmap block devices.
 set_prop(dexopt_chroot_setup, snapshotctl_prop)
+
+# Allow accessing /data/app/..., to bind-mount dirs for incremental apps.
+allow dexopt_chroot_setup apk_data_file:dir { getattr search };
 
 # Neverallow rules.
 
