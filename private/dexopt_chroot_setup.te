@@ -41,11 +41,20 @@ allow dexopt_chroot_setup proc_filesystems:file r_file_perms;
 allow dexopt_chroot_setup block_device:dir { getattr search };
 
 # Allow mounting file systems, to create a chroot environment.
+# We recursively bind-mount directories under /data, /mnt/expand, /proc, /sys,
+# and /dev. We need some of them (e.g., incremental-fs directories for
+# incremental apps in /data; /dev/cpuctl and /dev/blkio for task profiles), but
+# not necessarily all of them. However, to avoid random crashes and silent
+# fallbacks, we bind-mount all of them. Therefore, we need access to many of the
+# fstypes.
+
 allow dexopt_chroot_setup {
   apex_mnt_dir
+  apk_data_file
   binderfs
   cgroup
   cgroup_v2
+  userdebug_or_eng(debugfs)
   debugfs_tracing_debug
   device
   devpts
@@ -74,6 +83,7 @@ allow dexopt_chroot_setup {
   binderfs
   cgroup
   cgroup_v2
+  userdebug_or_eng(debugfs)
   debugfs_tracing_debug
   devpts
   fs_bpf
@@ -118,6 +128,9 @@ domain_auto_trans(dexopt_chroot_setup, linkerconfig_exec, linkerconfig)
 
 # Allow running snapshotctl through init, to map and unmap block devices.
 set_prop(dexopt_chroot_setup, snapshotctl_prop)
+
+# Allow accessing /data/app/..., to bind-mount dirs for incremental apps.
+allow dexopt_chroot_setup apk_data_file:dir { getattr search };
 
 # Neverallow rules.
 

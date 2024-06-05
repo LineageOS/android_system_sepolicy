@@ -570,11 +570,11 @@ allow {
   -hal_omx_server
 } {shell_exec toolbox_exec}:file rx_file_perms;
 
-# Allow all (except vendor) to read from flag value boot snapshot files and general pb files
-# The boot copy of the flag value files serves flag read traffic for all processes, thus
-# needs to be readable by everybody. Also, the metadata directory will contain pb file
-# that records where flag storage files are, so also needs to be readable by everbody.
-r_dir_file({ coredomain appdomain }, aconfig_storage_metadata_file);
+# Allow all to read from flag value boot snapshot storage files and general pb files
+# The boot snapshot of storage files serves flag read traffic for all processes, thus
+# needs to be readable by everybody.
+r_dir_file(domain, aconfig_storage_metadata_file);
+
 r_dir_file({ coredomain appdomain }, system_aconfig_storage_file);
 r_dir_file({ coredomain appdomain }, aconfig_test_mission_files);
 
