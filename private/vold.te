@@ -63,16 +63,14 @@ allow vold keystore:keystore2 early_boot_ended;
 allow vold keystore:keystore2 delete_all_keys;
 
 is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, `
-    # Allow vold to encrypt storage area directories on behalf of apps.
-    allow vold {
-        storage_area_dir
-        storage_area_app_dir
-    }:dir {
-        getattr
-        ioctl # for FS_IOC_SET_ENCRYPTION_POLICY
+    allow vold storage_area_app_dir:dir search;
+    # Allow vold to get the encryption policy and
+    # verify the ownership of storage areas
+    allow vold storage_area_dir:dir {
+        read
         open
-        read # for open(O_RDONLY) for ioctl
-        search
+        getattr
+        ioctl
     };
 ')
 
@@ -409,6 +407,7 @@ neverallowxperm {
   -vold
   -init
   -vendor_init
+  is_flag_enabled(RELEASE_UNLOCKED_STORAGE_API, ` -vold_prepare_subdirs ')
 } data_file_type:dir ioctl { FS_IOC_SET_ENCRYPTION_POLICY };
 
 # Only vold should ever add/remove file-based encryption keys.
