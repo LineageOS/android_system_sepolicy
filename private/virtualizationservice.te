@@ -83,6 +83,7 @@ allow virtualizationservice apex_virt_data_file:file create_file_perms;
 # Let virtualizationservice to accept vsock connection from the guest VMs to singleton services
 # such as the guest tombstone server.
 allow virtualizationservice self:vsock_socket { create_socket_perms_no_ioctl listen accept };
+neverallow { domain -virtualizationservice } virtualizationservice:vsock_socket { accept bind create connect listen };
 
 # Allow virtualizationservice to read/write its own sysprop. Only the process can do so.
 set_prop(virtualizationservice, virtualizationservice_prop)
