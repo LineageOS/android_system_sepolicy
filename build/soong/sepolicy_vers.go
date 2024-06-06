@@ -15,8 +15,6 @@
 package selinux
 
 import (
-	"fmt"
-
 	"github.com/google/blueprint/proptools"
 
 	"android/soong/android"
@@ -89,6 +87,8 @@ func (v *sepolicyVers) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	v.installPath = android.PathForModuleInstall(ctx, "etc", "selinux")
 	v.installSource = out
 	ctx.InstallFile(v.installPath, v.stem(), v.installSource)
+
+	ctx.SetOutputFiles(android.Paths{v.installSource}, "")
 }
 
 func (v *sepolicyVers) AndroidMkEntries() []android.AndroidMkEntries {
@@ -103,12 +103,3 @@ func (v *sepolicyVers) AndroidMkEntries() []android.AndroidMkEntries {
 		},
 	}}
 }
-
-func (v *sepolicyVers) OutputFiles(tag string) (android.Paths, error) {
-	if tag == "" {
-		return android.Paths{v.installSource}, nil
-	}
-	return nil, fmt.Errorf("Unknown tag %q", tag)
-}
-
-var _ android.OutputFileProducer = (*sepolicyVers)(nil)

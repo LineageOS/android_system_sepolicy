@@ -15,10 +15,8 @@
 package selinux
 
 import (
-	"fmt"
 	"path"
 	"path/filepath"
-	"strings"
 
 	"android/soong/android"
 )
@@ -76,16 +74,6 @@ func (b *buildFiles) DepsMutator(ctx android.BottomUpMutatorContext) {
 	// do nothing
 }
 
-func (b *buildFiles) OutputFiles(tag string) (android.Paths, error) {
-	if paths, ok := b.srcs[tag]; ok {
-		return paths, nil
-	}
-
-	return nil, fmt.Errorf("unknown tag %q. Supported tags are: %q", tag, strings.Join(android.SortedKeys(b.srcs), " "))
-}
-
-var _ android.OutputFileProducer = (*buildFiles)(nil)
-
 type sepolicyDir struct {
 	tag   string
 	paths []string
@@ -119,5 +107,13 @@ func (b *buildFiles) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 		b.srcs[".system_ext_private_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.DeviceConfig().SystemExtSepolicyPrebuiltApiDir(), "prebuilts", "api", ver, "private"))
 		b.srcs[".product_public_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.DeviceConfig().ProductSepolicyPrebuiltApiDir(), "prebuilts", "api", ver, "public"))
 		b.srcs[".product_private_"+ver] = b.findSrcsInDirs(ctx, filepath.Join(ctx.DeviceConfig().ProductSepolicyPrebuiltApiDir(), "prebuilts", "api", ver, "private"))
+	}
+
+	b.setOutputFiles(ctx)
+}
+
+func (b *buildFiles) setOutputFiles(ctx android.ModuleContext) {
+	for tag, files := range b.srcs {
+		ctx.SetOutputFiles(files, tag)
 	}
 }
