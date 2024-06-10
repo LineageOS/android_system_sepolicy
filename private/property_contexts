@@ -753,6 +753,9 @@ external_storage.cross_user.enabled u:object_r:storage_config_prop:s0 exact bool
 ro.fuse.bpf.enabled u:object_r:storage_config_prop:s0 exact bool
 ro.fuse.bpf.is_running u:object_r:vold_status_prop:s0 exact bool
 
+# Allow the vendor to disable the remote attestation feature at boot-time.
+avf.remote_attestation.enabled u:object_r:avf_virtualizationservice_prop:s0 exact bool
+
 hypervisor.pvmfw.path                              u:object_r:hypervisor_pvmfw_prop:s0 exact string
 hypervisor.virtualizationmanager.debug_policy.path u:object_r:hypervisor_virtualizationmanager_prop:s0 exact string
 
