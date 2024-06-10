@@ -153,6 +153,8 @@ func (m *selinuxContextsModule) GenerateAndroidBuildActions(ctx android.ModuleCo
 
 	m.outputPath = m.build(ctx, android.PathsForModuleSrc(ctx, m.properties.Srcs))
 	ctx.InstallFile(m.installPath, m.stem(), m.outputPath)
+
+	ctx.SetOutputFiles([]android.Path{m.outputPath}, "")
 }
 
 func newModule() *selinuxContextsModule {
@@ -539,16 +541,6 @@ func vndServiceFactory() android.Module {
 		}
 	})
 	return m
-}
-
-var _ android.OutputFileProducer = (*selinuxContextsModule)(nil)
-
-// Implements android.OutputFileProducer
-func (m *selinuxContextsModule) OutputFiles(tag string) (android.Paths, error) {
-	if tag == "" {
-		return []android.Path{m.outputPath}, nil
-	}
-	return nil, fmt.Errorf("unsupported module reference tag %q", tag)
 }
 
 type contextsTestProperties struct {

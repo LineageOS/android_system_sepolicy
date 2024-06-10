@@ -92,6 +92,10 @@ func (c *compatCil) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	c.installPath = android.PathForModuleInstall(ctx, "etc", "selinux", "mapping")
 	c.installSource = android.OptionalPathForPath(out)
 	ctx.InstallFile(c.installPath, c.stem(), out)
+
+	if c.installSource.Valid() {
+		ctx.SetOutputFiles(android.Paths{c.installSource.Path()}, "")
+	}
 }
 
 func (c *compatCil) AndroidMkEntries() []android.AndroidMkEntries {
@@ -109,21 +113,6 @@ func (c *compatCil) AndroidMkEntries() []android.AndroidMkEntries {
 		},
 	}}
 }
-
-func (c *compatCil) OutputFiles(tag string) (android.Paths, error) {
-	switch tag {
-	case "":
-		if c.installSource.Valid() {
-			return android.Paths{c.installSource.Path()}, nil
-		} else {
-			return nil, nil
-		}
-	default:
-		return nil, fmt.Errorf("unsupported module reference tag %q", tag)
-	}
-}
-
-var _ android.OutputFileProducer = (*compatCil)(nil)
 
 // se_compat_test checks if compat files ({ver}.cil, {ver}.compat.cil) files are compatible with
 // current policy.
@@ -239,15 +228,7 @@ func (f *compatTestModule) GenerateSingletonBuildActions(ctx android.SingletonCo
 func (f *compatTestModule) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	var inputs android.Paths
 	ctx.VisitDirectDepsWithTag(compatTestDepTag, func(child android.Module) {
-		o, ok := child.(android.OutputFileProducer)
-		if !ok {
-			panic(fmt.Errorf("Module %q should be an OutputFileProducer but it isn't", ctx.OtherModuleName(child)))
-		}
-
-		outputs, err := o.OutputFiles("")
-		if err != nil {
-			panic(fmt.Errorf("Module %q error while producing output: %v", ctx.OtherModuleName(child), err))
-		}
+		outputs := android.OutputFilesForModule(ctx, child, "")
 		if len(outputs) != 1 {
 			panic(fmt.Errorf("Module %q should produce exactly one output, but did %q", ctx.OtherModuleName(child), outputs.Strings()))
 		}
