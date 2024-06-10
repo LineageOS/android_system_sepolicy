@@ -34,6 +34,10 @@ is_flag_enabled(RELEASE_AVF_ENABLE_NETWORK, `
 # pVM remote attestation.
 hal_server_domain(virtualizationservice, hal_remotelyprovisionedcomponent_avf)
 
+# Allow the virtualizationservice to inspect whether remote attestation is supported
+# through the system property.
+get_prop(virtualizationservice, avf_virtualizationservice_prop)
+
 # Allow calling into the system server to find "permission_service".
 binder_call(virtualizationservice, system_server)
 allow virtualizationservice permission_service:service_manager find;

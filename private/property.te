@@ -74,6 +74,9 @@ system_restricted_prop(log_file_logger_prop)
 system_restricted_prop(persist_sysui_builder_extras_prop)
 system_restricted_prop(persist_sysui_ranking_update_prop)
 
+# Properties which should only be written by vendor_init
+system_vendor_config_prop(avf_virtualizationservice_prop)
+
 typeattribute log_prop log_property_type;
 typeattribute log_tag_prop log_property_type;
 typeattribute wifi_log_prop log_property_type;
