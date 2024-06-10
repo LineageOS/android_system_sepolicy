@@ -13,7 +13,7 @@ binder_service(system_app)
 # android.ui and system.ui
 allow system_app rootfs:dir getattr;
 
-# Read and write /data/data subdirectory.
+# read/write certain subdirectories of /data/data for system UID apps.
 allow system_app system_app_data_file:dir create_dir_perms;
 allow system_app system_app_data_file:{ file lnk_file } create_file_perms;
 
