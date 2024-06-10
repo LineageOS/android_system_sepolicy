@@ -125,15 +125,7 @@ func (n *neverallowTestModule) GenerateAndroidBuildActions(ctx android.ModuleCon
 			return
 		}
 
-		o, ok := child.(android.OutputFileProducer)
-		if !ok {
-			panic(fmt.Errorf("Module %q isn't an OutputFileProducer", ctx.OtherModuleName(child)))
-		}
-
-		outputs, err := o.OutputFiles("")
-		if err != nil {
-			panic(fmt.Errorf("Module %q error while producing output: %v", ctx.OtherModuleName(child), err))
-		}
+		outputs := android.OutputFilesForModule(ctx, child, "")
 
 		switch ctx.OtherModuleDependencyTag(child) {
 		case checkpolicyTag:
