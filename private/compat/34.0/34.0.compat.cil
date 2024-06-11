@@ -1,3 +1,17 @@
 ;; complement CIL file for compatibility between ToT policy and 34.0 vendors.
 ;; will be compiled along with other normal policy files, on 34.0 vendors.
 ;;
+
+;; This type may or may not already exist in vendor policy. The 202404 sepolicy
+;; (well, the 24Q1 release) added hidraw_device, but existing vendor policy
+;; may still label the relevant devices with the old label.
+;;
+;; Re-define it here (duplicate definitions in CIL will be ignored) - so we can
+;; duplicate the new policy for the old label to keep things working.
+;; (Doing this in 34.0.cil ended up being too messy.)
+;; See b/340923653.
+(type vendor_hidraw_device)
+(typeattributeset dev_type (vendor_hidraw_device))
+
+(allow system_server vendor_hidraw_device (dir (open getattr read search ioctl lock watch watch_reads)))
+(allow system_server vendor_hidraw_device (chr_file (getattr open read ioctl lock map watch watch_reads append write)))
