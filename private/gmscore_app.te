@@ -136,6 +136,10 @@ allow gmscore_app checkin_data_file:file create_file_perms;
 allow gmscore_app shell_data_file:file r_file_perms;
 allow gmscore_app shell_data_file:dir r_dir_perms;
 
+# allow gms core app write to aconfigd socket
+allow gmscore_app aconfigd_socket:sock_file {read write};
+allow gmscore_app aconfigd:unix_stream_socket connectto;
+
 # b/18504118: Allow reads from /data/anr/traces.txt
 allow gmscore_app anr_data_file:file r_file_perms;
 
