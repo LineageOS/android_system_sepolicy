@@ -618,6 +618,7 @@ neverallow {
   userdebug_or_eng(`-fsck')
   userdebug_or_eng(`-init')
   -recovery
+  userdebug_or_eng(`-remount')
   -update_engine
 } system_block_device:blk_file { write append };
 
