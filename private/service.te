@@ -31,7 +31,8 @@ is_flag_enabled(RELEASE_AVF_ENABLE_LLPVM_CHANGES, `
     type virtualization_maintenance_service, service_manager_type;
 ')
 is_flag_enabled(RELEASE_AVF_ENABLE_NETWORK, `
-    type vmnic_service, service_manager_type;
+    type vm_tethering_service, system_server_service, service_manager_type;
+    type vmnic_service,        service_manager_type;
 ')
 
 type uce_service,                   service_manager_type;
