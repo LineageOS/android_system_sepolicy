@@ -33,6 +33,7 @@ android.hardware.bluetooth.finder.IBluetoothFinder/default           u:object_r:
 is_flag_enabled(RELEASE_HARDWARE_BLUETOOTH_RANGING_SERVICE, `
     android.hardware.bluetooth.ranging.IBluetoothChannelSounding/default u:object_r:hal_bluetooth_service:s0
 ')
+android.hardware.bluetooth.lmp_event.IBluetoothLmpEvent/default      u:object_r:hal_bluetooth_service:s0
 android.hardware.bluetooth.audio.IBluetoothAudioProviderFactory/default u:object_r:hal_audio_service:s0
 android.hardware.broadcastradio.IBroadcastRadio/amfm                 u:object_r:hal_broadcastradio_service:s0
 android.hardware.broadcastradio.IBroadcastRadio/dab                  u:object_r:hal_broadcastradio_service:s0
@@ -138,6 +139,7 @@ accessibility                             u:object_r:accessibility_service:s0
 account                                   u:object_r:account_service:s0
 activity                                  u:object_r:activity_service:s0
 activity_task                             u:object_r:activity_task_service:s0
+adaptive_auth                             u:object_r:adaptive_auth_service:s0
 adb                                       u:object_r:adb_service:s0
 adservices_manager                        u:object_r:adservices_manager_service:s0
 aidl_lazy_test_1                          u:object_r:aidl_lazy_test_service:s0
@@ -163,6 +165,9 @@ android.system.virtualizationservice      u:object_r:virtualization_service:s0
 is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
     android.system.virtualizationservice_internal.IVfioHandler u:object_r:vfio_handler_service:s0
 ')
+is_flag_enabled(RELEASE_AVF_ENABLE_LLPVM_CHANGES, `
+    android.system.virtualizationmaintenance u:object_r:virtualization_maintenance_service:s0
+')
 ambient_context                           u:object_r:ambient_context_service:s0
 app_binding                               u:object_r:app_binding_service:s0
 app_hibernation                           u:object_r:app_hibernation_service:s0
@@ -177,6 +182,7 @@ gsiservice                                u:object_r:gsi_service:s0
 appops                                    u:object_r:appops_service:s0
 appwidget                                 u:object_r:appwidget_service:s0
 artd                                      u:object_r:artd_service:s0
+artd_pre_reboot                           u:object_r:artd_pre_reboot_service:s0
 assetatlas                                u:object_r:assetatlas_service:s0
 attention                                 u:object_r:attention_service:s0
 audio                                     u:object_r:audio_service:s0
@@ -212,6 +218,7 @@ content                                   u:object_r:content_service:s0
 content_capture                           u:object_r:content_capture_service:s0
 content_suggestions                       u:object_r:content_suggestions_service:s0
 contexthub                                u:object_r:contexthub_service:s0
+contextual_search                         u:object_r:contextual_search_service:s0
 country_detector                          u:object_r:country_detector_service:s0
 coverage                                  u:object_r:coverage_service:s0
 cpuinfo                                   u:object_r:cpuinfo_service:s0
@@ -227,6 +234,7 @@ deviceidle                                u:object_r:deviceidle_service:s0
 device_lock                               u:object_r:devicelock_service:s0
 device_state                              u:object_r:device_state_service:s0
 devicestoragemonitor                      u:object_r:devicestoragemonitor_service:s0
+dexopt_chroot_setup                       u:object_r:dexopt_chroot_setup_service:s0
 diskstats                                 u:object_r:diskstats_service:s0
 display                                   u:object_r:display_service:s0
 dnsresolver                               u:object_r:dnsresolver_service:s0
@@ -241,6 +249,7 @@ dropbox                                   u:object_r:dropbox_service:s0
 dumpstate                                 u:object_r:dumpstate_service:s0
 dynamic_system                            u:object_r:dynamic_system_service:s0
 econtroller                               u:object_r:radio_service:s0
+ecm_enhanced_confirmation                 u:object_r:ecm_enhanced_confirmation_service:s0
 emergency_affordance                      u:object_r:emergency_affordance_service:s0
 euicc_card_controller                     u:object_r:radio_service:s0
 external_vibrator_service                 u:object_r:external_vibrator_service:s0
@@ -352,6 +361,7 @@ phone                                     u:object_r:radio_service:s0
 pinner                                    u:object_r:pinner_service:s0
 powerstats                                u:object_r:powerstats_service:s0
 power                                     u:object_r:power_service:s0
+profiling_service                         u:object_r:profiling_service:s0
 print                                     u:object_r:print_service:s0
 processinfo                               u:object_r:processinfo_service:s0
 procstats                                 u:object_r:procstats_service:s0
@@ -382,6 +392,7 @@ secure_element                            u:object_r:secure_element_service:s0
 sec_key_att_app_id_provider               u:object_r:sec_key_att_app_id_provider_service:s0
 security_state                            u:object_r:security_state_service:s0
 selection_toolbar                         u:object_r:selection_toolbar_service:s0
+sensitive_content_protection_service      u:object_r:sensitive_content_protection_service:s0
 sensorservice                             u:object_r:sensorservice_service:s0
 sensor_privacy                            u:object_r:sensor_privacy_service:s0
 serial                                    u:object_r:serial_service:s0

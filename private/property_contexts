@@ -87,6 +87,7 @@ persist.traced.enable   u:object_r:traced_enabled_prop:s0
 traced.lazy.            u:object_r:traced_lazy_prop:s0
 persist.heapprofd.enable u:object_r:heapprofd_enabled_prop:s0
 persist.traced_perf.enable u:object_r:traced_perf_enabled_prop:s0
+uprobestats.start_with_config u:object_r:uprobestats_start_with_config_prop:s0
 persist.vendor.debug.wifi. u:object_r:persist_vendor_debug_wifi_prop:s0
 persist.vendor.overlay.  u:object_r:overlay_prop:s0
 ril.cdma.inecmmode      u:object_r:radio_cdma_ecm_prop:s0 exact bool
@@ -97,6 +98,7 @@ ro.boot.btmacaddr       u:object_r:bluetooth_prop:s0
 ro.boot.serialno        u:object_r:serialno_prop:s0
 ro.bt.                  u:object_r:bluetooth_prop:s0
 ro.boot.bootreason      u:object_r:bootloader_boot_reason_prop:s0
+ro.misctrl.             u:object_r:misctrl_prop:s0
 persist.sys.boot.reason u:object_r:last_boot_reason_prop:s0
 sys.boot.reason         u:object_r:system_boot_reason_prop:s0
 sys.boot.reason.last    u:object_r:last_boot_reason_prop:s0
@@ -117,6 +119,9 @@ suspend.sleep_time_scale_factor u:object_r:suspend_prop:s0 exact double
 suspend.failed_suspend_backoff_enabled u:object_r:suspend_prop:s0 exact bool
 suspend.short_suspend_backoff_enabled u:object_r:suspend_prop:s0 exact bool
 suspend.disable_sync_on_suspend u:object_r:suspend_prop:s0 exact bool
+
+# Suspend service debug properties
+suspend.debug.wakestats_log.enabled u:object_r:suspend_debug_prop:s0 exact bool
 
 # Fastbootd protocol control property
 fastbootd.protocol    u:object_r:fastbootd_protocol_prop:s0 exact enum usb tcp
@@ -232,6 +237,9 @@ servicemanager.ready    u:object_r:servicemanager_prop:s0 exact bool
 # hwservicemanager properties
 hwservicemanager.       u:object_r:hwservicemanager_prop:s0
 
+# hidl_memory properties to intentionally force a shutdown
+hidl_memory.            u:object_r:hidl_memory_prop:s0
+
 # Common default properties for vendor, odm, vendor_dlkm, and odm_dlkm.
 init.svc.odm.           u:object_r:vendor_default_prop:s0
 init.svc.vendor.        u:object_r:vendor_default_prop:s0
@@ -279,6 +287,9 @@ persist.device_config.window_manager_native_boot.   u:object_r:device_config_win
 persist.device_config.memory_safety_native_boot.    u:object_r:device_config_memory_safety_native_boot_prop:s0
 persist.device_config.memory_safety_native.         u:object_r:device_config_memory_safety_native_prop:s0
 persist.device_config.tethering_u_or_later_native.  u:object_r:device_config_tethering_u_or_later_native_prop:s0
+
+# Prop indicates the apex that bundles input configuration files (*.idc,*.kl,*.kcm)
+input_device.config_file.apex    u:object_r:input_device_config_prop:s0 exact string
 
 # Properties that is for staging
 next_boot.  u:object_r:next_boot_prop:s0
@@ -403,10 +414,18 @@ ro.audio.spatializer_enabled u:object_r:audio_config_prop:s0 exact bool
 # Boolean property used in AudioService to configure whether
 # to enable head tracking for spatial audio
 ro.audio.headtracking_enabled u:object_r:audio_config_prop:s0 exact bool
+# Boolean property used in AudioPolicyManager to configure whether
+# to enable spatialization for stereo channel mask
+ro.audio.stereo_spatialization_enabled u:object_r:audio_config_prop:s0 exact bool
 
 # Boolean property used in UsbAlsaManager to decide if only one or multiple
 # USB devices can be connected to audio system at a certain time
 ro.audio.multi_usb_mode u:object_r:audio_config_prop:s0 exact bool
+
+# Boolean property used in libaudiohal@aidl to check if the SoC vendor
+# provides an implementation of IHalAdapterVendorExtension interface.
+# See b/323989070 for the discussion why this approach was chosen.
+ro.audio.ihaladaptervendorextension_enabled u:object_r:system_audio_config_prop:s0 exact bool
 
 persist.config.calibration_fac u:object_r:camera_calibration_prop:s0 exact string
 
@@ -534,6 +553,7 @@ persist.sys.media.avsync                     u:object_r:media_config_prop:s0 exa
 
 persist.bluetooth.a2dp_offload.cap                          u:object_r:bluetooth_a2dp_offload_prop:s0 exact string
 persist.bluetooth.a2dp_offload.disabled                     u:object_r:bluetooth_a2dp_offload_prop:s0 exact bool
+persist.bluetooth.leaudio_offload.disabled                  u:object_r:bluetooth_a2dp_offload_prop:s0 exact bool
 persist.bluetooth.bluetooth_audio_hal.disabled              u:object_r:bluetooth_audio_hal_prop:s0 exact bool
 persist.bluetooth.btsnoopenable                             u:object_r:exported_bluetooth_prop:s0 exact bool
 persist.bluetooth.btsnoopdefaultmode                        u:object_r:bluetooth_prop:s0 exact enum empty disabled filtered full
@@ -634,6 +654,7 @@ bluetooth.core.le.inquiry_scan_window                u:object_r:bluetooth_config
 
 bluetooth.core.le.vendor_capabilities.enabled        u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.sco.disable_enhanced_connection            u:object_r:bluetooth_config_prop:s0 exact bool
+bluetooth.sco.managed_by_audio                       u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.core.le.dsa_transport_preference           u:object_r:bluetooth_config_prop:s0 exact string
 
 persist.nfc.debug_enabled                      u:object_r:nfc_prop:s0 exact bool
@@ -745,6 +766,7 @@ ro.lmk.kill_timeout_ms          u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.log_stats                u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.low                      u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.medium                   u:object_r:lmkd_config_prop:s0 exact int
+ro.lmk.pressure_after_kill_min_score u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.psi_partial_stall_ms     u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.psi_complete_stall_ms    u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.stall_limit_critical     u:object_r:lmkd_config_prop:s0 exact int
@@ -1153,7 +1175,7 @@ ro.product.manufacturer_for_attestation  u:object_r:build_attestation_prop:s0 ex
 ro.board.first_api_level u:object_r:build_vendor_prop:s0 exact int
 ro.board.api_level       u:object_r:build_vendor_prop:s0 exact int
 ro.board.api_frozen      u:object_r:build_vendor_prop:s0 exact bool
-ro.llndk.api_level       u:object_r:build_vendor_prop:s0 exact int
+ro.llndk.api_level       u:object_r:build_prop:s0 exact int
 ro.vendor.api_level      u:object_r:build_vendor_prop:s0 exact int
 
 # Boot image build props set by /{second_stage_resources/,}boot/etc/build.prop
@@ -1185,8 +1207,12 @@ ro.property_service.async_persist_writes u:object_r:build_config_prop:s0 exact b
 
 ro.vendor.redirect_socket_calls u:object_r:vendor_socket_hook_prop:s0 exact bool
 
-service.bootanim.exit u:object_r:bootanim_system_prop:s0 exact int
-service.bootanim.progress u:object_r:bootanim_system_prop:s0 exact int
+service.bootanim.exit       u:object_r:bootanim_system_prop:s0 exact int
+service.bootanim.progress   u:object_r:bootanim_system_prop:s0 exact int
+persist.bootanim.color1     u:object_r:bootanim_system_prop:s0 exact int
+persist.bootanim.color2     u:object_r:bootanim_system_prop:s0 exact int
+persist.bootanim.color3     u:object_r:bootanim_system_prop:s0 exact int
+persist.bootanim.color4     u:object_r:bootanim_system_prop:s0 exact int
 
 sys.init.userspace_reboot.in_progress u:object_r:userspace_reboot_exported_prop:s0 exact bool
 sys.use_memfd                         u:object_r:use_memfd_prop:s0 exact bool
@@ -1556,8 +1582,13 @@ persist.vendor.face.virtual.type u:object_r:virtual_face_hal_prop:s0 exact strin
 persist.vendor.face.virtual.strength u:object_r:virtual_face_hal_prop:s0 exact string
 persist.vendor.face.virtual.enrollments u:object_r:virtual_face_hal_prop:s0 exact string
 persist.vendor.face.virtual.features u:object_r:virtual_face_hal_prop:s0 exact string
+persist.vendor.face.virtual.lockout_enable u:object_r:virtual_face_hal_prop:s0 exact bool
+persist.vendor.face.virtual.lockout_timed_enable u:object_r:virtual_face_hal_prop:s0 exact bool
+persist.vendor.face.virtual.lockout_timed_threshold u:object_r:virtual_face_hal_prop:s0 exact int
+persist.vendor.face.virtual.lockout_timed_duration u:object_r:virtual_face_hal_prop:s0 exact int
+persist.vendor.face.virtual.lockout_permanent_threshold u:object_r:virtual_face_hal_prop:s0 exact int
+vendor.face.virtual.no_human_face_detected u:object_r:virtual_face_hal_prop:s0 exact bool
 vendor.face.virtual.enrollment_hit u:object_r:virtual_face_hal_prop:s0 exact int
-vendor.face.virtual.operation_start_enroll_latency u:object_r:virtual_face_hal_prop:s0 exact int
 vendor.face.virtual.next_enrollment u:object_r:virtual_face_hal_prop:s0 exact string
 vendor.face.virtual.authenticator_id u:object_r:virtual_face_hal_prop:s0 exact int
 vendor.face.virtual.challenge u:object_r:virtual_face_hal_prop:s0 exact int
@@ -1565,8 +1596,9 @@ vendor.face.virtual.lockout u:object_r:virtual_face_hal_prop:s0 exact bool
 vendor.face.virtual.operation_authenticate_fails u:object_r:virtual_face_hal_prop:s0 exact bool
 vendor.face.virtual.operation_detect_interaction_fails u:object_r:virtual_face_hal_prop:s0 exact bool
 vendor.face.virtual.operation_enroll_fails u:object_r:virtual_face_hal_prop:s0 exact bool
-vendor.face.virtual.operation_authenticate_latency u:object_r:virtual_face_hal_prop:s0 exact int
-vendor.face.virtual.operation_detect_interaction_latency u:object_r:virtual_face_hal_prop:s0 exact int
+vendor.face.virtual.operation_authenticate_latency u:object_r:virtual_face_hal_prop:s0 exact string
+vendor.face.virtual.operation_detect_interaction_latency u:object_r:virtual_face_hal_prop:s0 exact string
+vendor.face.virtual.operation_enroll_latency u:object_r:virtual_face_hal_prop:s0 exact string
 vendor.face.virtual.operation_authenticate_duration u:object_r:virtual_face_hal_prop:s0 exact int
 
 # properties for the virtual Fingerprint HAL
@@ -1624,3 +1656,16 @@ persist.graphics.game_default_frame_rate.enabled  u:object_r:game_manager_config
 # Properties for app archiving
 pm.archiving.enabled      u:object_r:pm_archiving_enabled_prop:s0 exact bool
 
+# Properties for ThreadNetworkService
+threadnetwork.country_code u:object_r:threadnetwork_config_prop:s0 exact string
+
+# Properties for crashrecovery
+crashrecovery.attempting_factory_reset u:object_r:crashrecovery_prop:s0 exact bool
+crashrecovery.attempting_reboot u:object_r:crashrecovery_prop:s0 exact bool
+crashrecovery.boot_mitigation_count u:object_r:crashrecovery_prop:s0 exact int
+crashrecovery.boot_mitigation_start u:object_r:crashrecovery_prop:s0 exact int
+crashrecovery.max_rescue_level_attempted u:object_r:crashrecovery_prop:s0 exact int
+crashrecovery.rescue_boot_count u:object_r:crashrecovery_prop:s0 exact int
+crashrecovery.rescue_boot_start u:object_r:crashrecovery_prop:s0 exact int
+persist.crashrecovery.enable_rescue u:object_r:crashrecovery_prop:s0 exact bool
+persist.crashrecovery.last_factory_reset u:object_r:crashrecovery_prop:s0 exact int

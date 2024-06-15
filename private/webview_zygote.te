@@ -83,8 +83,6 @@ allow webview_zygote same_process_hal_file:file { execute read open getattr map 
 
 allow webview_zygote system_data_file:lnk_file r_file_perms;
 
-allow webview_zygote properties_device:dir mounton;
-
 # Send unsolicited message to system_server
 unix_socket_send(webview_zygote, system_unsolzygote, system_server)
 
@@ -94,6 +92,10 @@ get_prop(webview_zygote, device_config_runtime_native_boot_prop)
 
 # Allow webview_zygote to access odsign verification status
 get_prop(zygote, odsign_prop)
+
+# /data/resource-cache
+allow webview_zygote resourcecache_data_file:file r_file_perms;
+allow webview_zygote resourcecache_data_file:dir r_dir_perms;
 
 #####
 ##### Neverallow

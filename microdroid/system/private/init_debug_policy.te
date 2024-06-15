@@ -27,6 +27,5 @@ get_prop(init_debug_policy, bootloader_prop)
 set_prop(init_debug_policy, init_debug_policy_prop)
 
 # Allow init_debug_policy to read AVF debug policy
-allow init_debug_policy sysfs_dt_avf:dir search;
-allow init_debug_policy sysfs_dt_avf:file { open read };
-
+r_dir_file(init_debug_policy, proc_dt_avf)
+r_dir_file(init_debug_policy, sysfs_dt_avf)

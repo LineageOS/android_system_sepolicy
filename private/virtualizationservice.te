@@ -12,8 +12,11 @@ init_daemon_domain(virtualizationservice)
 # Let the virtualizationservice domain use Binder.
 binder_use(virtualizationservice)
 
-# Let the virtualizationservice domain register the virtualization_service with ServiceManager.
+# Register our services with ServiceManager.
 add_service(virtualizationservice, virtualization_service)
+is_flag_enabled(RELEASE_AVF_ENABLE_LLPVM_CHANGES, `
+    add_service(virtualizationservice, virtualization_maintenance_service)
+')
 
 is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
     # Let virtualizationservice find and communicate with vfio_handler.
@@ -28,6 +31,13 @@ hal_server_domain(virtualizationservice, hal_remotelyprovisionedcomponent_avf)
 # Allow calling into the system server to find "permission_service".
 binder_call(virtualizationservice, system_server)
 allow virtualizationservice permission_service:service_manager find;
+
+# Allow virtualizationservice to retrieve the remotely provisioned keys from rkpd.
+binder_call(virtualizationservice, remote_provisioning_service)
+allow virtualizationservice remote_provisioning_service:service_manager find;
+
+# Allow virtualizationservice to manage VM secrets via Secretkeeper.
+hal_client_domain(virtualizationservice, hal_secretkeeper)
 
 # Let virtualizationservice remove memlock rlimit of virtualizationmanager. This is necessary
 # to mlock VM memory and page tables.
@@ -52,8 +62,9 @@ allow virtualizationservice adbd:unix_stream_socket { read write };
 virtualizationservice_use(virtualizationservice)
 
 # Allow virtualizationservice to read and write in the apex data directory
-# /data/misc/apexdata/com.android.virt
-allow virtualizationservice apex_module_data_file:dir search;
+# /data/misc/apexdata/com.android.virt. Also allow checking of the parent directory
+# (needed for SQLite database creation).
+allow virtualizationservice apex_module_data_file:dir { search getattr };
 allow virtualizationservice apex_virt_data_file:dir create_dir_perms;
 allow virtualizationservice apex_virt_data_file:file create_file_perms;
 
@@ -104,6 +115,6 @@ neverallow virtualizationservice {
 }:process setrlimit;
 
 is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
-    # Only virtualizationservice can communicate to vfio_handler
-    neverallow { domain -virtualizationservice -servicemanager } vfio_handler:binder call;
+    # Only virtualizationservice and virtualizationmanager can communicate to vfio_handler
+    neverallow { domain -virtualizationmanager -virtualizationservice -servicemanager } vfio_handler:binder call;
 ')

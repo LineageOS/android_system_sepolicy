@@ -17,6 +17,10 @@ userdebug_or_eng(`
 # read config.gz for CTS purposes
 allow shell config_gz:file r_file_perms;
 
+# allow reading tombstones. users can already use bugreports to get those.
+allow shell tombstone_data_file:dir r_dir_perms;
+allow shell tombstone_data_file:file r_file_perms;
+
 # Run app_process.
 # XXX Transition into its own domain?
 app_domain(shell)
@@ -258,3 +262,5 @@ userdebug_or_eng(`set_prop(shell, persist_sysui_ranking_update_prop)')
 # Allow shell to read the build properties for attestation feature
 get_prop(shell, build_attestation_prop)
 
+# Allow shell to execute oatdump.
+allow shell oatdump_exec:file rx_file_perms;

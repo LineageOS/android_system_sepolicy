@@ -18,7 +18,8 @@ allow microdroid_manager vd_device:blk_file rw_file_perms;
 allow microdroid_manager dm_device:blk_file r_file_perms;
 
 # microdroid_manager can query AVF flags in the device tree
-allow microdroid_manager sysfs_dt_avf:file r_file_perms;
+r_dir_file(microdroid_manager, proc_dt_avf)
+r_dir_file(microdroid_manager, sysfs_dt_avf)
 
 # Read config from the open-dice driver.
 allow microdroid_manager open_dice_device:chr_file rw_file_perms;
@@ -122,10 +123,6 @@ allow microdroid_manager extra_apk_file:dir create_dir_perms;
 
 # Allow microdroid_manager to write kmsg_debug (stdio_to_kmsg).
 allow microdroid_manager kmsg_debug_device:chr_file w_file_perms;
-
-# Allow microdroid_manager to read AVF debug policy
-allow microdroid_manager sysfs_dt_avf:dir search;
-allow microdroid_manager sysfs_dt_avf:file { open read };
 
 # Domains other than microdroid can't write extra_apks
 neverallow { domain -microdroid_manager -init -vendor_init } extra_apk_file:file no_w_file_perms;

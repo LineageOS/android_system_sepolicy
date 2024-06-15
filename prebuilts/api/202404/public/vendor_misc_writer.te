@@ -1,0 +1,16 @@
+# vendor_misc_writer
+type vendor_misc_writer, domain;
+type vendor_misc_writer_exec, vendor_file_type, exec_type, file_type;
+
+# Raw writes to misc_block_device
+allow vendor_misc_writer misc_block_device:blk_file w_file_perms;
+allow vendor_misc_writer block_device:dir r_dir_perms;
+
+# Silence the denial when calling libfstab's ReadDefaultFstab, which tries to
+# load DT fstab.
+dontaudit vendor_misc_writer proc_cmdline:file r_file_perms;
+dontaudit vendor_misc_writer sysfs_dt_firmware_android:dir search;
+dontaudit vendor_misc_writer proc_bootconfig:file r_file_perms;
+
+# Allow ReadDefaultFstab().
+read_fstab(vendor_misc_writer)

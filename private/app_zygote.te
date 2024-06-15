@@ -34,8 +34,6 @@ allow app_zygote system_server:process getpgid;
 # Interaction between the app_zygote and its children.
 allow app_zygote isolated_app:process setpgid;
 
-allow app_zygote properties_device:dir mounton;
-
 # TODO (b/63631799) fix this access
 dontaudit app_zygote mnt_expand_file:dir getattr;
 
@@ -94,6 +92,10 @@ get_prop(app_zygote, device_config_runtime_native_boot_prop)
 
 # Allow app_zygote to access odsign verification status
 get_prop(app_zygote, odsign_prop)
+
+# /data/resource-cache
+allow app_zygote resourcecache_data_file:file r_file_perms;
+allow app_zygote resourcecache_data_file:dir r_dir_perms;
 
 #####
 ##### Neverallow

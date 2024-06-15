@@ -12,24 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// This file contains a list of flags for sepolicy.
+// This module contains a list of build time flags (defined on AOSP) for sepolicy.
+// Additional se_flags modules can be added anywhere for additional flags.
+se_flags {
+    name: "aosp_selinux_flags",
+    flags: [
+        "RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT",
+        "RELEASE_AVF_ENABLE_LLPVM_CHANGES",
+        "RELEASE_HARDWARE_BLUETOOTH_RANGING_SERVICE",
+    ],
+    export_to: ["all_selinux_flags"],
+}
+
+// se_flags_collector collects flags from exported se_flags modules and converts it to build flags.
+se_flags_collector {
+    name: "all_selinux_flags",
+}
+
 se_policy_conf_defaults {
     name: "se_policy_conf_flags_defaults",
     srcs: [":sepolicy_flagging_macros"],
-    flags: [
-        "RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT",
-        "RELEASE_HARDWARE_BLUETOOTH_RANGING_SERVICE",
-    ],
+    build_flags: ["all_selinux_flags"],
 }
 
 contexts_defaults {
     name: "contexts_flags_defaults",
     srcs: [":sepolicy_flagging_macros"],
     neverallow_files: [":sepolicy_flagging_macros"], // for seapp_contexts
-    flags: [
-        "RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT",
-        "RELEASE_HARDWARE_BLUETOOTH_RANGING_SERVICE",
-    ],
+    build_flags: ["all_selinux_flags"],
 }
 
 filegroup {

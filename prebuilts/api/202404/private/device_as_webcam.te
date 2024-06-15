@@ -1,0 +1,21 @@
+# Domain for DeviceAsWebcam Service
+type device_as_webcam, domain, coredomain, mlstrustedsubject;
+
+app_domain(device_as_webcam)
+
+allow device_as_webcam system_app_data_file:dir create_dir_perms;
+allow device_as_webcam system_app_data_file:file create_file_perms;
+
+allow device_as_webcam { app_api_service cameraserver_service }:service_manager find;
+
+# Allow DeviceAsWebcam Service needs to access ro.usb.uvc.enabled property to
+# enale/disable itself
+get_prop(device_as_webcam, usb_uvc_enabled_prop)
+
+# need to access /dev to list all devices
+allow device_as_webcam device:dir r_dir_perms;
+
+# UVC nodes are mounted as V4L2 nodes (/dev/video*) on the device. These need to
+# be accessed by the DeviceAsWebcam Service.
+allow device_as_webcam video_device:dir r_dir_perms;
+allow device_as_webcam video_device:chr_file rw_file_perms;

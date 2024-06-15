@@ -19,10 +19,7 @@ mediaextractor radio_data_file file b/77923736
 mediaprovider cache_file blk_file b/77925342
 mediaprovider mnt_media_rw_file dir b/77925342
 mediaprovider shell_data_file dir b/77925342
-mediaprovider_app device_config_media_native_prop file b/308043377
 mediaswcodec ashmem_device chr_file b/142679232
-nfc device_config_media_native_prop file b/308043377
-platform_app device_config_media_native_prop file b/308043377
 platform_app nfc_data_file dir b/74331887
 platform_app system_data_file dir b/306090533
 system_server overlayfs_file file b/142390309

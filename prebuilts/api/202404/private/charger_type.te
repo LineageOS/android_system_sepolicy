@@ -1,0 +1,38 @@
+# charger needs to tell init to continue the boot
+# process when running in charger mode.
+set_prop(charger_type, charger_status_prop)
+get_prop(charger_type, charger_config_prop)
+
+# get minui properties
+get_prop(charger_type, recovery_config_prop)
+
+### Neverallow rules for charger properties
+
+# charger_config_prop: Only init and vendor_init is allowed to set it
+neverallow {
+    domain
+    -init
+    -vendor_init
+} charger_config_prop:property_service set;
+
+# charger_status_prop: Only init, vendor_init, charger, and charger_vendor
+# are allowed to set it
+neverallow {
+    domain
+    -init
+    -vendor_init
+    -charger
+    -charger_vendor
+} charger_status_prop:property_service set;
+
+# Both charger_config_prop and charger_status_prop:
+# Only init, vendor_init, dumpstate, charger, and charger_vendor
+# are allowed to read it
+neverallow {
+    domain
+    -init
+    -dumpstate
+    -vendor_init
+    -charger
+    -charger_vendor
+} { charger_config_prop charger_status_prop }:file no_rw_file_perms;

@@ -68,6 +68,8 @@ binder_call(dumpstate, ot_daemon)
 # Collect metrics on boot time created by init
 get_prop(dumpstate, boottime_prop)
 
+get_prop(dumpstate, misctrl_prop)
+
 # Signal native processes to dump their stack.
 allow dumpstate {
   mediatranscoding
@@ -95,6 +97,7 @@ dontaudit dumpstate update_engine:binder call;
 
 # Read files in /proc
 allow dumpstate {
+  config_gz
   proc_net_tcp_udp
   proc_pid_max
 }:file r_file_perms;

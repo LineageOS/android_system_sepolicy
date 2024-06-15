@@ -210,6 +210,12 @@ LOCAL_REQUIRED_MODULES += \
     plat_sepolicy.cil \
     secilc \
 
+# HACK to support vendor blobs using 1000000.0
+# TODO(b/314010177): remove after new ToT (202404) fully propagates
+ifneq (true,$(BOARD_API_LEVEL_FROZEN))
+LOCAL_REQUIRED_MODULES += plat_mapping_file_1000000.0
+endif
+
 ifneq ($(PRODUCT_PRECOMPILED_SEPOLICY),false)
 LOCAL_REQUIRED_MODULES += plat_sepolicy_and_mapping.sha256
 endif
@@ -248,10 +254,10 @@ LOCAL_REQUIRED_MODULES += \
 endif  # SELINUX_IGNORE_NEVERALLOWS
 endif  # with_asan
 
-ifneq ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
+ifeq ($(BOARD_API_LEVEL_FROZEN),true)
 LOCAL_REQUIRED_MODULES += \
     se_freeze_test
-endif # ($(PLATFORM_SEPOLICY_VERSION),$(TOT_SEPOLICY_VERSION))
+endif
 
 include $(BUILD_PHONY_PACKAGE)
 
@@ -277,6 +283,12 @@ endif
 ifdef HAS_SYSTEM_EXT_PUBLIC_SEPOLICY
 LOCAL_REQUIRED_MODULES += \
     system_ext_mapping_file
+
+# HACK to support vendor blobs using 1000000.0
+# TODO(b/314010177): remove after new ToT (202404) fully propagates
+ifneq (true,$(BOARD_API_LEVEL_FROZEN))
+LOCAL_REQUIRED_MODULES += system_ext_mapping_file_1000000.0
+endif
 
 system_ext_compat_files := $(call build_policy, $(sepolicy_compat_files), $(SYSTEM_EXT_PRIVATE_POLICY))
 
@@ -325,6 +337,12 @@ endif
 ifdef HAS_PRODUCT_PUBLIC_SEPOLICY
 LOCAL_REQUIRED_MODULES += \
     product_mapping_file
+
+# HACK to support vendor blobs using 1000000.0
+# TODO(b/314010177): remove after new ToT (202404) fully propagates
+ifneq (true,$(BOARD_API_LEVEL_FROZEN))
+LOCAL_REQUIRED_MODULES += product_mapping_file_1000000.0
+endif
 
 product_compat_files := $(call build_policy, $(sepolicy_compat_files), $(PRODUCT_PRIVATE_POLICY))
 
@@ -445,15 +463,13 @@ include $(BUILD_SYSTEM)/base_rules.mk
 # The file_contexts.bin is built in the following way:
 # 1. Collect all file_contexts files in THIS repository and process them with
 #    m4 into a tmp file called file_contexts.local.tmp.
-# 2. Collect all file_contexts files from LOCAL_FILE_CONTEXTS of installed
-#    modules with m4 with a tmp file called file_contexts.modules.tmp.
-# 3. Collect all device specific file_contexts files and process them with m4
+# 2. Collect all device specific file_contexts files and process them with m4
 #    into a tmp file called file_contexts.device.tmp.
-# 4. Run checkfc -e (allow no device fc entries ie empty) and fc_sort on
+# 3. Run checkfc -e (allow no device fc entries ie empty) and fc_sort on
 #    file_contexts.device.tmp and output to file_contexts.device.sorted.tmp.
-# 5. Concatenate file_contexts.local.tmp, file_contexts.modules.tmp and
-#    file_contexts.device.sorted.tmp into file_contexts.concat.tmp.
-# 6. Run checkfc and sefcontext_compile on file_contexts.concat.tmp to produce
+# 4. Concatenate file_contexts.local.tmp and  file_contexts.device.sorted.tmp
+#    into file_contexts.concat.tmp.
+# 5. Run checkfc and sefcontext_compile on file_contexts.concat.tmp to produce
 #    file_contexts.bin.
 #
 #  Note: That a newline file is placed between each file_context file found to
@@ -489,10 +505,6 @@ endef
 file_contexts.local.tmp := $(intermediates)/file_contexts.local.tmp
 $(call merge-fc-files,$(local_fc_files),$(file_contexts.local.tmp))
 
-# The rule for file_contexts.modules.tmp is defined in build/make/core/Makefile.
-# it gathers LOCAL_FILE_CONTEXTS from product_MODULES
-file_contexts.modules.tmp := $(intermediates)/file_contexts.modules.tmp
-
 device_fc_files += $(call intermediates-dir-for,ETC,vendor_file_contexts)/vendor_file_contexts
 
 ifdef BOARD_ODM_SEPOLICY_DIRS
@@ -516,8 +528,7 @@ $(file_contexts.device.sorted.tmp): $(file_contexts.device.tmp) $(built_sepolicy
 
 file_contexts.concat.tmp := $(intermediates)/file_contexts.concat.tmp
 $(call merge-fc-files,\
-  $(file_contexts.local.tmp) $(file_contexts.modules.tmp) $(file_contexts.device.sorted.tmp),\
-  $(file_contexts.concat.tmp))
+  $(file_contexts.local.tmp) $(file_contexts.device.sorted.tmp),$(file_contexts.concat.tmp))
 
 $(LOCAL_BUILT_MODULE): PRIVATE_SEPOLICY := $(built_sepolicy)
 $(LOCAL_BUILT_MODULE): $(file_contexts.concat.tmp) $(built_sepolicy) $(HOST_OUT_EXECUTABLES)/sefcontext_compile $(HOST_OUT_EXECUTABLES)/checkfc
@@ -531,7 +542,6 @@ file_contexts.concat.tmp :=
 file_contexts.device.sorted.tmp :=
 file_contexts.device.tmp :=
 file_contexts.local.tmp :=
-file_contexts.modules.tmp :=
 
 ##################################
 # Tests for Treble compatibility of current platform policy and vendor policy of

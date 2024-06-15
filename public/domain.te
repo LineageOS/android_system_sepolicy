@@ -259,13 +259,14 @@ allow domain debugfs_tracing:dir search;
 allow domain debugfs_tracing_debug:dir search;
 allow domain debugfs_trace_marker:file w_file_perms;
 
-# Linux lockdown mode offers coarse-grained definitions for access controls.
-# The "confidentiality" level detects access to tracefs or the perf subsystem.
-# This overlaps with more precise declarations in Android's policy. The
-# debugfs_trace_marker above is an example in which all processes should have
-# some access to tracefs. Therefore, allow all domains to access this level.
-# The "integrity" level is however enforced.
-allow domain self:lockdown confidentiality;
+# Linux lockdown mode offered coarse-grained definitions for access controls. In
+# previous versions of the policy, the integrity permission was neverallowed.
+# It was found that this permission mainly duplicates pre-existing rules in
+# the policy (see b/285443587). Additionally, some access were found to be
+# required (b/269377822). The access vector was removed from kernel 5.16
+# onwards. Grant unconditional access, these rules should be removed from the
+# policy once no kernel <5.16 are supported.
+allow domain self:lockdown { confidentiality integrity };
 
 # Filesystem access.
 allow domain fs_type:filesystem getattr;
@@ -340,6 +341,12 @@ allow domain apex_mnt_dir:lnk_file r_file_perms;
 # Allow everyone to read media server-configurable flags, so that libstagefright can be
 # configured using server-configurable flags
 get_prop(domain, device_config_media_native_prop)
+
+# Allow everyone to read from flag value boot snapshot files and general pb files
+# The boot copy of the flag value files serves flag read traffic for all processes, thus
+# needs to be readable by everybody. Also, the metadata directory will contain pb file
+# that records where flag storage files are, so also needs to be readable by everbody.
+allow domain { aconfig_storage_metadata_file }:file r_file_perms;
 
 ###
 ### neverallow rules
@@ -914,6 +921,9 @@ full_treble_only(`
         -crash_dump_exec
         -netutils_wrapper_exec
         userdebug_or_eng(`-tcpdump_exec')
+        # Vendor components still can invoke shell commands via /system/bin/sh
+        -shell_exec
+        -toolbox_exec
     }:file { entrypoint execute execute_no_trans };
 ')
 
@@ -994,6 +1004,9 @@ full_treble_only(`
     -task_profiles_api_file
     -task_profiles_file
     userdebug_or_eng(`-tcpdump_exec')
+    # Vendor components still can invoke shell commands via /system/bin/sh
+    -shell_exec
+    -toolbox_exec
   }:file *;
 ')
 
@@ -1294,6 +1307,3 @@ neverallow {
 } ashmem_device:chr_file open;
 
 neverallow { domain -traced_probes -init -vendor_init } debugfs_tracing_printk_formats:file *;
-
-# Linux lockdown "integrity" level is enforced for user builds.
-neverallow { domain userdebug_or_eng(`-domain') } self:lockdown integrity;

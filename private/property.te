@@ -2,6 +2,7 @@
 system_internal_prop(adbd_prop)
 system_internal_prop(apexd_payload_metadata_prop)
 system_internal_prop(ctl_snapuserd_prop)
+system_internal_prop(crashrecovery_prop)
 system_internal_prop(device_config_core_experiments_team_internal_prop)
 system_internal_prop(device_config_lmkd_native_prop)
 system_internal_prop(device_config_mglru_native_prop)
@@ -34,6 +35,7 @@ system_internal_prop(net_connectivity_prop)
 system_internal_prop(netd_stable_secret_prop)
 system_internal_prop(next_boot_prop)
 system_internal_prop(odsign_prop)
+system_internal_prop(misctrl_prop)
 system_internal_prop(perf_drop_caches_prop)
 system_internal_prop(pm_prop)
 system_internal_prop(profcollectd_node_id_prop)
@@ -43,8 +45,10 @@ system_internal_prop(rollback_test_prop)
 system_internal_prop(setupwizard_prop)
 system_internal_prop(snapuserd_prop)
 system_internal_prop(system_adbd_prop)
+system_internal_prop(system_audio_config_prop)
 system_internal_prop(timezone_metadata_prop)
 system_internal_prop(traced_perf_enabled_prop)
+system_internal_prop(uprobestats_start_with_config_prop)
 system_internal_prop(tuner_server_ctl_prop)
 system_internal_prop(userspace_reboot_log_prop)
 system_internal_prop(userspace_reboot_test_prop)
@@ -59,6 +63,8 @@ system_internal_prop(sensors_config_prop)
 system_internal_prop(hypervisor_pvmfw_prop)
 system_internal_prop(hypervisor_virtualizationmanager_prop)
 system_internal_prop(game_manager_config_prop)
+system_internal_prop(hidl_memory_prop)
+system_internal_prop(suspend_debug_prop)
 
 # Properties which can't be written outside system
 system_restricted_prop(device_config_virtualization_framework_native_prop)
@@ -179,6 +185,21 @@ neverallow {
   -dumpstate
   userdebug_or_eng(`-su')
 } init_svc_debug_prop:file no_rw_file_perms;
+
+# DO NOT ADD: compat risk
+neverallow {
+  domain
+  -init
+  -dumpstate
+  -misctrl
+  userdebug_or_eng(`-su')
+} misctrl_prop:file no_rw_file_perms;
+neverallow {
+  domain
+  -init
+  -misctrl
+  userdebug_or_eng(`-su')
+} misctrl_prop:property_service set;
 
 compatible_property_only(`
 # Prevent properties from being set
@@ -340,7 +361,25 @@ compatible_property_only(`
   } {
     suspend_prop
   }:property_service set;
+
+  neverallow {
+    domain
+    -init
+  } {
+    suspend_debug_prop
+  }:property_service set;
+
+  neverallow {
+    domain
+    -init
+    -dumpstate
+    userdebug_or_eng(`-system_suspend')
+    } {
+      suspend_debug_prop
+    }:file no_rw_file_perms;
 ')
+
+dontaudit system_suspend suspend_debug_prop:file r_file_perms;
 
 compatible_property_only(`
   # Neverallow coredomain to set vendor properties

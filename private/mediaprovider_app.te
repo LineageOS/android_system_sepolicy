@@ -74,5 +74,8 @@ dontaudit mediaprovider_app sysfs_vendor_sched:file w_file_perms;
 allow mediaprovider_app fs_bpf:file read;
 allow mediaprovider_app bpfloader:bpf { map_read map_write prog_run };
 
+# boot animations on oem are stored with specific label
+allow mediaprovider_app bootanim_oem_file:file r_file_perms;
+
 allow mediaprovider_app privapp_data_file:dir create_dir_perms;
 allow mediaprovider_app privapp_data_file:file create_file_perms;

@@ -1,0 +1,179 @@
+###
+### A domain for further sandboxing the PrebuiltGMSCore app.
+###
+typeattribute gmscore_app coredomain;
+
+app_domain(gmscore_app)
+
+allow gmscore_app sysfs_type:dir search;
+# Read access to /sys/block/zram*/mm_stat
+r_dir_file(gmscore_app, sysfs_zram)
+
+r_dir_file(gmscore_app, rootfs)
+
+# Allow GMS core to open kernel config for OTA matching through libvintf
+allow gmscore_app config_gz:file { open read getattr };
+
+# Allow GMS core to communicate with update_engine for A/B update.
+binder_call(gmscore_app, update_engine)
+allow gmscore_app update_engine_service:service_manager find;
+
+# Allow GMS core to communicate with dumpsys storaged.
+binder_call(gmscore_app, storaged)
+allow gmscore_app storaged_service:service_manager find;
+
+# Allow GMS core to access system_update_service (e.g. to publish pending
+# system update info).
+allow gmscore_app system_update_service:service_manager find;
+
+# Allow GMS core to communicate with statsd.
+binder_call(gmscore_app, statsd)
+
+# Allow GMS core to receive Perfetto traces through the framework
+# (i.e. TracingServiceProxy) and sendfile them into its private directory
+# for reporting when network and battery conditions are appropriate.
+allow gmscore_app perfetto:fd use;
+allow gmscore_app perfetto_traces_data_file:file { read getattr };
+
+# Allow GMS core to generate unique hardware IDs
+allow gmscore_app keystore:keystore2_key gen_unique_id;
+
+# Allow GMS core to access /sys/fs/selinux/policyvers for compatibility check
+allow gmscore_app selinuxfs:file r_file_perms;
+
+# suppress denials for non-API accesses.
+dontaudit gmscore_app exec_type:file r_file_perms;
+dontaudit gmscore_app device:dir r_dir_perms;
+dontaudit gmscore_app fs_bpf:dir r_dir_perms;
+dontaudit gmscore_app kernel:security *;
+dontaudit gmscore_app net_dns_prop:file r_file_perms;
+dontaudit gmscore_app proc:file r_file_perms;
+dontaudit gmscore_app proc_interrupts:file r_file_perms;
+dontaudit gmscore_app proc_modules:file r_file_perms;
+dontaudit gmscore_app proc_net:file r_file_perms;
+dontaudit gmscore_app proc_stat:file r_file_perms;
+dontaudit gmscore_app proc_version:file r_file_perms;
+dontaudit gmscore_app sysfs:dir r_dir_perms;
+dontaudit gmscore_app sysfs:file r_file_perms;
+dontaudit gmscore_app sysfs_android_usb:file r_file_perms;
+dontaudit gmscore_app sysfs_dm:file r_file_perms;
+dontaudit gmscore_app sysfs_loop:file r_file_perms;
+dontaudit gmscore_app sysfs_net:file r_file_perms;
+dontaudit gmscore_app sysfs_net:dir r_dir_perms;
+dontaudit gmscore_app { wifi_prop wifi_hal_prop }:file r_file_perms;
+dontaudit gmscore_app mirror_data_file:dir search;
+dontaudit gmscore_app mnt_vendor_file:dir search;
+
+# Access the network
+net_domain(gmscore_app)
+
+# webview crash handling depends on self ptrace (b/27697529, b/20150694, b/19277529#comment7)
+allow gmscore_app self:process ptrace;
+
+# Allow loading executable code from writable priv-app home
+# directories. This is a W^X violation, however, it needs
+# to be supported for now for the following reasons.
+# * /data/user_*/0/*/code_cache/* POSSIBLE uses (b/117841367)
+#   1) com.android.opengl.shaders_cache
+#   2) com.android.skia.shaders_cache
+#   3) com.android.renderscript.cache
+# * /data/user_de/0/com.google.android.gms/app_chimera
+# TODO: Tighten (b/112357170)
+allow gmscore_app privapp_data_file:file execute;
+
+# Chrome Crashpad uses the the dynamic linker to load native executables
+# from an APK (b/112050209, crbug.com/928422)
+allow gmscore_app system_linker_exec:file execute_no_trans;
+
+allow gmscore_app privapp_data_file:lnk_file create_file_perms;
+
+# /proc access
+allow gmscore_app proc_vmstat:file r_file_perms;
+
+# Allow interaction with gpuservice
+binder_call(gmscore_app, gpuservice)
+allow gmscore_app gpu_service:service_manager find;
+
+# find services that expose both @SystemAPI and normal APIs.
+allow gmscore_app app_api_service:service_manager find;
+allow gmscore_app system_api_service:service_manager find;
+allow gmscore_app audioserver_service:service_manager find;
+allow gmscore_app cameraserver_service:service_manager find;
+allow gmscore_app drmserver_service:service_manager find;
+allow gmscore_app mediadrmserver_service:service_manager find;
+allow gmscore_app mediaextractor_service:service_manager find;
+allow gmscore_app mediametrics_service:service_manager find;
+allow gmscore_app mediaserver_service:service_manager find;
+allow gmscore_app network_watchlist_service:service_manager find;
+allow gmscore_app nfc_service:service_manager find;
+allow gmscore_app oem_lock_service:service_manager find;
+allow gmscore_app persistent_data_block_service:service_manager find;
+allow gmscore_app radio_service:service_manager find;
+allow gmscore_app recovery_service:service_manager find;
+allow gmscore_app stats_service:service_manager find;
+
+# Used by Finsky / Android "Verify Apps" functionality when
+# running "adb install foo.apk".
+allow gmscore_app shell_data_file:file r_file_perms;
+allow gmscore_app shell_data_file:dir r_dir_perms;
+
+# Write to /cache.
+allow gmscore_app { cache_file cache_recovery_file }:dir create_dir_perms;
+allow gmscore_app { cache_file cache_recovery_file }:file create_file_perms;
+# /cache is a symlink to /data/cache on some devices. Allow reading the link.
+allow gmscore_app cache_file:lnk_file r_file_perms;
+
+# Write to /data/ota_package for OTA packages.
+allow gmscore_app ota_package_file:dir create_dir_perms;
+allow gmscore_app ota_package_file:file create_file_perms;
+
+# Write the checkin metadata to /data/misc_ce/<userid>/checkin
+allow gmscore_app checkin_data_file:dir rw_dir_perms;
+allow gmscore_app checkin_data_file:file create_file_perms;
+
+# Used by Finsky / Android "Verify Apps" functionality when
+# running "adb install foo.apk".
+allow gmscore_app shell_data_file:file r_file_perms;
+allow gmscore_app shell_data_file:dir r_dir_perms;
+
+# b/18504118: Allow reads from /data/anr/traces.txt
+allow gmscore_app anr_data_file:file r_file_perms;
+
+# b/148974132: com.android.vending needs this
+allow gmscore_app priv_app:tcp_socket { read write };
+
+# b/168059475 Allow GMSCore to read Virtual AB properties to determine
+# if device supports VAB.
+get_prop(gmscore_app, virtual_ab_prop)
+
+# b/186488185: Allow GMSCore to read dck properties
+get_prop(gmscore_app, dck_prop)
+
+# Allow GMSCore to read RKP properties for the purpose of GTS testing.
+get_prop(gmscore_app, remote_prov_prop)
+
+# Allow GmsCore to read Quick Start properties and prevent access from other
+# policies.
+get_prop(gmscore_app, quick_start_prop)
+neverallow { domain -init -dumpstate -vendor_init -gmscore_app } quick_start_prop:file no_rw_file_perms;
+
+# Do not allow getting permission-protected network information from sysfs.
+neverallow gmscore_app sysfs_net:file *;
+
+# Restrict socket ioctls. Either 1. disallow privileged ioctls, 2. disallow the
+# ioctl permission, or 3. disallow the socket class.
+neverallowxperm gmscore_app domain:{ icmp_socket rawip_socket tcp_socket udp_socket } ioctl priv_sock_ioctls;
+neverallow gmscore_app *:{ netlink_route_socket netlink_selinux_socket } ioctl;
+neverallow gmscore_app *:{
+  socket netlink_socket packet_socket key_socket appletalk_socket
+  netlink_tcpdiag_socket netlink_nflog_socket
+  netlink_xfrm_socket netlink_audit_socket
+  netlink_dnrt_socket netlink_kobject_uevent_socket tun_socket
+  netlink_iscsi_socket netlink_fib_lookup_socket netlink_connector_socket
+  netlink_netfilter_socket netlink_generic_socket netlink_scsitransport_socket
+  netlink_rdma_socket netlink_crypto_socket sctp_socket
+  ax25_socket ipx_socket netrom_socket atmpvc_socket x25_socket rose_socket decnet_socket
+  atmsvc_socket rds_socket irda_socket pppox_socket llc_socket can_socket tipc_socket
+  bluetooth_socket iucv_socket rxrpc_socket isdn_socket phonet_socket ieee802154_socket caif_socket
+  alg_socket nfc_socket kcm_socket qipcrtr_socket smc_socket xdp_socket
+} *;

@@ -189,6 +189,7 @@
 /dev/socket                                                       socket_device
 /dev/socket/does_not_exist                                        socket_device
 /dev/socket/adbd                                                  adbd_socket
+/dev/socket/aconfigd                                              aconfigd_socket
 /dev/socket/dnsproxyd                                             dnsproxyd_socket
 /dev/socket/dumpstate                                             dumpstate_socket
 /dev/socket/fwmarkd                                               fwmarkd_socket
@@ -200,6 +201,9 @@
 /dev/socket/mdns                                                  mdns_socket
 /dev/socket/mdnsd                                                 mdnsd_socket
 /dev/socket/mtpd                                                  mtpd_socket
+/dev/socket/ot-daemon/                                            ot_daemon_socket
+/dev/socket/ot-daemon/thread-wpan                                 ot_daemon_socket
+/dev/socket/ot-daemon/100                                         ot_daemon_socket
 /dev/socket/pdx/system/buffer_hub                                 pdx_bufferhub_dir
 /dev/socket/pdx/system/buffer_hub/client                          pdx_bufferhub_client_endpoint_socket
 /dev/socket/pdx/system/performance                                pdx_performance_dir
@@ -402,6 +406,7 @@
 /system/bin/lpdumpd                                               lpdumpd_exec
 /system/bin/rss_hwm_reset                                         rss_hwm_reset_exec
 /system/bin/perfetto                                              perfetto_exec
+/system/bin/misctrl                                               misctrl_exec
 /system/bin/mtectrl                                               mtectrl_exec
 /system/bin/traced                                                traced_exec
 /system/bin/traced_perf                                           traced_perf_exec
@@ -428,6 +433,7 @@
 /system/bin/virtual_touchpad                                      virtual_touchpad_exec
 /system/bin/hw/android.frameworks.bufferhub@1.0-service           fwk_bufferhub_exec
 /system/bin/hw/android.system.suspend-service                     system_suspend_exec
+/system/etc/aconfig                                               system_aconfig_storage_file
 /system/etc/cgroups.json                                          cgroup_desc_file
 /system/etc/task_profiles/cgroups_0.json                          cgroup_desc_api_file
 /system/etc/task_profiles/cgroups_999.json                        cgroup_desc_api_file
@@ -458,6 +464,7 @@
 /system/usr/share/zoneinfo                                        system_zoneinfo_file
 /system/usr/share/zoneinfo/0                                      system_zoneinfo_file
 /system/bin/adbd                                                  adbd_exec
+/system/bin/aconfigd                                              aconfigd_exec
 /system/bin/vold_prepare_subdirs                                  vold_prepare_subdirs_exec
 /system/bin/stats                                                 stats_exec
 /system/bin/statsd                                                statsd_exec
@@ -491,6 +498,7 @@
 /system/vendor/bin/toolbox                                        vendor_toolbox_exec
 /vendor/etc                                                       vendor_configs_file
 /vendor/etc/does_not_exist                                        vendor_configs_file
+/vendor/etc/aconfig                                               vendor_aconfig_storage_file
 /system/vendor/etc                                                vendor_configs_file
 /system/vendor/etc/does_not_exist                                 vendor_configs_file
 /vendor/etc/cgroups.json                                          vendor_cgroup_desc_file
@@ -650,6 +658,9 @@
 
 /oem                                                              oemfs
 /oem/does_not_exist                                               oemfs
+/oem/media/bootanimation.zip                                      bootanim_oem_file
+/oem/media/shutdownanimation.zip                                  bootanim_oem_file
+/oem/media/userspace-reboot.zip                                   bootanim_oem_file
 /oem/overlay                                                      vendor_overlay_file
 /oem/overlay/does_not_exist                                       vendor_overlay_file
 
@@ -722,6 +733,8 @@
 /system_ext/overlay/does_not_exist                                vendor_overlay_file
 /system/system_ext/overlay                                        vendor_overlay_file
 /system/system_ext/overlay/does_not_exist                         vendor_overlay_file
+/system_ext/etc/aconfig                                           system_aconfig_storage_file
+/product/etc/aconfig                                              system_aconfig_storage_file
 
 /system_ext/etc/selinux/system_ext_file_contexts                  file_contexts_file
 /system/system_ext/etc/selinux/system_ext_file_contexts           file_contexts_file
@@ -915,8 +928,10 @@
 /data/misc/apexdata/com.android.permission/test                   apex_system_server_data_file
 /data/misc/apexdata/com.android.scheduling                        apex_system_server_data_file
 /data/misc/apexdata/com.android.scheduling/test                   apex_system_server_data_file
-/data/misc/apexdata/com.android.tethering                         apex_system_server_data_file
-/data/misc/apexdata/com.android.tethering/test                    apex_system_server_data_file
+/data/misc/apexdata/com.android.tethering                         apex_tethering_data_file
+/data/misc/apexdata/com.android.tethering/test                    apex_tethering_data_file
+/data/misc/apexdata/com.android.tethering/threadnetwork           apex_tethering_data_file
+/data/misc/apexdata/com.android.tethering/threadnetwork/test      apex_tethering_data_file
 /data/misc/apexdata/com.android.uwb                               apex_system_server_data_file
 /data/misc/apexdata/com.android.uwb/test                          apex_system_server_data_file
 /data/misc/apexdata/com.android.wifi                              apex_system_server_data_file
@@ -977,6 +992,8 @@
 /data/misc/net/test                                               net_data_file
 /data/misc/network_watchlist                                      network_watchlist_data_file
 /data/misc/network_watchlist/test                                 network_watchlist_data_file
+/data/misc/telephonyconfig                                        radio_data_file
+/data/misc/telephonyconfig/test                                   radio_data_file
 /data/misc/nfc/logs                                               nfc_logs_data_file
 /data/misc/nfc/logs/test                                          nfc_logs_data_file
 /data/misc/odrefresh                                              odrefresh_data_file
@@ -985,10 +1002,12 @@
 /data/misc/odsign/test                                            odsign_data_file
 /data/misc/odsign/metrics                                         odsign_metrics_file
 /data/misc/odsign/metrics/test                                    odsign_metrics_file
-/data/misc/perfetto-traces/bugreport                             perfetto_traces_bugreport_data_file
-/data/misc/perfetto-traces/bugreport/test                        perfetto_traces_bugreport_data_file
+/data/misc/perfetto-traces/bugreport                              perfetto_traces_bugreport_data_file
+/data/misc/perfetto-traces/bugreport/test                         perfetto_traces_bugreport_data_file
 /data/misc/perfetto-traces                                        perfetto_traces_data_file
 /data/misc/perfetto-traces/test                                   perfetto_traces_data_file
+/data/misc/perfetto-traces/profiling                              perfetto_traces_profiling_data_file
+/data/misc/perfetto-traces/profiling/test                         perfetto_traces_profiling_data_file
 /data/misc/perfetto-configs                                       perfetto_configs_data_file
 /data/misc/perfetto-configs/test                                  perfetto_configs_data_file
 /data/misc/prereboot                                              prereboot_data_file
@@ -1017,8 +1036,6 @@
 /data/misc/systemkeys/test                                        systemkeys_data_file
 /data/misc/textclassifier                                         textclassifier_data_file
 /data/misc/textclassifier/test                                    textclassifier_data_file
-/data/misc/threadnetwork                                          threadnetwork_data_file
-/data/misc/threadnetwork/test                                     threadnetwork_data_file
 /data/misc/train-info                                             stats_data_file
 /data/misc/train-info/test                                        stats_data_file
 /data/misc/user                                                   misc_user_data_file
@@ -1210,6 +1227,12 @@
 
 /metadata                                                         metadata_file
 /metadata/test                                                    metadata_file
+/metadata/aconfig                                                 aconfig_storage_metadata_file
+/metadata/aconfig/test                                            aconfig_storage_metadata_file
+/metadata/aconfig/flags                                           aconfig_storage_flags_metadata_file
+/metadata/aconfig/flags/test                                      aconfig_storage_flags_metadata_file
+/metadata/aconfig/boot                                            aconfig_storage_metadata_file
+/metadata/aconfig/boot/test                                       aconfig_storage_metadata_file
 /metadata/apex                                                    apex_metadata_file
 /metadata/apex/test                                               apex_metadata_file
 /metadata/vold                                                    vold_metadata_file
@@ -1269,3 +1292,7 @@
 /product/bin/otapreopt_script                                     postinstall_exec
 /system/bin/otapreopt                                             postinstall_dexopt_exec
 /product/bin/otapreopt                                            postinstall_dexopt_exec
+/data/misc/uprobestats-configs                                    uprobestats_configs_data_file
+/data/misc/uprobestats-configs/test                               uprobestats_configs_data_file
+
+/tmp                                                              shell_data_file

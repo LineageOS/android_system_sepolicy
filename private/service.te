@@ -1,3 +1,4 @@
+type adaptive_auth_service,         system_server_service, service_manager_type;
 type ambient_context_service,       app_api_service, system_server_service, service_manager_type;
 type attention_service,             system_server_service, service_manager_type;
 type bg_install_control_service,    system_api_service, system_server_service, service_manager_type;
@@ -25,6 +26,9 @@ type transparency_service,          system_server_service, service_manager_type;
 is_flag_enabled(RELEASE_AVF_ENABLE_DEVICE_ASSIGNMENT, `
     type vfio_handler_service,          service_manager_type;
 ')
+is_flag_enabled(RELEASE_AVF_ENABLE_LLPVM_CHANGES, `
+    type virtualization_maintenance_service, service_manager_type;
+')
 
 type uce_service,                   service_manager_type;
-type wearable_sensing_service,      system_api_service, system_server_service, service_manager_type;
+type wearable_sensing_service,      app_api_service, system_server_service, service_manager_type;

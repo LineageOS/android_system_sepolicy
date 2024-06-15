@@ -1,0 +1,126 @@
+###
+### sdk_sandbox_all
+###
+### This file defines the rules shared by all sdk_sandbox_all domains.
+### Apps are labeled based on mac_permissions.xml (maps signer and
+### optionally package name to seinfo value) and seapp_contexts (maps UID
+### and optionally seinfo value to domain for process and type for data
+### directory).  The sdk_sandbox_all_all attribute is assigned to all default
+### seapp_contexts for any app with UID between FIRST_SDK_SANDBOX_UID (20000)
+### and LAST_SDK_SANDBOX_UID (29999) if the app has no specific seinfo
+### value as determined from mac_permissions.xml.
+
+allow sdk_sandbox_all system_linker_exec:file execute_no_trans;
+
+# Required to read CTS tests data from the shell_data_file location.
+allow sdk_sandbox_all shell_data_file:file r_file_perms;
+allow sdk_sandbox_all shell_data_file:dir r_dir_perms;
+
+# allow sdk sandbox to use UDP sockets provided by the system server but not
+# modify them other than to connect
+allow sdk_sandbox_all system_server:udp_socket {
+        connect getattr read recvfrom sendto write getopt setopt };
+
+# allow sandbox to search in sdk system server directory
+# additionally, for webview to work, getattr has been permitted
+allow sdk_sandbox_all sdk_sandbox_system_data_file:dir { getattr search };
+# allow sandbox to create files and dirs in sdk data directory
+allow sdk_sandbox_all sdk_sandbox_data_file:dir create_dir_perms;
+allow sdk_sandbox_all sdk_sandbox_data_file:file create_file_perms;
+
+# allow apps to pass open fds to the sdk sandbox
+allow sdk_sandbox_all { app_data_file privapp_data_file }:file { getattr read };
+
+###
+### neverallow rules
+###
+
+neverallow sdk_sandbox_all app_data_file_type:file { execute execute_no_trans };
+
+# Receive or send uevent messages.
+neverallow sdk_sandbox_all domain:netlink_kobject_uevent_socket *;
+
+# Receive or send generic netlink messages
+neverallow sdk_sandbox_all domain:netlink_socket *;
+
+# Too much leaky information in debugfs. It's a security
+# best practice to ensure these files aren't readable.
+neverallow sdk_sandbox_all debugfs_type:file read;
+
+# execute gpu_device
+neverallow sdk_sandbox_all gpu_device:chr_file execute;
+
+# access files in /sys with the default sysfs label
+neverallow sdk_sandbox_all sysfs:file *;
+
+# Avoid reads from generically labeled /proc files
+# Create a more specific label if needed
+neverallow sdk_sandbox_all proc:file { no_rw_file_perms no_x_file_perms };
+
+# Directly access external storage
+neverallow sdk_sandbox_all { sdcard_type media_rw_data_file }:file {open create};
+neverallow sdk_sandbox_all { sdcard_type media_rw_data_file }:dir search;
+
+# Avoid reads to proc_net, it contains too much device wide information about
+# ongoing connections.
+neverallow sdk_sandbox_all proc_net:file no_rw_file_perms;
+
+# SDK sandbox processes have their own storage not related to app_data_file or privapp_data_file
+# TODO(b/280514080): shell_data_file shouldn't be allowed here
+neverallow sdk_sandbox_all { app_data_file_type -sdk_sandbox_data_file -shell_data_file -radio_data_file }:dir no_rw_file_perms;
+neverallow sdk_sandbox_all { app_data_file_type -sdk_sandbox_data_file -shell_data_file -radio_data_file }:file ~{ getattr read };
+
+# SDK sandbox processes don't  have any access to external storage
+neverallow sdk_sandbox_all { media_rw_data_file }:dir no_rw_file_perms;
+neverallow sdk_sandbox_all { media_rw_data_file }:file no_rw_file_perms;
+
+neverallow { sdk_sandbox_all } tmpfs:dir no_rw_file_perms;
+
+neverallow sdk_sandbox_all hal_drm_service:service_manager find;
+
+# Only certain system components should have access to sdk_sandbox_system_data_file
+# sdk_sandbox only needs search. Restricted in follow up neverallow rule.
+neverallow {
+    domain
+    -init
+    -installd
+    -system_server
+    -vold_prepare_subdirs
+} sdk_sandbox_system_data_file:dir { relabelfrom };
+
+neverallow {
+    domain
+    -init
+    -installd
+    -sdk_sandbox_all
+    -system_server
+    -vold_prepare_subdirs
+    -zygote
+} sdk_sandbox_system_data_file:dir { create_dir_perms relabelto };
+
+# Only certain system components should have access to sdk_sandbox_all_system_data_file
+# sdk_sandbox_all only needs search. Restricted in follow up neverallow rule.
+neverallow {
+    domain
+    -init
+    -installd
+    -system_server
+    -vold_prepare_subdirs
+} sdk_sandbox_system_data_file:dir { relabelfrom };
+
+neverallow {
+    domain
+    -init
+    -installd
+    -sdk_sandbox_all
+    -system_server
+    -vold_prepare_subdirs
+    -zygote
+} sdk_sandbox_system_data_file:dir { create_dir_perms relabelto };
+
+# sdk_sandbox_all only needs to traverse through the sdk_sandbox_all_system_data_file
+neverallow sdk_sandbox_all sdk_sandbox_system_data_file:dir ~{ getattr search };
+
+# Only dirs should be created at sdk_sandbox_all_system_data_file level
+neverallow { domain -init } sdk_sandbox_system_data_file:file *;
+

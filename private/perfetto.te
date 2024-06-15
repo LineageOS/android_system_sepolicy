@@ -26,6 +26,10 @@ allow perfetto perfetto_traces_data_file:file create_file_perms;
 allow perfetto perfetto_traces_bugreport_data_file:file create_file_perms;
 allow perfetto perfetto_traces_bugreport_data_file:dir rw_dir_perms;
 
+# Allow to write and unlink traces into /data/misc/perfetto-traces/profiling.
+allow perfetto perfetto_traces_profiling_data_file:dir rw_dir_perms;
+allow perfetto perfetto_traces_profiling_data_file:file create_file_perms;
+
 # Allow perfetto to access the proxy service for reporting traces.
 allow perfetto tracingproxy_service:service_manager find;
 binder_use(perfetto)
@@ -40,7 +44,7 @@ allow perfetto perfetto_configs_data_file:file r_file_perms;
 # (both root and non-root) on stdin and also to write the resulting trace to
 # stdout.
 allow perfetto { statsd mm_events shell su }:fd use;
-allow perfetto { statsd mm_events shell su }:fifo_file { getattr read write };
+allow perfetto { statsd mm_events shell su system_server }:fifo_file { getattr read write ioctl };
 
 # Allow to communicate use, read and write over the adb connection.
 allow perfetto adbd:fd use;
@@ -86,6 +90,7 @@ neverallow {
   -dumpstate # For attaching traces to bugreports.
   -incidentd # For receiving reported traces. TODO(lalitm): remove this.
   -priv_app  # For stating traces for bug-report UI.
+  -system_server # For accessing traces started by profiling apis.
 } perfetto_traces_data_file:dir *;
 neverallow {
   domain
@@ -122,14 +127,20 @@ neverallow perfetto {
   -vendor_data_file
   -perfetto_traces_data_file
   -perfetto_traces_bugreport_data_file
+  -perfetto_traces_profiling_data_file
   -perfetto_configs_data_file
   with_native_coverage(`-method_trace_data_file')
 }:dir *;
-neverallow perfetto { system_data_file -perfetto_traces_data_file }:dir ~{ getattr search };
+neverallow perfetto {
+  system_data_file
+  -perfetto_traces_data_file
+  -perfetto_traces_profiling_data_file
+}:dir ~{ getattr search };
 neverallow perfetto {
   data_file_type
   -perfetto_traces_data_file
   -perfetto_traces_bugreport_data_file
+  -perfetto_traces_profiling_data_file
   -perfetto_configs_data_file
   with_native_coverage(`-method_trace_data_file')
 }:file ~write;

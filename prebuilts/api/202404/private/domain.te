@@ -1,0 +1,780 @@
+# Transition to crash_dump when /system/bin/crash_dump* is executed.
+# This occurs when the process crashes.
+# We do not apply this to the su domain to avoid interfering with
+# tests (b/114136122)
+domain_auto_trans({ domain userdebug_or_eng(`-su') }, crash_dump_exec, crash_dump);
+allow domain crash_dump:process sigchld;
+
+# Allow every process to check the heapprofd.enable properties to determine
+# whether to load the heap profiling library. This does not necessarily enable
+# heap profiling, as initialization will fail if it does not have the
+# necessary SELinux permissions.
+get_prop(domain, heapprofd_prop);
+
+# See private/crash_dump.te
+define(`dumpable_domain',`{
+  domain
+  -apexd
+  -bpfloader
+  -crash_dump
+  -crosvm # TODO(b/236672526): Remove exception for crosvm
+  -init
+  -kernel
+  -keystore
+  -llkd
+  -logd
+  -ueventd
+  -vendor_init
+  -vold
+}')
+
+# Allow heap profiling by heapprofd.
+# Zygotes are excluded due to potential issues with holding open file
+# descriptors or other state across forks. Other exclusions conflict with
+# neverallows, and are not considered important to profile.
+can_profile_heap({
+  dumpable_domain
+  -app_zygote
+  -hal_configstore_server
+  -logpersist
+  -recovery
+  -recovery_persist
+  -recovery_refresh
+  -webview_zygote
+  -zygote
+})
+
+# Allow profiling using perf_event_open by traced_perf.
+can_profile_perf({
+  dumpable_domain
+  -app_zygote
+  -hal_configstore_server
+  -webview_zygote
+  -zygote
+})
+
+# Everyone can access the IncFS list of features.
+r_dir_file(domain, sysfs_fs_incfs_features);
+
+# Everyone can access the fuse list of features.
+r_dir_file(domain, sysfs_fs_fuse_features);
+
+# Path resolution access in cgroups.
+allow domain cgroup:dir search;
+allow { domain -appdomain -rs } cgroup:dir w_dir_perms;
+allow { domain -appdomain -rs } cgroup:file w_file_perms;
+
+allow domain cgroup_v2:dir search;
+allow { domain -appdomain -rs } cgroup_v2:dir w_dir_perms;
+allow { domain -appdomain -rs } cgroup_v2:file w_file_perms;
+
+allow domain cgroup_rc_file:dir search;
+allow domain cgroup_rc_file:file r_file_perms;
+allow domain task_profiles_file:file r_file_perms;
+allow domain task_profiles_api_file:file r_file_perms;
+allow domain vendor_task_profiles_file:file r_file_perms;
+
+# Allow all domains to read sys.use_memfd to determine
+# if memfd support can be used if device supports it
+get_prop(domain, use_memfd_prop);
+
+# Read access to sdkextensions props
+get_prop(domain, module_sdkextensions_prop)
+
+# Read access to bq configuration values
+get_prop(domain, bq_config_prop);
+
+# Allow all domains to check whether MTE is set to permissive mode.
+get_prop(domain, permissive_mte_prop);
+
+# Allow ART to be configurable via device_config properties
+# (ART "runs" inside the app process), and MTE bootloader override to be
+# observed by everything
+get_prop(domain, device_config_memory_safety_native_boot_prop);
+get_prop(domain, device_config_memory_safety_native_prop);
+get_prop(domain, device_config_runtime_native_boot_prop);
+get_prop(domain, device_config_runtime_native_prop);
+
+# For now, everyone can access core property files
+# Device specific properties are not granted by default
+not_compatible_property(`
+    # DO NOT ADD ANY PROPERTIES HERE
+    get_prop(domain, core_property_type)
+    get_prop(domain, exported3_system_prop)
+    get_prop(domain, vendor_default_prop)
+')
+compatible_property_only(`
+    # DO NOT ADD ANY PROPERTIES HERE
+    get_prop({coredomain appdomain shell}, core_property_type)
+    get_prop({coredomain appdomain shell}, exported3_system_prop)
+    get_prop({coredomain appdomain shell}, exported_camera_prop)
+    get_prop({coredomain shell}, userspace_reboot_exported_prop)
+    get_prop({coredomain shell}, userspace_reboot_log_prop)
+    get_prop({coredomain shell}, userspace_reboot_test_prop)
+    get_prop({domain -coredomain -appdomain}, vendor_default_prop)
+')
+
+# Public readable properties
+get_prop(domain, aaudio_config_prop)
+get_prop(domain, apexd_select_prop)
+get_prop(domain, arm64_memtag_prop)
+get_prop(domain, bluetooth_config_prop)
+get_prop(domain, bootloader_prop)
+get_prop(domain, build_odm_prop)
+get_prop(domain, build_prop)
+get_prop(domain, build_vendor_prop)
+get_prop(domain, debug_prop)
+get_prop(domain, exported_config_prop)
+get_prop(domain, exported_default_prop)
+get_prop(domain, exported_dumpstate_prop)
+get_prop(domain, exported_secure_prop)
+get_prop(domain, exported_system_prop)
+get_prop(domain, fingerprint_prop)
+get_prop(domain, framework_status_prop)
+get_prop(domain, gwp_asan_prop)
+get_prop(domain, hal_instrumentation_prop)
+get_prop(domain, hw_timeout_multiplier_prop)
+get_prop(domain, init_service_status_prop)
+get_prop(domain, libc_debug_prop)
+get_prop(domain, locale_prop)
+get_prop(domain, logd_prop)
+get_prop(domain, mediadrm_config_prop)
+get_prop(domain, property_service_version_prop)
+get_prop(domain, soc_prop)
+get_prop(domain, socket_hook_prop)
+get_prop(domain, surfaceflinger_prop)
+get_prop(domain, telephony_status_prop)
+get_prop(domain, timezone_prop)
+get_prop({domain -untrusted_app_all -isolated_app_all -ephemeral_app },  userdebug_or_eng_prop)
+get_prop(domain, vendor_socket_hook_prop)
+get_prop(domain, vndk_prop)
+get_prop(domain, vold_status_prop)
+get_prop(domain, vts_config_prop)
+
+# Binder cache properties are world-readable
+get_prop(domain, binder_cache_bluetooth_server_prop)
+get_prop(domain, binder_cache_system_server_prop)
+get_prop(domain, binder_cache_telephony_server_prop)
+
+# Allow access to fsverity keyring.
+allow domain kernel:key search;
+# Allow access to keys in the fsverity keyring that were installed at boot.
+allow domain fsverity_init:key search;
+# For testing purposes, allow access to keys installed with su.
+userdebug_or_eng(`
+  allow domain su:key search;
+')
+
+# Allow access to linkerconfig file
+allow domain linkerconfig_file:dir search;
+allow domain linkerconfig_file:file r_file_perms;
+
+# Allow all processes to check for the existence of the boringssl_self_test_marker files.
+allow domain boringssl_self_test_marker:dir search;
+
+# Allow all processes to read the file_logger property that liblog uses to check if file_logger
+# should be used.
+get_prop(domain, log_file_logger_prop)
+
+# Allow all processes to connect to PRNG seeder daemon.
+unix_socket_connect(domain, prng_seeder, prng_seeder)
+
+# No domains other than a select few can access the misc_block_device. This
+# block device is reserved for OTA use.
+# Do not assert this rule on userdebug/eng builds, due to some devices using
+# this partition for testing purposes.
+neverallow {
+  domain
+  userdebug_or_eng(`-domain') # exclude debuggable builds
+  -fastbootd
+  -hal_bootctl_server
+  -init
+  -uncrypt
+  -update_engine
+  -vendor_init
+  -vendor_misc_writer
+  -vold
+  -recovery
+  -ueventd
+  -mtectrl
+} misc_block_device:blk_file { append link relabelfrom rename write open read ioctl lock };
+
+# Limit ability to ptrace or read sensitive /proc/pid files of processes
+# with other UIDs to these allowlisted domains.
+neverallow {
+  domain
+  -vold
+  userdebug_or_eng(`-llkd')
+  -dumpstate
+  userdebug_or_eng(`-incidentd')
+  userdebug_or_eng(`-profcollectd')
+  userdebug_or_eng(`-simpleperf_boot')
+  -storaged
+  -system_server
+} self:global_capability_class_set sys_ptrace;
+
+# Limit ability to generate hardware unique device ID attestations to priv_apps
+neverallow { domain -priv_app -gmscore_app } *:keystore2_key gen_unique_id;
+neverallow { domain -system_server } *:keystore2_key use_dev_id;
+neverallow { domain -system_server } keystore:keystore2 { clear_ns lock reset unlock };
+
+neverallow {
+  domain
+  -init
+  -vendor_init
+  userdebug_or_eng(`-domain')
+} debugfs_tracing_debug:file no_rw_file_perms;
+
+# System_server owns dropbox data, and init creates/restorecons the directory
+# Disallow direct access by other processes.
+neverallow {
+  domain
+  -init
+  -system_server
+  userdebug_or_eng(`-dumpstate')
+} dropbox_data_file:dir *;
+neverallow {
+  domain
+  -init
+  -system_server
+  userdebug_or_eng(`-dumpstate')
+} dropbox_data_file:file ~{ getattr read };
+
+###
+# Services should respect app sandboxes
+neverallow {
+  domain
+  -appdomain
+  -artd # compile secondary dex files
+  -installd # creation of sandbox
+} { privapp_data_file app_data_file }:dir_file_class_set { create unlink };
+
+# Only the following processes should be directly accessing private app
+# directories.
+neverallow {
+  domain
+  -adbd
+  -appdomain
+  -app_zygote
+  -artd # compile secondary dex files
+  -dexoptanalyzer
+  -installd
+  -profman
+  -rs # spawned by appdomain, so carryover the exception above
+  -runas
+  -system_server
+  -viewcompiler
+  -zygote
+} { privapp_data_file app_data_file }:dir *;
+
+# Only apps should be modifying app data. installd is exempted for
+# restorecon and package install/uninstall.
+neverallow {
+  domain
+  -appdomain
+  -artd # compile secondary dex files
+  -installd
+  -rs # spawned by appdomain, so carryover the exception above
+} { privapp_data_file app_data_file }:dir ~r_dir_perms;
+
+neverallow {
+  domain
+  -appdomain
+  -app_zygote
+  -artd # compile secondary dex files
+  -installd
+  -rs # spawned by appdomain, so carryover the exception above
+} { privapp_data_file app_data_file }:file_class_set open;
+
+neverallow {
+  domain
+  -appdomain
+  -artd # compile secondary dex files
+  -installd # creation of sandbox
+} { privapp_data_file app_data_file }:dir_file_class_set { create unlink };
+
+neverallow {
+  domain
+  -artd # compile secondary dex files
+  -installd
+} { privapp_data_file app_data_file }:dir_file_class_set { relabelfrom relabelto };
+
+# The staging directory contains APEX and APK files. It is important to ensure
+# that these files cannot be accessed by other domains to ensure that the files
+# do not change between system_server staging the files and apexd processing
+# the files.
+neverallow {
+  domain
+  -init
+  -system_server
+  -apexd
+  -installd
+  -priv_app
+  -virtualizationmanager
+} staging_data_file:dir *;
+neverallow {
+  domain
+  -init
+  -system_app
+  -system_server
+  -apexd
+  -adbd
+  -kernel
+  -installd
+  -priv_app
+  -shell
+  -virtualizationmanager
+  -crosvm
+} staging_data_file:file *;
+neverallow { domain -init -system_server -installd} staging_data_file:dir no_w_dir_perms;
+# apexd needs the link and unlink permissions, so list every `no_w_file_perms`
+# except for `link` and `unlink`.
+neverallow { domain -init -system_server } staging_data_file:file
+  { append create relabelfrom rename setattr write no_x_file_perms };
+
+neverallow {
+    domain
+    -appdomain # for oemfs
+    -bootanim # for oemfs
+    -recovery # for /tmp/update_binary in tmpfs
+} { fs_type -rootfs }:file execute;
+
+#
+# Assert that, to the extent possible, we're not loading executable content from
+# outside the rootfs or /system partition except for a few allowlisted domains.
+# Executable files loaded from /data is a persistence vector
+# we want to avoid. See
+# https://bugs.chromium.org/p/project-zero/issues/detail?id=955 for example.
+#
+neverallow {
+    domain
+    -appdomain
+    with_asan(`-asan_extract')
+    -shell
+    userdebug_or_eng(`-su')
+    -system_server_startup # for memfd backed executable regions
+    -app_zygote
+    -webview_zygote
+    -zygote
+    userdebug_or_eng(`-mediaextractor')
+    userdebug_or_eng(`-mediaswcodec')
+} {
+    file_type
+    -system_file_type
+    -system_lib_file
+    -system_linker_exec
+    -vendor_file_type
+    -exec_type
+    -postinstall_file
+}:file execute;
+
+# Only init is allowed to write cgroup.rc file
+neverallow {
+  domain
+  -init
+  -vendor_init
+} cgroup_rc_file:file no_w_file_perms;
+
+# Only authorized processes should be writing to files in /data/dalvik-cache
+neverallow {
+  domain
+  -init # TODO: limit init to relabelfrom for files
+  -zygote
+  -installd
+  -postinstall_dexopt
+  -cppreopts
+  -dex2oat
+  -otapreopt_slot
+  -artd
+} dalvikcache_data_file:file no_w_file_perms;
+
+neverallow {
+  domain
+  -init
+  -installd
+  -postinstall_dexopt
+  -cppreopts
+  -dex2oat
+  -zygote
+  -otapreopt_slot
+  -artd
+} dalvikcache_data_file:dir no_w_dir_perms;
+
+# Only authorized processes should be writing to /data/misc/apexdata/com.android.art as it
+# contains boot class path and system server AOT artifacts following an ART APEX Mainline update.
+neverallow {
+  domain
+  # art-related processes
+  -composd
+  -compos_fd_server
+  -odrefresh
+  -odsign
+  # others
+  -apexd
+  -init
+  -vold_prepare_subdirs
+} apex_art_data_file:file no_w_file_perms;
+
+neverallow {
+  domain
+  # art-related processes
+  -composd
+  -compos_fd_server
+  -odrefresh
+  -odsign
+  # others
+  -apexd
+  -init
+  -vold_prepare_subdirs
+} apex_art_data_file:dir no_w_dir_perms;
+
+# Protect most domains from executing arbitrary content from /data.
+neverallow {
+  domain
+  -appdomain
+} {
+  data_file_type
+  -apex_art_data_file
+  -dalvikcache_data_file
+  -system_data_file # shared libs in apks
+  -apk_data_file
+}:file no_x_file_perms;
+
+# Minimize dac_override and dac_read_search.
+# Instead of granting them it is usually better to add the domain to
+# a Unix group or change the permissions of a file.
+define(`dac_override_allowed', `{
+  apexd
+  artd
+  dnsmasq
+  dumpstate
+  init
+  installd
+  userdebug_or_eng(`llkd')
+  lmkd
+  migrate_legacy_obb_data
+  netd
+  postinstall_dexopt
+  recovery
+  rss_hwm_reset
+  sdcardd
+  tee
+  ueventd
+  uncrypt
+  vendor_init
+  vold
+  vold_prepare_subdirs
+  zygote
+}')
+neverallow ~dac_override_allowed self:global_capability_class_set dac_override;
+# Since the kernel checks dac_read_search before dac_override, domains that
+# have dac_override should also have dac_read_search to eliminate spurious
+# denials.  Some domains have dac_read_search without having dac_override, so
+# this list should be a superset of the one above.
+neverallow ~{
+  dac_override_allowed
+  traced_perf
+  traced_probes
+  heapprofd
+} self:global_capability_class_set dac_read_search;
+
+# Limit what domains can mount filesystems or change their mount flags.
+# sdcard_type (including vfat and exfat) and fusefs_type are exempt as a larger
+# set of domains need this capability, including device-specific domains.
+neverallow {
+    domain
+    -apexd
+    recovery_only(`-fastbootd')
+    -init
+    -kernel
+    -otapreopt_chroot
+    -recovery
+    -update_engine
+    -vold
+    -zygote
+} { fs_type
+    -sdcard_type
+    -fusefs_type
+}:filesystem { mount remount relabelfrom relabelto };
+
+enforce_debugfs_restriction(`
+  neverallow {
+    domain userdebug_or_eng(`-init')
+  } { debugfs_type -debugfs_tracing_debug }:filesystem { mount remount relabelfrom relabelto };
+')
+
+# Limit raw I/O to these allowlisted domains. Do not apply to debug builds.
+neverallow {
+  domain
+  userdebug_or_eng(`-domain')
+  -kernel
+  -gsid
+  -init
+  -recovery
+  -ueventd
+  -uncrypt
+  -tee
+  -hal_bootctl_server
+  -fastbootd
+} self:global_capability_class_set sys_rawio;
+
+# Limit directory operations that doesn't need to do app data isolation.
+neverallow {
+  domain
+  -fsck
+  -init
+  -installd
+  -zygote
+} mirror_data_file:dir *;
+
+# This property is being removed. Remove remaining access.
+neverallow { domain -init -system_server -vendor_init } net_dns_prop:property_service set;
+neverallow { domain -dumpstate -init -system_server -vendor_init } net_dns_prop:file read;
+
+# Only core domains are allowed to access package_manager properties
+neverallow { domain -init -system_server } pm_prop:property_service set;
+neverallow { domain -coredomain } pm_prop:file no_rw_file_perms;
+
+# Do not allow reading the last boot timestamp from system properties
+neverallow { domain -init -system_server -dumpstate } firstboot_prop:file r_file_perms;
+
+# Allow ART to set its config properties in its oneshot boot service, in
+# addition to the common init and vendor_init access.
+neverallow { domain -art_boot -init -vendor_init } dalvik_config_prop:property_service set;
+
+# Kprobes should only be used by adb root
+neverallow { domain -init -vendor_init } debugfs_kprobes:file *;
+
+# On TREBLE devices, most coredomains should not access vendor_files.
+# TODO(b/71553434): Remove exceptions here.
+full_treble_only(`
+  neverallow {
+    coredomain
+    -appdomain
+    -bootanim
+    -crash_dump
+    -heapprofd
+    userdebug_or_eng(`-profcollectd')
+    -init
+    -kernel
+    userdebug_or_eng(`-simpleperf_boot')
+    -traced_perf
+    -ueventd
+  } vendor_file:file { no_w_file_perms no_x_file_perms open };
+')
+
+# Vendor domains are not permitted to initiate communications to core domain sockets
+full_treble_only(`
+  neverallow_establish_socket_comms({
+    domain
+    -coredomain
+    -appdomain
+    -socket_between_core_and_vendor_violators
+  }, {
+    coredomain
+    -logd # Logging by writing to logd Unix domain socket is public API
+    -netd # netdomain needs this
+    -mdnsd # netdomain needs this
+    -prng_seeder # Any process using libcrypto needs this
+    userdebug_or_eng(`-su') # communications with su are permitted only on userdebug or eng builds
+    -init
+    -tombstoned # linker to tombstoned
+    -heapprofd
+    -traced
+    -traced_perf
+  });
+')
+
+full_treble_only(`
+  # Do not allow system components access to /vendor files except for the
+  # ones allowed here.
+  neverallow {
+    coredomain
+    # TODO(b/37168747): clean up fwk access to /vendor
+    -crash_dump
+    -crosvm # loads vendor-specific disk images
+    -init # starts vendor executables
+    -kernel # loads /vendor/firmware
+    -heapprofd
+    userdebug_or_eng(`-profcollectd')
+    -shell
+    userdebug_or_eng(`-simpleperf_boot')
+    -system_executes_vendor_violators
+    -traced_perf # library/binary access for symbolization
+    -ueventd # reads /vendor/ueventd.rc
+    -vold # loads incremental fs driver
+  } {
+    vendor_file_type
+    -same_process_hal_file
+    -vendor_app_file
+    -vendor_apex_file
+    -vendor_apex_metadata_file
+    -vendor_configs_file
+    -vendor_microdroid_file
+    -vendor_service_contexts_file
+    -vendor_framework_file
+    -vendor_idc_file
+    -vendor_keychars_file
+    -vendor_keylayout_file
+    -vendor_overlay_file
+    -vendor_public_framework_file
+    -vendor_public_lib_file
+    -vendor_task_profiles_file
+    -vendor_uuid_mapping_config_file
+    -vndk_sp_file
+  }:file *;
+')
+
+# mlsvendorcompat is only for compatibility support for older vendor
+# images, and should not be granted to any domain in current policy.
+# (Every domain is allowed self:fork, so this will trigger if the
+# intsersection of domain & mlsvendorcompat is not empty.)
+neverallow domain mlsvendorcompat:process fork;
+
+# Only init and otapreopt_chroot should be mounting filesystems on locations
+# labeled system or vendor (/product and /vendor respectively).
+neverallow { domain -init -otapreopt_chroot } { system_file_type vendor_file_type }:dir_file_class_set mounton;
+
+# Only allow init and vendor_init to read/write mm_events properties
+# NOTE: dumpstate is allowed to read any system property
+neverallow {
+  domain
+  -init
+  -vendor_init
+  -dumpstate
+} mm_events_config_prop:file no_rw_file_perms;
+
+# Allow the tracing daemon and callstack sampler to use kallsyms to symbolize
+# kernel traces. Addresses are not disclosed, they are repalced with symbol
+# names (if available). Traces don't disclose KASLR.
+neverallow {
+  domain
+  -init
+  userdebug_or_eng(`-profcollectd')
+  -vendor_init
+  userdebug_or_eng(`-simpleperf_boot')
+  -traced_probes
+  -traced_perf
+} proc_kallsyms:file { open read };
+
+# debugfs_kcov type is not included in this neverallow statement since the KCOV
+# tool uses it for kernel fuzzing.
+# vendor_modprobe is also exempted since the kernel modules it loads may create
+# debugfs files in its context.
+enforce_debugfs_restriction(`
+  neverallow {
+    domain
+    -vendor_modprobe
+    userdebug_or_eng(`
+      -init
+      -hal_dumpstate
+      -incidentd
+    ')
+  } { debugfs_type
+      userdebug_or_eng(`-debugfs_kcov')
+      -tracefs_type
+  }:file no_rw_file_perms;
+')
+
+# Restrict write access to etm sysfs interface.
+neverallow { domain -ueventd -vendor_init } sysfs_devices_cs_etm:file no_w_file_perms;
+
+# Restrict CAP_PERFMON.
+neverallow {
+  domain
+  -init
+  -vendor_modprobe
+  userdebug_or_eng(`-simpleperf_boot')
+  -kernel
+  -uprobestats
+} self:capability2 perfmon;
+
+# Restrict direct access to shell owned files. The /data/local/tmp directory is
+# untrustworthy, and non-allowed domains should not be trusting any content in
+# those directories. We allow shell files to be passed around by file
+# descriptor, but not directly opened.
+# artd doesn't need to access /data/local/tmp, but it needs to access
+# /data/{user,user_de}/<user-id>/com.android.shell/... for compiling secondary
+# dex files.
+neverallow {
+  domain
+  -adbd
+  -appdomain
+  -artd
+  -dumpstate
+  -installd
+  userdebug_or_eng(`-uncrypt')
+  userdebug_or_eng(`-virtualizationmanager')
+  userdebug_or_eng(`-virtualizationservice')
+  userdebug_or_eng(`-crosvm')
+} shell_data_file:file open;
+
+# In addition to the symlink reading restrictions above, restrict
+# write access to shell owned directories. The /data/local/tmp
+# directory is untrustworthy, and non-allowed domains should
+# not be trusting any content in those directories.
+# artd doesn't need to access /data/local/tmp, but it needs to access
+# /data/{user,user_de}/<user-id>/com.android.shell/... for compiling secondary
+# dex files.
+neverallow {
+  domain
+  -adbd
+  -artd
+  -dumpstate
+  -installd
+  -init
+  -shell
+  -vold
+} shell_data_file:dir no_w_dir_perms;
+
+neverallow {
+  domain
+  -adbd
+  -appdomain
+  -artd
+  -dumpstate
+  -init
+  -installd
+  -simpleperf_app_runner
+  -system_server # why?
+  userdebug_or_eng(`-uncrypt')
+} shell_data_file:dir open;
+
+neverallow {
+  domain
+  -adbd
+  -appdomain
+  -artd
+  -dumpstate
+  -init
+  -installd
+  -simpleperf_app_runner
+  -system_server # why?
+  userdebug_or_eng(`-uncrypt')
+  userdebug_or_eng(`-virtualizationmanager')
+  userdebug_or_eng(`-crosvm')
+} shell_data_file:dir search;
+
+# respect system_app sandboxes
+neverallow {
+  domain
+  -appdomain
+  -artd # compile secondary dex files
+  -system_server #populate com.android.providers.settings/databases/settings.db.
+  -installd # creation of app sandbox
+  -traced_probes # resolve inodes for i/o tracing.
+                 # only needs open and read, the rest is neverallow in
+                 # traced_probes.te.
+} system_app_data_file:dir_file_class_set { create unlink open };
+neverallow {
+  isolated_app_all
+  ephemeral_app
+  priv_app
+  sdk_sandbox_all
+  untrusted_app_all
+} system_app_data_file:dir_file_class_set { create unlink open };
+
+neverallow { domain -init } mtectrl:process { dyntransition transition };
+
+# For now, don't allow processes other than gmscore to access /data/misc_ce/<userid>/checkin
+neverallow { domain -gmscore_app -init -vold_prepare_subdirs } checkin_data_file:{dir file} *;

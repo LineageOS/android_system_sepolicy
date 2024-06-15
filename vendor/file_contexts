@@ -21,6 +21,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth-service.default      u:object_r:hal_bluetooth_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth\.finder-service\.default      u:object_r:hal_bluetooth_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth\.ranging-service\.default      u:object_r:hal_bluetooth_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.bluetooth\.lmp_event-service\.default    u:object_r:hal_bluetooth_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.face@1\.[0-9]+-service\.example u:object_r:hal_face_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.face-service\.example u:object_r:hal_face_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.1-service u:object_r:hal_fingerprint_default_exec:s0
@@ -187,6 +188,7 @@
 /(vendor|system/vendor)/lib(64)?/libcompiler_rt\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libcutils\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libdmabufheap\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libft2\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libgralloctypes\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libhardware\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libhidlbase\.so u:object_r:same_process_hal_file:s0
@@ -194,6 +196,7 @@
 /(vendor|system/vendor)/lib(64)?/libion\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libjsoncpp\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/liblzma\.so u:object_r:same_process_hal_file:s0
+/(vendor|system/vendor)/lib(64)?/libpng\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libprocessgroup\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libunwindstack\.so u:object_r:same_process_hal_file:s0
 /(vendor|system/vendor)/lib(64)?/libutils\.so u:object_r:same_process_hal_file:s0

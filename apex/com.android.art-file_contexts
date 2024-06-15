@@ -6,7 +6,9 @@
 /bin/art_exec                  u:object_r:art_exec_exec:s0
 /bin/artd                      u:object_r:artd_exec:s0
 /bin/dex2oat(32|64)?           u:object_r:dex2oat_exec:s0
+/bin/dexopt_chroot_setup       u:object_r:dexopt_chroot_setup_exec:s0
 /bin/dexoptanalyzer            u:object_r:dexoptanalyzer_exec:s0
 /bin/odrefresh                 u:object_r:odrefresh_exec:s0
 /bin/profman                   u:object_r:profman_exec:s0
+/bin/oatdump                   u:object_r:oatdump_exec:s0
 /lib(64)?(/.*)?                u:object_r:system_lib_file:s0

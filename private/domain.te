@@ -179,6 +179,35 @@ get_prop(domain, log_file_logger_prop)
 # Allow all processes to connect to PRNG seeder daemon.
 unix_socket_connect(domain, prng_seeder, prng_seeder)
 
+# Allow calls to system(3), popen(3), ...
+allow {
+  domain
+  # Except domains that explicitly neverallow it.
+  -kernel
+  -init
+  -vendor_init
+  -app_zygote
+  -webview_zygote
+  -system_server
+  -artd
+  -audioserver
+  -cameraserver
+  -mediadrmserver
+  -mediaextractor
+  -mediametrics
+  -mediaserver
+  -mediatuner
+  -mediatranscoding
+  -ueventd
+  -hal_audio_server
+  -hal_camera_server
+  -hal_cas_server
+  -hal_codec2_server
+  -hal_configstore_server
+  -hal_drm_server
+  -hal_omx_server
+} {shell_exec toolbox_exec}:file rx_file_perms;
+
 # No domains other than a select few can access the misc_block_device. This
 # block device is reserved for OTA use.
 # Do not assert this rule on userdebug/eng builds, due to some devices using
@@ -197,6 +226,7 @@ neverallow {
   -recovery
   -ueventd
   -mtectrl
+  -misctrl
 } misc_block_device:blk_file { append link relabelfrom rename write open read ioctl lock };
 
 # Limit ability to ptrace or read sensitive /proc/pid files of processes
@@ -622,6 +652,7 @@ full_treble_only(`
     -vendor_task_profiles_file
     -vendor_uuid_mapping_config_file
     -vndk_sp_file
+    -vendor_aconfig_storage_file
   }:file *;
 ')
 
@@ -778,3 +809,7 @@ neverallow { domain -init } mtectrl:process { dyntransition transition };
 
 # For now, don't allow processes other than gmscore to access /data/misc_ce/<userid>/checkin
 neverallow { domain -gmscore_app -init -vold_prepare_subdirs } checkin_data_file:{dir file} *;
+
+# Do not allow write access to aconfig flag value files except init and aconfigd
+neverallow { domain -init -aconfigd } aconfig_storage_metadata_file:dir *;
+neverallow { domain -init -aconfigd } aconfig_storage_metadata_file:file no_w_file_perms;

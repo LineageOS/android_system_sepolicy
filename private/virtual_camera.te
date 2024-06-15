@@ -12,6 +12,15 @@ binder_use(virtual_camera)
 binder_call(virtual_camera, cameraserver)
 binder_call(virtual_camera, system_server)
 
+# Allow virtual_camera to communicate with
+# mediaserver (required for using Surface originating
+# from virtual camera in mediaserver).
+binder_call(virtual_camera, mediaserver)
+
+# Required for the codecs to be able to decode
+# video into surface provided by virtual camera.
+hal_client_domain(virtual_camera, hal_codec2)
+hal_client_domain(virtual_camera, hal_omx)
 
 # Allow virtualCamera to call apps via binder.
 binder_call(virtual_camera, appdomain)
@@ -28,6 +37,9 @@ hal_client_domain(virtual_camera, hal_graphics_allocator)
 # Allow virtual_camera to use GPU
 allow virtual_camera gpu_device:chr_file rw_file_perms;
 allow virtual_camera gpu_device:dir r_dir_perms;
+
+# Allow virtual camera to use graphics composer fd-s (fences).
+allow virtual_camera hal_graphics_composer:fd use;
 
 # For collecting bugreports.
 allow virtual_camera dumpstate:fd use;
