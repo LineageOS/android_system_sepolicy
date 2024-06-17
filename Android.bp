@@ -88,16 +88,7 @@ se_build_files {
     srcs: ["technical_debt.cil"],
 }
 
-soong_config_module_type {
-    name: "se_phony",
-    module_type: "phony",
-    config_namespace: "ANDROID",
-    bool_variables: ["PRODUCT_PRECOMPILED_SEPOLICY"],
-    list_variables: ["PLATFORM_SEPOLICY_COMPAT_VERSIONS"],
-    properties: ["required"],
-}
-
-se_phony {
+phony {
     // Currently used only for aosp_cf_system_x86_64
     // TODO(b/329208946): migrate selinux_policy_system to Soong
     name: "selinux_policy_system_soong",
@@ -113,18 +104,28 @@ se_phony {
         "plat_sepolicy.cil",
         "plat_service_contexts",
         "secilc",
-    ],
-    soong_config_variables: {
-        PLATFORM_SEPOLICY_COMPAT_VERSIONS: {
-            required: [
-                "plat_%s.cil",
-                "%s.compat.cil",
-            ],
-        },
-        PRODUCT_PRECOMPILED_SEPOLICY: {
-            required: ["plat_sepolicy_and_mapping.sha256"],
-        },
-    },
+        "plat_29.0.cil",
+        "29.0.compat.cil",
+        "plat_30.0.cil",
+        "30.0.compat.cil",
+        "plat_31.0.cil",
+        "31.0.compat.cil",
+        "plat_32.0.cil",
+        "32.0.compat.cil",
+        "plat_33.0.cil",
+        "33.0.compat.cil",
+        "plat_34.0.cil",
+        "34.0.compat.cil",
+    ] + select(soong_config_variable("ANDROID", "PLATFORM_SEPOLICY_VERSION"), {
+        "202404": [],
+        default: [
+            "plat_202404.cil",
+            "202404.compat.cil",
+        ],
+    }) + select(soong_config_variable("ANDROID", "PRODUCT_PRECOMPILED_SEPOLICY"), {
+        "true": ["plat_sepolicy_and_mapping.sha256"],
+        default: [],
+    }),
 }
 
 reqd_mask_policy = [":se_build_files{.reqd_mask}"]
