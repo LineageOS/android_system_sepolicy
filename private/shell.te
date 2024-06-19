@@ -436,6 +436,9 @@ userdebug_or_eng(`
   allowxperm shell vmlauncher_app_devpts:chr_file ioctl unpriv_tty_ioctls;
 ')
 
+# Allow CTS to check whether AVF debug policy is installed
+allow shell { proc_dt_avf sysfs_dt_avf }:dir search;
+
 # Allow access to ion memory allocation device.
 allow shell ion_device:chr_file rw_file_perms;
 
