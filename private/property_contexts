@@ -499,6 +499,9 @@ ro.audio.ihaladaptervendorextension_enabled u:object_r:system_audio_config_prop:
 # vendor implementation IHalAdapterVendorExtension
 ro.audio.ihaladaptervendorextension_libname u:object_r:system_audio_config_prop:s0 exact string
 
+# Integer property used to change the default period size for USB audio
+ro.audio.usb.period_us u:object_r:audio_config_prop:s0 exact int
+
 persist.config.calibration_fac u:object_r:camera_calibration_prop:s0 exact string
 
 config.disable_cameraservice u:object_r:camera_config_prop:s0 exact bool
