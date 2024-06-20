@@ -427,6 +427,9 @@ ro.audio.multi_usb_mode u:object_r:audio_config_prop:s0 exact bool
 # See b/323989070 for the discussion why this approach was chosen.
 ro.audio.ihaladaptervendorextension_enabled u:object_r:system_audio_config_prop:s0 exact bool
 
+# Integer property used to change the default period size for USB audio
+ro.audio.usb.period_us u:object_r:audio_config_prop:s0 exact int
+
 persist.config.calibration_fac u:object_r:camera_calibration_prop:s0 exact string
 
 config.disable_cameraservice u:object_r:camera_config_prop:s0 exact bool
