@@ -125,7 +125,7 @@ phony {
             "202404.compat.cil",
         ],
     }) + select(soong_config_variable("ANDROID", "PRODUCT_PRECOMPILED_SEPOLICY"), {
-        "true": ["plat_sepolicy_and_mapping.sha256"],
+        true: ["plat_sepolicy_and_mapping.sha256"],
         default: [],
     }) + select(soong_config_variable("ANDROID", "PLATFORM_SEPOLICY_VERSION"), {
         // TODO(b/391513934): clean up once we can simplify complex select statements.
