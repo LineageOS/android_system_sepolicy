@@ -123,7 +123,7 @@ phony {
             "202404.compat.cil",
         ],
     }) + select(soong_config_variable("ANDROID", "PRODUCT_PRECOMPILED_SEPOLICY"), {
-        "true": ["plat_sepolicy_and_mapping.sha256"],
+        true: ["plat_sepolicy_and_mapping.sha256"],
         default: [],
     }),
 }
