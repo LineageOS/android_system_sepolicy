@@ -39,6 +39,7 @@ static struct {
         sepol_policy_file_t *pf;
         sepol_handle_t *handle;
         FILE *file;
+        const char *file_tmp;
 #define SEHANDLE_CNT 2
         struct selabel_handle *sehnd[SEHANDLE_CNT];
     } sepolicy;
@@ -225,6 +226,10 @@ static void cleanup(void) {
 
     if (global_state.sepolicy.file) {
         fclose(global_state.sepolicy.file);
+    }
+
+    if (global_state.sepolicy.file_tmp) {
+        unlink(global_state.sepolicy.file_tmp);
     }
 
     if (global_state.sepolicy.sdb) {
@@ -422,6 +427,34 @@ static void do_fc_check_and_die_on_error(struct selinux_opt opts[], unsigned int
     }
 }
 
+static void merge_files(const char *out, char *input[], int input_length)
+{
+    FILE* file_out = fopen(out, "w");
+    if (file_out == NULL) {
+      fprintf(stderr, "Error: could not load file from %s : %s\n",
+              out, strerror(errno));
+      exit(1);
+    }
+
+    for (int i = 0; i < input_length; i++) {
+      FILE* file = fopen(input[i], "r");
+      if (file == NULL) {
+        fprintf(stderr, "Error: could not load file from %s : %s\n",
+                input[i], strerror(errno));
+        exit(1);
+      }
+
+      int ch;
+      while ((ch = fgetc(file)) != EOF) {
+        fputc(ch, file_out);
+      }
+      fputc('\n', file_out);
+      fclose(file);
+    }
+
+    fclose(file_out);
+}
+
 int main(int argc, char **argv)
 {
   struct selinux_opt opts[] = {
@@ -474,7 +507,7 @@ int main(int argc, char **argv)
   }
 
   int index = optind;
-  if (argc - optind != 2) {
+  if (argc - optind < 2) {
     usage(argv[0]);
   }
 
@@ -489,9 +522,13 @@ int main(int argc, char **argv)
   } else if (test_data) {
       do_test_data_and_die_on_error(opts, backend, &(argv[index]));
   } else {
-      /* remaining args are sepolicy file and context file  */
+      /* merge all context files into a single file */
+      global_state.sepolicy.file_tmp = tempnam(NULL, "checkfc_XXXXXX");
+      merge_files(global_state.sepolicy.file_tmp, &(argv[index + 1]), argc - index - 1);
+
+      /* remaining args are sepolicy file and context files  */
       char *sepolicy_file = argv[index];
-      char *context_file = argv[index + 1];
+      const char *context_file = global_state.sepolicy.file_tmp;
 
       do_fc_check_and_die_on_error(opts, backend, mode, sepolicy_file, context_file, allow_empty);
   }
