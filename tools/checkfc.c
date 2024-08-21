@@ -13,6 +13,10 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+// Context files (file_contexts, service_contexts, etc) may be spread over
+// multiple partitions: system, system_ext, product, vendor and/or odm.
+#define MAX_CONTEXT_PATHS 5
+
 static const char * const CHECK_FC_ASSERT_ATTRS[] = { "fs_type", "dev_type", "file_type", NULL };
 static const char * const CHECK_PC_ASSERT_ATTRS[] = { "property_type", NULL };
 static const char * const CHECK_SC_ASSERT_ATTRS[] = { "service_manager_type", NULL };
@@ -200,7 +204,7 @@ static int validate(char **contextp)
 }
 
 static void usage(char *name) {
-    fprintf(stderr, "usage1:  %s [-l|-p|-s|-v] [-e] sepolicy context_file\n\n"
+    fprintf(stderr, "usage1:  %s [-l|-p|-s|-v] [-e] sepolicy context_file [context_file]...\n\n"
         "Parses a context file and checks for syntax errors.\n"
         "If -p is specified, the property backend is used.\n"
         "If -s is specified, the service backend is used to verify binder services.\n"
@@ -354,20 +358,22 @@ static void do_test_data_and_die_on_error(struct selinux_opt opts[], unsigned in
 }
 
 static void do_fc_check_and_die_on_error(struct selinux_opt opts[], unsigned int backend, filemode mode,
-        const char *sepolicy_file, const char *context_file, bool allow_empty)
+        const char *sepolicy_file, char *context_files[], int context_files_length, bool allow_empty)
 {
-    struct stat sb;
-    if (stat(context_file, &sb) < 0) {
-        perror("Error: could not get stat on file contexts file");
-        exit(1);
-    }
-
-    if (sb.st_size == 0) {
-        /* Nothing to check on empty file_contexts file if allowed*/
-        if (allow_empty) {
-            return;
+    for (int i = 0; i < context_files_length; i++) {
+        struct stat sb;
+        if (stat(context_files[i], &sb) < 0) {
+            perror("Error: could not get stat on file contexts file");
+            exit(1);
         }
-        /* else: We could throw the error here, but libselinux backend will catch it */
+        if (sb.st_size == 0) {
+            /* Nothing to check on empty file_contexts file if allowed*/
+            if (allow_empty) {
+                return;
+            }
+            /* else: We could throw the error here, but libselinux backend will catch it */
+        }
+        opts[i + 1].value = context_files[i];
     }
 
     global_state.sepolicy.file = fopen(sepolicy_file, "r");
@@ -413,11 +419,9 @@ static void do_fc_check_and_die_on_error(struct selinux_opt opts[], unsigned int
     selinux_set_callback(SELINUX_CB_VALIDATE,
                          (union selinux_callback)&validate);
 
-    opts[1].value = context_file;
-
-    global_state.sepolicy.sehnd[0] = selabel_open(backend, opts, 2);
+    global_state.sepolicy.sehnd[0] = selabel_open(backend, opts, 1 + context_files_length);
     if (!global_state.sepolicy.sehnd[0]) {
-      fprintf(stderr, "Error: could not load context file from %s\n", context_file);
+      fprintf(stderr, "Error: could not load context files");
       exit(1);
     }
 }
@@ -426,7 +430,13 @@ int main(int argc, char **argv)
 {
   struct selinux_opt opts[] = {
     { SELABEL_OPT_VALIDATE, (void*)1 },
-    { SELABEL_OPT_PATH, NULL }
+
+    // Has to be kept in sync with MAX_CONTEXT_PATHS
+    { SELABEL_OPT_PATH, NULL },
+    { SELABEL_OPT_PATH, NULL },
+    { SELABEL_OPT_PATH, NULL },
+    { SELABEL_OPT_PATH, NULL },
+    { SELABEL_OPT_PATH, NULL },
   };
 
   // Default backend unless changed by input argument.
@@ -474,7 +484,7 @@ int main(int argc, char **argv)
   }
 
   int index = optind;
-  if (argc - optind != 2) {
+  if (argc - optind < 2 || argc - optind > MAX_CONTEXT_PATHS + 1) {
     usage(argv[0]);
   }
 
@@ -489,11 +499,13 @@ int main(int argc, char **argv)
   } else if (test_data) {
       do_test_data_and_die_on_error(opts, backend, &(argv[index]));
   } else {
-      /* remaining args are sepolicy file and context file  */
+      /* remaining args are sepolicy file and context files  */
       char *sepolicy_file = argv[index];
-      char *context_file = argv[index + 1];
+      char **context_files = &(argv[index + 1]);
+      int context_files_length = argc - index - 1;
 
-      do_fc_check_and_die_on_error(opts, backend, mode, sepolicy_file, context_file, allow_empty);
+      do_fc_check_and_die_on_error(opts, backend, mode, sepolicy_file, context_files,
+                                   context_files_length, allow_empty);
   }
   exit(0);
 }
