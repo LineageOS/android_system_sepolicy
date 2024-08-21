@@ -429,6 +429,11 @@ LOCAL_REQUIRED_MODULES += \
     odm_mac_permissions.xml
 endif
 
+# Runs checkfc against merged service_contexts files
+LOCAL_REQUIRED_MODULES += \
+    all_service_contexts_test \
+    all_hwservice_contexts_test
+
 LOCAL_REQUIRED_MODULES += selinux_policy_system_ext
 LOCAL_REQUIRED_MODULES += selinux_policy_product
 
