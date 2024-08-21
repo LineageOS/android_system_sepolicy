@@ -24,6 +24,30 @@
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f7622304_927d6896",
+        "filename": "tools/checkfc.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 11883
+      },
+      "writtenOn": "2024-08-21T10:10:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c07ff2e_dbceac15",
+      "range": {
+        "startLine": 203,
+        "startChar": 61,
+        "endLine": 203,
+        "endChar": 76
+      },
+      "revId": "61e718f8d09dc10380c3b436f99f54f1046616c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "482b8165_353197ff",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-08-21T10:03:39Z",
       "side": 1,
       "message": "```suggestion\n#define MAX_CONTEXT_PATHS 5\n#define MAX_OPTS (MAX_CONTEXT_PATHS + 1)\n  struct selinux_opt opts[MAX_OPTS] \u003d {\n```\n\nAlso add a check to ensure args don\u0027t exceed that number?",
+      "revId": "61e718f8d09dc10380c3b436f99f54f1046616c7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5d94a083_14d1a799",
+        "filename": "tools/checkfc.c",
+        "patchSetId": 6
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 11883
+      },
+      "writtenOn": "2024-08-21T10:10:59Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "482b8165_353197ff",
       "revId": "61e718f8d09dc10380c3b436f99f54f1046616c7",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
