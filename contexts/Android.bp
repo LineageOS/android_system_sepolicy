@@ -206,6 +206,20 @@ hwservice_contexts {
     device_specific: true,
 }
 
+hwservice_contexts {
+    name: "merged_hwservice_contexts",
+    defaults: ["contexts_flags_defaults"],
+    srcs: [
+        ":hwservice_contexts_files{.plat_private}",
+        ":hwservice_contexts_files{.system_ext_private}",
+        ":hwservice_contexts_files{.product_private}",
+        ":hwservice_contexts_files{.plat_vendor}",
+        ":hwservice_contexts_files{.vendor}",
+        ":hwservice_contexts_files{.reqd_mask}",
+        ":hwservice_contexts_files{.odm}"
+    ],
+}
+
 property_contexts {
     name: "plat_property_contexts",
     defaults: ["contexts_flags_defaults"],
@@ -306,6 +320,20 @@ service_contexts {
     ],
     device_specific: true,
     recovery_available: true,
+}
+
+service_contexts {
+    name: "merged_service_contexts",
+    defaults: ["contexts_flags_defaults"],
+    srcs: [
+        ":service_contexts_files{.plat_private}",
+        ":service_contexts_files{.system_ext_private}",
+        ":service_contexts_files{.product_private}",
+        ":service_contexts_files{.plat_vendor}",
+        ":service_contexts_files{.vendor}",
+        ":service_contexts_files{.reqd_mask}",
+        ":service_contexts_files{.odm}",
+    ],
 }
 
 keystore2_key_contexts {
@@ -490,6 +518,12 @@ hwservice_contexts_test {
     sepolicy: ":precompiled_sepolicy",
 }
 
+hwservice_contexts_test {
+    name: "merged_hwservice_contexts_test",
+    srcs: [":merged_hwservice_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
 property_contexts_test {
     name: "plat_property_contexts_test",
     srcs: [":plat_property_contexts"],
@@ -565,6 +599,12 @@ service_contexts_test {
 service_contexts_test {
     name: "odm_service_contexts_test",
     srcs: [":odm_service_contexts"],
+    sepolicy: ":precompiled_sepolicy",
+}
+
+service_contexts_test {
+    name: "merged_service_contexts_test",
+    srcs: [":merged_service_contexts"],
     sepolicy: ":precompiled_sepolicy",
 }
 
