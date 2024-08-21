@@ -468,25 +468,43 @@ hwservice_contexts_test {
 
 hwservice_contexts_test {
     name: "system_ext_hwservice_contexts_test",
-    srcs: [":system_ext_hwservice_contexts"],
+    srcs: [
+        ":plat_hwservice_contexts",
+        ":system_ext_hwservice_contexts",
+    ],
     sepolicy: ":precompiled_sepolicy",
 }
 
 hwservice_contexts_test {
     name: "product_hwservice_contexts_test",
-    srcs: [":product_hwservice_contexts"],
+    srcs: [
+        ":plat_hwservice_contexts",
+        ":system_ext_hwservice_contexts",
+        ":product_hwservice_contexts",
+    ],
     sepolicy: ":precompiled_sepolicy",
 }
 
 hwservice_contexts_test {
     name: "vendor_hwservice_contexts_test",
-    srcs: [":vendor_hwservice_contexts"],
+    srcs: [
+        ":plat_hwservice_contexts",
+        ":system_ext_hwservice_contexts",
+        ":product_hwservice_contexts",
+        ":vendor_hwservice_contexts",
+    ],
     sepolicy: ":precompiled_sepolicy",
 }
 
 hwservice_contexts_test {
     name: "odm_hwservice_contexts_test",
-    srcs: [":odm_hwservice_contexts"],
+    srcs: [
+        ":plat_hwservice_contexts",
+        ":system_ext_hwservice_contexts",
+        ":product_hwservice_contexts",
+        ":vendor_hwservice_contexts",
+        ":odm_hwservice_contexts",
+    ],
     sepolicy: ":precompiled_sepolicy",
 }
 
@@ -546,25 +564,43 @@ service_contexts_test {
 
 service_contexts_test {
     name: "system_ext_service_contexts_test",
-    srcs: [":system_ext_service_contexts"],
+    srcs: [
+        ":plat_service_contexts",
+        ":system_ext_service_contexts",
+    ],
     sepolicy: ":precompiled_sepolicy",
 }
 
 service_contexts_test {
     name: "product_service_contexts_test",
-    srcs: [":product_service_contexts"],
+    srcs: [
+        ":plat_service_contexts",
+        ":system_ext_service_contexts",
+        ":product_service_contexts",
+    ],
     sepolicy: ":precompiled_sepolicy",
 }
 
 service_contexts_test {
     name: "vendor_service_contexts_test",
-    srcs: [":vendor_service_contexts"],
+    srcs: [
+        ":plat_service_contexts",
+        ":system_ext_service_contexts",
+        ":product_service_contexts",
+        ":vendor_service_contexts",
+    ],
     sepolicy: ":precompiled_sepolicy",
 }
 
 service_contexts_test {
     name: "odm_service_contexts_test",
-    srcs: [":odm_service_contexts"],
+    srcs: [
+        ":plat_service_contexts",
+        ":system_ext_service_contexts",
+        ":product_service_contexts",
+        ":vendor_service_contexts",
+        ":odm_service_contexts",
+    ],
     sepolicy: ":precompiled_sepolicy",
 }
 
