@@ -189,6 +189,11 @@ LOCAL_REQUIRED_MODULES += \
     selinux_policy_nonsystem \
     selinux_policy_system \
 
+# Runs checkfc against merged service_contexts files
+LOCAL_REQUIRED_MODULES += \
+    merged_service_contexts_test \
+    merged_hwservice_contexts_test
+
 include $(BUILD_PHONY_PACKAGE)
 
 # selinux_policy is a main goal and triggers lots of tests.
