@@ -970,6 +970,7 @@ allow system_server keystore:keystore2 {
 	clear_ns
 	clear_uid
 	get_state
+	delete_all_keys
 	lock
 	pull_metrics
 	reset
