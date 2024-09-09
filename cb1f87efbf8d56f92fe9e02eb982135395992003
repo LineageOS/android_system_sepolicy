@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aef66e57_43601c76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22176
+      },
+      "writtenOn": "2024-09-09T03:23:46Z",
+      "side": 1,
+      "message": "FAILED: out/target/product/klteduos/obj/FAKE/sepolicy_freeze_test_intermediates/sepolicy_freeze_test\n/bin/bash -c \"(diff -rq -x bug_map system/sepolicy/prebuilts/api/32.0/public system/sepolicy/public ) \u0026\u0026 (diff -rq -x bug_map system/sepolicy/p\nrebuilts/api/32.0/private system/sepolicy/private ) \u0026\u0026 (touch out/target/product/klteduos/obj/FAKE/sepolicy_freeze_test_intermediates/sepolicy_\nfreeze_test )\"\nFiles system/sepolicy/prebuilts/api/32.0/private/system_server.te and system/sepolicy/private/system_server.te differ\n\n\nWe need also add delete_all_keys in prebuilts/api/32.0/private/system_server.te",
+      "revId": "cb1f87efbf8d56f92fe9e02eb982135395992003",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
