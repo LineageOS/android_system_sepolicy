@@ -16,6 +16,23 @@
       "message": "This is pending on aosp main, currently blocked by a conflict with internal mtk policy. Tegra needs to set this prop for Lineage. Figured it\u0027d be better to pick the common aosp policy instead of adding more vendor conflicts for when it does show up in aosp.",
       "revId": "83bf38d56eac5d44b59bad9b497521274734ee34",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "374247d3_8a75a5bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14048
+      },
+      "writtenOn": "2024-09-10T21:55:41Z",
+      "side": 1,
+      "message": "I was going to wait on aosp to merge this before merging here, but normal marination laws apply at aosp still.",
+      "revId": "83bf38d56eac5d44b59bad9b497521274734ee34",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
