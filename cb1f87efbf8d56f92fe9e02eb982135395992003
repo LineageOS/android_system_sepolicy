@@ -16,6 +16,23 @@
       "message": "FAILED: out/target/product/klteduos/obj/FAKE/sepolicy_freeze_test_intermediates/sepolicy_freeze_test\n/bin/bash -c \"(diff -rq -x bug_map system/sepolicy/prebuilts/api/32.0/public system/sepolicy/public ) \u0026\u0026 (diff -rq -x bug_map system/sepolicy/p\nrebuilts/api/32.0/private system/sepolicy/private ) \u0026\u0026 (touch out/target/product/klteduos/obj/FAKE/sepolicy_freeze_test_intermediates/sepolicy_\nfreeze_test )\"\nFiles system/sepolicy/prebuilts/api/32.0/private/system_server.te and system/sepolicy/private/system_server.te differ\n\n\nWe need also add delete_all_keys in prebuilts/api/32.0/private/system_server.te",
       "revId": "cb1f87efbf8d56f92fe9e02eb982135395992003",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "73d77159_f293e590",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 18796
+      },
+      "writtenOn": "2024-10-21T07:23:17Z",
+      "side": 1,
+      "message": "Build failing https://katb.in/qijuzahomoq\n\nNeed to add it in prebuilts/api/32.0/private/system_server.te aswell to match",
+      "revId": "cb1f87efbf8d56f92fe9e02eb982135395992003",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
