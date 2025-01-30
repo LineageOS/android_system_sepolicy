@@ -65,6 +65,7 @@ neverallow { isolated_app_all -isolated_compute_app } *:service_manager ~find;
 neverallow { isolated_app_all -isolated_compute_app } {
     service_manager_type
     -activity_service
+    -content_capture_service
     -display_service
     -webviewupdate_service
 }:service_manager find;
