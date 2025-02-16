@@ -16,6 +16,24 @@
       "message": "Why",
       "revId": "35428ae3010b2466e30f30b121fa00b15289ae00",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20b46148_ab2c6536",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22176
+      },
+      "writtenOn": "2025-02-16T14:32:53Z",
+      "side": 1,
+      "message": "Without this, build cannot be done\n\nallow isolated_app content_capture_service:service_manager find;\n\nany suggest?",
+      "parentUuid": "d1b36fdb_e0dde5b7",
+      "revId": "35428ae3010b2466e30f30b121fa00b15289ae00",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
