@@ -52,6 +52,24 @@
       "parentUuid": "20b46148_ab2c6536",
       "revId": "35428ae3010b2466e30f30b121fa00b15289ae00",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0744cf5_692b5294",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 22176
+      },
+      "writtenOn": "2025-02-16T14:59:37Z",
+      "side": 1,
+      "message": "0     0 E SELinux : avc:  denied  { find } for pid\u003d27374 uid\u003d99014 name\u003dcontent_capture scontext\u003du:r:isolated_app:s0:c512,c768 tcontext\u003du:object_r:content_capture_service:s0 tclass\u003dservice_manager permissive\u003d0\n\nThis is repeated a lot in logcat. Should i ignore?",
+      "parentUuid": "09d81373_eff21aa4",
+      "revId": "35428ae3010b2466e30f30b121fa00b15289ae00",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
