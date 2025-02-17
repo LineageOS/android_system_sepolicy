@@ -85,6 +85,23 @@
       "message": "device/google/zuma/sepolicy/vendor/hal_usb_impl.te\n24:allow hal_usb_impl sysfs_udc:file r_file_perms;\n\ndevice/google/zuma/sepolicy/vendor/genfs_contexts\n260:genfscon sysfs /devices/platform/11210000.usb/11210000.dwc3/udc/11210000.dwc3/state                                       u:object_r:sysfs_udc:s0",
       "revId": "1dd38b48b6cb117c054976433086f5a3b8f7df43",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2e37dac_6ba471bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2025-02-17T21:44:24Z",
+      "side": 1,
+      "message": "also related https://android-review.googlesource.com/c/platform/system/sepolicy/+/3370980",
+      "revId": "1dd38b48b6cb117c054976433086f5a3b8f7df43",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
