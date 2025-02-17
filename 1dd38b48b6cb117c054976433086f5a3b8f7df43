@@ -68,6 +68,23 @@
       "parentUuid": "9ef8fdde_0f5bac8f",
       "revId": "1dd38b48b6cb117c054976433086f5a3b8f7df43",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6a5086c2_1b299462",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2025-02-17T21:42:00Z",
+      "side": 1,
+      "message": "device/google/zuma/sepolicy/vendor/hal_usb_impl.te\n24:allow hal_usb_impl sysfs_udc:file r_file_perms;\n\ndevice/google/zuma/sepolicy/vendor/genfs_contexts\n260:genfscon sysfs /devices/platform/11210000.usb/11210000.dwc3/udc/11210000.dwc3/state                                       u:object_r:sysfs_udc:s0",
+      "revId": "1dd38b48b6cb117c054976433086f5a3b8f7df43",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
