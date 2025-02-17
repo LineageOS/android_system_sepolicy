@@ -33,6 +33,23 @@
       "message": "yeah google fucked up with this stuff, need to check pixel probably",
       "revId": "1dd38b48b6cb117c054976433086f5a3b8f7df43",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c176795e_88db0d20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2025-02-17T21:40:52Z",
+      "side": 1,
+      "message": "I don\u0027t know if we should do that, given it was readded in AOSP the next day: https://android-review.googlesource.com/q/topic:%22aosp_sysfs_udc%22",
+      "revId": "1dd38b48b6cb117c054976433086f5a3b8f7df43",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
