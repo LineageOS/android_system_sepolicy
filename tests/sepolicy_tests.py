@@ -283,8 +283,11 @@ def TestIsolatedAttributeConsistency(test_policy):
         "servicemanager": ["fd"],
         "sysfs_gpu": ["dir", "file", "lnk_file"],
         "toolbox_exec": ["file"],
-        # extra types being granted to isolated_compute_app
-        "isolated_compute_allowed": ["service_manager", "chr_file", "file"],
+        "vendor_sysfs_public": ["file", "dir", "lnk_file"],
+        "vendor_sysfs_soc": ["dir"],
+        "vendor_hal_dspmanager": ["binder", "fd"],
+        "vendor_dspservice": ["binder", "fd"],
+        "isolated_compute_allowed": ["service_manager", "chr_file", "file", "dir", "lnk_file", "fd", "binder"],
     }
 
     def resolveHalServerSubtype(target):
