@@ -122,6 +122,9 @@ get_prop(platform_app_all, qemu_hw_prop)
 # allow platform apps to read sys.boot.reason.last
 get_prop(platform_app_all, last_boot_reason_prop)
 
+# allow systemui access to bluetooth_lea_mode_prop
+get_prop(platform_app, bluetooth_lea_mode_prop)
+
 # allow platform apps to create symbolic link
 allow platform_app_all app_data_file:lnk_file create_file_perms;
 
