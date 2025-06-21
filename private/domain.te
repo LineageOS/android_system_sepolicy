@@ -2335,5 +2335,7 @@ neverallow {
     -hal_keymint_system # TODO: get connections from virtmanager
     -hal_widevine_system # TODO: get connections from virtmanager
     -vmlauncher_app     # TODO: get connections from virtmanager
+
+    -recovery
 } *:vsock_socket { connect create accept bind };
 ')
