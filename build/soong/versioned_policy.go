@@ -139,6 +139,7 @@ func (m *versionedPolicy) GenerateAndroidBuildActions(ctx android.ModuleContext)
 
 	if len(m.properties.Dependent_cils) > 0 {
 		rule.Command().BuiltTool("secilc").
+			Flag("-v").
 			Flag("-m").
 			FlagWithArg("-M ", "true").
 			Flag("-G").
