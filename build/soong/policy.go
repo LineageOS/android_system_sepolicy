@@ -391,6 +391,7 @@ func (c *policyCil) compileConfToCil(ctx android.ModuleContext, conf android.Pat
 
 	if proptools.BoolDefault(c.properties.Secilc_check, true) {
 		secilcCmd := rule.Command().BuiltTool("secilc").
+			Flag("-v").
 			Flag("-m").                 // Multiple decls
 			FlagWithArg("-M ", "true"). // Enable MLS
 			Flag("-G").                 // expand and remove auto generated attributes
@@ -503,6 +504,7 @@ func (c *policyBinary) GenerateAndroidBuildActions(ctx android.ModuleContext) {
 	bin := pathForModuleOut(ctx, c.stem()+"_policy")
 	rule := android.NewRuleBuilder(pctx, ctx)
 	secilcCmd := rule.Command().BuiltTool("secilc").
+		Flag("-v").
 		Flag("-m").                 // Multiple decls
 		FlagWithArg("-M ", "true"). // Enable MLS
 		Flag("-G").                 // expand and remove auto generated attributes
