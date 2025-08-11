@@ -2109,6 +2109,8 @@ full_treble_only(`
     -ueventd # reads /vendor/ueventd.rc
     -vold # loads incremental fs driver
     userdebug_or_eng(`-overlay_remounter')
+    -hal_drm
+    -hal_widevine_system
   } {
     vendor_file_type
     -same_process_hal_file
