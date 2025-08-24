@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61f803b8_c87f06d0",
+        "filename": "private/domain.te",
+        "patchSetId": 3
+      },
+      "lineNbr": 2331,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2025-08-24T22:09:17Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we add recovery in this instead of modifying the neverallow?",
+      "revId": "d50d683a9fc36e369b7600b3b9f9e89145f1135d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
