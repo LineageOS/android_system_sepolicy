@@ -1493,6 +1493,7 @@ ro.surface_flinger.max_graphics_height                    u:object_r:surfaceflin
 ro.surface_flinger.max_graphics_width                     u:object_r:surfaceflinger_prop:s0 exact int
 ro.surface_flinger.max_virtual_display_dimension          u:object_r:surfaceflinger_prop:s0 exact int
 ro.surface_flinger.primary_display_orientation            u:object_r:surfaceflinger_prop:s0 exact enum ORIENTATION_0 ORIENTATION_180 ORIENTATION_270 ORIENTATION_90
+ro.surface_flinger.secondary_display_orientation          u:object_r:surfaceflinger_prop:s0 exact enum ORIENTATION_0 ORIENTATION_180 ORIENTATION_270 ORIENTATION_90
 ro.surface_flinger.present_time_offset_from_vsync_ns      u:object_r:surfaceflinger_prop:s0 exact int
 ro.surface_flinger.running_without_sync_framework         u:object_r:surfaceflinger_prop:s0 exact bool
 ro.surface_flinger.start_graphics_allocator_service       u:object_r:surfaceflinger_prop:s0 exact bool
