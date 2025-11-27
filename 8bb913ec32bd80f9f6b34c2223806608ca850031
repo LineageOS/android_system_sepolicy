@@ -16,6 +16,29 @@
       "message": "Fixed unlock on gta4lwifi.\n\n11-23 21:10:15.486   608   608 W qseecomd: type\u003d1400 audit(0.0:271): avc:  denied  { read } for  name\u003d\"gatekeeper\" dev\u003d\"mmcblk0p80\" ino\u003d410 scontext\u003du®tee:s0 tcontext\u003du:object_r:gatekeeper_vendor_data_file:s0 tclass\u003ddir permissive\u003d0\n11-23 21:10:15.486   608   608 W qseecomd: type\u003d1400 audit(0.0:272): avc:  denied  { search } for  name\u003d\"gatekeeper\" dev\u003d\"mmcblk0p80\" ino\u003d410 scontext\u003du®tee:s0 tcontext\u003du:object_r:gatekeeper_vendor_data_file:s0 tclass\u003ddir permissive\u003d0",
       "revId": "8bb913ec32bd80f9f6b34c2223806608ca850031",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f3cfcdc2_3998858b",
+        "filename": "private/tee.te",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 13648
+      },
+      "writtenOn": "2025-11-27T14:28:27Z",
+      "side": 1,
+      "message": "Device tree had create perms ( https://review.lineageos.org/462225 ), but maybe it\u0027s not needed. Need to sacrifice my gts7lwifi and check if all is fine after a factory reset.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 57
+      },
+      "revId": "8bb913ec32bd80f9f6b34c2223806608ca850031",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
     }
   ]
 }
