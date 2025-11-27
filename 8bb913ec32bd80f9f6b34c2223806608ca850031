@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "122bf85d_ae069df3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3917
+      },
+      "writtenOn": "2025-11-27T12:52:29Z",
+      "side": 1,
+      "message": "Fixed unlock on gta4lwifi.\n\n11-23 21:10:15.486   608   608 W qseecomd: type\u003d1400 audit(0.0:271): avc:  denied  { read } for  name\u003d\"gatekeeper\" dev\u003d\"mmcblk0p80\" ino\u003d410 scontext\u003du®tee:s0 tcontext\u003du:object_r:gatekeeper_vendor_data_file:s0 tclass\u003ddir permissive\u003d0\n11-23 21:10:15.486   608   608 W qseecomd: type\u003d1400 audit(0.0:272): avc:  denied  { search } for  name\u003d\"gatekeeper\" dev\u003d\"mmcblk0p80\" ino\u003d410 scontext\u003du®tee:s0 tcontext\u003du:object_r:gatekeeper_vendor_data_file:s0 tclass\u003ddir permissive\u003d0",
+      "revId": "8bb913ec32bd80f9f6b34c2223806608ca850031",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
