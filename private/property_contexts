@@ -651,6 +651,7 @@ bluetooth.core.gap.le.conn.only_init_1m_phy.enabled  u:object_r:bluetooth_config
 bluetooth.core.le_audio.inband_ringtone.supported    u:object_r:bluetooth_config_prop:s0 exact bool
 
 bluetooth.device.default_name                        u:object_r:bluetooth_config_prop:s0 exact string
+bluetooth.btm.sec.delay_auth_ms.value                u:object_r:bluetooth_config_prop:s0 exact int
 bluetooth.device.class_of_device                     u:object_r:bluetooth_config_prop:s0 exact string
 
 bluetooth.le.disable_apcf_extended_features          u:object_r:bluetooth_config_prop:s0 exact bool
