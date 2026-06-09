@@ -1354,6 +1354,8 @@ ro.carrier u:object_r:exported_default_prop:s0 exact string
 ro.config.low_ram           u:object_r:exported_config_prop:s0 exact bool
 ro.config.vc_call_vol_steps u:object_r:exported_config_prop:s0 exact int
 
+ro.config.force_multi_window u:object_r:exported_config_prop:s0 exact bool
+
 ro.frp.pst u:object_r:exported_default_prop:s0 exact string
 
 ro.hardware.activity_recognition u:object_r:exported_default_prop:s0 exact string
