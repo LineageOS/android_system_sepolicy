@@ -455,16 +455,16 @@
 #############################
 # OEM and ODM files
 #
-/(odm|vendor/odm)(/.*)?                       u:object_r:vendor_file:s0
-/(odm|vendor/odm)/lib(64)?/egl(/.*)?          u:object_r:same_process_hal_file:s0
-/(odm|vendor/odm)/lib(64)?/hw                 u:object_r:vendor_hal_file:s0
-/(odm|vendor/odm)/lib(64)?/vndk-sp(/.*)?      u:object_r:vndk_sp_file:s0
-/(odm|vendor/odm)/bin/sh                      u:object_r:vendor_shell_exec:s0
-/(odm|vendor/odm)/etc(/.*)?                   u:object_r:vendor_configs_file:s0
-/(odm|vendor/odm)/app(/.*)?                   u:object_r:vendor_app_file:s0
-/(odm|vendor/odm)/priv-app(/.*)?              u:object_r:vendor_app_file:s0
-/(odm|vendor/odm)/overlay(/.*)?               u:object_r:vendor_overlay_file:s0
-/(odm|vendor/odm)/framework(/.*)?             u:object_r:vendor_framework_file:s0
+/(odm|vendor/odm|system/vendor/odm)(/.*)?                       u:object_r:vendor_file:s0
+/(odm|vendor/odm|system/vendor/odm)/lib(64)?/egl(/.*)?          u:object_r:same_process_hal_file:s0
+/(odm|vendor/odm|system/vendor/odm)/lib(64)?/hw                 u:object_r:vendor_hal_file:s0
+/(odm|vendor/odm|system/vendor/odm)/lib(64)?/vndk-sp(/.*)?      u:object_r:vndk_sp_file:s0
+/(odm|vendor/odm|system/vendor/odm)/bin/sh                      u:object_r:vendor_shell_exec:s0
+/(odm|vendor/odm|system/vendor/odm)/etc(/.*)?                   u:object_r:vendor_configs_file:s0
+/(odm|vendor/odm|system/vendor/odm)/app(/.*)?                   u:object_r:vendor_app_file:s0
+/(odm|vendor/odm|system/vendor/odm)/priv-app(/.*)?              u:object_r:vendor_app_file:s0
+/(odm|vendor/odm|system/vendor/odm)/overlay(/.*)?               u:object_r:vendor_overlay_file:s0
+/(odm|vendor/odm|system/vendor/odm)/framework(/.*)?             u:object_r:vendor_framework_file:s0
 
 # secure-element service: vendor uuid mapping config file
 /(odm|vendor/odm|vendor|system/vendor)/etc/hal_uuid_map_(.*)?\.xml    u:object_r:vendor_uuid_mapping_config_file:s0
@@ -491,15 +491,15 @@
 /odm/etc/selinux/precompiled_sepolicy                           u:object_r:sepolicy_file:s0
 /odm/etc/selinux/precompiled_sepolicy\.plat_and_mapping\.sha256 u:object_r:sepolicy_file:s0
 
-/(odm|vendor/odm)/etc/selinux/odm_sepolicy\.cil                 u:object_r:sepolicy_file:s0
-/(odm|vendor/odm)/etc/selinux/odm_file_contexts                 u:object_r:file_contexts_file:s0
-/(odm|vendor/odm)/etc/selinux/odm_seapp_contexts                u:object_r:seapp_contexts_file:s0
-/(odm|vendor/odm)/etc/selinux/odm_property_contexts             u:object_r:property_contexts_file:s0
-/(odm|vendor/odm)/etc/selinux/odm_service_contexts              u:object_r:vendor_service_contexts_file:s0
-/(odm|vendor/odm)/etc/selinux/odm_hwservice_contexts            u:object_r:hwservice_contexts_file:s0
-/(odm|vendor/odm)/etc/selinux/odm_keystore2_key_contexts        u:object_r:keystore2_key_contexts_file:s0
-/(odm|vendor/odm)/etc/selinux/odm_mac_permissions\.xml          u:object_r:mac_perms_file:s0
-/(odm|vendor/odm)/etc/selinux/odm_tee_service_contexts          u:object_r:tee_service_contexts_file:s0
+/(odm|vendor/odm|system/vendor/odm)/etc/selinux/odm_sepolicy\.cil                 u:object_r:sepolicy_file:s0
+/(odm|vendor/odm|system/vendor/odm)/etc/selinux/odm_file_contexts                 u:object_r:file_contexts_file:s0
+/(odm|vendor/odm|system/vendor/odm)/etc/selinux/odm_seapp_contexts                u:object_r:seapp_contexts_file:s0
+/(odm|vendor/odm|system/vendor/odm)/etc/selinux/odm_property_contexts             u:object_r:property_contexts_file:s0
+/(odm|vendor/odm|system/vendor/odm)/etc/selinux/odm_service_contexts              u:object_r:vendor_service_contexts_file:s0
+/(odm|vendor/odm|system/vendor/odm)/etc/selinux/odm_hwservice_contexts            u:object_r:hwservice_contexts_file:s0
+/(odm|vendor/odm|system/vendor/odm)/etc/selinux/odm_keystore2_key_contexts        u:object_r:keystore2_key_contexts_file:s0
+/(odm|vendor/odm|system/vendor/odm)/etc/selinux/odm_mac_permissions\.xml          u:object_r:mac_perms_file:s0
+/(odm|vendor/odm|system/vendor/odm)/etc/selinux/odm_tee_service_contexts          u:object_r:tee_service_contexts_file:s0
 
 #############################
 # Product files
