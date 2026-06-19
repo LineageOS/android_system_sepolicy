@@ -8,7 +8,6 @@ neverallow {
   mlstrustedsubject
   -artd # compile secondary dex files
   -installd
-  -mediaprovider_app
 } {
   app_data_file
   privapp_data_file
@@ -19,7 +18,6 @@ neverallow {
   mlstrustedsubject
   -artd # compile secondary dex files
   -installd
-  -mediaprovider_app
 } {
   app_data_file
   privapp_data_file
@@ -40,7 +38,6 @@ neverallow {
   mlstrustedsubject
   -artd # compile secondary dex files
   -installd
-  -mediaprovider_app
   -system_server
   -adbd
   -runas
