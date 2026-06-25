@@ -179,6 +179,7 @@ genfscon sysfs /power/wake_unlock u:object_r:sysfs_wake_lock:s0
 genfscon sysfs /kernel/btf u:object_r:sysfs_btf:s0
 genfscon sysfs /kernel/memory_state_time u:object_r:sysfs_power:s0
 genfscon sysfs /kernel/dma_heap u:object_r:sysfs_dma_heap:s0
+genfscon sysfs /kernel/ion u:object_r:sysfs_ion:s0
 genfscon sysfs /kernel/ipv4 u:object_r:sysfs_ipv4:s0
 genfscon sysfs /kernel/mm/cma u:object_r:sysfs_cma:s0
 genfscon sysfs /kernel/mm/transparent_hugepage u:object_r:sysfs_transparent_hugepage:s0
@@ -301,7 +302,10 @@ genfscon tracefs /events/filemap/mm_filemap_add_to_page_cache/           u:objec
 genfscon tracefs /events/filemap/mm_filemap_delete_from_page_cache/      u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/kmem/dmabuf_rss_stat/                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/kmem/rss_stat/                                  u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/kmem/ion_heap_grow/                             u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/kmem/ion_heap_shrink/                           u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/kmem/mm_calculate_totalreserve_pages/           u:object_r:debugfs_tracing:s0
+genfscon tracefs /events/ion/ion_stat/                                   u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/mm_event/mm_event_record/                       u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/oom/oom_score_adj_update/                       u:object_r:debugfs_tracing:s0
 genfscon tracefs /events/oom/mark_victim/                                u:object_r:debugfs_tracing:s0

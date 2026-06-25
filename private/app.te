@@ -486,6 +486,7 @@ allow appdomain console_device:chr_file { read write };
 allowxperm { appdomain -bluetooth } self:{ rawip_socket tcp_socket udp_socket }
   ioctl { unpriv_sock_ioctls unpriv_tty_ioctls };
 
+allow { appdomain -isolated_app_all } ion_device:chr_file r_file_perms;
 allow { appdomain -isolated_app_all } dmabuf_system_heap_device:chr_file r_file_perms;
 allow { appdomain -isolated_app_all } dmabuf_system_secure_heap_device:chr_file r_file_perms;
 

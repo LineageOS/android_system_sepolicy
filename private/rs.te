@@ -26,6 +26,7 @@ allow rs vendor_apex_metadata_file:dir { getattr search };
 r_dir_file(rs, apk_data_file)
 
 allow rs gpu_device:chr_file rw_file_perms;
+allow rs ion_device:chr_file r_file_perms;
 allow rs same_process_hal_file:file { r_file_perms execute };
 
 # File descriptors passed from app to renderscript
