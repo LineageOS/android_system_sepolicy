@@ -23,3 +23,5 @@ allow fingerprintd keystore:keystore2 { add_auth };
 # For permissions checking
 binder_call(fingerprintd, system_server);
 allow fingerprintd permission_service:service_manager find;
+
+allow fingerprintd ion_device:chr_file r_file_perms;

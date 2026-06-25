@@ -7,6 +7,7 @@ binder_call(hal_omx_server, { appdomain -isolated_app })
 # Allow hal_omx_server access to composer sync fences
 allow hal_omx_server hal_graphics_composer:fd use;
 
+allow hal_omx_server ion_device:chr_file rw_file_perms;
 allow hal_omx_server hal_camera:fd use;
 
 crash_dump_fallback(hal_omx_server)

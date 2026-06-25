@@ -106,6 +106,7 @@ binder_call(adbd, surfaceflinger)
 binder_call(adbd, gpuservice)
 # b/13188914
 gpu_sphal_use(adbd)
+allow adbd ion_device:chr_file rw_file_perms;
 r_dir_file(adbd, system_file)
 
 # Needed for various screenshots
