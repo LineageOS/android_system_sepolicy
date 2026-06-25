@@ -134,6 +134,7 @@
 /dev/hwbinder		u:object_r:hwbinder_device:s0
 /dev/input(/.*)?	u:object_r:input_device:s0
 /dev/iio:device[0-9]+   u:object_r:iio_device:s0
+/dev/ion		u:object_r:ion_device:s0
 /dev/keychord   u:object_r:keychord_device:s0
 /dev/loop-control	u:object_r:loop_control_device:s0
 /dev/modem.*		u:object_r:radio_device:s0

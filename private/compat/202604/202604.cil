@@ -1,7 +1,3 @@
-;; types removed from current policy
-(type ion_device)
-(type sysfs_ion)
-
 ;; mapping information from ToT policy's types to 202604 policy's types.
 (expandtypeattribute (DockObserver_service_202604) true)
 (expandtypeattribute (IProxyService_service_202604) true)

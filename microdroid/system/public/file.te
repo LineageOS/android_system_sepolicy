@@ -168,9 +168,7 @@ type sysfs_fs_f2fs, fs_type, sysfs_type;
 type sysfs_fs_incfs_features, fs_type, sysfs_type;
 type sysfs_fs_incfs_metrics, fs_type, sysfs_type;
 type sysfs_hwrandom, fs_type, sysfs_type;
-until_board_api(202704, `
 type sysfs_ion, fs_type, sysfs_type;
-')
 type sysfs_ipv4, fs_type, sysfs_type;
 type sysfs_kernel_notes, fs_type, sysfs_type;
 type sysfs_leds, fs_type, sysfs_type;

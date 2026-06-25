@@ -39,7 +39,8 @@ hal_client_domain(virtual_camera, hal_graphics_allocator)
 # Allow virtual_camera to use GPU
 gpu_sphal_use(virtual_camera)
 
-# DMABUF is used by vendor to allocate graphic buffers needed by virtual_camera
+# ION And DMABUF are used by vendor to allocate graphic buffers needed by virtual_camera
+allow cameraserver ion_device:chr_file rw_file_perms;
 allow cameraserver dmabuf_system_heap_device:chr_file r_file_perms;
 
 # Allow virtual camera to use graphics composer fd-s (fences).
