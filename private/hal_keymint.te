@@ -6,3 +6,4 @@ hal_attribute_service(hal_keymint, hal_remotelyprovisionedcomponent_service)
 binder_call(hal_keymint_server, servicemanager)
 
 allow { hal_keymint_server -coredomain } tee_device:chr_file rw_file_perms;
+allow { hal_keymint_server -coredomain } ion_device:chr_file r_file_perms;

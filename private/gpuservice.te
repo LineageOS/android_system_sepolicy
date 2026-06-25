@@ -17,6 +17,7 @@ gpu_sphal_use(gpuservice)
 # GPU service will need to load GPU driver, for example Vulkan driver in order
 # to get the capability of the driver.
 allow gpuservice same_process_hal_file:file { open read getattr execute map };
+allow gpuservice ion_device:chr_file r_file_perms;
 get_prop(gpuservice, hwservicemanager_prop)
 hwbinder_use(gpuservice)
 

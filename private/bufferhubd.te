@@ -10,6 +10,8 @@ pdx_client(bufferhubd, performance_client)
 
 # Access the GPU.
 gpu_sphal_use(bufferhubd)
+# Access /dev/ion
+allow bufferhubd ion_device:chr_file r_file_perms;
 
 # Receive sync fence FDs from hal_omx_server. Note that hal_omx_server never directly
 # connects to bufferhubd via PDX. Instead, a VR app acts as a bridge between
