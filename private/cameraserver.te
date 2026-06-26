@@ -16,6 +16,7 @@ hal_client_domain(cameraserver, hal_camera)
 allow cameraserver hal_camera_server:process signal;
 hal_client_domain(cameraserver, hal_graphics_allocator)
 
+allow cameraserver ion_device:chr_file rw_file_perms;
 allow cameraserver dmabuf_system_heap_device:chr_file r_file_perms;
 
 # Talk with graphics composer fences

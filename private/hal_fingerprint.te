@@ -7,6 +7,9 @@ hal_attribute_service(hal_fingerprint, hal_fingerprint_service)
 
 binder_use(hal_fingerprint_server)
 
+# For memory allocation
+allow hal_fingerprint ion_device:chr_file r_file_perms;
+
 allow { hal_fingerprint -coredomain } fingerprint_vendor_data_file:file { create_file_perms };
 allow { hal_fingerprint -coredomain } fingerprint_vendor_data_file:dir rw_dir_perms;
 

@@ -160,6 +160,7 @@
 /dev/input/event0                                                 input_device
 /dev/iio:device0                                                  iio_device
 /dev/iio:device1                                                  iio_device
+/dev/ion                                                          ion_device
 /dev/keychord                                                     keychord_device
 /dev/loop-control                                                 loop_control_device
 /dev/modem                                                        radio_device

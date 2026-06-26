@@ -253,6 +253,9 @@ no_debugfs_restriction(`
   allow system_server debugfs_wakeup_sources:file r_file_perms;
 ')
 
+# Read /sys/kernel/ion/*.
+allow system_server sysfs_ion:file r_file_perms;
+
 # Read /sys/kernel/dma_heap/*.
 allow system_server sysfs_dma_heap:file r_file_perms;
 
@@ -1294,6 +1297,7 @@ allow system_server preloads_media_file:dir { r_dir_perms write remove_name rmdi
 
 r_dir_file(system_server, cgroup)
 r_dir_file(system_server, cgroup_v2)
+allow system_server ion_device:chr_file r_file_perms;
 
 # Access to /dev/dma_heap/system
 allow system_server dmabuf_system_heap_device:chr_file r_file_perms;

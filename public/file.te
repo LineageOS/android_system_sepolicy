@@ -110,9 +110,7 @@ type sysfs_dma_heap, fs_type, sysfs_type;
 type sysfs_dmabuf_stats, fs_type, sysfs_type;
 type sysfs_dt_firmware_android, fs_type, sysfs_type;
 type sysfs_extcon, fs_type, sysfs_type;
-until_board_api(202704, `
 type sysfs_ion, fs_type, sysfs_type;
-')
 type sysfs_ipv4, fs_type, sysfs_type;
 type sysfs_kernel_notes, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_leds, fs_type, sysfs_type;
