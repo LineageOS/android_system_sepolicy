@@ -48,8 +48,9 @@ type video_device, dev_type;
 type zero_device, dev_type, mlstrustedobject;
 type fuse_device, dev_type, mlstrustedobject;
 type iio_device, dev_type;
-# TODO(482058879) remove this type in 202704+
+until_board_api(202704, `
 type ion_device, dev_type, mlstrustedobject, isolated_compute_allowed_device;
+')
 type dmabuf_heap_device, dmabuf_heap_device_type, dev_type, mlstrustedobject;
 type dmabuf_system_heap_device, dmabuf_heap_device_type, dev_type, mlstrustedobject, isolated_compute_allowed_device;
 type dmabuf_system_secure_heap_device, dmabuf_heap_device_type, dev_type, mlstrustedobject;
