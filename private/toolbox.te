@@ -32,7 +32,8 @@ allow toolbox system_data_file:file { getattr unlink };
 # When init.rc rm -rf's /data/per_boot at boot, toolbox needs
 # to be able to transitively delete mmd's /data/per_boot/zram
 # directory if it present.
-allow toolbox zram_data_file:dir { rmdir r_dir_perms };
+allow toolbox zram_data_file:dir create_dir_perms;
+allow toolbox zram_data_file:file create_file_perms;
 
 # For Zram
 allow toolbox per_boot_file:dir create_dir_perms;
