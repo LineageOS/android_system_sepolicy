@@ -639,6 +639,8 @@ keyguard.no_require_sim u:object_r:keyguard_config_prop:s0 exact bool
 media.c2.dmabuf.padding                      u:object_r:codec2_config_prop:s0 exact int
 media.c2.hal.selection                       u:object_r:codec2_config_prop:s0 exact enum aidl hidl
 media.c2.remove_rendering_depth              u:object_r:codec2_config_prop:s0 exact bool
+media.c2.force_rgba8888                      u:object_r:codec2_config_prop:s0 exact bool
+media.c2.prefer_rgba8888                     u:object_r:codec2_config_prop:s0 exact bool
 
 media.recorder.show_manufacturer_and_model   u:object_r:media_config_prop:s0 exact bool
 media.resolution.limit.32bit                 u:object_r:media_config_prop:s0 exact int
