@@ -66,6 +66,11 @@ hal_client_domain(radio, hal_telephony)
 # Used by TelephonyManager
 allow radio proc_cmdline:file r_file_perms;
 
+# Generic IMS Rules
+allow radio platform_app:udp_socket { getattr read setopt shutdown write };
+allow radio scheduling_policy_service:service_manager find;
+r_dir_file(radio, cgroup)
+
 ###
 ### Neverallow rules
 ###
