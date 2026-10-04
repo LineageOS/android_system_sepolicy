@@ -741,9 +741,20 @@ se_policy_cil {
     recovery: true,
 }
 
+filegroup {
+    name: "recovery_sepolicy_genfs_srcs",
+    device_first_srcs: select(soong_config_variable("ANDROID", "BOARD_GENFS_LABELS_VERSION"), {
+        any @ ver: [":plat_sepolicy_genfs_" + ver + ".cil"],
+        default: [],
+    }),
+}
+
 se_policy_binary {
     name: "sepolicy.recovery",
-    srcs: [":recovery_sepolicy.cil"],
+    srcs: [
+        ":recovery_sepolicy.cil",
+        ":recovery_sepolicy_genfs_srcs",
+    ],
     stem: "sepolicy",
     recovery: true,
 }
