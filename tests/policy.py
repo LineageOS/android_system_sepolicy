@@ -192,6 +192,8 @@ class Policy:
     # Return all attributes associated with a type if IsAttr=False or
     # all types associated with an attribute if IsAttr=True
     def QueryTypeAttribute(self, Type, IsAttr, IgnoreMissing=False):
+        if IgnoreMissing and Type not in self.GetAllTypes(IsAttr):
+            return set()
         TypeIterP = self.__libsepolwrap.init_type_iter(self.__policydbP,
                         create_string_buffer(Type.encode("ascii")), IsAttr)
         if (TypeIterP == None):
