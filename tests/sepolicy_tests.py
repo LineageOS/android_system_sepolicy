@@ -305,22 +305,23 @@ def TestIsolatedAttributeConsistency(test_policy):
                 return attr.rsplit("_", 1)[0]
         return target
 
+    allowedAttributes = [
+        "isolated_compute_allowed_service",
+        "isolated_compute_allowed_device",
+        "isolated_compute_allowed_property_type",
+    ]
+
+    allowedMemberTypes = set()
+    for attribute in allowedAttributes:
+        allowedMemberTypes.update(
+            test_policy.pol.QueryTypeAttribute(
+                Type=attribute, IsAttr=True,
+                IgnoreMissing=True,
+            )
+        )
+
     def checkIsolatedComputeAllowed(tctx, tclass):
         # check if the permission is in isolated_compute_allowed
-        allowedAttributes = [
-            "isolated_compute_allowed_service",
-            "isolated_compute_allowed_device",
-            "isolated_compute_allowed_property_type",
-        ]
-
-        allowedMemberTypes = set()
-        for attribute in allowedAttributes:
-            allowedMemberTypes.update(
-                test_policy.pol.QueryTypeAttribute(
-                    Type=attribute, IsAttr=True,
-                    IgnoreMissing=True,
-                )
-            )
         return (
             tctx in allowedMemberTypes
             and tclass in permissionAllowList["isolated_compute_allowed"]
