@@ -7,4 +7,3 @@ init_daemon_domain(hal_vm_capabilities_default);
 
 # virtmanager passes the vm_fd to the HAL to enable custom vendor specific SMCs for this VM.
 allow hal_vm_capabilities_default crosvm_vendor:fd use;
-neverallow hal_vm_capabilities_default crosvm_vendor:fd ~use;
