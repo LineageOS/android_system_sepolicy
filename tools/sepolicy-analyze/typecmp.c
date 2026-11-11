@@ -272,7 +272,8 @@ static int analyze_types(policydb_t * policydb, char diff, char equiv)
 }
 
 int typecmp_func (int argc, char **argv, policydb_t *policydb) {
-    char ch, diff = 0, equiv = 0;
+    int ch;
+    char diff = 0, equiv = 0;
 
     struct option typecmp_options[] = {
         {"diff", no_argument, NULL, 'd'},

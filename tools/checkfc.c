@@ -444,7 +444,7 @@ int main(int argc, char **argv)
   bool allow_empty = false;
   bool compare = false;
   bool test_data = false;
-  char c;
+  int c;
 
   filemode mode = filemode_file_contexts;
 

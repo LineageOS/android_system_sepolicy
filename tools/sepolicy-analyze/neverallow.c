@@ -493,7 +493,7 @@ static int check_neverallows_string(policydb_t *policydb, char *string, size_t l
 
 int neverallow_func (int argc, char **argv, policydb_t *policydb) {
     char *rules = 0, *file = 0;
-    char ch;
+    int ch;
 
     struct option neverallow_options[] = {
         {"debug", no_argument, NULL, 'd'},

@@ -75,7 +75,7 @@ int attribute_func (int argc, char **argv, policydb_t *policydb) {
     int rc = -1;
     int list = 0;
     int reverse = 0;
-    char ch;
+    int ch;
 
     struct option attribute_options[] = {
         {"list", no_argument, NULL, 'l'},
